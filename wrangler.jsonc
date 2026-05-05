@@ -1,0 +1,6 @@
+{
+  "$schema": "https://raw.githubusercontent.com/cloudflare/workers-sdk/main/packages/wrangler/config-schema.json",
+  "name": "CEP",
+  "compatibility_date": "2025-05-06",
+  "pages_build_output_dir": "out"
+}
