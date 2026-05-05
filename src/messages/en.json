@@ -1,0 +1,24 @@
+{
+  "home": {
+    "title": "Endfield Planner",
+    "description": "Matrix Planning · Refinement Planning · Banner Calendar",
+    "cta": "Start Planning"
+  },
+  "nav": {
+    "essencePlanner": "Essence Planner",
+    "characterGuide": "Character Guide",
+    "refinementPlanner": "Refinement Planner",
+    "bannerCalendar": "Banner Calendar",
+    "backgroundPreview": "Background Preview",
+    "editor": "Editor",
+    "login": "Login"
+  },
+  "app": {
+    "name": "CEP Endfield Planner"
+  },
+  "auth": {
+    "usernameOrEmail": "Username / Email",
+    "password": "Password",
+    "loginFailed": "Login failed. Please check your username and password."
+  }
+}

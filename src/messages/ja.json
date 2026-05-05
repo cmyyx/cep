@@ -1,0 +1,24 @@
+{
+  "home": {
+    "title": "エンドフィールドプランナー",
+    "description": "基質計画 · 精鍛計画 · ガチャカレンダー",
+    "cta": "計画を始める"
+  },
+  "nav": {
+    "essencePlanner": "基質計画",
+    "characterGuide": "キャラ攻略",
+    "refinementPlanner": "精鍛計画",
+    "bannerCalendar": "ガチャカレンダー",
+    "backgroundPreview": "背景プレビュー",
+    "editor": "エディター",
+    "login": "ログイン"
+  },
+  "app": {
+    "name": "CEP エンドフィールドプランナー"
+  },
+  "auth": {
+    "usernameOrEmail": "ユーザー名 / メール",
+    "password": "パスワード",
+    "loginFailed": "ログイン失敗。ユーザー名とパスワードを確認してください"
+  }
+}

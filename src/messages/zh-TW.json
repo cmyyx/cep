@@ -1,0 +1,24 @@
+{
+  "home": {
+    "title": "終末地規劃器",
+    "description": "基質規劃 · 精鍛規劃 · 卡池日曆",
+    "cta": "開始規劃"
+  },
+  "nav": {
+    "essencePlanner": "基質規劃",
+    "characterGuide": "角色攻略",
+    "refinementPlanner": "精鍛規劃",
+    "bannerCalendar": "卡池日曆",
+    "backgroundPreview": "背景預覽",
+    "editor": "編輯器",
+    "login": "登入"
+  },
+  "app": {
+    "name": "CEP 終末地規劃器"
+  },
+  "auth": {
+    "usernameOrEmail": "使用者名稱 / 信箱",
+    "password": "密碼",
+    "loginFailed": "登入失敗，請檢查使用者名稱和密碼"
+  }
+}

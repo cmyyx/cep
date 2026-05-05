@@ -6,6 +6,8 @@ This version has breaking changes — APIs, conventions, and file structure may 
 
 # CEP (CEP Endfield Planner)
 
+## 禁止使用emoji
+
 ## 设计系统
 
 **DESIGN.md 是本项目的设计系统宪章**，所有 UI 组件、颜色、排版、间距、阴影、圆角等视觉决策必须遵守 DESIGN.md 中定义的设计令牌和模式。DESIGN.md 与本文档同级，每次会话自动加载。
@@ -87,7 +89,7 @@ src/
 ## 国际化规则
 
 - 所有面向用户的字符串必须通过 `useTranslations()` 或 `next-intl` 的 API 渲染。
-- 翻译 key 用英文原文作为 key（不是路径式），例如 `t("Build Planner")` 而非 `t("nav.buildPlanner")`。
+- 翻译 key 使用路径式，例如 `t("nav.essencePlanner")`。
 - 翻译文件放在 `src/messages/<locale>.json`。
 
 ## 代码质量
