@@ -48,7 +48,8 @@ export default function SettingsPage() {
     }
   }
 
-  const handleThemeChange = (newTheme: string) => {
+  const handleThemeChange = (newTheme: string | null) => {
+    if (!newTheme) return
     if (newTheme === 'flashbang') {
       setShowFlashbangWarning(true)
       return
