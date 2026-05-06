@@ -164,11 +164,59 @@
 @layer base {
   * {
     @apply border-border outline-ring/50;
+    scrollbar-width: thin;
+    scrollbar-color: transparent transparent;
   }
+
+  *:hover,
+  *:focus-within {
+    scrollbar-color: rgba(0, 0, 0, 0.12) transparent;
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: transparent;
+    border-radius: 9999px;
+  }
+
+  *:hover::-webkit-scrollbar-thumb,
+  *:focus-within::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.12);
+  }
+
+  *:hover::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 0, 0, 0.2);
+  }
+
   body {
     @apply bg-background text-foreground;
   }
+
   html {
     @apply font-sans;
+  }
+}
+
+@layer base {
+  .dark *:hover,
+  .dark *:focus-within {
+    scrollbar-color: rgba(255, 255, 255, 0.15) transparent;
+  }
+
+  .dark *:hover::-webkit-scrollbar-thumb,
+  .dark *:focus-within::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.15);
+  }
+
+  .dark *:hover::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.25);
   }
 }
