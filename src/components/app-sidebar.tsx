@@ -21,11 +21,12 @@ import {
   Calendar,
   Eye,
   Pen,
-  LogIn,
   Home,
   Settings,
 } from 'lucide-react'
+import { Icon } from '@iconify/react'
 import { LanguageSwitcher } from './language-switcher'
+import { AuthDialog } from './shared/auth-dialog'
 
 const NAV_ITEMS = [
   { href: '/essence-planner', label: 'nav.essencePlanner', Icon: Swords },
@@ -49,8 +50,9 @@ export function AppSidebar() {
             <SidebarMenuButton
               size="lg"
               render={<Link href={`/${locale}`} />}
+              tooltip={t('app.name')}
             >
-              <Home />
+              <img src="/icon.svg" alt={t('app.name')} className="size-8 rounded-lg" />
               <span className="font-semibold">{t('app.name')}</span>
             </SidebarMenuButton>
           </SidebarMenuItem>
@@ -80,21 +82,27 @@ export function AppSidebar() {
         </SidebarGroup>
       </SidebarContent>
       <SidebarFooter>
-        <div className="px-1">
-          <LanguageSwitcher />
-        </div>
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton render={<Link href={`/${locale}/settings`} />}>
+            <LanguageSwitcher />
+          </SidebarMenuItem>
+          <SidebarMenuItem>
+            <SidebarMenuButton render={<Link href={`/${locale}/settings`} />} tooltip={t('nav.settings')}>
               <Settings />
-              <span>设置</span>
+              <span>{t('nav.settings')}</span>
             </SidebarMenuButton>
           </SidebarMenuItem>
           <SidebarMenuItem>
-            <SidebarMenuButton render={<Link href={`/${locale}/login`} />}>
-              <LogIn />
-              <span>{t('nav.login')}</span>
-            </SidebarMenuButton>
+            <div className="flex items-center w-full">
+              <AuthDialog showLabel />
+              <SidebarMenuButton
+                render={<a href="https://github.com/your-project" target="_blank" rel="noopener noreferrer" />}
+                className="w-8 flex-shrink-0 group-data-[collapsible=icon]:hidden"
+                tooltip="GitHub"
+              >
+                <Icon icon="octicon:mark-github-16" />
+              </SidebarMenuButton>
+            </div>
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarFooter>

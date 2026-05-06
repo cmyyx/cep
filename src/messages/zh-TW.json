@@ -11,14 +11,31 @@
     "bannerCalendar": "卡池日曆",
     "backgroundPreview": "背景預覽",
     "editor": "編輯器",
-    "login": "登入"
+    "login": "登入",
+    "register": "註冊",
+    "settings": "設定"
   },
   "app": {
     "name": "CEP 終末地規劃器"
   },
   "auth": {
     "usernameOrEmail": "使用者名稱 / 信箱",
+    "username": "使用者名稱",
+    "email": "信箱",
     "password": "密碼",
-    "loginFailed": "登入失敗，請檢查使用者名稱和密碼"
+    "confirmPassword": "確認密碼",
+    "loginFailed": "登入失敗，請檢查使用者名稱和密碼",
+    "passwordsNotMatch": "兩次輸入的密碼不一致",
+    "minLength": "密碼長度至少為6位",
+    "invalidEmail": "請輸入有效的信箱地址",
+    "passwordStrength": "密碼強度",
+    "strengthWeak": "弱",
+    "strengthFair": "較弱",
+    "strengthMedium": "中等",
+    "strengthStrong": "較強",
+    "strengthVeryStrong": "強",
+    "noAccount": "還沒有帳號？立即註冊",
+    "hasAccount": "已有帳號？立即登入",
+    "guestLogin": "遊客？點我登入"
   }
 }

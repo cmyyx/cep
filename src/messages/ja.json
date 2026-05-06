@@ -11,14 +11,31 @@
     "bannerCalendar": "ガチャカレンダー",
     "backgroundPreview": "背景プレビュー",
     "editor": "エディター",
-    "login": "ログイン"
+    "login": "ログイン",
+    "register": "登録",
+    "settings": "設定"
   },
   "app": {
     "name": "CEP エンドフィールドプランナー"
   },
   "auth": {
     "usernameOrEmail": "ユーザー名 / メール",
+    "username": "ユーザー名",
+    "email": "メール",
     "password": "パスワード",
-    "loginFailed": "ログイン失敗。ユーザー名とパスワードを確認してください"
+    "confirmPassword": "パスワード確認",
+    "loginFailed": "ログイン失敗。ユーザー名とパスワードを確認してください",
+    "passwordsNotMatch": "パスワードが一致しません",
+    "minLength": "パスワードは6文字以上で入力してください",
+    "invalidEmail": "有効なメールアドレスを入力してください",
+    "passwordStrength": "パスワード強度",
+    "strengthWeak": "弱い",
+    "strengthFair": "やや弱い",
+    "strengthMedium": "普通",
+    "strengthStrong": "やや強い",
+    "strengthVeryStrong": "強い",
+    "noAccount": "アカウントをお持ちでない方はこちら",
+    "hasAccount": "アカウントをお持ちの方はこちら",
+    "guestLogin": "ゲストの方はこちら"
   }
 }

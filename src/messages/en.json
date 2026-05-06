@@ -11,14 +11,31 @@
     "bannerCalendar": "Banner Calendar",
     "backgroundPreview": "Background Preview",
     "editor": "Editor",
-    "login": "Login"
+    "login": "Login",
+    "register": "Register",
+    "settings": "Settings"
   },
   "app": {
     "name": "CEP Endfield Planner"
   },
   "auth": {
     "usernameOrEmail": "Username / Email",
+    "username": "Username",
+    "email": "Email",
     "password": "Password",
-    "loginFailed": "Login failed. Please check your username and password."
+    "confirmPassword": "Confirm Password",
+    "loginFailed": "Login failed. Please check your username and password.",
+    "passwordsNotMatch": "Passwords do not match",
+    "minLength": "Password must be at least 6 characters",
+    "invalidEmail": "Please enter a valid email address",
+    "passwordStrength": "Password Strength",
+    "strengthWeak": "Weak",
+    "strengthFair": "Fair",
+    "strengthMedium": "Medium",
+    "strengthStrong": "Strong",
+    "strengthVeryStrong": "Very Strong",
+    "noAccount": "Don't have an account? Register now",
+    "hasAccount": "Already have an account? Login now",
+    "guestLogin": "Guest? Click to login"
   }
 }

@@ -11,14 +11,31 @@
     "bannerCalendar": "卡池日历",
     "backgroundPreview": "背景预览",
     "editor": "编辑器",
-    "login": "登录"
+    "login": "登录",
+    "register": "注册",
+    "settings": "设置"
   },
   "app": {
     "name": "CEP 终末地规划器"
   },
   "auth": {
     "usernameOrEmail": "用户名 / 邮箱",
+    "username": "用户名",
+    "email": "邮箱",
     "password": "密码",
-    "loginFailed": "登录失败，请检查用户名和密码"
+    "confirmPassword": "确认密码",
+    "loginFailed": "登录失败，请检查用户名和密码",
+    "passwordsNotMatch": "两次输入的密码不一致",
+    "minLength": "密码长度至少为6位",
+    "invalidEmail": "请输入有效的邮箱地址",
+    "passwordStrength": "密码强度",
+    "strengthWeak": "弱!",
+    "strengthFair": "较弱",
+    "strengthMedium": "中等",
+    "strengthStrong": "较强",
+    "strengthVeryStrong": "?!强强!?",
+    "noAccount": "还没有账号？立即注册",
+    "hasAccount": "已有账号？立即登录",
+    "guestLogin": "游客？点我登录"
   }
 }
