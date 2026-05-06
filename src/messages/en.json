@@ -2,7 +2,13 @@
   "home": {
     "title": "Endfield Planner",
     "description": "Matrix Planning · Refinement Planning · Banner Calendar",
-    "cta": "Start Planning"
+    "cta": "Start Planning",
+    "welcome": "Welcome",
+    "greetingNight": "It's late — the stars are yawning. Get some rest, your health matters most.",
+    "greetingMorning": "Good morning! A new day begins, may you be full of energy!",
+    "greetingNoon": "Good noon! Don't forget to eat on time.",
+    "greetingAfternoon": "Good afternoon! Grab some water, stretch a bit, and keep going.",
+    "greetingEvening": "A gentle evening — let go of fatigue and enjoy your own time."
   },
   "nav": {
     "essencePlanner": "Essence Planner",

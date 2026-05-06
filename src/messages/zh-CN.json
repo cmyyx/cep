@@ -2,7 +2,13 @@
   "home": {
     "title": "终末地规划器",
     "description": "基质规划 · 精锻规划 · 卡池日历",
-    "cta": "开始规划"
+    "cta": "开始规划",
+    "welcome": "欢迎使用",
+    "greetingNight": "夜深了，星星都困得眨眼啦，要注意早点休息哦，别熬夜太晚，身体才是最重要的。",
+    "greetingMorning": "早上好，新的一天开始啦，愿你元气满满！",
+    "greetingNoon": "中午好，记得按时吃饭，别饿着自己哦。",
+    "greetingAfternoon": "下午好，困了就去喝杯水，伸个懒腰，打起精神继续冲。",
+    "greetingEvening": "夜晚温柔，愿你卸下疲惫，安心享受属于自己的时间。"
   },
   "nav": {
     "essencePlanner": "基质规划",
