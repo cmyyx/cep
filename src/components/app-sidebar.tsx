@@ -26,6 +26,7 @@ import {
   Settings,
 } from 'lucide-react'
 import { LanguageSwitcher } from './language-switcher'
+import { VersionBadge } from './version-badge'
 
 const NAV_ITEMS = [
   { href: '/essence-planner', label: 'nav.essencePlanner', Icon: Swords },
@@ -97,6 +98,7 @@ export function AppSidebar() {
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
+        <VersionBadge />
       </SidebarFooter>
     </Sidebar>
   )

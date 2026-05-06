@@ -25,11 +25,18 @@ This version has breaking changes — APIs, conventions, and file structure may 
 | 层级 | 方案 | 备注 |
 |------|------|------|
 | 框架 | Next.js 16 (App Router) | 不使用 Pages Router |
+| 部署 | **纯静态 SSG**（`output: "export"`） | Cloudflare Workers 托管，无 Node 运行时，无 API 路由 |
 | 语言 | TypeScript (strict mode) | 禁止 `any`，特殊情况需 `// @ts-expect-error reason` |
 | UI | **Shadcn/UI + Tailwind CSS v4** | 唯一的 UI 来源 |
 | 状态管理 | Zustand | 仅限客户端状态 |
 | 表单 | react-hook-form + zod | Shadcn/UI Form 组件绑定 |
 | 国际化 | next-intl | 基于路由的多语言 `/[locale]/...` |
+
+### 纯静态站点约束
+
+- **没有服务端运行时**：所有页面在 `next build` 时预渲染为静态 HTML/CSS/JS，部署到 Cloudflare Pages。不存在 SSR、ISR、Edge Functions、API Routes。
+- **禁止使用服务端特性**：`cookies()`, `headers()`, `fs`, `process.env`（运行时）, `fetch`（服务端补丁）等在运行时不可用。构建时（Server Components 在 SSG 编译阶段）可用的有 `fs.readFileSync`, `import` 等。
+- **版本/构建信息**：通过 `scripts/generate-version.mjs` 在 prebuild 时写入 `public/version.json` 和 `src/generated/version-data.ts`，后者被 layout import 内联到静态 bundle，客户端通过 React Context 共享 + 轮询 `/version.json` 检测更新。 |
 
 ## 核心设计约束（防止屎山）
 

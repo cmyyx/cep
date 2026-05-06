@@ -1,7 +1,6 @@
 'use client'
 
 import { useState, useRef } from 'react'
-import { useTranslations } from 'next-intl'
 import { SidebarTrigger } from '@/components/ui/sidebar'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -15,9 +14,12 @@ import {
   SelectTrigger,
 } from '@/components/ui/select'
 import { useSettingsStore } from '@/stores/useSettingsStore'
+import { Separator } from '@/components/ui/separator'
+import { useVersion } from '@/hooks/use-version'
+import { VersionDialog } from '@/components/version-dialog'
+import { formatTime } from '@/lib/utils'
 
 export default function SettingsPage() {
-  const t = useTranslations()
   const {
     backgroundEnabled,
     backgroundBlur,
@@ -33,6 +35,8 @@ export default function SettingsPage() {
   const [apiUrl, setApiUrl] = useState('')
   const fileRef = useRef<HTMLInputElement>(null)
   const [showFlashbangWarning, setShowFlashbangWarning] = useState(false)
+  const [versionOpen, setVersionOpen] = useState(false)
+  const { info } = useVersion()
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
@@ -130,6 +134,39 @@ export default function SettingsPage() {
           </CardContent>
         </Card>
       </div>
+
+      {/* Version */}
+      {info && (
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-base">构建信息</CardTitle>
+          </CardHeader>
+          <CardContent className="flex flex-col gap-2">
+            <div className="flex justify-between text-sm">
+              <span className="text-muted-foreground">版本</span>
+              <span className="font-mono text-xs">{info.version}</span>
+            </div>
+            <div className="flex justify-between text-sm">
+              <span className="text-muted-foreground">提交</span>
+              <span className="font-mono text-xs">{info.commit}</span>
+            </div>
+            <div className="flex justify-between text-sm">
+              <span className="text-muted-foreground">构建时间</span>
+              <span className="font-mono text-xs">{formatTime(info.buildTime)}</span>
+            </div>
+            <Separator />
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => setVersionOpen(true)}
+              className="w-full text-xs h-8"
+            >
+              查看完整构建信息
+            </Button>
+          </CardContent>
+        </Card>
+      )}
+      <VersionDialog info={info} open={versionOpen} onOpenChange={setVersionOpen} />
 
       {/* Flashbang warning dialog */}
       {showFlashbangWarning && (

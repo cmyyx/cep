@@ -20,5 +20,20 @@
     "usernameOrEmail": "Username / Email",
     "password": "Password",
     "loginFailed": "Login failed. Please check your username and password."
+  },
+  "version": {
+    "label": "Build Info",
+    "version": "Version",
+    "commit": "Commit",
+    "commitCount": "Commits",
+    "commitMessage": "Commit Message",
+    "commitTime": "Commit Time",
+    "buildTime": "Build Time",
+    "checkUpdate": "Check for Updates",
+    "updateAvailable": "New version available",
+    "clickToRefresh": "Click to refresh",
+    "local": "Local",
+    "remote": "Remote",
+    "unknown": "Unknown"
   }
 }

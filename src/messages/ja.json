@@ -20,5 +20,20 @@
     "usernameOrEmail": "ユーザー名 / メール",
     "password": "パスワード",
     "loginFailed": "ログイン失敗。ユーザー名とパスワードを確認してください"
+  },
+  "version": {
+    "label": "ビルド情報",
+    "version": "バージョン",
+    "commit": "コミット",
+    "commitCount": "コミット数",
+    "commitMessage": "コミットメッセージ",
+    "commitTime": "コミット日時",
+    "buildTime": "ビルド日時",
+    "checkUpdate": "更新を確認",
+    "updateAvailable": "新しいバージョンがあります",
+    "clickToRefresh": "クリックして更新",
+    "local": "ローカル",
+    "remote": "リモート",
+    "unknown": "不明"
   }
 }

@@ -20,5 +20,20 @@
     "usernameOrEmail": "用户名 / 邮箱",
     "password": "密码",
     "loginFailed": "登录失败，请检查用户名和密码"
+  },
+  "version": {
+    "label": "构建信息",
+    "version": "版本",
+    "commit": "提交",
+    "commitCount": "提交次数",
+    "commitMessage": "提交信息",
+    "commitTime": "提交时间",
+    "buildTime": "构建时间",
+    "checkUpdate": "检查更新",
+    "updateAvailable": "发现新版本",
+    "clickToRefresh": "点击刷新页面",
+    "local": "本地",
+    "remote": "云端",
+    "unknown": "未知"
   }
 }

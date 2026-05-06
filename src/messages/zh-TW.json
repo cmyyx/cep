@@ -20,5 +20,20 @@
     "usernameOrEmail": "使用者名稱 / 信箱",
     "password": "密碼",
     "loginFailed": "登入失敗，請檢查使用者名稱和密碼"
+  },
+  "version": {
+    "label": "構建資訊",
+    "version": "版本",
+    "commit": "提交",
+    "commitCount": "提交次數",
+    "commitMessage": "提交資訊",
+    "commitTime": "提交時間",
+    "buildTime": "構建時間",
+    "checkUpdate": "檢查更新",
+    "updateAvailable": "發現新版本",
+    "clickToRefresh": "點擊刷新頁面",
+    "local": "本地",
+    "remote": "雲端",
+    "unknown": "未知"
   }
 }
