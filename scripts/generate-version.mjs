@@ -23,13 +23,14 @@ const changelog = changelogRaw
   ? changelogRaw.split("\n").filter(Boolean)
   : []
 
-// 版本号 = package.json 的 major.minor + git commit count 作为 patch
+// 版本号 = package.json semver + git short hash，如 0.1.0-9d119ad
+const commitHash = git("rev-parse --short HEAD") || "unknown"
 const count = Number(git("rev-list --count HEAD")) || 0
-const baseVersion = (pkg.version || "0.0.0").split('.').slice(0, 2).join('.')
-const derivedVersion = `${baseVersion}.${count}`
+const semver = pkg.version || "0.0.0"
+const derivedVersion = `${semver}-${commitHash}`
 
 const version = {
-  commit: git("rev-parse --short HEAD") || "unknown",
+  commit: commitHash,
   count,
   message: git("log -1 --format=%s") || "",
   commitTime: git("log -1 --format=%cI") || "",

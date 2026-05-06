@@ -2,13 +2,15 @@
 import type { VersionInfo } from '@/types/version'
 
 export const versionData: VersionInfo = {
-  "commit": "9d119ad",
-  "count": 8,
-  "message": "feat: 重构UI组件和页面设计",
-  "commitTime": "2026-05-06T21:21:35+08:00",
-  "buildTime": "2026-05-06T17:13:35.007Z",
-  "version": "0.1.8",
+  "commit": "c5d0775",
+  "count": 10,
+  "message": "fix: 首页欢迎语和问候语国际化",
+  "commitTime": "2026-05-07T01:20:33+08:00",
+  "buildTime": "2026-05-06T17:32:08.535Z",
+  "version": "0.1.0-c5d0775",
   "changelog": [
+    "fix: 首页欢迎语和问候语国际化",
+    "feat: 重构版本检测系统、新增更新页面与关于页面",
     "feat: 重构UI组件和页面设计",
     "style: 添加自定义滚动条样式",
     "fix: 修正新wrangler配置",
