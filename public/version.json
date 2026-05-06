@@ -1,0 +1,18 @@
+{
+  "commit": "9d119ad",
+  "count": 8,
+  "message": "feat: 重构UI组件和页面设计",
+  "commitTime": "2026-05-06T21:21:35+08:00",
+  "buildTime": "2026-05-06T17:13:35.007Z",
+  "version": "0.1.8",
+  "changelog": [
+    "feat: 重构UI组件和页面设计",
+    "style: 添加自定义滚动条样式",
+    "fix: 修正新wrangler配置",
+    "fix(language-switcher): 处理语言切换器中的空值情况",
+    "fix: 修正主题切换处理并更新项目名称",
+    "build: 添加wrangler.jsonc配置文件",
+    "feat: 添加基质规划器核心功能与UI组件",
+    "项目初始化文件"
+  ]
+}

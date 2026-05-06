@@ -13,7 +13,9 @@
     "editor": "编辑器",
     "login": "登录",
     "register": "注册",
-    "settings": "设置"
+    "settings": "设置",
+    "update": "检查更新",
+    "about": "关于"
   },
   "app": {
     "name": "CEP 终末地规划器"
@@ -37,5 +39,44 @@
     "noAccount": "还没有账号？立即注册",
     "hasAccount": "已有账号？立即登录",
     "guestLogin": "游客？点我登录"
+  },
+  "version": {
+    "label": "构建信息",
+    "version": "版本",
+    "commit": "提交",
+    "commitCount": "提交次数",
+    "commitMessage": "更新日志",
+    "commitTime": "提交时间",
+    "buildTime": "构建时间",
+    "checkUpdate": "检查更新",
+    "updateAvailable": "发现新版本",
+    "clickToRefresh": "点击刷新页面",
+    "local": "本地",
+    "remote": "云端",
+    "unknown": "未知"
+  },
+  "about": {
+    "description": "为《明日方舟：终末地》打造的基质规划工具集",
+    "features": "功能模块",
+    "essencePlanner": "基质规划",
+    "essencePlannerDesc": "多武器淤积点共刷方案计算，支持锁定条件约束与属性冲突处置",
+    "characterGuide": "角色攻略",
+    "characterGuideDesc": "角色养成与配装推荐",
+    "refinementPlanner": "精锻规划",
+    "refinementPlannerDesc": "装备精锻规划",
+    "bannerCalendar": "卡池日历",
+    "bannerCalendarDesc": "卡池排期与复刻时间",
+    "backgroundPreview": "背景预览",
+    "backgroundPreviewDesc": "网页背景预览",
+    "editor": "编辑器",
+    "editorDesc": "角色攻略内容编辑器",
+    "techStack": "技术栈",
+    "techFramework": "框架",
+    "techLanguage": "语言",
+    "techUI": "UI",
+    "techState": "状态管理",
+    "techForm": "表单",
+    "techI18n": "国际化",
+    "techDesign": "设计系统"
   }
 }

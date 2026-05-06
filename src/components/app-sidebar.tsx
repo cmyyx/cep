@@ -23,10 +23,13 @@ import {
   Pen,
   Home,
   Settings,
+  Download,
+  Info,
 } from 'lucide-react'
 import { Icon } from '@iconify/react'
 import { LanguageSwitcher } from './language-switcher'
 import { AuthDialog } from './shared/auth-dialog'
+import { useVersion } from '@/hooks/use-version'
 
 const NAV_ITEMS = [
   { href: '/essence-planner', label: 'nav.essencePlanner', Icon: Swords },
@@ -41,6 +44,7 @@ export function AppSidebar() {
   const pathname = usePathname()
   const locale = useLocale()
   const t = useTranslations()
+  const { isUpdateAvailable } = useVersion()
 
   return (
     <Sidebar collapsible="icon">
@@ -87,16 +91,47 @@ export function AppSidebar() {
             <LanguageSwitcher />
           </SidebarMenuItem>
           <SidebarMenuItem>
-            <SidebarMenuButton render={<Link href={`/${locale}/settings`} />} tooltip={t('nav.settings')}>
+            <div className="relative">
+              <SidebarMenuButton
+                render={<Link href={`/${locale}/update`} />}
+                className={isUpdateAvailable ? 'group-data-[collapsible=icon]:animate-pulse group-data-[collapsible=icon]:shadow-[0_0_0_1px_rgba(239,68,68,0.5)]' : ''}
+              >
+                <Download />
+                <span>{t('nav.update')}</span>
+                {isUpdateAvailable && (
+                  <span className="ml-auto text-xs text-blue-500 font-medium">
+                    发现新版本
+                  </span>
+                )}
+              </SidebarMenuButton>
+              {isUpdateAvailable && (
+                <div className="hidden group-data-[collapsible=icon]:block absolute left-full ml-2 top-1/2 -translate-y-1/2 px-2 py-1 rounded bg-foreground text-background text-xs whitespace-nowrap z-50">
+                  发现新版本
+                </div>
+              )}
+            </div>
+          </SidebarMenuItem>
+          <SidebarMenuItem>
+            <SidebarMenuButton
+              render={<Link href={`/${locale}/settings`} />}
+            >
               <Settings />
               <span>{t('nav.settings')}</span>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+          <SidebarMenuItem>
+            <SidebarMenuButton
+              render={<Link href={`/${locale}/about`} />}
+            >
+              <Info />
+              <span>{t('nav.about')}</span>
             </SidebarMenuButton>
           </SidebarMenuItem>
           <SidebarMenuItem>
             <div className="flex items-center w-full">
               <AuthDialog showLabel />
               <SidebarMenuButton
-                render={<a href="https://github.com/your-project" target="_blank" rel="noopener noreferrer" />}
+                render={<a href="https://github.com/cmyyx/cep" target="_blank" rel="noopener noreferrer" />}
                 className="w-8 flex-shrink-0 group-data-[collapsible=icon]:hidden"
                 tooltip="GitHub"
               >

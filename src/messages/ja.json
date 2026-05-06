@@ -13,7 +13,9 @@
     "editor": "エディター",
     "login": "ログイン",
     "register": "登録",
-    "settings": "設定"
+    "settings": "設定",
+    "update": "アップデート",
+    "about": "について"
   },
   "app": {
     "name": "CEP エンドフィールドプランナー"
@@ -37,5 +39,44 @@
     "noAccount": "アカウントをお持ちでない方はこちら",
     "hasAccount": "アカウントをお持ちの方はこちら",
     "guestLogin": "ゲストの方はこちら"
+  },
+  "version": {
+    "label": "ビルド情報",
+    "version": "バージョン",
+    "commit": "コミット",
+    "commitCount": "コミット数",
+    "commitMessage": "更新履歴",
+    "commitTime": "コミット日時",
+    "buildTime": "ビルド日時",
+    "checkUpdate": "更新を確認",
+    "updateAvailable": "新しいバージョンがあります",
+    "clickToRefresh": "クリックして更新",
+    "local": "ローカル",
+    "remote": "リモート",
+    "unknown": "不明"
+  },
+  "about": {
+    "description": "アークナイツ：エンドフィールドのために作られた計画ツールキット",
+    "features": "モジュール",
+    "essencePlanner": "基質計画",
+    "essencePlannerDesc": "複数武器の共通採取ポイント計算、ロック条件と属性競合の解決",
+    "characterGuide": "キャラ攻略",
+    "characterGuideDesc": "キャラ育成と装備おすすめ",
+    "refinementPlanner": "精鍛計画",
+    "refinementPlannerDesc": "装備精鍛プランニング",
+    "bannerCalendar": "ガチャカレンダー",
+    "bannerCalendarDesc": "ガチャスケジュールと復刻予定",
+    "backgroundPreview": "背景プレビュー",
+    "backgroundPreviewDesc": "ウェブページ背景プレビュー",
+    "editor": "エディター",
+    "editorDesc": "キャラ攻略コンテンツエディター",
+    "techStack": "技術スタック",
+    "techFramework": "フレームワーク",
+    "techLanguage": "言語",
+    "techUI": "UI",
+    "techState": "状態管理",
+    "techForm": "フォーム",
+    "techI18n": "国際化",
+    "techDesign": "デザインシステム"
   }
 }

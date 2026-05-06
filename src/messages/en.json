@@ -13,7 +13,9 @@
     "editor": "Editor",
     "login": "Login",
     "register": "Register",
-    "settings": "Settings"
+    "settings": "Settings",
+    "update": "Check Update",
+    "about": "About"
   },
   "app": {
     "name": "CEP Endfield Planner"
@@ -37,5 +39,44 @@
     "noAccount": "Don't have an account? Register now",
     "hasAccount": "Already have an account? Login now",
     "guestLogin": "Guest? Click to login"
+  },
+  "version": {
+    "label": "Build Info",
+    "version": "Version",
+    "commit": "Commit",
+    "commitCount": "Commits",
+    "commitMessage": "Changelog",
+    "commitTime": "Commit Time",
+    "buildTime": "Build Time",
+    "checkUpdate": "Check for Updates",
+    "updateAvailable": "New version available",
+    "clickToRefresh": "Click to refresh",
+    "local": "Local",
+    "remote": "Remote",
+    "unknown": "Unknown"
+  },
+  "about": {
+    "description": "A planning toolkit built for Arknights: Endfield",
+    "features": "Modules",
+    "essencePlanner": "Essence Planner",
+    "essencePlannerDesc": "Multi-weapon farming optimization with lock constraints and attribute conflict resolution",
+    "characterGuide": "Character Guide",
+    "characterGuideDesc": "Character development and gear recommendations",
+    "refinementPlanner": "Refinement Planner",
+    "refinementPlannerDesc": "Equipment refinement planning",
+    "bannerCalendar": "Banner Calendar",
+    "bannerCalendarDesc": "Banner schedule and rerun timeline",
+    "backgroundPreview": "Background Preview",
+    "backgroundPreviewDesc": "Webpage background preview",
+    "editor": "Editor",
+    "editorDesc": "Character guide content editor",
+    "techStack": "Tech Stack",
+    "techFramework": "Framework",
+    "techLanguage": "Language",
+    "techUI": "UI",
+    "techState": "State Management",
+    "techForm": "Forms",
+    "techI18n": "i18n",
+    "techDesign": "Design System"
   }
 }
