@@ -1,6 +1,7 @@
 'use client'
 
 import { useSettingsStore } from '@/stores/useSettingsStore'
+import Image from 'next/image'
 import { cn } from '@/lib/utils'
 
 export function Background() {
@@ -10,10 +11,12 @@ export function Background() {
 
   return (
     <div className="fixed inset-0 -z-10 pointer-events-none">
-      <img
+      <Image
         src={backgroundUrl}
         alt=""
-        className={cn('size-full object-cover', backgroundBlur && 'blur-sm')}
+        fill
+        className={cn('object-cover', backgroundBlur && 'blur-sm')}
+        unoptimized
       />
       <div className="absolute inset-0 bg-background/60" />
     </div>

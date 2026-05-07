@@ -1,6 +1,7 @@
 'use client'
 
 import { useMemo } from 'react'
+import Image from 'next/image'
 import { cn } from '@/lib/utils'
 import type { DungeonPlan } from '@/lib/planner/essence-solver'
 import { useMatrixStore } from '@/stores/useMatrixStore'
@@ -83,8 +84,8 @@ export function DungeonCard({ plan, isExpanded, onToggleExpand }: DungeonCardPro
             return (
               <Tooltip key={weapon.id}>
                 <TooltipTrigger render={<div className={cn('relative w-12 h-12 rounded-md border overflow-hidden cursor-default', 'bg-[url(/images/item-frame-bg.png)] bg-cover bg-center', inRange && isSelected && 'border-amber-400/50', inRange && !isSelected && 'border-border', !inRange && isSelected && 'border-amber-400/20 opacity-40', !inRange && !isSelected && 'border-border/50 opacity-30')} />}>
-                  <img src={`/images/weapons/${weapon.imageId || 'wpn_sword_0001'}.avif`} alt={weapon.name} className="absolute inset-0 size-full object-cover z-10" />
-                  <img src={`/images/item-band-${weapon.rarity}.png`} alt="" className="absolute -inset-x-px bottom-0 h-2.5 z-20 w-[calc(100%+2px)] max-w-none object-cover object-bottom pointer-events-none" />
+                  <Image src={`/images/weapons/${weapon.imageId || 'wpn_sword_0001'}.avif`} alt={weapon.name} fill className="object-cover z-10" unoptimized />
+                  <Image src={`/images/item-band-${weapon.rarity}.png`} alt="" width={200} height={10} className="absolute -inset-x-px bottom-0 z-20 w-[calc(100%+2px)] max-w-none object-cover object-bottom pointer-events-none" unoptimized />
                   {inRange && isSelected && <div className="absolute top-0 right-0 size-3 bg-amber-400 rounded-bl-sm flex items-center justify-center z-30"><span className="text-[6px] text-black font-bold">✓</span></div>}
                 </TooltipTrigger>
                 <TooltipContent side="top" className="text-xs text-foreground bg-popover/95">
@@ -103,8 +104,8 @@ export function DungeonCard({ plan, isExpanded, onToggleExpand }: DungeonCardPro
               return (
                 <div key={weapon.id} className={cn('flex items-center gap-3 px-3 py-2 text-sm', !inRange && !isSelected && 'opacity-30', !inRange && isSelected && 'opacity-40 bg-amber-500/3', inRange && isSelected && 'bg-amber-500/5', inRange && !isSelected && 'hover:bg-muted/30')}>
                   <div className="relative size-10 rounded border border-border bg-muted/30 flex-shrink-0 overflow-hidden bg-[url(/images/item-frame-bg.png)] bg-cover bg-center">
-                    <img src={`/images/weapons/${weapon.imageId || 'wpn_sword_0001'}.avif`} alt={weapon.name} className="absolute inset-0 size-full object-cover z-10" />
-                    <img src={`/images/item-band-${weapon.rarity}.png`} alt="" className="absolute -inset-x-px bottom-0 h-2 z-20 w-[calc(100%+2px)] max-w-none object-cover object-bottom pointer-events-none" />
+                    <Image src={`/images/weapons/${weapon.imageId || 'wpn_sword_0001'}.avif`} alt={weapon.name} fill className="object-cover z-10" unoptimized />
+                    <Image src={`/images/item-band-${weapon.rarity}.png`} alt="" width={200} height={8} className="absolute -inset-x-px bottom-0 z-20 w-[calc(100%+2px)] max-w-none object-cover object-bottom pointer-events-none" unoptimized />
                   </div>
                   <span className={cn('font-medium min-w-0 truncate w-28 flex-shrink-0', !inRange && 'line-through', inRange && isSelected && 'text-amber-400')}>{weapon.name}</span>
                   <span className="text-xs text-muted-foreground min-w-0 truncate">{weapon.primaryStat} | {weapon.elementalDamage} | {weapon.specialAbility}</span>

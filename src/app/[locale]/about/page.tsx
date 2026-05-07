@@ -1,6 +1,7 @@
 'use client'
 
 import { useTranslations } from 'next-intl'
+import Image from 'next/image'
 import { SidebarTrigger } from '@/components/ui/sidebar'
 import { Badge } from '@/components/ui/badge'
 import {
@@ -59,11 +60,15 @@ export default function AboutPage() {
         <div className="max-w-3xl mx-auto">
           {/* Hero: left-right layout */}
           <div className="flex items-center gap-8 mb-10">
-            <img
-              src="/CEP.png"
-              alt="CEP Endfield Planner"
-              className="w-48 h-auto shrink-0 mix-blend-multiply dark:mix-blend-screen rounded-lg"
-            />
+            <div className="relative w-48 shrink-0">
+              <Image
+                src="/CEP.png"
+                alt="CEP Endfield Planner"
+                fill
+                className="object-contain mix-blend-multiply dark:mix-blend-screen rounded-lg"
+                unoptimized
+              />
+            </div>
             <div>
               <h2 className="text-xl font-semibold mb-2 tracking-tight">CEP Endfield Planner</h2>
               <p className="text-sm text-muted-foreground leading-relaxed mb-1">

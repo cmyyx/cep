@@ -1,7 +1,6 @@
 'use client'
 
 import { useState, useRef } from 'react'
-import { useTranslations } from 'next-intl'
 import { SidebarTrigger } from '@/components/ui/sidebar'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -16,11 +15,9 @@ import {
 import { useSettingsStore } from '@/stores/useSettingsStore'
 
 export default function SettingsPage() {
-  const t = useTranslations()
   const {
     backgroundEnabled,
     backgroundBlur,
-    backgroundUrl,
     theme,
     toggleBackground,
     toggleBlur,

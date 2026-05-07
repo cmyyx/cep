@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useCallback } from 'react'
+import Image from 'next/image'
 import { useTranslations } from 'next-intl'
 import { SidebarTrigger } from '@/components/ui/sidebar'
 import { Button } from '@/components/ui/button'
@@ -49,10 +50,12 @@ export default function BackgroundPreviewPage() {
     return (
       <div className="fixed inset-0 z-50 bg-black">
         <div className="absolute inset-0">
-          <img
+          <Image
             src={currentUrl}
             alt="Background Preview"
-            className="w-full h-full object-cover"
+            fill
+            className="object-cover"
+            unoptimized
             onLoad={handleImageLoad}
             onError={handleImageError}
           />

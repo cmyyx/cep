@@ -1,6 +1,7 @@
 'use client'
 
 import { cn } from '@/lib/utils'
+import Image from 'next/image'
 import type { Weapon } from '@/types/matrix'
 
 interface WeaponCardProps {
@@ -29,10 +30,12 @@ export function WeaponCard({ weapon, isSelected, onToggle, disabled }: WeaponCar
     >
       {/* Weapon art */}
       <div className="absolute inset-0 z-10 flex items-center justify-center">
-        <img
+        <Image
           src={`/images/weapons/${weapon.imageId || 'wpn_sword_0001'}.avif`}
           alt={weapon.name}
-          className="size-full object-cover"
+          fill
+          className="object-cover"
+          unoptimized
           loading="lazy"
         />
       </div>
@@ -43,12 +46,14 @@ export function WeaponCard({ weapon, isSelected, onToggle, disabled }: WeaponCar
           {weapon.chars.map((char) => (
             <div
               key={char}
-              className="size-6 rounded-full bg-black/60 border border-white/35 shadow-md overflow-hidden"
+              className="relative size-6 rounded-full bg-black/60 border border-white/35 shadow-md overflow-hidden"
             >
-              <img
+              <Image
                 src={`/images/characters/${char}.avif`}
                 alt={char}
-                className="size-full object-cover"
+                fill
+                className="object-cover"
+                unoptimized
               />
             </div>
           ))}
@@ -56,10 +61,13 @@ export function WeaponCard({ weapon, isSelected, onToggle, disabled }: WeaponCar
       )}
 
       {/* Rarity band image */}
-      <img
+      <Image
         src={`/images/item-band-${weapon.rarity}.png`}
         alt=""
-        className="absolute -inset-x-px bottom-0 h-10 z-20 w-[calc(100%+2px)] max-w-none object-cover object-bottom pointer-events-none"
+        width={200}
+        height={40}
+        className="absolute -inset-x-px bottom-0 z-20 w-[calc(100%+2px)] max-w-none object-cover object-bottom pointer-events-none"
+        unoptimized
       />
 
       {/* Weapon name */}

@@ -69,19 +69,13 @@ function SidebarProvider({
   const isMobile = useIsMobile()
   const [openMobile, setOpenMobile] = React.useState(false)
 
-  // Cookie read moved to useEffect to avoid SSR/client hydration mismatch.
-  // During SSR typeof document is always undefined, so the initializer returns
-  // defaultOpen (true). Without this, the client lazy init would read the cookie
-  // and produce a different value than the server, breaking hydration.
-  const [_open, _setOpen] = React.useState(defaultOpen)
-
-  React.useEffect(() => {
-    if (typeof document === 'undefined') return
+  // Cookie is read synchronously in the useState initializer.
+  // During build-time SSG, document is always undefined so defaultOpen is used.
+  const [_open, _setOpen] = React.useState(() => {
+    if (typeof document === 'undefined') return defaultOpen
     const match = document.cookie.match(new RegExp(`(?:^|; )${SIDEBAR_COOKIE_NAME}=([^;]*)`))
-    if (match) {
-      _setOpen(match[1] === 'true')
-    }
-  }, [])
+    return match ? match[1] === 'true' : defaultOpen
+  })
   const open = openProp ?? _open
   const setOpen = React.useCallback(
     (value: boolean | ((value: boolean) => boolean)) => {
