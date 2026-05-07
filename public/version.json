@@ -1,0 +1,20 @@
+{
+  "commit": "c5d0775",
+  "count": 10,
+  "message": "fix: 首页欢迎语和问候语国际化",
+  "commitTime": "2026-05-07T01:20:33+08:00",
+  "buildTime": "2026-05-06T17:32:08.535Z",
+  "version": "0.1.0-c5d0775",
+  "changelog": [
+    "fix: 首页欢迎语和问候语国际化",
+    "feat: 重构版本检测系统、新增更新页面与关于页面",
+    "feat: 重构UI组件和页面设计",
+    "style: 添加自定义滚动条样式",
+    "fix: 修正新wrangler配置",
+    "fix(language-switcher): 处理语言切换器中的空值情况",
+    "fix: 修正主题切换处理并更新项目名称",
+    "build: 添加wrangler.jsonc配置文件",
+    "feat: 添加基质规划器核心功能与UI组件",
+    "项目初始化文件"
+  ]
+}

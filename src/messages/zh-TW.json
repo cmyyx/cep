@@ -2,7 +2,13 @@
   "home": {
     "title": "終末地規劃器",
     "description": "基質規劃 · 精鍛規劃 · 卡池日曆",
-    "cta": "開始規劃"
+    "cta": "開始規劃",
+    "welcome": "歡迎使用",
+    "greetingNight": "夜深了，星星都困得眨眼啦，要注意早點休息哦，別熬夜太晚，身體才是最重要的。",
+    "greetingMorning": "早安，新的一天開始啦，願你元氣滿滿！",
+    "greetingNoon": "午安，記得按時吃飯，別餓著自己哦。",
+    "greetingAfternoon": "下午好，困了就去喝杯水，伸個懶腰，打起精神繼續衝。",
+    "greetingEvening": "夜晚溫柔，願你卸下疲憊，安心享受屬於自己的時間。"
   },
   "nav": {
     "essencePlanner": "基質規劃",
@@ -11,14 +17,72 @@
     "bannerCalendar": "卡池日曆",
     "backgroundPreview": "背景預覽",
     "editor": "編輯器",
-    "login": "登入"
+    "login": "登入",
+    "register": "註冊",
+    "settings": "設定",
+    "update": "檢查更新",
+    "about": "關於"
   },
   "app": {
     "name": "CEP 終末地規劃器"
   },
   "auth": {
     "usernameOrEmail": "使用者名稱 / 信箱",
+    "username": "使用者名稱",
+    "email": "信箱",
     "password": "密碼",
-    "loginFailed": "登入失敗，請檢查使用者名稱和密碼"
+    "confirmPassword": "確認密碼",
+    "loginFailed": "登入失敗，請檢查使用者名稱和密碼",
+    "passwordsNotMatch": "兩次輸入的密碼不一致",
+    "minLength": "密碼長度至少為6位",
+    "invalidEmail": "請輸入有效的信箱地址",
+    "passwordStrength": "密碼強度",
+    "strengthWeak": "弱",
+    "strengthFair": "較弱",
+    "strengthMedium": "中等",
+    "strengthStrong": "較強",
+    "strengthVeryStrong": "強",
+    "noAccount": "還沒有帳號？立即註冊",
+    "hasAccount": "已有帳號？立即登入",
+    "guestLogin": "遊客？點我登入"
+  },
+  "version": {
+    "label": "構建資訊",
+    "version": "版本",
+    "commit": "提交",
+    "commitCount": "提交次數",
+    "commitMessage": "更新日誌",
+    "commitTime": "提交時間",
+    "buildTime": "構建時間",
+    "checkUpdate": "檢查更新",
+    "updateAvailable": "發現新版本",
+    "clickToRefresh": "點擊刷新頁面",
+    "local": "本地",
+    "remote": "雲端",
+    "unknown": "未知"
+  },
+  "about": {
+    "description": "為《明日方舟：終末地》打造的基質規劃工具集",
+    "features": "功能模組",
+    "essencePlanner": "基質規劃",
+    "essencePlannerDesc": "多武器淤積點共刷方案計算，支持鎖定條件約束與屬性衝突處置",
+    "characterGuide": "角色攻略",
+    "characterGuideDesc": "角色養成與配裝推薦",
+    "refinementPlanner": "精鍛規劃",
+    "refinementPlannerDesc": "裝備精鍛規劃",
+    "bannerCalendar": "卡池日曆",
+    "bannerCalendarDesc": "卡池排期與復刻時間",
+    "backgroundPreview": "背景預覽",
+    "backgroundPreviewDesc": "網頁背景預覽",
+    "editor": "編輯器",
+    "editorDesc": "角色攻略內容編輯器",
+    "techStack": "技術棧",
+    "techFramework": "框架",
+    "techLanguage": "語言",
+    "techUI": "UI",
+    "techState": "狀態管理",
+    "techForm": "表單",
+    "techI18n": "國際化",
+    "techDesign": "設計系統"
   }
 }

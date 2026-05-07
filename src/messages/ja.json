@@ -2,7 +2,13 @@
   "home": {
     "title": "エンドフィールドプランナー",
     "description": "基質計画 · 精鍛計画 · ガチャカレンダー",
-    "cta": "計画を始める"
+    "cta": "計画を始める",
+    "welcome": "ようこそ",
+    "greetingNight": "夜更けです、星たちもまばたきしてますよ。お早めに休んでくださいね。",
+    "greetingMorning": "おはようございます！新しい一日が始まります、元気いっぱいに！",
+    "greetingNoon": "お昼です！きちんと食べることを忘れないでくださいね。",
+    "greetingAfternoon": "お疲れ様です！お水を飲んで、伸びをして、頑張りましょう。",
+    "greetingEvening": "優しい夜です。疲れを置いて、自分の時間を安心して楽しんでください。"
   },
   "nav": {
     "essencePlanner": "基質計画",
@@ -11,14 +17,72 @@
     "bannerCalendar": "ガチャカレンダー",
     "backgroundPreview": "背景プレビュー",
     "editor": "エディター",
-    "login": "ログイン"
+    "login": "ログイン",
+    "register": "登録",
+    "settings": "設定",
+    "update": "アップデート",
+    "about": "について"
   },
   "app": {
     "name": "CEP エンドフィールドプランナー"
   },
   "auth": {
     "usernameOrEmail": "ユーザー名 / メール",
+    "username": "ユーザー名",
+    "email": "メール",
     "password": "パスワード",
-    "loginFailed": "ログイン失敗。ユーザー名とパスワードを確認してください"
+    "confirmPassword": "パスワード確認",
+    "loginFailed": "ログイン失敗。ユーザー名とパスワードを確認してください",
+    "passwordsNotMatch": "パスワードが一致しません",
+    "minLength": "パスワードは6文字以上で入力してください",
+    "invalidEmail": "有効なメールアドレスを入力してください",
+    "passwordStrength": "パスワード強度",
+    "strengthWeak": "弱い",
+    "strengthFair": "やや弱い",
+    "strengthMedium": "普通",
+    "strengthStrong": "やや強い",
+    "strengthVeryStrong": "強い",
+    "noAccount": "アカウントをお持ちでない方はこちら",
+    "hasAccount": "アカウントをお持ちの方はこちら",
+    "guestLogin": "ゲストの方はこちら"
+  },
+  "version": {
+    "label": "ビルド情報",
+    "version": "バージョン",
+    "commit": "コミット",
+    "commitCount": "コミット数",
+    "commitMessage": "更新履歴",
+    "commitTime": "コミット日時",
+    "buildTime": "ビルド日時",
+    "checkUpdate": "更新を確認",
+    "updateAvailable": "新しいバージョンがあります",
+    "clickToRefresh": "クリックして更新",
+    "local": "ローカル",
+    "remote": "リモート",
+    "unknown": "不明"
+  },
+  "about": {
+    "description": "アークナイツ：エンドフィールドのために作られた計画ツールキット",
+    "features": "モジュール",
+    "essencePlanner": "基質計画",
+    "essencePlannerDesc": "複数武器の共通採取ポイント計算、ロック条件と属性競合の解決",
+    "characterGuide": "キャラ攻略",
+    "characterGuideDesc": "キャラ育成と装備おすすめ",
+    "refinementPlanner": "精鍛計画",
+    "refinementPlannerDesc": "装備精鍛プランニング",
+    "bannerCalendar": "ガチャカレンダー",
+    "bannerCalendarDesc": "ガチャスケジュールと復刻予定",
+    "backgroundPreview": "背景プレビュー",
+    "backgroundPreviewDesc": "ウェブページ背景プレビュー",
+    "editor": "エディター",
+    "editorDesc": "キャラ攻略コンテンツエディター",
+    "techStack": "技術スタック",
+    "techFramework": "フレームワーク",
+    "techLanguage": "言語",
+    "techUI": "UI",
+    "techState": "状態管理",
+    "techForm": "フォーム",
+    "techI18n": "国際化",
+    "techDesign": "デザインシステム"
   }
 }
