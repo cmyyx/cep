@@ -26,13 +26,25 @@ const changelog = changelogRaw
 
 // 统计含 [force] 标记的 tag 数量，生成强制升级序列号
 function getForceUpgradeSerial() {
-  const output = git("tag -l 'v*' --format='%(contents)'") || ""
+  const output = git("tag -l v* --format=%(contents)") || ""
   const matches = output.match(/\[force\]/g)
   return matches ? matches.length : 0
 }
+
+// 优先读取当前 HEAD 指向的 tag 中的 semver，本地开发无 tag 时 fallback 到 package.json
+function getSemver() {
+  const tags = git("tag -l v* --points-at HEAD") || ""
+  const lines = tags.split("\n").filter(Boolean)
+  for (const tag of lines) {
+    const m = tag.trim().match(/^v(\d+\.\d+\.\d+)/)
+    if (m) return m[1]
+  }
+  return pkg.version || "0.0.0"
+}
+
+const semver = getSemver()
 const commitHash = git("rev-parse --short HEAD") || "unknown"
 const count = Number(git("rev-list --count HEAD")) || 0
-const semver = pkg.version || "0.0.0"
 const derivedVersion = `${semver}-${commitHash}`
 
 // 轮询用轻量文件，不含 changelog
