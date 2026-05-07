@@ -57,6 +57,11 @@
     "checkUpdate": "更新を確認",
     "updateAvailable": "新しいバージョンがあります",
     "clickToRefresh": "クリックして更新",
+    "compatibleVersion": "対応バージョン",
+    "updatePrompt": "新しいバージョン,クリックで更新",
+    "forceUpgradeTitle": "重要アップデート",
+    "forceUpgradeMessage": "このバージョンには重要な更新やバグ修正が含まれています。今すぐ更新してください。",
+    "forceUpgradeButton": "今すぐ更新",
     "local": "ローカル",
     "remote": "リモート",
     "unknown": "不明"

@@ -1,15 +1,69 @@
 'use client'
 
+import { useState, useEffect } from 'react'
 import { useTranslations } from 'next-intl'
 import { SidebarTrigger } from '@/components/ui/sidebar'
 import { Button } from '@/components/ui/button'
 import { useVersion } from '@/hooks/use-version'
 import { formatTime } from '@/lib/utils'
-import { RefreshCw, Download, CheckCircle2 } from 'lucide-react'
+import { RefreshCw, ArrowRight } from 'lucide-react'
+import type { VersionInfo } from '@/types/version'
+
+function parseChangelogEntry(entry: string) {
+  const firstNewline = entry.indexOf('\n')
+  const firstLine = firstNewline === -1 ? entry : entry.slice(0, firstNewline)
+  const body = firstNewline === -1 ? '' : entry.slice(firstNewline + 1).trim()
+
+  const firstSpace = firstLine.indexOf(' ')
+  const hash = firstSpace === -1 ? '' : firstLine.slice(0, firstSpace)
+  const time = firstSpace === -1 ? '' : firstLine.slice(firstSpace + 1)
+
+  return { hash, time, body }
+}
+
+function VersionCard({ label, info }: { label: string; info: VersionInfo }) {
+  const t = useTranslations()
+
+  return (
+    <div className="flex-1 rounded-lg border border-border p-4">
+      <h3 className="text-xs font-medium text-muted-foreground mb-3 uppercase tracking-wide text-center">{label}</h3>
+      <div className="space-y-2">
+        <div className="flex items-center justify-between">
+          <span className="text-xs text-muted-foreground">{t('version.version')}</span>
+          <span className="text-sm font-mono font-medium">{info.version}</span>
+        </div>
+        <div className="flex items-center justify-between">
+          <span className="text-xs text-muted-foreground">{t('version.commit')}</span>
+          <span className="text-sm font-mono">{info.commit}</span>
+        </div>
+        <div className="flex items-center justify-between">
+          <span className="text-xs text-muted-foreground">{t('version.commitCount')}</span>
+          <span className="text-sm font-mono">{info.count}</span>
+        </div>
+        <div className="flex items-center justify-between">
+          <span className="text-xs text-muted-foreground">{t('version.commitTime')}</span>
+          <span className="text-sm font-mono">{formatTime(info.commitTime)}</span>
+        </div>
+        <div className="flex items-center justify-between">
+          <span className="text-xs text-muted-foreground">{t('version.buildTime')}</span>
+          <span className="text-sm font-mono">{formatTime(info.buildTime)}</span>
+        </div>
+      </div>
+    </div>
+  )
+}
 
 export default function UpdatePage() {
   const t = useTranslations()
   const { info, localInfo, isUpdateAvailable, checkNow, refreshPage } = useVersion()
+  const [changelog, setChangelog] = useState<string[]>([])
+
+  useEffect(() => {
+    fetch('/changelog.json')
+      .then(res => res.json())
+      .then(data => setChangelog(data.changelog ?? []))
+      .catch(() => setChangelog([]))
+  }, [])
 
   const displayInfo = localInfo ?? info
 
@@ -25,74 +79,71 @@ export default function UpdatePage() {
 
       {/* Main content */}
       <div className="flex flex-1 items-start justify-center p-8">
-        <div className="w-full max-w-md">
-          {/* 当前版本 */}
-          <div className="flex items-center justify-between py-4 border-b border-border">
-            <span className="text-sm text-muted-foreground">{t('version.version')}</span>
-            <span className="text-sm font-mono font-medium">{displayInfo?.version ?? t('version.unknown')}</span>
+        <div className="w-full max-w-lg">
+          {/* Version comparison */}
+          {isUpdateAvailable && localInfo && info ? (
+            <div className="mb-6">
+              <div className="flex items-center gap-3 mb-4">
+                <VersionCard label={t('version.local')} info={localInfo} />
+                <ArrowRight className="size-5 text-muted-foreground shrink-0" />
+                <VersionCard label={t('version.remote')} info={info} />
+              </div>
+              <div className="rounded-lg border border-amber-500/50 bg-amber-50 dark:bg-amber-950 p-3">
+                <span className="text-sm font-medium text-amber-700 dark:text-amber-400">
+                  {t('version.updateAvailable')}
+                </span>
+              </div>
+            </div>
+          ) : (
+            displayInfo && (
+              <div className="mb-6">
+                <VersionCard label={t('version.local')} info={displayInfo} />
+              </div>
+            )
+          )}
+
+          {/* Action buttons — above changelog */}
+          <div className="flex gap-2 mb-6">
+            <Button variant="outline" onClick={checkNow} className="flex-1">
+              <RefreshCw className="h-4 w-4 mr-2" />
+              {t('version.checkUpdate')}
+            </Button>
+            {isUpdateAvailable && (
+              <Button onClick={refreshPage} className="flex-1">
+                <RefreshCw className="h-4 w-4 mr-2" />
+                {t('version.clickToRefresh')}
+              </Button>
+            )}
           </div>
 
-          {/* 构建信息 */}
-          {displayInfo && (
-            <div className="py-4">
-              <div className="rounded-lg border border-border p-4 mb-4">
-                <div className="flex items-center justify-between mb-2">
-                  <span className="text-sm text-muted-foreground">{t('version.commit')}</span>
-                  <span className="text-sm font-mono">{displayInfo.commit}</span>
-                </div>
-                <div className="flex items-center justify-between">
-                  <span className="text-sm text-muted-foreground">{t('version.commitTime')}</span>
-                  <span className="text-sm font-mono">{formatTime(displayInfo.commitTime)}</span>
-                </div>
-              </div>
-
-              {/* 更新日志 */}
-              {displayInfo.changelog && displayInfo.changelog.length > 0 && (
-                <div className="rounded-lg border border-border p-4 mb-4">
-                  <h3 className="text-sm font-semibold mb-3">{t('version.commitMessage')}</h3>
-                  <ul className="space-y-2">
-                    {displayInfo.changelog.map((item, index) => (
-                      <li key={index} className="flex items-start gap-2 text-sm text-muted-foreground">
-                        <span className="mt-1 h-1.5 w-1.5 rounded-full bg-primary flex-shrink-0" />
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-
-              {/* 更新状态 */}
-              {isUpdateAvailable ? (
-                <div className="rounded-lg border border-primary/50 bg-primary/5 p-4 mb-4">
-                  <div className="flex items-center gap-2">
-                    <Download className="h-5 w-5 text-primary" />
-                    <span className="text-sm font-semibold text-primary">
-                      {t('version.updateAvailable')}
-                    </span>
-                  </div>
-                </div>
-              ) : (
-                <div className="flex items-center gap-2 py-2 mb-4">
-                  <CheckCircle2 className="h-4 w-4 text-green-500" />
-                  <span className="text-sm text-muted-foreground">
-                    {t('version.version')} {displayInfo.version}
-                  </span>
-                </div>
-              )}
-
-              {/* 操作按钮 */}
-              <div className="flex gap-2">
-                <Button variant="outline" onClick={checkNow} className="flex-1">
-                  <RefreshCw className="h-4 w-4 mr-2" />
-                  {t('version.checkUpdate')}
-                </Button>
-                {isUpdateAvailable && (
-                  <Button onClick={refreshPage} className="flex-1">
-                    <RefreshCw className="h-4 w-4 mr-2" />
-                    {t('version.clickToRefresh')}
-                  </Button>
-                )}
-              </div>
+          {/* Changelog */}
+          {changelog.length > 0 && (
+            <div className="rounded-lg border border-border p-4">
+              <h3 className="text-sm font-semibold mb-3">{t('version.commitMessage')}</h3>
+              <ul className="space-y-3">
+                {changelog.map((entry, index) => {
+                  const { hash, time, body } = parseChangelogEntry(entry)
+                  return (
+                    <li key={index} className="text-sm">
+                      <div className="flex items-center gap-2 flex-wrap">
+                        {hash && (
+                          <span className="font-mono text-xs px-1.5 py-0.5 rounded bg-muted text-muted-foreground">
+                            {hash}
+                          </span>
+                        )}
+                        {time && (
+                          <span className="text-xs text-muted-foreground">
+                            {formatTime(time)}
+                          </span>
+                        )}
+                      </div>
+                      {body && (
+                        <p className="mt-1 text-muted-foreground whitespace-pre-wrap">{body}</p>
+                      )}
+                    </li>
+                  )
+                })}
+              </ul>
             </div>
           )}
         </div>

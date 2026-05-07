@@ -17,30 +17,40 @@ function git(cmd) {
 
 const pkg = JSON.parse(readFileSync(resolve(root, "package.json"), "utf-8"))
 
-// 提取最近 10 条 commit message 作为更新日志
-const changelogRaw = git("log -10 --format=%s")
+// 全部 commit: 短hash + ISO时间 + 完整提交信息（用于 changelog.json，按需加载）
+const DELIMITER = '---CHANGELOG_ENTRY_END---'
+const changelogRaw = git(`log --format="%h %cI%n%B%n${DELIMITER}"`)
 const changelog = changelogRaw
-  ? changelogRaw.split("\n").filter(Boolean)
+  ? changelogRaw.split(DELIMITER).map(s => s.trim()).filter(Boolean)
   : []
 
-// 版本号 = package.json semver + git short hash，如 0.1.0-9d119ad
+// 统计含 [force] 标记的 tag 数量，生成强制升级序列号
+function getForceUpgradeSerial() {
+  const output = git("tag -l 'v*' --format='%(contents)'") || ""
+  const matches = output.match(/\[force\]/g)
+  return matches ? matches.length : 0
+}
 const commitHash = git("rev-parse --short HEAD") || "unknown"
 const count = Number(git("rev-list --count HEAD")) || 0
 const semver = pkg.version || "0.0.0"
 const derivedVersion = `${semver}-${commitHash}`
 
+// 轮询用轻量文件，不含 changelog
 const version = {
   commit: commitHash,
   count,
-  message: git("log -1 --format=%s") || "",
   commitTime: git("log -1 --format=%cI") || "",
   buildTime: new Date().toISOString(),
   version: derivedVersion,
-  changelog,
+  forceUpgradeSerial: getForceUpgradeSerial(),
 }
 
 const outPath = resolve(root, "public", "version.json")
 writeFileSync(outPath, JSON.stringify(version, null, 2))
+
+// 详细更新日志，按需加载
+const changelogPath = resolve(root, "public", "changelog.json")
+writeFileSync(changelogPath, JSON.stringify({ changelog }, null, 2))
 
 mkdirSync(generatedDir, { recursive: true })
 const tsPath = resolve(generatedDir, "version-data.ts")
