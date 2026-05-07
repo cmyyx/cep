@@ -49,10 +49,12 @@ jobs:
           git tag -a "${{ inputs.version }}" -m "$MSG"
           git push origin "${{ inputs.version }}"
 
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
       - name: Setup pnpm
-        run: |
-          npm install -g pnpm@9
-          pnpm install --frozen-lockfile
+        run: pnpm install --frozen-lockfile
 
       - name: Build
         run: pnpm run build
