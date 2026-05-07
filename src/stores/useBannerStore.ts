@@ -3,7 +3,6 @@ import { bannerSchedule, characterWeaponMap, standardCharacters } from '@/data/b
 import type {
   BannerSchedule,
   NormalizedWindow,
-  CharacterSchedule,
   CharacterScheduleIndex,
   TimelineData,
   TimelineCharRow,
@@ -11,7 +10,6 @@ import type {
   TimelineMonth,
   StatusBadge,
   StatusBadgeType,
-  TimelineTooltip,
 } from '@/types/banner'
 
 const DAY_MS = 24 * 60 * 60 * 1000
@@ -327,7 +325,6 @@ interface BannerState {
   fullOverview: boolean
   showPreviewAxis: boolean
   sortMode: SortMode
-  tooltip: TimelineTooltip | null
   timelineData: TimelineData | null
   needsFit: boolean
 
@@ -335,7 +332,6 @@ interface BannerState {
   toggleFullOverview: () => void
   togglePreviewAxis: () => void
   setSortMode: (mode: SortMode) => void
-  setTooltip: (tip: TimelineTooltip | null) => void
   refresh: (t: (key: string, params?: Record<string, number | string>) => string, locale?: string) => void
   fitToViewport: (t: (key: string, params?: Record<string, number | string>) => string, locale?: string) => void
 }
@@ -351,7 +347,6 @@ export const useBannerStore = create<BannerState>((set, get) => ({
   fullOverview: false,
   showPreviewAxis: true,
   sortMode: 'default',
-  tooltip: null,
   timelineData: null,
   needsFit: true,
 
@@ -377,8 +372,6 @@ export const useBannerStore = create<BannerState>((set, get) => ({
   togglePreviewAxis: () => set((s) => ({ showPreviewAxis: !s.showPreviewAxis })),
 
   setSortMode: (mode: SortMode) => set({ sortMode: mode }),
-
-  setTooltip: (tip) => set({ tooltip: tip }),
 
   refresh: (t, locale) => {
     const { zoom, sortMode } = get()

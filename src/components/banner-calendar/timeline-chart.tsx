@@ -3,8 +3,13 @@
 import { useRef, useCallback } from 'react'
 import Image from 'next/image'
 import { useBannerStore } from '@/stores/useBannerStore'
-import type { TimelineData, TimelineTooltip as TooltipData } from '@/types/banner'
+import type { TimelineData } from '@/types/banner'
 import { cn } from '@/lib/utils'
+
+const HEADER_H = 32
+const ROW_H = 52
+const BAR_TOP = 8
+const BAR_H = 28
 
 interface TimelineChartProps {
   data: TimelineData
@@ -12,24 +17,37 @@ interface TimelineChartProps {
 }
 
 export function TimelineChart({ data, t }: TimelineChartProps) {
-  const { showPreviewAxis, setTooltip } = useBannerStore()
+  const { showPreviewAxis } = useBannerStore()
   const previewRef = useRef<HTMLDivElement>(null)
   const previewDateRef = useRef<HTMLSpanElement>(null)
-  const containerRef = useRef<HTMLDivElement>(null)
+  const rightPanelRef = useRef<HTMLDivElement>(null)
+  const hoveredBarKeyRef = useRef<string>('')
 
-  const rowsHeight = data.charRows.length * 52
+  // Tooltip refs — all position/content updates via DOM, zero React re-renders
+  const tooltipRef = useRef<HTMLDivElement>(null)
+  const tooltipNameRef = useRef<HTMLDivElement>(null)
+  const tooltipInfoRef = useRef<HTMLDivElement>(null)
+  const tooltipVersionRef = useRef<HTMLDivElement>(null)
+  const tooltipDurationRef = useRef<HTMLDivElement>(null)
+
+  const rowsHeight = data.charRows.length * ROW_H
+
+  const hideTooltip = useCallback(() => {
+    hoveredBarKeyRef.current = ''
+    if (tooltipRef.current) tooltipRef.current.style.display = 'none'
+  }, [])
 
   const handleMouseMove = useCallback(
     (e: React.MouseEvent) => {
-      const rightPanel = containerRef.current?.querySelector<HTMLElement>('[data-timeline-right]')
+      const rightPanel = rightPanelRef.current
       if (!rightPanel) return
 
       const rightRect = rightPanel.getBoundingClientRect()
       const xInRight = e.clientX - rightRect.left + rightPanel.scrollLeft
-      const isOverRight = e.clientX >= rightRect.left
+      const isOverRight = e.clientX >= rightRect.left && xInRight >= 0
 
       // Preview axis
-      if (showPreviewAxis && isOverRight && xInRight >= 0 && previewRef.current) {
+      if (showPreviewAxis && isOverRight && previewRef.current) {
         previewRef.current.style.left = `${xInRight}px`
         previewRef.current.style.display = 'block'
         if (previewDateRef.current) {
@@ -41,52 +59,77 @@ export function TimelineChart({ data, t }: TimelineChartProps) {
         previewRef.current.style.display = 'none'
       }
 
-      // Tooltip
-      const barEl = (e.target as HTMLElement).closest<HTMLElement>('[data-char-name]')
-      if (barEl) {
-        const tip: TooltipData = {
-          charName: barEl.dataset.charName ?? '',
-          charLabel: barEl.dataset.charLabel ?? '',
-          fullLabel: barEl.dataset.fullLabel ?? '',
-          statusText: barEl.dataset.statusText ?? '',
-          durationDays: barEl.dataset.durationDays ?? '',
-          versionLabel: barEl.dataset.versionLabel ?? '',
-          x: e.clientX,
-          y: e.clientY,
+      // Tooltip — pure math, zero DOM queries
+      if (!isOverRight) { hideTooltip(); return }
+
+      const yInRows = e.clientY - rightRect.top - HEADER_H
+      if (yInRows < 0) { hideTooltip(); return }
+
+      const rowIndex = Math.floor(yInRows / ROW_H)
+      const yInRow = yInRows - rowIndex * ROW_H
+      if (rowIndex >= data.charRows.length || yInRow < BAR_TOP || yInRow > BAR_TOP + BAR_H) {
+        hideTooltip(); return
+      }
+
+      // Find bar by x position
+      const row = data.charRows[rowIndex]
+      let hit: (typeof row.bars)[number] | null = null
+      for (const bar of row.bars) {
+        if (xInRight >= bar.leftPx && xInRight <= bar.leftPx + bar.widthPx) {
+          hit = bar
+          break
         }
-        setTooltip(tip)
-      } else {
-        setTooltip(null)
+      }
+
+      if (!hit) { hideTooltip(); return }
+
+      // Show tooltip — clamp to viewport bounds
+      if (tooltipRef.current) {
+        const tx = Math.min(e.clientX + 14, window.innerWidth - 320)
+        const ty = Math.max(e.clientY - 52, 4)
+        tooltipRef.current.style.left = `${tx}px`
+        tooltipRef.current.style.top = `${ty}px`
+        tooltipRef.current.style.display = 'block'
+      }
+
+      const barKey = `${hit.charName}-${hit.fullLabel}`
+      if (barKey !== hoveredBarKeyRef.current) {
+        hoveredBarKeyRef.current = barKey
+        if (tooltipNameRef.current) tooltipNameRef.current.textContent = hit.charLabel || hit.charName
+        if (tooltipInfoRef.current) tooltipInfoRef.current.textContent = `${hit.statusText} · ${hit.fullLabel}`
+        if (tooltipVersionRef.current) {
+          tooltipVersionRef.current.textContent = hit.versionLabel
+          tooltipVersionRef.current.style.display = hit.versionLabel ? '' : 'none'
+        }
+        if (tooltipDurationRef.current) {
+          tooltipDurationRef.current.textContent = t('bannerCalendar.durationDays', { days: hit.durationDays })
+        }
       }
     },
-    [showPreviewAxis, data.pxPerDay, data.rStartMs, setTooltip],
+    [showPreviewAxis, data.pxPerDay, data.rStartMs, data.charRows, t, hideTooltip],
   )
 
   const handleMouseLeave = useCallback(() => {
     if (previewRef.current) previewRef.current.style.display = 'none'
-    setTooltip(null)
-  }, [setTooltip])
+    hideTooltip()
+  }, [hideTooltip])
 
   return (
     <div
-      ref={containerRef}
       className="flex flex-1 overflow-hidden border rounded-lg"
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
     >
       {/* Left: Character column */}
       <div className="w-52 shrink-0 border-r bg-muted/30">
-        {/* Header */}
         <div className="h-8 flex items-center px-3 border-b text-xs font-medium text-muted-foreground">
           {t('bannerCalendar.characterHeader')}
         </div>
-        {/* Rows */}
         {data.charRows.map((ch) => (
           <div
             key={ch.name}
             className="h-[52px] flex items-center gap-2 px-3 border-b border-border/50"
           >
-            {/* Avatar */}
             <div className="relative size-8 rounded-full overflow-hidden bg-muted shrink-0">
               <Image
                 src={ch.avatarSrc}
@@ -97,9 +140,7 @@ export function TimelineChart({ data, t }: TimelineChartProps) {
                 loading="lazy"
               />
             </div>
-            {/* Name - never truncate */}
             <span className="text-sm font-medium whitespace-nowrap">{ch.name}</span>
-            {/* Status badge */}
             {ch.statusBadge && (
               <span
                 className={cn(
@@ -119,9 +160,8 @@ export function TimelineChart({ data, t }: TimelineChartProps) {
       </div>
 
       {/* Right: Gantt chart */}
-      <div data-timeline-right className="flex-1 overflow-x-auto">
+      <div ref={rightPanelRef} className="flex-1 overflow-x-auto">
         <div style={{ width: data.canvasW }} className="relative">
-          {/* Month header */}
           <div className="h-8 flex border-b">
             {data.months.map((m) => (
               <div
@@ -134,25 +174,26 @@ export function TimelineChart({ data, t }: TimelineChartProps) {
             ))}
           </div>
 
-          {/* Rows */}
           <div className="relative">
             {data.charRows.map((ch) => (
               <div key={ch.name} className="relative h-[52px] border-b border-border/50">
-                {/* Month backgrounds */}
-                {data.months.map((m) => (
-                  <div
-                    key={m.label}
-                    className="absolute inset-y-0 border-r border-border/30"
-                    style={{ width: m.wPx }}
-                  />
-                ))}
+                {data.months.reduce<{ nodes: React.ReactNode[]; offset: number }>((acc, m) => {
+                  acc.nodes.push(
+                    <div
+                      key={m.label}
+                      className="absolute inset-y-0 border-r border-border/30"
+                      style={{ left: acc.offset, width: m.wPx }}
+                    />,
+                  )
+                  acc.offset += m.wPx
+                  return acc
+                }, { nodes: [], offset: 0 }).nodes}
 
-                {/* Window bars */}
                 {ch.bars.map((bar) => (
                   <div
                     key={`${bar.startMs}-${bar.endMs}-${bar.versionLabel}`}
                     className={cn(
-                      'absolute top-2 h-7 rounded-sm flex items-center justify-center text-[10px] font-medium transition-colors cursor-default',
+                      'absolute top-2 h-7 rounded-sm flex items-center justify-center text-[10px] font-medium cursor-default',
                       bar.cls === 'active' && 'bg-emerald-500/80 text-white',
                       bar.cls === 'past' && 'bg-muted-foreground/30 text-muted-foreground',
                       bar.cls === 'upcoming' && 'border-2 border-dashed border-amber-400/70 text-amber-400 bg-amber-400/10',
@@ -160,12 +201,6 @@ export function TimelineChart({ data, t }: TimelineChartProps) {
                       bar.cls === 'inPool' && 'bg-sky-400/40 text-sky-200 border border-sky-400/50',
                     )}
                     style={{ left: bar.leftPx, width: bar.widthPx }}
-                    data-char-name={bar.charName}
-                    data-char-label={bar.charLabel}
-                    data-full-label={bar.fullLabel}
-                    data-status-text={bar.statusText}
-                    data-duration-days={bar.durationDays}
-                    data-version-label={bar.versionLabel}
                   >
                     {bar.dateLabel}
                   </div>
@@ -173,7 +208,6 @@ export function TimelineChart({ data, t }: TimelineChartProps) {
               </div>
             ))}
 
-            {/* Today line */}
             {data.showToday && data.todayPx !== null && (
               <div
                 className="absolute top-0 w-px bg-primary z-10"
@@ -185,7 +219,6 @@ export function TimelineChart({ data, t }: TimelineChartProps) {
               </div>
             )}
 
-            {/* Preview axis (hidden by default) */}
             <div
               ref={previewRef}
               className="absolute top-0 w-px bg-foreground/30 z-10 hidden"
@@ -198,6 +231,18 @@ export function TimelineChart({ data, t }: TimelineChartProps) {
             </div>
           </div>
         </div>
+      </div>
+
+      {/* Tooltip */}
+      <div
+        ref={tooltipRef}
+        className="fixed z-50 pointer-events-none rounded-md border bg-popover px-3 py-2 text-popover-foreground shadow-md"
+        style={{ display: 'none' }}
+      >
+        <div ref={tooltipNameRef} className="text-sm font-medium" />
+        <div ref={tooltipInfoRef} className="text-xs text-muted-foreground" />
+        <div ref={tooltipVersionRef} className="text-xs text-muted-foreground" />
+        <div ref={tooltipDurationRef} className="text-xs text-muted-foreground" />
       </div>
     </div>
   )

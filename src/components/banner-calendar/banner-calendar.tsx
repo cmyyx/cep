@@ -7,12 +7,11 @@ import { useBannerStore } from '@/stores/useBannerStore'
 import { SidebarTrigger } from '@/components/ui/sidebar'
 import { TimelineControls } from './timeline-controls'
 import { TimelineChart } from './timeline-chart'
-import { TimelineTooltip } from './timeline-tooltip'
 
 export function BannerCalendar() {
   const t = useTranslations()
   const locale = useLocale()
-  const { timelineData, tooltip, needsFit, refresh, fitToViewport } = useBannerStore()
+  const { timelineData, needsFit, refresh, fitToViewport } = useBannerStore()
   const resizeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   const makeT = useCallback(
@@ -39,7 +38,7 @@ export function BannerCalendar() {
   // Re-fit on sort mode change
   useEffect(() => {
     if (!needsFit) doRefresh()
-  }, [doRefresh, needsFit]) // eslint-disable-line react-hooks/exhaustive-deps
+  }, [doRefresh, needsFit])
 
   // Auto-refresh at next window boundary
   useEffect(() => {
@@ -166,13 +165,6 @@ export function BannerCalendar() {
         </div>
       )}
 
-      {/* Tooltip */}
-      {tooltip && (
-        <TimelineTooltip
-          data={tooltip}
-          t={(key, params) => t(key as Parameters<typeof t>[0], params as Parameters<typeof t>[1])}
-        />
-      )}
     </div>
   )
 }
