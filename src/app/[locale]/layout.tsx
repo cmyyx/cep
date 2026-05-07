@@ -7,6 +7,8 @@ import { SidebarProvider } from '@/components/ui/sidebar'
 import { AppSidebar } from '@/components/app-sidebar'
 import { Background } from '@/components/background'
 import { ThemeProvider } from '@/components/theme-provider'
+import { VersionProvider } from '@/hooks/use-version'
+import { versionData } from '@/generated/version-data'
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }))
@@ -45,13 +47,15 @@ export default async function LocaleLayout({
 
   return (
     <NextIntlClientProvider messages={messages} locale={locale}>
-      <SidebarProvider>
-        <ThemeProvider>
-          <Background />
-          <AppSidebar />
-          <main className="flex-1 w-full">{children}</main>
-        </ThemeProvider>
-      </SidebarProvider>
+      <VersionProvider initialInfo={versionData}>
+        <SidebarProvider>
+          <ThemeProvider>
+            <Background />
+            <AppSidebar />
+            <main className="flex-1 w-full">{children}</main>
+          </ThemeProvider>
+        </SidebarProvider>
+      </VersionProvider>
     </NextIntlClientProvider>
   )
 }
