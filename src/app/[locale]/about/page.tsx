@@ -60,7 +60,7 @@ export default function AboutPage() {
         <div className="max-w-3xl mx-auto">
           {/* Hero: left-right layout */}
           <div className="flex items-center gap-8 mb-10">
-            <div className="relative w-48 shrink-0">
+            <div className="relative w-48 aspect-[9/16] shrink-0">
               <Image
                 src="/CEP.png"
                 alt="CEP Endfield Planner"
