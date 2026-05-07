@@ -49,9 +49,7 @@ jobs:
           git tag -a "${{ inputs.version }}" -m "$MSG"
           git push origin "${{ inputs.version }}"
 
-      - uses: pnpm/action-setup@v4
-        with:
-          version: 9
+      - uses: pnpm/action-setup@v6
 
       - name: Setup pnpm
         run: pnpm install --frozen-lockfile
