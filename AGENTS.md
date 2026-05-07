@@ -31,6 +31,7 @@ This version has breaking changes — APIs, conventions, and file structure may 
 | 状态管理 | Zustand | 仅限客户端状态 |
 | 表单 | react-hook-form + zod | Shadcn/UI Form 组件绑定 |
 | 国际化 | next-intl | 基于路由的多语言 `/[locale]/...` |
+| 包管理 | pnpm 9 | 禁止 `npm install`，必须使用 `pnpm install` |
 
 ### 纯静态站点约束
 

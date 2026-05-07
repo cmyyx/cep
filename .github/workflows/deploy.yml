@@ -3,6 +3,17 @@ name: Deploy
 on:
   push:
     tags: ['v*']
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version tag (e.g., v0.2.0)'
+        required: true
+        type: string
+      message:
+        description: 'Tag message — add [force] for mandatory upgrade'
+        required: false
+        type: string
+        default: ''
 
 jobs:
   deploy:
@@ -18,10 +29,33 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: npm
 
-      - run: npm ci
-      - run: npm run build
+      - name: Validate version format
+        if: github.event_name == 'workflow_dispatch'
+        run: |
+          VERSION="${{ inputs.version }}"
+          if ! echo "$VERSION" | grep -qE '^v[0-9]+\.[0-9]+\.[0-9]+$'; then
+            echo "Invalid version format: $VERSION (expected vX.Y.Z)"
+            exit 1
+          fi
+
+      - name: Create and push tag
+        if: github.event_name == 'workflow_dispatch'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          MSG="${{ inputs.message }}"
+          if [ -z "$MSG" ]; then MSG="${{ inputs.version }}"; fi
+          git tag -a "${{ inputs.version }}" -m "$MSG"
+          git push origin "${{ inputs.version }}"
+
+      - name: Setup pnpm
+        run: |
+          npm install -g pnpm@9
+          pnpm install --frozen-lockfile
+
+      - name: Build
+        run: pnpm run build
 
       - name: Deploy to deploy branch
         run: |
@@ -30,5 +64,5 @@ jobs:
           git checkout --orphan deploy-temp
           cp -r out/* .
           git add -A
-          git commit -m "deploy: ${{ github.ref_name }}"
+          git commit -m "deploy: ${{ github.ref_name || inputs.version }}"
           git push origin deploy-temp:deploy --force
