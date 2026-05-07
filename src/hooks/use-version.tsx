@@ -10,6 +10,7 @@ interface VersionContextType {
   info: VersionInfo | null
   localInfo: VersionInfo | null
   isUpdateAvailable: boolean
+  forceUpgrade: boolean
   checkNow: () => void
   refreshPage: () => void
 }
@@ -20,8 +21,10 @@ export function VersionProvider({ children, initialInfo }: { children: ReactNode
   const [info, setInfo] = useState<VersionInfo | null>(initialInfo ?? null)
   const [localInfo] = useState<VersionInfo | null>(() => initialInfo ?? null)
   const [isUpdateAvailable, setIsUpdateAvailable] = useState(false)
+  const [forceUpgrade, setForceUpgrade] = useState(false)
   const initialCommit = useRef<string | null>(initialInfo?.commit || null)
   const lastFocusCheck = useRef(0)
+  const consecutiveFailures = useRef(0)
 
   const fetchVersion = useCallback(async () => {
     if (typeof window === 'undefined') return
@@ -30,17 +33,43 @@ export function VersionProvider({ children, initialInfo }: { children: ReactNode
       if (!res.ok) return
       const data: VersionInfo = await res.json()
       setInfo(data)
+      consecutiveFailures.current = 0
+
       if (initialCommit.current === null) {
         initialCommit.current = data.commit
-      } else if (initialCommit.current !== data.commit) {
-        setIsUpdateAvailable(true)
-      } else {
+        return
+      }
+
+      if (initialCommit.current === data.commit) {
         setIsUpdateAvailable(false)
+        setForceUpgrade(false)
+        return
+      }
+
+      // 远程 commit 与本地不同，用 commitTime 判断是更新还是回退
+      const localTime = localInfo?.commitTime ?? ''
+      if (localTime && data.commitTime <= localTime) {
+        // 远程版本不新于本地 → 回退或相同，不视为更新
+        setIsUpdateAvailable(false)
+        setForceUpgrade(false)
+        return
+      }
+
+      // 确认是新版本
+      setIsUpdateAvailable(true)
+      if (data.forceUpgradeSerial !== (localInfo?.forceUpgradeSerial ?? 0)) {
+        setForceUpgrade(true)
       }
     } catch {
-      // 网络异常，静默处理
+      consecutiveFailures.current++
+      // 单次网络异常保持当前状态不重置，防止短暂断网误清除通知
+      // 连续 3 次失败才认为持续不可用，重置状态
+      if (consecutiveFailures.current >= 3) {
+        setIsUpdateAvailable(false)
+        setForceUpgrade(false)
+      }
     }
-  }, [])
+  }, [localInfo])
 
   const checkNow = useCallback(() => { fetchVersion() }, [fetchVersion])
   const refreshPage = useCallback(() => { window.location.reload() }, [])
@@ -76,7 +105,7 @@ export function VersionProvider({ children, initialInfo }: { children: ReactNode
   }, [fetchVersion])
 
   return (
-    <VersionContext.Provider value={{ info, localInfo, isUpdateAvailable, checkNow, refreshPage }}>
+    <VersionContext.Provider value={{ info, localInfo, isUpdateAvailable, forceUpgrade, checkNow, refreshPage }}>
       {children}
     </VersionContext.Provider>
   )

@@ -57,6 +57,11 @@
     "checkUpdate": "檢查更新",
     "updateAvailable": "發現新版本",
     "clickToRefresh": "點擊刷新頁面",
+    "compatibleVersion": "適配版本",
+    "updatePrompt": "發現新版本,點擊刷新",
+    "forceUpgradeTitle": "重要更新",
+    "forceUpgradeMessage": "此版本包含重要更新或嚴重問題修復,請立即刷新頁面",
+    "forceUpgradeButton": "立即刷新",
     "local": "本地",
     "remote": "雲端",
     "unknown": "未知"

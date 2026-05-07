@@ -69,15 +69,19 @@ function SidebarProvider({
   const isMobile = useIsMobile()
   const [openMobile, setOpenMobile] = React.useState(false)
 
-  // This is the internal state of the sidebar.
-  // We use openProp and setOpenProp for control from outside the component.
-  const [_open, _setOpen] = React.useState(() => {
-    if (typeof document !== 'undefined') {
-      const match = document.cookie.match(new RegExp(`(?:^|; )${SIDEBAR_COOKIE_NAME}=([^;]*)`))
-      if (match) return match[1] === 'true'
+  // Cookie read moved to useEffect to avoid SSR/client hydration mismatch.
+  // During SSR typeof document is always undefined, so the initializer returns
+  // defaultOpen (true). Without this, the client lazy init would read the cookie
+  // and produce a different value than the server, breaking hydration.
+  const [_open, _setOpen] = React.useState(defaultOpen)
+
+  React.useEffect(() => {
+    if (typeof document === 'undefined') return
+    const match = document.cookie.match(new RegExp(`(?:^|; )${SIDEBAR_COOKIE_NAME}=([^;]*)`))
+    if (match) {
+      _setOpen(match[1] === 'true')
     }
-    return defaultOpen
-  })
+  }, [])
   const open = openProp ?? _open
   const setOpen = React.useCallback(
     (value: boolean | ((value: boolean) => boolean)) => {
@@ -219,6 +223,7 @@ function Sidebar({
       data-variant={variant}
       data-side={side}
       data-slot="sidebar"
+      suppressHydrationWarning
     >
       {/* This is what handles the sidebar gap on desktop */}
       <div
@@ -340,7 +345,7 @@ function SidebarHeader({ className, ...props }: React.ComponentProps<"div">) {
     <div
       data-slot="sidebar-header"
       data-sidebar="header"
-      className={cn("flex flex-col gap-2 p-2", className)}
+      className={cn("flex flex-col gap-2 p-2 flex-shrink-0", className)}
       {...props}
     />
   )
@@ -351,7 +356,7 @@ function SidebarFooter({ className, ...props }: React.ComponentProps<"div">) {
     <div
       data-slot="sidebar-footer"
       data-sidebar="footer"
-      className={cn("flex flex-col gap-2 p-2", className)}
+      className={cn("flex flex-col gap-2 p-2 flex-shrink-0", className)}
       {...props}
     />
   )

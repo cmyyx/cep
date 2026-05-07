@@ -97,7 +97,7 @@ export function AuthDialog({ showLabel = false }: AuthDialogProps) {
     try {
       await storeLogin(data.login, data.password)
       setOpen(false)
-      router.push('/zh-CN/essence-planner')
+      router.push('/zh-CN')
     } catch {
       setServerError('login_failed')
     }
