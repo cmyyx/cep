@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect, useMemo } from 'react'
 import { useRouter } from 'next/navigation'
-import { useForm } from 'react-hook-form'
+import { useForm, useWatch } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { useTranslations } from 'next-intl'
@@ -16,7 +16,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog'
-import { SidebarMenuButton } from '@/components/ui/sidebar'
 import { useAuthStore } from '@/stores/useAuthStore'
 
 const loginSchema = z.object({
@@ -64,7 +63,8 @@ interface AuthDialogProps {
   showLabel?: boolean
 }
 
-export function AuthDialog({ showLabel = false }: AuthDialogProps) {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  export function AuthDialog({ showLabel = false }: AuthDialogProps) {
   const t = useTranslations()
   const router = useRouter()
   const { login: storeLogin, isLoading, error, clearError, username } = useAuthStore()
@@ -82,7 +82,7 @@ export function AuthDialog({ showLabel = false }: AuthDialogProps) {
     resolver: zodResolver(registerSchema),
   })
 
-  const password = registerForm.watch('password')
+  const password = useWatch({ control: registerForm.control, name: 'password' })
   const passwordStrength = useMemo(() => getPasswordStrength(password || '', t), [password, t])
 
   useEffect(() => {

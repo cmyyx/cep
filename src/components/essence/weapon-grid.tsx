@@ -6,7 +6,6 @@ import { Input } from '@/components/ui/input'
 import { WeaponCard } from './weapon-card'
 import { weapons } from '@/data/weapons'
 import { useMatrixStore } from '@/stores/useMatrixStore'
-import { PRIMARY_STATS } from '@/types/matrix'
 
 type AttrKey = keyof Pick<Weapon, 'primaryStat' | 'elementalDamage' | 'specialAbility'>
 
@@ -82,8 +81,6 @@ export function WeaponGrid() {
       return true
     })
   }, [query, filters])
-
-  const hasAnyFilter = ATTR_KEYS.some((k) => filters[k].size > 0)
 
   return (
     <div className="flex flex-col gap-3">

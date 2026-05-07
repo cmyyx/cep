@@ -1,8 +1,9 @@
 'use client'
 
-import { useState, useEffect, useRef, useCallback } from 'react'
+import { useState, useEffect, useRef, useCallback, useSyncExternalStore } from 'react'
 import { createPortal } from 'react-dom'
 import Link from 'next/link'
+import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import { useLocale, useTranslations } from 'next-intl'
 import {
@@ -24,7 +25,6 @@ import {
   Calendar,
   Eye,
   Pen,
-  Home,
   Settings,
   Download,
   Info,
@@ -52,8 +52,7 @@ export function AppSidebar() {
   const t = useTranslations()
   const { isUpdateAvailable, info, localInfo, forceUpgrade, refreshPage } = useVersion()
   const { state } = useSidebar()
-  const [mounted, setMounted] = useState(false)
-  useEffect(() => setMounted(true), [])
+  const mounted = useSyncExternalStore(() => () => {}, () => true, () => false)
 
   const refreshBtnRef = useRef<HTMLDivElement>(null)
   const [popupPos, setPopupPos] = useState({ top: 0, left: 0 })
@@ -90,7 +89,7 @@ export function AppSidebar() {
               render={<Link href={`/${locale}`} />}
               tooltip={t('app.name')}
             >
-              <img src="/icon.svg" alt={t('app.name')} className="size-8 rounded-lg" />
+              <Image src="/icon.svg" alt={t('app.name')} width={32} height={32} className="size-8 rounded-lg" unoptimized />
               <span className="font-semibold">{t('app.name')}</span>
             </SidebarMenuButton>
           </SidebarMenuItem>
