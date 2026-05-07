@@ -89,5 +89,27 @@
     "techForm": "表單",
     "techI18n": "國際化",
     "techDesign": "設計系統"
+  },
+  "bannerCalendar": {
+    "noData": "暫無卡池日曆數據",
+    "characterHeader": "角色",
+    "zoom": "縮放",
+    "overviewTitle": "適配視口",
+    "previewAxisTitle": "預覽軸",
+    "statusPast": "已結束",
+    "statusActive": "進行中",
+    "statusUpcoming": "即將開始",
+    "statusInPool": "可歪限定",
+    "statusRerunActive": "復刻中",
+    "badgeActive": "UP! 剩餘{days}天",
+    "badgeUpcoming": "還有{days}天復刻",
+    "badgeInPool": "在池中",
+    "badgeStandard": "常駐",
+    "badgeOut": "OUT!",
+    "durationDays": "持續{days}天",
+    "today": "今天",
+    "sortDefault": "預設排序",
+    "sortAsc": "版本升序",
+    "sortDesc": "版本降序"
   }
 }

@@ -89,5 +89,27 @@
     "techForm": "フォーム",
     "techI18n": "国際化",
     "techDesign": "デザインシステム"
+  },
+  "bannerCalendar": {
+    "noData": "ガチャカレンダーデータがありません",
+    "characterHeader": "キャラクター",
+    "zoom": "ズーム",
+    "overviewTitle": "ビューポートに合わせる",
+    "previewAxisTitle": "プレビュー軸",
+    "statusPast": "終了",
+    "statusActive": "開催中",
+    "statusUpcoming": "もうすぐ",
+    "statusInPool": "恒常枠",
+    "statusRerunActive": "復刻中",
+    "badgeActive": "UP! 残り{days}日",
+    "badgeUpcoming": "復刻まで{days}日",
+    "badgeInPool": "恒常枠",
+    "badgeStandard": "恒常",
+    "badgeOut": "OUT!",
+    "durationDays": "{days}日間",
+    "today": "今日",
+    "sortDefault": "デフォルト",
+    "sortAsc": "バージョン昇順",
+    "sortDesc": "バージョン降順"
   }
 }

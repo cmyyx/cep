@@ -89,5 +89,27 @@
     "techForm": "Forms",
     "techI18n": "i18n",
     "techDesign": "Design System"
+  },
+  "bannerCalendar": {
+    "noData": "No banner calendar data",
+    "characterHeader": "Character",
+    "zoom": "Zoom",
+    "overviewTitle": "Fit to viewport",
+    "previewAxisTitle": "Preview axis",
+    "statusPast": "Ended",
+    "statusActive": "Active",
+    "statusUpcoming": "Upcoming",
+    "statusInPool": "Off-rate Pool",
+    "statusRerunActive": "Rerun",
+    "badgeActive": "UP! {days}d left",
+    "badgeUpcoming": "Rerun in {days}d",
+    "badgeInPool": "In Pool",
+    "badgeStandard": "Standard",
+    "badgeOut": "OUT!",
+    "durationDays": "{days} days",
+    "today": "Today",
+    "sortDefault": "Default",
+    "sortAsc": "Version Asc",
+    "sortDesc": "Version Desc"
   }
 }
