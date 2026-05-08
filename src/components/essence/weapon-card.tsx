@@ -1,21 +1,37 @@
 'use client'
 
+import { memo, useCallback } from 'react'
 import { cn } from '@/lib/utils'
 import Image from 'next/image'
+import { useMatrixStore } from '@/stores/useMatrixStore'
 import type { Weapon } from '@/types/matrix'
 
 interface WeaponCardProps {
   weapon: Weapon
   isSelected: boolean
-  onToggle: () => void
   disabled?: boolean
 }
 
-export function WeaponCard({ weapon, isSelected, onToggle, disabled }: WeaponCardProps) {
+/**
+ * Weapon selection card. Handles toggle internally via the store so the
+ * parent does not need to pass an unstable callback — allowing React.memo
+ * to skip re-renders for cards whose isSelected hasn't changed.
+ */
+export const WeaponCard = memo(function WeaponCard({
+  weapon,
+  isSelected,
+  disabled,
+}: WeaponCardProps) {
+  const toggleWeapon = useMatrixStore((s) => s.toggleWeapon)
+
+  const handleToggle = useCallback(() => {
+    toggleWeapon(weapon.id)
+  }, [toggleWeapon, weapon.id])
+
   return (
     <button
       type="button"
-      onClick={onToggle}
+      onClick={handleToggle}
       disabled={disabled}
       className={cn(
         'group relative flex items-center justify-center aspect-square rounded-lg border cursor-pointer overflow-hidden transition-all',
@@ -25,7 +41,7 @@ export function WeaponCard({ weapon, isSelected, onToggle, disabled }: WeaponCar
           isSelected
             ? 'border-amber-400 ring-2 ring-amber-400/50 ring-offset-2 ring-offset-background shadow-2xl'
             : 'border-border hover:ring-2 hover:ring-white/40',
-        ],
+        ]
       )}
     >
       {/* Weapon art */}
@@ -85,4 +101,4 @@ export function WeaponCard({ weapon, isSelected, onToggle, disabled }: WeaponCar
       )}
     </button>
   )
-}
+})
