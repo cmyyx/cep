@@ -11,38 +11,70 @@ interface SettingsState {
   setBackgroundUrl: (url: string) => void
   restoreDefaultBg: () => void
   setTheme: (theme: 'auto' | 'light' | 'dark' | 'flashbang') => void
+  hydrateFromStorage: () => void
 }
 
 const DEFAULT_BG = 'https://img.canmoe.com/image?img=ua'
 
-function loadSettings(): Partial<SettingsState> {
-  if (typeof window === 'undefined') return {}
+const DEFAULTS = {
+  backgroundEnabled: true,
+  backgroundBlur: true,
+  backgroundUrl: DEFAULT_BG,
+  theme: 'auto' as const,
+}
+
+function loadSettings() {
+  if (typeof window === 'undefined') return null
   try {
     const raw = localStorage.getItem('cep-settings')
     if (raw) return JSON.parse(raw)
-  } catch { /* ignore */ }
-  return {}
+  } catch {
+    /* ignore corrupt data */
+  }
+  return null
 }
 
 function saveSettings(state: SettingsState) {
   if (typeof window === 'undefined') return
   try {
-    localStorage.setItem('cep-settings', JSON.stringify({
-      backgroundEnabled: state.backgroundEnabled,
-      backgroundBlur: state.backgroundBlur,
-      backgroundUrl: state.backgroundUrl,
-      theme: state.theme,
-    }))
-  } catch { /* ignore */ }
+    localStorage.setItem(
+      'cep-settings',
+      JSON.stringify({
+        backgroundEnabled: state.backgroundEnabled,
+        backgroundBlur: state.backgroundBlur,
+        backgroundUrl: state.backgroundUrl,
+        theme: state.theme,
+      })
+    )
+  } catch {
+    /* ignore quota errors */
+  }
 }
 
-const saved = loadSettings()
-
+/**
+ * Settings store with SSR-safe initialization.
+ *
+ * The store always starts with hardcoded defaults so the SSG HTML
+ * and the first client render are identical (no hydration mismatch).
+ * User preferences are loaded from localStorage via `hydrateFromStorage()`
+ * which must be called inside a `useEffect` after mount.
+ */
 export const useSettingsStore = create<SettingsState>((set) => ({
-  backgroundEnabled: saved.backgroundEnabled ?? true,
-  backgroundBlur: saved.backgroundBlur ?? true,
-  backgroundUrl: saved.backgroundUrl || DEFAULT_BG,
-  theme: saved.theme || 'auto',
+  ...DEFAULTS,
+
+  hydrateFromStorage: () => {
+    const saved = loadSettings()
+    if (saved) {
+      const allowedThemes: SettingsState['theme'][] = ['auto', 'light', 'dark', 'flashbang']
+      const theme = allowedThemes.includes(saved.theme) ? saved.theme : DEFAULTS.theme
+      set({
+        backgroundEnabled: saved.backgroundEnabled ?? DEFAULTS.backgroundEnabled,
+        backgroundBlur: saved.backgroundBlur ?? DEFAULTS.backgroundBlur,
+        backgroundUrl: saved.backgroundUrl || DEFAULTS.backgroundUrl,
+        theme,
+      })
+    }
+  },
 
   toggleBackground: () =>
     set((s) => {

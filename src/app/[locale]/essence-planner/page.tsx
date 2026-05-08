@@ -1,5 +1,6 @@
 'use client'
 
+import { useMemo } from 'react'
 import { useTranslations } from 'next-intl'
 import { SidebarTrigger } from '@/components/ui/sidebar'
 import { Button } from '@/components/ui/button'
@@ -9,16 +10,21 @@ import { useMatrixStore } from '@/stores/useMatrixStore'
 
 export default function EssencePlannerPage() {
   const t = useTranslations()
-  const {
-    selectedWeaponIds,
-    dungeonPlans,
-    expandedDungeonIds,
-    toggleDungeonExpand,
-    selectAllWeapons,
-    clearWeapons,
-  } = useMatrixStore()
+  const selectedWeaponIds = useMatrixStore((s) => s.selectedWeaponIds)
+  const plansMap = useMatrixStore((s) => s.plansMap)
+  const planOrder = useMatrixStore((s) => s.planOrder)
+  const plansStale = useMatrixStore((s) => s.plansStale)
+  const expandedDungeonIds = useMatrixStore((s) => s.expandedDungeonIds)
+  const selectAllWeapons = useMatrixStore((s) => s.selectAllWeapons)
+  const clearWeapons = useMatrixStore((s) => s.clearWeapons)
 
-  const selectedCount = selectedWeaponIds.size
+  const selectedCount = selectedWeaponIds.length
+  const noWeaponsSelected = selectedCount === 0
+
+  const expandedSet = useMemo(
+    () => new Set(expandedDungeonIds),
+    [expandedDungeonIds]
+  )
 
   return (
     <div className="flex flex-col flex-1 h-[calc(100vh-3rem)]">
@@ -29,11 +35,15 @@ export default function EssencePlannerPage() {
           {t('nav.essencePlanner')}
         </h1>
         <span className="text-xs text-muted-foreground">
-          已选 {selectedCount} 把
+          {t('essence.selectedCount', { count: selectedCount })}
         </span>
         <div className="flex-1" />
-        <Button variant="outline" size="sm" onClick={selectAllWeapons}>全选</Button>
-        <Button variant="ghost" size="sm" onClick={clearWeapons}>清空</Button>
+        <Button variant="outline" size="sm" onClick={selectAllWeapons}>
+          {t('essence.selectAll')}
+        </Button>
+        <Button variant="ghost" size="sm" onClick={clearWeapons}>
+          {t('essence.clearAll')}
+        </Button>
       </div>
 
       {/* Main content */}
@@ -45,20 +55,24 @@ export default function EssencePlannerPage() {
 
         {/* Right: plans */}
         <div className="flex-1 overflow-y-auto p-4">
-          {dungeonPlans.length === 0 ? (
+          {noWeaponsSelected ? (
             <div className="flex items-center justify-center h-full text-sm text-muted-foreground">
-              选择武器以查看推荐方案（将展示所有可刷武器，已选优先）
+              {t('essence.emptyHint')}
+            </div>
+          ) : planOrder.length === 0 ? (
+            <div className="flex items-center justify-center h-full text-sm text-muted-foreground">
+              {plansStale ? t('essence.computing') : t('essence.noPlanMatch')}
             </div>
           ) : (
             <div className="flex flex-col gap-3">
-              {dungeonPlans.map((plan) => {
-                const planKey = `${plan.dungeon.id}-${plan.lockType}-${plan.lockValue}`
+              {planOrder.map((planKey) => {
+                const plan = plansMap[planKey]
+                if (!plan) return null
                 return (
                   <DungeonCard
                     key={planKey}
                     plan={plan}
-                    isExpanded={expandedDungeonIds.has(plan.dungeon.id)}
-                    onToggleExpand={() => toggleDungeonExpand(plan.dungeon.id)}
+                    isExpanded={expandedSet.has(plan.dungeon.id)}
                   />
                 )
               })}

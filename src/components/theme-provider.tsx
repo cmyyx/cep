@@ -5,6 +5,12 @@ import { useSettingsStore } from '@/stores/useSettingsStore'
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const theme = useSettingsStore((s) => s.theme)
+  const hydrateFromStorage = useSettingsStore((s) => s.hydrateFromStorage)
+
+  // Hydrate user preferences from localStorage after mount (SSR-safe)
+  useEffect(() => {
+    hydrateFromStorage()
+  }, [hydrateFromStorage])
 
   useEffect(() => {
     const root = document.documentElement

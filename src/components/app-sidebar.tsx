@@ -2,8 +2,8 @@
 
 import { useState, useEffect, useRef, useCallback, useSyncExternalStore } from 'react'
 import { createPortal } from 'react-dom'
-import Link from 'next/link'
 import Image from 'next/image'
+import { NavLink } from '@/components/shared/nav-link'
 import { usePathname } from 'next/navigation'
 import { useLocale, useTranslations } from 'next-intl'
 import {
@@ -86,7 +86,7 @@ export function AppSidebar() {
           <SidebarMenuItem>
             <SidebarMenuButton
               size="lg"
-              render={<Link href={`/${locale}`} />}
+              render={<NavLink href={`/${locale}`} loadingLabel={t('app.name')} />}
               tooltip={t('app.name')}
             >
               <Image src="/icon.svg" alt={t('app.name')} width={32} height={32} className="size-8 rounded-lg" unoptimized />
@@ -102,15 +102,16 @@ export function AppSidebar() {
             {NAV_ITEMS.map(({ href, Icon, label }) => {
               const fullHref = `/${locale}${href}`
               const isActive = pathname.startsWith(fullHref)
+              const labelText = t(label)
               return (
                 <SidebarMenuItem key={href}>
                   <SidebarMenuButton
                     isActive={isActive}
-                    tooltip={t(label)}
-                    render={<Link href={fullHref} />}
+                    tooltip={labelText}
+                    render={<NavLink href={fullHref} loadingLabel={labelText} />}
                   >
                     <Icon />
-                    <span>{t(label)}</span>
+                    <span>{labelText}</span>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               )
@@ -155,7 +156,7 @@ export function AppSidebar() {
           )}
           <SidebarMenuItem>
             <SidebarMenuButton
-              render={<Link href={`/${locale}/update`} />}
+              render={<NavLink href={`/${locale}/update`} loadingLabel={t('nav.update')} />}
               tooltip={t('nav.update')}
             >
               <Download />
@@ -174,7 +175,7 @@ export function AppSidebar() {
           </SidebarMenuItem>
           <SidebarMenuItem>
             <SidebarMenuButton
-              render={<Link href={`/${locale}/settings`} />}
+              render={<NavLink href={`/${locale}/settings`} loadingLabel={t('nav.settings')} />}
             >
               <Settings />
               <span>{t('nav.settings')}</span>
@@ -182,7 +183,7 @@ export function AppSidebar() {
           </SidebarMenuItem>
           <SidebarMenuItem>
             <SidebarMenuButton
-              render={<Link href={`/${locale}/about`} />}
+              render={<NavLink href={`/${locale}/about`} loadingLabel={t('nav.about')} />}
             >
               <Info />
               <span>{t('nav.about')}</span>

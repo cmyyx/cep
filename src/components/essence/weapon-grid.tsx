@@ -1,6 +1,7 @@
 'use client'
 
-import { useState, useMemo, useCallback } from 'react'
+import { memo, useState, useMemo, useCallback } from 'react'
+import { useTranslations } from 'next-intl'
 import { cn } from '@/lib/utils'
 import { Input } from '@/components/ui/input'
 import { WeaponCard } from './weapon-card'
@@ -9,28 +10,42 @@ import { useMatrixStore } from '@/stores/useMatrixStore'
 
 type AttrKey = keyof Pick<Weapon, 'primaryStat' | 'elementalDamage' | 'specialAbility'>
 
-const ATTR_LABELS: Record<AttrKey, string> = {
-  primaryStat: '基础',
-  elementalDamage: '附加',
-  specialAbility: '技能',
-}
-
 const ATTR_KEYS: AttrKey[] = ['primaryStat', 'elementalDamage', 'specialAbility']
 
 import type { Weapon } from '@/types/matrix'
 
+/** Precomputed sorted unique values for each attribute (static data). */
 function getValues(key: AttrKey): string[] {
   return [...new Set(weapons.map((w) => w[key]))].sort()
 }
 
-export function WeaponGrid() {
+const ATTR_VALUES: Record<AttrKey, string[]> = {
+  primaryStat: getValues('primaryStat'),
+  elementalDamage: getValues('elementalDamage'),
+  specialAbility: getValues('specialAbility'),
+}
+
+const ATTR_LABEL_KEYS: Record<AttrKey, string> = {
+  primaryStat: 'essence.attrPrimary',
+  elementalDamage: 'essence.attrElemental',
+  specialAbility: 'essence.attrSpecial',
+}
+
+export const WeaponGrid = memo(function WeaponGrid() {
+  const t = useTranslations()
   const [query, setQuery] = useState('')
   const [filters, setFilters] = useState<Record<AttrKey, Set<string>>>({
     primaryStat: new Set(),
     elementalDamage: new Set(),
     specialAbility: new Set(),
   })
-  const { selectedWeaponIds, toggleWeapon } = useMatrixStore()
+  const selectedWeaponIds = useMatrixStore((s) => s.selectedWeaponIds)
+
+  // O(1) membership test instead of O(n) Array.includes
+  const selectedSet = useMemo(
+    () => new Set(selectedWeaponIds),
+    [selectedWeaponIds],
+  )
 
   const toggleFilter = useCallback((key: AttrKey, value: string) => {
     setFilters((prev) => {
@@ -84,16 +99,16 @@ export function WeaponGrid() {
 
   return (
     <div className="flex flex-col gap-3">
-      <Input placeholder="搜索武器..." value={query} onChange={(e) => setQuery(e.target.value)} className="text-sm" />
+      <Input placeholder={t('essence.searchWeapon')} value={query} onChange={(e) => setQuery(e.target.value)} className="text-sm" />
 
       {/* Attribute filter chips */}
       {ATTR_KEYS.map((key) => {
-        const values = getValues(key)
+        const values = ATTR_VALUES[key]
         const valid = validOptions[key]
         const selected = filters[key]
         return (
           <div key={key} className="flex flex-col gap-1">
-            <span className="text-[10px] text-muted-foreground">{ATTR_LABELS[key]}</span>
+            <span className="text-[10px] text-muted-foreground">{t(ATTR_LABEL_KEYS[key])}</span>
             <div className="flex flex-wrap gap-1">
               {values.map((v) => {
                 const isValid = valid.has(v)
@@ -125,14 +140,13 @@ export function WeaponGrid() {
           <WeaponCard
             key={weapon.id}
             weapon={weapon}
-            isSelected={selectedWeaponIds.has(weapon.id)}
-            onToggle={() => toggleWeapon(weapon.id)}
+            isSelected={selectedSet.has(weapon.id)}
           />
         ))}
       </div>
       {filteredWeapons.length === 0 && (
-        <p className="text-sm text-muted-foreground text-center py-8">没有匹配的武器</p>
+        <p className="text-sm text-muted-foreground text-center py-8">{t('essence.noWeaponMatch')}</p>
       )}
     </div>
   )
-}
+})

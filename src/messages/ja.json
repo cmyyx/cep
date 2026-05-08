@@ -20,7 +20,7 @@
     "login": "ログイン",
     "register": "登録",
     "settings": "設定",
-    "update": "アップデート",
+    "update": "バージョン",
     "about": "について"
   },
   "app": {
@@ -64,7 +64,9 @@
     "forceUpgradeButton": "今すぐ更新",
     "local": "ローカル",
     "remote": "リモート",
-    "unknown": "不明"
+    "unknown": "不明",
+    "changelogError": "更新ログの読み込みに失敗しました",
+    "changelogEmpty": "更新ログはありません"
   },
   "about": {
     "description": "アークナイツ：エンドフィールドのために作られた計画ツールキット",
@@ -89,6 +91,31 @@
     "techForm": "フォーム",
     "techI18n": "国際化",
     "techDesign": "デザインシステム"
+  },
+  "essence": {
+    "weaponSelected": "選択済",
+    "weaponNotAvailable": "対象外",
+    "lockS2": "サブステータス",
+    "lockS3": "スキル",
+    "selected": "選択済",
+    "total": "合計",
+    "primaryStatLabel": "基礎ステータス",
+    "weaponUnit": "本",
+    "s1PickerHint": "{candidates} 種の基礎ステータスがあります。ロックは3種のみ対応、選択してください：",
+    "weaponCount": "{count}本",
+    "collapse": "閉じる",
+    "expand": "詳細を開く",
+    "searchWeapon": "武器を検索...",
+    "noWeaponMatch": "該当する武器がありません",
+    "attrPrimary": "基礎",
+    "attrElemental": "追加",
+    "attrSpecial": "スキル",
+    "selectedCount": "{count} 本選択中",
+    "selectAll": "全選択",
+    "clearAll": "クリア",
+    "emptyHint": "武器を選択するとおすすめプランが表示されます",
+    "noPlanMatch": "現在の条件ではマッチするプランがありません",
+    "computing": "計算中..."
   },
   "bannerCalendar": {
     "noData": "ガチャカレンダーデータがありません",

@@ -69,13 +69,19 @@ function SidebarProvider({
   const isMobile = useIsMobile()
   const [openMobile, setOpenMobile] = React.useState(false)
 
-  // Cookie is read synchronously in the useState initializer.
-  // During build-time SSG, document is always undefined so defaultOpen is used.
-  const [_open, _setOpen] = React.useState(() => {
-    if (typeof document === 'undefined') return defaultOpen
-    const match = document.cookie.match(new RegExp(`(?:^|; )${SIDEBAR_COOKIE_NAME}=([^;]*)`))
-    return match ? match[1] === 'true' : defaultOpen
-  })
+  // Always initialise with defaultOpen to keep SSG HTML and first client render identical.
+  const [_open, _setOpen] = React.useState(defaultOpen)
+
+  /* eslint-disable react-hooks/set-state-in-effect -- one-time hydration from external storage */
+  React.useLayoutEffect(() => {
+    const match = document.cookie.match(
+      new RegExp(`(?:^|; )${SIDEBAR_COOKIE_NAME}=([^;]*)`)
+    )
+    if (match) {
+      _setOpen(match[1] === 'true')
+    }
+  }, [])
+  /* eslint-enable react-hooks/set-state-in-effect */
   const open = openProp ?? _open
   const setOpen = React.useCallback(
     (value: boolean | ((value: boolean) => boolean)) => {

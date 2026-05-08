@@ -20,7 +20,7 @@
     "login": "Login",
     "register": "Register",
     "settings": "Settings",
-    "update": "Check Update",
+    "update": "Version",
     "about": "About"
   },
   "app": {
@@ -64,7 +64,9 @@
     "forceUpgradeButton": "Refresh Now",
     "local": "Local",
     "remote": "Remote",
-    "unknown": "Unknown"
+    "unknown": "Unknown",
+    "changelogError": "Failed to load changelog",
+    "changelogEmpty": "No changelog entries"
   },
   "about": {
     "description": "A planning toolkit built for Arknights: Endfield",
@@ -89,6 +91,31 @@
     "techForm": "Forms",
     "techI18n": "i18n",
     "techDesign": "Design System"
+  },
+  "essence": {
+    "weaponSelected": "Selected",
+    "weaponNotAvailable": "Unavailable",
+    "lockS2": "Sub Stat",
+    "lockS3": "Skill",
+    "selected": "Selected",
+    "total": "Total",
+    "primaryStatLabel": "Primary Stat",
+    "weaponUnit": "wpn",
+    "s1PickerHint": "{candidates} primary stats available; lock supports only 3, please choose:",
+    "weaponCount": "{count} wpn",
+    "collapse": "Collapse",
+    "expand": "Expand",
+    "searchWeapon": "Search weapons...",
+    "noWeaponMatch": "No matching weapons",
+    "attrPrimary": "Primary",
+    "attrElemental": "Elemental",
+    "attrSpecial": "Skill",
+    "selectedCount": "{count} selected",
+    "selectAll": "Select All",
+    "clearAll": "Clear",
+    "emptyHint": "Select weapons to view recommended plans",
+    "noPlanMatch": "No matching plans for current filters",
+    "computing": "Computing plans..."
   },
   "bannerCalendar": {
     "noData": "No banner calendar data",

@@ -220,3 +220,45 @@
     background: rgba(255, 255, 255, 0.25);
   }
 }
+
+/* ─── Overlay scrollbars — scrollbar sits on top of content, no layout shift ─── */
+/* Progressive enhancement: browsers that support overflow:overlay (Chromium, Safari)
+   get true overlay; others (Firefox) fall back to overflow:auto + thin scrollbar */
+.overflow-y-auto {
+  overflow-y: overlay;
+}
+
+.overflow-x-auto {
+  overflow-x: overlay;
+}
+
+.overflow-auto {
+  overflow: overlay;
+}
+
+/* View Transitions API — cross-fade between page navigations */
+@keyframes vt-fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes vt-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+::view-transition-old(root) {
+  animation: vt-fade-out 0.25s ease-out both;
+}
+
+::view-transition-new(root) {
+  animation: vt-fade-in 0.35s ease-out 0.05s both;
+}
