@@ -106,3 +106,4 @@ src/
 - 每个功能文件必须有对应的测试文件（`.test.ts` 或 `.test.tsx`）。
 - PR 前必须通过 `tsc --noEmit` 类型检查。
 - 使用 `eslint` + `prettier`，配置由项目统一提供，不自定义规则除非有充分理由。
+- **`tsc --noEmit` 和 `eslint` 必须 0 错误 0 警告**，任何 warning 都视为必须修复的问题。
