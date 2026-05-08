@@ -89,5 +89,27 @@
     "techForm": "表单",
     "techI18n": "国际化",
     "techDesign": "设计系统"
+  },
+  "bannerCalendar": {
+    "noData": "暂无卡池日历数据",
+    "characterHeader": "角色",
+    "zoom": "缩放",
+    "overviewTitle": "适配视口",
+    "previewAxisTitle": "预览轴",
+    "statusPast": "已结束",
+    "statusActive": "进行中",
+    "statusUpcoming": "即将开始",
+    "statusInPool": "可歪限定",
+    "statusRerunActive": "复刻中",
+    "badgeActive": "UP! 剩余{days}天",
+    "badgeUpcoming": "还有{days}天复刻",
+    "badgeInPool": "在池中",
+    "badgeStandard": "常驻",
+    "badgeOut": "OUT!",
+    "durationDays": "持续{days}天",
+    "today": "今天",
+    "sortDefault": "默认排序",
+    "sortAsc": "版本升序",
+    "sortDesc": "版本降序"
   }
 }
