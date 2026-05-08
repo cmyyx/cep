@@ -1,15 +1,5 @@
-import { describe, it, expect, beforeEach, vi } from 'vitest'
+import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest'
 import { useMatrixStore, getPlansForSelection } from './useMatrixStore'
-
-/**
- * Flush any pending rAF synchronously.  In real usage rAF fires
- * asynchronously; tests use a sync stub so that plan computation
- * completes immediately after toggleWeapon / selectAllWeapons.
- */
-function flushRaf() {
-  // With the sync stub, rAF already fired during toggleWeapon.
-  // No-op here — kept for symmetry with future async test helpers.
-}
 
 describe('useMatrixStore', () => {
   beforeEach(() => {
@@ -45,6 +35,10 @@ describe('useMatrixStore', () => {
       expandedDungeonIds: [],
       dungeonS1Selections: {},
     })
+  })
+
+  afterEach(() => {
+    vi.unstubAllGlobals()
   })
 
   it('starts with empty selection', () => {

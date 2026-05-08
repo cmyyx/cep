@@ -65,11 +65,13 @@ export const useSettingsStore = create<SettingsState>((set) => ({
   hydrateFromStorage: () => {
     const saved = loadSettings()
     if (saved) {
+      const allowedThemes: SettingsState['theme'][] = ['auto', 'light', 'dark', 'flashbang']
+      const theme = allowedThemes.includes(saved.theme) ? saved.theme : DEFAULTS.theme
       set({
         backgroundEnabled: saved.backgroundEnabled ?? DEFAULTS.backgroundEnabled,
         backgroundBlur: saved.backgroundBlur ?? DEFAULTS.backgroundBlur,
         backgroundUrl: saved.backgroundUrl || DEFAULTS.backgroundUrl,
-        theme: saved.theme || DEFAULTS.theme,
+        theme,
       })
     }
   },

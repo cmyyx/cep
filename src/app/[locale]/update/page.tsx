@@ -26,7 +26,7 @@ function VersionCard({ label, info }: { label: string; info: VersionInfo }) {
   const t = useTranslations()
 
   return (
-    <div className="flex-1 rounded-lg border border-border p-4">
+    <div className="flex-1 rounded-lg shadow-[0px_0px_0px_1px_rgba(0,0,0,0.08)] p-4">
       <h3 className="text-xs font-medium text-muted-foreground mb-3 uppercase tracking-wide text-center">{label}</h3>
       <div className="space-y-2">
         <div className="flex items-center justify-between">
@@ -61,22 +61,37 @@ export default function UpdatePage() {
   const [changelogError, setChangelogError] = useState(false)
 
   useEffect(() => {
+    const controller = new AbortController()
     const started = Date.now()
-    fetch('/changelog.json')
+    let timeoutId: ReturnType<typeof setTimeout> | undefined
+
+    fetch('/changelog.json', { signal: controller.signal })
       .then((res) => {
         if (!res.ok) throw new Error('Failed to fetch changelog')
         return res.json()
       })
       .then((data) => {
-        // Enforce minimum skeleton display time to avoid a flash when
-        // the fetch completes too quickly (e.g. cached response).
+        if (controller.signal.aborted) return
         const elapsed = Date.now() - started
         const delay = Math.max(0, 350 - elapsed)
-        const apply = () => setChangelog(data.changelog ?? [])
-        if (delay > 0) setTimeout(apply, delay)
-        else apply()
+        const apply = () => {
+          if (!controller.signal.aborted) setChangelog(data.changelog ?? [])
+        }
+        if (delay > 0) {
+          timeoutId = setTimeout(apply, delay)
+        } else {
+          apply()
+        }
       })
-      .catch(() => setChangelogError(true))
+      .catch((err) => {
+        if (err instanceof DOMException && err.name === 'AbortError') return
+        if (!controller.signal.aborted) setChangelogError(true)
+      })
+
+    return () => {
+      controller.abort()
+      if (timeoutId !== undefined) clearTimeout(timeoutId)
+    }
   }, [])
 
   const displayInfo = localInfo ?? info
@@ -131,7 +146,7 @@ export default function UpdatePage() {
           </div>
 
           {/* Changelog */}
-          <div className="rounded-lg border border-border p-4">
+          <div className="rounded-lg shadow-[0px_0px_0px_1px_rgba(0,0,0,0.08)] p-4">
             <h3 className="text-sm font-semibold mb-3">{t('version.commitMessage')}</h3>
             <div className="relative">
               {/* Skeleton layer — fades out when data arrives */}

@@ -5,10 +5,11 @@ import Image from 'next/image'
 import { useTranslations } from 'next-intl'
 import { cn } from '@/lib/utils'
 import type { DungeonPlan, WeaponMatch } from '@/lib/planner/essence-solver'
-import { useMatrixStore } from '@/stores/useMatrixStore'
+import { useMatrixStore, getPlanKey } from '@/stores/useMatrixStore'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
 import { Checkbox } from '@/components/ui/checkbox'
 import { ChevronDown } from 'lucide-react'
+import { Button } from '@/components/ui/button'
 
 interface DungeonCardProps {
   plan: DungeonPlan
@@ -206,7 +207,7 @@ export const DungeonCard = memo(function DungeonCard({
   const dungeonS1Selections = useMatrixStore((s) => s.dungeonS1Selections)
   const setDungeonS1Selection = useMatrixStore((s) => s.setDungeonS1Selection)
   const toggleDungeonExpand = useMatrixStore((s) => s.toggleDungeonExpand)
-  const planKey = `${plan.dungeon.id}-${plan.lockType}-${plan.lockValue}`
+  const planKey = getPlanKey(plan)
 
   const handleToggleExpand = useCallback(() => {
     toggleDungeonExpand(plan.dungeon.id)
@@ -351,10 +352,13 @@ export const DungeonCard = memo(function DungeonCard({
         </div>
       )}
 
-      <div
+      <Button
+        type="button"
+        variant="ghost"
+        size="sm"
         onClick={handleToggleExpand}
-        className="mt-3 flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground transition-colors cursor-pointer select-none"
-        role="button"
+        aria-expanded={isExpanded}
+        className="mt-3 h-auto flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground"
       >
         <ChevronDown
           className={cn(
@@ -363,7 +367,7 @@ export const DungeonCard = memo(function DungeonCard({
           )}
         />
         {isExpanded ? t('essence.collapse') : t('essence.expand')}
-      </div>
+      </Button>
     </div>
   )
 })

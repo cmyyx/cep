@@ -21,7 +21,11 @@ const pkg = JSON.parse(readFileSync(resolve(root, "package.json"), "utf-8"))
 const DELIMITER = '---CHANGELOG_ENTRY_END---'
 const changelogRaw = git(`log --format="%h %cI%n%B%n${DELIMITER}"`)
 const changelog = changelogRaw
-  ? changelogRaw.split(DELIMITER).map(s => s.trim()).filter(Boolean)
+  ? changelogRaw
+      .split(DELIMITER)
+      .map(s => s.trim())
+      .filter(Boolean)
+      .map(entry => entry.replace(/(Co-authored-by:.*?)<[^>]+>/g, '$1').trim())
   : []
 
 // 统计含 [force] 标记的 tag 数量，生成强制升级序列号

@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useRef } from 'react'
+import { useTranslations } from 'next-intl'
 import { SidebarTrigger } from '@/components/ui/sidebar'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -15,6 +16,8 @@ import {
 import { useSettingsStore } from '@/stores/useSettingsStore'
 
 export default function SettingsPage() {
+  const t = useTranslations()
+
   const {
     backgroundEnabled,
     backgroundBlur,
@@ -68,9 +71,9 @@ export default function SettingsPage() {
   return (
     <div className="flex flex-col flex-1">
       {/* Top bar */}
-      <div className="flex items-center gap-3 px-4 py-2 border-b border-border">
+      <div className="flex items-center gap-3 px-4 py-2 shadow-[0px_1px_0px_0px_rgba(0,0,0,0.08)]">
         <SidebarTrigger />
-        <h1 className="text-base font-semibold tracking-tight">设置</h1>
+        <h1 className="text-base font-semibold tracking-tight">{t('nav.settings')}</h1>
       </div>
 
       <div className="flex-1 overflow-y-auto p-4">

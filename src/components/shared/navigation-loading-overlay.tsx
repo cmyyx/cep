@@ -25,6 +25,8 @@ export function NavigationLoadingOverlay() {
           : 'opacity-0 pointer-events-none'
       )}
       aria-hidden={!isNavigating}
+      role="status"
+      aria-live="polite"
     >
       <div className="flex flex-col items-center gap-3">
         <div className="size-8 animate-spin rounded-full border-2 border-muted-foreground/30 border-t-muted-foreground" />
