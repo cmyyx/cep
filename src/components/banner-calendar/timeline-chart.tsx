@@ -116,13 +116,13 @@ export function TimelineChart({ data, t }: TimelineChartProps) {
 
   return (
     <div
-      className="flex flex-1 overflow-hidden border rounded-lg"
+      className="flex flex-1 overflow-hidden rounded-lg shadow-[0px_0px_0px_1px_rgba(0,0,0,0.08)]"
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
     >
       {/* Left: Character column */}
-      <div className="w-52 shrink-0 border-r bg-muted/30">
-        <div className="h-8 flex items-center px-3 border-b text-xs font-medium text-muted-foreground">
+      <div className="w-52 shrink-0 shadow-[1px_0px_0px_0px_rgba(0,0,0,0.08)] bg-muted/30">
+        <div className="h-8 flex items-center px-3 shadow-[0px_1px_0px_0px_rgba(0,0,0,0.08)] text-xs font-medium text-muted-foreground">
           {t('bannerCalendar.characterHeader')}
         </div>
         {data.charRows.map((ch) => (
@@ -160,7 +160,7 @@ export function TimelineChart({ data, t }: TimelineChartProps) {
       </div>
 
       {/* Right: Gantt chart */}
-      <div ref={rightPanelRef} className="flex-1 overflow-x-auto">
+      <div ref={rightPanelRef} data-timeline-right className="flex-1 overflow-x-auto">
         <div style={{ width: data.canvasW }} className="relative">
           <div className="h-8 flex border-b">
             {data.months.map((m) => (
@@ -198,7 +198,7 @@ export function TimelineChart({ data, t }: TimelineChartProps) {
                       bar.cls === 'past' && 'bg-muted-foreground/30 text-muted-foreground',
                       bar.cls === 'upcoming' && 'border-2 border-dashed border-amber-400/70 text-amber-400 bg-amber-400/10',
                       bar.cls === 'rerun' && 'border-2 border-dashed border-amber-400/70 text-amber-400 bg-amber-400/10',
-                      bar.cls === 'inPool' && 'bg-sky-400/40 text-sky-200 border border-sky-400/50',
+                      bar.cls === 'inPool' && 'bg-sky-400/40 text-sky-800 dark:text-sky-200 border border-sky-400/50',
                     )}
                     style={{ left: bar.leftPx, width: bar.widthPx }}
                   >
@@ -236,7 +236,7 @@ export function TimelineChart({ data, t }: TimelineChartProps) {
       {/* Tooltip */}
       <div
         ref={tooltipRef}
-        className="fixed z-50 pointer-events-none rounded-md border bg-popover px-3 py-2 text-popover-foreground shadow-md"
+        className="fixed z-50 pointer-events-none rounded-md shadow-[0px_0px_0px_1px_rgba(0,0,0,0.08)] bg-popover px-3 py-2 text-popover-foreground shadow-md"
         style={{ display: 'none' }}
       >
         <div ref={tooltipNameRef} className="text-sm font-medium" />

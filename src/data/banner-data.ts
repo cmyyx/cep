@@ -42,15 +42,5 @@ export const bannerSchedule: BannerSchedule = {
   },
 }
 
-/** Character -> primary weapon mapping (derived from weapons.ts) */
-export const characterWeaponMap: Record<string, string[]> = {
-  莱万汀: ['熔铸火焰'],
-  洁尔佩塔: ['使命必达'],
-  伊冯: ['艺术暴君'],
-  汤汤: ['落草'],
-  洛茜: ['狼之绯'],
-  庄方宜: ['孤舟'],
-}
-
 /** Standard (permanent pool) 6-star characters — always available, never OUT */
 export const standardCharacters: string[] = ['艾尔黛拉', '余烬', '黎风', '别礼', '骏卫']

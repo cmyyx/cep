@@ -28,8 +28,6 @@ export interface NormalizedWindow {
 export interface CharacterSchedule {
   characterName: string
   windows: NormalizedWindow[]
-  weaponNames: string[]
-  primaryWeaponName: string
   avatarSrc: string
   period: number | null // main UP period (from non-rerun window)
   isStandard: boolean

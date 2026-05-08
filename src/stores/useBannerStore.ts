@@ -1,5 +1,5 @@
 import { create } from 'zustand'
-import { bannerSchedule, characterWeaponMap, standardCharacters } from '@/data/banner-data'
+import { bannerSchedule, standardCharacters } from '@/data/banner-data'
 import type {
   BannerSchedule,
   NormalizedWindow,
@@ -54,12 +54,10 @@ function normalizeSchedule(source: BannerSchedule): CharacterScheduleIndex {
 
     if (!windows.length) continue
 
-    const weaponNames = characterWeaponMap[characterName] ?? []
-    const primaryWeaponName = weaponNames[0] ?? ''
     const mainPeriod = windows.find((w) => !w.isRerun && w.period != null)?.period ?? null
 
     result[characterName] = {
-      characterName, windows, weaponNames, primaryWeaponName,
+      characterName, windows,
       avatarSrc: `/images/characters/${characterName}.avif`,
       period: mainPeriod, isStandard: false,
     }
@@ -69,8 +67,6 @@ function normalizeSchedule(source: BannerSchedule): CharacterScheduleIndex {
     if (result[name]) continue
     result[name] = {
       characterName: name, windows: [],
-      weaponNames: characterWeaponMap[name] ?? [],
-      primaryWeaponName: (characterWeaponMap[name] ?? [])[0] ?? '',
       avatarSrc: `/images/characters/${name}.avif`,
       period: null, isStandard: true,
     }
@@ -190,17 +186,17 @@ function deriveTimelineData(
 
   // 4. Status determination
   const getCharStatus = (ch: typeof limitedChars[0]): { badgeType: StatusBadgeType; priority: number } => {
-    let hasActiveMain = false, activeMainEnd = 0
-    let hasActiveRerun = false, rerunEnd = 0
-    let hasUpcomingRerun = false, nextRerunStart = Infinity
+    let hasActiveMain = false
+    let hasActiveRerun = false
+    let hasUpcomingRerun = false
 
     for (const w of ch.wins) {
       const isActive = nowMs >= w.startMs && nowMs <= w.endMs
       if (w.isRerun) {
-        if (isActive) { hasActiveRerun = true; rerunEnd = Math.max(rerunEnd, w.endMs) }
-        if (!isActive && nowMs < w.startMs) { hasUpcomingRerun = true; nextRerunStart = Math.min(nextRerunStart, w.startMs) }
+        if (isActive) { hasActiveRerun = true }
+        if (!isActive && nowMs < w.startMs) { hasUpcomingRerun = true }
       } else {
-        if (isActive) { hasActiveMain = true; activeMainEnd = Math.max(activeMainEnd, w.endMs) }
+        if (isActive) { hasActiveMain = true }
       }
     }
 
@@ -276,6 +272,8 @@ function deriveTimelineData(
           isActive ? t('bannerCalendar.statusRerunActive') : isPast ? t('bannerCalendar.statusPast') : t('bannerCalendar.statusUpcoming'), w.version))
       } else if (isActive) {
         bars.push(makeBar(w.startMs, w.endMs, 'active', t('bannerCalendar.statusActive'), w.version))
+      } else if (nowMs < w.startMs) {
+        bars.push(makeBar(w.startMs, w.endMs, 'upcoming', t('bannerCalendar.statusUpcoming'), w.version))
       } else {
         bars.push(makeBar(w.startMs, w.endMs, 'past', t('bannerCalendar.statusPast'), w.version))
       }
@@ -320,6 +318,8 @@ function deriveTimelineData(
 
 // --- Store ---
 
+type TranslationFn = (key: string, params?: Record<string, number | string>) => string
+
 interface BannerState {
   zoom: number
   fullOverview: boolean
@@ -329,11 +329,11 @@ interface BannerState {
   needsFit: boolean
 
   setZoom: (value: number) => void
-  toggleFullOverview: () => void
+  toggleFullOverview: (width: number) => void
   togglePreviewAxis: () => void
   setSortMode: (mode: SortMode) => void
-  refresh: (t: (key: string, params?: Record<string, number | string>) => string, locale?: string) => void
-  fitToViewport: (t: (key: string, params?: Record<string, number | string>) => string, locale?: string) => void
+  refresh: (t: TranslationFn, locale?: string) => void
+  fitToViewport: (width: number, t: TranslationFn, locale?: string) => void
 }
 
 const DEFAULT_ZOOM = 5
@@ -355,18 +355,16 @@ export const useBannerStore = create<BannerState>((set, get) => ({
     set({ zoom: z, fullOverview: false })
   },
 
-  toggleFullOverview: () => {
+  toggleFullOverview: (width: number) => {
     const { fullOverview, timelineData } = get()
-    if (!timelineData) return
-    if (!fullOverview) {
-      const rightPanel = document.querySelector<HTMLElement>('[data-timeline-right]')
-      const availW = rightPanel?.getBoundingClientRect().width ?? window.innerWidth - 208
-      const fitZoom = availW / timelineData.totalDays
-      const z = Math.max(MIN_ZOOM, Math.min(MAX_ZOOM, Math.round(fitZoom * 10) / 10))
-      set({ fullOverview: true, zoom: z })
-    } else {
+    if (fullOverview) {
       set({ fullOverview: false, zoom: DEFAULT_ZOOM })
+      return
     }
+    if (!timelineData) return
+    const fitZoom = width / timelineData.totalDays
+    const z = Math.max(MIN_ZOOM, Math.min(MAX_ZOOM, Math.round(fitZoom * 10) / 10))
+    set({ fullOverview: true, zoom: z })
   },
 
   togglePreviewAxis: () => set((s) => ({ showPreviewAxis: !s.showPreviewAxis })),
@@ -380,14 +378,12 @@ export const useBannerStore = create<BannerState>((set, get) => ({
     set({ timelineData: data })
   },
 
-  fitToViewport: (t, locale) => {
+  fitToViewport: (width: number, t, locale) => {
     const { sortMode } = get()
     const nowMs = Date.now()
     const probe = deriveTimelineData(normalizedCache, { nowMs, pxPerDay: 1, sortMode, locale, t })
     if (!probe) return
-    const rightPanel = document.querySelector<HTMLElement>('[data-timeline-right]')
-    const availW = rightPanel?.getBoundingClientRect().width ?? (typeof window !== 'undefined' ? window.innerWidth - 208 : 800)
-    const fitZoom = Math.round((availW / probe.totalDays) * 10) / 10
+    const fitZoom = Math.round((width / probe.totalDays) * 10) / 10
     const z = Math.max(MIN_ZOOM, Math.min(MAX_ZOOM, fitZoom))
     const data = deriveTimelineData(normalizedCache, { nowMs, pxPerDay: z, sortMode, locale, t })
     set({ timelineData: data, zoom: z, fullOverview: true, needsFit: false })

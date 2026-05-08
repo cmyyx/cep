@@ -27,7 +27,7 @@ const SORT_LABELS: Record<SortMode, string> = {
 const SORT_ORDER: SortMode[] = ['default', 'asc', 'desc']
 
 export function TimelineControls({ t, onRefresh, onFit }: TimelineControlsProps) {
-  const { zoom, fullOverview, showPreviewAxis, sortMode, setZoom, toggleFullOverview, togglePreviewAxis, setSortMode } =
+  const { zoom, fullOverview, showPreviewAxis, sortMode, setZoom, togglePreviewAxis, setSortMode } =
     useBannerStore()
 
   const handleZoomChange = (value: number[]) => {
