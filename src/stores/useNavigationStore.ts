@@ -25,6 +25,15 @@ export const useNavigationStore = create<NavigationState>((set) => ({
   navigateStartTime: null,
 
   startNavigation: (label) => {
+    // Flush any stale navigation state from a previous (possibly
+    // cancelled) navigation before starting the new one. Without
+    // this, rapid consecutive clicks could leave a dangling
+    // navigateStartTime that matches a pending timeout.
+    const prev = useNavigationStore.getState()
+    if (prev.navigateStartTime !== null) {
+      useNavigationStore.setState({ isNavigating: false, navigateStartTime: null })
+    }
+
     const now = Date.now()
     set({ targetLabel: label, navigateStartTime: now })
 
