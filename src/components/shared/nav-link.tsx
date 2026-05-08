@@ -41,8 +41,10 @@ export function NavLink({ loadingLabel, onClick, href, ref, ...props }: NavLinkP
       const hrefPathname =
         typeof href === 'string'
           ? new URL(href, 'http://localhost').pathname
-          : undefined
-      if (hrefPathname && pathname === hrefPathname) {
+          : href && typeof href === 'object' && 'pathname' in href
+            ? String(href.pathname || '')
+            : undefined
+      if (hrefPathname !== undefined && pathname === hrefPathname) {
         onClick?.(e)
         return
       }

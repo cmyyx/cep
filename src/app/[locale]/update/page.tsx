@@ -10,6 +10,10 @@ import { cn, formatTime } from '@/lib/utils'
 import { RefreshCw, ArrowRight } from 'lucide-react'
 import type { VersionInfo } from '@/types/version'
 
+interface ChangelogResponse {
+  changelog: string[]
+}
+
 function parseChangelogEntry(entry: string) {
   const firstNewline = entry.indexOf('\n')
   const firstLine = firstNewline === -1 ? entry : entry.slice(0, firstNewline)
@@ -68,14 +72,15 @@ export default function UpdatePage() {
     fetch('/changelog.json', { signal: controller.signal })
       .then((res) => {
         if (!res.ok) throw new Error('Failed to fetch changelog')
-        return res.json()
+        return res.json() as Promise<ChangelogResponse>
       })
       .then((data) => {
         if (controller.signal.aborted) return
+        const changelogData = Array.isArray(data.changelog) ? data.changelog : []
         const elapsed = Date.now() - started
         const delay = Math.max(0, 350 - elapsed)
         const apply = () => {
-          if (!controller.signal.aborted) setChangelog(data.changelog ?? [])
+          if (!controller.signal.aborted) setChangelog(changelogData)
         }
         if (delay > 0) {
           timeoutId = setTimeout(apply, delay)
@@ -196,7 +201,7 @@ export default function UpdatePage() {
                         const { hash, time, body } =
                           parseChangelogEntry(entry)
                         return (
-                          <li key={index} className="text-sm">
+                          <li key={hash || index} className="text-sm">
                             <div className="flex items-center gap-2 flex-wrap">
                               {hash && (
                                 <span className="font-mono text-xs px-1.5 py-0.5 rounded bg-muted text-muted-foreground">

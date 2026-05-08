@@ -25,7 +25,7 @@ const changelog = changelogRaw
       .split(DELIMITER)
       .map(s => s.trim())
       .filter(Boolean)
-      .map(entry => entry.replace(/(Co-authored-by:.*?)<[^>]+>/g, '$1').trim())
+      .map(entry => entry.replace(/(Co-authored-by:\s*.*?)\s*<[^>]+>/g, '$1').trim())
   : []
 
 // 统计含 [force] 标记的 tag 数量，生成强制升级序列号

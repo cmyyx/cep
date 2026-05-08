@@ -20,7 +20,7 @@
     "login": "Login",
     "register": "Register",
     "settings": "Settings",
-    "update": "Check Update",
+    "update": "Version",
     "about": "About"
   },
   "app": {
