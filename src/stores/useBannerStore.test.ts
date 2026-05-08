@@ -157,6 +157,8 @@ describe('useBannerStore', () => {
     expect(defaultOrder.length).toBeGreaterThan(0)
     expect(ascOrder.length).toBe(defaultOrder.length)
     expect(descOrder.length).toBe(defaultOrder.length)
+    expect(ascOrder).not.toEqual(defaultOrder)
+    expect(descOrder).not.toEqual(defaultOrder)
   })
 
   it('refresh produces todayPx when today is in range', () => {
@@ -164,5 +166,11 @@ describe('useBannerStore', () => {
     store.refresh(mockT, 'zh-CN')
     const data = useBannerStore.getState().timelineData!
     expect(data.nowMs).toBeGreaterThan(0)
+    expect(data.showToday).toBe(data.nowMs >= data.rStartMs && data.nowMs <= data.rEndMs)
+    if (data.showToday) {
+      expect(typeof data.todayPx).toBe('number')
+    } else {
+      expect(data.todayPx).toBeNull()
+    }
   })
 })

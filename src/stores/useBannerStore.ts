@@ -130,7 +130,8 @@ function deriveTimelineData(
   // Estimate missing future periods
   if (sortedPeriods.length >= 2) {
     for (let p = maxPeriod + 1; p <= maxPeriod + 2; p++) {
-      const prevBound = periodBounds.get(p - 1)!
+      const prevBound = periodBounds.get(p - 1)
+      if (!prevBound) break
       const estStart = prevBound.endMs
       const estDuration = prevBound.endMs - prevBound.startMs
       periodBounds.set(p, { startMs: estStart, endMs: estStart + estDuration })
@@ -194,7 +195,7 @@ function deriveTimelineData(
       const isActive = nowMs >= w.startMs && nowMs <= w.endMs
       if (w.isRerun) {
         if (isActive) { hasActiveRerun = true }
-        if (!isActive && nowMs < w.startMs) { hasUpcomingRerun = true }
+        else if (nowMs < w.startMs) { hasUpcomingRerun = true }
       } else {
         if (isActive) { hasActiveMain = true }
       }
@@ -208,11 +209,16 @@ function deriveTimelineData(
     return { badgeType: 'out', priority: 3 }
   }
 
+  const statusCache = new Map<typeof limitedChars[0], ReturnType<typeof getCharStatus>>()
+  for (const ch of limitedChars) {
+    statusCache.set(ch, getCharStatus(ch))
+  }
+
   // 5. Sort based on mode
   if (sortMode === 'default') {
     limitedChars.sort((a, b) => {
-      const sa = getCharStatus(a)
-      const sb = getCharStatus(b)
+      const sa = statusCache.get(a)!
+      const sb = statusCache.get(b)!
       if (sa.priority !== sb.priority) return sa.priority - sb.priority
       return (a.period ?? 0) - (b.period ?? 0)
     })
@@ -261,7 +267,7 @@ function deriveTimelineData(
   }
 
   const charRows: TimelineCharRow[] = limitedChars.map((ch) => {
-    const { badgeType } = getCharStatus(ch)
+    const { badgeType } = statusCache.get(ch)!
     const bars: TimelineBar[] = []
 
     for (const w of ch.wins) {
