@@ -1,62 +1,108 @@
-import { describe, it, expect, beforeEach } from 'vitest'
-import { useMatrixStore } from './useMatrixStore'
+import { describe, it, expect, beforeEach, vi } from 'vitest'
+import { useMatrixStore, getPlansForSelection } from './useMatrixStore'
+
+/**
+ * Flush any pending rAF synchronously.  In real usage rAF fires
+ * asynchronously; tests use a sync stub so that plan computation
+ * completes immediately after toggleWeapon / selectAllWeapons.
+ */
+function flushRaf() {
+  // With the sync stub, rAF already fired during toggleWeapon.
+  // No-op here — kept for symmetry with future async test helpers.
+}
 
 describe('useMatrixStore', () => {
   beforeEach(() => {
-    const store = useMatrixStore.getState()
-    store.clearWeapons()
+    // Make rAF fire synchronously so plan computation is instant in tests.
+    // Use a controlled stub that accumulates IDs so we can verify
+    // coalescing behaviour.
+    let nextId = 1
+    const callbacks = new Map<number, FrameRequestCallback>()
+
+    vi.stubGlobal(
+      'requestAnimationFrame',
+      vi.fn((cb: FrameRequestCallback) => {
+        const id = nextId++
+        callbacks.set(id, cb)
+        // Fire synchronously for convenience in most tests
+        cb(0)
+        callbacks.delete(id)
+        return id
+      }),
+    )
+    vi.stubGlobal(
+      'cancelAnimationFrame',
+      vi.fn((id: number) => {
+        callbacks.delete(id)
+      }),
+    )
+
     useMatrixStore.setState({
-      expandedDungeonIds: new Set<string>(),
+      selectedWeaponIds: [],
+      plansMap: {},
+      planOrder: [],
+      plansStale: false,
+      expandedDungeonIds: [],
       dungeonS1Selections: {},
     })
   })
 
   it('starts with empty selection', () => {
     const state = useMatrixStore.getState()
-    expect(state.selectedWeaponIds.size).toBe(0)
+    expect(state.selectedWeaponIds).toHaveLength(0)
+    expect(state.planOrder).toHaveLength(0)
+    expect(state.plansStale).toBe(false)
   })
 
-  it('toggleWeapon adds a weapon id', () => {
+  it('toggleWeapon adds a weapon id and updates plans (sync rAF)', () => {
     useMatrixStore.getState().toggleWeapon('guzhou')
-    expect(useMatrixStore.getState().selectedWeaponIds.has('guzhou')).toBe(true)
+    const state = useMatrixStore.getState()
+    expect(state.selectedWeaponIds).toContain('guzhou')
+    expect(state.planOrder.length).toBeGreaterThan(0)
+    expect(state.plansStale).toBe(false)
+    for (const key of state.planOrder) {
+      expect(state.plansMap[key]).toBeDefined()
+    }
   })
 
   it('toggleWeapon removes a weapon id when already selected', () => {
     useMatrixStore.getState().toggleWeapon('guzhou')
     useMatrixStore.getState().toggleWeapon('guzhou')
-    expect(useMatrixStore.getState().selectedWeaponIds.has('guzhou')).toBe(false)
+    expect(useMatrixStore.getState().selectedWeaponIds).not.toContain('guzhou')
   })
 
-  it('selectAllWeapons selects all weapons', () => {
+  it('selectAllWeapons selects all weapons and computes plans', () => {
     useMatrixStore.getState().selectAllWeapons()
-    const { selectedWeaponIds } = useMatrixStore.getState()
-    expect(selectedWeaponIds.size).toBeGreaterThan(0)
+    const state = useMatrixStore.getState()
+    expect(state.selectedWeaponIds.length).toBeGreaterThan(0)
+    expect(state.planOrder.length).toBeGreaterThan(0)
   })
 
-  it('clearWeapons removes all selections', () => {
+  it('clearWeapons removes all selections and clears plans', () => {
     useMatrixStore.getState().selectAllWeapons()
     useMatrixStore.getState().clearWeapons()
-    expect(useMatrixStore.getState().selectedWeaponIds.size).toBe(0)
+    const state = useMatrixStore.getState()
+    expect(state.selectedWeaponIds).toHaveLength(0)
+    expect(state.planOrder).toHaveLength(0)
+    expect(state.plansStale).toBe(false)
   })
 
   it('toggleDungeonExpand toggles expansion state', () => {
     useMatrixStore.getState().toggleDungeonExpand('hub')
-    expect(useMatrixStore.getState().expandedDungeonIds.has('hub')).toBe(true)
+    expect(useMatrixStore.getState().expandedDungeonIds).toContain('hub')
     useMatrixStore.getState().toggleDungeonExpand('hub')
-    expect(useMatrixStore.getState().expandedDungeonIds.has('hub')).toBe(false)
+    expect(useMatrixStore.getState().expandedDungeonIds).not.toContain('hub')
   })
 
-  it('dungeonPlans are generated on init', () => {
-    const { dungeonPlans } = useMatrixStore.getState()
-    expect(dungeonPlans.length).toBeGreaterThan(0)
+  it('getPlansForSelection returns empty for empty selection', () => {
+    const plans = getPlansForSelection(new Set())
+    expect(plans).toHaveLength(0)
   })
 
-  it('dungeonPlans update when weapon is selected', () => {
-    useMatrixStore.getState().toggleWeapon('guzhou')
-    const after = useMatrixStore.getState().dungeonPlans
-    // Plans structure should still be valid
-    expect(after.length).toBeGreaterThan(0)
-    for (const plan of after) {
+  it('getPlansForSelection returns plans for a selected weapon', () => {
+    const plans = getPlansForSelection(new Set(['guzhou']))
+    expect(plans.length).toBeGreaterThan(0)
+    for (const plan of plans) {
       expect(plan.dungeon).toBeDefined()
       expect(plan.lockType).toMatch(/^s[23]$/)
       expect(Array.isArray(plan.matchedWeapons)).toBe(true)
@@ -65,7 +111,45 @@ describe('useMatrixStore', () => {
   })
 
   it('setDungeonS1Selection stores selection', () => {
-    useMatrixStore.getState().setDungeonS1Selection('test-key', ['力量提升', '敏捷提升'])
-    expect(useMatrixStore.getState().dungeonS1Selections['test-key']).toEqual(['力量提升', '敏捷提升'])
+    useMatrixStore
+      .getState()
+      .setDungeonS1Selection('test-key', ['力量提升', '敏捷提升'])
+    expect(
+      useMatrixStore.getState().dungeonS1Selections['test-key']
+    ).toEqual(['力量提升', '敏捷提升'])
+  })
+
+  it('toggleWeapon reuses plan references when plan is unchanged', () => {
+    // Select two weapons
+    useMatrixStore.getState().toggleWeapon('guzhou')
+    useMatrixStore.getState().toggleWeapon('luocao')
+
+    // Capture references after two selections
+    const stateBefore = useMatrixStore.getState()
+    const refsBefore: Record<string, object> = {}
+    for (const key of stateBefore.planOrder) {
+      refsBefore[key] = stateBefore.plansMap[key]
+    }
+
+    // Toggle a third weapon — some plans will change, most should keep refs
+    useMatrixStore.getState().toggleWeapon('wangxiang')
+    const stateAfter = useMatrixStore.getState()
+
+    let reusedCount = 0
+    let newCount = 0
+    for (const key of stateAfter.planOrder) {
+      const before = refsBefore[key]
+      const after = stateAfter.plansMap[key]
+      if (before && before === after) {
+        reusedCount++
+      } else {
+        newCount++
+      }
+    }
+
+    // Most plans should be reused (only plans containing toggled weapons change)
+    expect(reusedCount).toBeGreaterThan(0)
+    expect(newCount).toBeGreaterThan(0)
+    expect(reusedCount + newCount).toBe(stateAfter.planOrder.length)
   })
 })

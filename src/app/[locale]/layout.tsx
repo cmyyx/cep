@@ -7,6 +7,8 @@ import { SidebarProvider } from '@/components/ui/sidebar'
 import { AppSidebar } from '@/components/app-sidebar'
 import { Background } from '@/components/background'
 import { ThemeProvider } from '@/components/theme-provider'
+import { NavigationListener } from '@/components/shared/navigation-listener'
+import { NavigationLoadingOverlay } from '@/components/shared/navigation-loading-overlay'
 import { VersionProvider } from '@/hooks/use-version'
 import { versionData } from '@/generated/version-data'
 
@@ -52,7 +54,11 @@ export default async function LocaleLayout({
           <ThemeProvider>
             <Background />
             <AppSidebar />
-            <main className="flex-1 w-full">{children}</main>
+            <main className="flex-1 w-full relative overflow-auto">
+              {children}
+              <NavigationLoadingOverlay />
+            </main>
+            <NavigationListener />
           </ThemeProvider>
         </SidebarProvider>
       </VersionProvider>

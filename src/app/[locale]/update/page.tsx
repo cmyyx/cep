@@ -4,8 +4,9 @@ import { useState, useEffect } from 'react'
 import { useTranslations } from 'next-intl'
 import { SidebarTrigger } from '@/components/ui/sidebar'
 import { Button } from '@/components/ui/button'
+import { Skeleton } from '@/components/ui/skeleton'
 import { useVersion } from '@/hooks/use-version'
-import { formatTime } from '@/lib/utils'
+import { cn, formatTime } from '@/lib/utils'
 import { RefreshCw, ArrowRight } from 'lucide-react'
 import type { VersionInfo } from '@/types/version'
 
@@ -56,13 +57,26 @@ function VersionCard({ label, info }: { label: string; info: VersionInfo }) {
 export default function UpdatePage() {
   const t = useTranslations()
   const { info, localInfo, isUpdateAvailable, checkNow, refreshPage } = useVersion()
-  const [changelog, setChangelog] = useState<string[]>([])
+  const [changelog, setChangelog] = useState<string[] | null>(null)
+  const [changelogError, setChangelogError] = useState(false)
 
   useEffect(() => {
+    const started = Date.now()
     fetch('/changelog.json')
-      .then(res => res.json())
-      .then(data => setChangelog(data.changelog ?? []))
-      .catch(() => setChangelog([]))
+      .then((res) => {
+        if (!res.ok) throw new Error('Failed to fetch changelog')
+        return res.json()
+      })
+      .then((data) => {
+        // Enforce minimum skeleton display time to avoid a flash when
+        // the fetch completes too quickly (e.g. cached response).
+        const elapsed = Date.now() - started
+        const delay = Math.max(0, 350 - elapsed)
+        const apply = () => setChangelog(data.changelog ?? [])
+        if (delay > 0) setTimeout(apply, delay)
+        else apply()
+      })
+      .catch(() => setChangelogError(true))
   }, [])
 
   const displayInfo = localInfo ?? info
@@ -78,7 +92,7 @@ export default function UpdatePage() {
       </div>
 
       {/* Main content */}
-      <div className="flex flex-1 items-start justify-center p-8">
+      <div className="flex-1 overflow-auto p-8 flex items-start justify-center">
         <div className="w-full max-w-lg">
           {/* Version comparison */}
           {isUpdateAvailable && localInfo && info ? (
@@ -117,35 +131,83 @@ export default function UpdatePage() {
           </div>
 
           {/* Changelog */}
-          {changelog.length > 0 && (
-            <div className="rounded-lg border border-border p-4">
-              <h3 className="text-sm font-semibold mb-3">{t('version.commitMessage')}</h3>
-              <ul className="space-y-3">
-                {changelog.map((entry, index) => {
-                  const { hash, time, body } = parseChangelogEntry(entry)
+          <div className="rounded-lg border border-border p-4">
+            <h3 className="text-sm font-semibold mb-3">{t('version.commitMessage')}</h3>
+            <div className="relative">
+              {/* Skeleton layer — fades out when data arrives */}
+              <div
+                className={cn(
+                  'space-y-3 transition-opacity duration-200',
+                  changelog === null && !changelogError
+                    ? 'opacity-100'
+                    : 'opacity-0 pointer-events-none absolute inset-0'
+                )}
+              >
+                <Skeleton className="h-4 w-2/3" />
+                <Skeleton className="h-3 w-full" />
+                <Skeleton className="h-3 w-3/4" />
+                <Skeleton className="h-4 w-1/2" />
+                <Skeleton className="h-3 w-full" />
+              </div>
+
+              {/* Content layer — fades in when data is ready */}
+              <div
+                className={cn(
+                  'transition-opacity duration-200',
+                  changelog === null && !changelogError
+                    ? 'opacity-0'
+                    : 'opacity-100'
+                )}
+              >
+                {(() => {
+                  if (changelogError) {
+                    return (
+                      <p className="text-sm text-muted-foreground">
+                        {t('version.changelogError')}
+                      </p>
+                    )
+                  }
+                  const entries = changelog ?? []
+                  if (entries.length === 0) {
+                    return (
+                      <p className="text-sm text-muted-foreground">
+                        {t('version.changelogEmpty')}
+                      </p>
+                    )
+                  }
                   return (
-                    <li key={index} className="text-sm">
-                      <div className="flex items-center gap-2 flex-wrap">
-                        {hash && (
-                          <span className="font-mono text-xs px-1.5 py-0.5 rounded bg-muted text-muted-foreground">
-                            {hash}
-                          </span>
-                        )}
-                        {time && (
-                          <span className="text-xs text-muted-foreground">
-                            {formatTime(time)}
-                          </span>
-                        )}
-                      </div>
-                      {body && (
-                        <p className="mt-1 text-muted-foreground whitespace-pre-wrap">{body}</p>
-                      )}
-                    </li>
+                    <ul className="space-y-3">
+                      {entries.map((entry, index) => {
+                        const { hash, time, body } =
+                          parseChangelogEntry(entry)
+                        return (
+                          <li key={index} className="text-sm">
+                            <div className="flex items-center gap-2 flex-wrap">
+                              {hash && (
+                                <span className="font-mono text-xs px-1.5 py-0.5 rounded bg-muted text-muted-foreground">
+                                  {hash}
+                                </span>
+                              )}
+                              {time && (
+                                <span className="text-xs text-muted-foreground">
+                                  {formatTime(time)}
+                                </span>
+                              )}
+                            </div>
+                            {body && (
+                              <p className="mt-1 text-muted-foreground whitespace-pre-wrap">
+                                {body}
+                              </p>
+                            )}
+                          </li>
+                        )
+                      })}
+                    </ul>
                   )
-                })}
-              </ul>
+                })()}
+              </div>
             </div>
-          )}
+          </div>
         </div>
       </div>
     </div>

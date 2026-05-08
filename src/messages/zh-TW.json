@@ -64,7 +64,9 @@
     "forceUpgradeButton": "立即刷新",
     "local": "本地",
     "remote": "雲端",
-    "unknown": "未知"
+    "unknown": "未知",
+    "changelogError": "載入更新日誌失敗",
+    "changelogEmpty": "暫無更新日誌"
   },
   "about": {
     "description": "為《明日方舟：終末地》打造的基質規劃工具集",
@@ -89,6 +91,31 @@
     "techForm": "表單",
     "techI18n": "國際化",
     "techDesign": "設計系統"
+  },
+  "essence": {
+    "weaponSelected": "已選",
+    "weaponNotAvailable": "不可刷",
+    "lockS2": "附加屬性",
+    "lockS3": "技能屬性",
+    "selected": "已選",
+    "total": "總計",
+    "primaryStatLabel": "基礎屬性",
+    "weaponUnit": "把",
+    "s1PickerHint": "可覆蓋 {candidates} 種基礎屬性，鎖定僅支持 3 種，請選擇：",
+    "weaponCount": "{count}把",
+    "collapse": "收起",
+    "expand": "展開詳情",
+    "searchWeapon": "搜尋武器...",
+    "noWeaponMatch": "沒有匹配的武器",
+    "attrPrimary": "基礎",
+    "attrElemental": "附加",
+    "attrSpecial": "技能",
+    "selectedCount": "已選 {count} 把",
+    "selectAll": "全選",
+    "clearAll": "清空",
+    "emptyHint": "選擇武器以查看推薦方案（將展示所有可刷武器，已選優先）",
+    "noPlanMatch": "當前篩選條件下無匹配方案",
+    "computing": "正在計算方案..."
   },
   "bannerCalendar": {
     "noData": "暫無卡池日曆數據",
