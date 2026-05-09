@@ -8,7 +8,14 @@
     "greetingMorning": "おはようございます！新しい一日が始まります、元気いっぱいに！",
     "greetingNoon": "お昼です！きちんと食べることを忘れないでくださいね。",
     "greetingAfternoon": "お疲れ様です！お水を飲んで、伸びをして、頑張りましょう。",
-    "greetingEvening": "優しい夜です。疲れを置いて、自分の時間を安心して楽しんでください。"
+    "greetingEvening": "優しい夜です。疲れを置いて、自分の時間を安心して楽しんでください。",
+    "quickLinks": "クイックリンク",
+    "announcements": "お知らせ",
+    "markAllRead": "すべて既読",
+    "noAnnouncements": "お知らせはありません",
+    "publishedAt": "{time} に公開",
+    "importantBanner": "未読の重要なお知らせが {count} 件あります",
+    "clickToView": "クリックして表示"
   },
   "nav": {
     "essencePlanner": "基質計画",

@@ -8,7 +8,14 @@
     "greetingMorning": "Good morning! A new day begins, may you be full of energy!",
     "greetingNoon": "Good noon! Don't forget to eat on time.",
     "greetingAfternoon": "Good afternoon! Grab some water, stretch a bit, and keep going.",
-    "greetingEvening": "A gentle evening — let go of fatigue and enjoy your own time."
+    "greetingEvening": "A gentle evening — let go of fatigue and enjoy your own time.",
+    "quickLinks": "Quick Links",
+    "announcements": "Announcements",
+    "markAllRead": "Mark all read",
+    "noAnnouncements": "No announcements",
+    "publishedAt": "Published {time}",
+    "importantBanner": "You have {count} unread important announcement(s)",
+    "clickToView": "Click to view"
   },
   "nav": {
     "essencePlanner": "Essence Planner",

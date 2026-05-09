@@ -34,7 +34,8 @@ import { Icon } from '@iconify/react'
 import { LanguageSwitcher } from './language-switcher'
 import { AuthDialog } from './shared/auth-dialog'
 import { useVersion } from '@/hooks/use-version'
-import { formatTime } from '@/lib/utils'
+import { useAnnouncementStore, useImportantUnreadCount } from '@/stores/useAnnouncementStore'
+import { cn, formatTime } from '@/lib/utils'
 import { ForceUpgradeDialog } from './shared/force-upgrade-dialog'
 
 const NAV_ITEMS = [
@@ -53,6 +54,12 @@ export function AppSidebar() {
   const { isUpdateAvailable, info, localInfo, forceUpgrade, refreshPage } = useVersion()
   const { state } = useSidebar()
   const mounted = useSyncExternalStore(() => () => {}, () => true, () => false)
+
+  const announcementTotalUnread = useAnnouncementStore((s) =>
+    s.announcements.filter((a) => !s.readIds.includes(a.id)).length
+  )
+  const announcementImportantUnread = useImportantUnreadCount()
+  const hasImportantUnread = announcementImportantUnread > 0
 
   const refreshBtnRef = useRef<HTMLDivElement>(null)
   const [popupPos, setPopupPos] = useState({ top: 0, left: 0 })
@@ -89,8 +96,32 @@ export function AppSidebar() {
               render={<NavLink href={`/${locale}`} loadingLabel={t('app.name')} />}
               tooltip={t('app.name')}
             >
-              <Image src="/icon.svg" alt={t('app.name')} width={32} height={32} className="size-8 rounded-lg" unoptimized />
-              <span className="font-semibold">{t('app.name')}</span>
+              <div className="relative">
+                <Image src="/icon.svg" alt={t('app.name')} width={32} height={32} className="size-8 rounded-lg" unoptimized />
+                {announcementTotalUnread > 0 && (
+                  <span
+                    className={cn(
+                      'absolute -top-0.5 -right-0.5 size-2.5 rounded-full ring-2 ring-sidebar',
+                      hasImportantUnread ? 'bg-amber-500' : 'bg-develop-blue'
+                    )}
+                  />
+                )}
+              </div>
+              <span className="font-semibold inline-flex items-center gap-2">
+                {t('app.name')}
+                {announcementTotalUnread > 0 && (
+                  <span
+                    className={cn(
+                      'inline-flex items-center justify-center h-4 min-w-4 px-1 rounded-full text-[10px] font-semibold leading-none',
+                      hasImportantUnread
+                        ? 'bg-amber-500 text-white'
+                        : 'bg-develop-blue text-white'
+                    )}
+                  >
+                    {announcementTotalUnread > 99 ? '99+' : announcementTotalUnread}
+                  </span>
+                )}
+              </span>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
