@@ -1,8 +1,13 @@
 'use client'
 
-import { useMemo } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 import { useTranslations } from 'next-intl'
 import { SidebarTrigger } from '@/components/ui/sidebar'
+import { Separator } from '@/components/ui/separator'
+import { GreetingSection } from '@/components/home/greeting-section'
+import { RealTimeClock } from '@/components/home/real-time-clock'
+import { OverviewCards } from '@/components/home/overview-cards'
+import { AnnouncementPanel } from '@/components/home/announcement-panel'
 
 function getGreetingKey(): string {
   const hour = new Date().getHours()
@@ -15,24 +20,40 @@ function getGreetingKey(): string {
 
 export default function HomePage() {
   const t = useTranslations()
-  const greetingKey = useMemo(() => getGreetingKey(), [])
+  const [greetingKey, setGreetingKey] = useState(() => getGreetingKey())
+
+  const updateGreeting = useCallback(() => {
+    setGreetingKey((prev) => {
+      const next = getGreetingKey()
+      return prev !== next ? next : prev
+    })
+  }, [])
+
+  useEffect(() => {
+    // Re-check every minute so the greeting updates near time boundaries
+    const interval = setInterval(updateGreeting, 60_000)
+    return () => clearInterval(interval)
+  }, [updateGreeting])
 
   return (
-    <div className="flex flex-col flex-1 h-[calc(100vh-3rem)]">
+    <div className="flex flex-col flex-1 min-h-0">
       {/* Top bar */}
       <div className="flex items-center gap-3 px-4 py-2 border-b border-border">
         <SidebarTrigger />
         <h1 className="text-base font-semibold tracking-tight">
-          {t('home.welcome')}
+          {t('app.name')}
         </h1>
       </div>
 
-      {/* Main content */}
-      <div className="flex flex-1 items-center justify-center">
-        <div className="flex flex-col gap-2 text-center">
-          <p className="text-lg text-muted-foreground">
-            {t(greetingKey)}
-          </p>
+      {/* Scrollable content */}
+      <div className="flex-1 overflow-auto">
+        <div className="mx-auto max-w-5xl px-6 py-8 space-y-8">
+          <GreetingSection greetingKey={greetingKey} />
+          <RealTimeClock />
+          <Separator />
+          <OverviewCards />
+          <Separator />
+          <AnnouncementPanel />
         </div>
       </div>
     </div>

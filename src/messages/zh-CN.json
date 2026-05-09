@@ -8,7 +8,16 @@
     "greetingMorning": "早上好，新的一天开始啦，愿你元气满满！",
     "greetingNoon": "中午好，记得按时吃饭，别饿着自己哦。",
     "greetingAfternoon": "下午好，困了就去喝杯水，伸个懒腰，打起精神继续冲。",
-    "greetingEvening": "夜晚温柔，愿你卸下疲惫，安心享受属于自己的时间。"
+    "greetingEvening": "夜晚温柔，愿你卸下疲惫，安心享受属于自己的时间。",
+    "quickLinks": "快捷入口",
+    "announcements": "公告",
+    "markAllRead": "全部已读",
+    "noAnnouncements": "暂无公告",
+    "publishedAt": "发布于 {time}",
+    "importantBanner": "您有 {count} 条重要公告未读",
+    "clickToView": "点击查看",
+    "importantBadge": "重要",
+    "imageLoadFailed": "图片加载失败"
   },
   "nav": {
     "essencePlanner": "基质规划",
