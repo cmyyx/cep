@@ -27,10 +27,8 @@ export function RealTimeClock() {
   }, [])
 
   return (
-    <div className="animate-in slide-in-from-bottom-4 fade-in duration-500">
-      <p className="text-4xl font-semibold tracking-[-2.4px] text-foreground tabular-nums">
-        {time}
-      </p>
-    </div>
+    <p className="text-4xl font-semibold tracking-[-2.4px] text-foreground tabular-nums">
+      {time}
+    </p>
   )
 }
