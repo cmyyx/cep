@@ -13,6 +13,7 @@
     "announcements": "お知らせ",
     "markAllRead": "すべて既読",
     "noAnnouncements": "お知らせはありません",
+    "loadError": "お知らせの読み込みに失敗しました",
     "publishedAt": "{time} に公開",
     "importantBanner": "未読の重要なお知らせが {count} 件あります",
     "clickToView": "クリックして表示",

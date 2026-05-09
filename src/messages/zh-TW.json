@@ -13,6 +13,7 @@
     "announcements": "公告",
     "markAllRead": "全部已讀",
     "noAnnouncements": "暫無公告",
+    "loadError": "載入公告失敗",
     "publishedAt": "發布於 {time}",
     "importantBanner": "您有 {count} 條重要公告未讀",
     "clickToView": "點擊查看",

@@ -13,6 +13,7 @@
     "announcements": "Announcements",
     "markAllRead": "Mark all read",
     "noAnnouncements": "No announcements",
+    "loadError": "Failed to load announcements",
     "publishedAt": "Published {time}",
     "importantBanner": "{count, plural, =1 {You have # unread important announcement} other {You have # unread important announcements}}",
     "clickToView": "Click to view",

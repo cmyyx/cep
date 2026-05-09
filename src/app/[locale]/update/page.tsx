@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button'
 import { Skeleton } from '@/components/ui/skeleton'
 import { useVersion } from '@/hooks/use-version'
 import { cn, formatTime } from '@/lib/utils'
+import { MIN_LOADING_DISPLAY_MS } from '@/lib/constants'
 import { RefreshCw, ArrowRight } from 'lucide-react'
 import type { VersionInfo } from '@/types/version'
 
@@ -62,12 +63,15 @@ export default function UpdatePage() {
   const t = useTranslations()
   const { info, localInfo, isUpdateAvailable, checkNow, refreshPage } = useVersion()
   const [changelog, setChangelog] = useState<string[] | null>(null)
-  const [changelogError, setChangelogError] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
+  const [loadError, setLoadError] = useState(false)
 
   useEffect(() => {
     const controller = new AbortController()
-    const started = Date.now()
-    let timeoutId: ReturnType<typeof setTimeout> | undefined
+    const startedAt = Date.now()
+
+    let didError = false
+    let changelogData: string[] = []
 
     fetch('/changelog.json', { signal: controller.signal })
       .then((res) => {
@@ -76,26 +80,28 @@ export default function UpdatePage() {
       })
       .then((data) => {
         if (controller.signal.aborted) return
-        const changelogData = Array.isArray(data.changelog) ? data.changelog : []
-        const elapsed = Date.now() - started
-        const delay = Math.max(0, 350 - elapsed)
-        const apply = () => {
-          if (!controller.signal.aborted) setChangelog(changelogData)
-        }
-        if (delay > 0) {
-          timeoutId = setTimeout(apply, delay)
-        } else {
-          apply()
-        }
+        changelogData = Array.isArray(data.changelog) ? data.changelog : []
       })
       .catch((err) => {
         if (err instanceof DOMException && err.name === 'AbortError') return
-        if (!controller.signal.aborted) setChangelogError(true)
+        didError = true
+      })
+      .finally(async () => {
+        if (controller.signal.aborted) return
+        // Enforce minimum skeleton display time so skeleton doesn't flash
+        const elapsed = Date.now() - startedAt
+        if (elapsed < MIN_LOADING_DISPLAY_MS) {
+          await new Promise((r) => setTimeout(r, MIN_LOADING_DISPLAY_MS - elapsed))
+        }
+        if (!controller.signal.aborted) {
+          setChangelog(didError ? null : changelogData)
+          setIsLoading(false)
+          setLoadError(didError)
+        }
       })
 
     return () => {
       controller.abort()
-      if (timeoutId !== undefined) clearTimeout(timeoutId)
     }
   }, [])
 
@@ -158,7 +164,7 @@ export default function UpdatePage() {
               <div
                 className={cn(
                   'space-y-3 transition-opacity duration-200',
-                  changelog === null && !changelogError
+                  isLoading
                     ? 'opacity-100'
                     : 'opacity-0 pointer-events-none absolute inset-0'
                 )}
@@ -174,13 +180,13 @@ export default function UpdatePage() {
               <div
                 className={cn(
                   'transition-opacity duration-200',
-                  changelog === null && !changelogError
+                  isLoading
                     ? 'opacity-0'
                     : 'opacity-100'
                 )}
               >
                 {(() => {
-                  if (changelogError) {
+                  if (loadError) {
                     return (
                       <p className="text-sm text-muted-foreground">
                         {t('version.changelogError')}

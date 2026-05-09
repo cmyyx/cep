@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect, useState, useCallback, useMemo, memo } from 'react'
+import React, { useState, useCallback, useMemo, memo } from 'react'
 import { useTranslations } from 'next-intl'
 import ReactMarkdown from 'react-markdown'
 import rehypeSanitize, { defaultSchema } from 'rehype-sanitize'
@@ -53,7 +53,7 @@ function AnnouncementItem({
       variant="ghost"
       onClick={onOpen}
       className={cn(
-        'w-full justify-start h-auto px-3 py-2.5 -mx-3 rounded-md transition-colors',
+        'w-full justify-start h-auto px-3 py-2.5 rounded-md transition-colors',
         'flex items-start gap-3',
         isImportant && !isRead && 'bg-amber-50/50 dark:bg-amber-950/30',
         isImportant && isRead && 'bg-transparent',
@@ -206,15 +206,11 @@ export function AnnouncementPanel() {
   const announcements = useAnnouncementStore((s) => s.announcements)
   const readIds = useAnnouncementStore((s) => s.readIds)
   const isLoading = useAnnouncementStore((s) => s.isLoading)
-  const loadAnnouncements = useAnnouncementStore((s) => s.loadAnnouncements)
+  const loadError = useAnnouncementStore((s) => s.loadError)
   const markAsRead = useAnnouncementStore((s) => s.markAsRead)
   const importantUnread = useImportantUnreadCount()
 
   const totalUnread = announcements.filter((a) => !readIds.includes(a.id)).length
-
-  useEffect(() => {
-    loadAnnouncements()
-  }, [loadAnnouncements])
 
   const handleOpen = useCallback(
     (a: Announcement) => {
@@ -252,36 +248,54 @@ export function AnnouncementPanel() {
       </div>
 
       {/* Announcement list */}
-      <Card>
+      <Card className="!py-0">
         <CardContent className="p-0">
-          {isLoading ? (
-            <div className="px-3 py-4 space-y-0">
-              {[1, 2, 3].map((i) => (
-                <div key={i} className="flex items-start gap-3 py-2.5">
-                  <Skeleton className="mt-1.5 h-2 w-1 shrink-0 rounded-full" />
-                  <div className="flex-1 space-y-1.5">
-                    <Skeleton className="h-4 w-3/4" />
-                    <Skeleton className="h-3 w-1/4" />
-                  </div>
+          <div className="relative">
+            {/* Skeleton overlay — absolute so it never affects layout height.
+                Five bars matching the version changelog skeleton pattern, no extra whitespace. */}
+            <div
+              className={cn(
+                'absolute inset-0 transition-opacity duration-200',
+                'px-3 py-2.5 space-y-3',
+                isLoading
+                  ? 'opacity-100'
+                  : 'opacity-0 pointer-events-none'
+              )}
+            >
+              <Skeleton className="h-4 w-2/3" />
+              <Skeleton className="h-3 w-full" />
+              <Skeleton className="h-3 w-3/4" />
+              <Skeleton className="h-4 w-1/2" />
+              <Skeleton className="h-3 w-full" />
+            </div>
+
+            {/* Content layer — always in flow to determine container height */}
+            <div
+              className={cn(
+                'transition-opacity duration-200',
+                isLoading
+                  ? 'opacity-0'
+                  : 'opacity-100'
+              )}
+            >
+              {announcements.length > 0 ? (
+                <div className="divide-y divide-border/50">
+                  {announcements.map((a) => (
+                    <AnnouncementItem
+                      key={a.id}
+                      announcement={a}
+                      isRead={readIds.includes(a.id)}
+                      onOpen={() => handleOpen(a)}
+                    />
+                  ))}
                 </div>
-              ))}
+              ) : (
+                <div className="px-4 py-8 text-center text-sm text-muted-foreground">
+                  {loadError ? t('home.loadError') : t('home.noAnnouncements')}
+                </div>
+              )}
             </div>
-          ) : announcements.length === 0 ? (
-            <div className="px-4 py-8 text-center text-sm text-muted-foreground">
-              {t('home.noAnnouncements')}
-            </div>
-          ) : (
-            <div className="divide-y divide-border/50">
-              {announcements.map((a) => (
-                <AnnouncementItem
-                  key={a.id}
-                  announcement={a}
-                  isRead={readIds.includes(a.id)}
-                  onOpen={() => handleOpen(a)}
-                />
-              ))}
-            </div>
-          )}
+          </div>
         </CardContent>
       </Card>
 
