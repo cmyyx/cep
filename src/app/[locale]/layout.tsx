@@ -9,6 +9,8 @@ import { Background } from '@/components/background'
 import { ThemeProvider } from '@/components/theme-provider'
 import { NavigationListener } from '@/components/shared/navigation-listener'
 import { NavigationLoadingOverlay } from '@/components/shared/navigation-loading-overlay'
+import { ImportantAnnouncementBanner } from '@/components/home/important-announcement-banner'
+import { AnnouncementLoader } from '@/components/home/announcement-loader'
 import { VersionProvider } from '@/hooks/use-version'
 import { versionData } from '@/generated/version-data'
 
@@ -52,9 +54,11 @@ export default async function LocaleLayout({
       <VersionProvider initialInfo={versionData}>
         <SidebarProvider>
           <ThemeProvider>
+            <AnnouncementLoader />
             <Background />
             <AppSidebar />
             <main className="flex-1 w-full relative overflow-auto">
+              <ImportantAnnouncementBanner />
               {children}
               <NavigationLoadingOverlay />
             </main>

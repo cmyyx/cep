@@ -40,6 +40,11 @@
   --color-card-foreground: var(--card-foreground);
   --color-card: var(--card);
 
+  /* DESIGN.md workflow accent colors */
+  --color-ship-red: #ff5b4f;
+  --color-preview-pink: #de1d8d;
+  --color-develop-blue: #0a72ef;
+
   /* DESIGN.md radius scale */
   --radius-none: 0;
   --radius-micro: calc(var(--radius) * 0.3333);
