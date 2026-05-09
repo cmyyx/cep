@@ -69,7 +69,17 @@ export const useAnnouncementStore = create<AnnouncementState>((set, get) => ({
       // important announcements always come first
       const important = validated.filter((a) => a.priority === 'important')
       const normal = validated.filter((a) => a.priority === 'normal')
-      set({ announcements: [...important, ...normal], isLoading: false })
+      const sorted = [...important, ...normal]
+
+      // Prune readIds: remove IDs for announcements that no longer exist
+      const currentIds = new Set(sorted.map((a) => a.id))
+      const { readIds } = get()
+      const pruned = readIds.filter((id) => currentIds.has(id))
+      if (pruned.length !== readIds.length) {
+        saveReadIds(pruned)
+      }
+
+      set({ announcements: sorted, readIds: pruned, isLoading: false })
     } catch {
       set({ isLoading: false })
     }

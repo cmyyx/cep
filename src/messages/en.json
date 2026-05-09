@@ -15,7 +15,9 @@
     "noAnnouncements": "No announcements",
     "publishedAt": "Published {time}",
     "importantBanner": "You have {count} unread important announcement(s)",
-    "clickToView": "Click to view"
+    "clickToView": "Click to view",
+    "importantBadge": "Important",
+    "imageLoadFailed": "Image failed to load"
   },
   "nav": {
     "essencePlanner": "Essence Planner",

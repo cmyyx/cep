@@ -15,7 +15,9 @@
     "noAnnouncements": "お知らせはありません",
     "publishedAt": "{time} に公開",
     "importantBanner": "未読の重要なお知らせが {count} 件あります",
-    "clickToView": "クリックして表示"
+    "clickToView": "クリックして表示",
+    "importantBadge": "重要",
+    "imageLoadFailed": "画像の読み込みに失敗"
   },
   "nav": {
     "essencePlanner": "基質計画",

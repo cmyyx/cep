@@ -15,7 +15,9 @@
     "noAnnouncements": "暂无公告",
     "publishedAt": "发布于 {time}",
     "importantBanner": "您有 {count} 条重要公告未读",
-    "clickToView": "点击查看"
+    "clickToView": "点击查看",
+    "importantBadge": "重要",
+    "imageLoadFailed": "图片加载失败"
   },
   "nav": {
     "essencePlanner": "基质规划",

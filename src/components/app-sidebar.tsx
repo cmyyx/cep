@@ -93,10 +93,11 @@ export function AppSidebar() {
           <SidebarMenuItem>
             <SidebarMenuButton
               size="lg"
+              className="overflow-visible"
               render={<NavLink href={`/${locale}`} loadingLabel={t('app.name')} />}
               tooltip={t('app.name')}
             >
-              <div className="relative">
+              <span className="relative inline-flex shrink-0 overflow-visible">
                 <Image src="/icon.svg" alt={t('app.name')} width={32} height={32} className="size-8 rounded-lg" unoptimized />
                 {announcementTotalUnread > 0 && (
                   <span
@@ -106,7 +107,7 @@ export function AppSidebar() {
                     )}
                   />
                 )}
-              </div>
+              </span>
               <span className="font-semibold inline-flex items-center gap-2">
                 {t('app.name')}
                 {announcementTotalUnread > 0 && (

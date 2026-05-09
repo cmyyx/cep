@@ -1,15 +1,16 @@
 'use client'
 
-import { useEffect, useState, useCallback } from 'react'
+import React, { useEffect, useState, useCallback, useRef, useMemo, memo } from 'react'
 import { useTranslations } from 'next-intl'
 import ReactMarkdown from 'react-markdown'
-import { Megaphone, ChevronRight } from 'lucide-react'
+import { Megaphone, ChevronRight, ImageOff, XIcon } from 'lucide-react'
 import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
+import { Button } from '@/components/ui/button'
 import { Skeleton } from '@/components/ui/skeleton'
 import {
   Dialog,
-  DialogContent,
+  DialogPortal,
   DialogHeader,
   DialogTitle,
   DialogDescription,
@@ -27,6 +28,7 @@ function AnnouncementItem({
   isRead: boolean
   onOpen: () => void
 }) {
+  const t = useTranslations()
   const isImportant = announcement.priority === 'important'
 
   const dateStr = (() => {
@@ -34,8 +36,11 @@ function AnnouncementItem({
       const d = new Date(announcement.publishTime)
       if (isNaN(d.getTime())) return ''
       return new Intl.DateTimeFormat(undefined, {
-        month: 'short',
+        year: 'numeric',
+        month: 'long',
         day: 'numeric',
+        hour: 'numeric',
+        minute: '2-digit',
       }).format(d)
     } catch {
       return ''
@@ -55,18 +60,11 @@ function AnnouncementItem({
         isImportant && 'hover:bg-amber-50 dark:hover:bg-amber-950/40'
       )}
     >
-      {/* Left indicator bar */}
       {!isRead && isImportant && (
-        <div
-          className="mt-1.5 h-2 w-1.5 shrink-0 rounded-full bg-amber-500"
-          aria-hidden="true"
-        />
+        <div className="mt-1.5 h-2 w-1.5 shrink-0 rounded-full bg-amber-500" aria-hidden="true" />
       )}
       {!isRead && !isImportant && (
-        <div
-          className="mt-1.5 h-2 w-1 shrink-0 rounded-full bg-develop-blue"
-          aria-hidden="true"
-        />
+        <div className="mt-1.5 h-2 w-1 shrink-0 rounded-full bg-develop-blue" aria-hidden="true" />
       )}
       {isRead && <div className="w-1 shrink-0" aria-hidden="true" />}
 
@@ -84,13 +82,11 @@ function AnnouncementItem({
           </span>
           {isImportant && (
             <Badge variant="secondary" className="h-4 px-1 text-[10px] leading-none text-amber-700 dark:text-amber-300 bg-amber-100 dark:bg-amber-900/40 border-amber-200 dark:border-amber-800">
-              重要
+              {t('home.importantBadge')}
             </Badge>
           )}
         </div>
-        {dateStr && (
-          <p className="text-xs text-muted-foreground">{dateStr}</p>
-        )}
+        {dateStr && <p className="text-xs text-muted-foreground">{dateStr}</p>}
       </div>
 
       <ChevronRight className="mt-1 size-4 shrink-0 text-muted-foreground/50" />
@@ -98,7 +94,73 @@ function AnnouncementItem({
   )
 }
 
-function MarkdownContent({ content }: { content: string }) {
+const IMAGE_MIN_HEIGHT = 'min-h-[60px]'
+
+/** Image with stable container — error shares placeholder dimensions, loaded image flows naturally */
+function MarkdownImage({
+  src,
+  alt,
+  errorLabel,
+}: {
+  src?: string
+  alt?: string
+  errorLabel: string
+}) {
+  const [error, setError] = useState(false)
+  const srcStr = typeof src === 'string' && src.length > 0 ? src : undefined
+
+  if (error || !srcStr) {
+    return (
+      <span
+        className={cn(
+          'flex items-center gap-2 my-3 px-3 py-2 rounded-lg bg-muted text-xs text-muted-foreground',
+          IMAGE_MIN_HEIGHT
+        )}
+      >
+        <ImageOff className="size-3.5 shrink-0" aria-hidden="true" />
+        <span>
+          {errorLabel}
+          {alt ? `：${alt}` : ''}
+        </span>
+      </span>
+    )
+  }
+
+  return (
+    <span
+      className={cn(
+        'block my-3 overflow-hidden rounded-lg bg-muted',
+        IMAGE_MIN_HEIGHT
+      )}
+    >
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src={srcStr}
+        alt={alt || ''}
+        className="block max-w-full h-auto rounded-lg"
+        loading="lazy"
+        onError={() => setError(true)}
+      />
+    </span>
+  )
+}
+
+const MarkdownContent = memo(function MarkdownContent({
+  content,
+  imageErrorLabel,
+}: {
+  content: string
+  imageErrorLabel: string
+}) {
+  const components = useMemo(
+    () => ({
+      img: ({ src, alt }: React.ImgHTMLAttributes<HTMLImageElement>) => (
+        <MarkdownImage src={typeof src === 'string' ? src : undefined} alt={alt} errorLabel={imageErrorLabel} />
+      ),
+    }),
+    [imageErrorLabel]
+  )
+
   return (
     <div
       className={cn(
@@ -109,7 +171,6 @@ function MarkdownContent({ content }: { content: string }) {
         '[&_ul]:list-disc [&_ul]:pl-5 [&_ul]:space-y-0.5',
         '[&_ol]:list-decimal [&_ol]:pl-5 [&_ol]:space-y-0.5',
         '[&_li]:leading-relaxed',
-        '[&_img]:rounded-lg [&_img]:my-3 [&_img]:max-w-full [&_img]:h-auto',
         '[&_a]:text-develop-blue [&_a]:underline [&_a]:underline-offset-2',
         '[&_strong]:font-semibold [&_strong]:text-foreground',
         '[&_code]:bg-muted [&_code]:px-1 [&_code]:py-0.5 [&_code]:rounded [&_code]:text-xs [&_code]:font-mono',
@@ -117,14 +178,23 @@ function MarkdownContent({ content }: { content: string }) {
         '[&_blockquote]:border-l-2 [&_blockquote]:border-amber-300 dark:[&_blockquote]:border-amber-700 [&_blockquote]:pl-3 [&_blockquote]:italic [&_blockquote]:text-muted-foreground'
       )}
     >
-      <ReactMarkdown>{content}</ReactMarkdown>
+      <ReactMarkdown components={components}>{content}</ReactMarkdown>
     </div>
   )
-}
+})
+
+const ANIMATION_DURATION = 200
+
+/** Tailwind classes matching DialogContent for visual consistency */
+const POPUP_CLASSES =
+  'fixed top-1/2 left-1/2 z-50 grid w-full max-w-[calc(100%-2rem)] -translate-x-1/2 -translate-y-1/2 gap-4 rounded-xl bg-popover p-4 text-sm text-popover-foreground ring-1 ring-foreground/10 outline-none sm:max-w-lg'
 
 export function AnnouncementPanel() {
   const t = useTranslations()
   const [detail, setDetail] = useState<Announcement | null>(null)
+  const [dialogOpen, setDialogOpen] = useState(false)
+  const [dialogMounted, setDialogMounted] = useState(false)
+  const closeTimerRef = useRef(0)
 
   const announcements = useAnnouncementStore((s) => s.announcements)
   const readIds = useAnnouncementStore((s) => s.readIds)
@@ -139,16 +209,26 @@ export function AnnouncementPanel() {
     loadAnnouncements()
   }, [loadAnnouncements])
 
+  useEffect(() => {
+    return () => window.clearTimeout(closeTimerRef.current)
+  }, [])
+
   const handleOpen = useCallback(
     (a: Announcement) => {
+      window.clearTimeout(closeTimerRef.current)
       setDetail(a)
+      setDialogMounted(true)
+      requestAnimationFrame(() => setDialogOpen(true))
       markAsRead(a.id)
     },
     [markAsRead]
   )
 
   const handleClose = useCallback(() => {
-    setDetail(null)
+    setDialogOpen(false)
+    closeTimerRef.current = window.setTimeout(() => {
+      setDialogMounted(false)
+    }, ANIMATION_DURATION)
   }, [])
 
   return (
@@ -164,7 +244,8 @@ export function AnnouncementPanel() {
             variant="secondary"
             className={cn(
               'h-4 px-1.5 text-[10px] leading-none',
-              importantUnread > 0 && 'bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-300'
+              importantUnread > 0 &&
+                'bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-300'
             )}
           >
             {totalUnread}
@@ -206,41 +287,82 @@ export function AnnouncementPanel() {
         </CardContent>
       </Card>
 
-      {/* Detail dialog */}
-      <Dialog open={!!detail} onOpenChange={(open) => { if (!open) handleClose() }}>
-        <DialogContent className="sm:max-w-lg">
-          <DialogHeader>
-            <div className="flex items-center gap-2">
-              {detail?.priority === 'important' && (
-                <Badge variant="secondary" className="h-4 px-1.5 text-[10px] leading-none text-amber-700 dark:text-amber-300 bg-amber-100 dark:bg-amber-900/40 border-amber-200 dark:border-amber-800">
-                  重要
-                </Badge>
-              )}
-              <DialogTitle>{detail?.title}</DialogTitle>
-            </div>
-            {detail && (
-              <DialogDescription>
-                {(() => {
-                  try {
-                    const d = new Date(detail.publishTime)
-                    if (isNaN(d.getTime())) return ''
-                    return t('home.publishedAt', {
-                      time: new Intl.DateTimeFormat(undefined, {
-                        year: 'numeric',
-                        month: 'long',
-                        day: 'numeric',
-                      }).format(d),
-                    })
-                  } catch {
-                    return ''
-                  }
-                })()}
-              </DialogDescription>
+      {/* Detail modal — Dialog provides Context for header/title/description.
+          Overlay + popup visibility are self-managed via CSS transition so content
+          stays mounted during the close animation. */}
+      {dialogMounted && detail && (
+        <Dialog open={true} modal={false}>
+          {/* Self-managed overlay */}
+          <div
+            className={cn(
+              'fixed inset-0 z-50 bg-black/10 transition-opacity',
+              dialogOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
             )}
-          </DialogHeader>
-          {detail && <MarkdownContent content={detail.content} />}
-        </DialogContent>
-      </Dialog>
+            style={{ transitionDuration: `${ANIMATION_DURATION}ms` }}
+            onClick={handleClose}
+            aria-hidden="true"
+          />
+
+          {/* Self-managed popup (DialogContent styling, no duplicate overlay) */}
+          <DialogPortal>
+            <div
+              className={cn(
+                POPUP_CLASSES,
+                'transition-all',
+                dialogOpen ? 'opacity-100 scale-100' : 'opacity-0 scale-95 pointer-events-none'
+              )}
+              style={{ transitionDuration: `${ANIMATION_DURATION}ms` }}
+              role="dialog"
+              aria-modal="true"
+            >
+              <Button
+                variant="ghost"
+                size="icon-sm"
+                className="absolute top-2 right-2"
+                onClick={handleClose}
+              >
+                <XIcon />
+                <span className="sr-only">Close</span>
+              </Button>
+
+              <DialogHeader>
+                <div className="flex items-center gap-2">
+                  {detail.priority === 'important' && (
+                    <Badge variant="secondary" className="h-4 px-1.5 text-[10px] leading-none text-amber-700 dark:text-amber-300 bg-amber-100 dark:bg-amber-900/40 border-amber-200 dark:border-amber-800">
+                      {t('home.importantBadge')}
+                    </Badge>
+                  )}
+                  <DialogTitle>{detail.title}</DialogTitle>
+                </div>
+                <DialogDescription>
+                  {(() => {
+                    try {
+                      const d = new Date(detail.publishTime)
+                      if (isNaN(d.getTime())) return ''
+                      return t('home.publishedAt', {
+                        time: new Intl.DateTimeFormat(undefined, {
+                          year: 'numeric',
+                          month: 'long',
+                          day: 'numeric',
+                          hour: 'numeric',
+                          minute: '2-digit',
+                        }).format(d),
+                      })
+                    } catch {
+                      return ''
+                    }
+                  })()}
+                </DialogDescription>
+              </DialogHeader>
+
+              <MarkdownContent
+                content={detail.content}
+                imageErrorLabel={t('home.imageLoadFailed')}
+              />
+            </div>
+          </DialogPortal>
+        </Dialog>
+      )}
     </div>
   )
 }
