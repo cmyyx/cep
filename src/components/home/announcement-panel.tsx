@@ -1,8 +1,9 @@
 'use client'
 
-import React, { useEffect, useState, useCallback, useRef, useMemo, memo } from 'react'
+import React, { useEffect, useState, useCallback, useMemo, memo } from 'react'
 import { useTranslations } from 'next-intl'
 import ReactMarkdown from 'react-markdown'
+import rehypeSanitize, { defaultSchema } from 'rehype-sanitize'
 import { Megaphone, ChevronRight, ImageOff, XIcon } from 'lucide-react'
 import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
@@ -10,7 +11,7 @@ import { Button } from '@/components/ui/button'
 import { Skeleton } from '@/components/ui/skeleton'
 import {
   Dialog,
-  DialogPortal,
+  DialogContent,
   DialogHeader,
   DialogTitle,
   DialogDescription,
@@ -48,11 +49,11 @@ function AnnouncementItem({
   })()
 
   return (
-    <button
-      type="button"
+    <Button
+      variant="ghost"
       onClick={onOpen}
       className={cn(
-        'w-full text-left px-3 py-2.5 -mx-3 rounded-md transition-colors',
+        'w-full justify-start h-auto px-3 py-2.5 -mx-3 rounded-md transition-colors',
         'flex items-start gap-3',
         isImportant && !isRead && 'bg-amber-50/50 dark:bg-amber-950/30',
         isImportant && isRead && 'bg-transparent',
@@ -90,7 +91,7 @@ function AnnouncementItem({
       </div>
 
       <ChevronRight className="mt-1 size-4 shrink-0 text-muted-foreground/50" />
-    </button>
+    </Button>
   )
 }
 
@@ -145,6 +146,15 @@ function MarkdownImage({
   )
 }
 
+const SANITIZE_SCHEMA = {
+  ...defaultSchema,
+  tagNames: [...(defaultSchema.tagNames ?? []), 'img'],
+  attributes: {
+    ...defaultSchema.attributes,
+    img: ['src', 'alt', 'title', 'loading', 'className'],
+  },
+}
+
 const MarkdownContent = memo(function MarkdownContent({
   content,
   imageErrorLabel,
@@ -178,23 +188,20 @@ const MarkdownContent = memo(function MarkdownContent({
         '[&_blockquote]:border-l-2 [&_blockquote]:border-amber-300 dark:[&_blockquote]:border-amber-700 [&_blockquote]:pl-3 [&_blockquote]:italic [&_blockquote]:text-muted-foreground'
       )}
     >
-      <ReactMarkdown components={components}>{content}</ReactMarkdown>
+      <ReactMarkdown
+        components={components}
+        rehypePlugins={[[rehypeSanitize, SANITIZE_SCHEMA]]}
+      >
+        {content}
+      </ReactMarkdown>
     </div>
   )
 })
-
-const ANIMATION_DURATION = 200
-
-/** Tailwind classes matching DialogContent for visual consistency */
-const POPUP_CLASSES =
-  'fixed top-1/2 left-1/2 z-50 grid w-full max-w-[calc(100%-2rem)] -translate-x-1/2 -translate-y-1/2 gap-4 rounded-xl bg-popover p-4 text-sm text-popover-foreground ring-1 ring-foreground/10 outline-none sm:max-w-lg'
 
 export function AnnouncementPanel() {
   const t = useTranslations()
   const [detail, setDetail] = useState<Announcement | null>(null)
   const [dialogOpen, setDialogOpen] = useState(false)
-  const [dialogMounted, setDialogMounted] = useState(false)
-  const closeTimerRef = useRef(0)
 
   const announcements = useAnnouncementStore((s) => s.announcements)
   const readIds = useAnnouncementStore((s) => s.readIds)
@@ -209,16 +216,10 @@ export function AnnouncementPanel() {
     loadAnnouncements()
   }, [loadAnnouncements])
 
-  useEffect(() => {
-    return () => window.clearTimeout(closeTimerRef.current)
-  }, [])
-
   const handleOpen = useCallback(
     (a: Announcement) => {
-      window.clearTimeout(closeTimerRef.current)
       setDetail(a)
-      setDialogMounted(true)
-      requestAnimationFrame(() => setDialogOpen(true))
+      setDialogOpen(true)
       markAsRead(a.id)
     },
     [markAsRead]
@@ -226,13 +227,10 @@ export function AnnouncementPanel() {
 
   const handleClose = useCallback(() => {
     setDialogOpen(false)
-    closeTimerRef.current = window.setTimeout(() => {
-      setDialogMounted(false)
-    }, ANIMATION_DURATION)
   }, [])
 
   return (
-    <div className="space-y-3">
+    <div id="announcement-panel" className="space-y-3">
       {/* Header row */}
       <div className="flex items-center gap-2">
         <Megaphone className="size-4 text-muted-foreground" aria-hidden="true" />
@@ -287,82 +285,57 @@ export function AnnouncementPanel() {
         </CardContent>
       </Card>
 
-      {/* Detail modal — Dialog provides Context for header/title/description.
-          Overlay + popup visibility are self-managed via CSS transition so content
-          stays mounted during the close animation. */}
-      {dialogMounted && detail && (
-        <Dialog open={true} modal={false}>
-          {/* Self-managed overlay */}
-          <div
-            className={cn(
-              'fixed inset-0 z-50 bg-black/10 transition-opacity',
-              dialogOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
-            )}
-            style={{ transitionDuration: `${ANIMATION_DURATION}ms` }}
-            onClick={handleClose}
-            aria-hidden="true"
-          />
-
-          {/* Self-managed popup (DialogContent styling, no duplicate overlay) */}
-          <DialogPortal>
-            <div
-              className={cn(
-                POPUP_CLASSES,
-                'transition-all',
-                dialogOpen ? 'opacity-100 scale-100' : 'opacity-0 scale-95 pointer-events-none'
-              )}
-              style={{ transitionDuration: `${ANIMATION_DURATION}ms` }}
-              role="dialog"
-              aria-modal="true"
+      {/* Detail dialog — uses DialogContent for proper focus trap, Esc key, and accessibility */}
+      <Dialog open={dialogOpen} onOpenChange={(open) => { if (!open) handleClose(); }}>
+        {detail && (
+          <DialogContent className="sm:max-w-lg duration-200" showCloseButton={false}>
+            <Button
+              variant="ghost"
+              size="icon-sm"
+              className="absolute top-2 right-2"
+              onClick={handleClose}
             >
-              <Button
-                variant="ghost"
-                size="icon-sm"
-                className="absolute top-2 right-2"
-                onClick={handleClose}
-              >
-                <XIcon />
-                <span className="sr-only">Close</span>
-              </Button>
+              <XIcon />
+              <span className="sr-only">Close</span>
+            </Button>
 
-              <DialogHeader>
-                <div className="flex items-center gap-2">
-                  {detail.priority === 'important' && (
-                    <Badge variant="secondary" className="h-4 px-1.5 text-[10px] leading-none text-amber-700 dark:text-amber-300 bg-amber-100 dark:bg-amber-900/40 border-amber-200 dark:border-amber-800">
-                      {t('home.importantBadge')}
-                    </Badge>
-                  )}
-                  <DialogTitle>{detail.title}</DialogTitle>
-                </div>
-                <DialogDescription>
-                  {(() => {
-                    try {
-                      const d = new Date(detail.publishTime)
-                      if (isNaN(d.getTime())) return ''
-                      return t('home.publishedAt', {
-                        time: new Intl.DateTimeFormat(undefined, {
-                          year: 'numeric',
-                          month: 'long',
-                          day: 'numeric',
-                          hour: 'numeric',
-                          minute: '2-digit',
-                        }).format(d),
-                      })
-                    } catch {
-                      return ''
-                    }
-                  })()}
-                </DialogDescription>
-              </DialogHeader>
+            <DialogHeader>
+              <div className="flex items-center gap-2">
+                {detail.priority === 'important' && (
+                  <Badge variant="secondary" className="h-4 px-1.5 text-[10px] leading-none text-amber-700 dark:text-amber-300 bg-amber-100 dark:bg-amber-900/40 border-amber-200 dark:border-amber-800">
+                    {t('home.importantBadge')}
+                  </Badge>
+                )}
+                <DialogTitle>{detail.title}</DialogTitle>
+              </div>
+              <DialogDescription>
+                {(() => {
+                  try {
+                    const d = new Date(detail.publishTime)
+                    if (isNaN(d.getTime())) return ''
+                    return t('home.publishedAt', {
+                      time: new Intl.DateTimeFormat(undefined, {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric',
+                        hour: 'numeric',
+                        minute: '2-digit',
+                      }).format(d),
+                    })
+                  } catch {
+                    return ''
+                  }
+                })()}
+              </DialogDescription>
+            </DialogHeader>
 
-              <MarkdownContent
-                content={detail.content}
-                imageErrorLabel={t('home.imageLoadFailed')}
-              />
-            </div>
-          </DialogPortal>
-        </Dialog>
-      )}
+            <MarkdownContent
+              content={detail.content}
+              imageErrorLabel={t('home.imageLoadFailed')}
+            />
+          </DialogContent>
+        )}
+      </Dialog>
     </div>
   )
 }

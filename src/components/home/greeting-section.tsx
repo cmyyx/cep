@@ -1,28 +1,41 @@
 'use client'
 
-import { useMemo } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 import { useTranslations, useLocale } from 'next-intl'
 
 interface GreetingSectionProps {
   greetingKey: string
 }
 
+function formatDateStr(locale: string): string {
+  try {
+    return new Intl.DateTimeFormat(locale, {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      weekday: 'long',
+    }).format(new Date())
+  } catch {
+    return ''
+  }
+}
+
 export function GreetingSection({ greetingKey }: GreetingSectionProps) {
   const t = useTranslations()
   const locale = useLocale()
 
-  const todayStr = useMemo(() => {
-    try {
-      return new Intl.DateTimeFormat(locale, {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric',
-        weekday: 'long',
-      }).format(new Date())
-    } catch {
-      return ''
-    }
+  const [todayStr, setTodayStr] = useState(() => formatDateStr(locale))
+
+  const updateDate = useCallback(() => {
+    const next = formatDateStr(locale)
+    setTodayStr((prev) => (prev !== next ? next : prev))
   }, [locale])
+
+  useEffect(() => {
+    // Periodic re-check so the date updates within 60s of midnight
+    const interval = setInterval(updateDate, 60_000)
+    return () => clearInterval(interval)
+  }, [updateDate])
 
   return (
     <div className="space-y-1">

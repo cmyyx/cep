@@ -14,7 +14,7 @@
     "markAllRead": "Mark all read",
     "noAnnouncements": "No announcements",
     "publishedAt": "Published {time}",
-    "importantBanner": "You have {count} unread important announcement(s)",
+    "importantBanner": "{count, plural, =1 {You have # unread important announcement} other {You have # unread important announcements}}",
     "clickToView": "Click to view",
     "importantBadge": "Important",
     "imageLoadFailed": "Image failed to load"

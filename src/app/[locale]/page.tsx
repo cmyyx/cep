@@ -1,10 +1,11 @@
 'use client'
 
-import { useMemo } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 import { useTranslations } from 'next-intl'
 import { SidebarTrigger } from '@/components/ui/sidebar'
 import { Separator } from '@/components/ui/separator'
 import { GreetingSection } from '@/components/home/greeting-section'
+import { RealTimeClock } from '@/components/home/real-time-clock'
 import { OverviewCards } from '@/components/home/overview-cards'
 import { AnnouncementPanel } from '@/components/home/announcement-panel'
 
@@ -19,7 +20,20 @@ function getGreetingKey(): string {
 
 export default function HomePage() {
   const t = useTranslations()
-  const greetingKey = useMemo(() => getGreetingKey(), [])
+  const [greetingKey, setGreetingKey] = useState(() => getGreetingKey())
+
+  const updateGreeting = useCallback(() => {
+    setGreetingKey((prev) => {
+      const next = getGreetingKey()
+      return prev !== next ? next : prev
+    })
+  }, [])
+
+  useEffect(() => {
+    // Re-check every minute so the greeting updates near time boundaries
+    const interval = setInterval(updateGreeting, 60_000)
+    return () => clearInterval(interval)
+  }, [updateGreeting])
 
   return (
     <div className="flex flex-col flex-1 min-h-0">
@@ -35,6 +49,7 @@ export default function HomePage() {
       <div className="flex-1 overflow-auto">
         <div className="mx-auto max-w-5xl px-6 py-8 space-y-8">
           <GreetingSection greetingKey={greetingKey} />
+          <RealTimeClock />
           <Separator />
           <OverviewCards />
           <Separator />
