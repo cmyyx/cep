@@ -117,7 +117,8 @@
     "clearAll": "Clear",
     "emptyHint": "Select weapons to view recommended plans",
     "noPlanMatch": "No matching plans for current filters",
-    "computing": "Computing plans..."
+    "computing": "Computing plans...",
+    "attrFilterTitle": "Attribute Filter"
   },
   "bannerCalendar": {
     "noData": "No banner calendar data",

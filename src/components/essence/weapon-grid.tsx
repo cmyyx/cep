@@ -34,6 +34,7 @@ const ATTR_LABEL_KEYS: Record<AttrKey, string> = {
 export const WeaponGrid = memo(function WeaponGrid() {
   const t = useTranslations()
   const [query, setQuery] = useState('')
+  const [filterCollapsed, setFilterCollapsed] = useState(false)
   const [filters, setFilters] = useState<Record<AttrKey, Set<string>>>({
     primaryStat: new Set(),
     elementalDamage: new Set(),
@@ -101,39 +102,66 @@ export const WeaponGrid = memo(function WeaponGrid() {
     <div className="flex flex-col gap-3">
       <Input placeholder={t('essence.searchWeapon')} value={query} onChange={(e) => setQuery(e.target.value)} className="text-sm" />
 
-      {/* Attribute filter chips */}
-      {ATTR_KEYS.map((key) => {
-        const values = ATTR_VALUES[key]
-        const valid = validOptions[key]
-        const selected = filters[key]
-        return (
-          <div key={key} className="flex flex-col gap-1">
-            <span className="text-[10px] text-muted-foreground">{t(ATTR_LABEL_KEYS[key])}</span>
-            <div className="flex flex-wrap gap-1">
-              {values.map((v) => {
-                const isValid = valid.has(v)
-                const isSelected = selected.has(v)
-                return (
-                  <button
-                    key={v}
-                    type="button"
-                    disabled={!isValid && !isSelected}
-                    onClick={() => toggleFilter(key, v)}
-                    className={cn(
-                      'px-1.5 py-0.5 rounded text-[11px] border transition-colors',
-                      isSelected && 'bg-primary text-primary-foreground border-primary',
-                      !isSelected && isValid && 'border-border hover:border-foreground/30',
-                      !isValid && !isSelected && 'border-border/30 text-muted-foreground/30 line-through cursor-not-allowed',
-                    )}
-                  >
-                    {v}
-                  </button>
-                )
-              })}
-            </div>
+      {/* Attribute filter — collapsible */}
+      <div>
+        <button
+          type="button"
+          onClick={() => setFilterCollapsed((v) => !v)}
+          className="flex w-full items-center gap-1 text-[10px] text-muted-foreground hover:text-foreground transition-colors"
+        >
+          <span className="flex-1 text-left">{t('essence.attrFilterTitle')}</span>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="12"
+            height="12"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className={cn('transition-transform', filterCollapsed ? '-rotate-90' : 'rotate-0')}
+          >
+            <path d="m6 9 6 6 6-6" />
+          </svg>
+        </button>
+        {!filterCollapsed && (
+          <div className="flex flex-col gap-2 mt-1.5">
+            {ATTR_KEYS.map((key) => {
+              const values = ATTR_VALUES[key]
+              const valid = validOptions[key]
+              const selected = filters[key]
+              return (
+                <div key={key} className="flex flex-col gap-1">
+                  <span className="text-[10px] text-muted-foreground">{t(ATTR_LABEL_KEYS[key])}</span>
+                  <div className="grid grid-cols-[repeat(auto-fill,minmax(5.5rem,1fr))] gap-1">
+                    {values.map((v) => {
+                      const isValid = valid.has(v)
+                      const isSelected = selected.has(v)
+                      return (
+                        <button
+                          key={v}
+                          type="button"
+                          disabled={!isValid && !isSelected}
+                          onClick={() => toggleFilter(key, v)}
+                          className={cn(
+                            'w-full px-1 py-0.5 rounded text-[11px] text-center border transition-colors truncate',
+                            isSelected && 'bg-primary text-primary-foreground border-primary',
+                            !isSelected && isValid && 'border-border hover:border-foreground/30',
+                            !isValid && !isSelected && 'border-border/30 text-muted-foreground/30 line-through cursor-not-allowed',
+                          )}
+                        >
+                          {v}
+                        </button>
+                      )
+                    })}
+                  </div>
+                </div>
+              )
+            })}
           </div>
-        )
-      })}
+        )}
+      </div>
 
       <div className="grid grid-cols-3 gap-2">
         {filteredWeapons.map((weapon) => (

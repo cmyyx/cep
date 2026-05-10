@@ -117,7 +117,8 @@
     "clearAll": "クリア",
     "emptyHint": "武器を選択するとおすすめプランが表示されます",
     "noPlanMatch": "現在の条件ではマッチするプランがありません",
-    "computing": "計算中..."
+    "computing": "計算中...",
+    "attrFilterTitle": "属性フィルター"
   },
   "bannerCalendar": {
     "noData": "ガチャカレンダーデータがありません",

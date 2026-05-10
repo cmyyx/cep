@@ -117,7 +117,8 @@
     "clearAll": "清空",
     "emptyHint": "選擇武器以查看推薦方案（將展示所有可刷武器，已選優先）",
     "noPlanMatch": "當前篩選條件下無匹配方案",
-    "computing": "正在計算方案..."
+    "computing": "正在計算方案...",
+    "attrFilterTitle": "屬性篩選"
   },
   "bannerCalendar": {
     "noData": "暫無卡池日曆數據",
