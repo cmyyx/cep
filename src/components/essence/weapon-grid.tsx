@@ -9,6 +9,7 @@ import { weapons as staticWeapons } from '@/data/weapons'
 import { useMatrixStore } from '@/stores/useMatrixStore'
 import { useEssenceSettingsStore } from '@/stores/useEssenceSettingsStore'
 import { OwnershipBadge, EditableNote } from './ownership-badge'
+import { isWeaponOnBanner } from '@/lib/banner-utils'
 
 type AttrKey = keyof Pick<Weapon, 'primaryStat' | 'elementalDamage' | 'specialAbility'>
 
@@ -62,11 +63,25 @@ export const WeaponGrid = memo(function WeaponGrid() {
   const setEssenceStatus = useEssenceSettingsStore((s) => s.setEssenceStatus)
   const setWeaponNote = useEssenceSettingsStore((s) => s.setWeaponNote)
 
-  // Combined weapon list (custom first, then static)
-  const allWeapons = useMemo(
-    () => [...customWeapons, ...staticWeapons],
-    [customWeapons],
-  )
+  // Combined weapon list: custom first, then banner UP, then alphabetical
+  const allWeapons = useMemo(() => {
+    const bannerWeapons: Weapon[] = []
+    const otherWeapons: Weapon[] = []
+
+    for (const w of staticWeapons) {
+      if (isWeaponOnBanner(w)) {
+        bannerWeapons.push(w)
+      } else {
+        otherWeapons.push(w)
+      }
+    }
+
+    // Banner weapons sorted by name, other weapons sorted by name
+    bannerWeapons.sort((a, b) => a.name.localeCompare(b.name, 'zh-CN'))
+    otherWeapons.sort((a, b) => a.name.localeCompare(b.name, 'zh-CN'))
+
+    return [...customWeapons, ...bannerWeapons, ...otherWeapons]
+  }, [customWeapons])
 
   // Dynamic attr values based on full weapon list
   const attrValues = useMemo(() => buildAttrValues(allWeapons), [allWeapons])
@@ -224,6 +239,7 @@ export const WeaponGrid = memo(function WeaponGrid() {
             <WeaponCard
               weapon={weapon}
               isSelected={selectedSet.has(weapon.id)}
+              isOnBanner={isWeaponOnBanner(weapon)}
             />
             {enableOwnershipEdit && (
               <div className="flex items-center justify-center gap-1">
