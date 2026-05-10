@@ -28,6 +28,10 @@ export const WeaponCard = memo(function WeaponCard({
     toggleWeapon(weapon.id)
   }, [toggleWeapon, weapon.id])
 
+  const imageSrc = weapon.imageId?.startsWith('data:')
+    ? weapon.imageId
+    : `/images/weapons/${weapon.imageId || 'wpn_sword_0001'}.avif`
+
   return (
     <button
       type="button"
@@ -47,7 +51,7 @@ export const WeaponCard = memo(function WeaponCard({
       {/* Weapon art */}
       <div className="absolute inset-0 z-10 flex items-center justify-center">
         <Image
-          src={`/images/weapons/${weapon.imageId || 'wpn_sword_0001'}.avif`}
+          src={imageSrc}
           alt={weapon.name}
           fill
           className="object-cover"

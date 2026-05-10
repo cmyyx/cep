@@ -149,7 +149,7 @@ interface MatrixState {
   toggleWeapon: (weaponId: string) => void
   selectAllWeapons: () => void
   clearWeapons: () => void
-  toggleDungeonExpand: (dungeonId: string) => void
+  toggleDungeonExpand: (planKey: string) => void
   setDungeonS1Selection: (planKey: string, s1: string[]) => void
 }
 
@@ -194,13 +194,13 @@ export const useMatrixStore = create<MatrixState>((set, get) => ({
     set({ selectedWeaponIds: [], plansMap: {}, planOrder: [], plansStale: false })
   },
 
-  toggleDungeonExpand: (dungeonId: string) => {
+  toggleDungeonExpand: (planKey: string) => {
     const current = get().expandedDungeonIds
     const nextSet = new Set(current)
-    if (nextSet.has(dungeonId)) {
-      nextSet.delete(dungeonId)
+    if (nextSet.has(planKey)) {
+      nextSet.delete(planKey)
     } else {
-      nextSet.add(dungeonId)
+      nextSet.add(planKey)
     }
     set({ expandedDungeonIds: Array.from(nextSet) })
   },

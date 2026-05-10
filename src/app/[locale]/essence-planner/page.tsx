@@ -1,15 +1,19 @@
 'use client'
 
-import { useMemo } from 'react'
+import { useMemo, useState } from 'react'
 import { useTranslations } from 'next-intl'
 import { SidebarTrigger } from '@/components/ui/sidebar'
 import { Button } from '@/components/ui/button'
 import { WeaponGrid } from '@/components/essence/weapon-grid'
 import { DungeonCard } from '@/components/essence/dungeon-card'
+import { EssenceSettingsDialog } from '@/components/essence/essence-settings-dialog'
+import { CustomWeaponDialog } from '@/components/essence/custom-weapon-dialog'
 import { useMatrixStore } from '@/stores/useMatrixStore'
+import { Plus } from 'lucide-react'
 
 export default function EssencePlannerPage() {
   const t = useTranslations()
+  const [customWeaponOpen, setCustomWeaponOpen] = useState(false)
   const selectedWeaponIds = useMatrixStore((s) => s.selectedWeaponIds)
   const plansMap = useMatrixStore((s) => s.plansMap)
   const planOrder = useMatrixStore((s) => s.planOrder)
@@ -44,12 +48,25 @@ export default function EssencePlannerPage() {
         <Button variant="ghost" size="sm" onClick={clearWeapons}>
           {t('essence.clearAll')}
         </Button>
+        <Button
+          variant="ghost"
+          size="icon-sm"
+          onClick={() => setCustomWeaponOpen(true)}
+          aria-label={t('essence.customWeapons')}
+        >
+          <Plus className="size-4" />
+        </Button>
+        <EssenceSettingsDialog />
+        <CustomWeaponDialog
+          open={customWeaponOpen}
+          onOpenChange={setCustomWeaponOpen}
+        />
       </div>
 
       {/* Main content */}
       <div className="flex flex-1 overflow-hidden">
         {/* Left: weapon grid */}
-        <div className="w-80 shrink-0 border-r border-border overflow-y-auto p-3">
+        <div className="w-80 shrink-0 border-r border-border overflow-y-scroll p-3">
           <WeaponGrid />
         </div>
 
@@ -72,7 +89,7 @@ export default function EssencePlannerPage() {
                   <DungeonCard
                     key={planKey}
                     plan={plan}
-                    isExpanded={expandedSet.has(plan.dungeon.id)}
+                    isExpanded={expandedSet.has(planKey)}
                   />
                 )
               })}
