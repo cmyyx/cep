@@ -32,6 +32,12 @@ export interface EssenceUserData {
 
 export type EssenceSettingsState = EssenceSettingsFlags &
   EssenceUserData & {
+    /** Region priority: two-level. null means none. */
+    regionFirst: string | null
+    regionSecond: string | null
+    /** Weapon ownership sort priority */
+    weaponPriority: 'none' | 'unowned-first' | 'owned-first'
+
     toggleFlag: (key: SettingKey) => void
     setWeaponOwnership: (weaponId: string, owned: boolean) => void
     setEssenceStatus: (weaponId: string, status: boolean) => void
@@ -39,5 +45,8 @@ export type EssenceSettingsState = EssenceSettingsFlags &
     addCustomWeapon: (weapon: Weapon) => void
     removeCustomWeapon: (weaponId: string) => void
     updateCustomWeapon: (weaponId: string, weapon: Weapon) => void
+    setRegionFirst: (region: string | null) => void
+    setRegionSecond: (region: string | null) => void
+    setWeaponPriority: (priority: 'none' | 'unowned-first' | 'owned-first') => void
     resetAllSettings: () => void
   }

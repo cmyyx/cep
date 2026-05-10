@@ -11,8 +11,19 @@ import {
 } from '@/components/ui/dialog'
 import { Button } from '@/components/ui/button'
 import { Switch } from '@/components/ui/switch'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+} from '@/components/ui/select'
 import { useEssenceSettingsStore } from '@/stores/useEssenceSettingsStore'
+import { getRegions } from '@/data/dungeons'
+import { dungeons } from '@/data/dungeons'
+import { cn } from '@/lib/utils'
 import type { SettingKey } from '@/types/essence-settings'
+
+const REGIONS = getRegions(dungeons)
 
 // ─── Paired setting rows (one label, two switches) ─────────────────────────
 
@@ -66,6 +77,12 @@ export function EssenceSettingsDialog() {
   const [open, setOpen] = useState(false)
 
   const toggleFlag = useEssenceSettingsStore((s) => s.toggleFlag)
+  const regionFirst = useEssenceSettingsStore((s) => s.regionFirst)
+  const regionSecond = useEssenceSettingsStore((s) => s.regionSecond)
+  const weaponPriority = useEssenceSettingsStore((s) => s.weaponPriority)
+  const setRegionFirst = useEssenceSettingsStore((s) => s.setRegionFirst)
+  const setRegionSecond = useEssenceSettingsStore((s) => s.setRegionSecond)
+  const setWeaponPriority = useEssenceSettingsStore((s) => s.setWeaponPriority)
 
   // Read all flags individually (avoids new-object-per-render infinite loop)
   const flags = {
@@ -187,6 +204,92 @@ export function EssenceSettingsDialog() {
               })}
             </tbody>
           </table>
+        </div>
+
+        {/* 分隔线 */}
+        <div className="h-px bg-border -mx-4" />
+
+        {/* 地区优先级设置 */}
+        <div className="-mx-4 px-4">
+          <h3 className="text-sm font-semibold mb-3">{t('essenceSettings.regionPriority')}</h3>
+
+          {/* 排序机制说明 */}
+          <div className="rounded-md bg-muted/50 border border-border px-3 py-2.5 mb-3">
+            <p className="text-xs font-medium text-foreground mb-1.5">{t('essenceSettings.sortMechanism')}</p>
+            <ol className="text-xs text-muted-foreground space-y-0.5">
+              <li>{t('essenceSettings.sortRegionStep')}</li>
+              <li>{t('essenceSettings.sortWeaponStep')}</li>
+              <li>{t('essenceSettings.sortSelectedStep')}</li>
+              <li>{t('essenceSettings.sortTotalStep')}</li>
+            </ol>
+          </div>
+
+          {/* 地区优先选择 - 两级 */}
+          <div className="flex items-center justify-between py-2">
+            <span className="text-sm">{t('essenceSettings.regionFirstLabel')}</span>
+            <Select
+              value={regionFirst ?? 'none'}
+              onValueChange={(v) => setRegionFirst(v === 'none' ? null : v)}
+            >
+              <SelectTrigger className="w-36">
+                <span>{regionFirst ? regionFirst : t('essenceSettings.regionNone')}</span>
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="none">{t('essenceSettings.regionNone')}</SelectItem>
+                {REGIONS.map((region) => (
+                  <SelectItem key={region} value={region}>
+                    {region}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+          <div className="flex items-center justify-between py-2">
+            <span className={cn('text-sm', !regionFirst && 'text-muted-foreground/40')}>
+              {t('essenceSettings.regionSecondLabel')}
+            </span>
+            <Select
+              value={regionSecond ?? 'none'}
+              onValueChange={(v) => setRegionSecond(v === 'none' ? null : v)}
+              disabled={!regionFirst}
+            >
+              <SelectTrigger className="w-36">
+                <span>{regionSecond ? regionSecond : t('essenceSettings.regionNone')}</span>
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="none">{t('essenceSettings.regionNone')}</SelectItem>
+                {REGIONS.filter((r) => r !== regionFirst).map((region) => (
+                  <SelectItem key={region} value={region}>
+                    {region}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+
+          {/* 武器拥有优先级 */}
+          <div className="flex items-center justify-between py-2">
+            <span className="text-sm">{t('essenceSettings.weaponPriorityLabel')}</span>
+            <Select
+              value={weaponPriority}
+              onValueChange={(v) => setWeaponPriority(v as 'none' | 'unowned-first' | 'owned-first')}
+            >
+              <SelectTrigger className="w-36">
+                <span>
+                  {weaponPriority === 'none'
+                    ? t('essenceSettings.weaponPriorityNone')
+                    : weaponPriority === 'unowned-first'
+                      ? t('essenceSettings.weaponPriorityUnownedFirst')
+                      : t('essenceSettings.weaponPriorityOwnedFirst')}
+                </span>
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="none">{t('essenceSettings.weaponPriorityNone')}</SelectItem>
+                <SelectItem value="unowned-first">{t('essenceSettings.weaponPriorityUnownedFirst')}</SelectItem>
+                <SelectItem value="owned-first">{t('essenceSettings.weaponPriorityOwnedFirst')}</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
         </div>
 
       </DialogContent>

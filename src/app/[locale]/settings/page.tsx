@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Switch } from '@/components/ui/switch'
+import { Upload } from 'lucide-react'
 import {
   Select,
   SelectContent,
@@ -31,11 +32,13 @@ export default function SettingsPage() {
 
   const [apiUrl, setApiUrl] = useState('')
   const fileRef = useRef<HTMLInputElement>(null)
+  const [fileName, setFileName] = useState('')
   const [showFlashbangWarning, setShowFlashbangWarning] = useState(false)
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
     if (!file) return
+    setFileName(file.name)
     const url = URL.createObjectURL(file)
     setBackgroundUrl(url)
   }
@@ -121,8 +124,28 @@ export default function SettingsPage() {
               </div>
             </div>
             <div className="flex flex-col gap-2 py-2">
-              <Label className="text-sm">上传背景图片</Label>
-              <input ref={fileRef} type="file" accept="image/*" onChange={handleFileChange} className="text-xs" />
+              <Label className="text-sm">{t('settings.uploadImage')}</Label>
+              <div className="flex items-center gap-2">
+                <input
+                  ref={fileRef}
+                  type="file"
+                  accept="image/*"
+                  onChange={handleFileChange}
+                  className="hidden"
+                />
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="h-7 text-xs"
+                  onClick={() => fileRef.current?.click()}
+                >
+                  <Upload className="size-3 mr-1" />
+                  {t('settings.selectFile')}
+                </Button>
+                {fileName && (
+                  <span className="text-xs text-muted-foreground truncate max-w-48">{fileName}</span>
+                )}
+              </div>
             </div>
             <Button variant="outline" size="sm" onClick={restoreDefaultBg} className="w-fit">
               恢复默认背景

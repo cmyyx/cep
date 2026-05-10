@@ -10,14 +10,38 @@ export function OwnershipBadge({
   onToggle,
   label,
   activeColor,
+  compact,
 }: {
   active: boolean
   onToggle: () => void
   label: string
   activeColor: 'emerald' | 'sky'
+  compact?: boolean
 }) {
   const activeBg = activeColor === 'emerald' ? 'bg-emerald-600' : 'bg-sky-600'
   const activeBorder = activeColor === 'emerald' ? 'border-emerald-600' : 'border-sky-600'
+
+  if (compact) {
+    return (
+      <button
+        type="button"
+        onClick={(e) => {
+          e.stopPropagation()
+          onToggle()
+        }}
+        title={label}
+        className={cn(
+          'size-3.5 rounded-full border transition-colors flex items-center justify-center',
+          active
+            ? `${activeBg} ${activeBorder} text-white`
+            : 'border-border bg-muted/50 hover:border-foreground/30',
+        )}
+      >
+        {active && <span className="text-[7px] leading-none">✓</span>}
+      </button>
+    )
+  }
+
   return (
     <button
       type="button"
@@ -92,7 +116,7 @@ export function EditableNote({
       )}
       title={note || undefined}
     >
-      {note || '点击添加备注'}
+      {note || '备注'}
     </button>
   )
 }

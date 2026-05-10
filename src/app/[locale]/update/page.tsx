@@ -171,7 +171,7 @@ export default function UpdatePage() {
       </div>
 
       {/* Main content */}
-      <div className="flex-1 overflow-auto p-8 flex items-start justify-center">
+      <div className="flex-1 overflow-y-scroll p-8 flex items-start justify-center">
         <div className="w-full max-w-lg">
           {/* Version comparison */}
           {isUpdateAvailable && localInfo && info ? (

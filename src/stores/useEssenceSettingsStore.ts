@@ -37,7 +37,7 @@ function isDefined(v: unknown): v is Record<string, unknown> {
  */
 function mergeWithDefaults(
   persisted: Record<string, unknown>,
-): Omit<EssenceSettingsState, 'toggleFlag' | 'setWeaponOwnership' | 'setEssenceStatus' | 'setWeaponNote' | 'addCustomWeapon' | 'removeCustomWeapon' | 'updateCustomWeapon' | 'resetAllSettings'> {
+): Omit<EssenceSettingsState, 'toggleFlag' | 'setWeaponOwnership' | 'setEssenceStatus' | 'setWeaponNote' | 'addCustomWeapon' | 'removeCustomWeapon' | 'updateCustomWeapon' | 'setRegionFirst' | 'setRegionSecond' | 'setWeaponPriority' | 'resetAllSettings'> {
   const flags = { ...FLAG_DEFAULTS }
   for (const key of Object.keys(FLAG_DEFAULTS) as SettingKey[]) {
     if (typeof persisted[key] === 'boolean') {
@@ -57,8 +57,16 @@ function mergeWithDefaults(
   const customWeapons: Weapon[] = Array.isArray(persisted.customWeapons)
     ? (persisted.customWeapons as Weapon[])
     : []
+  const regionFirst: string | null =
+    typeof persisted.regionFirst === 'string' ? persisted.regionFirst : null
+  const regionSecond: string | null =
+    typeof persisted.regionSecond === 'string' ? persisted.regionSecond : null
+  const weaponPriority: 'none' | 'unowned-first' | 'owned-first' =
+    persisted.weaponPriority === 'unowned-first' || persisted.weaponPriority === 'owned-first'
+      ? persisted.weaponPriority
+      : 'none'
 
-  return { ...flags, weaponOwnership: ownership, essenceStatus, weaponNotes, customWeapons }
+  return { ...flags, weaponOwnership: ownership, essenceStatus, weaponNotes, customWeapons, regionFirst, regionSecond, weaponPriority }
 }
 
 // ─── Store ─────────────────────────────────────────────────────────────────
@@ -72,6 +80,9 @@ export const useEssenceSettingsStore = create<EssenceSettingsState>()(
       essenceStatus: {},
       weaponNotes: {},
       customWeapons: [],
+      regionFirst: null,
+      regionSecond: null,
+      weaponPriority: 'none' as const,
 
       toggleFlag: (key: SettingKey) =>
         set((s) => ({ [key]: !s[key] } as Partial<EssenceSettingsState>)),
@@ -121,7 +132,23 @@ export const useEssenceSettingsStore = create<EssenceSettingsState>()(
           essenceStatus: {},
           weaponNotes: {},
           customWeapons: [],
+          regionFirst: null,
+          regionSecond: null,
+          weaponPriority: 'none',
         }),
+
+      setRegionFirst: (region: string | null) =>
+        set((s) => {
+          // If clearing first, also clear second
+          const second = region === null ? null : s.regionSecond === region ? null : s.regionSecond
+          return { regionFirst: region, regionSecond: second }
+        }),
+
+      setRegionSecond: (region: string | null) =>
+        set({ regionSecond: region }),
+
+      setWeaponPriority: (priority) =>
+        set({ weaponPriority: priority }),
     }),
     {
       name: 'essence-settings',
@@ -139,6 +166,9 @@ export const useEssenceSettingsStore = create<EssenceSettingsState>()(
           addCustomWeapon: current.addCustomWeapon,
           removeCustomWeapon: current.removeCustomWeapon,
           updateCustomWeapon: current.updateCustomWeapon,
+          setRegionFirst: current.setRegionFirst,
+          setRegionSecond: current.setRegionSecond,
+          setWeaponPriority: current.setWeaponPriority,
           resetAllSettings: current.resetAllSettings,
         }
       },

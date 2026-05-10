@@ -1,8 +1,8 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { useTranslations } from 'next-intl'
-import { Plus, Pencil, Trash2 } from 'lucide-react'
+import { Plus, Pencil, Trash2, Upload } from 'lucide-react'
 import Image from 'next/image'
 import {
   Dialog,
@@ -77,11 +77,16 @@ function WeaponFormDialog({
   const [primaryStat, setPrimaryStat] = useState(initial?.primaryStat ?? STATS[0])
   const [elementalDamage, setElemental] = useState(initial?.elementalDamage ?? ELEMENTS[0])
   const [specialAbility, setAbility] = useState(initial?.specialAbility ?? ABILITIES[0])
+  const fileInputRef = useRef<HTMLInputElement>(null)
   const [imageData, setImageData] = useState<string | undefined>(initial?.imageId?.startsWith('data:') ? initial.imageId : undefined)
+  const [fileName, setFileName] = useState<string | undefined>(
+    initial?.imageId?.startsWith('data:') ? undefined : undefined
+  )
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
     if (!file) return
+    setFileName(file.name)
     const reader = new FileReader()
     reader.onload = () => setImageData(reader.result as string)
     reader.readAsDataURL(file)
@@ -125,11 +130,25 @@ function WeaponFormDialog({
             <span className="text-[10px] text-muted-foreground">{t('essence.weaponImage')}</span>
             <div className="flex items-center gap-2">
               <input
+                ref={fileInputRef}
                 type="file"
                 accept="image/*"
                 onChange={handleFileChange}
-                className="text-[10px] text-muted-foreground file:text-xs file:mr-2"
+                className="hidden"
               />
+              <Button
+                type="button"
+                variant="outline"
+                size="sm"
+                className="h-7 text-xs"
+                onClick={() => fileInputRef.current?.click()}
+              >
+                <Upload className="size-3 mr-1" />
+                {imageData ? t('essence.reselectImage') : t('essence.selectImage')}
+              </Button>
+              {fileName && (
+                <span className="text-[10px] text-muted-foreground truncate max-w-24">{fileName}</span>
+              )}
               {imageData && (
                 <div className="size-8 rounded border border-border overflow-hidden flex-shrink-0 bg-[url(/images/item-frame-bg.png)] bg-cover bg-center">
                   <Image src={imageData} alt="" width={32} height={32} className="object-cover" unoptimized />

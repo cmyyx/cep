@@ -348,11 +348,6 @@ export const DungeonCard = memo(function DungeonCard({
               )}
             >
               {selectedVisible}/{plan.selectedCount}
-              {visibleTotal !== plan.totalCount && (
-                <span className="ml-1 text-muted-foreground/50">
-                  ({visibleTotal}/{plan.totalCount})
-                </span>
-              )}
             </span>
           )}
         </div>
@@ -452,8 +447,9 @@ export const DungeonCard = memo(function DungeonCard({
                 inRange={effectiveS1.includes(weapon.primaryStat)}
               />
               {showOwnership && (
-                <div className="flex items-center gap-1">
+                <div className="flex items-center gap-0.5">
                   <OwnershipBadge
+                    compact
                     active={weaponOwnership[weapon.id] === true}
                     onToggle={() =>
                       setWeaponOwnership(weapon.id, !weaponOwnership[weapon.id])
@@ -462,6 +458,7 @@ export const DungeonCard = memo(function DungeonCard({
                     activeColor="emerald"
                   />
                   <OwnershipBadge
+                    compact
                     active={essenceStatus[weapon.id] === true}
                     onToggle={() =>
                       setEssenceStatus(weapon.id, !essenceStatus[weapon.id])
@@ -472,7 +469,7 @@ export const DungeonCard = memo(function DungeonCard({
                 </div>
               )}
               {showNotes && (
-                <div className="w-12">
+                <div className="w-10">
                   <EditableNote
                     note={weaponNotes[weapon.id] || ''}
                     onSave={(value) => setWeaponNote?.(weapon.id, value)}
