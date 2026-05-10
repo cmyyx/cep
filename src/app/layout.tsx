@@ -69,6 +69,11 @@ export default function RootLayout({
     y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
 })(window, document, "clarity", "script", "wp0yo2ig74");`}
         </Script>
+        <Script
+          src="https://static.cloudflareinsights.com/beacon.min.js"
+          data-cf-beacon='{"token": "2d3a7ea7fd75438ca7195e0687c32333"}'
+          strategy="afterInteractive"
+        />
       </body>
     </html>
   );
