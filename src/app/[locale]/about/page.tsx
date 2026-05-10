@@ -43,7 +43,7 @@ const TECH_VALUES: Record<string, string> = {
 }
 
 export default function AboutPage() {
-  const t = useTranslations('about')
+  const t = useTranslations()
 
   return (
     <div className="flex flex-col flex-1 h-[calc(100vh-3rem)]">
@@ -72,7 +72,7 @@ export default function AboutPage() {
             <div>
               <h2 className="text-xl font-semibold mb-2 tracking-tight">CEP Endfield Planner</h2>
               <p className="text-sm text-muted-foreground leading-relaxed mb-1">
-                {t('description')}
+                {t('about.description')}
               </p>
               <p className="text-xs text-muted-foreground">
                 Cep Endfield Planner &middot; C·E·P
@@ -86,14 +86,14 @@ export default function AboutPage() {
 
           {/* Features */}
           <div className="mb-8">
-            <h3 className="text-sm font-semibold mb-4 text-muted-foreground">{t('features')}</h3>
+            <h3 className="text-sm font-semibold mb-4 text-muted-foreground">{t('about.features')}</h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {FEATURE_KEYS.map(({ key, icon: Icon }) => (
                 <div key={key} className="flex items-start gap-3 rounded-lg border border-border p-3">
                   <Icon className="size-4 mt-0.5 text-primary shrink-0" />
                   <div>
-                    <p className="text-sm font-medium">{t(key)}</p>
-                    <p className="text-xs text-muted-foreground mt-0.5">{t(`${key}Desc`)}</p>
+                    <p className="text-sm font-medium">{t(`about.${key}`)}</p>
+                    <p className="text-xs text-muted-foreground mt-0.5">{t(`about.${key}Desc`)}</p>
                   </div>
                 </div>
               ))}
@@ -102,11 +102,11 @@ export default function AboutPage() {
 
           {/* Tech stack */}
           <div className="mb-8">
-            <h3 className="text-sm font-semibold mb-4 text-muted-foreground">{t('techStack')}</h3>
+            <h3 className="text-sm font-semibold mb-4 text-muted-foreground">{t('about.techStack')}</h3>
             <div className="rounded-lg border border-border divide-y divide-border">
               {TECH_KEYS.map((key) => (
                 <div key={key} className="flex items-center justify-between px-4 py-2.5">
-                  <span className="text-sm text-muted-foreground">{t(key)}</span>
+                  <span className="text-sm text-muted-foreground">{t(`about.${key}`)}</span>
                   <span className="text-sm font-mono">{TECH_VALUES[key]}</span>
                 </div>
               ))}

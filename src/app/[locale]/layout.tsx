@@ -9,6 +9,8 @@ import { Background } from '@/components/background'
 import { ThemeProvider } from '@/components/theme-provider'
 import { NavigationListener } from '@/components/shared/navigation-listener'
 import { NavigationLoadingOverlay } from '@/components/shared/navigation-loading-overlay'
+import { NavigationProgressBar } from '@/components/shared/navigation-progress-bar'
+import { AppInitOverlay } from '@/components/shared/app-init-overlay'
 import { ImportantAnnouncementBanner } from '@/components/home/important-announcement-banner'
 import { AnnouncementLoader } from '@/components/home/announcement-loader'
 import { VersionProvider } from '@/hooks/use-version'
@@ -54,10 +56,15 @@ export default async function LocaleLayout({
       <VersionProvider initialInfo={versionData}>
         <SidebarProvider>
           <ThemeProvider>
+            {/* Curtain — covers everything during init, fades out when ready */}
+            <AppInitOverlay />
+
             <AnnouncementLoader />
             <Background />
             <AppSidebar />
             <main className="flex-1 w-full relative overflow-auto">
+              {/* Navigation progress bar — immediate feedback on every nav */}
+              <NavigationProgressBar />
               <ImportantAnnouncementBanner />
               {children}
               <NavigationLoadingOverlay />

@@ -1,9 +1,6 @@
 {
   "home": {
     "title": "終末地規劃器",
-    "description": "基質規劃 · 精鍛規劃 · 卡池日曆",
-    "cta": "開始規劃",
-    "welcome": "歡迎使用",
     "greetingNight": "夜深了，星星都困得眨眼啦，要注意早點休息哦，別熬夜太晚，身體才是最重要的。",
     "greetingMorning": "早安，新的一天開始啦，願你元氣滿滿！",
     "greetingNoon": "午安，記得按時吃飯，別餓著自己哦。",
@@ -11,8 +8,7 @@
     "greetingEvening": "夜晚溫柔，願你卸下疲憊，安心享受屬於自己的時間。",
     "quickLinks": "快捷入口",
     "announcements": "公告",
-    "markAllRead": "全部已讀",
-    "noAnnouncements": "暫無公告",
+    "announcementsLoadError": "載入公告失敗",
     "publishedAt": "發布於 {time}",
     "importantBanner": "您有 {count} 條重要公告未讀",
     "clickToView": "點擊查看",
@@ -33,7 +29,11 @@
     "about": "關於"
   },
   "app": {
-    "name": "CEP 終末地規劃器"
+    "name": "CEP 終末地規劃器",
+    "phase": {
+      "tracking": "LOADING MODULES",
+      "ready": "READY"
+    }
   },
   "auth": {
     "usernameOrEmail": "使用者名稱 / 信箱",
@@ -41,10 +41,6 @@
     "email": "信箱",
     "password": "密碼",
     "confirmPassword": "確認密碼",
-    "loginFailed": "登入失敗，請檢查使用者名稱和密碼",
-    "passwordsNotMatch": "兩次輸入的密碼不一致",
-    "minLength": "密碼長度至少為6位",
-    "invalidEmail": "請輸入有效的信箱地址",
     "passwordStrength": "密碼強度",
     "strengthWeak": "弱",
     "strengthFair": "較弱",
@@ -56,7 +52,6 @@
     "guestLogin": "遊客？點我登入"
   },
   "version": {
-    "label": "構建資訊",
     "version": "版本",
     "commit": "提交",
     "commitCount": "提交次數",
@@ -73,9 +68,7 @@
     "forceUpgradeButton": "立即刷新",
     "local": "本地",
     "remote": "雲端",
-    "unknown": "未知",
-    "changelogError": "載入更新日誌失敗",
-    "changelogEmpty": "暫無更新日誌"
+    "changelogError": "載入更新日誌失敗"
   },
   "about": {
     "description": "為《明日方舟：終末地》打造的基質規劃工具集",

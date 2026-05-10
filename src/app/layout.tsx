@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import { Geist, Geist_Mono } from "next/font/google";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import "./globals.css";
@@ -35,8 +36,15 @@ export default function RootLayout({
     <html
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      suppressHydrationWarning
     >
       <body className="min-h-full flex flex-col">
+        {/* Prevent FOUC: apply theme class before React hydrates.
+            Reads the same localStorage key as useSettingsStore.
+            Script component injects into <head> so React never sees it in the component tree. */}
+        <Script id="theme-init" strategy="beforeInteractive">
+          {`(function(){try{var d=document.documentElement;var t='auto';var s=localStorage.getItem('cep-settings');if(s){var p=JSON.parse(s);t=p.theme||'auto'}if(t==='auto'){t=window.matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light'}if(t&&t!=='auto'){d.classList.add(t);if(t==='flashbang'){d.style.colorScheme='dark';d.setAttribute('data-theme','flashbang')}}}catch(e){}})()`}
+        </Script>
         <TooltipProvider>{children}</TooltipProvider>
       </body>
     </html>

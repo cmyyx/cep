@@ -2,54 +2,69 @@ import { create } from 'zustand'
 
 interface NavigationState {
   isNavigating: boolean
+  isProgressing: boolean
+  /** True while the completion animation (˜350ms) plays after navigation finishes. */
+  isCompleting: boolean
   targetLabel: string | null
   /** Timestamp used to correlate start/finish for the debounce timer. */
   navigateStartTime: number | null
   startNavigation: (label: string) => void
   finishNavigation: () => void
+  /** Called by the progress bar after its completion animation ends. */
+  resetProgress: () => void
 }
 
 /**
- * Navigation loading overlay store.
+ * Navigation loading store.
  *
- * Uses a 200 ms debounce: the overlay is only shown when navigation
- * takes longer than the threshold. Fast page transitions never flash
- * the overlay.
- *
- * Fade-out is intentionally instant — the View Transitions API handles
- * the visual bridge from overlay to new page content.
+ * Three feedback tiers:
+ *   isProgressing  → progress bar appears immediately (0ms debounce)
+ *   isNavigating   → full-area overlay (200ms debounce)
+ *   isCompleting   → progress bar plays its "done" animation before resetting
  */
 export const useNavigationStore = create<NavigationState>((set) => ({
   isNavigating: false,
+  isProgressing: false,
+  isCompleting: false,
   targetLabel: null,
   navigateStartTime: null,
 
   startNavigation: (label) => {
-    // Flush any stale navigation state from a previous (possibly
-    // cancelled) navigation before starting the new one. Without
-    // this, rapid consecutive clicks could leave a dangling
-    // navigateStartTime that matches a pending timeout.
     const prev = useNavigationStore.getState()
     if (prev.navigateStartTime !== null) {
-      useNavigationStore.setState({ isNavigating: false, navigateStartTime: null })
+      useNavigationStore.setState({
+        isNavigating: false,
+        isProgressing: false,
+        isCompleting: false,
+        navigateStartTime: null,
+      })
     }
 
     const now = Date.now()
-    set({ targetLabel: label, navigateStartTime: now })
+    set({ targetLabel: label, navigateStartTime: now, isProgressing: true })
 
-    // Delay showing the overlay — if navigation finishes before
-    // this fires the store state will no longer match and we skip.
+    // 200ms debounce for the full-area overlay.
+    // Also checks isProgressing — if finishNavigation already fired
+    // (fast navigation), skip so the overlay doesn't re-appear and get stuck.
     setTimeout(() => {
       const current = useNavigationStore.getState()
-      if (current.navigateStartTime === now) {
+      if (current.navigateStartTime === now && current.isProgressing) {
         useNavigationStore.setState({ isNavigating: true })
       }
     }, 200)
   },
 
   finishNavigation: () => {
-    // Keep targetLabel visible during the CSS opacity fade-out so the text
-    // doesn't disappear before the spinner.
-    set({ isNavigating: false, navigateStartTime: null })
+    // Transition from "progressing" to "completing" — the progress bar
+    // plays its done animation, then calls resetProgress() to fully reset.
+    set({ isProgressing: false, isCompleting: true, isNavigating: false })
+  },
+
+  resetProgress: () => {
+    set({
+      isCompleting: false,
+      navigateStartTime: null,
+      targetLabel: null,
+    })
   },
 }))

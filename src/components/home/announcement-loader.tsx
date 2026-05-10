@@ -1,18 +1,24 @@
 'use client'
 
 import { useEffect } from 'react'
+import { usePathname } from 'next/navigation'
 import { useAnnouncementStore } from '@/stores/useAnnouncementStore'
 
-/** Mounts once in the root layout to hydrate persisted readIds and load announcements globally */
+/**
+ * Hydrates persisted readIds then loads announcements.
+ * Re-fetches on every route change so announcements stay fresh across SPA navigations.
+ */
 export function AnnouncementLoader() {
+  const pathname = usePathname()
   const loadAnnouncements = useAnnouncementStore((s) => s.loadAnnouncements)
 
   useEffect(() => {
-    // Rehydrate persisted readIds from localStorage (store uses skipHydration: true)
-    void useAnnouncementStore.persist.rehydrate()
-    // Fetch announcements so sidebar badge and banner show unread counts on all routes
-    loadAnnouncements()
-  }, [loadAnnouncements])
+    const init = async () => {
+      await useAnnouncementStore.persist.rehydrate()
+      loadAnnouncements()
+    }
+    init()
+  }, [pathname, loadAnnouncements])
 
   return null
 }
