@@ -228,7 +228,10 @@ export function AnnouncementPanel() {
   // Sequential animation: skeleton exit → content enter.
   // Effects synchronise local animation state with the external Zustand store.
   const skeletonShown = useRef(false)
-  const [animPhase, setAnimPhase] = useState<'skeleton' | 'exiting' | 'content'>('skeleton')
+  const exitTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const [animPhase, setAnimPhase] = useState<'skeleton' | 'exiting' | 'content'>(() =>
+    useAnnouncementStore.getState().isLoading ? 'skeleton' : 'content'
+  )
 
   /* eslint-disable react-hooks/set-state-in-effect */
   useEffect(() => {
@@ -242,14 +245,30 @@ export function AnnouncementPanel() {
     if (!isLoading && animPhase === 'skeleton') {
       if (skeletonShown.current) {
         setAnimPhase('exiting')
+        // Fallback: if onAnimationEnd doesn't fire (e.g. animation interrupted),
+        // force transition to content after duration-200 + 50ms buffer
+        exitTimerRef.current = setTimeout(() => {
+          setAnimPhase('content')
+          exitTimerRef.current = null
+        }, 250)
       } else {
         setAnimPhase('content')
+      }
+    }
+    return () => {
+      if (exitTimerRef.current !== null) {
+        clearTimeout(exitTimerRef.current)
+        exitTimerRef.current = null
       }
     }
   }, [isLoading, animPhase])
   /* eslint-enable react-hooks/set-state-in-effect */
 
   const handleSkeletonExitEnd = useCallback(() => {
+    if (exitTimerRef.current !== null) {
+      clearTimeout(exitTimerRef.current)
+      exitTimerRef.current = null
+    }
     setAnimPhase('content')
   }, [])
 
@@ -296,12 +315,12 @@ export function AnnouncementPanel() {
           ) : loadError ? (
             /* Error — appears with fade-in after skeleton exits */
             <div className="min-h-[136px] flex items-center justify-center px-4 py-8 text-center text-sm text-muted-foreground animate-in fade-in duration-200">
-              {t('home.loadError')}
+              {t('home.announcementsLoadError')}
             </div>
           ) : (
             /* Success — appears with fade-in after skeleton exits */
             <div className="animate-in fade-in duration-200">
-              <div className="divide-y divide-border/50">
+              <div className="[&>*+*]:shadow-[0_-1px_0_0_rgba(0,0,0,0.06)]">
                 {announcements.map((a) => (
                   <AnnouncementItem
                     key={a.id}

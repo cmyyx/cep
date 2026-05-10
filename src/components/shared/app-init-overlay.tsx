@@ -56,12 +56,20 @@ export function AppInitOverlay() {
       const elapsed = Date.now() - start
       const t = Math.min(1, elapsed / duration)
       const eased = 1 - Math.pow(1 - t, 3)
-      setProgress(startVal + (60 - startVal) * eased)
+      const simulated = startVal + (60 - startVal) * eased
+      // Only advance if our simulated value is ahead of real progress
+      const current = useAppInitStore.getState().progress
+      if (simulated > current) {
+        setProgress(simulated)
+      }
 
       if (t < 1) {
         rafId = requestAnimationFrame(tick)
       } else {
-        setProgress(60)
+        // Ensure final value reaches at least 60 without regressing real progress
+        if (useAppInitStore.getState().progress < 60) {
+          setProgress(60)
+        }
       }
     }
 

@@ -91,7 +91,15 @@ export default function UpdatePage() {
         // Enforce minimum skeleton display time so skeleton doesn't flash
         const elapsed = Date.now() - startedAt
         if (elapsed < MIN_LOADING_DISPLAY_MS) {
-          await new Promise((r) => setTimeout(r, MIN_LOADING_DISPLAY_MS - elapsed))
+          const delay = MIN_LOADING_DISPLAY_MS - elapsed
+          await new Promise<void>((resolve) => {
+            const id = setTimeout(resolve, delay)
+            const onAbort = () => {
+              clearTimeout(id)
+              resolve()
+            }
+            controller.signal.addEventListener('abort', onAbort, { once: true })
+          })
         }
         if (!controller.signal.aborted) {
           setChangelog(didError ? null : changelogData)
@@ -108,6 +116,7 @@ export default function UpdatePage() {
   // Sequential animation: skeleton exit → content enter.
   // Effects watch isLoading and transition the animation phase.
   const skeletonShown = useRef(false)
+  const exitTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const [animPhase, setAnimPhase] = useState<'skeleton' | 'exiting' | 'content'>('skeleton')
 
   /* eslint-disable react-hooks/set-state-in-effect */
@@ -122,14 +131,30 @@ export default function UpdatePage() {
     if (!isLoading && animPhase === 'skeleton') {
       if (skeletonShown.current) {
         setAnimPhase('exiting')
+        // Fallback: if onAnimationEnd doesn't fire (e.g. animation interrupted),
+        // force transition to content after duration-200 + 50ms buffer
+        exitTimerRef.current = setTimeout(() => {
+          setAnimPhase('content')
+          exitTimerRef.current = null
+        }, 250)
       } else {
         setAnimPhase('content')
+      }
+    }
+    return () => {
+      if (exitTimerRef.current !== null) {
+        clearTimeout(exitTimerRef.current)
+        exitTimerRef.current = null
       }
     }
   }, [isLoading, animPhase])
   /* eslint-enable react-hooks/set-state-in-effect */
 
   const handleSkeletonExitEnd = useCallback(() => {
+    if (exitTimerRef.current !== null) {
+      clearTimeout(exitTimerRef.current)
+      exitTimerRef.current = null
+    }
     setAnimPhase('content')
   }, [])
 
