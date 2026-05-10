@@ -34,7 +34,11 @@
     "about": "關於"
   },
   "app": {
-    "name": "CEP 終末地規劃器"
+    "name": "CEP 終末地規劃器",
+    "phase": {
+      "tracking": "LOADING MODULES",
+      "ready": "READY"
+    }
   },
   "auth": {
     "usernameOrEmail": "使用者名稱 / 信箱",

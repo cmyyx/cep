@@ -3,6 +3,7 @@
 import { createContext, useContext, useState, useEffect, useRef, useCallback, type ReactNode } from 'react'
 import type { VersionInfo } from '@/types/version'
 import { useAppInitStore } from '@/stores/useAppInitStore'
+import { MIN_LOADING_DISPLAY_MS } from '@/lib/constants'
 
 const POLL_INTERVAL = 5 * 60 * 1000
 const FOCUS_CD = 30 * 1000
@@ -82,7 +83,7 @@ export function VersionProvider({ children, initialInfo }: { children: ReactNode
         // progress bar doesn't snap from loading → finalising instantly
         setTimeout(() => {
           useAppInitStore.getState().completeTask('version')
-        }, 300)
+        }, MIN_LOADING_DISPLAY_MS)
       }
     }
   }, [localInfo])

@@ -34,7 +34,11 @@
     "about": "について"
   },
   "app": {
-    "name": "CEP エンドフィールドプランナー"
+    "name": "CEP エンドフィールドプランナー",
+    "phase": {
+      "tracking": "LOADING MODULES",
+      "ready": "READY"
+    }
   },
   "auth": {
     "usernameOrEmail": "ユーザー名 / メール",

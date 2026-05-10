@@ -2,14 +2,9 @@
 
 import { useEffect, useState } from 'react'
 import Image from 'next/image'
+import { useTranslations } from 'next-intl'
 import { useAppInitStore } from '@/stores/useAppInitStore'
 import { cn } from '@/lib/utils'
-
-const PHASE_LABEL: Record<string, string> = {
-  splash: '',
-  tracking: 'LOADING MODULES',
-  ready: 'READY',
-}
 
 /**
  * Full-viewport cinematic loading overlay.
@@ -37,6 +32,7 @@ export function AppInitOverlay() {
 
   // Exit animation state — driven by CSS transition, no layout impact
   const [exitPhase, setExitPhase] = useState<'none' | 'exiting'>('none')
+  const t = useTranslations()
 
   // Kick off tracking (hydration simulation + data task registration).
   // This must run after mount because it uses requestAnimationFrame.
@@ -49,25 +45,31 @@ export function AppInitOverlay() {
   useEffect(() => {
     if (phase !== 'tracking') return
 
+    let active = true
+    let rafId = 0
     const start = Date.now()
     const duration = 800
     const startVal = progress
 
     const tick = () => {
+      if (!active) return
       const elapsed = Date.now() - start
       const t = Math.min(1, elapsed / duration)
       const eased = 1 - Math.pow(1 - t, 3)
       setProgress(startVal + (60 - startVal) * eased)
 
       if (t < 1) {
-        requestAnimationFrame(tick)
+        rafId = requestAnimationFrame(tick)
       } else {
         setProgress(60)
       }
     }
 
-    const frame = requestAnimationFrame(tick)
-    return () => cancelAnimationFrame(frame)
+    rafId = requestAnimationFrame(tick)
+    return () => {
+      active = false
+      cancelAnimationFrame(rafId)
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [phase])
 
@@ -98,7 +100,7 @@ export function AppInitOverlay() {
   // ── Never show again after first completion ──
   if (hasCompleted) return null
 
-  const phaseLabel = PHASE_LABEL[phase] ?? ''
+  const phaseLabel = phase === 'tracking' ? t('app.phase.tracking') : phase === 'ready' ? t('app.phase.ready') : ''
   // Show progress bar during tracking AND ready phases (and a simplified
   // 0% bar during splash so it's visible from the first frame)
   const showProgress = phase === 'splash' || phase === 'tracking' || phase === 'ready'
@@ -120,16 +122,7 @@ export function AppInitOverlay() {
       aria-hidden={exitPhase === 'exiting'}
     >
       {/* ── Engineering grid background ── */}
-      <div
-        className="absolute inset-0 pointer-events-none animate-[grid-drift_20s_linear_infinite]"
-        style={{
-          backgroundImage: `
-            linear-gradient(rgba(128,128,128,0.06) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(128,128,128,0.06) 1px, transparent 1px)
-          `,
-          backgroundSize: '40px 40px',
-        }}
-      />
+      <div className="absolute inset-0 pointer-events-none animate-[grid-drift_20s_linear_infinite] bg-engineering-grid" />
 
       {/* ── Content ── */}
       <div className="relative flex flex-col items-center gap-7 z-10">
@@ -152,14 +145,13 @@ export function AppInitOverlay() {
         {/* Brand title with glitch converge */}
         <h1
           className="text-[48px] font-semibold font-mono tracking-[-2.88px] text-foreground select-none animate-[glitch-converge_1.2s_cubic-bezier(0.16,1,0.3,1)_forwards]"
-          style={{ fontFamily: 'var(--font-geist-mono)' } as React.CSSProperties}
         >
           CEP
         </h1>
 
         {/* Subtitle */}
         <p className="text-sm text-muted-foreground tracking-[-0.32px] font-medium -mt-5 select-none">
-          终末地规划器
+          {t('home.title')}
         </p>
 
         {/* ── Progress bar ── */}
@@ -180,13 +172,7 @@ export function AppInitOverlay() {
               }}
             >
               {/* Shimmer sweep */}
-              <div
-                className="absolute inset-0 animate-[progress-shimmer_1.8s_ease-in-out_infinite]"
-                style={{
-                  background:
-                    'linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.5) 30%, rgba(255,255,255,0.5) 70%, transparent 100%)',
-                }}
-              />
+              <div className="absolute inset-0 animate-[progress-shimmer_1.8s_ease-in-out_infinite] progress-shimmer-overlay" />
             </div>
 
             {/* Leading dot */}

@@ -60,7 +60,7 @@
   --radius-full: 9999px;
 
   /* Override tw-animate-css: exit animations (animate-out) should use fill-mode forwards
-     so elements stay at opacity:0 / scale:0 until Base UI unmounts them.
+     so elements stay at opacity:0 / scale:0 until React unmounts them.
      Prevents overlay flash on dialog, select, and tooltip close. */
   --animate-out: exit var(--tw-animation-duration, var(--tw-duration, .15s)) var(--tw-ease, ease) var(--tw-animation-delay, 0s) var(--tw-animation-iteration-count, 1) var(--tw-animation-direction, normal) forwards;
 }
@@ -258,6 +258,14 @@
   }
 }
 
+/* Engineering grid pattern — shared by AppInitOverlay and BootstrapScreen */
+@utility bg-engineering-grid {
+  background-image:
+    linear-gradient(rgba(128,128,128,0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(128,128,128,0.06) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
 /* Breathing icon pulse */
 @keyframes icon-pulse {
   0%,
@@ -315,6 +323,11 @@
   100% {
     transform: translateX(100%);
   }
+}
+
+/* Shared shimmer overlay — used by navigation progress bar and app init overlay */
+@utility progress-shimmer-overlay {
+  background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.5) 30%, rgba(255,255,255,0.5) 70%, transparent 100%);
 }
 
 /* Leading dot pulse */

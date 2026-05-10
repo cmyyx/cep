@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import { useNavigationStore } from '@/stores/useNavigationStore'
 import { cn } from '@/lib/utils'
 
@@ -27,18 +27,31 @@ export function NavigationProgressBar() {
 
   const started = navigateStartTime !== null
 
-  // When isCompleting flips to true, schedule a reset after the
-  // CSS animation finishes (350ms matches nav-progress-done duration).
+  // Ref to the fill bar for animation-end detection
+  const fillRef = useRef<HTMLDivElement>(null)
+  const resetFnRef = useRef(resetProgress)
+
+  useEffect(() => {
+    resetFnRef.current = resetProgress
+  }, [resetProgress])
+
+  // When isCompleting flips to true, listen for animationend instead
+  // of a brittle setTimeout synced to the CSS duration.
   useEffect(() => {
     if (!isCompleting) return
-    const timer = setTimeout(resetProgress, 350)
-    return () => clearTimeout(timer)
-  }, [isCompleting, resetProgress])
+    const el = fillRef.current
+    if (!el) return
+    const handler = () => {
+      resetFnRef.current()
+    }
+    el.addEventListener('animationend', handler)
+    return () => el.removeEventListener('animationend', handler)
+  }, [isCompleting])
 
   return (
     <div
       className={cn(
-        'absolute top-0 left-0 right-0 z-51 h-[2px] pointer-events-none overflow-hidden',
+        'sticky top-0 z-51 h-[2px] pointer-events-none overflow-hidden',
         'transition-opacity duration-200 ease-out',
         started ? 'opacity-100' : 'opacity-0'
       )}
@@ -48,6 +61,7 @@ export function NavigationProgressBar() {
     >
       {/* Fill bar — always 100% wide, animated via transform: scaleX */}
       <div
+        ref={fillRef}
         className={cn(
           'h-full w-full origin-left bg-gradient-to-r from-develop-blue via-preview-pink to-ship-red',
           'rounded-full',
@@ -66,13 +80,7 @@ export function NavigationProgressBar() {
         }
       >
         {/* Shimmer overlay */}
-        <div
-          className="absolute inset-0 animate-[progress-shimmer_1.5s_ease-in-out_infinite]"
-          style={{
-            background:
-              'linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.5) 30%, rgba(255,255,255,0.5) 70%, transparent 100%)',
-          }}
-        />
+        <div className="absolute inset-0 animate-[progress-shimmer_1.5s_ease-in-out_infinite] progress-shimmer-overlay" />
       </div>
     </div>
   )

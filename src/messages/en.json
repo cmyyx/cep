@@ -34,7 +34,11 @@
     "about": "About"
   },
   "app": {
-    "name": "CEP Endfield Planner"
+    "name": "CEP Endfield Planner",
+    "phase": {
+      "tracking": "LOADING MODULES",
+      "ready": "READY"
+    }
   },
   "auth": {
     "usernameOrEmail": "Username / Email",

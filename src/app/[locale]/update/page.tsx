@@ -1,12 +1,12 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback, useRef } from 'react'
 import { useTranslations } from 'next-intl'
 import { SidebarTrigger } from '@/components/ui/sidebar'
 import { Button } from '@/components/ui/button'
 import { Skeleton } from '@/components/ui/skeleton'
 import { useVersion } from '@/hooks/use-version'
-import { cn, formatTime } from '@/lib/utils'
+import { formatTime } from '@/lib/utils'
 import { MIN_LOADING_DISPLAY_MS } from '@/lib/constants'
 import { RefreshCw, ArrowRight } from 'lucide-react'
 import type { VersionInfo } from '@/types/version'
@@ -105,6 +105,34 @@ export default function UpdatePage() {
     }
   }, [])
 
+  // Sequential animation: skeleton exit → content enter.
+  // Effects watch isLoading and transition the animation phase.
+  const skeletonShown = useRef(false)
+  const [animPhase, setAnimPhase] = useState<'skeleton' | 'exiting' | 'content'>('skeleton')
+
+  /* eslint-disable react-hooks/set-state-in-effect */
+  useEffect(() => {
+    if (isLoading) {
+      skeletonShown.current = true
+      setAnimPhase('skeleton')
+    }
+  }, [isLoading])
+
+  useEffect(() => {
+    if (!isLoading && animPhase === 'skeleton') {
+      if (skeletonShown.current) {
+        setAnimPhase('exiting')
+      } else {
+        setAnimPhase('content')
+      }
+    }
+  }, [isLoading, animPhase])
+  /* eslint-enable react-hooks/set-state-in-effect */
+
+  const handleSkeletonExitEnd = useCallback(() => {
+    setAnimPhase('content')
+  }, [])
+
   const displayInfo = localInfo ?? info
 
   return (
@@ -159,15 +187,15 @@ export default function UpdatePage() {
           {/* Changelog */}
           <div className="rounded-lg shadow-[0px_0px_0px_1px_rgba(0,0,0,0.08)] p-4">
             <h3 className="text-sm font-semibold mb-3">{t('version.commitMessage')}</h3>
-            <div className="relative">
-              {/* Skeleton layer — fades out when data arrives */}
+            {animPhase !== 'content' ? (
+              /* Skeleton — fades out via animate-out before content mounts */
               <div
-                className={cn(
-                  'space-y-3 transition-opacity duration-200',
-                  isLoading
-                    ? 'opacity-100'
-                    : 'opacity-0 pointer-events-none absolute inset-0'
-                )}
+                className={
+                  animPhase === 'exiting'
+                    ? 'min-h-[136px] space-y-3 animate-out fade-out duration-200'
+                    : 'min-h-[136px] space-y-3'
+                }
+                onAnimationEnd={animPhase === 'exiting' ? handleSkeletonExitEnd : undefined}
               >
                 <Skeleton className="h-4 w-2/3" />
                 <Skeleton className="h-3 w-full" />
@@ -175,64 +203,41 @@ export default function UpdatePage() {
                 <Skeleton className="h-4 w-1/2" />
                 <Skeleton className="h-3 w-full" />
               </div>
-
-              {/* Content layer — fades in when data is ready */}
-              <div
-                className={cn(
-                  'transition-opacity duration-200',
-                  isLoading
-                    ? 'opacity-0'
-                    : 'opacity-100'
-                )}
-              >
-                {(() => {
-                  if (loadError) {
-                    return (
-                      <p className="text-sm text-muted-foreground">
-                        {t('version.changelogError')}
-                      </p>
-                    )
-                  }
-                  const entries = changelog ?? []
-                  if (entries.length === 0) {
-                    return (
-                      <p className="text-sm text-muted-foreground">
-                        {t('version.changelogEmpty')}
-                      </p>
-                    )
-                  }
-                  return (
-                    <ul className="space-y-3">
-                      {entries.map((entry, index) => {
-                        const { hash, time, body } =
-                          parseChangelogEntry(entry)
-                        return (
-                          <li key={hash || index} className="text-sm">
-                            <div className="flex items-center gap-2 flex-wrap">
-                              {hash && (
-                                <span className="font-mono text-xs px-1.5 py-0.5 rounded bg-muted text-muted-foreground">
-                                  {hash}
-                                </span>
-                              )}
-                              {time && (
-                                <span className="text-xs text-muted-foreground">
-                                  {formatTime(time)}
-                                </span>
-                              )}
-                            </div>
-                            {body && (
-                              <p className="mt-1 text-muted-foreground whitespace-pre-wrap">
-                                {body}
-                              </p>
-                            )}
-                          </li>
-                        )
-                      })}
-                    </ul>
-                  )
-                })()}
+            ) : loadError ? (
+              /* Error — appears with fade-in after skeleton exits */
+              <div className="min-h-[136px] flex items-center justify-center text-center text-sm text-muted-foreground animate-in fade-in duration-200">
+                {t('version.changelogError')}
               </div>
-            </div>
+            ) : (
+              /* Success — appears with fade-in after skeleton exits */
+              <ul className="animate-in fade-in duration-200 space-y-3">
+                {(changelog ?? []).map((entry, index) => {
+                  const { hash, time, body } =
+                    parseChangelogEntry(entry)
+                  return (
+                    <li key={hash || index} className="text-sm">
+                      <div className="flex items-center gap-2 flex-wrap">
+                        {hash && (
+                          <span className="font-mono text-xs px-1.5 py-0.5 rounded bg-muted text-muted-foreground">
+                            {hash}
+                          </span>
+                        )}
+                        {time && (
+                          <span className="text-xs text-muted-foreground">
+                            {formatTime(time)}
+                          </span>
+                        )}
+                      </div>
+                      {body && (
+                        <p className="mt-1 text-muted-foreground whitespace-pre-wrap">
+                          {body}
+                        </p>
+                      )}
+                    </li>
+                  )
+                })}
+              </ul>
+            )}
           </div>
         </div>
       </div>

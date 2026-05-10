@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState, useCallback, useMemo, memo } from 'react'
+import React, { useState, useCallback, useMemo, memo, useRef, useEffect } from 'react'
 import { useTranslations } from 'next-intl'
 import ReactMarkdown from 'react-markdown'
 import rehypeSanitize, { defaultSchema } from 'rehype-sanitize'
@@ -225,6 +225,34 @@ export function AnnouncementPanel() {
     setDialogOpen(false)
   }, [])
 
+  // Sequential animation: skeleton exit → content enter.
+  // Effects synchronise local animation state with the external Zustand store.
+  const skeletonShown = useRef(false)
+  const [animPhase, setAnimPhase] = useState<'skeleton' | 'exiting' | 'content'>('skeleton')
+
+  /* eslint-disable react-hooks/set-state-in-effect */
+  useEffect(() => {
+    if (isLoading) {
+      skeletonShown.current = true
+      setAnimPhase('skeleton')
+    }
+  }, [isLoading])
+
+  useEffect(() => {
+    if (!isLoading && animPhase === 'skeleton') {
+      if (skeletonShown.current) {
+        setAnimPhase('exiting')
+      } else {
+        setAnimPhase('content')
+      }
+    }
+  }, [isLoading, animPhase])
+  /* eslint-enable react-hooks/set-state-in-effect */
+
+  const handleSkeletonExitEnd = useCallback(() => {
+    setAnimPhase('content')
+  }, [])
+
   return (
     <div id="announcement-panel" className="space-y-3">
       {/* Header row */}
@@ -248,19 +276,16 @@ export function AnnouncementPanel() {
       </div>
 
       {/* Announcement list */}
-      <Card className="!py-0">
+      <Card className="py-0!">
         <CardContent className="p-0">
-          <div className="relative">
-            {/* Skeleton overlay — absolute so it never affects layout height.
-                Five bars matching the version changelog skeleton pattern, no extra whitespace. */}
+          {animPhase !== 'content' ? (
+            /* Skeleton — fades out via animate-out before content mounts */
             <div
               className={cn(
-                'absolute inset-0 transition-opacity duration-200',
-                'px-3 py-2.5 space-y-3',
-                isLoading
-                  ? 'opacity-100'
-                  : 'opacity-0 pointer-events-none'
+                'min-h-[136px] px-3 py-2.5 space-y-3',
+                animPhase === 'exiting' && 'animate-out fade-out duration-200'
               )}
+              onAnimationEnd={animPhase === 'exiting' ? handleSkeletonExitEnd : undefined}
             >
               <Skeleton className="h-4 w-2/3" />
               <Skeleton className="h-3 w-full" />
@@ -268,34 +293,26 @@ export function AnnouncementPanel() {
               <Skeleton className="h-4 w-1/2" />
               <Skeleton className="h-3 w-full" />
             </div>
-
-            {/* Content layer — always in flow to determine container height */}
-            <div
-              className={cn(
-                'transition-opacity duration-200',
-                isLoading
-                  ? 'opacity-0'
-                  : 'opacity-100'
-              )}
-            >
-              {announcements.length > 0 ? (
-                <div className="divide-y divide-border/50">
-                  {announcements.map((a) => (
-                    <AnnouncementItem
-                      key={a.id}
-                      announcement={a}
-                      isRead={readIds.includes(a.id)}
-                      onOpen={() => handleOpen(a)}
-                    />
-                  ))}
-                </div>
-              ) : (
-                <div className="px-4 py-8 text-center text-sm text-muted-foreground">
-                  {loadError ? t('home.loadError') : t('home.noAnnouncements')}
-                </div>
-              )}
+          ) : loadError ? (
+            /* Error — appears with fade-in after skeleton exits */
+            <div className="min-h-[136px] flex items-center justify-center px-4 py-8 text-center text-sm text-muted-foreground animate-in fade-in duration-200">
+              {t('home.loadError')}
             </div>
-          </div>
+          ) : (
+            /* Success — appears with fade-in after skeleton exits */
+            <div className="animate-in fade-in duration-200">
+              <div className="divide-y divide-border/50">
+                {announcements.map((a) => (
+                  <AnnouncementItem
+                    key={a.id}
+                    announcement={a}
+                    isRead={readIds.includes(a.id)}
+                    onOpen={() => handleOpen(a)}
+                  />
+                ))}
+              </div>
+            </div>
+          )}
         </CardContent>
       </Card>
 

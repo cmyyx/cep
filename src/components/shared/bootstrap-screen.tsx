@@ -14,16 +14,7 @@ export function BootstrapScreen() {
   return (
     <div className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-background">
       {/* Engineering grid background */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          backgroundImage: `
-            linear-gradient(rgba(128,128,128,0.06) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(128,128,128,0.06) 1px, transparent 1px)
-          `,
-          backgroundSize: '40px 40px',
-        }}
-      />
+      <div className="absolute inset-0 pointer-events-none bg-engineering-grid" />
 
       <div className="relative flex flex-col items-center gap-7 z-10">
         {/* Icon */}
@@ -45,7 +36,6 @@ export function BootstrapScreen() {
         {/* Brand */}
         <h1
           className="text-[48px] font-semibold font-mono tracking-[-2.88px] text-foreground select-none animate-[glitch-converge_1.2s_cubic-bezier(0.16,1,0.3,1)_forwards]"
-          style={{ fontFamily: 'var(--font-geist-mono)' } as React.CSSProperties}
         >
           CEP
         </h1>
