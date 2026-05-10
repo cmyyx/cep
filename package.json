@@ -3,12 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "prebuild": "node scripts/generate-version.mjs",
+    "prebuild": "node scripts/generate-version.mjs && node scripts/check-i18n.mjs",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "test": "vitest run"
+    "test": "vitest run",
+    "check:i18n": "node scripts/check-i18n.mjs"
   },
   "dependencies": {
     "@base-ui/react": "^1.4.1",

@@ -1,9 +1,6 @@
 {
   "home": {
     "title": "Endfield Planner",
-    "description": "Matrix Planning · Refinement Planning · Banner Calendar",
-    "cta": "Start Planning",
-    "welcome": "Welcome",
     "greetingNight": "It's late — the stars are yawning. Get some rest, your health matters most.",
     "greetingMorning": "Good morning! A new day begins, may you be full of energy!",
     "greetingNoon": "Good noon! Don't forget to eat on time.",
@@ -11,8 +8,7 @@
     "greetingEvening": "A gentle evening — let go of fatigue and enjoy your own time.",
     "quickLinks": "Quick Links",
     "announcements": "Announcements",
-    "markAllRead": "Mark all read",
-    "noAnnouncements": "No announcements",
+    "announcementsLoadError": "Failed to load announcements",
     "publishedAt": "Published {time}",
     "importantBanner": "{count, plural, =1 {You have # unread important announcement} other {You have # unread important announcements}}",
     "clickToView": "Click to view",
@@ -33,7 +29,11 @@
     "about": "About"
   },
   "app": {
-    "name": "CEP Endfield Planner"
+    "name": "CEP Endfield Planner",
+    "phase": {
+      "tracking": "LOADING MODULES",
+      "ready": "READY"
+    }
   },
   "auth": {
     "usernameOrEmail": "Username / Email",
@@ -41,10 +41,6 @@
     "email": "Email",
     "password": "Password",
     "confirmPassword": "Confirm Password",
-    "loginFailed": "Login failed. Please check your username and password.",
-    "passwordsNotMatch": "Passwords do not match",
-    "minLength": "Password must be at least 6 characters",
-    "invalidEmail": "Please enter a valid email address",
     "passwordStrength": "Password Strength",
     "strengthWeak": "Weak",
     "strengthFair": "Fair",
@@ -56,7 +52,6 @@
     "guestLogin": "Guest? Click to login"
   },
   "version": {
-    "label": "Build Info",
     "version": "Version",
     "commit": "Commit",
     "commitCount": "Commits",
@@ -73,9 +68,7 @@
     "forceUpgradeButton": "Refresh Now",
     "local": "Local",
     "remote": "Remote",
-    "unknown": "Unknown",
-    "changelogError": "Failed to load changelog",
-    "changelogEmpty": "No changelog entries"
+    "changelogError": "Failed to load changelog"
   },
   "about": {
     "description": "A planning toolkit built for Arknights: Endfield",

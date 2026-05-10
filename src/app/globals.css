@@ -58,6 +58,11 @@
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
   --radius-full: 9999px;
+
+  /* Override tw-animate-css: exit animations (animate-out) should use fill-mode forwards
+     so elements stay at opacity:0 / scale:0 until React unmounts them.
+     Prevents overlay flash on dialog, select, and tooltip close. */
+  --animate-out: exit var(--tw-animation-duration, var(--tw-duration, .15s)) var(--tw-ease, ease) var(--tw-animation-delay, 0s) var(--tw-animation-iteration-count, 1) var(--tw-animation-direction, normal) forwards;
 }
 
 :root {
@@ -241,29 +246,136 @@
   overflow: overlay;
 }
 
-/* View Transitions API — cross-fade between page navigations */
-@keyframes vt-fade-out {
-  from {
+/* ─── App init overlay keyframes ─── */
+
+/* Engineering grid slow drift */
+@keyframes grid-drift {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 40px 40px;
+  }
+}
+
+/* Engineering grid pattern — shared by AppInitOverlay and BootstrapScreen */
+@utility bg-engineering-grid {
+  background-image:
+    linear-gradient(rgba(128,128,128,0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(128,128,128,0.06) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* Breathing icon pulse */
+@keyframes icon-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.06);
+  }
+}
+
+/* Glow ring behind icon */
+@keyframes icon-glow {
+  0%,
+  100% {
+    opacity: 0.3;
+    transform: scale(1.25) translateZ(0);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(1.35) translateZ(0);
+  }
+}
+
+/* RGB chromatic aberration converge (glitch dissolve) */
+@keyframes glitch-converge {
+  0% {
+    text-shadow:
+      -2px 0 rgba(222, 29, 141, 0.7),
+      2px 0 rgba(10, 114, 239, 0.7);
+    opacity: 0;
+    filter: blur(2px);
+  }
+  60% {
+    text-shadow:
+      -0.5px 0 rgba(222, 29, 141, 0.3),
+      0.5px 0 rgba(10, 114, 239, 0.3);
+    opacity: 1;
+    filter: blur(0);
+  }
+  100% {
+    text-shadow:
+      0 0 rgba(222, 29, 141, 0),
+      0 0 rgba(10, 114, 239, 0);
+    opacity: 1;
+    filter: blur(0);
+  }
+}
+
+/* Shimmer sweep across progress bar */
+@keyframes progress-shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* Shared shimmer overlay — used by navigation progress bar and app init overlay */
+@utility progress-shimmer-overlay {
+  background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.5) 30%, rgba(255,255,255,0.5) 70%, transparent 100%);
+}
+
+/* Leading dot pulse */
+@keyframes dot-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 6px rgba(10, 114, 239, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 14px rgba(10, 114, 239, 0.9), 0 0 24px rgba(10, 114, 239, 0.3);
+  }
+}
+
+/* ─── Navigation progress bar keyframes ─── */
+
+/* Initial fill: scaleX(0) → scaleX(0.9) — fast surge then deceleration.
+   Uses transform instead of width to stay on the GPU compositing layer
+   and prevent layout thrashing / scrollbar flicker. */
+@keyframes nav-progress-fill {
+  0% {
+    transform: scaleX(0);
+  }
+  20% {
+    transform: scaleX(0.32);
+  }
+  50% {
+    transform: scaleX(0.6);
+  }
+  80% {
+    transform: scaleX(0.8);
+  }
+  100% {
+    transform: scaleX(0.9);
+  }
+}
+
+/* Completion: scaleX(0.9) → scaleX(1) + fade out */
+@keyframes nav-progress-done {
+  0% {
+    transform: scaleX(0.9);
     opacity: 1;
   }
-  to {
-    opacity: 0;
-  }
-}
-
-@keyframes vt-fade-in {
-  from {
-    opacity: 0;
-  }
-  to {
+  40% {
+    transform: scaleX(1);
     opacity: 1;
   }
-}
-
-::view-transition-old(root) {
-  animation: vt-fade-out 0.25s ease-out both;
-}
-
-::view-transition-new(root) {
-  animation: vt-fade-in 0.35s ease-out 0.05s both;
+  100% {
+    transform: scaleX(1);
+    opacity: 0;
+  }
 }

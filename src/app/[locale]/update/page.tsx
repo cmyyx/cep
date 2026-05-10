@@ -1,12 +1,13 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback, useRef } from 'react'
 import { useTranslations } from 'next-intl'
 import { SidebarTrigger } from '@/components/ui/sidebar'
 import { Button } from '@/components/ui/button'
 import { Skeleton } from '@/components/ui/skeleton'
 import { useVersion } from '@/hooks/use-version'
-import { cn, formatTime } from '@/lib/utils'
+import { formatTime } from '@/lib/utils'
+import { MIN_LOADING_DISPLAY_MS } from '@/lib/constants'
 import { RefreshCw, ArrowRight } from 'lucide-react'
 import type { VersionInfo } from '@/types/version'
 
@@ -62,12 +63,15 @@ export default function UpdatePage() {
   const t = useTranslations()
   const { info, localInfo, isUpdateAvailable, checkNow, refreshPage } = useVersion()
   const [changelog, setChangelog] = useState<string[] | null>(null)
-  const [changelogError, setChangelogError] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
+  const [loadError, setLoadError] = useState(false)
 
   useEffect(() => {
     const controller = new AbortController()
-    const started = Date.now()
-    let timeoutId: ReturnType<typeof setTimeout> | undefined
+    const startedAt = Date.now()
+
+    let didError = false
+    let changelogData: string[] = []
 
     fetch('/changelog.json', { signal: controller.signal })
       .then((res) => {
@@ -76,27 +80,82 @@ export default function UpdatePage() {
       })
       .then((data) => {
         if (controller.signal.aborted) return
-        const changelogData = Array.isArray(data.changelog) ? data.changelog : []
-        const elapsed = Date.now() - started
-        const delay = Math.max(0, 350 - elapsed)
-        const apply = () => {
-          if (!controller.signal.aborted) setChangelog(changelogData)
-        }
-        if (delay > 0) {
-          timeoutId = setTimeout(apply, delay)
-        } else {
-          apply()
-        }
+        changelogData = Array.isArray(data.changelog) ? data.changelog : []
       })
       .catch((err) => {
         if (err instanceof DOMException && err.name === 'AbortError') return
-        if (!controller.signal.aborted) setChangelogError(true)
+        didError = true
+      })
+      .finally(async () => {
+        if (controller.signal.aborted) return
+        // Enforce minimum skeleton display time so skeleton doesn't flash
+        const elapsed = Date.now() - startedAt
+        if (elapsed < MIN_LOADING_DISPLAY_MS) {
+          const delay = MIN_LOADING_DISPLAY_MS - elapsed
+          await new Promise<void>((resolve) => {
+            const id = setTimeout(resolve, delay)
+            const onAbort = () => {
+              clearTimeout(id)
+              resolve()
+            }
+            controller.signal.addEventListener('abort', onAbort, { once: true })
+          })
+        }
+        if (!controller.signal.aborted) {
+          setChangelog(didError ? null : changelogData)
+          setIsLoading(false)
+          setLoadError(didError)
+        }
       })
 
     return () => {
       controller.abort()
-      if (timeoutId !== undefined) clearTimeout(timeoutId)
     }
+  }, [])
+
+  // Sequential animation: skeleton exit → content enter.
+  // Effects watch isLoading and transition the animation phase.
+  const skeletonShown = useRef(false)
+  const exitTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const [animPhase, setAnimPhase] = useState<'skeleton' | 'exiting' | 'content'>('skeleton')
+
+  /* eslint-disable react-hooks/set-state-in-effect */
+  useEffect(() => {
+    if (isLoading) {
+      skeletonShown.current = true
+      setAnimPhase('skeleton')
+    }
+  }, [isLoading])
+
+  useEffect(() => {
+    if (!isLoading && animPhase === 'skeleton') {
+      if (skeletonShown.current) {
+        setAnimPhase('exiting')
+        // Fallback: if onAnimationEnd doesn't fire (e.g. animation interrupted),
+        // force transition to content after duration-200 + 50ms buffer
+        exitTimerRef.current = setTimeout(() => {
+          setAnimPhase('content')
+          exitTimerRef.current = null
+        }, 250)
+      } else {
+        setAnimPhase('content')
+      }
+    }
+    return () => {
+      if (exitTimerRef.current !== null) {
+        clearTimeout(exitTimerRef.current)
+        exitTimerRef.current = null
+      }
+    }
+  }, [isLoading, animPhase])
+  /* eslint-enable react-hooks/set-state-in-effect */
+
+  const handleSkeletonExitEnd = useCallback(() => {
+    if (exitTimerRef.current !== null) {
+      clearTimeout(exitTimerRef.current)
+      exitTimerRef.current = null
+    }
+    setAnimPhase('content')
   }, [])
 
   const displayInfo = localInfo ?? info
@@ -153,15 +212,15 @@ export default function UpdatePage() {
           {/* Changelog */}
           <div className="rounded-lg shadow-[0px_0px_0px_1px_rgba(0,0,0,0.08)] p-4">
             <h3 className="text-sm font-semibold mb-3">{t('version.commitMessage')}</h3>
-            <div className="relative">
-              {/* Skeleton layer — fades out when data arrives */}
+            {animPhase !== 'content' ? (
+              /* Skeleton — fades out via animate-out before content mounts */
               <div
-                className={cn(
-                  'space-y-3 transition-opacity duration-200',
-                  changelog === null && !changelogError
-                    ? 'opacity-100'
-                    : 'opacity-0 pointer-events-none absolute inset-0'
-                )}
+                className={
+                  animPhase === 'exiting'
+                    ? 'min-h-[136px] space-y-3 animate-out fade-out duration-200'
+                    : 'min-h-[136px] space-y-3'
+                }
+                onAnimationEnd={animPhase === 'exiting' ? handleSkeletonExitEnd : undefined}
               >
                 <Skeleton className="h-4 w-2/3" />
                 <Skeleton className="h-3 w-full" />
@@ -169,64 +228,41 @@ export default function UpdatePage() {
                 <Skeleton className="h-4 w-1/2" />
                 <Skeleton className="h-3 w-full" />
               </div>
-
-              {/* Content layer — fades in when data is ready */}
-              <div
-                className={cn(
-                  'transition-opacity duration-200',
-                  changelog === null && !changelogError
-                    ? 'opacity-0'
-                    : 'opacity-100'
-                )}
-              >
-                {(() => {
-                  if (changelogError) {
-                    return (
-                      <p className="text-sm text-muted-foreground">
-                        {t('version.changelogError')}
-                      </p>
-                    )
-                  }
-                  const entries = changelog ?? []
-                  if (entries.length === 0) {
-                    return (
-                      <p className="text-sm text-muted-foreground">
-                        {t('version.changelogEmpty')}
-                      </p>
-                    )
-                  }
-                  return (
-                    <ul className="space-y-3">
-                      {entries.map((entry, index) => {
-                        const { hash, time, body } =
-                          parseChangelogEntry(entry)
-                        return (
-                          <li key={hash || index} className="text-sm">
-                            <div className="flex items-center gap-2 flex-wrap">
-                              {hash && (
-                                <span className="font-mono text-xs px-1.5 py-0.5 rounded bg-muted text-muted-foreground">
-                                  {hash}
-                                </span>
-                              )}
-                              {time && (
-                                <span className="text-xs text-muted-foreground">
-                                  {formatTime(time)}
-                                </span>
-                              )}
-                            </div>
-                            {body && (
-                              <p className="mt-1 text-muted-foreground whitespace-pre-wrap">
-                                {body}
-                              </p>
-                            )}
-                          </li>
-                        )
-                      })}
-                    </ul>
-                  )
-                })()}
+            ) : loadError ? (
+              /* Error — appears with fade-in after skeleton exits */
+              <div className="min-h-[136px] flex items-center justify-center text-center text-sm text-muted-foreground animate-in fade-in duration-200">
+                {t('version.changelogError')}
               </div>
-            </div>
+            ) : (
+              /* Success — appears with fade-in after skeleton exits */
+              <ul className="animate-in fade-in duration-200 space-y-3">
+                {(changelog ?? []).map((entry, index) => {
+                  const { hash, time, body } =
+                    parseChangelogEntry(entry)
+                  return (
+                    <li key={hash || index} className="text-sm">
+                      <div className="flex items-center gap-2 flex-wrap">
+                        {hash && (
+                          <span className="font-mono text-xs px-1.5 py-0.5 rounded bg-muted text-muted-foreground">
+                            {hash}
+                          </span>
+                        )}
+                        {time && (
+                          <span className="text-xs text-muted-foreground">
+                            {formatTime(time)}
+                          </span>
+                        )}
+                      </div>
+                      {body && (
+                        <p className="mt-1 text-muted-foreground whitespace-pre-wrap">
+                          {body}
+                        </p>
+                      )}
+                    </li>
+                  )
+                })}
+              </ul>
+            )}
           </div>
         </div>
       </div>

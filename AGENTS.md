@@ -43,7 +43,7 @@ This version has breaking changes — APIs, conventions, and file structure may 
 
 ### UI 层 —— 零容忍规则
 
-- **禁止手写任何 CSS 文件**（`.css`, `.scss`, `.less` 等）。Tailwind config 除外。
+- **禁止手写任何 CSS 文件**（`.css`, `.scss`, `.less` 等）。全局样式和 Tailwind 配置统一在 `src/app/globals.css` 中通过 `@import "tailwindcss"`, `@theme`, `@utility`, `@layer` 等 Tailwind v4 CSS-first 机制管理，不得新增其他 `.css` 文件。
 - **禁止内联 `style={{}}`**，除非是动态计算的数值（如 `style={{ width: `${percent}%` }}`）。
 - **禁止裸 HTML 元素**：所有可交互元素必须来自 Shadcn/UI。`<div>`, `<span>`, `<p>` 等无语义结构元素允许，但 `<button>`, `<input>`, `<select>`, `<textarea>`, `<dialog>`, `<table>` 等必须用 Shadcn/UI 对应组件。
 - **禁止 `<style>` 标签**（包括 `<style jsx>`）。
@@ -106,4 +106,5 @@ src/
 - 每个功能文件必须有对应的测试文件（`.test.ts` 或 `.test.tsx`）。
 - PR 前必须通过 `tsc --noEmit` 类型检查。
 - 使用 `eslint` + `prettier`，配置由项目统一提供，不自定义规则除非有充分理由。
-- **`tsc --noEmit` 和 `eslint` 必须 0 错误 0 警告**，任何 warning 都视为必须修复的问题。
+- **`tsc --noEmit`、`eslint` 必须 0 错误 0 警告**，任何 warning 都视为必须修复的问题。
+- **`node scripts/check-i18n.mjs` 必须 0 个 P0 错误**（运行时缺失 key）。P1（语言间漂移）和 P2（死键）作为 CI warning 展示但不阻塞构建，应在 PR 中逐步清理。

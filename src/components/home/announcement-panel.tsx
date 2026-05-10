@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect, useState, useCallback, useMemo, memo } from 'react'
+import React, { useState, useCallback, useMemo, memo, useRef, useEffect } from 'react'
 import { useTranslations } from 'next-intl'
 import ReactMarkdown from 'react-markdown'
 import rehypeSanitize, { defaultSchema } from 'rehype-sanitize'
@@ -53,7 +53,7 @@ function AnnouncementItem({
       variant="ghost"
       onClick={onOpen}
       className={cn(
-        'w-full justify-start h-auto px-3 py-2.5 -mx-3 rounded-md transition-colors',
+        'w-full justify-start h-auto px-3 py-2.5 rounded-md transition-colors',
         'flex items-start gap-3',
         isImportant && !isRead && 'bg-amber-50/50 dark:bg-amber-950/30',
         isImportant && isRead && 'bg-transparent',
@@ -206,15 +206,11 @@ export function AnnouncementPanel() {
   const announcements = useAnnouncementStore((s) => s.announcements)
   const readIds = useAnnouncementStore((s) => s.readIds)
   const isLoading = useAnnouncementStore((s) => s.isLoading)
-  const loadAnnouncements = useAnnouncementStore((s) => s.loadAnnouncements)
+  const loadError = useAnnouncementStore((s) => s.loadError)
   const markAsRead = useAnnouncementStore((s) => s.markAsRead)
   const importantUnread = useImportantUnreadCount()
 
   const totalUnread = announcements.filter((a) => !readIds.includes(a.id)).length
-
-  useEffect(() => {
-    loadAnnouncements()
-  }, [loadAnnouncements])
 
   const handleOpen = useCallback(
     (a: Announcement) => {
@@ -227,6 +223,53 @@ export function AnnouncementPanel() {
 
   const handleClose = useCallback(() => {
     setDialogOpen(false)
+  }, [])
+
+  // Sequential animation: skeleton exit → content enter.
+  // Effects synchronise local animation state with the external Zustand store.
+  const skeletonShown = useRef(false)
+  const exitTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const [animPhase, setAnimPhase] = useState<'skeleton' | 'exiting' | 'content'>(() =>
+    useAnnouncementStore.getState().isLoading ? 'skeleton' : 'content'
+  )
+
+  /* eslint-disable react-hooks/set-state-in-effect */
+  useEffect(() => {
+    if (isLoading) {
+      skeletonShown.current = true
+      setAnimPhase('skeleton')
+    }
+  }, [isLoading])
+
+  useEffect(() => {
+    if (!isLoading && animPhase === 'skeleton') {
+      if (skeletonShown.current) {
+        setAnimPhase('exiting')
+        // Fallback: if onAnimationEnd doesn't fire (e.g. animation interrupted),
+        // force transition to content after duration-200 + 50ms buffer
+        exitTimerRef.current = setTimeout(() => {
+          setAnimPhase('content')
+          exitTimerRef.current = null
+        }, 250)
+      } else {
+        setAnimPhase('content')
+      }
+    }
+    return () => {
+      if (exitTimerRef.current !== null) {
+        clearTimeout(exitTimerRef.current)
+        exitTimerRef.current = null
+      }
+    }
+  }, [isLoading, animPhase])
+  /* eslint-enable react-hooks/set-state-in-effect */
+
+  const handleSkeletonExitEnd = useCallback(() => {
+    if (exitTimerRef.current !== null) {
+      clearTimeout(exitTimerRef.current)
+      exitTimerRef.current = null
+    }
+    setAnimPhase('content')
   }, [])
 
   return (
@@ -252,34 +295,41 @@ export function AnnouncementPanel() {
       </div>
 
       {/* Announcement list */}
-      <Card>
+      <Card className="py-0!">
         <CardContent className="p-0">
-          {isLoading ? (
-            <div className="px-3 py-4 space-y-0">
-              {[1, 2, 3].map((i) => (
-                <div key={i} className="flex items-start gap-3 py-2.5">
-                  <Skeleton className="mt-1.5 h-2 w-1 shrink-0 rounded-full" />
-                  <div className="flex-1 space-y-1.5">
-                    <Skeleton className="h-4 w-3/4" />
-                    <Skeleton className="h-3 w-1/4" />
-                  </div>
-                </div>
-              ))}
+          {animPhase !== 'content' ? (
+            /* Skeleton — fades out via animate-out before content mounts */
+            <div
+              className={cn(
+                'min-h-[136px] px-3 py-2.5 space-y-3',
+                animPhase === 'exiting' && 'animate-out fade-out duration-200'
+              )}
+              onAnimationEnd={animPhase === 'exiting' ? handleSkeletonExitEnd : undefined}
+            >
+              <Skeleton className="h-4 w-2/3" />
+              <Skeleton className="h-3 w-full" />
+              <Skeleton className="h-3 w-3/4" />
+              <Skeleton className="h-4 w-1/2" />
+              <Skeleton className="h-3 w-full" />
             </div>
-          ) : announcements.length === 0 ? (
-            <div className="px-4 py-8 text-center text-sm text-muted-foreground">
-              {t('home.noAnnouncements')}
+          ) : loadError ? (
+            /* Error — appears with fade-in after skeleton exits */
+            <div className="min-h-[136px] flex items-center justify-center px-4 py-8 text-center text-sm text-muted-foreground animate-in fade-in duration-200">
+              {t('home.announcementsLoadError')}
             </div>
           ) : (
-            <div className="divide-y divide-border/50">
-              {announcements.map((a) => (
-                <AnnouncementItem
-                  key={a.id}
-                  announcement={a}
-                  isRead={readIds.includes(a.id)}
-                  onOpen={() => handleOpen(a)}
-                />
-              ))}
+            /* Success — appears with fade-in after skeleton exits */
+            <div className="animate-in fade-in duration-200">
+              <div className="[&>*+*]:shadow-[0_-1px_0_0_rgba(0,0,0,0.06)]">
+                {announcements.map((a) => (
+                  <AnnouncementItem
+                    key={a.id}
+                    announcement={a}
+                    isRead={readIds.includes(a.id)}
+                    onOpen={() => handleOpen(a)}
+                  />
+                ))}
+              </div>
             </div>
           )}
         </CardContent>

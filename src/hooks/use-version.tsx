@@ -2,6 +2,8 @@
 
 import { createContext, useContext, useState, useEffect, useRef, useCallback, type ReactNode } from 'react'
 import type { VersionInfo } from '@/types/version'
+import { useAppInitStore } from '@/stores/useAppInitStore'
+import { MIN_LOADING_DISPLAY_MS } from '@/lib/constants'
 
 const POLL_INTERVAL = 5 * 60 * 1000
 const FOCUS_CD = 30 * 1000
@@ -28,6 +30,13 @@ export function VersionProvider({ children, initialInfo }: { children: ReactNode
 
   const fetchVersion = useCallback(async () => {
     if (typeof window === 'undefined') return
+
+    const initStore = useAppInitStore.getState()
+    const isFirstFetch = initStore.phase === 'tracking' && !initStore.completedTasks.has('version')
+    if (isFirstFetch) {
+      initStore.registerTask('version')
+    }
+
     try {
       const res = await fetch(`/version.json?t=${Date.now()}`, { cache: 'no-store' })
       if (!res.ok) return
@@ -67,6 +76,14 @@ export function VersionProvider({ children, initialInfo }: { children: ReactNode
       if (consecutiveFailures.current >= 3) {
         setIsUpdateAvailable(false)
         setForceUpgrade(false)
+      }
+    } finally {
+      if (isFirstFetch) {
+        // Signal completion after a brief animation grace period so the
+        // progress bar doesn't snap from loading → finalising instantly
+        setTimeout(() => {
+          useAppInitStore.getState().completeTask('version')
+        }, MIN_LOADING_DISPLAY_MS)
       }
     }
   }, [localInfo])
