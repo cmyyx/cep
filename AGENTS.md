@@ -83,6 +83,7 @@ src/
 - 组件名与文件名一致：`user-avatar.tsx` → `export function UserAvatar()`。
 - Props 类型定义在同一文件内，命名为 `ComponentNameProps`。
 - 超过 2 层的 prop drilling 必须改用 Zustand store 或组合模式。
+- **`<SelectValue>` 必须传入 `children` render function**：本项目 Select 底层为 Base UI（非 Radix）。`<SelectValue />` 无 children 时 Base UI 无法从子 `SelectItem` 自动解析显示文本，会退回到显示原始 `value` 字符串。必须传 render function 将 value 映射为翻译后的显示文本：`<SelectValue>{(v: string) => labelMap[v] ?? v}</SelectValue>`。禁止在 `<SelectTrigger>` 内手写 `<span>` 替代 `SelectValue`。
 - **侧边栏内所有可交互元素必须使用 `SidebarMenuButton`**：禁止在 `<SidebarMenu>` 内手写 `<button>` 或手动区分 `collapsed`/`expanded` 状态分支。`SidebarMenuButton` 原生处理收起/展开过渡动画（`transition-[width,height,padding]`），手写按钮会导致动画不一致。
 
 ### 禁止事项清单

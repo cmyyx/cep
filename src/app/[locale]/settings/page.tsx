@@ -13,6 +13,7 @@ import {
   SelectContent,
   SelectItem,
   SelectTrigger,
+  SelectValue,
 } from '@/components/ui/select'
 import {
   Dialog,
@@ -96,7 +97,9 @@ export default function SettingsPage() {
               <Label className="text-sm">{t('settings.themeMode')}</Label>
               <Select value={theme} onValueChange={handleThemeChange}>
                 <SelectTrigger className="w-40">
-                  <span>{THEME_LABELS[theme]}</span>
+                  <SelectValue>
+                    {(v: string) => THEME_LABELS[v] ?? v}
+                  </SelectValue>
                 </SelectTrigger>
                 <SelectContent>
                   {Object.entries(THEME_LABELS).map(([k, v]) => (

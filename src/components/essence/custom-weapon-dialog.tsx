@@ -132,7 +132,7 @@ function WeaponFormDialog({
             <span className="text-[10px] text-muted-foreground">{t('essence.weaponType')}</span>
             <Select value={type} onValueChange={(v) => v && setType(v)}>
               <SelectTrigger className="h-8 text-xs w-full">
-                <SelectValue />
+                <SelectValue>{(v: string) => v ?? ''}</SelectValue>
               </SelectTrigger>
               <SelectContent>
                 {TYPES.map((opt) => (
@@ -145,7 +145,7 @@ function WeaponFormDialog({
             <span className="text-[10px] text-muted-foreground">{t('essence.attrPrimary')}</span>
             <Select value={primaryStat} onValueChange={(v) => v && setPrimaryStat(v)}>
               <SelectTrigger className="h-8 text-xs w-full">
-                <SelectValue />
+                <SelectValue>{(v: string) => v ?? ''}</SelectValue>
               </SelectTrigger>
               <SelectContent>
                 {STATS.map((opt) => (
@@ -158,7 +158,7 @@ function WeaponFormDialog({
             <span className="text-[10px] text-muted-foreground">{t('essence.attrElemental')}</span>
             <Select value={elementalDamage} onValueChange={(v) => v && setElemental(v)}>
               <SelectTrigger className="h-8 text-xs w-full">
-                <SelectValue />
+                <SelectValue>{(v: string) => v ?? ''}</SelectValue>
               </SelectTrigger>
               <SelectContent>
                 {ELEMENTS.map((opt) => (
@@ -171,7 +171,7 @@ function WeaponFormDialog({
             <span className="text-[10px] text-muted-foreground">{t('essence.attrSpecial')}</span>
             <Select value={specialAbility} onValueChange={(v) => v && setAbility(v)}>
               <SelectTrigger className="h-8 text-xs w-full">
-                <SelectValue />
+                <SelectValue>{(v: string) => v ?? ''}</SelectValue>
               </SelectTrigger>
               <SelectContent>
                 {ABILITIES.map((opt) => (

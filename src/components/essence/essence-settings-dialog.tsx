@@ -217,7 +217,11 @@ export function EssenceSettingsDialog() {
               onValueChange={(v) => setRegionFirst(v === 'none' ? null : v)}
             >
               <SelectTrigger className="w-36">
-                <SelectValue />
+                <SelectValue>
+                  {(v: string) =>
+                    !v || v === 'none' ? t('essenceSettings.regionNone') : v
+                  }
+                </SelectValue>
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="none">{t('essenceSettings.regionNone')}</SelectItem>
@@ -239,7 +243,11 @@ export function EssenceSettingsDialog() {
               disabled={!regionFirst}
             >
               <SelectTrigger className="w-36">
-                <SelectValue />
+                <SelectValue>
+                  {(v: string) =>
+                    !v || v === 'none' ? t('essenceSettings.regionNone') : v
+                  }
+                </SelectValue>
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="none">{t('essenceSettings.regionNone')}</SelectItem>
@@ -260,7 +268,16 @@ export function EssenceSettingsDialog() {
               onValueChange={(v) => setWeaponPriority(v as WeaponPriority)}
             >
               <SelectTrigger className="w-36">
-                <SelectValue />
+                <SelectValue>
+                  {(v: string) => {
+                    const labels: Record<string, string> = {
+                      none: t('essenceSettings.weaponPriorityNone'),
+                      'unowned-first': t('essenceSettings.weaponPriorityUnownedFirst'),
+                      'owned-first': t('essenceSettings.weaponPriorityOwnedFirst'),
+                    }
+                    return labels[v] ?? v
+                  }}
+                </SelectValue>
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="none">{t('essenceSettings.weaponPriorityNone')}</SelectItem>

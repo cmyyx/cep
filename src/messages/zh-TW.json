@@ -165,7 +165,7 @@
     "regionSecondLabel": "第二優先區域",
     "regionNone": "無",
     "weaponPriorityLabel": "武器擁有優先度",
-    "weaponPriorityNone": "無優先",
+    "weaponPriorityNone": "無",
     "weaponPriorityUnownedFirst": "未擁有優先",
     "weaponPriorityOwnedFirst": "已擁有優先"
   },

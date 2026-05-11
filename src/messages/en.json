@@ -165,7 +165,7 @@
     "regionSecondLabel": "Second Priority Region",
     "regionNone": "None",
     "weaponPriorityLabel": "Weapon Ownership Priority",
-    "weaponPriorityNone": "No Priority",
+    "weaponPriorityNone": "None",
     "weaponPriorityUnownedFirst": "Unowned First",
     "weaponPriorityOwnedFirst": "Owned First"
   },
