@@ -1,10 +1,11 @@
 'use client'
 
-import { memo, useState, useMemo, useCallback } from 'react'
+import { memo, useState, useRef, useMemo, useCallback } from 'react'
 import { useTranslations } from 'next-intl'
 import { cn } from '@/lib/utils'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
 import { WeaponCard } from './weapon-card'
 import { weapons as staticWeapons } from '@/data/weapons'
 import { useMatrixStore } from '@/stores/useMatrixStore'
@@ -37,6 +38,60 @@ const ATTR_LABEL_KEYS: Record<AttrKey, string> = {
   elementalDamage: 'essence.attrElemental',
   specialAbility: 'essence.attrSpecial',
 }
+
+const FilterChip = memo(function FilterChip({
+  value,
+  isValid,
+  isSelected,
+  onToggle,
+}: {
+  value: string
+  isValid: boolean
+  isSelected: boolean
+  onToggle: () => void
+}) {
+  const spanRef = useRef<HTMLSpanElement>(null)
+  const [tooltipOpen, setTooltipOpen] = useState(false)
+
+  const handleOpenChange = useCallback(
+    (open: boolean) => {
+      // Block opening when text fits (scrollWidth === clientWidth)
+      if (open && spanRef.current && spanRef.current.scrollWidth <= spanRef.current.clientWidth) {
+        return
+      }
+      setTooltipOpen(open)
+    },
+    [],
+  )
+
+  return (
+    <Tooltip open={tooltipOpen} onOpenChange={handleOpenChange}>
+      <TooltipTrigger
+        render={
+          <Button
+            type="button"
+            variant="ghost"
+            size="xs"
+            disabled={!isValid && !isSelected}
+            onClick={onToggle}
+            aria-pressed={isSelected}
+            className={cn(
+              'w-full px-1 py-0.5 rounded text-[11px] text-center border transition-colors bg-muted/60 h-auto min-h-0 min-w-0',
+              isSelected && 'bg-primary text-primary-foreground border-primary',
+              !isSelected && isValid && 'border-border hover:border-foreground/40 hover:bg-muted/80',
+              !isValid && !isSelected && 'border-border/60 text-muted-foreground/40 line-through cursor-not-allowed',
+            )}
+          />
+        }
+      >
+        <span ref={spanRef} className="truncate min-w-0">{value}</span>
+      </TooltipTrigger>
+      <TooltipContent side="top" className="text-xs">
+        {value}
+      </TooltipContent>
+    </Tooltip>
+  )
+})
 
 export const WeaponGrid = memo(function WeaponGrid() {
   const t = useTranslations()
@@ -210,23 +265,13 @@ export const WeaponGrid = memo(function WeaponGrid() {
                       const isValid = valid.has(v)
                       const isSelected = selected.has(v)
                       return (
-                        <Button
+                        <FilterChip
                           key={v}
-                          type="button"
-                          variant="ghost"
-                          size="xs"
-                          disabled={!isValid && !isSelected}
-                          onClick={() => toggleFilter(key, v)}
-                          aria-pressed={isSelected}
-                          className={cn(
-                            'w-full px-1 py-0.5 rounded text-[11px] text-center border transition-colors truncate bg-muted/60 h-auto min-h-0',
-                            isSelected && 'bg-primary text-primary-foreground border-primary',
-                            !isSelected && isValid && 'border-border hover:border-foreground/40 hover:bg-muted/80',
-                            !isValid && !isSelected && 'border-border/60 text-muted-foreground/40 line-through cursor-not-allowed',
-                          )}
-                        >
-                          {v}
-                        </Button>
+                          value={v}
+                          isValid={isValid}
+                          isSelected={isSelected}
+                          onToggle={() => toggleFilter(key, v)}
+                        />
                       )
                     })}
                   </div>

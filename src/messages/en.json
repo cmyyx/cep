@@ -62,7 +62,7 @@
     "checkUpdate": "Check for Updates",
     "updateAvailable": "New version available",
     "clickToRefresh": "Click to refresh",
-    "compatibleVersion": "Game Version",
+    "compatibleVersion": "Compatible Game Version",
     "updatePrompt": "New version, click to refresh",
     "forceUpgradeTitle": "Critical Update",
     "forceUpgradeMessage": "This version contains critical updates or bug fixes. Please refresh now.",
