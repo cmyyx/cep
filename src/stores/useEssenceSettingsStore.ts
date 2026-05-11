@@ -3,6 +3,7 @@ import { persist } from 'zustand/middleware'
 import type {
   EssenceSettingsState,
   SettingKey,
+  WeaponPriority,
 } from '@/types/essence-settings'
 import type { Weapon } from '@/types/matrix'
 
@@ -40,8 +41,9 @@ function mergeWithDefaults(
 ): Omit<EssenceSettingsState, 'toggleFlag' | 'setWeaponOwnership' | 'setEssenceStatus' | 'setWeaponNote' | 'addCustomWeapon' | 'removeCustomWeapon' | 'updateCustomWeapon' | 'setRegionFirst' | 'setRegionSecond' | 'setWeaponPriority' | 'resetAllSettings'> {
   const flags = { ...FLAG_DEFAULTS }
   for (const key of Object.keys(FLAG_DEFAULTS) as SettingKey[]) {
-    if (typeof persisted[key] === 'boolean') {
-      flags[key] = persisted[key]
+    const val = persisted[key]
+    if (typeof val === 'boolean') {
+      flags[key] = val
     }
   }
 
@@ -61,7 +63,7 @@ function mergeWithDefaults(
     typeof persisted.regionFirst === 'string' ? persisted.regionFirst : null
   const regionSecond: string | null =
     typeof persisted.regionSecond === 'string' ? persisted.regionSecond : null
-  const weaponPriority: 'none' | 'unowned-first' | 'owned-first' =
+  const weaponPriority: WeaponPriority =
     persisted.weaponPriority === 'unowned-first' || persisted.weaponPriority === 'owned-first'
       ? persisted.weaponPriority
       : 'none'

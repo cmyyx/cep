@@ -53,22 +53,22 @@ export default function RootLayout({
           data-website-id="604899d8-6614-4230-9feb-974ba09fae4e"
           strategy="afterInteractive"
         />
-        <Script id="baidu-analytics" strategy="afterInteractive">
-          {`var _hmt = _hmt || [];
-(function() {
-  var hm = document.createElement("script");
-  hm.src = "https://hm.baidu.com/hm.js?27db54b42d0271041b2c3e59b731fc6a";
-  var s = document.getElementsByTagName("script")[0]; 
-  s.parentNode.insertBefore(hm, s);
-})();`}
+        <Script id="baidu-analytics-init" strategy="afterInteractive">
+          {`var _hmt = _hmt || [];`}
         </Script>
-        <Script id="ms-clarity" strategy="afterInteractive">
-          {`(function(c,l,a,r,i,t,y){
-    c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-    t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-    y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-})(window, document, "clarity", "script", "wp0yo2ig74");`}
+        <Script
+          id="baidu-analytics"
+          src="https://hm.baidu.com/hm.js?27db54b42d0271041b2c3e59b731fc6a"
+          strategy="afterInteractive"
+        />
+        <Script id="ms-clarity-init" strategy="afterInteractive">
+          {`(function(c,l,a,r,i){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};})(window,document,"clarity");`}
         </Script>
+        <Script
+          id="ms-clarity"
+          src="https://www.clarity.ms/tag/wp0yo2ig74"
+          strategy="afterInteractive"
+        />
         <Script
           src="https://static.cloudflareinsights.com/beacon.min.js"
           data-cf-beacon='{"token": "2d3a7ea7fd75438ca7195e0687c32333"}'

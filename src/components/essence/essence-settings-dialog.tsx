@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useMemo } from 'react'
+import { useState } from 'react'
 import { useTranslations } from 'next-intl'
 import { Settings } from 'lucide-react'
 import {
@@ -21,7 +21,7 @@ import { useEssenceSettingsStore } from '@/stores/useEssenceSettingsStore'
 import { getRegions } from '@/data/dungeons'
 import { dungeons } from '@/data/dungeons'
 import { cn } from '@/lib/utils'
-import type { SettingKey } from '@/types/essence-settings'
+import type { SettingKey, WeaponPriority } from '@/types/essence-settings'
 
 const REGIONS = getRegions(dungeons)
 
@@ -84,7 +84,7 @@ export function EssenceSettingsDialog() {
   const setRegionSecond = useEssenceSettingsStore((s) => s.setRegionSecond)
   const setWeaponPriority = useEssenceSettingsStore((s) => s.setWeaponPriority)
 
-  // Read all flags individually (avoids new-object-per-render infinite loop)
+  // Read all flags individually — each selector triggers re-render only when its value changes
   const flags = {
     hideEssenceOwnedWeaponsList: useEssenceSettingsStore((s) => s.hideEssenceOwnedWeaponsList),
     hideUnownedWeaponsList: useEssenceSettingsStore((s) => s.hideUnownedWeaponsList),
@@ -98,22 +98,6 @@ export function EssenceSettingsDialog() {
     enableNotesPlans: useEssenceSettingsStore((s) => s.enableNotesPlans),
     onlyHideWhenBothOwned: useEssenceSettingsStore((s) => s.onlyHideWhenBothOwned),
   }
-
-  // Stable flag map for dynamic lookup
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const flagMap = useMemo(() => flags, [
-    flags.hideEssenceOwnedWeaponsList,
-    flags.hideUnownedWeaponsList,
-    flags.hideFourStarWeaponsList,
-    flags.enableOwnershipEditList,
-    flags.enableNotesList,
-    flags.hideEssenceOwnedWeaponsPlans,
-    flags.hideUnownedWeaponsPlans,
-    flags.hideFourStarWeaponsPlans,
-    flags.enableOwnershipEditPlans,
-    flags.enableNotesPlans,
-    flags.onlyHideWhenBothOwned,
-  ])
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -150,8 +134,8 @@ export function EssenceSettingsDialog() {
             </thead>
             <tbody>
               {PAIRED_ROWS.flatMap((row) => {
-                const listOn = flagMap[row.listKey]
-                const plansOn = flagMap[row.plansKey]
+                const listOn = flags[row.listKey]
+                const plansOn = flags[row.plansKey]
                 const subActive = !!(row.subSetting && (listOn || plansOn))
 
                 const rows = [
@@ -190,7 +174,7 @@ export function EssenceSettingsDialog() {
                       <td colSpan={2} className="py-1.5 text-center">
                         <Switch
                           size="sm"
-                          checked={flagMap[row.subSetting.subKey]}
+                          checked={flags[row.subSetting.subKey]}
                           onCheckedChange={() =>
                             toggleFlag(row.subSetting!.subKey)
                           }
@@ -272,7 +256,7 @@ export function EssenceSettingsDialog() {
             <span className="text-sm">{t('essenceSettings.weaponPriorityLabel')}</span>
             <Select
               value={weaponPriority}
-              onValueChange={(v) => setWeaponPriority(v as 'none' | 'unowned-first' | 'owned-first')}
+              onValueChange={(v) => setWeaponPriority(v as WeaponPriority)}
             >
               <SelectTrigger className="w-36">
                 <span>

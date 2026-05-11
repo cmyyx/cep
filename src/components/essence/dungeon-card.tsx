@@ -35,6 +35,8 @@ function weaponImageSrc(imageId?: string): string {
 interface RowProps extends ThumbProps {
   selectedLabel: string
   notAvailableLabel: string
+  weaponOwnershipLabel: string
+  essenceOwnershipLabel: string
   showOwnership?: boolean
   weaponOwned?: boolean
   essenceOwned?: boolean
@@ -74,10 +76,15 @@ function useCloseOnScroll(
     scrollables.forEach((el) =>
       el.addEventListener('scroll', handler, { passive: true }),
     )
-    return () =>
+    window.addEventListener('scroll', handler, { passive: true })
+    document.scrollingElement?.addEventListener('scroll', handler, { passive: true })
+    return () => {
       scrollables.forEach((el) =>
         el.removeEventListener('scroll', handler),
       )
+      window.removeEventListener('scroll', handler)
+      document.scrollingElement?.removeEventListener('scroll', handler)
+    }
   }, [open, setOpen])
 
   return ref
@@ -151,6 +158,8 @@ const WeaponRow = memo(function WeaponRow({
   inRange,
   selectedLabel,
   notAvailableLabel,
+  weaponOwnershipLabel,
+  essenceOwnershipLabel,
   showOwnership,
   weaponOwned,
   essenceOwned,
@@ -201,38 +210,18 @@ const WeaponRow = memo(function WeaponRow({
       </span>
       {showOwnership && (
         <div className="flex items-center gap-1 flex-shrink-0">
-          <button
-            type="button"
-            onClick={(e) => {
-              e.stopPropagation()
-              onToggleWeaponOwned?.()
-            }}
-            className={cn(
-              'inline-flex items-center gap-0.5 rounded-full px-1.5 py-px text-[9px] font-medium border transition-colors',
-              weaponOwned
-                ? 'bg-emerald-600 border-emerald-600 text-white'
-                : 'border-border text-muted-foreground hover:border-foreground/30',
-            )}
-          >
-            {weaponOwned && <span className="text-[7px]">✓</span>}
-            <span>武器</span>
-          </button>
-          <button
-            type="button"
-            onClick={(e) => {
-              e.stopPropagation()
-              onToggleEssenceOwned?.()
-            }}
-            className={cn(
-              'inline-flex items-center gap-0.5 rounded-full px-1.5 py-px text-[9px] font-medium border transition-colors',
-              essenceOwned
-                ? 'bg-sky-600 border-sky-600 text-white'
-                : 'border-border text-muted-foreground hover:border-foreground/30',
-            )}
-          >
-            {essenceOwned && <span className="text-[7px]">✓</span>}
-            <span>基质</span>
-          </button>
+          <OwnershipBadge
+            active={weaponOwned === true}
+            onToggle={() => onToggleWeaponOwned?.()}
+            label={weaponOwnershipLabel}
+            activeColor="emerald"
+          />
+          <OwnershipBadge
+            active={essenceOwned === true}
+            onToggle={() => onToggleEssenceOwned?.()}
+            label={essenceOwnershipLabel}
+            activeColor="sky"
+          />
         </div>
       )}
       {onNoteChange && (
@@ -454,7 +443,7 @@ export const DungeonCard = memo(function DungeonCard({
                     onToggle={() =>
                       setWeaponOwnership(weapon.id, !weaponOwnership[weapon.id])
                     }
-                    label="武器"
+                    label={t('essence.weaponOwnershipLabel')}
                     activeColor="emerald"
                   />
                   <OwnershipBadge
@@ -463,7 +452,7 @@ export const DungeonCard = memo(function DungeonCard({
                     onToggle={() =>
                       setEssenceStatus(weapon.id, !essenceStatus[weapon.id])
                     }
-                    label="基质"
+                    label={t('essence.essenceOwnershipLabel')}
                     activeColor="sky"
                   />
                 </div>
@@ -490,6 +479,8 @@ export const DungeonCard = memo(function DungeonCard({
                 inRange={effectiveS1.includes(weapon.primaryStat)}
                 selectedLabel={t('essence.weaponSelected')}
                 notAvailableLabel={t('essence.weaponNotAvailable')}
+                weaponOwnershipLabel={t('essence.weaponOwnershipLabel')}
+                essenceOwnershipLabel={t('essence.essenceOwnershipLabel')}
                 showOwnership={showOwnership}
                 weaponOwned={weaponOwnership[weapon.id] === true}
                 essenceOwned={essenceStatus[weapon.id] === true}

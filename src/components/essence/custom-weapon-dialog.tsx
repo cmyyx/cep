@@ -13,6 +13,13 @@ import {
 } from '@/components/ui/dialog'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
 import { useEssenceSettingsStore } from '@/stores/useEssenceSettingsStore'
 import { weapons as staticWeapons } from '@/data/weapons'
 import type { Weapon } from '@/types/matrix'
@@ -26,36 +33,7 @@ const ABILITIES = [...new Set(staticWeapons.map((w) => w.specialAbility))].sort(
 const TYPES = [...new Set(staticWeapons.map((w) => w.type))].sort()
 const RARITIES = [4, 5, 6] as const
 
-// ─── Form field ────────────────────────────────────────────────────────────
-
-function SelectField({
-  label,
-  value,
-  options,
-  onChange,
-}: {
-  label: string
-  value: string
-  options: readonly string[]
-  onChange: (v: string) => void
-}) {
-  return (
-    <label className="flex flex-col gap-1">
-      <span className="text-[10px] text-muted-foreground">{label}</span>
-      <select
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
-        className="h-8 rounded-md border border-border bg-background px-2 text-xs outline-none focus:border-ring"
-      >
-        {options.map((opt) => (
-          <option key={opt} value={opt}>
-            {opt}
-          </option>
-        ))}
-      </select>
-    </label>
-  )
-}
+const MAX_IMAGE_SIZE = 2 * 1024 * 1024 // 2MB
 
 // ─── Weapon form dialog ────────────────────────────────────────────────────
 
@@ -82,10 +60,22 @@ function WeaponFormDialog({
   const [fileName, setFileName] = useState<string | undefined>(
     initial?.imageId?.startsWith('data:') ? undefined : undefined
   )
+  const [imageError, setImageError] = useState<string | undefined>()
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
     if (!file) return
+    setImageError(undefined)
+
+    if (!file.type.startsWith('image/')) {
+      setImageError(t('essence.invalidImageType'))
+      return
+    }
+    if (file.size > MAX_IMAGE_SIZE) {
+      setImageError(t('essence.imageTooLarge'))
+      return
+    }
+
     setFileName(file.name)
     const reader = new FileReader()
     reader.onload = () => setImageData(reader.result as string)
@@ -155,6 +145,9 @@ function WeaponFormDialog({
                 </div>
               )}
             </div>
+            {imageError && (
+              <span className="text-[10px] text-destructive">{imageError}</span>
+            )}
           </label>
           <div className="flex gap-2">
             <label className="flex flex-col gap-1 flex-1">
@@ -178,10 +171,58 @@ function WeaponFormDialog({
               </div>
             </label>
           </div>
-          <SelectField label={t('essence.weaponType')} value={type} options={TYPES} onChange={setType} />
-          <SelectField label={t('essence.attrPrimary')} value={primaryStat} options={STATS} onChange={setPrimaryStat} />
-          <SelectField label={t('essence.attrElemental')} value={elementalDamage} options={ELEMENTS} onChange={setElemental} />
-          <SelectField label={t('essence.attrSpecial')} value={specialAbility} options={ABILITIES} onChange={setAbility} />
+          <div className="flex flex-col gap-1">
+            <span className="text-[10px] text-muted-foreground">{t('essence.weaponType')}</span>
+            <Select value={type} onValueChange={(v) => v && setType(v)}>
+              <SelectTrigger className="h-8 text-xs w-full">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                {TYPES.map((opt) => (
+                  <SelectItem key={opt} value={opt}>{opt}</SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+          <div className="flex flex-col gap-1">
+            <span className="text-[10px] text-muted-foreground">{t('essence.attrPrimary')}</span>
+            <Select value={primaryStat} onValueChange={(v) => v && setPrimaryStat(v)}>
+              <SelectTrigger className="h-8 text-xs w-full">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                {STATS.map((opt) => (
+                  <SelectItem key={opt} value={opt}>{opt}</SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+          <div className="flex flex-col gap-1">
+            <span className="text-[10px] text-muted-foreground">{t('essence.attrElemental')}</span>
+            <Select value={elementalDamage} onValueChange={(v) => v && setElemental(v)}>
+              <SelectTrigger className="h-8 text-xs w-full">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                {ELEMENTS.map((opt) => (
+                  <SelectItem key={opt} value={opt}>{opt}</SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+          <div className="flex flex-col gap-1">
+            <span className="text-[10px] text-muted-foreground">{t('essence.attrSpecial')}</span>
+            <Select value={specialAbility} onValueChange={(v) => v && setAbility(v)}>
+              <SelectTrigger className="h-8 text-xs w-full">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                {ABILITIES.map((opt) => (
+                  <SelectItem key={opt} value={opt}>{opt}</SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
         </div>
         <DialogFooter>
           <Button size="sm" onClick={handleSave} disabled={!name.trim()}>

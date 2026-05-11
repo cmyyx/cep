@@ -65,10 +65,10 @@ export default function SettingsPage() {
   }
 
   const THEME_LABELS: Record<string, string> = {
-    auto: '自动（跟随系统）',
-    light: '浅色',
-    dark: '深色',
-    flashbang: '闪光弹 (HDR)',
+    auto: t('settings.themeAuto'),
+    light: t('settings.themeLight'),
+    dark: t('settings.themeDark'),
+    flashbang: t('settings.themeFlashbang'),
   }
 
   return (
@@ -83,10 +83,10 @@ export default function SettingsPage() {
         <div className="flex flex-col gap-6 max-w-lg">
         {/* 主题设置组 */}
         <section className="flex flex-col gap-4">
-          <h2 className="text-sm font-medium text-muted-foreground">主题</h2>
+          <h2 className="text-sm font-medium text-muted-foreground">{t('settings.theme')}</h2>
           <div className="flex flex-col gap-3">
             <div className="flex items-center justify-between py-2">
-              <Label className="text-sm">主题模式</Label>
+              <Label className="text-sm">{t('settings.themeMode')}</Label>
               <Select value={theme} onValueChange={handleThemeChange}>
                 <SelectTrigger className="w-40">
                   <span>{THEME_LABELS[theme]}</span>
@@ -106,21 +106,21 @@ export default function SettingsPage() {
 
         {/* 背景设置组 */}
         <section className="flex flex-col gap-4">
-          <h2 className="text-sm font-medium text-muted-foreground">背景</h2>
+          <h2 className="text-sm font-medium text-muted-foreground">{t('settings.background')}</h2>
           <div className="flex flex-col gap-3">
             <div className="flex items-center justify-between py-2">
-              <Label className="text-sm">启用背景</Label>
+              <Label className="text-sm">{t('settings.enableBackground')}</Label>
               <Switch checked={backgroundEnabled} onCheckedChange={toggleBackground} />
             </div>
             <div className="flex items-center justify-between py-2">
-              <Label className="text-sm">背景模糊</Label>
+              <Label className="text-sm">{t('settings.backgroundBlur')}</Label>
               <Switch checked={backgroundBlur} onCheckedChange={toggleBlur} disabled={!backgroundEnabled} />
             </div>
             <div className="flex flex-col gap-2 py-2">
-              <Label className="text-sm">自定义背景 API URL</Label>
+              <Label className="text-sm">{t('settings.apiUrl')}</Label>
               <div className="flex gap-2">
                 <Input value={apiUrl} onChange={(e) => setApiUrl(e.target.value)} placeholder="https://..." className="text-sm h-9" />
-                <Button size="sm" variant="outline" onClick={handleApiApply} className="text-sm h-9">应用</Button>
+                <Button size="sm" variant="outline" onClick={handleApiApply} className="text-sm h-9">{t('settings.apply')}</Button>
               </div>
             </div>
             <div className="flex flex-col gap-2 py-2">
@@ -148,7 +148,7 @@ export default function SettingsPage() {
               </div>
             </div>
             <Button variant="outline" size="sm" onClick={restoreDefaultBg} className="w-fit">
-              恢复默认背景
+              {t('settings.restoreDefault')}
             </Button>
           </div>
         </section>
@@ -158,14 +158,13 @@ export default function SettingsPage() {
       {showFlashbangWarning && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60">
           <div className="max-w-sm mx-4 bg-background rounded-lg p-6 shadow-lg">
-            <h3 className="text-base font-semibold text-destructive mb-4">警告</h3>
+            <h3 className="text-base font-semibold text-destructive mb-4">{t('settings.flashbangWarning')}</h3>
             <p className="text-sm text-muted-foreground mb-4">
-              闪光弹模式仅供整活，会强制启用 HDR 色彩空间并使用极端高亮配色。
-              谨慎开启，可能会导致视觉不适或其他严重后果。
+              {t('settings.flashbangDesc')}
             </p>
             <div className="flex gap-2 justify-end">
-              <Button variant="outline" size="sm" onClick={() => setShowFlashbangWarning(false)}>取消</Button>
-              <Button variant="destructive" size="sm" onClick={confirmFlashbang}>确认开启</Button>
+              <Button variant="outline" size="sm" onClick={() => setShowFlashbangWarning(false)}>{t('settings.cancel')}</Button>
+              <Button variant="destructive" size="sm" onClick={confirmFlashbang}>{t('settings.confirmFlashbang')}</Button>
             </div>
           </div>
         </div>

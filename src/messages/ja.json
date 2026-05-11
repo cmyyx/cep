@@ -133,7 +133,12 @@
     "reselectImage": "再選択",
     "rarity": "レア度",
     "weaponType": "武器タイプ",
-    "save": "保存"
+    "save": "保存",
+    "weaponOwnershipLabel": "武器",
+    "essenceOwnershipLabel": "基質",
+    "notePlaceholder": "メモ",
+    "invalidImageType": "画像ファイルを選択してください",
+    "imageTooLarge": "画像は2MB以下にしてください"
   },
   "essenceSettings": {
     "title": "マトリクスプランナー設定",
@@ -167,6 +172,10 @@
     "title": "設定",
     "theme": "テーマ",
     "themeMode": "テーマモード",
+    "themeAuto": "自動（システム設定）",
+    "themeLight": "ライト",
+    "themeDark": "ダーク",
+    "themeFlashbang": "フラッシュバン (HDR)",
     "background": "背景",
     "enableBackground": "背景を有効化",
     "backgroundBlur": "背景ぼかし",

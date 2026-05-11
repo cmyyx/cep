@@ -1,7 +1,10 @@
 'use client'
 
 import { useState, useCallback } from 'react'
+import { useTranslations } from 'next-intl'
 import { cn } from '@/lib/utils'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
 
 // ─── Ownership pill badge ──────────────────────────────────────────────────
 
@@ -23,34 +26,38 @@ export function OwnershipBadge({
 
   if (compact) {
     return (
-      <button
+      <Button
         type="button"
+        variant="ghost"
+        size="icon-xs"
         onClick={(e) => {
           e.stopPropagation()
           onToggle()
         }}
         title={label}
         className={cn(
-          'size-3.5 rounded-full border transition-colors flex items-center justify-center',
+          'rounded-full border transition-colors',
           active
             ? `${activeBg} ${activeBorder} text-white`
             : 'border-border bg-muted/50 hover:border-foreground/30',
         )}
       >
         {active && <span className="text-[7px] leading-none">✓</span>}
-      </button>
+      </Button>
     )
   }
 
   return (
-    <button
+    <Button
       type="button"
+      variant="ghost"
+      size="xs"
       onClick={(e) => {
         e.stopPropagation()
         onToggle()
       }}
       className={cn(
-        'inline-flex items-center gap-0.5 rounded-full px-1.5 py-px text-[9px] font-medium border transition-colors',
+        'rounded-full px-1.5 py-px text-[9px] font-medium border transition-colors',
         active
           ? `${activeBg} ${activeBorder} text-white`
           : 'border-border text-muted-foreground hover:border-foreground/30',
@@ -58,7 +65,7 @@ export function OwnershipBadge({
     >
       {active && <span className="text-[7px]">✓</span>}
       <span>{label}</span>
-    </button>
+    </Button>
   )
 }
 
@@ -71,6 +78,7 @@ export function EditableNote({
   note: string
   onSave: (value: string) => void
 }) {
+  const t = useTranslations('essence')
   const [editing, setEditing] = useState(false)
   const [draft, setDraft] = useState(note)
 
@@ -86,8 +94,7 @@ export function EditableNote({
 
   if (editing) {
     return (
-      <input
-        type="text"
+      <Input
         value={draft}
         onChange={(e) => setDraft(e.target.value)}
         onBlur={handleSave}
@@ -96,27 +103,29 @@ export function EditableNote({
           if (e.key === 'Escape') handleCancel()
         }}
         onClick={(e) => e.stopPropagation()}
-        className="w-full text-[9px] px-1 py-px rounded border border-border bg-background outline-none focus:border-ring"
+        className="w-full text-[9px] px-1 py-px h-5"
         autoFocus
       />
     )
   }
 
   return (
-    <button
+    <Button
       type="button"
+      variant="ghost"
+      size="xs"
       onClick={(e) => {
         e.stopPropagation()
         setEditing(true)
         setDraft(note)
       }}
       className={cn(
-        'text-[9px] text-center truncate leading-tight hover:text-foreground transition-colors cursor-text w-full',
+        'text-[9px] text-center truncate leading-tight hover:text-foreground transition-colors cursor-text w-full h-auto min-h-0',
         note ? 'text-muted-foreground' : 'text-muted-foreground/40 border border-dashed border-muted-foreground/20 rounded px-1',
       )}
       title={note || undefined}
     >
-      {note || '备注'}
-    </button>
+      {note || t('notePlaceholder')}
+    </Button>
   )
 }

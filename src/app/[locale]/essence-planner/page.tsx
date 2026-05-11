@@ -20,7 +20,7 @@ export default function EssencePlannerPage() {
   const plansMap = useMatrixStore((s) => s.plansMap)
   const planOrder = useMatrixStore((s) => s.planOrder)
   const plansStale = useMatrixStore((s) => s.plansStale)
-  const expandedDungeonIds = useMatrixStore((s) => s.expandedDungeonIds)
+  const expandedPlanKeys = useMatrixStore((s) => s.expandedPlanKeys)
   const selectAllWeapons = useMatrixStore((s) => s.selectAllWeapons)
   const clearWeapons = useMatrixStore((s) => s.clearWeapons)
 
@@ -34,13 +34,13 @@ export default function EssencePlannerPage() {
   const noWeaponsSelected = selectedCount === 0
 
   const expandedSet = useMemo(
-    () => new Set(expandedDungeonIds),
-    [expandedDungeonIds]
+    () => new Set(expandedPlanKeys),
+    [expandedPlanKeys]
   )
 
   // Apply region / weapon priority sorting
   const sortedPlanOrder = useMemo(() => {
-    const order = [...planOrder]
+    const order = planOrder.filter((key) => Boolean(plansMap[key]))
 
     // Build region lookup: dungeon -> region
     const planRegions = new Map<string, string>()

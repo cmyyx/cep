@@ -4,6 +4,7 @@ import { memo, useState, useMemo, useCallback } from 'react'
 import { useTranslations } from 'next-intl'
 import { cn } from '@/lib/utils'
 import { Input } from '@/components/ui/input'
+import { Button } from '@/components/ui/button'
 import { WeaponCard } from './weapon-card'
 import { weapons as staticWeapons } from '@/data/weapons'
 import { useMatrixStore } from '@/stores/useMatrixStore'
@@ -101,6 +102,23 @@ export const WeaponGrid = memo(function WeaponGrid() {
     })
   }, [])
 
+  // Base filter predicate: query + hide settings (shared by filteredWeapons and validOptions)
+  const matchesBaseFilters = useCallback((w: Weapon) => {
+    if (query && !w.name.includes(query) && !w.type.includes(query)) return false
+    if (hideFourStar && w.rarity === 4) return false
+    if (hideUnowned && weaponOwnership[w.id] !== true) return false
+    if (hideEssenceOwned) {
+      const eOwned = essenceStatus[w.id] === true
+      const wOwned = weaponOwnership[w.id] === true
+      if (onlyBothOwned) {
+        if (eOwned && wOwned) return false
+      } else {
+        if (eOwned) return false
+      }
+    }
+    return true
+  }, [query, hideFourStar, hideUnowned, hideEssenceOwned, onlyBothOwned, weaponOwnership, essenceStatus])
+
   // Compute valid options for each category given selections in other categories
   const validOptions = useMemo(() => {
     const result: Record<AttrKey, Set<string>> = {
@@ -114,6 +132,8 @@ export const WeaponGrid = memo(function WeaponGrid() {
       const otherFilters = otherKeys.filter((k) => filters[k].size > 0)
 
       for (const weapon of allWeapons) {
+        // Apply base filters (query, hide settings) + other attribute filters
+        if (!matchesBaseFilters(weapon)) continue
         let matchesOthers = true
         for (const ok of otherFilters) {
           if (!filters[ok].has(weapon[ok])) {
@@ -128,38 +148,18 @@ export const WeaponGrid = memo(function WeaponGrid() {
     }
 
     return result
-  }, [filters, allWeapons])
+  }, [filters, allWeapons, matchesBaseFilters])
 
   // Filter weapons (attr + search + hide settings)
   const filteredWeapons = useMemo(() => {
     return allWeapons.filter((w) => {
-      // Search query
-      if (query && !w.name.includes(query) && !w.type.includes(query)) return false
-      // Attribute filters
+      if (!matchesBaseFilters(w)) return false
       for (const key of ATTR_KEYS) {
         if (filters[key].size > 0 && !filters[key].has(w[key])) return false
       }
-      // Hide 4-star
-      if (hideFourStar && w.rarity === 4) return false
-      // Hide unowned
-      if (hideUnowned && weaponOwnership[w.id] !== true) return false
-      // Hide essence-owned
-      if (hideEssenceOwned) {
-        const eOwned = essenceStatus[w.id] === true
-        const wOwned = weaponOwnership[w.id] === true
-        if (onlyBothOwned) {
-          if (eOwned && wOwned) return false
-        } else {
-          if (eOwned) return false
-        }
-      }
       return true
     })
-  }, [
-    query, filters, allWeapons,
-    hideFourStar, hideUnowned, hideEssenceOwned, onlyBothOwned,
-    weaponOwnership, essenceStatus,
-  ])
+  }, [allWeapons, matchesBaseFilters, filters])
 
   return (
     <div className="flex flex-col gap-3">
@@ -167,10 +167,12 @@ export const WeaponGrid = memo(function WeaponGrid() {
 
       {/* Attribute filter — collapsible */}
       <div>
-        <button
+        <Button
           type="button"
+          variant="ghost"
+          size="xs"
           onClick={() => setFilterCollapsed((v) => !v)}
-          className="flex w-full items-center gap-1 text-[10px] text-muted-foreground hover:text-foreground transition-colors"
+          className="flex w-full items-center gap-1 text-[10px] text-muted-foreground hover:text-foreground transition-colors h-auto p-0"
         >
           <span className="flex-1 text-left">{t('essence.attrFilterTitle')}</span>
           <svg
@@ -187,7 +189,7 @@ export const WeaponGrid = memo(function WeaponGrid() {
           >
             <path d="m6 9 6 6 6-6" />
           </svg>
-        </button>
+        </Button>
         <div
           className={cn(
             'grid transition-all duration-200 ease-out',
@@ -208,20 +210,23 @@ export const WeaponGrid = memo(function WeaponGrid() {
                       const isValid = valid.has(v)
                       const isSelected = selected.has(v)
                       return (
-                        <button
+                        <Button
                           key={v}
                           type="button"
+                          variant="ghost"
+                          size="xs"
                           disabled={!isValid && !isSelected}
                           onClick={() => toggleFilter(key, v)}
+                          aria-pressed={isSelected}
                           className={cn(
-                            'w-full px-1 py-0.5 rounded text-[11px] text-center border transition-colors truncate bg-muted/60',
+                            'w-full px-1 py-0.5 rounded text-[11px] text-center border transition-colors truncate bg-muted/60 h-auto min-h-0',
                             isSelected && 'bg-primary text-primary-foreground border-primary',
                             !isSelected && isValid && 'border-border hover:border-foreground/40 hover:bg-muted/80',
                             !isValid && !isSelected && 'border-border/60 text-muted-foreground/40 line-through cursor-not-allowed',
                           )}
                         >
                           {v}
-                        </button>
+                        </Button>
                       )
                     })}
                   </div>
@@ -248,7 +253,7 @@ export const WeaponGrid = memo(function WeaponGrid() {
                   onToggle={() =>
                     setWeaponOwnership(weapon.id, !weaponOwnership[weapon.id])
                   }
-                  label="武器"
+                  label={t('essence.weaponOwnershipLabel')}
                   activeColor="emerald"
                 />
                 <OwnershipBadge
@@ -256,7 +261,7 @@ export const WeaponGrid = memo(function WeaponGrid() {
                   onToggle={() =>
                     setEssenceStatus(weapon.id, !essenceStatus[weapon.id])
                   }
-                  label="基质"
+                  label={t('essence.essenceOwnershipLabel')}
                   activeColor="sky"
                 />
               </div>

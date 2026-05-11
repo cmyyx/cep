@@ -133,7 +133,12 @@
     "reselectImage": "Reselect",
     "rarity": "Rarity",
     "weaponType": "Weapon Type",
-    "save": "Save"
+    "save": "Save",
+    "weaponOwnershipLabel": "Weapon",
+    "essenceOwnershipLabel": "Essence",
+    "notePlaceholder": "Note",
+    "invalidImageType": "Please select an image file",
+    "imageTooLarge": "Image must be under 2MB"
   },
   "essenceSettings": {
     "title": "Essence Planner Settings",
@@ -167,6 +172,10 @@
     "title": "Settings",
     "theme": "Theme",
     "themeMode": "Theme Mode",
+    "themeAuto": "Auto (follow system)",
+    "themeLight": "Light",
+    "themeDark": "Dark",
+    "themeFlashbang": "Flashbang (HDR)",
     "background": "Background",
     "enableBackground": "Enable Background",
     "backgroundBlur": "Background Blur",

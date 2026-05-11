@@ -37,10 +37,15 @@ function useCloseOnScroll(
     scrollables.forEach((el) =>
       el.addEventListener('scroll', handler, { passive: true }),
     )
-    return () =>
+    window.addEventListener('scroll', handler, { passive: true })
+    document.scrollingElement?.addEventListener('scroll', handler, { passive: true })
+    return () => {
       scrollables.forEach((el) =>
         el.removeEventListener('scroll', handler),
       )
+      window.removeEventListener('scroll', handler)
+      document.scrollingElement?.removeEventListener('scroll', handler)
+    }
   }, [open, setOpen])
 
   return ref
