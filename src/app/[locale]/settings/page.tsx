@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useRef } from 'react'
+import { useState, useEffect } from 'react'
 import { useTranslations } from 'next-intl'
 import { SidebarTrigger } from '@/components/ui/sidebar'
 import { Button } from '@/components/ui/button'
@@ -14,6 +14,13 @@ import {
   SelectItem,
   SelectTrigger,
 } from '@/components/ui/select'
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogFooter,
+} from '@/components/ui/dialog'
 import { useSettingsStore } from '@/stores/useSettingsStore'
 
 export default function SettingsPage() {
@@ -22,6 +29,7 @@ export default function SettingsPage() {
   const {
     backgroundEnabled,
     backgroundBlur,
+    backgroundUrl,
     theme,
     toggleBackground,
     toggleBlur,
@@ -31,17 +39,16 @@ export default function SettingsPage() {
   } = useSettingsStore()
 
   const [apiUrl, setApiUrl] = useState('')
-  const fileRef = useRef<HTMLInputElement>(null)
-  const [fileName, setFileName] = useState('')
   const [showFlashbangWarning, setShowFlashbangWarning] = useState(false)
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0]
-    if (!file) return
-    setFileName(file.name)
-    const url = URL.createObjectURL(file)
-    setBackgroundUrl(url)
-  }
+  // Revoke blob URL on unmount to prevent memory leak
+  useEffect(() => {
+    return () => {
+      if (backgroundUrl.startsWith('blob:')) {
+        URL.revokeObjectURL(backgroundUrl)
+      }
+    }
+  }, [backgroundUrl])
 
   const handleApiApply = () => {
     if (apiUrl.trim()) {
@@ -123,28 +130,22 @@ export default function SettingsPage() {
                 <Button size="sm" variant="outline" onClick={handleApiApply} className="text-sm h-9">{t('settings.apply')}</Button>
               </div>
             </div>
+            {/* TODO: Re-enable when blob URL + IndexedDB storage is implemented.
+                Currently blob URLs leak memory and are not persisted across sessions.
+                See: useSettingsStore.setBackgroundUrl, handleFileChange for revoke logic. */}
             <div className="flex flex-col gap-2 py-2">
               <Label className="text-sm">{t('settings.uploadImage')}</Label>
               <div className="flex items-center gap-2">
-                <input
-                  ref={fileRef}
-                  type="file"
-                  accept="image/*"
-                  onChange={handleFileChange}
-                  className="hidden"
-                />
                 <Button
                   variant="outline"
                   size="sm"
                   className="h-7 text-xs"
-                  onClick={() => fileRef.current?.click()}
+                  disabled
                 >
                   <Upload className="size-3 mr-1" />
                   {t('settings.selectFile')}
                 </Button>
-                {fileName && (
-                  <span className="text-xs text-muted-foreground truncate max-w-48">{fileName}</span>
-                )}
+                <span className="text-[10px] text-muted-foreground">{t('settings.backgroundUploadNotReady')}</span>
               </div>
             </div>
             <Button variant="outline" size="sm" onClick={restoreDefaultBg} className="w-fit">
@@ -155,20 +156,20 @@ export default function SettingsPage() {
       </div>
 
       {/* Flashbang warning dialog */}
-      {showFlashbangWarning && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60">
-          <div className="max-w-sm mx-4 bg-background rounded-lg p-6 shadow-lg">
-            <h3 className="text-base font-semibold text-destructive mb-4">{t('settings.flashbangWarning')}</h3>
-            <p className="text-sm text-muted-foreground mb-4">
-              {t('settings.flashbangDesc')}
-            </p>
-            <div className="flex gap-2 justify-end">
-              <Button variant="outline" size="sm" onClick={() => setShowFlashbangWarning(false)}>{t('settings.cancel')}</Button>
-              <Button variant="destructive" size="sm" onClick={confirmFlashbang}>{t('settings.confirmFlashbang')}</Button>
-            </div>
-          </div>
-        </div>
-      )}
+      <Dialog open={showFlashbangWarning} onOpenChange={setShowFlashbangWarning}>
+        <DialogContent className="sm:max-w-sm">
+          <DialogHeader>
+            <DialogTitle className="text-destructive">{t('settings.flashbangWarning')}</DialogTitle>
+          </DialogHeader>
+          <p className="text-sm text-muted-foreground">
+            {t('settings.flashbangDesc')}
+          </p>
+          <DialogFooter>
+            <Button variant="outline" size="sm" onClick={() => setShowFlashbangWarning(false)}>{t('settings.cancel')}</Button>
+            <Button variant="destructive" size="sm" onClick={confirmFlashbang}>{t('settings.confirmFlashbang')}</Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
       </div>
     </div>
   )

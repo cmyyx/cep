@@ -1,9 +1,8 @@
 'use client'
 
-import { useState, useRef } from 'react'
+import { useState } from 'react'
 import { useTranslations } from 'next-intl'
 import { Plus, Pencil, Trash2, Upload } from 'lucide-react'
-import Image from 'next/image'
 import {
   Dialog,
   DialogContent,
@@ -33,8 +32,6 @@ const ABILITIES = [...new Set(staticWeapons.map((w) => w.specialAbility))].sort(
 const TYPES = [...new Set(staticWeapons.map((w) => w.type))].sort()
 const RARITIES = [4, 5, 6] as const
 
-const MAX_IMAGE_SIZE = 2 * 1024 * 1024 // 2MB
-
 // ─── Weapon form dialog ────────────────────────────────────────────────────
 
 function WeaponFormDialog({
@@ -55,32 +52,6 @@ function WeaponFormDialog({
   const [primaryStat, setPrimaryStat] = useState(initial?.primaryStat ?? STATS[0])
   const [elementalDamage, setElemental] = useState(initial?.elementalDamage ?? ELEMENTS[0])
   const [specialAbility, setAbility] = useState(initial?.specialAbility ?? ABILITIES[0])
-  const fileInputRef = useRef<HTMLInputElement>(null)
-  const [imageData, setImageData] = useState<string | undefined>(initial?.imageId?.startsWith('data:') ? initial.imageId : undefined)
-  const [fileName, setFileName] = useState<string | undefined>(
-    initial?.imageId?.startsWith('data:') ? undefined : undefined
-  )
-  const [imageError, setImageError] = useState<string | undefined>()
-
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0]
-    if (!file) return
-    setImageError(undefined)
-
-    if (!file.type.startsWith('image/')) {
-      setImageError(t('essence.invalidImageType'))
-      return
-    }
-    if (file.size > MAX_IMAGE_SIZE) {
-      setImageError(t('essence.imageTooLarge'))
-      return
-    }
-
-    setFileName(file.name)
-    const reader = new FileReader()
-    reader.onload = () => setImageData(reader.result as string)
-    reader.readAsDataURL(file)
-  }
 
   const handleSave = () => {
     if (!name.trim()) return
@@ -93,7 +64,7 @@ function WeaponFormDialog({
       elementalDamage,
       specialAbility,
       chars: initial?.chars ?? [],
-      imageId: imageData ?? initial?.imageId,
+      imageId: initial?.imageId,
     })
     onOpenChange(false)
   }
@@ -116,57 +87,43 @@ function WeaponFormDialog({
               className="h-8 text-xs"
             />
           </label>
+          {/* TODO: Re-enable image upload when Canvas compression + IndexedDB storage is implemented.
+              Currently base64 is stored in Zustand persist → localStorage (5MB limit, large payload). */}
           <label className="flex flex-col gap-1">
             <span className="text-[10px] text-muted-foreground">{t('essence.weaponImage')}</span>
             <div className="flex items-center gap-2">
-              <input
-                ref={fileInputRef}
-                type="file"
-                accept="image/*"
-                onChange={handleFileChange}
-                className="hidden"
-              />
               <Button
                 type="button"
                 variant="outline"
                 size="sm"
                 className="h-7 text-xs"
-                onClick={() => fileInputRef.current?.click()}
+                disabled
               >
                 <Upload className="size-3 mr-1" />
-                {imageData ? t('essence.reselectImage') : t('essence.selectImage')}
+                {t('essence.selectImage')}
               </Button>
-              {fileName && (
-                <span className="text-[10px] text-muted-foreground truncate max-w-24">{fileName}</span>
-              )}
-              {imageData && (
-                <div className="size-8 rounded border border-border overflow-hidden flex-shrink-0 bg-[url(/images/item-frame-bg.png)] bg-cover bg-center">
-                  <Image src={imageData} alt="" width={32} height={32} className="object-cover" unoptimized />
-                </div>
-              )}
+              <span className="text-[10px] text-muted-foreground">{t('essence.weaponImageNotReady')}</span>
             </div>
-            {imageError && (
-              <span className="text-[10px] text-destructive">{imageError}</span>
-            )}
           </label>
           <div className="flex gap-2">
             <label className="flex flex-col gap-1 flex-1">
               <span className="text-[10px] text-muted-foreground">{t('essence.rarity')}</span>
               <div className="flex gap-1">
                 {RARITIES.map((r) => (
-                  <button
+                  <Button
                     key={r}
-                    type="button"
+                    variant="ghost"
+                    size="sm"
                     onClick={() => setRarity(r)}
                     className={cn(
                       'flex-1 h-8 rounded-md border text-xs font-medium transition-colors',
                       rarity === r
-                        ? 'border-amber-400 bg-amber-400/10 text-amber-400'
+                        ? 'border-amber-400 bg-amber-400/10 text-amber-400 hover:bg-amber-400/20'
                         : 'border-border text-muted-foreground hover:border-foreground/30',
                     )}
                   >
                     {r}★
-                  </button>
+                  </Button>
                 ))}
               </div>
             </label>

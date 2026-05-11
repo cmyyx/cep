@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useRef } from 'react'
+import { useState, useEffect } from 'react'
 import { useSettingsStore } from '@/stores/useSettingsStore'
 import { Button } from '@/components/ui/button'
 import {
@@ -26,16 +26,16 @@ export function SettingsDialog() {
   } = useSettingsStore()
 
   const [apiUrl, setApiUrl] = useState(backgroundUrl)
-  const fileRef = useRef<HTMLInputElement>(null)
   const [open, setOpen] = useState(false)
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0]
-    if (!file) return
-    const url = URL.createObjectURL(file)
-    setBackgroundUrl(url)
-    setApiUrl(url)
-  }
+  // Revoke blob URL on unmount to prevent memory leak
+  useEffect(() => {
+    return () => {
+      if (backgroundUrl.startsWith('blob:')) {
+        URL.revokeObjectURL(backgroundUrl)
+      }
+    }
+  }, [backgroundUrl])
 
   const handleApiApply = () => {
     if (apiUrl.trim()) {
@@ -83,15 +83,10 @@ export function SettingsDialog() {
               </Button>
             </div>
           </div>
+          {/* TODO: Re-enable when blob URL + IndexedDB storage is implemented. */}
           <div className="flex flex-col gap-2">
             <Label className="text-sm">上传背景图片</Label>
-            <input
-              ref={fileRef}
-              type="file"
-              accept="image/*"
-              onChange={handleFileChange}
-              className="text-xs"
-            />
+            <span className="text-[10px] text-muted-foreground">图片上传开发中，暂不可用</span>
           </div>
         </div>
       </DialogContent>

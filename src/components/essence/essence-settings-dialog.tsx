@@ -16,6 +16,7 @@ import {
   SelectContent,
   SelectItem,
   SelectTrigger,
+  SelectValue,
 } from '@/components/ui/select'
 import { useEssenceSettingsStore } from '@/stores/useEssenceSettingsStore'
 import { getRegions } from '@/data/dungeons'
@@ -216,7 +217,7 @@ export function EssenceSettingsDialog() {
               onValueChange={(v) => setRegionFirst(v === 'none' ? null : v)}
             >
               <SelectTrigger className="w-36">
-                <span>{regionFirst ? regionFirst : t('essenceSettings.regionNone')}</span>
+                <SelectValue />
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="none">{t('essenceSettings.regionNone')}</SelectItem>
@@ -238,7 +239,7 @@ export function EssenceSettingsDialog() {
               disabled={!regionFirst}
             >
               <SelectTrigger className="w-36">
-                <span>{regionSecond ? regionSecond : t('essenceSettings.regionNone')}</span>
+                <SelectValue />
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="none">{t('essenceSettings.regionNone')}</SelectItem>
@@ -259,13 +260,7 @@ export function EssenceSettingsDialog() {
               onValueChange={(v) => setWeaponPriority(v as WeaponPriority)}
             >
               <SelectTrigger className="w-36">
-                <span>
-                  {weaponPriority === 'none'
-                    ? t('essenceSettings.weaponPriorityNone')
-                    : weaponPriority === 'unowned-first'
-                      ? t('essenceSettings.weaponPriorityUnownedFirst')
-                      : t('essenceSettings.weaponPriorityOwnedFirst')}
-                </span>
+                <SelectValue />
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="none">{t('essenceSettings.weaponPriorityNone')}</SelectItem>

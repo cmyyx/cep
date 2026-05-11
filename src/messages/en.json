@@ -138,7 +138,8 @@
     "essenceOwnershipLabel": "Essence",
     "notePlaceholder": "Note",
     "invalidImageType": "Please select an image file",
-    "imageTooLarge": "Image must be under 2MB"
+    "imageTooLarge": "Image must be under 2MB",
+    "weaponImageNotReady": "Image upload under development — will support compressed IndexedDB storage. Currently unavailable."
   },
   "essenceSettings": {
     "title": "Essence Planner Settings",
@@ -187,7 +188,8 @@
     "flashbangWarning": "Warning",
     "flashbangDesc": "Flashbang mode is for fun only. It enables HDR color space with extreme brightness. Use with caution — may cause visual discomfort.",
     "cancel": "Cancel",
-    "confirmFlashbang": "Enable"
+    "confirmFlashbang": "Enable",
+    "backgroundUploadNotReady": "Image upload under development — will support compressed IndexedDB storage. Use API URL for now."
   },
   "bannerCalendar": {
     "noData": "No banner calendar data",

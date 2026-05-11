@@ -138,7 +138,8 @@
     "essenceOwnershipLabel": "基质",
     "notePlaceholder": "备注",
     "invalidImageType": "请选择图片文件",
-    "imageTooLarge": "图片大小不能超过 2MB"
+    "imageTooLarge": "图片大小不能超过 2MB",
+    "weaponImageNotReady": "图片功能开发中，将支持压缩存储至 IndexedDB，暂不可用"
   },
   "essenceSettings": {
     "title": "基质规划设置",
@@ -187,7 +188,8 @@
     "flashbangWarning": "警告",
     "flashbangDesc": "闪光弹模式仅供整活，会强制启用 HDR 色彩空间并使用极端高亮配色。谨慎开启，可能会导致视觉不适或其他严重后果。",
     "cancel": "取消",
-    "confirmFlashbang": "确认开启"
+    "confirmFlashbang": "确认开启",
+    "backgroundUploadNotReady": "图片上传开发中，将支持压缩存储至 IndexedDB，暂可使用 API URL 替代"
   },
   "bannerCalendar": {
     "noData": "暂无卡池日历数据",

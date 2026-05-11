@@ -132,9 +132,18 @@ export const WeaponGrid = memo(function WeaponGrid() {
       }
     }
 
-    // Banner weapons sorted by name, other weapons sorted by name
-    bannerWeapons.sort((a, b) => a.name.localeCompare(b.name, 'zh-CN'))
-    otherWeapons.sort((a, b) => a.name.localeCompare(b.name, 'zh-CN'))
+    // Sort function: rarity desc (6,5,4), then name asc
+    const sortWeapons = (weapons: Weapon[]) => {
+      return weapons.sort((a, b) => {
+        if (a.rarity !== b.rarity) {
+          return b.rarity - a.rarity
+        }
+        return a.name.localeCompare(b.name, 'zh-CN')
+      })
+    }
+
+    sortWeapons(bannerWeapons)
+    sortWeapons(otherWeapons)
 
     return [...customWeapons, ...bannerWeapons, ...otherWeapons]
   }, [customWeapons])

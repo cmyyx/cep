@@ -138,7 +138,8 @@
     "essenceOwnershipLabel": "基質",
     "notePlaceholder": "メモ",
     "invalidImageType": "画像ファイルを選択してください",
-    "imageTooLarge": "画像は2MB以下にしてください"
+    "imageTooLarge": "画像は2MB以下にしてください",
+    "weaponImageNotReady": "画像アップロードは開発中 — 圧縮IndexedDB保存に対応予定。現在利用不可。"
   },
   "essenceSettings": {
     "title": "マトリクスプランナー設定",
@@ -187,7 +188,8 @@
     "flashbangWarning": "警告",
     "flashbangDesc": "フラッシュバンモードはお遊び用です。HDR色空間を強制し、極端な高輝度配色を使用します。視覚的不快感やその他の深刻な結果を引き起こす可能性があります。",
     "cancel": "キャンセル",
-    "confirmFlashbang": "有効にする"
+    "confirmFlashbang": "有効にする",
+    "backgroundUploadNotReady": "画像アップロードは開発中 — 圧縮IndexedDB保存に対応予定。API URLをご利用ください。"
   },
   "bannerCalendar": {
     "noData": "ガチャカレンダーデータがありません",
