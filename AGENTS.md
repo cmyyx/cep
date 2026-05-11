@@ -86,6 +86,40 @@ src/
 - **`<SelectValue>` 必须传入 `children` render function**：本项目 Select 底层为 Base UI（非 Radix）。`<SelectValue />` 无 children 时 Base UI 无法从子 `SelectItem` 自动解析显示文本，会退回到显示原始 `value` 字符串。必须传 render function 将 value 映射为翻译后的显示文本：`<SelectValue>{(v: string) => labelMap[v] ?? v}</SelectValue>`。禁止在 `<SelectTrigger>` 内手写 `<span>` 替代 `SelectValue`。
 - **侧边栏内所有可交互元素必须使用 `SidebarMenuButton`**：禁止在 `<SidebarMenu>` 内手写 `<button>` 或手动区分 `collapsed`/`expanded` 状态分支。`SidebarMenuButton` 原生处理收起/展开过渡动画（`transition-[width,height,padding]`），手写按钮会导致动画不一致。
 
+### 页面布局高度链规范
+
+所有使用侧边栏布局的页面必须遵循以下三层高度链，确保内部 flex 子元素能正确解析 `flex-1`，实现面板独立滚动：
+
+**三层结构（不可变）：**
+
+```
+SidebarProvider className="h-svh"              ← height: 100svh (确定值)
+  └─ <main className="flex flex-col flex-1 w-full relative overflow-hidden">
+       └─ <div className="flex flex-col flex-1 min-h-0 overflow-hidden">  ← 页面根元素
+            ├─ top bar (shrink-0 / auto)
+            └─ content area (flex-1 overflow-hidden)
+                 ├─ left panel (overflow-y-scroll)
+                 └─ right panel (overflow-y-auto)
+```
+
+**原理：**
+
+1. `SidebarProvider` 的 wrapper 默认使用 `min-h-svh`，这仅设置了 `min-height`，`height` 仍为 `auto`（不定值）。CSS Flexbox 规范规定：当 flex 容器的 `height` 为 `auto` 时，所有 `flex-grow` 子元素的增长量解析为 0，整条链退化为内容高度，内部 `overflow` 面板无法产生滚动条。必须在 `SidebarProvider` 上显式传入 `className="h-svh"`，使 wrapper 获得确定高度 `100svh`。
+
+2. `<main>` 必须为 `flex flex-col` + `overflow-hidden`（非 `overflow-auto`）。页面内部的滚动由具体面板（weapon grid、plan list 等）通过自身的 `overflow-y-auto` / `overflow-y-scroll` 独立管理，main 本身不产生滚动条。注意：globals.css 会覆写 `overflow-y-auto` 为 `overflow-y: overlay`（Chromium），`overflow-y-scroll` 保持原生行为（始终预留滚动条空间）。
+
+3. 页面根元素必须同时包含 `flex-1`、`min-h-0`、`overflow-hidden`：
+   - `flex-1`：填充 main 的剩余高度
+   - `min-h-0`：允许页面作为 flex 子元素缩到内容高度以下
+   - `overflow-hidden`：**关键**——页面同时是 flex 容器（对其子元素），`overflow: visible`（默认）会导致作为 flex 容器时无法小于内容的自动最小尺寸，容器会膨胀突破分配高度。`overflow: hidden` 解除此约束。
+
+4. **禁止在页面根元素或 `<main>` 上使用硬编码高度**（如 `h-[calc(100vh-3rem)]`）。任何 vertical offset 都会在公告横幅等条件渲染元素出现/消失时失效，应依赖 flex 布局动态分配空间。
+
+**违反此规范的已知症状：**
+- 页面底部出现多余间距
+- 左右面板合并为单一页面级滚动条
+- `overflow: overlay` 失效，滚动条占用布局空间
+
 ### 禁止事项清单
 
 - ❌ 手写 CSS 文件
