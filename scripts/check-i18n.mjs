@@ -187,7 +187,7 @@ function extractKeys(filePath, globalConstants) {
     const vn = m[1]
     // Skip short identifiers and well-known non-key names (local variables, not i18n)
     if (vn.length <= 2) continue
-    if (/^(count|index|days|time|params|candidates|duration|locale|timer|resolve|password|doRefresh|doFit|selectedWeaponIds|expandedDungeonIds|onLoginSubmit|onRegisterSubmit)$/.test(vn)) continue
+    if (/^(count|index|days|time|params|candidates|duration|locale|timer|resolve|password|doRefresh|doFit|selectedWeaponIds|expandedDungeonIds|expandedPlanKeys|onLoginSubmit|onRegisterSubmit)$/.test(vn)) continue
 
     let found = resolveVar(vn, globalConstants, keys)
     if (!found && !QUIET) unresolved.push(`${relPath}: t(${vn})`)

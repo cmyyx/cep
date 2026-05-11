@@ -43,6 +43,16 @@ export function BootstrapScreen() {
         <p className="text-sm text-muted-foreground tracking-[-0.32px] font-medium -mt-5 select-none">
           终末地规划器
         </p>
+
+        {/* Progress bar */}
+        <div className="w-[280px]">
+          <div className="relative h-[3px] w-full bg-muted rounded-full overflow-hidden">
+            <div className="absolute inset-y-0 left-0 bg-gradient-to-r from-develop-blue via-preview-pink to-ship-red rounded-full animate-[bootstrap-progress_1.5s_ease-out_forwards]" />
+          </div>
+          <p className="mt-3 text-center font-mono text-[11px] tracking-[0.2em] text-muted-foreground/60 uppercase select-none">
+            REDIRECTING TO YOUR LANGUAGE
+          </p>
+        </div>
       </div>
     </div>
   )

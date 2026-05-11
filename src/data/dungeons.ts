@@ -1,5 +1,24 @@
 import type { Dungeon } from '@/types/matrix'
 
+/** Parse region name from dungeon name (format: "{region}·{dungeon}") */
+export function getRegion(dungeon: Dungeon): string {
+  return dungeon.name.split('·')[0] ?? dungeon.name
+}
+
+/** Get unique regions in order of first appearance */
+export function getRegions(dungeonsArr: Dungeon[]): string[] {
+  const seen = new Set<string>()
+  const regions: string[] = []
+  for (const d of dungeonsArr) {
+    const r = getRegion(d)
+    if (!seen.has(r)) {
+      seen.add(r)
+      regions.push(r)
+    }
+  }
+  return regions
+}
+
 export const dungeons: Dungeon[] = [
   {
     id: 'hub',

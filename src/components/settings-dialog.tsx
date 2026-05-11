@@ -1,6 +1,7 @@
 'use client'
 
-import { useState, useRef } from 'react'
+import { useState } from 'react'
+import { useTranslations } from 'next-intl'
 import { useSettingsStore } from '@/stores/useSettingsStore'
 import { Button } from '@/components/ui/button'
 import {
@@ -16,6 +17,8 @@ import { Label } from '@/components/ui/label'
 import { Settings } from 'lucide-react'
 
 export function SettingsDialog() {
+  const t = useTranslations()
+
   const {
     backgroundEnabled,
     backgroundBlur,
@@ -26,16 +29,7 @@ export function SettingsDialog() {
   } = useSettingsStore()
 
   const [apiUrl, setApiUrl] = useState(backgroundUrl)
-  const fileRef = useRef<HTMLInputElement>(null)
   const [open, setOpen] = useState(false)
-
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0]
-    if (!file) return
-    const url = URL.createObjectURL(file)
-    setBackgroundUrl(url)
-    setApiUrl(url)
-  }
 
   const handleApiApply = () => {
     if (apiUrl.trim()) {
@@ -54,15 +48,15 @@ export function SettingsDialog() {
       />
       <DialogContent className="max-w-sm">
         <DialogHeader>
-          <DialogTitle>Settings</DialogTitle>
+          <DialogTitle>{t('settings.title')}</DialogTitle>
         </DialogHeader>
         <div className="flex flex-col gap-4 py-2">
           <div className="flex items-center justify-between">
-            <Label className="text-sm">背景</Label>
+            <Label className="text-sm">{t('settings.background')}</Label>
             <Switch checked={backgroundEnabled} onCheckedChange={toggleBackground} />
           </div>
           <div className="flex items-center justify-between">
-            <Label className="text-sm">背景模糊</Label>
+            <Label className="text-sm">{t('settings.backgroundBlur')}</Label>
             <Switch
               checked={backgroundBlur}
               onCheckedChange={toggleBlur}
@@ -70,7 +64,7 @@ export function SettingsDialog() {
             />
           </div>
           <div className="flex flex-col gap-2">
-            <Label className="text-sm">自定义背景 API</Label>
+            <Label className="text-sm">{t('settings.apiUrl')}</Label>
             <div className="flex gap-2">
               <Input
                 value={apiUrl}
@@ -79,19 +73,14 @@ export function SettingsDialog() {
                 className="text-xs h-8"
               />
               <Button size="sm" variant="outline" onClick={handleApiApply} className="text-xs h-8">
-                应用
+                {t('settings.apply')}
               </Button>
             </div>
           </div>
+          {/* TODO: Re-enable when blob URL + IndexedDB storage is implemented. */}
           <div className="flex flex-col gap-2">
-            <Label className="text-sm">上传背景图片</Label>
-            <input
-              ref={fileRef}
-              type="file"
-              accept="image/*"
-              onChange={handleFileChange}
-              className="text-xs"
-            />
+            <Label className="text-sm">{t('settings.uploadImage')}</Label>
+            <span className="text-[10px] text-muted-foreground">{t('settings.backgroundUploadNotReady')}</span>
           </div>
         </div>
       </DialogContent>

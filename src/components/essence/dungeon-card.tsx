@@ -6,6 +6,8 @@ import { useTranslations } from 'next-intl'
 import { cn } from '@/lib/utils'
 import type { DungeonPlan, WeaponMatch } from '@/lib/planner/essence-solver'
 import { useMatrixStore, getPlanKey } from '@/stores/useMatrixStore'
+import { useEssenceSettingsStore } from '@/stores/useEssenceSettingsStore'
+import { OwnershipBadge, EditableNote } from '@/components/essence/ownership-badge'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
 import { Checkbox } from '@/components/ui/checkbox'
 import { ChevronDown } from 'lucide-react'
@@ -25,9 +27,23 @@ interface ThumbProps {
   inRange: boolean
 }
 
+function weaponImageSrc(imageId?: string): string {
+  if (imageId?.startsWith('data:')) return imageId
+  return `/images/weapons/${imageId || 'wpn_sword_0001'}.avif`
+}
+
 interface RowProps extends ThumbProps {
   selectedLabel: string
   notAvailableLabel: string
+  weaponOwnershipLabel: string
+  essenceOwnershipLabel: string
+  showOwnership?: boolean
+  weaponOwned?: boolean
+  essenceOwned?: boolean
+  note?: string
+  onToggleWeaponOwned?: () => void
+  onToggleEssenceOwned?: () => void
+  onNoteChange?: (value: string) => void
 }
 
 /**
@@ -60,10 +76,15 @@ function useCloseOnScroll(
     scrollables.forEach((el) =>
       el.addEventListener('scroll', handler, { passive: true }),
     )
-    return () =>
+    window.addEventListener('scroll', handler, { passive: true })
+    document.scrollingElement?.addEventListener('scroll', handler, { passive: true })
+    return () => {
       scrollables.forEach((el) =>
         el.removeEventListener('scroll', handler),
       )
+      window.removeEventListener('scroll', handler)
+      document.scrollingElement?.removeEventListener('scroll', handler)
+    }
   }, [open, setOpen])
 
   return ref
@@ -95,7 +116,7 @@ const WeaponThumbnail = memo(function WeaponThumbnail({
         }
       >
         <Image
-          src={`/images/weapons/${weapon.imageId || 'wpn_sword_0001'}.avif`}
+          src={weaponImageSrc(weapon.imageId)}
           alt={weapon.name}
           fill
           className="object-cover z-10"
@@ -137,6 +158,15 @@ const WeaponRow = memo(function WeaponRow({
   inRange,
   selectedLabel,
   notAvailableLabel,
+  weaponOwnershipLabel,
+  essenceOwnershipLabel,
+  showOwnership,
+  weaponOwned,
+  essenceOwned,
+  note,
+  onToggleWeaponOwned,
+  onToggleEssenceOwned,
+  onNoteChange,
 }: RowProps) {
   return (
     <div
@@ -150,7 +180,7 @@ const WeaponRow = memo(function WeaponRow({
     >
       <div className="relative size-10 rounded border border-border bg-muted/30 flex-shrink-0 overflow-hidden bg-[url(/images/item-frame-bg.png)] bg-cover bg-center">
         <Image
-          src={`/images/weapons/${weapon.imageId || 'wpn_sword_0001'}.avif`}
+          src={weaponImageSrc(weapon.imageId)}
           alt={weapon.name}
           fill
           className="object-cover z-10"
@@ -178,6 +208,35 @@ const WeaponRow = memo(function WeaponRow({
         {weapon.primaryStat} | {weapon.elementalDamage} |{' '}
         {weapon.specialAbility}
       </span>
+      {showOwnership && (
+        <div className="flex items-center gap-1 flex-shrink-0">
+          <OwnershipBadge
+            active={weaponOwned === true}
+            onToggle={() => onToggleWeaponOwned?.()}
+            label={weaponOwnershipLabel}
+            activeColor="emerald"
+          />
+          <OwnershipBadge
+            active={essenceOwned === true}
+            onToggle={() => onToggleEssenceOwned?.()}
+            label={essenceOwnershipLabel}
+            activeColor="sky"
+          />
+        </div>
+      )}
+      {onNoteChange && (
+        <div className="w-20 flex-shrink-0">
+          <EditableNote
+            note={note || ''}
+            onSave={onNoteChange}
+          />
+        </div>
+      )}
+      {!onNoteChange && note && (
+        <span className="text-[10px] text-muted-foreground truncate max-w-24 flex-shrink-0">
+          {note}
+        </span>
+      )}
       {inRange && isSelected && (
         <span className="ml-auto text-[10px] text-amber-400 font-bold flex-shrink-0">
           {selectedLabel}
@@ -209,17 +268,55 @@ export const DungeonCard = memo(function DungeonCard({
   const toggleDungeonExpand = useMatrixStore((s) => s.toggleDungeonExpand)
   const planKey = getPlanKey(plan)
 
+  // Plan-side settings
+  const hideFourStar = useEssenceSettingsStore((s) => s.hideFourStarWeaponsPlans)
+  const hideUnowned = useEssenceSettingsStore((s) => s.hideUnownedWeaponsPlans)
+  const hideEssenceOwned = useEssenceSettingsStore((s) => s.hideEssenceOwnedWeaponsPlans)
+  const onlyBothOwned = useEssenceSettingsStore((s) => s.onlyHideWhenBothOwned)
+  const showOwnership = useEssenceSettingsStore((s) => s.enableOwnershipEditPlans)
+  const showNotes = useEssenceSettingsStore((s) => s.enableNotesPlans)
+  const weaponOwnership = useEssenceSettingsStore((s) => s.weaponOwnership)
+  const essenceStatus = useEssenceSettingsStore((s) => s.essenceStatus)
+  const weaponNotes = useEssenceSettingsStore((s) => s.weaponNotes)
+  const setWeaponOwnership = useEssenceSettingsStore((s) => s.setWeaponOwnership)
+  const setEssenceStatus = useEssenceSettingsStore((s) => s.setEssenceStatus)
+  const setWeaponNote = useEssenceSettingsStore((s) => s.setWeaponNote)
+
   const handleToggleExpand = useCallback(() => {
-    toggleDungeonExpand(plan.dungeon.id)
-  }, [toggleDungeonExpand, plan.dungeon.id])
+    toggleDungeonExpand(planKey)
+  }, [toggleDungeonExpand, planKey])
 
   const effectiveS1 = useMemo(() => {
     if (!plan.needsS1Choice) return plan.s1Candidates
     return dungeonS1Selections[planKey] || plan.selectedS1
   }, [plan, planKey, dungeonS1Selections])
 
+  // Filter matchedWeapons based on plan-side hide settings
+  const visibleMatched = useMemo(() => {
+    return plan.matchedWeapons.filter(({ weapon }) => {
+      if (hideFourStar && weapon.rarity === 4) return false
+      if (hideUnowned && weaponOwnership[weapon.id] !== true) return false
+      if (hideEssenceOwned) {
+        const eOwned = essenceStatus[weapon.id] === true
+        const wOwned = weaponOwnership[weapon.id] === true
+        if (onlyBothOwned) {
+          if (eOwned && wOwned) return false
+        } else {
+          if (eOwned) return false
+        }
+      }
+      return true
+    })
+  }, [
+    plan.matchedWeapons,
+    hideFourStar, hideUnowned, hideEssenceOwned, onlyBothOwned,
+    weaponOwnership, essenceStatus,
+  ])
+
+  const visibleTotal = visibleMatched.length
+
   const selectedVisible = plan.matchedWeapons.filter(
-    (m) => m.isSelected && effectiveS1.includes(m.weapon.primaryStat)
+    (m) => m.isSelected && effectiveS1.includes(m.weapon.primaryStat),
   ).length
 
   const lockLabel = plan.lockType === 's2' ? t('essence.lockS2') : t('essence.lockS3')
@@ -252,6 +349,11 @@ export const DungeonCard = memo(function DungeonCard({
             {t('essence.total')}:{' '}
             <strong className="text-foreground">{plan.totalCount}</strong>{' '}
             {t('essence.weaponUnit')}
+            {visibleTotal !== plan.totalCount && (
+              <span className="text-muted-foreground/50">
+                {' '}({visibleTotal} {t('essence.visible')})
+              </span>
+            )}
           </span>
         </div>
       </div>
@@ -326,19 +428,50 @@ export const DungeonCard = memo(function DungeonCard({
       {/* Thumbnails (collapsed) or Rows (expanded) */}
       {!isExpanded ? (
         <div key="collapsed" className="flex flex-wrap gap-1.5">
-          {plan.matchedWeapons.map(({ weapon, isSelected }) => (
-            <WeaponThumbnail
-              key={weapon.id}
-              weapon={weapon}
-              isSelected={isSelected}
-              inRange={effectiveS1.includes(weapon.primaryStat)}
-            />
+          {visibleMatched.map(({ weapon, isSelected }) => (
+            <div key={weapon.id} className="flex flex-col gap-0.5 items-center">
+              <WeaponThumbnail
+                weapon={weapon}
+                isSelected={isSelected}
+                inRange={effectiveS1.includes(weapon.primaryStat)}
+              />
+              {showOwnership && (
+                <div className="flex items-center gap-0.5">
+                  <OwnershipBadge
+                    compact
+                    active={weaponOwnership[weapon.id] === true}
+                    onToggle={() =>
+                      setWeaponOwnership(weapon.id, !weaponOwnership[weapon.id])
+                    }
+                    label={t('essence.weaponOwnershipLabel')}
+                    activeColor="emerald"
+                  />
+                  <OwnershipBadge
+                    compact
+                    active={essenceStatus[weapon.id] === true}
+                    onToggle={() =>
+                      setEssenceStatus(weapon.id, !essenceStatus[weapon.id])
+                    }
+                    label={t('essence.essenceOwnershipLabel')}
+                    activeColor="sky"
+                  />
+                </div>
+              )}
+              {showNotes && (
+                <div className="w-10">
+                  <EditableNote
+                    note={weaponNotes[weapon.id] || ''}
+                    onSave={(value) => setWeaponNote?.(weapon.id, value)}
+                  />
+                </div>
+              )}
+            </div>
           ))}
         </div>
       ) : (
         <div key="expanded" className="animate-in slide-in-from-top-2 duration-200 [animation-fill-mode:backwards]">
           <div className="divide-y divide-border border rounded-md overflow-hidden">
-            {plan.matchedWeapons.map(({ weapon, isSelected }) => (
+            {visibleMatched.map(({ weapon, isSelected }) => (
               <WeaponRow
                 key={weapon.id}
                 weapon={weapon}
@@ -346,6 +479,26 @@ export const DungeonCard = memo(function DungeonCard({
                 inRange={effectiveS1.includes(weapon.primaryStat)}
                 selectedLabel={t('essence.weaponSelected')}
                 notAvailableLabel={t('essence.weaponNotAvailable')}
+                weaponOwnershipLabel={t('essence.weaponOwnershipLabel')}
+                essenceOwnershipLabel={t('essence.essenceOwnershipLabel')}
+                showOwnership={showOwnership}
+                weaponOwned={weaponOwnership[weapon.id] === true}
+                essenceOwned={essenceStatus[weapon.id] === true}
+                note={showNotes ? weaponNotes[weapon.id] : undefined}
+                onToggleWeaponOwned={() =>
+                  setWeaponOwnership(
+                    weapon.id,
+                    !weaponOwnership[weapon.id],
+                  )
+                }
+                onToggleEssenceOwned={() =>
+                  setEssenceStatus(weapon.id, !essenceStatus[weapon.id])
+                }
+                onNoteChange={
+                  showNotes
+                    ? (value) => setWeaponNote(weapon.id, value)
+                    : undefined
+                }
               />
             ))}
           </div>

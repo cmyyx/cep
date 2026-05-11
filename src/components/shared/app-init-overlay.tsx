@@ -14,9 +14,9 @@ import { cn } from '@/lib/utils'
  * shifts (announcement banner, etc.) happen unseen.
  *
  * Progress tracking:
- *   0% → 60%   Simulated hydration (requestAnimationFrame, ease-out cubic)
- *  60% → 90%   Real data loading (byte-level fetch progress + task milestones)
- *  90% → 100%  Finalising (triggered when all tasks complete)
+ *   0% → 15%   Slow initial animation (INITIALIZING label)
+ *  15% → 90%   Real data loading (LOADING MODULES label)
+ *  90% → 100%  Finalising (READY label)
  * 100%          Flash → fade out → markCompleted
  */
 export function AppInitOverlay() {
@@ -41,22 +41,23 @@ export function AppInitOverlay() {
     beginTracking()
   }, [hasCompleted, beginTracking])
 
-  // ── Hydration simulation: 0% → 60% over ~800ms (ease-out cubic) ──
+  // ── Slow initial animation: 0% → 15% over ~1200ms (ease-out cubic) ──
+  // Runs once when tracking starts, gives immediate visual feedback.
   useEffect(() => {
     if (phase !== 'tracking') return
 
     let active = true
     let rafId = 0
     const start = Date.now()
-    const duration = 800
-    const startVal = progress
+    const duration = 1200
+    const target = 15
 
     const tick = () => {
       if (!active) return
       const elapsed = Date.now() - start
       const t = Math.min(1, elapsed / duration)
       const eased = 1 - Math.pow(1 - t, 3)
-      const simulated = startVal + (60 - startVal) * eased
+      const simulated = target * eased
       // Only advance if our simulated value is ahead of real progress
       const current = useAppInitStore.getState().progress
       if (simulated > current) {
@@ -65,11 +66,6 @@ export function AppInitOverlay() {
 
       if (t < 1) {
         rafId = requestAnimationFrame(tick)
-      } else {
-        // Ensure final value reaches at least 60 without regressing real progress
-        if (useAppInitStore.getState().progress < 60) {
-          setProgress(60)
-        }
       }
     }
 
@@ -78,6 +74,52 @@ export function AppInitOverlay() {
       active = false
       cancelAnimationFrame(rafId)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [phase])
+
+  // ── Data loading simulation: 15% → 90% over ~800ms (ease-out cubic) ──
+  // Kicks in after the initial slow animation completes.
+  useEffect(() => {
+    if (phase !== 'tracking') return
+
+    // Delay this animation to let the slow initial animation get to 15% first
+    const delayTimer = setTimeout(() => {
+      let active = true
+      let rafId = 0
+      const start = Date.now()
+      const duration = 800
+      const startVal = Math.max(useAppInitStore.getState().progress, 15)
+
+      const tick = () => {
+        if (!active) return
+        const elapsed = Date.now() - start
+        const t = Math.min(1, elapsed / duration)
+        const eased = 1 - Math.pow(1 - t, 3)
+        const simulated = startVal + (90 - startVal) * eased
+        // Only advance if our simulated value is ahead of real progress
+        const current = useAppInitStore.getState().progress
+        if (simulated > current) {
+          setProgress(simulated)
+        }
+
+        if (t < 1) {
+          rafId = requestAnimationFrame(tick)
+        } else {
+          // Ensure final value reaches at least 90 without regressing real progress
+          if (useAppInitStore.getState().progress < 90) {
+            setProgress(90)
+          }
+        }
+      }
+
+      rafId = requestAnimationFrame(tick)
+      return () => {
+        active = false
+        cancelAnimationFrame(rafId)
+      }
+    }, 1200) // Wait for slow initial animation to complete
+
+    return () => clearTimeout(delayTimer)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [phase])
 
@@ -108,10 +150,10 @@ export function AppInitOverlay() {
   // ── Never show again after first completion ──
   if (hasCompleted) return null
 
-  const phaseLabel = phase === 'tracking' ? t('app.phase.tracking') : phase === 'ready' ? t('app.phase.ready') : ''
-  // Show progress bar during tracking AND ready phases (and a simplified
-  // 0% bar during splash so it's visible from the first frame)
-  const showProgress = phase === 'splash' || phase === 'tracking' || phase === 'ready'
+  // Phase label: INITIALIZING when progress < 15%, LOADING MODULES when >= 15%
+  const phaseLabel = phase === 'ready' ? t('app.phase.ready') : progress < 15 ? t('app.phase.splash') : t('app.phase.tracking')
+  // Show progress bar during tracking and ready phases
+  const showProgress = phase === 'tracking' || phase === 'ready'
   const displayProgress = Math.min(100, Math.max(0, phase === 'ready' ? 100 : progress))
   const glowColor =
     displayProgress < 40

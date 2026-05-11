@@ -32,7 +32,7 @@ describe('useMatrixStore', () => {
       plansMap: {},
       planOrder: [],
       plansStale: false,
-      expandedDungeonIds: [],
+      expandedPlanKeys: [],
       dungeonS1Selections: {},
     })
   })
@@ -83,9 +83,9 @@ describe('useMatrixStore', () => {
 
   it('toggleDungeonExpand toggles expansion state', () => {
     useMatrixStore.getState().toggleDungeonExpand('hub')
-    expect(useMatrixStore.getState().expandedDungeonIds).toContain('hub')
+    expect(useMatrixStore.getState().expandedPlanKeys).toContain('hub')
     useMatrixStore.getState().toggleDungeonExpand('hub')
-    expect(useMatrixStore.getState().expandedDungeonIds).not.toContain('hub')
+    expect(useMatrixStore.getState().expandedPlanKeys).not.toContain('hub')
   })
 
   it('getPlansForSelection returns empty for empty selection', () => {
