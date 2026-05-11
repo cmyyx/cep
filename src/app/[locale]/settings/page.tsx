@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { useTranslations } from 'next-intl'
 import { SidebarTrigger } from '@/components/ui/sidebar'
 import { Button } from '@/components/ui/button'
@@ -30,7 +30,6 @@ export default function SettingsPage() {
   const {
     backgroundEnabled,
     backgroundBlur,
-    backgroundUrl,
     theme,
     toggleBackground,
     toggleBlur,
@@ -41,15 +40,6 @@ export default function SettingsPage() {
 
   const [apiUrl, setApiUrl] = useState('')
   const [showFlashbangWarning, setShowFlashbangWarning] = useState(false)
-
-  // Revoke blob URL on unmount to prevent memory leak
-  useEffect(() => {
-    return () => {
-      if (backgroundUrl.startsWith('blob:')) {
-        URL.revokeObjectURL(backgroundUrl)
-      }
-    }
-  }, [backgroundUrl])
 
   const handleApiApply = () => {
     if (apiUrl.trim()) {
