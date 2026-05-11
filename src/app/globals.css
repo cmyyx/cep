@@ -379,3 +379,15 @@
     opacity: 0;
   }
 }
+
+/* ─── Bootstrap screen progress bar ─── */
+
+/* Auto-fill progress bar for BootstrapScreen locale redirect */
+@keyframes bootstrap-progress {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 100%;
+  }
+}

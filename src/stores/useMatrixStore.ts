@@ -143,13 +143,13 @@ interface MatrixState {
   planOrder: string[]
   /** True while an rAF plan recomputation is pending. */
   plansStale: boolean
-  expandedDungeonIds: string[]
+  expandedPlanKeys: string[]
   dungeonS1Selections: Record<string, string[]>
 
   toggleWeapon: (weaponId: string) => void
   selectAllWeapons: () => void
   clearWeapons: () => void
-  toggleDungeonExpand: (dungeonId: string) => void
+  toggleDungeonExpand: (planKey: string) => void
   setDungeonS1Selection: (planKey: string, s1: string[]) => void
 }
 
@@ -158,7 +158,7 @@ export const useMatrixStore = create<MatrixState>((set, get) => ({
   plansMap: {},
   planOrder: [],
   plansStale: false,
-  expandedDungeonIds: [],
+  expandedPlanKeys: [],
   dungeonS1Selections: {},
 
   toggleWeapon: (weaponId: string) => {
@@ -194,15 +194,15 @@ export const useMatrixStore = create<MatrixState>((set, get) => ({
     set({ selectedWeaponIds: [], plansMap: {}, planOrder: [], plansStale: false })
   },
 
-  toggleDungeonExpand: (dungeonId: string) => {
-    const current = get().expandedDungeonIds
+  toggleDungeonExpand: (planKey: string) => {
+    const current = get().expandedPlanKeys
     const nextSet = new Set(current)
-    if (nextSet.has(dungeonId)) {
-      nextSet.delete(dungeonId)
+    if (nextSet.has(planKey)) {
+      nextSet.delete(planKey)
     } else {
-      nextSet.add(dungeonId)
+      nextSet.add(planKey)
     }
-    set({ expandedDungeonIds: Array.from(nextSet) })
+    set({ expandedPlanKeys: Array.from(nextSet) })
   },
 
   setDungeonS1Selection: (planKey: string, s1: string[]) => {
