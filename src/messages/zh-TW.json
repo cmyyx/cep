@@ -139,7 +139,12 @@
     "notePlaceholder": "備註",
     "invalidImageType": "請選擇圖片檔案",
     "imageTooLarge": "圖片大小不能超過 2MB",
-    "weaponImageNotReady": "圖片功能開發中，將支援壓縮儲存至 IndexedDB，暫不可用"
+    "weaponImageNotReady": "圖片功能開發中，將支援壓縮儲存至 IndexedDB，暫不可用",
+    "weaponsTab": "武器選擇",
+    "plansTab": "方案推薦",
+    "viewPlans": "檢視方案",
+    "manageWeapons": "管理武器",
+    "viewAllSelected": "檢視全部"
   },
   "essenceSettings": {
     "title": "基質規劃設定",

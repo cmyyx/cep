@@ -139,7 +139,12 @@
     "notePlaceholder": "メモ",
     "invalidImageType": "画像ファイルを選択してください",
     "imageTooLarge": "画像は2MB以下にしてください",
-    "weaponImageNotReady": "画像アップロードは開発中 — 圧縮IndexedDB保存に対応予定。現在利用不可。"
+    "weaponImageNotReady": "画像アップロードは開発中 — 圧縮IndexedDB保存に対応予定。現在利用不可。",
+    "weaponsTab": "武器選択",
+    "plansTab": "案内",
+    "viewPlans": "案を見る",
+    "manageWeapons": "武器管理",
+    "viewAllSelected": "全て表示"
   },
   "essenceSettings": {
     "title": "マトリクスプランナー設定",

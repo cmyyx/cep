@@ -139,7 +139,12 @@
     "notePlaceholder": "Note",
     "invalidImageType": "Please select an image file",
     "imageTooLarge": "Image must be under 2MB",
-    "weaponImageNotReady": "Image upload under development — will support compressed IndexedDB storage. Currently unavailable."
+    "weaponImageNotReady": "Image upload under development — will support compressed IndexedDB storage. Currently unavailable.",
+    "weaponsTab": "Weapons",
+    "plansTab": "Plans",
+    "viewPlans": "View Plans",
+    "manageWeapons": "Manage",
+    "viewAllSelected": "View All"
   },
   "essenceSettings": {
     "title": "Essence Planner Settings",

@@ -139,7 +139,12 @@
     "notePlaceholder": "备注",
     "invalidImageType": "请选择图片文件",
     "imageTooLarge": "图片大小不能超过 2MB",
-    "weaponImageNotReady": "图片功能开发中，将支持压缩存储至 IndexedDB，暂不可用"
+    "weaponImageNotReady": "图片功能开发中，将支持压缩存储至 IndexedDB，暂不可用",
+    "weaponsTab": "武器选择",
+    "plansTab": "方案推荐",
+    "viewPlans": "查看方案",
+    "manageWeapons": "管理武器",
+    "viewAllSelected": "查看全部"
   },
   "essenceSettings": {
     "title": "基质规划设置",
