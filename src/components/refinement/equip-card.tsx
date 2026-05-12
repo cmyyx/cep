@@ -6,6 +6,7 @@ import { Check } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { useRefinementStore } from '@/stores/useRefinementStore'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
+import { Button } from '@/components/ui/button'
 import type { Equip } from '@/types/refinement'
 
 /** Extract variant suffix from name (e.g. "长息蓄电核·壹型" → "壹型") */
@@ -78,16 +79,17 @@ export const EquipCard = memo(function EquipCard({
     <Tooltip open={open} onOpenChange={setOpen}>
       <TooltipTrigger
         render={
-          <button
+          <Button
             ref={triggerRef}
             type="button"
+            variant="ghost"
             onClick={handleClick}
             className={cn(
-              'group relative flex items-center justify-center aspect-square w-full rounded-lg border cursor-pointer overflow-hidden transition-all',
+              'group relative flex items-center justify-center aspect-square w-full rounded-lg border-0 cursor-pointer overflow-hidden transition-all h-auto px-0',
               'bg-[url(/images/item-frame-bg.png)] bg-cover bg-center',
               isSelected
-                ? 'border-amber-400 ring-2 ring-amber-400/50 ring-offset-2 ring-offset-background shadow-2xl'
-                : 'border-border hover:ring-2 hover:ring-white/40',
+                ? 'shadow-[0px_0px_0px_1px_#fbbf24,0_25px_50px_-12px_rgba(0,0,0,0.25)] ring-2 ring-amber-400/50 ring-offset-2 ring-offset-background'
+                : 'shadow-[0px_0px_0px_1px_rgba(0,0,0,0.08)] hover:ring-2 hover:ring-white/40',
             )}
           />
         }

@@ -237,6 +237,8 @@ export const WeaponGrid = memo(function WeaponGrid() {
           variant="ghost"
           size="xs"
           onClick={toggleFilterCollapsed}
+          aria-expanded={!filterCollapsed}
+          aria-controls="weapon-attr-filter"
           className="flex w-full items-center gap-1 text-[10px] text-muted-foreground hover:text-foreground transition-colors h-auto p-0"
         >
           <span className="flex-1 text-left">{t('essence.attrFilterTitle')}</span>
@@ -256,6 +258,7 @@ export const WeaponGrid = memo(function WeaponGrid() {
           </svg>
         </Button>
         <div
+          id="weapon-attr-filter"
           className={cn(
             'grid transition-all duration-200 ease-out',
             filterCollapsed ? 'grid-rows-[0fr] opacity-0' : 'grid-rows-[1fr] opacity-100',

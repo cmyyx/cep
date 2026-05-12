@@ -6,6 +6,7 @@ import { EquipCard } from './equip-card'
 import { useRefinementStore } from '@/stores/useRefinementStore'
 import type { Equip } from '@/types/refinement'
 import { ChevronDown } from 'lucide-react'
+import { Button } from '@/components/ui/button'
 
 interface EquipSetGroupProps {
   setName: string
@@ -29,10 +30,11 @@ export const EquipSetGroup = memo(function EquipSetGroup({
   return (
     <div className="rounded-lg border border-border bg-card overflow-hidden">
       {/* Header */}
-      <button
+      <Button
         type="button"
+        variant="ghost"
         onClick={handleToggle}
-        className="flex w-full items-center gap-2 px-3 py-2 text-sm hover:bg-muted/40 transition-colors"
+        className="flex w-full items-center gap-2 px-3 py-2 text-sm hover:bg-muted/40 transition-colors h-auto"
       >
         <ChevronDown
           className={cn(
@@ -46,7 +48,7 @@ export const EquipSetGroup = memo(function EquipSetGroup({
         <span className="text-xs text-muted-foreground shrink-0">
           {equips.length}
         </span>
-      </button>
+      </Button>
 
       {/* Body */}
       <div
@@ -56,6 +58,8 @@ export const EquipSetGroup = memo(function EquipSetGroup({
             ? 'grid-rows-[0fr] opacity-0'
             : 'grid-rows-[1fr] opacity-100',
         )}
+        aria-hidden={isCollapsed || undefined}
+        {...(isCollapsed ? { inert: true as const } : {})}
       >
         <div className="overflow-hidden">
           <div className="grid grid-cols-[repeat(auto-fill,minmax(6rem,1fr))] gap-2 p-3 pt-0">
