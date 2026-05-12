@@ -2,6 +2,7 @@
 
 import { memo, useCallback, useState, useRef, useEffect } from 'react'
 import Image from 'next/image'
+import { Check } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { useRefinementStore } from '@/stores/useRefinementStore'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
@@ -149,7 +150,7 @@ export const EquipCard = memo(function EquipCard({
         {/* Selected checkmark */}
         {isSelected && (
           <div className="absolute top-1.5 right-1.5 size-5 rounded-full bg-amber-400 flex items-center justify-center z-30 shadow-md">
-            <span className="text-[8px] text-black font-bold">✓</span>
+            <Check className="size-3 text-black" strokeWidth={3} />
           </div>
         )}
       </TooltipTrigger>

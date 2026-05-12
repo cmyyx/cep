@@ -91,10 +91,13 @@ export function EditableNote({
           setDraft(value)
           onSave(value)
         }}
-        onBlur={() => setEditing(false)}
+        onBlur={() => {
+          onSave(draft)
+          setEditing(false)
+        }}
         onKeyDown={(e) => {
-          if (e.key === 'Enter') setEditing(false)
-          if (e.key === 'Escape') { setDraft(note); setEditing(false) }
+          if (e.key === 'Enter') { onSave(draft); setEditing(false); }
+          if (e.key === 'Escape') setEditing(false)
         }}
         onClick={(e) => e.stopPropagation()}
         className="w-full text-[9px] px-1 py-px h-5"

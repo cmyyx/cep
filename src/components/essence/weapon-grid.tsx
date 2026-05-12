@@ -93,11 +93,7 @@ const FilterChip = memo(function FilterChip({
   )
 })
 
-interface WeaponGridProps {
-  initialFilterCollapsed?: boolean
-}
-
-export const WeaponGrid = memo(function WeaponGrid({ initialFilterCollapsed = false }: WeaponGridProps) {
+export const WeaponGrid = memo(function WeaponGrid() {
   const t = useTranslations()
   const [query, setQuery] = useState('')
   const filterCollapsed = useEssenceSettingsStore((s) => s.weaponFilterCollapsed)

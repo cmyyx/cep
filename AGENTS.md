@@ -92,7 +92,7 @@ src/
 
 **三层结构（不可变）：**
 
-```
+```text
 SidebarProvider className="h-svh"              ← height: 100svh (确定值)
   └─ <main className="flex flex-col flex-1 w-full relative overflow-hidden">
        └─ <div className="flex flex-col flex-1 min-h-0 overflow-hidden">  ← 页面根元素

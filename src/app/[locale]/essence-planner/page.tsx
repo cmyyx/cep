@@ -464,7 +464,7 @@ export default function EssencePlannerPage() {
         <div className="flex-1 overflow-y-auto">
           {mobileView === 'weapons' ? (
             <div className="p-3">
-              <WeaponGrid initialFilterCollapsed />
+              <WeaponGrid />
             </div>
           ) : (
             <div className="p-4">

@@ -26,8 +26,6 @@ export const EquipSetGroup = memo(function EquipSetGroup({
     toggleSetCollapsed(setName)
   }, [toggleSetCollapsed, setName])
 
-  const selectedSet = new Set([selectedEquipId].filter(Boolean))
-
   return (
     <div className="rounded-lg border border-border bg-card overflow-hidden">
       {/* Header */}
@@ -65,7 +63,7 @@ export const EquipSetGroup = memo(function EquipSetGroup({
               <div key={equip.id} className="flex flex-col gap-0.5">
                 <EquipCard
                   equip={equip}
-                  isSelected={selectedSet.has(equip.id)}
+                  isSelected={equip.id === selectedEquipId}
                 />
               </div>
             ))}

@@ -2,6 +2,7 @@
 
 import { memo, useMemo } from 'react'
 import { useTranslations } from 'next-intl'
+import { ChevronDown } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
@@ -95,23 +96,12 @@ export const EquipList = memo(function EquipList() {
           <span className="flex-1 text-left">
             {t('refinement.attributeFilters')}
           </span>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="12"
-            height="12"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
+          <ChevronDown
             className={cn(
-              'transition-transform',
+              'size-3 transition-transform',
               filterCollapsed ? '-rotate-90' : 'rotate-0',
             )}
-          >
-            <path d="m6 9 6 6 6-6" />
-          </svg>
+          />
         </Button>
         {hasActiveFilters && (
           <Button

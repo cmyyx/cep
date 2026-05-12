@@ -6,9 +6,11 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>
 }): Promise<Metadata> {
   const { locale } = await params
-  const messages = (await import(`../../../messages/${locale}.json`)).default
-  return {
-    title: messages.nav.refinementPlanner,
+  try {
+    const messages = (await import(`../../../messages/${locale}.json`)).default
+    return { title: messages.nav.refinementPlanner }
+  } catch {
+    return { title: 'Refinement Planner' }
   }
 }
 
