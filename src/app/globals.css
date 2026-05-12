@@ -231,21 +231,6 @@
   }
 }
 
-/* ─── Overlay scrollbars — scrollbar sits on top of content, no layout shift ─── */
-/* Progressive enhancement: browsers that support overflow:overlay (Chromium, Safari)
-   get true overlay; others (Firefox) fall back to overflow:auto + thin scrollbar */
-.overflow-y-auto {
-  overflow-y: overlay;
-}
-
-.overflow-x-auto {
-  overflow-x: overlay;
-}
-
-.overflow-auto {
-  overflow: overlay;
-}
-
 /* ─── App init overlay keyframes ─── */
 
 /* Engineering grid slow drift */

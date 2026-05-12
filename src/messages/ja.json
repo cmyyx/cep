@@ -120,6 +120,9 @@
     "noPlanMatch": "現在の条件ではマッチするプランがありません",
     "computing": "計算中...",
     "attrFilterTitle": "属性フィルター",
+    "regionFilter": "地域フィルター",
+    "regionFilterAll": "すべて",
+    "weaponNotCoveredByRegion": "現在の地域フィルターでは「{weapons}」に該当するプランがありません",
     "visible": "表示",
     "settings": "マトリクスプランナー設定",
     "customWeapons": "カスタム武器",
@@ -139,7 +142,12 @@
     "notePlaceholder": "メモ",
     "invalidImageType": "画像ファイルを選択してください",
     "imageTooLarge": "画像は2MB以下にしてください",
-    "weaponImageNotReady": "画像アップロードは開発中 — 圧縮IndexedDB保存に対応予定。現在利用不可。"
+    "weaponImageNotReady": "画像アップロードは開発中 — 圧縮IndexedDB保存に対応予定。現在利用不可。",
+    "weaponsTab": "武器選択",
+    "plansTab": "案内",
+    "viewPlans": "案を見る",
+    "manageWeapons": "武器管理",
+    "viewAllSelected": "全て表示"
   },
   "essenceSettings": {
     "title": "マトリクスプランナー設定",
@@ -158,16 +166,11 @@
     "regionPriority": "地域優先度",
     "sortMechanism": "ソート順",
     "sortRegionStep": "地域優先度 — 優先地域のプランが最初に表示されます",
-    "sortWeaponStep": "武器所有優先度 — 所有状態でランキングを調整",
     "sortSelectedStep": "選択武器カバレッジ — 選択武器が多いほど上位",
     "sortTotalStep": "総武器数 — 同点の場合、一致数が多いほど上位",
     "regionFirstLabel": "第一優先地域",
     "regionSecondLabel": "第二優先地域",
-    "regionNone": "なし",
-    "weaponPriorityLabel": "武器所有優先度",
-    "weaponPriorityNone": "なし",
-    "weaponPriorityUnownedFirst": "未所有優先",
-    "weaponPriorityOwnedFirst": "所有済み優先"
+    "regionNone": "なし"
   },
   "settings": {
     "title": "設定",
@@ -212,5 +215,36 @@
     "sortDefault": "デフォルト",
     "sortAsc": "バージョン昇順",
     "sortDesc": "バージョン降順"
+  },
+  "refinement": {
+    "listTitle": "装備リスト",
+    "searchPlaceholder": "装備を検索...",
+    "attributeFilters": "属性フィルター",
+    "clearFilters": "クリア",
+    "subAttr1": "サブ属性1",
+    "subAttr2": "サブ属性2",
+    "specialEffect": "特殊効果",
+    "materialFilters": "素材フィルター",
+    "recommendationTitle": "精鍛おすすめ",
+    "selectOneEquip": "装備を選択して精鍛おすすめを表示",
+    "noMatchingEquip": "該当する装備がありません",
+    "recommendSelf": "現在の属性はこのタイプの上限です — 同属性の装備を表示",
+    "recommendOther": "以下の装備はより高い同属性値を持っています：",
+    "missingTargetAttr": "この装備にはこの属性がありません",
+    "none": "なし",
+    "expandCandidates": "もっと見る",
+    "collapseCandidates": "閉じる",
+    "material": "素材",
+    "type": "タイプ",
+    "equipsTab": "装備",
+    "recommendTab": "おすすめ",
+    "viewRecommend": "おすすめを見る",
+    "manageEquips": "装備管理",
+    "hasSelection": "装備選択済み",
+    "noSelection": "未選択",
+    "viewSelectedEquip": "選択中の装備",
+    "materialFilterNoCandidate": "現在の素材フィルターでは候補がありません",
+    "materialFilterMayMissBest": "フィルター外の素材により高い属性値があります",
+    "selectedEquip": "選択中の装備"
   }
 }
