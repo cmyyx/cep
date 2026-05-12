@@ -19,6 +19,26 @@ export function getRegions(dungeonsArr: Dungeon[]): string[] {
   return regions
 }
 
+/** Parse sub-region name from dungeon name (format: "{region}·{subRegion}") */
+export function getSubRegion(dungeon: Dungeon): string {
+  return dungeon.name.split('·')[1] ?? dungeon.name
+}
+
+/** Get all unique sub-regions for a given region, in order of first appearance */
+export function getSubRegions(dungeonsArr: Dungeon[], region: string): string[] {
+  const seen = new Set<string>()
+  const result: string[] = []
+  for (const d of dungeonsArr) {
+    if (getRegion(d) !== region) continue
+    const s = getSubRegion(d)
+    if (!seen.has(s)) {
+      seen.add(s)
+      result.push(s)
+    }
+  }
+  return result
+}
+
 export const dungeons: Dungeon[] = [
   {
     id: 'hub',

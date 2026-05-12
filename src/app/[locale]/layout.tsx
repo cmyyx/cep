@@ -54,7 +54,7 @@ export default async function LocaleLayout({
   return (
     <NextIntlClientProvider messages={messages} locale={locale}>
       <VersionProvider initialInfo={versionData}>
-        <SidebarProvider>
+        <SidebarProvider className="h-svh">
           <ThemeProvider>
             {/* Curtain — covers everything during init, fades out when ready */}
             <AppInitOverlay />
@@ -62,7 +62,7 @@ export default async function LocaleLayout({
             <AnnouncementLoader />
             <Background />
             <AppSidebar />
-            <main className="flex-1 w-full relative overflow-auto">
+            <main className="flex flex-col flex-1 w-full relative overflow-hidden">
               {/* Navigation progress bar — immediate feedback on every nav */}
               <NavigationProgressBar />
               <ImportantAnnouncementBanner />

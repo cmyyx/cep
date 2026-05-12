@@ -22,7 +22,7 @@ import { useEssenceSettingsStore } from '@/stores/useEssenceSettingsStore'
 import { getRegions } from '@/data/dungeons'
 import { dungeons } from '@/data/dungeons'
 import { cn } from '@/lib/utils'
-import type { SettingKey, WeaponPriority } from '@/types/essence-settings'
+import type { SettingKey } from '@/types/essence-settings'
 
 const REGIONS = getRegions(dungeons)
 
@@ -80,10 +80,8 @@ export function EssenceSettingsDialog() {
   const toggleFlag = useEssenceSettingsStore((s) => s.toggleFlag)
   const regionFirst = useEssenceSettingsStore((s) => s.regionFirst)
   const regionSecond = useEssenceSettingsStore((s) => s.regionSecond)
-  const weaponPriority = useEssenceSettingsStore((s) => s.weaponPriority)
   const setRegionFirst = useEssenceSettingsStore((s) => s.setRegionFirst)
   const setRegionSecond = useEssenceSettingsStore((s) => s.setRegionSecond)
-  const setWeaponPriority = useEssenceSettingsStore((s) => s.setWeaponPriority)
 
   // Read all flags individually — each selector triggers re-render only when its value changes
   const flags = {
@@ -203,7 +201,6 @@ export function EssenceSettingsDialog() {
             <p className="text-xs font-medium text-foreground mb-1.5">{t('essenceSettings.sortMechanism')}</p>
             <ol className="text-xs text-muted-foreground space-y-0.5">
               <li>{t('essenceSettings.sortRegionStep')}</li>
-              <li>{t('essenceSettings.sortWeaponStep')}</li>
               <li>{t('essenceSettings.sortSelectedStep')}</li>
               <li>{t('essenceSettings.sortTotalStep')}</li>
             </ol>
@@ -260,32 +257,6 @@ export function EssenceSettingsDialog() {
             </Select>
           </div>
 
-          {/* 武器拥有优先级 */}
-          <div className="flex items-center justify-between py-2">
-            <span className="text-sm">{t('essenceSettings.weaponPriorityLabel')}</span>
-            <Select
-              value={weaponPriority}
-              onValueChange={(v) => setWeaponPriority(v as WeaponPriority)}
-            >
-              <SelectTrigger className="w-36">
-                <SelectValue>
-                  {(v: string) => {
-                    const labels: Record<string, string> = {
-                      none: t('essenceSettings.weaponPriorityNone'),
-                      'unowned-first': t('essenceSettings.weaponPriorityUnownedFirst'),
-                      'owned-first': t('essenceSettings.weaponPriorityOwnedFirst'),
-                    }
-                    return labels[v] ?? v
-                  }}
-                </SelectValue>
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="none">{t('essenceSettings.weaponPriorityNone')}</SelectItem>
-                <SelectItem value="unowned-first">{t('essenceSettings.weaponPriorityUnownedFirst')}</SelectItem>
-                <SelectItem value="owned-first">{t('essenceSettings.weaponPriorityOwnedFirst')}</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
         </div>
 
       </DialogContent>

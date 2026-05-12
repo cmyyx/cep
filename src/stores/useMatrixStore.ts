@@ -1,4 +1,5 @@
 import { create } from 'zustand'
+import { persist } from 'zustand/middleware'
 import { weapons } from '@/data/weapons'
 import { dungeons } from '@/data/dungeons'
 import { solve, type DungeonPlan } from '@/lib/planner/essence-solver'
@@ -145,69 +146,125 @@ interface MatrixState {
   plansStale: boolean
   expandedPlanKeys: string[]
   dungeonS1Selections: Record<string, string[]>
+  /** Region filter — selected region names (array for JSON serialization). */
+  selectedRegions: string[]
+  /** Region filter — selected sub-region names. */
+  selectedSubRegions: string[]
 
   toggleWeapon: (weaponId: string) => void
   selectAllWeapons: () => void
   clearWeapons: () => void
   toggleDungeonExpand: (planKey: string) => void
   setDungeonS1Selection: (planKey: string, s1: string[]) => void
+  setSelectedRegions: (regions: string[]) => void
+  setSelectedSubRegions: (subs: string[]) => void
+  /** Synchronously recompute plans (used on rehydration / fallback). */
+  computePlans: () => void
 }
 
-export const useMatrixStore = create<MatrixState>((set, get) => ({
-  selectedWeaponIds: [],
-  plansMap: {},
-  planOrder: [],
-  plansStale: false,
-  expandedPlanKeys: [],
-  dungeonS1Selections: {},
+export const useMatrixStore = create<MatrixState>()(
+  persist(
+    (set, get) => ({
+      selectedWeaponIds: [],
+      plansMap: {},
+      planOrder: [],
+      plansStale: false,
+      expandedPlanKeys: [],
+      dungeonS1Selections: {},
+      selectedRegions: [],
+      selectedSubRegions: [],
 
-  toggleWeapon: (weaponId: string) => {
-    const current = get().selectedWeaponIds
-    const nextSet = new Set(current)
-    if (nextSet.has(weaponId)) {
-      nextSet.delete(weaponId)
-    } else {
-      nextSet.add(weaponId)
-    }
-    const next = toSortedArray(nextSet)
-    if (
-      next.length === current.length &&
-      next.every((id, i) => id === current[i])
-    ) {
-      return
-    }
-    // 1. Immediately show selection highlight on weapon cards
-    // 2. Defer plan computation to next rAF (coalesces rapid clicks)
-    set({ selectedWeaponIds: next, plansStale: true })
-    schedulePlansUpdate(set, get)
-  },
+      toggleWeapon: (weaponId: string) => {
+        const current = get().selectedWeaponIds
+        const nextSet = new Set(current)
+        if (nextSet.has(weaponId)) {
+          nextSet.delete(weaponId)
+        } else {
+          nextSet.add(weaponId)
+        }
+        const next = toSortedArray(nextSet)
+        if (
+          next.length === current.length &&
+          next.every((id, i) => id === current[i])
+        ) {
+          return
+        }
+        // 1. Immediately show selection highlight on weapon cards
+        // 2. Defer plan computation to next rAF (coalesces rapid clicks)
+        set({ selectedWeaponIds: next, plansStale: true })
+        schedulePlansUpdate(set, get)
+      },
 
-  selectAllWeapons: () => {
-    const ids = toSortedArray(new Set(weapons.map((w) => w.id)))
-    set({ selectedWeaponIds: ids, plansStale: true })
-    schedulePlansUpdate(set, get)
-  },
+      selectAllWeapons: () => {
+        const ids = toSortedArray(new Set(weapons.map((w) => w.id)))
+        set({ selectedWeaponIds: ids, plansStale: true })
+        schedulePlansUpdate(set, get)
+      },
 
-  clearWeapons: () => {
-    if (get().selectedWeaponIds.length === 0) return
-    cancelPlansUpdate()
-    set({ selectedWeaponIds: [], plansMap: {}, planOrder: [], plansStale: false })
-  },
+      clearWeapons: () => {
+        if (get().selectedWeaponIds.length === 0) return
+        cancelPlansUpdate()
+        set({ selectedWeaponIds: [], plansMap: {}, planOrder: [], plansStale: false })
+      },
 
-  toggleDungeonExpand: (planKey: string) => {
-    const current = get().expandedPlanKeys
-    const nextSet = new Set(current)
-    if (nextSet.has(planKey)) {
-      nextSet.delete(planKey)
-    } else {
-      nextSet.add(planKey)
-    }
-    set({ expandedPlanKeys: Array.from(nextSet) })
-  },
+      toggleDungeonExpand: (planKey: string) => {
+        const current = get().expandedPlanKeys
+        const nextSet = new Set(current)
+        if (nextSet.has(planKey)) {
+          nextSet.delete(planKey)
+        } else {
+          nextSet.add(planKey)
+        }
+        set({ expandedPlanKeys: Array.from(nextSet) })
+      },
 
-  setDungeonS1Selection: (planKey: string, s1: string[]) => {
-    set((state) => ({
-      dungeonS1Selections: { ...state.dungeonS1Selections, [planKey]: s1 },
-    }))
-  },
-}))
+      setDungeonS1Selection: (planKey: string, s1: string[]) => {
+        set((state) => ({
+          dungeonS1Selections: { ...state.dungeonS1Selections, [planKey]: s1 },
+        }))
+      },
+
+      setSelectedRegions: (regions: string[]) => {
+        set({ selectedRegions: regions })
+      },
+
+      setSelectedSubRegions: (subs: string[]) => {
+        set({ selectedSubRegions: subs })
+      },
+
+      computePlans: () => {
+        const { selectedWeaponIds } = get()
+        if (selectedWeaponIds.length === 0) {
+          set({ plansMap: {}, planOrder: [], plansStale: false })
+          return
+        }
+        cancelPlansUpdate()
+        const ids = new Set(selectedWeaponIds)
+        const newPlans = getPlansForSelection(ids)
+        const prevMap = get().plansMap
+        const { plansMap, planOrder } = buildPlanMap(newPlans, prevMap)
+        set({ plansMap, planOrder, plansStale: false })
+      },
+    }),
+    {
+      name: 'matrix-session',
+      partialize: (state) => ({
+        selectedWeaponIds: state.selectedWeaponIds,
+        expandedPlanKeys: state.expandedPlanKeys,
+        dungeonS1Selections: state.dungeonS1Selections,
+        selectedRegions: state.selectedRegions,
+        selectedSubRegions: state.selectedSubRegions,
+      }),
+      onRehydrateStorage: () => {
+        return () => {
+          // Recompute plans after rehydration if weapons were selected.
+          // Called asynchronously (microtask) — may race with first React render,
+          // but the page component's useEffect fallback covers the gap.
+          if (useMatrixStore.getState().selectedWeaponIds.length > 0) {
+            useMatrixStore.getState().computePlans()
+          }
+        }
+      },
+    },
+  ),
+)

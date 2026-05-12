@@ -22,9 +22,6 @@ export interface EssenceSettingsFlags {
 
 export type SettingKey = keyof EssenceSettingsFlags
 
-/** Weapon ownership sort priority */
-export type WeaponPriority = 'none' | 'unowned-first' | 'owned-first'
-
 /** Persistent user data. */
 export interface EssenceUserData {
   weaponOwnership: Record<string, boolean>
@@ -38,8 +35,8 @@ export type EssenceSettingsState = EssenceSettingsFlags &
     /** Region priority: two-level. null means none. */
     regionFirst: string | null
     regionSecond: string | null
-    /** Weapon ownership sort priority */
-    weaponPriority: WeaponPriority
+    /** Weapon grid attribute filter collapsed state */
+    weaponFilterCollapsed: boolean
 
     toggleFlag: (key: SettingKey) => void
     setWeaponOwnership: (weaponId: string, owned: boolean) => void
@@ -50,6 +47,6 @@ export type EssenceSettingsState = EssenceSettingsFlags &
     updateCustomWeapon: (weaponId: string, weapon: Weapon) => void
     setRegionFirst: (region: string | null) => void
     setRegionSecond: (region: string | null) => void
-    setWeaponPriority: (priority: WeaponPriority) => void
+    toggleWeaponFilterCollapsed: () => void
     resetAllSettings: () => void
   }

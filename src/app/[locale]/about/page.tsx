@@ -46,7 +46,7 @@ export default function AboutPage() {
   const t = useTranslations()
 
   return (
-    <div className="flex flex-col flex-1 h-[calc(100vh-3rem)]">
+    <div className="flex flex-col flex-1 min-h-0 overflow-hidden">
       {/* Top bar */}
       <div className="flex items-center gap-3 px-4 py-2 border-b border-border">
         <SidebarTrigger />

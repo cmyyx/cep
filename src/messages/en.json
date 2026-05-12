@@ -120,6 +120,9 @@
     "noPlanMatch": "No matching plans for current filters",
     "computing": "Computing plans...",
     "attrFilterTitle": "Attribute Filter",
+    "regionFilter": "Region Filter",
+    "regionFilterAll": "All",
+    "weaponNotCoveredByRegion": "Under current region filter, \"{weapons}\" has no farming plans",
     "visible": "visible",
     "settings": "Essence Planner Settings",
     "customWeapons": "Custom Weapons",
@@ -139,7 +142,12 @@
     "notePlaceholder": "Note",
     "invalidImageType": "Please select an image file",
     "imageTooLarge": "Image must be under 2MB",
-    "weaponImageNotReady": "Image upload under development — will support compressed IndexedDB storage. Currently unavailable."
+    "weaponImageNotReady": "Image upload under development — will support compressed IndexedDB storage. Currently unavailable.",
+    "weaponsTab": "Weapons",
+    "plansTab": "Plans",
+    "viewPlans": "View Plans",
+    "manageWeapons": "Manage",
+    "viewAllSelected": "View All"
   },
   "essenceSettings": {
     "title": "Essence Planner Settings",
@@ -158,16 +166,11 @@
     "regionPriority": "Region Priority",
     "sortMechanism": "Sort Order",
     "sortRegionStep": "Region priority — preferred region plans appear first",
-    "sortWeaponStep": "Weapon ownership priority — adjusts ranking by ownership status",
     "sortSelectedStep": "Selected weapon coverage — more selected weapons = higher rank",
     "sortTotalStep": "Total weapon count — more total matches = higher rank",
     "regionFirstLabel": "First Priority Region",
     "regionSecondLabel": "Second Priority Region",
-    "regionNone": "None",
-    "weaponPriorityLabel": "Weapon Ownership Priority",
-    "weaponPriorityNone": "None",
-    "weaponPriorityUnownedFirst": "Unowned First",
-    "weaponPriorityOwnedFirst": "Owned First"
+    "regionNone": "None"
   },
   "settings": {
     "title": "Settings",
@@ -212,5 +215,36 @@
     "sortDefault": "Default",
     "sortAsc": "Version Asc",
     "sortDesc": "Version Desc"
+  },
+  "refinement": {
+    "listTitle": "Equipment List",
+    "searchPlaceholder": "Search equipment...",
+    "attributeFilters": "Attribute Filter",
+    "clearFilters": "Clear",
+    "subAttr1": "Sub-stat 1",
+    "subAttr2": "Sub-stat 2",
+    "specialEffect": "Special Effect",
+    "materialFilters": "Material Filter",
+    "recommendationTitle": "Refinement Recommendations",
+    "selectOneEquip": "Select an equipment to view refinement recommendations",
+    "noMatchingEquip": "No matching equipment",
+    "recommendSelf": "Current attribute is max for this type — showing same-attribute equipment",
+    "recommendOther": "The following equipment have higher same-attribute values:",
+    "missingTargetAttr": "This equipment has no such attribute",
+    "none": "None",
+    "expandCandidates": "Show More",
+    "collapseCandidates": "Collapse",
+    "material": "Material",
+    "type": "Type",
+    "equipsTab": "Equipment",
+    "recommendTab": "Refinement",
+    "viewRecommend": "View Recommendations",
+    "manageEquips": "Manage",
+    "hasSelection": "Equipment selected",
+    "noSelection": "No equipment selected",
+    "viewSelectedEquip": "View selected",
+    "materialFilterNoCandidate": "No candidates under current material filter",
+    "materialFilterMayMissBest": "Higher attribute values exist in unfiltered materials",
+    "selectedEquip": "Selected Equipment"
   }
 }

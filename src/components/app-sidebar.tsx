@@ -52,7 +52,7 @@ export function AppSidebar() {
   const locale = useLocale()
   const t = useTranslations()
   const { isUpdateAvailable, info, localInfo, forceUpgrade, refreshPage } = useVersion()
-  const { state } = useSidebar()
+  const { state, setOpenMobile, isMobile } = useSidebar()
   const mounted = useSyncExternalStore(() => () => {}, () => true, () => false)
 
   const announcementTotalUnread = useAnnouncementStore((s) =>
@@ -96,6 +96,9 @@ export function AppSidebar() {
               className="overflow-visible"
               render={<NavLink href={`/${locale}`} loadingLabel={t('app.name')} />}
               tooltip={t('app.name')}
+              onClick={() => {
+                if (isMobile) setOpenMobile(false)
+              }}
             >
               <span className="relative inline-flex shrink-0 overflow-visible">
                 <Image src="/icon.svg" alt={t('app.name')} width={32} height={32} className="size-8 rounded-lg" unoptimized />
@@ -141,6 +144,9 @@ export function AppSidebar() {
                     isActive={isActive}
                     tooltip={labelText}
                     render={<NavLink href={fullHref} loadingLabel={labelText} />}
+                    onClick={() => {
+                      if (isMobile) setOpenMobile(false)
+                    }}
                   >
                     <Icon />
                     <span>{labelText}</span>
