@@ -246,5 +246,10 @@
     "materialFilterNoCandidate": "No candidates under current material filter",
     "materialFilterMayMissBest": "Higher attribute values exist in unfiltered materials",
     "selectedEquip": "Selected Equipment"
+  },
+  "backgroundPreview": {
+    "downloadAll": "Download All Images",
+    "clickHint": "Click anywhere to preview background, click again to exit",
+    "close": "Close"
   }
 }

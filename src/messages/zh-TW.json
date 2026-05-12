@@ -246,5 +246,10 @@
     "materialFilterNoCandidate": "目前材料篩選下無候選裝備",
     "materialFilterMayMissBest": "未選材料中存在更高屬性值的裝備",
     "selectedEquip": "已選裝備"
+  },
+  "backgroundPreview": {
+    "downloadAll": "下載所有圖片",
+    "clickHint": "點擊任意位置預覽背景圖片，再次點擊任意位置取消預覽",
+    "close": "關閉"
   }
 }

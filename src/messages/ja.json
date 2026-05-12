@@ -246,5 +246,10 @@
     "materialFilterNoCandidate": "現在の素材フィルターでは候補がありません",
     "materialFilterMayMissBest": "フィルター外の素材により高い属性値があります",
     "selectedEquip": "選択中の装備"
+  },
+  "backgroundPreview": {
+    "downloadAll": "すべての画像をダウンロード",
+    "clickHint": "任意の場所をクリックして背景をプレビュー、もう一度クリックで終了",
+    "close": "閉じる"
   }
 }
