@@ -1,6 +1,6 @@
 'use client'
 
-import { useMemo, useState } from 'react'
+import { useMemo, useState, useCallback } from 'react'
 import { useTranslations } from 'next-intl'
 import { SidebarTrigger } from '@/components/ui/sidebar'
 import { Button } from '@/components/ui/button'
@@ -11,7 +11,8 @@ import { EssenceSettingsDialog } from '@/components/essence/essence-settings-dia
 import { CustomWeaponDialog } from '@/components/essence/custom-weapon-dialog'
 import { useMatrixStore } from '@/stores/useMatrixStore'
 import { useEssenceSettingsStore } from '@/stores/useEssenceSettingsStore'
-import { getRegion } from '@/data/dungeons'
+import { getRegion, getSubRegion, getRegions, getSubRegions } from '@/data/dungeons'
+import { dungeons } from '@/data/dungeons'
 import { weapons as staticWeapons } from '@/data/weapons'
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@/components/ui/sheet'
 import { cn } from '@/lib/utils'
@@ -23,6 +24,20 @@ export default function EssencePlannerPage() {
   const [customWeaponOpen, setCustomWeaponOpen] = useState(false)
   const [mobileView, setMobileView] = useState<MobileView>('weapons')
   const [viewAllOpen, setViewAllOpen] = useState(false)
+
+  // Region filter state (multi-select for both levels)
+  const [selectedRegions, setSelectedRegions] = useState<Set<string>>(new Set())
+  const [selectedSubRegions, setSelectedSubRegions] = useState<Set<string>>(new Set())
+
+  // Dynamic region data from dungeon list
+  const regions = useMemo(() => getRegions(dungeons), [])
+  const subRegionsByRegion = useMemo(() => {
+    const map = new Map<string, string[]>()
+    for (const r of regions) {
+      map.set(r, getSubRegions(dungeons, r))
+    }
+    return map
+  }, [regions])
 
   const selectedWeaponIds = useMatrixStore((s) => s.selectedWeaponIds)
   const plansMap = useMatrixStore((s) => s.plansMap)
@@ -94,6 +109,97 @@ export default function EssencePlannerPage() {
     return order
   }, [planOrder, plansMap, regionFirst, regionSecond])
 
+  // Apply region filter on top of sorted order
+  const filteredPlanOrder = useMemo(() => {
+    if (selectedRegions.size === 0 && selectedSubRegions.size === 0) return sortedPlanOrder
+    return sortedPlanOrder.filter((key) => {
+      const plan = plansMap[key]
+      if (!plan) return false
+      if (selectedRegions.size > 0 && !selectedRegions.has(getRegion(plan.dungeon))) return false
+      if (selectedSubRegions.size > 0 && !selectedSubRegions.has(getSubRegion(plan.dungeon))) return false
+      return true
+    })
+  }, [sortedPlanOrder, plansMap, selectedRegions, selectedSubRegions])
+
+  // Weapons in current selection that have NO coverage under active region filter
+  const weaponsNotCovered = useMemo(() => {
+    if (selectedWeaponIds.length === 0) return []
+    if (selectedRegions.size === 0 && selectedSubRegions.size === 0) return []
+    const covered = new Set<string>()
+    for (const key of filteredPlanOrder) {
+      const plan = plansMap[key]
+      if (!plan) continue
+      for (const { weapon, isSelected } of plan.matchedWeapons) {
+        if (isSelected) covered.add(weapon.id)
+      }
+    }
+    return selectedWeaponIds.filter((id) => !covered.has(id))
+  }, [filteredPlanOrder, selectedWeaponIds, plansMap, selectedRegions, selectedSubRegions])
+
+  // Map weapon IDs to names for warning display
+  const weaponNameMap = useMemo(() => {
+    const map = new Map<string, string>()
+    for (const w of staticWeapons) map.set(w.id, w.name)
+    for (const w of customWeapons) map.set(w.id, w.name)
+    return map
+  }, [customWeapons])
+
+  // ── Region chip handlers ──
+
+  const toggleRegion = useCallback((region: string) => {
+    setSelectedRegions((prev) => {
+      const next = new Set(prev)
+      if (next.has(region)) {
+        next.delete(region)
+        // Clean up sub-region selections for deselected region
+        const subs = subRegionsByRegion.get(region) ?? []
+        if (subs.length > 0) {
+          setSelectedSubRegions((prevSubs) => {
+            const nextSubs = new Set(prevSubs)
+            for (const s of subs) nextSubs.delete(s)
+            return nextSubs
+          })
+        }
+      } else {
+        next.add(region)
+      }
+      return next
+    })
+  }, [subRegionsByRegion])
+
+  const toggleSubRegion = useCallback((region: string, sub: string) => {
+    const subs = subRegionsByRegion.get(region) ?? []
+    setSelectedSubRegions((prev) => {
+      const next = new Set(prev)
+      if (next.has(sub)) {
+        next.delete(sub)
+      } else {
+        next.add(sub)
+        // If all subs of this region are now selected, revert to allActive
+        if (subs.every((s) => next.has(s))) {
+          for (const s of subs) next.delete(s)
+        }
+      }
+      return next
+    })
+  }, [subRegionsByRegion])
+
+  const toggleRegionSubsAll = useCallback((region: string) => {
+    const subs = subRegionsByRegion.get(region) ?? []
+    setSelectedSubRegions((prev) => {
+      const anySelected = subs.some((s) => prev.has(s))
+      if (!anySelected) return prev // already all-active, no-op
+      const next = new Set(prev)
+      for (const s of subs) next.delete(s)
+      return next
+    })
+  }, [subRegionsByRegion])
+
+  const clearRegionFilters = useCallback(() => {
+    setSelectedRegions(new Set())
+    setSelectedSubRegions(new Set())
+  }, [])
+
   const renderPlanList = () => {
     if (noWeaponsSelected) {
       return (
@@ -109,19 +215,133 @@ export default function EssencePlannerPage() {
         </div>
       )
     }
+
+    const hasRegionFilter = selectedRegions.size > 0 || selectedSubRegions.size > 0
+
     return (
       <div className="flex flex-col gap-3">
-        {sortedPlanOrder.map((planKey) => {
-          const plan = plansMap[planKey]
-          if (!plan) return null
-          return (
-            <DungeonCard
-              key={planKey}
-              plan={plan}
-              isExpanded={expandedSet.has(planKey)}
-            />
-          )
-        })}
+        {/* Region filter bar */}
+        <div className="flex flex-wrap items-center gap-x-2 gap-y-1.5">
+          <span className="text-[10px] text-muted-foreground shrink-0">
+            {t('essence.regionFilter')}
+          </span>
+          {/* All */}
+          <Button
+            type="button"
+            variant="ghost"
+            size="xs"
+            onClick={clearRegionFilters}
+            className={cn(
+              'h-auto px-2 py-0.5 rounded text-[11px] border transition-colors',
+              !hasRegionFilter
+                ? 'bg-primary text-primary-foreground border-primary'
+                : 'border-border hover:border-foreground/40',
+            )}
+          >
+            {t('essence.regionFilterAll')}
+          </Button>
+          {/* Region chips */}
+          {regions.map((region) => {
+            const isSelected = selectedRegions.has(region)
+            return (
+              <Button
+                key={region}
+                type="button"
+                variant="ghost"
+                size="xs"
+                onClick={() => toggleRegion(region)}
+                className={cn(
+                  'h-auto px-2 py-0.5 rounded text-[11px] border transition-colors',
+                  isSelected
+                    ? 'bg-primary text-primary-foreground border-primary'
+                    : 'border-border hover:border-foreground/40',
+                )}
+              >
+                {region}
+              </Button>
+            )
+          })}
+        </div>
+
+        {/* Sub-region rows — grouped by selected region */}
+        {selectedRegions.size > 0 &&
+          Array.from(selectedRegions).map((region) => {
+            const subs = subRegionsByRegion.get(region) ?? []
+            if (subs.length === 0) return null
+            const allActive = subs.every((s) => !selectedSubRegions.has(s))
+            return (
+              <div
+                key={region}
+                className="flex flex-wrap items-center gap-x-2 gap-y-1.5"
+              >
+                <span className="text-[10px] text-muted-foreground shrink-0 w-14 text-right">
+                  {region}
+                </span>
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="xs"
+                  onClick={() => toggleRegionSubsAll(region)}
+                  className={cn(
+                    'h-auto px-2 py-0.5 rounded text-[11px] border transition-colors',
+                    allActive
+                      ? 'bg-primary text-primary-foreground border-primary'
+                      : 'border-border hover:border-foreground/40',
+                  )}
+                >
+                  {t('essence.regionFilterAll')}
+                </Button>
+                {subs.map((sub) => {
+                  const isSelected = selectedSubRegions.has(sub)
+                  return (
+                    <Button
+                      key={sub}
+                      type="button"
+                      variant="ghost"
+                      size="xs"
+                      onClick={() => toggleSubRegion(region, sub)}
+                      className={cn(
+                        'h-auto px-2 py-0.5 rounded text-[11px] border transition-colors',
+                        isSelected
+                          ? 'bg-primary text-primary-foreground border-primary'
+                          : 'border-border hover:border-foreground/40',
+                      )}
+                    >
+                      {sub}
+                    </Button>
+                  )
+                })}
+              </div>
+            )
+          })}
+
+        {/* Warning: weapons not covered by current region filter */}
+        {weaponsNotCovered.length > 0 && (
+          <div className="rounded-md border border-amber-500/20 bg-amber-500/5 px-3 py-2 text-xs text-amber-600">
+            {t('essence.weaponNotCoveredByRegion', {
+              weapons: weaponsNotCovered.map((id) => weaponNameMap.get(id) ?? id).join('、'),
+            })}
+          </div>
+        )}
+
+        {/* Plan list */}
+        {filteredPlanOrder.length === 0 ? (
+          <div className="flex items-center justify-center py-16 text-sm text-muted-foreground">
+            {t('essence.noPlanMatch')}
+          </div>
+        ) : (
+          filteredPlanOrder.map((planKey) => {
+            const plan = plansMap[planKey]
+            if (!plan) return null
+            return (
+              <DungeonCard
+                key={planKey}
+                plan={plan}
+                isExpanded={expandedSet.has(planKey)}
+              />
+            )
+          })
+        )}
       </div>
     )
   }
