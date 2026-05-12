@@ -120,6 +120,22 @@ SidebarProvider className="h-svh"              ← height: 100svh (确定值)
 - 左右面板合并为单一页面级滚动条
 - `overflow: overlay` 失效，滚动条占用布局空间
 
+### 规划器状态持久化（强制）
+
+基质规划（Essence Planner）和精锻规划（Refinement Planner）的所有用户操作状态必须通过 `zustand/persist` 持久化到 localStorage，确保页面刷新、关闭后重开不丢失。
+
+**必须持久化：**
+- 已选武器/装备
+- 筛选展开/收起状态
+- 地区筛选选择
+- 方案卡片展开/收起状态
+- S1 选择器用户选择
+- 套装收起状态
+
+**不持久化：** 搜索关键词、属性筛选值（临时操作，下次打开默认重置）
+
+**实现方式：** `persist` 中间件 + `partialize` 仅序列化用户选择状态，排除计算产物（如 plansMap、planOrder）。store 中 Set 类型字段转换为数组存储。
+
 ### 禁止事项清单
 
 - ❌ 手写 CSS 文件

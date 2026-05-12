@@ -1,6 +1,6 @@
 'use client'
 
-import { useMemo, useState, useCallback } from 'react'
+import { useMemo, useState, useCallback, useEffect } from 'react'
 import { useTranslations } from 'next-intl'
 import { SidebarTrigger } from '@/components/ui/sidebar'
 import { Button } from '@/components/ui/button'
@@ -25,10 +25,6 @@ export default function EssencePlannerPage() {
   const [mobileView, setMobileView] = useState<MobileView>('weapons')
   const [viewAllOpen, setViewAllOpen] = useState(false)
 
-  // Region filter state (multi-select for both levels)
-  const [selectedRegions, setSelectedRegions] = useState<Set<string>>(new Set())
-  const [selectedSubRegions, setSelectedSubRegions] = useState<Set<string>>(new Set())
-
   // Dynamic region data from dungeon list
   const regions = useMemo(() => getRegions(dungeons), [])
   const subRegionsByRegion = useMemo(() => {
@@ -39,6 +35,7 @@ export default function EssencePlannerPage() {
     return map
   }, [regions])
 
+  // Matrix store
   const selectedWeaponIds = useMatrixStore((s) => s.selectedWeaponIds)
   const plansMap = useMatrixStore((s) => s.plansMap)
   const planOrder = useMatrixStore((s) => s.planOrder)
@@ -46,11 +43,26 @@ export default function EssencePlannerPage() {
   const expandedPlanKeys = useMatrixStore((s) => s.expandedPlanKeys)
   const selectAllWeapons = useMatrixStore((s) => s.selectAllWeapons)
   const clearWeapons = useMatrixStore((s) => s.clearWeapons)
+  const storeSelectedRegions = useMatrixStore((s) => s.selectedRegions)
+  const storeSelectedSubRegions = useMatrixStore((s) => s.selectedSubRegions)
+  const setSelectedRegions = useMatrixStore((s) => s.setSelectedRegions)
+  const setSelectedSubRegions = useMatrixStore((s) => s.setSelectedSubRegions)
 
-  // Priority settings (from essence settings store)
+  // Convert store arrays to Sets for filter logic
+  const selectedRegions = useMemo(() => new Set(storeSelectedRegions), [storeSelectedRegions])
+  const selectedSubRegions = useMemo(() => new Set(storeSelectedSubRegions), [storeSelectedSubRegions])
+
+  // Settings store
   const regionFirst = useEssenceSettingsStore((s) => s.regionFirst)
   const regionSecond = useEssenceSettingsStore((s) => s.regionSecond)
   const customWeapons = useEssenceSettingsStore((s) => s.customWeapons)
+  // Hide settings (for sorting by visible selected count)
+  const hideFourStarPlans = useEssenceSettingsStore((s) => s.hideFourStarWeaponsPlans)
+  const hideUnownedPlans = useEssenceSettingsStore((s) => s.hideUnownedWeaponsPlans)
+  const hideEssenceOwnedPlans = useEssenceSettingsStore((s) => s.hideEssenceOwnedWeaponsPlans)
+  const onlyBothOwned = useEssenceSettingsStore((s) => s.onlyHideWhenBothOwned)
+  const weaponOwnership = useEssenceSettingsStore((s) => s.weaponOwnership)
+  const essenceStatus = useEssenceSettingsStore((s) => s.essenceStatus)
 
   const selectedCount = selectedWeaponIds.length
   const noWeaponsSelected = selectedCount === 0
@@ -73,7 +85,31 @@ export default function EssencePlannerPage() {
     [expandedPlanKeys],
   )
 
-  // Apply region priority sorting
+  // Helper: count visible selected weapons in a plan (respecting hide settings)
+  const countVisibleSelected = useCallback(
+    (plan: import('@/lib/planner/essence-solver').DungeonPlan): number => {
+      let count = 0
+      for (const { weapon, isSelected } of plan.matchedWeapons) {
+        if (!isSelected) continue
+        if (hideFourStarPlans && weapon.rarity === 4) continue
+        if (hideUnownedPlans && weaponOwnership[weapon.id] !== true) continue
+        if (hideEssenceOwnedPlans) {
+          const eOwned = essenceStatus[weapon.id] === true
+          const wOwned = weaponOwnership[weapon.id] === true
+          if (onlyBothOwned) {
+            if (eOwned && wOwned) continue
+          } else {
+            if (eOwned) continue
+          }
+        }
+        count++
+      }
+      return count
+    },
+    [hideFourStarPlans, hideUnownedPlans, hideEssenceOwnedPlans, onlyBothOwned, weaponOwnership, essenceStatus],
+  )
+
+  // Apply region priority sorting (sorted by visible selected count)
   const sortedPlanOrder = useMemo(() => {
     const order = planOrder.filter((key) => Boolean(plansMap[key]))
 
@@ -100,14 +136,14 @@ export default function EssencePlannerPage() {
         if (rankA !== rankB) return rankA - rankB
       }
 
-      // 2. Selected count desc → 3. Total count desc
-      const selDiff = planB.selectedCount - planA.selectedCount
+      // 2. Visible selected count desc → 3. Total count desc
+      const selDiff = countVisibleSelected(planB) - countVisibleSelected(planA)
       if (selDiff !== 0) return selDiff
       return planB.totalCount - planA.totalCount
     })
 
     return order
-  }, [planOrder, plansMap, regionFirst, regionSecond])
+  }, [planOrder, plansMap, regionFirst, regionSecond, countVisibleSelected])
 
   // Apply region filter on top of sorted order
   const filteredPlanOrder = useMemo(() => {
@@ -147,58 +183,63 @@ export default function EssencePlannerPage() {
   // ── Region chip handlers ──
 
   const toggleRegion = useCallback((region: string) => {
-    setSelectedRegions((prev) => {
-      const next = new Set(prev)
-      if (next.has(region)) {
-        next.delete(region)
-        // Clean up sub-region selections for deselected region
-        const subs = subRegionsByRegion.get(region) ?? []
-        if (subs.length > 0) {
-          setSelectedSubRegions((prevSubs) => {
-            const nextSubs = new Set(prevSubs)
-            for (const s of subs) nextSubs.delete(s)
-            return nextSubs
-          })
-        }
-      } else {
-        next.add(region)
+    const arr = storeSelectedRegions
+    const idx = arr.indexOf(region)
+    let nextRegions: string[]
+    if (idx >= 0) {
+      nextRegions = arr.filter((r) => r !== region)
+      // Clean up sub-region selections for deselected region
+      const subs = subRegionsByRegion.get(region) ?? []
+      const subSet = new Set(subs)
+      const nextSubs = storeSelectedSubRegions.filter((s) => !subSet.has(s))
+      if (nextSubs.length !== storeSelectedSubRegions.length) {
+        setSelectedSubRegions(nextSubs)
       }
-      return next
-    })
-  }, [subRegionsByRegion])
+    } else {
+      nextRegions = [...arr, region]
+    }
+    setSelectedRegions(nextRegions)
+  }, [storeSelectedRegions, storeSelectedSubRegions, setSelectedRegions, setSelectedSubRegions, subRegionsByRegion])
 
   const toggleSubRegion = useCallback((region: string, sub: string) => {
-    const subs = subRegionsByRegion.get(region) ?? []
-    setSelectedSubRegions((prev) => {
-      const next = new Set(prev)
-      if (next.has(sub)) {
-        next.delete(sub)
-      } else {
-        next.add(sub)
-        // If all subs of this region are now selected, revert to allActive
-        if (subs.every((s) => next.has(s))) {
-          for (const s of subs) next.delete(s)
-        }
+    const arr = storeSelectedSubRegions
+    const idx = arr.indexOf(sub)
+    let next: string[]
+    if (idx >= 0) {
+      next = arr.filter((s) => s !== sub)
+    } else {
+      next = [...arr, sub]
+      // If all subs of this region are now selected, revert to allActive
+      const subs = subRegionsByRegion.get(region) ?? []
+      if (subs.every((s) => next.includes(s))) {
+        const subSet = new Set(subs)
+        next = next.filter((s) => !subSet.has(s))
       }
-      return next
-    })
-  }, [subRegionsByRegion])
+    }
+    setSelectedSubRegions(next)
+  }, [storeSelectedSubRegions, setSelectedSubRegions, subRegionsByRegion])
 
   const toggleRegionSubsAll = useCallback((region: string) => {
     const subs = subRegionsByRegion.get(region) ?? []
-    setSelectedSubRegions((prev) => {
-      const anySelected = subs.some((s) => prev.has(s))
-      if (!anySelected) return prev // already all-active, no-op
-      const next = new Set(prev)
-      for (const s of subs) next.delete(s)
-      return next
-    })
-  }, [subRegionsByRegion])
+    const anySelected = subs.some((s) => storeSelectedSubRegions.includes(s))
+    if (!anySelected) return // already all-active, no-op
+    const subSet = new Set(subs)
+    setSelectedSubRegions(storeSelectedSubRegions.filter((s) => !subSet.has(s)))
+  }, [storeSelectedSubRegions, setSelectedSubRegions, subRegionsByRegion])
 
   const clearRegionFilters = useCallback(() => {
-    setSelectedRegions(new Set())
-    setSelectedSubRegions(new Set())
-  }, [])
+    setSelectedRegions([])
+    setSelectedSubRegions([])
+  }, [setSelectedRegions, setSelectedSubRegions])
+
+  // Fallback: compute plans on mount if weapons are selected but plans are missing
+  // (covers the gap between React's first render and zustand persist async hydration)
+  const computePlans = useMatrixStore((s) => s.computePlans)
+  useEffect(() => {
+    if (selectedWeaponIds.length > 0 && planOrder.length === 0 && !plansStale) {
+      computePlans()
+    }
+  }, [selectedWeaponIds.length, planOrder.length, plansStale, computePlans])
 
   const renderPlanList = () => {
     if (noWeaponsSelected) {

@@ -329,9 +329,12 @@ export const DungeonCard = memo(function DungeonCard({
     return plan.s1Candidates.filter((s1) => (visibleS1Counts[s1] || 0) > 0)
   }, [plan.s1Candidates, visibleS1Counts])
 
-  const selectedVisible = plan.matchedWeapons.filter(
-    (m) => m.isSelected && effectiveS1.includes(m.weapon.primaryStat),
-  ).length
+  // Count selected weapons that are both visible and in S1 range
+  const visibleSelected = useMemo(() => {
+    return visibleMatched.filter(
+      (m) => m.isSelected && effectiveS1.includes(m.weapon.primaryStat),
+    ).length
+  }, [visibleMatched, effectiveS1])
 
   const lockLabel = plan.lockType === 's2' ? t('essence.lockS2') : t('essence.lockS3')
 
@@ -341,23 +344,16 @@ export const DungeonCard = memo(function DungeonCard({
       <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
         <div className="flex items-center gap-2">
           <h3 className="font-semibold text-sm">{plan.dungeon.name}</h3>
-          {plan.selectedCount > 0 && (
-            <span
-              className={cn(
-                'inline-flex items-center px-2 py-0.5 rounded text-xs font-medium',
-                selectedVisible === plan.selectedCount
-                  ? 'bg-emerald-500/10 text-emerald-600'
-                  : 'bg-amber-500/10 text-amber-600'
-              )}
-            >
-              {selectedVisible}/{plan.selectedCount}
+          {visibleSelected > 0 && (
+            <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-emerald-500/10 text-emerald-600">
+              {visibleSelected}
             </span>
           )}
         </div>
         <div className="flex items-center gap-3 text-xs text-muted-foreground">
           <span>
             {t('essence.selected')}:{' '}
-            <strong className="text-foreground">{selectedVisible}</strong>
+            <strong className="text-foreground">{visibleSelected}</strong>
           </span>
           <span>
             {t('essence.total')}:{' '}

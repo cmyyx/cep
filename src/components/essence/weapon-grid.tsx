@@ -100,7 +100,8 @@ interface WeaponGridProps {
 export const WeaponGrid = memo(function WeaponGrid({ initialFilterCollapsed = false }: WeaponGridProps) {
   const t = useTranslations()
   const [query, setQuery] = useState('')
-  const [filterCollapsed, setFilterCollapsed] = useState(initialFilterCollapsed)
+  const filterCollapsed = useEssenceSettingsStore((s) => s.weaponFilterCollapsed)
+  const toggleFilterCollapsed = useEssenceSettingsStore((s) => s.toggleWeaponFilterCollapsed)
   const [filters, setFilters] = useState<Record<AttrKey, Set<string>>>({
     primaryStat: new Set(),
     elementalDamage: new Set(),
@@ -239,7 +240,7 @@ export const WeaponGrid = memo(function WeaponGrid({ initialFilterCollapsed = fa
           type="button"
           variant="ghost"
           size="xs"
-          onClick={() => setFilterCollapsed((v) => !v)}
+          onClick={toggleFilterCollapsed}
           className="flex w-full items-center gap-1 text-[10px] text-muted-foreground hover:text-foreground transition-colors h-auto p-0"
         >
           <span className="flex-1 text-left">{t('essence.attrFilterTitle')}</span>

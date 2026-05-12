@@ -1,4 +1,5 @@
 import { create } from 'zustand'
+import { persist } from 'zustand/middleware'
 import type { Equip, SlotRecommendation } from '@/types/refinement'
 import {
   equips,
@@ -46,7 +47,9 @@ interface RefinementState {
   toggleRecommendationExpand: (slotKey: string) => void
 }
 
-export const useRefinementStore = create<RefinementState>((set, get) => ({
+export const useRefinementStore = create<RefinementState>()(
+  persist(
+    (set, get) => ({
   selectedEquipId: null,
   collapsedSets: Object.fromEntries(setNames.map((n) => [n, true])),
   searchQuery: '',
@@ -114,7 +117,37 @@ export const useRefinementStore = create<RefinementState>((set, get) => ({
       },
     }))
   },
-}))
+    }),
+    {
+      name: 'refinement-session',
+      partialize: (state) => ({
+        selectedEquipId: state.selectedEquipId,
+        collapsedSets: state.collapsedSets,
+        filterCollapsed: state.filterCollapsed,
+      }),
+      merge: (persisted, current) => {
+        const p = persisted as Record<string, unknown> | null
+        // Rebuild collapsedSets with current setNames, falling back to true for missing keys
+        const mergedCollapsed: Record<string, boolean> = {}
+        for (const name of setNames) {
+          const persistedCollapsed = p?.collapsedSets as Record<string, boolean> | undefined
+          mergedCollapsed[name] =
+            typeof persistedCollapsed?.[name] === 'boolean'
+              ? persistedCollapsed[name]
+              : true
+        }
+        return {
+          ...current,
+          selectedEquipId:
+            typeof p?.selectedEquipId === 'string' ? p.selectedEquipId : null,
+          collapsedSets: mergedCollapsed,
+          filterCollapsed:
+            typeof p?.filterCollapsed === 'boolean' ? p.filterCollapsed : true,
+        }
+      },
+    },
+  ),
+)
 
 // ─── Derived selectors ──────────────────────────────────────────────────────
 

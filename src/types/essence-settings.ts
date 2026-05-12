@@ -35,6 +35,8 @@ export type EssenceSettingsState = EssenceSettingsFlags &
     /** Region priority: two-level. null means none. */
     regionFirst: string | null
     regionSecond: string | null
+    /** Weapon grid attribute filter collapsed state */
+    weaponFilterCollapsed: boolean
 
     toggleFlag: (key: SettingKey) => void
     setWeaponOwnership: (weaponId: string, owned: boolean) => void
@@ -45,5 +47,6 @@ export type EssenceSettingsState = EssenceSettingsFlags &
     updateCustomWeapon: (weaponId: string, weapon: Weapon) => void
     setRegionFirst: (region: string | null) => void
     setRegionSecond: (region: string | null) => void
+    toggleWeaponFilterCollapsed: () => void
     resetAllSettings: () => void
   }
