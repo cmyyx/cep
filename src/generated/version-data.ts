@@ -2,10 +2,10 @@
 import type { VersionInfo } from '@/types/version'
 
 export const versionData: VersionInfo = {
-  "commit": "f4c391b",
-  "count": 17,
-  "commitTime": "2026-05-08T18:50:59+08:00",
-  "buildTime": "2026-05-08T15:04:41.541Z",
-  "version": "0.1.0-f4c391b",
+  "commit": "1db3aa8",
+  "count": 25,
+  "commitTime": "2026-05-12T00:34:39+08:00",
+  "buildTime": "2026-05-11T16:44:11.363Z",
+  "version": "0.1.0-1db3aa8",
   "forceUpgradeSerial": 0
 }
