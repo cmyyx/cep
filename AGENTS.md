@@ -20,6 +20,16 @@ This version has breaking changes — APIs, conventions, and file structure may 
 - 三种字重：400（正文）、500（UI/交互）、600（标题/强调）
 - 圆角层级：2px → 4px → 6px → 8px → 12px → 64px → 100px → 9999px
 
+### 稀有度星级颜色
+
+| 稀有度 | 色值 | 说明 |
+|--------|------|------|
+| 6★ | `#ff7100` | 暖橙色，最高稀有度 |
+| 5★ | `#ffcc00` | 金色，次高稀有度 |
+| 1-4★ | 默认继承色 | 低稀有度不做特殊强调 |
+
+所有星级显示（RarityStars 组件、装备稀有度标签等）统一使用上述色值，使用内联 `style={{ color }}` 而非 Tailwind class（因为 Tailwind 不支持动态色值）。
+
 ## 技术栈（不可变）
 
 | 层级 | 方案 | 备注 |
