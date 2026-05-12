@@ -315,6 +315,20 @@ export const DungeonCard = memo(function DungeonCard({
 
   const visibleTotal = visibleMatched.length
 
+  // S1 candidate counts based on visible weapons only (respects hide settings)
+  const visibleS1Counts = useMemo(() => {
+    const counts: Record<string, number> = {}
+    for (const { weapon } of visibleMatched) {
+      counts[weapon.primaryStat] = (counts[weapon.primaryStat] || 0) + 1
+    }
+    return counts
+  }, [visibleMatched])
+
+  // Visible S1 candidates (filter out those with 0 visible weapons)
+  const visibleS1Candidates = useMemo(() => {
+    return plan.s1Candidates.filter((s1) => (visibleS1Counts[s1] || 0) > 0)
+  }, [plan.s1Candidates, visibleS1Counts])
+
   const selectedVisible = plan.matchedWeapons.filter(
     (m) => m.isSelected && effectiveS1.includes(m.weapon.primaryStat),
   ).length
@@ -347,13 +361,8 @@ export const DungeonCard = memo(function DungeonCard({
           </span>
           <span>
             {t('essence.total')}:{' '}
-            <strong className="text-foreground">{plan.totalCount}</strong>{' '}
+            <strong className="text-foreground">{visibleTotal}</strong>{' '}
             {t('essence.weaponUnit')}
-            {visibleTotal !== plan.totalCount && (
-              <span className="text-muted-foreground/50">
-                {' '}({visibleTotal} {t('essence.visible')})
-              </span>
-            )}
           </span>
         </div>
       </div>
@@ -381,17 +390,17 @@ export const DungeonCard = memo(function DungeonCard({
       {plan.needsS1Choice && (
         <div className="mb-3 p-3 rounded-md border border-amber-500/20 bg-amber-500/5">
           <p className="text-xs text-amber-600 mb-2">
-            {t('essence.s1PickerHint', { candidates: plan.s1Candidates.length })}
+            {t('essence.s1PickerHint', { candidates: visibleS1Candidates.length })}
           </p>
           <div className="flex flex-wrap gap-3">
-            {[...plan.s1Candidates]
+            {[...visibleS1Candidates]
               .sort(
                 (a, b) =>
-                  (plan.s1CandidateCounts[b] || 0) -
-                  (plan.s1CandidateCounts[a] || 0)
+                  (visibleS1Counts[b] || 0) -
+                  (visibleS1Counts[a] || 0)
               )
               .map((s1) => {
-                const wCount = plan.s1CandidateCounts[s1] || 0
+                const wCount = visibleS1Counts[s1] || 0
                 const isSelected = effectiveS1.includes(s1)
                 const isFull = effectiveS1.length >= 3 && !isSelected
                 return (

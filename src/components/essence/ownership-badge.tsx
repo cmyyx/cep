@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useCallback } from 'react'
+import { useState } from 'react'
 import { useTranslations } from 'next-intl'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
@@ -82,25 +82,19 @@ export function EditableNote({
   const [editing, setEditing] = useState(false)
   const [draft, setDraft] = useState(note)
 
-  const handleSave = useCallback(() => {
-    onSave(draft)
-    setEditing(false)
-  }, [draft, onSave])
-
-  const handleCancel = useCallback(() => {
-    setDraft(note)
-    setEditing(false)
-  }, [note])
-
   if (editing) {
     return (
       <Input
         value={draft}
-        onChange={(e) => setDraft(e.target.value)}
-        onBlur={handleSave}
+        onChange={(e) => {
+          const value = e.target.value
+          setDraft(value)
+          onSave(value)
+        }}
+        onBlur={() => setEditing(false)}
         onKeyDown={(e) => {
-          if (e.key === 'Enter') handleSave()
-          if (e.key === 'Escape') handleCancel()
+          if (e.key === 'Enter') setEditing(false)
+          if (e.key === 'Escape') { setDraft(note); setEditing(false) }
         }}
         onClick={(e) => e.stopPropagation()}
         className="w-full text-[9px] px-1 py-px h-5"

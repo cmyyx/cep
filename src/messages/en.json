@@ -163,16 +163,11 @@
     "regionPriority": "Region Priority",
     "sortMechanism": "Sort Order",
     "sortRegionStep": "Region priority — preferred region plans appear first",
-    "sortWeaponStep": "Weapon ownership priority — adjusts ranking by ownership status",
     "sortSelectedStep": "Selected weapon coverage — more selected weapons = higher rank",
     "sortTotalStep": "Total weapon count — more total matches = higher rank",
     "regionFirstLabel": "First Priority Region",
     "regionSecondLabel": "Second Priority Region",
-    "regionNone": "None",
-    "weaponPriorityLabel": "Weapon Ownership Priority",
-    "weaponPriorityNone": "None",
-    "weaponPriorityUnownedFirst": "Unowned First",
-    "weaponPriorityOwnedFirst": "Owned First"
+    "regionNone": "None"
   },
   "settings": {
     "title": "Settings",

@@ -16,8 +16,6 @@ import { weapons as staticWeapons } from '@/data/weapons'
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@/components/ui/sheet'
 import { cn } from '@/lib/utils'
 import { Plus } from 'lucide-react'
-import type { Weapon } from '@/types/matrix'
-
 type MobileView = 'weapons' | 'plans'
 
 export default function EssencePlannerPage() {
@@ -37,8 +35,6 @@ export default function EssencePlannerPage() {
   // Priority settings (from essence settings store)
   const regionFirst = useEssenceSettingsStore((s) => s.regionFirst)
   const regionSecond = useEssenceSettingsStore((s) => s.regionSecond)
-  const weaponPriority = useEssenceSettingsStore((s) => s.weaponPriority)
-  const weaponOwnership = useEssenceSettingsStore((s) => s.weaponOwnership)
   const customWeapons = useEssenceSettingsStore((s) => s.customWeapons)
 
   const selectedCount = selectedWeaponIds.length
@@ -51,7 +47,7 @@ export default function EssencePlannerPage() {
 
   // Combined weapon map for "View All" sheet (static + custom)
   const allWeaponsMap = useMemo(() => {
-    const map = new Map<string, Weapon>()
+    const map = new Map<string, import('@/types/matrix').Weapon>()
     for (const w of staticWeapons) map.set(w.id, w)
     for (const w of customWeapons) map.set(w.id, w)
     return map
@@ -62,7 +58,7 @@ export default function EssencePlannerPage() {
     [expandedPlanKeys],
   )
 
-  // Apply region / weapon priority sorting
+  // Apply region priority sorting
   const sortedPlanOrder = useMemo(() => {
     const order = planOrder.filter((key) => Boolean(plansMap[key]))
 
@@ -72,28 +68,6 @@ export default function EssencePlannerPage() {
       const plan = plansMap[key]
       if (plan) {
         planRegions.set(key, getRegion(plan.dungeon))
-      }
-    }
-
-    // Compute ownership stats per plan (for weapon priority)
-    const planUnownedCount = new Map<string, number>()
-    const planOwnedCount = new Map<string, number>()
-    if (weaponPriority !== 'none') {
-      for (const key of order) {
-        const plan = plansMap[key]
-        if (!plan) continue
-        let unowned = 0
-        let owned = 0
-        for (const { weapon, isSelected } of plan.matchedWeapons) {
-          if (!isSelected) continue
-          if (weaponOwnership[weapon.id]) {
-            owned++
-          } else {
-            unowned++
-          }
-        }
-        planUnownedCount.set(key, unowned)
-        planOwnedCount.set(key, owned)
       }
     }
 
@@ -111,23 +85,14 @@ export default function EssencePlannerPage() {
         if (rankA !== rankB) return rankA - rankB
       }
 
-      // 2. Weapon ownership priority
-      if (weaponPriority === 'unowned-first') {
-        const diff = (planUnownedCount.get(b) ?? 0) - (planUnownedCount.get(a) ?? 0)
-        if (diff !== 0) return diff
-      } else if (weaponPriority === 'owned-first') {
-        const diff = (planOwnedCount.get(b) ?? 0) - (planOwnedCount.get(a) ?? 0)
-        if (diff !== 0) return diff
-      }
-
-      // 3. Selected count desc → 4. Total count desc
+      // 2. Selected count desc → 3. Total count desc
       const selDiff = planB.selectedCount - planA.selectedCount
       if (selDiff !== 0) return selDiff
       return planB.totalCount - planA.totalCount
     })
 
     return order
-  }, [planOrder, plansMap, regionFirst, regionSecond, weaponPriority, weaponOwnership])
+  }, [planOrder, plansMap, regionFirst, regionSecond])
 
   const renderPlanList = () => {
     if (noWeaponsSelected) {

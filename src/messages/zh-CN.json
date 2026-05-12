@@ -163,16 +163,11 @@
     "regionPriority": "地区优先级",
     "sortMechanism": "排序机制",
     "sortRegionStep": "地区优先级 — 首选区域的方案排在前面",
-    "sortWeaponStep": "武器拥有优先级 — 按已选武器的拥有状态调整排序",
     "sortSelectedStep": "已选武器覆盖数 — 覆盖的已选武器越多越靠前",
     "sortTotalStep": "总武器数 — 同覆盖数时，总匹配武器数越多越靠前",
     "regionFirstLabel": "第一优先区域",
     "regionSecondLabel": "第二优先区域",
-    "regionNone": "无",
-    "weaponPriorityLabel": "武器拥有优先级",
-    "weaponPriorityNone": "无",
-    "weaponPriorityUnownedFirst": "未拥有优先",
-    "weaponPriorityOwnedFirst": "已拥有优先"
+    "regionNone": "无"
   },
   "settings": {
     "title": "设置",

@@ -163,16 +163,11 @@
     "regionPriority": "地域優先度",
     "sortMechanism": "ソート順",
     "sortRegionStep": "地域優先度 — 優先地域のプランが最初に表示されます",
-    "sortWeaponStep": "武器所有優先度 — 所有状態でランキングを調整",
     "sortSelectedStep": "選択武器カバレッジ — 選択武器が多いほど上位",
     "sortTotalStep": "総武器数 — 同点の場合、一致数が多いほど上位",
     "regionFirstLabel": "第一優先地域",
     "regionSecondLabel": "第二優先地域",
-    "regionNone": "なし",
-    "weaponPriorityLabel": "武器所有優先度",
-    "weaponPriorityNone": "なし",
-    "weaponPriorityUnownedFirst": "未所有優先",
-    "weaponPriorityOwnedFirst": "所有済み優先"
+    "regionNone": "なし"
   },
   "settings": {
     "title": "設定",
