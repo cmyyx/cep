@@ -256,14 +256,18 @@ export function AnnouncementPanel() {
     }, 200)
   }, [lightboxClosing])
 
-  // Lightbox: listen for Escape key
+  // Lightbox: listen for Escape key (capture phase to beat Radix Dialog)
   useEffect(() => {
     if (!lightboxSrc) return
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') handleLightboxClose()
+      if (e.key === 'Escape') {
+        e.stopPropagation()
+        e.preventDefault()
+        handleLightboxClose()
+      }
     }
-    window.addEventListener('keydown', onKey)
-    return () => window.removeEventListener('keydown', onKey)
+    document.addEventListener('keydown', onKey, true)
+    return () => document.removeEventListener('keydown', onKey, true)
   }, [lightboxSrc, handleLightboxClose])
 
   // Clean up lightbox timer on unmount
@@ -397,7 +401,7 @@ export function AnnouncementPanel() {
               onClick={handleClose}
             >
               <XIcon />
-              <span className="sr-only">Close</span>
+              <span className="sr-only">{t('common.close')}</span>
             </Button>
 
             <DialogHeader>

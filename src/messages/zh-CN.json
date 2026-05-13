@@ -364,7 +364,8 @@
   "common": {
     "collapse": "收起",
     "expand": "展开",
-    "or": "或"
+    "or": "或",
+    "close": "关闭"
   },
   "equip": {
     "slot": {

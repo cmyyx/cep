@@ -364,7 +364,8 @@
   "common": {
     "collapse": "折りたたむ",
     "expand": "展開",
-    "or": "または"
+    "or": "または",
+    "close": "閉じる"
   },
   "equip": {
     "slot": {

@@ -364,7 +364,8 @@
   "common": {
     "collapse": "Collapse",
     "expand": "Expand",
-    "or": "or"
+    "or": "or",
+    "close": "Close"
   },
   "equip": {
     "slot": {
