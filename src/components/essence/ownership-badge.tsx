@@ -100,7 +100,7 @@ export function EditableNote({
           if (e.key === 'Escape') setEditing(false)
         }}
         onClick={(e) => e.stopPropagation()}
-        className="w-full text-[9px] px-1 py-px h-5"
+        className="w-full text-[9px] px-1 py-px h-5 text-center"
         autoFocus
       />
     )

@@ -24,6 +24,22 @@ const SRC_DIR = join(ROOT, 'src')
 
 const QUIET = process.argv.includes('--quiet')
 
+// Generic short variable names that are unlikely to be i18n keys
+const GENERIC_VAR_NAMES = new Set([
+  'key', 'name', 'value', 'label', 'id', 'type', 'title', 'text', 'item',
+  'data', 'config', 'props', 'attr', 'field', 'option', 'status', 'code',
+  'count', 'index', 'days', 'time', 'params', 'candidates', 'duration',
+  'locale', 'timer', 'resolve', 'password',
+])
+
+// Project-specific identifiers that happen to match t(VAR) patterns but are not i18n keys.
+// Add entries here when a new reactive variable or callback name trips the t(VAR) detector.
+const PROJECT_SPECIFIC_IGNORES = new Set([
+  'doRefresh', 'doFit',
+  'selectedWeaponIds', 'expandedDungeonIds', 'expandedPlanKeys',
+  'onLoginSubmit', 'onRegisterSubmit',
+])
+
 // ─── Phase 1: Extract defined keys from locale JSONs ────────────────────────
 
 function flattenJSON(obj, prefix = '') {
@@ -175,38 +191,112 @@ function extractKeys(filePath, globalConstants) {
   const keys = new Set()
   const unresolved = []
 
-  // 1. Static keys: t('literal') or t("literal")
-  // Only accept keys matching namespace.key pattern (avoids matching split('-') etc.)
-  for (const m of content.matchAll(/\bt\(\s*['"]([^'"]+)['"]\s*[,)]/g)) {
-    const k = m[1]
-    if (/^\w+(\.\w+)+$/.test(k)) keys.add(k)
+  // ── Build .map() scope map (needed by multiple resolution steps) ──
+  //    Each scope: { arrayName, bindings: [{ local, prop }], endPos }
+  const mapScopes = []
+  const mapRe = /(\w+)\.(?:flat)?[Mm]ap\(\s*\(\s*(\{[^}]+\}|\w+(?:\s*,\s*\w+)*)/g
+  for (const mm of content.matchAll(mapRe)) {
+    const arrayName = mm[1]
+    const rawParams = mm[2]
+    const bindings = []
+    if (rawParams.startsWith('{')) {
+      for (const dm of rawParams.matchAll(/(\w+)(?:\s*:\s*(\w+))?/g)) {
+        bindings.push({ local: dm[2] || dm[1], prop: dm[1] })
+      }
+    } else {
+      const firstVar = rawParams.split(',')[0].trim()
+      if (firstVar) bindings.push({ local: firstVar, prop: null })
+    }
+    // Compute actual close position of the .map() callback by bracket scanning
+    const startParenCount = (mm[0].match(/\x28/g) || []).length // count '(' in matched text
+    const scanStart = mm.index + mm[0].length
+    let depth = startParenCount
+    let closePos = scanStart
+    for (let i = scanStart; i < content.length && depth > 0; i++) {
+      if (content[i] === '(') depth++
+      else if (content[i] === ')') { depth--; if (depth === 0) { closePos = i; break } }
+    }
+    mapScopes.push({ arrayName, bindings, endPos: mm.index + mm[0].length, closePos })
   }
 
-  // 2. Dynamic: t(VAR) — resolve VAR from constants (local or global)
+  function findNearestMap(pos) {
+    let nearest = null
+    for (const ms of mapScopes) {
+      // Only consider scopes that actually enclose pos (open before pos and close after pos)
+      if (ms.endPos < pos && pos < ms.closePos) {
+        if (!nearest || ms.endPos > nearest.endPos) nearest = ms
+      }
+    }
+    return nearest
+  }
+
+  function resolveFromMapScope(ms, varName) {
+    const binding = ms.bindings.find((b) => b.local === varName)
+    if (!binding) return null
+    if (binding.prop) {
+      const propKey = `${ms.arrayName}.${binding.prop}`
+      const vals = globalConstants.get(propKey)
+      if (vals) return vals
+    }
+    return globalConstants.get(ms.arrayName) || null
+  }
+
+  // 1. Static keys: t('literal') or t("literal")
+  for (const m of content.matchAll(/\bt\(\s*['"]([^'"]+)['"]\s*[,)]/g)) {
+    const k = m[1]
+    // Accept all keys including dotless ones (may be used with namespaced useTranslations).
+    // Note: generic single-word tokens that are not valid i18n keys will surface as P0 errors;
+    // the suffix-match heuristic in check() may resolve some, but not all, of them.
+    if (/^\w+(\.\w+)*$/.test(k)) keys.add(k)
+  }
+
+  // 2. Dynamic: t(VAR) — resolve from .map() scope first, then global constants
   for (const m of content.matchAll(/\bt\(\s*(\w+)\s*[,)]/g)) {
     const vn = m[1]
-    // Skip short identifiers and well-known non-key names (local variables, not i18n)
     if (vn.length <= 2) continue
-    if (/^(count|index|days|time|params|candidates|duration|locale|timer|resolve|password|doRefresh|doFit|selectedWeaponIds|expandedDungeonIds|expandedPlanKeys|onLoginSubmit|onRegisterSubmit)$/.test(vn)) continue
+    if (GENERIC_VAR_NAMES.has(vn) || PROJECT_SPECIFIC_IGNORES.has(vn)) continue
 
-    let found = resolveVar(vn, globalConstants, keys)
+    const nearestMap = findNearestMap(m.index)
+    let found = false
+    if (nearestMap) {
+      const vals = resolveFromMapScope(nearestMap, vn)
+      if (vals) { for (const v of vals) keys.add(v); found = true }
+    }
+    if (!found) found = resolveVar(vn, globalConstants, keys)
     if (!found && !QUIET) unresolved.push(`${relPath}: t(${vn})`)
   }
 
-  // 3. Lookup: t(LOOKUP[key])
+  // 3. Lookup: t(LOOKUP[key]) — bracket notation
   for (const m of content.matchAll(/\bt\(\s*(\w+)\[(\w+)\]\s*[,)]/g)) {
     const vals = globalConstants.get(m[1])
     if (vals) { for (const v of vals) keys.add(v) }
     else if (!QUIET) unresolved.push(`${relPath}: t(${m[1]}[...])`)
   }
 
-  // 4. Template: t(`prefix${VAR}suffix`)
-  // Build a map of .map() call scopes: endPos → { arrayName, varName }
-  const mapScopes = []
-  for (const mm of content.matchAll(/(\w+)\.map\(\s*\(\s*\{?(\w+)\}?/g)) {
-    mapScopes.push({ arrayName: mm[1], varName: mm[2], endPos: mm.index + mm[0].length })
+  // 4. Property access: t(var.prop) — dot notation (e.g. t(tab.labelKey))
+  for (const m of content.matchAll(/\bt\(\s*(\w+)\.(\w+)\s*[,)]/g)) {
+    const varName = m[1]
+    const propName = m[2]
+    const nearestMap = findNearestMap(m.index)
+    let resolved = false
+    if (nearestMap) {
+      const binding = nearestMap.bindings.find((b) => b.local === varName)
+      if (binding) {
+        const propKey = `${nearestMap.arrayName}.${propName}`
+        const vals = globalConstants.get(propKey)
+        if (vals) { for (const v of vals) keys.add(v); resolved = true }
+      }
+    }
+    // Fallback: try globalConstants with constructed key like VARNAME.propName
+    if (!resolved) {
+      const compositeKey = `${varName}.${propName}`
+      const vals = globalConstants.get(compositeKey)
+      if (vals) { for (const v of vals) keys.add(v); resolved = true }
+    }
+    if (!resolved && !QUIET) unresolved.push(`${relPath}: t(${varName}.${propName})`)
   }
 
+  // 5. Template: t(`prefix${VAR}suffix`)
   for (const m of content.matchAll(/\bt\(\s*`([^`]+)`\s*[,)]/g)) {
     const template = m[1]
     const templatePos = m.index
@@ -216,33 +306,18 @@ function extractKeys(filePath, globalConstants) {
     const varNames = []
     for (let i = 1; i < parts.length; i += 2) varNames.push(parts[i])
 
-    // Find the nearest preceding .map() call for scope-aware resolution
-    let nearestMap = null
-    for (const ms of mapScopes) {
-      if (ms.endPos < templatePos) {
-        if (!nearestMap || ms.endPos > nearestMap.endPos) nearestMap = ms
-      }
-    }
+    const nearestMap = findNearestMap(templatePos)
 
     const resolved = varNames.map((vn) => {
-      // 1. If vn matches the nearest .map() variable, use that array's values
-      if (nearestMap && vn === nearestMap.varName) {
-        const arrVals = globalConstants.get(nearestMap.arrayName)
-        if (arrVals) return arrVals
-        for (const [cn, cv] of globalConstants) {
-          if (cn === `${nearestMap.arrayName}.${vn}`) return cv
-        }
+      if (nearestMap) {
+        const vals = resolveFromMapScope(nearestMap, vn)
+        if (vals) return vals
       }
-
-      // 2. Direct constant match
       const dv = globalConstants.get(vn)
       if (dv) return dv
-
-      // 3. Property match: constantName.{vn}
       for (const [cName, cValues] of globalConstants) {
         if (cName.endsWith(`.${vn}`)) return cValues
       }
-
       return null
     })
 
@@ -269,11 +344,14 @@ function extractKeys(filePath, globalConstants) {
  * Try to resolve a variable name to string values from the constant pool.
  */
 function resolveVar(varName, constants, targetSet) {
-  // Direct match
+  // Direct match: variable name is a known constant array
   const direct = constants.get(varName)
   if (direct) { for (const v of direct) targetSet.add(v); return true }
 
-  // Property match: name.prop where varName matches prop
+  // Property match: ONLY match when the variable name is specific enough
+  // (not generic names like 'key', 'name', 'value' that cause false positives)
+  if (GENERIC_VAR_NAMES.has(varName)) return false
+
   for (const [cn, cv] of constants) {
     if (cn.endsWith(`.${varName}`)) {
       for (const v of cv) targetSet.add(v)
@@ -282,7 +360,6 @@ function resolveVar(varName, constants, targetSet) {
   }
 
   // Cross-file prop tracing: e.g., greetingKey → getGreetingKey()
-  // If varName ends with 'Key' or is a known prop, try get+VarName function
   if (varName.endsWith('Key')) {
     const funcName = `get${varName.charAt(0).toUpperCase() + varName.slice(1)}`
     const funcVals = constants.get(funcName)
@@ -311,9 +388,14 @@ function check(locales, usedKeys, unresolved) {
   // P0: used but missing
   for (const key of [...usedKeys].sort()) {
     for (const locale of localeNames) {
-      if (!locales.get(locale).has(key)) {
-        errors.push(`[P0] key "${key}" used in code but MISSING from ${locale}.json`)
+      const localeKeys = locales.get(locale)
+      if (localeKeys.has(key)) continue
+      // For dotless keys, try suffix match (handles namespaced useTranslations like essence.notePlaceholder)
+      if (!key.includes('.')) {
+        const suffixMatch = [...localeKeys.keys()].some((dk) => dk.endsWith(`.${key}`))
+        if (suffixMatch) continue
       }
+      errors.push(`[P0] key "${key}" used in code but MISSING from ${locale}.json`)
     }
   }
 
@@ -328,9 +410,11 @@ function check(locales, usedKeys, unresolved) {
 
   // P2: dead keys
   for (const key of [...common].sort()) {
-    if (!usedKeys.has(key)) {
-      warnings.push(`[P2] key "${key}" defined in all locales but NEVER used in code`)
-    }
+    if (usedKeys.has(key)) continue
+    // For namespaced keys like essence.notePlaceholder, also check if the suffix is used
+    const lastDot = key.lastIndexOf('.')
+    if (lastDot > 0 && usedKeys.has(key.slice(lastDot + 1))) continue
+    warnings.push(`[P2] key "${key}" defined in all locales but NEVER used in code`)
   }
 
   // Unresolved dynamic keys
