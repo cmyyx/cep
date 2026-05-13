@@ -1,5 +1,5 @@
 import { NextIntlClientProvider } from 'next-intl'
-import { setRequestLocale } from 'next-intl/server'
+import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
 import { routing } from '@/i18n/routing'
@@ -26,11 +26,11 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>
 }): Promise<Metadata> {
   const { locale } = await params
-  const messages = (await import(`../../messages/${locale}.json`)).default
+  const t = await getTranslations({ locale })
   return {
     title: {
-      template: `%s - ${messages.app.name}`,
-      default: messages.app.name,
+      template: `%s - ${t('app.name')}`,
+      default: t('app.name'),
     },
   }
 }
