@@ -252,6 +252,7 @@
   },
   "charGuide": {
     "selectHint": "左からキャラクターを選択してください",
+    "openMobileList": "キャラクターリストを開く",
     "mainAttr": "主能力",
     "subAttr": "副能力",
     "stat_strength": "力量",

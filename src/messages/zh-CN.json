@@ -252,6 +252,7 @@
   },
   "charGuide": {
     "selectHint": "请在左侧选择角色",
+    "openMobileList": "打开角色列表",
     "mainAttr": "主能力",
     "subAttr": "副能力",
     "stat_strength": "力量",

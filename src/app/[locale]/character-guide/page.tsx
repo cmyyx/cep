@@ -41,7 +41,7 @@ export default function CharacterGuidePage() {
   return (
     <div className="flex flex-col flex-1 min-h-0 overflow-hidden">
       {/* Top bar */}
-      <div className="flex items-center gap-3 px-4 py-2 shadow-[0px_0px_0px_1px_rgba(0,0,0,0.08)]">
+      <div className="flex items-center gap-3 px-4 py-2 shadow-[var(--shadow-border)]">
         <SidebarTrigger />
         <h1 className="text-base font-semibold tracking-tight">
           {t('nav.characterGuide')}
@@ -51,6 +51,7 @@ export default function CharacterGuidePage() {
           variant="ghost"
           size="sm"
           className="md:hidden ml-auto h-7 w-7 p-0"
+          aria-label={t('charGuide.openMobileList')}
           onClick={() => setMobileListOpen(true)}
         >
           <List className="w-4 h-4" />

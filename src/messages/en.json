@@ -252,6 +252,7 @@
   },
   "charGuide": {
     "selectHint": "Select a character from the left",
+    "openMobileList": "Open character list",
     "mainAttr": "Main",
     "subAttr": "Sub",
     "stat_strength": "STR",
