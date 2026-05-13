@@ -20,6 +20,16 @@ This version has breaking changes — APIs, conventions, and file structure may 
 - 三种字重：400（正文）、500（UI/交互）、600（标题/强调）
 - 圆角层级：2px → 4px → 6px → 8px → 12px → 64px → 100px → 9999px
 
+### 稀有度星级颜色
+
+| 稀有度 | 色值 | 说明 |
+|--------|------|------|
+| 6★ | `#ff7100` | 暖橙色，最高稀有度 |
+| 5★ | `#ffcc00` | 金色，次高稀有度 |
+| 1-4★ | 默认继承色 | 低稀有度不做特殊强调 |
+
+所有星级显示（RarityStars 组件、装备稀有度标签等）统一使用上述色值。在 `globals.css` 中通过 `@theme` 定义为 `--color-rarity-6-star: #ff7100` 和 `--color-rarity-5-star: #ffcc00`，组件中使用 `text-rarity-6-star` / `text-rarity-5-star` 类名（Tailwind v4 CSS-first 配置自动生成），根据稀有度条件动态切换 className，禁止使用内联 `style={{ color }}`。
+
 ## 技术栈（不可变）
 
 | 层级 | 方案 | 备注 |
@@ -44,7 +54,7 @@ This version has breaking changes — APIs, conventions, and file structure may 
 ### UI 层 —— 零容忍规则
 
 - **禁止手写任何 CSS 文件**（`.css`, `.scss`, `.less` 等）。全局样式和 Tailwind 配置统一在 `src/app/globals.css` 中通过 `@import "tailwindcss"`, `@theme`, `@utility`, `@layer` 等 Tailwind v4 CSS-first 机制管理，不得新增其他 `.css` 文件。
-- **禁止内联 `style={{}}`**，除非是动态计算的数值（如 `style={{ width: `${percent}%` }}`）。
+- **禁止内联 `style={{}}`**，除非是动态计算的数值（如 `style={{ width: `${percent}%` }}`）。动态颜色应通过 `@theme` 定义 CSS 变量并切换 className（参见上文稀有度星级颜色表）。
 - **禁止裸 HTML 元素**：所有可交互元素必须来自 Shadcn/UI。`<div>`, `<span>`, `<p>` 等无语义结构元素允许，但 `<button>`, `<input>`, `<select>`, `<textarea>`, `<dialog>`, `<table>` 等必须用 Shadcn/UI 对应组件。
 - **禁止 `<style>` 标签**（包括 `<style jsx>`）。
 - 自定义组件必须用 Shadcn/UI 组件组装，不得自己从头实现。

@@ -463,7 +463,7 @@ export const DungeonCard = memo(function DungeonCard({
                 </div>
               )}
               {showNotes && (
-                <div className="w-10">
+                <div className="w-16">
                   <EditableNote
                     note={weaponNotes[weapon.id] || ''}
                     onSave={(value) => setWeaponNote?.(weapon.id, value)}
