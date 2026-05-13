@@ -117,58 +117,65 @@ export const useAnnouncementStore = create<AnnouncementState>()(
               typeof item.publishTime === 'string'
           )
 
-          // Phase 2: load .md content for items that use file references
+          // Phase 2: load .md content in parallel for items that use file references
           const totalItems = validatedIndex.length
-          let loadedCount = 0
+          let completedCount = 0
 
-          const announcements: Announcement[] = []
-
-          for (const item of validatedIndex) {
-            let content = ''
-
-            if (item.file) {
-              try {
-                const mdRes = await fetch(`/announcements/${item.file}`)
-                if (mdRes.ok) {
-                  content = await mdRes.text()
-                } else {
-                  // Fall back to inline content if .md load fails
-                  content = typeof item.content === 'string' ? item.content : ''
-                  if (!content) {
-                    console.error(`[announcements] Failed to load ${item.file} and no inline content for ${item.id}`)
-                    loadedCount++
-                    continue
-                  }
-                }
-              } catch {
-                content = typeof item.content === 'string' ? item.content : ''
-                if (!content) {
-                  console.error(`[announcements] Network error loading ${item.file} for ${item.id}`)
-                  loadedCount++
-                  continue
-                }
-              }
-            } else if (typeof item.content === 'string') {
-              content = item.content
-            } else {
-              // Neither file nor content — skip
-              loadedCount++
-              continue
-            }
-
-            announcements.push({
-              id: item.id,
-              title: item.title,
-              content,
-              publishTime: item.publishTime,
-              priority: item.priority === 'important' ? 'important' : 'normal',
-              file: item.file,
-            })
-
-            loadedCount++
-            const overall = 40 + (loadedCount / totalItems) * 45
+          function updateProgress() {
+            completedCount++
+            const overall = 40 + (completedCount / totalItems) * 45
             useAppInitStore.getState().setProgress(overall)
           }
+
+          const loadedItems = await Promise.all(
+            validatedIndex.map(async (item): Promise<Announcement | null> => {
+              let content = ''
+
+              if (item.file) {
+                try {
+                  const mdRes = await fetch(`/announcements/${item.file}`)
+                  if (mdRes.ok) {
+                    content = await mdRes.text()
+                  } else {
+                    // Fall back to inline content if .md load fails
+                    content = typeof item.content === 'string' ? item.content : ''
+                    if (!content) {
+                      console.error(`[announcements] Failed to load ${item.file} and no inline content for ${item.id}`)
+                      updateProgress()
+                      return null
+                    }
+                  }
+                } catch {
+                  content = typeof item.content === 'string' ? item.content : ''
+                  if (!content) {
+                    console.error(`[announcements] Network error loading ${item.file} for ${item.id}`)
+                    updateProgress()
+                    return null
+                  }
+                }
+              } else if (typeof item.content === 'string') {
+                content = item.content
+              } else {
+                // Neither file nor content — skip
+                updateProgress()
+                return null
+              }
+
+              updateProgress()
+              return {
+                id: item.id,
+                title: item.title,
+                content,
+                publishTime: item.publishTime,
+                priority: item.priority === 'important' ? 'important' : 'normal',
+                file: item.file,
+              }
+            })
+          )
+
+          const announcements: Announcement[] = loadedItems.filter(
+            (a): a is Announcement => a !== null
+          )
 
           // Sort: important first, then by publishTime desc
           announcements.sort(

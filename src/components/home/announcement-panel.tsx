@@ -140,9 +140,12 @@ function MarkdownImage({
       <img
         src={srcStr}
         alt={alt || ''}
-        className="block max-w-full h-auto rounded-lg cursor-zoom-in"
         loading="lazy"
         onClick={onImageClick ? () => onImageClick(srcStr) : undefined}
+        className={cn(
+          'block max-w-full h-auto rounded-lg',
+          onImageClick ? 'cursor-zoom-in' : 'cursor-default'
+        )}
         onError={() => setError(true)}
       />
     </span>
@@ -262,6 +265,16 @@ export function AnnouncementPanel() {
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
   }, [lightboxSrc, handleLightboxClose])
+
+  // Clean up lightbox timer on unmount
+  useEffect(() => {
+    return () => {
+      if (lightboxTimerRef.current !== null) {
+        clearTimeout(lightboxTimerRef.current)
+        lightboxTimerRef.current = null
+      }
+    }
+  }, [])
 
   // Sequential animation: skeleton exit → content enter.
   // Effects synchronise local animation state with the external Zustand store.

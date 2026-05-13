@@ -1,5 +1,5 @@
 import { readFileSync, existsSync, readdirSync } from 'node:fs'
-import { resolve, dirname, extname, join } from 'node:path'
+import { resolve, dirname, extname, join, relative, isAbsolute } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
@@ -106,13 +106,22 @@ if (indexData.length === 0) {
 
 // 2. Validate each entry
 const seenIds = new Set()
-const existingFiles = new Set(readdirSync(announcementsDir))
+const existingFiles = new Set(
+  existsSync(announcementsDir) ? readdirSync(announcementsDir) : []
+)
 
 // Build set of all files in announcementsDir (flattened, no subdirs)
 // We already have existingFiles from readdirSync
 
 for (let i = 0; i < indexData.length; i++) {
   const item = indexData[i]
+
+  // Guard: skip non-object entries
+  if (typeof item !== 'object' || item === null) {
+    error(`[${i}]: invalid item type — expected object, got ${typeof item}`)
+    continue
+  }
+
   const prefix = `[${i}] ${item.id || '(no id)'}`
 
   // ── Required fields ──
@@ -150,9 +159,15 @@ for (let i = 0; i < indexData.length; i++) {
 
   // ── .md file validation ──
   if (hasFile) {
-    const mdPath = join(announcementsDir, item.file)
+    const mdPath = resolve(announcementsDir, item.file)
+    const rel = relative(announcementsDir, mdPath)
 
-    if (!existsSync(mdPath)) {
+    // Validate path containment and extension
+    if (rel.startsWith('..') || isAbsolute(rel)) {
+      error(`${prefix}: file "${item.file}" escapes announcements directory`)
+    } else if (extname(mdPath) !== '.md') {
+      error(`${prefix}: file "${item.file}" must have .md extension`)
+    } else if (!existsSync(mdPath)) {
       error(`${prefix}: referenced file "${item.file}" does not exist`)
     } else {
       // Read and validate .md content

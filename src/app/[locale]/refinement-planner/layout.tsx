@@ -1,3 +1,4 @@
+import { getTranslations } from 'next-intl/server'
 import type { Metadata } from 'next'
 
 export async function generateMetadata({
@@ -7,8 +8,8 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params
   try {
-    const messages = (await import(`../../../messages/${locale}.json`)).default
-    return { title: messages.nav.refinementPlanner }
+    const t = await getTranslations({ locale })
+    return { title: t('nav.refinementPlanner') }
   } catch {
     return { title: 'Refinement Planner' }
   }

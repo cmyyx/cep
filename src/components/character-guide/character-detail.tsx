@@ -384,7 +384,6 @@ export const CharacterDetail = memo(function CharacterDetail({
               alt=""
               fill
               unoptimized
-              priority
               sizes="576px"
               className="object-contain"
               onError={() => setCardBgFailed(true)}
