@@ -5,4 +5,6 @@ export interface Announcement {
   content: string
   publishTime: string
   priority: 'normal' | 'important'
+  /** Relative path to a standalone .md file under /announcements/. When present, content is loaded from this file. */
+  file?: string
 }

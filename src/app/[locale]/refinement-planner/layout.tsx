@@ -1,4 +1,6 @@
+import { getTranslations } from 'next-intl/server'
 import type { Metadata } from 'next'
+import { routing } from '@/i18n/routing'
 
 export async function generateMetadata({
   params,
@@ -7,10 +9,12 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params
   try {
-    const messages = (await import(`../../../messages/${locale}.json`)).default
-    return { title: messages.nav.refinementPlanner }
+    const t = await getTranslations({ locale })
+    return { title: t('nav.refinementPlanner') }
   } catch {
-    return { title: 'Refinement Planner' }
+    // Fall back to default locale if the requested locale fails
+    const t = await getTranslations({ locale: routing.defaultLocale })
+    return { title: t('nav.refinementPlanner') }
   }
 }
 

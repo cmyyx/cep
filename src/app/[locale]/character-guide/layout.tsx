@@ -9,11 +9,11 @@ export async function generateMetadata({
   const { locale } = await params
   const t = await getTranslations({ locale })
   return {
-    title: t('nav.essencePlanner'),
+    title: t('nav.characterGuide'),
   }
 }
 
-export default function EssencePlannerLayout({
+export default function CharacterGuideLayout({
   children,
 }: {
   children: React.ReactNode
