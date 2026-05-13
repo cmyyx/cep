@@ -18,11 +18,11 @@ const STAT_KEYS = [
   { key: 'hp' as const, labelKey: 'charGuide.stat_hp' },
 ]
 
-export function EditorBasicTab({
-  draft,
-}: {
+export type EditorBasicTabProps = {
   draft: EditorDraftCharacter
-}) {
+}
+
+export function EditorBasicTab({ draft }: EditorBasicTabProps) {
   const t = useTranslations()
   const markDirty = useEditorStore((s) => s.markDirty)
   const setSelectedId = useEditorStore((s) => s.setSelectedId)
@@ -187,7 +187,7 @@ export function EditorBasicTab({
 
       {/* Stats */}
       <div>
-        <Label className="text-xs mb-2 block">{t('charGuide.skills')} — Stats</Label>
+        <Label className="text-xs mb-2 block">{t('charGuide.skills')} — {t('charGuide.stats')}</Label>
         <div className="grid grid-cols-3 gap-2">
           {STAT_KEYS.map(({ key, labelKey }) => (
             <div key={key} className="space-y-1">

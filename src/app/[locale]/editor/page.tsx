@@ -32,6 +32,13 @@ function parseImportText(text: string): Record<string, unknown>[] {
   return Array.isArray(json) ? json : [json]
 }
 
+/** Type guard: verify imported data conforms to CharacterGuideData shape */
+function isCharacterGuideData(obj: unknown): obj is CharacterGuideData {
+  if (typeof obj !== 'object' || obj === null) return false
+  const d = obj as Record<string, unknown>
+  return typeof d.id === 'string' && typeof d.name === 'string'
+}
+
 export default function EditorPage() {
   const t = useTranslations()
 
@@ -39,7 +46,6 @@ export default function EditorPage() {
   const draftCharacters = useEditorStore((s) => s.draftCharacters)
   const selectedId = useEditorStore((s) => s.selectedId)
   const activeTab = useEditorStore((s) => s.activeTab)
-  const draftVersion = useEditorStore((s) => s.draftVersion)
   const addDraftCharacter = useEditorStore((s) => s.addDraftCharacter)
   const addImportedCharacter = useEditorStore((s) => s.addImportedCharacter)
   const removeDraftCharacter = useEditorStore((s) => s.removeDraftCharacter)
@@ -75,7 +81,9 @@ export default function EditorPage() {
   const handleExport = useCallback(() => {
     if (!selectedDraft) return
     // Strip internal fields for clean export
-    const { isSource: _s, forkedFrom: _f, jsonDrafts: _jd, jsonErrors: _je, ...clean } = selectedDraft as unknown as Record<string, unknown>
+    // Strip internal fields for clean export; void suppresses unused-variable warnings
+    const { isSource, forkedFrom, jsonDrafts, jsonErrors, ...clean } = selectedDraft as unknown as Record<string, unknown>
+    void isSource; void forkedFrom; void jsonDrafts; void jsonErrors
     const content = JSON.stringify(clean, null, 2)
     const blob = new Blob([content], { type: 'application/json' })
     const url = URL.createObjectURL(blob)
@@ -95,8 +103,8 @@ export default function EditorPage() {
         const text = await file.text()
         const parsed = parseImportText(text)
         for (const d of parsed) {
-          if (typeof d === 'object' && d && 'id' in d && 'name' in d) {
-            addImportedCharacter(d as unknown as CharacterGuideData)
+          if (isCharacterGuideData(d)) {
+            addImportedCharacter(d)
           }
         }
       } catch {

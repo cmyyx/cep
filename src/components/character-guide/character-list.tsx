@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useMemo, memo, useCallback } from 'react'
+import Image from 'next/image'
 import { useTranslations } from 'next-intl'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
@@ -23,6 +24,7 @@ export const CharacterList = memo(function CharacterList({
 }: CharacterListProps) {
   const t = useTranslations()
   const [search, setSearch] = useState('')
+  const [failedImages, setFailedImages] = useState<Set<string>>(new Set())
   const [filters, setFilters] = useState<Record<FilterKey, Set<string>>>({
     rarity: new Set(),
     element: new Set(),
@@ -156,14 +158,20 @@ export const CharacterList = memo(function CharacterList({
                 selectedId === char.id && 'bg-accent'
               )}
             >
-              <div className="w-9 h-9 rounded-full bg-muted shrink-0 flex items-center justify-center overflow-hidden shadow-[0px_0px_0px_1px_rgba(0,0,0,0.08)]">
-                <img
-                  src={`/images/characters/${char.name}.avif`}
-                  alt={char.name}
-                  className="w-full h-full object-cover"
-                  loading="lazy"
-                  onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }}
-                />
+              <div className="w-9 h-9 rounded-full bg-muted shrink-0 flex items-center justify-center overflow-hidden shadow-[0px_0px_0px_1px_rgba(0,0,0,0.08)] relative">
+                {!failedImages.has(char.name) ? (
+                  <Image
+                    src={`/images/characters/${char.name}.avif`}
+                    alt={char.name}
+                    fill
+                    unoptimized
+                    sizes="36px"
+                    className="object-cover"
+                    onError={() => setFailedImages((prev) => new Set(prev).add(char.name))}
+                  />
+                ) : (
+                  <div className="w-full h-full bg-muted" />
+                )}
               </div>
               <div className="min-w-0 flex-1">
                 <div className="text-sm font-medium truncate">{char.name}</div>

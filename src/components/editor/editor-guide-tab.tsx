@@ -6,6 +6,7 @@ import { useTranslations } from 'next-intl'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Button } from '@/components/ui/button'
+import { Textarea } from '@/components/ui/textarea'
 import { useEditorStore, type GuideSubTab } from '@/stores/useEditorStore'
 import { cn } from '@/lib/utils'
 import type { EditorDraftCharacter } from '@/stores/useEditorStore'
@@ -17,11 +18,11 @@ const GUIDE_SUB_TABS: { key: GuideSubTab; labelKey: string }[] = [
   { key: 'team', labelKey: 'editor.guideTeamSlots' },
 ]
 
-export function EditorGuideTab({
-  draft,
-}: {
+export type EditorGuideTabProps = {
   draft: EditorDraftCharacter
-}) {
+}
+
+export function EditorGuideTab({ draft }: EditorGuideTabProps) {
   const t = useTranslations()
   const markDirty = useEditorStore((s) => s.markDirty)
   const guideSubTab = useEditorStore((s) => s.guideSubTab)
@@ -215,18 +216,19 @@ export function EditorGuideTab({
       {/* Sub tabs */}
       <div className="flex border-b border-border/30">
         {GUIDE_SUB_TABS.map((sub) => (
-          <button
+          <Button
             key={sub.key}
+            variant="ghost"
             onClick={() => setGuideSubTab(sub.key)}
             className={cn(
-              'px-3 py-1.5 text-xs font-medium transition-colors border-b-2 -mb-[1px]',
+              'px-3 py-1.5 text-xs font-medium transition-colors border-b-2 -mb-[1px] rounded-none h-auto',
               guideSubTab === sub.key
                 ? 'border-foreground text-foreground'
                 : 'border-transparent text-muted-foreground hover:text-foreground'
             )}
           >
             {t(sub.labelKey)}
-          </button>
+          </Button>
         ))}
       </div>
 
@@ -242,7 +244,7 @@ export function EditorGuideTab({
           </div>
 
           {guide.equipRows.length === 0 && (
-            <p className="text-xs text-muted-foreground italic">No equip rows.</p>
+            <p className="text-xs text-muted-foreground italic">{t('editor.guideNoEquipRows')}</p>
           )}
 
           {guide.equipRows.map((row, ri) => (
@@ -252,7 +254,7 @@ export function EditorGuideTab({
             >
               <div className="flex items-center justify-between">
                 <span className="text-xs font-medium text-muted-foreground">
-                  Row #{ri + 1}
+                  {t('editor.guideRowLabel', { number: ri + 1 })}
                 </span>
                 <Button
                   variant="ghost"
@@ -267,7 +269,7 @@ export function EditorGuideTab({
               {/* Weapons */}
               <div>
                 <div className="flex items-center gap-1 mb-1">
-                  <span className="text-[11px] text-muted-foreground">Weapons</span>
+                  <span className="text-[11px] text-muted-foreground">{t('editor.guideWeapons')}</span>
                   <Button
                     variant="ghost"
                     size="sm"
@@ -298,8 +300,11 @@ export function EditorGuideTab({
                       value={w.rarity ?? ''}
                       onChange={(e) => updateWeapon(ri, wi, 'rarity', e.target.value)}
                       placeholder={t('editor.placeholderGuideRarity')}
-                      className="h-7 text-xs w-16"
-                      style={{ color: (w.rarity ?? 0) >= 6 ? '#ff7100' : '#ffcc00' }}
+                      className={cn(
+                        'h-7 text-xs w-16',
+                        (w.rarity ?? 0) >= 6 && 'text-rarity-6-star',
+                        (w.rarity ?? 0) >= 5 && (w.rarity ?? 0) < 6 && 'text-rarity-5-star'
+                      )}
                     />
                     <Button
                       variant="ghost"
@@ -335,7 +340,7 @@ export function EditorGuideTab({
                             <Input
                               value={eq.note}
                               onChange={(e) => updateEquip(ri, ei, 'note', e.target.value)}
-                              placeholder="Note"
+                              placeholder={t('editor.placeholderGuideNote')}
                               className="h-7 text-xs w-16"
                             />
                             <Input
@@ -344,7 +349,7 @@ export function EditorGuideTab({
                               max={6}
                               value={eq.rarity ?? ''}
                               onChange={(e) => updateEquip(ri, ei, 'rarity', e.target.value)}
-                              placeholder="★"
+                              placeholder={t('editor.placeholderGuideRarity')}
                               className="h-7 text-xs w-12"
                             />
                             <Button
@@ -363,7 +368,7 @@ export function EditorGuideTab({
                             onClick={() => updateEquip(ri, ei, 'name', '')}
                             className="h-7 text-[10px] text-muted-foreground/50"
                           >
-                            + Add
+                            {t('editor.guideAddEquip')}
                           </Button>
                         )}
                       </div>
@@ -381,32 +386,29 @@ export function EditorGuideTab({
         <div className="space-y-4">
           <div className="space-y-1.5">
             <Label className="text-xs">{t('editor.guideAnalysis')}</Label>
-            <textarea
+            <Textarea
               value={guide.analysis}
               onChange={(e) => updateGuideField('analysis', e.target.value)}
-              className="w-full min-h-[120px] rounded-md border border-border bg-transparent px-3 py-2 text-sm
-                placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring resize-y"
-              placeholder="角色分析文本..."
+              className="min-h-[120px] resize-y"
+              placeholder={t('editor.placeholderAnalysis')}
             />
           </div>
           <div className="space-y-1.5">
             <Label className="text-xs">{t('editor.guideTeamTips')}</Label>
-            <textarea
+            <Textarea
               value={guide.teamTips}
               onChange={(e) => updateGuideField('teamTips', e.target.value)}
-              className="w-full min-h-[80px] rounded-md border border-border bg-transparent px-3 py-2 text-sm
-                placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring resize-y"
-              placeholder="配队思路..."
+              className="min-h-[80px] resize-y"
+              placeholder={t('editor.placeholderTeamTips')}
             />
           </div>
           <div className="space-y-1.5">
             <Label className="text-xs">{t('editor.guideOperationTips')}</Label>
-            <textarea
+            <Textarea
               value={guide.operationTips}
               onChange={(e) => updateGuideField('operationTips', e.target.value)}
-              className="w-full min-h-[80px] rounded-md border border-border bg-transparent px-3 py-2 text-sm
-                placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring resize-y"
-              placeholder="操作建议..."
+              className="min-h-[80px] resize-y"
+              placeholder={t('editor.placeholderOperationTips')}
             />
           </div>
         </div>
@@ -424,7 +426,7 @@ export function EditorGuideTab({
           </div>
 
           {guide.teamSlots.length === 0 && (
-            <p className="text-xs text-muted-foreground italic">No team slots.</p>
+            <p className="text-xs text-muted-foreground italic">{t('editor.guideNoTeamSlots')}</p>
           )}
 
           {guide.teamSlots.map((slot, si) => (
@@ -434,7 +436,7 @@ export function EditorGuideTab({
             >
               <div className="flex items-center justify-between">
                 <span className="text-xs font-medium text-muted-foreground">
-                  Slot #{si + 1}
+                  {t('team.slot', { number: si + 1 })}
                 </span>
                 <Button
                   variant="ghost"
@@ -456,13 +458,13 @@ export function EditorGuideTab({
                     <Input
                       value={opt.name}
                       onChange={(e) => updateTeamOptionField(si, oi, 'name', e.target.value)}
-                      placeholder="角色名称"
+                      placeholder={t('editor.placeholderTeamCharName')}
                       className="h-7 text-sm flex-1"
                     />
                     <Input
                       value={opt.tag}
                       onChange={(e) => updateTeamOptionField(si, oi, 'tag', e.target.value)}
-                      placeholder="Tag"
+                      placeholder={t('editor.placeholderTag')}
                       className="h-7 text-xs w-24"
                     />
                     <Button
@@ -478,7 +480,7 @@ export function EditorGuideTab({
                   {/* Option weapons */}
                   <div className="ml-2">
                     <div className="flex items-center gap-1 mb-0.5">
-                      <span className="text-[10px] text-muted-foreground">Weapons</span>
+                      <span className="text-[10px] text-muted-foreground">{t('editor.guideWeapons')}</span>
                       <Button
                         variant="ghost"
                         size="sm"
@@ -535,7 +537,7 @@ export function EditorGuideTab({
                   {/* Option equipment */}
                   <div className="ml-2">
                     <div className="flex items-center gap-1 mb-0.5">
-                      <span className="text-[10px] text-muted-foreground">Equipment</span>
+                      <span className="text-[10px] text-muted-foreground">{t('editor.guideEquipment')}</span>
                       <Button
                         variant="ghost"
                         size="sm"

@@ -24,6 +24,22 @@ const SRC_DIR = join(ROOT, 'src')
 
 const QUIET = process.argv.includes('--quiet')
 
+// Generic short variable names that are unlikely to be i18n keys
+const GENERIC_VAR_NAMES = new Set([
+  'key', 'name', 'value', 'label', 'id', 'type', 'title', 'text', 'item',
+  'data', 'config', 'props', 'attr', 'field', 'option', 'status', 'code',
+  'count', 'index', 'days', 'time', 'params', 'candidates', 'duration',
+  'locale', 'timer', 'resolve', 'password',
+])
+
+// Project-specific identifiers that happen to match t(VAR) patterns but are not i18n keys.
+// Add entries here when a new reactive variable or callback name trips the t(VAR) detector.
+const PROJECT_SPECIFIC_IGNORES = new Set([
+  'doRefresh', 'doFit',
+  'selectedWeaponIds', 'expandedDungeonIds', 'expandedPlanKeys',
+  'onLoginSubmit', 'onRegisterSubmit',
+])
+
 // ─── Phase 1: Extract defined keys from locale JSONs ────────────────────────
 
 function flattenJSON(obj, prefix = '') {
@@ -191,13 +207,23 @@ function extractKeys(filePath, globalConstants) {
       const firstVar = rawParams.split(',')[0].trim()
       if (firstVar) bindings.push({ local: firstVar, prop: null })
     }
-    mapScopes.push({ arrayName, bindings, endPos: mm.index + mm[0].length })
+    // Compute actual close position of the .map() callback by bracket scanning
+    const startParenCount = (mm[0].match(/\x28/g) || []).length // count '(' in matched text
+    const scanStart = mm.index + mm[0].length
+    let depth = startParenCount
+    let closePos = scanStart
+    for (let i = scanStart; i < content.length && depth > 0; i++) {
+      if (content[i] === '(') depth++
+      else if (content[i] === ')') { depth--; if (depth === 0) { closePos = i; break } }
+    }
+    mapScopes.push({ arrayName, bindings, endPos: mm.index + mm[0].length, closePos })
   }
 
   function findNearestMap(pos) {
     let nearest = null
     for (const ms of mapScopes) {
-      if (ms.endPos < pos) {
+      // Only consider scopes that actually enclose pos (open before pos and close after pos)
+      if (ms.endPos < pos && pos < ms.closePos) {
         if (!nearest || ms.endPos > nearest.endPos) nearest = ms
       }
     }
@@ -218,8 +244,9 @@ function extractKeys(filePath, globalConstants) {
   // 1. Static keys: t('literal') or t("literal")
   for (const m of content.matchAll(/\bt\(\s*['"]([^'"]+)['"]\s*[,)]/g)) {
     const k = m[1]
-    // Accept all keys including dotless ones (may be used with namespaced useTranslations)
-    // Generic single-word tokens are filtered later in cross-reference phase
+    // Accept all keys including dotless ones (may be used with namespaced useTranslations).
+    // Note: generic single-word tokens that are not valid i18n keys will surface as P0 errors;
+    // the suffix-match heuristic in check() may resolve some, but not all, of them.
     if (/^\w+(\.\w+)*$/.test(k)) keys.add(k)
   }
 
@@ -227,7 +254,7 @@ function extractKeys(filePath, globalConstants) {
   for (const m of content.matchAll(/\bt\(\s*(\w+)\s*[,)]/g)) {
     const vn = m[1]
     if (vn.length <= 2) continue
-    if (/^(count|index|days|time|params|candidates|duration|locale|timer|resolve|password|doRefresh|doFit|selectedWeaponIds|expandedDungeonIds|expandedPlanKeys|onLoginSubmit|onRegisterSubmit)$/.test(vn)) continue
+    if (GENERIC_VAR_NAMES.has(vn) || PROJECT_SPECIFIC_IGNORES.has(vn)) continue
 
     const nearestMap = findNearestMap(m.index)
     let found = false
@@ -323,10 +350,6 @@ function resolveVar(varName, constants, targetSet) {
 
   // Property match: ONLY match when the variable name is specific enough
   // (not generic names like 'key', 'name', 'value' that cause false positives)
-  const GENERIC_VAR_NAMES = new Set([
-    'key', 'name', 'value', 'label', 'id', 'type', 'title', 'text', 'item',
-    'data', 'config', 'props', 'attr', 'field', 'option', 'status', 'code',
-  ])
   if (GENERIC_VAR_NAMES.has(varName)) return false
 
   for (const [cn, cv] of constants) {

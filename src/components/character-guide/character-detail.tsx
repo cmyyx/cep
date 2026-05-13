@@ -1,13 +1,14 @@
 'use client'
 
 import { memo, useState } from 'react'
+import Image from 'next/image'
 import { useTranslations } from 'next-intl'
 import { cn } from '@/lib/utils'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { ElementBadge, RarityStars } from './element-badge'
 import { SkillTables } from './skill-tables'
-import type { CharacterGuideData, GuideEquipRow, TeamSlot, GuideEquipEntry } from '@/types/character-guide'
+import type { CharacterGuideData, GuideEquipRow, TeamSlot, GuideEquipEntry, TeamSlotOption } from '@/types/character-guide'
 import weaponImageMap from '@/data/weapon-image-map.json'
 import equipImageMap from '@/data/equip-image-map.json'
 import itemImageMap from '@/data/item-image-map.json'
@@ -104,6 +105,8 @@ function GuideCard({
 }) {
   const dimClass = size === 'sm' ? 'w-14 h-14' : size === 'lg' ? 'w-24 h-24' : size === 'xl' ? 'w-28 h-28' : 'w-20 h-20'
   const nameClass = size === 'sm' ? 'text-[10px]' : size === 'lg' ? 'text-xs' : size === 'xl' ? 'text-[13px]' : 'text-[11px]'
+  const [imgFailed, setImgFailed] = useState(false)
+  const [bandFailed, setBandFailed] = useState(false)
   if (!src) return null
   return (
     <div
@@ -113,20 +116,29 @@ function GuideCard({
         'bg-[url(/images/item-frame-bg.png)] bg-cover bg-center'
       )}
     >
-      <img
-        src={src}
-        alt={alt}
-        className="absolute inset-0 w-full h-full object-contain z-10"
-        loading="lazy"
-        onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }}
-      />
+      {!imgFailed && (
+        <div className="absolute inset-0 z-10 flex items-center justify-center">
+          <Image
+            src={src}
+            alt={alt}
+            fill
+            unoptimized
+            sizes={size === 'sm' ? '56px' : size === 'lg' ? '96px' : size === 'xl' ? '112px' : '80px'}
+            className="object-contain"
+            onError={() => setImgFailed(true)}
+          />
+        </div>
+      )}
       {/* Rarity band */}
-      {rarity && (
-        <img
+      {rarity && !bandFailed && (
+        <Image
           src={`/images/item-band-${rarity}.png`}
           alt=""
-          className="absolute bottom-0 left-0 right-0 z-20 w-full object-cover object-bottom pointer-events-none"
-          onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }}
+          width={200}
+          height={40}
+          unoptimized
+          className="absolute -inset-x-px bottom-0 z-20 w-[calc(100%+2px)] max-w-none object-cover object-bottom pointer-events-none"
+          onError={() => setBandFailed(true)}
         />
       )}
       {/* Name on image */}
@@ -250,20 +262,25 @@ const TeamSlotDisplay = memo(function TeamSlotDisplay({
 
 function OptionDisplay({ option, isRecommended, isAlternative }: { option: TeamSlotOption; isRecommended?: boolean; isAlternative?: boolean }) {
   const t = useTranslations()
+  const [avatarFailed, setAvatarFailed] = useState(false)
   return (
     <div className={cn('flex items-start gap-3', isAlternative && 'ml-8 opacity-75')}>
       {isAlternative && (
         <span className="text-[9px] text-muted-foreground/50 shrink-0 mt-2 leading-none">{t('common.or')}</span>
       )}
       <div className="relative shrink-0">
-        <div className="w-10 h-10 rounded-full bg-muted flex items-center justify-center overflow-hidden shadow-[0px_0px_0px_1px_rgba(0,0,0,0.08)]">
-          <img
-            src={`/images/characters/${option.name}.avif`}
-            alt={option.name}
-            className="w-full h-full object-cover"
-            loading="lazy"
-            onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }}
-          />
+        <div className="w-10 h-10 rounded-full bg-muted flex items-center justify-center overflow-hidden shadow-[0px_0px_0px_1px_rgba(0,0,0,0.08)] relative">
+          {!avatarFailed && (
+            <Image
+              src={`/images/characters/${option.name}.avif`}
+              alt={option.name}
+              fill
+              unoptimized
+              sizes="40px"
+              className="object-cover"
+              onError={() => setAvatarFailed(true)}
+            />
+          )}
         </div>
         {isRecommended && (
           <span className="absolute -top-1 -right-1 z-10 px-1 py-px rounded text-[8px] font-semibold bg-ship-red text-white shadow-sm">
@@ -312,16 +329,19 @@ function OptionDisplay({ option, isRecommended, isAlternative }: { option: TeamS
 
 function MaterialItem({ text }: { text: string }) {
   const imgSrc = getItemImageSrc(text)
+  const [imgFailed, setImgFailed] = useState(false)
   return (
     <li className="flex items-center gap-1.5 text-xs text-muted-foreground">
-      {imgSrc && (
-        <div className="w-5 h-5 rounded-sm bg-muted/50 shrink-0 flex items-center justify-center overflow-hidden">
-          <img
+      {imgSrc && !imgFailed && (
+        <div className="w-5 h-5 rounded-sm bg-muted/50 shrink-0 flex items-center justify-center overflow-hidden relative">
+          <Image
             src={imgSrc}
             alt={text}
-            className="w-full h-full object-contain"
-            loading="lazy"
-            onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }}
+            fill
+            unoptimized
+            sizes="20px"
+            className="object-contain"
+            onError={() => setImgFailed(true)}
           />
         </div>
       )}
@@ -339,6 +359,8 @@ export const CharacterDetail = memo(function CharacterDetail({
 }) {
   const t = useTranslations()
   const [viewMode, setViewMode] = useState<ViewMode>('info')
+  const [cardBgFailed, setCardBgFailed] = useState(false)
+  const [avatarFailed, setAvatarFailed] = useState(false)
 
   if (!character) {
     return (
@@ -355,24 +377,34 @@ export const CharacterDetail = memo(function CharacterDetail({
       {/* Header card + basic info */}
       <div className="relative px-4 pt-4 pb-3">
         {/* Card image (partially transparent background) */}
-        <div className="absolute top-0 right-0 w-[36rem] h-[36rem] opacity-18 pointer-events-none select-none">
-          <img
-            src={cardPath}
-            alt=""
-            className="w-full h-full object-contain"
-            onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }}
-          />
-        </div>
+        {!cardBgFailed && (
+          <div className="absolute top-0 right-0 w-[36rem] h-[36rem] opacity-18 pointer-events-none select-none">
+            <Image
+              src={cardPath}
+              alt=""
+              fill
+              unoptimized
+              sizes="576px"
+              className="object-contain"
+              onError={() => setCardBgFailed(true)}
+            />
+          </div>
+        )}
 
         <div className="relative z-10 flex items-start gap-4">
           {/* Avatar */}
-          <div className="w-14 h-14 rounded-full bg-muted shrink-0 flex items-center justify-center overflow-hidden shadow-[0px_0px_0px_1px_rgba(0,0,0,0.08)]">
-            <img
-              src={`/images/characters/${character.name}.avif`}
-              alt={character.name}
-              className="w-full h-full object-cover"
-              onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }}
-            />
+          <div className="w-14 h-14 rounded-full bg-muted shrink-0 flex items-center justify-center overflow-hidden shadow-[0px_0px_0px_1px_rgba(0,0,0,0.08)] relative">
+            {!avatarFailed && (
+              <Image
+                src={`/images/characters/${character.name}.avif`}
+                alt={character.name}
+                fill
+                unoptimized
+                sizes="56px"
+                className="object-cover"
+                onError={() => setAvatarFailed(true)}
+              />
+            )}
           </div>
           <div className="min-w-0">
             <h2 className="text-xl font-semibold tracking-[-0.96px]">{character.name}</h2>
@@ -621,4 +653,3 @@ function GuideView({ character }: { character: CharacterGuideData }) {
   )
 }
 
-import type { TeamSlotOption } from '@/types/character-guide'

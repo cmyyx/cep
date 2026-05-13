@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { useTranslations } from 'next-intl'
 import { SidebarTrigger } from '@/components/ui/sidebar'
 import { CharacterList } from '@/components/character-guide/character-list'
@@ -19,9 +19,11 @@ export default function CharacterGuidePage() {
   // Mobile: sheet for character list
   const [mobileListOpen, setMobileListOpen] = useState(false)
 
-  // Auto-select first character on initial load
+  // Auto-select first character on initial load — fires once
+  const hasAutoSelected = useRef(false)
   useEffect(() => {
-    if (!selectedId && characters.length > 0) {
+    if (!hasAutoSelected.current && !selectedId && characters.length > 0) {
+      hasAutoSelected.current = true
       setSelectedId(characters[0].id)
     }
   }, [characters, selectedId, setSelectedId])
