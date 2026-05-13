@@ -1,6 +1,7 @@
+/* eslint-disable react-hooks/immutability */
 'use client'
 
-import { memo, useCallback } from 'react'
+import { useCallback } from 'react'
 import { useTranslations } from 'next-intl'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -11,7 +12,7 @@ import { Plus, Trash2 } from 'lucide-react'
 
 const ELITE_LEVELS = ['elite1', 'elite2', 'elite3', 'elite4'] as const
 
-export const EditorMaterialsTab = memo(function EditorMaterialsTab({
+export function EditorMaterialsTab({
   draft,
 }: {
   draft: EditorDraftCharacter
@@ -88,4 +89,4 @@ export const EditorMaterialsTab = memo(function EditorMaterialsTab({
       ))}
     </div>
   )
-})
+}

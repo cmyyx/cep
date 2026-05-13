@@ -1,20 +1,20 @@
 'use client'
 
-import { useState, useCallback, useEffect, useRef, useMemo } from 'react'
+import { useState, useCallback, useRef, useMemo } from 'react'
 import { useTranslations } from 'next-intl'
 import { SidebarTrigger } from '@/components/ui/sidebar'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { cn } from '@/lib/utils'
 import { useEditorStore, type EditorTab } from '@/stores/useEditorStore'
-import { useCharacterGuideStore } from '@/stores/useCharacterGuideStore'
+import type { CharacterGuideData } from '@/types/character-guide'
 import { EditorBasicTab } from '@/components/editor/editor-basic-tab'
 import { EditorSkillsTab } from '@/components/editor/editor-skills-tab'
 import { EditorTalentsTab } from '@/components/editor/editor-talents-tab'
 import { EditorMaterialsTab } from '@/components/editor/editor-materials-tab'
 import { EditorGuideTab } from '@/components/editor/editor-guide-tab'
 import { EditorAttributionsTab } from '@/components/editor/editor-attributions-tab'
-import { Plus, Download, Upload, Trash2, Save, Check } from 'lucide-react'
+import { Plus, Download, Upload, Trash2, Lock, GitFork } from 'lucide-react'
 
 const TABS: { key: EditorTab; labelKey: string }[] = [
   { key: 'basic', labelKey: 'editor.tabBasic' },
@@ -46,33 +46,23 @@ export default function EditorPage() {
   // Editor store
   const draftCharacters = useEditorStore((s) => s.draftCharacters)
   const selectedId = useEditorStore((s) => s.selectedId)
-  const dirtyIds = useEditorStore((s) => s.dirtyIds)
   const activeTab = useEditorStore((s) => s.activeTab)
-  const initDrafts = useEditorStore((s) => s.initDrafts)
+  const draftVersion = useEditorStore((s) => s.draftVersion)
   const addDraftCharacter = useEditorStore((s) => s.addDraftCharacter)
+  const addImportedCharacter = useEditorStore((s) => s.addImportedCharacter)
   const removeDraftCharacter = useEditorStore((s) => s.removeDraftCharacter)
   const setSelectedId = useEditorStore((s) => s.setSelectedId)
   const setActiveTab = useEditorStore((s) => s.setActiveTab)
-  const draftVersion = useEditorStore((s) => s.draftVersion)
-  const markClean = useEditorStore((s) => s.markClean)
-
-  // Guide store (source of truth)
-  const guideCharacters = useCharacterGuideStore((s) => s.characters)
-  const upsertCharacter = useCharacterGuideStore((s) => s.upsertCharacter)
-  const setGuideCharacters = useCharacterGuideStore((s) => s.setCharacters)
+  const forkCharacter = useEditorStore((s) => s.forkCharacter)
 
   // Search for character picker
   const [search, setSearch] = useState('')
 
+  // Stable mount key — only changes on explicit sidebar selection, not on ID edit
+  const [mountedDraftKey, setMountedDraftKey] = useState(0)
+
   // Import file ref
   const fileInputRef = useRef<HTMLInputElement>(null)
-
-  // Initialize drafts from guide store on mount
-  useEffect(() => {
-    if (draftCharacters.length === 0 && guideCharacters.length > 0) {
-      initDrafts(guideCharacters)
-    }
-  }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   // Filter drafts by search
   const filteredDrafts = useMemo(() => {
@@ -88,40 +78,17 @@ export default function EditorPage() {
     [draftCharacters, selectedId]
   )
 
-  // Save current draft to guide store
-  const handleSave = useCallback(() => {
-    if (!selectedDraft) return
-    upsertCharacter(selectedDraft)
-    markClean(selectedDraft.id)
-  }, [selectedDraft, upsertCharacter, markClean])
-
-  // Save all drafts
-  const handleSaveAll = useCallback(() => {
-    const currentChars = [...guideCharacters]
-    for (const draft of draftCharacters) {
-      const idx = currentChars.findIndex((c) => c.id === draft.id)
-      if (idx >= 0) {
-        currentChars[idx] = draft
-      } else {
-        currentChars.push(draft)
-      }
-    }
-    setGuideCharacters(currentChars)
-    // Mark all clean
-    for (const id of dirtyIds) {
-      markClean(id)
-    }
-  }, [draftCharacters, guideCharacters, setGuideCharacters, dirtyIds, markClean])
-
-  // Export current character
+  // Export current character as JSON
   const handleExport = useCallback(() => {
     if (!selectedDraft) return
-    const content = `(function () {\n  window.characters = window.characters || [];\n  window.characters.push(${JSON.stringify(selectedDraft, null, 2)});\n})();\n`
-    const blob = new Blob([content], { type: 'application/javascript' })
+    // Strip internal fields for clean export
+    const { isSource: _s, forkedFrom: _f, jsonDrafts: _jd, jsonErrors: _je, ...clean } = selectedDraft as unknown as Record<string, unknown>
+    const content = JSON.stringify(clean, null, 2)
+    const blob = new Blob([content], { type: 'application/json' })
     const url = URL.createObjectURL(blob)
     const a = document.createElement('a')
     a.href = url
-    a.download = `character-${selectedDraft.id}.js`
+    a.download = `${selectedDraft.id}.json`
     a.click()
     URL.revokeObjectURL(url)
   }, [selectedDraft])
@@ -136,30 +103,37 @@ export default function EditorPage() {
         const parsed = parseImportText(text)
         for (const d of parsed) {
           if (typeof d === 'object' && d && 'id' in d && 'name' in d) {
-            upsertCharacter(d as unknown as Parameters<typeof upsertCharacter>[0])
+            addImportedCharacter(d as unknown as CharacterGuideData)
           }
         }
-        const updated = useCharacterGuideStore.getState().characters
-        initDrafts(updated)
       } catch {
         // ignore import errors
       }
       e.target.value = ''
     },
-    [upsertCharacter, initDrafts]
+    [addImportedCharacter]
   )
 
   const handleNewCharacter = useCallback(() => {
     addDraftCharacter()
+    setMountedDraftKey((k) => k + 1)
   }, [addDraftCharacter])
 
   const handleDelete = useCallback(() => {
     if (!selectedDraft) return
+    if (selectedDraft.isSource) return
     if (!confirm(t('editor.deleteConfirm', { name: selectedDraft.name }))) return
     removeDraftCharacter(selectedDraft.id)
+    setMountedDraftKey((k) => k + 1)
   }, [selectedDraft, removeDraftCharacter, t])
 
-  const dirtyCount = dirtyIds.size
+  const handleFork = useCallback(() => {
+    if (!selectedDraft) return
+    forkCharacter(selectedDraft.id)
+    setMountedDraftKey((k) => k + 1)
+  }, [selectedDraft, forkCharacter])
+
+  const selectedIsSource = selectedDraft?.isSource ?? false
 
   return (
     <div className="flex flex-col flex-1 min-h-0 overflow-hidden">
@@ -184,32 +158,30 @@ export default function EditorPage() {
           className="hidden"
           onChange={handleImport}
         />
+        {selectedIsSource && (
+          <Button variant="outline" size="sm" onClick={handleFork}>
+            <GitFork className="w-3.5 h-3.5 mr-1" />
+            {t('editor.forkCharacter')}
+          </Button>
+        )}
         <Button variant="outline" size="sm" onClick={handleExport} disabled={!selectedDraft}>
           <Download className="w-3.5 h-3.5 mr-1" />
           {t('editor.exportCurrent')}
         </Button>
-        <Button variant="outline" size="sm" onClick={handleDelete} disabled={!selectedDraft}>
-          <Trash2 className="w-3.5 h-3.5 mr-1" />
-        </Button>
-        <Button
-          variant={dirtyCount > 0 ? 'default' : 'ghost'}
-          size="sm"
-          onClick={dirtyCount > 1 ? handleSaveAll : handleSave}
-          disabled={dirtyCount === 0}
-        >
-          {dirtyCount === 0 ? (
-            <Check className="w-3.5 h-3.5 mr-1" />
-          ) : (
-            <Save className="w-3.5 h-3.5 mr-1" />
-          )}
-          {dirtyCount === 0 ? t('editor.saved') : `${t('editor.save')}${dirtyCount > 1 ? ` (${dirtyCount})` : ''}`}
-        </Button>
+        {!selectedIsSource && (
+          <Button variant="outline" size="sm" onClick={handleDelete} disabled={!selectedDraft}>
+            <Trash2 className="w-3.5 h-3.5 mr-1" />
+          </Button>
+        )}
+        <span className="text-[11px] text-muted-foreground">
+          {t('editor.autoSaved')}
+        </span>
       </div>
 
       {/* Content area */}
       <div className="flex flex-1 min-h-0 overflow-hidden">
         {/* Left: character picker */}
-        <div className="w-64 shrink-0 border-r border-border/30 flex flex-col bg-background">
+        <div className="w-64 shrink-0 border-r border-border/30 flex flex-col">
           <div className="p-2">
             <Input
               placeholder={t('charFilter.searchPlaceholder')}
@@ -225,12 +197,13 @@ export default function EditorPage() {
               </div>
             ) : (
               filteredDrafts.map((draft) => {
-                const d = dirtyIds.has(draft.id)
+                const isSource = draft.isSource
                 return (
                   <button
                     key={draft.id}
                     onClick={() => {
                       setSelectedId(draft.id)
+                      setMountedDraftKey((k) => k + 1)
                     }}
                     className={cn(
                       'w-full flex items-center gap-2 px-3 py-2 text-left transition-colors',
@@ -252,12 +225,15 @@ export default function EditorPage() {
                     <div className="min-w-0 flex-1">
                       <div className="text-sm font-medium truncate flex items-center gap-1">
                         {draft.name || t('editor.noCharacterSelected')}
-                        {d && (
-                          <span className="w-1.5 h-1.5 rounded-full bg-ship-red shrink-0" />
+                        {isSource && (
+                          <Lock className="w-3 h-3 text-muted-foreground/50 shrink-0" />
                         )}
                       </div>
                       <div className="text-[11px] text-muted-foreground truncate">
                         {draft.id}
+                        {isSource && (
+                          <span className="ml-1 text-[10px] text-muted-foreground/40">({t('editor.readOnly')})</span>
+                        )}
                       </div>
                     </div>
                   </button>
@@ -275,8 +251,18 @@ export default function EditorPage() {
             </div>
           ) : (
             <>
+              {/* Source character warning */}
+              {selectedIsSource && (
+                <div className="px-4 py-2 bg-amber-50 dark:bg-amber-950/30 border-b border-amber-200 dark:border-amber-800/40 text-xs text-amber-800 dark:text-amber-300">
+                  {t('editor.sourceReadOnly')}{' '}
+                  <button onClick={handleFork} className="underline font-medium hover:text-amber-900 dark:hover:text-amber-200">
+                    {t('editor.forkToEdit')}
+                  </button>
+                </div>
+              )}
+
               {/* Tabs */}
-              <div className="flex border-b border-border/30 bg-background px-2">
+              <div className="flex border-b border-border/30 px-2">
                 {TABS.map((tab) => (
                   <button
                     key={tab.key}
@@ -293,14 +279,14 @@ export default function EditorPage() {
                 ))}
               </div>
 
-              {/* Tab content */}
-              <div className="flex-1 overflow-y-auto p-4">
-                {activeTab === 'basic' && <EditorBasicTab key={`${selectedId}-${draftVersion}`} draft={selectedDraft} />}
-                {activeTab === 'skills' && <EditorSkillsTab key={`${selectedId}-${draftVersion}`} draft={selectedDraft} />}
-                {activeTab === 'talents' && <EditorTalentsTab key={`${selectedId}-${draftVersion}`} draft={selectedDraft} />}
-                {activeTab === 'materials' && <EditorMaterialsTab key={`${selectedId}-${draftVersion}`} draft={selectedDraft} />}
-                {activeTab === 'guide' && <EditorGuideTab key={`${selectedId}-${draftVersion}`} draft={selectedDraft} />}
-                {activeTab === 'attributions' && <EditorAttributionsTab key={`${selectedId}-${draftVersion}`} draft={selectedDraft} />}
+              {/* Tab content — keyed only by selectedId to preserve input focus */}
+              <div className={cn('flex-1 overflow-y-auto p-4', selectedIsSource && 'opacity-80 pointer-events-none')}>
+                {activeTab === 'basic' && <EditorBasicTab key={`${mountedDraftKey}-basic`} draft={selectedDraft} />}
+                {activeTab === 'skills' && <EditorSkillsTab key={`${mountedDraftKey}-skills`} draft={selectedDraft} />}
+                {activeTab === 'talents' && <EditorTalentsTab key={`${mountedDraftKey}-talents`} draft={selectedDraft} />}
+                {activeTab === 'materials' && <EditorMaterialsTab key={`${mountedDraftKey}-materials`} draft={selectedDraft} />}
+                {activeTab === 'guide' && <EditorGuideTab key={`${mountedDraftKey}-guide`} draft={selectedDraft} />}
+                {activeTab === 'attributions' && <EditorAttributionsTab key={`${mountedDraftKey}-attributions`} draft={selectedDraft} />}
               </div>
             </>
           )}

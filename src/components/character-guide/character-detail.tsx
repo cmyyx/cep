@@ -64,37 +64,74 @@ function CollapsibleSection({
     <div className="border-b border-border/20 last:border-b-0">
       <button
         onClick={() => setOpen(!open)}
-        className="w-full flex items-center gap-2 px-4 py-2.5 text-left hover:bg-accent/30 transition-colors"
+        className="w-full flex items-center gap-2.5 px-4 py-3 text-left hover:bg-accent/30 transition-colors group"
       >
-        <span
+        <svg
           className={cn(
-            'text-[10px] text-muted-foreground transition-transform shrink-0',
+            'w-3.5 h-3.5 shrink-0 text-muted-foreground transition-transform duration-200',
             open && 'rotate-90'
           )}
+          viewBox="0 0 16 16"
+          fill="currentColor"
         >
-          &#9654;
+          <path d="M6.47 4.47a.75.75 0 0 1 1.06 0l3.5 3.5a.75.75 0 0 1 0 1.06l-3.5 3.5a.75.75 0 0 1-1.06-1.06L9.44 8 6.47 5.03a.75.75 0 0 1 0-1.06Z" />
+        </svg>
+        <span className="text-sm font-semibold tracking-tight flex-1">{title}</span>
+        <span className="text-[10px] text-muted-foreground/50 group-hover:text-muted-foreground/70 transition-colors">
+          {open ? '收起' : '展开'}
         </span>
-        <span className="text-sm font-semibold tracking-tight">{title}</span>
       </button>
       {open && <div className="px-4 pb-3">{children}</div>}
     </div>
   )
 }
 
-// ---- Image with fallback ----
+// ---- Card-style image with frame bg and rarity band (like refinement planner) ----
 
-function GuideImage({ src, alt, size = 'md' }: { src: string | null; alt: string; size?: 'sm' | 'md' | 'lg' }) {
-  const dims = size === 'sm' ? 'w-8 h-8' : size === 'lg' ? 'w-12 h-12' : 'w-10 h-10'
+function GuideCard({
+  src,
+  alt,
+  size = 'md',
+  rarity,
+}: {
+  src: string | null
+  alt: string
+  size?: 'sm' | 'md' | 'lg' | 'xl'
+  rarity?: number | null
+}) {
+  const dimClass = size === 'sm' ? 'w-14 h-14' : size === 'lg' ? 'w-24 h-24' : size === 'xl' ? 'w-28 h-28' : 'w-20 h-20'
+  const nameClass = size === 'sm' ? 'text-[10px]' : size === 'lg' ? 'text-xs' : size === 'xl' ? 'text-[13px]' : 'text-[11px]'
   if (!src) return null
   return (
-    <div className={cn(dims, 'rounded-md bg-muted/50 shrink-0 flex items-center justify-center overflow-hidden')}>
+    <div
+      className={cn(
+        dimClass,
+        'relative shrink-0 rounded-lg overflow-hidden',
+        'bg-[url(/images/item-frame-bg.png)] bg-cover bg-center'
+      )}
+    >
       <img
         src={src}
         alt={alt}
-        className="w-full h-full object-contain"
+        className="absolute inset-0 w-full h-full object-contain z-10"
         loading="lazy"
         onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }}
       />
+      {/* Rarity band */}
+      {rarity && (
+        <img
+          src={`/images/item-band-${rarity}.png`}
+          alt=""
+          className="absolute bottom-0 left-0 right-0 z-20 w-full object-cover object-bottom pointer-events-none"
+          onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }}
+        />
+      )}
+      {/* Name on image */}
+      <div className="absolute bottom-0.5 left-0 right-0 z-30 px-1 text-center">
+        <p className={cn('leading-tight font-semibold text-stone-100 truncate drop-shadow-md', nameClass)}>
+          {alt}
+        </p>
+      </div>
     </div>
   )
 }
@@ -105,24 +142,29 @@ const EquipEntryBadge = memo(function EquipEntryBadge({
   entry,
   type,
   size = 'md',
+  isRecommended = false,
 }: {
   entry: GuideEquipEntry | null
   type: 'weapon' | 'equip'
-  size?: 'sm' | 'md' | 'lg'
+  size?: 'sm' | 'md' | 'lg' | 'xl'
+  isRecommended?: boolean
 }) {
   if (!entry || !entry.name) {
     return <span className="text-xs text-muted-foreground/40 italic">--</span>
   }
   const imgSrc = type === 'weapon' ? getWeaponImageSrc(entry.name) : getEquipImageSrc(entry.name)
   return (
-    <span className="inline-flex items-center gap-1.5">
-      <GuideImage src={imgSrc} alt={entry.name} size={size} />
-      <span className="text-xs text-muted-foreground/70">{entry.name}</span>
-      {entry.rarity && (
-        <span className="text-[10px] font-geist-mono" style={{ color: entry.rarity >= 6 ? '#ff7100' : '#ffcc00' }}>{entry.rarity}★</span>
-      )}
+    <span className="inline-flex flex-col items-center gap-0.5">
+      <div className="relative">
+        <GuideCard src={imgSrc} alt={entry.name} size={size} rarity={entry.rarity} />
+        {isRecommended && (
+          <span className="absolute -top-1 -right-1 z-40 px-1 py-px rounded text-[8px] font-semibold bg-ship-red text-white shadow-sm">
+            推荐
+          </span>
+        )}
+      </div>
       {entry.note && (
-        <span className="text-[10px] text-muted-foreground/60">({entry.note})</span>
+        <span className="text-[9px] text-muted-foreground/60">({entry.note})</span>
       )}
     </span>
   )
@@ -130,16 +172,18 @@ const EquipEntryBadge = memo(function EquipEntryBadge({
 
 // ---- Equip row display ----
 
+const EQUIP_SLOT_LABELS = ['护甲', '手套', '配件', '配件']
+
 const EquipRowDisplay = memo(function EquipRowDisplay({ row }: { row: GuideEquipRow }) {
   return (
     <div className="py-3 border-b border-border/15 last:border-b-0">
       {/* Weapons */}
-      <div className="flex items-start gap-3 mb-2">
+      <div className="flex items-start gap-3 mb-3">
         <span className="text-[11px] text-muted-foreground shrink-0 w-10 pt-1">武器</span>
-        <div className="flex flex-wrap gap-x-6 gap-y-2">
+        <div className="flex flex-wrap gap-x-4 gap-y-3">
           {row.weapons.length > 0 ? (
             row.weapons.map((w, wi) => (
-              <EquipEntryBadge key={wi} entry={w} type="weapon" size="lg" />
+              <EquipEntryBadge key={wi} entry={w} type="weapon" size="xl" isRecommended={wi === 0 && row.weapons.length > 1} />
             ))
           ) : (
             <span className="text-xs text-muted-foreground/40 italic">--</span>
@@ -147,11 +191,15 @@ const EquipRowDisplay = memo(function EquipRowDisplay({ row }: { row: GuideEquip
         </div>
       </div>
       {/* Equipment slots */}
-      <div className="flex flex-wrap gap-x-6 gap-y-2 ml-10">
+      <div className="flex flex-wrap gap-x-4 gap-y-3 ml-10">
         {row.equipment.map((eq, ei) => (
-          <div key={ei} className="flex items-center gap-1">
-            <span className="text-[10px] text-muted-foreground/50 font-geist-mono mr-1">槽{ei + 1}</span>
-            <EquipEntryBadge entry={eq} type="equip" size="md" />
+          <div key={ei} className="flex flex-col items-center gap-0.5">
+            <span className="text-[10px] text-muted-foreground/50">{EQUIP_SLOT_LABELS[ei] || `槽${ei + 1}`}</span>
+            {eq ? (
+              <EquipEntryBadge entry={eq} type="equip" size="xl" />
+            ) : (
+              <span className="text-xs text-muted-foreground/30 italic">--</span>
+            )}
           </div>
         ))}
       </div>
@@ -161,30 +209,64 @@ const EquipRowDisplay = memo(function EquipRowDisplay({ row }: { row: GuideEquip
 
 // ---- Team slot display ----
 
-const TeamSlotDisplay = memo(function TeamSlotDisplay({ slot }: { slot: TeamSlot }) {
+const TeamSlotDisplay = memo(function TeamSlotDisplay({
+  slot,
+  index,
+}: {
+  slot: TeamSlot
+  index: number
+}) {
   return (
-    <div className="py-3 border-b border-border/15 last:border-b-0">
-      {slot.options.map((opt, oi) => (
-        <OptionDisplay key={oi} option={opt} />
-      ))}
+    <div className="py-4 border-b border-border/15 last:border-b-0">
+      {/* Position label */}
+      <div className="flex items-center gap-2 mb-3">
+        <span className="text-xs font-semibold text-foreground/80 bg-muted px-2 py-0.5 rounded">
+          {index + 1}号位
+        </span>
+        {slot.name && (
+          <span className="text-[11px] text-muted-foreground">{slot.name}</span>
+        )}
+      </div>
+      {/* Options */}
+      <div className="space-y-3">
+        {slot.options.map((opt, oi) => (
+          <div key={oi}>
+            <OptionDisplay
+              option={opt}
+              isRecommended={oi === 0 && slot.options.length > 1}
+              isAlternative={oi > 0}
+            />
+          </div>
+        ))}
+      </div>
     </div>
   )
 })
 
-function OptionDisplay({ option }: { option: TeamSlotOption }) {
+function OptionDisplay({ option, isRecommended, isAlternative }: { option: TeamSlotOption; isRecommended?: boolean; isAlternative?: boolean }) {
   return (
-    <div className="flex items-start gap-3 mb-2 last:mb-0">
-      <div className="w-9 h-9 rounded-full bg-muted shrink-0 flex items-center justify-center overflow-hidden shadow-[0px_0px_0px_1px_rgba(0,0,0,0.08)]">
-        <img
-          src={`/images/characters/${option.name}.avif`}
-          alt={option.name}
-          className="w-full h-full object-cover"
-          loading="lazy"
-          onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }}
-        />
+    <div className={cn('flex items-start gap-3', isAlternative && 'ml-8 opacity-75')}>
+      {isAlternative && (
+        <span className="text-[9px] text-muted-foreground/50 shrink-0 mt-2 leading-none">或</span>
+      )}
+      <div className="relative shrink-0">
+        <div className="w-10 h-10 rounded-full bg-muted flex items-center justify-center overflow-hidden shadow-[0px_0px_0px_1px_rgba(0,0,0,0.08)]">
+          <img
+            src={`/images/characters/${option.name}.avif`}
+            alt={option.name}
+            className="w-full h-full object-cover"
+            loading="lazy"
+            onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }}
+          />
+        </div>
+        {isRecommended && (
+          <span className="absolute -top-1 -right-1 z-10 px-1 py-px rounded text-[8px] font-semibold bg-ship-red text-white shadow-sm">
+            推荐
+          </span>
+        )}
       </div>
       <div className="min-w-0 flex-1">
-        <div className="flex items-center gap-1.5 mb-1">
+        <div className="flex items-center gap-1.5 mb-2">
           <span className="text-sm font-medium">{option.name}</span>
           {option.tag && (
             <Badge variant="outline" className="text-[10px] px-1.5 py-0 h-4">
@@ -192,26 +274,24 @@ function OptionDisplay({ option }: { option: TeamSlotOption }) {
             </Badge>
           )}
         </div>
-        <div className="space-y-1.5">
+        <div className="space-y-2">
           {option.weapons.length > 0 && (
-            <div className="flex flex-wrap gap-x-4 gap-y-1.5">
+            <div className="flex flex-wrap gap-x-4 gap-y-2">
               {option.weapons.map((w, wi) => (
-                <span key={wi} className="inline-flex items-center gap-1.5">
-                  <GuideImage src={getWeaponImageSrc(w.name)} alt={w.name} size="sm" />
-                  <span className="text-xs text-muted-foreground/70">{w.name}</span>
-                  {w.rarity && <span className="text-[10px] font-geist-mono" style={{ color: w.rarity >= 6 ? '#ff7100' : '#ffcc00' }}>{w.rarity}★</span>}
-                  {w.note && <span className="text-[10px] text-muted-foreground/60">({w.note})</span>}
+                <span key={wi} className="inline-flex flex-col items-center gap-0.5">
+                  <GuideCard src={getWeaponImageSrc(w.name)} alt={w.name} size="md" rarity={w.rarity} />
+                  <span className="text-[11px] text-muted-foreground/70 max-w-[80px] text-center leading-tight">{w.name}</span>
+                  {w.note && <span className="text-[9px] text-muted-foreground/60">({w.note})</span>}
                 </span>
               ))}
             </div>
           )}
           {option.equipment.length > 0 && (
-            <div className="flex flex-wrap gap-x-4 gap-y-1.5">
+            <div className="flex flex-wrap gap-x-4 gap-y-2">
               {option.equipment.map((eq, ei) => (
-                <span key={ei} className="inline-flex items-center gap-1.5">
-                  <GuideImage src={getEquipImageSrc(eq.name)} alt={eq.name} size="sm" />
-                  <span className="text-xs text-muted-foreground/70">{eq.name}</span>
-                  {eq.rarity && <span className="text-[10px] font-geist-mono" style={{ color: eq.rarity >= 6 ? '#ff7100' : '#ffcc00' }}>{eq.rarity}★</span>}
+                <span key={ei} className="inline-flex flex-col items-center gap-0.5">
+                  <GuideCard src={getEquipImageSrc(eq.name)} alt={eq.name} size="md" rarity={eq.rarity} />
+                  <span className="text-[11px] text-muted-foreground/70 max-w-[80px] text-center leading-tight">{eq.name}</span>
                 </span>
               ))}
             </div>
@@ -269,7 +349,7 @@ export const CharacterDetail = memo(function CharacterDetail({
       {/* Header card + basic info */}
       <div className="relative px-4 pt-4 pb-3">
         {/* Card image (partially transparent background) */}
-        <div className="absolute top-0 right-0 w-40 h-40 opacity-15 pointer-events-none select-none">
+        <div className="absolute top-0 right-0 w-72 h-72 opacity-18 pointer-events-none select-none">
           <img
             src={cardPath}
             alt=""
@@ -525,7 +605,7 @@ function GuideView({ character }: { character: CharacterGuideData }) {
       {guide.teamSlots.length > 0 && (
         <CollapsibleSection title={t('charGuide.teamRec')}>
           {guide.teamSlots.map((slot, si) => (
-            <TeamSlotDisplay key={si} slot={slot} />
+            <TeamSlotDisplay key={si} slot={slot} index={si} />
           ))}
         </CollapsibleSection>
       )}

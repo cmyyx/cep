@@ -1,6 +1,7 @@
+/* eslint-disable react-hooks/immutability */
 'use client'
 
-import { memo, useCallback } from 'react'
+import { useCallback } from 'react'
 import { useTranslations } from 'next-intl'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
@@ -10,7 +11,7 @@ import { Plus, Trash2, ChevronUp, ChevronDown } from 'lucide-react'
 
 const ENTRY_LIST_STYLE = 'border border-border/30 rounded-md p-3 space-y-2'
 
-export const EditorTalentsTab = memo(function EditorTalentsTab({
+export function EditorTalentsTab({
   draft,
 }: {
   draft: EditorDraftCharacter
@@ -254,4 +255,4 @@ export const EditorTalentsTab = memo(function EditorTalentsTab({
       </div>
     </div>
   )
-})
+}

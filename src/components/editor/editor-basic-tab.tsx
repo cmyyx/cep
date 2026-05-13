@@ -1,11 +1,13 @@
+/* eslint-disable react-hooks/immutability */
 'use client'
 
-import { memo, useCallback } from 'react'
+import { useCallback, useMemo, useState, useEffect, useRef } from 'react'
 import { useTranslations } from 'next-intl'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { useEditorStore } from '@/stores/useEditorStore'
 import type { EditorDraftCharacter } from '@/stores/useEditorStore'
+import { cn } from '@/lib/utils'
 
 const STAT_KEYS = [
   { key: 'strength' as const, labelKey: 'charGuide.stat_strength' },
@@ -16,17 +18,69 @@ const STAT_KEYS = [
   { key: 'hp' as const, labelKey: 'charGuide.stat_hp' },
 ]
 
-export const EditorBasicTab = memo(function EditorBasicTab({
+export function EditorBasicTab({
   draft,
 }: {
   draft: EditorDraftCharacter
 }) {
   const t = useTranslations()
   const markDirty = useEditorStore((s) => s.markDirty)
+  const setSelectedId = useEditorStore((s) => s.setSelectedId)
+  const allDrafts = useEditorStore((s) => s.draftCharacters)
+
+  // Local ID state — tracks what the user sees in the input.
+  // Only committed to draft.id when it's valid (no collision).
+  const [localId, setLocalId] = useState(draft.id)
+
+  // Sync localId when the draft changes externally (e.g. switching characters)
+  const prevDraftRef = useRef(draft)
+  useEffect(() => {
+    if (prevDraftRef.current !== draft) {
+      setLocalId(draft.id)
+      prevDraftRef.current = draft
+    }
+  }, [draft])
+
+  // Check if the local ID collides with another draft (not self)
+  const idCollision = useMemo(() => {
+    const normalized = localId.toLowerCase()
+    return allDrafts.find(
+      (c) => c.id.toLowerCase() === normalized && c.id !== draft.id
+    )
+  }, [localId, allDrafts, draft.id])
+
+  // Commit ID to draft only when it's valid (unique)
+  const commitId = useCallback(
+    (newId: string) => {
+      const normalized = newId.toLowerCase()
+      if (!normalized) return false // don't commit empty
+      const collision = allDrafts.find(
+        (c) => c.id.toLowerCase() === normalized && c.id !== draft.id
+      )
+      if (collision) return false
+      const oldId = draft.id
+      ;(draft as unknown as Record<string, unknown>)['id'] = normalized
+      if (normalized !== oldId) {
+        setSelectedId(normalized)
+      }
+      markDirty(normalized)
+      return true
+    },
+    [draft, allDrafts, setSelectedId, markDirty]
+  )
+
+  const handleIdChange = useCallback(
+    (value: string) => {
+      // Only allow lowercase letters a-z
+      const filtered = value.replace(/[^a-zA-Z]/g, '').toLowerCase()
+      setLocalId(filtered)
+      commitId(filtered)
+    },
+    [commitId]
+  )
 
   const updateField = useCallback(
     (field: string, value: string | number) => {
-      // Mutate draft directly (editor store holds the reference)
       ;(draft as unknown as Record<string, unknown>)[field] = value
       markDirty(draft.id)
     },
@@ -49,11 +103,19 @@ export const EditorBasicTab = memo(function EditorBasicTab({
         <div className="space-y-1.5">
           <Label className="text-xs">{t('editor.fieldId')}</Label>
           <Input
-            value={draft.id}
-            onChange={(e) => updateField('id', e.target.value.toLowerCase())}
-            className="h-8 text-sm"
+            value={localId}
+            onChange={(e) => handleIdChange(e.target.value)}
+            className={cn('h-8 text-sm font-geist-mono', idCollision && 'border-ship-red ring-1 ring-ship-red/30')}
             placeholder="character-id"
+            pattern="[a-z]+"
+            autoComplete="off"
+            spellCheck={false}
           />
+          {idCollision && (
+            <p className="text-[10px] text-ship-red leading-tight">
+              {t('editor.idDuplicate', { existing: idCollision.name || idCollision.id })}
+            </p>
+          )}
         </div>
         <div className="space-y-1.5">
           <Label className="text-xs">{t('editor.fieldName')}</Label>
@@ -141,4 +203,4 @@ export const EditorBasicTab = memo(function EditorBasicTab({
       </div>
     </div>
   )
-})
+}

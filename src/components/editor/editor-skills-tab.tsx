@@ -1,6 +1,7 @@
+/* eslint-disable react-hooks/immutability */
 'use client'
 
-import { memo, useCallback, useState } from 'react'
+import { useCallback, useState } from 'react'
 import { useTranslations } from 'next-intl'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
@@ -10,7 +11,7 @@ import { Plus, Trash2, ChevronDown, ChevronRight } from 'lucide-react'
 
 const SKILL_LABELS = ['Lv1', 'Lv2', 'Lv3', 'Lv4', 'Lv5', 'Lv6', 'Lv7', 'Lv8', 'Lv9', 'M1', 'M2', 'M3']
 
-export const EditorSkillsTab = memo(function EditorSkillsTab({
+export function EditorSkillsTab({
   draft,
 }: {
   draft: EditorDraftCharacter
@@ -116,18 +117,6 @@ export const EditorSkillsTab = memo(function EditorSkillsTab({
     [draft, dirty]
   )
 
-  const fillAllLevels = useCallback(
-    (skillIndex: number, tableIndex: number, rowIndex: number) => {
-      const row = draft.skills[skillIndex]?.dataTables?.[tableIndex]?.rows?.[rowIndex]
-      if (!row) return
-      // Fill with the first non-empty value if available, else empty
-      const existing = Array.isArray(row.values) ? row.values.find((v) => v !== '') : ''
-      row.values = new Array(12).fill(existing || '')
-      dirty()
-    },
-    [draft, dirty]
-  )
-
   return (
     <div className="space-y-4 max-w-[960px]">
       <div className="flex items-center justify-between">
@@ -215,11 +204,10 @@ export const EditorSkillsTab = memo(function EditorSkillsTab({
 
                   {table.rows.length > 0 && (
                     <div className="overflow-x-auto">
-                      <div className="min-w-[1100px]">
+                      <div className="min-w-[1050px]">
                         {/* Column headers */}
                         <div className="flex items-center gap-0.5 mb-1 text-[10px] text-muted-foreground">
                           <div className="w-28 shrink-0" />
-                          <div className="w-12 shrink-0" />
                           {SKILL_LABELS.map((label) => (
                             <div key={label} className="w-[72px] shrink-0 text-right font-geist-mono pr-1">
                               {label}
@@ -237,15 +225,6 @@ export const EditorSkillsTab = memo(function EditorSkillsTab({
                               placeholder="参数名"
                               className="h-7 text-xs w-28 shrink-0"
                             />
-                            <Button
-                              variant="ghost"
-                              size="sm"
-                              onClick={(e) => { e.preventDefault(); fillAllLevels(si, ti, ri) }}
-                              className="h-7 px-1 text-[10px] shrink-0 w-12"
-                              title={t('editor.fillAllLevels')}
-                            >
-                              Fill
-                            </Button>
                             {SKILL_LABELS.map((_, li) => (
                               <Input
                                 key={li}
@@ -287,4 +266,4 @@ export const EditorSkillsTab = memo(function EditorSkillsTab({
       ))}
     </div>
   )
-})
+}

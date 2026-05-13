@@ -5,7 +5,7 @@ import { useTranslations } from 'next-intl'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
-import { ElementDot, RarityStars } from './element-badge'
+import { RarityStars } from './element-badge'
 import type { CharacterGuideData } from '@/types/character-guide'
 
 interface CharacterListProps {
@@ -164,7 +164,7 @@ export const CharacterList = memo(function CharacterList({
                 <div className="text-sm font-medium truncate">{char.name}</div>
                 <div className="flex items-center gap-1.5 mt-0.5">
                   <RarityStars rarity={char.rarity} />
-                  <ElementDot element={char.element} />
+                  <span className="text-[11px] text-muted-foreground ml-1">{char.element}</span>
                 </div>
               </div>
             </button>

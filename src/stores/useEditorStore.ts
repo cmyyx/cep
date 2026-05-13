@@ -1,10 +1,15 @@
 import { create } from 'zustand'
 import { persist, createJSONStorage } from 'zustand/middleware'
 import type { CharacterGuideData } from '@/types/character-guide'
+import { characterGuideList } from '@/data/characters'
 
 // ---- Editor draft types ----
 
 export interface EditorDraftCharacter extends CharacterGuideData {
+  /** Whether this character is from source data (read-only, must fork to edit) */
+  isSource?: boolean
+  /** Which source character ID this was forked from (if any) */
+  forkedFrom?: string
   /** Raw JSON strings for each editable field (for JSON editor tab) */
   jsonDrafts?: {
     skills: string
@@ -15,7 +20,7 @@ export interface EditorDraftCharacter extends CharacterGuideData {
   jsonErrors?: Partial<Record<'skills' | 'talents' | 'baseSkills' | 'guide', string>>
 }
 
-export type GuideSubTab = 'attribution' | 'equip' | 'analysis' | 'team'
+export type GuideSubTab = 'equip' | 'analysis' | 'team'
 
 export type EditorTab = 'basic' | 'skills' | 'talents' | 'materials' | 'guide' | 'attributions'
 
@@ -35,11 +40,14 @@ interface EditorStoreState {
   // Actions — draft management
   initDrafts: (characters: CharacterGuideData[]) => void
   addDraftCharacter: () => EditorDraftCharacter
+  addImportedCharacter: (data: CharacterGuideData) => EditorDraftCharacter | undefined
   removeDraftCharacter: (id: string) => void
   markDirty: (id: string) => void
   markClean: (id: string) => void
   resetFromBase: (characters: CharacterGuideData[]) => void
   getDraft: (id: string) => EditorDraftCharacter | undefined
+  forkCharacter: (id: string) => EditorDraftCharacter | undefined
+  isSourceCharacter: (id: string) => boolean
 
   // Actions — UI
   setActiveTab: (tab: EditorTab) => void
@@ -77,9 +85,10 @@ function createEmptyCharacter(): CharacterGuideData {
   }
 }
 
-function toDraft(data: CharacterGuideData): EditorDraftCharacter {
+function toDraft(data: CharacterGuideData, isSource = false): EditorDraftCharacter {
   return {
     ...data,
+    isSource,
     skills: data.skills?.map((s) => ({ ...s, dataTables: s.dataTables?.map((t) => ({ ...t })) })) ?? [],
     talents: data.talents?.map((t) => ({ ...t })) ?? [],
     baseSkills: data.baseSkills?.map((b) => ({ ...b })) ?? [],
@@ -109,26 +118,44 @@ function toDraft(data: CharacterGuideData): EditorDraftCharacter {
   }
 }
 
+// Build fresh source drafts from the static character list
+function buildSourceDrafts(): EditorDraftCharacter[] {
+  return (characterGuideList as CharacterGuideData[]).map((c) => toDraft(c, true))
+}
+
+interface PersistedState {
+  draftCharacters: EditorDraftCharacter[]
+  selectedId: string | null
+  activeTab: EditorTab
+  guideSubTab: GuideSubTab
+  expandedSections: Record<string, boolean>
+  editorPickerOpen: boolean
+}
+
 export const useEditorStore = create<EditorStoreState>()(
   persist(
     (set, get) => ({
-      draftCharacters: [],
+      draftCharacters: buildSourceDrafts(),
       draftVersion: 0,
       selectedId: null,
       dirtyIds: new Set(),
       activeTab: 'basic',
-      guideSubTab: 'attribution',
+      guideSubTab: 'equip',
       expandedSections: {},
       editorPickerOpen: true,
 
       initDrafts: (characters) => {
-        const drafts = characters.map(toDraft)
-        set({ draftCharacters: drafts, dirtyIds: new Set() })
+        const source = characters.map((c) => toDraft(c, true))
+        // Merge with existing non-source drafts
+        const { draftCharacters } = get()
+        const modified = draftCharacters.filter((c) => !c.isSource)
+        const sourceIds = new Set(source.map((c) => c.id))
+        const cleanModified = modified.filter((c) => !sourceIds.has(c.id))
+        set({ draftCharacters: [...source, ...cleanModified], dirtyIds: new Set() })
       },
 
       addDraftCharacter: () => {
         const empty = createEmptyCharacter()
-        // Auto-generate unique ID
         const { draftCharacters } = get()
         const usedIds = new Set(draftCharacters.map((c) => c.id))
         let baseId = 'new'
@@ -149,6 +176,18 @@ export const useEditorStore = create<EditorStoreState>()(
             selectedId: draft.id,
           }
         })
+        return draft
+      },
+
+      addImportedCharacter: (data) => {
+        const { draftCharacters: currentDrafts } = get()
+        // Skip if ID already exists
+        if (currentDrafts.find((c) => c.id === data.id)) return undefined
+        const draft = toDraft(data, false)
+        set((s) => ({
+          draftCharacters: [...s.draftCharacters, draft],
+          selectedId: draft.id,
+        }))
         return draft
       },
 
@@ -189,8 +228,50 @@ export const useEditorStore = create<EditorStoreState>()(
       },
 
       resetFromBase: (characters) => {
-        const drafts = characters.map(toDraft)
-        set({ draftCharacters: drafts, dirtyIds: new Set() })
+        const source = characters.map((c) => toDraft(c, true))
+        const { draftCharacters } = get()
+        const modified = draftCharacters.filter((c) => !c.isSource)
+        const sourceIds = new Set(source.map((c) => c.id))
+        const cleanModified = modified.filter((c) => !sourceIds.has(c.id))
+        set({ draftCharacters: [...source, ...cleanModified], dirtyIds: new Set() })
+      },
+
+      forkCharacter: (id) => {
+        const { draftCharacters } = get()
+        const source = draftCharacters.find((c) => c.id === id)
+        if (!source) return undefined
+        // Generate new unique ID
+        const usedIds = new Set(draftCharacters.map((c) => c.id))
+        let newId = `${source.id}-fork`
+        let counter = 1
+        while (usedIds.has(newId)) {
+          newId = `${source.id}-fork-${counter}`
+          counter++
+        }
+        const forked: EditorDraftCharacter = {
+          ...JSON.parse(JSON.stringify(source)),
+          id: newId,
+          // Keep original name, don't append "(Fork)"
+          isSource: false,
+          forkedFrom: source.id,
+          jsonDrafts: undefined,
+          jsonErrors: undefined,
+        }
+        set((s) => {
+          const newDirty = new Set(s.dirtyIds)
+          newDirty.add(newId)
+          return {
+            draftCharacters: [...s.draftCharacters, forked],
+            dirtyIds: newDirty,
+            selectedId: newId,
+          }
+        })
+        return forked
+      },
+
+      isSourceCharacter: (id) => {
+        const draft = get().draftCharacters.find((c) => c.id === id)
+        return draft?.isSource ?? false
       },
 
       getDraft: (id) => {
@@ -211,29 +292,46 @@ export const useEditorStore = create<EditorStoreState>()(
       setEditorPickerOpen: (open) => set({ editorPickerOpen: open }),
     }),
     {
-      name: 'cep-editor-drafts:v1',
+      name: 'cep-editor-drafts',
       storage: createJSONStorage(() => localStorage),
-      version: 1,
-      partialize: (state) => ({
-        draftCharacters: state.draftCharacters.map((c) => {
-          // Strip jsonDrafts and jsonErrors from persisted data
-          const { jsonDrafts: _jd, jsonErrors: _je, ...rest } = c
-          return rest
-        }),
-        dirtyIds: [...state.dirtyIds],
+      version: 2,
+      partialize: (state): PersistedState => ({
+        // Only persist NON-source characters (modified drafts)
+        draftCharacters: state.draftCharacters
+          .filter((c) => !c.isSource)
+          .map((c) => {
+            const { jsonDrafts: _jd, jsonErrors: _je, ...rest } = c
+            return rest as EditorDraftCharacter
+          }),
         selectedId: state.selectedId,
         activeTab: state.activeTab,
         guideSubTab: state.guideSubTab,
         expandedSections: state.expandedSections,
-        draftVersion: state.draftVersion,
+        editorPickerOpen: state.editorPickerOpen,
       }),
       merge: (persisted, current) => {
-        const p = persisted as Partial<EditorStoreState>
+        const p = persisted as Partial<PersistedState>
+        const persistedDrafts = (p.draftCharacters || []) as EditorDraftCharacter[]
+
+        // Always use fresh source characters from the codebase
+        const sourceDrafts = buildSourceDrafts()
+
+        // Keep persisted modified drafts that don't collide with source IDs
+        const sourceIds = new Set(sourceDrafts.map((d) => d.id))
+        const modifiedDrafts = persistedDrafts.filter(
+          (d) => !sourceIds.has(d.id)
+        )
+
         return {
           ...current,
-          ...p,
-          dirtyIds: new Set(p.dirtyIds ?? []),
-          draftVersion: p.draftVersion ?? 0,
+          draftCharacters: [...sourceDrafts, ...modifiedDrafts],
+          dirtyIds: new Set(),
+          draftVersion: 0,
+          selectedId: p.selectedId ?? null,
+          activeTab: p.activeTab ?? 'basic',
+          guideSubTab: p.guideSubTab ?? 'equip',
+          expandedSections: p.expandedSections ?? {},
+          editorPickerOpen: p.editorPickerOpen ?? true,
         }
       },
     }

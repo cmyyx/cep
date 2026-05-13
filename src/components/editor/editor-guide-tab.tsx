@@ -1,6 +1,7 @@
+/* eslint-disable react-hooks/immutability */
 'use client'
 
-import { memo, useCallback } from 'react'
+import { useCallback } from 'react'
 import { useTranslations } from 'next-intl'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -16,7 +17,7 @@ const GUIDE_SUB_TABS: { key: GuideSubTab; labelKey: string }[] = [
   { key: 'team', labelKey: 'editor.guideTeamSlots' },
 ]
 
-export const EditorGuideTab = memo(function EditorGuideTab({
+export function EditorGuideTab({
   draft,
 }: {
   draft: EditorDraftCharacter
@@ -320,8 +321,8 @@ export const EditorGuideTab = memo(function EditorGuideTab({
                     const eq = row.equipment[ei]
                     return (
                       <div key={ei} className="flex items-center gap-1">
-                        <span className="text-[10px] text-muted-foreground w-5 font-geist-mono">
-                          {ei + 1}
+                        <span className="text-[10px] text-muted-foreground w-8">
+                          {['护甲', '手套', '配件', '配件'][ei]}
                         </span>
                         {eq ? (
                           <>
@@ -596,4 +597,4 @@ export const EditorGuideTab = memo(function EditorGuideTab({
       )}
     </div>
   )
-})
+}

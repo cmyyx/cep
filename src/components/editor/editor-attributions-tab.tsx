@@ -1,6 +1,7 @@
+/* eslint-disable react-hooks/immutability */
 'use client'
 
-import { memo, useCallback } from 'react'
+import { useCallback } from 'react'
 import { useTranslations } from 'next-intl'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
@@ -8,7 +9,7 @@ import { useEditorStore } from '@/stores/useEditorStore'
 import type { EditorDraftCharacter } from '@/stores/useEditorStore'
 import { Plus, Trash2 } from 'lucide-react'
 
-export const EditorAttributionsTab = memo(function EditorAttributionsTab({
+export function EditorAttributionsTab({
   draft,
 }: {
   draft: EditorDraftCharacter
@@ -99,4 +100,4 @@ export const EditorAttributionsTab = memo(function EditorAttributionsTab({
       ))}
     </div>
   )
-})
+}

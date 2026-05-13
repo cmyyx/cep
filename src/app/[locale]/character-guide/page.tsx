@@ -59,7 +59,7 @@ export default function CharacterGuidePage() {
       {/* Content area — two column layout */}
       <div className="flex flex-1 min-h-0 overflow-hidden">
         {/* Left column: character list (desktop) */}
-        <div className="hidden md:flex w-64 shrink-0 flex-col border-r border-border/30 overflow-hidden bg-background">
+        <div className="hidden md:flex w-64 shrink-0 flex-col border-r border-border/30 overflow-hidden">
           <CharacterList
             characters={characters}
             selectedId={selectedId}
