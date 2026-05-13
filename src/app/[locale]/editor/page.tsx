@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useCallback, useRef, useMemo } from 'react'
+import Image from 'next/image'
 import { useTranslations } from 'next-intl'
 import { SidebarTrigger } from '@/components/ui/sidebar'
 import { Button } from '@/components/ui/button'
@@ -25,19 +26,10 @@ const TABS: { key: EditorTab; labelKey: string }[] = [
   { key: 'attributions', labelKey: 'editor.guideAttributions' },
 ]
 
-/** Parse imported text (JSON or IIFE script) into an array of character objects */
+/** Parse imported text (JSON only) into an array of character objects */
 function parseImportText(text: string): Record<string, unknown>[] {
-  try {
-    const json = JSON.parse(text)
-    return Array.isArray(json) ? json : [json]
-  } catch {
-    // Try IIFE format
-    const sandbox: { characters: Record<string, unknown>[] } = { characters: [] }
-    const sandboxWindow = { characters: sandbox.characters }
-    const fn = new Function('window', `${text}\nreturn window.characters;`)
-    const result = fn(sandboxWindow)
-    return Array.isArray(result) ? result : sandbox.characters
-  }
+  const json = JSON.parse(text)
+  return Array.isArray(json) ? json : [json]
 }
 
 export default function EditorPage() {
@@ -57,6 +49,7 @@ export default function EditorPage() {
 
   // Search for character picker
   const [search, setSearch] = useState('')
+  const [failedImages, setFailedImages] = useState<Set<string>>(new Set())
 
   // Stable mount key — only changes on explicit sidebar selection, not on ID edit
   const [mountedDraftKey, setMountedDraftKey] = useState(0)
@@ -154,7 +147,7 @@ export default function EditorPage() {
         <input
           ref={fileInputRef}
           type="file"
-          accept=".js,.json"
+          accept=".json"
           className="hidden"
           onChange={handleImport}
         />
@@ -190,7 +183,7 @@ export default function EditorPage() {
               className="h-8 text-sm"
             />
           </div>
-          <div className="flex-1 overflow-y-auto">
+          <div className="flex-1 overflow-y-scroll">
             {filteredDrafts.length === 0 ? (
               <div className="p-3 text-sm text-muted-foreground text-center">
                 {t('charFilter.noMatch')}
@@ -212,15 +205,17 @@ export default function EditorPage() {
                     )}
                   >
                     <div className="w-7 h-7 rounded-full bg-muted shrink-0 flex items-center justify-center overflow-hidden shadow-[0px_0px_0px_1px_rgba(0,0,0,0.08)]">
-                      <img
-                        src={`/images/characters/${draft.name}.avif`}
-                        alt={draft.name}
-                        className="w-full h-full object-cover"
-                        loading="lazy"
-                        onError={(e) => {
-                          ;(e.target as HTMLImageElement).style.display = 'none'
-                        }}
-                      />
+                      {!failedImages.has(draft.id) && (
+                        <Image
+                          src={`/images/characters/${draft.name}.avif`}
+                          alt={draft.name}
+                          width={28}
+                          height={28}
+                          className="object-cover"
+                          unoptimized
+                          onError={() => setFailedImages((prev) => new Set(prev).add(draft.id))}
+                        />
+                      )}
                     </div>
                     <div className="min-w-0 flex-1">
                       <div className="text-sm font-medium truncate flex items-center gap-1">
@@ -280,7 +275,7 @@ export default function EditorPage() {
               </div>
 
               {/* Tab content — keyed only by selectedId to preserve input focus */}
-              <div className={cn('flex-1 overflow-y-auto p-4', selectedIsSource && 'opacity-80 pointer-events-none')}>
+              <div className={cn('flex-1 overflow-y-scroll p-4', selectedIsSource && 'opacity-80 pointer-events-none')}>
                 {activeTab === 'basic' && <EditorBasicTab key={`${mountedDraftKey}-basic`} draft={selectedDraft} />}
                 {activeTab === 'skills' && <EditorSkillsTab key={`${mountedDraftKey}-skills`} draft={selectedDraft} />}
                 {activeTab === 'talents' && <EditorTalentsTab key={`${mountedDraftKey}-talents`} draft={selectedDraft} />}

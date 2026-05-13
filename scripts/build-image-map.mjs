@@ -5,7 +5,7 @@
  * Output: src/data/equip-image-map.json, src/data/weapon-image-map.json
  */
 
-import { readdirSync, readFileSync, writeFileSync, existsSync, mkdirSync } from 'node:fs'
+import { readdirSync, readFileSync, writeFileSync, existsSync } from 'node:fs'
 import { join } from 'node:path'
 
 const AKEDB = 'D:/GitHub/endfield-essence-planner/AKEDatabase/public/CH'

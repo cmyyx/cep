@@ -45,6 +45,10 @@
   --color-preview-pink: #de1d8d;
   --color-develop-blue: #0a72ef;
 
+  /* DESIGN.md rarity star colors (used via text-rarity-6-star / text-rarity-5-star) */
+  --color-rarity-6-star: #ff7100;
+  --color-rarity-5-star: #ffcc00;
+
   /* DESIGN.md radius scale */
   --radius-none: 0;
   --radius-micro: calc(var(--radius) * 0.3333);

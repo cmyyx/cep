@@ -282,13 +282,13 @@ export function EditorGuideTab({
                     <Input
                       value={w.name}
                       onChange={(e) => updateWeapon(ri, wi, 'name', e.target.value)}
-                      placeholder="Name"
+                      placeholder={t('editor.placeholderGuideName')}
                       className="h-7 text-xs flex-1"
                     />
                     <Input
                       value={w.note}
                       onChange={(e) => updateWeapon(ri, wi, 'note', e.target.value)}
-                      placeholder="Note"
+                      placeholder={t('editor.placeholderGuideNote')}
                       className="h-7 text-xs w-20"
                     />
                     <Input
@@ -297,7 +297,7 @@ export function EditorGuideTab({
                       max={6}
                       value={w.rarity ?? ''}
                       onChange={(e) => updateWeapon(ri, wi, 'rarity', e.target.value)}
-                      placeholder="Rarity"
+                      placeholder={t('editor.placeholderGuideRarity')}
                       className="h-7 text-xs w-16"
                       style={{ color: (w.rarity ?? 0) >= 6 ? '#ff7100' : '#ffcc00' }}
                     />
@@ -322,7 +322,7 @@ export function EditorGuideTab({
                     return (
                       <div key={ei} className="flex items-center gap-1">
                         <span className="text-[10px] text-muted-foreground w-8">
-                          {['护甲', '手套', '配件', '配件'][ei]}
+                          {[t('equip.slot.armor'), t('equip.slot.gloves'), t('equip.slot.accessory'), t('equip.slot.accessory2')][ei]}
                         </span>
                         {eq ? (
                           <>
@@ -496,7 +496,7 @@ export function EditorGuideTab({
                             w.name = e.target.value
                             dirty()
                           }}
-                          placeholder="Name"
+                          placeholder={t('editor.placeholderGuideName')}
                           className="h-7 text-xs flex-1"
                         />
                         <Input
@@ -505,7 +505,7 @@ export function EditorGuideTab({
                             w.note = e.target.value
                             dirty()
                           }}
-                          placeholder="Note"
+                          placeholder={t('editor.placeholderGuideNote')}
                           className="h-7 text-xs w-20"
                         />
                         <Input
@@ -517,7 +517,7 @@ export function EditorGuideTab({
                             w.rarity = e.target.value === '' ? null : Number(e.target.value)
                             dirty()
                           }}
-                          placeholder="★"
+                          placeholder={t('editor.placeholderGuideRarity')}
                           className="h-7 text-xs w-12"
                         />
                         <Button
@@ -553,7 +553,7 @@ export function EditorGuideTab({
                             eq.name = e.target.value
                             dirty()
                           }}
-                          placeholder="Name"
+                          placeholder={t('editor.placeholderGuideName')}
                           className="h-7 text-xs flex-1"
                         />
                         <Input
@@ -565,7 +565,7 @@ export function EditorGuideTab({
                             eq.rarity = e.target.value === '' ? null : Number(e.target.value)
                             dirty()
                           }}
-                          placeholder="★"
+                          placeholder={t('editor.placeholderGuideRarity')}
                           className="h-7 text-xs w-12"
                         />
                         <Button

@@ -126,7 +126,7 @@ export function EditorTalentsTab({
                 <Input
                   value={talent.name}
                   onChange={(e) => updateTalent(ti, 'name', e.target.value)}
-                  placeholder="天赋名称"
+                  placeholder={t('editor.placeholderTalentName')}
                   className="h-7 text-sm flex-1"
                 />
                 <Button
@@ -141,7 +141,7 @@ export function EditorTalentsTab({
               <Input
                 value={talent.description}
                 onChange={(e) => updateTalent(ti, 'description', e.target.value)}
-                placeholder="天赋描述"
+                placeholder={t('editor.placeholderTalentDesc')}
                 className="h-7 text-xs"
               />
             </div>
@@ -168,7 +168,7 @@ export function EditorTalentsTab({
                 <Input
                   value={bs.name}
                   onChange={(e) => updateBaseSkill(bi, 'name', e.target.value)}
-                  placeholder="基建技能名称"
+                  placeholder={t('editor.placeholderBaseSkillName')}
                   className="h-7 text-sm flex-1"
                 />
                 <Button
@@ -183,7 +183,7 @@ export function EditorTalentsTab({
               <Input
                 value={bs.description}
                 onChange={(e) => updateBaseSkill(bi, 'description', e.target.value)}
-                placeholder="基建技能描述"
+                placeholder={t('editor.placeholderBaseSkillDesc')}
                 className="h-7 text-xs"
               />
             </div>
@@ -213,7 +213,7 @@ export function EditorTalentsTab({
                 <Input
                   value={pot.name}
                   onChange={(e) => updatePotential(pi, 'name', e.target.value)}
-                  placeholder="潜能名称"
+                  placeholder={t('editor.placeholderPotentialName')}
                   className="h-7 text-sm flex-1"
                 />
                 <Button
@@ -246,7 +246,7 @@ export function EditorTalentsTab({
               <Input
                 value={pot.description}
                 onChange={(e) => updatePotential(pi, 'description', e.target.value)}
-                placeholder="潜能描述"
+                placeholder={t('editor.placeholderPotentialDesc')}
                 className="h-7 text-xs"
               />
             </div>

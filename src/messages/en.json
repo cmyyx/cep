@@ -142,7 +142,8 @@
     "plansTab": "Plans",
     "viewPlans": "View Plans",
     "manageWeapons": "Manage",
-    "viewAllSelected": "View All"
+    "viewAllSelected": "View All",
+    "notePlaceholder": "Click to add note"
   },
   "essenceSettings": {
     "title": "Essence Planner Settings",
@@ -278,7 +279,9 @@
     "maxLevel": "Max (M3)",
     "paramName": "Parameter",
     "infoTab": "Character Info",
-    "guideTab": "Character Guide"
+    "guideTab": "Character Guide",
+    "recommended": "Recommended",
+    "weapon": "Weapon"
   },
   "editor": {
     "title": "Character Guide Editor",
@@ -324,6 +327,39 @@
     "sourceReadOnly": "This character is built-in data and cannot be edited directly.",
     "forkToEdit": "Click to fork and edit",
     "autoSaved": "Auto-saved",
-    "idDuplicate": "ID conflicts with existing character \"{existing}\""
+    "idDuplicate": "ID conflicts with existing character \"{existing}\"",
+    "placeholderCharacterId": "character-id",
+    "placeholderCharacterName": "Character name",
+    "placeholderMaterial": "Material name xQty",
+    "placeholderDataTableTitle": "Table title",
+    "placeholderParamName": "Parameter name",
+    "placeholderTalentName": "Talent name",
+    "placeholderTalentDesc": "Talent description",
+    "placeholderBaseSkillName": "Base skill name",
+    "placeholderBaseSkillDesc": "Base skill description",
+    "placeholderPotentialName": "Potential name",
+    "placeholderPotentialDesc": "Potential description",
+    "placeholderAttributionRole": "Role",
+    "placeholderAttributionName": "Author name",
+    "placeholderAttributionNote": "Note",
+    "placeholderGuideName": "Name",
+    "placeholderGuideNote": "Note",
+    "placeholderGuideRarity": "Rarity"
+  },
+  "common": {
+    "collapse": "Collapse",
+    "expand": "Expand",
+    "or": "or"
+  },
+  "equip": {
+    "slot": {
+      "armor": "Armor",
+      "gloves": "Gloves",
+      "accessory": "Accessory",
+      "accessory2": "Accessory"
+    }
+  },
+  "team": {
+    "slot": "Slot {number}"
   }
 }

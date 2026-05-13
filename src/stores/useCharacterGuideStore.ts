@@ -19,7 +19,7 @@ interface CharacterGuideState {
 
 export const useCharacterGuideStore = create<CharacterGuideState>()(
   (set, get) => ({
-    characters: characterGuideList as CharacterGuideData[],
+    characters: characterGuideList,
     selectedId: null,
 
     setCharacters: (characters) => set({ characters }),
@@ -53,7 +53,7 @@ export const useCharacterGuideStore = create<CharacterGuideState>()(
 
     resetToDefaults: () => {
       set({
-        characters: characterGuideList as CharacterGuideData[],
+        characters: characterGuideList,
         selectedId: null,
       })
     },

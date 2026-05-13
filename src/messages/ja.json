@@ -142,7 +142,8 @@
     "plansTab": "案内",
     "viewPlans": "案を見る",
     "manageWeapons": "武器管理",
-    "viewAllSelected": "全て表示"
+    "viewAllSelected": "全て表示",
+    "notePlaceholder": "タップしてメモ追加"
   },
   "essenceSettings": {
     "title": "マトリクスプランナー設定",
@@ -278,7 +279,9 @@
     "maxLevel": "最大(M3)",
     "paramName": "パラメータ",
     "infoTab": "キャラ情報",
-    "guideTab": "キャラ攻略"
+    "guideTab": "キャラ攻略",
+    "recommended": "おすすめ",
+    "weapon": "武器"
   },
   "editor": {
     "title": "キャラクター攻略エディター",
@@ -324,6 +327,39 @@
     "sourceReadOnly": "このキャラクターは組み込みデータです。直接編集できません。",
     "forkToEdit": "フォークして編集",
     "autoSaved": "自動保存",
-    "idDuplicate": "IDが既存のキャラクター「{existing}」と重複しています"
+    "idDuplicate": "IDが既存のキャラクター「{existing}」と重複しています",
+    "placeholderCharacterId": "character-id",
+    "placeholderCharacterName": "キャラ名",
+    "placeholderMaterial": "素材名 x数量",
+    "placeholderDataTableTitle": "テーブル名",
+    "placeholderParamName": "パラメータ名",
+    "placeholderTalentName": "素質名",
+    "placeholderTalentDesc": "素質説明",
+    "placeholderBaseSkillName": "基地スキル名",
+    "placeholderBaseSkillDesc": "基地スキル説明",
+    "placeholderPotentialName": "潜在名",
+    "placeholderPotentialDesc": "潜在説明",
+    "placeholderAttributionRole": "編集者",
+    "placeholderAttributionName": "作者名",
+    "placeholderAttributionNote": "備考",
+    "placeholderGuideName": "Name",
+    "placeholderGuideNote": "Note",
+    "placeholderGuideRarity": "Rarity"
+  },
+  "common": {
+    "collapse": "折りたたむ",
+    "expand": "展開",
+    "or": "または"
+  },
+  "equip": {
+    "slot": {
+      "armor": "防具",
+      "gloves": "手袋",
+      "accessory": "装飾品",
+      "accessory2": "装飾品"
+    }
+  },
+  "team": {
+    "slot": "{number}番枠"
   }
 }

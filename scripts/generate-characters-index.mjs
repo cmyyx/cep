@@ -7,7 +7,7 @@
  * an index.ts with imports and a lookup map for each character.
  */
 
-import { readdirSync, readFileSync, writeFileSync, existsSync, mkdirSync } from 'node:fs'
+import { readdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { join, dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
@@ -78,5 +78,10 @@ ${listEntries}
 export type { CharacterGuideData }
 `
 
-writeFileSync(OUT_FILE, output)
-console.log(`\nGenerated ${OUT_FILE} with ${entries.length} characters.`)
+try {
+  writeFileSync(OUT_FILE, output)
+  console.log(`\nGenerated ${OUT_FILE} with ${entries.length} characters.`)
+} catch (err) {
+  console.error(`Failed to write ${OUT_FILE}:`, err.message || err)
+  process.exit(1)
+}

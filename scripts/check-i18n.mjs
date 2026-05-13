@@ -218,7 +218,9 @@ function extractKeys(filePath, globalConstants) {
   // 1. Static keys: t('literal') or t("literal")
   for (const m of content.matchAll(/\bt\(\s*['"]([^'"]+)['"]\s*[,)]/g)) {
     const k = m[1]
-    if (/^\w+(\.\w+)+$/.test(k)) keys.add(k)
+    // Accept all keys including dotless ones (may be used with namespaced useTranslations)
+    // Generic single-word tokens are filtered later in cross-reference phase
+    if (/^\w+(\.\w+)*$/.test(k)) keys.add(k)
   }
 
   // 2. Dynamic: t(VAR) — resolve from .map() scope first, then global constants
@@ -249,15 +251,22 @@ function extractKeys(filePath, globalConstants) {
     const varName = m[1]
     const propName = m[2]
     const nearestMap = findNearestMap(m.index)
+    let resolved = false
     if (nearestMap) {
       const binding = nearestMap.bindings.find((b) => b.local === varName)
       if (binding) {
         const propKey = `${nearestMap.arrayName}.${propName}`
         const vals = globalConstants.get(propKey)
-        if (vals) { for (const v of vals) keys.add(v); continue }
+        if (vals) { for (const v of vals) keys.add(v); resolved = true }
       }
     }
-    if (!QUIET) unresolved.push(`${relPath}: t(${varName}.${propName})`)
+    // Fallback: try globalConstants with constructed key like VARNAME.propName
+    if (!resolved) {
+      const compositeKey = `${varName}.${propName}`
+      const vals = globalConstants.get(compositeKey)
+      if (vals) { for (const v of vals) keys.add(v); resolved = true }
+    }
+    if (!resolved && !QUIET) unresolved.push(`${relPath}: t(${varName}.${propName})`)
   }
 
   // 5. Template: t(`prefix${VAR}suffix`)
@@ -314,7 +323,11 @@ function resolveVar(varName, constants, targetSet) {
 
   // Property match: ONLY match when the variable name is specific enough
   // (not generic names like 'key', 'name', 'value' that cause false positives)
-  if (/^(key|name|value|label|id|type|title|text|item)$/.test(varName)) return false
+  const GENERIC_VAR_NAMES = new Set([
+    'key', 'name', 'value', 'label', 'id', 'type', 'title', 'text', 'item',
+    'data', 'config', 'props', 'attr', 'field', 'option', 'status', 'code',
+  ])
+  if (GENERIC_VAR_NAMES.has(varName)) return false
 
   for (const [cn, cv] of constants) {
     if (cn.endsWith(`.${varName}`)) {
@@ -352,9 +365,14 @@ function check(locales, usedKeys, unresolved) {
   // P0: used but missing
   for (const key of [...usedKeys].sort()) {
     for (const locale of localeNames) {
-      if (!locales.get(locale).has(key)) {
-        errors.push(`[P0] key "${key}" used in code but MISSING from ${locale}.json`)
+      const localeKeys = locales.get(locale)
+      if (localeKeys.has(key)) continue
+      // For dotless keys, try suffix match (handles namespaced useTranslations like essence.notePlaceholder)
+      if (!key.includes('.')) {
+        const suffixMatch = [...localeKeys.keys()].some((dk) => dk.endsWith(`.${key}`))
+        if (suffixMatch) continue
       }
+      errors.push(`[P0] key "${key}" used in code but MISSING from ${locale}.json`)
     }
   }
 
@@ -369,9 +387,11 @@ function check(locales, usedKeys, unresolved) {
 
   // P2: dead keys
   for (const key of [...common].sort()) {
-    if (!usedKeys.has(key)) {
-      warnings.push(`[P2] key "${key}" defined in all locales but NEVER used in code`)
-    }
+    if (usedKeys.has(key)) continue
+    // For namespaced keys like essence.notePlaceholder, also check if the suffix is used
+    const lastDot = key.lastIndexOf('.')
+    if (lastDot > 0 && usedKeys.has(key.slice(lastDot + 1))) continue
+    warnings.push(`[P2] key "${key}" defined in all locales but NEVER used in code`)
   }
 
   // Unresolved dynamic keys

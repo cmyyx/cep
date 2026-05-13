@@ -142,7 +142,8 @@
     "plansTab": "方案推荐",
     "viewPlans": "查看方案",
     "manageWeapons": "管理武器",
-    "viewAllSelected": "查看全部"
+    "viewAllSelected": "查看全部",
+    "notePlaceholder": "点击添加备注"
   },
   "essenceSettings": {
     "title": "基质规划设置",
@@ -278,7 +279,9 @@
     "maxLevel": "满级(M3)",
     "paramName": "参数名称",
     "infoTab": "角色信息",
-    "guideTab": "角色攻略"
+    "guideTab": "角色攻略",
+    "recommended": "推荐",
+    "weapon": "武器"
   },
   "editor": {
     "title": "角色攻略编辑器",
@@ -324,6 +327,39 @@
     "sourceReadOnly": "此角色为内置数据，不可直接修改。",
     "forkToEdit": "点击复刻以编辑",
     "autoSaved": "修改自动同步",
-    "idDuplicate": "ID 与已有角色「{existing}」重复，请修改"
+    "idDuplicate": "ID 与已有角色「{existing}」重复，请修改",
+    "placeholderCharacterId": "character-id",
+    "placeholderCharacterName": "角色名称",
+    "placeholderMaterial": "材料名称 x数量",
+    "placeholderDataTableTitle": "数据表标题",
+    "placeholderParamName": "参数名称",
+    "placeholderTalentName": "天赋名称",
+    "placeholderTalentDesc": "天赋描述",
+    "placeholderBaseSkillName": "基建技能名称",
+    "placeholderBaseSkillDesc": "基建技能描述",
+    "placeholderPotentialName": "潜能名称",
+    "placeholderPotentialDesc": "潜能描述",
+    "placeholderAttributionRole": "编辑",
+    "placeholderAttributionName": "作者名",
+    "placeholderAttributionNote": "备注",
+    "placeholderGuideName": "Name",
+    "placeholderGuideNote": "Note",
+    "placeholderGuideRarity": "Rarity"
+  },
+  "common": {
+    "collapse": "收起",
+    "expand": "展开",
+    "or": "或"
+  },
+  "equip": {
+    "slot": {
+      "armor": "护甲",
+      "gloves": "手套",
+      "accessory": "配件",
+      "accessory2": "配件"
+    }
+  },
+  "team": {
+    "slot": "{number}号位"
   }
 }

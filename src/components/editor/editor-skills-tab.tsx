@@ -190,7 +190,7 @@ export function EditorSkillsTab({
                     <Input
                       value={table.title}
                       onChange={(e) => updateTableTitle(si, ti, e.target.value)}
-                      placeholder="数据表标题"
+                      placeholder={t('editor.placeholderDataTableTitle')}
                       className="h-7 text-xs w-40"
                     />
                     <Button variant="ghost" size="sm" onClick={(e) => { e.preventDefault(); addRow(si, ti) }} className="h-6 text-[11px] px-2">
@@ -222,7 +222,7 @@ export function EditorSkillsTab({
                             <Input
                               value={row.name}
                               onChange={(e) => updateRowName(si, ti, ri, e.target.value)}
-                              placeholder="参数名"
+                              placeholder={t('editor.placeholderParamName')}
                               className="h-7 text-xs w-28 shrink-0"
                             />
                             {SKILL_LABELS.map((_, li) => (

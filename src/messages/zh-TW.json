@@ -142,7 +142,8 @@
     "plansTab": "方案推薦",
     "viewPlans": "檢視方案",
     "manageWeapons": "管理武器",
-    "viewAllSelected": "檢視全部"
+    "viewAllSelected": "檢視全部",
+    "notePlaceholder": "點擊添加備註"
   },
   "essenceSettings": {
     "title": "基質規劃設定",
@@ -278,7 +279,9 @@
     "maxLevel": "滿級(M3)",
     "paramName": "參數名稱",
     "infoTab": "角色資訊",
-    "guideTab": "角色攻略"
+    "guideTab": "角色攻略",
+    "recommended": "推薦",
+    "weapon": "武器"
   },
   "editor": {
     "title": "角色攻略編輯器",
@@ -324,6 +327,39 @@
     "sourceReadOnly": "此角色為內建資料，不可直接修改。",
     "forkToEdit": "點擊複刻以編輯",
     "autoSaved": "修改自動同步",
-    "idDuplicate": "ID 與已有角色「{existing}」重複，請修改"
+    "idDuplicate": "ID 與已有角色「{existing}」重複，請修改",
+    "placeholderCharacterId": "character-id",
+    "placeholderCharacterName": "角色名稱",
+    "placeholderMaterial": "材料名稱 x數量",
+    "placeholderDataTableTitle": "資料表標題",
+    "placeholderParamName": "參數名稱",
+    "placeholderTalentName": "天賦名稱",
+    "placeholderTalentDesc": "天賦描述",
+    "placeholderBaseSkillName": "基建技能名稱",
+    "placeholderBaseSkillDesc": "基建技能描述",
+    "placeholderPotentialName": "潛能名稱",
+    "placeholderPotentialDesc": "潛能描述",
+    "placeholderAttributionRole": "編輯",
+    "placeholderAttributionName": "作者名",
+    "placeholderAttributionNote": "備註",
+    "placeholderGuideName": "Name",
+    "placeholderGuideNote": "Note",
+    "placeholderGuideRarity": "Rarity"
+  },
+  "common": {
+    "collapse": "收起",
+    "expand": "展開",
+    "or": "或"
+  },
+  "equip": {
+    "slot": {
+      "armor": "護甲",
+      "gloves": "手套",
+      "accessory": "配件",
+      "accessory2": "配件"
+    }
+  },
+  "team": {
+    "slot": "{number}號位"
   }
 }

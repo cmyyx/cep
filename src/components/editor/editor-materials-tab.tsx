@@ -71,7 +71,7 @@ export function EditorMaterialsTab({
                 <Input
                   value={item}
                   onChange={(e) => updateMaterial(level, ii, e.target.value)}
-                  placeholder="材料名称 x数量"
+                  placeholder={t('editor.placeholderMaterial')}
                   className="h-7 text-xs"
                 />
                 <Button

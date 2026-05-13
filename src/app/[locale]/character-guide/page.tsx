@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useEffect } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { useTranslations } from 'next-intl'
 import { SidebarTrigger } from '@/components/ui/sidebar'
 import { CharacterList } from '@/components/character-guide/character-list'
@@ -9,7 +9,6 @@ import { useCharacterGuideStore } from '@/stores/useCharacterGuideStore'
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@/components/ui/sheet'
 import { Button } from '@/components/ui/button'
 import { List } from 'lucide-react'
-import { useState } from 'react'
 
 export default function CharacterGuidePage() {
   const t = useTranslations()

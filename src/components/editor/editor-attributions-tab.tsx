@@ -64,7 +64,7 @@ export function EditorAttributionsTab({
               <Input
                 value={attr.role}
                 onChange={(e) => { attr.role = e.target.value; dirty() }}
-                placeholder="编辑"
+                placeholder={t('editor.placeholderAttributionRole')}
                 className="h-7 text-xs"
               />
             </div>
@@ -73,7 +73,7 @@ export function EditorAttributionsTab({
               <Input
                 value={attr.name}
                 onChange={(e) => { attr.name = e.target.value; dirty() }}
-                placeholder="作者名"
+                placeholder={t('editor.placeholderAttributionName')}
                 className="h-7 text-xs"
               />
             </div>
@@ -92,7 +92,7 @@ export function EditorAttributionsTab({
             <Input
               value={attr.note}
               onChange={(e) => { attr.note = e.target.value; dirty() }}
-              placeholder="备注"
+              placeholder={t('editor.placeholderAttributionNote')}
               className="h-7 text-xs"
             />
           </div>

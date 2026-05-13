@@ -94,18 +94,20 @@ export const CharacterList = memo(function CharacterList({
           <div className="flex items-center gap-1.5 flex-wrap">
             <span className="text-[11px] text-muted-foreground shrink-0 w-8">{t('charFilter.rarity')}</span>
             {filterValues.rarity.map((val) => (
-              <button
+              <Button
                 key={val}
+                variant="ghost"
+                size="sm"
                 onClick={() => toggleFilter('rarity', val)}
                 className={cn(
-                  'px-1.5 py-0 text-[11px] rounded-sm transition-colors',
+                  'px-1.5 py-0 text-[11px] rounded-sm transition-colors h-5',
                   filters.rarity.has(val)
-                    ? 'bg-foreground text-background'
+                    ? 'bg-foreground text-background hover:bg-foreground/90'
                     : 'bg-muted hover:bg-muted-foreground/15'
                 )}
               >
                 {val}★
-              </button>
+              </Button>
             ))}
           </div>
         )}
@@ -114,18 +116,20 @@ export const CharacterList = memo(function CharacterList({
           <div className="flex items-center gap-1.5 flex-wrap">
             <span className="text-[11px] text-muted-foreground shrink-0 w-8">{t('charFilter.element')}</span>
             {filterValues.element.map((val) => (
-              <button
+              <Button
                 key={val}
+                variant="ghost"
+                size="sm"
                 onClick={() => toggleFilter('element', val)}
                 className={cn(
-                  'px-1.5 py-0 text-[11px] rounded-sm transition-colors',
+                  'px-1.5 py-0 text-[11px] rounded-sm transition-colors h-5',
                   filters.element.has(val)
-                    ? 'bg-foreground text-background'
+                    ? 'bg-foreground text-background hover:bg-foreground/90'
                     : 'bg-muted hover:bg-muted-foreground/15'
                 )}
               >
                 {val}
-              </button>
+              </Button>
             ))}
           </div>
         )}
@@ -137,16 +141,17 @@ export const CharacterList = memo(function CharacterList({
       </div>
 
       {/* Character list */}
-      <div className="flex-1 overflow-y-auto">
+      <div className="flex-1 overflow-y-scroll">
         {filtered.length === 0 ? (
           <div className="p-4 text-sm text-muted-foreground text-center">{t('charFilter.noMatch')}</div>
         ) : (
           filtered.map((char) => (
-            <button
+            <Button
               key={char.id}
+              variant="ghost"
               onClick={() => onSelect(char.id)}
               className={cn(
-                'w-full flex items-center gap-2.5 px-3 py-2.5 text-left transition-colors',
+                'w-full flex items-center gap-2.5 px-3 py-2.5 text-left transition-colors h-auto rounded-none',
                 'hover:bg-accent/50',
                 selectedId === char.id && 'bg-accent'
               )}
@@ -167,7 +172,7 @@ export const CharacterList = memo(function CharacterList({
                   <span className="text-[11px] text-muted-foreground ml-1">{char.element}</span>
                 </div>
               </div>
-            </button>
+            </Button>
           ))
         )}
       </div>

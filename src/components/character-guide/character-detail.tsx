@@ -4,6 +4,7 @@ import { memo, useState } from 'react'
 import { useTranslations } from 'next-intl'
 import { cn } from '@/lib/utils'
 import { Badge } from '@/components/ui/badge'
+import { Button } from '@/components/ui/button'
 import { ElementBadge, RarityStars } from './element-badge'
 import { SkillTables } from './skill-tables'
 import type { CharacterGuideData, GuideEquipRow, TeamSlot, GuideEquipEntry } from '@/types/character-guide'
@@ -60,11 +61,13 @@ function CollapsibleSection({
   children: React.ReactNode
 }) {
   const [open, setOpen] = useState(defaultOpen)
+  const t = useTranslations()
   return (
     <div className="border-b border-border/20 last:border-b-0">
-      <button
+      <Button
+        variant="ghost"
         onClick={() => setOpen(!open)}
-        className="w-full flex items-center gap-2.5 px-4 py-3 text-left hover:bg-accent/30 transition-colors group"
+        className="w-full flex items-center gap-2.5 px-4 py-3 text-left hover:bg-accent/30 transition-colors group h-auto rounded-none"
       >
         <svg
           className={cn(
@@ -78,9 +81,9 @@ function CollapsibleSection({
         </svg>
         <span className="text-sm font-semibold tracking-tight flex-1">{title}</span>
         <span className="text-[10px] text-muted-foreground/50 group-hover:text-muted-foreground/70 transition-colors">
-          {open ? '收起' : '展开'}
+          {open ? t('common.collapse') : t('common.expand')}
         </span>
-      </button>
+      </Button>
       {open && <div className="px-4 pb-3">{children}</div>}
     </div>
   )
@@ -149,6 +152,7 @@ const EquipEntryBadge = memo(function EquipEntryBadge({
   size?: 'sm' | 'md' | 'lg' | 'xl'
   isRecommended?: boolean
 }) {
+  const t = useTranslations()
   if (!entry || !entry.name) {
     return <span className="text-xs text-muted-foreground/40 italic">--</span>
   }
@@ -159,7 +163,7 @@ const EquipEntryBadge = memo(function EquipEntryBadge({
         <GuideCard src={imgSrc} alt={entry.name} size={size} rarity={entry.rarity} />
         {isRecommended && (
           <span className="absolute -top-1 -right-1 z-40 px-1 py-px rounded text-[8px] font-semibold bg-ship-red text-white shadow-sm">
-            推荐
+            {t('charGuide.recommended')}
           </span>
         )}
       </div>
@@ -172,14 +176,14 @@ const EquipEntryBadge = memo(function EquipEntryBadge({
 
 // ---- Equip row display ----
 
-const EQUIP_SLOT_LABELS = ['护甲', '手套', '配件', '配件']
-
 const EquipRowDisplay = memo(function EquipRowDisplay({ row }: { row: GuideEquipRow }) {
+  const t = useTranslations()
+  const slotLabels = [t('equip.slot.armor'), t('equip.slot.gloves'), t('equip.slot.accessory'), t('equip.slot.accessory2')]
   return (
     <div className="py-3 border-b border-border/15 last:border-b-0">
       {/* Weapons */}
       <div className="flex items-start gap-3 mb-3">
-        <span className="text-[11px] text-muted-foreground shrink-0 w-10 pt-1">武器</span>
+        <span className="text-[11px] text-muted-foreground shrink-0 w-10 pt-1">{t('charGuide.weapon')}</span>
         <div className="flex flex-wrap gap-x-4 gap-y-3">
           {row.weapons.length > 0 ? (
             row.weapons.map((w, wi) => (
@@ -194,7 +198,7 @@ const EquipRowDisplay = memo(function EquipRowDisplay({ row }: { row: GuideEquip
       <div className="flex flex-wrap gap-x-4 gap-y-3 ml-10">
         {row.equipment.map((eq, ei) => (
           <div key={ei} className="flex flex-col items-center gap-0.5">
-            <span className="text-[10px] text-muted-foreground/50">{EQUIP_SLOT_LABELS[ei] || `槽${ei + 1}`}</span>
+            <span className="text-[10px] text-muted-foreground/50">{slotLabels[ei] || t('team.slot', { number: ei + 1 })}</span>
             {eq ? (
               <EquipEntryBadge entry={eq} type="equip" size="xl" />
             ) : (
@@ -216,12 +220,13 @@ const TeamSlotDisplay = memo(function TeamSlotDisplay({
   slot: TeamSlot
   index: number
 }) {
+  const t = useTranslations()
   return (
     <div className="py-4 border-b border-border/15 last:border-b-0">
       {/* Position label */}
       <div className="flex items-center gap-2 mb-3">
         <span className="text-xs font-semibold text-foreground/80 bg-muted px-2 py-0.5 rounded">
-          {index + 1}号位
+          {t('team.slot', { number: index + 1 })}
         </span>
         {slot.name && (
           <span className="text-[11px] text-muted-foreground">{slot.name}</span>
@@ -244,10 +249,11 @@ const TeamSlotDisplay = memo(function TeamSlotDisplay({
 })
 
 function OptionDisplay({ option, isRecommended, isAlternative }: { option: TeamSlotOption; isRecommended?: boolean; isAlternative?: boolean }) {
+  const t = useTranslations()
   return (
     <div className={cn('flex items-start gap-3', isAlternative && 'ml-8 opacity-75')}>
       {isAlternative && (
-        <span className="text-[9px] text-muted-foreground/50 shrink-0 mt-2 leading-none">或</span>
+        <span className="text-[9px] text-muted-foreground/50 shrink-0 mt-2 leading-none">{t('common.or')}</span>
       )}
       <div className="relative shrink-0">
         <div className="w-10 h-10 rounded-full bg-muted flex items-center justify-center overflow-hidden shadow-[0px_0px_0px_1px_rgba(0,0,0,0.08)]">
@@ -261,7 +267,7 @@ function OptionDisplay({ option, isRecommended, isAlternative }: { option: TeamS
         </div>
         {isRecommended && (
           <span className="absolute -top-1 -right-1 z-10 px-1 py-px rounded text-[8px] font-semibold bg-ship-red text-white shadow-sm">
-            推荐
+            {t('charGuide.recommended')}
           </span>
         )}
       </div>
@@ -345,11 +351,11 @@ export const CharacterDetail = memo(function CharacterDetail({
   const cardPath = `/images/characters/${character.name}_card.avif`
 
   return (
-    <div className="flex flex-col h-full overflow-y-auto">
+    <div className="flex flex-col h-full overflow-y-scroll">
       {/* Header card + basic info */}
       <div className="relative px-4 pt-4 pb-3">
         {/* Card image (partially transparent background) */}
-        <div className="absolute top-0 right-0 w-72 h-72 opacity-18 pointer-events-none select-none">
+        <div className="absolute top-0 right-0 w-[36rem] h-[36rem] opacity-18 pointer-events-none select-none">
           <img
             src={cardPath}
             alt=""
@@ -406,28 +412,30 @@ export const CharacterDetail = memo(function CharacterDetail({
 
       {/* View mode toggle */}
       <div className="flex border-b border-border/20 mx-4">
-        <button
+        <Button
+          variant="ghost"
           onClick={() => setViewMode('info')}
           className={cn(
-            'px-4 py-2 text-sm font-medium transition-colors border-b-2 -mb-[1px]',
+            'px-4 py-2 text-sm font-medium transition-colors border-b-2 -mb-[1px] rounded-none h-auto',
             viewMode === 'info'
               ? 'border-foreground text-foreground'
               : 'border-transparent text-muted-foreground hover:text-foreground'
           )}
         >
           {t('charGuide.infoTab')}
-        </button>
-        <button
+        </Button>
+        <Button
+          variant="ghost"
           onClick={() => setViewMode('guide')}
           className={cn(
-            'px-4 py-2 text-sm font-medium transition-colors border-b-2 -mb-[1px]',
+            'px-4 py-2 text-sm font-medium transition-colors border-b-2 -mb-[1px] rounded-none h-auto',
             viewMode === 'guide'
               ? 'border-foreground text-foreground'
               : 'border-transparent text-muted-foreground hover:text-foreground'
           )}
         >
           {t('charGuide.guideTab')}
-        </button>
+        </Button>
       </div>
 
       {/* Attributions at top (above both views) */}

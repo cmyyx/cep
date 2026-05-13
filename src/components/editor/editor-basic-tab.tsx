@@ -106,7 +106,7 @@ export function EditorBasicTab({
             value={localId}
             onChange={(e) => handleIdChange(e.target.value)}
             className={cn('h-8 text-sm font-geist-mono', idCollision && 'border-ship-red ring-1 ring-ship-red/30')}
-            placeholder="character-id"
+            placeholder={t('editor.placeholderCharacterId')}
             pattern="[a-z]+"
             autoComplete="off"
             spellCheck={false}
@@ -123,7 +123,7 @@ export function EditorBasicTab({
             value={draft.name}
             onChange={(e) => updateField('name', e.target.value)}
             className="h-8 text-sm"
-            placeholder="角色名称"
+            placeholder={t('editor.placeholderCharacterName')}
           />
         </div>
       </div>

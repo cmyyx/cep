@@ -26,15 +26,15 @@ export const RarityStars = memo(function RarityStars({
 }) {
   const stars = Array.from({ length: rarity }, (_, i) => i + 1)
   const sizeClass = size === 'md' ? 'text-sm' : 'text-xs'
-  const color = rarity >= 6 ? '#ff7100' : '#ffcc00'
+  const colorClass = rarity >= 6 ? 'text-rarity-6-star' : 'text-rarity-5-star'
   return (
-    <span className={cn('inline-flex gap-0.5 font-geist-mono tracking-tighter tabular-nums', sizeClass)}>
+    <span className={cn('inline-flex gap-0.5 font-geist-mono tracking-tighter tabular-nums', sizeClass, colorClass)}>
       {stars.map((s) => (
-        <span key={s} style={{ color }}>
+        <span key={s}>
           &#9733;
         </span>
       ))}
-      <span className="ml-1" style={{ color }}>{rarity}</span>
+      <span className="ml-1">{rarity}</span>
     </span>
   )
 })

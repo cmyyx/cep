@@ -165,7 +165,8 @@ export const useEditorStore = create<EditorStoreState>()(
           idx++
         }
         empty.id = baseId
-        empty.name = `New Character ${idx}`
+        const displayIndex = idx // idx is already incremented past the matched one, so this is the next available number
+        empty.name = `New Character ${displayIndex}`
         const draft = toDraft(empty)
         set((s) => {
           const newDirty = new Set(s.dirtyIds)
@@ -248,15 +249,13 @@ export const useEditorStore = create<EditorStoreState>()(
           newId = `${source.id}-fork-${counter}`
           counter++
         }
-        const forked: EditorDraftCharacter = {
-          ...JSON.parse(JSON.stringify(source)),
-          id: newId,
-          // Keep original name, don't append "(Fork)"
-          isSource: false,
-          forkedFrom: source.id,
-          jsonDrafts: undefined,
-          jsonErrors: undefined,
-        }
+        // Use toDraft for proper deep-copy with defensive defaults
+        const forked = toDraft(source, false)
+        forked.id = newId
+        forked.isSource = false
+        forked.forkedFrom = source.id
+        forked.jsonDrafts = undefined
+        forked.jsonErrors = undefined
         set((s) => {
           const newDirty = new Set(s.dirtyIds)
           newDirty.add(newId)
