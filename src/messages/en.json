@@ -13,7 +13,9 @@
     "importantBanner": "{count, plural, =1 {You have # unread important announcement} other {You have # unread important announcements}}",
     "clickToView": "Click to view",
     "importantBadge": "Important",
-    "imageLoadFailed": "Image failed to load"
+    "imageLoadFailed": "Image failed to load",
+    "imagePreview": "Image preview",
+    "closePreview": "Close preview"
   },
   "nav": {
     "essencePlanner": "Essence Planner",

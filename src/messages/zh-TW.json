@@ -13,7 +13,9 @@
     "importantBanner": "您有 {count} 條重要公告未讀",
     "clickToView": "點擊查看",
     "importantBadge": "重要",
-    "imageLoadFailed": "圖片載入失敗"
+    "imageLoadFailed": "圖片載入失敗",
+    "imagePreview": "圖片預覽",
+    "closePreview": "關閉預覽"
   },
   "nav": {
     "essencePlanner": "基質規劃",

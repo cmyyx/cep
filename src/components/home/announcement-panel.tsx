@@ -102,10 +102,12 @@ function MarkdownImage({
   src,
   alt,
   errorLabel,
+  onImageClick,
 }: {
   src?: string
   alt?: string
   errorLabel: string
+  onImageClick?: (src: string) => void
 }) {
   const [error, setError] = useState(false)
   const srcStr = typeof src === 'string' && src.length > 0 ? src : undefined
@@ -138,8 +140,9 @@ function MarkdownImage({
       <img
         src={srcStr}
         alt={alt || ''}
-        className="block max-w-full h-auto rounded-lg"
+        className="block max-w-full h-auto rounded-lg cursor-zoom-in"
         loading="lazy"
+        onClick={onImageClick ? () => onImageClick(srcStr) : undefined}
         onError={() => setError(true)}
       />
     </span>
@@ -158,17 +161,24 @@ const SANITIZE_SCHEMA = {
 const MarkdownContent = memo(function MarkdownContent({
   content,
   imageErrorLabel,
+  onImageClick,
 }: {
   content: string
   imageErrorLabel: string
+  onImageClick?: (src: string) => void
 }) {
   const components = useMemo(
     () => ({
       img: ({ src, alt }: React.ImgHTMLAttributes<HTMLImageElement>) => (
-        <MarkdownImage src={typeof src === 'string' ? src : undefined} alt={alt} errorLabel={imageErrorLabel} />
+        <MarkdownImage
+          src={typeof src === 'string' ? src : undefined}
+          alt={alt}
+          errorLabel={imageErrorLabel}
+          onImageClick={onImageClick}
+        />
       ),
     }),
-    [imageErrorLabel]
+    [imageErrorLabel, onImageClick]
   )
 
   return (
@@ -202,6 +212,9 @@ export function AnnouncementPanel() {
   const t = useTranslations()
   const [detail, setDetail] = useState<Announcement | null>(null)
   const [dialogOpen, setDialogOpen] = useState(false)
+  const [lightboxSrc, setLightboxSrc] = useState<string | null>(null)
+  const [lightboxClosing, setLightboxClosing] = useState(false)
+  const lightboxTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   const announcements = useAnnouncementStore((s) => s.announcements)
   const readIds = useAnnouncementStore((s) => s.readIds)
@@ -224,6 +237,31 @@ export function AnnouncementPanel() {
   const handleClose = useCallback(() => {
     setDialogOpen(false)
   }, [])
+
+  const handleImageClick = useCallback((src: string) => {
+    setLightboxSrc(src)
+  }, [])
+
+  const handleLightboxClose = useCallback(() => {
+    if (lightboxClosing) return
+    setLightboxClosing(true)
+    // Fallback: if onAnimationEnd doesn't fire, force close after animation duration
+    lightboxTimerRef.current = setTimeout(() => {
+      setLightboxSrc(null)
+      setLightboxClosing(false)
+      lightboxTimerRef.current = null
+    }, 200)
+  }, [lightboxClosing])
+
+  // Lightbox: listen for Escape key
+  useEffect(() => {
+    if (!lightboxSrc) return
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') handleLightboxClose()
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [lightboxSrc, handleLightboxClose])
 
   // Sequential animation: skeleton exit → content enter.
   // Effects synchronise local animation state with the external Zustand store.
@@ -382,10 +420,54 @@ export function AnnouncementPanel() {
             <MarkdownContent
               content={detail.content}
               imageErrorLabel={t('home.imageLoadFailed')}
+              onImageClick={handleImageClick}
             />
           </DialogContent>
         )}
       </Dialog>
+
+      {/* Image lightbox — fullscreen overlay, click or Esc to dismiss */}
+      {lightboxSrc && (
+        <div
+          className={cn(
+            'fixed inset-0 z-[100] flex items-center justify-center bg-black/80 duration-150',
+            lightboxClosing
+              ? 'animate-out fade-out'
+              : 'animate-in fade-in'
+          )}
+          onClick={handleLightboxClose}
+          onAnimationEnd={() => {
+            if (lightboxClosing) {
+              if (lightboxTimerRef.current !== null) {
+                clearTimeout(lightboxTimerRef.current)
+                lightboxTimerRef.current = null
+              }
+              setLightboxSrc(null)
+              setLightboxClosing(false)
+            }
+          }}
+          role="dialog"
+          aria-modal="true"
+          aria-label={t('home.imagePreview')}
+        >
+          <Button
+            variant="ghost"
+            size="icon-sm"
+            onClick={handleLightboxClose}
+            className="absolute top-4 right-4 rounded-full bg-black/40 text-white/80 hover:bg-black/60 hover:text-white"
+            aria-label={t('home.closePreview')}
+          >
+            <XIcon className="size-5" />
+          </Button>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={lightboxSrc}
+            alt=""
+            className="max-w-[90vw] max-h-[90vh] object-contain rounded-lg"
+            onClick={(e) => e.stopPropagation()}
+          />
+        </div>
+      )}
     </div>
   )
 }
