@@ -7,8 +7,16 @@ import { Button } from '@/components/ui/button'
 import { WeaponGrid } from '@/components/essence/weapon-grid'
 import { WeaponCard } from '@/components/essence/weapon-card'
 import { DungeonCard } from '@/components/essence/dungeon-card'
-import { EssenceSettingsDialog } from '@/components/essence/essence-settings-dialog'
-import { CustomWeaponDialog } from '@/components/essence/custom-weapon-dialog'
+import dynamic from 'next/dynamic'
+
+const EssenceSettingsDialog = dynamic(
+  () => import('@/components/essence/essence-settings-dialog').then((m) => m.EssenceSettingsDialog),
+  { loading: () => <div className="size-8" /> },
+)
+const CustomWeaponDialog = dynamic(
+  () => import('@/components/essence/custom-weapon-dialog').then((m) => m.CustomWeaponDialog),
+  { loading: () => <div className="size-8" /> },
+)
 import { useMatrixStore } from '@/stores/useMatrixStore'
 import { useEssenceSettingsStore } from '@/stores/useEssenceSettingsStore'
 import { getRegion, getSubRegion, getRegions, getSubRegions } from '@/data/dungeons'
@@ -16,12 +24,10 @@ import { dungeons } from '@/data/dungeons'
 import { weapons as staticWeapons } from '@/data/weapons'
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@/components/ui/sheet'
 import { cn } from '@/lib/utils'
-import { Plus } from 'lucide-react'
 type MobileView = 'weapons' | 'plans'
 
 export default function EssencePlannerPage() {
   const t = useTranslations()
-  const [customWeaponOpen, setCustomWeaponOpen] = useState(false)
   const [mobileView, setMobileView] = useState<MobileView>('weapons')
   const [viewAllOpen, setViewAllOpen] = useState(false)
 
@@ -405,19 +411,8 @@ export default function EssencePlannerPage() {
         <Button variant="ghost" size="sm" onClick={clearWeapons}>
           {t('essence.clearAll')}
         </Button>
-        <Button
-          variant="ghost"
-          size="icon-sm"
-          onClick={() => setCustomWeaponOpen(true)}
-          aria-label={t('essence.customWeapons')}
-        >
-          <Plus className="size-4" />
-        </Button>
         <EssenceSettingsDialog />
-        <CustomWeaponDialog
-          open={customWeaponOpen}
-          onOpenChange={setCustomWeaponOpen}
-        />
+        <CustomWeaponDialog />
       </div>
 
       {/* Desktop layout: left weapon grid + right plans */}

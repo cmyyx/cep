@@ -3,6 +3,7 @@
 import { useState, memo, useCallback } from 'react'
 import { useTranslations } from 'next-intl'
 import { Button } from '@/components/ui/button'
+import { cn } from '@/lib/utils'
 import type { SkillDataTable, SkillDataRow } from '@/types/character-guide'
 
 const SKILL_LABELS = ['Lv1', 'Lv2', 'Lv3', 'Lv4', 'Lv5', 'Lv6', 'Lv7', 'Lv8', 'Lv9', 'M1', 'M2', 'M3']
@@ -10,24 +11,6 @@ const SKILL_LABELS = ['Lv1', 'Lv2', 'Lv3', 'Lv4', 'Lv5', 'Lv6', 'Lv7', 'Lv8', 'L
 interface SkillTablesProps {
   tables: SkillDataTable[]
   defaultExpanded?: boolean
-}
-
-/** Merge consecutive identical values into segments */
-function mergeSegments(values: string[]): { value: string; span: number; indices: number[] }[] {
-  const segments: { value: string; span: number; indices: number[] }[] = []
-  let i = 0
-  while (i < values.length) {
-    const v = values[i] || '-'
-    let span = 1
-    const indices = [i]
-    while (i + span < values.length && (values[i + span] || '-') === v) {
-      indices.push(i + span)
-      span++
-    }
-    segments.push({ value: v, span, indices })
-    i += span
-  }
-  return segments
 }
 
 /** Render a single skill data table */
@@ -45,31 +28,31 @@ const SkillTable = memo(function SkillTable({
   if (!table.rows.length) return null
 
   return (
-    <div className="mt-2">
-      <div className="flex items-center justify-between mb-1.5">
+    <div className="mt-2 max-w-full">
+      <div className="flex items-center gap-3 mb-1.5">
         <span className="text-xs font-medium text-muted-foreground">{table.title}</span>
         <Button variant="ghost" size="sm" onClick={onToggle} className="h-5 text-[11px] px-2 py-0">
           {expanded ? t('charGuide.collapseLevels') : t('charGuide.expandLevels')}
         </Button>
       </div>
-      <div className="overflow-x-auto">
+      <div className="overflow-x-auto overscroll-x-contain" style={{ WebkitOverflowScrolling: 'touch', touchAction: 'pan-x' }}>
         <table className="w-full text-xs border-collapse">
           <thead>
             <tr className="border-b border-border/30">
-              <th className="text-left py-1.5 pr-2 font-medium text-muted-foreground whitespace-nowrap">
+              <th className="text-left py-1 pr-3 font-medium text-muted-foreground whitespace-nowrap">
                 {t('charGuide.paramName')}
               </th>
               {expanded ? (
                 SKILL_LABELS.map((label) => (
                   <th
                     key={label}
-                    className="text-right py-1.5 px-1.5 font-medium text-muted-foreground font-geist-mono tracking-tighter tabular-nums"
+                    className="text-right font-medium text-muted-foreground font-geist-mono whitespace-nowrap py-1 px-1 tracking-tighter tabular-nums"
                   >
                     {label}
                   </th>
                 ))
               ) : (
-                <th className="text-right py-1.5 px-1.5 font-medium text-muted-foreground font-geist-mono">
+                <th className="text-right font-medium text-muted-foreground font-geist-mono whitespace-nowrap py-1 px-1 tracking-tighter tabular-nums">
                   {t('charGuide.maxLevel')}
                 </th>
               )}
@@ -96,32 +79,23 @@ const SkillRow = memo(function SkillRow({
 }) {
   const values = row.values.length === 12 ? row.values : new Array(12).fill('-')
 
-  if (expanded) {
-    const segments = mergeSegments(values)
-    return (
-      <tr className="border-b border-border/20 hover:bg-accent/30">
-        <td className="py-1.5 pr-2 whitespace-nowrap font-medium">{row.name}</td>
-        {segments.map((seg, si) => (
-          <td
-            key={si}
-            colSpan={seg.span}
-            className="text-center py-1.5 px-1 font-geist-mono tracking-tighter tabular-nums whitespace-nowrap border-x border-border/10"
-          >
-            {seg.value}
-          </td>
-        ))}
-      </tr>
-    )
-  }
-
-  // Collapsed mode: show only the last (M3) value
-  const lastVal = values[values.length - 1] || '-'
   return (
     <tr className="border-b border-border/20 hover:bg-accent/30">
-      <td className="py-1.5 pr-2 whitespace-nowrap font-medium">{row.name}</td>
-      <td className="text-right py-1.5 px-1.5 font-geist-mono tracking-tighter tabular-nums whitespace-nowrap">
-        {lastVal}
-      </td>
+      <td className="py-1 pr-3 whitespace-nowrap font-medium">{row.name}</td>
+      {expanded ? (
+        values.map((val, i) => (
+          <td
+            key={i}
+            className="text-right font-geist-mono tracking-tighter tabular-nums whitespace-nowrap py-1 px-0.5 border-x border-border/10"
+          >
+            {val || '-'}
+          </td>
+        ))
+      ) : (
+        <td className="text-right font-geist-mono tracking-tighter tabular-nums whitespace-nowrap py-1 px-0.5 border-x border-border/10">
+          {values[values.length - 1] || '-'}
+        </td>
+      )}
     </tr>
   )
 })

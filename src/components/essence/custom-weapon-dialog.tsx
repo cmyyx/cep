@@ -15,16 +15,9 @@ import { useEssenceSettingsStore } from '@/stores/useEssenceSettingsStore'
 import type { Weapon } from '@/types/matrix'
 import { WeaponFormDialog } from './weapon-form-dialog'
 
-type CustomWeaponDialogProps = {
-  open: boolean
-  onOpenChange: (open: boolean) => void
-}
-
-export function CustomWeaponDialog({
-  open,
-  onOpenChange,
-}: CustomWeaponDialogProps) {
+export function CustomWeaponDialog() {
   const t = useTranslations()
+  const [open, setOpen] = useState(false)
   const [formOpen, setFormOpen] = useState(false)
   const [editTarget, setEditTarget] = useState<Weapon | undefined>(undefined)
 
@@ -53,7 +46,15 @@ export function CustomWeaponDialog({
 
   return (
     <>
-      <Dialog open={open} onOpenChange={onOpenChange}>
+      <Button
+        variant="ghost"
+        size="icon-sm"
+        onClick={() => setOpen(true)}
+        aria-label={t('essence.customWeapons')}
+      >
+        <Plus className="size-4" />
+      </Button>
+      <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent className="sm:max-w-sm">
           <DialogHeader>
             <DialogTitle className="text-sm">{t('essence.customWeapons')}</DialogTitle>
