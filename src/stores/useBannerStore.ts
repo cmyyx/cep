@@ -60,6 +60,7 @@ function normalizeSchedule(source: BannerSchedule): CharacterScheduleIndex {
       characterName, windows,
       avatarSrc: `/images/characters/${characterName}.avif`,
       period: mainPeriod, isStandard: false,
+      offRateNote: entry.offRateNote,
     }
   }
 
@@ -151,6 +152,7 @@ function deriveTimelineData(
     name: string; avatarSrc: string
     wins: { startMs: number; endMs: number; version: string; isRerun: boolean }[]
     period: number | null; isStandard: boolean
+    offRateNote?: string
   }[] = []
   const stdChars: { name: string; avatarSrc: string }[] = []
   let gMin = Infinity
@@ -171,6 +173,7 @@ function deriveTimelineData(
     limitedChars.push({
       name, avatarSrc: record.avatarSrc, wins,
       period: record.period, isStandard: false,
+      offRateNote: record.offRateNote,
     })
   }
 
@@ -289,7 +292,7 @@ function deriveTimelineData(
       const nextP = periodBounds.get(ch.period + 1)
       const afterP = periodBounds.get(ch.period + 2)
       if (nextP) {
-        bars.push(makeBar(nextP.startMs, afterP ? afterP.endMs : nextP.endMs, 'inPool', t('bannerCalendar.statusInPool'), ''))
+        bars.push(makeBar(nextP.startMs, afterP ? afterP.endMs : nextP.endMs, 'inPool', t('bannerCalendar.statusInPool'), ch.offRateNote ?? ''))
       }
     }
 
@@ -303,7 +306,7 @@ function deriveTimelineData(
     } else if (badgeType === 'upcoming') {
       const active = ch.wins.find((w) => w.isRerun && nowMs >= w.startMs && nowMs <= w.endMs)
       const upcoming = ch.wins.find((w) => w.isRerun && nowMs < w.startMs)
-      if (active) { const d = Math.max(1, Math.ceil((active.endMs - nowMs) / DAY_MS)); statusBadge = { type: 'upcoming', days: d, text: t('bannerCalendar.badgeUpcoming', { days: d }) } }
+      if (active) { const d = Math.max(1, Math.ceil((active.endMs - nowMs) / DAY_MS)); statusBadge = { type: 'upcoming', days: d, text: t('bannerCalendar.badgeRerunActive', { days: d }) } }
       else if (upcoming) { const d = Math.max(1, Math.ceil((upcoming.startMs - nowMs) / DAY_MS)); statusBadge = { type: 'upcoming', days: d, text: t('bannerCalendar.badgeUpcoming', { days: d }) } }
     } else if (badgeType === 'inPool') {
       statusBadge = { type: 'inPool', text: t('bannerCalendar.badgeInPool') }
@@ -311,7 +314,7 @@ function deriveTimelineData(
       statusBadge = { type: 'out', text: t('bannerCalendar.badgeOut') }
     }
 
-    return { name: ch.name, avatarSrc: ch.avatarSrc, bars, hasActive: badgeType === 'active', statusBadge }
+    return { name: ch.name, avatarSrc: ch.avatarSrc, bars, hasActive: badgeType === 'active', statusBadge, offRateNote: ch.offRateNote }
   })
 
   return {

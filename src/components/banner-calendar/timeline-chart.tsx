@@ -6,6 +6,28 @@ import { useBannerStore } from '@/stores/useBannerStore'
 import type { TimelineData } from '@/types/banner'
 import { cn } from '@/lib/utils'
 
+function InfoIcon({ note }: { note: string }) {
+  return (
+    <span className="relative inline-flex items-center ml-1" data-info-note={note}>
+      <svg
+        width="14"
+        height="14"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        className="text-sky-400 cursor-help"
+      >
+        <circle cx="12" cy="12" r="10" />
+        <path d="M12 16v-4" />
+        <path d="M12 8h.01" />
+      </svg>
+    </span>
+  )
+}
+
 const HEADER_H = 32
 const ROW_H = 52
 const BAR_TOP = 8
@@ -30,17 +52,39 @@ export function TimelineChart({ data, t }: TimelineChartProps) {
   const tooltipVersionRef = useRef<HTMLDivElement>(null)
   const tooltipDurationRef = useRef<HTMLDivElement>(null)
 
+  // Info note tooltip refs
+  const infoTooltipRef = useRef<HTMLDivElement>(null)
+  const infoTooltipTextRef = useRef<HTMLDivElement>(null)
+
   const rowsHeight = data.charRows.length * ROW_H
 
   const hideTooltip = useCallback(() => {
     hoveredBarKeyRef.current = ''
     if (tooltipRef.current) tooltipRef.current.style.display = 'none'
+    if (infoTooltipRef.current) infoTooltipRef.current.style.display = 'none'
   }, [])
 
   const handleMouseMove = useCallback(
     (e: React.MouseEvent) => {
+      // Close bar tooltip before re-evaluating
+      if (tooltipRef.current) tooltipRef.current.style.display = 'none'
+      if (infoTooltipRef.current) infoTooltipRef.current.style.display = 'none'
+
       const rightPanel = rightPanelRef.current
       if (!rightPanel) return
+
+      // Info icon tooltip (left panel)
+      const infoTarget = (e.target as HTMLElement).closest('[data-info-note]')
+      if (infoTarget && infoTooltipRef.current && infoTooltipTextRef.current) {
+        const note = (infoTarget as HTMLElement).getAttribute('data-info-note') || ''
+        infoTooltipTextRef.current.textContent = note
+        const tx = Math.min(e.clientX + 14, window.innerWidth - 320)
+        const ty = Math.max(e.clientY - 52, 4)
+        infoTooltipRef.current.style.left = `${tx}px`
+        infoTooltipRef.current.style.top = `${ty}px`
+        infoTooltipRef.current.style.display = 'block'
+        return
+      }
 
       const rightRect = rightPanel.getBoundingClientRect()
       const xInRight = e.clientX - rightRect.left + rightPanel.scrollLeft
@@ -140,7 +184,10 @@ export function TimelineChart({ data, t }: TimelineChartProps) {
                 loading="lazy"
               />
             </div>
-            <span className="text-sm font-medium whitespace-nowrap">{ch.name}</span>
+            <span className="text-sm font-medium whitespace-nowrap">
+              {ch.name}
+              {ch.offRateNote && <InfoIcon note={ch.offRateNote} />}
+            </span>
             {ch.statusBadge && (
               <span
                 className={cn(
@@ -233,7 +280,7 @@ export function TimelineChart({ data, t }: TimelineChartProps) {
         </div>
       </div>
 
-      {/* Tooltip */}
+      {/* Bar tooltip */}
       <div
         ref={tooltipRef}
         className="fixed z-50 pointer-events-none rounded-md shadow-[0px_0px_0px_1px_rgba(0,0,0,0.08)] bg-popover px-3 py-2 text-popover-foreground shadow-md"
@@ -243,6 +290,15 @@ export function TimelineChart({ data, t }: TimelineChartProps) {
         <div ref={tooltipInfoRef} className="text-xs text-muted-foreground" />
         <div ref={tooltipVersionRef} className="text-xs text-muted-foreground" />
         <div ref={tooltipDurationRef} className="text-xs text-muted-foreground" />
+      </div>
+
+      {/* Info note tooltip */}
+      <div
+        ref={infoTooltipRef}
+        className="fixed z-50 pointer-events-none rounded-md shadow-[0px_0px_0px_1px_rgba(0,0,0,0.08)] bg-popover px-3 py-2 text-popover-foreground shadow-md max-w-72"
+        style={{ display: 'none' }}
+      >
+        <div ref={infoTooltipTextRef} className="text-xs text-muted-foreground" />
       </div>
     </div>
   )

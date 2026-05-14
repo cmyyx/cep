@@ -29,11 +29,13 @@ export const bannerSchedule: BannerSchedule = {
     windows: [
       { start: '2026-03-12T12:00:00+08:00', end: '2026-03-29T12:00:00+08:00', version: '1.1「新潮起，故渊离」上半', period: 4, isRerun: false },
     ],
+    offRateNote: '只可在庄方宜的「春雷动」特许寻访里歪到',
   },
   洛茜: {
     windows: [
       { start: '2026-03-29T12:00:00+08:00', end: '2026-04-17T12:00:00+08:00', version: '1.1「新潮起，故渊离」下半', period: 5, isRerun: false },
     ],
+    offRateNote: '只可在庄方宜的「春雷动」特许寻访里歪到',
   },
   庄方宜: {
     windows: [

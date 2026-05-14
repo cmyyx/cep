@@ -202,6 +202,7 @@
     "statusRerunActive": "Rerun",
     "badgeActive": "UP! {days}d left",
     "badgeUpcoming": "Rerun in {days}d",
+    "badgeRerunActive": "{days} days left",
     "badgeInPool": "In Pool",
     "badgeStandard": "Standard",
     "badgeOut": "OUT!",

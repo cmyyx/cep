@@ -202,6 +202,7 @@
     "statusRerunActive": "復刻中",
     "badgeActive": "UP! 残り{days}日",
     "badgeUpcoming": "復刻まで{days}日",
+    "badgeRerunActive": "残り{days}日",
     "badgeInPool": "恒常枠",
     "badgeStandard": "恒常",
     "badgeOut": "OUT!",

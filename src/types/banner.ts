@@ -9,6 +9,7 @@ export interface BannerWindow {
 export interface BannerSchedule {
   [characterName: string]: {
     windows: BannerWindow[]
+    offRateNote?: string
   }
 }
 
@@ -31,6 +32,7 @@ export interface CharacterSchedule {
   avatarSrc: string
   period: number | null // main UP period (from non-rerun window)
   isStandard: boolean
+  offRateNote?: string
 }
 
 /** Per-character normalized schedule index */
@@ -77,6 +79,7 @@ export interface TimelineCharRow {
   bars: TimelineBar[]
   hasActive: boolean
   statusBadge: StatusBadge | null
+  offRateNote?: string
 }
 
 /** A month column header */
