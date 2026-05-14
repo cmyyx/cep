@@ -156,6 +156,7 @@
     "hideFourStar": "★4武器を非表示",
     "enableOwnershipEdit": "所有状態の編集を有効化",
     "enableNotes": "メモ機能を有効化",
+    "keepUpVisible": "UP武器を常に表示（上記の非表示設定を無視）",
     "onlyHideWhenBothOwned": "マトリクスと武器の両方を所有時のみ非表示",
     "settingItem": "設定項目",
     "regionPriority": "地域優先度",

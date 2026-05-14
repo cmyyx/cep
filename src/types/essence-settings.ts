@@ -16,6 +16,10 @@ export interface EssenceSettingsFlags {
   enableOwnershipEditPlans: boolean
   enableNotesPlans: boolean
 
+  // ── UP 武器穿透隐藏 ──
+  keepUpVisibleList: boolean
+  keepUpVisiblePlans: boolean
+
   // ── 子设置 ──
   onlyHideWhenBothOwned: boolean
 }

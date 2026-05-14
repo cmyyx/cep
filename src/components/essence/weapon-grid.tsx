@@ -10,8 +10,8 @@ import { WeaponCard } from './weapon-card'
 import { weapons as staticWeapons } from '@/data/weapons'
 import { useMatrixStore } from '@/stores/useMatrixStore'
 import { useEssenceSettingsStore } from '@/stores/useEssenceSettingsStore'
+import { useBannerStore } from '@/stores/useBannerStore'
 import { OwnershipBadge, EditableNote } from './ownership-badge'
-import { isWeaponOnBanner } from '@/lib/banner-utils'
 
 type AttrKey = keyof Pick<Weapon, 'primaryStat' | 'elementalDamage' | 'specialAbility'>
 
@@ -105,11 +105,16 @@ export const WeaponGrid = memo(function WeaponGrid() {
   })
   const selectedWeaponIds = useMatrixStore((s) => s.selectedWeaponIds)
 
+  // Banner UP character names (reactive via store, refreshed every 60s)
+  const upCharacterNames = useBannerStore((s) => s.upCharacterNames)
+  const upCharSet = useMemo(() => new Set(upCharacterNames), [upCharacterNames])
+
   // Settings
   const hideFourStar = useEssenceSettingsStore((s) => s.hideFourStarWeaponsList)
   const hideUnowned = useEssenceSettingsStore((s) => s.hideUnownedWeaponsList)
   const hideEssenceOwned = useEssenceSettingsStore((s) => s.hideEssenceOwnedWeaponsList)
   const onlyBothOwned = useEssenceSettingsStore((s) => s.onlyHideWhenBothOwned)
+  const keepUpVisibleList = useEssenceSettingsStore((s) => s.keepUpVisibleList)
   const enableOwnershipEdit = useEssenceSettingsStore((s) => s.enableOwnershipEditList)
   const enableNotes = useEssenceSettingsStore((s) => s.enableNotesList)
   const weaponOwnership = useEssenceSettingsStore((s) => s.weaponOwnership)
@@ -120,13 +125,19 @@ export const WeaponGrid = memo(function WeaponGrid() {
   const setEssenceStatus = useEssenceSettingsStore((s) => s.setEssenceStatus)
   const setWeaponNote = useEssenceSettingsStore((s) => s.setWeaponNote)
 
+  /** Check whether any of a weapon's characters is currently on banner. */
+  const isWeaponUp = useCallback(
+    (weapon: Weapon) => weapon.chars.length > 0 && weapon.chars.some((c) => upCharSet.has(c)),
+    [upCharSet],
+  )
+
   // Combined weapon list: custom first, then banner UP, then alphabetical
   const allWeapons = useMemo(() => {
     const bannerWeapons: Weapon[] = []
     const otherWeapons: Weapon[] = []
 
     for (const w of staticWeapons) {
-      if (isWeaponOnBanner(w)) {
+      if (isWeaponUp(w)) {
         bannerWeapons.push(w)
       } else {
         otherWeapons.push(w)
@@ -147,7 +158,7 @@ export const WeaponGrid = memo(function WeaponGrid() {
     sortWeapons(otherWeapons)
 
     return [...customWeapons, ...bannerWeapons, ...otherWeapons]
-  }, [customWeapons])
+  }, [customWeapons, isWeaponUp])
 
   // Dynamic attr values based on full weapon list
   const attrValues = useMemo(() => buildAttrValues(allWeapons), [allWeapons])
@@ -170,6 +181,8 @@ export const WeaponGrid = memo(function WeaponGrid() {
   // Base filter predicate: query + hide settings (shared by filteredWeapons and validOptions)
   const matchesBaseFilters = useCallback((w: Weapon) => {
     if (query && !w.name.includes(query) && !w.type.includes(query)) return false
+    // UP weapons bypass hide filters when the setting is enabled
+    if (keepUpVisibleList && isWeaponUp(w)) return true
     if (hideFourStar && w.rarity === 4) return false
     if (hideUnowned && weaponOwnership[w.id] !== true) return false
     if (hideEssenceOwned) {
@@ -182,7 +195,7 @@ export const WeaponGrid = memo(function WeaponGrid() {
       }
     }
     return true
-  }, [query, hideFourStar, hideUnowned, hideEssenceOwned, onlyBothOwned, weaponOwnership, essenceStatus])
+  }, [query, keepUpVisibleList, isWeaponUp, hideFourStar, hideUnowned, hideEssenceOwned, onlyBothOwned, weaponOwnership, essenceStatus])
 
   // Compute valid options for each category given selections in other categories
   const validOptions = useMemo(() => {
@@ -300,7 +313,7 @@ export const WeaponGrid = memo(function WeaponGrid() {
             <WeaponCard
               weapon={weapon}
               isSelected={selectedSet.has(weapon.id)}
-              isOnBanner={isWeaponOnBanner(weapon)}
+              isOnBanner={isWeaponUp(weapon)}
             />
             {enableOwnershipEdit && (
               <div className="flex items-center justify-center gap-1">

@@ -11,6 +11,7 @@ import { EssenceSettingsDialog } from '@/components/essence/essence-settings-dia
 import { CustomWeaponDialog } from '@/components/essence/custom-weapon-dialog'
 import { useMatrixStore } from '@/stores/useMatrixStore'
 import { useEssenceSettingsStore } from '@/stores/useEssenceSettingsStore'
+import { useBannerStore } from '@/stores/useBannerStore'
 import { getRegion, getSubRegion, getRegions, getSubRegions } from '@/data/dungeons'
 import { dungeons } from '@/data/dungeons'
 import { weapons as staticWeapons } from '@/data/weapons'
@@ -61,8 +62,13 @@ export default function EssencePlannerPage() {
   const hideUnownedPlans = useEssenceSettingsStore((s) => s.hideUnownedWeaponsPlans)
   const hideEssenceOwnedPlans = useEssenceSettingsStore((s) => s.hideEssenceOwnedWeaponsPlans)
   const onlyBothOwned = useEssenceSettingsStore((s) => s.onlyHideWhenBothOwned)
+  const keepUpVisiblePlans = useEssenceSettingsStore((s) => s.keepUpVisiblePlans)
   const weaponOwnership = useEssenceSettingsStore((s) => s.weaponOwnership)
   const essenceStatus = useEssenceSettingsStore((s) => s.essenceStatus)
+
+  // UP character names for plan-side UP bypass
+  const upCharacterNames = useBannerStore((s) => s.upCharacterNames)
+  const upCharSet = useMemo(() => new Set(upCharacterNames), [upCharacterNames])
 
   const selectedCount = selectedWeaponIds.length
   const noWeaponsSelected = selectedCount === 0
@@ -91,6 +97,11 @@ export default function EssencePlannerPage() {
       let count = 0
       for (const { weapon, isSelected } of plan.matchedWeapons) {
         if (!isSelected) continue
+        // UP weapons bypass hide filters when the setting is enabled
+        if (keepUpVisiblePlans && weapon.chars.some((c) => upCharSet.has(c))) {
+          count++
+          continue
+        }
         if (hideFourStarPlans && weapon.rarity === 4) continue
         if (hideUnownedPlans && weaponOwnership[weapon.id] !== true) continue
         if (hideEssenceOwnedPlans) {
@@ -106,7 +117,7 @@ export default function EssencePlannerPage() {
       }
       return count
     },
-    [hideFourStarPlans, hideUnownedPlans, hideEssenceOwnedPlans, onlyBothOwned, weaponOwnership, essenceStatus],
+    [keepUpVisiblePlans, upCharSet, hideFourStarPlans, hideUnownedPlans, hideEssenceOwnedPlans, onlyBothOwned, weaponOwnership, essenceStatus],
   )
 
   // Apply region priority sorting (sorted by visible selected count)
@@ -240,6 +251,15 @@ export default function EssencePlannerPage() {
       computePlans()
     }
   }, [selectedWeaponIds.length, planOrder.length, plansStale, computePlans])
+
+  // Periodically refresh banner UP status so WeaponGrid badges stay accurate
+  // across banner transition boundaries without manual page reload.
+  const refreshBannerStatus = useBannerStore((s) => s.refreshBannerStatus)
+  useEffect(() => {
+    refreshBannerStatus()
+    const id = setInterval(refreshBannerStatus, 60_000)
+    return () => clearInterval(id)
+  }, [refreshBannerStatus])
 
   const renderPlanList = () => {
     if (noWeaponsSelected) {

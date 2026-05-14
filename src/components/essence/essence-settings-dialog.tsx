@@ -69,6 +69,11 @@ const PAIRED_ROWS: PairedRow[] = [
     listKey: 'enableNotesList',
     plansKey: 'enableNotesPlans',
   },
+  {
+    labelI18n: 'essenceSettings.keepUpVisible',
+    listKey: 'keepUpVisibleList',
+    plansKey: 'keepUpVisiblePlans',
+  },
 ]
 
 // ─── Dialog ────────────────────────────────────────────────────────────────
@@ -95,6 +100,8 @@ export function EssenceSettingsDialog() {
     hideFourStarWeaponsPlans: useEssenceSettingsStore((s) => s.hideFourStarWeaponsPlans),
     enableOwnershipEditPlans: useEssenceSettingsStore((s) => s.enableOwnershipEditPlans),
     enableNotesPlans: useEssenceSettingsStore((s) => s.enableNotesPlans),
+    keepUpVisibleList: useEssenceSettingsStore((s) => s.keepUpVisibleList),
+    keepUpVisiblePlans: useEssenceSettingsStore((s) => s.keepUpVisiblePlans),
     onlyHideWhenBothOwned: useEssenceSettingsStore((s) => s.onlyHideWhenBothOwned),
   }
 

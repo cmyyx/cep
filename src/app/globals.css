@@ -216,6 +216,7 @@
 
   html {
     @apply font-sans;
+    overflow: clip;
   }
 }
 

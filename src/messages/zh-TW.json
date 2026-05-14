@@ -156,6 +156,7 @@
     "hideFourStar": "隱藏四星武器",
     "enableOwnershipEdit": "編輯擁有狀態",
     "enableNotes": "備註功能",
+    "keepUpVisible": "一律顯示UP武器（不受上述隱藏選項控制）",
     "onlyHideWhenBothOwned": "僅隱藏基質擁有且武器擁有的武器",
     "settingItem": "設定項",
     "regionPriority": "地區優先度",

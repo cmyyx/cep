@@ -34,13 +34,23 @@ function useCloseOnScroll(open: boolean, setOpen: (open: boolean) => void) {
     }
 
     const handler = () => setOpen(false)
-    scrollables.forEach((el) =>
-      el.addEventListener('scroll', handler, { passive: true }),
-    )
+    scrollables.forEach((el) => {
+      el.addEventListener('scroll', handler, { passive: true })
+      el.addEventListener('wheel', handler, { passive: true })
+    })
     window.addEventListener('scroll', handler, { passive: true })
+    window.addEventListener('wheel', handler, { passive: true })
+    document.scrollingElement?.addEventListener('scroll', handler, { passive: true })
+    document.scrollingElement?.addEventListener('wheel', handler, { passive: true })
     return () => {
-      scrollables.forEach((el) => el.removeEventListener('scroll', handler))
+      scrollables.forEach((el) => {
+        el.removeEventListener('scroll', handler)
+        el.removeEventListener('wheel', handler)
+      })
       window.removeEventListener('scroll', handler)
+      window.removeEventListener('wheel', handler)
+      document.scrollingElement?.removeEventListener('scroll', handler)
+      document.scrollingElement?.removeEventListener('wheel', handler)
     }
   }, [open, setOpen])
 

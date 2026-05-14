@@ -1,5 +1,6 @@
 import { create } from 'zustand'
 import { bannerSchedule, standardCharacters } from '@/data/banner-data'
+import { isCharacterOnBanner } from '@/lib/banner-utils'
 import type {
   BannerSchedule,
   NormalizedWindow,
@@ -326,6 +327,17 @@ function deriveTimelineData(
 
 type TranslationFn = (key: string, params?: Record<string, number | string>) => string
 
+/** Compute all character names that are currently on banner. */
+function computeUpCharacters(): string[] {
+  const names: string[] = []
+  for (const name of Object.keys(bannerSchedule)) {
+    if (isCharacterOnBanner(name)) {
+      names.push(name)
+    }
+  }
+  return names
+}
+
 interface BannerState {
   zoom: number
   fullOverview: boolean
@@ -333,6 +345,8 @@ interface BannerState {
   sortMode: SortMode
   timelineData: TimelineData | null
   needsFit: boolean
+  /** Character names currently on banner. */
+  upCharacterNames: string[]
 
   setZoom: (value: number) => void
   toggleFullOverview: (width: number) => void
@@ -340,6 +354,8 @@ interface BannerState {
   setSortMode: (mode: SortMode) => void
   refresh: (t: TranslationFn, locale?: string) => void
   fitToViewport: (width: number, t: TranslationFn, locale?: string) => void
+  /** Re-compute upCharacterNames with current Date.now(). */
+  refreshBannerStatus: () => void
 }
 
 const DEFAULT_ZOOM = 5
@@ -355,6 +371,7 @@ export const useBannerStore = create<BannerState>((set, get) => ({
   sortMode: 'default',
   timelineData: null,
   needsFit: true,
+  upCharacterNames: computeUpCharacters(),
 
   setZoom: (value: number) => {
     const z = Math.max(MIN_ZOOM, Math.min(MAX_ZOOM, value))
@@ -394,4 +411,6 @@ export const useBannerStore = create<BannerState>((set, get) => ({
     const data = deriveTimelineData(normalizedCache, { nowMs, pxPerDay: z, sortMode, locale, t })
     set({ timelineData: data, zoom: z, fullOverview: true, needsFit: false })
   },
+
+  refreshBannerStatus: () => set({ upCharacterNames: computeUpCharacters() }),
 }))

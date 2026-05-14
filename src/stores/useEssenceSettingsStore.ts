@@ -21,6 +21,9 @@ const FLAG_DEFAULTS: Record<SettingKey, boolean> = {
   enableOwnershipEditPlans: false,
   enableNotesPlans: false,
 
+  keepUpVisibleList: true,
+  keepUpVisiblePlans: true,
+
   onlyHideWhenBothOwned: false,
 }
 

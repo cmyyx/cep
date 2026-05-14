@@ -156,6 +156,7 @@
     "hideFourStar": "Hide 4-star weapons",
     "enableOwnershipEdit": "Enable ownership editing",
     "enableNotes": "Enable notes",
+    "keepUpVisible": "Always show UP weapons (bypass hide filters above)",
     "onlyHideWhenBothOwned": "Only hide when both essence and weapon are owned",
     "settingItem": "Setting",
     "regionPriority": "Region Priority",
