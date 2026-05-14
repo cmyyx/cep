@@ -210,7 +210,11 @@
     "today": "Today",
     "sortDefault": "Default",
     "sortAsc": "Version Asc",
-    "sortDesc": "Version Desc"
+    "sortDesc": "Version Desc",
+    "poolInfo": "Banner Info",
+    "poolInfoSubtitle": "Click artwork to view banner details",
+    "viewDetails": "View Details",
+    "poolDuration": "Duration"
   },
   "refinement": {
     "searchPlaceholder": "Search equipment...",

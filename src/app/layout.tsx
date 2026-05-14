@@ -44,7 +44,10 @@ export default function RootLayout({
             executing before any JS bundles load. */}
         <script
           suppressHydrationWarning
-        >{`(function(){try{var d=document.documentElement;var t="auto";var s=localStorage.getItem("cep-settings");if(s){var p=JSON.parse(s);t=p.theme||"auto"}if(t==="auto"){t=window.matchMedia("(prefers-color-scheme:dark)").matches?"dark":"light"}if(t&&t!=="auto"){d.classList.add(t);if(t==="flashbang"){d.style.colorScheme="dark";d.setAttribute("data-theme","flashbang")}}}catch(e){}})()`}</script>
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var d=document.documentElement;var t="auto";var s=localStorage.getItem("cep-settings");if(s){var p=JSON.parse(s);t=p.theme||"auto"}if(t==="auto"){t=window.matchMedia("(prefers-color-scheme:dark)").matches?"dark":"light"}if(t&&t!=="auto"){d.classList.add(t);if(t==="flashbang"){d.style.colorScheme="dark";d.setAttribute("data-theme","flashbang")}}}catch(e){}})()`,
+          }}
+        />
         <TooltipProvider>{children}</TooltipProvider>
 
         {/* Analytics — defer: loads in parallel, executes after HTML parse */}
@@ -56,7 +59,8 @@ export default function RootLayout({
         <script
           defer
           suppressHydrationWarning
-        >{`var _hmt = _hmt || [];`}</script>
+          dangerouslySetInnerHTML={{ __html: `var _hmt = _hmt || [];` }}
+        />
         <script
           defer
           src="https://hm.baidu.com/hm.js?27db54b42d0271041b2c3e59b731fc6a"
@@ -64,7 +68,10 @@ export default function RootLayout({
         <script
           defer
           suppressHydrationWarning
-        >{`(function(c,l,a,r,i){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};})(window,document,"clarity");`}</script>
+          dangerouslySetInnerHTML={{
+            __html: `(function(c,l,a,r,i){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};})(window,document,"clarity");`,
+          }}
+        />
         <script defer src="https://www.clarity.ms/tag/wp0yo2ig74" />
         <script
           defer

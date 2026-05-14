@@ -7,6 +7,7 @@ import { useBannerStore } from '@/stores/useBannerStore'
 import { SidebarTrigger } from '@/components/ui/sidebar'
 import { TimelineControls } from './timeline-controls'
 import { TimelineChart } from './timeline-chart'
+import { PoolInfoStrip } from './pool-info-strip'
 
 export function BannerCalendar() {
   const t = useTranslations()
@@ -139,6 +140,9 @@ export function BannerCalendar() {
           </div>
         )}
       </div>
+
+      {/* Banner pool info strip */}
+      <PoolInfoStrip />
 
       {/* Standard characters table - follows page margins */}
       {hasStandard && (

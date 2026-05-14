@@ -210,7 +210,11 @@
     "today": "今日",
     "sortDefault": "デフォルト",
     "sortAsc": "バージョン昇順",
-    "sortDesc": "バージョン降順"
+    "sortDesc": "バージョン降順",
+    "poolInfo": "ガチャ情報",
+    "poolInfoSubtitle": "イラストをクリックして詳細を表示",
+    "viewDetails": "詳細を見る",
+    "poolDuration": "開催期間"
   },
   "refinement": {
     "searchPlaceholder": "装備を検索...",

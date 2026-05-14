@@ -210,7 +210,11 @@
     "today": "今天",
     "sortDefault": "默认排序",
     "sortAsc": "版本升序",
-    "sortDesc": "版本降序"
+    "sortDesc": "版本降序",
+    "poolInfo": "卡池信息",
+    "poolInfoSubtitle": "点击立绘查看卡池详情",
+    "viewDetails": "查看详情",
+    "poolDuration": "卡池时间"
   },
   "refinement": {
     "searchPlaceholder": "搜索装备...",

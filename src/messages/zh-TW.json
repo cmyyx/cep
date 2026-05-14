@@ -210,7 +210,11 @@
     "today": "今天",
     "sortDefault": "預設排序",
     "sortAsc": "版本升序",
-    "sortDesc": "版本降序"
+    "sortDesc": "版本降序",
+    "poolInfo": "卡池資訊",
+    "poolInfoSubtitle": "點擊立繪查看卡池詳情",
+    "viewDetails": "查看詳情",
+    "poolDuration": "卡池時間"
   },
   "refinement": {
     "searchPlaceholder": "搜尋裝備...",
