@@ -12,3 +12,16 @@ export function formatTime(iso: string): string {
   const pad = (n: number) => String(n).padStart(2, '0')
   return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}`
 }
+
+/** Mask email for privacy: u***@example.com */
+export function maskEmail(email: string | null | undefined): string {
+  if (!email) return '—'
+  const at = email.indexOf('@')
+  if (at <= 1) return email
+  return email[0] + '***' + email.slice(at)
+}
+
+/** Simple email format check */
+export function isValidEmail(email: string): boolean {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
+}

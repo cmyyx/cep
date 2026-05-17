@@ -79,6 +79,14 @@ export default function AboutPage() {
               </p>
               <div className="flex items-center gap-2 mt-3">
                 <Badge variant="outline">AGPL-3.0</Badge>
+                <a
+                  href="https://github.com/cmyyx/cep"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-xs text-muted-foreground hover:text-foreground transition-colors underline underline-offset-2"
+                >
+                  GitHub
+                </a>
                 <span className="text-xs text-muted-foreground">&copy; 璨梦踏月</span>
               </div>
             </div>
