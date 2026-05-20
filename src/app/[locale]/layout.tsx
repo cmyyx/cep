@@ -51,6 +51,9 @@ export default async function LocaleLayout({
   setRequestLocale(locale)
 
   const messages = (await import(`../../messages/${locale}.json`)).default
+  // Merge game content translations (regions, weapons, equips, characters)
+  const regionMessages = (await import(`../../generated/i18n/regions/${locale}.json`)).default
+  messages.region = regionMessages
 
   return (
     <NextIntlClientProvider messages={messages} locale={locale}>

@@ -41,6 +41,10 @@ export type EssenceSettingsState = EssenceSettingsFlags &
     regionSecond: string | null
     /** Weapon grid attribute filter collapsed state */
     weaponFilterCollapsed: boolean
+    /** Premium auto-sync toggle (per-device, persisted) */
+    autoSyncEnabled: boolean
+    /** Show a brief check icon when sync succeeds (non-blocking) */
+    notifyOnSync: boolean
 
     toggleFlag: (key: SettingKey) => void
     setWeaponOwnership: (weaponId: string, owned: boolean) => void
@@ -52,5 +56,7 @@ export type EssenceSettingsState = EssenceSettingsFlags &
     setRegionFirst: (region: string | null) => void
     setRegionSecond: (region: string | null) => void
     toggleWeaponFilterCollapsed: () => void
+    setAutoSyncEnabled: (enabled: boolean) => void
+    setNotifyOnSync: (notify: boolean) => void
     resetAllSettings: () => void
   }

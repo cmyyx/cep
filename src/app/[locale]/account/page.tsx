@@ -12,10 +12,13 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Separator } from '@/components/ui/separator'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Loader2, Cloud, HardDrive, AlertTriangle, CheckCircle2, Mail, Shield, RefreshCw, LogOut, Crown, Key, Send, Zap, Monitor, X, Eye, EyeOff } from 'lucide-react'
+import { Switch } from '@/components/ui/switch'
 import { useAuthStore } from '@/stores/useAuthStore'
+import { useEssenceSettingsStore } from '@/stores/useEssenceSettingsStore'
 import { getSyncDataApi, postSyncDataApi, api, type SyncDataResponse } from '@/lib/api'
-import { getSyncTimestamps, subscribeSyncTimestamps } from '@/hooks/useAutoSync'
+import { getSyncTimestamps, subscribeSyncTimestamps, setAutoSyncConflictCallback, syncStoresFromCloudPayload, hasExistingLocalData, syncDataDiffers, buildSummaryRows, buildSettingsDiff, updateLastPull, type SyncConflictInfo } from '@/hooks/useAutoSync'
 import { cn, maskEmail, isValidEmail, formatTime } from '@/lib/utils'
+import { SyncConflictDialog } from '@/components/shared/sync-conflict-dialog'
 
 // ─── Sync ────────────────────────────────────────────────────
 
@@ -60,12 +63,18 @@ export default function AccountPage() {
   const accessToken = useAuthStore(s => s.accessToken)
   const fetchMeGlobal = useAuthStore(s => s.fetchMe)
   const paymentClaims = useAuthStore(s => s.paymentClaims)
+  const autoSyncEnabled = useEssenceSettingsStore(s => s.autoSyncEnabled)
+  const setAutoSyncEnabled = useEssenceSettingsStore(s => s.setAutoSyncEnabled)
+  const notifyOnSync = useEssenceSettingsStore(s => s.notifyOnSync)
+  const setNotifyOnSync = useEssenceSettingsStore(s => s.setNotifyOnSync)
+
+  // Hydration guard: ensure server & client render the same initial tree
+  const [mounted, setMounted] = useState(false)
 
   // Sync
   const [cloudData, setCloudData] = useState<SyncDataResponse | null>(null)
   const [syncStatus, setSyncStatus] = useState<'idle'|'loading'|'pushing'|'error'|'success'>('idle')
   const [syncError, setSyncError] = useState<string|null>(null)
-  const [syncSuccessMsg, setSyncSuccessMsg] = useState<string|null>(null)
   const [cloudVersion, setCloudVersion] = useState<number|null>(null)
 
   // Change email / password
@@ -97,7 +106,7 @@ export default function AccountPage() {
 
   // Payment
   const [showClaimForm, setShowClaimForm] = useState(false); const [claimChannel, setClaimChannel] = useState('alipay')
-  const [claimRef, setClaimRef] = useState(''); const [claimMerchant, setClaimMerchant] = useState(''); const [claimPaidTime, setClaimPaidTime] = useState(''); const [claimNote, setClaimNote] = useState('')
+  const [claimRef, setClaimRef] = useState(''); const [claimMerchant, setClaimMerchant] = useState(''); const [claimPaidTime, setClaimPaidTime] = useState('')
   const [claimSubmitting, setClaimSubmitting] = useState(false); const [claimError, setClaimError] = useState<string|null>(null)
 
   // Tier
@@ -108,30 +117,166 @@ export default function AccountPage() {
   const isPremium = !!(premiumUntil > now)
   const displayTier: 'free'|'trial'|'premium' = isPremium ? 'premium' : isTrial ? 'trial' : 'free'
   const planExpireDate = isPremium ? premiumUntilStr : isTrial ? premiumTrialStr : null
+  const hasAutoSync = isPremium || isTrial
 
   const fetchCloud = useCallback(async () => {
-    if (!accessToken) return; setSyncStatus('loading'); setSyncError(null); setSyncSuccessMsg(null)
-    try { const res = await getSyncDataApi(); setCloudData(res); setCloudVersion(res.version); setSyncStatus('success'); setSyncSuccessMsg(t('account.pullSuccess')) }
+    if (!accessToken) return; setSyncStatus('loading'); setSyncError(null)
+    try { const res = await getSyncDataApi(); setCloudData(res); setCloudVersion(res.version); setSyncStatus('success'); updateLastPull(res.updatedAt) }
     catch { setSyncStatus('error'); setSyncError('account.fetchSyncFailed') }
   }, [accessToken, t])
 
-  // Load data once on mount — /me now includes sessions, sync is separate but only on explicit user action.
-  // No dependency on accessToken to avoid repeated calls from token refresh cascading.
+  // Pull from cloud with conflict detection (called by "从云端下载" button)
+  const handlePull = useCallback(async () => {
+    if (!accessToken) return
+    setSyncStatus('loading'); setSyncError(null)
+    try {
+      const res = await getSyncDataApi()
+      const raw = res.data as Record<string, unknown> | null
+      if (raw) {
+        const localData = collectLocalData()
+        if (hasExistingLocalData(localData) && syncDataDiffers(localData, raw)) {
+          // Conflict: show dialog, don't apply
+          const localRows = buildSummaryRows(localData)
+          const cloudRows = buildSummaryRows(raw)
+          const settingsDiff = buildSettingsDiff(localData, raw)
+          setConflict({
+            type: 'pull_conflict',
+            localSummary: localRows,
+            cloudSummary: cloudRows,
+            settingsDiff: settingsDiff.length > 0 ? settingsDiff : undefined,
+            cloudVersion: res.version,
+            cloudUpdatedAt: res.updatedAt,
+            resolve: (choice) => {
+              if (choice === 'cloud') {
+                // Write cloud to localStorage + sync stores
+                const r = raw
+                try {
+                  const ep = r.essencePlanner as Record<string, unknown> | undefined
+                  if (ep) {
+                    const current = JSON.parse(localStorage.getItem('matrix-session') || '{}')
+                    const s = current?.state ?? current
+                    if (Array.isArray(ep.selectedWeaponIds)) s.selectedWeaponIds = ep.selectedWeaponIds
+                    if (ep.dungeonS1Selections) s.dungeonS1Selections = ep.dungeonS1Selections
+                    localStorage.setItem('matrix-session', JSON.stringify({ ...current, state: s }))
+                  }
+                } catch {}
+                try {
+                  const es = r.essenceSettings as Record<string, unknown> | undefined
+                  if (es) {
+                    const current = JSON.parse(localStorage.getItem('essence-settings') || '{}')
+                    const s = current?.state ?? current
+                    if (es.weaponOwnership) s.weaponOwnership = es.weaponOwnership
+                    if (es.essenceStatus) s.essenceStatus = es.essenceStatus
+                    if (es.weaponNotes) s.weaponNotes = es.weaponNotes
+                    if (Array.isArray(es.customWeapons)) s.customWeapons = es.customWeapons
+                    if (es.flags) Object.assign(s, es.flags)
+                    if (es.regionFirst !== undefined) s.regionFirst = es.regionFirst
+                    if (es.regionSecond !== undefined) s.regionSecond = es.regionSecond
+                    localStorage.setItem('essence-settings', JSON.stringify({ ...current, state: s }))
+                  }
+                } catch {}
+                try {
+                  const rp = r.refinementPlanner as Record<string, unknown> | undefined
+                  if (rp) {
+                    const current = JSON.parse(localStorage.getItem('refinement-session') || '{}')
+                    const s = current?.state ?? current
+                    if (rp.selectedEquipId !== undefined) s.selectedEquipId = rp.selectedEquipId
+                    localStorage.setItem('refinement-session', JSON.stringify({ ...current, state: s }))
+                  }
+                } catch {}
+                syncStoresFromCloudPayload(raw)
+                setCloudVersion(res.version)
+                setCloudData(res); setSyncStatus('success'); updateLastPull(res.updatedAt)
+                setConflict(null)
+              }
+              if (choice === 'local') {
+                // Push local to cloud, refresh only after POST completes
+                const localData = collectLocalData()
+                setConflict(null)
+                postSyncDataApi({
+                  base_version: res.version,
+                  data: { schemaVersion: 2, capturedAt: new Date().toISOString(), ...localData },
+                }, 'manual').then(pushRes => {
+                  setCloudVersion(pushRes.version)
+                  fetchCloud()
+                }).catch(() => {
+                  fetchCloud()
+                })
+              }
+            },
+          })
+          setSyncStatus('success')
+        } else {
+          // No conflict: apply directly
+          const r = raw
+          try {
+            const ep = r.essencePlanner as Record<string, unknown> | undefined
+            if (ep) {
+              const current = JSON.parse(localStorage.getItem('matrix-session') || '{}')
+              const s = current?.state ?? current
+              if (Array.isArray(ep.selectedWeaponIds)) s.selectedWeaponIds = ep.selectedWeaponIds
+              if (ep.dungeonS1Selections) s.dungeonS1Selections = ep.dungeonS1Selections
+              localStorage.setItem('matrix-session', JSON.stringify({ ...current, state: s }))
+            }
+          } catch {}
+          try {
+            const es = r.essenceSettings as Record<string, unknown> | undefined
+            if (es) {
+              const current = JSON.parse(localStorage.getItem('essence-settings') || '{}')
+              const s = current?.state ?? current
+              if (es.weaponOwnership) s.weaponOwnership = es.weaponOwnership
+              if (es.essenceStatus) s.essenceStatus = es.essenceStatus
+              if (es.weaponNotes) s.weaponNotes = es.weaponNotes
+              if (Array.isArray(es.customWeapons)) s.customWeapons = es.customWeapons
+              if (es.flags) Object.assign(s, es.flags)
+              if (es.regionFirst !== undefined) s.regionFirst = es.regionFirst
+              if (es.regionSecond !== undefined) s.regionSecond = es.regionSecond
+              localStorage.setItem('essence-settings', JSON.stringify({ ...current, state: s }))
+            }
+          } catch {}
+          try {
+            const rp = r.refinementPlanner as Record<string, unknown> | undefined
+            if (rp) {
+              const current = JSON.parse(localStorage.getItem('refinement-session') || '{}')
+              const s = current?.state ?? current
+              if (rp.selectedEquipId !== undefined) s.selectedEquipId = rp.selectedEquipId
+              localStorage.setItem('refinement-session', JSON.stringify({ ...current, state: s }))
+            }
+          } catch {}
+          syncStoresFromCloudPayload(r)
+          setCloudData(res); setCloudVersion(res.version); setSyncStatus('success'); updateLastPull(res.updatedAt)
+        }
+      } else {
+        setCloudData(res); setCloudVersion(res.version); setSyncStatus('success'); updateLastPull(res.updatedAt)
+      }
+    } catch {
+      setSyncStatus('error'); setSyncError('account.fetchSyncFailed')
+    }
+  }, [accessToken, t])
+
+  // Mark component as mounted (client-only, prevents hydration mismatch)
+  useEffect(() => { setMounted(true) }, [])
+
+  // Load data once on mount: /me (includes sessions) + cloud sync data (for display)
   const initialLoadDone = useRef(false)
   useEffect(() => {
     if (initialLoadDone.current) return
     initialLoadDone.current = true
-    if (accessToken) { fetchMeGlobal() }
+    if (accessToken) {
+      fetchMeGlobal()
+      fetchCloud()
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- fetchCloud is stable via useCallback
   }, [])
 
-  const handlePush = async () => { setSyncStatus('pushing'); setSyncError(null); setSyncSuccessMsg(null); try { const localData = collectLocalData(); const res = await postSyncDataApi({ base_version: cloudVersion??0, data: { schemaVersion: 2, capturedAt: new Date().toISOString(), ...localData } }); setCloudVersion(res.version); setSyncStatus('success'); setSyncSuccessMsg(t('account.pushSuccess')); await fetchCloud() } catch (err) { setSyncStatus('error'); const msg = err instanceof Error ? err.message : ''; setSyncError(msg==='version_conflict'?'account.versionConflict':'account.pushSyncFailed') } }
+  const handlePush = async () => { setSyncStatus('pushing'); setSyncError(null); try { const localData = collectLocalData(); const res = await postSyncDataApi({ base_version: cloudVersion??0, data: { schemaVersion: 2, capturedAt: new Date().toISOString(), ...localData } }); setCloudVersion(res.version); setSyncStatus('success'); updateLastPull(); await fetchCloud() } catch (err) { setSyncStatus('error'); const msg = err instanceof Error ? err.message : ''; if (msg === 'version_conflict') { try { const latest = await getSyncDataApi(); const localData = collectLocalData(); const cloudRaw = latest.data as Record<string, unknown> | null; const localRows = buildSummaryRows(localData); const cloudRows = cloudRaw ? buildSummaryRows(cloudRaw) : { weapons:'0',equip:'',ownership:'0',essence:'0',customWeapons:'0',weaponNotes:'0' }; const settingsDiff = cloudRaw ? buildSettingsDiff(localData, cloudRaw) : []; setConflict({ type: 'push_conflict', localSummary: localRows, cloudSummary: cloudRows, settingsDiff: settingsDiff.length > 0 ? settingsDiff : undefined, cloudVersion: latest.version, cloudUpdatedAt: latest.updatedAt, resolve: (choice) => { if (choice === 'cloud' && cloudRaw) { const writeRaw = cloudRaw; try { const ep = writeRaw.essencePlanner as Record<string, unknown> | undefined; if (ep) { const current = JSON.parse(localStorage.getItem('matrix-session') || '{}'); const state = current?.state ?? current; if (Array.isArray(ep.selectedWeaponIds)) state.selectedWeaponIds = ep.selectedWeaponIds; if (ep.dungeonS1Selections) state.dungeonS1Selections = ep.dungeonS1Selections; localStorage.setItem('matrix-session', JSON.stringify({ ...current, state })); } } catch {} try { const es = writeRaw.essenceSettings as Record<string, unknown> | undefined; if (es) { const current = JSON.parse(localStorage.getItem('essence-settings') || '{}'); const state = current?.state ?? current; if (es.weaponOwnership) state.weaponOwnership = es.weaponOwnership; if (es.essenceStatus) state.essenceStatus = es.essenceStatus; if (es.weaponNotes) state.weaponNotes = es.weaponNotes; if (Array.isArray(es.customWeapons)) state.customWeapons = es.customWeapons; if (es.flags) Object.assign(state, es.flags); if (es.regionFirst !== undefined) state.regionFirst = es.regionFirst; if (es.regionSecond !== undefined) state.regionSecond = es.regionSecond; localStorage.setItem('essence-settings', JSON.stringify({ ...current, state })); } } catch {} try { const rp = writeRaw.refinementPlanner as Record<string, unknown> | undefined; if (rp) { const current = JSON.parse(localStorage.getItem('refinement-session') || '{}'); const state = current?.state ?? current; if (rp.selectedEquipId !== undefined) state.selectedEquipId = rp.selectedEquipId; localStorage.setItem('refinement-session', JSON.stringify({ ...current, state })); } } catch {} setCloudVersion(latest.version); syncStoresFromCloudPayload(cloudRaw); } if (choice === 'local') { setCloudVersion(latest.version); } fetchCloud(); } }); } catch { setSyncError('account.versionConflict'); } } else { setSyncError('account.pushSyncFailed'); } } }
   const handleVerifyEmail = async () => { setVerifySending(true); setVerifyError(null); try { await api('/api/email/send-verification',{method:'POST'}); setVerifySent(true) } catch (err) { setVerifyError(err instanceof Error ? err.message : 'send_failed') } finally { setVerifySending(false) } }
   const handleSubmitVerificationCode = async () => { if(!verifyCode)return; setVerifySubmitting(true); setVerifyError(null); try { await api('/api/email/verify',{method:'POST',body:{code:verifyCode}}); await fetchMeGlobal(); setVerifySent(false); setVerifyCode('') } catch (err) { setVerifyError(err instanceof Error ? err.message : 'invalid_code') } finally { setVerifySubmitting(false) } }
   const handleChangeEmail = async () => { if(!newEmail)return; if(!isValidEmail(newEmail)){setChangeEmailError('invalidEmail');return}; setEmailChanging(true); setChangeEmailError(null); try { await api('/api/email/request-change',{method:'POST',body:{newEmail}}); setChangeEmailSent(true) } catch (err) { setChangeEmailError(err instanceof Error ? err.message : 'send_failed') } finally { setEmailChanging(false) } }
   const handleSubmitChangeEmailCode = async () => { if(!changeEmailCode)return; setChangeEmailCodeSubmitting(true); setChangeEmailError(null); try { await api('/api/email/verify',{method:'POST',body:{code:changeEmailCode}}); await fetchMeGlobal(); setShowChangeEmail(false); setChangeEmailSent(false); setChangeEmailCode(''); setNewEmail('') } catch (err) { setChangeEmailError(err instanceof Error ? err.message : 'invalid_code') } finally { setChangeEmailCodeSubmitting(false) } }
   const handleChangePassword = async () => { setPwdError(null); if(!currentPwd||!newPwd||newPwd.length<6){setPwdError(t('auth.passwordTooShort'));return}; if(newPwd!==confirmPwd){setPwdError(t('auth.passwordsNotMatch'));return}; setPasswordChanging(true); try{await api('/api/password/change',{method:'POST',body:{currentPassword:currentPwd,newPassword:newPwd}});setShowChangePwd(false);setCurrentPwd('');setNewPwd('');setConfirmPwd('')}catch(err){setPwdError(err instanceof Error?err.message:'')}finally{setPasswordChanging(false)} }
-  const handleSubmitClaim = async () => { if(!claimRef)return; setClaimSubmitting(true);setClaimError(null); try{await api('/api/payment/submit-claim',{method:'POST',body:{channel:claimChannel,externalReference:claimRef,merchantOrderNo:claimChannel==='alipay'?claimMerchant:null,paidTime:claimPaidTime||null,note:claimNote||null}});setShowClaimForm(false);setClaimRef('');setClaimMerchant('');setClaimPaidTime('');setClaimNote('')}catch(err){setClaimError(err instanceof Error?err.message:'')}finally{setClaimSubmitting(false)} }
-  const handleRevokeSession = async (sessionId: number) => { setRevokingIds(prev => new Set(prev).add(sessionId)); await revokeSession(sessionId); setRevokingIds(prev => { const next = new Set(prev); next.delete(sessionId); return next }) }
+  const handleSubmitClaim = async () => { if(!claimRef)return; setClaimSubmitting(true);setClaimError(null); try{await api('/api/payment/submit-claim',{method:'POST',body:{channel:claimChannel,externalReference:claimRef,merchantOrderNo:claimChannel==='alipay'?claimMerchant:null,paidTime:claimPaidTime||null}});setShowClaimForm(false);setClaimRef('');setClaimMerchant('');setClaimPaidTime('')}catch(err){setClaimError(err instanceof Error?err.message:'')}finally{setClaimSubmitting(false)} }
+  const handleRevokeSession = async (sessionId: number) => { setRevokingIds(prev => new Set(prev).add(sessionId)); try { await revokeSession(sessionId) } catch { /* error handled by store */ } finally { setRevokingIds(prev => { const next = new Set(prev); next.delete(sessionId); return next }) } }
   const handleLogout = async () => { setLogoutLoading(true); await logout(); router.replace(`/${locale}`) }
 
   const localData = collectLocalData()
@@ -142,10 +287,109 @@ export default function AccountPage() {
   const [syncTs, setSyncTs] = useState(getSyncTimestamps)
   useEffect(() => subscribeSyncTimestamps(() => setSyncTs(getSyncTimestamps())), [])
 
+  // Sync conflict handling: auto-pull/push may detect conflicts and show dialog
+  const [conflict, setConflict] = useState<SyncConflictInfo | null>(null)
+  useEffect(() => {
+    setAutoSyncConflictCallback((info) => {
+      setConflict(info)
+    })
+    return () => setAutoSyncConflictCallback(null)
+  }, [])
+
+  // Auto-detect conflict when cloud data loads (e.g. navigated from conflict toast)
+  useEffect(() => {
+    if (!cloudData?.data || !cloudVersion || cloudVersion <= 0 || conflict) return
+    const localData = collectLocalData()
+    const cloudRaw = cloudData.data as Record<string, unknown>
+    if (hasExistingLocalData(localData) && syncDataDiffers(localData, cloudRaw)) {
+      const localRows = buildSummaryRows(localData)
+      const cloudRows = buildSummaryRows(cloudRaw)
+      const settingsDiff = buildSettingsDiff(localData, cloudRaw)
+      setConflict({
+        type: 'pull_conflict',
+        localSummary: localRows,
+        cloudSummary: cloudRows,
+        settingsDiff: settingsDiff.length > 0 ? settingsDiff : undefined,
+        cloudVersion,
+        cloudUpdatedAt: cloudData.updatedAt,
+        resolve: (choice) => {
+          if (choice === 'cloud') {
+            const r = cloudRaw
+            try {
+              const ep = r.essencePlanner as Record<string, unknown> | undefined
+              if (ep) {
+                const current = JSON.parse(localStorage.getItem('matrix-session') || '{}')
+                const s = current?.state ?? current
+                if (Array.isArray(ep.selectedWeaponIds)) s.selectedWeaponIds = ep.selectedWeaponIds
+                if (ep.dungeonS1Selections) s.dungeonS1Selections = ep.dungeonS1Selections
+                localStorage.setItem('matrix-session', JSON.stringify({ ...current, state: s }))
+              }
+            } catch {}
+            try {
+              const es = r.essenceSettings as Record<string, unknown> | undefined
+              if (es) {
+                const current = JSON.parse(localStorage.getItem('essence-settings') || '{}')
+                const s = current?.state ?? current
+                if (es.weaponOwnership) s.weaponOwnership = es.weaponOwnership
+                if (es.essenceStatus) s.essenceStatus = es.essenceStatus
+                if (es.weaponNotes) s.weaponNotes = es.weaponNotes
+                if (Array.isArray(es.customWeapons)) s.customWeapons = es.customWeapons
+                if (es.flags) Object.assign(s, es.flags)
+                if (es.regionFirst !== undefined) s.regionFirst = es.regionFirst
+                if (es.regionSecond !== undefined) s.regionSecond = es.regionSecond
+                localStorage.setItem('essence-settings', JSON.stringify({ ...current, state: s }))
+              }
+            } catch {}
+            try {
+              const rp = r.refinementPlanner as Record<string, unknown> | undefined
+              if (rp) {
+                const current = JSON.parse(localStorage.getItem('refinement-session') || '{}')
+                const s = current?.state ?? current
+                if (rp.selectedEquipId !== undefined) s.selectedEquipId = rp.selectedEquipId
+                localStorage.setItem('refinement-session', JSON.stringify({ ...current, state: s }))
+              }
+            } catch {}
+            syncStoresFromCloudPayload(r)
+            setCloudVersion(cloudVersion)
+            setConflict(null)
+            fetchCloud()
+          }
+          if (choice === 'local') {
+            // Push local to cloud, then refresh display only after POST completes
+            const localData = collectLocalData()
+            setConflict(null)
+            postSyncDataApi({
+              base_version: cloudVersion,
+              data: { schemaVersion: 2, capturedAt: new Date().toISOString(), ...localData },
+            }, 'manual').then(res => {
+              setCloudVersion(res.version)
+              fetchCloud()
+            }).catch(() => {
+              fetchCloud()
+            })
+          }
+        },
+      })
+    }
+  }, [cloudData, cloudVersion, conflict])
+
+  // Show loading skeleton until client-side hydration completes,
+  // preventing server-vs-client HTML mismatch from Zustand persist rehydration.
+  if (!mounted) {
+    return (
+      <div className="flex flex-col flex-1 min-h-0 overflow-hidden">
+        <div className="flex items-center gap-3 px-4 py-2 border-b border-border"><SidebarTrigger /><h1 className="text-base font-semibold tracking-tight">{t('account.title')}</h1></div>
+        <div className="flex-1 flex items-center justify-center p-6">
+          <Loader2 className="size-6 animate-spin text-muted-foreground" />
+        </div>
+      </div>
+    )
+  }
+
   if (!accessToken) {
     return (
       <div className="flex flex-col flex-1 min-h-0 overflow-hidden">
-        <div className="flex items-center gap-3 px-4 py-2 border-b border-border"><SidebarTrigger /><h1 className="text-base font-semibold">{t('account.title')}</h1></div>
+        <div className="flex items-center gap-3 px-4 py-2 border-b border-border"><SidebarTrigger /><h1 className="text-base font-semibold tracking-tight">{t('account.title')}</h1></div>
         <div className="flex-1 flex items-center justify-center p-6">
           <Card className="w-full max-w-sm"><CardContent className="py-8 text-center space-y-4">
             <AlertTriangle className="size-8 text-amber-500 mx-auto" />
@@ -174,14 +418,13 @@ export default function AccountPage() {
             {isPremium&&<div className="flex items-center gap-2 text-xs text-purple-600"><Zap className="size-3.5"/>{t('account.autoSyncEnabled')}</div>}
             <Separator/>
             {!emailVerified&&<>
-            {!verifySent ? (
               <Button variant="outline" size="sm" className="w-full justify-start" onClick={handleVerifyEmail} disabled={verifySending}>
                 {verifySending?<Loader2 className="size-4 mr-2 animate-spin"/>:<Mail className="size-4 mr-2"/>}
-                {t('account.sendVerification')}
+                {verifySent ? t('account.resendVerification') : t('account.sendVerification')}
               </Button>
-            ) : (
-              <div className="space-y-2 rounded-lg border border-border p-3">
-                <p className="text-xs text-muted-foreground">{t('account.verificationSent')}</p>
+              {verifySent && <p className="text-xs text-muted-foreground">{t('account.verificationSent')}</p>}
+              <div className="rounded-lg border border-border p-3 space-y-2">
+                <p className="text-xs text-muted-foreground">{t('account.enterCodeHint')}</p>
                 <div className="flex gap-2">
                   <Input className="h-8 text-xs bg-card border-border flex-1" value={verifyCode} onChange={e=>setVerifyCode(e.target.value)} placeholder={t('account.verificationCodePlaceholder')} maxLength={6} />
                   <Button size="sm" onClick={handleSubmitVerificationCode} disabled={!verifyCode||verifySubmitting}>
@@ -189,13 +432,9 @@ export default function AccountPage() {
                     {t('account.submit')}
                   </Button>
                 </div>
-                <Button variant="ghost" size="sm" className="text-xs" onClick={handleVerifyEmail} disabled={verifySending}>
-                  {t('account.resendVerification')}
-                </Button>
               </div>
-            )}
-            {verifyError&&<p className="text-xs text-destructive">{t(`auth.${verifyError}`)}</p>}
-          </>}
+              {verifyError&&<p className="text-xs text-destructive">{t(`auth.${verifyError}`)}</p>}
+            </>}
             {!showChangeEmail?<Button variant="ghost" size="sm" className="w-full justify-start" onClick={()=>setShowChangeEmail(true)}><Mail className="size-4 mr-2"/>{t('account.changeEmail')}</Button>:<div className="space-y-2 rounded-lg border border-border p-3">
             {!changeEmailSent ? <>
               <Label className="text-xs">{t('account.newEmail')}</Label>
@@ -292,11 +531,41 @@ export default function AccountPage() {
                 {t('account.lastPullAt')}: {formatTime(new Date(syncTs.lastPullAt).toISOString())}
               </div>
             )}
-            {isPremium && <div className="flex items-center gap-2 text-xs text-purple-600"><Zap className="size-3.5"/>{t('account.autoSyncEnabled')}</div>}
+            <div className="space-y-2 rounded-md border border-border p-3">
+              <div className="flex items-center justify-between">
+                <span className="text-xs flex items-center gap-1.5"><Zap className="size-3.5 text-purple-600"/>{t('account.autoSyncToggle')}</span>
+                <Switch checked={autoSyncEnabled && hasAutoSync} onCheckedChange={setAutoSyncEnabled} disabled={!hasAutoSync} />
+              </div>
+              {!hasAutoSync && (
+                <p className="text-[10px] text-muted-foreground pl-5">{t('account.autoSyncPremiumOnly')}</p>
+              )}
+              {autoSyncEnabled && hasAutoSync && (
+                <>
+                  <div className="flex items-center justify-between pl-5">
+                    <span className="text-[11px] text-muted-foreground">{t('account.notifyOnSyncLabel')}</span>
+                    <Switch checked={notifyOnSync} onCheckedChange={setNotifyOnSync} className="scale-75" />
+                  </div>
+                  <div className="flex items-center justify-between pl-5">
+                    <span className="text-[11px] text-muted-foreground">{t('account.notifyOnFailureLabel')}</span>
+                    <Switch checked={true} disabled className="scale-75 opacity-50" />
+                  </div>
+                </>
+              )}
+            </div>
             {syncStatus==='error'&&syncError&&<p className="text-xs text-destructive">{t(syncError)}</p>}
-            {syncStatus==='success'&&syncSuccessMsg&&<p className="text-xs text-green-600">{syncSuccessMsg}</p>}
-            {hasCloudData&&<div className="rounded-md bg-amber-50 border border-amber-200 px-3 py-2 text-xs text-amber-700"><AlertTriangle className="size-3.5 inline mr-1.5 -mt-0.5"/>{t('account.conflictHint')}</div>}
-            <div className="flex gap-2"><Button variant="outline" size="sm" className="flex-1" onClick={fetchCloud} disabled={syncStatus==='loading'}><RefreshCw className="size-4 mr-2"/>{t('account.pullFromCloud')}</Button><Button size="sm" className="flex-1" onClick={handlePush} disabled={syncStatus==='pushing'}>{syncStatus==='pushing'?<Loader2 className="size-4 mr-2 animate-spin"/>:<Cloud className="size-4 mr-2"/>}{t('account.pushToCloud')}</Button></div>
+
+            {conflict ? (
+              <SyncConflictDialog
+                conflict={conflict}
+                onResolve={(choice) => {
+                  conflict.resolve(choice)
+                  setConflict(null)
+                }}
+              />
+            ) : hasCloudData && cloudData ? (
+              <div className="rounded-md bg-amber-50 border border-amber-200 px-3 py-2 text-xs text-amber-700"><AlertTriangle className="size-3.5 inline mr-1.5 -mt-0.5"/>{t('account.conflictHint')}</div>
+            ) : null}
+            <div className="flex gap-2"><Button variant="outline" size="sm" className="flex-1" onClick={handlePull} disabled={syncStatus==='loading' || syncStatus==='pushing' || !!conflict}><RefreshCw className="size-4 mr-2"/>{t('account.pullFromCloud')}</Button><Button size="sm" className="flex-1" onClick={handlePush} disabled={syncStatus==='loading' || syncStatus==='pushing' || !!conflict}>{syncStatus==='pushing'?<Loader2 className="size-4 mr-2 animate-spin"/>:<Cloud className="size-4 mr-2"/>}{t('account.pushToCloud')}</Button></div>
           </CardContent>
         </Card>
 
@@ -306,14 +575,47 @@ export default function AccountPage() {
           <CardContent className="space-y-4">
             {isTrial&&<div className="rounded-md bg-teal-50 border border-teal-200 px-3 py-2 text-xs text-teal-700">{t('account.trialHint')}</div>}
             <div className="rounded-lg border border-border overflow-hidden"><table className="w-full text-xs"><thead><tr className="bg-muted/50"><th className="text-left px-3 py-2 font-medium">{t('account.feature')}</th><th className="text-center px-3 py-2 font-medium">Free</th><th className="text-center px-3 py-2 font-medium text-purple-600">Premium</th></tr></thead><tbody className="divide-y divide-border">{[['account.featSyncSize',t('account.featSyncSizeFree'),t('account.featSyncSizePremium')],['account.featAutoSync',t('account.notSupported'),t('account.supported')],['account.featWeaponOwnership','200','2,000'],['account.featEssenceStatus','200','2,000'],['account.featCustomWeapons',t('account.notSupported'),'300'],['account.featSelectedWeapons','200','500'],['account.featWeaponNotes','50','200']].map(([label,free,premium])=><tr key={label}><td className="px-3 py-2 text-muted-foreground">{t(label)}</td><td className="px-3 py-2 text-center">{free}</td><td className="px-3 py-2 text-center text-purple-600 font-medium">{premium}</td></tr>)}</tbody></table></div>
-            <div className="grid grid-cols-3 gap-2">{[{label:'account.priceMonthly',price:'¥30'},{label:'account.priceQuarterly',price:'¥80'},{label:'account.priceYearly',price:'¥288'}].map(p=><div key={p.label} className="rounded-lg border border-border p-3 text-center"><div className="text-xs text-muted-foreground mb-1">{t(p.label)}</div><div className="text-lg font-bold text-[#171717]">{p.price}</div></div>)}</div>
+            {/* Pricing cards — 方案B: ¥6.99 / ¥16.99 / ¥49.99 */}
+            <div className="grid grid-cols-3 gap-2">
+              {/* 月付 */}
+              <div className="rounded-lg border border-border p-3 text-center">
+                <div className="text-xs text-muted-foreground mb-1">{t('account.priceMonthly')}</div>
+                <div className="text-lg font-bold text-[#171717]">¥6.99</div>
+              </div>
+              {/* 季付 */}
+              <div className="rounded-lg border border-border p-3 text-center">
+                <div className="text-xs text-muted-foreground mb-1">{t('account.priceQuarterly')}</div>
+                <div className="text-lg font-bold text-[#171717]">¥16.99</div>
+                <div className="text-[10px] text-green-600 mt-0.5">{t('account.priceSave', { percent: '19' })}</div>
+              </div>
+              {/* 年付 — 推荐 */}
+              <div className="rounded-lg border-2 border-purple-300 bg-purple-50/50 p-3 text-center relative">
+                <div className="absolute -top-2 left-1/2 -translate-x-1/2 bg-purple-600 text-white text-[10px] font-semibold px-2 py-0.5 rounded-full">{t('account.priceRecommended')}</div>
+                <div className="text-xs text-muted-foreground mb-1">{t('account.priceYearly')}</div>
+                <div className="text-lg font-bold text-[#171717]">¥49.99</div>
+                <div className="text-[10px] text-green-600 mt-0.5">{t('account.priceSave', { percent: '40' })}</div>
+              </div>
+            </div>
+            {/* Payment QR codes */}
+            <div className="space-y-2">
+              <p className="text-xs text-muted-foreground">{t('account.scanToPay')}</p>
+              <div className="flex gap-3">
+                <div className="flex-1 text-center">
+                  <img src="/images/payment/alipay.jpg" alt="Alipay" className="w-full max-w-[160px] mx-auto rounded-lg border border-border" />
+                  <span className="text-[10px] text-muted-foreground mt-1 block">{t('account.channelAlipay')}</span>
+                </div>
+                <div className="flex-1 text-center">
+                  <img src="/images/payment/wechat.png" alt="WeChat" className="w-full max-w-[160px] mx-auto rounded-lg border border-border" />
+                  <span className="text-[10px] text-muted-foreground mt-1 block">{t('account.channelWechat')}</span>
+                </div>
+              </div>
+            </div>
             {!showClaimForm?<Button variant="outline" size="sm" className="w-full" onClick={()=>setShowClaimForm(true)}><Send className="size-4 mr-2"/>{t('account.submitPayment')}</Button>:
             <div className="space-y-3 rounded-lg border border-border p-4">
               <div className="flex flex-col gap-2"><Label className="text-xs">{t('account.paymentChannel')}</Label><Select value={claimChannel} onValueChange={v=>{setClaimChannel(v??'alipay');setClaimMerchant('')}}><SelectTrigger className="h-8 text-xs"><SelectValue>{(v:string)=>v==='alipay'?t('account.channelAlipay'):t('account.channelWechat')}</SelectValue></SelectTrigger><SelectContent><SelectItem value="alipay">{t('account.channelAlipay')}</SelectItem><SelectItem value="wechat">{t('account.channelWechat')}</SelectItem></SelectContent></Select></div>
               <div className="flex flex-col gap-1"><Label className="text-xs">{t('account.paymentTransactionId')}</Label><Input className="h-8 text-xs bg-card border-border" value={claimRef} onChange={e=>setClaimRef(e.target.value)} placeholder={t('account.paymentTransactionIdPlaceholder')}/></div>
               {claimChannel==='alipay'&&<div className="flex flex-col gap-1"><Label className="text-xs">{t('account.merchantOrderNo')}</Label><Input className="h-8 text-xs bg-card border-border" value={claimMerchant} onChange={e=>setClaimMerchant(e.target.value)} placeholder={t('account.merchantOrderNoPlaceholder')}/></div>}
               <div className="flex flex-col gap-1"><Label className="text-xs">{t('account.paymentTime')}</Label><Input className="h-8 text-xs bg-card border-border" type="datetime-local" value={claimPaidTime} onChange={e=>setClaimPaidTime(e.target.value)} /></div>
-              <div className="flex flex-col gap-1"><Label className="text-xs">{t('account.paymentNote')}</Label><Input className="h-8 text-xs bg-card border-border" value={claimNote} onChange={e=>setClaimNote(e.target.value)} placeholder={t('account.paymentNotePlaceholder')}/></div>
               {claimError&&<p className="text-xs text-destructive">{claimError}</p>}
               <div className="flex gap-2"><Button variant="ghost" size="sm" onClick={()=>{setShowClaimForm(false);setClaimError(null)}}>{t('account.cancel')}</Button><Button size="sm" className="flex-1" onClick={handleSubmitClaim} disabled={!claimRef||claimSubmitting}>{claimSubmitting?<Loader2 className="size-4 mr-2 animate-spin"/>:null}{t('account.submit')}</Button></div>
             </div>}

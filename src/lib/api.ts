@@ -93,16 +93,18 @@ interface ApiOptions {
   body?: unknown
   token?: string | null
   noAuth?: boolean
+  headers?: Record<string, string>
 }
 
 export async function api<T = unknown>(
   path: string,
   options: ApiOptions = {},
 ): Promise<T> {
-  const { method = 'GET', body, token, noAuth } = options
+  const { method = 'GET', body, token, noAuth, headers: customHeaders } = options
 
   const headers: Record<string, string> = {
     'Content-Type': 'application/json',
+    ...customHeaders,
   }
 
   const authToken = token ?? (noAuth ? null : getTokens().accessToken)
@@ -273,10 +275,11 @@ export async function getSyncDataApi() {
   return api<SyncDataResponse>('/api/sync')
 }
 
-export async function postSyncDataApi(payload: unknown) {
+export async function postSyncDataApi(payload: unknown, syncType: 'auto' | 'manual' = 'manual') {
   return api<{ success: boolean; version: number }>('/api/sync', {
     method: 'POST',
     body: payload,
+    headers: { 'X-Sync-Type': syncType },
   })
 }
 

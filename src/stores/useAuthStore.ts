@@ -123,7 +123,12 @@ export const useAuthStore = create<AuthState>()(
       },
 
       revokeSession: async (sessionId) => {
-        await revokeSessionApi(sessionId)
+        try {
+          await revokeSessionApi(sessionId)
+        } catch (err) {
+          // 404 means session already deleted — treat as success
+          if (!(err instanceof ApiError && err.status === 404)) throw err
+        }
         await get().fetchMe()
       },
 

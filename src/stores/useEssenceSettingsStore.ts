@@ -40,7 +40,7 @@ function isDefined(v: unknown): v is Record<string, unknown> {
  */
 function mergeWithDefaults(
   persisted: Record<string, unknown>,
-): Omit<EssenceSettingsState, 'toggleFlag' | 'setWeaponOwnership' | 'setEssenceStatus' | 'setWeaponNote' | 'addCustomWeapon' | 'removeCustomWeapon' | 'updateCustomWeapon' | 'setRegionFirst' | 'setRegionSecond' | 'toggleWeaponFilterCollapsed' | 'resetAllSettings'> {
+): Omit<EssenceSettingsState, 'toggleFlag' | 'setWeaponOwnership' | 'setEssenceStatus' | 'setWeaponNote' | 'addCustomWeapon' | 'removeCustomWeapon' | 'updateCustomWeapon' | 'setRegionFirst' | 'setRegionSecond' | 'toggleWeaponFilterCollapsed' | 'setAutoSyncEnabled' | 'setNotifyOnSync' | 'resetAllSettings'> {
   const flags = { ...FLAG_DEFAULTS }
   for (const key of Object.keys(FLAG_DEFAULTS) as SettingKey[]) {
     const val = persisted[key]
@@ -49,12 +49,19 @@ function mergeWithDefaults(
     }
   }
 
-  const ownership: Record<string, boolean> = isDefined(persisted.weaponOwnership)
-    ? (persisted.weaponOwnership as Record<string, boolean>)
-    : {}
-  const essenceStatus: Record<string, boolean> = isDefined(persisted.essenceStatus)
-    ? (persisted.essenceStatus as Record<string, boolean>)
-    : {}
+  const ownership: Record<string, boolean> = {}
+  if (isDefined(persisted.weaponOwnership)) {
+    for (const [k, v] of Object.entries(persisted.weaponOwnership as Record<string, boolean>)) {
+      if (v === true) ownership[k] = true
+      // false entries are silently dropped (migration: old code wrote false instead of deleting)
+    }
+  }
+  const essenceStatus: Record<string, boolean> = {}
+  if (isDefined(persisted.essenceStatus)) {
+    for (const [k, v] of Object.entries(persisted.essenceStatus as Record<string, boolean>)) {
+      if (v === true) essenceStatus[k] = true
+    }
+  }
   const weaponNotes: Record<string, string> = isDefined(persisted.weaponNotes)
     ? (persisted.weaponNotes as Record<string, string>)
     : {}
@@ -67,8 +74,12 @@ function mergeWithDefaults(
     typeof persisted.regionSecond === 'string' ? persisted.regionSecond : null
   const weaponFilterCollapsed: boolean =
     typeof persisted.weaponFilterCollapsed === 'boolean' ? persisted.weaponFilterCollapsed : false
+  const autoSyncEnabled: boolean =
+    typeof persisted.autoSyncEnabled === 'boolean' ? persisted.autoSyncEnabled : true
+  const notifyOnSync: boolean =
+    typeof persisted.notifyOnSync === 'boolean' ? persisted.notifyOnSync : false
 
-  return { ...flags, weaponOwnership: ownership, essenceStatus, weaponNotes, customWeapons, regionFirst, regionSecond, weaponFilterCollapsed }
+  return { ...flags, weaponOwnership: ownership, essenceStatus, weaponNotes, customWeapons, regionFirst, regionSecond, weaponFilterCollapsed, autoSyncEnabled, notifyOnSync }
 }
 
 // ─── Store ─────────────────────────────────────────────────────────────────
@@ -85,19 +96,33 @@ export const useEssenceSettingsStore = create<EssenceSettingsState>()(
       regionFirst: null,
       regionSecond: null,
       weaponFilterCollapsed: false,
+      autoSyncEnabled: true,
+      notifyOnSync: false,
 
       toggleFlag: (key: SettingKey) =>
         set((s) => ({ [key]: !s[key] } as Partial<EssenceSettingsState>)),
 
       setWeaponOwnership: (weaponId: string, owned: boolean) =>
-        set((s) => ({
-          weaponOwnership: { ...s.weaponOwnership, [weaponId]: owned },
-        })),
+        set((s) => {
+          const next = { ...s.weaponOwnership }
+          if (owned) {
+            next[weaponId] = true
+          } else {
+            delete next[weaponId]
+          }
+          return { weaponOwnership: next }
+        }),
 
       setEssenceStatus: (weaponId: string, status: boolean) =>
-        set((s) => ({
-          essenceStatus: { ...s.essenceStatus, [weaponId]: status },
-        })),
+        set((s) => {
+          const next = { ...s.essenceStatus }
+          if (status) {
+            next[weaponId] = true
+          } else {
+            delete next[weaponId]
+          }
+          return { essenceStatus: next }
+        }),
 
       setWeaponNote: (weaponId: string, note: string) =>
         set((s) => {
@@ -137,6 +162,8 @@ export const useEssenceSettingsStore = create<EssenceSettingsState>()(
           regionFirst: null,
           regionSecond: null,
           weaponFilterCollapsed: false,
+          autoSyncEnabled: true,
+          notifyOnSync: false,
         }),
 
       setRegionFirst: (region: string | null) =>
@@ -151,6 +178,12 @@ export const useEssenceSettingsStore = create<EssenceSettingsState>()(
 
       toggleWeaponFilterCollapsed: () =>
         set((s) => ({ weaponFilterCollapsed: !s.weaponFilterCollapsed })),
+
+      setAutoSyncEnabled: (enabled: boolean) =>
+        set({ autoSyncEnabled: enabled }),
+
+      setNotifyOnSync: (notify: boolean) =>
+        set({ notifyOnSync: notify }),
     }),
     {
       name: 'essence-settings',
@@ -171,6 +204,8 @@ export const useEssenceSettingsStore = create<EssenceSettingsState>()(
           setRegionFirst: current.setRegionFirst,
           setRegionSecond: current.setRegionSecond,
           toggleWeaponFilterCollapsed: current.toggleWeaponFilterCollapsed,
+          setAutoSyncEnabled: current.setAutoSyncEnabled,
+          setNotifyOnSync: current.setNotifyOnSync,
           resetAllSettings: current.resetAllSettings,
         }
       },
