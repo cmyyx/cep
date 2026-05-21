@@ -155,7 +155,7 @@ export const SlotRecommendationCard = memo(function SlotRecommendationCard({
                 />
               </div>
               <span className="text-[9px] text-muted-foreground truncate max-w-full text-center leading-none">
-                {c.equip.material}
+                {c.equip.material ? (t(`materials.${c.equip.material}`) ?? c.equip.material) : ''}
               </span>
             </div>
           ))}

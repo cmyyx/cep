@@ -44,3 +44,4 @@ next-env.d.ts
 .history
 .ace-tool/
 .opencode
+sync-game-data.config.json

@@ -139,9 +139,9 @@ const FLAG_TO_I18N: Record<string, string> = {
   onlyHideWhenBothOwned: 'onlyHideWhenBothOwned',
 }
 
-/** Suffix for list vs plans context */
+/** Suffix for list vs plans context (i18n key) */
 function flagContextSuffix(k: string): string {
-  return k.endsWith('List') ? '（武器列表）' : k.endsWith('Plans') ? '（方案推荐）' : ''
+  return k.endsWith('List') ? 'account.weaponListSuffix' : k.endsWith('Plans') ? 'account.planRecommendationSuffix' : ''
 }
 
 /** Settings diff entry for collapsible section */

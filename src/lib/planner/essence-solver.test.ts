@@ -11,7 +11,7 @@ const allWeapons: Weapon[] = [
 ]
 
 const mockDungeons: Dungeon[] = [
-  { id: 'hub', name: '枢纽区', s2Pool: ['攻击提升', '寒冷伤害提升', '灼热伤害提升'], s3Pool: ['压制', '效益', '迸发'] },
+  { id: 'dung_valley_01', name: '枢纽区', s2Pool: ['攻击提升', '寒冷伤害提升', '灼热伤害提升'], s3Pool: ['压制', '效益', '迸发'] },
 ]
 
 describe('essence-solver', () => {

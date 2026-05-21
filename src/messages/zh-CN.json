@@ -521,6 +521,8 @@
     "goToAccount": "前往处理",
     "settingsDiffToggle": "设置项有 {count} 处差异",
     "setting": "设置项",
+    "weaponListSuffix": "（武器列表）",
+    "planRecommendationSuffix": "（方案推荐）",
     "on": "开",
     "off": "关",
     "none": "无",

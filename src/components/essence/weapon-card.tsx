@@ -1,10 +1,12 @@
 'use client'
 
 import { memo, useCallback, useState, useRef, useEffect } from 'react'
+import { useTranslations } from 'next-intl'
 import { cn } from '@/lib/utils'
 import Image from 'next/image'
 import { useMatrixStore } from '@/stores/useMatrixStore'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
+import { resolveStatI18nKey } from '@/data/stat-i18n-map'
 import type { Weapon } from '@/types/matrix'
 
 /**
@@ -75,6 +77,7 @@ export const WeaponCard = memo(function WeaponCard({
   isOnBanner,
   disabled,
 }: WeaponCardProps) {
+  const t = useTranslations()
   const toggleWeapon = useMatrixStore((s) => s.toggleWeapon)
   const [open, setOpen] = useState(false)
   const triggerRef = useCloseOnScroll(open, setOpen)
@@ -113,7 +116,7 @@ export const WeaponCard = memo(function WeaponCard({
         <div className="absolute inset-0 z-10 flex items-center justify-center">
           <Image
             src={imageSrc}
-            alt={weapon.name}
+            alt={t(`weapons.${weapon.imageId}`) ?? weapon.name}
             fill
             className="object-cover"
             unoptimized
@@ -154,7 +157,7 @@ export const WeaponCard = memo(function WeaponCard({
         {/* Weapon name */}
         <div className="absolute bottom-2 left-0 right-0 z-30 px-2 text-center">
           <p className="text-sm leading-tight font-semibold text-stone-100 truncate drop-shadow-md">
-            {weapon.name}
+            {t(`weapons.${weapon.imageId}`) ?? weapon.name}
           </p>
         </div>
 
@@ -184,8 +187,9 @@ export const WeaponCard = memo(function WeaponCard({
         className="text-xs text-foreground bg-popover/95"
       >
         <p className="text-muted-foreground/80">
-          {weapon.primaryStat} | {weapon.elementalDamage} |{' '}
-          {weapon.specialAbility}
+          {t(resolveStatI18nKey(weapon.primaryStat) ?? weapon.primaryStat)} |{' '}
+          {t(resolveStatI18nKey(weapon.elementalDamage) ?? weapon.elementalDamage)} |{' '}
+          {t(resolveStatI18nKey(weapon.specialAbility) ?? weapon.specialAbility)}
         </p>
       </TooltipContent>
     </Tooltip>

@@ -123,6 +123,8 @@
     "goToAccount": "Resolve",
     "settingsDiffToggle": "{count} setting(s) differ",
     "setting": "Setting",
+    "weaponListSuffix": " (Weapon List)",
+    "planRecommendationSuffix": " (Plan Recommendations)",
     "on": "On",
     "off": "Off",
     "none": "None",

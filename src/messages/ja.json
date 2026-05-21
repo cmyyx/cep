@@ -123,6 +123,8 @@
     "goToAccount": "対応する",
     "settingsDiffToggle": "{count}件の設定が異なります",
     "setting": "設定",
+    "weaponListSuffix": "（武器リスト）",
+    "planRecommendationSuffix": "（プラン推薦）",
     "on": "ON",
     "off": "OFF",
     "none": "なし",

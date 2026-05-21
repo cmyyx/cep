@@ -51,9 +51,21 @@ export default async function LocaleLayout({
   setRequestLocale(locale)
 
   const messages = (await import(`../../messages/${locale}.json`)).default
-  // Merge game content translations (regions, weapons, equips, characters)
-  const regionMessages = (await import(`../../generated/i18n/regions/${locale}.json`)).default
-  messages.region = regionMessages
+  // Merge game content translations from auto-generated i18n files
+  // Each category is loaded conditionally — files may not exist on first build
+  const loadGameI18n = async (category: string) => {
+    try {
+      return (await import(`../../generated/i18n/${category}/${locale}.json`)).default
+    } catch { return {} }
+  }
+  messages.weapons = await loadGameI18n('weapons')
+  messages.equips = await loadGameI18n('equips')
+  messages.dungeons = await loadGameI18n('dungeons')
+  messages.stats = await loadGameI18n('stats')
+  messages.region = await loadGameI18n('regions')
+  messages.equipTypes = await loadGameI18n('equipTypes')
+  messages.materials = await loadGameI18n('materials')
+  messages.suits = await loadGameI18n('suits')
 
   return (
     <NextIntlClientProvider messages={messages} locale={locale}>

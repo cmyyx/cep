@@ -112,7 +112,7 @@ export function SyncConflictDialog({ conflict, onResolve }: SyncConflictDialogPr
                   {conflict.settingsDiff.map((entry, i) => (
                     <tr key={i}>
                       <td className="px-3 py-1 text-muted-foreground">
-                        {t(entry.i18nKey)}{entry.suffix ? ` ${entry.suffix}` : ''}
+                        {t(entry.i18nKey)}{entry.suffix ? ` ${t(entry.suffix)}` : ''}
                       </td>
                       <td className="px-3 py-1 text-center font-mono">{entry.rawVal ? t(entry.localVal) : t(`account.${entry.localVal}`)}</td>
                       <td className="px-3 py-1 text-center font-mono">{entry.rawVal ? t(entry.cloudVal) : t(`account.${entry.cloudVal}`)}</td>

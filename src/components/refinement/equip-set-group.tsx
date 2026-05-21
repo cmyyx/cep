@@ -1,6 +1,7 @@
 'use client'
 
 import { memo, useCallback } from 'react'
+import { useTranslations } from 'next-intl'
 import { cn } from '@/lib/utils'
 import { EquipCard } from './equip-card'
 import { useRefinementStore } from '@/stores/useRefinementStore'
@@ -17,6 +18,7 @@ export const EquipSetGroup = memo(function EquipSetGroup({
   setName,
   equips,
 }: EquipSetGroupProps) {
+  const t = useTranslations()
   const collapsedSets = useRefinementStore((s) => s.collapsedSets)
   const toggleSetCollapsed = useRefinementStore((s) => s.toggleSetCollapsed)
   const selectedEquipId = useRefinementStore((s) => s.selectedEquipId)
@@ -43,7 +45,7 @@ export const EquipSetGroup = memo(function EquipSetGroup({
           )}
         />
         <h3 className="font-medium text-sm flex-1 text-left truncate">
-          {setName}
+          {t(`suits.${setName}`) ?? setName}
         </h3>
         <span className="text-xs text-muted-foreground shrink-0">
           {equips.length}

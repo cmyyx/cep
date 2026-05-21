@@ -12,6 +12,7 @@ import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip
 import { Checkbox } from '@/components/ui/checkbox'
 import { ChevronDown } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import { resolveStatI18nKey } from '@/data/stat-i18n-map'
 
 interface DungeonCardProps {
   plan: DungeonPlan
@@ -101,8 +102,10 @@ const WeaponThumbnail = memo(function WeaponThumbnail({
   isSelected,
   inRange,
 }: ThumbProps) {
+  const t = useTranslations()
   const [open, setOpen] = useState(false)
   const triggerRef = useCloseOnScroll(open, setOpen)
+  const weaponName = weapon.imageId ? (t(`weapons.${weapon.imageId}`) ?? weapon.name) : weapon.name
 
   return (
     <Tooltip open={open} onOpenChange={setOpen}>
@@ -123,7 +126,7 @@ const WeaponThumbnail = memo(function WeaponThumbnail({
       >
         <Image
           src={weaponImageSrc(weapon.imageId)}
-          alt={weapon.name}
+          alt={weaponName}
           fill
           className="object-cover z-10"
           unoptimized
@@ -147,11 +150,12 @@ const WeaponThumbnail = memo(function WeaponThumbnail({
         className="text-xs text-foreground bg-popover/95"
       >
         <p className={cn('font-semibold', !inRange && 'line-through')}>
-          {weapon.name}
+          {weaponName}
         </p>
         <p className="text-muted-foreground/80">
-          {weapon.primaryStat} | {weapon.elementalDamage} |{' '}
-          {weapon.specialAbility}
+          {t(resolveStatI18nKey(weapon.primaryStat) ?? weapon.primaryStat)} |{' '}
+          {t(resolveStatI18nKey(weapon.elementalDamage) ?? weapon.elementalDamage)} |{' '}
+          {t(resolveStatI18nKey(weapon.specialAbility) ?? weapon.specialAbility)}
         </p>
       </TooltipContent>
     </Tooltip>
@@ -174,6 +178,9 @@ const WeaponRow = memo(function WeaponRow({
   onToggleEssenceOwned,
   onNoteChange,
 }: RowProps) {
+  const t = useTranslations()
+  const weaponName = weapon.imageId ? (t(`weapons.${weapon.imageId}`) ?? weapon.name) : weapon.name
+
   return (
     <div
       className={cn(
@@ -187,7 +194,7 @@ const WeaponRow = memo(function WeaponRow({
       <div className="relative size-10 rounded border border-border bg-muted/30 flex-shrink-0 overflow-hidden bg-[url(/images/item-frame-bg.png)] bg-cover bg-center">
         <Image
           src={weaponImageSrc(weapon.imageId)}
-          alt={weapon.name}
+          alt={weaponName}
           fill
           className="object-cover z-10"
           unoptimized
@@ -208,11 +215,12 @@ const WeaponRow = memo(function WeaponRow({
           inRange && isSelected && 'text-amber-400',
         )}
       >
-        {weapon.name}
+        {weaponName}
       </span>
       <span className="text-xs text-muted-foreground min-w-0 truncate">
-        {weapon.primaryStat} | {weapon.elementalDamage} |{' '}
-        {weapon.specialAbility}
+        {t(resolveStatI18nKey(weapon.primaryStat) ?? weapon.primaryStat)} |{' '}
+        {t(resolveStatI18nKey(weapon.elementalDamage) ?? weapon.elementalDamage)} |{' '}
+        {t(resolveStatI18nKey(weapon.specialAbility) ?? weapon.specialAbility)}
       </span>
       {showOwnership && (
         <div className="flex items-center gap-1 flex-shrink-0">
@@ -349,7 +357,7 @@ export const DungeonCard = memo(function DungeonCard({
       {/* Header */}
       <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
         <div className="flex items-center gap-2">
-          <h3 className="font-semibold text-sm">{plan.dungeon.name}</h3>
+          <h3 className="font-semibold text-sm">{t(`dungeons.${plan.dungeon.id}`) ?? plan.dungeon.name}</h3>
           {visibleSelected > 0 && (
             <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-emerald-500/10 text-emerald-600">
               {visibleSelected}

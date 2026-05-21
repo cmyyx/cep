@@ -1,0 +1,98 @@
+import { existsSync, readFileSync, readdirSync, mkdirSync } from 'node:fs'
+import { join } from 'node:path'
+import { execSync } from 'node:child_process'
+
+export interface UpstreamPaths {
+  akedata: string
+  translation: string
+  imagedb: string
+}
+
+/** Resolve upstream paths from CLI args, config file, or defaults. */
+export function resolvePaths(cliArgs: Record<string, string>): UpstreamPaths {
+  const fromCli = {
+    akedata: cliArgs['akedata'] ?? cliArgs['a'] ?? '',
+    translation: cliArgs['translation'] ?? cliArgs['t'] ?? '',
+    imagedb: cliArgs['imagedb'] ?? cliArgs['i'] ?? '',
+  }
+  const fromConfig = readConfig()
+  return {
+    akedata: fromCli.akedata || fromConfig.akedata || join(process.cwd(), 'upstream', 'AKEData'),
+    translation: fromCli.translation || fromConfig.translation || join(process.cwd(), 'upstream', 'EndFieldTranslationReferrer'),
+    imagedb: fromCli.imagedb || fromConfig.imagedb || join(process.cwd(), 'upstream', 'AKEDatabase'),
+  }
+}
+
+function readConfig(): Partial<UpstreamPaths> {
+  const configPath = join(process.cwd(), 'sync-game-data.config.json')
+  try {
+    if (existsSync(configPath)) {
+      const raw = JSON.parse(readFileSync(configPath, 'utf-8'))
+      return {
+        akedata: raw.akedata ?? raw.akedataPath ?? '',
+        translation: raw.translation ?? raw.translationPath ?? '',
+        imagedb: raw.imagedb ?? raw.imagedbPath ?? '',
+      }
+    }
+  } catch { /* ignore */ }
+  return {}
+}
+
+export function sparseClone(repoUrl: string, targetDir: string, sparsePaths: string[]): void {
+  if (existsSync(join(targetDir, '.git'))) {
+    console.log(`  [upstream] ${targetDir} already exists, skipping clone`)
+    return
+  }
+  console.log(`  [upstream] sparse cloning ${repoUrl} → ${targetDir}`)
+  execSync(`git clone --depth 1 --filter=blob:none --sparse --no-checkout "${repoUrl}" "${targetDir}"`, { stdio: 'inherit' })
+  execSync(`git -C "${targetDir}" sparse-checkout init --cone`, { stdio: 'inherit' })
+  execSync(`git -C "${targetDir}" sparse-checkout set ${sparsePaths.join(' ')}`, { stdio: 'inherit' })
+  execSync(`git -C "${targetDir}" checkout`, { stdio: 'inherit' })
+}
+
+export function readJsonDir(dirPath: string): Record<string, unknown> {
+  if (!existsSync(dirPath)) return {}
+  const result: Record<string, unknown> = {}
+  for (const file of readdirSync(dirPath)) {
+    if (!file.endsWith('.json')) continue
+    const stem = file.replace('.json', '')
+    try { result[stem] = JSON.parse(readFileSync(join(dirPath, file), 'utf-8')) }
+    catch { console.warn(`  [upstream] failed to parse ${file}, skipping`) }
+  }
+  return result
+}
+
+export function readTextTable(localeDir: string, locales: string[]): Record<string, Record<string, string>> {
+  const result: Record<string, Record<string, string>> = {}
+  for (const loc of locales) {
+    const path = join(localeDir, `I18nTextTable_${loc}.json`)
+    try { result[loc] = JSON.parse(readFileSync(path, 'utf-8')) }
+    catch { console.warn(`  [upstream] missing TextTable for locale ${loc}`); result[loc] = {} }
+  }
+  return result
+}
+
+export function getRepoHead(repoPath: string): string {
+  return execSync(`git -C "${repoPath}" rev-parse HEAD`, { encoding: 'utf-8' }).trim()
+}
+
+export function getChangedOutputFiles(repoPath: string, fromSha: string, toSha: string): string[] {
+  const output = execSync(`git -C "${repoPath}" diff --name-only ${fromSha} ${toSha} -- output/CN/`, { encoding: 'utf-8' }).trim()
+  return output ? output.split('\n') : []
+}
+
+export function validatePaths(paths: UpstreamPaths): string[] {
+  const warnings: string[] = []
+  const checks: [string, string, string[]][] = [
+    [paths.akedata, 'AKEData', ['output/CN/weapon', 'output/CN/equip', 'TableCfg']],
+    [paths.translation, 'EndFieldTranslationReferrer', ['i18n']],
+  ]
+  for (const [rootPath, label, subdirs] of checks) {
+    if (!existsSync(rootPath)) { warnings.push(`${label}: path not found - "${rootPath}"`); continue }
+    for (const sub of subdirs) {
+      if (!existsSync(join(rootPath, sub))) warnings.push(`${label}: missing expected subdirectory "${sub}"`)
+    }
+  }
+  if (paths.imagedb && !existsSync(paths.imagedb)) warnings.push(`AKEDatabase: path not found — "${paths.imagedb}"`)
+  return warnings
+}

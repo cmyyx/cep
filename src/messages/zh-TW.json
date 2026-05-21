@@ -123,6 +123,8 @@
     "goToAccount": "前往處理",
     "settingsDiffToggle": "設定項有 {count} 處差異",
     "setting": "設定項",
+    "weaponListSuffix": "（武器列表）",
+    "planRecommendationSuffix": "（方案推薦）",
     "on": "開",
     "off": "關",
     "none": "無",
