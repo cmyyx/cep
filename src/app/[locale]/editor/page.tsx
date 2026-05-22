@@ -200,15 +200,16 @@ export default function EditorPage() {
               filteredDrafts.map((draft) => {
                 const isSource = draft.isSource
                 return (
-                  <button
+                  <Button
                     key={draft.id}
+                    variant="ghost"
+                    size="sm"
                     onClick={() => {
                       setSelectedId(draft.id)
                       setMountedDraftKey((k) => k + 1)
                     }}
                     className={cn(
-                      'w-full flex items-center gap-2 px-3 py-2 text-left transition-colors',
-                      'hover:bg-accent/50',
+                      'w-full justify-start h-auto py-2 rounded-none',
                       selectedId === draft.id && 'bg-accent'
                     )}
                   >
@@ -239,7 +240,7 @@ export default function EditorPage() {
                         )}
                       </div>
                     </div>
-                  </button>
+                  </Button>
                 )
               })
             )}
@@ -258,27 +259,29 @@ export default function EditorPage() {
               {selectedIsSource && (
                 <div className="px-4 py-2 bg-amber-50 dark:bg-amber-950/30 border-b border-amber-200 dark:border-amber-800/40 text-xs text-amber-800 dark:text-amber-300">
                   {t('editor.sourceReadOnly')}{' '}
-                  <button onClick={handleFork} className="underline font-medium hover:text-amber-900 dark:hover:text-amber-200">
+                  <Button variant="link" size="sm" onClick={handleFork} className="h-auto p-0 underline font-medium hover:text-amber-900 dark:hover:text-amber-200">
                     {t('editor.forkToEdit')}
-                  </button>
+                  </Button>
                 </div>
               )}
 
               {/* Tabs */}
               <div className="flex border-b border-border/30 px-2">
                 {TABS.map((tab) => (
-                  <button
+                  <Button
                     key={tab.key}
+                    variant="ghost"
+                    size="sm"
                     onClick={() => setActiveTab(tab.key)}
                     className={cn(
-                      'px-3 py-2 text-sm font-medium transition-colors border-b-2 -mb-[1px]',
+                      'px-3 py-2 text-sm font-medium transition-colors border-b-2 -mb-[1px] rounded-none h-auto',
                       activeTab === tab.key
                         ? 'border-foreground text-foreground'
                         : 'border-transparent text-muted-foreground hover:text-foreground'
                     )}
                   >
                     {t(tab.labelKey)}
-                  </button>
+                  </Button>
                 ))}
               </div>
 

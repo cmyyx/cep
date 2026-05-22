@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/immutability */
 'use client'
 
 import { useCallback } from 'react'
@@ -24,189 +23,178 @@ export type EditorGuideTabProps = {
 
 export function EditorGuideTab({ draft }: EditorGuideTabProps) {
   const t = useTranslations()
-  const markDirty = useEditorStore((s) => s.markDirty)
+  const updateDraft = useEditorStore((s) => s.updateDraft)
   const guideSubTab = useEditorStore((s) => s.guideSubTab)
   const setGuideSubTab = useEditorStore((s) => s.setGuideSubTab)
 
-  const dirty = useCallback(() => markDirty(draft.id), [draft.id, markDirty])
-
-  const guide = draft.guide
-
   // ===== Equip Rows =====
   const addEquipRow = useCallback(() => {
-    guide.equipRows.push({
-      weapons: [],
-      equipment: [null, null, null, null],
+    updateDraft(draft.id, (d) => {
+      d.guide.equipRows.push({
+        weapons: [],
+        equipment: [null, null, null, null],
+      })
     })
-    dirty()
-  }, [guide, dirty])
+  }, [draft.id, updateDraft])
 
   const removeEquipRow = useCallback(
     (index: number) => {
-      guide.equipRows.splice(index, 1)
-      dirty()
+      updateDraft(draft.id, (d) => { d.guide.equipRows.splice(index, 1) })
     },
-    [guide, dirty]
+    [draft.id, updateDraft]
   )
 
   const addWeapon = useCallback(
     (rowIndex: number) => {
-      const row = guide.equipRows[rowIndex]
-      if (!row) return
-      row.weapons.push({ name: '', icon: '', note: '', rarity: null })
-      dirty()
+      updateDraft(draft.id, (d) => {
+        const row = d.guide.equipRows[rowIndex]
+        if (!row) return
+        row.weapons.push({ name: '', icon: '', note: '', rarity: null })
+      })
     },
-    [guide, dirty]
+    [draft.id, updateDraft]
   )
 
   const removeWeapon = useCallback(
     (rowIndex: number, weaponIndex: number) => {
-      const row = guide.equipRows[rowIndex]
-      if (!row?.weapons) return
-      row.weapons.splice(weaponIndex, 1)
-      dirty()
+      updateDraft(draft.id, (d) => {
+        d.guide.equipRows[rowIndex]?.weapons?.splice(weaponIndex, 1)
+      })
     },
-    [guide, dirty]
+    [draft.id, updateDraft]
   )
 
   const updateWeapon = useCallback(
     (rowIndex: number, weaponIndex: number, field: string, value: string | number | null) => {
-      const row = guide.equipRows[rowIndex]
-      if (!row?.weapons) return
-      const w = row.weapons[weaponIndex]
-      if (!w) return
-      ;(w as unknown as Record<string, unknown>)[field] = field === 'rarity' ? (value === '' ? null : Number(value)) : value
-      dirty()
+      updateDraft(draft.id, (d) => {
+        const w = d.guide.equipRows[rowIndex]?.weapons?.[weaponIndex]
+        if (!w) return
+        ;(w as unknown as Record<string, unknown>)[field] = field === 'rarity' ? (value === '' ? null : Number(value)) : value
+      })
     },
-    [guide, dirty]
+    [draft.id, updateDraft]
   )
 
   const updateEquip = useCallback(
     (rowIndex: number, slotIndex: number, field: string, value: string | number | null) => {
-      const row = guide.equipRows[rowIndex]
-      if (!row) return
-      let entry = row.equipment[slotIndex]
-      if (!entry) {
-        entry = { name: '', icon: '', note: '', rarity: null }
-        row.equipment[slotIndex] = entry
-      }
-      ;(entry as unknown as Record<string, unknown>)[field] = field === 'rarity' ? (value === '' ? null : Number(value)) : value
-      dirty()
+      updateDraft(draft.id, (d) => {
+        const row = d.guide.equipRows[rowIndex]
+        if (!row) return
+        let entry = row.equipment[slotIndex]
+        if (!entry) {
+          entry = { name: '', icon: '', note: '', rarity: null }
+          row.equipment[slotIndex] = entry
+        }
+        ;(entry as unknown as Record<string, unknown>)[field] = field === 'rarity' ? (value === '' ? null : Number(value)) : value
+      })
     },
-    [guide, dirty]
+    [draft.id, updateDraft]
   )
 
   const clearEquip = useCallback(
     (rowIndex: number, slotIndex: number) => {
-      const row = guide.equipRows[rowIndex]
-      if (!row) return
-      row.equipment[slotIndex] = null
-      dirty()
+      updateDraft(draft.id, (d) => {
+        const row = d.guide.equipRows[rowIndex]
+        if (!row) return
+        row.equipment[slotIndex] = null
+      })
     },
-    [guide, dirty]
+    [draft.id, updateDraft]
   )
 
   // ===== Team Slots =====
   const addTeamSlot = useCallback(() => {
-    guide.teamSlots.push({ name: '', note: '', options: [] })
-    dirty()
-  }, [guide, dirty])
+    updateDraft(draft.id, (d) => {
+      d.guide.teamSlots.push({ name: '', note: '', options: [] })
+    })
+  }, [draft.id, updateDraft])
 
   const removeTeamSlot = useCallback(
     (index: number) => {
-      guide.teamSlots.splice(index, 1)
-      dirty()
+      updateDraft(draft.id, (d) => { d.guide.teamSlots.splice(index, 1) })
     },
-    [guide, dirty]
+    [draft.id, updateDraft]
   )
 
   const addTeamOption = useCallback(
     (slotIndex: number) => {
-      const slot = guide.teamSlots[slotIndex]
-      if (!slot) return
-      slot.options.push({ name: '', tag: '', weapons: [], equipment: [] })
-      dirty()
+      updateDraft(draft.id, (d) => {
+        const slot = d.guide.teamSlots[slotIndex]
+        if (!slot) return
+        slot.options.push({ name: '', tag: '', weapons: [], equipment: [] })
+      })
     },
-    [guide, dirty]
+    [draft.id, updateDraft]
   )
 
   const removeTeamOption = useCallback(
     (slotIndex: number, optionIndex: number) => {
-      const slot = guide.teamSlots[slotIndex]
-      if (!slot?.options) return
-      slot.options.splice(optionIndex, 1)
-      dirty()
+      updateDraft(draft.id, (d) => {
+        d.guide.teamSlots[slotIndex]?.options?.splice(optionIndex, 1)
+      })
     },
-    [guide, dirty]
+    [draft.id, updateDraft]
   )
 
   const updateTeamOptionField = useCallback(
     (slotIndex: number, optionIndex: number, field: string, value: string) => {
-      const slot = guide.teamSlots[slotIndex]
-      if (!slot?.options) return
-      const option = slot.options[optionIndex]
-      if (!option) return
-      ;(option as unknown as Record<string, unknown>)[field] = value
-      dirty()
+      updateDraft(draft.id, (d) => {
+        const option = d.guide.teamSlots[slotIndex]?.options?.[optionIndex]
+        if (!option) return
+        ;(option as unknown as Record<string, unknown>)[field] = value
+      })
     },
-    [guide, dirty]
+    [draft.id, updateDraft]
   )
 
   const addTeamOptWeapon = useCallback(
     (slotIndex: number, optionIndex: number) => {
-      const slot = guide.teamSlots[slotIndex]
-      if (!slot?.options) return
-      const option = slot.options[optionIndex]
-      if (!option) return
-      option.weapons.push({ name: '', icon: '', note: '', rarity: null })
-      dirty()
+      updateDraft(draft.id, (d) => {
+        const option = d.guide.teamSlots[slotIndex]?.options?.[optionIndex]
+        if (!option) return
+        option.weapons.push({ name: '', icon: '', note: '', rarity: null })
+      })
     },
-    [guide, dirty]
+    [draft.id, updateDraft]
   )
 
   const removeTeamOptWeapon = useCallback(
     (slotIndex: number, optionIndex: number, weaponIndex: number) => {
-      const slot = guide.teamSlots[slotIndex]
-      if (!slot?.options) return
-      const option = slot.options[optionIndex]
-      if (!option?.weapons) return
-      option.weapons.splice(weaponIndex, 1)
-      dirty()
+      updateDraft(draft.id, (d) => {
+        d.guide.teamSlots[slotIndex]?.options?.[optionIndex]?.weapons?.splice(weaponIndex, 1)
+      })
     },
-    [guide, dirty]
+    [draft.id, updateDraft]
   )
 
   const addTeamOptEquip = useCallback(
     (slotIndex: number, optionIndex: number) => {
-      const slot = guide.teamSlots[slotIndex]
-      if (!slot?.options) return
-      const option = slot.options[optionIndex]
-      if (!option) return
-      option.equipment.push({ name: '', icon: '', note: '', rarity: null })
-      dirty()
+      updateDraft(draft.id, (d) => {
+        const option = d.guide.teamSlots[slotIndex]?.options?.[optionIndex]
+        if (!option) return
+        option.equipment.push({ name: '', icon: '', note: '', rarity: null })
+      })
     },
-    [guide, dirty]
+    [draft.id, updateDraft]
   )
 
   const removeTeamOptEquip = useCallback(
     (slotIndex: number, optionIndex: number, equipIndex: number) => {
-      const slot = guide.teamSlots[slotIndex]
-      if (!slot?.options) return
-      const option = slot.options[optionIndex]
-      if (!option?.equipment) return
-      option.equipment.splice(equipIndex, 1)
-      dirty()
+      updateDraft(draft.id, (d) => {
+        d.guide.teamSlots[slotIndex]?.options?.[optionIndex]?.equipment?.splice(equipIndex, 1)
+      })
     },
-    [guide, dirty]
+    [draft.id, updateDraft]
   )
 
   // ===== Analysis & Tips =====
   const updateGuideField = useCallback(
     (field: string, value: string) => {
-      ;(guide as unknown as Record<string, unknown>)[field] = value
-      dirty()
+      updateDraft(draft.id, (d) => {
+        ;(d.guide as unknown as Record<string, unknown>)[field] = value
+      })
     },
-    [guide, dirty]
+    [draft.id, updateDraft]
   )
 
   return (
@@ -243,11 +231,11 @@ export function EditorGuideTab({ draft }: EditorGuideTabProps) {
             </Button>
           </div>
 
-          {guide.equipRows.length === 0 && (
+          {draft.guide.equipRows.length === 0 && (
             <p className="text-xs text-muted-foreground italic">{t('editor.guideNoEquipRows')}</p>
           )}
 
-          {guide.equipRows.map((row, ri) => (
+          {draft.guide.equipRows.map((row, ri) => (
             <div
               key={ri}
               className="border border-border/30 rounded-md p-3 space-y-2"
@@ -387,7 +375,7 @@ export function EditorGuideTab({ draft }: EditorGuideTabProps) {
           <div className="space-y-1.5">
             <Label className="text-xs">{t('editor.guideAnalysis')}</Label>
             <Textarea
-              value={guide.analysis}
+              value={draft.guide.analysis}
               onChange={(e) => updateGuideField('analysis', e.target.value)}
               className="min-h-[120px] resize-y"
               placeholder={t('editor.placeholderAnalysis')}
@@ -396,7 +384,7 @@ export function EditorGuideTab({ draft }: EditorGuideTabProps) {
           <div className="space-y-1.5">
             <Label className="text-xs">{t('editor.guideTeamTips')}</Label>
             <Textarea
-              value={guide.teamTips}
+              value={draft.guide.teamTips}
               onChange={(e) => updateGuideField('teamTips', e.target.value)}
               className="min-h-[80px] resize-y"
               placeholder={t('editor.placeholderTeamTips')}
@@ -405,7 +393,7 @@ export function EditorGuideTab({ draft }: EditorGuideTabProps) {
           <div className="space-y-1.5">
             <Label className="text-xs">{t('editor.guideOperationTips')}</Label>
             <Textarea
-              value={guide.operationTips}
+              value={draft.guide.operationTips}
               onChange={(e) => updateGuideField('operationTips', e.target.value)}
               className="min-h-[80px] resize-y"
               placeholder={t('editor.placeholderOperationTips')}
@@ -425,11 +413,11 @@ export function EditorGuideTab({ draft }: EditorGuideTabProps) {
             </Button>
           </div>
 
-          {guide.teamSlots.length === 0 && (
+          {draft.guide.teamSlots.length === 0 && (
             <p className="text-xs text-muted-foreground italic">{t('editor.guideNoTeamSlots')}</p>
           )}
 
-          {guide.teamSlots.map((slot, si) => (
+          {draft.guide.teamSlots.map((slot, si) => (
             <div
               key={si}
               className="border border-border/30 rounded-md p-3 space-y-2"
@@ -495,8 +483,11 @@ export function EditorGuideTab({ draft }: EditorGuideTabProps) {
                         <Input
                           value={w.name}
                           onChange={(e) => {
-                            w.name = e.target.value
-                            dirty()
+                            updateDraft(draft.id, (d) => {
+                              const optW = d.guide.teamSlots[si]?.options?.[oi]?.weapons?.[wi]
+                              if (!optW) return
+                              optW.name = e.target.value
+                            })
                           }}
                           placeholder={t('editor.placeholderGuideName')}
                           className="h-7 text-xs flex-1"
@@ -504,8 +495,11 @@ export function EditorGuideTab({ draft }: EditorGuideTabProps) {
                         <Input
                           value={w.note}
                           onChange={(e) => {
-                            w.note = e.target.value
-                            dirty()
+                            updateDraft(draft.id, (d) => {
+                              const optW = d.guide.teamSlots[si]?.options?.[oi]?.weapons?.[wi]
+                              if (!optW) return
+                              optW.note = e.target.value
+                            })
                           }}
                           placeholder={t('editor.placeholderGuideNote')}
                           className="h-7 text-xs w-20"
@@ -516,8 +510,11 @@ export function EditorGuideTab({ draft }: EditorGuideTabProps) {
                           max={6}
                           value={w.rarity ?? ''}
                           onChange={(e) => {
-                            w.rarity = e.target.value === '' ? null : Number(e.target.value)
-                            dirty()
+                            updateDraft(draft.id, (d) => {
+                              const optW = d.guide.teamSlots[si]?.options?.[oi]?.weapons?.[wi]
+                              if (!optW) return
+                              optW.rarity = e.target.value === '' ? null : Number(e.target.value)
+                            })
                           }}
                           placeholder={t('editor.placeholderGuideRarity')}
                           className="h-7 text-xs w-12"
@@ -552,8 +549,11 @@ export function EditorGuideTab({ draft }: EditorGuideTabProps) {
                         <Input
                           value={eq.name}
                           onChange={(e) => {
-                            eq.name = e.target.value
-                            dirty()
+                            updateDraft(draft.id, (d) => {
+                              const optE = d.guide.teamSlots[si]?.options?.[oi]?.equipment?.[ei]
+                              if (!optE) return
+                              optE.name = e.target.value
+                            })
                           }}
                           placeholder={t('editor.placeholderGuideName')}
                           className="h-7 text-xs flex-1"
@@ -564,8 +564,11 @@ export function EditorGuideTab({ draft }: EditorGuideTabProps) {
                           max={6}
                           value={eq.rarity ?? ''}
                           onChange={(e) => {
-                            eq.rarity = e.target.value === '' ? null : Number(e.target.value)
-                            dirty()
+                            updateDraft(draft.id, (d) => {
+                              const optE = d.guide.teamSlots[si]?.options?.[oi]?.equipment?.[ei]
+                              if (!optE) return
+                              optE.rarity = e.target.value === '' ? null : Number(e.target.value)
+                            })
                           }}
                           placeholder={t('editor.placeholderGuideRarity')}
                           className="h-7 text-xs w-12"

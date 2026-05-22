@@ -27,9 +27,7 @@ export type EditorTab = 'basic' | 'skills' | 'talents' | 'materials' | 'guide' |
 interface EditorStoreState {
   // Draft data
   draftCharacters: EditorDraftCharacter[]
-  draftVersion: number
   selectedId: string | null
-  dirtyIds: Set<string>
 
   // UI state
   activeTab: EditorTab
@@ -42,8 +40,12 @@ interface EditorStoreState {
   addDraftCharacter: () => EditorDraftCharacter
   addImportedCharacter: (data: CharacterGuideData) => EditorDraftCharacter | undefined
   removeDraftCharacter: (id: string) => void
-  markDirty: (id: string) => void
-  markClean: (id: string) => void
+  /**
+   * Atomically mutate a draft: clones the draft, runs the updater on the clone,
+   * and replaces the original in draftCharacters. React components subscribed
+   * to draftCharacters will re-render automatically.
+   */
+  updateDraft: (id: string, updater: (draft: EditorDraftCharacter) => void) => void
   resetFromBase: (characters: CharacterGuideData[]) => void
   getDraft: (id: string) => EditorDraftCharacter | undefined
   forkCharacter: (id: string) => EditorDraftCharacter | undefined
@@ -136,9 +138,7 @@ export const useEditorStore = create<EditorStoreState>()(
   persist(
     (set, get) => ({
       draftCharacters: buildSourceDrafts(),
-      draftVersion: 0,
       selectedId: null,
-      dirtyIds: new Set(),
       activeTab: 'basic',
       guideSubTab: 'equip',
       expandedSections: {},
@@ -146,12 +146,11 @@ export const useEditorStore = create<EditorStoreState>()(
 
       initDrafts: (characters) => {
         const source = characters.map((c) => toDraft(c, true))
-        // Merge with existing non-source drafts
         const { draftCharacters } = get()
         const modified = draftCharacters.filter((c) => !c.isSource)
         const sourceIds = new Set(source.map((c) => c.id))
         const cleanModified = modified.filter((c) => !sourceIds.has(c.id))
-        set({ draftCharacters: [...source, ...cleanModified], dirtyIds: new Set() })
+        set({ draftCharacters: [...source, ...cleanModified] })
       },
 
       addDraftCharacter: () => {
@@ -165,17 +164,12 @@ export const useEditorStore = create<EditorStoreState>()(
           idx++
         }
         empty.id = baseId
-        const displayIndex = idx // idx is already incremented past the matched one, so this is the next available number
+        const displayIndex = idx
         empty.name = `New Character ${displayIndex}`
         const draft = toDraft(empty)
-        set((s) => {
-          const newDirty = new Set(s.dirtyIds)
-          newDirty.add(draft.id)
-          return {
-            draftCharacters: [...s.draftCharacters, draft],
-            dirtyIds: newDirty,
-            selectedId: draft.id,
-          }
+        set({
+          draftCharacters: [...draftCharacters, draft],
+          selectedId: draft.id,
         })
         return draft
       },
@@ -198,33 +192,29 @@ export const useEditorStore = create<EditorStoreState>()(
           if (idx < 0) return s
           const drafts = [...s.draftCharacters]
           drafts.splice(idx, 1)
-          const newDirty = new Set(s.dirtyIds)
-          newDirty.delete(id)
           const nextId =
             drafts.length > 0
               ? drafts[Math.min(idx, drafts.length - 1)].id
               : null
           return {
             draftCharacters: drafts,
-            dirtyIds: newDirty,
             selectedId: s.selectedId === id ? nextId : s.selectedId,
           }
         })
       },
 
-      markDirty: (id) => {
+      updateDraft: (id, updater) => {
         set((s) => {
-          const newDirty = new Set(s.dirtyIds)
-          newDirty.add(id)
-          return { dirtyIds: newDirty, draftVersion: s.draftVersion + 1 }
-        })
-      },
+          const idx = s.draftCharacters.findIndex((c) => c.id === id)
+          if (idx < 0) return s
 
-      markClean: (id) => {
-        set((s) => {
-          const newDirty = new Set(s.dirtyIds)
-          newDirty.delete(id)
-          return { dirtyIds: newDirty }
+          const clone = { ...s.draftCharacters[idx] }
+          updater(clone)
+
+          const newDrafts = [...s.draftCharacters]
+          newDrafts[idx] = clone
+
+          return { draftCharacters: newDrafts }
         })
       },
 
@@ -234,7 +224,7 @@ export const useEditorStore = create<EditorStoreState>()(
         const modified = draftCharacters.filter((c) => !c.isSource)
         const sourceIds = new Set(source.map((c) => c.id))
         const cleanModified = modified.filter((c) => !sourceIds.has(c.id))
-        set({ draftCharacters: [...source, ...cleanModified], dirtyIds: new Set() })
+        set({ draftCharacters: [...source, ...cleanModified] })
       },
 
       forkCharacter: (id) => {
@@ -249,21 +239,15 @@ export const useEditorStore = create<EditorStoreState>()(
           newId = `${source.id}-fork-${counter}`
           counter++
         }
-        // Use toDraft for proper deep-copy with defensive defaults
         const forked = toDraft(source, false)
         forked.id = newId
         forked.isSource = false
         forked.forkedFrom = source.id
         forked.jsonDrafts = undefined
         forked.jsonErrors = undefined
-        set((s) => {
-          const newDirty = new Set(s.dirtyIds)
-          newDirty.add(newId)
-          return {
-            draftCharacters: [...s.draftCharacters, forked],
-            dirtyIds: newDirty,
-            selectedId: newId,
-          }
+        set({
+          draftCharacters: [...draftCharacters, forked],
+          selectedId: newId,
         })
         return forked
       },
@@ -324,8 +308,6 @@ export const useEditorStore = create<EditorStoreState>()(
         return {
           ...current,
           draftCharacters: [...sourceDrafts, ...modifiedDrafts],
-          dirtyIds: new Set(),
-          draftVersion: 0,
           selectedId: p.selectedId ?? null,
           activeTab: p.activeTab ?? 'basic',
           guideSubTab: p.guideSubTab ?? 'equip',
