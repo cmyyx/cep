@@ -25,6 +25,16 @@ function getVariant(name: string): string | null {
   return name.slice(idx + 1)
 }
 
+/** Map Chinese/JP model number to i18n key */
+const MODEL_I18N_MAP: Record<string, string> = {
+  '壹型': 'refinement.modelTypeI',
+  '贰型': 'refinement.modelTypeII',
+  '叁型': 'refinement.modelTypeIII',
+  'Ⅰ型': 'refinement.modelTypeI',
+  'Ⅱ型': 'refinement.modelTypeII',
+  'Ⅲ型': 'refinement.modelTypeIII',
+}
+
 /** Dismiss tooltip on scroll */
 function useCloseOnScroll(open: boolean, setOpen: (open: boolean) => void) {
   const ref = useRef<HTMLButtonElement>(null)
@@ -158,7 +168,7 @@ export const EquipCard = memo(function EquipCard({
           </span>
           {variant && (
             <span className="inline-flex items-center self-start px-1.5 py-0.5 rounded text-[10px] font-semibold bg-amber-500/80 text-black">
-              {variant}
+              {t(MODEL_I18N_MAP[variant] ?? variant)}
             </span>
           )}
         </div>

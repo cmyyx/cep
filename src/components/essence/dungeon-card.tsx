@@ -383,7 +383,7 @@ export const DungeonCard = memo(function DungeonCard({
           {t('essence.primaryStatLabel')}: [
           {effectiveS1.map((s, i) => (
             <span key={s}>
-              <strong className="text-foreground">{s}</strong>
+              <strong className="text-foreground">{t(resolveStatI18nKey(s) ?? s)}</strong>
               {i < effectiveS1.length - 1 ? ', ' : ''}
             </span>
           ))}
@@ -392,7 +392,7 @@ export const DungeonCard = memo(function DungeonCard({
         <span className="text-muted-foreground/50">|</span>
         <span>
           {lockLabel}:{' '}
-          <strong className="text-foreground">{plan.lockValue}</strong>
+          <strong className="text-foreground">{t(resolveStatI18nKey(plan.lockValue) ?? plan.lockValue)}</strong>
         </span>
       </div>
 
@@ -436,7 +436,7 @@ export const DungeonCard = memo(function DungeonCard({
                         )
                       }}
                     />
-                    {s1} ({t('essence.weaponCount', { count: wCount })})
+                    {t(resolveStatI18nKey(s1) ?? s1)} ({t('essence.weaponCount', { count: wCount })})
                   </label>
                 )
               })}

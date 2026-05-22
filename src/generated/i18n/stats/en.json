@@ -1,4 +1,9 @@
 {
+  "gat_passive_attr_agi": "Agility Boost",
+  "gat_passive_attr_str": "Strength Boost",
+  "gat_passive_attr_will": "Will Boost",
+  "gat_passive_attr_wisd": "Intellect Boost",
+  "gat_passive_attr_main": "Main Attribute Boost",
   "gat_passive_attr_atk": "Attack Boost",
   "gat_passive_attr_firedam": "Heat DMG Boost",
   "gat_passive_attr_pulsedam": "Electric DMG Boost",
@@ -24,5 +29,15 @@
   "gat_passive_attr_hp": "HP Boost",
   "gat_passive_attr_heal": "Treatment Efficiency Boost",
   "gst_passive_break": "Brutality",
-  "gst_passive_ult": "Twilight"
+  "gst_passive_ult": "Twilight",
+  "连携技伤害加成": "Combo Skill DMG Bonus",
+  "普通攻击伤害加成": "Basic Attack DMG Bonus",
+  "战技伤害加成": "Battle Skill DMG Bonus",
+  "终结技伤害加成": "Ultimate DMG Bonus",
+  "所有技能伤害加成": "All Skill DMG Dealt Bonus",
+  "全伤害减免": "Final DMG Reduction",
+  "对失衡目标伤害加成": "DMG Bonus vs. Staggered",
+  "寒冷和电磁伤害加成": "Cryo and Electric DMG Dealt Bonus",
+  "灼热和自然伤害加成": "Heat and Nature DMG Dealt Bonus",
+  "副能力": "Secondary Attribute"
 }

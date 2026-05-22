@@ -81,7 +81,7 @@ async function main() {
   // Metadata: equip types, materials (with abbreviation->full mapping), suit names
   console.log('\n-- Metadata --')
   if (mode === 'update') {
-    const m = generateMetadataI18n(paths.translation, generatedRoot)
+    const m = generateMetadataI18n(paths.translation, generatedRoot, paths.imagedb, paths.akedata)
     console.log(`  i18n: ${m.files} files, ${m.terms} terms`)
   }
 

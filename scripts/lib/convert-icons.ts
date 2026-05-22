@@ -25,7 +25,9 @@ export async function convertIcons(
   const result: IconConversionResult = { converted: [], skipped: [], missingSource: [] }
 
   for (const category of categories) {
-    const srcDir = join(akedatabasePath, 'public', 'images', category, 'icon')
+    // Equip icons are in iconbig/, weapon icons in icon/
+    const iconSubdir = category === 'equip' ? 'iconbig' : 'icon'
+    const srcDir = join(akedatabasePath, 'public', 'images', category, iconSubdir)
     const outDir = join(projectPublicDir, 'images', category)
     mkdirSync(outDir, { recursive: true })
 

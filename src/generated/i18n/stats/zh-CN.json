@@ -1,4 +1,9 @@
 {
+  "gat_passive_attr_agi": "敏捷提升",
+  "gat_passive_attr_str": "力量提升",
+  "gat_passive_attr_will": "意志提升",
+  "gat_passive_attr_wisd": "智识提升",
+  "gat_passive_attr_main": "主能力提升",
   "gat_passive_attr_atk": "攻击提升",
   "gat_passive_attr_firedam": "灼热伤害提升",
   "gat_passive_attr_pulsedam": "电磁伤害提升",
@@ -24,5 +29,15 @@
   "gat_passive_attr_hp": "生命提升",
   "gat_passive_attr_heal": "治疗效率提升",
   "gst_passive_break": "残暴",
-  "gst_passive_ult": "夜幕"
+  "gst_passive_ult": "夜幕",
+  "连携技伤害加成": "连携技伤害加成",
+  "普通攻击伤害加成": "普通攻击伤害加成",
+  "战技伤害加成": "战技伤害加成",
+  "终结技伤害加成": "终结技伤害加成",
+  "所有技能伤害加成": "所有技能伤害加成",
+  "全伤害减免": "全伤害减免",
+  "对失衡目标伤害加成": "对失衡目标伤害加成",
+  "寒冷和电磁伤害加成": "寒冷和电磁伤害加成",
+  "灼热和自然伤害加成": "灼热和自然伤害加成",
+  "副能力": "副能力"
 }

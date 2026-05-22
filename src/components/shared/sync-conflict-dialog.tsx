@@ -21,11 +21,11 @@ const DATA_KEYS = [
   { k: 'weaponNotes', label: 'account.syncWeaponNotes' },
 ] as const
 
-function formatRowVal(key: string, val: string, _t: ReturnType<typeof useTranslations>): string {
+function formatRowVal(key: string, val: string, t: ReturnType<typeof useTranslations>): string {
   if (key === 'equip') {
     if (!val) return '—'
     const equip = equipById.get(val)
-    return equip?.name ?? val
+    return equip ? (t(`equips.${equip.id}`) ?? equip.name) : val
   }
   if (val === '0' || val === '') return '—'
   return val

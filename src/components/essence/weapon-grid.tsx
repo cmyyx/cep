@@ -6,6 +6,7 @@ import { cn } from '@/lib/utils'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
+import { resolveStatI18nKey } from '@/data/stat-i18n-map'
 import { WeaponCard } from './weapon-card'
 import { weapons as staticWeapons } from '@/data/weapons'
 import { useMatrixStore } from '@/stores/useMatrixStore'
@@ -41,15 +42,18 @@ const ATTR_LABEL_KEYS: Record<AttrKey, string> = {
 
 const FilterChip = memo(function FilterChip({
   value,
+  label,
   isValid,
   isSelected,
   onToggle,
 }: {
   value: string
+  label?: string
   isValid: boolean
   isSelected: boolean
   onToggle: () => void
 }) {
+  const t = useTranslations()
   const spanRef = useRef<HTMLSpanElement>(null)
   const [tooltipOpen, setTooltipOpen] = useState(false)
 
@@ -84,10 +88,10 @@ const FilterChip = memo(function FilterChip({
           />
         }
       >
-        <span ref={spanRef} className="truncate min-w-0">{value}</span>
+        <span ref={spanRef} className="truncate min-w-0">{label ?? value}</span>
       </TooltipTrigger>
       <TooltipContent side="top" className="text-xs">
-        {value}
+        {label ?? value}
       </TooltipContent>
     </Tooltip>
   )
@@ -289,9 +293,10 @@ export const WeaponGrid = memo(function WeaponGrid() {
                       const isValid = valid.has(v)
                       const isSelected = selected.has(v)
                       return (
-                        <FilterChip
+                    <FilterChip
                           key={v}
                           value={v}
+                          label={t(resolveStatI18nKey(v) ?? v)}
                           isValid={isValid}
                           isSelected={isSelected}
                           onToggle={() => toggleFilter(key, v)}

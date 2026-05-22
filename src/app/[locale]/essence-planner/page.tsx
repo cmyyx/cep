@@ -319,7 +319,7 @@ export default function EssencePlannerPage() {
                     : 'border-border hover:border-foreground/40',
                 )}
               >
-                {region}
+                {t(regionI18nKey(region))}
               </Button>
             )
           })}
@@ -337,7 +337,7 @@ export default function EssencePlannerPage() {
                 className="flex flex-wrap items-center gap-x-2 gap-y-1.5"
               >
                 <span className="text-[10px] text-muted-foreground shrink-0 w-14 text-right">
-                  {region}
+                  {t(regionI18nKey(region))}
                 </span>
                 <Button
                   type="button"
@@ -369,7 +369,7 @@ export default function EssencePlannerPage() {
                           : 'border-border hover:border-foreground/40',
                       )}
                     >
-                      {sub}
+                      {t(regionI18nKey(sub))}
                     </Button>
                   )
                 })}

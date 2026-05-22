@@ -1,4 +1,9 @@
 {
+  "gat_passive_attr_agi": "敏捷UP",
+  "gat_passive_attr_str": "筋力UP",
+  "gat_passive_attr_will": "意志UP",
+  "gat_passive_attr_wisd": "知性UP",
+  "gat_passive_attr_main": "メイン能力UP",
   "gat_passive_attr_atk": "攻撃力UP",
   "gat_passive_attr_firedam": "灼熱ダメージUP",
   "gat_passive_attr_pulsedam": "電磁ダメージUP",
@@ -24,5 +29,15 @@
   "gat_passive_attr_hp": "HPアップ",
   "gat_passive_attr_heal": "回復効率UP",
   "gst_passive_break": "残虐",
-  "gst_passive_ult": "夜幕"
+  "gst_passive_ult": "夜幕",
+  "连携技伤害加成": "連携技ダメージUP",
+  "普通攻击伤害加成": "通常攻撃ダメージUP",
+  "战技伤害加成": "戦技ダメージUP",
+  "终结技伤害加成": "必殺技ダメージUP",
+  "所有技能伤害加成": "全スキルダメージUP",
+  "全伤害减免": "全ダメージ軽減",
+  "对失衡目标伤害加成": "ブレイク状態の敵へのダメージUP",
+  "寒冷和电磁伤害加成": "寒冷&電磁ダメージUP",
+  "灼热和自然伤害加成": "灼熱&自然ダメージUP",
+  "副能力": "サブ能力"
 }

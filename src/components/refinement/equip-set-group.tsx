@@ -45,7 +45,7 @@ export const EquipSetGroup = memo(function EquipSetGroup({
           )}
         />
         <h3 className="font-medium text-sm flex-1 text-left truncate">
-          {t(`suits.${setName}`) ?? setName}
+          {t(`suits.${setName.replace(/\./g, '')}`) ?? setName}
         </h3>
         <span className="text-xs text-muted-foreground shrink-0">
           {equips.length}

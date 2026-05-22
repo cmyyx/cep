@@ -41,7 +41,7 @@ export function getSubRegions(dungeonsArr: Dungeon[], region: string): string[] 
 
 export const dungeons: Dungeon[] = [
   {
-    id: 'dung_valley_01',
+    id: 'world_energy_point_group01',
     name: '四号谷地·枢纽区',
     s2Pool: [
       '攻击提升', '灼热伤害提升', '电磁伤害提升', '寒冷伤害提升',
@@ -50,7 +50,7 @@ export const dungeons: Dungeon[] = [
     s3Pool: ['强攻', '压制', '追袭', '粉碎', '流转', '效益', '巧技', '迸发'],
   },
   {
-    id: 'dung_valley_02',
+    id: 'world_energy_point_group02',
     name: '四号谷地·源石研究园',
     s2Pool: [
       '攻击提升', '物理伤害提升', '电磁伤害提升', '寒冷伤害提升',
@@ -59,7 +59,7 @@ export const dungeons: Dungeon[] = [
     s3Pool: ['压制', '追袭', '昂扬', '巧技', '附术', '医疗', '切骨', '效益'],
   },
   {
-    id: 'dung_valley_03',
+    id: 'world_energy_point_group04',
     name: '四号谷地·供能高地',
     s2Pool: [
       '攻击提升', '生命提升', '物理伤害提升', '灼热伤害提升',
@@ -68,7 +68,7 @@ export const dungeons: Dungeon[] = [
     s3Pool: ['追袭', '粉碎', '昂扬', '残暴', '附术', '医疗', '切骨', '流转'],
   },
   {
-    id: 'dung_valley_04',
+    id: 'world_energy_point_group03',
     name: '四号谷地·矿脉源区',
     s2Pool: [
       '生命提升', '物理伤害提升', '灼热伤害提升', '寒冷伤害提升',
@@ -77,7 +77,7 @@ export const dungeons: Dungeon[] = [
     s3Pool: ['强攻', '压制', '巧技', '残暴', '附术', '迸发', '夜幕', '效益'],
   },
   {
-    id: 'dung_wuling_01',
+    id: 'world_energy_point_group05',
     name: '武陵·武陵城',
     s2Pool: [
       '攻击提升', '生命提升', '电磁伤害提升', '寒冷伤害提升',
@@ -86,7 +86,7 @@ export const dungeons: Dungeon[] = [
     s3Pool: ['强攻', '粉碎', '残暴', '医疗', '切骨', '迸发', '夜幕', '流转'],
   },
   {
-    id: 'dung_wuling_02',
+    id: 'world_energy_point_group06',
     name: '武陵·清波寨',
     s2Pool: [
       '生命提升', '物理伤害提升', '电磁伤害提升', '寒冷伤害提升',
@@ -95,7 +95,7 @@ export const dungeons: Dungeon[] = [
     s3Pool: ['压制', '粉碎', '昂扬', '巧技', '医疗', '切骨', '迸发', '夜幕'],
   },
   {
-    id: 'dung_wuling_03',
+    id: 'world_energy_point_group07',
     name: '武陵·首墩',
     s2Pool: [
       '攻击提升', '物理伤害提升', '灼热伤害提升', '电磁伤害提升',
@@ -104,7 +104,7 @@ export const dungeons: Dungeon[] = [
     s3Pool: ['强攻', '追袭', '昂扬', '残暴', '附术', '夜幕', '流转', '效益'],
   },
   {
-    id: 'dung_wuling_04',
+    id: 'world_energy_point_group08',
     name: '武陵·试验园区',
     s2Pool: [
       '生命提升', '灼热伤害提升', '电磁伤害提升', '寒冷伤害提升',

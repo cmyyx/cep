@@ -47,6 +47,7 @@ interface DungeonGroupData {
   groupId: string
   nameTextId: string
   region: RegionInfo
+  primAttrTermIds: string[]
   secAttrTermIds: string[]
   skillTermIds: string[]
 }
@@ -107,10 +108,11 @@ export function generateDungeonI18n(
     const gemCustomItemId = String(gData.gemCustomItemId ?? '')
     const region = getRegionInfo(gemCustomItemId)
 
+    const primAttrTermIds = (gData.primAttrTermIds ?? []) as string[]
     const secAttrTermIds = (gData.secAttrTermIds ?? []) as string[]
     const skillTermIds = (gData.skillTermIds ?? []) as string[]
 
-    groups.push({ groupId, nameTextId, region, secAttrTermIds, skillTermIds })
+    groups.push({ groupId, nameTextId, region, primAttrTermIds, secAttrTermIds, skillTermIds })
   }
 
   // Extract sub-region names from level-1 gameName
@@ -140,13 +142,8 @@ export function generateDungeonI18n(
     result.regionCount++
   }
 
-  const regionOutDir = join(outputDir, 'regions')
-  mkdirSync(regionOutDir, { recursive: true })
-  for (const loc of SUPPORTED_LOCALES) {
-    const path = join(regionOutDir, `${loc}.json`)
-    writeFileSync(path, JSON.stringify(regionData[loc], null, 2) + '\n', 'utf-8')
-    result.regionWritten.push(path)
-  }
+  // Collect sub-region terms during dungeon loop, then write both together
+  const subRegionTerms: { cnName: string; key: string; translations: Record<string, string> }[] = []
 
   // Generate dungeon name i18n: "{region}.{subRegion}"
   const dungeonData: Record<string, Record<string, string>> = {}
@@ -162,6 +159,30 @@ export function generateDungeonI18n(
 
       if (!dungeonData[loc]) dungeonData[loc] = {}
       dungeonData[loc][group.groupId] = displayName
+
+      // Collect sub-region translations
+      if (loc === 'zh-CN' && subRegion !== group.groupId) {
+        const cnSubRaw = parseSubRegion(String(textTables['zh-CN']?.[group.nameTextId] ?? group.groupId))
+        // Find semantic key from region-i18n mapping (same logic)
+        const subKeyMap: Record<string, string> = {
+          '枢纽区': 'theHub', '源石研究园': 'originiumSciencePark',
+          '供能高地': 'powerPlateau', '矿脉源区': 'originLodespring',
+          '武陵城': 'wulingCity', '清波寨': 'qingboStockade',
+          '首墩': 'markerStone', '试验园区': 'testArea',
+        }
+        const semanticKey = subKeyMap[cnSubRaw] ?? cnSubRaw
+        // Check if already collected
+        if (!subRegionTerms.some(t => t.cnName === cnSubRaw)) {
+          const tr: Record<string, string> = {}
+          for (const l of SUPPORTED_LOCALES) {
+            const locFull = textTables[l]?.[group.nameTextId]
+              ?? textTables['zh-CN']?.[group.nameTextId]
+              ?? group.groupId
+            tr[l] = parseSubRegion(String(locFull))
+          }
+          subRegionTerms.push({ cnName: cnSubRaw, key: semanticKey, translations: tr })
+        }
+      }
     }
     result.dungeonCount++
   }
@@ -174,8 +195,24 @@ export function generateDungeonI18n(
     result.dungeonWritten.push(path)
   }
 
-  // Generate stat/term i18n from GemTable
-  const allGemTerms = [...new Set(groups.flatMap(g => [...g.secAttrTermIds, ...g.skillTermIds]))]
+  // Add sub-region translations to regionData (now populated from dungeon loop)
+  for (const { key, translations } of subRegionTerms) {
+    for (const loc of SUPPORTED_LOCALES) {
+      regionData[loc][key] = translations[loc] ?? key
+    }
+  }
+
+  // Write regions (after sub-region merge)
+  const regionOutDir = join(outputDir, 'regions')
+  mkdirSync(regionOutDir, { recursive: true })
+  for (const loc of SUPPORTED_LOCALES) {
+    const path = join(regionOutDir, `${loc}.json`)
+    writeFileSync(path, JSON.stringify(regionData[loc], null, 2) + '\n', 'utf-8')
+    result.regionWritten.push(path)
+  }
+
+  // Generate stat/term i18n from GemTable (all pools: S1 + S2 + S3)
+  const allGemTerms = [...new Set(groups.flatMap(g => [...g.primAttrTermIds, ...g.secAttrTermIds, ...g.skillTermIds]))]
 
   const statData: Record<string, Record<string, string>> = {}
   for (const loc of SUPPORTED_LOCALES) statData[loc] = {}
@@ -192,6 +229,31 @@ export function generateDungeonI18n(
         if (!textId || !(textTables[loc]?.[textId])) result.missing++
       }
       statData[loc][gemTermId] = String(text).replace(/\n/g, ' ').trim()
+    }
+    result.statCount++
+  }
+
+  // Also generate compound equip stats (not in GemTable, direct TextTable lookup)
+  const compoundStats = [
+    '连携技伤害加成', '普通攻击伤害加成', '战技伤害加成',
+    '终结技伤害加成', '所有技能伤害加成', '全伤害减免',
+    '对失衡目标伤害加成', '寒冷和电磁伤害加成', '灼热和自然伤害加成',
+    '副能力',
+  ]
+  for (const cnName of compoundStats) {
+    // Find text ID by searching CN TextTable for exact match
+    let textId = ''
+    for (const [id, text] of Object.entries(textTables['zh-CN'] ?? {})) {
+      if (text === cnName) { textId = id; break }
+    }
+    for (const loc of SUPPORTED_LOCALES) {
+      let text = ''
+      if (textId) text = textTables[loc]?.[textId] ?? ''
+      if (!text) {
+        text = cnName
+        if (!textId) result.missing++
+      }
+      statData[loc][cnName] = String(text).replace(/\n/g, ' ').trim()
     }
     result.statCount++
   }

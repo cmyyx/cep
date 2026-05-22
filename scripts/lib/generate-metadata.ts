@@ -1,8 +1,9 @@
-// Generates metadata i18n: equip types, materials (with abbreviation->full name mapping),
-// and equip suit names. All sourced from AKEData TextTable.
+// Generates metadata i18n: equip types, materials, and equip suit names.
+// Suit names are auto-detected from AKEDatabase/public/CH/equip/ JSON files.
+// Materials use full game names (not abbreviations).
 // ================================================================================
 
-import { existsSync, readFileSync, mkdirSync, writeFileSync } from 'node:fs'
+import { existsSync, readFileSync, readdirSync, mkdirSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
 
 const SUPPORTED_LOCALES = ['zh-CN', 'en', 'ja', 'zh-TW'] as const
@@ -15,18 +16,11 @@ const EQUIP_TYPE_TERMS: { key: string; cnSearch: string }[] = [
   { key: 'edc', cnSearch: '配件' },
 ]
 
-// Materials: abbreviation used in equips.ts -> full game name for TextTable lookup
+// Materials: full game names (key matches equip data material field)
 const MATERIAL_TERMS: { key: string; cnSearch: string }[] = [
-  { key: '息壤', cnSearch: '息壤装备原件' },
-  { key: '赤铜', cnSearch: '赤铜装备原件' },
-  { key: '赫铜', cnSearch: '赫铜装备原件' },
-]
-
-// Equip suit names: Chinese name (as displayed in UI) for TextTable lookup
-const SUIT_NAMES: string[] = [
-  '拓荒', '潮涌', '长息', '碾骨', '脉冲式', '生物辅助',
-  '动火用', '点剑', '轻超域', '独立装备', '壤流',
-  // These may need different search terms for TextTable matching
+  { key: '息壤装备原件', cnSearch: '息壤装备原件' },
+  { key: '赤铜装备原件', cnSearch: '赤铜装备原件' },
+  { key: '赫铜装备原件', cnSearch: '赫铜装备原件' },
 ]
 
 function findTextId(cnTable: Record<string, string>, searchTerm: string): string {
@@ -65,9 +59,35 @@ function buildI18nFiles(
   return terms.length
 }
 
+/** Auto-detect suit names from equip JSON files (5-star suits only) */
+function detectSuitNames(imagedbPath: string, akedataPath: string): string[] {
+  const equipDir = join(imagedbPath, 'public', 'CH', 'equip')
+  const fallbackDir = join(akedataPath, 'output', 'CN', 'equip')
+  const dir = existsSync(equipDir) ? equipDir : existsSync(fallbackDir) ? fallbackDir : null
+  if (!dir) return []
+
+  const names = new Set<string>()
+  for (const file of readdirSync(dir)) {
+    if (!file.endsWith('.json') || file === 'manifest.json') continue
+    try {
+      const data = JSON.parse(readFileSync(join(dir, file), 'utf-8'))
+      const suitName = data['套组名称'] as string | undefined
+      if (!suitName) continue
+      // Check if any equip in this suit is >=5-star
+      const equips = data.equip as Record<string, { rarity?: number }> | undefined
+      if (!equips) continue
+      const has5Star = Object.values(equips).some(e => (e.rarity ?? 0) >= 5)
+      if (has5Star) names.add(suitName)
+    } catch { /* skip malformed files */ }
+  }
+  return [...names].sort()
+}
+
 export function generateMetadataI18n(
   translationPath: string,
   outputDir: string,
+  imagedbPath: string,
+  akedataPath: string,
 ): { files: number; terms: number } {
   const textTables: Record<string, Record<string, string>> = {}
   for (const loc of SUPPORTED_LOCALES) {
@@ -82,12 +102,17 @@ export function generateMetadataI18n(
   // Equipment types
   totalTerms += buildI18nFiles(EQUIP_TYPE_TERMS, textTables, outputDir, 'equipTypes')
 
-  // Materials (with abbreviation->full name mapping)
+  // Materials (full game names, no abbreviation mapping needed)
   totalTerms += buildI18nFiles(MATERIAL_TERMS, textTables, outputDir, 'materials')
 
-  // Suit names
-  const suitTerms = SUIT_NAMES.map(name => ({ key: name, cnSearch: name }))
-  totalTerms += buildI18nFiles(suitTerms, textTables, outputDir, 'suits')
+  // Suit names (auto-detected from equip JSON files)
+  const suitNames = detectSuitNames(imagedbPath, akedataPath)
+  if (suitNames.length > 0) {
+    // Filter out test/manual-edit entries, sanitize keys
+    const validNames = suitNames.filter(n => !n.includes('手动编辑') && !n.includes('手动'))
+    const suitTerms = validNames.map(name => ({ key: name.replace(/\./g, ''), cnSearch: name }))
+    totalTerms += buildI18nFiles(suitTerms, textTables, outputDir, 'suits')
+  }
 
   return { files: 12, terms: totalTerms }
 }

@@ -69,15 +69,16 @@ export const STAT_TO_GEM_TERM: Record<string, string> = {
  * in the TextTable (not through gem terms).
  */
 export const COMPOUND_STAT_CN_NAMES: string[] = [
-  '寒冷和电磁伤害',
-  '灼热和自然伤害',
-  '对失衡目标加成',
+  '寒冷和电磁伤害加成',
+  '灼热和自然伤害加成',
+  '对失衡目标伤害加成',
   '普通攻击伤害加成',
   '战技伤害加成',
   '终结技伤害加成',
   '连携技伤害加成',
   '所有技能伤害加成',
   '全伤害减免',
+  '副能力',
 ]
 
 /**
