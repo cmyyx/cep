@@ -62,7 +62,6 @@ export function WeaponFormDialog({
       elementalDamage,
       specialAbility,
       chars: initial?.chars ?? [],
-      imageId: initial?.imageId,
     })
     onOpenChange(false)
   }

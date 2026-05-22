@@ -45,7 +45,8 @@ export type EssenceSettingsState = EssenceSettingsFlags &
     autoSyncEnabled: boolean
     /** Show a brief check icon when sync succeeds (non-blocking) */
     notifyOnSync: boolean
-
+    /** Show a brief notification when pull (download) from cloud succeeds */
+    notifyOnPull: boolean
     toggleFlag: (key: SettingKey) => void
     setWeaponOwnership: (weaponId: string, owned: boolean) => void
     setEssenceStatus: (weaponId: string, status: boolean) => void
@@ -58,5 +59,7 @@ export type EssenceSettingsState = EssenceSettingsFlags &
     toggleWeaponFilterCollapsed: () => void
     setAutoSyncEnabled: (enabled: boolean) => void
     setNotifyOnSync: (notify: boolean) => void
+    /** Toggle pull-success notification */
+    setNotifyOnPull: (notify: boolean) => void
     resetAllSettings: () => void
   }

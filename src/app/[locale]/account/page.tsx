@@ -15,12 +15,36 @@ import { Loader2, Cloud, HardDrive, AlertTriangle, CheckCircle2, Mail, Shield, R
 import { Switch } from '@/components/ui/switch'
 import { useAuthStore } from '@/stores/useAuthStore'
 import { useEssenceSettingsStore } from '@/stores/useEssenceSettingsStore'
-import { getSyncDataApi, postSyncDataApi, api, type SyncDataResponse } from '@/lib/api'
-import { getSyncTimestamps, subscribeSyncTimestamps, setAutoSyncConflictCallback, syncStoresFromCloudPayload, hasExistingLocalData, syncDataDiffers, buildSummaryRows, buildSettingsDiff, updateLastPull, type SyncConflictInfo } from '@/hooks/useAutoSync'
+import { getSyncDataApi, postSyncDataApi, api, ApiError, type SyncDataResponse } from '@/lib/api'
+import { getSyncTimestamps, subscribeSyncTimestamps, setAutoSyncConflictCallback, syncStoresFromCloudPayload, hasExistingLocalData, syncDataDiffers, buildSummaryRows, buildSettingsDiff, updateLastPull, getCloudVersion, updateCloudVersion, setSkipNextPush, computeSyncSignature, getLastSyncSignature, setLastSyncSignature, getPendingConflict, clearPendingConflict, dismissConflictToast, notifySync, setConflictPending, getLastPullResult, subscribePullResult, type SyncConflictInfo } from '@/hooks/useAutoSync'
 import { cn, maskEmail, isValidEmail, formatTime } from '@/lib/utils'
 import { SyncConflictDialog } from '@/components/shared/sync-conflict-dialog'
+import { equipById } from '@/data/equips'
 
 // ─── Sync ────────────────────────────────────────────────────
+
+/** Map a caught error to the appropriate i18n key. */
+function getSyncErrorKey(err: unknown): string {
+  if (err instanceof ApiError) {
+    // Check for specific error codes first
+    if (err.message === 'custom_weapons_not_allowed') return 'account.customWeaponsNotAllowed'
+    if (err.status >= 500) return 'account.serverError'
+    return 'account.fetchSyncFailed'
+  }
+  return 'account.syncFailed'
+}
+
+/** Format a sync row cell value — for equip IDs, translate via equipById + i18n. */
+function formatSyncCellVal(key: string, val: string | number, t: ReturnType<typeof useTranslations>): string {
+  if (key === 'syncRefinementSelection') {
+    const id = String(val)
+    if (!id || id === '0') return '—'
+    const equip = equipById.get(id)
+    return equip ? (t(`equips.${equip.id}`) ?? equip.name) : id
+  }
+  if (val === 0 || val === '') return '—'
+  return String(val)
+}
 
 function buildSyncRows(local: Record<string, unknown>, cloud: Record<string, unknown> | null) {
   const le = (local.essencePlanner ?? {}) as Record<string, unknown>
@@ -31,7 +55,7 @@ function buildSyncRows(local: Record<string, unknown>, cloud: Record<string, unk
   const cr = cloud ? ((cloud.refinementPlanner ?? {}) as Record<string, unknown>) : null
   return [
     { k: 'syncPlannedWeapons', label: 'account.syncPlannedWeapons', l: Array.isArray(le.selectedWeaponIds) ? le.selectedWeaponIds.length : 0, c: ce && Array.isArray(ce.selectedWeaponIds) ? ce.selectedWeaponIds.length : 0 },
-    { k: 'syncRefinementSelection', label: 'account.syncRefinementSelection', l: lr.selectedEquipId ? 1 : 0, c: cr?.selectedEquipId ? 1 : 0 },
+    { k: 'syncRefinementSelection', label: 'account.syncRefinementSelection', l: (lr.selectedEquipId as string) || '0', c: (cr?.selectedEquipId as string) || '0' },
     { k: 'syncWeaponOwnership', label: 'account.syncWeaponOwnership', l: Object.keys((ls.weaponOwnership ?? {}) as object).length, c: cs ? Object.keys((cs.weaponOwnership ?? {}) as object).length : 0 },
     { k: 'syncEssenceStatus', label: 'account.syncEssenceStatus', l: Object.keys((ls.essenceStatus ?? {}) as object).length, c: cs ? Object.keys((cs.essenceStatus ?? {}) as object).length : 0 },
     { k: 'syncCustomWeapons', label: 'account.syncCustomWeapons', l: Array.isArray(ls.customWeapons) ? ls.customWeapons.length : 0, c: cs && Array.isArray(cs.customWeapons) ? cs.customWeapons.length : 0 },
@@ -67,6 +91,8 @@ export default function AccountPage() {
   const setAutoSyncEnabled = useEssenceSettingsStore(s => s.setAutoSyncEnabled)
   const notifyOnSync = useEssenceSettingsStore(s => s.notifyOnSync)
   const setNotifyOnSync = useEssenceSettingsStore(s => s.setNotifyOnSync)
+  const notifyOnPull = useEssenceSettingsStore(s => s.notifyOnPull)
+  const setNotifyOnPull = useEssenceSettingsStore(s => s.setNotifyOnPull)
 
   // Hydration guard: ensure server & client render the same initial tree
   const [mounted, setMounted] = useState(false)
@@ -121,8 +147,8 @@ export default function AccountPage() {
 
   const fetchCloud = useCallback(async () => {
     if (!accessToken) return; setSyncStatus('loading'); setSyncError(null)
-    try { const res = await getSyncDataApi(); setCloudData(res); setCloudVersion(res.version); setSyncStatus('success'); updateLastPull(res.updatedAt) }
-    catch { setSyncStatus('error'); setSyncError('account.fetchSyncFailed') }
+    try { const res = await getSyncDataApi(); setCloudData(res); setCloudVersion(res.version); updateCloudVersion(res.version); setSyncStatus('success'); updateLastPull(res.updatedAt) }
+    catch (err) { setSyncStatus('error'); setSyncError(getSyncErrorKey(err)) }
   }, [accessToken, t])
 
   // Pull from cloud with conflict detection (called by "从云端下载" button)
@@ -135,10 +161,32 @@ export default function AccountPage() {
       if (raw) {
         const localData = collectLocalData()
         if (hasExistingLocalData(localData) && syncDataDiffers(localData, raw)) {
+          // If local hasn't changed since last sync, auto-apply cloud silently
+          const lastSig = getLastSyncSignature()
+          if (lastSig !== null && computeSyncSignature(localData) === lastSig) {
+            setSkipNextPush(true)
+            const r = raw
+            try { const ep = r.essencePlanner as Record<string, unknown> | undefined; if (ep) { const current = JSON.parse(localStorage.getItem('matrix-session') || '{}'); const s = current?.state ?? current; if (Array.isArray(ep.selectedWeaponIds)) s.selectedWeaponIds = ep.selectedWeaponIds; if (ep.dungeonS1Selections) s.dungeonS1Selections = ep.dungeonS1Selections; localStorage.setItem('matrix-session', JSON.stringify({ ...current, state: s })) } } catch {}
+            try { const es = r.essenceSettings as Record<string, unknown> | undefined; if (es) { const current = JSON.parse(localStorage.getItem('essence-settings') || '{}'); const s = current?.state ?? current; if (es.weaponOwnership) s.weaponOwnership = es.weaponOwnership; if (es.essenceStatus) s.essenceStatus = es.essenceStatus; if (es.weaponNotes) s.weaponNotes = es.weaponNotes; if (Array.isArray(es.customWeapons)) s.customWeapons = es.customWeapons; if (es.flags) Object.assign(s, es.flags); if (es.regionFirst !== undefined) s.regionFirst = es.regionFirst; if (es.regionSecond !== undefined) s.regionSecond = es.regionSecond; localStorage.setItem('essence-settings', JSON.stringify({ ...current, state: s })) } } catch {}
+            try { const rp = r.refinementPlanner as Record<string, unknown> | undefined; if (rp) { const current = JSON.parse(localStorage.getItem('refinement-session') || '{}'); const s = current?.state ?? current; if (rp.selectedEquipId !== undefined) s.selectedEquipId = rp.selectedEquipId; localStorage.setItem('refinement-session', JSON.stringify({ ...current, state: s })) } } catch {}
+            syncStoresFromCloudPayload(r)
+            setSkipNextPush(false)
+            setCloudVersion(res.version)
+            updateCloudVersion(res.version)
+            setLastSyncSignature(computeSyncSignature(raw))
+            setCloudData(res); setSyncStatus('success'); updateLastPull(res.updatedAt)
+            return
+          }
+          // If cloud hasn't changed since last sync, local-only
+          // modifications are just pending data, not a conflict.
+          if (lastSig !== null && computeSyncSignature(raw) === lastSig) {
+            return
+          }
           // Conflict: show dialog, don't apply
           const localRows = buildSummaryRows(localData)
           const cloudRows = buildSummaryRows(raw)
           const settingsDiff = buildSettingsDiff(localData, raw)
+          setConflictPending(true)
           setConflict({
             type: 'pull_conflict',
             localSummary: localRows,
@@ -149,6 +197,7 @@ export default function AccountPage() {
             resolve: (choice) => {
               if (choice === 'cloud') {
                 // Write cloud to localStorage + sync stores
+                setSkipNextPush(true)
                 const r = raw
                 try {
                   const ep = r.essencePlanner as Record<string, unknown> | undefined
@@ -185,21 +234,34 @@ export default function AccountPage() {
                   }
                 } catch {}
                 syncStoresFromCloudPayload(raw)
+                setSkipNextPush(false)
                 setCloudVersion(res.version)
+                updateCloudVersion(res.version)
+                setLastSyncSignature(computeSyncSignature(raw))
                 setCloudData(res); setSyncStatus('success'); updateLastPull(res.updatedAt)
+                setConflictPending(false)
                 setConflict(null)
               }
               if (choice === 'local') {
                 // Push local to cloud, refresh only after POST completes
                 const localData = collectLocalData()
-                setConflict(null)
+                setSyncStatus('pushing')
                 postSyncDataApi({
-                  base_version: res.version,
+                  base_version: getCloudVersion() || res.version,
                   data: { schemaVersion: 2, capturedAt: new Date().toISOString(), ...localData },
                 }, 'manual').then(pushRes => {
                   setCloudVersion(pushRes.version)
-                  fetchCloud()
+                  updateCloudVersion(pushRes.version)
+                  setLastSyncSignature(computeSyncSignature(localData))
+                  return fetchCloud()
+                }).then(() => {
+                  setConflictPending(false)
+                  setConflict(null)
+                  setSyncStatus('success')
                 }).catch(() => {
+                  setConflictPending(false)
+                  setConflict(null)
+                  setSyncStatus('error')
                   fetchCloud()
                 })
               }
@@ -207,7 +269,9 @@ export default function AccountPage() {
           })
           setSyncStatus('success')
         } else {
-          // No conflict: apply directly
+          // No conflict: apply directly (only if data actually differs)
+          const dataChanged = !hasExistingLocalData(localData) || syncDataDiffers(localData, raw)
+          if (dataChanged) {
           const r = raw
           try {
             const ep = r.essencePlanner as Record<string, unknown> | undefined
@@ -244,32 +308,49 @@ export default function AccountPage() {
             }
           } catch {}
           syncStoresFromCloudPayload(r)
-          setCloudData(res); setCloudVersion(res.version); setSyncStatus('success'); updateLastPull(res.updatedAt)
+          }
+          setCloudData(res); setCloudVersion(res.version); updateCloudVersion(res.version); setSyncStatus('success'); updateLastPull(res.updatedAt)
         }
       } else {
-        setCloudData(res); setCloudVersion(res.version); setSyncStatus('success'); updateLastPull(res.updatedAt)
+        setCloudData(res); setCloudVersion(res.version); updateCloudVersion(res.version); setSyncStatus('success'); updateLastPull(res.updatedAt)
       }
-    } catch {
-      setSyncStatus('error'); setSyncError('account.fetchSyncFailed')
+    } catch (err) {
+      setSyncStatus('error'); setSyncError(getSyncErrorKey(err))
     }
   }, [accessToken, t])
 
   // Mark component as mounted (client-only, prevents hydration mismatch)
   useEffect(() => { setMounted(true) }, [])
 
-  // Load data once on mount: /me (includes sessions) + cloud sync data (for display)
+  // Load data once on mount: /me + subscribe to auto-sync pull results
+  // (reuses the pull already done by useAutoSync to avoid a duplicate GET).
   const initialLoadDone = useRef(false)
   useEffect(() => {
     if (initialLoadDone.current) return
     initialLoadDone.current = true
     if (accessToken) {
       fetchMeGlobal()
-      fetchCloud()
+      // Reuse the auto-sync pull result if available — avoids a duplicate GET
+      const cached = getLastPullResult()
+      if (cached && cached.version > 0) {
+        setCloudData(cached)
+        setCloudVersion(cached.version)
+        updateCloudVersion(cached.version)
+        updateLastPull(cached.updatedAt ?? null)
+        setSyncStatus('success')
+      } else {
+        // Auto-sync hasn't pulled yet — do our own
+        fetchCloud()
+      }
+      // Keep cloudData in sync with future auto-pulls
+      return subscribePullResult(() => {
+        fetchCloud()
+      })
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps -- fetchCloud is stable via useCallback
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const handlePush = async () => { setSyncStatus('pushing'); setSyncError(null); try { const localData = collectLocalData(); const res = await postSyncDataApi({ base_version: cloudVersion??0, data: { schemaVersion: 2, capturedAt: new Date().toISOString(), ...localData } }); setCloudVersion(res.version); setSyncStatus('success'); updateLastPull(); await fetchCloud() } catch (err) { setSyncStatus('error'); const msg = err instanceof Error ? err.message : ''; if (msg === 'version_conflict') { try { const latest = await getSyncDataApi(); const localData = collectLocalData(); const cloudRaw = latest.data as Record<string, unknown> | null; const localRows = buildSummaryRows(localData); const cloudRows = cloudRaw ? buildSummaryRows(cloudRaw) : { weapons:'0',equip:'',ownership:'0',essence:'0',customWeapons:'0',weaponNotes:'0' }; const settingsDiff = cloudRaw ? buildSettingsDiff(localData, cloudRaw) : []; setConflict({ type: 'push_conflict', localSummary: localRows, cloudSummary: cloudRows, settingsDiff: settingsDiff.length > 0 ? settingsDiff : undefined, cloudVersion: latest.version, cloudUpdatedAt: latest.updatedAt, resolve: (choice) => { if (choice === 'cloud' && cloudRaw) { const writeRaw = cloudRaw; try { const ep = writeRaw.essencePlanner as Record<string, unknown> | undefined; if (ep) { const current = JSON.parse(localStorage.getItem('matrix-session') || '{}'); const state = current?.state ?? current; if (Array.isArray(ep.selectedWeaponIds)) state.selectedWeaponIds = ep.selectedWeaponIds; if (ep.dungeonS1Selections) state.dungeonS1Selections = ep.dungeonS1Selections; localStorage.setItem('matrix-session', JSON.stringify({ ...current, state })); } } catch {} try { const es = writeRaw.essenceSettings as Record<string, unknown> | undefined; if (es) { const current = JSON.parse(localStorage.getItem('essence-settings') || '{}'); const state = current?.state ?? current; if (es.weaponOwnership) state.weaponOwnership = es.weaponOwnership; if (es.essenceStatus) state.essenceStatus = es.essenceStatus; if (es.weaponNotes) state.weaponNotes = es.weaponNotes; if (Array.isArray(es.customWeapons)) state.customWeapons = es.customWeapons; if (es.flags) Object.assign(state, es.flags); if (es.regionFirst !== undefined) state.regionFirst = es.regionFirst; if (es.regionSecond !== undefined) state.regionSecond = es.regionSecond; localStorage.setItem('essence-settings', JSON.stringify({ ...current, state })); } } catch {} try { const rp = writeRaw.refinementPlanner as Record<string, unknown> | undefined; if (rp) { const current = JSON.parse(localStorage.getItem('refinement-session') || '{}'); const state = current?.state ?? current; if (rp.selectedEquipId !== undefined) state.selectedEquipId = rp.selectedEquipId; localStorage.setItem('refinement-session', JSON.stringify({ ...current, state })); } } catch {} setCloudVersion(latest.version); syncStoresFromCloudPayload(cloudRaw); } if (choice === 'local') { setCloudVersion(latest.version); } fetchCloud(); } }); } catch { setSyncError('account.versionConflict'); } } else { setSyncError('account.pushSyncFailed'); } } }
+  const handlePush = async () => { setSyncStatus('pushing'); setSyncError(null); try { const localData = collectLocalData(); const res = await postSyncDataApi({ base_version: getCloudVersion(), data: { schemaVersion: 2, capturedAt: new Date().toISOString(), ...localData } }); setCloudVersion(res.version); updateCloudVersion(res.version); setLastSyncSignature(computeSyncSignature(localData)); setCloudData({ data: res.data, version: res.version, updatedAt: res.updatedAt ?? null }); if (res.unchanged) { setSyncStatus('success'); notifySync({ type: 'push_unchanged' }); } else { setSyncStatus('success'); updateLastPull(res.updatedAt ?? null); } } catch (err) { const msg = err instanceof Error ? err.message : ''; if (msg === 'version_conflict') { try { const latest = await getSyncDataApi(); const localData = collectLocalData(); const cloudRaw = latest.data as Record<string, unknown> | null; const localRows = buildSummaryRows(localData); const cloudRows = cloudRaw ? buildSummaryRows(cloudRaw) : { weapons:'0',equip:'',ownership:'0',essence:'0',customWeapons:'0',weaponNotes:'0' }; const settingsDiff = cloudRaw ? buildSettingsDiff(localData, cloudRaw) : []; setConflictPending(true); setConflict({ type: 'push_conflict', localSummary: localRows, cloudSummary: cloudRows, settingsDiff: settingsDiff.length > 0 ? settingsDiff : undefined, cloudVersion: latest.version, cloudUpdatedAt: latest.updatedAt, resolve: (choice) => { if (choice === 'cloud' && cloudRaw) { setSkipNextPush(true); const writeRaw = cloudRaw; try { const ep = writeRaw.essencePlanner as Record<string, unknown> | undefined; if (ep) { const current = JSON.parse(localStorage.getItem('matrix-session') || '{}'); const state = current?.state ?? current; if (Array.isArray(ep.selectedWeaponIds)) state.selectedWeaponIds = ep.selectedWeaponIds; if (ep.dungeonS1Selections) state.dungeonS1Selections = ep.dungeonS1Selections; localStorage.setItem('matrix-session', JSON.stringify({ ...current, state })); } } catch {} try { const es = writeRaw.essenceSettings as Record<string, unknown> | undefined; if (es) { const current = JSON.parse(localStorage.getItem('essence-settings') || '{}'); const state = current?.state ?? current; if (es.weaponOwnership) state.weaponOwnership = es.weaponOwnership; if (es.essenceStatus) state.essenceStatus = es.essenceStatus; if (es.weaponNotes) state.weaponNotes = es.weaponNotes; if (Array.isArray(es.customWeapons)) state.customWeapons = es.customWeapons; if (es.flags) Object.assign(state, es.flags); if (es.regionFirst !== undefined) state.regionFirst = es.regionFirst; if (es.regionSecond !== undefined) state.regionSecond = es.regionSecond; localStorage.setItem('essence-settings', JSON.stringify({ ...current, state })); } } catch {} try { const rp = writeRaw.refinementPlanner as Record<string, unknown> | undefined; if (rp) { const current = JSON.parse(localStorage.getItem('refinement-session') || '{}'); const state = current?.state ?? current; if (rp.selectedEquipId !== undefined) state.selectedEquipId = rp.selectedEquipId; localStorage.setItem('refinement-session', JSON.stringify({ ...current, state })); } } catch {} setCloudVersion(latest.version); updateCloudVersion(latest.version); syncStoresFromCloudPayload(cloudRaw); setSkipNextPush(false); setLastSyncSignature(computeSyncSignature(cloudRaw)); fetchCloud().then(() => { setConflictPending(false); setConflict(null); }); } if (choice === 'local') { setCloudVersion(latest.version); updateCloudVersion(latest.version); setSyncStatus('pushing'); const ld = collectLocalData(); postSyncDataApi({ base_version: latest.version, data: { schemaVersion: 2, capturedAt: new Date().toISOString(), ...ld } }, 'manual').then(pushRes => { setCloudVersion(pushRes.version); updateCloudVersion(pushRes.version); setLastSyncSignature(computeSyncSignature(ld)); return fetchCloud(); }).then(() => { setConflictPending(false); setConflict(null); setSyncStatus('success'); }).catch(() => { setConflictPending(false); setConflict(null); setSyncStatus('error'); fetchCloud(); }); } } }); } catch { setSyncError('account.versionConflict'); } } else { setSyncStatus('error'); setSyncError(getSyncErrorKey(err)); } } }
   const handleVerifyEmail = async () => { setVerifySending(true); setVerifyError(null); try { await api('/api/email/send-verification',{method:'POST'}); setVerifySent(true) } catch (err) { setVerifyError(err instanceof Error ? err.message : 'send_failed') } finally { setVerifySending(false) } }
   const handleSubmitVerificationCode = async () => { if(!verifyCode)return; setVerifySubmitting(true); setVerifyError(null); try { await api('/api/email/verify',{method:'POST',body:{code:verifyCode}}); await fetchMeGlobal(); setVerifySent(false); setVerifyCode('') } catch (err) { setVerifyError(err instanceof Error ? err.message : 'invalid_code') } finally { setVerifySubmitting(false) } }
   const handleChangeEmail = async () => { if(!newEmail)return; if(!isValidEmail(newEmail)){setChangeEmailError('invalidEmail');return}; setEmailChanging(true); setChangeEmailError(null); try { await api('/api/email/request-change',{method:'POST',body:{newEmail}}); setChangeEmailSent(true) } catch (err) { setChangeEmailError(err instanceof Error ? err.message : 'send_failed') } finally { setEmailChanging(false) } }
@@ -291,8 +372,37 @@ export default function AccountPage() {
   const [conflict, setConflict] = useState<SyncConflictInfo | null>(null)
   useEffect(() => {
     setAutoSyncConflictCallback((info) => {
+      const originalResolve = info.resolve
+      info.resolve = (choice) => {
+        const result = originalResolve(choice)
+        const clearIfStillThis = () => setConflict(prev => prev === info ? null : prev)
+        if (result instanceof Promise) {
+          result.then(clearIfStillThis)
+        } else {
+          clearIfStillThis()
+        }
+      }
       setConflict(info)
     })
+    // Pick up any conflict that happened before this page mounted
+    const pending = getPendingConflict()
+    if (pending) {
+      clearPendingConflict()
+      // Set conflict lock so auto-sync doesn't bypass it
+      setConflictPending(true)
+      // Wrap the pending conflict's resolve the same way
+      const originalResolve = pending.resolve
+      pending.resolve = (choice) => {
+        const result = originalResolve(choice)
+        const clearIfStillThis = () => setConflict(prev => prev === pending ? null : prev)
+        if (result instanceof Promise) {
+          result.then(clearIfStillThis)
+        } else {
+          clearIfStillThis()
+        }
+      }
+      setConflict(pending)
+    }
     return () => setAutoSyncConflictCallback(null)
   }, [])
 
@@ -302,9 +412,30 @@ export default function AccountPage() {
     const localData = collectLocalData()
     const cloudRaw = cloudData.data as Record<string, unknown>
     if (hasExistingLocalData(localData) && syncDataDiffers(localData, cloudRaw)) {
+      const lastSig = getLastSyncSignature()
+      if (lastSig !== null && computeSyncSignature(localData) === lastSig) {
+        setSkipNextPush(true)
+        const r = cloudRaw
+        try { const ep = r.essencePlanner as Record<string, unknown> | undefined; if (ep) { const current = JSON.parse(localStorage.getItem('matrix-session') || '{}'); const s = current?.state ?? current; if (Array.isArray(ep.selectedWeaponIds)) s.selectedWeaponIds = ep.selectedWeaponIds; if (ep.dungeonS1Selections) s.dungeonS1Selections = ep.dungeonS1Selections; localStorage.setItem('matrix-session', JSON.stringify({ ...current, state: s })) } } catch {}
+        try { const es = r.essenceSettings as Record<string, unknown> | undefined; if (es) { const current = JSON.parse(localStorage.getItem('essence-settings') || '{}'); const s = current?.state ?? current; if (es.weaponOwnership) s.weaponOwnership = es.weaponOwnership; if (es.essenceStatus) s.essenceStatus = es.essenceStatus; if (es.weaponNotes) s.weaponNotes = es.weaponNotes; if (Array.isArray(es.customWeapons)) s.customWeapons = es.customWeapons; if (es.flags) Object.assign(s, es.flags); if (es.regionFirst !== undefined) s.regionFirst = es.regionFirst; if (es.regionSecond !== undefined) s.regionSecond = es.regionSecond; localStorage.setItem('essence-settings', JSON.stringify({ ...current, state: s })) } } catch {}
+        try { const rp = r.refinementPlanner as Record<string, unknown> | undefined; if (rp) { const current = JSON.parse(localStorage.getItem('refinement-session') || '{}'); const s = current?.state ?? current; if (rp.selectedEquipId !== undefined) s.selectedEquipId = rp.selectedEquipId; localStorage.setItem('refinement-session', JSON.stringify({ ...current, state: s })) } } catch {}
+        syncStoresFromCloudPayload(r)
+        setSkipNextPush(false)
+        setCloudVersion(cloudVersion)
+        updateCloudVersion(cloudVersion)
+        setLastSyncSignature(computeSyncSignature(cloudRaw))
+        fetchCloud()
+        return
+      }
+      // If cloud hasn't changed since last sync, local-only modifications
+      // are just pending data, not a conflict.
+      if (lastSig !== null && computeSyncSignature(cloudRaw) === lastSig) {
+        return
+      }
       const localRows = buildSummaryRows(localData)
       const cloudRows = buildSummaryRows(cloudRaw)
       const settingsDiff = buildSettingsDiff(localData, cloudRaw)
+      setConflictPending(true)
       setConflict({
         type: 'pull_conflict',
         localSummary: localRows,
@@ -314,6 +445,7 @@ export default function AccountPage() {
         cloudUpdatedAt: cloudData.updatedAt,
         resolve: (choice) => {
           if (choice === 'cloud') {
+            setSkipNextPush(true)
             const r = cloudRaw
             try {
               const ep = r.essencePlanner as Record<string, unknown> | undefined
@@ -350,21 +482,31 @@ export default function AccountPage() {
               }
             } catch {}
             syncStoresFromCloudPayload(r)
+            setSkipNextPush(false)
             setCloudVersion(cloudVersion)
+            updateCloudVersion(cloudVersion)
+            setLastSyncSignature(computeSyncSignature(cloudRaw))
+            setConflictPending(false)
             setConflict(null)
             fetchCloud()
           }
           if (choice === 'local') {
             // Push local to cloud, then refresh display only after POST completes
             const localData = collectLocalData()
-            setConflict(null)
             postSyncDataApi({
-              base_version: cloudVersion,
+              base_version: getCloudVersion() || cloudVersion,
               data: { schemaVersion: 2, capturedAt: new Date().toISOString(), ...localData },
             }, 'manual').then(res => {
               setCloudVersion(res.version)
-              fetchCloud()
+              updateCloudVersion(res.version)
+              setLastSyncSignature(computeSyncSignature(localData))
+              return fetchCloud()
+            }).then(() => {
+              setConflictPending(false)
+              setConflict(null)
             }).catch(() => {
+              setConflictPending(false)
+              setConflict(null)
               fetchCloud()
             })
           }
@@ -518,8 +660,26 @@ export default function AccountPage() {
         <Card>
           <CardHeader className="pb-3"><CardTitle className="text-sm font-semibold flex items-center gap-2"><Cloud className="size-4"/>{t('account.syncStatus')}</CardTitle></CardHeader>
           <CardContent className="space-y-3">
+            {syncStatus==='error' && (
+              <div className="rounded-md bg-red-50 border border-red-200 px-3 py-2 flex items-center gap-2">
+                <AlertTriangle className="size-4 text-red-500 shrink-0" />
+                <span className="text-xs text-red-700 flex-1">{syncError ? t(syncError) : t('account.syncFailed')}</span>
+                <Button variant="outline" size="sm" className="h-7 text-xs border-red-300 text-red-700 hover:bg-red-100" onClick={() => fetchCloud()}>{t('account.retry')}</Button>
+              </div>
+            )}
             <div className="flex items-center text-xs"><span className="flex-1"/><span className="flex items-center gap-1 w-16 justify-end text-muted-foreground"><HardDrive className="size-3"/>{t('account.localData')}</span><span className="flex items-center gap-1 w-16 justify-end text-muted-foreground ml-4"><Cloud className="size-3"/>{t('account.cloudData')}</span></div>
-            {rows.map(r=><div key={r.k} className="flex items-center text-xs"><span className="flex-1 text-muted-foreground">{t(r.label)}</span><span className="font-mono tabular-nums w-16 text-right">{r.l}</span><span className="font-mono tabular-nums w-16 text-right ml-4">{r.c}</span></div>)}
+            {rows.map(r => {
+              const localDisplay = formatSyncCellVal(r.k, r.l, t)
+              const cloudDisplay = formatSyncCellVal(r.k, r.c, t)
+              const isEquip = r.k === 'syncRefinementSelection'
+              return (
+                <div key={r.k} className="flex items-center text-xs">
+                  <span className="flex-1 text-muted-foreground">{t(r.label)}</span>
+                  <span className={isEquip ? 'w-16 text-right truncate' : 'font-mono tabular-nums w-16 text-right'} title={isEquip ? localDisplay : undefined}>{localDisplay}</span>
+                  <span className={isEquip ? 'w-16 text-right truncate ml-4' : 'font-mono tabular-nums w-16 text-right ml-4'} title={isEquip ? cloudDisplay : undefined}>{cloudDisplay}</span>
+                </div>
+              )
+            })}
             <Separator/><div className="flex items-center gap-2 text-xs text-muted-foreground">{hasCloudData?<><CheckCircle2 className="size-3.5 text-green-500"/>{t('account.cloudVersion')}: v{cloudVersion}</>:<><Cloud className="size-3.5"/>{t('account.noCloudData')}</>}</div>
             {syncTs.cloudUpdatedAt && (
               <div className="text-[10px] text-muted-foreground">
@@ -546,26 +706,28 @@ export default function AccountPage() {
                     <Switch checked={notifyOnSync} onCheckedChange={setNotifyOnSync} className="scale-75" />
                   </div>
                   <div className="flex items-center justify-between pl-5">
+                    <span className="text-[11px] text-muted-foreground">{t('account.notifyOnPullLabel')}</span>
+                    <Switch checked={notifyOnPull} onCheckedChange={setNotifyOnPull} className="scale-75" />
+                  </div>
+                  <div className="flex items-center justify-between pl-5">
                     <span className="text-[11px] text-muted-foreground">{t('account.notifyOnFailureLabel')}</span>
                     <Switch checked={true} disabled className="scale-75 opacity-50" />
                   </div>
                 </>
               )}
             </div>
-            {syncStatus==='error'&&syncError&&<p className="text-xs text-destructive">{t(syncError)}</p>}
-
             {conflict ? (
               <SyncConflictDialog
                 conflict={conflict}
                 onResolve={(choice) => {
                   conflict.resolve(choice)
-                  setConflict(null)
+                  dismissConflictToast()
                 }}
               />
             ) : hasCloudData && cloudData ? (
               <div className="rounded-md bg-amber-50 border border-amber-200 px-3 py-2 text-xs text-amber-700"><AlertTriangle className="size-3.5 inline mr-1.5 -mt-0.5"/>{t('account.conflictHint')}</div>
             ) : null}
-            <div className="flex gap-2"><Button variant="outline" size="sm" className="flex-1" onClick={handlePull} disabled={syncStatus==='loading' || syncStatus==='pushing' || !!conflict}><RefreshCw className="size-4 mr-2"/>{t('account.pullFromCloud')}</Button><Button size="sm" className="flex-1" onClick={handlePush} disabled={syncStatus==='loading' || syncStatus==='pushing' || !!conflict}>{syncStatus==='pushing'?<Loader2 className="size-4 mr-2 animate-spin"/>:<Cloud className="size-4 mr-2"/>}{t('account.pushToCloud')}</Button></div>
+            <div className="flex gap-2"><Button variant="outline" size="sm" className="flex-1" onClick={handlePull} disabled={syncStatus==='loading' || syncStatus==='pushing' || !!conflict}>{syncStatus==='loading'?<Loader2 className="size-4 mr-2 animate-spin"/>:<RefreshCw className="size-4 mr-2"/>}{t('account.pullFromCloud')}</Button><Button size="sm" className="flex-1" onClick={handlePush} disabled={syncStatus==='loading' || syncStatus==='pushing' || !!conflict}>{(syncStatus==='loading'||syncStatus==='pushing')?<Loader2 className="size-4 mr-2 animate-spin"/>:<Cloud className="size-4 mr-2"/>}{t('account.pushToCloud')}</Button></div>
           </CardContent>
         </Card>
 

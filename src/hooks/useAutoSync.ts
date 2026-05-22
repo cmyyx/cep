@@ -13,6 +13,22 @@ const PUSH_DEBOUNCE_MS = 8000
 const PULL_INTERVAL_MS = 5 * 60 * 1000
 
 /**
+ * Check whether auto-sync is currently permitted for this user.
+ * Reads from Zustand stores at call time so it always sees the latest
+ * state — safe to call from store subscribers / event handlers regardless
+ * of React render timing.
+ */
+function shouldAutoSync(): boolean {
+  const settings = useEssenceSettingsStore.getState()
+  if (!settings.autoSyncEnabled) return false
+  const auth = useAuthStore.getState()
+  const now = Date.now()
+  const trialUntil = auth.premiumTrialUntil ? new Date(auth.premiumTrialUntil).getTime() : 0
+  const premUntil = auth.premiumUntil ? new Date(auth.premiumUntil).getTime() : 0
+  return auth.planTier === 'premium' || trialUntil > now || premUntil > now
+}
+
+/**
  * Writes cloud-sync payload data into all three Zustand stores' in-memory state.
  * Call this AFTER writing the same data to localStorage to keep UI in sync.
  * This is needed because Zustand persist only hydrates once on store creation;
@@ -25,6 +41,10 @@ function syncStoresFromCloudPayload(raw: Record<string, unknown>) {
       useMatrixStore.setState({
         selectedWeaponIds: (Array.isArray(ep.selectedWeaponIds) ? ep.selectedWeaponIds : []) as string[],
         dungeonS1Selections: (ep.dungeonS1Selections ?? {}) as Record<string, string[]>,
+        // Mark plans as stale so EssencePlanner page re-computes on next visit.
+        // This also prevents the stale-plan-triggered computePlans() from firing
+        // a spurious auto-push after cloud data sync.
+        plansStale: true,
       })
     }
   } catch { /* ignore */ }
@@ -205,14 +225,84 @@ export interface SyncConflictInfo {
   cloudVersion: number
   cloudUpdatedAt: string | null
   /** Call with 'cloud' to overwrite local with cloud data, or 'local' to keep local */
-  resolve: (choice: 'cloud' | 'local') => void
+  resolve: (choice: 'cloud' | 'local') => void | Promise<void>
 }
 
 type ConflictCallback = (info: SyncConflictInfo) => void
-type SyncNotifyCallback = (event: { type: 'push_success' | 'push_conflict' | 'pull_conflict' | 'sync_error'; message?: string }) => void
+type SyncNotifyCallback = (event: { type: 'push_success' | 'push_unchanged' | 'push_conflict' | 'pull_success' | 'pull_conflict' | 'sync_error'; message?: string }) => void
 
 let _conflictCallback: ConflictCallback | null = null
 let _notifyCallback: SyncNotifyCallback | null = null
+
+/** Conflict that occurred while the Account page was not yet mounted. */
+let _pendingConflict: SyncConflictInfo | null = null
+
+/** Callback to dismiss the conflict toast from the Account page after resolving. */
+let _dismissConflictToast: (() => void) | null = null
+
+export function getPendingConflict(): SyncConflictInfo | null {
+  return _pendingConflict
+}
+
+export function clearPendingConflict() {
+  _pendingConflict = null
+}
+
+export function setDismissConflictToast(cb: (() => void) | null) {
+  _dismissConflictToast = cb
+}
+
+export function dismissConflictToast() {
+  _dismissConflictToast?.()
+}
+
+// Shared skip-push ref — set by Account page when writing cloud data to avoid
+// the auto-sync immediately pushing the same data back.
+const _skipPushRef = { current: false }
+
+/** Set when a sync conflict dialog is currently open and unresolved.
+ *  While true, auto-push is blocked so it can't bypass the conflict. */
+const _conflictPendingRef = { current: false }
+
+export function setSkipNextPush(v: boolean) {
+  _skipPushRef.current = v
+}
+
+/** Check whether an unresolved conflict is blocking auto-sync. */
+export function isConflictPending(): boolean {
+  return _conflictPendingRef.current
+}
+
+/** Called when a conflict dialog is shown — blocks auto-push until resolved. */
+export function setConflictPending(v: boolean) {
+  _conflictPendingRef.current = v
+}
+
+/** Compute a deterministic signature of sync data. Two payloads that
+ *  syncDataDiffers considers "same" produce identical signatures. */
+export function computeSyncSignature(data: Record<string, unknown>): string {
+  // Only compare planner data — ignore wrapper fields (schemaVersion, capturedAt)
+  // so cloud payloads and local payloads produce identical signatures.
+  const slim: Record<string, unknown> = {}
+  if (data.essencePlanner !== undefined) slim.essencePlanner = data.essencePlanner
+  if (data.essenceSettings !== undefined) slim.essenceSettings = data.essenceSettings
+  if (data.refinementPlanner !== undefined) slim.refinementPlanner = data.refinementPlanner
+  return JSON.stringify(normalizeForCompare(slim))
+}
+
+/** Returns the signature of the data as it stood after the last successful sync
+ *  (push or pull).  null means "never synced". */
+export function getLastSyncSignature(): string | null {
+  if (typeof window === 'undefined') return null
+  try { return localStorage.getItem('cep-last-sync-sig') } catch { return null }
+}
+
+/** Persist the sync signature so future pulls can tell whether local data was
+ *  modified since the last sync. */
+export function setLastSyncSignature(sig: string) {
+  if (typeof window === 'undefined') return
+  try { localStorage.setItem('cep-last-sync-sig', sig) } catch {}
+}
 
 export function setAutoSyncConflictCallback(cb: ConflictCallback | null) {
   _conflictCallback = cb
@@ -225,7 +315,8 @@ export function setAutoSyncNotifyCallback(cb: SyncNotifyCallback | null) {
 /** Export for manual sync (AccountPage) — syncs all three Zustand stores from raw cloud payload */
 export { syncStoresFromCloudPayload, hasExistingLocalData, syncDataDiffers, buildSummaryRows, buildSettingsDiff }
 
-function notifySync(event: Parameters<SyncNotifyCallback>[0]) {
+/** Fire a toast notification — also exported for manual sync triggers. */
+export function notifySync(event: Parameters<SyncNotifyCallback>[0]) {
   _notifyCallback?.(event)
 }
 
@@ -267,6 +358,39 @@ interface SyncTimestamps {
 }
 
 let globalTimestamps: SyncTimestamps = { lastPullAt: null, cloudUpdatedAt: null }
+
+/** Cached result of the most recent successful pull. Shared so Account page
+ *  can reuse it instead of making its own GET on mount. */
+let _lastPullResult: { data: unknown; version: number; updatedAt: string | null } | null = null
+
+/** Subscribe to pull completions — fires after every successful pullFromCloud. */
+const _pullListeners = new Set<() => void>()
+
+export function getLastPullResult() {
+  return _lastPullResult
+}
+
+export function subscribePullResult(fn: () => void): () => void {
+  _pullListeners.add(fn)
+  return () => { _pullListeners.delete(fn) }
+}
+
+function notifyPullResult() {
+  for (const fn of _pullListeners) fn()
+}
+
+/** Shared cloud version — accessed by both auto-sync hook and Account page to avoid dual-track drift. */
+let _cloudVersion = 0
+
+export function getCloudVersion(): number {
+  return _cloudVersion
+}
+
+export function updateCloudVersion(v: number): void {
+  _cloudVersion = v
+  notifyTimestamps()
+}
+
 const listeners = new Set<() => void>()
 
 export function getSyncTimestamps(): SyncTimestamps {
@@ -302,17 +426,12 @@ export function useAutoSync() {
   const premUntil = premiumUntil ? new Date(premiumUntil).getTime() : 0
   const hasAutoSync = planTier === 'premium' || trialUntil > now || premUntil > now
   const autoSyncEnabled = useEssenceSettingsStore(s => s.autoSyncEnabled)
-  const notifyOnSync = useEssenceSettingsStore(s => s.notifyOnSync)
 
-  const cloudVersionRef = useRef<number>(0)
   const pushTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const pullTimerRef = useRef<ReturnType<typeof setInterval> | null>(null)
   const dirtyRef = useRef(false)
   const firstPullDoneRef = useRef(false)
   const pullCompletedRef = useRef(false)
-  // Prevent auto-push right after we programmatically wrote pulled data to localStorage.
-  // Using a ref (not boolean) so multiple synchronous subscribe callbacks all see it before reset.
-  const skipPushRef = useRef(false)
 
   // ── Write cloud data into localStorage + sync Zustand stores so UI updates immediately ──
   const writeCloudToLocalStorage = (raw: Record<string, unknown>) => {
@@ -356,13 +475,22 @@ export function useAutoSync() {
 
   // ── Pull from cloud ────────────────────────────────────
   const pullFromCloud = useCallback(async () => {
-    if (!getTokens().accessToken) return
+    if (!getTokens().accessToken) {
+      // Token not yet available — mark pull as "completed" so it doesn't
+      // permanently block auto-pushes. The first real pull will happen
+      // once the token becomes available and the effect re-runs.
+      pullCompletedRef.current = true
+      return
+    }
     try {
       const res = await getSyncDataApi()
-      pullCompletedRef.current = true
+      // Cache result so Account page can reuse it instead of making its own GET
+      _lastPullResult = { data: res.data, version: res.version, updatedAt: res.updatedAt }
+      notifyPullResult()
       const raw = res.data as Record<string, unknown> | null
       if (!raw) {
-        cloudVersionRef.current = res.version
+        pullCompletedRef.current = true
+        _cloudVersion = res.version
         globalTimestamps = { lastPullAt: Date.now(), cloudUpdatedAt: res.updatedAt }
         notifyTimestamps()
         return
@@ -371,6 +499,69 @@ export function useAutoSync() {
       // ── Conflict detection: if local has existing data that differs from cloud ──
       const localData = collectSyncData()
       if (hasExistingLocalData(localData) && syncDataDiffers(localData, raw)) {
+        // If local data hasn't changed since last sync, this is a normal
+        // cross-device update — apply cloud data silently, no conflict dialog.
+        const lastSig = getLastSyncSignature()
+        if (lastSig !== null && computeSyncSignature(localData) === lastSig) {
+          _skipPushRef.current = true
+          writeCloudToLocalStorage(raw)
+          Promise.resolve().then(() => { _skipPushRef.current = false })
+          _cloudVersion = res.version
+          setLastSyncSignature(computeSyncSignature(raw))
+          pullCompletedRef.current = true
+          globalTimestamps = { lastPullAt: Date.now(), cloudUpdatedAt: res.updatedAt }
+          notifyTimestamps()
+          if (useEssenceSettingsStore.getState().notifyOnPull) notifySync({ type: 'pull_success' })
+          return
+        }
+        // If cloud hasn't changed since last sync, local-only modifications
+        // are not a conflict — just pending data waiting to be pushed.
+        // EXCEPTION: if a conflict dialog is already open, don't silently
+        // unlock the push — a prior genuine conflict is still unresolved.
+        if (lastSig !== null && computeSyncSignature(raw) === lastSig) {
+          if (_conflictPendingRef.current) {
+            // Conflict still pending — refresh the dialog with current data
+            // rather than silently completing the pull.
+            const localRows = buildSummaryRows(localData)
+            const cloudRows = buildSummaryRows(raw)
+            const settingsDiff = buildSettingsDiff(localData, raw)
+            if (_conflictCallback) {
+              _conflictCallback({
+                type: 'pull_conflict',
+                localSummary: localRows,
+                cloudSummary: cloudRows,
+                settingsDiff: settingsDiff.length > 0 ? settingsDiff : undefined,
+                cloudVersion: res.version,
+                cloudUpdatedAt: res.updatedAt,
+                resolve: (choice) => {
+                  _conflictPendingRef.current = false
+                  if (choice === 'cloud') {
+                    _skipPushRef.current = true
+                    writeCloudToLocalStorage(raw)
+                    Promise.resolve().then(() => { _skipPushRef.current = false })
+                    _cloudVersion = res.version
+                    setLastSyncSignature(computeSyncSignature(raw))
+                    pullCompletedRef.current = true
+                  }
+                  if (choice === 'local') {
+                    _cloudVersion = res.version
+                    dirtyRef.current = true
+                    pullCompletedRef.current = true
+                    return pushToCloud()
+                  }
+                  globalTimestamps = { lastPullAt: Date.now(), cloudUpdatedAt: res.updatedAt }
+                  notifyTimestamps()
+                },
+              })
+            }
+            return
+          }
+          _cloudVersion = res.version
+          pullCompletedRef.current = true
+          return
+        }
+        // Genuine conflict — don't set pullCompletedRef; block auto-push until resolved
+        _conflictPendingRef.current = true
         const localRows = buildSummaryRows(localData)
         const cloudRows = buildSummaryRows(raw)
         const settingsDiff = buildSettingsDiff(localData, raw)
@@ -383,32 +574,69 @@ export function useAutoSync() {
             cloudVersion: res.version,
             cloudUpdatedAt: res.updatedAt,
             resolve: (choice) => {
+              _conflictPendingRef.current = false
               if (choice === 'cloud') {
-                skipPushRef.current = true
+                _skipPushRef.current = true
                 writeCloudToLocalStorage(raw)
-                Promise.resolve().then(() => { skipPushRef.current = false })
+                Promise.resolve().then(() => { _skipPushRef.current = false })
+                _cloudVersion = res.version
+                setLastSyncSignature(computeSyncSignature(raw))
+                pullCompletedRef.current = true
               }
-              // Either way, accept the cloud version so subsequent pushes don't conflict
-              cloudVersionRef.current = res.version
+              if (choice === 'local') {
+                // Push local data to cloud immediately
+                _cloudVersion = res.version
+                dirtyRef.current = true
+                pullCompletedRef.current = true
+                return pushToCloud()
+              }
               globalTimestamps = { lastPullAt: Date.now(), cloudUpdatedAt: res.updatedAt }
               notifyTimestamps()
             },
           })
         } else {
-          // No callback registered — notify globally so other pages can show a toast
-          globalTimestamps = { lastPullAt: Date.now(), cloudUpdatedAt: res.updatedAt }
-          notifyTimestamps()
+          // No callback registered — stash conflict for when Account page mounts
+          _pendingConflict = {
+            type: 'pull_conflict',
+            localSummary: localRows,
+            cloudSummary: cloudRows,
+            settingsDiff: settingsDiff.length > 0 ? settingsDiff : undefined,
+            cloudVersion: res.version,
+            cloudUpdatedAt: res.updatedAt,
+            resolve: (choice: 'cloud' | 'local') => {
+              _conflictPendingRef.current = false
+              if (choice === 'cloud') {
+                _skipPushRef.current = true
+                writeCloudToLocalStorage(raw)
+                Promise.resolve().then(() => { _skipPushRef.current = false })
+                _cloudVersion = res.version
+                setLastSyncSignature(computeSyncSignature(raw))
+                pullCompletedRef.current = true
+              }
+              if (choice === 'local') {
+                // Push local data to cloud immediately
+                _cloudVersion = res.version
+                dirtyRef.current = true
+                pullCompletedRef.current = true
+                return pushToCloud()
+              }
+              globalTimestamps = { lastPullAt: Date.now(), cloudUpdatedAt: res.updatedAt }
+              notifyTimestamps()
+            },
+          }
           notifySync({ type: 'pull_conflict' })
         }
         return // Don't overwrite silently — wait for user decision
       }
 
       // ── No conflict: write cloud data into localStorage stores ──
-      skipPushRef.current = true
+      pullCompletedRef.current = true
+      _skipPushRef.current = true
       writeCloudToLocalStorage(raw)
       // Reset after all synchronous store subscription callbacks have fired
-      Promise.resolve().then(() => { skipPushRef.current = false })
-      cloudVersionRef.current = res.version
+      Promise.resolve().then(() => { _skipPushRef.current = false })
+      _cloudVersion = res.version
+      setLastSyncSignature(computeSyncSignature(raw))
       globalTimestamps = {
         lastPullAt: Date.now(),
         cloudUpdatedAt: res.updatedAt,
@@ -421,20 +649,29 @@ export function useAutoSync() {
 
   // ── Push to cloud ──────────────────────────────────────
   const pushToCloud = useCallback(async () => {
-    if (!getTokens().accessToken || !dirtyRef.current || !pullCompletedRef.current) return
+    if (!getTokens().accessToken || !dirtyRef.current) return
+    // If the first pull hasn't completed yet, re-schedule the push
+    // so dirty data isn't silently dropped. The debounce timer will
+    // keep retrying until pullCompletedRef becomes true.
+    if (!pullCompletedRef.current) {
+      if (pushTimerRef.current) clearTimeout(pushTimerRef.current)
+      pushTimerRef.current = setTimeout(() => pushToCloud(), PUSH_DEBOUNCE_MS)
+      return
+    }
     dirtyRef.current = false
     try {
       const localData = collectSyncData()
       const res = await postSyncDataApi({
-        base_version: cloudVersionRef.current,
+        base_version: _cloudVersion,
         data: {
           schemaVersion: 2,
           capturedAt: new Date().toISOString(),
           ...localData,
         },
       }, 'auto')
-      cloudVersionRef.current = res.version
-      notifySync({ type: 'push_success' })
+      _cloudVersion = res.version
+      setLastSyncSignature(computeSyncSignature(localData))
+      if (useEssenceSettingsStore.getState().notifyOnSync) notifySync({ type: 'push_success' })
     } catch (err) {
       if (err instanceof Error && err.message === 'version_conflict') {
         // Fetch latest cloud data so the dialog can show actual cloud state
@@ -445,46 +682,74 @@ export function useAutoSync() {
           const localRows = buildSummaryRows(localData)
           const cloudRows = cloudRaw ? buildSummaryRows(cloudRaw) : { weapons: '0', equip: '', ownership: '0', essence: '0', customWeapons: '0', weaponNotes: '0' }
           const settingsDiff = cloudRaw ? buildSettingsDiff(localData, cloudRaw) : []
-          if (_conflictCallback) {
-            _conflictCallback({
-              type: 'push_conflict',
-              localSummary: localRows,
-              cloudSummary: cloudRows,
-              settingsDiff: settingsDiff.length > 0 ? settingsDiff : undefined,
-              cloudVersion: latest.version,
-              cloudUpdatedAt: latest.updatedAt,
-              resolve: (choice) => {
-                if (choice === 'cloud' && cloudRaw) {
-                  skipPushRef.current = true
-                  writeCloudToLocalStorage(cloudRaw)
-                  Promise.resolve().then(() => { skipPushRef.current = false })
-                }
-                if (choice === 'local') {
-                  // User wants to overwrite cloud with local — retry push immediately
-                  cloudVersionRef.current = latest.version
+          const pushInfo: SyncConflictInfo = {
+            type: 'push_conflict',
+            localSummary: localRows,
+            cloudSummary: cloudRows,
+            settingsDiff: settingsDiff.length > 0 ? settingsDiff : undefined,
+            cloudVersion: latest.version,
+            cloudUpdatedAt: latest.updatedAt,
+            resolve: (choice) => {
+              _conflictPendingRef.current = false
+              if (choice === 'cloud' && cloudRaw) {
+                _skipPushRef.current = true
+                writeCloudToLocalStorage(cloudRaw)
+                Promise.resolve().then(() => { _skipPushRef.current = false })
+                _cloudVersion = latest.version
+                setLastSyncSignature(computeSyncSignature(cloudRaw))
+                pullCompletedRef.current = true
+              }
+              if (choice === 'local') {
+                pullCompletedRef.current = true
+                _skipPushRef.current = true
+                _cloudVersion = latest.version
+                dirtyRef.current = true
+                return getSyncDataApi().then(latestNow => {
+                  _cloudVersion = latestNow.version
+                  _skipPushRef.current = false
                   dirtyRef.current = true
-                  pushToCloud()
-                } else {
-                  cloudVersionRef.current = latest.version
-                }
-                globalTimestamps = { lastPullAt: Date.now(), cloudUpdatedAt: latest.updatedAt }
-                notifyTimestamps()
-              },
-            })
+                  return pushToCloud()
+                }).catch(() => {
+                  _skipPushRef.current = false
+                  dirtyRef.current = true
+                  return pushToCloud()
+                })
+              } else {
+                _cloudVersion = latest.version
+              }
+              globalTimestamps = { lastPullAt: Date.now(), cloudUpdatedAt: latest.updatedAt }
+              notifyTimestamps()
+            },
+          }
+          if (_conflictCallback) {
+            _conflictPendingRef.current = true
+            _conflictCallback(pushInfo)
           } else {
+            _pendingConflict = pushInfo
             notifySync({ type: 'push_conflict' })
           }
         } catch {
           notifySync({ type: 'sync_error' })
         }
       }
-      // Non-version-conflict errors are silently ignored (network issues, etc.)
+      // For non-version-conflict errors (e.g. custom_weapons_not_allowed on free tier),
+      // notify the user via the global toast so they know something went wrong.
+      if (err instanceof Error && err.message !== 'version_conflict') {
+        notifySync({ type: 'sync_error', message: err.message })
+      }
     }
   }, []) // stable — reads token from localStorage at call time
 
   // ── Debounced push trigger ─────────────────────────────
   const schedulePush = useCallback(() => {
-    if (skipPushRef.current) return
+    if (_skipPushRef.current) return
+    // Block auto-push while a conflict dialog is open — prevents
+    // auto-sync from bypassing an unresolved conflict.
+    if (_conflictPendingRef.current) return
+    // Check auto-sync permission at execution time so state changes
+    // that happened before the subscriptions were set up (e.g. auth
+    // rehydration) are still honoured.
+    if (!shouldAutoSync()) return
     dirtyRef.current = true
     if (pushTimerRef.current) clearTimeout(pushTimerRef.current)
     pushTimerRef.current = setTimeout(() => pushToCloud(), PUSH_DEBOUNCE_MS)
@@ -501,33 +766,91 @@ export function useAutoSync() {
     if (hasAutoSync && autoSyncEnabled) {
       // Auto-pull interval
       pullTimerRef.current = setInterval(pullFromCloud, PULL_INTERVAL_MS)
+    }
 
-      // Pull on visibility change (user returns to tab)
-      const onVisible = () => {
-        if (document.visibilityState === 'visible') pullFromCloud()
-      }
-      document.addEventListener('visibilitychange', onVisible)
+    // Always register the visibility listener — check auto-sync permission
+    // inside the callback so it still works when auth rehydration completes
+    // after the listener has been set up.
+    const onVisible = () => {
+      if (document.visibilityState !== 'visible') return
+      if (!shouldAutoSync()) return
+      pullFromCloud()
+    }
+    document.addEventListener('visibilitychange', onVisible)
 
-      return () => {
-        if (pullTimerRef.current) clearInterval(pullTimerRef.current)
-        document.removeEventListener('visibilitychange', onVisible)
-      }
+    return () => {
+      if (pullTimerRef.current) clearInterval(pullTimerRef.current)
+      document.removeEventListener('visibilitychange', onVisible)
     }
   }, [accessToken, hasAutoSync, autoSyncEnabled]) // pullFromCloud is stable (useCallback with [])
 
-  // ── Watch stores for changes (Premium + autoSyncEnabled only) ────────────
+  // ── Watch stores for changes ────────────────────────────────────
+  // Always subscribe; the schedulePush callback checks shouldAutoSync()
+  // at execution time, so subscriptions are harmless when auto-sync is
+  // disabled and will start working as soon as it becomes enabled.
   useEffect(() => {
-    if (!hasAutoSync || !autoSyncEnabled) return
-
     const unsubs: (() => void)[] = []
 
     // Subscribe to each store — Zustand's subscribe fires on every state change
-    unsubs.push(useMatrixStore.subscribe(() => schedulePush()))
-    unsubs.push(useRefinementStore.subscribe(() => schedulePush()))
-    unsubs.push(useEssenceSettingsStore.subscribe(() => schedulePush()))
+    // Subscribe only to sync-relevant state changes so computed/UI-only fields
+    // (plansMap, planOrder, plansStale, searchQuery, notifyOnSync, etc.) do not
+    // trigger spurious auto-pushes.
+    unsubs.push(
+      useMatrixStore.subscribe((state, prevState) => {
+        if (
+          state.selectedWeaponIds !== prevState.selectedWeaponIds ||
+          state.dungeonS1Selections !== prevState.dungeonS1Selections ||
+          state.expandedPlanKeys !== prevState.expandedPlanKeys ||
+          state.selectedRegions !== prevState.selectedRegions ||
+          state.selectedSubRegions !== prevState.selectedSubRegions
+        ) {
+          schedulePush()
+        }
+      }),
+    )
+    unsubs.push(
+      useRefinementStore.subscribe((state, prevState) => {
+        if (
+          state.selectedEquipId !== prevState.selectedEquipId ||
+          state.collapsedSets !== prevState.collapsedSets ||
+          state.filterCollapsed !== prevState.filterCollapsed
+        ) {
+          schedulePush()
+        }
+      }),
+    )
+    unsubs.push(
+      useEssenceSettingsStore.subscribe((state, prevState) => {
+        if (
+          state.weaponOwnership !== prevState.weaponOwnership ||
+          state.essenceStatus !== prevState.essenceStatus ||
+          state.weaponNotes !== prevState.weaponNotes ||
+          state.customWeapons !== prevState.customWeapons ||
+          state.regionFirst !== prevState.regionFirst ||
+          state.regionSecond !== prevState.regionSecond ||
+          state.hideEssenceOwnedWeaponsList !== prevState.hideEssenceOwnedWeaponsList ||
+          state.hideEssenceOwnedWeaponsPlans !== prevState.hideEssenceOwnedWeaponsPlans ||
+          state.hideUnownedWeaponsList !== prevState.hideUnownedWeaponsList ||
+          state.hideUnownedWeaponsPlans !== prevState.hideUnownedWeaponsPlans ||
+          state.hideFourStarWeaponsList !== prevState.hideFourStarWeaponsList ||
+          state.hideFourStarWeaponsPlans !== prevState.hideFourStarWeaponsPlans ||
+          state.enableOwnershipEditList !== prevState.enableOwnershipEditList ||
+          state.enableOwnershipEditPlans !== prevState.enableOwnershipEditPlans ||
+          state.enableNotesList !== prevState.enableNotesList ||
+          state.enableNotesPlans !== prevState.enableNotesPlans ||
+          state.keepUpVisibleList !== prevState.keepUpVisibleList ||
+          state.keepUpVisiblePlans !== prevState.keepUpVisiblePlans ||
+          state.onlyHideWhenBothOwned !== prevState.onlyHideWhenBothOwned
+        ) {
+          schedulePush()
+        }
+      }),
+    )
 
     return () => { for (const u of unsubs) u() }
-  }, [hasAutoSync, autoSyncEnabled]) // schedulePush is stable
+    // Subscribe once on mount — shouldAutoSync() inside schedulePush
+    // handles the dynamic condition check at execution time.
+  }, [])
 
   // ── Cleanup on unmount ─────────────────────────────────
   useEffect(() => {

@@ -5,6 +5,7 @@ import type {
   SettingKey,
 } from '@/types/essence-settings'
 import type { Weapon } from '@/types/matrix'
+import { isValidWeaponId, sanitizeWeaponIdMap, sanitizeCustomWeapons } from '@/lib/persist-sanitizer'
 
 // ─── Defaults ──────────────────────────────────────────────────────────────
 
@@ -40,7 +41,7 @@ function isDefined(v: unknown): v is Record<string, unknown> {
  */
 function mergeWithDefaults(
   persisted: Record<string, unknown>,
-): Omit<EssenceSettingsState, 'toggleFlag' | 'setWeaponOwnership' | 'setEssenceStatus' | 'setWeaponNote' | 'addCustomWeapon' | 'removeCustomWeapon' | 'updateCustomWeapon' | 'setRegionFirst' | 'setRegionSecond' | 'toggleWeaponFilterCollapsed' | 'setAutoSyncEnabled' | 'setNotifyOnSync' | 'resetAllSettings'> {
+): Omit<EssenceSettingsState, 'toggleFlag' | 'setWeaponOwnership' | 'setEssenceStatus' | 'setWeaponNote' | 'addCustomWeapon' | 'removeCustomWeapon' | 'updateCustomWeapon' | 'setRegionFirst' | 'setRegionSecond' | 'toggleWeaponFilterCollapsed' | 'setAutoSyncEnabled' | 'setNotifyOnSync' | 'setNotifyOnPull' | 'resetAllSettings'> {
   const flags = { ...FLAG_DEFAULTS }
   for (const key of Object.keys(FLAG_DEFAULTS) as SettingKey[]) {
     const val = persisted[key]
@@ -49,25 +50,32 @@ function mergeWithDefaults(
     }
   }
 
+  // Compute customWeapons first — we need the active set to filter
+  // ownership / essenceStatus / weaponNotes keys (deleted custom weapons
+  // still have "custom-" prefixed IDs that isValidWeaponId alone won't catch).
+  const customWeapons: Weapon[] = Array.isArray(persisted.customWeapons)
+    ? sanitizeCustomWeapons(persisted.customWeapons as Weapon[])
+    : []
+  const activeCustomIds = new Set(customWeapons.map(w => w.id))
+
   const ownership: Record<string, boolean> = {}
   if (isDefined(persisted.weaponOwnership)) {
     for (const [k, v] of Object.entries(persisted.weaponOwnership as Record<string, boolean>)) {
-      if (v === true) ownership[k] = true
-      // false entries are silently dropped (migration: old code wrote false instead of deleting)
+      if (v === true && isValidWeaponId(k) && (activeCustomIds.has(k) || !k.startsWith('custom-'))) ownership[k] = true
     }
   }
   const essenceStatus: Record<string, boolean> = {}
   if (isDefined(persisted.essenceStatus)) {
     for (const [k, v] of Object.entries(persisted.essenceStatus as Record<string, boolean>)) {
-      if (v === true) essenceStatus[k] = true
+      if (v === true && isValidWeaponId(k) && (activeCustomIds.has(k) || !k.startsWith('custom-'))) essenceStatus[k] = true
     }
   }
-  const weaponNotes: Record<string, string> = isDefined(persisted.weaponNotes)
-    ? (persisted.weaponNotes as Record<string, string>)
-    : {}
-  const customWeapons: Weapon[] = Array.isArray(persisted.customWeapons)
-    ? (persisted.customWeapons as Weapon[])
-    : []
+  const weaponNotes: Record<string, string> = {}
+  if (isDefined(persisted.weaponNotes)) {
+    for (const [k, v] of Object.entries(persisted.weaponNotes as Record<string, string>)) {
+      if (isValidWeaponId(k) && (activeCustomIds.has(k) || !k.startsWith('custom-'))) weaponNotes[k] = v
+    }
+  }
   const regionFirst: string | null =
     typeof persisted.regionFirst === 'string' ? persisted.regionFirst : null
   const regionSecond: string | null =
@@ -78,8 +86,10 @@ function mergeWithDefaults(
     typeof persisted.autoSyncEnabled === 'boolean' ? persisted.autoSyncEnabled : true
   const notifyOnSync: boolean =
     typeof persisted.notifyOnSync === 'boolean' ? persisted.notifyOnSync : false
+  const notifyOnPull: boolean =
+    typeof persisted.notifyOnPull === 'boolean' ? persisted.notifyOnPull : false
 
-  return { ...flags, weaponOwnership: ownership, essenceStatus, weaponNotes, customWeapons, regionFirst, regionSecond, weaponFilterCollapsed, autoSyncEnabled, notifyOnSync }
+  return { ...flags, weaponOwnership: ownership, essenceStatus, weaponNotes, customWeapons, regionFirst, regionSecond, weaponFilterCollapsed, autoSyncEnabled, notifyOnSync, notifyOnPull }
 }
 
 // ─── Store ─────────────────────────────────────────────────────────────────
@@ -98,6 +108,7 @@ export const useEssenceSettingsStore = create<EssenceSettingsState>()(
       weaponFilterCollapsed: false,
       autoSyncEnabled: true,
       notifyOnSync: false,
+      notifyOnPull: false,
 
       toggleFlag: (key: SettingKey) =>
         set((s) => ({ [key]: !s[key] } as Partial<EssenceSettingsState>)),
@@ -141,9 +152,22 @@ export const useEssenceSettingsStore = create<EssenceSettingsState>()(
         })),
 
       removeCustomWeapon: (weaponId: string) =>
-        set((s) => ({
-          customWeapons: s.customWeapons.filter((w) => w.id !== weaponId),
-        })),
+        set((s) => {
+          // Also clean up any ownership / essence / notes entries for
+          // this weapon so stale data doesn't linger in the session.
+          const nextOwnership = { ...s.weaponOwnership }
+          delete nextOwnership[weaponId]
+          const nextEssence = { ...s.essenceStatus }
+          delete nextEssence[weaponId]
+          const nextNotes = { ...s.weaponNotes }
+          delete nextNotes[weaponId]
+          return {
+            customWeapons: s.customWeapons.filter((w) => w.id !== weaponId),
+            weaponOwnership: nextOwnership,
+            essenceStatus: nextEssence,
+            weaponNotes: nextNotes,
+          }
+        }),
 
       updateCustomWeapon: (weaponId: string, weapon: Weapon) =>
         set((s) => ({
@@ -164,6 +188,7 @@ export const useEssenceSettingsStore = create<EssenceSettingsState>()(
           weaponFilterCollapsed: false,
           autoSyncEnabled: true,
           notifyOnSync: false,
+          notifyOnPull: false,
         }),
 
       setRegionFirst: (region: string | null) =>
@@ -184,6 +209,9 @@ export const useEssenceSettingsStore = create<EssenceSettingsState>()(
 
       setNotifyOnSync: (notify: boolean) =>
         set({ notifyOnSync: notify }),
+
+      setNotifyOnPull: (notify: boolean) =>
+        set({ notifyOnPull: notify }),
     }),
     {
       name: 'essence-settings',
@@ -206,6 +234,7 @@ export const useEssenceSettingsStore = create<EssenceSettingsState>()(
           toggleWeaponFilterCollapsed: current.toggleWeaponFilterCollapsed,
           setAutoSyncEnabled: current.setAutoSyncEnabled,
           setNotifyOnSync: current.setNotifyOnSync,
+          setNotifyOnPull: current.setNotifyOnPull,
           resetAllSettings: current.resetAllSettings,
         }
       },

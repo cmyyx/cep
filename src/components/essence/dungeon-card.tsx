@@ -28,9 +28,10 @@ interface ThumbProps {
   inRange: boolean
 }
 
-function weaponImageSrc(imageId?: string): string {
-  if (imageId?.startsWith('data:')) return imageId
-  return `/images/weapons/${imageId || 'wpn_sword_0001'}.avif`
+function weaponImageSrc(id?: string): string | undefined {
+  if (!id || id.startsWith('custom-')) return undefined
+  if (id.startsWith('data:')) return id
+  return `/images/weapons/${id}.avif`
 }
 
 interface RowProps extends ThumbProps {
@@ -105,7 +106,7 @@ const WeaponThumbnail = memo(function WeaponThumbnail({
   const t = useTranslations()
   const [open, setOpen] = useState(false)
   const triggerRef = useCloseOnScroll(open, setOpen)
-  const weaponName = weapon.imageId ? (t(`weapons.${weapon.imageId}`) ?? weapon.name) : weapon.name
+  const weaponName = weapon.id?.startsWith('custom-') ? weapon.name : (t(`weapons.${weapon.id}`) ?? weapon.name)
 
   return (
     <Tooltip open={open} onOpenChange={setOpen}>
@@ -124,13 +125,7 @@ const WeaponThumbnail = memo(function WeaponThumbnail({
           />
         }
       >
-        <Image
-          src={weaponImageSrc(weapon.imageId)}
-          alt={weaponName}
-          fill
-          className="object-cover z-10"
-          unoptimized
-        />
+        {(() => { const s = weaponImageSrc(weapon.id); if (!s) return <span className="absolute inset-0 flex items-center justify-center text-lg font-bold text-white/40">{weapon.name?.charAt(0) ?? '?'}</span>; return <Image src={s} alt={weaponName} fill className="object-cover z-10" unoptimized /> })()}
         <Image
           src={`/images/item-band-${weapon.rarity}.png`}
           alt=""
@@ -179,7 +174,7 @@ const WeaponRow = memo(function WeaponRow({
   onNoteChange,
 }: RowProps) {
   const t = useTranslations()
-  const weaponName = weapon.imageId ? (t(`weapons.${weapon.imageId}`) ?? weapon.name) : weapon.name
+  const weaponName = weapon.id?.startsWith('custom-') ? weapon.name : (t(`weapons.${weapon.id}`) ?? weapon.name)
 
   return (
     <div
@@ -192,13 +187,7 @@ const WeaponRow = memo(function WeaponRow({
       )}
     >
       <div className="relative size-10 rounded border border-border bg-muted/30 flex-shrink-0 overflow-hidden bg-[url(/images/item-frame-bg.png)] bg-cover bg-center">
-        <Image
-          src={weaponImageSrc(weapon.imageId)}
-          alt={weaponName}
-          fill
-          className="object-cover z-10"
-          unoptimized
-        />
+        {(() => { const s = weaponImageSrc(weapon.id); if (!s) return <span className="absolute inset-0 flex items-center justify-center text-lg font-bold text-white/40">{weapon.name?.charAt(0) ?? '?'}</span>; return <Image src={s} alt={weaponName} fill className="object-cover z-10" unoptimized /> })()}
         <Image
           src={`/images/item-band-${weapon.rarity}.png`}
           alt=""

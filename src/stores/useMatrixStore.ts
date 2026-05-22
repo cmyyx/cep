@@ -1,5 +1,7 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
+import { sanitizeWeaponIdArray, getActiveCustomWeaponIds } from '@/lib/persist-sanitizer'
+import { useEssenceSettingsStore } from '@/stores/useEssenceSettingsStore'
 import { weapons } from '@/data/weapons'
 import { dungeons } from '@/data/dungeons'
 import { solve, type DungeonPlan } from '@/lib/planner/essence-solver'
@@ -89,7 +91,14 @@ function buildPlanMap(
  */
 export function getPlansForSelection(ids: Set<string>): DungeonPlan[] {
   if (ids.size === 0) return []
-  const allPlans = solve(ids, weapons, dungeons).dungeonPlans
+  const customWeapons = useEssenceSettingsStore.getState().customWeapons
+  const allWeapons = [...weapons, ...customWeapons]
+  // Drop IDs that no longer map to any weapon (e.g. deleted custom weapons).
+  // This also protects against stale IDs that slip past the persist sanitizer.
+  const validIds = new Set(allWeapons.map(w => w.id))
+  const cleanIds = new Set([...ids].filter(id => validIds.has(id)))
+  if (cleanIds.size === 0) return []
+  const allPlans = solve(cleanIds, allWeapons, dungeons).dungeonPlans
   return allPlans.filter((p) => p.selectedCount > 0)
 }
 
@@ -248,6 +257,26 @@ export const useMatrixStore = create<MatrixState>()(
     }),
     {
       name: 'matrix-session',
+      merge: (persisted: unknown, current) => {
+        const p = persisted as Record<string, unknown> | null
+        if (!p) return current
+        // Only keep keys that exist in the current state — unknown keys
+        // from old schema versions are silently dropped.
+        const result = { ...current }
+        for (const key of Object.keys(current)) {
+          if (key in (p as Record<string, unknown>)) {
+            ;(result as Record<string, unknown>)[key] = (p as Record<string, unknown>)[key]
+          }
+        }
+        // Value-level sanitization: filter unknown weapon IDs, including
+        // deleted custom weapons whose IDs still start with "custom-".
+        const activeCustomIds = getActiveCustomWeaponIds()
+        result.selectedWeaponIds = sanitizeWeaponIdArray(
+          Array.isArray(result.selectedWeaponIds) ? result.selectedWeaponIds as string[] : [],
+          activeCustomIds,
+        )
+        return result
+      },
       partialize: (state) => ({
         selectedWeaponIds: state.selectedWeaponIds,
         expandedPlanKeys: state.expandedPlanKeys,
@@ -268,3 +297,34 @@ export const useMatrixStore = create<MatrixState>()(
     },
   ),
 )
+
+// ── Cross-store cleanup: when a custom weapon is deleted, remove its ID ──
+// ── from selectedWeaponIds so stale IDs don't linger in the session.   ──
+useEssenceSettingsStore.subscribe((state, prevState) => {
+  try {
+    const currCustom = state.customWeapons
+    const prevCustom = prevState.customWeapons
+    if (currCustom === prevCustom) return
+
+    // Find custom weapon IDs that were removed
+    const currIds = new Set(currCustom.map(w => w.id))
+    const removedIds = prevCustom
+      .filter(w => w.id.startsWith('custom-') && !currIds.has(w.id))
+      .map(w => w.id)
+
+    if (removedIds.length === 0) return
+
+    const matrix = useMatrixStore.getState()
+    const newSelection = matrix.selectedWeaponIds.filter(id => !removedIds.includes(id))
+    if (newSelection.length === matrix.selectedWeaponIds.length) return // none were selected
+
+    // Remove stale IDs and mark plans for recomputation
+    useMatrixStore.setState({
+      selectedWeaponIds: newSelection,
+      plansStale: true,
+    })
+  } catch {
+    // Silently ignore — the read-time filters in collectSyncData /
+    // collectLocalData / syncStoresFromCloudPayload are the last line.
+  }
+})

@@ -12,6 +12,7 @@ import { CustomWeaponDialog } from '@/components/essence/custom-weapon-dialog'
 import { useMatrixStore } from '@/stores/useMatrixStore'
 import { useEssenceSettingsStore } from '@/stores/useEssenceSettingsStore'
 import { useBannerStore } from '@/stores/useBannerStore'
+import { setSkipNextPush } from '@/hooks/useAutoSync'
 import { getRegion, getSubRegion, getRegions, getSubRegions } from '@/data/dungeons'
 import { regionI18nKey } from '@/data/region-i18n'
 import { dungeons } from '@/data/dungeons'
@@ -249,7 +250,12 @@ export default function EssencePlannerPage() {
   const computePlans = useMatrixStore((s) => s.computePlans)
   useEffect(() => {
     if (selectedWeaponIds.length > 0 && planOrder.length === 0 && !plansStale) {
+      // Prevent non-user-triggered plan computation from scheduling an auto-push.
+      // This happens e.g. after cloud data sync overwrites selectedWeaponIds
+      // but leaves planOrder / plansStale untouched.
+      setSkipNextPush(true)
       computePlans()
+      Promise.resolve().then(() => setSkipNextPush(false))
     }
   }, [selectedWeaponIds.length, planOrder.length, plansStale, computePlans])
 

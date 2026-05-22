@@ -7,7 +7,6 @@ export interface Weapon {
   elementalDamage: string
   specialAbility: string
   chars: string[]
-  imageId?: string
 }
 
 export interface Dungeon {

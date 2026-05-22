@@ -275,8 +275,17 @@ export async function getSyncDataApi() {
   return api<SyncDataResponse>('/api/sync')
 }
 
+export interface PostSyncDataResponse {
+  success: boolean
+  version: number
+  data: unknown
+  updatedAt: string | null
+  /** True when the cloud data was already identical — no write was needed. */
+  unchanged?: boolean
+}
+
 export async function postSyncDataApi(payload: unknown, syncType: 'auto' | 'manual' = 'manual') {
-  return api<{ success: boolean; version: number }>('/api/sync', {
+  return api<PostSyncDataResponse>('/api/sync', {
     method: 'POST',
     body: payload,
     headers: { 'X-Sync-Type': syncType },

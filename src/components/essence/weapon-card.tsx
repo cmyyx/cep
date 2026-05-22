@@ -86,9 +86,12 @@ export const WeaponCard = memo(function WeaponCard({
     toggleWeapon(weapon.id)
   }, [toggleWeapon, weapon.id])
 
-  const imageSrc = weapon.imageId?.startsWith('data:')
-    ? weapon.imageId
-    : `/images/weapons/${weapon.imageId || 'wpn_sword_0001'}.avif`
+  const wid = weapon.id || 'wpn_sword_0001'
+  const isCustom = wid.startsWith('custom-')
+  const imageSrc = isCustom ? undefined : wid.startsWith('data:')
+    ? wid
+    : `/images/weapons/${wid}.avif`
+  const displayName = isCustom ? weapon.name : (t(`weapons.${wid}`) ?? weapon.name)
 
   return (
     <Tooltip open={open} onOpenChange={setOpen}>
@@ -114,14 +117,18 @@ export const WeaponCard = memo(function WeaponCard({
       >
         {/* Weapon art */}
         <div className="absolute inset-0 z-10 flex items-center justify-center">
-          <Image
-            src={imageSrc}
-            alt={t(`weapons.${weapon.imageId}`) ?? weapon.name}
-            fill
-            className="object-cover"
-            unoptimized
-            loading="lazy"
-          />
+          {isCustom ? (
+            <span className="text-2xl font-bold text-white/50 select-none absolute inset-0 flex items-center justify-center">{weapon.name?.charAt(0) ?? '?'}</span>
+          ) : (
+            <Image
+              src={imageSrc!}
+              alt={displayName}
+              fill
+              className="object-cover"
+              unoptimized
+              loading="lazy"
+            />
+          )}
         </div>
 
         {/* Character avatars */}
@@ -157,7 +164,7 @@ export const WeaponCard = memo(function WeaponCard({
         {/* Weapon name */}
         <div className="absolute bottom-2 left-0 right-0 z-30 px-2 text-center">
           <p className="text-sm leading-tight font-semibold text-stone-100 truncate drop-shadow-md">
-            {t(`weapons.${weapon.imageId}`) ?? weapon.name}
+            {displayName}
           </p>
         </div>
 

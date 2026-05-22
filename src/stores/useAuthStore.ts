@@ -137,6 +137,17 @@ export const useAuthStore = create<AuthState>()(
     }),
     {
       name: 'cep-auth',
+      merge: (persisted: unknown, current) => {
+        const p = persisted as Record<string, unknown> | null
+        if (!p) return current
+        const result = { ...current }
+        for (const key of Object.keys(current)) {
+          if (key in (p as Record<string, unknown>)) {
+            ;(result as Record<string, unknown>)[key] = (p as Record<string, unknown>)[key]
+          }
+        }
+        return result
+      },
       partialize: (state) => ({
         username: state.username, email: state.email, planTier: state.planTier,
         emailVerified: state.emailVerified, premiumUntil: state.premiumUntil, premiumTrialUntil: state.premiumTrialUntil,
