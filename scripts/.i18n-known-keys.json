@@ -1,0 +1,57 @@
+{
+  "description": "Known runtime-resolved i18n keys that cannot be detected by static analysis. Each key is used in production but only at runtime through dynamic patterns (template literals like t(`auth.${serverError}`), state variables like t(syncError), or computed property access like t(item.key)). These keys are EXEMPT from P2 (dead key) warnings — the checker will not flag them as 'defined but NEVER used'. If a key listed here is ever removed from all locale JSONs, the P0 (missing key) check will still catch it.",
+
+  "runtimeKeys": {
+    "auth": {
+      "comment": "Server error codes returned by the API (passed via t(`auth.${serverError}`)). Also includes react-hook-form validation messages, zod schema error keys, and password strength labels accessed via computed template literals.",
+      "keys": [
+        "account_disabled",
+        "email_taken",
+        "invalid_credentials",
+        "invalid_email",
+        "invalid_username",
+        "invalidEmail",
+        "loginFailed",
+        "missing_credentials",
+        "registerFailed",
+        "required",
+        "resetFailed",
+        "sendResetFailed",
+        "strengthFair",
+        "strengthMedium",
+        "strengthStrong",
+        "strengthVeryStrong",
+        "strengthWeak",
+        "turnstile_verification_failed",
+        "unknown_error",
+        "usernameInvalidChars",
+        "usernameTooLong",
+        "usernameTooShort",
+        "username_taken",
+        "weak_password"
+      ]
+    },
+
+    "auth.benefits": {
+      "comment": "Login/register page benefit list. Accessed via t(item.key) in a .map() over an inline object array.",
+      "keys": [
+        "benefitBackup",
+        "benefitMultiDevice",
+        "benefitPremium",
+        "benefitSync"
+      ]
+    },
+
+    "account": {
+      "comment": "Sync settings and conflict dialog values. Accessed via t(syncError), t(entry.localVal), t(entry.cloudVal), or computed string expressions in useAutoSync.ts (a non-i18n file).",
+      "keys": [
+        "none",
+        "notLoggedIn",
+        "planRecommendationSuffix",
+        "pullSuccess",
+        "pushSuccess",
+        "weaponListSuffix"
+      ]
+    }
+  }
+}
