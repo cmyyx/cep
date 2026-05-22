@@ -285,10 +285,11 @@ export const WeaponGrid = memo(function WeaponGrid() {
               const values = attrValues[key]
               const valid = validOptions[key]
               const selected = filters[key]
+              const isSpecialAbility = key === 'specialAbility'
               return (
                 <div key={key} className="flex flex-col gap-1">
                   <span className="text-[10px] text-muted-foreground">{t(ATTR_LABEL_KEYS[key])}</span>
-                  <div className="grid grid-cols-[repeat(auto-fill,minmax(5.5rem,1fr))] gap-1">
+                  <div className={isSpecialAbility ? 'grid grid-cols-[repeat(auto-fill,minmax(3.5rem,1fr))] gap-1' : 'grid grid-cols-[repeat(auto-fill,minmax(5.5rem,1fr))] gap-1'}>
                     {values.map((v) => {
                       const isValid = valid.has(v)
                       const isSelected = selected.has(v)

@@ -152,12 +152,13 @@ export const EquipList = memo(function EquipList() {
             <div className="flex flex-col gap-2 mt-1.5">
               {REFINEMENT_FILTER_GROUPS.map(({ filterKey, labelKey, options }) => {
                 const selected = filterState[filterKey]
+                const isSpecial = filterKey === 'special'
                 return (
                   <div key={filterKey} className="flex flex-col gap-1">
                     <span className="text-[10px] text-muted-foreground">
                       {t(labelKey)}
                     </span>
-                    <div className="grid grid-cols-[repeat(auto-fill,minmax(5.5rem,1fr))] gap-1">
+                    <div className={isSpecial ? 'grid grid-cols-[repeat(auto-fill,minmax(7rem,1fr))] gap-1' : 'grid grid-cols-[repeat(auto-fill,minmax(5.5rem,1fr))] gap-1'}>
                       {options.map((v) => (
                         <FilterChip
                           key={v}
