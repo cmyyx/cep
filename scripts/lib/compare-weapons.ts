@@ -75,7 +75,7 @@ export function compareWeapons(
   const entries: WeaponEntry[] = []
   const i18nEntries: { id: string; textId: string }[] = []
   let newCount = 0
-  let mismatchCount = 0
+  const mismatchCount = 0
 
   // Read all output/CN/weapon/*.json files
   for (const file of readdirSync(weaponDir)) {

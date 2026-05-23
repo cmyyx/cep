@@ -5,7 +5,7 @@ import type {
   SettingKey,
 } from '@/types/essence-settings'
 import type { Weapon } from '@/types/matrix'
-import { isValidWeaponId, sanitizeWeaponIdMap, sanitizeCustomWeapons } from '@/lib/persist-sanitizer'
+import { isValidWeaponId, sanitizeCustomWeapons } from '@/lib/persist-sanitizer'
 
 // ─── Defaults ──────────────────────────────────────────────────────────────
 

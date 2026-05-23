@@ -4,7 +4,7 @@
 // Uses raw regex extraction to preserve int64 text ID precision.
 // ================================================================================
 
-import { existsSync, readFileSync, mkdirSync, writeFileSync } from 'node:fs'
+import { readFileSync, mkdirSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { extractEnergyPointLevel1Names, extractEnergyPointGroupNames } from './extract-textid'
 

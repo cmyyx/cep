@@ -283,6 +283,7 @@ export const useEditorStore = create<EditorStoreState>()(
         draftCharacters: state.draftCharacters
           .filter((c) => !c.isSource)
           .map((c) => {
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
             const { jsonDrafts: _jd, jsonErrors: _je, ...rest } = c
             return rest as EditorDraftCharacter
           }),

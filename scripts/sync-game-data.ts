@@ -15,7 +15,7 @@ function parseArgs() {
     mode: (a.includes('--update') ? 'update' : 'check') as 'check' | 'update',
     local: a.includes('--local'),
     iconsOnly: a.includes('--icons-only'),
-    paths: Object.fromEntries(['akedata','translation','imagedb'].map((k,i) => {
+    paths: Object.fromEntries(['akedata','translation','imagedb'].map((k) => {
       const idx = a.indexOf('--' + k); return [k, idx >= 0 ? a[idx+1] ?? '' : '']
     })),
   }

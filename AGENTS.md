@@ -155,6 +155,8 @@ SidebarProvider className="h-svh"              ← height: 100svh (确定值)
 - ❌ `dangerouslySetInnerHTML`
 - ❌ 直接操作 DOM（`document.querySelector`, `getElementById` 等）
 - ❌ `eval`, `new Function`
+- ❌ `eslint` Error 或 Warning（必须 0 错误 0 警告）
+- ❌ `tsc --noEmit` 类型错误（必须 0 错误）
 
 ## 国际化规则
 

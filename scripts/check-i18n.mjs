@@ -461,7 +461,7 @@ function extractKeys(filePath, globalConstants) {
 }
 
 /** Extract string values from the first column of an inline array before .map() */
-function extractInlineMapArray(content, mapStartPos, arrayName) {
+function extractInlineMapArray(content, mapStartPos) {
   const before = content.slice(Math.max(0, mapStartPos - 3000), mapStartPos)
   // Match: [[ 'v1', ... ], [ 'v2', ... ]]  or  [{ label: 'v1' }, { label: 'v2' }]
   const m = before.match(/\[\[\s*['"]([^'"]+)['"]/g)

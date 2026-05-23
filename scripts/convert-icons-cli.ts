@@ -3,14 +3,14 @@
 // Converts weapon/equip PNG icons from AKEDatabase to AVIF for the project.
 // ================================================================================
 
-import { resolvePaths, validatePaths } from './lib/upstream'
+import { resolvePaths } from './lib/upstream'
 import { convertIcons } from './lib/convert-icons'
 import { resolve } from 'node:path'
 
 function parseArgs() {
   const a = process.argv.slice(2)
   return {
-    paths: Object.fromEntries(['akedata','translation','imagedb'].map((k,i) => {
+    paths: Object.fromEntries(['akedata','translation','imagedb'].map((k) => {
       const idx = a.indexOf('--' + k); return [k, idx >= 0 ? a[idx+1] ?? '' : '']
     })),
   }

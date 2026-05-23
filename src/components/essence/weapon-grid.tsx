@@ -53,7 +53,6 @@ const FilterChip = memo(function FilterChip({
   isSelected: boolean
   onToggle: () => void
 }) {
-  const t = useTranslations()
   const spanRef = useRef<HTMLSpanElement>(null)
   const [tooltipOpen, setTooltipOpen] = useState(false)
 

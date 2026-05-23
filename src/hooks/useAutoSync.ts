@@ -6,7 +6,7 @@ import { useMatrixStore } from '@/stores/useMatrixStore'
 import { useRefinementStore } from '@/stores/useRefinementStore'
 import { useEssenceSettingsStore } from '@/stores/useEssenceSettingsStore'
 import { getSyncDataApi, postSyncDataApi, getTokens } from '@/lib/api'
-import type { Weapon } from '@/types/matrix'
+
 import { regionI18nKey } from '@/data/region-i18n'
 
 const PUSH_DEBOUNCE_MS = 8000
@@ -421,6 +421,7 @@ export function useAutoSync() {
   const planTier = useAuthStore(s => s.planTier)
   const premiumTrialUntil = useAuthStore(s => s.premiumTrialUntil)
   const premiumUntil = useAuthStore(s => s.premiumUntil)
+  // eslint-disable-next-line react-hooks/purity -- reading current time for tier expiry check; no side effects
   const now = Date.now()
   const trialUntil = premiumTrialUntil ? new Date(premiumTrialUntil).getTime() : 0
   const premUntil = premiumUntil ? new Date(premiumUntil).getTime() : 0
@@ -474,6 +475,101 @@ export function useAutoSync() {
     // Sync Zustand stores so UI reflects changes without page refresh
     syncStoresFromCloudPayload(raw)
   }
+
+  // ── Push to cloud ──────────────────────────────────────
+  const pushToCloud = useCallback(async () => {
+    if (!getTokens().accessToken || !dirtyRef.current) return
+    // If the first pull hasn't completed yet, re-schedule the push
+    // so dirty data isn't silently dropped. The debounce timer will
+    // keep retrying until pullCompletedRef becomes true.
+    if (!pullCompletedRef.current) {
+      if (pushTimerRef.current) clearTimeout(pushTimerRef.current)
+      // eslint-disable-next-line react-hooks/immutability -- self-referencing setTimeout uses runtime closure, pushToCloud is stable
+      pushTimerRef.current = setTimeout(() => pushToCloud(), PUSH_DEBOUNCE_MS)
+      return
+    }
+    dirtyRef.current = false
+    try {
+      const localData = collectSyncData()
+      const res = await postSyncDataApi({
+        base_version: _cloudVersion,
+        data: {
+          schemaVersion: 2,
+          capturedAt: new Date().toISOString(),
+          ...localData,
+        },
+      }, 'auto')
+      _cloudVersion = res.version
+      setLastSyncSignature(computeSyncSignature(localData))
+      if (useEssenceSettingsStore.getState().notifyOnSync) notifySync({ type: 'push_success' })
+    } catch (err) {
+      if (err instanceof Error && err.message === 'version_conflict') {
+        // Fetch latest cloud data so the dialog can show actual cloud state
+        try {
+          const latest = await getSyncDataApi()
+          const cloudRaw = latest.data as Record<string, unknown> | null
+          const localData = collectSyncData()
+          const localRows = buildSummaryRows(localData)
+          const cloudRows = cloudRaw ? buildSummaryRows(cloudRaw) : { weapons: '0', equip: '', ownership: '0', essence: '0', customWeapons: '0', weaponNotes: '0' }
+          const settingsDiff = cloudRaw ? buildSettingsDiff(localData, cloudRaw) : []
+          const pushInfo: SyncConflictInfo = {
+            type: 'push_conflict',
+            localSummary: localRows,
+            cloudSummary: cloudRows,
+            settingsDiff: settingsDiff.length > 0 ? settingsDiff : undefined,
+            cloudVersion: latest.version,
+            cloudUpdatedAt: latest.updatedAt,
+            resolve: (choice) => {
+              _conflictPendingRef.current = false
+              if (choice === 'cloud' && cloudRaw) {
+                _skipPushRef.current = true
+                writeCloudToLocalStorage(cloudRaw)
+                Promise.resolve().then(() => { _skipPushRef.current = false })
+                _cloudVersion = latest.version
+                setLastSyncSignature(computeSyncSignature(cloudRaw))
+                pullCompletedRef.current = true
+              }
+              if (choice === 'local') {
+                pullCompletedRef.current = true
+                _skipPushRef.current = true
+                _cloudVersion = latest.version
+                dirtyRef.current = true
+                return getSyncDataApi().then(latestNow => {
+                  _cloudVersion = latestNow.version
+                  _skipPushRef.current = false
+                  dirtyRef.current = true
+                  return pushToCloud()
+                }).catch(() => {
+                  _skipPushRef.current = false
+                  dirtyRef.current = true
+                  return pushToCloud()
+                })
+              } else {
+                _cloudVersion = latest.version
+              }
+              globalTimestamps = { lastPullAt: Date.now(), cloudUpdatedAt: latest.updatedAt }
+              notifyTimestamps()
+            },
+          }
+          if (_conflictCallback) {
+            _conflictPendingRef.current = true
+            _conflictCallback(pushInfo)
+          } else {
+            _conflictPendingRef.current = true
+            _pendingConflict = pushInfo
+            notifySync({ type: 'push_conflict' })
+          }
+        } catch {
+          notifySync({ type: 'sync_error' })
+        }
+      }
+      // For non-version-conflict errors (e.g. custom_weapons_not_allowed on free tier),
+      // notify the user via the global toast so they know something went wrong.
+      if (err instanceof Error && err.message !== 'version_conflict') {
+        notifySync({ type: 'sync_error', message: err.message })
+      }
+    }
+  }, []) // stable — reads token from localStorage at call time
 
   // ── Pull from cloud ────────────────────────────────────
   const pullFromCloud = useCallback(async () => {
@@ -647,101 +743,7 @@ export function useAutoSync() {
     } catch {
       pullCompletedRef.current = true
     }
-  }, []) // stable — reads token from localStorage at call time
-
-  // ── Push to cloud ──────────────────────────────────────
-  const pushToCloud = useCallback(async () => {
-    if (!getTokens().accessToken || !dirtyRef.current) return
-    // If the first pull hasn't completed yet, re-schedule the push
-    // so dirty data isn't silently dropped. The debounce timer will
-    // keep retrying until pullCompletedRef becomes true.
-    if (!pullCompletedRef.current) {
-      if (pushTimerRef.current) clearTimeout(pushTimerRef.current)
-      pushTimerRef.current = setTimeout(() => pushToCloud(), PUSH_DEBOUNCE_MS)
-      return
-    }
-    dirtyRef.current = false
-    try {
-      const localData = collectSyncData()
-      const res = await postSyncDataApi({
-        base_version: _cloudVersion,
-        data: {
-          schemaVersion: 2,
-          capturedAt: new Date().toISOString(),
-          ...localData,
-        },
-      }, 'auto')
-      _cloudVersion = res.version
-      setLastSyncSignature(computeSyncSignature(localData))
-      if (useEssenceSettingsStore.getState().notifyOnSync) notifySync({ type: 'push_success' })
-    } catch (err) {
-      if (err instanceof Error && err.message === 'version_conflict') {
-        // Fetch latest cloud data so the dialog can show actual cloud state
-        try {
-          const latest = await getSyncDataApi()
-          const cloudRaw = latest.data as Record<string, unknown> | null
-          const localData = collectSyncData()
-          const localRows = buildSummaryRows(localData)
-          const cloudRows = cloudRaw ? buildSummaryRows(cloudRaw) : { weapons: '0', equip: '', ownership: '0', essence: '0', customWeapons: '0', weaponNotes: '0' }
-          const settingsDiff = cloudRaw ? buildSettingsDiff(localData, cloudRaw) : []
-          const pushInfo: SyncConflictInfo = {
-            type: 'push_conflict',
-            localSummary: localRows,
-            cloudSummary: cloudRows,
-            settingsDiff: settingsDiff.length > 0 ? settingsDiff : undefined,
-            cloudVersion: latest.version,
-            cloudUpdatedAt: latest.updatedAt,
-            resolve: (choice) => {
-              _conflictPendingRef.current = false
-              if (choice === 'cloud' && cloudRaw) {
-                _skipPushRef.current = true
-                writeCloudToLocalStorage(cloudRaw)
-                Promise.resolve().then(() => { _skipPushRef.current = false })
-                _cloudVersion = latest.version
-                setLastSyncSignature(computeSyncSignature(cloudRaw))
-                pullCompletedRef.current = true
-              }
-              if (choice === 'local') {
-                pullCompletedRef.current = true
-                _skipPushRef.current = true
-                _cloudVersion = latest.version
-                dirtyRef.current = true
-                return getSyncDataApi().then(latestNow => {
-                  _cloudVersion = latestNow.version
-                  _skipPushRef.current = false
-                  dirtyRef.current = true
-                  return pushToCloud()
-                }).catch(() => {
-                  _skipPushRef.current = false
-                  dirtyRef.current = true
-                  return pushToCloud()
-                })
-              } else {
-                _cloudVersion = latest.version
-              }
-              globalTimestamps = { lastPullAt: Date.now(), cloudUpdatedAt: latest.updatedAt }
-              notifyTimestamps()
-            },
-          }
-          if (_conflictCallback) {
-            _conflictPendingRef.current = true
-            _conflictCallback(pushInfo)
-          } else {
-            _conflictPendingRef.current = true
-            _pendingConflict = pushInfo
-            notifySync({ type: 'push_conflict' })
-          }
-        } catch {
-          notifySync({ type: 'sync_error' })
-        }
-      }
-      // For non-version-conflict errors (e.g. custom_weapons_not_allowed on free tier),
-      // notify the user via the global toast so they know something went wrong.
-      if (err instanceof Error && err.message !== 'version_conflict') {
-        notifySync({ type: 'sync_error', message: err.message })
-      }
-    }
-  }, []) // stable — reads token from localStorage at call time
+  }, [pushToCloud]) // pushToCloud is stable (useCallback with [])
 
   // ── Debounced push trigger ─────────────────────────────
   const schedulePush = useCallback(() => {
@@ -756,7 +758,7 @@ export function useAutoSync() {
     dirtyRef.current = true
     if (pushTimerRef.current) clearTimeout(pushTimerRef.current)
     pushTimerRef.current = setTimeout(() => pushToCloud(), PUSH_DEBOUNCE_MS)
-  }, []) // pushToCloud is stable
+  }, [pushToCloud]) // pushToCloud is stable (useCallback with [])
 
   // ── First-login pull + auto-pull setup ─────────────────
   useEffect(() => {
@@ -788,7 +790,7 @@ export function useAutoSync() {
       if (pullTimerRef.current) clearInterval(pullTimerRef.current)
       document.removeEventListener('visibilitychange', onVisible)
     }
-  }, [accessToken, hasAutoSync, autoSyncEnabled]) // pullFromCloud is stable (useCallback with [])
+  }, [accessToken, hasAutoSync, autoSyncEnabled, pullFromCloud]) // pullFromCloud is stable (useCallback with [])
 
   // ── Watch stores for changes ────────────────────────────────────
   // Always subscribe; the schedulePush callback checks shouldAutoSync()
@@ -856,7 +858,7 @@ export function useAutoSync() {
     return () => { for (const u of unsubs) u() }
     // Subscribe once on mount — shouldAutoSync() inside schedulePush
     // handles the dynamic condition check at execution time.
-  }, [])
+  }, [schedulePush])
 
   // ── Cleanup on unmount ─────────────────────────────────
   useEffect(() => {

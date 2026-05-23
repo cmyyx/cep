@@ -7,6 +7,7 @@ import { join, dirname } from 'node:path'
 // ── Config ────────────────────────────────────────────────────────────────────
 
 const SUPPORTED_LOCALES = ['zh-CN', 'en', 'ja', 'zh-TW'] as const
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 type Locale = (typeof SUPPORTED_LOCALES)[number]
 
 // TextTable locale filenames use different suffixes than our project

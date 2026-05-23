@@ -80,12 +80,14 @@ export function SyncNotifier() {
   // ── Register sync notification callback ────────────────
   // Use a ref for toast so the callback always sees current state
   const toastRef = useRef(toast)
-  toastRef.current = toast
+
+  useEffect(() => {
+    toastRef.current = toast
+  }, [toast])
 
   useEffect(() => {
     setAutoSyncNotifyCallback((event) => {
       const current = toastRef.current
-      const onAccountPage = pathname.includes('/account')
 
       switch (event.type) {
         case 'push_success': {

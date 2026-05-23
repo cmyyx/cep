@@ -3,7 +3,7 @@
 // Parameters: quality 50, chroma 4:2:0, effort 4
 
 import { existsSync, readdirSync, statSync, mkdirSync, readFileSync } from 'node:fs'
-import { join, dirname } from 'node:path'
+import { join } from 'node:path'
 import sharp from 'sharp'
 
 const AVIF_OPTIONS = { quality: 50, chromaSubsampling: '4:2:0', effort: 4 }
@@ -76,6 +76,7 @@ export async function convertSingleIcon(
   projectPublicDir: string,
   category: string,
   iconFile: string,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   _gameId: string,
 ): Promise<string | null> {
   const srcPath = join(akedatabasePath, 'public', 'images', category, 'icon', iconFile)

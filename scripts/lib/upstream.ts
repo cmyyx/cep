@@ -1,4 +1,4 @@
-import { existsSync, readFileSync, readdirSync, mkdirSync } from 'node:fs'
+import { existsSync, readFileSync, readdirSync } from 'node:fs'
 import { join } from 'node:path'
 import { execSync } from 'node:child_process'
 

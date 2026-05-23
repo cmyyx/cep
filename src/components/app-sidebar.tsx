@@ -60,8 +60,6 @@ export function AppSidebar() {
   const username = useAuthStore((s) => s.username)
   const accessToken = useAuthStore((s) => s.accessToken)
   const sessionExpired = useAuthStore((s) => s.sessionExpired)
-  const logout = useAuthStore((s) => s.logout)
-
   const announcementTotalUnread = useAnnouncementStore((s) =>
     s.announcements.filter((a) => !s.readIds.includes(a.id)).length
   )

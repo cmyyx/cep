@@ -25,6 +25,7 @@ export interface DungeonCompareResult {
 
 export function compareDungeons(
   akedataPath: string,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   _projectDungeonsTsPath: string,
 ): DungeonCompareResult {
   const groupTablePath = join(akedataPath, 'TableCfg', 'WorldEnergyPointGroupTable.json')

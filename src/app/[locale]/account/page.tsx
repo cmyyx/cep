@@ -80,7 +80,6 @@ export default function AccountPage() {
   const username = useAuthStore(s => s.username)
   const email = useAuthStore(s => s.email)
   const emailVerified = useAuthStore(s => s.emailVerified)
-  const planTier = useAuthStore(s => s.planTier)
   const premiumUntilStr = useAuthStore(s => s.premiumUntil)
   const premiumTrialStr = useAuthStore(s => s.premiumTrialUntil)
   const logout = useAuthStore(s => s.logout)
@@ -138,6 +137,7 @@ export default function AccountPage() {
   // Tier
   const premiumUntil = premiumUntilStr ? new Date(premiumUntilStr).getTime() : 0
   const trialUntil = premiumTrialStr ? new Date(premiumTrialStr).getTime() : 0
+  // eslint-disable-next-line react-hooks/purity -- reading current time for tier expiry check
   const now = Date.now()
   const isTrial = !!(trialUntil > now && premiumUntil <= now)
   const isPremium = !!(premiumUntil > now)
@@ -145,11 +145,14 @@ export default function AccountPage() {
   const planExpireDate = isPremium ? premiumUntilStr : isTrial ? premiumTrialStr : null
   const hasAutoSync = isPremium || isTrial
 
+  // Sync conflict handling: auto-pull/push may detect conflicts and show dialog
+  const [conflict, setConflict] = useState<SyncConflictInfo | null>(null)
+
   const fetchCloud = useCallback(async () => {
     if (!accessToken) return; setSyncStatus('loading'); setSyncError(null)
     try { const res = await getSyncDataApi(); setCloudData(res); setCloudVersion(res.version); updateCloudVersion(res.version); setSyncStatus('success'); updateLastPull(res.updatedAt) }
     catch (err) { setSyncStatus('error'); setSyncError(getSyncErrorKey(err)) }
-  }, [accessToken, t])
+  }, [accessToken])
 
   // Pull from cloud with conflict detection (called by "从云端下载" button)
   const handlePull = useCallback(async () => {
@@ -317,15 +320,17 @@ export default function AccountPage() {
     } catch (err) {
       setSyncStatus('error'); setSyncError(getSyncErrorKey(err))
     }
-  }, [accessToken, t])
+  }, [accessToken, fetchCloud])
 
   // Mark component as mounted (client-only, prevents hydration mismatch)
+  // eslint-disable-next-line react-hooks/set-state-in-effect -- standard hydration guard pattern
   useEffect(() => { setMounted(true) }, [])
 
   // Load data once on mount: /me + cloud sync data for display.
   // Reuses the pull already done by useAutoSync to avoid a duplicate GET.
   const initialLoadDone = useRef(false)
   useEffect(() => {
+    /* eslint-disable react-hooks/set-state-in-effect -- initial data load, not cascading renders */
     if (initialLoadDone.current) return
     initialLoadDone.current = true
     if (accessToken) {
@@ -342,6 +347,7 @@ export default function AccountPage() {
         fetchCloud()
       }
     }
+    /* eslint-enable react-hooks/set-state-in-effect */
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -363,9 +369,8 @@ export default function AccountPage() {
   const [syncTs, setSyncTs] = useState(getSyncTimestamps)
   useEffect(() => subscribeSyncTimestamps(() => setSyncTs(getSyncTimestamps())), [])
 
-  // Sync conflict handling: auto-pull/push may detect conflicts and show dialog
-  const [conflict, setConflict] = useState<SyncConflictInfo | null>(null)
   useEffect(() => {
+    /* eslint-disable react-hooks/set-state-in-effect -- conflict resolution requires multiple state updates */
     setAutoSyncConflictCallback((info) => {
       const originalResolve = info.resolve
       info.resolve = (choice) => {
@@ -398,11 +403,13 @@ export default function AccountPage() {
       }
       setConflict(pending)
     }
+    /* eslint-enable react-hooks/set-state-in-effect */
     return () => setAutoSyncConflictCallback(null)
   }, [])
 
   // Auto-detect conflict when cloud data loads (e.g. navigated from conflict toast)
   useEffect(() => {
+    /* eslint-disable react-hooks/set-state-in-effect -- sync conflict resolution requires multiple state updates */
     if (!cloudData?.data || !cloudVersion || cloudVersion <= 0 || conflict) return
     const localData = collectLocalData()
     const cloudRaw = cloudData.data as Record<string, unknown>
@@ -508,7 +515,8 @@ export default function AccountPage() {
         },
       })
     }
-  }, [cloudData, cloudVersion, conflict])
+    /* eslint-enable react-hooks/set-state-in-effect */
+  }, [cloudData, cloudVersion, conflict, fetchCloud])
 
   // Show loading skeleton until client-side hydration completes,
   // preventing server-vs-client HTML mismatch from Zustand persist rehydration.
@@ -758,10 +766,12 @@ export default function AccountPage() {
               <p className="text-xs text-muted-foreground">{t('account.scanToPay')}</p>
               <div className="flex gap-3">
                 <div className="flex-1 text-center">
+                  {/* eslint-disable-next-line @next/next/no-img-element -- SSG static site, next/image not available for local assets */}
                   <img src="/images/payment/alipay.jpg" alt="Alipay" className="w-full max-w-[160px] mx-auto rounded-lg border border-border" />
                   <span className="text-[10px] text-muted-foreground mt-1 block">{t('account.channelAlipay')}</span>
                 </div>
                 <div className="flex-1 text-center">
+                  {/* eslint-disable-next-line @next/next/no-img-element -- SSG static site, next/image not available for local assets */}
                   <img src="/images/payment/wechat.png" alt="WeChat" className="w-full max-w-[160px] mx-auto rounded-lg border border-border" />
                   <span className="text-[10px] text-muted-foreground mt-1 block">{t('account.channelWechat')}</span>
                 </div>

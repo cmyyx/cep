@@ -6,7 +6,7 @@ import { useTranslations, useLocale } from 'next-intl'
 import { useForm, useWatch } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
-import { Loader2, Cloud, Zap, Shield, Smartphone, Crown } from 'lucide-react'
+import { Loader2, Cloud, Shield, Smartphone, Crown } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -291,7 +291,7 @@ export default function LoginPage() {
         </div>
 
         {isLogin ? (
-          <form onSubmit={loginForm.handleSubmit(onLoginSubmit)} className="flex flex-col gap-4">
+          <form onSubmit={(e) => loginForm.handleSubmit(onLoginSubmit)(e)} className="flex flex-col gap-4">
             <div className="flex flex-col gap-2">
               <Label htmlFor="login-input">{t('auth.usernameOrEmail')}</Label>
               <Input
@@ -353,7 +353,7 @@ export default function LoginPage() {
             </div>
           </form>
         ) : (
-          <form onSubmit={registerForm.handleSubmit(onRegisterSubmit)} className="flex flex-col gap-4">
+          <form onSubmit={(e) => registerForm.handleSubmit(onRegisterSubmit)(e)} className="flex flex-col gap-4">
             <div className="flex flex-col gap-2">
               <Label htmlFor="reg-username">{t('auth.username')}</Label>
               <Input

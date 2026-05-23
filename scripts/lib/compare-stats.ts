@@ -22,8 +22,11 @@ export interface StatCompareResult {
 
 export function extractStats(
   akedataPath: string,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   _weaponBasicTable: Record<string, unknown>,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   _equipItemTable?: Record<string, unknown>,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   _textTableCN?: Record<string, string>,
 ): StatCompareResult {
   const primaryStats = new Set<string>()
