@@ -6,7 +6,7 @@ import { useTranslations } from 'next-intl'
 import { SidebarTrigger } from '@/components/ui/sidebar'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { cn } from '@/lib/utils'
+import { cn, downloadJson } from '@/lib/utils'
 import { useEditorStore, type EditorTab } from '@/stores/useEditorStore'
 import type { CharacterGuideData } from '@/types/character-guide'
 import { EditorBasicTab } from '@/components/editor/editor-basic-tab'
@@ -85,13 +85,7 @@ export default function EditorPage() {
     const { isSource, forkedFrom, jsonDrafts, jsonErrors, ...clean } = selectedDraft as unknown as Record<string, unknown>
     void isSource; void forkedFrom; void jsonDrafts; void jsonErrors
     const content = JSON.stringify(clean, null, 2)
-    const blob = new Blob([content], { type: 'application/json' })
-    const url = URL.createObjectURL(blob)
-    const a = document.createElement('a')
-    a.href = url
-    a.download = `${selectedDraft.id}.json`
-    a.click()
-    URL.revokeObjectURL(url)
+    downloadJson(content, `${selectedDraft.id}.json`)
   }, [selectedDraft])
 
   // Import file

@@ -114,5 +114,7 @@ export function generateMetadataI18n(
     totalTerms += buildI18nFiles(suitTerms, textTables, outputDir, 'suits')
   }
 
-  return { files: 12, terms: totalTerms }
+  // Compute actual file count: equipTypes + materials + suits(optional) × locales
+  const categoryCount = 2 + (suitNames.length > 0 ? 1 : 0)
+  return { files: categoryCount * SUPPORTED_LOCALES.length, terms: totalTerms }
 }

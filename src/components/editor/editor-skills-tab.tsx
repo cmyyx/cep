@@ -4,6 +4,7 @@ import { useCallback, useState } from 'react'
 import { useTranslations } from 'next-intl'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
+import { Textarea } from '@/components/ui/textarea'
 import { useEditorStore } from '@/stores/useEditorStore'
 import type { EditorDraftCharacter } from '@/stores/useEditorStore'
 import { Plus, Trash2, ChevronDown, ChevronRight } from 'lucide-react'
@@ -38,11 +39,11 @@ export function EditorSkillsTab({
   )
 
   const updateSkillField = useCallback(
-    (skillIndex: number, field: string, value: string) => {
+    (skillIndex: number, field: 'name' | 'type' | 'description', value: string) => {
       updateDraft(draft.id, (d) => {
         const skill = d.skills[skillIndex]
         if (!skill) return
-        ;(skill as unknown as Record<string, unknown>)[field] = value
+        skill[field] = value
       })
     },
     [draft.id, updateDraft]
@@ -143,16 +144,18 @@ export function EditorSkillsTab({
         <div key={si} className="border border-border/30 rounded-md p-3 space-y-2">
           {/* Skill header */}
           <div className="flex items-start gap-2">
-            <button
+            <Button
+              variant="ghost"
+              size="sm"
               onClick={(e) => { e.preventDefault(); toggleSkill(si) }}
-              className="text-muted-foreground hover:text-foreground mt-1.5 shrink-0"
+              className="p-0 h-auto text-muted-foreground hover:text-foreground mt-1.5 shrink-0"
             >
               {expandedSkills[si] ? (
                 <ChevronDown className="w-3.5 h-3.5" />
               ) : (
                 <ChevronRight className="w-3.5 h-3.5" />
               )}
-            </button>
+            </Button>
             <div className="flex-1 space-y-1.5">
               <div className="flex items-center gap-1.5">
                 <span className="text-xs text-muted-foreground font-geist-mono">#{si + 1}</span>
@@ -177,14 +180,12 @@ export function EditorSkillsTab({
                   <Trash2 className="w-3.5 h-3.5" />
                 </Button>
               </div>
-              {/* Description as textarea */}
-              <textarea
+              <Textarea
                 value={skill.description}
                 onChange={(e) => updateSkillField(si, 'description', e.target.value)}
                 placeholder={t('editor.skillDesc')}
                 rows={3}
-                className="w-full rounded-md border border-border bg-transparent px-2.5 py-1.5 text-xs
-                  placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring resize-y"
+                className="text-xs resize-y"
               />
             </div>
           </div>

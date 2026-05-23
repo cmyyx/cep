@@ -86,6 +86,17 @@ async function refreshTokens(): Promise<boolean> {
   return refreshPromise
 }
 
+// ─── Safe JSON parse ─────────────────────────────────────
+
+async function safeJson<T>(res: Response): Promise<T> {
+  const text = await res.text()
+  try {
+    return JSON.parse(text) as T
+  } catch {
+    throw new ApiError('invalid_response', res.status, { raw: text.slice(0, 500) })
+  }
+}
+
 // ─── API client ────────────────────────────────────────────
 
 interface ApiOptions {
@@ -131,10 +142,10 @@ export async function api<T = unknown>(
         headers,
         body: body ? JSON.stringify(body) : undefined,
       })
-      const retryData = await retryRes.json()
+      const retryData = await safeJson<Record<string, unknown>>(retryRes)
       if (!retryRes.ok) {
         throw new ApiError(
-          retryData.error ?? 'unknown_error',
+          (retryData as Record<string, unknown>).error as string ?? 'unknown_error',
           retryRes.status,
           retryData,
         )
@@ -143,9 +154,9 @@ export async function api<T = unknown>(
     }
   }
 
-  const data = await res.json()
+  const data = await safeJson<Record<string, unknown>>(res)
   if (!res.ok) {
-    throw new ApiError(data.error ?? 'unknown_error', res.status, data)
+    throw new ApiError((data as Record<string, unknown>).error as string ?? 'unknown_error', res.status, data)
   }
   return data as T
 }

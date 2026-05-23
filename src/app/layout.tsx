@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import Script from "next/script";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import "./globals.css";
 
@@ -40,36 +41,28 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col">
         {/* Prevent FOUC: apply theme class before React hydrates.
             Reads the same localStorage key as useSettingsStore.
-            Using dangerouslySetInnerHTML to avoid React's script-in-component warning. */}
-        <script
-          suppressHydrationWarning
-          dangerouslySetInnerHTML={{
-            __html: `(function(){try{var d=document.documentElement;var t="auto";var s=localStorage.getItem("cep-settings");if(s){var p=JSON.parse(s);t=p.theme||"auto"}if(t==="auto"){t=window.matchMedia("(prefers-color-scheme:dark)").matches?"dark":"light"}if(t&&t!=="auto"){d.classList.add(t);if(t==="flashbang"){d.style.colorScheme="dark";d.setAttribute("data-theme","flashbang")}}}catch(e){}})()`,
-          }}
-        />
+            Using next/script beforeInteractive so it executes before paint. */}
+        <Script id="theme-fouc" strategy="beforeInteractive">
+          {`(function(){try{var d=document.documentElement;var t="auto";var s=localStorage.getItem("cep-settings");if(s){var p=JSON.parse(s);t=p.theme||"auto"}if(t==="auto"){t=window.matchMedia("(prefers-color-scheme:dark)").matches?"dark":"light"}if(t&&t!=="auto"){d.classList.add(t);if(t==="flashbang"){d.style.colorScheme="dark";d.setAttribute("data-theme","flashbang")}}}catch(e){}})()`}
+        </Script>
         <TooltipProvider>{children}</TooltipProvider>
 
-        {/* Analytics — defer: loads in parallel, executes after HTML parse.
-            Inline scripts use dangerouslySetInnerHTML to avoid React warnings. */}
+        {/* Analytics — defer: loads in parallel, executes after HTML parse. */}
         <script
           defer
           src="https://u.2x.nz/script.js"
           data-website-id="604899d8-6614-4230-9feb-974ba09fae4e"
         ></script>
-        <script
-          defer
-          suppressHydrationWarning
-          dangerouslySetInnerHTML={{ __html: `var _hmt = _hmt || [];` }}
-        />
+        <Script id="baidu-hmt" strategy="afterInteractive">
+          {`var _hmt = _hmt || [];`}
+        </Script>
         <script
           defer
           src="https://hm.baidu.com/hm.js?27db54b42d0271041b2c3e59b731fc6a"
         ></script>
-        <script
-          defer
-          suppressHydrationWarning
-          dangerouslySetInnerHTML={{ __html: `(function(c,l,a,r,i){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};})(window,document,"clarity");` }}
-        />
+        <Script id="ms-clarity" strategy="afterInteractive">
+          {`(function(c,l,a,r,i){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};})(window,document,"clarity");`}
+        </Script>
         <script defer src="https://www.clarity.ms/tag/wp0yo2ig74"></script>
         <script
           defer

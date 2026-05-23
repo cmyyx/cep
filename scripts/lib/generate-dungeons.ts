@@ -171,6 +171,10 @@ export function generateDungeonI18n(
           '首墩': 'markerStone', '试验园区': 'testArea',
         }
         const semanticKey = subKeyMap[cnSubRaw] ?? cnSubRaw
+        // Warn for new sub-regions not yet in the mapping so maintainers know to update subKeyMap.
+        if (!subKeyMap[cnSubRaw] && cnSubRaw) {
+          console.warn(`  [generate-dungeons] Unmapped sub-region: "${cnSubRaw}" — add it to subKeyMap`)
+        }
         // Check if already collected
         if (!subRegionTerms.some(t => t.cnName === cnSubRaw)) {
           const tr: Record<string, string> = {}

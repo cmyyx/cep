@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback, useRef } from 'react'
 import { useRouter } from 'next/navigation'
+import Image from 'next/image'
 import { useTranslations, useLocale } from 'next-intl'
 import { SidebarTrigger } from '@/components/ui/sidebar'
 import { Button } from '@/components/ui/button'
@@ -22,6 +23,13 @@ import { SyncConflictDialog } from '@/components/shared/sync-conflict-dialog'
 import { equipById } from '@/data/equips'
 
 // ─── Sync ────────────────────────────────────────────────────
+
+/** Module-level cache for collectLocalData to avoid redundant
+ *  localStorage parsing when called multiple times in quick succession
+ *  (e.g., during conflict resolution in handlePush). TTL is short enough
+ *  that it won't serve stale data across user interactions. */
+let _cachedLocalData: { data: Record<string, unknown>; ts: number } | null = null
+const LOCAL_DATA_CACHE_TTL_MS = 100
 
 /** Map a caught error to the appropriate i18n key. */
 function getSyncErrorKey(err: unknown): string {
@@ -65,10 +73,16 @@ function buildSyncRows(local: Record<string, unknown>, cloud: Record<string, unk
 
 function collectLocalData(): Record<string, unknown> {
   if (typeof window === 'undefined') return {}
+  // Return cached result if within TTL — deduplicates rapid-fire calls
+  const now = Date.now()
+  if (_cachedLocalData && (now - _cachedLocalData.ts) < LOCAL_DATA_CACHE_TTL_MS) {
+    return _cachedLocalData.data
+  }
   const data: Record<string, unknown> = {}
   try { const r = localStorage.getItem('matrix-session'); if (r) { const p = JSON.parse(r); const s = p?.state ?? p; data.essencePlanner = { selectedWeaponIds: s.selectedWeaponIds ?? [], dungeonS1Selections: s.dungeonS1Selections ?? {} } } } catch {}
   try { const r = localStorage.getItem('essence-settings'); if (r) { const p = JSON.parse(r); const s = p?.state ?? p; data.essenceSettings = { weaponOwnership: s.weaponOwnership ?? {}, essenceStatus: s.essenceStatus ?? {}, weaponNotes: s.weaponNotes ?? {}, customWeapons: s.customWeapons ?? [], flags: Object.fromEntries(['hideEssenceOwnedWeaponsList','hideEssenceOwnedWeaponsPlans','hideUnownedWeaponsList','hideUnownedWeaponsPlans','hideFourStarWeaponsList','hideFourStarWeaponsPlans','enableOwnershipEditList','enableOwnershipEditPlans','enableNotesList','enableNotesPlans','keepUpVisibleList','keepUpVisiblePlans','onlyHideWhenBothOwned'].map(k=>[k,s[k]??false])), regionFirst: s.regionFirst??null, regionSecond: s.regionSecond??null } } } catch {}
   try { const r = localStorage.getItem('refinement-session'); if (r) { const p = JSON.parse(r); const s = p?.state ?? p; data.refinementPlanner = { selectedEquipId: s.selectedEquipId ?? null } } } catch {}
+  _cachedLocalData = { data, ts: Date.now() }
   return data
 }
 
@@ -766,13 +780,11 @@ export default function AccountPage() {
               <p className="text-xs text-muted-foreground">{t('account.scanToPay')}</p>
               <div className="flex gap-3">
                 <div className="flex-1 text-center">
-                  {/* eslint-disable-next-line @next/next/no-img-element -- SSG static site, next/image not available for local assets */}
-                  <img src="/images/payment/alipay.jpg" alt="Alipay" className="w-full max-w-[160px] mx-auto rounded-lg border border-border" />
+                  <Image src="/images/payment/alipay.jpg" alt="Alipay" width={160} height={160} unoptimized className="w-full max-w-[160px] mx-auto rounded-lg border border-border" />
                   <span className="text-[10px] text-muted-foreground mt-1 block">{t('account.channelAlipay')}</span>
                 </div>
                 <div className="flex-1 text-center">
-                  {/* eslint-disable-next-line @next/next/no-img-element -- SSG static site, next/image not available for local assets */}
-                  <img src="/images/payment/wechat.png" alt="WeChat" className="w-full max-w-[160px] mx-auto rounded-lg border border-border" />
+                  <Image src="/images/payment/wechat.png" alt="WeChat" width={160} height={160} unoptimized className="w-full max-w-[160px] mx-auto rounded-lg border border-border" />
                   <span className="text-[10px] text-muted-foreground mt-1 block">{t('account.channelWechat')}</span>
                 </div>
               </div>

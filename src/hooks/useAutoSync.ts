@@ -11,6 +11,7 @@ import { regionI18nKey } from '@/data/region-i18n'
 
 const PUSH_DEBOUNCE_MS = 8000
 const PULL_INTERVAL_MS = 5 * 60 * 1000
+const MAX_PUSH_RETRIES = 5
 
 /**
  * Check whether auto-sync is currently permitted for this user.
@@ -47,7 +48,9 @@ function syncStoresFromCloudPayload(raw: Record<string, unknown>) {
         plansStale: true,
       })
     }
-  } catch { /* ignore */ }
+  } catch {
+    if (process.env.NODE_ENV !== 'production') console.warn('[syncStores] essencePlanner parse failed')
+  }
 
   try {
     const es = raw.essenceSettings as Record<string, unknown> | undefined
@@ -64,7 +67,9 @@ function syncStoresFromCloudPayload(raw: Record<string, unknown>) {
         useEssenceSettingsStore.setState(next as Partial<ReturnType<typeof useEssenceSettingsStore.getState>>)
       }
     }
-  } catch { /* ignore */ }
+  } catch {
+    if (process.env.NODE_ENV !== 'production') console.warn('[syncStores] essenceSettings parse failed')
+  }
 
   try {
     const rp = raw.refinementPlanner as Record<string, unknown> | undefined
@@ -73,7 +78,9 @@ function syncStoresFromCloudPayload(raw: Record<string, unknown>) {
         selectedEquipId: rp.selectedEquipId as string | null,
       })
     }
-  } catch { /* ignore */ }
+  } catch {
+    if (process.env.NODE_ENV !== 'production') console.warn('[syncStores] refinementPlanner parse failed')
+  }
 }
 
 // ── Conflict detection helpers ────────────────────────────
@@ -435,6 +442,8 @@ export function useAutoSync() {
   const pullCompletedRef = useRef(false)
   /** Timestamp of last visibility-change pull — 30s cooldown. */
   const lastVisibilityPullRef = useRef(0)
+  /** Max retries for pushToCloud while waiting for first pull to complete. */
+  const pushRetryCountRef = useRef(0)
 
   // ── Write cloud data into localStorage + sync Zustand stores so UI updates immediately ──
   const writeCloudToLocalStorage = (raw: Record<string, unknown>) => {
@@ -483,11 +492,20 @@ export function useAutoSync() {
     // so dirty data isn't silently dropped. The debounce timer will
     // keep retrying until pullCompletedRef becomes true.
     if (!pullCompletedRef.current) {
+      if (pushRetryCountRef.current >= MAX_PUSH_RETRIES) {
+        console.warn('[autoSync] Push abandoned after max retries: pull never completed')
+        pushRetryCountRef.current = 0
+        dirtyRef.current = true // keep dirty so data isn't silently lost
+        notifySync({ type: 'sync_error', message: 'push_retry_failed' })
+        return
+      }
+      pushRetryCountRef.current++
       if (pushTimerRef.current) clearTimeout(pushTimerRef.current)
       // eslint-disable-next-line react-hooks/immutability -- self-referencing setTimeout uses runtime closure, pushToCloud is stable
       pushTimerRef.current = setTimeout(() => pushToCloud(), PUSH_DEBOUNCE_MS)
       return
     }
+    pushRetryCountRef.current = 0
     dirtyRef.current = false
     try {
       const localData = collectSyncData()

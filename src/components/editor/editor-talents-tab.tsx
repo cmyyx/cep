@@ -33,11 +33,11 @@ export function EditorTalentsTab({
   )
 
   const updateTalent = useCallback(
-    (index: number, field: string, value: string) => {
+    (index: number, field: 'name' | 'description', value: string) => {
       updateDraft(draft.id, (d) => {
         const entry = d.talents[index]
         if (!entry) return
-        ;(entry as unknown as Record<string, unknown>)[field] = value
+        entry[field] = value
       })
     },
     [draft.id, updateDraft]
@@ -58,11 +58,11 @@ export function EditorTalentsTab({
   )
 
   const updateBaseSkill = useCallback(
-    (index: number, field: string, value: string) => {
+    (index: number, field: 'name' | 'description', value: string) => {
       updateDraft(draft.id, (d) => {
         const entry = d.baseSkills[index]
         if (!entry) return
-        ;(entry as unknown as Record<string, unknown>)[field] = value
+        entry[field] = value
       })
     },
     [draft.id, updateDraft]

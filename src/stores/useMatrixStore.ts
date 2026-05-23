@@ -318,11 +318,16 @@ useEssenceSettingsStore.subscribe((state, prevState) => {
     const newSelection = matrix.selectedWeaponIds.filter(id => !removedIds.includes(id))
     if (newSelection.length === matrix.selectedWeaponIds.length) return // none were selected
 
-    // Remove stale IDs and mark plans for recomputation
+    // Remove stale IDs and trigger recomputation
     useMatrixStore.setState({
       selectedWeaponIds: newSelection,
       plansStale: true,
     })
+    // Fire-and-forget recompute so the UI updates without waiting for next user interaction
+    schedulePlansUpdate(
+      useMatrixStore.setState,
+      useMatrixStore.getState,
+    )
   } catch {
     // Silently ignore — the read-time filters in collectSyncData /
     // collectLocalData / syncStoresFromCloudPayload are the last line.

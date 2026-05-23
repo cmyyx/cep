@@ -1,6 +1,6 @@
 import { existsSync, readFileSync, readdirSync } from 'node:fs'
 import { join } from 'node:path'
-import { execSync } from 'node:child_process'
+import { execFileSync } from 'node:child_process'
 
 export interface UpstreamPaths {
   akedata: string
@@ -44,10 +44,10 @@ export function sparseClone(repoUrl: string, targetDir: string, sparsePaths: str
     return
   }
   console.log(`  [upstream] sparse cloning ${repoUrl} → ${targetDir}`)
-  execSync(`git clone --depth 1 --filter=blob:none --sparse --no-checkout "${repoUrl}" "${targetDir}"`, { stdio: 'inherit' })
-  execSync(`git -C "${targetDir}" sparse-checkout init --cone`, { stdio: 'inherit' })
-  execSync(`git -C "${targetDir}" sparse-checkout set ${sparsePaths.join(' ')}`, { stdio: 'inherit' })
-  execSync(`git -C "${targetDir}" checkout`, { stdio: 'inherit' })
+  execFileSync('git', ['clone', '--depth', '1', '--filter=blob:none', '--sparse', '--no-checkout', repoUrl, targetDir], { stdio: 'inherit' })
+  execFileSync('git', ['-C', targetDir, 'sparse-checkout', 'init', '--cone'], { stdio: 'inherit' })
+  execFileSync('git', ['-C', targetDir, 'sparse-checkout', 'set', ...sparsePaths], { stdio: 'inherit' })
+  execFileSync('git', ['-C', targetDir, 'checkout'], { stdio: 'inherit' })
 }
 
 export function readJsonDir(dirPath: string): Record<string, unknown> {
@@ -73,11 +73,11 @@ export function readTextTable(localeDir: string, locales: string[]): Record<stri
 }
 
 export function getRepoHead(repoPath: string): string {
-  return execSync(`git -C "${repoPath}" rev-parse HEAD`, { encoding: 'utf-8' }).trim()
+  return execFileSync('git', ['-C', repoPath, 'rev-parse', 'HEAD'], { encoding: 'utf-8' }).trim()
 }
 
 export function getChangedOutputFiles(repoPath: string, fromSha: string, toSha: string): string[] {
-  const output = execSync(`git -C "${repoPath}" diff --name-only ${fromSha} ${toSha} -- output/CN/`, { encoding: 'utf-8' }).trim()
+  const output = execFileSync('git', ['-C', repoPath, 'diff', '--name-only', fromSha, toSha, '--', 'output/CN/'], { encoding: 'utf-8' }).trim()
   return output ? output.split('\n') : []
 }
 

@@ -75,7 +75,9 @@ function loadKnownRuntimeKeys() {
         known.add(`${prefix}${k}`)
       }
     }
-  } catch { /* malformed JSON — treat as empty */ }
+  } catch (e) {
+    console.warn(`Warning: Failed to parse ${whitelistPath}:`, e.message)
+  }
   return known
 }
 
@@ -460,9 +462,15 @@ function extractKeys(filePath, globalConstants) {
   return { keys, unresolved }
 }
 
+// ── Inline array extraction ───────────────────────────────
+// Finite backtrack distances for inline array detection.
+// If upstream data introduces longer inline arrays, increase these.
+const INLINE_ARRAY_LOOKBACK = 3000
+const INLINE_ARRAY_PROPS_LOOKBACK = 2000
+
 /** Extract string values from the first column of an inline array before .map() */
 function extractInlineMapArray(content, mapStartPos) {
-  const before = content.slice(Math.max(0, mapStartPos - 3000), mapStartPos)
+  const before = content.slice(Math.max(0, mapStartPos - INLINE_ARRAY_LOOKBACK), mapStartPos)
   // Match: [[ 'v1', ... ], [ 'v2', ... ]]  or  [{ label: 'v1' }, { label: 'v2' }]
   const m = before.match(/\[\[\s*['"]([^'"]+)['"]/g)
   if (m) {
@@ -488,7 +496,7 @@ function extractInlineMapArray(content, mapStartPos) {
 
 /** Extract property values from an inline object array before .map() */
 function extractInlineMapArrayProps(content, mapStartPos, propName) {
-  const before = content.slice(Math.max(0, mapStartPos - 2000), mapStartPos)
+  const before = content.slice(Math.max(0, mapStartPos - INLINE_ARRAY_PROPS_LOOKBACK), mapStartPos)
   // Match: { propName: 'v1', ... }, { propName: 'v2', ... }
   const re = new RegExp(`\\b${propName}\\s*:\\s*['"]([^'"]+)['"]`, 'g')
   const values = []

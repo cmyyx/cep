@@ -50,7 +50,7 @@ pnpm sync:icons
 
 ## 生成文件结构
 
-```
+```text
 src/generated/i18n/
 ├── weapons/
 │   ├── zh-CN.json     ← CN: output/CN weapon title
@@ -144,7 +144,7 @@ t(key)                                  // → "四号谷地" / "Valley IV"
 
 `auto/upstream-tracking`（orphan 分支，仅存 2 个文件，每次 force push）：
 
-```
+```text
 .akadata-sha              ← AKEData HEAD commit
 .endfieldtranslation-sha  ← EndFieldTranslationReferrer HEAD commit
 ```
@@ -167,7 +167,7 @@ t(key)                                  // → "四号谷地" / "Valley IV"
 
 ## 脚本目录结构
 
-```
+```text
 scripts/
 ├── sync-game-data.config.example.json  ← 本地路径配置模板
 ├── sync-game-data.ts                   ← CLI 入口

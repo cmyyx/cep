@@ -461,30 +461,32 @@ export default function EssencePlannerPage() {
       <div className="flex md:hidden flex-col flex-1 overflow-hidden">
         {/* Segmented control */}
         <div className="flex mx-4 mt-3 rounded-lg bg-muted p-0.5">
-          <button
+          <Button
             type="button"
+            variant="ghost"
             onClick={() => setMobileView('weapons')}
             className={cn(
-              'flex-1 px-4 py-1.5 rounded-md text-sm font-medium transition-colors',
+              'flex-1 px-4 py-1.5 h-auto rounded-md text-sm font-medium transition-colors',
               mobileView === 'weapons'
                 ? 'bg-background text-foreground shadow-[0px_0px_0px_1px_rgba(0,0,0,0.04),0px_1px_2px_rgba(0,0,0,0.06)]'
                 : 'text-muted-foreground',
             )}
           >
             {t('essence.weaponsTab')}
-          </button>
-          <button
+          </Button>
+          <Button
             type="button"
+            variant="ghost"
             onClick={() => setMobileView('plans')}
             className={cn(
-              'flex-1 px-4 py-1.5 rounded-md text-sm font-medium transition-colors',
+              'flex-1 px-4 py-1.5 h-auto rounded-md text-sm font-medium transition-colors',
               mobileView === 'plans'
                 ? 'bg-background text-foreground shadow-[0px_0px_0px_1px_rgba(0,0,0,0.04),0px_1px_2px_rgba(0,0,0,0.06)]'
                 : 'text-muted-foreground',
             )}
           >
             {t('essence.plansTab')}
-          </button>
+          </Button>
         </div>
 
         {/* Content area */}
@@ -497,14 +499,16 @@ export default function EssencePlannerPage() {
             <div className="p-4">
               {/* Selected weapons context header */}
               {!noWeaponsSelected && (
-                <button
+                <Button
                   type="button"
+                  variant="ghost"
+                  size="sm"
                   onClick={() => setViewAllOpen(true)}
-                  className="flex items-center gap-2 mb-3 text-sm text-muted-foreground hover:text-foreground transition-colors"
+                  className="flex items-center gap-2 mb-3"
                 >
                   <span>{t('essence.selectedCount', { count: selectedCount })}</span>
                   <span className="text-xs">{t('essence.viewAllSelected')}</span>
-                </button>
+                </Button>
               )}
               {renderPlanList()}
             </div>

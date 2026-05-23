@@ -10,6 +10,7 @@ import { Loader2, Cloud, Shield, Smartphone, Crown } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from '@/components/ui/table'
 import { Turnstile, type TurnstileHandle } from '@/components/shared/turnstile'
 import { SidebarTrigger } from '@/components/ui/sidebar'
 import { useAuthStore } from '@/stores/useAuthStore'
@@ -54,7 +55,8 @@ function getPasswordStrength(password: string): { score: number; labelKey: strin
   return { score: 100, labelKey: 'strengthVeryStrong', color: 'bg-green-500' }
 }
 
-const TURNSTILE_SITE_KEY = '0x4AAAAAACxC56LlFLuFLUXe'
+// Turnstile site key — public, differs per environment.
+const TURNSTILE_SITE_KEY: string = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY ?? ''
 
 export default function LoginPage() {
   return (
@@ -259,9 +261,9 @@ function LoginPageContent() {
                 )}
 
                 <div className="text-center">
-                  <button type="button" onClick={exitResetMode} className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+                  <Button type="button" variant="ghost" size="sm" onClick={exitResetMode}>
                     {t('auth.backToLogin')}
-                  </button>
+                  </Button>
                 </div>
               </div>
             )}
@@ -270,32 +272,34 @@ function LoginPageContent() {
           <>
         {/* Tabs */}
         <div className="mb-6 flex rounded-lg bg-muted p-0.5">
-          <button
+          <Button
             type="button"
+            variant="ghost"
             onClick={switchMode}
             disabled={isLogin}
             className={cn(
-              'flex-1 rounded-md py-2 text-sm font-medium transition-colors',
+              'flex-1 rounded-md py-2 h-auto text-sm font-medium transition-colors',
               isLogin
                 ? 'bg-background text-foreground shadow-[0px_0px_0px_1px_rgba(0,0,0,0.04),0px_1px_2px_rgba(0,0,0,0.06)]'
                 : 'text-muted-foreground hover:text-foreground',
             )}
           >
             {t('nav.login')}
-          </button>
-          <button
+          </Button>
+          <Button
             type="button"
+            variant="ghost"
             onClick={switchMode}
             disabled={!isLogin}
             className={cn(
-              'flex-1 rounded-md py-2 text-sm font-medium transition-colors',
+              'flex-1 rounded-md py-2 h-auto text-sm font-medium transition-colors',
               !isLogin
                 ? 'bg-background text-foreground shadow-[0px_0px_0px_1px_rgba(0,0,0,0.04),0px_1px_2px_rgba(0,0,0,0.06)]'
                 : 'text-muted-foreground hover:text-foreground',
             )}
           >
             {t('nav.register')}
-          </button>
+          </Button>
         </div>
 
         {isLogin ? (
@@ -355,9 +359,14 @@ function LoginPageContent() {
               )}
             </Button>
             <div className="text-center mt-2">
-              <button type="button" onClick={() => { setResetMode(true); setServerError(null); setTurnstileToken(null) }} className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+              <Button
+                type="button"
+                variant="ghost"
+                size="sm"
+                onClick={() => { setResetMode(true); setServerError(null); setTurnstileToken(null) }}
+              >
                 {t('auth.forgotPassword')}
-              </button>
+              </Button>
             </div>
           </form>
         ) : (
@@ -475,13 +484,15 @@ function LoginPageContent() {
         )}
 
         <p className="mt-4 text-center text-sm text-muted-foreground">
-          <button
+          <Button
             type="button"
+            variant="link"
+            size="sm"
             onClick={switchMode}
-            className="hover:text-foreground transition-colors"
+            className="text-muted-foreground hover:text-foreground"
           >
             {isLogin ? t('auth.noAccount') : t('auth.hasAccount')}
-          </button>
+          </Button>
         </p>
           </>
         )}
@@ -502,28 +513,28 @@ function LoginPageContent() {
             ))}
           </div>
           <div className="mt-4 rounded-lg border border-border overflow-hidden">
-            <table className="w-full text-[11px]">
-              <thead>
-                <tr className="bg-muted/50">
-                  <th className="text-left px-3 py-1.5 font-medium">{t('account.feature')}</th>
-                  <th className="text-center px-3 py-1.5 font-medium">Free</th>
-                  <th className="text-center px-3 py-1.5 font-medium text-purple-600">Premium</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-border">
+            <Table className="text-[11px]">
+              <TableHeader>
+                <TableRow className="bg-muted/50 hover:bg-muted/50">
+                  <TableHead className="text-left px-3 py-1.5 h-auto">{t('account.feature')}</TableHead>
+                  <TableHead className="text-center px-3 py-1.5 h-auto">Free</TableHead>
+                  <TableHead className="text-center px-3 py-1.5 h-auto text-purple-600">Premium</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
                 {[
                   ['account.featSyncSize', t('account.featSyncSizeFree'), t('account.featSyncSizePremium')],
                   ['account.featAutoSync', t('account.notSupported'), t('account.supported')],
                   ['account.featCustomWeapons', t('account.notSupported'), '300'],
                 ].map(([label, free, premium]) => (
-                  <tr key={label}>
-                    <td className="px-3 py-1.5 text-muted-foreground">{t(label)}</td>
-                    <td className="px-3 py-1.5 text-center">{free}</td>
-                    <td className="px-3 py-1.5 text-center text-purple-600 font-medium">{premium}</td>
-                  </tr>
+                  <TableRow key={label}>
+                    <TableCell className="px-3 py-1.5 text-muted-foreground">{t(label)}</TableCell>
+                    <TableCell className="px-3 py-1.5 text-center">{free}</TableCell>
+                    <TableCell className="px-3 py-1.5 text-center text-purple-600 font-medium">{premium}</TableCell>
+                  </TableRow>
                 ))}
-              </tbody>
-            </table>
+              </TableBody>
+            </Table>
           </div>
           <p className="text-[11px] text-muted-foreground text-center mt-3">{t('auth.registerHint')}</p>
         </div>
