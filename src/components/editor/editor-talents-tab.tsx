@@ -96,11 +96,11 @@ export function EditorTalentsTab({
   )
 
   const updatePotential = useCallback(
-    (index: number, field: string, value: string) => {
+    (index: number, field: 'name' | 'description', value: string) => {
       updateDraft(draft.id, (d) => {
         const entry = d.potentials[index]
         if (!entry) return
-        ;(entry as unknown as Record<string, unknown>)[field] = value
+        entry[field] = value
       })
     },
     [draft.id, updateDraft]
@@ -119,7 +119,7 @@ export function EditorTalentsTab({
         </div>
         <div className={ENTRY_LIST_STYLE}>
           {draft.talents.length === 0 && (
-            <p className="text-sm text-muted-foreground">No talents.</p>
+            <p className="text-sm text-muted-foreground">{t('editor.noTalents')}</p>
           )}
           {draft.talents.map((talent, ti) => (
             <div key={ti} className="space-y-1.5 pb-2 border-b border-border/20 last:border-0 last:pb-0">
@@ -161,7 +161,7 @@ export function EditorTalentsTab({
         </div>
         <div className={ENTRY_LIST_STYLE}>
           {draft.baseSkills.length === 0 && (
-            <p className="text-sm text-muted-foreground">No base skills.</p>
+            <p className="text-sm text-muted-foreground">{t('editor.noBaseSkills')}</p>
           )}
           {draft.baseSkills.map((bs, bi) => (
             <div key={bi} className="space-y-1.5 pb-2 border-b border-border/20 last:border-0 last:pb-0">
@@ -203,7 +203,7 @@ export function EditorTalentsTab({
         </div>
         <div className={ENTRY_LIST_STYLE}>
           {draft.potentials.length === 0 && (
-            <p className="text-sm text-muted-foreground">No potentials.</p>
+            <p className="text-sm text-muted-foreground">{t('editor.noPotentials')}</p>
           )}
           {draft.potentials.map((pot, pi) => (
             <div key={pi} className="space-y-1.5 pb-2 border-b border-border/20 last:border-0 last:pb-0">

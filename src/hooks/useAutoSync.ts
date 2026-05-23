@@ -457,7 +457,9 @@ export function useAutoSync() {
         if (ep.dungeonS1Selections) state.dungeonS1Selections = ep.dungeonS1Selections
         localStorage.setItem('matrix-session', JSON.stringify({ ...current, state }))
       }
-    } catch { /* ignore */ }
+    } catch {
+      if (process.env.NODE_ENV !== 'production') console.warn('[sync] writeCloudToLocalStorage: matrix-session write failed')
+    }
     try {
       const es = raw.essenceSettings as Record<string, unknown> | undefined
       if (es) {
@@ -472,7 +474,9 @@ export function useAutoSync() {
         if (es.regionSecond !== undefined) state.regionSecond = es.regionSecond
         localStorage.setItem('essence-settings', JSON.stringify({ ...current, state }))
       }
-    } catch { /* ignore */ }
+    } catch {
+      if (process.env.NODE_ENV !== 'production') console.warn('[sync] writeCloudToLocalStorage: essence-settings write failed')
+    }
     try {
       const rp = raw.refinementPlanner as Record<string, unknown> | undefined
       if (rp) {
@@ -481,7 +485,9 @@ export function useAutoSync() {
         if (rp.selectedEquipId !== undefined) state.selectedEquipId = rp.selectedEquipId
         localStorage.setItem('refinement-session', JSON.stringify({ ...current, state }))
       }
-    } catch { /* ignore */ }
+    } catch {
+      if (process.env.NODE_ENV !== 'production') console.warn('[sync] writeCloudToLocalStorage: refinement-session write failed')
+    }
     // Sync Zustand stores so UI reflects changes without page refresh
     syncStoresFromCloudPayload(raw)
   }
@@ -828,10 +834,7 @@ export function useAutoSync() {
       useMatrixStore.subscribe((state, prevState) => {
         if (
           state.selectedWeaponIds !== prevState.selectedWeaponIds ||
-          state.dungeonS1Selections !== prevState.dungeonS1Selections ||
-          state.expandedPlanKeys !== prevState.expandedPlanKeys ||
-          state.selectedRegions !== prevState.selectedRegions ||
-          state.selectedSubRegions !== prevState.selectedSubRegions
+          state.dungeonS1Selections !== prevState.dungeonS1Selections
         ) {
           schedulePush()
         }

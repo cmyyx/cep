@@ -208,11 +208,11 @@ function ToastCard({
     >
       <div className="flex items-start gap-2.5 px-4 py-3">
         {isConflict || isError ? (
-          <AlertTriangle className="size-4 shrink-0 mt-0.5 text-[#171717]" />
+          <AlertTriangle className="size-4 shrink-0 mt-0.5 text-foreground" />
         ) : (
           <CheckCircle2 className="size-4 shrink-0 mt-0.5 text-[#0a72ef]" />
         )}
-        <span className="flex-1 text-sm font-medium text-[#171717] leading-snug">
+        <span className="flex-1 text-sm font-medium text-foreground leading-snug">
           {isConflict ? t('account.syncConflictToast') : isError ? t('account.syncErrorToast') : isPull ? t('account.syncDownloaded') : isUnchanged ? t('account.syncAlreadyUpToDate') : t('account.syncUploaded')}
         </span>
         <div className="flex items-center gap-1 shrink-0">
@@ -225,7 +225,7 @@ function ToastCard({
             </button>
           )}
           <button
-            className="text-[#808080] hover:text-[#171717] transition-colors"
+            className="text-muted-foreground hover:text-foreground transition-colors"
             onClick={onRemove}
           >
             <X className="size-3.5" />

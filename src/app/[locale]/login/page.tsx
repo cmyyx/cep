@@ -57,6 +57,11 @@ function getPasswordStrength(password: string): { score: number; labelKey: strin
 
 // Turnstile site key — public, differs per environment.
 const TURNSTILE_SITE_KEY: string = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY ?? ''
+if (!TURNSTILE_SITE_KEY) {
+  if (process.env.NODE_ENV !== 'production') {
+    console.warn('[turnstile] NEXT_PUBLIC_TURNSTILE_SITE_KEY is not set — Turnstile verification will be skipped')
+  }
+}
 
 export default function LoginPage() {
   return (
@@ -99,11 +104,12 @@ function LoginPageContent() {
     if (!resetEmail) return
     setResetSending(true); setResetError(null)
     try {
-      await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL ?? ''}/api/password/send-reset`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL ?? ''}/api/password/send-reset`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email: resetEmail }),
       })
+      if (!res.ok) { setResetError('sendResetFailed'); return }
       setResetStep('code')
     } catch {
       setResetError('sendResetFailed')
@@ -192,7 +198,7 @@ function LoginPageContent() {
         <div className="flex items-center justify-center min-h-full p-4">
           <div className="w-full max-w-sm py-8">
         <div className="mb-8 text-center">
-          <h1 className="text-xl font-semibold tracking-[-0.48px] text-[#171717]">
+          <h1 className="text-xl font-semibold tracking-[-0.48px] text-foreground">
             {t('app.name')}
           </h1>
         </div>
@@ -333,14 +339,16 @@ function LoginPageContent() {
               )}
             </div>
 
-            <div className="flex justify-center">
-              <Turnstile
-                ref={turnstileRef}
-                siteKey={TURNSTILE_SITE_KEY}
-                onVerify={setTurnstileToken}
-                onExpire={() => setTurnstileToken(null)}
-              />
-            </div>
+            {TURNSTILE_SITE_KEY && (
+              <div className="flex justify-center">
+                <Turnstile
+                  ref={turnstileRef}
+                  siteKey={TURNSTILE_SITE_KEY}
+                  onVerify={setTurnstileToken}
+                  onExpire={() => setTurnstileToken(null)}
+                />
+              </div>
+            )}
 
             {serverError && (
               <p className="text-sm text-destructive text-center">
@@ -455,14 +463,16 @@ function LoginPageContent() {
               )}
             </div>
 
-            <div className="flex justify-center">
-              <Turnstile
-                ref={turnstileRef}
-                siteKey={TURNSTILE_SITE_KEY}
-                onVerify={setTurnstileToken}
-                onExpire={() => setTurnstileToken(null)}
-              />
-            </div>
+            {TURNSTILE_SITE_KEY && (
+              <div className="flex justify-center">
+                <Turnstile
+                  ref={turnstileRef}
+                  siteKey={TURNSTILE_SITE_KEY}
+                  onVerify={setTurnstileToken}
+                  onExpire={() => setTurnstileToken(null)}
+                />
+              </div>
+            )}
 
             {serverError && (
               <p className="text-sm text-destructive text-center">

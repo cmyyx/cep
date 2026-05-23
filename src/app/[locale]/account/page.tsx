@@ -754,24 +754,24 @@ export default function AccountPage() {
           <CardContent className="space-y-4">
             {isTrial&&<div className="rounded-md bg-teal-50 border border-teal-200 px-3 py-2 text-xs text-teal-700">{t('account.trialHint')}</div>}
             <div className="rounded-lg border border-border overflow-hidden"><table className="w-full text-xs"><thead><tr className="bg-muted/50"><th className="text-left px-3 py-2 font-medium">{t('account.feature')}</th><th className="text-center px-3 py-2 font-medium">Free</th><th className="text-center px-3 py-2 font-medium text-purple-600">Premium</th></tr></thead><tbody className="divide-y divide-border">{[['account.featSyncSize',t('account.featSyncSizeFree'),t('account.featSyncSizePremium')],['account.featAutoSync',t('account.notSupported'),t('account.supported')],['account.featWeaponOwnership','200','2,000'],['account.featEssenceStatus','200','2,000'],['account.featCustomWeapons',t('account.notSupported'),'300'],['account.featSelectedWeapons','200','500'],['account.featWeaponNotes','50','200']].map(([label,free,premium])=><tr key={label}><td className="px-3 py-2 text-muted-foreground">{t(label)}</td><td className="px-3 py-2 text-center">{free}</td><td className="px-3 py-2 text-center text-purple-600 font-medium">{premium}</td></tr>)}</tbody></table></div>
-            {/* Pricing cards — 方案B: ¥6.99 / ¥16.99 / ¥49.99 */}
+            {/* Pricing cards */}
             <div className="grid grid-cols-3 gap-2">
               {/* 月付 */}
               <div className="rounded-lg border border-border p-3 text-center">
                 <div className="text-xs text-muted-foreground mb-1">{t('account.priceMonthly')}</div>
-                <div className="text-lg font-bold text-[#171717]">¥6.99</div>
+                <div className="text-lg font-bold text-foreground">¥6.99</div>
               </div>
               {/* 季付 */}
               <div className="rounded-lg border border-border p-3 text-center">
                 <div className="text-xs text-muted-foreground mb-1">{t('account.priceQuarterly')}</div>
-                <div className="text-lg font-bold text-[#171717]">¥16.99</div>
+                <div className="text-lg font-bold text-foreground">¥16.99</div>
                 <div className="text-[10px] text-green-600 mt-0.5">{t('account.priceSave', { percent: '19' })}</div>
               </div>
-              {/* 年付 — 推荐 */}
+              {/* 年付 */}
               <div className="rounded-lg border-2 border-purple-300 bg-purple-50/50 p-3 text-center relative">
                 <div className="absolute -top-2 left-1/2 -translate-x-1/2 bg-purple-600 text-white text-[10px] font-semibold px-2 py-0.5 rounded-full">{t('account.priceRecommended')}</div>
                 <div className="text-xs text-muted-foreground mb-1">{t('account.priceYearly')}</div>
-                <div className="text-lg font-bold text-[#171717]">¥49.99</div>
+                <div className="text-lg font-bold text-foreground">¥49.99</div>
                 <div className="text-[10px] text-green-600 mt-0.5">{t('account.priceSave', { percent: '40' })}</div>
               </div>
             </div>

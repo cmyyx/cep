@@ -516,7 +516,12 @@
     "placeholderOperationTips": "操作アドバイス...",
     "placeholderTag": "タグ",
     "placeholderTeamCharName": "キャラ名",
-    "placeholderTeamTips": "編成メモ..."
+    "placeholderTeamTips": "編成メモ...",
+    "noSkills": "スキルがありません。",
+    "noRowsMessage": "行がありません。「{addSkillRow}」をクリックして追加してください。",
+    "noTalents": "素質がありません。",
+    "noBaseSkills": "基地スキルがありません。",
+    "noPotentials": "潜在がありません。"
   },
   "common": {
     "collapse": "折りたたむ",

@@ -400,7 +400,12 @@
     "placeholderOperationTips": "操作建议...",
     "placeholderTag": "标签",
     "placeholderTeamCharName": "角色名称",
-    "placeholderTeamTips": "配队思路..."
+    "placeholderTeamTips": "配队思路...",
+    "noSkills": "暂无技能。",
+    "noRowsMessage": "暂无数据行。点击「{addSkillRow}」开始。",
+    "noTalents": "暂无天赋。",
+    "noBaseSkills": "暂无基建技能。",
+    "noPotentials": "暂无潜能。"
   },
   "common": {
     "collapse": "收起",

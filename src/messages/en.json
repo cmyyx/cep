@@ -516,7 +516,12 @@
     "placeholderOperationTips": "Operation tips...",
     "placeholderTag": "Tag",
     "placeholderTeamCharName": "Character name",
-    "placeholderTeamTips": "Team composition notes..."
+    "placeholderTeamTips": "Team composition notes...",
+    "noSkills": "No skills yet.",
+    "noRowsMessage": "No rows. Click \"{addSkillRow}\" to start.",
+    "noTalents": "No talents.",
+    "noBaseSkills": "No base skills.",
+    "noPotentials": "No potentials."
   },
   "common": {
     "collapse": "Collapse",

@@ -137,7 +137,7 @@ export function EditorSkillsTab({
       </div>
 
       {draft.skills.length === 0 && (
-        <p className="text-sm text-muted-foreground">No skills yet.</p>
+        <p className="text-sm text-muted-foreground">{t('editor.noSkills')}</p>
       )}
 
       {draft.skills.map((skill, si) => (
@@ -259,7 +259,7 @@ export function EditorSkillsTab({
 
                   {table.rows.length === 0 && (
                     <p className="text-[11px] text-muted-foreground pl-2">
-                      No rows. Click &quot;{t('editor.addSkillRow')}&quot; to start.
+                      {t('editor.noRowsMessage', { addSkillRow: t('editor.addSkillRow') })}
                     </p>
                   )}
                 </div>

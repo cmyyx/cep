@@ -516,7 +516,12 @@
     "placeholderOperationTips": "操作建議...",
     "placeholderTag": "標籤",
     "placeholderTeamCharName": "角色名稱",
-    "placeholderTeamTips": "配隊思路..."
+    "placeholderTeamTips": "配隊思路...",
+    "noSkills": "暫無技能。",
+    "noRowsMessage": "暫無數據行。點擊「{addSkillRow}」開始。",
+    "noTalents": "暫無天賦。",
+    "noBaseSkills": "暫無基建技能。",
+    "noPotentials": "暫無潛能。"
   },
   "common": {
     "collapse": "收起",
