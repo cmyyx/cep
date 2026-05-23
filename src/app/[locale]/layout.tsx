@@ -14,6 +14,7 @@ import { AppInitOverlay } from '@/components/shared/app-init-overlay'
 import { ImportantAnnouncementBanner } from '@/components/home/important-announcement-banner'
 import { AnnouncementLoader } from '@/components/home/announcement-loader'
 import { SyncManager } from '@/components/shared/sync-manager'
+import { LegacyMigrationDialog } from '@/components/shared/legacy-migration-dialog'
 import { VersionProvider } from '@/hooks/use-version'
 import { versionData } from '@/generated/version-data'
 
@@ -77,6 +78,7 @@ export default async function LocaleLayout({
 
             <AnnouncementLoader />
             <SyncManager />
+            <LegacyMigrationDialog />
             <Background />
             <AppSidebar />
             <main className="flex flex-col flex-1 w-full relative overflow-hidden">

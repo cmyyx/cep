@@ -8,6 +8,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Switch } from '@/components/ui/switch'
 import { Upload } from 'lucide-react'
+import { DataCleaner } from '@/components/shared/data-cleaner'
 import {
   Select,
   SelectContent,
@@ -144,6 +145,23 @@ export default function SettingsPage() {
             <Button variant="outline" size="sm" onClick={restoreDefaultBg} className="w-fit">
               {t('settings.restoreDefault')}
             </Button>
+          </div>
+        </section>
+
+        {/* 分隔线 */}
+        <div className="h-px bg-border" />
+
+        {/* 数据清理组 */}
+        <section className="flex flex-col gap-4">
+          <h2 className="text-sm font-medium text-muted-foreground">{t('settings.dataManagement')}</h2>
+          <div className="flex flex-col gap-3">
+            <div className="flex items-center justify-between py-2">
+              <div className="flex flex-col gap-1">
+                <Label className="text-sm">{t('settings.dataCleaner')}</Label>
+                <span className="text-xs text-muted-foreground">{t('settings.dataCleanerDesc')}</span>
+              </div>
+              <DataCleaner />
+            </div>
           </div>
         </section>
       </div>

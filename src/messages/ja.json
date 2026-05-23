@@ -198,6 +198,7 @@
     "claimPending": "審査中",
     "claimApproved": "承認済み",
     "claimRejected": "却下",
+    "claimSubmitted": "支払い記録を送信しました、審査をお待ちください",
     "emailVerified": "メール確認済み",
     "planTier": "プラン",
     "profile": "プロフィール",
