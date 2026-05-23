@@ -341,6 +341,10 @@ export const DungeonCard = memo(function DungeonCard({
 
   const lockLabel = plan.lockType === 's2' ? t('essence.lockS2') : t('essence.lockS3')
 
+  // Don't render plans where all weapons are hidden by hide filters —
+  // showing "selected: 0 / total: 0" is confusing and useless.
+  if (visibleTotal === 0) return null
+
   return (
     <div className="rounded-lg border border-border bg-card p-4">
       {/* Header */}

@@ -42,11 +42,12 @@ function syncStoresFromCloudPayload(raw: Record<string, unknown>) {
       useMatrixStore.setState({
         selectedWeaponIds: (Array.isArray(ep.selectedWeaponIds) ? ep.selectedWeaponIds : []) as string[],
         dungeonS1Selections: (ep.dungeonS1Selections ?? {}) as Record<string, string[]>,
-        // Mark plans as stale so EssencePlanner page re-computes on next visit.
-        // This also prevents the stale-plan-triggered computePlans() from firing
-        // a spurious auto-push after cloud data sync.
         plansStale: true,
       })
+      // Recompute plans immediately after applying cloud data. Without this,
+      // plansStale = true blocks the page's useEffect fallback and the UI
+      // gets stuck showing "computing plans" indefinitely.
+      useMatrixStore.getState().computePlans()
     }
   } catch {
     if (process.env.NODE_ENV !== 'production') console.warn('[syncStores] essencePlanner parse failed')
@@ -519,7 +520,9 @@ export function useAutoSync() {
       }, 'auto')
       _cloudVersion = res.version
       setLastSyncSignature(computeSyncSignature(localData))
-      if (useEssenceSettingsStore.getState().notifyOnSync) notifySync({ type: 'push_success' })
+      if (useEssenceSettingsStore.getState().notifyOnSync) {
+        notifySync({ type: res.unchanged ? 'push_unchanged' : 'push_success' })
+      }
     } catch (err) {
       if (err instanceof Error && err.message === 'version_conflict') {
         // Fetch latest cloud data so the dialog can show actual cloud state

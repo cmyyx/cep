@@ -9,6 +9,7 @@ import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip
 import { resolveStatI18nKey } from '@/data/stat-i18n-map'
 import { WeaponCard } from './weapon-card'
 import { weapons as staticWeapons } from '@/data/weapons'
+import { dungeons } from '@/data/dungeons'
 import { useMatrixStore } from '@/stores/useMatrixStore'
 import { useEssenceSettingsStore } from '@/stores/useEssenceSettingsStore'
 import { useBannerStore } from '@/stores/useBannerStore'
@@ -25,12 +26,19 @@ function getValues(key: AttrKey, weaponsArr: Weapon[]): string[] {
   return [...new Set(weaponsArr.map((w) => w[key]))].sort()
 }
 
-/** Build attr values from full weapon list (static + custom). */
+/** Build attr values from full weapon list (static + custom),
+ *  plus dungeon pool values for elementalDamage (s2Pool) and
+ *  specialAbility (s3Pool) so skills like "强攻" that exist in
+ *  dungeons but not on any weapon still appear in the filter
+ *  (shown as disabled / strikethrough). */
 function buildAttrValues(allWeapons: Weapon[]): Record<AttrKey, string[]> {
+  const dungeonS2 = new Set(dungeons.flatMap((d) => d.s2Pool))
+  const dungeonS3 = new Set(dungeons.flatMap((d) => d.s3Pool))
+
   return {
     primaryStat: getValues('primaryStat', allWeapons),
-    elementalDamage: getValues('elementalDamage', allWeapons),
-    specialAbility: getValues('specialAbility', allWeapons),
+    elementalDamage: [...new Set([...getValues('elementalDamage', allWeapons), ...dungeonS2])].sort(),
+    specialAbility: [...new Set([...getValues('specialAbility', allWeapons), ...dungeonS3])].sort(),
   }
 }
 
