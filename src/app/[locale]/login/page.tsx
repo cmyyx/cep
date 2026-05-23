@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useMemo, useRef } from 'react'
+import { useState, useMemo, useRef, Suspense } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useTranslations, useLocale } from 'next-intl'
 import { useForm, useWatch } from 'react-hook-form'
@@ -57,6 +57,14 @@ function getPasswordStrength(password: string): { score: number; labelKey: strin
 const TURNSTILE_SITE_KEY = '0x4AAAAAACxC56LlFLuFLUXe'
 
 export default function LoginPage() {
+  return (
+    <Suspense fallback={null}>
+      <LoginPageContent />
+    </Suspense>
+  )
+}
+
+function LoginPageContent() {
   const t = useTranslations()
   const locale = useLocale()
   const router = useRouter()
