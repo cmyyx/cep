@@ -9,6 +9,8 @@ import { Label } from '@/components/ui/label'
 import { Switch } from '@/components/ui/switch'
 import { Upload } from 'lucide-react'
 import { DataCleaner } from '@/components/shared/data-cleaner'
+import { DataExporter } from '@/components/shared/data-exporter'
+import { DataImporter } from '@/components/shared/data-importer'
 import {
   Select,
   SelectContent,
@@ -71,7 +73,7 @@ export default function SettingsPage() {
   }
 
   return (
-    <div className="flex flex-col flex-1">
+    <div className="flex flex-col flex-1 min-h-0 overflow-hidden">
       {/* Top bar */}
       <div className="flex items-center gap-3 px-4 py-2 shadow-[0px_1px_0px_0px_rgba(0,0,0,0.08)]">
         <SidebarTrigger />
@@ -161,6 +163,20 @@ export default function SettingsPage() {
                 <span className="text-xs text-muted-foreground">{t('settings.dataCleanerDesc')}</span>
               </div>
               <DataCleaner />
+            </div>
+            <div className="flex items-center justify-between py-2">
+              <div className="flex flex-col gap-1">
+                <Label className="text-sm">{t('settings.exportData')}</Label>
+                <span className="text-xs text-muted-foreground">{t('settings.exportDataDesc')}</span>
+              </div>
+              <DataExporter />
+            </div>
+            <div className="flex items-center justify-between py-2">
+              <div className="flex flex-col gap-1">
+                <Label className="text-sm">{t('settings.importData')}</Label>
+                <span className="text-xs text-muted-foreground">{t('settings.importDataDesc')}</span>
+              </div>
+              <DataImporter />
             </div>
           </div>
         </section>
