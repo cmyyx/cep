@@ -16,7 +16,7 @@ import { Switch } from '@/components/ui/switch'
 import { useAuthStore } from '@/stores/useAuthStore'
 import { useEssenceSettingsStore } from '@/stores/useEssenceSettingsStore'
 import { getSyncDataApi, postSyncDataApi, api, ApiError, type SyncDataResponse } from '@/lib/api'
-import { getSyncTimestamps, subscribeSyncTimestamps, setAutoSyncConflictCallback, syncStoresFromCloudPayload, hasExistingLocalData, syncDataDiffers, buildSummaryRows, buildSettingsDiff, updateLastPull, getCloudVersion, updateCloudVersion, setSkipNextPush, computeSyncSignature, getLastSyncSignature, setLastSyncSignature, getPendingConflict, clearPendingConflict, dismissConflictToast, notifySync, setConflictPending, getLastPullResult, subscribePullResult, type SyncConflictInfo } from '@/hooks/useAutoSync'
+import { getSyncTimestamps, subscribeSyncTimestamps, setAutoSyncConflictCallback, syncStoresFromCloudPayload, hasExistingLocalData, syncDataDiffers, buildSummaryRows, buildSettingsDiff, updateLastPull, getCloudVersion, updateCloudVersion, setSkipNextPush, computeSyncSignature, getLastSyncSignature, setLastSyncSignature, getPendingConflict, clearPendingConflict, dismissConflictToast, notifySync, setConflictPending, getLastPullResult, type SyncConflictInfo } from '@/hooks/useAutoSync'
 import { cn, maskEmail, isValidEmail, formatTime } from '@/lib/utils'
 import { SyncConflictDialog } from '@/components/shared/sync-conflict-dialog'
 import { equipById } from '@/data/equips'
@@ -322,15 +322,14 @@ export default function AccountPage() {
   // Mark component as mounted (client-only, prevents hydration mismatch)
   useEffect(() => { setMounted(true) }, [])
 
-  // Load data once on mount: /me + subscribe to auto-sync pull results
-  // (reuses the pull already done by useAutoSync to avoid a duplicate GET).
+  // Load data once on mount: /me + cloud sync data for display.
+  // Reuses the pull already done by useAutoSync to avoid a duplicate GET.
   const initialLoadDone = useRef(false)
   useEffect(() => {
     if (initialLoadDone.current) return
     initialLoadDone.current = true
     if (accessToken) {
       fetchMeGlobal()
-      // Reuse the auto-sync pull result if available — avoids a duplicate GET
       const cached = getLastPullResult()
       if (cached && cached.version > 0) {
         setCloudData(cached)
@@ -342,10 +341,6 @@ export default function AccountPage() {
         // Auto-sync hasn't pulled yet — do our own
         fetchCloud()
       }
-      // Keep cloudData in sync with future auto-pulls
-      return subscribePullResult(() => {
-        fetchCloud()
-      })
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])

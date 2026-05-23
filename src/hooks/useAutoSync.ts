@@ -432,6 +432,8 @@ export function useAutoSync() {
   const dirtyRef = useRef(false)
   const firstPullDoneRef = useRef(false)
   const pullCompletedRef = useRef(false)
+  /** Timestamp of last visibility-change pull — 30s cooldown. */
+  const lastVisibilityPullRef = useRef(0)
 
   // ── Write cloud data into localStorage + sync Zustand stores so UI updates immediately ──
   const writeCloudToLocalStorage = (raw: Record<string, unknown>) => {
@@ -725,6 +727,7 @@ export function useAutoSync() {
             _conflictPendingRef.current = true
             _conflictCallback(pushInfo)
           } else {
+            _conflictPendingRef.current = true
             _pendingConflict = pushInfo
             notifySync({ type: 'push_conflict' })
           }
@@ -774,6 +777,9 @@ export function useAutoSync() {
     const onVisible = () => {
       if (document.visibilityState !== 'visible') return
       if (!shouldAutoSync()) return
+      // Cooldown: skip if last visibility pull was less than 10 seconds ago
+      if (Date.now() - lastVisibilityPullRef.current < 10_000) return
+      lastVisibilityPullRef.current = Date.now()
       pullFromCloud()
     }
     document.addEventListener('visibilitychange', onVisible)
