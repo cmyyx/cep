@@ -196,7 +196,6 @@ export interface MeResponse {
   username: string
   email: string | null
   email_verified: boolean
-  email_verification_required: boolean
   plan_tier: 'free' | 'premium'
   plan_expires_at: string | null
   plan_expiring_soon: boolean
@@ -301,6 +300,94 @@ export async function postSyncDataApi(payload: unknown, syncType: 'auto' | 'manu
     body: payload,
     headers: { 'X-Sync-Type': syncType },
   })
+}
+
+// ─── Error code → i18n key mapping ────────────────────────
+
+/**
+ * Maps backend error codes to i18n keys.
+ * Falls back to the raw code string for unknown codes.
+ *
+ * Usage: `t(getErrorI18nKey(err.code))` in catch blocks.
+ */
+export function getErrorI18nKey(code: string): string {
+  const map: Record<string, string> = {
+    // Auth
+    unauthorized: 'auth.unauthorized',
+    missing_credentials: 'auth.missing_credentials',
+    invalid_credentials: 'auth.invalid_credentials',
+    account_disabled: 'auth.account_disabled',
+    invalid_username: 'auth.invalid_username',
+    invalid_email: 'auth.invalid_email',
+    weak_password: 'auth.weak_password',
+    username_taken: 'auth.username_taken',
+    email_taken: 'auth.email_taken',
+    turnstile_verification_failed: 'auth.turnstile_verification_failed',
+    turnstile_required: 'auth.turnstileRequired',
+    email_domain_unsupported: 'auth.emailDomainUnsupported',
+    unknown_error: 'auth.unknown_error',
+    invalid_or_expired_token: 'auth.invalidOrExpiredToken',
+    invalid_session: 'auth.invalidSession',
+
+    // Account / Email
+    email_already_verified: 'account.emailAlreadyVerified',
+    missing_email: 'account.missingEmail',
+    rate_limit_exceeded: 'account.rateLimitExceeded',
+    send_failed: 'account.sendFailed',
+    missing_code: 'account.missingCode',
+    invalid_code: 'account.invalidCode',
+    code_sent_recently: 'account.codeSentRecently',
+    no_email: 'account.noEmail',
+    missing_refresh_token: 'account.missingRefreshToken',
+    token_rotation_failed: 'account.tokenRotationFailed',
+    user_not_found: 'account.userNotFound',
+
+    // Password
+    missing_fields: 'account.missingFields',
+    invalid_current_password: 'account.invalidCurrentPassword',
+    invalid_or_expired_code: 'account.invalidOrExpiredCode',
+    reset_failed: 'account.resetFailed',
+
+    // Sessions
+    invalid_session_id: 'account.invalidSessionId',
+    cannot_revoke_current_session: 'account.cannotRevokeCurrent',
+    session_not_found: 'account.sessionNotFound',
+
+    // Payment
+    invalid_channel: 'account.invalidChannel',
+    merchant_order_no_required_for_alipay: 'account.merchantOrderNoRequired',
+    reference_too_long: 'account.referenceTooLong',
+    merchant_order_no_too_long: 'account.merchantOrderNoTooLong',
+    invalid_paid_time_format: 'account.invalidPaidTimeFormat',
+
+    // Sync
+    payload_too_large: 'account.payloadTooLarge',
+    invalid_json: 'account.invalidJson',
+    version_conflict: 'account.versionConflict',
+    invalid_base_version: 'account.invalidBaseVersion',
+    invalid_payload_structure: 'account.invalidPayloadStructure',
+    unsupported_schema_version: 'account.unsupportedSchemaVersion',
+    invalid_captured_at: 'account.invalidCapturedAt',
+    invalid_selected_weapon_ids: 'account.invalidSelectedWeaponIds',
+    selected_weapon_ids_limit_exceeded: 'account.selectedWeaponsLimit',
+    invalid_dungeon_s1_selections: 'account.invalidDungeonS1Selections',
+    dungeon_s1_selections_limit_exceeded: 'account.dungeonS1Limit',
+    weapon_ownership_limit_exceeded: 'account.weaponOwnershipLimit',
+    essence_status_limit_exceeded: 'account.essenceStatusLimit',
+    weapon_notes_limit_exceeded: 'account.weaponNotesLimit',
+    invalid_custom_weapons: 'account.invalidCustomWeapons',
+    custom_weapons_not_allowed: 'account.customWeaponsNotAllowed',
+    custom_weapons_limit_exceeded: 'account.customWeaponsLimit',
+    invalid_custom_weapon_name: 'account.invalidCustomWeaponName',
+    invalid_custom_weapon_rarity: 'account.invalidCustomWeaponRarity',
+
+    // Global
+    maintenance_mode: 'account.maintenanceMode',
+    internal_server_error: 'account.serverError',
+    not_found: 'account.notFound',
+    invalid_response: 'account.invalidResponse',
+  };
+  return map[code] ?? code;
 }
 
 // ─── Token management (exported for store) ─────────────────

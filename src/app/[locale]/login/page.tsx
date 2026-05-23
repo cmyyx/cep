@@ -14,6 +14,7 @@ import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from '@
 import { Turnstile, type TurnstileHandle } from '@/components/shared/turnstile'
 import { SidebarTrigger } from '@/components/ui/sidebar'
 import { useAuthStore } from '@/stores/useAuthStore'
+import { getErrorI18nKey } from '@/lib/api'
 import { cn } from '@/lib/utils'
 
 const loginSchema = z.object({
@@ -214,9 +215,9 @@ function LoginPageContent() {
           /* ── Reset Password ── */
           <>
             {resetSent ? (
-              <div className="rounded-md bg-green-50 border border-green-200 px-4 py-3 text-sm text-green-700 space-y-3">
+              <div className="rounded-md bg-green-50 border border-green-200 px-4 py-3 text-sm text-green-700 space-y-3 text-center">
                 <p>{t('auth.resetSuccess')}</p>
-                <Button variant="outline" size="sm" className="w-full" onClick={exitResetMode}>
+                <Button size="sm" className="w-full bg-white hover:bg-green-100 border-green-200" onClick={exitResetMode}>
                   {t('auth.backToLogin')}
                 </Button>
               </div>
@@ -235,7 +236,7 @@ function LoginPageContent() {
                       <Label htmlFor="reset-email">{t('auth.email')}</Label>
                       <Input id="reset-email" className="bg-card border-border" type="email" value={resetEmail} onChange={e=>setResetEmail(e.target.value)} />
                     </div>
-                    {resetError && <p className="text-sm text-destructive text-center">{t(`auth.${resetError}`)}</p>}
+                    {resetError && <p className="text-sm text-destructive text-center">{t(getErrorI18nKey(resetError))}</p>}
                     <Button className="w-full" onClick={handleSendResetCode} disabled={!resetEmail||resetSending}>
                       {resetSending?<Loader2 className="size-4 mr-2 animate-spin"/>:null}
                       {t('auth.sendResetCode')}
@@ -255,11 +256,12 @@ function LoginPageContent() {
                       <Label htmlFor="reset-confirm">{t('auth.confirmPassword')}</Label>
                       <Input id="reset-confirm" className="bg-card border-border" type="password" value={resetConfirmPassword} onChange={e=>setResetConfirmPassword(e.target.value)} />
                     </div>
-                    {resetError && <p className="text-sm text-destructive text-center">{t(`auth.${resetError}`)}</p>}
+                    {resetError && <p className="text-sm text-destructive text-center">{t(getErrorI18nKey(resetError))}</p>}
                     <Button className="w-full" onClick={handleResetPassword} disabled={!resetCode||!resetNewPassword||resetSubmitting}>
                       {resetSubmitting?<Loader2 className="size-4 mr-2 animate-spin"/>:null}
                       {t('auth.resetPassword')}
                     </Button>
+                    <p className="text-xs text-muted-foreground text-center">{t('auth.passwordChangeHint')}</p>
                     <Button variant="ghost" size="sm" className="w-full" onClick={() => setResetStep('email')} disabled={resetSubmitting}>
                       {t('auth.resendResetCode')}
                     </Button>
@@ -352,7 +354,7 @@ function LoginPageContent() {
 
             {serverError && (
               <p className="text-sm text-destructive text-center">
-                {t(`auth.${serverError}`)}
+                {t(getErrorI18nKey(serverError))}
               </p>
             )}
 
@@ -476,7 +478,7 @@ function LoginPageContent() {
 
             {serverError && (
               <p className="text-sm text-destructive text-center">
-                {t(`auth.${serverError}`)}
+                {t(getErrorI18nKey(serverError))}
               </p>
             )}
 
