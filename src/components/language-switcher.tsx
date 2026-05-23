@@ -1,10 +1,16 @@
 'use client'
 
-import { useState, useCallback } from 'react'
+import { useCallback } from 'react'
 import { useRouter, usePathname } from 'next/navigation'
 import { useLocale } from 'next-intl'
-import { Languages } from 'lucide-react'
-import { SidebarMenuButton } from '@/components/ui/sidebar'
+import { Languages, Check } from 'lucide-react'
+import { SidebarMenuButton, useSidebar } from '@/components/ui/sidebar'
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuItem,
+} from '@/components/ui/dropdown-menu'
 
 const LOCALES = ['zh-CN', 'zh-TW', 'ja', 'en'] as const
 
@@ -19,35 +25,43 @@ export function LanguageSwitcher() {
   const router = useRouter()
   const pathname = usePathname()
   const locale = useLocale()
-  const [switchedLabel, setSwitchedLabel] = useState<string | null>(null)
-
-  const getNextLocale = useCallback(() => {
-    const currentIndex = LOCALES.indexOf(locale as typeof LOCALES[number])
-    const nextIndex = (currentIndex + 1) % LOCALES.length
-    return LOCALES[nextIndex]
-  }, [locale])
 
   const handleSwitch = useCallback((newLocale: string) => {
-    const label = LOCALE_LABELS[newLocale]
-    setSwitchedLabel(label)
+    if (newLocale === locale) return
     const newPath = pathname.replace(`/${locale}`, `/${newLocale}`)
     router.push(newPath)
-    setTimeout(() => setSwitchedLabel(null), 2000)
   }, [pathname, locale, router])
 
-  const nextLocale = getNextLocale()
-  const nextLabel = LOCALE_LABELS[nextLocale]
-  const tooltipText = switchedLabel
-    ? `已切换到 ${switchedLabel}`
-    : nextLabel
+  const { isMobile } = useSidebar()
+  const currentLabel = LOCALE_LABELS[locale] ?? locale
 
   return (
-    <SidebarMenuButton
-      onClick={() => handleSwitch(nextLocale)}
-      tooltip={tooltipText}
-    >
-      <Languages />
-      <span>{LOCALE_LABELS[locale]}</span>
-    </SidebarMenuButton>
+    <DropdownMenu>
+      <DropdownMenuTrigger
+        render={<SidebarMenuButton tooltip={currentLabel} />}
+      >
+        <Languages />
+        <span>{currentLabel}</span>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent
+        align="start"
+        side={isMobile ? 'top' : 'right'}
+        sideOffset={4}
+        className="!w-auto min-w-36"
+      >
+        {LOCALES.map((loc) => (
+          <DropdownMenuItem
+            key={loc}
+            onClick={() => handleSwitch(loc)}
+            className="flex items-center justify-between"
+          >
+            <span>{LOCALE_LABELS[loc]}</span>
+            {loc === locale && (
+              <Check className="size-3.5 text-muted-foreground" />
+            )}
+          </DropdownMenuItem>
+        ))}
+      </DropdownMenuContent>
+    </DropdownMenu>
   )
 }
