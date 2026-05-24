@@ -11,42 +11,11 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog'
-import { Download, ChevronDown, ChevronRight } from 'lucide-react'
+import { Download } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { getIoModules, countItems, buildSummary, readModule } from '@/lib/data-io-utils'
 import { versionData } from '@/generated/version-data'
-
-// ─── JSON 预览按钮 ─────────────────────────────────────────────
-
-function PreviewToggle({ data, onToggle }: { data: unknown; onToggle?: () => void }) {
-  const [expanded, setExpanded] = useState(false)
-  if (data === null || data === undefined || typeof data !== 'object') return null
-
-  const handleToggle = () => {
-    setExpanded(!expanded)
-    onToggle?.()
-  }
-
-  return (
-    <>
-      <button
-        type="button"
-        className="ml-0.5 p-0.5 rounded hover:bg-muted transition-colors shrink-0"
-        onClick={(e) => { e.preventDefault(); e.stopPropagation(); handleToggle() }}
-        tabIndex={-1}
-      >
-        {expanded ? <ChevronDown className="size-3.5" /> : <ChevronRight className="size-3.5" />}
-      </button>
-      {expanded && (
-        <div className="w-full mt-1 mb-1">
-          <pre className="max-h-40 overflow-y-auto text-[11px] leading-relaxed bg-muted/30 rounded-lg p-2 border whitespace-pre-wrap break-all">
-            {JSON.stringify(data, null, 2)}
-          </pre>
-        </div>
-      )}
-    </>
-  )
-}
+import { PreviewToggle } from '@/components/shared/preview-toggle'
 
 // ─── 工具 ─────────────────────────────────────────────────────
 

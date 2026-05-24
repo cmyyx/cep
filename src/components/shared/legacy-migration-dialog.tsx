@@ -67,9 +67,9 @@ export function LegacyMigrationDialog() {
     if (result?.data) {
       const store = useEssenceSettingsStore.getState()
       useEssenceSettingsStore.setState({
-        weaponOwnership: { ...result.data.weaponOwnership, ...store.weaponOwnership },
-        essenceStatus: { ...result.data.essenceStatus, ...store.essenceStatus },
-        weaponNotes: { ...result.data.weaponNotes, ...store.weaponNotes },
+        weaponOwnership: { ...store.weaponOwnership, ...result.data.weaponOwnership },
+        essenceStatus: { ...store.essenceStatus, ...result.data.essenceStatus },
+        weaponNotes: { ...store.weaponNotes, ...result.data.weaponNotes },
       })
     }
     setMigrateStep('done')

@@ -341,7 +341,7 @@ function extractKeys(filePath, globalConstants) {
   // 1. Static keys: t('literal') or t("literal")
   for (const m of content.matchAll(/\bt\(\s*['"]([^'"]+)['"]\s*[,)]/g)) {
     const k = m[1]
-    if (/^\w+(\.\w+)*$/.test(k)) keys.add(k)
+    if (/^[\w-]+(\.[\w-]+)*$/.test(k)) keys.add(k)
   }
 
   // 2. Dynamic: t(VAR) — resolve from .map() scope first, then global constants

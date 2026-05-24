@@ -138,20 +138,20 @@ function ModuleRow({ label, description, size, onClear, loading, badge }: Module
   const t = useTranslations()
   const exists = size > 0
   return (
-    <div className="flex items-center justify-between rounded-lg px-4 py-3 transition-colors hover:bg-neutral-50">
+    <div className="flex items-center justify-between rounded-lg px-4 py-3 transition-colors hover:bg-muted">
       <div className="flex flex-col gap-0.5 min-w-0 flex-1 mr-4">
         <div className="flex items-center gap-2">
-          <span className="text-sm font-medium text-neutral-900 truncate">{label}</span>
+          <span className="text-sm font-medium text-foreground truncate">{label}</span>
           {badge && (
             <Badge variant="secondary" className="shrink-0 text-[11px] h-5 px-1.5">
               {badge}
             </Badge>
           )}
         </div>
-        <span className="text-xs text-neutral-500 truncate">{description}</span>
+        <span className="text-xs text-muted-foreground truncate">{description}</span>
       </div>
       <div className="flex items-center gap-3 shrink-0">
-        <span className="text-xs text-neutral-400 tabular-nums w-14 text-right">
+        <span className="text-xs text-muted-foreground tabular-nums w-14 text-right">
           {exists ? formatSize(size) : '—'}
         </span>
         <Button
@@ -251,7 +251,10 @@ export function DataCleaner() {
       setLastCleared(t('dataCleaner.clearedAll'))
       setConfirmClearAll(false)
       bump()
-    } catch { /* ignore */ }
+    } catch (err) {
+      console.error('Failed to clear data', err)
+      setConfirmClearAll(false)
+    }
   }, [bump, t])
 
   const activeCount = useMemo(
@@ -279,8 +282,8 @@ export function DataCleaner() {
           <div className="overflow-y-auto max-h-[60vh]">
             <div className="space-y-6 px-1">
               <div>
-                <h4 className="text-sm font-semibold text-neutral-700 mb-2">{t('dataCleaner.currentData')}</h4>
-                <div className="divide-y divide-neutral-100 border rounded-lg">
+                <h4 className="text-sm font-semibold text-foreground mb-2">{t('dataCleaner.currentData')}</h4>
+                <div className="divide-y divide-border border rounded-lg">
                   {modules.map(mod => (
                     <ModuleRow
                       key={mod.id}
@@ -296,13 +299,13 @@ export function DataCleaner() {
 
               {unknownEntries.length > 0 && (
                 <div>
-                  <h4 className="text-sm font-semibold text-neutral-700 mb-2">
+                  <h4 className="text-sm font-semibold text-foreground mb-2">
                     {t('dataCleaner.unknownData')}
                     <Badge variant="secondary" className="ml-2 text-[11px] h-5 px-1.5 align-middle">
                       {unknownEntries.length}
                     </Badge>
                   </h4>
-                  <div className="divide-y divide-neutral-100 border rounded-lg">
+                  <div className="divide-y divide-border border rounded-lg">
                     {unknownEntries.map(entry => (
                       <ModuleRow
                         key={entry.key}
@@ -323,7 +326,7 @@ export function DataCleaner() {
           <Separator />
 
           <div className="flex items-center justify-between text-xs">
-            <span className="text-neutral-500">
+            <span className="text-muted-foreground">
               {t('dataCleaner.summary', { size: formatSize(totalSize), modules: activeCount, unknown: unknownEntries.length })}
             </span>
             <Button
@@ -336,7 +339,7 @@ export function DataCleaner() {
             </Button>
           </div>
           {lastCleared && (
-            <p className="text-xs text-neutral-400">{lastCleared}</p>
+            <p className="text-xs text-muted-foreground">{lastCleared}</p>
           )}
         </DialogContent>
       </Dialog>

@@ -11,7 +11,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog'
-import { Upload, AlertTriangle, CheckCircle2, X, ChevronDown, ChevronRight } from 'lucide-react'
+import { Upload, AlertTriangle, CheckCircle2, X } from 'lucide-react'
 import { useEssenceSettingsStore } from '@/stores/useEssenceSettingsStore'
 import { useMatrixStore } from '@/stores/useMatrixStore'
 import { useRefinementStore } from '@/stores/useRefinementStore'
@@ -25,6 +25,7 @@ import {
   sanitizeObject,
   MAX_ITEMS_PER_MODULE,
 } from '@/lib/data-io-utils'
+import { PreviewToggle } from '@/components/shared/preview-toggle'
 
 // ─── 类型 ─────────────────────────────────────────────────────
 
@@ -34,38 +35,6 @@ interface ImportFile {
   appVersion?: string
   device?: { platform?: string; userAgent?: string }
   modules: Record<string, unknown>
-}
-
-// ─── JSON 预览按钮 ─────────────────────────────────────────────
-
-function PreviewToggle({ data, onToggle }: { data: unknown; onToggle?: () => void }) {
-  const [expanded, setExpanded] = useState(false)
-  if (data === null || data === undefined || typeof data !== 'object') return null
-
-  const handleToggle = () => {
-    setExpanded(!expanded)
-    onToggle?.()
-  }
-
-  return (
-    <>
-      <button
-        type="button"
-        className="ml-0.5 p-0.5 rounded hover:bg-muted transition-colors shrink-0"
-        onClick={(e) => { e.preventDefault(); e.stopPropagation(); handleToggle() }}
-        tabIndex={-1}
-      >
-        {expanded ? <ChevronDown className="size-3.5" /> : <ChevronRight className="size-3.5" />}
-      </button>
-      {expanded && (
-        <div className="w-full mt-1 mb-1">
-          <pre className="max-h-40 overflow-y-auto text-[11px] leading-relaxed bg-muted/30 rounded-lg p-2 border whitespace-pre-wrap break-all">
-            {JSON.stringify(data, null, 2)}
-          </pre>
-        </div>
-      )}
-    </>
-  )
 }
 
 // ─── 校验 ─────────────────────────────────────────────────────
@@ -102,7 +71,7 @@ function importModule(moduleId: string, rawData: unknown) {
         essenceStatus: (d.essenceStatus as Record<string, boolean>) ?? {},
         weaponNotes: (d.weaponNotes as Record<string, string>) ?? {},
         customWeapons: Array.isArray(d.customWeapons) ? d.customWeapons : [],
-        ...d.flags as object,
+        ...(d.flags && typeof d.flags === 'object' ? d.flags : {}),
         regionFirst: (d.regionFirst as string) ?? null,
         regionSecond: (d.regionSecond as string) ?? null,
       })
@@ -313,9 +282,9 @@ export function DataImporter() {
           <div className="flex items-start gap-2.5">
             <AlertTriangle className="size-4 shrink-0 mt-0.5 text-red-500" />
             <span className="flex-1 text-sm">{error}</span>
-            <button className="text-muted-foreground hover:text-foreground" onClick={() => setError(null)}>
+            <Button variant="ghost" size="icon-xs" className="text-muted-foreground hover:text-foreground" onClick={() => setError(null)}>
               <X className="size-3.5" />
-            </button>
+            </Button>
           </div>
         </div>
       )}
@@ -325,9 +294,9 @@ export function DataImporter() {
           <div className="flex items-start gap-2.5">
             <CheckCircle2 className="size-4 shrink-0 mt-0.5 text-green-500" />
             <span className="flex-1 text-sm">{t('settings.importSuccess')}</span>
-            <button className="text-muted-foreground hover:text-foreground" onClick={() => setImported(false)}>
+            <Button variant="ghost" size="icon-xs" className="text-muted-foreground hover:text-foreground" onClick={() => setImported(false)}>
               <X className="size-3.5" />
-            </button>
+            </Button>
           </div>
         </div>
       )}
