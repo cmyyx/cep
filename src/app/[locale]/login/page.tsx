@@ -581,8 +581,6 @@ function LoginPageContent() {
 function LoginUnavailableGuide() {
   const t = useTranslations()
 
-  const officialDomains = FEATURES.allowedDomains
-
   return (
     <div className="flex flex-col flex-1 min-h-0 overflow-hidden">
       <div className="flex items-center gap-3 px-4 py-2 border-b border-border">
@@ -612,17 +610,15 @@ function LoginUnavailableGuide() {
                   </span>
                   <div className="flex-1">
                     <p className="text-foreground">{t('auth.unavailableOption1')}</p>
-                    {officialDomains.length > 0 && (
                       <a
-                        href={`https://${officialDomains[0]}`}
+                        href="https://end.canmoe.com"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="inline-flex items-center gap-1 text-sm text-develop-blue hover:underline mt-0.5"
                       >
-                        {officialDomains[0]}
+                        end.canmoe.com
                         <ExternalLink className="size-3" />
                       </a>
-                    )}
                   </div>
                 </div>
                 <div className="flex items-start gap-2.5 text-sm">
@@ -632,12 +628,12 @@ function LoginUnavailableGuide() {
                   <div className="flex-1">
                     <p className="text-foreground">{t('auth.unavailableOption2')}</p>
                     <a
-                      href={`https://${officialDomains.length > 1 ? officialDomains[1] : 'end.07070721.xyz'}`}
+                      href="https://end.07070721.xyz"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="inline-flex items-center gap-1 text-sm text-develop-blue hover:underline mt-0.5"
                     >
-                      {officialDomains.length > 1 ? officialDomains[1] : 'end.07070721.xyz'}
+                      end.07070721.xyz
                       <ExternalLink className="size-3" />
                     </a>
                     <p className="text-xs text-muted-foreground mt-0.5">
