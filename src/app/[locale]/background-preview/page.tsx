@@ -126,6 +126,13 @@ export default function BackgroundPreviewPage() {
           {t('backgroundPreview.clickHint')}
         </p>
       </div>
+
+      {/* Disclaimer */}
+      <div className="px-4 py-2 border-t border-border shrink-0">
+        <p className="text-[11px] text-muted-foreground/60 text-center">
+          {t('backgroundPreview.disclaimer')}
+        </p>
+      </div>
     </div>
   )
 }

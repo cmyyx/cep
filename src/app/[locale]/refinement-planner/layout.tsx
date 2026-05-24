@@ -10,11 +10,27 @@ export async function generateMetadata({
   const { locale } = await params
   try {
     const t = await getTranslations({ locale })
-    return { title: t('nav.refinementPlanner') }
+    return {
+      title: t('nav.refinementPlanner'),
+      description: t('meta.refinementPlannerDescription'),
+      openGraph: {
+        title: `${t('nav.refinementPlanner')} - ${t('app.name')}`,
+        description: t('meta.refinementPlannerDescription'),
+        images: [`/og/refinement-planner/${locale}.png`],
+      },
+    }
   } catch {
     // Fall back to default locale if the requested locale fails
     const t = await getTranslations({ locale: routing.defaultLocale })
-    return { title: t('nav.refinementPlanner') }
+    return {
+      title: t('nav.refinementPlanner'),
+      description: t('meta.refinementPlannerDescription'),
+      openGraph: {
+        title: `${t('nav.refinementPlanner')} - ${t('app.name')}`,
+        description: t('meta.refinementPlannerDescription'),
+        images: [`/og/refinement-planner/${locale}.png`],
+      },
+    }
   }
 }
 

@@ -9,17 +9,17 @@ export async function generateMetadata({
   const { locale } = await params
   const t = await getTranslations({ locale })
   return {
-    title: t('nav.backgroundPreview'),
-    description: t('meta.backgroundPreviewDescription'),
+    title: t('account.title'),
+    description: t('meta.accountDescription'),
     openGraph: {
-      title: `${t('nav.backgroundPreview')} - ${t('app.name')}`,
-      description: t('meta.backgroundPreviewDescription'),
-      images: [`/og/background-preview/${locale}.png`],
+      title: `${t('account.title')} - ${t('app.name')}`,
+      description: t('meta.accountDescription'),
+      images: [`/og/account/${locale}.png`],
     },
   }
 }
 
-export default function BackgroundPreviewLayout({
+export default function AccountLayout({
   children,
 }: {
   children: React.ReactNode

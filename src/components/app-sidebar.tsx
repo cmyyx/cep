@@ -32,6 +32,8 @@ import {
   LogIn,
   CircleUser,
   AlertTriangle,
+  FileText,
+  Shield,
 } from 'lucide-react'
 import { LanguageSwitcher } from './language-switcher'
 import { useAuthStore } from '@/stores/useAuthStore'
@@ -249,6 +251,26 @@ export function AppSidebar() {
             >
               <Info />
               <span>{t('nav.about')}</span>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+          <SidebarMenuItem>
+            <SidebarMenuButton
+              render={<NavLink href={`/${locale}/privacy`} loadingLabel={t('nav.privacy')} />}
+              onClick={() => { if (isMobile) setOpenMobile(false) }}
+              size="sm"
+            >
+              <Shield className="size-3.5" />
+              <span className="text-xs text-muted-foreground">{t('nav.privacy')}</span>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+          <SidebarMenuItem>
+            <SidebarMenuButton
+              render={<NavLink href={`/${locale}/terms`} loadingLabel={t('nav.terms')} />}
+              onClick={() => { if (isMobile) setOpenMobile(false) }}
+              size="sm"
+            >
+              <FileText className="size-3.5" />
+              <span className="text-xs text-muted-foreground">{t('nav.terms')}</span>
             </SidebarMenuButton>
           </SidebarMenuItem>
           {!mounted ? null : !FEATURES.auth ? (

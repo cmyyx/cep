@@ -89,6 +89,14 @@ export default function AboutPage() {
                 </a>
                 <span className="text-xs text-muted-foreground">&copy; 璨梦踏月</span>
               </div>
+              <div className="mt-1">
+                <a
+                  href="mailto:admin@canmoe.com"
+                  className="text-xs text-muted-foreground hover:text-foreground transition-colors underline underline-offset-2"
+                >
+                  {t('about.contactEmail')}
+                </a>
+              </div>
             </div>
           </div>
 

@@ -30,7 +30,9 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params
   const t = await getTranslations({ locale })
+  const siteUrl = process.env.SITE_URL || 'https://cep.example.com'
   return {
+    metadataBase: new URL(siteUrl),
     title: {
       template: `%s - ${t('app.name')}`,
       default: t('app.name'),

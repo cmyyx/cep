@@ -29,7 +29,9 @@
     "register": "Register",
     "settings": "Settings",
     "update": "Version",
-    "about": "About"
+    "about": "About",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service"
   },
   "app": {
     "name": "CEP Endfield Planner",
@@ -314,7 +316,8 @@
     "techState": "State Management",
     "techForm": "Forms",
     "techI18n": "i18n",
-    "techDesign": "Design System"
+    "techDesign": "Design System",
+    "contactEmail": "Contact: admin@canmoe.com"
   },
   "essence": {
     "weaponSelected": "Selected",
@@ -535,7 +538,8 @@
   "backgroundPreview": {
     "downloadAll": "Download All Images",
     "clickHint": "Click anywhere to preview background, click again to exit",
-    "close": "Close"
+    "close": "Close",
+    "disclaimer": "Background images are sourced from the internet. All rights belong to their respective copyright holders. If you believe any content infringes your rights, please contact us for removal."
   },
   "charFilter": {
     "searchPlaceholder": "Search characters...",
@@ -674,5 +678,27 @@
   },
   "team": {
     "slot": "Slot {number}"
+  },
+  "meta": {
+    "homeDescription": "A planning toolkit for Arknights: Endfield — essence farming, refinement planning, character guides, and more.",
+    "essencePlannerDescription": "Multi-weapon essence farming optimization with lock constraints, attribute conflict resolution, and smart plan ranking.",
+    "refinementPlannerDescription": "Equipment refinement planning — find optimal refinement materials and maximize substat values.",
+    "characterGuideDescription": "Character development guides, skill analysis, team compositions, and equipment recommendations for Arknights: Endfield.",
+    "bannerCalendarDescription": "Banner schedule and rerun timeline — track active, upcoming, and past character banners.",
+    "backgroundPreviewDescription": "Preview and download official Arknights: Endfield backgrounds.",
+    "editorDescription": "Character guide content editor for creating and sharing custom character builds.",
+    "aboutDescription": "Learn about the tech stack and features behind CEP Endfield Planner.",
+    "accountDescription": "Manage your account, devices, and premium subscription for CEP Endfield Planner.",
+    "loginDescription": "Sign in to CEP Endfield Planner to sync your planning data across devices.",
+    "settingsDescription": "Customize theme, background, and manage local data for CEP Endfield Planner.",
+    "updateDescription": "Version changelog and update information for CEP Endfield Planner.",
+    "privacyDescription": "Privacy policy for CEP Endfield Planner — learn how we handle your data.",
+    "termsDescription": "Terms of service for CEP Endfield Planner."
+  },
+  "legal": {
+    "privacyTitle": "Privacy Policy",
+    "privacyContent": "## Privacy Policy\n\n*Last updated: 2026-05-25*\n\nCEP Endfield Planner (\"we\", \"our\", or \"us\") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, and share your information when you use our website and services.\n\n### 1. Information We Collect\n\n**Account Information:** When you register an account, we collect your username, email address, and a hashed password. We do not store your plain-text password.\n\n**Usage Data:** We collect data about your interactions with our services, such as the features you use and the time of your visits.\n\n**Planning Data:** We store your weapon selections, essence status, refinement plans, and other planner-related data to enable cloud synchronization between your devices.\n\n**Payment Information:** If you purchase a premium subscription, we collect payment proof submissions. We do not directly process payments — all payment information is handled by third-party payment platforms.\n\n### 2. How We Use Your Information\n\n- To provide and maintain our services\n- To synchronize your planning data across devices\n- To process your premium subscription\n- To communicate with you about your account and updates\n- To improve our services based on usage patterns\n\n### 3. Data Storage and Security\n\nWe implement appropriate security measures to protect your data. Passwords are hashed using industry-standard algorithms. Your planning data is stored on secure servers and transmitted over encrypted connections.\n\n### 4. Cookies and Tracking\n\nWe use essential cookies for authentication and session management. We do not use tracking cookies for advertising or third-party analytics.\n\n### 5. Third-Party Services\n\nWe use the following third-party services for specific functions:\n- **Cloudflare Turnstile:** For bot protection during login and registration, which collects browser fingerprint data for security verification\n- **Cloudflare Workers Observability:** For server-side performance monitoring and telemetry, collecting request latency, error rates, and other operational metrics\n\n### 5a. Analytics Services\n\nWe use the following analytics services to understand how our website is used and to improve user experience:\n- **Umami Analytics:** Self-hosted web analytics — collects anonymized page views, referrers, and device information\n- **Baidu Analytics (百度统计):** Web traffic analysis — collects page views, session data, and visitor behavior\n- **Microsoft Clarity:** User behavior analytics — collects heatmaps, session recordings, and interaction data\n- **Cloudflare Web Analytics:** Privacy-first analytics via Cloudflare Insights — collects anonymized traffic metrics without cookies\n\nThese services may use cookies or similar technologies. You can limit or block these analytics services using browser extensions, ad blockers, or your browser's built-in privacy features.\n\nThese services have their own privacy policies governing their use of your data.\n\n### 6. Your Rights\n\nYou have the right to:\n- Access your personal data\n- Correct inaccurate data\n- Delete your account and associated data\n- Export your planning data\n- Withdraw consent for data processing\n\nTo exercise these rights, please contact us.\n\n### 7. Children's Privacy\n\nOur services are not directed to children under 13. We do not knowingly collect personal information from children.\n\n### 8. Changes to This Policy\n\nWe may update this Privacy Policy from time to time. We will notify you of significant changes by posting a notice on our website.\n\n### 9. Contact Us\n\nIf you have questions about this Privacy Policy, please contact us through the channels listed on our website.",
+    "termsTitle": "Terms of Service",
+    "termsContent": "## Terms of Service\n\n*Last updated: 2026-05-25*\n\nWelcome to CEP Endfield Planner. By accessing or using our services, you agree to be bound by these Terms of Service (\"Terms\"). If you do not agree, please do not use our services.\n\n### 1. Acceptance of Terms\n\nBy creating an account or using our services, you acknowledge that you have read, understood, and agree to these Terms.\n\n### 2. Description of Service\n\nCEP Endfield Planner provides planning tools for the game Arknights: Endfield, including essence farming optimization, refinement planning, character guides, and related features.\n\n### 3. User Accounts\n\n- You are responsible for maintaining the confidentiality of your account credentials\n- You must provide accurate and complete registration information\n- You may not share your account with others\n- We reserve the right to suspend or terminate accounts that violate these Terms\n\n### 4. User Conduct\n\nYou agree not to:\n- Use our services for any illegal purpose\n- Attempt to gain unauthorized access to our systems\n- Interfere with the proper functioning of our services\n- Upload malicious code or content\n- Abuse our services through excessive automated requests\n\n### 5. Intellectual Property\n\nCEP Endfield Planner and its original content are protected by applicable intellectual property laws. Game-related content, including character names, images, and data, are the property of their respective owners (Hypergryph / Mountain Contour / 峘形山工作室).\n\n### 6. Premium Subscription\n\n- Premium features are available through paid subscription plans\n- Subscriptions are non-transferable\n- We reserve the right to modify subscription pricing with advance notice\n- Refund policies are determined by the payment platform used\n\n### 7. Limitation of Liability\n\nOur services are provided \"as is\" without warranties of any kind. We are not liable for:\n- Any inaccuracies in planning data or recommendations\n- Loss of data due to circumstances beyond our control\n- Service interruptions or downtime\n\n### 8. Termination\n\nWe may terminate or suspend your access to our services at our sole discretion, without prior notice, for conduct that we believe violates these Terms.\n\n### 9. Changes to Terms\n\nWe reserve the right to modify these Terms at any time. Continued use of our services after changes constitutes acceptance of the new Terms.\n\n### 10. Governing Law\n\nThese Terms shall be governed by the laws applicable to the jurisdiction where the service is operated.\n\n### 11. Contact\n\nFor questions about these Terms, please contact us through the channels listed on our website."
   }
 }
