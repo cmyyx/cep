@@ -17,6 +17,11 @@
 /.next/
 /out/
 
+# generated SEO artifacts (built by prebuild scripts)
+/public/robots.txt
+/public/sitemap.xml
+/public/og/
+
 # production
 /build
 
@@ -44,3 +49,4 @@ next-env.d.ts
 .history
 .ace-tool/
 .opencode
+sync-game-data.config.json

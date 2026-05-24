@@ -1,0 +1,138 @@
+name: Sync Game Data
+on:
+  schedule:
+    - cron: '0 6 * * *'  # daily at 06:00 UTC
+  workflow_dispatch:      # manual trigger
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    outputs:
+      changed: ${{ steps.diff.outputs.changed }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Fetch tracking branch
+        run: |
+          git fetch origin auto/upstream-tracking || true
+
+      - name: Check upstream changes
+        id: diff
+        env:
+          AKEDATA_PAT: ${{ secrets.AKEDATA_PAT }}
+        run: |
+          # Shallow sparse-clone upstream repos (only files we need)
+          git clone --depth 1 --filter=blob:none --sparse --no-checkout \
+            "https://oauth2:${AKEDATA_PAT}@github.com/owner/AKEData.git" upstream/AKEData
+          git -C upstream/AKEData sparse-checkout init --cone
+          git -C upstream/AKEData sparse-checkout set \
+            output/CN/weapon output/CN/equip \
+            TableCfg/WeaponBasicTable.json \
+            TableCfg/CharWpnRecommendTable.json \
+            TableCfg/ItemTable.json \
+            TableCfg/WorldEnergyPointGroupTable.json \
+            TableCfg/WorldEnergyPointTable.json \
+            TableCfg/GemTable.json \
+            TableCfg/I18nTextTable_CN.json \
+            TableCfg/I18nTextTable_EN.json \
+            TableCfg/I18nTextTable_JP.json \
+            TableCfg/I18nTextTable_TC.json
+          git -C upstream/AKEData checkout
+
+          git clone --depth 1 --filter=blob:none --sparse --no-checkout \
+            "https://oauth2:${AKEDATA_PAT}@github.com/owner/EndFieldTranslationReferrer.git" upstream/EndFieldTranslationReferrer
+          git -C upstream/EndFieldTranslationReferrer sparse-checkout init --cone
+          git -C upstream/EndFieldTranslationReferrer sparse-checkout set i18n
+          git -C upstream/EndFieldTranslationReferrer checkout
+
+          # Run check (exit code 2 = changed, 0 = no change)
+          set +e
+          npx tsx scripts/sync-game-data.ts --check \
+            --akedata upstream/AKEData \
+            --translation upstream/EndFieldTranslationReferrer
+          exit_code=$?
+          set -e
+          if [ $exit_code -eq 2 ]; then
+            echo "changed=true" >> $GITHUB_OUTPUT
+          else
+            echo "changed=false" >> $GITHUB_OUTPUT
+          fi
+
+  sync:
+    needs: check
+    if: needs.check.outputs.changed == 'true'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Clone upstream repos
+        env:
+          AKEDATA_PAT: ${{ secrets.AKEDATA_PAT }}
+        run: |
+          git clone --depth 1 --filter=blob:none --sparse --no-checkout \
+            "https://oauth2:${AKEDATA_PAT}@github.com/owner/AKEData.git" upstream/AKEData
+          git -C upstream/AKEData sparse-checkout init --cone
+          git -C upstream/AKEData sparse-checkout set \
+            output/CN/weapon output/CN/equip \
+            TableCfg/WeaponBasicTable.json \
+            TableCfg/CharWpnRecommendTable.json \
+            TableCfg/ItemTable.json \
+            TableCfg/WorldEnergyPointGroupTable.json \
+            TableCfg/WorldEnergyPointTable.json \
+            TableCfg/GemTable.json \
+            TableCfg/I18nTextTable_CN.json \
+            TableCfg/I18nTextTable_EN.json \
+            TableCfg/I18nTextTable_JP.json \
+            TableCfg/I18nTextTable_TC.json
+          git -C upstream/AKEData checkout
+
+          git clone --depth 1 --filter=blob:none --sparse --no-checkout \
+            "https://oauth2:${AKEDATA_PAT}@github.com/owner/EndFieldTranslationReferrer.git" upstream/EndFieldTranslationReferrer
+          git -C upstream/EndFieldTranslationReferrer sparse-checkout init --cone
+          git -C upstream/EndFieldTranslationReferrer sparse-checkout set i18n
+          git -C upstream/EndFieldTranslationReferrer checkout
+
+      - name: Run sync update
+        run: |
+          npx tsx scripts/sync-game-data.ts --update \
+            --akedata upstream/AKEData \
+            --translation upstream/EndFieldTranslationReferrer
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v6
+        with:
+          title: 'chore: sync game data from upstream'
+          branch: auto/sync-game-data
+          commit-message: 'chore: sync game data from upstream'
+          body: |
+            Automated sync from:
+            - AKEData (output/CN/weapon, output/CN/equip, TableCfg/)
+            - EndFieldTranslationReferrer (i18n/)
+
+            Generated files:
+            - `src/generated/i18n/weapons/`
+            - `src/generated/i18n/equips/`
+            - `src/generated/i18n/dungeons/`
+            - `src/generated/i18n/stats/`
+            - `src/generated/i18n/regions/`

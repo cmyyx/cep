@@ -8,6 +8,14 @@ import { Button } from '@/components/ui/button'
 import { SlotRecommendationCard } from './slot-recommendation'
 import { useRefinementStore, useSelectedEquip, useRecommendations } from '@/stores/useRefinementStore'
 import { materialOptions } from '@/data/equips'
+import { resolveStatI18nKey } from '@/data/stat-i18n-map'
+
+// Map Chinese equip types to i18n keys
+const TYPE_TO_KEY: Record<string, string> = {
+  '配件': 'edc',
+  '护手': 'hand',
+  '护甲': 'body',
+}
 
 export const RefinementPanel = memo(function RefinementPanel() {
   const t = useTranslations()
@@ -44,7 +52,7 @@ export const RefinementPanel = memo(function RefinementPanel() {
                     'border-border hover:border-foreground/40 hover:bg-muted/80',
                 )}
               >
-                {m}
+                {t(`materials.${m}`) ?? m}
               </Button>
             )
           })}
@@ -68,7 +76,7 @@ export const RefinementPanel = memo(function RefinementPanel() {
                 {selected.imageId && (
                   <Image
                     src={`/images/equip/${selected.imageId}.avif`}
-                    alt={selected.name}
+                    alt={t(`equips.${selected.id}`) ?? selected.name}
                     fill
                     sizes="80px"
                     className="object-cover"
@@ -88,21 +96,21 @@ export const RefinementPanel = memo(function RefinementPanel() {
               {/* Attributes */}
               <div className="flex-1 min-w-0">
                 <h3 className="text-sm font-semibold truncate mb-2">
-                  {selected.name}
+                  {t(`equips.${selected.id}`) ?? selected.name}
                 </h3>
                 <div className="flex flex-col gap-1 text-xs">
                   <div className="flex items-center gap-2">
                     <span className="text-muted-foreground shrink-0 w-14">
                       {t('refinement.type')}
                     </span>
-                    <span>{selected.type}</span>
+                    <span>{t(`equipTypes.${TYPE_TO_KEY[selected.type] ?? selected.type}`) ?? selected.type}</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <span className="text-muted-foreground shrink-0 w-14">
                       {t('refinement.subAttr1')}
                     </span>
                     <span className="font-medium">
-                      {selected.sub1 ? selected.sub1.display : t('refinement.none')}
+                      {selected.sub1 ? `${t(resolveStatI18nKey(selected.sub1.stat) ?? selected.sub1.stat)}+${selected.sub1.value}${selected.sub1.unit}` : t('refinement.none')}
                     </span>
                   </div>
                   <div className="flex items-center gap-2">
@@ -110,7 +118,7 @@ export const RefinementPanel = memo(function RefinementPanel() {
                       {t('refinement.subAttr2')}
                     </span>
                     <span className="font-medium">
-                      {selected.sub2 ? selected.sub2.display : t('refinement.none')}
+                      {selected.sub2 ? `${t(resolveStatI18nKey(selected.sub2.stat) ?? selected.sub2.stat)}+${selected.sub2.value}${selected.sub2.unit}` : t('refinement.none')}
                     </span>
                   </div>
                   <div className="flex items-center gap-2">
@@ -118,7 +126,7 @@ export const RefinementPanel = memo(function RefinementPanel() {
                       {t('refinement.specialEffect')}
                     </span>
                     <span className="font-medium">
-                      {selected.special ? selected.special.display : t('refinement.none')}
+                      {selected.special ? `${t(resolveStatI18nKey(selected.special.stat) ?? selected.special.stat)}+${selected.special.value}${selected.special.unit}` : t('refinement.none')}
                     </span>
                   </div>
                   <div className="flex items-center gap-2 mt-0.5">
@@ -126,7 +134,7 @@ export const RefinementPanel = memo(function RefinementPanel() {
                       {t('refinement.material')}
                     </span>
                     <span className="text-[11px] text-muted-foreground">
-                      {selected.material}
+                      {t(`materials.${selected.material}`) ?? selected.material}
                     </span>
                   </div>
                 </div>

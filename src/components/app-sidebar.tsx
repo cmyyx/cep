@@ -29,10 +29,15 @@ import {
   Download,
   Info,
   RefreshCw,
+  LogIn,
+  CircleUser,
+  AlertTriangle,
+  FileText,
+  Shield,
 } from 'lucide-react'
-import { Icon } from '@iconify/react'
 import { LanguageSwitcher } from './language-switcher'
-import { AuthDialog } from './shared/auth-dialog'
+import { useAuthStore } from '@/stores/useAuthStore'
+import { FEATURES } from '@/lib/features'
 import { useVersion } from '@/hooks/use-version'
 import { useAnnouncementStore, useImportantUnreadCount } from '@/stores/useAnnouncementStore'
 import { cn, formatTime } from '@/lib/utils'
@@ -55,6 +60,9 @@ export function AppSidebar() {
   const { state, setOpenMobile, isMobile } = useSidebar()
   const mounted = useSyncExternalStore(() => () => {}, () => true, () => false)
 
+  const username = useAuthStore((s) => s.username)
+  const accessToken = useAuthStore((s) => s.accessToken)
+  const sessionExpired = useAuthStore((s) => s.sessionExpired)
   const announcementTotalUnread = useAnnouncementStore((s) =>
     s.announcements.filter((a) => !s.readIds.includes(a.id)).length
   )
@@ -69,6 +77,20 @@ export function AppSidebar() {
     const rect = refreshBtnRef.current.getBoundingClientRect()
     setPopupPos({ top: rect.top + rect.height / 2, left: rect.right + 10 })
   }, [])
+
+  // Post-rehydration auth check. Runs once on mount after zustand
+  // rehydration completes. Only when auth feature is enabled.
+  const didHydrateCheck = useRef(false)
+  useEffect(() => {
+    if (!mounted || didHydrateCheck.current || !FEATURES.auth) return
+    didHydrateCheck.current = true
+    const s = useAuthStore.getState()
+    if (s.accessToken) {
+      s.fetchMe()
+    } else if (s.username) {
+      useAuthStore.setState({ sessionExpired: true })
+    }
+  }, [mounted])
 
   useEffect(() => {
     if (!mounted || state !== 'collapsed' || !isUpdateAvailable || !refreshBtnRef.current) return
@@ -180,6 +202,7 @@ export function AppSidebar() {
                     top: popupPos.top,
                     left: popupPos.left,
                     transform: 'translateY(-50%)',
+                    transition: 'top 0.3s ease, left 0.3s ease',
                     zIndex: 9999,
                   }}
                   className="bg-amber-500 text-white px-3 py-1.5 rounded-md text-sm font-medium shadow-[0_0_18px_rgba(245,158,11,0.5)] transition-transform hover:scale-105 whitespace-nowrap"
@@ -196,6 +219,7 @@ export function AppSidebar() {
             <SidebarMenuButton
               render={<NavLink href={`/${locale}/update`} loadingLabel={t('nav.update')} />}
               tooltip={t('nav.update')}
+              onClick={() => { if (isMobile) setOpenMobile(false) }}
             >
               <Download />
               {versionStr ? (
@@ -214,6 +238,7 @@ export function AppSidebar() {
           <SidebarMenuItem>
             <SidebarMenuButton
               render={<NavLink href={`/${locale}/settings`} loadingLabel={t('nav.settings')} />}
+              onClick={() => { if (isMobile) setOpenMobile(false) }}
             >
               <Settings />
               <span>{t('nav.settings')}</span>
@@ -222,23 +247,80 @@ export function AppSidebar() {
           <SidebarMenuItem>
             <SidebarMenuButton
               render={<NavLink href={`/${locale}/about`} loadingLabel={t('nav.about')} />}
+              onClick={() => { if (isMobile) setOpenMobile(false) }}
             >
               <Info />
               <span>{t('nav.about')}</span>
             </SidebarMenuButton>
           </SidebarMenuItem>
           <SidebarMenuItem>
-            <div className="flex items-center w-full">
-              <AuthDialog showLabel />
-              <SidebarMenuButton
-                render={<a href="https://github.com/cmyyx/cep" target="_blank" rel="noopener noreferrer" />}
-                className="w-8 flex-shrink-0 group-data-[collapsible=icon]:hidden"
-                tooltip="GitHub"
-              >
-                <Icon icon="octicon:mark-github-16" />
-              </SidebarMenuButton>
-            </div>
+            <SidebarMenuButton
+              render={<NavLink href={`/${locale}/privacy`} loadingLabel={t('nav.privacy')} />}
+              onClick={() => { if (isMobile) setOpenMobile(false) }}
+              size="sm"
+            >
+              <Shield className="size-3.5" />
+              <span className="text-xs text-muted-foreground">{t('nav.privacy')}</span>
+            </SidebarMenuButton>
           </SidebarMenuItem>
+          <SidebarMenuItem>
+            <SidebarMenuButton
+              render={<NavLink href={`/${locale}/terms`} loadingLabel={t('nav.terms')} />}
+              onClick={() => { if (isMobile) setOpenMobile(false) }}
+              size="sm"
+            >
+              <FileText className="size-3.5" />
+              <span className="text-xs text-muted-foreground">{t('nav.terms')}</span>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+          {!mounted ? null : !FEATURES.auth ? (
+            <SidebarMenuItem>
+              <SidebarMenuButton
+                render={<NavLink href={`/${locale}/login`} loadingLabel={t('nav.login')} />}
+                tooltip={t('nav.login')}
+                onClick={() => { if (isMobile) setOpenMobile(false) }}
+              >
+                <LogIn className="size-4" />
+                <span>{t('nav.login')}</span>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+          ) : accessToken ? (
+            <>
+              <SidebarMenuItem>
+                <SidebarMenuButton
+                  render={<NavLink href={`/${locale}/account`} loadingLabel={username || t('account.title')} />}
+                  tooltip={t('account.title')}
+                  onClick={() => { if (isMobile) setOpenMobile(false) }}
+                >
+                  <CircleUser className="size-4" />
+                  <span>{username || t('account.title')}</span>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+            </>
+          ) : sessionExpired ? (
+            <SidebarMenuItem>
+              <SidebarMenuButton
+                render={<NavLink href={`/${locale}/login?expired=1`} loadingLabel={t('account.sessionExpired')} />}
+                tooltip={t('account.sessionExpired')}
+                className="text-amber-600 hover:text-amber-700 hover:bg-amber-50 dark:text-amber-400 dark:hover:bg-amber-950"
+                onClick={() => { if (isMobile) setOpenMobile(false) }}
+              >
+                <AlertTriangle className="size-4" />
+                <span>{t('account.sessionExpired')}</span>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+          ) : (
+            <SidebarMenuItem>
+              <SidebarMenuButton
+                render={<NavLink href={`/${locale}/login`} loadingLabel={t('nav.login')} />}
+                tooltip={t('nav.login')}
+                onClick={() => { if (isMobile) setOpenMobile(false) }}
+              >
+                <LogIn className="size-4" />
+                <span>{t('nav.login')}</span>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+          )}
         </SidebarMenu>
       </SidebarFooter>
         {forceUpgrade && <ForceUpgradeDialog />}

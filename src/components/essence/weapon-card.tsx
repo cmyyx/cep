@@ -1,10 +1,12 @@
 'use client'
 
 import { memo, useCallback, useState, useRef, useEffect } from 'react'
+import { useTranslations } from 'next-intl'
 import { cn } from '@/lib/utils'
 import Image from 'next/image'
 import { useMatrixStore } from '@/stores/useMatrixStore'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
+import { resolveStatI18nKey } from '@/data/stat-i18n-map'
 import type { Weapon } from '@/types/matrix'
 
 /**
@@ -34,17 +36,23 @@ function useCloseOnScroll(
     }
 
     const handler = () => setOpen(false)
-    scrollables.forEach((el) =>
-      el.addEventListener('scroll', handler, { passive: true }),
-    )
+    scrollables.forEach((el) => {
+      el.addEventListener('scroll', handler, { passive: true })
+      el.addEventListener('wheel', handler, { passive: true })
+    })
     window.addEventListener('scroll', handler, { passive: true })
+    window.addEventListener('wheel', handler, { passive: true })
     document.scrollingElement?.addEventListener('scroll', handler, { passive: true })
+    document.scrollingElement?.addEventListener('wheel', handler, { passive: true })
     return () => {
-      scrollables.forEach((el) =>
-        el.removeEventListener('scroll', handler),
-      )
+      scrollables.forEach((el) => {
+        el.removeEventListener('scroll', handler)
+        el.removeEventListener('wheel', handler)
+      })
       window.removeEventListener('scroll', handler)
+      window.removeEventListener('wheel', handler)
       document.scrollingElement?.removeEventListener('scroll', handler)
+      document.scrollingElement?.removeEventListener('wheel', handler)
     }
   }, [open, setOpen])
 
@@ -69,6 +77,7 @@ export const WeaponCard = memo(function WeaponCard({
   isOnBanner,
   disabled,
 }: WeaponCardProps) {
+  const t = useTranslations()
   const toggleWeapon = useMatrixStore((s) => s.toggleWeapon)
   const [open, setOpen] = useState(false)
   const triggerRef = useCloseOnScroll(open, setOpen)
@@ -77,9 +86,13 @@ export const WeaponCard = memo(function WeaponCard({
     toggleWeapon(weapon.id)
   }, [toggleWeapon, weapon.id])
 
-  const imageSrc = weapon.imageId?.startsWith('data:')
-    ? weapon.imageId
-    : `/images/weapons/${weapon.imageId || 'wpn_sword_0001'}.avif`
+  const wid = weapon.id || 'wpn_sword_0001'
+  const isCustom = wid.startsWith('custom-')
+  const isPreview = wid.startsWith('preview:')
+  const imageSrc = (isCustom || isPreview) ? undefined : wid.startsWith('data:')
+    ? wid
+    : `/images/weapons/${wid}.avif`
+  const displayName = (isCustom || isPreview) ? weapon.name : (t(`weapons.${wid}`) ?? weapon.name)
 
   return (
     <Tooltip open={open} onOpenChange={setOpen}>
@@ -105,14 +118,18 @@ export const WeaponCard = memo(function WeaponCard({
       >
         {/* Weapon art */}
         <div className="absolute inset-0 z-10 flex items-center justify-center">
-          <Image
-            src={imageSrc}
-            alt={weapon.name}
-            fill
-            className="object-cover"
-            unoptimized
-            loading="lazy"
-          />
+          {isCustom || isPreview ? (
+            <span className="text-2xl font-bold text-white/50 select-none absolute inset-0 flex items-center justify-center">{weapon.name?.charAt(0) ?? '?'}</span>
+          ) : (
+            <Image
+              src={imageSrc!}
+              alt={displayName}
+              fill
+              className="object-cover"
+              unoptimized
+              loading="lazy"
+            />
+          )}
         </div>
 
         {/* Character avatars */}
@@ -148,7 +165,7 @@ export const WeaponCard = memo(function WeaponCard({
         {/* Weapon name */}
         <div className="absolute bottom-2 left-0 right-0 z-30 px-2 text-center">
           <p className="text-sm leading-tight font-semibold text-stone-100 truncate drop-shadow-md">
-            {weapon.name}
+            {displayName}
           </p>
         </div>
 
@@ -158,6 +175,20 @@ export const WeaponCard = memo(function WeaponCard({
             <Image
               src="/up.png"
               alt="UP"
+              width={132}
+              height={60}
+              className="w-8 h-auto drop-shadow-md"
+              unoptimized
+            />
+          </div>
+        )}
+
+        {/* Preview badge — only when not UP */}
+        {!isOnBanner && weapon.source === 'preview' && (
+          <div className="absolute top-2 right-0 z-30">
+            <Image
+              src="/preview.png"
+              alt=""
               width={132}
               height={60}
               className="w-8 h-auto drop-shadow-md"
@@ -178,8 +209,9 @@ export const WeaponCard = memo(function WeaponCard({
         className="text-xs text-foreground bg-popover/95"
       >
         <p className="text-muted-foreground/80">
-          {weapon.primaryStat} | {weapon.elementalDamage} |{' '}
-          {weapon.specialAbility}
+          {t(resolveStatI18nKey(weapon.primaryStat) ?? weapon.primaryStat)} |{' '}
+          {t(resolveStatI18nKey(weapon.elementalDamage) ?? weapon.elementalDamage)} |{' '}
+          {t(resolveStatI18nKey(weapon.specialAbility) ?? weapon.specialAbility)}
         </p>
       </TooltipContent>
     </Tooltip>

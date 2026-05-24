@@ -10,6 +10,12 @@ export async function generateMetadata({
   const t = await getTranslations({ locale })
   return {
     title: t('nav.essencePlanner'),
+    description: t('meta.essencePlannerDescription'),
+    openGraph: {
+      title: `${t('nav.essencePlanner')} - ${t('app.name')}`,
+      description: t('meta.essencePlannerDescription'),
+      images: [`/og/essence-planner/${locale}.png`],
+    },
   }
 }
 

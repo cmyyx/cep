@@ -3,33 +3,39 @@
 
 import type { CharacterGuideData } from '@/types/character-guide'
 
+import ardeliaData from './ardelia.json'
 import gilbertaData from './gilberta.json'
 import laevatainData from './laevatain.json'
 import lifengData from './lifeng.json'
 import pogranichnikData from './pogranichnik.json'
 import rossiData from './rossi.json'
 import tangtangData from './tangtang.json'
+import yvonneData from './yvonne.json'
 import zhuangfangyiData from './zhuangfangyi.json'
 
 /** All character guide data, keyed by lowercase ID */
 export const characterGuideData: Record<string, CharacterGuideData> = {
+  'ardelia': ardeliaData as CharacterGuideData,
   'gilberta': gilbertaData as CharacterGuideData,
   'laevatain': laevatainData as CharacterGuideData,
   'lifeng': lifengData as CharacterGuideData,
   'pogranichnik': pogranichnikData as CharacterGuideData,
   'rossi': rossiData as CharacterGuideData,
   'tangtang': tangtangData as CharacterGuideData,
+  'yvonne': yvonneData as CharacterGuideData,
   'zhuangfangyi': zhuangfangyiData as CharacterGuideData,
 }
 
 /** Ordered list of character guide data */
 export const characterGuideList: CharacterGuideData[] = [
+  ardeliaData as CharacterGuideData,
   gilbertaData as CharacterGuideData,
   laevatainData as CharacterGuideData,
   lifengData as CharacterGuideData,
   pogranichnikData as CharacterGuideData,
   rossiData as CharacterGuideData,
   tangtangData as CharacterGuideData,
+  yvonneData as CharacterGuideData,
   zhuangfangyiData as CharacterGuideData,
 ]
 

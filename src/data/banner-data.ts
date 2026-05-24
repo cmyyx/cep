@@ -40,6 +40,16 @@ export const bannerSchedule: BannerSchedule = {
       { start: '2026-04-17T12:00:00+08:00', end: '2026-05-22T12:00:00+08:00', version: '1.2「春晓时」新六星', period: 6, isRerun: false },
     ],
   },
+  弥弗: {
+    windows: [
+      { start: '2026-06-05T12:00:00+08:00', end: '2026-06-26T12:00:00+08:00', version: '1.3', period: 7, isRerun: false },
+    ],
+  },
+  卡缪: {
+    windows: [
+      { start: '2026-06-26T12:00:00+08:00', end: '2026-07-17T12:00:00+08:00', version: '1.3', period: 8, isRerun: false },
+    ],
+  },
 }
 
 /** Standard (permanent pool) 6-star characters — always available, never OUT */

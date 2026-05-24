@@ -3,15 +3,15 @@ import { solve } from './essence-solver'
 import type { Weapon, Dungeon } from '@/types/matrix'
 
 const allWeapons: Weapon[] = [
-  { id: 'w1', name: '武器A', rarity: 6, type: '单手剑', primaryStat: '力量提升', elementalDamage: '攻击提升', specialAbility: '压制', chars: [], imageId: 'wpn_sword_0001' },
-  { id: 'w2', name: '武器B', rarity: 5, type: '施术单元', primaryStat: '敏捷提升', elementalDamage: '攻击提升', specialAbility: '效益', chars: [], imageId: 'wpn_sword_0001' },
-  { id: 'w3', name: '武器C', rarity: 6, type: '手铳', primaryStat: '力量提升', elementalDamage: '寒冷伤害提升', specialAbility: '压制', chars: [], imageId: 'wpn_sword_0001' },
-  { id: 'w4', name: '武器D', rarity: 4, type: '双手剑', primaryStat: '智识提升', elementalDamage: '攻击提升', specialAbility: '压制', chars: [], imageId: 'wpn_sword_0001' },
-  { id: 'w5', name: '武器E', rarity: 6, type: '长柄武器', primaryStat: '意志提升', elementalDamage: '灼热伤害提升', specialAbility: '迸发', chars: [], imageId: 'wpn_sword_0001' },
+  { id: 'w1', name: '武器A', rarity: 6, type: '单手剑', primaryStat: '力量提升', elementalDamage: '攻击提升', specialAbility: '压制', chars: [] },
+  { id: 'w2', name: '武器B', rarity: 5, type: '施术单元', primaryStat: '敏捷提升', elementalDamage: '攻击提升', specialAbility: '效益', chars: [] },
+  { id: 'w3', name: '武器C', rarity: 6, type: '手铳', primaryStat: '力量提升', elementalDamage: '寒冷伤害提升', specialAbility: '压制', chars: [] },
+  { id: 'w4', name: '武器D', rarity: 4, type: '双手剑', primaryStat: '智识提升', elementalDamage: '攻击提升', specialAbility: '压制', chars: [] },
+  { id: 'w5', name: '武器E', rarity: 6, type: '长柄武器', primaryStat: '意志提升', elementalDamage: '灼热伤害提升', specialAbility: '迸发', chars: [] },
 ]
 
 const mockDungeons: Dungeon[] = [
-  { id: 'hub', name: '枢纽区', s2Pool: ['攻击提升', '寒冷伤害提升', '灼热伤害提升'], s3Pool: ['压制', '效益', '迸发'] },
+  { id: 'world_energy_point_group01', name: '枢纽区', s2Pool: ['攻击提升', '寒冷伤害提升', '灼热伤害提升'], s3Pool: ['压制', '效益', '迸发'] },
 ]
 
 describe('essence-solver', () => {

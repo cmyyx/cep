@@ -10,6 +10,12 @@ export async function generateMetadata({
   const t = await getTranslations({ locale })
   return {
     title: t('nav.backgroundPreview'),
+    description: t('meta.backgroundPreviewDescription'),
+    openGraph: {
+      title: `${t('nav.backgroundPreview')} - ${t('app.name')}`,
+      description: t('meta.backgroundPreviewDescription'),
+      images: [`/og/background-preview/${locale}.png`],
+    },
   }
 }
 

@@ -49,9 +49,9 @@ describe('useMatrixStore', () => {
   })
 
   it('toggleWeapon adds a weapon id and updates plans (sync rAF)', () => {
-    useMatrixStore.getState().toggleWeapon('guzhou')
+    useMatrixStore.getState().toggleWeapon('wpn_funnel_0015')
     const state = useMatrixStore.getState()
-    expect(state.selectedWeaponIds).toContain('guzhou')
+    expect(state.selectedWeaponIds).toContain('wpn_funnel_0015')
     expect(state.planOrder.length).toBeGreaterThan(0)
     expect(state.plansStale).toBe(false)
     for (const key of state.planOrder) {
@@ -60,9 +60,9 @@ describe('useMatrixStore', () => {
   })
 
   it('toggleWeapon removes a weapon id when already selected', () => {
-    useMatrixStore.getState().toggleWeapon('guzhou')
-    useMatrixStore.getState().toggleWeapon('guzhou')
-    expect(useMatrixStore.getState().selectedWeaponIds).not.toContain('guzhou')
+    useMatrixStore.getState().toggleWeapon('wpn_funnel_0015')
+    useMatrixStore.getState().toggleWeapon('wpn_funnel_0015')
+    expect(useMatrixStore.getState().selectedWeaponIds).not.toContain('wpn_funnel_0015')
   })
 
   it('selectAllWeapons selects all weapons and computes plans', () => {
@@ -94,7 +94,7 @@ describe('useMatrixStore', () => {
   })
 
   it('getPlansForSelection returns plans for a selected weapon', () => {
-    const plans = getPlansForSelection(new Set(['guzhou']))
+    const plans = getPlansForSelection(new Set(['wpn_funnel_0015']))
     expect(plans.length).toBeGreaterThan(0)
     for (const plan of plans) {
       expect(plan.dungeon).toBeDefined()
@@ -115,8 +115,8 @@ describe('useMatrixStore', () => {
 
   it('toggleWeapon reuses plan references when plan is unchanged', () => {
     // Select two weapons
-    useMatrixStore.getState().toggleWeapon('guzhou')
-    useMatrixStore.getState().toggleWeapon('luocao')
+    useMatrixStore.getState().toggleWeapon('wpn_funnel_0015')
+    useMatrixStore.getState().toggleWeapon('wpn_pistol_0011')
 
     // Capture references after two selections
     const stateBefore = useMatrixStore.getState()
@@ -126,7 +126,7 @@ describe('useMatrixStore', () => {
     }
 
     // Toggle a third weapon — some plans will change, most should keep refs
-    useMatrixStore.getState().toggleWeapon('wangxiang')
+    useMatrixStore.getState().toggleWeapon('wpn_pistol_0007')
     const stateAfter = useMatrixStore.getState()
 
     let reusedCount = 0
