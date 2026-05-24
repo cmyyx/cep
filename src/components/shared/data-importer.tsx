@@ -25,7 +25,7 @@ import {
   sanitizeObject,
   MAX_ITEMS_PER_MODULE,
 } from '@/lib/data-io-utils'
-import { PreviewToggle } from '@/components/shared/preview-toggle'
+import PreviewToggle from '@/components/shared/preview-toggle'
 
 // ─── 类型 ─────────────────────────────────────────────────────
 

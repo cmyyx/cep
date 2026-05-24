@@ -15,7 +15,7 @@ import { Download } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { getIoModules, countItems, buildSummary, readModule } from '@/lib/data-io-utils'
 import { versionData } from '@/generated/version-data'
-import { PreviewToggle } from '@/components/shared/preview-toggle'
+import PreviewToggle from '@/components/shared/preview-toggle'
 
 // ─── 工具 ─────────────────────────────────────────────────────
 

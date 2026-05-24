@@ -790,7 +790,7 @@ export default function AccountPage() {
                 </div>
               </div>
             </div>
-            {!showClaimForm?<Button variant="outline" size="sm" className="w-full" onClick={()=>setShowClaimForm(true)}><Send className="size-4 mr-2"/>{t('account.submitPayment')}</Button>:
+            {!showClaimForm?<Button variant="outline" size="sm" className="w-full" onClick={()=>{setShowClaimForm(true);setClaimSuccess(false)}}><Send className="size-4 mr-2"/>{t('account.submitPayment')}</Button>:
             <div className="space-y-3 rounded-lg border border-border p-4">
               <div className="flex flex-col gap-2"><Label className="text-xs">{t('account.paymentChannel')}</Label><Select value={claimChannel} onValueChange={v=>{setClaimChannel(v??'alipay');setClaimMerchant('')}}><SelectTrigger className="h-8 text-xs"><SelectValue>{(v:string)=>v==='alipay'?t('account.channelAlipay'):t('account.channelWechat')}</SelectValue></SelectTrigger><SelectContent><SelectItem value="alipay">{t('account.channelAlipay')}</SelectItem><SelectItem value="wechat">{t('account.channelWechat')}</SelectItem></SelectContent></Select></div>
               <div className="flex flex-col gap-1"><Label className="text-xs">{t('account.paymentTransactionId')}</Label><Input className="h-8 text-xs bg-card border-border" value={claimRef} onChange={e=>setClaimRef(e.target.value)} placeholder={t('account.paymentTransactionIdPlaceholder')}/></div>

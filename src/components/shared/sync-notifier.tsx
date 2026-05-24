@@ -135,9 +135,9 @@ export function SyncNotifier() {
         case 'push_success': {
           if (current?.kind === 'push_success' && current.phase === 'visible') {
             setToast((prev) => (prev ? { ...prev, phase: 'out' } : null))
-            setTimeout(() => {
+            addTimer(setTimeout(() => {
               createToast('push_success', 3000)
-            }, 220)
+            }, 220))
           } else if (!current || current.phase === 'out') {
             createToast('push_success', 3000)
           }
@@ -146,9 +146,9 @@ export function SyncNotifier() {
         case 'push_unchanged': {
           if (current?.kind === 'push_success' && current.phase === 'visible') {
             setToast((prev) => (prev ? { ...prev, phase: 'out' } : null))
-            setTimeout(() => {
+            addTimer(setTimeout(() => {
               createToast('push_unchanged', 3000)
-            }, 220)
+            }, 220))
           } else if (!current || current.phase === 'out') {
             createToast('push_unchanged', 3000)
           }
@@ -157,9 +157,9 @@ export function SyncNotifier() {
         case 'pull_success': {
           if (current?.kind === 'pull_success' && current.phase === 'visible') {
             setToast((prev) => (prev ? { ...prev, phase: 'out' } : null))
-            setTimeout(() => {
+            addTimer(setTimeout(() => {
               createToast('pull_success', 3000)
-            }, 220)
+            }, 220))
           } else if (!current || current.phase === 'out') {
             createToast('pull_success', 3000)
           }

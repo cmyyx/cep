@@ -4,7 +4,12 @@ import { useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { ChevronDown, ChevronRight } from 'lucide-react'
 
-export function PreviewToggle({ data, onToggle }: { data: unknown; onToggle?: () => void }) {
+interface PreviewToggleProps {
+  data: unknown
+  onToggle?: () => void
+}
+
+export default function PreviewToggle({ data, onToggle }: PreviewToggleProps) {
   const [expanded, setExpanded] = useState(false)
   if (data === null || data === undefined || typeof data !== 'object') return null
 
@@ -26,7 +31,7 @@ export function PreviewToggle({ data, onToggle }: { data: unknown; onToggle?: ()
       </Button>
       {expanded && (
         <div className="w-full mt-1 mb-1">
-          <pre className="max-h-40 overflow-y-auto text-[11px] leading-relaxed bg-muted/30 rounded-lg p-2 border whitespace-pre-wrap break-all">
+          <pre className="max-h-40 overflow-y-auto text-[11px] leading-relaxed bg-muted/30 rounded-lg p-2 shadow-[0_0_0_1px_rgba(0,0,0,0.08)] whitespace-pre-wrap break-all">
             {JSON.stringify(data, null, 2)}
           </pre>
         </div>

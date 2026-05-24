@@ -116,17 +116,17 @@ const WeaponThumbnail = memo(function WeaponThumbnail({
           <div
             ref={triggerRef}
             className={cn(
-              'relative w-12 h-12 rounded-md border overflow-hidden cursor-default',
+              'relative w-12 h-12 rounded-md overflow-hidden cursor-default',
               'bg-[url(/images/item-frame-bg.png)] bg-cover bg-center',
-              inRange && isSelected && 'border-amber-400/50',
-              inRange && !isSelected && 'border-border',
-              !inRange && isSelected && 'border-amber-400/20 opacity-40',
-              !inRange && !isSelected && 'border-border/50 opacity-30',
+              inRange && isSelected && 'shadow-[0_0_0_1px_rgba(251,191,36,0.5)]',
+              inRange && !isSelected && 'shadow-[0_0_0_1px_rgba(0,0,0,0.08)]',
+              !inRange && isSelected && 'shadow-[0_0_0_1px_rgba(251,191,36,0.2)] opacity-40',
+              !inRange && !isSelected && 'shadow-[0_0_0_1px_rgba(0,0,0,0.04)] opacity-30',
             )}
           />
         }
       >
-        {(() => { const s = weaponImageSrc(weapon.id); if (!s) return <span className="absolute inset-0 flex items-center justify-center text-lg font-bold text-white/40">{weapon.name?.charAt(0) ?? '?'}</span>; return <Image src={s} alt={weaponName} fill className="object-cover z-10" unoptimized /> })()}
+        {(() => { const s = weaponImageSrc(weapon.id); if (!s) return <span className="absolute inset-0 flex items-center justify-center text-lg font-semibold text-white/40">{weapon.name?.charAt(0) ?? '?'}</span>; return <Image src={s} alt={weaponName} fill className="object-cover z-10" unoptimized /> })()}
         <Image
           src={`/images/item-band-${weapon.rarity}.png`}
           alt=""
@@ -189,8 +189,8 @@ const WeaponRow = memo(function WeaponRow({
       )}
     >
       <div className="flex items-center gap-2 min-w-0">
-        <div className="relative size-10 rounded border border-border bg-muted/30 flex-shrink-0 overflow-hidden bg-[url(/images/item-frame-bg.png)] bg-cover bg-center">
-          {(() => { const s = weaponImageSrc(weapon.id); if (!s) return <span className="absolute inset-0 flex items-center justify-center text-lg font-bold text-white/40">{weapon.name?.charAt(0) ?? '?'}</span>; return <Image src={s} alt={weaponName} fill className="object-cover z-10" unoptimized /> })()}
+        <div className="relative size-10 rounded shadow-[0_0_0_1px_rgba(0,0,0,0.08)] bg-muted/30 flex-shrink-0 overflow-hidden bg-[url(/images/item-frame-bg.png)] bg-cover bg-center">
+          {(() => { const s = weaponImageSrc(weapon.id); if (!s) return <span className="absolute inset-0 flex items-center justify-center text-lg font-semibold text-white/40">{weapon.name?.charAt(0) ?? '?'}</span>; return <Image src={s} alt={weaponName} fill className="object-cover z-10" unoptimized /> })()}
           <Image
             src={`/images/item-band-${weapon.rarity}.png`}
             alt=""
@@ -258,7 +258,7 @@ const WeaponRow = memo(function WeaponRow({
               )}
             </div>
           )}
-          <span className="ml-auto text-[10px] font-bold flex-shrink-0 min-w-12 text-right">
+          <span className="ml-auto text-[10px] font-semibold flex-shrink-0 min-w-12 text-right">
             {inRange && isSelected && (
               <span className="text-amber-400">{selectedLabel}</span>
             )}
@@ -314,7 +314,7 @@ const WeaponRow = memo(function WeaponRow({
                 )}
               </div>
             )}
-            <span className="ml-auto text-[10px] font-bold flex-shrink-0 min-w-12 text-right">
+            <span className="ml-auto text-[10px] font-semibold flex-shrink-0 min-w-12 text-right">
               {inRange && isSelected && (
                 <span className="text-amber-400">{selectedLabel}</span>
               )}
@@ -371,7 +371,7 @@ const WeaponRow = memo(function WeaponRow({
                 )}
               </div>
             )}
-            <span className="ml-auto text-[10px] font-bold flex-shrink-0 min-w-12 text-right">
+            <span className="ml-auto text-[10px] font-semibold flex-shrink-0 min-w-12 text-right">
               {inRange && isSelected && (
                 <span className="text-amber-400">{selectedLabel}</span>
               )}
@@ -689,17 +689,17 @@ export const DungeonCard = memo(function DungeonCard({
                     {showOwnership && (
                       <>
                         <span className="min-w-[56px] inline-flex justify-center">
-                          <OwnershipBadge active={false} onToggle={() => {}} label={t('essence.weaponOwnershipLabel')} activeColor="emerald" />
+                          <span className="inline-flex items-center rounded-full px-1.5 py-px text-[9px] font-medium border">{'\u200B'}</span>
                         </span>
                         <span className="min-w-[56px] inline-flex justify-center">
-                          <OwnershipBadge active={false} onToggle={() => {}} label={t('essence.essenceOwnershipLabel')} activeColor="sky" />
+                          <span className="inline-flex items-center rounded-full px-1.5 py-px text-[9px] font-medium border">{'\u200B'}</span>
                         </span>
                       </>
                     )}
                     {showNotes && <div className="w-20 flex-shrink-0">{'\u200B'}</div>}
                   </div>
                 )}
-                <span className="ml-auto text-[10px] font-bold flex-shrink-0 min-w-12 text-right">{'\u200B'}</span>
+                <span className="ml-auto text-[10px] font-semibold flex-shrink-0 min-w-12 text-right">{'\u200B'}</span>
               </div>
             ))}
           </div>

@@ -90,7 +90,8 @@ export const useAuthStore = create<AuthState>()(
 
       logout: async () => {
         await logoutApi()
-        if (typeof window !== 'undefined') { try { localStorage.removeItem('cep-last-sync-sig') } catch {} }
+        clearTokens()
+        if (typeof window !== 'undefined') { try { localStorage.removeItem('cep-auth') } catch {}; try { localStorage.removeItem('cep-last-sync-sig') } catch {} }
         set({ accessToken: null, refreshToken: null, username: null, email: null, planTier: 'free', emailVerified: false, premiumUntil: null, premiumTrialUntil: null, sessionExpired: false, error: null, sessions: [] })
       },
 
