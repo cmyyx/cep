@@ -29,7 +29,7 @@ interface ThumbProps {
 }
 
 function weaponImageSrc(id?: string): string | undefined {
-  if (!id || id.startsWith('custom-')) return undefined
+  if (!id || id.startsWith('custom-') || id.startsWith('preview:')) return undefined
   if (id.startsWith('data:')) return id
   return `/images/weapons/${id}.avif`
 }
@@ -107,7 +107,7 @@ const WeaponThumbnail = memo(function WeaponThumbnail({
   const t = useTranslations()
   const [open, setOpen] = useState(false)
   const triggerRef = useCloseOnScroll(open, setOpen)
-  const weaponName = weapon.id?.startsWith('custom-') ? weapon.name : (t(`weapons.${weapon.id}`) ?? weapon.name)
+  const weaponName = (weapon.id?.startsWith('custom-') || weapon.id?.startsWith('preview:')) ? weapon.name : (t(`weapons.${weapon.id}`) ?? weapon.name)
 
   return (
     <Tooltip open={open} onOpenChange={setOpen}>
@@ -176,7 +176,7 @@ const WeaponRow = memo(function WeaponRow({
   onNoteChange,
 }: RowProps) {
   const t = useTranslations()
-  const weaponName = weapon.id?.startsWith('custom-') ? weapon.name : (t(`weapons.${weapon.id}`) ?? weapon.name)
+  const weaponName = (weapon.id?.startsWith('custom-') || weapon.id?.startsWith('preview:')) ? weapon.name : (t(`weapons.${weapon.id}`) ?? weapon.name)
 
   return (
     <div
@@ -676,7 +676,7 @@ export const DungeonCard = memo(function DungeonCard({
                so measured scrollWidth reflects real pixel widths with zero estimation */}
           <div ref={rowMeasureRef} aria-hidden className="absolute invisible pointer-events-none h-0 overflow-hidden">
             {visibleMatched.map(({ weapon }) => {
-              const weaponName = weapon.id?.startsWith('custom-') ? weapon.name : (t(`weapons.${weapon.id}`) ?? weapon.name)
+              const weaponName = (weapon.id?.startsWith('custom-') || weapon.id?.startsWith('preview:')) ? weapon.name : (t(`weapons.${weapon.id}`) ?? weapon.name)
               return (
               <div key={weapon.id} className="flex flex-wrap items-center gap-x-3 px-3 py-2 text-sm whitespace-nowrap">
                 <div className="flex items-center gap-2 min-w-0 shrink-0">

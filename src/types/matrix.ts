@@ -7,6 +7,8 @@ export interface Weapon {
   elementalDamage: string
   specialAbility: string
   chars: string[]
+  /** 'game' = from game client asset unpacking; 'preview' = from official pre-release announcements. */
+  source?: 'game' | 'preview'
 }
 
 export interface Dungeon {

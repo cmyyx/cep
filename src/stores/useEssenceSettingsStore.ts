@@ -6,6 +6,7 @@ import type {
 } from '@/types/essence-settings'
 import type { Weapon } from '@/types/matrix'
 import { isValidWeaponId, sanitizeCustomWeapons } from '@/lib/persist-sanitizer'
+import { resolveWeaponIdKeys } from '@/lib/resolve-weapon-id'
 
 // ─── Defaults ──────────────────────────────────────────────────────────────
 
@@ -58,23 +59,30 @@ function mergeWithDefaults(
     : []
   const activeCustomIds = new Set(customWeapons.map(w => w.id))
 
+  // Resolve preview: IDs in persisted records, then parse.
+  // This runs BEFORE isValidWeaponId filtering so released preview weapons
+  // (whose old preview: key is no longer in knownWeaponIds) aren't lost.
+  const rawOwnership = resolveWeaponIdKeys(
+    isDefined(persisted.weaponOwnership) ? (persisted.weaponOwnership as Record<string, unknown>) : {},
+  )
+  const rawEssenceStatus = resolveWeaponIdKeys(
+    isDefined(persisted.essenceStatus) ? (persisted.essenceStatus as Record<string, unknown>) : {},
+  )
+  const rawWeaponNotes = resolveWeaponIdKeys(
+    isDefined(persisted.weaponNotes) ? (persisted.weaponNotes as Record<string, unknown>) : {},
+  )
+
   const ownership: Record<string, boolean> = {}
-  if (isDefined(persisted.weaponOwnership)) {
-    for (const [k, v] of Object.entries(persisted.weaponOwnership as Record<string, boolean>)) {
-      if (v === true && isValidWeaponId(k) && (activeCustomIds.has(k) || !k.startsWith('custom-'))) ownership[k] = true
-    }
+  for (const [k, v] of Object.entries(rawOwnership)) {
+    if (v === true && isValidWeaponId(k) && (activeCustomIds.has(k) || !k.startsWith('custom-'))) ownership[k] = true
   }
   const essenceStatus: Record<string, boolean> = {}
-  if (isDefined(persisted.essenceStatus)) {
-    for (const [k, v] of Object.entries(persisted.essenceStatus as Record<string, boolean>)) {
-      if (v === true && isValidWeaponId(k) && (activeCustomIds.has(k) || !k.startsWith('custom-'))) essenceStatus[k] = true
-    }
+  for (const [k, v] of Object.entries(rawEssenceStatus)) {
+    if (v === true && isValidWeaponId(k) && (activeCustomIds.has(k) || !k.startsWith('custom-'))) essenceStatus[k] = true
   }
   const weaponNotes: Record<string, string> = {}
-  if (isDefined(persisted.weaponNotes)) {
-    for (const [k, v] of Object.entries(persisted.weaponNotes as Record<string, string>)) {
-      if (isValidWeaponId(k) && (activeCustomIds.has(k) || !k.startsWith('custom-'))) weaponNotes[k] = v
-    }
+  for (const [k, v] of Object.entries(rawWeaponNotes)) {
+    if (typeof v === 'string' && isValidWeaponId(k) && (activeCustomIds.has(k) || !k.startsWith('custom-'))) weaponNotes[k] = v
   }
   const regionFirst: string | null =
     typeof persisted.regionFirst === 'string' ? persisted.regionFirst : null

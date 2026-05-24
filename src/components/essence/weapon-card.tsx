@@ -88,10 +88,11 @@ export const WeaponCard = memo(function WeaponCard({
 
   const wid = weapon.id || 'wpn_sword_0001'
   const isCustom = wid.startsWith('custom-')
-  const imageSrc = isCustom ? undefined : wid.startsWith('data:')
+  const isPreview = wid.startsWith('preview:')
+  const imageSrc = (isCustom || isPreview) ? undefined : wid.startsWith('data:')
     ? wid
     : `/images/weapons/${wid}.avif`
-  const displayName = isCustom ? weapon.name : (t(`weapons.${wid}`) ?? weapon.name)
+  const displayName = (isCustom || isPreview) ? weapon.name : (t(`weapons.${wid}`) ?? weapon.name)
 
   return (
     <Tooltip open={open} onOpenChange={setOpen}>
@@ -117,7 +118,7 @@ export const WeaponCard = memo(function WeaponCard({
       >
         {/* Weapon art */}
         <div className="absolute inset-0 z-10 flex items-center justify-center">
-          {isCustom ? (
+          {isCustom || isPreview ? (
             <span className="text-2xl font-bold text-white/50 select-none absolute inset-0 flex items-center justify-center">{weapon.name?.charAt(0) ?? '?'}</span>
           ) : (
             <Image

@@ -3,6 +3,7 @@ import { persist } from 'zustand/middleware'
 import { sanitizeWeaponIdArray, getActiveCustomWeaponIds } from '@/lib/persist-sanitizer'
 import { useEssenceSettingsStore } from '@/stores/useEssenceSettingsStore'
 import { weapons } from '@/data/weapons'
+import { resolveWeaponId } from '@/lib/resolve-weapon-id'
 import { dungeons } from '@/data/dungeons'
 import { solve, type DungeonPlan } from '@/lib/planner/essence-solver'
 
@@ -268,13 +269,28 @@ export const useMatrixStore = create<MatrixState>()(
             ;(result as Record<string, unknown>)[key] = (p as Record<string, unknown>)[key]
           }
         }
+        // Resolve preview: IDs → current game IDs before sanitization.
+        // After resolution, persist will write back the game IDs — no
+        // migration table needed.
+        const rawIds = Array.isArray(result.selectedWeaponIds)
+          ? (result.selectedWeaponIds as string[])
+          : []
+        const resolvedIds = rawIds.map(resolveWeaponId)
+
+        // Resolve S1 selections — values are weapon ID arrays
+        if (result.dungeonS1Selections && typeof result.dungeonS1Selections === 'object') {
+          const raw = result.dungeonS1Selections as Record<string, string[]>
+          const resolved: Record<string, string[]> = {}
+          for (const [key, ids] of Object.entries(raw)) {
+            resolved[key] = Array.isArray(ids) ? ids.map(resolveWeaponId) : ids
+          }
+          result.dungeonS1Selections = resolved
+        }
+
         // Value-level sanitization: filter unknown weapon IDs, including
         // deleted custom weapons whose IDs still start with "custom-".
         const activeCustomIds = getActiveCustomWeaponIds()
-        result.selectedWeaponIds = sanitizeWeaponIdArray(
-          Array.isArray(result.selectedWeaponIds) ? result.selectedWeaponIds as string[] : [],
-          activeCustomIds,
-        )
+        result.selectedWeaponIds = sanitizeWeaponIdArray(resolvedIds, activeCustomIds)
         return result
       },
       partialize: (state) => ({
