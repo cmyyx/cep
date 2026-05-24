@@ -142,14 +142,17 @@ export const WeaponGrid = memo(function WeaponGrid() {
     [upCharSet],
   )
 
-  // Combined weapon list: custom first, then banner UP, then alphabetical
+  // Combined weapon list: custom → preview → banner UP → rest
   const allWeapons = useMemo(() => {
+    const previewWeapons: Weapon[] = []
     const bannerWeapons: Weapon[] = []
     const otherWeapons: Weapon[] = []
 
     for (const w of staticWeapons) {
       if (isWeaponUp(w)) {
         bannerWeapons.push(w)
+      } else if (w.source === 'preview') {
+        previewWeapons.push(w)
       } else {
         otherWeapons.push(w)
       }
@@ -165,10 +168,11 @@ export const WeaponGrid = memo(function WeaponGrid() {
       })
     }
 
+    sortWeapons(previewWeapons)
     sortWeapons(bannerWeapons)
     sortWeapons(otherWeapons)
 
-    return [...customWeapons, ...bannerWeapons, ...otherWeapons]
+    return [...customWeapons, ...previewWeapons, ...bannerWeapons, ...otherWeapons]
   }, [customWeapons, isWeaponUp])
 
   // Dynamic attr values based on full weapon list

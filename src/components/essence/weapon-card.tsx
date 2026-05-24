@@ -183,6 +183,20 @@ export const WeaponCard = memo(function WeaponCard({
           </div>
         )}
 
+        {/* Preview badge — only when not UP */}
+        {!isOnBanner && weapon.source === 'preview' && (
+          <div className="absolute top-2 right-0 z-30">
+            <Image
+              src="/preview.png"
+              alt="PREVIEW"
+              width={132}
+              height={60}
+              className="w-8 h-auto drop-shadow-md"
+              unoptimized
+            />
+          </div>
+        )}
+
         {/* Selected checkmark */}
         {isSelected && (
           <div className="absolute top-2 right-2 size-6 rounded-full bg-amber-400 flex items-center justify-center z-30 shadow-md">
