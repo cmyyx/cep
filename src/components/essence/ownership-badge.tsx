@@ -14,12 +14,14 @@ export function OwnershipBadge({
   label,
   activeColor,
   compact,
+  tabIndex,
 }: {
   active: boolean
   onToggle: () => void
   label: string
   activeColor: 'emerald' | 'sky'
   compact?: boolean
+  tabIndex?: number
 }) {
   const activeBg = activeColor === 'emerald' ? 'bg-emerald-600' : 'bg-sky-600'
   const activeBorder = activeColor === 'emerald' ? 'border-emerald-600' : 'border-sky-600'
@@ -30,6 +32,7 @@ export function OwnershipBadge({
         type="button"
         variant="ghost"
         size="icon-xs"
+        tabIndex={tabIndex}
         onClick={(e) => {
           e.stopPropagation()
           onToggle()
@@ -52,6 +55,7 @@ export function OwnershipBadge({
       type="button"
       variant="ghost"
       size="xs"
+      tabIndex={tabIndex}
       onClick={(e) => {
         e.stopPropagation()
         onToggle()

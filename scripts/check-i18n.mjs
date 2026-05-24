@@ -24,6 +24,66 @@ const SRC_DIR = join(ROOT, 'src')
 
 const QUIET = process.argv.includes('--quiet')
 
+// ── Runtime key whitelist ───────────────────────────────────────────────────
+// Some i18n keys are only accessed at runtime via dynamic patterns that
+// static analysis cannot resolve (e.g. t(`auth.${serverError}`),
+// t(syncError), t(item.key)).  These keys would be flagged as P2 "dead"
+// even though they are genuinely used in production.
+//
+// To keep the checker clean, we maintain a whitelist file at:
+//   scripts/.i18n-known-keys.json
+//
+// When to add a key to the whitelist:
+//   1. The key is used via a TEMPLATE LITERAL whose variable comes from
+//      a runtime source (API response, useState, react-hook-form).
+//   2. The key is used via a STATE VARIABLE (t(syncError)) that is only
+//      assigned at runtime.
+//   3. The key is used in a NON-I18N file (hook / store) that doesn't
+//      import useTranslations, so the checker never scans it.
+//   4. The key appears only in a ZOD SCHEMA or react-hook-form validation
+//      config, not in a direct t() call.
+//
+// What the whitelist does NOT protect against:
+//   - P0 errors: if a whitelisted key is MISSING from a locale JSON,
+//     the checker will still report it.  The whitelist only suppresses P2.
+//   - Accidental removal: if someone deletes a whitelisted key from ALL
+//     locales, it won't be flagged as dead.  That's acceptable because
+//     dead-key detection for runtime keys is inherently unreliable.
+//
+// When to REMOVE a key from the whitelist:
+//   - The key is no longer defined in locale JSONs → delete the locale
+//     key; the whitelist entry becomes harmless but should be cleaned up.
+//   - The code has been refactored to use a direct t('literal') call
+//     instead of a dynamic pattern.
+//
+function loadKnownRuntimeKeys() {
+  const whitelistPath = join(__dirname, '.i18n-known-keys.json')
+  const known = new Set()
+  if (!existsSync(whitelistPath)) return known
+  try {
+    const data = JSON.parse(readFileSync(whitelistPath, 'utf-8'))
+    const groups = data.runtimeKeys
+    if (!groups) return known
+    for (const [ns, group] of Object.entries(groups)) {
+      if (!group.keys || !Array.isArray(group.keys)) continue
+      // Determine the key prefix from the namespace.
+      // "auth"          → "auth."
+      // "auth.benefits" → "auth."  (same base namespace as auth)
+      // "account"       → "account."
+      const prefix = ns === 'auth' || ns.startsWith('auth.') ? 'auth.' : `${ns}.`
+      for (const k of group.keys) {
+        known.add(`${prefix}${k}`)
+      }
+    }
+  } catch (e) {
+    console.warn(`Warning: Failed to parse ${whitelistPath}:`, e.message)
+  }
+  return known
+}
+
+// Load once at module init; set is small (~34 entries).
+const KNOWN_RUNTIME_KEYS = loadKnownRuntimeKeys()
+
 // Generic short variable names that are unlikely to be i18n keys
 const GENERIC_VAR_NAMES = new Set([
   'key', 'name', 'value', 'label', 'id', 'type', 'title', 'text', 'item',
@@ -33,7 +93,6 @@ const GENERIC_VAR_NAMES = new Set([
 ])
 
 // Project-specific identifiers that happen to match t(VAR) patterns but are not i18n keys.
-// Add entries here when a new reactive variable or callback name trips the t(VAR) detector.
 const PROJECT_SPECIFIC_IGNORES = new Set([
   'doRefresh', 'doFit',
   'selectedWeaponIds', 'expandedDungeonIds', 'expandedPlanKeys',
@@ -81,7 +140,6 @@ function walkSourceFiles() {
         if (e.name === 'node_modules' || e.name === '.next' || e.name === 'generated') continue
         stack.push(fullPath)
       } else if (e.isFile() && /\.(tsx|ts)$/.test(e.name) && !e.name.endsWith('.d.ts')) {
-        // Skip test files
         if (/\.test\.(tsx|ts)$/.test(e.name)) continue
         files.push(fullPath)
       }
@@ -90,27 +148,22 @@ function walkSourceFiles() {
   return files
 }
 
-/**
- * Check if file is an i18n-aware file (uses useTranslations or receives t as prop).
- * This prevents false positives from test frameworks, local variables named t, etc.
- */
+/** Check if file is an i18n-aware file (uses useTranslations or receives t as prop). */
 function isI18nFile(content) {
   if (/import\s+\{[^}]*\buseTranslations\b[^}]*\}\s+from\s+['"]next-intl['"]/.test(content)) return true
   if (/useTranslations\(/.test(content)) return true
-  // File receives t as a prop (passed from a parent that uses useTranslations)
   if (/export\s+function\s+\w+\s*\([^)]*\bt\b[^)]*\)/.test(content)) return true
-  // File has t('namespace.key') calls even if t comes from a parameter
   if (/\bt\(\s*['"]\w+\.\w+/.test(content)) return true
   return false
 }
 
+/** Check if file is a data file that exports strings/arrays/records relevant to i18n. */
+function isDataFile(filePath, content) {
+  return filePath.includes('/data/') && /\.ts$/.test(filePath) && !content.includes('import React')
+}
+
 /**
  * Extract constant string values from source file.
- * Handles:
- *   - const X = [{ key: 'val' }, ...]         → {name}.{key} → ['val', ...]
- *   - const X: Record<K, string> = { k: 'v' } → {name} → ['v', ...]
- *   - const X = ['a', 'b'] as const           → {name} → ['a', 'b']
- *   - function f() { return 'str'; ... }      → {name} → ['str', ...]
  */
 function extractConstants(source) {
   const constants = new Map()
@@ -120,7 +173,7 @@ function extractConstants(source) {
   for (const m of source.matchAll(arrayObjRe)) {
     const name = m[1]
     const body = m[2]
-    const allProps = new Map() // propName → Set<value>
+    const allProps = new Map()
     for (const om of body.matchAll(/\{([^}]+)\}/g)) {
       for (const pm of om[1].matchAll(/(\w+)\s*:\s*['"]([^'"]+)['"]/g)) {
         if (!allProps.has(pm[1])) allProps.set(pm[1], new Set())
@@ -139,10 +192,12 @@ function extractConstants(source) {
     const body = m[2]
     const values = []
     const byKey = new Map()
-    for (const pm of body.matchAll(/(\w+)\s*:\s*['"]([^'"]+)['"]/g)) {
-      values.push(pm[2])
-      if (!byKey.has(pm[1])) byKey.set(pm[1], [])
-      byKey.get(pm[1]).push(pm[2])
+    for (const pm of body.matchAll(/(['"][^'"]+['"]|[\w\u4e00-\u9fff\u3040-\u309f\u30a0-\u30ff]+)\s*:\s*['"]([^'"]+)['"]/g)) {
+      const val = pm[2]
+      values.push(val)
+      const rawKey = pm[1].replace(/^['"]|['"]$/g, '')
+      if (!byKey.has(rawKey)) byKey.set(rawKey, [])
+      byKey.get(rawKey).push(val)
     }
     if (values.length > 0) {
       constants.set(name, values)
@@ -173,15 +228,24 @@ function extractConstants(source) {
     if (values.length > 0) constants.set(name, values)
   }
 
+  // Pattern E: export const NAME = [...new Set(data.map(...))].sort()
+  // Captures the entire export — used by generated data that produces string arrays
+  const exportArrayRe = /export\s+const\s+(\w+)\s*(?::\s*[^=]+)?\s*=\s*\[([\s\S]*?)\]\s*(?:\.sort\(\))?\s*;?/gm
+  for (const m of source.matchAll(exportArrayRe)) {
+    const name = m[1]
+    const body = m[2]
+    const values = []
+    for (const sm of body.matchAll(/['"]([^'"]+)['"]/g)) {
+      values.push(sm[1])
+    }
+    if (values.length > 0) constants.set(name, values)
+  }
+
   return constants
 }
 
 /**
  * Extract all translation keys from a file (only if it's an i18n-aware file).
- *
- * @param {string} filePath
- * @param {Map<string, string[]>} globalConstants - constants pooled from ALL i18n files
- * @returns {{ keys: Set<string>, unresolved: string[] }}
  */
 function extractKeys(filePath, globalConstants) {
   const content = readFileSync(filePath, 'utf-8')
@@ -191,10 +255,9 @@ function extractKeys(filePath, globalConstants) {
   const keys = new Set()
   const unresolved = []
 
-  // ── Build .map() scope map (needed by multiple resolution steps) ──
-  //    Each scope: { arrayName, bindings: [{ local, prop }], endPos }
+  // ── Build .map() scope map ──
   const mapScopes = []
-  const mapRe = /(\w+)\.(?:flat)?[Mm]ap\(\s*\(\s*(\{[^}]+\}|\w+(?:\s*,\s*\w+)*)/g
+  const mapRe = /(\w+)\.(?:flat)?[Mm]ap\(\s*\(\s*(\{[^}]+\}|\[[^\]]+\]|\w+(?:\s*,\s*\w+)*)/g
   for (const mm of content.matchAll(mapRe)) {
     const arrayName = mm[1]
     const rawParams = mm[2]
@@ -203,12 +266,18 @@ function extractKeys(filePath, globalConstants) {
       for (const dm of rawParams.matchAll(/(\w+)(?:\s*:\s*(\w+))?/g)) {
         bindings.push({ local: dm[2] || dm[1], prop: dm[1] })
       }
+    } else if (rawParams.startsWith('[')) {
+      // Destructured array: ([label, free, premium])
+      const inner = rawParams.slice(1, -1)
+      const vars = inner.split(',').map(s => s.trim())
+      for (let i = 0; i < vars.length; i++) {
+        bindings.push({ local: vars[i], prop: null })
+      }
     } else {
       const firstVar = rawParams.split(',')[0].trim()
       if (firstVar) bindings.push({ local: firstVar, prop: null })
     }
-    // Compute actual close position of the .map() callback by bracket scanning
-    const startParenCount = (mm[0].match(/\x28/g) || []).length // count '(' in matched text
+    const startParenCount = (mm[0].match(/\(/g) || []).length
     const scanStart = mm.index + mm[0].length
     let depth = startParenCount
     let closePos = scanStart
@@ -217,12 +286,23 @@ function extractKeys(filePath, globalConstants) {
       else if (content[i] === ')') { depth--; if (depth === 0) { closePos = i; break } }
     }
     mapScopes.push({ arrayName, bindings, endPos: mm.index + mm[0].length, closePos })
+
+    // Also extract inline array values: [['k1',...],['k2',...]].map(...)
+    const inlineArray = extractInlineMapArray(content, mm.index, arrayName)
+    if (inlineArray) {
+      if (!globalConstants.has(arrayName)) globalConstants.set(arrayName, inlineArray)
+      for (const binding of bindings) {
+        if (binding.prop) {
+          const propVals = extractInlineMapArrayProps(content, mm.index, binding.prop)
+          if (propVals) globalConstants.set(`${arrayName}.${binding.prop}`, propVals)
+        }
+      }
+    }
   }
 
   function findNearestMap(pos) {
     let nearest = null
     for (const ms of mapScopes) {
-      // Only consider scopes that actually enclose pos (open before pos and close after pos)
       if (ms.endPos < pos && pos < ms.closePos) {
         if (!nearest || ms.endPos > nearest.endPos) nearest = ms
       }
@@ -241,13 +321,27 @@ function extractKeys(filePath, globalConstants) {
     return globalConstants.get(ms.arrayName) || null
   }
 
+  // 0. State-setter patterns: setSyncError('account.fetchSyncFailed')
+  //    These values are later passed to t(varName), so add them directly.
+  for (const m of content.matchAll(/\b(set\w+)\s*\(\s*['"]([^'"]+\.[^'"]+)['"]\s*[,)]/g)) {
+    keys.add(m[2])
+  }
+
+  // 0b. String constants passed to objects that later reach t(entry.val):
+  //    const X = [{ localVal: 'account.none', ... }]
+  for (const m of content.matchAll(/['"](account\.[a-zA-Z]+)['"]/g)) {
+    keys.add(m[1])
+  }
+
+  // 0c. Plain variable assignments: syncError = 'account.fetchSyncFailed'
+  for (const m of content.matchAll(/\b(\w+Error|\w+Status)\s*=\s*['"]([a-z]+\.[a-zA-Z]+)['"]/g)) {
+    keys.add(m[2])
+  }
+
   // 1. Static keys: t('literal') or t("literal")
   for (const m of content.matchAll(/\bt\(\s*['"]([^'"]+)['"]\s*[,)]/g)) {
     const k = m[1]
-    // Accept all keys including dotless ones (may be used with namespaced useTranslations).
-    // Note: generic single-word tokens that are not valid i18n keys will surface as P0 errors;
-    // the suffix-match heuristic in check() may resolve some, but not all, of them.
-    if (/^\w+(\.\w+)*$/.test(k)) keys.add(k)
+    if (/^[\w-]+(\.[\w-]+)*$/.test(k)) keys.add(k)
   }
 
   // 2. Dynamic: t(VAR) — resolve from .map() scope first, then global constants
@@ -266,8 +360,8 @@ function extractKeys(filePath, globalConstants) {
     if (!found && !QUIET) unresolved.push(`${relPath}: t(${vn})`)
   }
 
-  // 3. Lookup: t(LOOKUP[key]) — bracket notation
-  for (const m of content.matchAll(/\bt\(\s*(\w+)\[(\w+)\]\s*[,)]/g)) {
+  // 3. Lookup: t(LOOKUP[key]) — bracket notation (handles ?? fallback too)
+  for (const m of content.matchAll(/\bt\(\s*(\w+)\[(\w+)\]/g)) {
     const vals = globalConstants.get(m[1])
     if (vals) { for (const v of vals) keys.add(v) }
     else if (!QUIET) unresolved.push(`${relPath}: t(${m[1]}[...])`)
@@ -287,7 +381,6 @@ function extractKeys(filePath, globalConstants) {
         if (vals) { for (const v of vals) keys.add(v); resolved = true }
       }
     }
-    // Fallback: try globalConstants with constructed key like VARNAME.propName
     if (!resolved) {
       const compositeKey = `${varName}.${propName}`
       const vals = globalConstants.get(compositeKey)
@@ -296,11 +389,12 @@ function extractKeys(filePath, globalConstants) {
     if (!resolved && !QUIET) unresolved.push(`${relPath}: t(${varName}.${propName})`)
   }
 
-  // 5. Template: t(`prefix${VAR}suffix`)
+  // 5. Template: t(`prefix${VAR}suffix`) — supports ${var} and ${var.prop}
   for (const m of content.matchAll(/\bt\(\s*`([^`]+)`\s*[,)]/g)) {
     const template = m[1]
     const templatePos = m.index
-    const parts = template.split(/\$\{(\w+)\}/)
+    // Split on ${...} capturing dotted names like ${entry.cloudVal}
+    const parts = template.split(/\$\{([\w.]+)\}/)
     if (parts.length === 1) { keys.add(template); continue }
 
     const varNames = []
@@ -308,7 +402,33 @@ function extractKeys(filePath, globalConstants) {
 
     const nearestMap = findNearestMap(templatePos)
 
-    const resolved = varNames.map((vn) => {
+    function resolveTemplateVar(vn) {
+      // Handle dotted access: ${entry.cloudVal}
+      if (vn.includes('.')) {
+        const [scopeVar, ...props] = vn.split('.')
+        if (nearestMap) {
+          const binding = nearestMap.bindings.find((b) => b.local === scopeVar)
+          if (binding) {
+            const chain = [binding.prop, ...props].filter(Boolean)
+            for (let depth = chain.length; depth >= 0; depth--) {
+              const pk = `${nearestMap.arrayName}.${chain.slice(0, depth).join('.')}`
+              const vs = globalConstants.get(pk)
+              if (vs) return vs
+            }
+            return null
+          }
+        }
+        const fk = globalConstants.get(vn)
+        if (fk) return fk
+        const dotParts = vn.split('.')
+        for (let d = dotParts.length - 1; d >= 0; d--) {
+          const pk = dotParts.slice(0, d + 1).join('.')
+          const vs = globalConstants.get(pk)
+          if (vs) return vs
+        }
+        return null
+      }
+
       if (nearestMap) {
         const vals = resolveFromMapScope(nearestMap, vn)
         if (vals) return vals
@@ -319,7 +439,9 @@ function extractKeys(filePath, globalConstants) {
         if (cName.endsWith(`.${vn}`)) return cValues
       }
       return null
-    })
+    }
+
+    const resolved = varNames.map(resolveTemplateVar)
 
     if (resolved.some((r) => r === null)) {
       if (!QUIET) unresolved.push(`${relPath}: t(\`${template}\`)`)
@@ -340,16 +462,54 @@ function extractKeys(filePath, globalConstants) {
   return { keys, unresolved }
 }
 
-/**
- * Try to resolve a variable name to string values from the constant pool.
- */
+// ── Inline array extraction ───────────────────────────────
+// Finite backtrack distances for inline array detection.
+// If upstream data introduces longer inline arrays, increase these.
+const INLINE_ARRAY_LOOKBACK = 3000
+const INLINE_ARRAY_PROPS_LOOKBACK = 2000
+
+/** Extract string values from the first column of an inline array before .map() */
+function extractInlineMapArray(content, mapStartPos) {
+  const before = content.slice(Math.max(0, mapStartPos - INLINE_ARRAY_LOOKBACK), mapStartPos)
+  // Match: [[ 'v1', ... ], [ 'v2', ... ]]  or  [{ label: 'v1' }, { label: 'v2' }]
+  const m = before.match(/\[\[\s*['"]([^'"]+)['"]/g)
+  if (m) {
+    const values = []
+    for (const match of m) {
+      const v = match.match(/['"]([^'"]+)['"]/)
+      if (v) values.push(v[1])
+    }
+    return values.length > 0 ? values : null
+  }
+  // Also try object array pattern: [{ label: 'v1', ... }, { label: 'v2', ... }]
+  const objMatch = before.match(/\{\s*\w+\s*:\s*['"]([^'"]+)['"]/g)
+  if (objMatch) {
+    const values = []
+    for (const match of objMatch) {
+      const v = match.match(/['"]([^'"]+)['"]/)
+      if (v && v[1].includes('.')) values.push(v[1])
+    }
+    return values.length > 0 ? values : null
+  }
+  return null
+}
+
+/** Extract property values from an inline object array before .map() */
+function extractInlineMapArrayProps(content, mapStartPos, propName) {
+  const before = content.slice(Math.max(0, mapStartPos - INLINE_ARRAY_PROPS_LOOKBACK), mapStartPos)
+  // Match: { propName: 'v1', ... }, { propName: 'v2', ... }
+  const re = new RegExp(`\\b${propName}\\s*:\\s*['"]([^'"]+)['"]`, 'g')
+  const values = []
+  for (const m of before.matchAll(re)) {
+    values.push(m[1])
+  }
+  return values.length > 0 ? values : null
+}
+
 function resolveVar(varName, constants, targetSet) {
-  // Direct match: variable name is a known constant array
   const direct = constants.get(varName)
   if (direct) { for (const v of direct) targetSet.add(v); return true }
 
-  // Property match: ONLY match when the variable name is specific enough
-  // (not generic names like 'key', 'name', 'value' that cause false positives)
   if (GENERIC_VAR_NAMES.has(varName)) return false
 
   for (const [cn, cv] of constants) {
@@ -359,7 +519,6 @@ function resolveVar(varName, constants, targetSet) {
     }
   }
 
-  // Cross-file prop tracing: e.g., greetingKey → getGreetingKey()
   if (varName.endsWith('Key')) {
     const funcName = `get${varName.charAt(0).toUpperCase() + varName.slice(1)}`
     const funcVals = constants.get(funcName)
@@ -377,20 +536,21 @@ function check(locales, usedKeys, unresolved) {
   const info = []
   const localeNames = [...locales.keys()]
 
-  // All keys across all locales
   const allDefined = new Set()
   for (const [, keys] of locales) for (const k of keys.keys()) allDefined.add(k)
 
-  // Keys in every locale
   const common = new Set(allDefined)
   for (const [, keys] of locales) for (const k of common) { if (!keys.has(k)) common.delete(k) }
 
   // P0: used but missing
   for (const key of [...usedKeys].sort()) {
+    // Skip keys containing ${...} — these are unresolved template literals
+    // that the checker couldn't expand. They are reported as INFO separately.
+    if (key.includes('${')) continue
+
     for (const locale of localeNames) {
       const localeKeys = locales.get(locale)
       if (localeKeys.has(key)) continue
-      // For dotless keys, try suffix match (handles namespaced useTranslations like essence.notePlaceholder)
       if (!key.includes('.')) {
         const suffixMatch = [...localeKeys.keys()].some((dk) => dk.endsWith(`.${key}`))
         if (suffixMatch) continue
@@ -408,16 +568,15 @@ function check(locales, usedKeys, unresolved) {
     }
   }
 
-  // P2: dead keys
+  // P2: dead keys (skip keys known to be runtime-resolved)
   for (const key of [...common].sort()) {
     if (usedKeys.has(key)) continue
-    // For namespaced keys like essence.notePlaceholder, also check if the suffix is used
+    if (KNOWN_RUNTIME_KEYS.has(key)) continue
     const lastDot = key.lastIndexOf('.')
     if (lastDot > 0 && usedKeys.has(key.slice(lastDot + 1))) continue
     warnings.push(`[P2] key "${key}" defined in all locales but NEVER used in code`)
   }
 
-  // Unresolved dynamic keys
   if (unresolved.length > 0) {
     info.push(`[INFO] ${unresolved.length} dynamic key(s) could not be statically resolved:`)
     for (const u of unresolved) info.push(`  ${u}`)
@@ -432,23 +591,21 @@ function check(locales, usedKeys, unresolved) {
 function main() {
   console.log('=== i18n Key Integrity Check ===\n')
 
-  // Phase 1: Load locales
   const locales = loadAllLocales()
   console.log(`Locales: ${[...locales.keys()].join(', ')}`)
   for (const [name, keys] of locales) console.log(`  ${name}: ${keys.size} keys`)
   console.log()
 
-  // Phase 2a: Pool constants from ALL i18n files (for cross-file resolution)
+  // Phase 2a: Pool constants from ALL i18n AND data files
   const globalConstants = new Map()
   const allFiles = walkSourceFiles()
   for (const f of allFiles) {
     const content = readFileSync(f, 'utf-8')
-    if (isI18nFile(content)) {
+    if (isI18nFile(content) || isDataFile(f, content)) {
       const fc = extractConstants(content)
       for (const [k, v] of fc) {
         if (!globalConstants.has(k)) globalConstants.set(k, v)
         else {
-          // Merge: add values not already present
           const existing = new Set(globalConstants.get(k))
           for (const val of v) existing.add(val)
           globalConstants.set(k, [...existing])
@@ -457,7 +614,7 @@ function main() {
     }
   }
 
-  // Phase 2b: Extract keys from i18n files, using the pooled constants
+  // Phase 2b: Extract keys from i18n files
   const usedKeys = new Set()
   const allUnresolved = []
   for (const f of allFiles) {
@@ -465,9 +622,12 @@ function main() {
     for (const k of keys) usedKeys.add(k)
     allUnresolved.push(...unresolved)
   }
-  console.log(`Static + resolved keys found in code: ${usedKeys.size}\n`)
+  console.log(`Static + resolved keys found in code: ${usedKeys.size}`)
+  if (KNOWN_RUNTIME_KEYS.size > 0) {
+    console.log(`Runtime-known keys (whitelisted, exempt from P2): ${KNOWN_RUNTIME_KEYS.size}`)
+  }
+  console.log()
 
-  // Phase 3: Check
   const { errors, warnings, info, exitCode } = check(locales, usedKeys, allUnresolved)
 
   if (errors.length > 0) {

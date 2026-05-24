@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/immutability */
 'use client'
 
 import { useCallback } from 'react'
@@ -15,20 +14,32 @@ export function EditorAttributionsTab({
   draft: EditorDraftCharacter
 }) {
   const t = useTranslations()
-  const markDirty = useEditorStore((s) => s.markDirty)
-  const dirty = useCallback(() => markDirty(draft.id), [draft.id, markDirty])
+  const updateDraft = useEditorStore((s) => s.updateDraft)
 
   const addAttribution = useCallback(() => {
-    draft.guide.attributions.push({ role: '', name: '', url: '', note: '' })
-    dirty()
-  }, [draft, dirty])
+    updateDraft(draft.id, (d) => {
+      d.guide.attributions.push({ role: '', name: '', url: '', note: '' })
+    })
+  }, [draft.id, updateDraft])
 
   const removeAttribution = useCallback(
     (index: number) => {
-      draft.guide.attributions.splice(index, 1)
-      dirty()
+      updateDraft(draft.id, (d) => {
+        d.guide.attributions.splice(index, 1)
+      })
     },
-    [draft, dirty]
+    [draft.id, updateDraft]
+  )
+
+  const updateAttr = useCallback(
+    (index: number, field: string, value: string) => {
+      updateDraft(draft.id, (d) => {
+        const attr = d.guide.attributions[index]
+        if (!attr) return
+        ;(attr as unknown as Record<string, unknown>)[field] = value
+      })
+    },
+    [draft.id, updateDraft]
   )
 
   return (
@@ -63,7 +74,7 @@ export function EditorAttributionsTab({
               <label className="text-[11px] text-muted-foreground">Role</label>
               <Input
                 value={attr.role}
-                onChange={(e) => { attr.role = e.target.value; dirty() }}
+                onChange={(e) => updateAttr(ai, 'role', e.target.value)}
                 placeholder={t('editor.placeholderAttributionRole')}
                 className="h-7 text-xs"
               />
@@ -72,7 +83,7 @@ export function EditorAttributionsTab({
               <label className="text-[11px] text-muted-foreground">Name</label>
               <Input
                 value={attr.name}
-                onChange={(e) => { attr.name = e.target.value; dirty() }}
+                onChange={(e) => updateAttr(ai, 'name', e.target.value)}
                 placeholder={t('editor.placeholderAttributionName')}
                 className="h-7 text-xs"
               />
@@ -82,7 +93,7 @@ export function EditorAttributionsTab({
             <label className="text-[11px] text-muted-foreground">URL</label>
             <Input
               value={attr.url}
-              onChange={(e) => { attr.url = e.target.value; dirty() }}
+              onChange={(e) => updateAttr(ai, 'url', e.target.value)}
               placeholder="https://..."
               className="h-7 text-xs"
             />
@@ -91,7 +102,7 @@ export function EditorAttributionsTab({
             <label className="text-[11px] text-muted-foreground">Note</label>
             <Input
               value={attr.note}
-              onChange={(e) => { attr.note = e.target.value; dirty() }}
+              onChange={(e) => updateAttr(ai, 'note', e.target.value)}
               placeholder={t('editor.placeholderAttributionNote')}
               className="h-7 text-xs"
             />

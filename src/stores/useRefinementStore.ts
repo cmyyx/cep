@@ -1,5 +1,6 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
+import { sanitizeEquipId } from '@/lib/persist-sanitizer'
 import type { Equip, SlotRecommendation } from '@/types/refinement'
 import {
   equips,
@@ -127,23 +128,30 @@ export const useRefinementStore = create<RefinementState>()(
       }),
       merge: (persisted, current) => {
         const p = persisted as Record<string, unknown> | null
+        if (!p) return current
+        // Only keep keys that exist in the current state
+        const result = { ...current }
+        for (const key of Object.keys(current)) {
+          if (key in (p as Record<string, unknown>)) {
+            ;(result as Record<string, unknown>)[key] = (p as Record<string, unknown>)[key]
+          }
+        }
         // Rebuild collapsedSets with current setNames, falling back to true for missing keys
         const mergedCollapsed: Record<string, boolean> = {}
         for (const name of setNames) {
-          const persistedCollapsed = p?.collapsedSets as Record<string, boolean> | undefined
+          const persistedCollapsed = result.collapsedSets as Record<string, boolean> | undefined
           mergedCollapsed[name] =
             typeof persistedCollapsed?.[name] === 'boolean'
               ? persistedCollapsed[name]
               : true
         }
-        return {
-          ...current,
-          selectedEquipId:
-            typeof p?.selectedEquipId === 'string' ? p.selectedEquipId : null,
-          collapsedSets: mergedCollapsed,
-          filterCollapsed:
-            typeof p?.filterCollapsed === 'boolean' ? p.filterCollapsed : true,
-        }
+        result.selectedEquipId = sanitizeEquipId(
+          typeof result.selectedEquipId === 'string' ? result.selectedEquipId : null
+        )
+        result.collapsedSets = mergedCollapsed
+        result.filterCollapsed =
+          typeof result.filterCollapsed === 'boolean' ? result.filterCollapsed : true
+        return result
       },
     },
   ),

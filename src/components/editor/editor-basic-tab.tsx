@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/immutability */
 'use client'
 
 import { useCallback, useMemo, useState, useEffect, useRef } from 'react'
@@ -24,55 +23,56 @@ export type EditorBasicTabProps = {
 
 export function EditorBasicTab({ draft }: EditorBasicTabProps) {
   const t = useTranslations()
-  const markDirty = useEditorStore((s) => s.markDirty)
+  const updateDraft = useEditorStore((s) => s.updateDraft)
   const setSelectedId = useEditorStore((s) => s.setSelectedId)
-  const allDrafts = useEditorStore((s) => s.draftCharacters)
 
   // Local ID state — tracks what the user sees in the input.
-  // Only committed to draft.id when it's valid (no collision).
   const [localId, setLocalId] = useState(draft.id)
 
-  // Sync localId when the draft changes externally (e.g. switching characters)
-  const prevDraftRef = useRef(draft)
+  // Sync localId only when the draft identity changes (switching characters)
+  const prevIdRef = useRef(draft.id)
   useEffect(() => {
-    if (prevDraftRef.current !== draft) {
+    if (prevIdRef.current !== draft.id) {
       setLocalId(draft.id)
-      prevDraftRef.current = draft
+      prevIdRef.current = draft.id
     }
-  }, [draft])
+  }, [draft.id])
 
-  // Check if the local ID collides with another draft (not self)
+  // Check if the local ID collides with another draft (not self).
+  // Reads from the store synchronously to avoid stale-closure issues.
   const idCollision = useMemo(() => {
+    const allDrafts = useEditorStore.getState().draftCharacters
     const normalized = localId.toLowerCase()
     return allDrafts.find(
       (c) => c.id.toLowerCase() === normalized && c.id !== draft.id
     )
-  }, [localId, allDrafts, draft.id])
+  }, [localId, draft.id])
 
-  // Commit ID to draft only when it's valid (unique)
+  // Commit ID to draft only when valid (unique and non-empty)
   const commitId = useCallback(
     (newId: string) => {
       const normalized = newId.toLowerCase()
-      if (!normalized) return false // don't commit empty
+      if (!normalized) return false
+
+      const allDrafts = useEditorStore.getState().draftCharacters
       const collision = allDrafts.find(
         (c) => c.id.toLowerCase() === normalized && c.id !== draft.id
       )
       if (collision) return false
-      const oldId = draft.id
-      ;(draft as unknown as Record<string, unknown>)['id'] = normalized
-      if (normalized !== oldId) {
-        setSelectedId(normalized)
-      }
-      markDirty(normalized)
+
+      updateDraft(draft.id, (d) => {
+        d.id = normalized
+      })
+      setSelectedId(normalized)
       return true
     },
-    [draft, allDrafts, setSelectedId, markDirty]
+    [draft.id, updateDraft, setSelectedId]
   )
 
   const handleIdChange = useCallback(
     (value: string) => {
-      // Only allow lowercase letters a-z
-      const filtered = value.replace(/[^a-zA-Z]/g, '').toLowerCase()
+      // Allow lowercase letters a-z and hyphens
+      const filtered = value.replace(/[^a-zA-Z-]/g, '').toLowerCase()
       setLocalId(filtered)
       commitId(filtered)
     },
@@ -81,18 +81,20 @@ export function EditorBasicTab({ draft }: EditorBasicTabProps) {
 
   const updateField = useCallback(
     (field: string, value: string | number) => {
-      ;(draft as unknown as Record<string, unknown>)[field] = value
-      markDirty(draft.id)
+      updateDraft(draft.id, (d) => {
+        ;(d as unknown as Record<string, unknown>)[field] = value
+      })
     },
-    [draft, markDirty]
+    [draft.id, updateDraft]
   )
 
   const updateStat = useCallback(
     (key: string, value: string) => {
-      draft.stats[key as keyof typeof draft.stats] = value
-      markDirty(draft.id)
+      updateDraft(draft.id, (d) => {
+        d.stats[key as keyof typeof d.stats] = value
+      })
     },
-    [draft, markDirty]
+    [draft.id, updateDraft]
   )
 
   return (
@@ -107,7 +109,7 @@ export function EditorBasicTab({ draft }: EditorBasicTabProps) {
             onChange={(e) => handleIdChange(e.target.value)}
             className={cn('h-8 text-sm font-geist-mono', idCollision && 'border-ship-red ring-1 ring-ship-red/30')}
             placeholder={t('editor.placeholderCharacterId')}
-            pattern="[a-z]+"
+            pattern="[a-z-]+"
             autoComplete="off"
             spellCheck={false}
           />

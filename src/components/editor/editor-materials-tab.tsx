@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/immutability */
 'use client'
 
 import { useCallback } from 'react'
@@ -18,35 +17,36 @@ export function EditorMaterialsTab({
   draft: EditorDraftCharacter
 }) {
   const t = useTranslations()
-  const markDirty = useEditorStore((s) => s.markDirty)
-
-  const dirty = useCallback(() => markDirty(draft.id), [draft.id, markDirty])
+  const updateDraft = useEditorStore((s) => s.updateDraft)
 
   const addMaterial = useCallback(
     (level: (typeof ELITE_LEVELS)[number]) => {
-      if (!draft.materials[level]) draft.materials[level] = []
-      draft.materials[level].push('')
-      dirty()
+      updateDraft(draft.id, (d) => {
+        if (!d.materials[level]) d.materials[level] = []
+        d.materials[level].push('')
+      })
     },
-    [draft, dirty]
+    [draft.id, updateDraft]
   )
 
   const removeMaterial = useCallback(
     (level: (typeof ELITE_LEVELS)[number], index: number) => {
-      if (!draft.materials[level]) return
-      draft.materials[level].splice(index, 1)
-      dirty()
+      updateDraft(draft.id, (d) => {
+        if (!d.materials[level]) return
+        d.materials[level].splice(index, 1)
+      })
     },
-    [draft, dirty]
+    [draft.id, updateDraft]
   )
 
   const updateMaterial = useCallback(
     (level: (typeof ELITE_LEVELS)[number], index: number, value: string) => {
-      if (!draft.materials[level]) draft.materials[level] = []
-      draft.materials[level][index] = value
-      dirty()
+      updateDraft(draft.id, (d) => {
+        if (!d.materials[level]) d.materials[level] = []
+        d.materials[level][index] = value
+      })
     },
-    [draft, dirty]
+    [draft.id, updateDraft]
   )
 
   return (

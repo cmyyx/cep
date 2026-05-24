@@ -11,7 +11,10 @@ import { EssenceSettingsDialog } from '@/components/essence/essence-settings-dia
 import { CustomWeaponDialog } from '@/components/essence/custom-weapon-dialog'
 import { useMatrixStore } from '@/stores/useMatrixStore'
 import { useEssenceSettingsStore } from '@/stores/useEssenceSettingsStore'
+import { useBannerStore } from '@/stores/useBannerStore'
+import { setSkipNextPush } from '@/hooks/useAutoSync'
 import { getRegion, getSubRegion, getRegions, getSubRegions } from '@/data/dungeons'
+import { regionI18nKey } from '@/data/region-i18n'
 import { dungeons } from '@/data/dungeons'
 import { weapons as staticWeapons } from '@/data/weapons'
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@/components/ui/sheet'
@@ -61,8 +64,13 @@ export default function EssencePlannerPage() {
   const hideUnownedPlans = useEssenceSettingsStore((s) => s.hideUnownedWeaponsPlans)
   const hideEssenceOwnedPlans = useEssenceSettingsStore((s) => s.hideEssenceOwnedWeaponsPlans)
   const onlyBothOwned = useEssenceSettingsStore((s) => s.onlyHideWhenBothOwned)
+  const keepUpVisiblePlans = useEssenceSettingsStore((s) => s.keepUpVisiblePlans)
   const weaponOwnership = useEssenceSettingsStore((s) => s.weaponOwnership)
   const essenceStatus = useEssenceSettingsStore((s) => s.essenceStatus)
+
+  // UP character names for plan-side UP bypass
+  const upCharacterNames = useBannerStore((s) => s.upCharacterNames)
+  const upCharSet = useMemo(() => new Set(upCharacterNames), [upCharacterNames])
 
   const selectedCount = selectedWeaponIds.length
   const noWeaponsSelected = selectedCount === 0
@@ -85,28 +93,38 @@ export default function EssencePlannerPage() {
     [expandedPlanKeys],
   )
 
-  // Helper: count visible selected weapons in a plan (respecting hide settings)
-  const countVisibleSelected = useCallback(
-    (plan: import('@/lib/planner/essence-solver').DungeonPlan): number => {
+  // Helper: check whether a weapon should be visible in plan cards (respects hide settings)
+  const isWeaponVisibleInPlans = useCallback(
+    (weapon: import('@/types/matrix').Weapon): boolean => {
+      // UP weapons bypass hide filters when the setting is enabled
+      if (keepUpVisiblePlans && weapon.chars.some((c) => upCharSet.has(c))) return true
+      if (hideFourStarPlans && weapon.rarity === 4) return false
+      if (hideUnownedPlans && weaponOwnership[weapon.id] !== true) return false
+      if (hideEssenceOwnedPlans) {
+        const eOwned = essenceStatus[weapon.id] === true
+        const wOwned = weaponOwnership[weapon.id] === true
+        if (onlyBothOwned) {
+          if (eOwned && wOwned) return false
+        } else {
+          if (eOwned) return false
+        }
+      }
+      return true
+    },
+    [keepUpVisiblePlans, upCharSet, hideFourStarPlans, hideUnownedPlans, hideEssenceOwnedPlans, onlyBothOwned, weaponOwnership, essenceStatus],
+  )
+
+  // Count visible weapons in a plan (selected-only or all)
+  const countPlanWeapons = useCallback(
+    (plan: import('@/lib/planner/essence-solver').DungeonPlan, selectedOnly: boolean): number => {
       let count = 0
       for (const { weapon, isSelected } of plan.matchedWeapons) {
-        if (!isSelected) continue
-        if (hideFourStarPlans && weapon.rarity === 4) continue
-        if (hideUnownedPlans && weaponOwnership[weapon.id] !== true) continue
-        if (hideEssenceOwnedPlans) {
-          const eOwned = essenceStatus[weapon.id] === true
-          const wOwned = weaponOwnership[weapon.id] === true
-          if (onlyBothOwned) {
-            if (eOwned && wOwned) continue
-          } else {
-            if (eOwned) continue
-          }
-        }
-        count++
+        if (selectedOnly && !isSelected) continue
+        if (isWeaponVisibleInPlans(weapon)) count++
       }
       return count
     },
-    [hideFourStarPlans, hideUnownedPlans, hideEssenceOwnedPlans, onlyBothOwned, weaponOwnership, essenceStatus],
+    [isWeaponVisibleInPlans],
   )
 
   // Apply region priority sorting (sorted by visible selected count)
@@ -136,14 +154,14 @@ export default function EssencePlannerPage() {
         if (rankA !== rankB) return rankA - rankB
       }
 
-      // 2. Visible selected count desc → 3. Total count desc
-      const selDiff = countVisibleSelected(planB) - countVisibleSelected(planA)
+      // 2. Visible selected count desc → 3. Visible total count desc
+      const selDiff = countPlanWeapons(planB, true) - countPlanWeapons(planA, true)
       if (selDiff !== 0) return selDiff
-      return planB.totalCount - planA.totalCount
+      return countPlanWeapons(planB, false) - countPlanWeapons(planA, false)
     })
 
     return order
-  }, [planOrder, plansMap, regionFirst, regionSecond, countVisibleSelected])
+  }, [planOrder, plansMap, regionFirst, regionSecond, countPlanWeapons])
 
   // Apply region filter on top of sorted order
   const filteredPlanOrder = useMemo(() => {
@@ -237,9 +255,23 @@ export default function EssencePlannerPage() {
   const computePlans = useMatrixStore((s) => s.computePlans)
   useEffect(() => {
     if (selectedWeaponIds.length > 0 && planOrder.length === 0 && !plansStale) {
+      // Prevent non-user-triggered plan computation from scheduling an auto-push.
+      // This happens e.g. after cloud data sync overwrites selectedWeaponIds
+      // but leaves planOrder / plansStale untouched.
+      setSkipNextPush(true)
       computePlans()
+      Promise.resolve().then(() => setSkipNextPush(false))
     }
   }, [selectedWeaponIds.length, planOrder.length, plansStale, computePlans])
+
+  // Periodically refresh banner UP status so WeaponGrid badges stay accurate
+  // across banner transition boundaries without manual page reload.
+  const refreshBannerStatus = useBannerStore((s) => s.refreshBannerStatus)
+  useEffect(() => {
+    refreshBannerStatus()
+    const id = setInterval(refreshBannerStatus, 60_000)
+    return () => clearInterval(id)
+  }, [refreshBannerStatus])
 
   const renderPlanList = () => {
     if (noWeaponsSelected) {
@@ -298,7 +330,7 @@ export default function EssencePlannerPage() {
                     : 'border-border hover:border-foreground/40',
                 )}
               >
-                {region}
+                {t(regionI18nKey(region))}
               </Button>
             )
           })}
@@ -316,7 +348,7 @@ export default function EssencePlannerPage() {
                 className="flex flex-wrap items-center gap-x-2 gap-y-1.5"
               >
                 <span className="text-[10px] text-muted-foreground shrink-0 w-14 text-right">
-                  {region}
+                  {t(regionI18nKey(region))}
                 </span>
                 <Button
                   type="button"
@@ -348,7 +380,7 @@ export default function EssencePlannerPage() {
                           : 'border-border hover:border-foreground/40',
                       )}
                     >
-                      {sub}
+                      {t(regionI18nKey(sub))}
                     </Button>
                   )
                 })}
@@ -422,7 +454,7 @@ export default function EssencePlannerPage() {
 
       {/* Desktop layout: left weapon grid + right plans */}
       <div className="hidden md:flex flex-1 overflow-hidden">
-        <div className="w-96 shrink-0 border-r border-border overflow-y-scroll p-3">
+        <div className="grow min-w-96 max-w-[33.333%] border-r border-border overflow-y-scroll p-3">
           <WeaponGrid />
         </div>
         <div className="flex-1 overflow-y-auto p-4">
@@ -434,30 +466,32 @@ export default function EssencePlannerPage() {
       <div className="flex md:hidden flex-col flex-1 overflow-hidden">
         {/* Segmented control */}
         <div className="flex mx-4 mt-3 rounded-lg bg-muted p-0.5">
-          <button
+          <Button
             type="button"
+            variant="ghost"
             onClick={() => setMobileView('weapons')}
             className={cn(
-              'flex-1 px-4 py-1.5 rounded-md text-sm font-medium transition-colors',
+              'flex-1 px-4 py-1.5 h-auto rounded-md text-sm font-medium transition-colors',
               mobileView === 'weapons'
                 ? 'bg-background text-foreground shadow-[0px_0px_0px_1px_rgba(0,0,0,0.04),0px_1px_2px_rgba(0,0,0,0.06)]'
                 : 'text-muted-foreground',
             )}
           >
             {t('essence.weaponsTab')}
-          </button>
-          <button
+          </Button>
+          <Button
             type="button"
+            variant="ghost"
             onClick={() => setMobileView('plans')}
             className={cn(
-              'flex-1 px-4 py-1.5 rounded-md text-sm font-medium transition-colors',
+              'flex-1 px-4 py-1.5 h-auto rounded-md text-sm font-medium transition-colors',
               mobileView === 'plans'
                 ? 'bg-background text-foreground shadow-[0px_0px_0px_1px_rgba(0,0,0,0.04),0px_1px_2px_rgba(0,0,0,0.06)]'
                 : 'text-muted-foreground',
             )}
           >
             {t('essence.plansTab')}
-          </button>
+          </Button>
         </div>
 
         {/* Content area */}
@@ -470,14 +504,16 @@ export default function EssencePlannerPage() {
             <div className="p-4">
               {/* Selected weapons context header */}
               {!noWeaponsSelected && (
-                <button
+                <Button
                   type="button"
+                  variant="ghost"
+                  size="sm"
                   onClick={() => setViewAllOpen(true)}
-                  className="flex items-center gap-2 mb-3 text-sm text-muted-foreground hover:text-foreground transition-colors"
+                  className="flex items-center gap-2 mb-3"
                 >
                   <span>{t('essence.selectedCount', { count: selectedCount })}</span>
                   <span className="text-xs">{t('essence.viewAllSelected')}</span>
-                </button>
+                </Button>
               )}
               {renderPlanList()}
             </div>

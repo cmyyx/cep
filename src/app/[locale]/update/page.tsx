@@ -6,7 +6,7 @@ import { SidebarTrigger } from '@/components/ui/sidebar'
 import { Button } from '@/components/ui/button'
 import { Skeleton } from '@/components/ui/skeleton'
 import { useVersion } from '@/hooks/use-version'
-import { formatTime } from '@/lib/utils'
+import { cn, formatTime } from '@/lib/utils'
 import { MIN_LOADING_DISPLAY_MS } from '@/lib/constants'
 import { RefreshCw, ArrowRight } from 'lucide-react'
 import type { VersionInfo } from '@/types/version'
@@ -61,7 +61,7 @@ function VersionCard({ label, info }: { label: string; info: VersionInfo }) {
 
 export default function UpdatePage() {
   const t = useTranslations()
-  const { info, localInfo, isUpdateAvailable, checkNow, refreshPage } = useVersion()
+  const { info, localInfo, isUpdateAvailable, isChecking, lastCheckResult, checkNow, refreshPage } = useVersion()
   const [changelog, setChangelog] = useState<string[] | null>(null)
   const [isLoading, setIsLoading] = useState(true)
   const [loadError, setLoadError] = useState(false)
@@ -113,7 +113,16 @@ export default function UpdatePage() {
     }
   }, [])
 
-  // Sequential animation: skeleton exit → content enter.
+  // Auto-dismiss check result after 3s
+  const [checkMessage, setCheckMessage] = useState<string | null>(null)
+  useEffect(() => {
+    if (!lastCheckResult) return
+    const msg = lastCheckResult === 'up-to-date' ? t('version.alreadyUpToDate') : t('version.checkFailed')
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setCheckMessage(msg)
+    const id = setTimeout(() => setCheckMessage(null), 3000)
+    return () => clearTimeout(id)
+  }, [lastCheckResult, t])
   // Effects watch isLoading and transition the animation phase.
   const skeletonShown = useRef(false)
   const exitTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
@@ -196,10 +205,10 @@ export default function UpdatePage() {
           )}
 
           {/* Action buttons — above changelog */}
-          <div className="flex gap-2 mb-6">
-            <Button variant="outline" onClick={checkNow} className="flex-1">
-              <RefreshCw className="h-4 w-4 mr-2" />
-              {t('version.checkUpdate')}
+          <div className="flex gap-2 mb-3">
+            <Button variant="outline" onClick={checkNow} className="flex-1" disabled={isChecking}>
+              <RefreshCw className={cn('h-4 w-4 mr-2', isChecking && 'animate-spin')} />
+              {isChecking ? t('version.checking') : t('version.checkUpdate')}
             </Button>
             {isUpdateAvailable && (
               <Button onClick={refreshPage} className="flex-1">
@@ -208,6 +217,14 @@ export default function UpdatePage() {
               </Button>
             )}
           </div>
+          {checkMessage && (
+            <p className={cn(
+              'text-xs mb-3 animate-in fade-in duration-200',
+              lastCheckResult === 'error' ? 'text-red-500' : 'text-emerald-600',
+            )}>
+              {checkMessage}
+            </p>
+          )}
 
           {/* Changelog */}
           <div className="rounded-lg shadow-[0px_0px_0px_1px_rgba(0,0,0,0.08)] p-4">

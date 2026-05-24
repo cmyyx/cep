@@ -21,6 +21,7 @@ import {
 import { useEssenceSettingsStore } from '@/stores/useEssenceSettingsStore'
 import { getRegions } from '@/data/dungeons'
 import { dungeons } from '@/data/dungeons'
+import { regionI18nKey } from '@/data/region-i18n'
 import { cn } from '@/lib/utils'
 import type { SettingKey } from '@/types/essence-settings'
 
@@ -69,6 +70,11 @@ const PAIRED_ROWS: PairedRow[] = [
     listKey: 'enableNotesList',
     plansKey: 'enableNotesPlans',
   },
+  {
+    labelI18n: 'essenceSettings.keepUpVisible',
+    listKey: 'keepUpVisibleList',
+    plansKey: 'keepUpVisiblePlans',
+  },
 ]
 
 // ─── Dialog ────────────────────────────────────────────────────────────────
@@ -95,6 +101,8 @@ export function EssenceSettingsDialog() {
     hideFourStarWeaponsPlans: useEssenceSettingsStore((s) => s.hideFourStarWeaponsPlans),
     enableOwnershipEditPlans: useEssenceSettingsStore((s) => s.enableOwnershipEditPlans),
     enableNotesPlans: useEssenceSettingsStore((s) => s.enableNotesPlans),
+    keepUpVisibleList: useEssenceSettingsStore((s) => s.keepUpVisibleList),
+    keepUpVisiblePlans: useEssenceSettingsStore((s) => s.keepUpVisiblePlans),
     onlyHideWhenBothOwned: useEssenceSettingsStore((s) => s.onlyHideWhenBothOwned),
   }
 
@@ -216,7 +224,7 @@ export function EssenceSettingsDialog() {
               <SelectTrigger className="w-36">
                 <SelectValue>
                   {(v: string) =>
-                    !v || v === 'none' ? t('essenceSettings.regionNone') : v
+                    !v || v === 'none' ? t('essenceSettings.regionNone') : t(regionI18nKey(v))
                   }
                 </SelectValue>
               </SelectTrigger>
@@ -224,7 +232,7 @@ export function EssenceSettingsDialog() {
                 <SelectItem value="none">{t('essenceSettings.regionNone')}</SelectItem>
                 {REGIONS.map((region) => (
                   <SelectItem key={region} value={region}>
-                    {region}
+                    {t(regionI18nKey(region))}
                   </SelectItem>
                 ))}
               </SelectContent>
@@ -242,7 +250,7 @@ export function EssenceSettingsDialog() {
               <SelectTrigger className="w-36">
                 <SelectValue>
                   {(v: string) =>
-                    !v || v === 'none' ? t('essenceSettings.regionNone') : v
+                    !v || v === 'none' ? t('essenceSettings.regionNone') : t(regionI18nKey(v))
                   }
                 </SelectValue>
               </SelectTrigger>
@@ -250,7 +258,7 @@ export function EssenceSettingsDialog() {
                 <SelectItem value="none">{t('essenceSettings.regionNone')}</SelectItem>
                 {REGIONS.filter((r) => r !== regionFirst).map((region) => (
                   <SelectItem key={region} value={region}>
-                    {region}
+                    {t(regionI18nKey(region))}
                   </SelectItem>
                 ))}
               </SelectContent>

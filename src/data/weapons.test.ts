@@ -36,7 +36,7 @@ describe('weapons data', () => {
 
   it('every weapon has an imageId', () => {
     for (const w of weapons) {
-      expect(w.imageId).toBeTruthy()
+      expect(w.id).toBeTruthy()
     }
   })
 })

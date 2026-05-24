@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/immutability */
 'use client'
 
 import { useCallback } from 'react'
@@ -17,92 +16,94 @@ export function EditorTalentsTab({
   draft: EditorDraftCharacter
 }) {
   const t = useTranslations()
-  const markDirty = useEditorStore((s) => s.markDirty)
-
-  const dirty = useCallback(() => markDirty(draft.id), [draft.id, markDirty])
+  const updateDraft = useEditorStore((s) => s.updateDraft)
 
   // ---- Talents ----
   const addTalent = useCallback(() => {
-    draft.talents.push({ name: '', description: '', icon: '' })
-    dirty()
-  }, [draft, dirty])
+    updateDraft(draft.id, (d) => {
+      d.talents.push({ name: '', description: '', icon: '' })
+    })
+  }, [draft.id, updateDraft])
 
   const removeTalent = useCallback(
     (index: number) => {
-      draft.talents.splice(index, 1)
-      dirty()
+      updateDraft(draft.id, (d) => { d.talents.splice(index, 1) })
     },
-    [draft, dirty]
+    [draft.id, updateDraft]
   )
 
   const updateTalent = useCallback(
-    (index: number, field: string, value: string) => {
-      const entry = draft.talents[index]
-      if (!entry) return
-      ;(entry as unknown as Record<string, unknown>)[field] = value
-      dirty()
+    (index: number, field: 'name' | 'description', value: string) => {
+      updateDraft(draft.id, (d) => {
+        const entry = d.talents[index]
+        if (!entry) return
+        entry[field] = value
+      })
     },
-    [draft, dirty]
+    [draft.id, updateDraft]
   )
 
   // ---- Base Skills ----
   const addBaseSkill = useCallback(() => {
-    draft.baseSkills.push({ name: '', description: '', icon: '' })
-    dirty()
-  }, [draft, dirty])
+    updateDraft(draft.id, (d) => {
+      d.baseSkills.push({ name: '', description: '', icon: '' })
+    })
+  }, [draft.id, updateDraft])
 
   const removeBaseSkill = useCallback(
     (index: number) => {
-      draft.baseSkills.splice(index, 1)
-      dirty()
+      updateDraft(draft.id, (d) => { d.baseSkills.splice(index, 1) })
     },
-    [draft, dirty]
+    [draft.id, updateDraft]
   )
 
   const updateBaseSkill = useCallback(
-    (index: number, field: string, value: string) => {
-      const entry = draft.baseSkills[index]
-      if (!entry) return
-      ;(entry as unknown as Record<string, unknown>)[field] = value
-      dirty()
+    (index: number, field: 'name' | 'description', value: string) => {
+      updateDraft(draft.id, (d) => {
+        const entry = d.baseSkills[index]
+        if (!entry) return
+        entry[field] = value
+      })
     },
-    [draft, dirty]
+    [draft.id, updateDraft]
   )
 
   // ---- Potentials ----
   const addPotential = useCallback(() => {
-    draft.potentials.push({ name: '', description: '' })
-    dirty()
-  }, [draft, dirty])
+    updateDraft(draft.id, (d) => {
+      d.potentials.push({ name: '', description: '' })
+    })
+  }, [draft.id, updateDraft])
 
   const removePotential = useCallback(
     (index: number) => {
-      draft.potentials.splice(index, 1)
-      dirty()
+      updateDraft(draft.id, (d) => { d.potentials.splice(index, 1) })
     },
-    [draft, dirty]
+    [draft.id, updateDraft]
   )
 
   const movePotential = useCallback(
     (index: number, offset: number) => {
-      const target = index + offset
-      if (target < 0 || target >= draft.potentials.length) return
-      const item = draft.potentials[index]
-      draft.potentials.splice(index, 1)
-      draft.potentials.splice(target, 0, item)
-      dirty()
+      updateDraft(draft.id, (d) => {
+        const target = index + offset
+        if (target < 0 || target >= d.potentials.length) return
+        const item = d.potentials[index]
+        d.potentials.splice(index, 1)
+        d.potentials.splice(target, 0, item)
+      })
     },
-    [draft, dirty]
+    [draft.id, updateDraft]
   )
 
   const updatePotential = useCallback(
-    (index: number, field: string, value: string) => {
-      const entry = draft.potentials[index]
-      if (!entry) return
-      ;(entry as unknown as Record<string, unknown>)[field] = value
-      dirty()
+    (index: number, field: 'name' | 'description', value: string) => {
+      updateDraft(draft.id, (d) => {
+        const entry = d.potentials[index]
+        if (!entry) return
+        entry[field] = value
+      })
     },
-    [draft, dirty]
+    [draft.id, updateDraft]
   )
 
   return (
@@ -118,7 +119,7 @@ export function EditorTalentsTab({
         </div>
         <div className={ENTRY_LIST_STYLE}>
           {draft.talents.length === 0 && (
-            <p className="text-sm text-muted-foreground">No talents.</p>
+            <p className="text-sm text-muted-foreground">{t('editor.noTalents')}</p>
           )}
           {draft.talents.map((talent, ti) => (
             <div key={ti} className="space-y-1.5 pb-2 border-b border-border/20 last:border-0 last:pb-0">
@@ -160,7 +161,7 @@ export function EditorTalentsTab({
         </div>
         <div className={ENTRY_LIST_STYLE}>
           {draft.baseSkills.length === 0 && (
-            <p className="text-sm text-muted-foreground">No base skills.</p>
+            <p className="text-sm text-muted-foreground">{t('editor.noBaseSkills')}</p>
           )}
           {draft.baseSkills.map((bs, bi) => (
             <div key={bi} className="space-y-1.5 pb-2 border-b border-border/20 last:border-0 last:pb-0">
@@ -202,7 +203,7 @@ export function EditorTalentsTab({
         </div>
         <div className={ENTRY_LIST_STYLE}>
           {draft.potentials.length === 0 && (
-            <p className="text-sm text-muted-foreground">No potentials.</p>
+            <p className="text-sm text-muted-foreground">{t('editor.noPotentials')}</p>
           )}
           {draft.potentials.map((pot, pi) => (
             <div key={pi} className="space-y-1.5 pb-2 border-b border-border/20 last:border-0 last:pb-0">

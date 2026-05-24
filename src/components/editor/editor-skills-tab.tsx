@@ -1,10 +1,10 @@
-/* eslint-disable react-hooks/immutability */
 'use client'
 
 import { useCallback, useState } from 'react'
 import { useTranslations } from 'next-intl'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
+import { Textarea } from '@/components/ui/textarea'
 import { useEditorStore } from '@/stores/useEditorStore'
 import type { EditorDraftCharacter } from '@/stores/useEditorStore'
 import { Plus, Trash2, ChevronDown, ChevronRight } from 'lucide-react'
@@ -17,19 +17,20 @@ export function EditorSkillsTab({
   draft: EditorDraftCharacter
 }) {
   const t = useTranslations()
-  const markDirty = useEditorStore((s) => s.markDirty)
+  const updateDraft = useEditorStore((s) => s.updateDraft)
   const [expandedSkills, setExpandedSkills] = useState<Record<number, boolean>>({})
 
-  const dirty = useCallback(() => markDirty(draft.id), [draft.id, markDirty])
-
   const addSkill = useCallback(() => {
-    draft.skills.push({ name: '', description: '', icon: '', type: '', dataTables: [] })
-    dirty()
-  }, [draft, dirty])
+    updateDraft(draft.id, (d) => {
+      d.skills.push({ name: '', description: '', icon: '', type: '', dataTables: [] })
+    })
+  }, [draft.id, updateDraft])
 
   const removeSkill = useCallback(
-    (index: number) => { draft.skills.splice(index, 1); dirty() },
-    [draft, dirty]
+    (index: number) => {
+      updateDraft(draft.id, (d) => { d.skills.splice(index, 1) })
+    },
+    [draft.id, updateDraft]
   )
 
   const toggleSkill = useCallback(
@@ -38,83 +39,91 @@ export function EditorSkillsTab({
   )
 
   const updateSkillField = useCallback(
-    (skillIndex: number, field: string, value: string) => {
-      const skill = draft.skills[skillIndex]
-      if (!skill) return
-      ;(skill as unknown as Record<string, unknown>)[field] = value
-      dirty()
+    (skillIndex: number, field: 'name' | 'type' | 'description', value: string) => {
+      updateDraft(draft.id, (d) => {
+        const skill = d.skills[skillIndex]
+        if (!skill) return
+        skill[field] = value
+      })
     },
-    [draft, dirty]
+    [draft.id, updateDraft]
   )
 
   // ---- Data table operations ----
 
   const addTable = useCallback(
     (skillIndex: number) => {
-      const skill = draft.skills[skillIndex]
-      if (!skill) return
-      skill.dataTables.push({ title: '', rows: [] })
-      dirty()
+      updateDraft(draft.id, (d) => {
+        const skill = d.skills[skillIndex]
+        if (!skill) return
+        skill.dataTables.push({ title: '', rows: [] })
+      })
     },
-    [draft, dirty]
+    [draft.id, updateDraft]
   )
 
   const removeTable = useCallback(
     (skillIndex: number, tableIndex: number) => {
-      draft.skills[skillIndex]?.dataTables?.splice(tableIndex, 1)
-      dirty()
+      updateDraft(draft.id, (d) => {
+        d.skills[skillIndex]?.dataTables?.splice(tableIndex, 1)
+      })
     },
-    [draft, dirty]
+    [draft.id, updateDraft]
   )
 
   const updateTableTitle = useCallback(
     (skillIndex: number, tableIndex: number, value: string) => {
-      const table = draft.skills[skillIndex]?.dataTables?.[tableIndex]
-      if (!table) return
-      table.title = value
-      dirty()
+      updateDraft(draft.id, (d) => {
+        const table = d.skills[skillIndex]?.dataTables?.[tableIndex]
+        if (!table) return
+        table.title = value
+      })
     },
-    [draft, dirty]
+    [draft.id, updateDraft]
   )
 
   const addRow = useCallback(
     (skillIndex: number, tableIndex: number) => {
-      const table = draft.skills[skillIndex]?.dataTables?.[tableIndex]
-      if (!table) return
-      table.rows.push({ name: '', values: new Array(12).fill('') })
-      dirty()
+      updateDraft(draft.id, (d) => {
+        const table = d.skills[skillIndex]?.dataTables?.[tableIndex]
+        if (!table) return
+        table.rows.push({ name: '', values: new Array(12).fill('') })
+      })
     },
-    [draft, dirty]
+    [draft.id, updateDraft]
   )
 
   const removeRow = useCallback(
     (skillIndex: number, tableIndex: number, rowIndex: number) => {
-      draft.skills[skillIndex]?.dataTables?.[tableIndex]?.rows?.splice(rowIndex, 1)
-      dirty()
+      updateDraft(draft.id, (d) => {
+        d.skills[skillIndex]?.dataTables?.[tableIndex]?.rows?.splice(rowIndex, 1)
+      })
     },
-    [draft, dirty]
+    [draft.id, updateDraft]
   )
 
   const updateRowName = useCallback(
     (skillIndex: number, tableIndex: number, rowIndex: number, value: string) => {
-      const row = draft.skills[skillIndex]?.dataTables?.[tableIndex]?.rows?.[rowIndex]
-      if (!row) return
-      row.name = value
-      dirty()
+      updateDraft(draft.id, (d) => {
+        const row = d.skills[skillIndex]?.dataTables?.[tableIndex]?.rows?.[rowIndex]
+        if (!row) return
+        row.name = value
+      })
     },
-    [draft, dirty]
+    [draft.id, updateDraft]
   )
 
   const updateRowValue = useCallback(
     (skillIndex: number, tableIndex: number, rowIndex: number, levelIndex: number, value: string) => {
-      const row = draft.skills[skillIndex]?.dataTables?.[tableIndex]?.rows?.[rowIndex]
-      if (!row) return
-      if (!Array.isArray(row.values)) row.values = new Array(12).fill('')
-      while (row.values.length < 12) row.values.push('')
-      row.values[levelIndex] = value
-      dirty()
+      updateDraft(draft.id, (d) => {
+        const row = d.skills[skillIndex]?.dataTables?.[tableIndex]?.rows?.[rowIndex]
+        if (!row) return
+        if (!Array.isArray(row.values)) row.values = new Array(12).fill('')
+        while (row.values.length < 12) row.values.push('')
+        row.values[levelIndex] = value
+      })
     },
-    [draft, dirty]
+    [draft.id, updateDraft]
   )
 
   return (
@@ -128,23 +137,25 @@ export function EditorSkillsTab({
       </div>
 
       {draft.skills.length === 0 && (
-        <p className="text-sm text-muted-foreground">No skills yet.</p>
+        <p className="text-sm text-muted-foreground">{t('editor.noSkills')}</p>
       )}
 
       {draft.skills.map((skill, si) => (
         <div key={si} className="border border-border/30 rounded-md p-3 space-y-2">
           {/* Skill header */}
           <div className="flex items-start gap-2">
-            <button
+            <Button
+              variant="ghost"
+              size="sm"
               onClick={(e) => { e.preventDefault(); toggleSkill(si) }}
-              className="text-muted-foreground hover:text-foreground mt-1.5 shrink-0"
+              className="p-0 h-auto text-muted-foreground hover:text-foreground mt-1.5 shrink-0"
             >
               {expandedSkills[si] ? (
                 <ChevronDown className="w-3.5 h-3.5" />
               ) : (
                 <ChevronRight className="w-3.5 h-3.5" />
               )}
-            </button>
+            </Button>
             <div className="flex-1 space-y-1.5">
               <div className="flex items-center gap-1.5">
                 <span className="text-xs text-muted-foreground font-geist-mono">#{si + 1}</span>
@@ -169,14 +180,12 @@ export function EditorSkillsTab({
                   <Trash2 className="w-3.5 h-3.5" />
                 </Button>
               </div>
-              {/* Description as textarea */}
-              <textarea
+              <Textarea
                 value={skill.description}
                 onChange={(e) => updateSkillField(si, 'description', e.target.value)}
                 placeholder={t('editor.skillDesc')}
                 rows={3}
-                className="w-full rounded-md border border-border bg-transparent px-2.5 py-1.5 text-xs
-                  placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring resize-y"
+                className="text-xs resize-y"
               />
             </div>
           </div>
@@ -250,7 +259,7 @@ export function EditorSkillsTab({
 
                   {table.rows.length === 0 && (
                     <p className="text-[11px] text-muted-foreground pl-2">
-                      No rows. Click &quot;{t('editor.addSkillRow')}&quot; to start.
+                      {t('editor.noRowsMessage', { addSkillRow: t('editor.addSkillRow') })}
                     </p>
                   )}
                 </div>

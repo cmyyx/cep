@@ -10,6 +10,12 @@ export async function generateMetadata({
   const t = await getTranslations({ locale })
   return {
     title: t('nav.editor'),
+    description: t('meta.editorDescription'),
+    openGraph: {
+      title: `${t('nav.editor')} - ${t('app.name')}`,
+      description: t('meta.editorDescription'),
+      images: [`/og/editor/${locale}.png`],
+    },
   }
 }
 

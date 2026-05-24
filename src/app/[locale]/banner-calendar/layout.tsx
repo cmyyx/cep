@@ -10,6 +10,12 @@ export async function generateMetadata({
   const t = await getTranslations({ locale })
   return {
     title: t('nav.bannerCalendar'),
+    description: t('meta.bannerCalendarDescription'),
+    openGraph: {
+      title: `${t('nav.bannerCalendar')} - ${t('app.name')}`,
+      description: t('meta.bannerCalendarDescription'),
+      images: [`/og/banner-calendar/${locale}.png`],
+    },
   }
 }
 
