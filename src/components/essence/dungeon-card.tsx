@@ -179,66 +179,72 @@ const WeaponRow = memo(function WeaponRow({
   return (
     <div
       className={cn(
-        'flex items-center gap-3 px-3 py-2 text-sm',
+        'flex flex-wrap items-center gap-x-3 gap-y-1 px-3 py-2 text-sm',
         !inRange && !isSelected && 'opacity-30',
         !inRange && isSelected && 'opacity-40 bg-amber-500/3',
         inRange && isSelected && 'bg-amber-500/5',
         inRange && !isSelected && 'hover:bg-muted/30',
       )}
     >
-      <div className="relative size-10 rounded border border-border bg-muted/30 flex-shrink-0 overflow-hidden bg-[url(/images/item-frame-bg.png)] bg-cover bg-center">
-        {(() => { const s = weaponImageSrc(weapon.id); if (!s) return <span className="absolute inset-0 flex items-center justify-center text-lg font-bold text-white/40">{weapon.name?.charAt(0) ?? '?'}</span>; return <Image src={s} alt={weaponName} fill className="object-cover z-10" unoptimized /> })()}
-        <Image
-          src={`/images/item-band-${weapon.rarity}.png`}
-          alt=""
-          width={200}
-          height={8}
-          className="absolute -inset-x-px bottom-0 z-20 w-[calc(100%+2px)] max-w-none object-cover object-bottom pointer-events-none"
-          unoptimized
-        />
+      <div className="flex items-center gap-2 min-w-0">
+        <div className="relative size-10 rounded border border-border bg-muted/30 flex-shrink-0 overflow-hidden bg-[url(/images/item-frame-bg.png)] bg-cover bg-center">
+          {(() => { const s = weaponImageSrc(weapon.id); if (!s) return <span className="absolute inset-0 flex items-center justify-center text-lg font-bold text-white/40">{weapon.name?.charAt(0) ?? '?'}</span>; return <Image src={s} alt={weaponName} fill className="object-cover z-10" unoptimized /> })()}
+          <Image
+            src={`/images/item-band-${weapon.rarity}.png`}
+            alt=""
+            width={200}
+            height={8}
+            className="absolute -inset-x-px bottom-0 z-20 w-[calc(100%+2px)] max-w-none object-cover object-bottom pointer-events-none"
+            unoptimized
+          />
+        </div>
+        <span
+          className={cn(
+            'font-medium min-w-0 truncate w-28 flex-shrink-0',
+            !inRange && 'line-through',
+            inRange && isSelected && 'text-amber-400',
+          )}
+        >
+          {weaponName}
+        </span>
       </div>
-      <span
-        className={cn(
-          'font-medium min-w-0 truncate w-28 flex-shrink-0',
-          !inRange && 'line-through',
-          inRange && isSelected && 'text-amber-400',
-        )}
-      >
-        {weaponName}
-      </span>
-      <span className="text-xs text-muted-foreground min-w-0 truncate">
+      <span className="text-xs text-muted-foreground min-w-0 truncate max-sm:basis-full">
         {t(resolveStatI18nKey(weapon.primaryStat) ?? weapon.primaryStat)} |{' '}
         {t(resolveStatI18nKey(weapon.elementalDamage) ?? weapon.elementalDamage)} |{' '}
         {t(resolveStatI18nKey(weapon.specialAbility) ?? weapon.specialAbility)}
       </span>
-      {showOwnership && (
-        <div className="flex items-center gap-1 flex-shrink-0">
-          <OwnershipBadge
-            active={weaponOwned === true}
-            onToggle={() => onToggleWeaponOwned?.()}
-            label={weaponOwnershipLabel}
-            activeColor="emerald"
-          />
-          <OwnershipBadge
-            active={essenceOwned === true}
-            onToggle={() => onToggleEssenceOwned?.()}
-            label={essenceOwnershipLabel}
-            activeColor="sky"
-          />
+      {(showOwnership || onNoteChange || (note && !onNoteChange)) && (
+        <div className="flex items-center gap-1 flex-shrink-0 max-sm:basis-full">
+          {showOwnership && (
+            <>
+              <OwnershipBadge
+                active={weaponOwned === true}
+                onToggle={() => onToggleWeaponOwned?.()}
+                label={weaponOwnershipLabel}
+                activeColor="emerald"
+              />
+              <OwnershipBadge
+                active={essenceOwned === true}
+                onToggle={() => onToggleEssenceOwned?.()}
+                label={essenceOwnershipLabel}
+                activeColor="sky"
+              />
+            </>
+          )}
+          {onNoteChange && (
+            <div className="w-20 flex-shrink-0">
+              <EditableNote
+                note={note || ''}
+                onSave={onNoteChange}
+              />
+            </div>
+          )}
+          {!onNoteChange && note && (
+            <span className="text-[10px] text-muted-foreground truncate max-w-24 flex-shrink-0">
+              {note}
+            </span>
+          )}
         </div>
-      )}
-      {onNoteChange && (
-        <div className="w-20 flex-shrink-0">
-          <EditableNote
-            note={note || ''}
-            onSave={onNoteChange}
-          />
-        </div>
-      )}
-      {!onNoteChange && note && (
-        <span className="text-[10px] text-muted-foreground truncate max-w-24 flex-shrink-0">
-          {note}
-        </span>
       )}
       {inRange && isSelected && (
         <span className="ml-auto text-[10px] text-amber-400 font-bold flex-shrink-0">

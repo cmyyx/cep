@@ -320,7 +320,7 @@ export const WeaponGrid = memo(function WeaponGrid() {
         </div>
       </div>
 
-      <div className="grid grid-cols-3 gap-2">
+      <div className="grid grid-cols-[repeat(auto-fill,minmax(6.5rem,1fr))] gap-2">
         {filteredWeapons.map((weapon) => (
           <div key={weapon.id} className="flex flex-col gap-0.5">
             <WeaponCard

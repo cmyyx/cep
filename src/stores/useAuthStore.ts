@@ -34,6 +34,7 @@ interface AuthState {
   login: (login: string, password: string, turnstileToken?: string | null) => Promise<void>
   register: (username: string, email: string, password: string, turnstileToken?: string | null) => Promise<void>
   logout: () => Promise<void>
+  clearLocalSession: () => void
   fetchMe: () => Promise<void>
   fetchSessions: () => Promise<void>
   revokeSession: (sessionId: number) => Promise<void>
@@ -89,7 +90,16 @@ export const useAuthStore = create<AuthState>()(
 
       logout: async () => {
         await logoutApi()
+        if (typeof window !== 'undefined') { try { localStorage.removeItem('cep-last-sync-sig') } catch {} }
         set({ accessToken: null, refreshToken: null, username: null, email: null, planTier: 'free', emailVerified: false, premiumUntil: null, premiumTrialUntil: null, sessionExpired: false, error: null, sessions: [] })
+      },
+
+      // Local-only session clear — no network request.
+      // Used when user wants to dismiss the "session expired" state without logging in.
+      clearLocalSession: () => {
+        clearTokens()
+        if (typeof window !== 'undefined') { try { localStorage.removeItem('cep-auth') } catch {}; try { localStorage.removeItem('cep-last-sync-sig') } catch {} }
+        set({ accessToken: null, refreshToken: null, username: null, email: null, planTier: 'free', emailVerified: false, premiumUntil: null, premiumTrialUntil: null, paymentClaims: [], sessions: [], sessionsLoading: false, sessionExpired: false, error: null, isLoading: false })
       },
 
       fetchMe: async () => {
@@ -104,7 +114,7 @@ export const useAuthStore = create<AuthState>()(
           // Network errors and other transient issues should NOT nuke the session.
           if (err instanceof ApiError && (err.status === 401 || err.status === 403)) {
             clearTokens()
-            if (typeof window !== 'undefined') { try { localStorage.removeItem('cep-auth') } catch {} }
+            if (typeof window !== 'undefined') { try { localStorage.removeItem('cep-auth') } catch {}; try { localStorage.removeItem('cep-last-sync-sig') } catch {} }
             set({ accessToken: null, refreshToken: null, username: null, email: null, planTier: 'free', emailVerified: false, premiumUntil: null, premiumTrialUntil: null, paymentClaims: [], sessions: [], sessionsLoading: false, sessionExpired: true })
           }
           // On network errors, just leave the current state as-is — don't punish the user.
@@ -158,6 +168,12 @@ export const useAuthStore = create<AuthState>()(
           if (tokens.accessToken) {
             useAuthStore.setState({ accessToken: tokens.accessToken, refreshToken: tokens.refreshToken })
             useAuthStore.getState().fetchMe()
+          } else {
+            // Tokens missing but username still persisted → session expired
+            const state = useAuthStore.getState()
+            if (state.username) {
+              useAuthStore.setState({ sessionExpired: true })
+            }
           }
         }
       },

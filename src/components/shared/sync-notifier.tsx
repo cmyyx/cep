@@ -3,19 +3,30 @@
 import { useEffect, useRef, useState, useCallback } from 'react'
 import { useRouter, usePathname } from 'next/navigation'
 import { useTranslations, useLocale } from 'next-intl'
-import { CheckCircle2, AlertTriangle, X } from 'lucide-react'
-import { setAutoSyncNotifyCallback } from '@/hooks/useAutoSync'
-import { setDismissConflictToast } from '@/hooks/useAutoSync'
+import { CheckCircle2, AlertTriangle, X, RefreshCw, LogIn } from 'lucide-react'
+import { cn } from '@/lib/utils'
+import { setAutoSyncNotifyCallback, setDismissConflictToast } from '@/hooks/useAutoSync'
+import { useAuthStore } from '@/stores/useAuthStore'
+import { useVersion } from '@/hooks/use-version'
 
 // ─── Types ─────────────────────────────────────────────────
 
-type ToastKind = 'push_success' | 'push_unchanged' | 'pull_success' | 'conflict' | 'sync_error'
+type ToastKind =
+  | 'push_success'
+  | 'push_unchanged'
+  | 'pull_success'
+  | 'conflict'
+  | 'sync_error'
+  | 'session_expired'
+  | 'version_update'
 
 interface ToastState {
   id: number
   kind: ToastKind
   createdAt: number
   phase: 'in' | 'visible' | 'out'
+  /** Auto-dismiss duration in ms; null = persistent (no progress bar). */
+  duration: number | null
 }
 
 // ─── Component ────────────────────────────────────────────
@@ -26,61 +37,92 @@ export function SyncNotifier() {
   const locale = useLocale()
   const pathname = usePathname()
   const [toast, setToast] = useState<ToastState | null>(null)
-  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const timersRef = useRef<ReturnType<typeof setTimeout>[]>([])
   const idRef = useRef(0)
 
-  const clearTimer = () => {
-    if (timerRef.current) {
-      clearTimeout(timerRef.current)
-      timerRef.current = null
-    }
+  const clearAllTimers = () => {
+    for (const id of timersRef.current) clearTimeout(id)
+    timersRef.current = []
+  }
+
+  const addTimer = (id: ReturnType<typeof setTimeout>) => {
+    timersRef.current.push(id)
   }
 
   const removeToast = useCallback(() => {
-    // Phase: visible → out (animation plays for 200ms)
-    setToast(prev => {
+    setToast((prev) => {
       if (!prev || prev.phase !== 'visible') return prev
       return { ...prev, phase: 'out' }
     })
-    // Remove from DOM after animation completes
-    timerRef.current = setTimeout(() => {
-      setToast(null)
-    }, 220)
+    addTimer(
+      setTimeout(() => {
+        setToast(null)
+      }, 220),
+    )
   }, [])
 
   const createToast = useCallback(
     (kind: ToastKind, duration: number | null) => {
-      clearTimer()
+      clearAllTimers()
       const id = ++idRef.current
 
-      // Phase: in (animation plays for 300ms) → visible
-      setToast({ id, kind, createdAt: Date.now(), phase: 'in' })
-      timerRef.current = setTimeout(() => {
-        setToast(prev => (prev?.id === id ? { ...prev, phase: 'visible' } : prev))
-      }, 320)
+      setToast({ id, kind, createdAt: Date.now(), phase: 'in', duration })
+      addTimer(
+        setTimeout(() => {
+          setToast((prev) =>
+            prev?.id === id ? { ...prev, phase: 'visible' } : prev,
+          )
+        }, 320),
+      )
 
-      // Auto-dismiss after duration (only for success)
+      // Auto-dismiss — timer starts from toast creation so it aligns with
+      // the progress bar which also starts at render time.
       if (duration !== null) {
-        timerRef.current = setTimeout(() => {
-          setToast(prev => {
-            if (prev && prev.id === id && prev.phase === 'visible') {
-              return { ...prev, phase: 'out' }
-            }
-            return prev
-          })
-          timerRef.current = setTimeout(() => {
-            setToast(prev => (prev?.id === id ? null : prev))
-          }, 220)
-        }, 320 + duration)
+        addTimer(
+          setTimeout(() => {
+            setToast((prev) => {
+              if (prev && prev.id === id && prev.phase === 'visible') {
+                return { ...prev, phase: 'out' }
+              }
+              return prev
+            })
+            addTimer(
+              setTimeout(() => {
+                setToast((prev) => (prev?.id === id ? null : prev))
+              }, 220),
+            )
+          }, duration),
+        )
       }
     },
     [],
   )
 
-  // ── Register sync notification callback ────────────────
-  // Use a ref for toast so the callback always sees current state
-  const toastRef = useRef(toast)
+  // ── Session expiry notification ─────────────────────────
 
+  const sessionExpired = useAuthStore((s) => s.sessionExpired)
+  const prevSessionExpired = useRef(sessionExpired)
+  useEffect(() => {
+    if (sessionExpired && !prevSessionExpired.current) {
+      createToast('session_expired', null) // persistent
+    }
+    prevSessionExpired.current = sessionExpired
+  }, [sessionExpired, createToast])
+
+  // ── Version update notification ─────────────────────────
+
+  const { isUpdateAvailable, refreshPage } = useVersion()
+  const prevUpdateAvailable = useRef(isUpdateAvailable)
+  useEffect(() => {
+    if (isUpdateAvailable && !prevUpdateAvailable.current) {
+      createToast('version_update', null)
+    }
+    prevUpdateAvailable.current = isUpdateAvailable
+  }, [isUpdateAvailable, createToast])
+
+  // ── Register sync notification callback ────────────────
+
+  const toastRef = useRef(toast)
   useEffect(() => {
     toastRef.current = toast
   }, [toast])
@@ -92,8 +134,7 @@ export function SyncNotifier() {
       switch (event.type) {
         case 'push_success': {
           if (current?.kind === 'push_success' && current.phase === 'visible') {
-            // Refresh existing: out → in to restart progress bar animation
-            setToast(prev => (prev ? { ...prev, phase: 'out' } : null))
+            setToast((prev) => (prev ? { ...prev, phase: 'out' } : null))
             setTimeout(() => {
               createToast('push_success', 3000)
             }, 220)
@@ -103,10 +144,8 @@ export function SyncNotifier() {
           break
         }
         case 'push_unchanged': {
-          // Show regardless — user explicitly clicked upload and deserves feedback.
-          // If a push_success toast is already showing, fade it out first.
           if (current?.kind === 'push_success' && current.phase === 'visible') {
-            setToast(prev => (prev ? { ...prev, phase: 'out' } : null))
+            setToast((prev) => (prev ? { ...prev, phase: 'out' } : null))
             setTimeout(() => {
               createToast('push_unchanged', 3000)
             }, 220)
@@ -117,7 +156,7 @@ export function SyncNotifier() {
         }
         case 'pull_success': {
           if (current?.kind === 'pull_success' && current.phase === 'visible') {
-            setToast(prev => (prev ? { ...prev, phase: 'out' } : null))
+            setToast((prev) => (prev ? { ...prev, phase: 'out' } : null))
             setTimeout(() => {
               createToast('pull_success', 3000)
             }, 220)
@@ -133,7 +172,6 @@ export function SyncNotifier() {
           break
         }
         case 'sync_error': {
-          // Show error toast — don't overwrite an existing conflict toast
           if (current?.kind === 'conflict' && current.phase !== 'out') break
           if (!current || current.phase === 'out') {
             createToast('sync_error', 5000)
@@ -148,10 +186,10 @@ export function SyncNotifier() {
   // Cleanup on unmount
   useEffect(() => {
     setDismissConflictToast(() => {
-      setToast(prev => prev?.kind === 'conflict' ? null : prev)
+      setToast((prev) => (prev?.kind === 'conflict' ? null : prev))
     })
     return () => {
-      clearTimer()
+      clearAllTimers()
       setDismissConflictToast(null)
     }
   }, [])
@@ -159,11 +197,17 @@ export function SyncNotifier() {
   // ── Render ──────────────────────────────────────────────
 
   if (!toast || toast.phase === 'out') {
-    // During 'out' phase, render the exiting element so animation plays
     if (toast?.phase === 'out') {
       return (
-        <div className="fixed bottom-6 right-6 z-50 max-w-sm animate-toast-out">
-          <ToastCard toast={toast} t={t} locale={locale} router={router} onRemove={removeToast} />
+        <div className="fixed bottom-6 right-6 z-[60] max-w-sm animate-toast-out">
+          <ToastCard
+            toast={toast}
+            t={t}
+            locale={locale}
+            router={router}
+            onRemove={removeToast}
+            refreshPage={refreshPage}
+          />
         </div>
       )
     }
@@ -172,13 +216,22 @@ export function SyncNotifier() {
 
   const isIn = toast.phase === 'in'
   return (
-    <div className={`fixed bottom-6 right-6 z-50 max-w-sm ${isIn ? 'animate-toast-in' : ''}`}>
-      <ToastCard toast={toast} t={t} locale={locale} router={router} onRemove={removeToast} />
+    <div
+      className={`fixed bottom-6 right-6 z-[60] max-w-sm ${isIn ? 'animate-toast-in' : ''}`}
+    >
+      <ToastCard
+        toast={toast}
+        t={t}
+        locale={locale}
+        router={router}
+        onRemove={removeToast}
+        refreshPage={refreshPage}
+      />
     </div>
   )
 }
 
-// ─── Inner card (extracted so it renders consistently in both in/visible/out phases) ──
+// ─── Inner card ───────────────────────────────────────────
 
 function ToastCard({
   toast,
@@ -186,17 +239,35 @@ function ToastCard({
   locale,
   router,
   onRemove,
+  refreshPage,
 }: {
   toast: ToastState
   t: ReturnType<typeof useTranslations>
   locale: string
   router: ReturnType<typeof useRouter>
   onRemove: () => void
+  refreshPage: () => void
 }) {
   const isConflict = toast.kind === 'conflict'
-  const isPull = toast.kind === 'pull_success'
-  const isUnchanged = toast.kind === 'push_unchanged'
   const isError = toast.kind === 'sync_error'
+  const isSessionExpired = toast.kind === 'session_expired'
+  const isVersionUpdate = toast.kind === 'version_update'
+  const isWarning = isConflict || isError || isSessionExpired || isVersionUpdate
+  const isPersistent = toast.duration === null
+
+  const message = isConflict
+    ? t('account.syncConflictToast')
+    : isError
+      ? t('account.syncErrorToast')
+      : isSessionExpired
+        ? t('account.sessionExpiredToast')
+        : isVersionUpdate
+          ? t('version.updateAvailableToast')
+          : toast.kind === 'pull_success'
+            ? t('account.syncDownloaded')
+            : toast.kind === 'push_unchanged'
+              ? t('account.syncAlreadyUpToDate')
+              : t('account.syncUploaded')
 
   return (
     <div
@@ -207,21 +278,45 @@ function ToastCard({
       }}
     >
       <div className="flex items-start gap-2.5 px-4 py-3">
-        {isConflict || isError ? (
+        {isWarning ? (
           <AlertTriangle className="size-4 shrink-0 mt-0.5 text-foreground" />
         ) : (
           <CheckCircle2 className="size-4 shrink-0 mt-0.5 text-[#0a72ef]" />
         )}
-        <span className="flex-1 text-sm font-medium text-foreground leading-snug">
-          {isConflict ? t('account.syncConflictToast') : isError ? t('account.syncErrorToast') : isPull ? t('account.syncDownloaded') : isUnchanged ? t('account.syncAlreadyUpToDate') : t('account.syncUploaded')}
+        <span
+          className={cn(
+            'flex-1 text-sm font-medium text-foreground leading-snug',
+            isVersionUpdate && 'cursor-pointer hover:underline',
+          )}
+          onClick={isVersionUpdate ? refreshPage : undefined}
+        >
+          {message}
         </span>
-        <div className="flex items-center gap-1 shrink-0">
+        <div className="flex items-center gap-2 shrink-0">
           {isConflict && (
             <button
               className="text-xs text-[#0072f5] hover:underline"
               onClick={() => router.push(`/${locale}/account`)}
             >
               {t('account.goToAccount')}
+            </button>
+          )}
+          {isSessionExpired && (
+            <button
+              className="text-muted-foreground hover:text-foreground transition-colors"
+              onClick={() => router.push(`/${locale}/login?expired=1`)}
+              title={t('account.sessionExpired')}
+            >
+              <LogIn className="size-3.5" />
+            </button>
+          )}
+          {isVersionUpdate && (
+            <button
+              className="text-muted-foreground hover:text-foreground transition-colors"
+              onClick={refreshPage}
+              title={t('version.updateAvailable')}
+            >
+              <RefreshCw className="size-3.5" />
             </button>
           )}
           <button
@@ -233,12 +328,17 @@ function ToastCard({
         </div>
       </div>
 
-      {/* Progress bar (success only) */}
-      {!isConflict && (
+      {/* Progress bar — only for auto-dismiss toasts (duration !== null).
+          Uses dynamic duration so it perfectly aligns with the toast lifetime. */}
+      {!isPersistent && toast.duration !== null && (
         <div className="h-[2px] bg-[#ebebeb]">
           <div
             key={toast.id}
-            className="h-full bg-[#0a72ef] animate-toast-progress"
+            className="h-full bg-[#0a72ef]"
+            style={{
+              animation: `toast-progress ${toast.duration}ms linear forwards`,
+              transformOrigin: 'left center',
+            }}
           />
         </div>
       )}

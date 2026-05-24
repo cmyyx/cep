@@ -12,6 +12,8 @@ interface VersionContextType {
   info: VersionInfo | null
   localInfo: VersionInfo | null
   isUpdateAvailable: boolean
+  isChecking: boolean
+  lastCheckResult: 'up-to-date' | 'error' | null
   forceUpgrade: boolean
   checkNow: () => void
   refreshPage: () => void
@@ -23,13 +25,23 @@ export function VersionProvider({ children, initialInfo }: { children: ReactNode
   const [info, setInfo] = useState<VersionInfo | null>(initialInfo ?? null)
   const [localInfo] = useState<VersionInfo | null>(() => initialInfo ?? null)
   const [isUpdateAvailable, setIsUpdateAvailable] = useState(false)
+  const [isChecking, setIsChecking] = useState(false)
+  const [lastCheckResult, setLastCheckResult] = useState<'up-to-date' | 'error' | null>(null)
   const [forceUpgrade, setForceUpgrade] = useState(false)
   const initialCommit = useRef<string | null>(initialInfo?.commit || null)
   const lastFocusCheck = useRef(0)
   const consecutiveFailures = useRef(0)
 
-  const fetchVersion = useCallback(async () => {
+  const fetchVersion = useCallback(async (manual = false) => {
     if (typeof window === 'undefined') return
+
+    if (manual) {
+      setIsChecking(true)
+      setLastCheckResult(null)
+    }
+
+    const checkStartedAt = manual ? Date.now() : 0
+    let result: 'up-to-date' | 'error' | null = null
 
     const initStore = useAppInitStore.getState()
     const isFirstFetch = initStore.phase === 'tracking' && !initStore.completedTasks.has('version')
@@ -39,38 +51,46 @@ export function VersionProvider({ children, initialInfo }: { children: ReactNode
 
     try {
       const res = await fetch(`/version.json?t=${Date.now()}`, { cache: 'no-store' })
-      if (!res.ok) return
+      if (!res.ok) {
+        result = 'error'
+        return
+      }
       const data: VersionInfo = await res.json()
       setInfo(data)
       consecutiveFailures.current = 0
 
       if (initialCommit.current === null) {
         initialCommit.current = data.commit
+        result = 'up-to-date'
         return
       }
 
       if (initialCommit.current === data.commit) {
         setIsUpdateAvailable(false)
         setForceUpgrade(false)
+        result = 'up-to-date'
         return
       }
 
       // 远程 commit 与本地不同，用 commitTime 判断是更新还是回退
       const localTime = localInfo?.commitTime ?? ''
-      if (localTime && data.commitTime <= localTime) {
+      if (localTime && data.commitTime < localTime) {
         // 远程版本不新于本地 → 回退或相同，不视为更新
         setIsUpdateAvailable(false)
         setForceUpgrade(false)
+        result = 'up-to-date'
         return
       }
 
       // 确认是新版本
       setIsUpdateAvailable(true)
+      // result stays null — isUpdateAvailable handles the UI
       if (data.forceUpgradeSerial !== (localInfo?.forceUpgradeSerial ?? 0)) {
         setForceUpgrade(true)
       }
     } catch {
       consecutiveFailures.current++
+      result = 'error'
       // 单次网络异常保持当前状态不重置，防止短暂断网误清除通知
       // 连续 3 次失败才认为持续不可用，重置状态
       if (consecutiveFailures.current >= 3) {
@@ -78,6 +98,15 @@ export function VersionProvider({ children, initialInfo }: { children: ReactNode
         setForceUpgrade(false)
       }
     } finally {
+      if (manual) {
+        // Enforce minimum display time so the spinner doesn't flash
+        const elapsed = Date.now() - checkStartedAt
+        if (elapsed < MIN_LOADING_DISPLAY_MS) {
+          await new Promise<void>((r) => setTimeout(r, MIN_LOADING_DISPLAY_MS - elapsed))
+        }
+        setIsChecking(false)
+        if (result) setLastCheckResult(result)
+      }
       if (isFirstFetch) {
         // Signal completion after a brief animation grace period so the
         // progress bar doesn't snap from loading → finalising instantly
@@ -88,7 +117,7 @@ export function VersionProvider({ children, initialInfo }: { children: ReactNode
     }
   }, [localInfo])
 
-  const checkNow = useCallback(() => { fetchVersion() }, [fetchVersion])
+  const checkNow = useCallback(() => { fetchVersion(true) }, [fetchVersion])
   const refreshPage = useCallback(() => { window.location.reload() }, [])
 
   useEffect(() => {
@@ -122,7 +151,7 @@ export function VersionProvider({ children, initialInfo }: { children: ReactNode
   }, [fetchVersion])
 
   return (
-    <VersionContext.Provider value={{ info, localInfo, isUpdateAvailable, forceUpgrade, checkNow, refreshPage }}>
+    <VersionContext.Provider value={{ info, localInfo, isUpdateAvailable, isChecking, lastCheckResult, forceUpgrade, checkNow, refreshPage }}>
       {children}
     </VersionContext.Provider>
   )

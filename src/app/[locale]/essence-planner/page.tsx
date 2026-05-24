@@ -449,7 +449,7 @@ export default function EssencePlannerPage() {
 
       {/* Desktop layout: left weapon grid + right plans */}
       <div className="hidden md:flex flex-1 overflow-hidden">
-        <div className="w-96 shrink-0 border-r border-border overflow-y-scroll p-3">
+        <div className="grow min-w-96 max-w-[33.333%] border-r border-border overflow-y-scroll p-3">
           <WeaponGrid />
         </div>
         <div className="flex-1 overflow-y-auto p-4">

@@ -141,7 +141,6 @@ export function DataImporter() {
   const knownIds = useMemo(() => getKnownModuleIds(t), [t])
 
   const [checked, setChecked] = useState<Set<string>>(new Set())
-  const [expandedIds, setExpandedIds] = useState<Set<string>>(new Set())
 
   const summaries = useMemo(() => {
     if (!file) return []
@@ -165,15 +164,6 @@ export function DataImporter() {
 
   const toggle = useCallback((id: string) => {
     setChecked((prev) => {
-      const next = new Set(prev)
-      if (next.has(id)) next.delete(id)
-      else next.add(id)
-      return next
-    })
-  }, [])
-
-  const toggleExpand = useCallback((id: string) => {
-    setExpandedIds((prev) => {
       const next = new Set(prev)
       if (next.has(id)) next.delete(id)
       else next.add(id)
@@ -219,7 +209,6 @@ export function DataImporter() {
             })
             .map((m) => m.id)
           setChecked(new Set(ids))
-          setExpandedIds(new Set())
           setDialogOpen(true)
         } catch {
           setError(t('settings.importParseError'))
@@ -278,7 +267,7 @@ export function DataImporter() {
       </Button>
 
       {error && (
-        <div className="fixed bottom-6 right-6 z-50 max-w-sm rounded-lg bg-background px-4 py-3 text-sm shadow-[0px_0px_0px_1px_rgba(0,0,0,0.08),0px_2px_2px_rgba(0,0,0,0.04),0px_8px_8px_-8px_rgba(0,0,0,0.04)]">
+        <div className="fixed bottom-6 right-6 z-[60] max-w-sm rounded-lg bg-background px-4 py-3 text-sm shadow-[0px_0px_0px_1px_rgba(0,0,0,0.08),0px_2px_2px_rgba(0,0,0,0.04),0px_8px_8px_-8px_rgba(0,0,0,0.04)]">
           <div className="flex items-start gap-2.5">
             <AlertTriangle className="size-4 shrink-0 mt-0.5 text-red-500" />
             <span className="flex-1 text-sm">{error}</span>
@@ -290,7 +279,7 @@ export function DataImporter() {
       )}
 
       {imported && (
-        <div className="fixed bottom-6 right-6 z-50 max-w-sm rounded-lg bg-background px-4 py-3 text-sm shadow-[0px_0px_0px_1px_rgba(0,0,0,0.08),0px_2px_2px_rgba(0,0,0,0.04),0px_8px_8px_-8px_rgba(0,0,0,0.04)] animate-toast-in">
+        <div className="fixed bottom-6 right-6 z-[60] max-w-sm rounded-lg bg-background px-4 py-3 text-sm shadow-[0px_0px_0px_1px_rgba(0,0,0,0.08),0px_2px_2px_rgba(0,0,0,0.04),0px_8px_8px_-8px_rgba(0,0,0,0.04)] animate-toast-in">
           <div className="flex items-start gap-2.5">
             <CheckCircle2 className="size-4 shrink-0 mt-0.5 text-green-500" />
             <span className="flex-1 text-sm">{t('settings.importSuccess')}</span>
@@ -335,7 +324,6 @@ export function DataImporter() {
                     )}
                     onClick={(e) => {
                       if ((e.target as HTMLElement).closest('[role="checkbox"]')) return
-                      if (s.hasData && s.withinLimit) toggleExpand(s.id)
                     }}
                   >
                     <Checkbox
@@ -347,18 +335,8 @@ export function DataImporter() {
                     <span className="text-xs text-muted-foreground tabular-nums shrink-0 cursor-pointer">
                       {!s.withinLimit ? '⚠ ' : ''}{s.summary}
                     </span>
-                    <PreviewToggle
-                      data={s.data}
-                      onToggle={() => toggleExpand(s.id)}
-                    />
+                    <PreviewToggle data={s.data} />
                   </div>
-                  {expandedIds.has(s.id) && s.data !== null && typeof s.data === 'object' && (
-                    <div className="ml-8 mb-1">
-                      <pre className="max-h-40 overflow-y-auto text-[11px] leading-relaxed bg-muted/30 rounded-lg p-2 border whitespace-pre-wrap break-all">
-                        {JSON.stringify(s.data, null, 2)}
-                      </pre>
-                    </div>
-                  )}
                 </div>
               ))}
             </div>

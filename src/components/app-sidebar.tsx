@@ -32,6 +32,7 @@ import {
   LogIn,
   CircleUser,
   AlertTriangle,
+  X,
 } from 'lucide-react'
 import { LanguageSwitcher } from './language-switcher'
 import { useAuthStore } from '@/stores/useAuthStore'
@@ -60,6 +61,7 @@ export function AppSidebar() {
   const username = useAuthStore((s) => s.username)
   const accessToken = useAuthStore((s) => s.accessToken)
   const sessionExpired = useAuthStore((s) => s.sessionExpired)
+  const clearLocalSession = useAuthStore((s) => s.clearLocalSession)
   const announcementTotalUnread = useAnnouncementStore((s) =>
     s.announcements.filter((a) => !s.readIds.includes(a.id)).length
   )
@@ -185,6 +187,7 @@ export function AppSidebar() {
                     top: popupPos.top,
                     left: popupPos.left,
                     transform: 'translateY(-50%)',
+                    transition: 'top 0.3s ease, left 0.3s ease',
                     zIndex: 9999,
                   }}
                   className="bg-amber-500 text-white px-3 py-1.5 rounded-md text-sm font-medium shadow-[0_0_18px_rgba(245,158,11,0.5)] transition-transform hover:scale-105 whitespace-nowrap"
@@ -235,7 +238,7 @@ export function AppSidebar() {
               <span>{t('nav.about')}</span>
             </SidebarMenuButton>
           </SidebarMenuItem>
-          {!mounted ? null : username ? (
+          {!mounted ? null : (accessToken && username) ? (
             <SidebarMenuItem>
               <SidebarMenuButton
                 render={<NavLink href={`/${locale}/account`} loadingLabel={username} />}
@@ -246,8 +249,8 @@ export function AppSidebar() {
                 <span>{username}</span>
               </SidebarMenuButton>
             </SidebarMenuItem>
-          ) : (accessToken || sessionExpired) ? (
-            <SidebarMenuItem>
+          ) : (username || sessionExpired) ? (
+            <SidebarMenuItem className="relative">
               <SidebarMenuButton
                 render={<NavLink href={`/${locale}/login?expired=1`} loadingLabel={t('account.sessionExpired')} />}
                 tooltip={t('account.sessionExpired')}
@@ -257,6 +260,16 @@ export function AppSidebar() {
                 <AlertTriangle className="size-4" />
                 <span>{t('account.sessionExpired')}</span>
               </SidebarMenuButton>
+              {state !== 'collapsed' && (
+                <button
+                  type="button"
+                  onClick={(e) => { e.stopPropagation(); e.preventDefault(); clearLocalSession() }}
+                  className="absolute right-1.5 top-1/2 -translate-y-1/2 p-0.5 rounded-sm text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
+                  title={t('account.clearSession')}
+                >
+                  <X className="size-3" />
+                </button>
+              )}
             </SidebarMenuItem>
           ) : (
             <SidebarMenuItem>

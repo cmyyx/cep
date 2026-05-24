@@ -58,22 +58,12 @@ export function DataExporter() {
   )
 
   const [checked, setChecked] = useState<Set<string>>(new Set())
-  const [expandedIds, setExpandedIds] = useState<Set<string>>(new Set())
   const initChecked = useCallback(() => {
     setChecked(new Set(moduleEntries.filter((m) => m.hasData).map((m) => m.id)))
   }, [moduleEntries])
 
   const toggle = useCallback((id: string) => {
     setChecked((prev) => {
-      const next = new Set(prev)
-      if (next.has(id)) next.delete(id)
-      else next.add(id)
-      return next
-    })
-  }, [])
-
-  const toggleExpand = useCallback((id: string) => {
-    setExpandedIds((prev) => {
       const next = new Set(prev)
       if (next.has(id)) next.delete(id)
       else next.add(id)
@@ -144,9 +134,7 @@ export function DataExporter() {
                     !entry.hasData && 'opacity-50',
                   )}
                   onClick={(e) => {
-                    // 点击 checkbox 不做展开
                     if ((e.target as HTMLElement).closest('[role="checkbox"]')) return
-                    if (entry.hasData) toggleExpand(entry.id)
                   }}
                 >
                   <Checkbox
@@ -156,19 +144,9 @@ export function DataExporter() {
                   />
                   <span className="flex-1 text-sm cursor-default">{entry.label}</span>
                   <span className="text-xs text-muted-foreground tabular-nums shrink-0 cursor-pointer">{entry.summary}</span>
-                  <PreviewToggle
-                    data={entry.data}
-                    onToggle={() => toggleExpand(entry.id)}
-                  />
+                  <PreviewToggle data={entry.data} />
                 </div>
-                {expandedIds.has(entry.id) && entry.data !== null && typeof entry.data === 'object' && (
-                  <div className="ml-8 mb-1">
-                    <pre className="max-h-40 overflow-y-auto text-[11px] leading-relaxed bg-muted/30 rounded-lg p-2 border whitespace-pre-wrap break-all">
-                      {JSON.stringify(entry.data, null, 2)}
-                    </pre>
-                  </div>
-                )}
-              </div>
+                </div>
             ))}
           </div>
 
