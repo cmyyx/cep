@@ -188,7 +188,7 @@ export const WeaponCard = memo(function WeaponCard({
           <div className="absolute top-2 right-0 z-30">
             <Image
               src="/preview.png"
-              alt="PREVIEW"
+              alt=""
               width={132}
               height={60}
               className="w-8 h-auto drop-shadow-md"

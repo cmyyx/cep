@@ -43,9 +43,14 @@ export function resolveWeaponIdKeys<V>(record: Record<string, V>): Record<string
   }
   if (!needsResolve) return record
 
-  const result: Record<string, V> = {}
+  // Use null-prototype object to guard against prototype pollution
+  // from keys like "__proto__", "constructor", "prototype".
+  const PROTOTYPE_KEYS = new Set(['__proto__', 'constructor', 'prototype'])
+  const result = Object.create(null) as Record<string, V>
   for (const [key, value] of Object.entries(record)) {
-    result[resolveWeaponId(key)] = value
+    const outKey = resolveWeaponId(key)
+    if (PROTOTYPE_KEYS.has(outKey)) continue
+    result[outKey] = value
   }
   return result
 }

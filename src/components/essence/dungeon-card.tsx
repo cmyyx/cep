@@ -693,10 +693,10 @@ export const DungeonCard = memo(function DungeonCard({
                     {showOwnership && (
                       <>
                         <span className="min-w-[56px] inline-flex justify-center">
-                          <OwnershipBadge active={false} onToggle={() => {}} label={t('essence.weaponOwnershipLabel')} activeColor="emerald" />
+                          <OwnershipBadge active={false} onToggle={() => {}} label={t('essence.weaponOwnershipLabel')} activeColor="emerald" tabIndex={-1} />
                         </span>
                         <span className="min-w-[56px] inline-flex justify-center">
-                          <OwnershipBadge active={false} onToggle={() => {}} label={t('essence.essenceOwnershipLabel')} activeColor="sky" />
+                          <OwnershipBadge active={false} onToggle={() => {}} label={t('essence.essenceOwnershipLabel')} activeColor="sky" tabIndex={-1} />
                         </span>
                       </>
                     )}

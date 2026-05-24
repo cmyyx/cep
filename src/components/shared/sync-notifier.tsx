@@ -5,6 +5,7 @@ import { useRouter, usePathname } from 'next/navigation'
 import { useTranslations, useLocale } from 'next-intl'
 import { CheckCircle2, AlertTriangle, X, RefreshCw, LogIn } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { Button } from '@/components/ui/button'
 import { setAutoSyncNotifyCallback, setDismissConflictToast } from '@/hooks/useAutoSync'
 import { useAuthStore } from '@/stores/useAuthStore'
 import { useVersion } from '@/hooks/use-version'
@@ -294,37 +295,46 @@ function ToastCard({
         </span>
         <div className="flex items-center gap-2 shrink-0">
           {isConflict && (
-            <button
-              className="text-xs text-[#0072f5] hover:underline"
+            <Button
+              variant="link"
+              size="sm"
+              className="text-xs text-[#0072f5] hover:underline h-auto p-0"
               onClick={() => router.push(`/${locale}/account`)}
             >
               {t('account.goToAccount')}
-            </button>
+            </Button>
           )}
           {isSessionExpired && (
-            <button
+            <Button
+              variant="ghost"
+              size="icon-xs"
               className="text-muted-foreground hover:text-foreground transition-colors"
               onClick={() => router.push(`/${locale}/login?expired=1`)}
-              title={t('account.sessionExpired')}
+              aria-label={t('account.sessionExpired')}
             >
               <LogIn className="size-3.5" />
-            </button>
+            </Button>
           )}
           {isVersionUpdate && (
-            <button
+            <Button
+              variant="ghost"
+              size="icon-xs"
               className="text-muted-foreground hover:text-foreground transition-colors"
               onClick={refreshPage}
-              title={t('version.updateAvailable')}
+              aria-label={t('version.updateAvailable')}
             >
               <RefreshCw className="size-3.5" />
-            </button>
+            </Button>
           )}
-          <button
+          <Button
+            variant="ghost"
+            size="icon-xs"
             className="text-muted-foreground hover:text-foreground transition-colors"
             onClick={onRemove}
+            aria-label={t('common.close')}
           >
             <X className="size-3.5" />
-          </button>
+          </Button>
         </div>
       </div>
 

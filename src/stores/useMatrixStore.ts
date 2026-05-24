@@ -282,7 +282,10 @@ export const useMatrixStore = create<MatrixState>()(
           const raw = result.dungeonS1Selections as Record<string, string[]>
           const resolved: Record<string, string[]> = {}
           for (const [key, ids] of Object.entries(raw)) {
-            resolved[key] = Array.isArray(ids) ? ids.map(resolveWeaponId) : ids
+            const safeIds: string[] = Array.isArray(ids)
+              ? ids.filter((v): v is string => typeof v === 'string').map(resolveWeaponId)
+              : []
+            resolved[key] = safeIds
           }
           result.dungeonS1Selections = resolved
         }

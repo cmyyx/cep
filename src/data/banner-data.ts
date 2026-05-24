@@ -42,12 +42,12 @@ export const bannerSchedule: BannerSchedule = {
   },
   弥弗: {
     windows: [
-      { start: '2026-06-05T12:00:00+08:00', end: '2026-06-26T12:00:00+08:00', version: '1.3', period: 6, isRerun: false },
+      { start: '2026-06-05T12:00:00+08:00', end: '2026-06-26T12:00:00+08:00', version: '1.3', period: 7, isRerun: false },
     ],
   },
   卡缪: {
     windows: [
-      { start: '2026-06-26T12:00:00+08:00', end: '2026-07-17T12:00:00+08:00', version: '1.3', period: 6, isRerun: false },
+      { start: '2026-06-26T12:00:00+08:00', end: '2026-07-17T12:00:00+08:00', version: '1.3', period: 8, isRerun: false },
     ],
   },
 }

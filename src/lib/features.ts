@@ -23,10 +23,10 @@ export const FEATURES = {
   turnstile: !!process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY,
 
   /** Whether anti-mirror (domain check) is enabled. */
-  antiMirror: !!process.env.NEXT_PUBLIC_ALLOWED_DOMAINS,
+  antiMirror: _allowedDomains.length > 0,
 
   /** Whether anti-embed (frame check) is enabled. */
-  antiEmbed: !!process.env.NEXT_PUBLIC_ALLOWED_EMBED_DOMAINS,
+  antiEmbed: _allowedEmbedDomains.length > 0,
 
   /** Allowed hostnames for anti-mirror (exact match, no subdomain wildcard). */
   allowedDomains: _allowedDomains,
