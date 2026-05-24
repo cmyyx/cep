@@ -1,4 +1,4 @@
-<img align="right" src="./CEP.png" width="320" alt="CEP Logo">
+<img align="right" src="./public/CEP.png" width="320" alt="CEP Logo">
 
 <h1><span style="font-size:1.6em">C</span>ep <span style="font-size:1.6em">E</span>ndfield <span style="font-size:1.6em">P</span>lanner</h1>
 
