@@ -32,7 +32,6 @@ import {
   LogIn,
   CircleUser,
   AlertTriangle,
-  X,
 } from 'lucide-react'
 import { LanguageSwitcher } from './language-switcher'
 import { useAuthStore } from '@/stores/useAuthStore'
@@ -61,7 +60,6 @@ export function AppSidebar() {
   const username = useAuthStore((s) => s.username)
   const accessToken = useAuthStore((s) => s.accessToken)
   const sessionExpired = useAuthStore((s) => s.sessionExpired)
-  const clearLocalSession = useAuthStore((s) => s.clearLocalSession)
   const announcementTotalUnread = useAnnouncementStore((s) =>
     s.announcements.filter((a) => !s.readIds.includes(a.id)).length
   )
@@ -76,6 +74,21 @@ export function AppSidebar() {
     const rect = refreshBtnRef.current.getBoundingClientRect()
     setPopupPos({ top: rect.top + rect.height / 2, left: rect.right + 10 })
   }, [])
+
+  // Post-rehydration auth check. Runs once on mount after zustand
+  // rehydration completes. Replaces onRehydrateStorage which cannot
+  // reference useAuthStore due to TDZ in zustand v5 synchronous hydration.
+  const didHydrateCheck = useRef(false)
+  useEffect(() => {
+    if (!mounted || didHydrateCheck.current) return
+    didHydrateCheck.current = true
+    const s = useAuthStore.getState()
+    if (s.accessToken) {
+      s.fetchMe()
+    } else if (s.username) {
+      useAuthStore.setState({ sessionExpired: true })
+    }
+  }, [mounted])
 
   useEffect(() => {
     if (!mounted || state !== 'collapsed' || !isUpdateAvailable || !refreshBtnRef.current) return
@@ -250,17 +263,6 @@ export function AppSidebar() {
                   <span>{username || t('account.title')}</span>
                 </SidebarMenuButton>
               </SidebarMenuItem>
-              {sessionExpired && (
-                <SidebarMenuItem>
-                  <SidebarMenuButton
-                    onClick={() => { clearLocalSession(); if (isMobile) setOpenMobile(false) }}
-                    tooltip={t('account.clearSession')}
-                  >
-                    <X className="size-4" />
-                    <span>{t('account.clearSession')}</span>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              )}
             </>
           ) : sessionExpired ? (
             <SidebarMenuItem>

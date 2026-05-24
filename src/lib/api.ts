@@ -52,6 +52,7 @@ async function doRefresh(): Promise<boolean> {
     if (!res.ok) {
       if (res.status === 401 || res.status === 403) {
         clearTokens()
+        if (typeof window !== 'undefined') { try { localStorage.removeItem('cep-last-sync-sig') } catch {} }
         // Notify store so UI immediately shows "session expired"
         try {
           const { useAuthStore } = await import('@/stores/useAuthStore')

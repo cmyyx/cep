@@ -163,21 +163,6 @@ export const useAuthStore = create<AuthState>()(
         username: state.username, email: state.email, planTier: state.planTier,
         emailVerified: state.emailVerified, premiumUntil: state.premiumUntil, premiumTrialUntil: state.premiumTrialUntil,
       }),
-      onRehydrateStorage: () => {
-        return () => {
-          const tokens = getTokens()
-          if (tokens.accessToken) {
-            useAuthStore.setState({ accessToken: tokens.accessToken, refreshToken: tokens.refreshToken })
-            useAuthStore.getState().fetchMe()
-          } else {
-            // Tokens missing but username still persisted → session expired
-            const state = useAuthStore.getState()
-            if (state.username) {
-              useAuthStore.setState({ sessionExpired: true })
-            }
-          }
-        }
-      },
     },
   ),
 )

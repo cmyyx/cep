@@ -188,7 +188,7 @@ const WeaponRow = memo(function WeaponRow({
         inRange && !isSelected && 'hover:bg-muted/30',
       )}
     >
-      <div className="flex items-center gap-2 min-w-0">
+      <div className="flex items-center gap-2 min-w-0 shrink-0">
         <div className="relative size-10 rounded shadow-[0_0_0_1px_rgba(0,0,0,0.08)] bg-muted/30 flex-shrink-0 overflow-hidden bg-[url(/images/item-frame-bg.png)] bg-cover bg-center">
           {(() => { const s = weaponImageSrc(weapon.id); if (!s) return <span className="absolute inset-0 flex items-center justify-center text-lg font-semibold text-white/40">{weapon.name?.charAt(0) ?? '?'}</span>; return <Image src={s} alt={weaponName} fill className="object-cover z-10" unoptimized /> })()}
           <Image
@@ -214,7 +214,7 @@ const WeaponRow = memo(function WeaponRow({
       {fallbackLevel === 0 && (
         <>
           <span
-            className="text-xs text-muted-foreground min-w-0 truncate"
+            className="text-xs text-muted-foreground min-w-0 truncate shrink-0"
             style={{ width: 'var(--max-attr-width)' } as React.CSSProperties}
           >
             {t(resolveStatI18nKey(weapon.primaryStat) ?? weapon.primaryStat)} |{' '}
@@ -513,7 +513,9 @@ export const DungeonCard = memo(function DungeonCard({
     } else {
       setFallbackLevel(2)
     }
-    if (maxAttrW > 0) setMaxAttrWidth(maxAttrW)
+    // +4 buffer: scrollWidth returns integer (floor), actual text may need
+    // up to 1 more subpixel px. 4 px gives breathing room without visible waste.
+    if (maxAttrW > 0) setMaxAttrWidth(maxAttrW + 4)
   }, [])
 
   useLayoutEffect(() => {
@@ -673,11 +675,13 @@ export const DungeonCard = memo(function DungeonCard({
           {/* Hidden measurement rows — mirror the WeaponRow structure exactly
                so measured scrollWidth reflects real pixel widths with zero estimation */}
           <div ref={rowMeasureRef} aria-hidden className="absolute invisible pointer-events-none h-0 overflow-hidden">
-            {visibleMatched.map(({ weapon }) => (
+            {visibleMatched.map(({ weapon }) => {
+              const weaponName = weapon.id?.startsWith('custom-') ? weapon.name : (t(`weapons.${weapon.id}`) ?? weapon.name)
+              return (
               <div key={weapon.id} className="flex flex-wrap items-center gap-x-3 px-3 py-2 text-sm whitespace-nowrap">
-                <div className="flex items-center gap-2 min-w-0">
+                <div className="flex items-center gap-2 min-w-0 shrink-0">
                   <div className="size-10 flex-shrink-0" />
-                  <span className="font-medium min-w-0 w-28 flex-shrink-0">{'\u200B'}</span>
+                  <span className="font-medium min-w-0 truncate w-28 flex-shrink-0">{weaponName}</span>
                 </div>
                 <span className="text-xs text-muted-foreground min-w-0">
                   {t(resolveStatI18nKey(weapon.primaryStat) ?? weapon.primaryStat)} |{' '}
@@ -689,10 +693,10 @@ export const DungeonCard = memo(function DungeonCard({
                     {showOwnership && (
                       <>
                         <span className="min-w-[56px] inline-flex justify-center">
-                          <span className="inline-flex items-center rounded-full px-1.5 py-px text-[9px] font-medium border">{'\u200B'}</span>
+                          <OwnershipBadge active={false} onToggle={() => {}} label={t('essence.weaponOwnershipLabel')} activeColor="emerald" />
                         </span>
                         <span className="min-w-[56px] inline-flex justify-center">
-                          <span className="inline-flex items-center rounded-full px-1.5 py-px text-[9px] font-medium border">{'\u200B'}</span>
+                          <OwnershipBadge active={false} onToggle={() => {}} label={t('essence.essenceOwnershipLabel')} activeColor="sky" />
                         </span>
                       </>
                     )}
@@ -701,7 +705,8 @@ export const DungeonCard = memo(function DungeonCard({
                 )}
                 <span className="ml-auto text-[10px] font-semibold flex-shrink-0 min-w-12 text-right">{'\u200B'}</span>
               </div>
-            ))}
+              )
+            })}
           </div>
           <div
             ref={rowContainerRef}

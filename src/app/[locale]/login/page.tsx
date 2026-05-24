@@ -86,6 +86,7 @@ function LoginPageContent() {
   const loginStore = useAuthStore((s) => s.login)
   const registerStore = useAuthStore((s) => s.register)
   const isLoading = useAuthStore((s) => s.isLoading)
+  const clearLocalSession = useAuthStore((s) => s.clearLocalSession)
 
   const [turnstileToken, setTurnstileToken] = useState<string | null>(null)
   const turnstileRef = useRef<TurnstileHandle>(null)
@@ -206,8 +207,15 @@ function LoginPageContent() {
 
         {/* Expired banner */}
         {isExpired && (
-          <div className="mb-6 rounded-md bg-amber-50 border border-amber-200 px-4 py-3 text-sm text-amber-700">
-            {t('account.sessionExpired')}
+          <div className="mb-6 flex items-center justify-between gap-3 rounded-md bg-amber-50 border border-amber-200 px-4 py-3 text-sm text-amber-700">
+            <span>{t('account.sessionExpired')}</span>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => { clearLocalSession(); router.replace(`/${locale}/login`) }}
+            >
+              {t('account.clearSession')}
+            </Button>
           </div>
         )}
 
