@@ -1,6 +1,6 @@
 'use client'
 
-import { memo, useMemo, useCallback, useState, useRef, useEffect } from 'react'
+import { memo, useMemo, useCallback, useState, useRef, useEffect, useLayoutEffect } from 'react'
 import Image from 'next/image'
 import { useTranslations } from 'next-intl'
 import { cn } from '@/lib/utils'
@@ -43,6 +43,7 @@ interface RowProps extends ThumbProps {
   weaponOwned?: boolean
   essenceOwned?: boolean
   note?: string
+  fallbackLevel?: number
   onToggleWeaponOwned?: () => void
   onToggleEssenceOwned?: () => void
   onNoteChange?: (value: string) => void
@@ -169,6 +170,7 @@ const WeaponRow = memo(function WeaponRow({
   weaponOwned,
   essenceOwned,
   note,
+  fallbackLevel,
   onToggleWeaponOwned,
   onToggleEssenceOwned,
   onNoteChange,
@@ -208,53 +210,177 @@ const WeaponRow = memo(function WeaponRow({
           {weaponName}
         </span>
       </div>
-      <span className="text-xs text-muted-foreground min-w-0 truncate max-sm:basis-full">
-        {t(resolveStatI18nKey(weapon.primaryStat) ?? weapon.primaryStat)} |{' '}
-        {t(resolveStatI18nKey(weapon.elementalDamage) ?? weapon.elementalDamage)} |{' '}
-        {t(resolveStatI18nKey(weapon.specialAbility) ?? weapon.specialAbility)}
-      </span>
-      {(showOwnership || onNoteChange || (note && !onNoteChange)) && (
-        <div className="flex items-center gap-1 flex-shrink-0 max-sm:basis-full">
-          {showOwnership && (
-            <>
-              <OwnershipBadge
-                active={weaponOwned === true}
-                onToggle={() => onToggleWeaponOwned?.()}
-                label={weaponOwnershipLabel}
-                activeColor="emerald"
-              />
-              <OwnershipBadge
-                active={essenceOwned === true}
-                onToggle={() => onToggleEssenceOwned?.()}
-                label={essenceOwnershipLabel}
-                activeColor="sky"
-              />
-            </>
-          )}
-          {onNoteChange && (
-            <div className="w-20 flex-shrink-0">
-              <EditableNote
-                note={note || ''}
-                onSave={onNoteChange}
-              />
+      {/* Level 0 — align mode: all items on one row, attrs width uniform */}
+      {fallbackLevel === 0 && (
+        <>
+          <span
+            className="text-xs text-muted-foreground min-w-0 truncate"
+            style={{ width: 'var(--max-attr-width)' } as React.CSSProperties}
+          >
+            {t(resolveStatI18nKey(weapon.primaryStat) ?? weapon.primaryStat)} |{' '}
+            {t(resolveStatI18nKey(weapon.elementalDamage) ?? weapon.elementalDamage)} |{' '}
+            {t(resolveStatI18nKey(weapon.specialAbility) ?? weapon.specialAbility)}
+          </span>
+          {(showOwnership || onNoteChange || (note && !onNoteChange)) && (
+            <div className="flex items-center gap-1 flex-shrink-0">
+              {showOwnership && (
+                <>
+                  <span className="min-w-[56px] inline-flex justify-center">
+                    <OwnershipBadge
+                      active={weaponOwned === true}
+                      onToggle={() => onToggleWeaponOwned?.()}
+                      label={weaponOwnershipLabel}
+                      activeColor="emerald"
+                    />
+                  </span>
+                  <span className="min-w-[56px] inline-flex justify-center">
+                    <OwnershipBadge
+                      active={essenceOwned === true}
+                      onToggle={() => onToggleEssenceOwned?.()}
+                      label={essenceOwnershipLabel}
+                      activeColor="sky"
+                    />
+                  </span>
+                </>
+              )}
+              {onNoteChange && (
+                <div className="w-20 flex-shrink-0">
+                  <EditableNote
+                    note={note || ''}
+                    onSave={onNoteChange}
+                  />
+                </div>
+              )}
+              {!onNoteChange && note && (
+                <span className="text-[10px] text-muted-foreground truncate max-w-24 flex-shrink-0">
+                  {note}
+                </span>
+              )}
             </div>
           )}
-          {!onNoteChange && note && (
-            <span className="text-[10px] text-muted-foreground truncate max-w-24 flex-shrink-0">
-              {note}
+          <span className="ml-auto text-[10px] font-bold flex-shrink-0 min-w-12 text-right">
+            {inRange && isSelected && (
+              <span className="text-amber-400">{selectedLabel}</span>
+            )}
+            {!inRange && isSelected && (
+              <span className="text-muted-foreground">{notAvailableLabel}</span>
+            )}
+          </span>
+        </>
+      )}
+      {/* Level 1 — two-line: icon+name+attrs on line 1, ownership+label unified on line 2 */}
+      {fallbackLevel === 1 && (
+        <>
+          <span className="text-xs text-muted-foreground min-w-0 truncate">
+            {t(resolveStatI18nKey(weapon.primaryStat) ?? weapon.primaryStat)} |{' '}
+            {t(resolveStatI18nKey(weapon.elementalDamage) ?? weapon.elementalDamage)} |{' '}
+            {t(resolveStatI18nKey(weapon.specialAbility) ?? weapon.specialAbility)}
+          </span>
+          <div className="basis-full flex-shrink-0 flex items-center gap-x-3">
+            {(showOwnership || onNoteChange || (note && !onNoteChange)) && (
+              <div className="flex items-center gap-1 flex-shrink-0">
+                {showOwnership && (
+                  <>
+                    <span className="min-w-[56px] inline-flex justify-center">
+                      <OwnershipBadge
+                        active={weaponOwned === true}
+                        onToggle={() => onToggleWeaponOwned?.()}
+                        label={weaponOwnershipLabel}
+                        activeColor="emerald"
+                      />
+                    </span>
+                    <span className="min-w-[56px] inline-flex justify-center">
+                      <OwnershipBadge
+                        active={essenceOwned === true}
+                        onToggle={() => onToggleEssenceOwned?.()}
+                        label={essenceOwnershipLabel}
+                        activeColor="sky"
+                      />
+                    </span>
+                  </>
+                )}
+                {onNoteChange && (
+                  <div className="w-20 flex-shrink-0">
+                    <EditableNote
+                      note={note || ''}
+                      onSave={onNoteChange}
+                    />
+                  </div>
+                )}
+                {!onNoteChange && note && (
+                  <span className="text-[10px] text-muted-foreground truncate max-w-24 flex-shrink-0">
+                    {note}
+                  </span>
+                )}
+              </div>
+            )}
+            <span className="ml-auto text-[10px] font-bold flex-shrink-0 min-w-12 text-right">
+              {inRange && isSelected && (
+                <span className="text-amber-400">{selectedLabel}</span>
+              )}
+              {!inRange && isSelected && (
+                <span className="text-muted-foreground">{notAvailableLabel}</span>
+              )}
             </span>
-          )}
+          </div>
+        </>
+      )}
+      {/* Level 2 — three-line: vertical stack, icon+name → attrs → ownership+label */}
+      {fallbackLevel === 2 && (
+        <div className="basis-full flex-shrink-0 flex flex-col gap-y-1">
+          <span className="text-xs text-muted-foreground min-w-0 truncate">
+            {t(resolveStatI18nKey(weapon.primaryStat) ?? weapon.primaryStat)} |{' '}
+            {t(resolveStatI18nKey(weapon.elementalDamage) ?? weapon.elementalDamage)} |{' '}
+            {t(resolveStatI18nKey(weapon.specialAbility) ?? weapon.specialAbility)}
+          </span>
+          <div className="flex items-center gap-x-3">
+            {(showOwnership || onNoteChange || (note && !onNoteChange)) && (
+              <div className="flex items-center gap-1 flex-shrink-0">
+                {showOwnership && (
+                  <>
+                    <span className="min-w-[56px] inline-flex justify-center">
+                      <OwnershipBadge
+                        active={weaponOwned === true}
+                        onToggle={() => onToggleWeaponOwned?.()}
+                        label={weaponOwnershipLabel}
+                        activeColor="emerald"
+                      />
+                    </span>
+                    <span className="min-w-[56px] inline-flex justify-center">
+                      <OwnershipBadge
+                        active={essenceOwned === true}
+                        onToggle={() => onToggleEssenceOwned?.()}
+                        label={essenceOwnershipLabel}
+                        activeColor="sky"
+                      />
+                    </span>
+                  </>
+                )}
+                {onNoteChange && (
+                  <div className="w-20 flex-shrink-0">
+                    <EditableNote
+                      note={note || ''}
+                      onSave={onNoteChange}
+                    />
+                  </div>
+                )}
+                {!onNoteChange && note && (
+                  <span className="text-[10px] text-muted-foreground truncate max-w-24 flex-shrink-0">
+                    {note}
+                  </span>
+                )}
+              </div>
+            )}
+            <span className="ml-auto text-[10px] font-bold flex-shrink-0 min-w-12 text-right">
+              {inRange && isSelected && (
+                <span className="text-amber-400">{selectedLabel}</span>
+              )}
+              {!inRange && isSelected && (
+                <span className="text-muted-foreground">{notAvailableLabel}</span>
+              )}
+            </span>
+          </div>
         </div>
-      )}
-      {inRange && isSelected && (
-        <span className="ml-auto text-[10px] text-amber-400 font-bold flex-shrink-0">
-          {selectedLabel}
-        </span>
-      )}
-      {!inRange && isSelected && (
-        <span className="ml-auto text-[10px] text-muted-foreground flex-shrink-0">
-          {notAvailableLabel}
-        </span>
       )}
     </div>
   )
@@ -346,6 +472,62 @@ export const DungeonCard = memo(function DungeonCard({
   }, [visibleMatched, effectiveS1])
 
   const lockLabel = plan.lockType === 's2' ? t('essence.lockS2') : t('essence.lockS3')
+
+  // ── Column alignment measurement ──────────────────────────────────────
+  // Renders a hidden mirror of each WeaponRow to measure actual pixel
+  // widths. Three fallback levels based on how much fits:
+  //   0 = full row fits → align mode (attrs get uniform width)
+  //   1 = icon+name+attrs fits, ownership doesn't → two-line mode
+  //   2 = icon+name+attrs overflows → three-line vertical stack
+  const rowContainerRef = useRef<HTMLDivElement>(null)
+  const rowMeasureRef = useRef<HTMLDivElement>(null)
+  const [fallbackLevel, setFallbackLevel] = useState(0)
+  const [maxAttrWidth, setMaxAttrWidth] = useState(0)
+
+  const recomputeAlign = useCallback(() => {
+    const container = rowContainerRef.current
+    const measure = rowMeasureRef.current
+    if (!container || !measure) return
+    const availW = container.clientWidth - 24 // px-3 on WeaponRow
+    const rows = measure.children
+    let maxRowW = 0
+    let maxAttrW = 0
+    let maxIconAttrW = 0
+    for (let i = 0; i < rows.length; i++) {
+      const row = rows[i] as HTMLElement
+      maxRowW = Math.max(maxRowW, row.scrollWidth)
+      // Mirror row children: [0]=icon+name wrapper, [1]=attrs span
+      const attrEl = row.children[1] as HTMLElement | undefined
+      const iconNameEl = row.children[0] as HTMLElement | undefined
+      if (attrEl) maxAttrW = Math.max(maxAttrW, attrEl.scrollWidth)
+      if (iconNameEl && attrEl) {
+        // 12px = gap-x-3 between icon+name and attrs
+        maxIconAttrW = Math.max(maxIconAttrW, iconNameEl.scrollWidth + 12 + attrEl.scrollWidth)
+      }
+    }
+    if (maxRowW <= 0) return
+    if (maxRowW <= availW) {
+      setFallbackLevel(0)
+    } else if (maxIconAttrW <= availW) {
+      setFallbackLevel(1)
+    } else {
+      setFallbackLevel(2)
+    }
+    if (maxAttrW > 0) setMaxAttrWidth(maxAttrW)
+  }, [])
+
+  useLayoutEffect(() => {
+    if (!isExpanded) return
+    recomputeAlign()
+  }, [isExpanded, visibleMatched, showOwnership, showNotes, recomputeAlign])
+
+  useEffect(() => {
+    const container = rowContainerRef.current
+    if (!isExpanded || !container) return
+    const ro = new ResizeObserver(() => recomputeAlign())
+    ro.observe(container)
+    return () => ro.disconnect()
+  }, [isExpanded, recomputeAlign])
 
   // Don't render plans where all weapons are hidden by hide filters —
   // showing "selected: 0 / total: 0" is confusing and useless.
@@ -488,7 +670,44 @@ export const DungeonCard = memo(function DungeonCard({
         </div>
       ) : (
         <div key="expanded" className="animate-in slide-in-from-top-2 duration-200 [animation-fill-mode:backwards]">
-          <div className="divide-y divide-border border rounded-md overflow-hidden">
+          {/* Hidden measurement rows — mirror the WeaponRow structure exactly
+               so measured scrollWidth reflects real pixel widths with zero estimation */}
+          <div ref={rowMeasureRef} aria-hidden className="absolute invisible pointer-events-none h-0 overflow-hidden">
+            {visibleMatched.map(({ weapon }) => (
+              <div key={weapon.id} className="flex flex-wrap items-center gap-x-3 px-3 py-2 text-sm whitespace-nowrap">
+                <div className="flex items-center gap-2 min-w-0">
+                  <div className="size-10 flex-shrink-0" />
+                  <span className="font-medium min-w-0 w-28 flex-shrink-0">{'\u200B'}</span>
+                </div>
+                <span className="text-xs text-muted-foreground min-w-0">
+                  {t(resolveStatI18nKey(weapon.primaryStat) ?? weapon.primaryStat)} |{' '}
+                  {t(resolveStatI18nKey(weapon.elementalDamage) ?? weapon.elementalDamage)} |{' '}
+                  {t(resolveStatI18nKey(weapon.specialAbility) ?? weapon.specialAbility)}
+                </span>
+                {(showOwnership || showNotes) && (
+                  <div className="flex items-center gap-1 flex-shrink-0">
+                    {showOwnership && (
+                      <>
+                        <span className="min-w-[56px] inline-flex justify-center">
+                          <OwnershipBadge active={false} onToggle={() => {}} label={t('essence.weaponOwnershipLabel')} activeColor="emerald" />
+                        </span>
+                        <span className="min-w-[56px] inline-flex justify-center">
+                          <OwnershipBadge active={false} onToggle={() => {}} label={t('essence.essenceOwnershipLabel')} activeColor="sky" />
+                        </span>
+                      </>
+                    )}
+                    {showNotes && <div className="w-20 flex-shrink-0">{'\u200B'}</div>}
+                  </div>
+                )}
+                <span className="ml-auto text-[10px] font-bold flex-shrink-0 min-w-12 text-right">{'\u200B'}</span>
+              </div>
+            ))}
+          </div>
+          <div
+            ref={rowContainerRef}
+            className="divide-y divide-border border rounded-md overflow-hidden"
+            style={maxAttrWidth > 0 && fallbackLevel === 0 ? { '--max-attr-width': `${maxAttrWidth}px` } as React.CSSProperties : undefined}
+          >
             {visibleMatched.map(({ weapon, isSelected }) => (
               <WeaponRow
                 key={weapon.id}
@@ -517,6 +736,7 @@ export const DungeonCard = memo(function DungeonCard({
                     ? (value) => setWeaponNote(weapon.id, value)
                     : undefined
                 }
+                fallbackLevel={fallbackLevel}
               />
             ))}
           </div>
