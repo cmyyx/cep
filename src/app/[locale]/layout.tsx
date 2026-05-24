@@ -15,6 +15,7 @@ import { ImportantAnnouncementBanner } from '@/components/home/important-announc
 import { AnnouncementLoader } from '@/components/home/announcement-loader'
 import { SyncManager } from '@/components/shared/sync-manager'
 import { LegacyMigrationDialog } from '@/components/shared/legacy-migration-dialog'
+import { DomainGuard } from '@/components/shared/domain-guard'
 import { VersionProvider } from '@/hooks/use-version'
 import { versionData } from '@/generated/version-data'
 
@@ -70,6 +71,7 @@ export default async function LocaleLayout({
 
   return (
     <NextIntlClientProvider messages={messages} locale={locale}>
+      <DomainGuard />
       <VersionProvider initialInfo={versionData}>
         <SidebarProvider className="h-svh">
           <ThemeProvider>

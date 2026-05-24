@@ -35,6 +35,7 @@ import {
 } from 'lucide-react'
 import { LanguageSwitcher } from './language-switcher'
 import { useAuthStore } from '@/stores/useAuthStore'
+import { FEATURES } from '@/lib/features'
 import { useVersion } from '@/hooks/use-version'
 import { useAnnouncementStore, useImportantUnreadCount } from '@/stores/useAnnouncementStore'
 import { cn, formatTime } from '@/lib/utils'
@@ -76,11 +77,10 @@ export function AppSidebar() {
   }, [])
 
   // Post-rehydration auth check. Runs once on mount after zustand
-  // rehydration completes. Replaces onRehydrateStorage which cannot
-  // reference useAuthStore due to TDZ in zustand v5 synchronous hydration.
+  // rehydration completes. Only when auth feature is enabled.
   const didHydrateCheck = useRef(false)
   useEffect(() => {
-    if (!mounted || didHydrateCheck.current) return
+    if (!mounted || didHydrateCheck.current || !FEATURES.auth) return
     didHydrateCheck.current = true
     const s = useAuthStore.getState()
     if (s.accessToken) {
@@ -251,7 +251,18 @@ export function AppSidebar() {
               <span>{t('nav.about')}</span>
             </SidebarMenuButton>
           </SidebarMenuItem>
-          {!mounted ? null : accessToken ? (
+          {!mounted ? null : !FEATURES.auth ? (
+            <SidebarMenuItem>
+              <SidebarMenuButton
+                render={<NavLink href={`/${locale}/login`} loadingLabel={t('nav.login')} />}
+                tooltip={t('nav.login')}
+                onClick={() => { if (isMobile) setOpenMobile(false) }}
+              >
+                <LogIn className="size-4" />
+                <span>{t('nav.login')}</span>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+          ) : accessToken ? (
             <>
               <SidebarMenuItem>
                 <SidebarMenuButton

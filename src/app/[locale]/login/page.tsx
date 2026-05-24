@@ -1,12 +1,12 @@
 'use client'
 
-import { useState, useMemo, useRef, Suspense } from 'react'
+import { useState, useMemo, useRef, useEffect, Suspense } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useTranslations, useLocale } from 'next-intl'
 import { useForm, useWatch } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
-import { Loader2, Cloud, Shield, Smartphone, Crown } from 'lucide-react'
+import { Loader2, Cloud, Shield, Smartphone, Crown, ExternalLink } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -15,6 +15,7 @@ import { Turnstile, type TurnstileHandle } from '@/components/shared/turnstile'
 import { SidebarTrigger } from '@/components/ui/sidebar'
 import { useAuthStore } from '@/stores/useAuthStore'
 import { getErrorI18nKey } from '@/lib/api'
+import { FEATURES } from '@/lib/features'
 import { cn } from '@/lib/utils'
 
 const loginSchema = z.object({
@@ -87,6 +88,14 @@ function LoginPageContent() {
   const registerStore = useAuthStore((s) => s.register)
   const isLoading = useAuthStore((s) => s.isLoading)
   const clearLocalSession = useAuthStore((s) => s.clearLocalSession)
+  const accessToken = useAuthStore((s) => s.accessToken)
+
+  // Redirect to account page if already authenticated and auth is available
+  useEffect(() => {
+    if (FEATURES.auth && accessToken) {
+      router.replace(`/${locale}/account`)
+    }
+  }, [accessToken, locale, router])
 
   const [turnstileToken, setTurnstileToken] = useState<string | null>(null)
   const turnstileRef = useRef<TurnstileHandle>(null)
@@ -186,6 +195,10 @@ function LoginPageContent() {
       setTurnstileToken(null)
       turnstileRef.current?.reset()
     }
+  }
+
+  if (!FEATURES.auth) {
+    return <LoginUnavailableGuide />
   }
 
   return (
@@ -562,5 +575,124 @@ function LoginPageContent() {
       </div>
     </div>
   </div>
+  )
+}
+
+function LoginUnavailableGuide() {
+  const t = useTranslations()
+
+  const officialDomains = FEATURES.allowedDomains
+
+  return (
+    <div className="flex flex-col flex-1 min-h-0 overflow-hidden">
+      <div className="flex items-center gap-3 px-4 py-2 border-b border-border">
+        <SidebarTrigger />
+        <h1 className="text-base font-semibold tracking-tight">{t('auth.unavailableTitle')}</h1>
+      </div>
+      <div className="flex-1 overflow-y-auto">
+        <div className="flex items-center justify-center min-h-full p-4">
+          <div className="w-full max-w-sm py-8">
+            <div className="mb-8 text-center">
+              <Cloud className="size-10 mx-auto text-muted-foreground mb-3" />
+              <h1 className="text-xl font-semibold tracking-[-0.48px] text-foreground">
+                {t('auth.unavailableTitle')}
+              </h1>
+              <p className="text-sm text-muted-foreground mt-3 leading-relaxed">
+                {t('auth.unavailableDescription')}
+              </p>
+            </div>
+
+            {/* How to access */}
+            <div className="rounded-lg border border-border bg-card p-4 mb-6">
+              <h2 className="text-sm font-semibold mb-3">{t('auth.unavailableHowToAccess')}</h2>
+              <div className="space-y-3">
+                <div className="flex items-start gap-2.5 text-sm">
+                  <span className="shrink-0 size-5 rounded-full bg-muted inline-flex items-center justify-center text-[11px] font-semibold text-muted-foreground">
+                    1
+                  </span>
+                  <div className="flex-1">
+                    <p className="text-foreground">{t('auth.unavailableOption1')}</p>
+                    {officialDomains.length > 0 && (
+                      <a
+                        href={`https://${officialDomains[0]}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1 text-sm text-develop-blue hover:underline mt-0.5"
+                      >
+                        {officialDomains[0]}
+                        <ExternalLink className="size-3" />
+                      </a>
+                    )}
+                  </div>
+                </div>
+                <div className="flex items-start gap-2.5 text-sm">
+                  <span className="shrink-0 size-5 rounded-full bg-muted inline-flex items-center justify-center text-[11px] font-semibold text-muted-foreground">
+                    2
+                  </span>
+                  <div className="flex-1">
+                    <p className="text-foreground">{t('auth.unavailableOption2')}</p>
+                    <a
+                      href={`https://${officialDomains.length > 1 ? officialDomains[1] : 'end.07070721.xyz'}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1 text-sm text-develop-blue hover:underline mt-0.5"
+                    >
+                      {officialDomains.length > 1 ? officialDomains[1] : 'end.07070721.xyz'}
+                      <ExternalLink className="size-3" />
+                    </a>
+                    <p className="text-xs text-muted-foreground mt-0.5">
+                      {t('auth.unavailableOption2Note')}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Benefits */}
+            <div className="pt-6 border-t border-border">
+              <h2 className="text-sm font-semibold text-center mb-4">{t('auth.whyRegister')}</h2>
+              <div className="space-y-2.5">
+                {[
+                  { icon: Cloud, key: 'auth.benefitSync' },
+                  { icon: Smartphone, key: 'auth.benefitMultiDevice' },
+                  { icon: Shield, key: 'auth.benefitBackup' },
+                  { icon: Crown, key: 'auth.benefitPremium' },
+                ].map(({ icon: Icon, key }) => (
+                  <div key={key} className="flex items-start gap-2.5 text-sm">
+                    <Icon className="size-4 mt-0.5 text-muted-foreground shrink-0" />
+                    <span className="text-muted-foreground">{t(key)}</span>
+                  </div>
+                ))}
+              </div>
+              <div className="mt-4 rounded-lg border border-border overflow-hidden">
+                <Table className="text-[11px]">
+                  <TableHeader>
+                    <TableRow className="bg-muted/50 hover:bg-muted/50">
+                      <TableHead className="text-left px-3 py-1.5 h-auto">{t('account.feature')}</TableHead>
+                      <TableHead className="text-center px-3 py-1.5 h-auto">Free</TableHead>
+                      <TableHead className="text-center px-3 py-1.5 h-auto text-purple-600">Premium</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {[
+                      ['account.featSyncSize', t('account.featSyncSizeFree'), t('account.featSyncSizePremium')],
+                      ['account.featAutoSync', t('account.notSupported'), t('account.supported')],
+                      ['account.featCustomWeapons', t('account.notSupported'), '300'],
+                    ].map(([label, free, premium]) => (
+                      <TableRow key={label}>
+                        <TableCell className="px-3 py-1.5 text-muted-foreground">{t(label)}</TableCell>
+                        <TableCell className="px-3 py-1.5 text-center">{free}</TableCell>
+                        <TableCell className="px-3 py-1.5 text-center text-purple-600 font-medium">{premium}</TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </div>
+              <p className="text-[11px] text-muted-foreground text-center mt-3">{t('auth.registerHint')}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   )
 }

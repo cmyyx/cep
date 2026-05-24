@@ -95,7 +95,13 @@
     "invalidOrExpiredToken": "ログインの有効期限が切れました。再ログインしてください。",
     "invalidSession": "セッションが無効です。再ログインしてください。",
     "turnstileRequired": "認証を完了してください",
-    "emailDomainUnsupported": "このメールプロバイダーはサポートされていません。別のメールアドレスを使用してください。"
+    "emailDomainUnsupported": "このメールプロバイダーはサポートされていません。別のメールアドレスを使用してください。",
+    "unavailableTitle": "クラウド同期",
+    "unavailableDescription": "不可抗力により、現在このノードでは中国本土向けのログインおよびクラウド同期サービスを提供できません。",
+    "unavailableHowToAccess": "全機能へのアクセス方法",
+    "unavailableOption1": "中国本土以外のIPでアクセス",
+    "unavailableOption2": "国際サイトにアクセス（全地域対応）",
+    "unavailableOption2Note": "中国聯通のユーザーは速度が遅くなる場合があります"
   },
   "account": {
     "title": "マイアカウント",

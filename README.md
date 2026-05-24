@@ -51,6 +51,25 @@ pnpm build
 npx serve out
 ```
 
+## 环境变量
+
+构建时通过 `.env.local` 或 CI 注入，所有变量必须以 `NEXT_PUBLIC_` 前缀声明（纯静态导出，仅客户端可用）。
+
+| 变量 | 说明 | 默认值 |
+|------|------|--------|
+| `NEXT_PUBLIC_API_BASE_URL` | 后端 API 地址，为空则禁用登录与云同步 | 空（禁用） |
+| `NEXT_PUBLIC_TURNSTILE_SITE_KEY` | Cloudflare Turnstile site key，为空则跳过人机验证 | 空（跳过） |
+| `NEXT_PUBLIC_ALLOWED_DOMAINS` | 允许的官方域名列表（逗号分隔），非空则启用反镜像检测 | 空（禁用） |
+| `NEXT_PUBLIC_ALLOWED_EMBED_DOMAINS` | 允许嵌入本站的域名列表（逗号分隔），非空则启用反内嵌检测 | 空（禁用） |
+
+```bash
+# .env.local 示例（官方部署）
+NEXT_PUBLIC_API_BASE_URL=https://end.canmoe.com
+NEXT_PUBLIC_TURNSTILE_SITE_KEY=0x4AAAAA...
+NEXT_PUBLIC_ALLOWED_DOMAINS=end.canmoe.com,end.07070721.xyz
+NEXT_PUBLIC_ALLOWED_EMBED_DOMAINS=end.canmoe.com,end.07070721.xyz
+```
+
 ## 项目结构
 
 ```

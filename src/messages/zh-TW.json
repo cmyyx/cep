@@ -95,7 +95,13 @@
     "invalidOrExpiredToken": "登入已過期，請重新登入",
     "invalidSession": "會話已失效，請重新登入",
     "turnstileRequired": "請完成人機驗證",
-    "emailDomainUnsupported": "該信箱服務商暫不支援，請更換其他信箱"
+    "emailDomainUnsupported": "該信箱服務商暫不支援，請更換其他信箱",
+    "unavailableTitle": "雲端同步功能",
+    "unavailableDescription": "因不可抗力因素，當前節點暫無法向中國大陸地區提供登入與雲端同步服務。",
+    "unavailableHowToAccess": "如何存取完整功能",
+    "unavailableOption1": "使用非中國大陸 IP 存取",
+    "unavailableOption2": "存取國際站（全地區可用）",
+    "unavailableOption2Note": "聯通用戶存取速度可能稍慢"
   },
   "account": {
     "title": "我的",

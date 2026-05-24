@@ -112,6 +112,10 @@ export async function api<T = unknown>(
   path: string,
   options: ApiOptions = {},
 ): Promise<T> {
+  if (!API_BASE) {
+    throw new ApiError('auth_unavailable', 0, { message: 'API base URL is not configured' })
+  }
+
   const { method = 'GET', body, token, noAuth, headers: customHeaders } = options
 
   const headers: Record<string, string> = {

@@ -95,7 +95,13 @@
     "invalidOrExpiredToken": "登录已过期，请重新登录",
     "invalidSession": "会话已失效，请重新登录",
     "turnstileRequired": "请完成人机验证",
-    "emailDomainUnsupported": "该邮箱服务商暂不支持，请更换其他邮箱"
+    "emailDomainUnsupported": "该邮箱服务商暂不支持，请更换其他邮箱",
+    "unavailableTitle": "云端同步功能",
+    "unavailableDescription": "因不可抗力因素，当前节点暂无法向中国大陆地区提供登录与云端同步服务。",
+    "unavailableHowToAccess": "如何访问完整功能",
+    "unavailableOption1": "使用非中国大陆 IP 访问",
+    "unavailableOption2": "访问国际站（全地区可用）",
+    "unavailableOption2Note": "联通用户访问速度可能稍慢"
   },
   "version": {
     "version": "版本",

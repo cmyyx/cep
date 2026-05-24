@@ -95,7 +95,13 @@
     "invalidOrExpiredToken": "Login expired, please log in again",
     "invalidSession": "Session invalid, please log in again",
     "turnstileRequired": "Please complete the verification",
-    "emailDomainUnsupported": "This email provider is not supported, please use another email"
+    "emailDomainUnsupported": "This email provider is not supported, please use another email",
+    "unavailableTitle": "Cloud Sync",
+    "unavailableDescription": "Due to force majeure, this node is currently unable to provide login and cloud sync services to mainland China.",
+    "unavailableHowToAccess": "How to Access Full Features",
+    "unavailableOption1": "Use a non-mainland China IP to visit",
+    "unavailableOption2": "Visit the international site (available worldwide)",
+    "unavailableOption2Note": "China Unicom users may experience slower speeds"
   },
   "account": {
     "title": "My Account",
