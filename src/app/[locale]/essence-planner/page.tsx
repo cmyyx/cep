@@ -93,33 +93,38 @@ export default function EssencePlannerPage() {
     [expandedPlanKeys],
   )
 
-  // Helper: count visible selected weapons in a plan (respecting hide settings)
-  const countVisibleSelected = useCallback(
-    (plan: import('@/lib/planner/essence-solver').DungeonPlan): number => {
+  // Helper: check whether a weapon should be visible in plan cards (respects hide settings)
+  const isWeaponVisibleInPlans = useCallback(
+    (weapon: import('@/types/matrix').Weapon): boolean => {
+      // UP weapons bypass hide filters when the setting is enabled
+      if (keepUpVisiblePlans && weapon.chars.some((c) => upCharSet.has(c))) return true
+      if (hideFourStarPlans && weapon.rarity === 4) return false
+      if (hideUnownedPlans && weaponOwnership[weapon.id] !== true) return false
+      if (hideEssenceOwnedPlans) {
+        const eOwned = essenceStatus[weapon.id] === true
+        const wOwned = weaponOwnership[weapon.id] === true
+        if (onlyBothOwned) {
+          if (eOwned && wOwned) return false
+        } else {
+          if (eOwned) return false
+        }
+      }
+      return true
+    },
+    [keepUpVisiblePlans, upCharSet, hideFourStarPlans, hideUnownedPlans, hideEssenceOwnedPlans, onlyBothOwned, weaponOwnership, essenceStatus],
+  )
+
+  // Count visible weapons in a plan (selected-only or all)
+  const countPlanWeapons = useCallback(
+    (plan: import('@/lib/planner/essence-solver').DungeonPlan, selectedOnly: boolean): number => {
       let count = 0
       for (const { weapon, isSelected } of plan.matchedWeapons) {
-        if (!isSelected) continue
-        // UP weapons bypass hide filters when the setting is enabled
-        if (keepUpVisiblePlans && weapon.chars.some((c) => upCharSet.has(c))) {
-          count++
-          continue
-        }
-        if (hideFourStarPlans && weapon.rarity === 4) continue
-        if (hideUnownedPlans && weaponOwnership[weapon.id] !== true) continue
-        if (hideEssenceOwnedPlans) {
-          const eOwned = essenceStatus[weapon.id] === true
-          const wOwned = weaponOwnership[weapon.id] === true
-          if (onlyBothOwned) {
-            if (eOwned && wOwned) continue
-          } else {
-            if (eOwned) continue
-          }
-        }
-        count++
+        if (selectedOnly && !isSelected) continue
+        if (isWeaponVisibleInPlans(weapon)) count++
       }
       return count
     },
-    [keepUpVisiblePlans, upCharSet, hideFourStarPlans, hideUnownedPlans, hideEssenceOwnedPlans, onlyBothOwned, weaponOwnership, essenceStatus],
+    [isWeaponVisibleInPlans],
   )
 
   // Apply region priority sorting (sorted by visible selected count)
@@ -149,14 +154,14 @@ export default function EssencePlannerPage() {
         if (rankA !== rankB) return rankA - rankB
       }
 
-      // 2. Visible selected count desc → 3. Total count desc
-      const selDiff = countVisibleSelected(planB) - countVisibleSelected(planA)
+      // 2. Visible selected count desc → 3. Visible total count desc
+      const selDiff = countPlanWeapons(planB, true) - countPlanWeapons(planA, true)
       if (selDiff !== 0) return selDiff
-      return planB.totalCount - planA.totalCount
+      return countPlanWeapons(planB, false) - countPlanWeapons(planA, false)
     })
 
     return order
-  }, [planOrder, plansMap, regionFirst, regionSecond, countVisibleSelected])
+  }, [planOrder, plansMap, regionFirst, regionSecond, countPlanWeapons])
 
   // Apply region filter on top of sorted order
   const filteredPlanOrder = useMemo(() => {
