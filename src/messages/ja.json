@@ -460,7 +460,8 @@
       "user-data": { "label": "ユーザープロフィール＆トークン", "desc": "ユーザー情報" },
       "cep-settings": { "label": "一般設定", "desc": "テーマ、背景画像、言語など" },
       "editor-drafts": { "label": "エディター下書き", "desc": "カスタムキャラクター編集の下書き" },
-      "announcement-read": { "label": "お知らせ既読記録", "desc": "既読お知らせIDリスト" }
+      "announcement-read": { "label": "お知らせ既読記録", "desc": "既読お知らせIDリスト" },
+      "dev-overrides": { "desc": "開発デバッグ" }
     }
   },
   "legacyMigration": {

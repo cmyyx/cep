@@ -460,7 +460,8 @@
       "user-data": { "label": "User Profile & Tokens", "desc": "User info" },
       "cep-settings": { "label": "General Settings", "desc": "Theme, background image, language, etc." },
       "editor-drafts": { "label": "Editor Drafts", "desc": "Custom character edit drafts" },
-      "announcement-read": { "label": "Announcement Read Records", "desc": "Read announcement ID list" }
+      "announcement-read": { "label": "Announcement Read Records", "desc": "Read announcement ID list" },
+      "dev-overrides": { "desc": "Dev" }
     }
   },
   "legacyMigration": {

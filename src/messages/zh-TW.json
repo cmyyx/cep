@@ -460,7 +460,8 @@
       "user-data": { "label": "使用者資料與權杖", "desc": "使用者資訊" },
       "cep-settings": { "label": "一般設定", "desc": "主題、背景圖片、語言等" },
       "editor-drafts": { "label": "編輯器草稿", "desc": "自訂角色編輯草稿" },
-      "announcement-read": { "label": "公告已讀記錄", "desc": "已讀公告 ID 列表" }
+      "announcement-read": { "label": "公告已讀記錄", "desc": "已讀公告 ID 列表" },
+      "dev-overrides": { "desc": "開發調試" }
     }
   },
   "legacyMigration": {

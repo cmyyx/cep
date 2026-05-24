@@ -294,7 +294,8 @@
       "user-data": { "label": "用户资料与令牌", "desc": "用户信息" },
       "cep-settings": { "label": "通用设置", "desc": "主题、背景图片、语言等" },
       "editor-drafts": { "label": "编辑器草稿", "desc": "自定义角色编辑草稿" },
-      "announcement-read": { "label": "公告已读记录", "desc": "已读公告 ID 列表" }
+      "announcement-read": { "label": "公告已读记录", "desc": "已读公告 ID 列表" },
+      "dev-overrides": { "desc": "开发调试" }
     }
   },
   "legacyMigration": {

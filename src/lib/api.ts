@@ -1,4 +1,6 @@
-const API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL ?? ''
+import { getApiBaseUrl } from '@/lib/dev-api'
+
+const getApiBase = () => getApiBaseUrl()
 
 // ─── Token storage helpers ──────────────────────────────────
 
@@ -44,7 +46,7 @@ async function doRefresh(): Promise<boolean> {
   if (!refreshToken) return false
 
   try {
-    const res = await fetch(`${API_BASE}/api/auth/refresh`, {
+    const res = await fetch(`${getApiBase()}/api/auth/refresh`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ refreshToken }),
@@ -112,7 +114,7 @@ export async function api<T = unknown>(
   path: string,
   options: ApiOptions = {},
 ): Promise<T> {
-  if (!API_BASE) {
+  if (!getApiBase()) {
     throw new ApiError('auth_unavailable', 0, { message: 'API base URL is not configured' })
   }
 
@@ -128,7 +130,7 @@ export async function api<T = unknown>(
     headers['Authorization'] = `Bearer ${authToken}`
   }
 
-  const res = await fetch(`${API_BASE}${path}`, {
+  const res = await fetch(`${getApiBase()}${path}`, {
     method,
     headers,
     body: body ? JSON.stringify(body) : undefined,
@@ -142,7 +144,7 @@ export async function api<T = unknown>(
       if (newToken) {
         headers['Authorization'] = `Bearer ${newToken}`
       }
-      const retryRes = await fetch(`${API_BASE}${path}`, {
+      const retryRes = await fetch(`${getApiBase()}${path}`, {
         method,
         headers,
         body: body ? JSON.stringify(body) : undefined,

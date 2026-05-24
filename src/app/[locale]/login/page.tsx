@@ -15,7 +15,7 @@ import { Turnstile, type TurnstileHandle } from '@/components/shared/turnstile'
 import { SidebarTrigger } from '@/components/ui/sidebar'
 import { useAuthStore } from '@/stores/useAuthStore'
 import { getErrorI18nKey } from '@/lib/api'
-import { FEATURES } from '@/lib/features'
+import { getApiBaseUrl, getTurnstileSiteKey, isAuthAvailable, getDevOverrides, setDevOverrides, clearDevOverrides } from '@/lib/dev-api'
 import { cn } from '@/lib/utils'
 
 const loginSchema = z.object({
@@ -57,14 +57,6 @@ function getPasswordStrength(password: string): { score: number; labelKey: strin
   return { score: 100, labelKey: 'strengthVeryStrong', color: 'bg-green-500' }
 }
 
-// Turnstile site key — public, differs per environment.
-const TURNSTILE_SITE_KEY: string = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY ?? ''
-if (!TURNSTILE_SITE_KEY) {
-  if (process.env.NODE_ENV !== 'production') {
-    console.warn('[turnstile] NEXT_PUBLIC_TURNSTILE_SITE_KEY is not set — Turnstile verification will be skipped')
-  }
-}
-
 export default function LoginPage() {
   return (
     <Suspense fallback={null}>
@@ -92,7 +84,7 @@ function LoginPageContent() {
 
   // Redirect to account page if already authenticated and auth is available
   useEffect(() => {
-    if (FEATURES.auth && accessToken) {
+    if (isAuthAvailable() && accessToken) {
       router.replace(`/${locale}/account`)
     }
   }, [accessToken, locale, router])
@@ -115,7 +107,7 @@ function LoginPageContent() {
     if (!resetEmail) return
     setResetSending(true); setResetError(null)
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL ?? ''}/api/password/send-reset`, {
+      const res = await fetch(`${getApiBaseUrl()}/api/password/send-reset`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email: resetEmail }),
@@ -133,7 +125,7 @@ function LoginPageContent() {
     if (resetNewPassword !== resetConfirmPassword) { setResetError('passwordsNotMatch'); return }
     setResetSubmitting(true); setResetError(null)
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL ?? ''}/api/password/reset`, {
+      const res = await fetch(`${getApiBaseUrl()}/api/password/reset`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email: resetEmail, code: resetCode, newPassword: resetNewPassword }),
@@ -197,7 +189,7 @@ function LoginPageContent() {
     }
   }
 
-  if (!FEATURES.auth) {
+  if (!isAuthAvailable()) {
     return <LoginUnavailableGuide />
   }
 
@@ -362,11 +354,11 @@ function LoginPageContent() {
               )}
             </div>
 
-            {TURNSTILE_SITE_KEY && (
+            {getTurnstileSiteKey() && (
               <div className="flex justify-center">
                 <Turnstile
                   ref={turnstileRef}
-                  siteKey={TURNSTILE_SITE_KEY}
+                  siteKey={getTurnstileSiteKey()}
                   onVerify={setTurnstileToken}
                   onExpire={() => setTurnstileToken(null)}
                 />
@@ -486,11 +478,11 @@ function LoginPageContent() {
               )}
             </div>
 
-            {TURNSTILE_SITE_KEY && (
+            {getTurnstileSiteKey() && (
               <div className="flex justify-center">
                 <Turnstile
                   ref={turnstileRef}
-                  siteKey={TURNSTILE_SITE_KEY}
+                  siteKey={getTurnstileSiteKey()}
                   onVerify={setTurnstileToken}
                   onExpire={() => setTurnstileToken(null)}
                 />
@@ -580,6 +572,42 @@ function LoginPageContent() {
 
 function LoginUnavailableGuide() {
   const t = useTranslations()
+  const [devClicks, setDevClicks] = useState(0)
+  const [lastClickTime, setLastClickTime] = useState(0)
+  const [showDevPanel, setShowDevPanel] = useState(false)
+  const [devApiUrl, setDevApiUrl] = useState('')
+  const [devTurnstileKey, setDevTurnstileKey] = useState('')
+
+  useEffect(() => {
+    const { apiUrl, turnstileKey } = getDevOverrides()
+    setDevApiUrl(apiUrl)
+    setDevTurnstileKey(turnstileKey)
+  }, [])
+
+  const handleCloudClick = () => {
+    const now = Date.now()
+    if (now - lastClickTime > 3000) {
+      setDevClicks(1)
+    } else {
+      const n = devClicks + 1
+      setDevClicks(n)
+      if (n >= 5) {
+        setShowDevPanel(true)
+        setDevClicks(0)
+      }
+    }
+    setLastClickTime(now)
+  }
+
+  const handleEnable = () => {
+    setDevOverrides(devApiUrl, devTurnstileKey)
+    window.location.reload()
+  }
+
+  const handleClear = () => {
+    clearDevOverrides()
+    window.location.reload()
+  }
 
   return (
     <div className="flex flex-col flex-1 min-h-0 overflow-hidden">
@@ -591,7 +619,10 @@ function LoginUnavailableGuide() {
         <div className="flex items-center justify-center min-h-full p-4">
           <div className="w-full max-w-sm py-8">
             <div className="mb-8 text-center">
-              <Cloud className="size-10 mx-auto text-muted-foreground mb-3" />
+              <Cloud
+                className="size-10 mx-auto text-muted-foreground mb-3 cursor-default select-none"
+                onClick={handleCloudClick}
+              />
               <h1 className="text-xl font-semibold tracking-[-0.48px] text-foreground">
                 {t('auth.unavailableTitle')}
               </h1>
@@ -599,6 +630,39 @@ function LoginUnavailableGuide() {
                 {t('auth.unavailableDescription')}
               </p>
             </div>
+
+            {/* Dev panel — 5-click trigger */}
+            {showDevPanel && (
+              <div className="rounded-lg border border-amber-200 bg-amber-50 dark:border-amber-800 dark:bg-amber-950/30 p-4 mb-6">
+                <h2 className="text-sm font-semibold mb-3 text-amber-800 dark:text-amber-200">Dev API 设置</h2>
+                <div className="space-y-3">
+                  <div className="flex flex-col gap-1.5">
+                    <Label htmlFor="dev-api-url" className="text-xs text-amber-700 dark:text-amber-300">API Base URL</Label>
+                    <Input
+                      id="dev-api-url"
+                      className="h-8 text-xs bg-white dark:bg-card border-amber-200 dark:border-amber-800"
+                      placeholder="https://localhost:8787"
+                      value={devApiUrl}
+                      onChange={(e) => setDevApiUrl(e.target.value)}
+                    />
+                  </div>
+                  <div className="flex flex-col gap-1.5">
+                    <Label htmlFor="dev-turnstile-key" className="text-xs text-amber-700 dark:text-amber-300">Turnstile Site Key</Label>
+                    <Input
+                      id="dev-turnstile-key"
+                      className="h-8 text-xs bg-white dark:bg-card border-amber-200 dark:border-amber-800"
+                      placeholder="1x00000000000000000000AA"
+                      value={devTurnstileKey}
+                      onChange={(e) => setDevTurnstileKey(e.target.value)}
+                    />
+                  </div>
+                  <div className="flex gap-2">
+                    <Button size="sm" className="flex-1" onClick={handleEnable}>启用</Button>
+                    <Button size="sm" variant="outline" onClick={handleClear}>清除</Button>
+                  </div>
+                </div>
+              </div>
+            )}
 
             {/* How to access */}
             <div className="rounded-lg border border-border bg-card p-4 mb-6">
