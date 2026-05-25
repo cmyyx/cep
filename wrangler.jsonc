@@ -3,7 +3,8 @@
   "name": "cep",
   "compatibility_date": "2026-05-05", 
   "assets": {
-    "directory": "./out" 
+    "directory": "./out",
+    "not_found_handling": "404-page"
   },
   "observability": {
     "enabled": true
