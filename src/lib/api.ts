@@ -400,6 +400,19 @@ export function getErrorI18nKey(code: string): string {
     internal_server_error: 'account.serverError',
     not_found: 'account.notFound',
 
+    // OAuth
+    invalid_client: 'oauth.invalidClient',
+    invalid_state: 'oauth.invalidState',
+    invalid_grant: 'oauth.invalidGrant',
+    invalid_token: 'oauth.invalidToken',
+    invalid_request: 'oauth.invalidRequest',
+    unsupported_grant_type: 'oauth.unsupportedGrantType',
+    missing_oauth_params: 'oauth.missingParams',
+
+    // Email service
+    email_send_failed: 'account.emailSendFailed',
+    smtp_config_invalid: 'account.serverError',
+
     // Client-side (thrown by api.ts itself)
     invalid_response: 'account.invalidResponse',
     auth_unavailable: 'auth.unavailable',

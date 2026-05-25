@@ -85,6 +85,19 @@ export type ApiErrorCode =
   | 'internal_server_error'
   | 'not_found'
 
+  // ── OAuth (backend) ──
+  | 'invalid_client'
+  | 'invalid_state'
+  | 'invalid_grant'
+  | 'invalid_token'
+  | 'invalid_request'
+  | 'unsupported_grant_type'
+  | 'missing_oauth_params'
+
+  // ── Email service (backend) ──
+  | 'email_send_failed'
+  | 'smtp_config_invalid'
+
   // ── Client-side (thrown by api.ts itself, not from backend) ──
   | 'invalid_response'
   | 'auth_unavailable'
