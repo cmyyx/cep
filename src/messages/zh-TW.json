@@ -99,6 +99,7 @@
     "invalidSession": "會話已失效，請重新登入",
     "turnstileRequired": "請完成人機驗證",
     "emailDomainUnsupported": "該信箱服務商暫不支援，請更換其他信箱",
+    "unavailable": "登入與雲端同步功能當前不可用",
     "unavailableTitle": "雲端同步功能不可用",
     "unavailableDescription": "登入與雲端同步功能在當前部署中不可用。可能原因：當前節點因地域限制暫不提供帳號服務，或此部署未配置後端 API 伺服器。",
     "unavailableHowToAccess": "如何存取完整功能",
@@ -464,10 +465,7 @@
     "importSummaryItems": "{count} 項",
     "importSummaryEmpty": "無資料",
     "importExportedBy": "匯出端版本",
-    "importDevice": "裝置",
-    "language": "語言",
-    "languageLabel": "介面語言",
-    "languageAuto": "AUTO"
+    "importDevice": "裝置"
   },
   "dataCleaner": {
     "dialogTitle": "資料清理",

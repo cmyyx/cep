@@ -66,9 +66,17 @@ export default function UpdatePage() {
   const [isLoading, setIsLoading] = useState(true)
   const [loadError, setLoadError] = useState(false)
 
-  useEffect(() => {
+  const abortRef = useRef<AbortController | null>(null)
+
+  const fetchChangelog = useCallback(() => {
+    // Abort any in-flight request before starting a new one
+    abortRef.current?.abort()
     const controller = new AbortController()
+    abortRef.current = controller
+
     const startedAt = Date.now()
+    setIsLoading(true)
+    setLoadError(false)
 
     let didError = false
     let changelogData: string[] = []
@@ -107,11 +115,22 @@ export default function UpdatePage() {
           setLoadError(didError)
         }
       })
-
-    return () => {
-      controller.abort()
-    }
   }, [])
+
+  // Fetch changelog on mount
+  useEffect(() => {
+    queueMicrotask(() => fetchChangelog())
+    return () => abortRef.current?.abort()
+  }, [fetchChangelog])
+
+  // Re-fetch changelog after a manual version check completes successfully
+  const prevChecking = useRef(isChecking)
+  useEffect(() => {
+    if (prevChecking.current && !isChecking && lastCheckResult !== 'error') {
+      fetchChangelog()
+    }
+    prevChecking.current = isChecking
+  }, [isChecking, lastCheckResult, fetchChangelog])
 
   // Auto-dismiss check result after 3s
   const [checkMessage, setCheckMessage] = useState<string | null>(null)

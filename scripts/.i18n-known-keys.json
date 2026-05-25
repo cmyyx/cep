@@ -3,8 +3,9 @@
 
   "runtimeKeys": {
     "auth": {
-      "comment": "Server error codes returned by the API (passed via t(`auth.${serverError}`)). Also includes react-hook-form validation messages, zod schema error keys, and password strength labels accessed via computed template literals.",
+      "comment": "Server error codes returned by the API (passed via t(`auth.${serverError}`)). Also includes react-hook-form validation messages, zod schema error keys, and password strength labels accessed via computed template literals. 'unavailable' is the i18n value of getErrorI18nKey('auth_unavailable') → resolved at runtime via t(getErrorI18nKey(serverError)).",
       "keys": [
+        "unavailable",
         "account_disabled",
         "emailDomainUnsupported",
         "email_taken",
