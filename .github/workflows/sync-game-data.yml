@@ -25,14 +25,21 @@ jobs:
         run: |
           git fetch origin auto/upstream-tracking || true
 
+      - name: Sync AKEData fork from upstream
+        env:
+          GH_TOKEN: ${{ secrets.GH_FORK_SYNC_TOKEN }}
+        run: |
+          gh api --method POST /repos/cmyyx/AKEData/merge-upstream \
+            -f branch='main'
+
       - name: Check upstream changes
         id: diff
         env:
-          AKEDATA_PAT: ${{ secrets.AKEDATA_PAT }}
+          GH_FORK_SYNC_TOKEN: ${{ secrets.GH_FORK_SYNC_TOKEN }}
         run: |
-          # Shallow sparse-clone upstream repos (only files we need)
+          # Shallow sparse-clone AKEData fork (synced from upstream above)
           git clone --depth 1 --filter=blob:none --sparse --no-checkout \
-            "https://oauth2:${AKEDATA_PAT}@github.com/owner/AKEData.git" upstream/AKEData
+            "https://oauth2:${GH_FORK_SYNC_TOKEN}@github.com/cmyyx/AKEData.git" upstream/AKEData
           git -C upstream/AKEData sparse-checkout init --cone
           git -C upstream/AKEData sparse-checkout set \
             output/CN/weapon output/CN/equip \
@@ -48,8 +55,9 @@ jobs:
             TableCfg/I18nTextTable_TC.json
           git -C upstream/AKEData checkout
 
+          # Clone public translation repo (no auth needed)
           git clone --depth 1 --filter=blob:none --sparse --no-checkout \
-            "https://oauth2:${AKEDATA_PAT}@github.com/owner/EndFieldTranslationReferrer.git" upstream/EndFieldTranslationReferrer
+            https://github.com/SusieGlitter/EndFieldTranslationReferrer.git upstream/EndFieldTranslationReferrer
           git -C upstream/EndFieldTranslationReferrer sparse-checkout init --cone
           git -C upstream/EndFieldTranslationReferrer sparse-checkout set i18n
           git -C upstream/EndFieldTranslationReferrer checkout
@@ -86,12 +94,20 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Sync AKEData fork from upstream
+        env:
+          GH_TOKEN: ${{ secrets.GH_FORK_SYNC_TOKEN }}
+        run: |
+          gh api --method POST /repos/cmyyx/AKEData/merge-upstream \
+            -f branch='main'
+
       - name: Clone upstream repos
         env:
-          AKEDATA_PAT: ${{ secrets.AKEDATA_PAT }}
+          GH_FORK_SYNC_TOKEN: ${{ secrets.GH_FORK_SYNC_TOKEN }}
         run: |
+          # Clone AKEData fork (synced from upstream above)
           git clone --depth 1 --filter=blob:none --sparse --no-checkout \
-            "https://oauth2:${AKEDATA_PAT}@github.com/owner/AKEData.git" upstream/AKEData
+            "https://oauth2:${GH_FORK_SYNC_TOKEN}@github.com/cmyyx/AKEData.git" upstream/AKEData
           git -C upstream/AKEData sparse-checkout init --cone
           git -C upstream/AKEData sparse-checkout set \
             output/CN/weapon output/CN/equip \
@@ -107,8 +123,9 @@ jobs:
             TableCfg/I18nTextTable_TC.json
           git -C upstream/AKEData checkout
 
+          # Clone public translation repo (no auth needed)
           git clone --depth 1 --filter=blob:none --sparse --no-checkout \
-            "https://oauth2:${AKEDATA_PAT}@github.com/owner/EndFieldTranslationReferrer.git" upstream/EndFieldTranslationReferrer
+            https://github.com/SusieGlitter/EndFieldTranslationReferrer.git upstream/EndFieldTranslationReferrer
           git -C upstream/EndFieldTranslationReferrer sparse-checkout init --cone
           git -C upstream/EndFieldTranslationReferrer sparse-checkout set i18n
           git -C upstream/EndFieldTranslationReferrer checkout

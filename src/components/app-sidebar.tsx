@@ -257,20 +257,18 @@ export function AppSidebar() {
             <SidebarMenuButton
               render={<NavLink href={`/${locale}/privacy`} loadingLabel={t('nav.privacy')} />}
               onClick={() => { if (isMobile) setOpenMobile(false) }}
-              size="sm"
             >
-              <Shield className="size-3.5" />
-              <span className="text-xs text-muted-foreground">{t('nav.privacy')}</span>
+              <Shield className="size-4" />
+              <span className="text-muted-foreground">{t('nav.privacy')}</span>
             </SidebarMenuButton>
           </SidebarMenuItem>
           <SidebarMenuItem>
             <SidebarMenuButton
               render={<NavLink href={`/${locale}/terms`} loadingLabel={t('nav.terms')} />}
               onClick={() => { if (isMobile) setOpenMobile(false) }}
-              size="sm"
             >
-              <FileText className="size-3.5" />
-              <span className="text-xs text-muted-foreground">{t('nav.terms')}</span>
+              <FileText className="size-4" />
+              <span className="text-muted-foreground">{t('nav.terms')}</span>
             </SidebarMenuButton>
           </SidebarMenuItem>
           {!mounted ? null : !FEATURES.auth ? (
