@@ -1,8 +1,8 @@
 'use client'
 
 import { useState, useEffect, useRef, Suspense } from 'react'
-import { useRouter, useSearchParams } from 'next/navigation'
-import { useTranslations, useLocale } from 'next-intl'
+import { useSearchParams } from 'next/navigation'
+import { useTranslations } from 'next-intl'
 import { Loader2, LogIn, ShieldAlert } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -11,8 +11,6 @@ import { Turnstile, type TurnstileHandle } from '@/components/shared/turnstile'
 import { useAuthStore } from '@/stores/useAuthStore'
 import { getTurnstileSiteKey } from '@/lib/dev-api'
 import { api } from '@/lib/api'
-import { cn } from '@/lib/utils'
-
 /**
  * OAuth2 Authorization Page.
  *
@@ -52,8 +50,6 @@ function OAuthLoading() {
 
 function OAuthAuthorizeContent() {
   const t = useTranslations()
-  const locale = useLocale()
-  const router = useRouter()
   const searchParams = useSearchParams()
 
   // OAuth parameters from the query string
@@ -64,7 +60,6 @@ function OAuthAuthorizeContent() {
 
   // Auth state
   const accessToken = useAuthStore((s) => s.accessToken)
-  const refreshToken = useAuthStore((s) => s.refreshToken)
   const username = useAuthStore((s) => s.username)
   const isLoading = useAuthStore((s) => s.isLoading)
   const login = useAuthStore((s) => s.login)
@@ -72,7 +67,7 @@ function OAuthAuthorizeContent() {
   // UI state
   const [authorizing, setAuthorizing] = useState(false)
   const [error, setError] = useState<string | null>(null)
-  const [needsLogin, setNeedsLogin] = useState(false)
+  const [redirectUrl, setRedirectUrl] = useState<string | null>(null)
   const [loginUsername, setLoginUsername] = useState('')
   const [loginPassword, setLoginPassword] = useState('')
   const [loginError, setLoginError] = useState<string | null>(null)
@@ -85,13 +80,15 @@ function OAuthAuthorizeContent() {
   // Validate required OAuth parameters
   const missingParams = !clientId || !redirectUri
 
-  // Decide initial view
+  // Derived: show login if authenticated session is missing
+  const needsLogin = !missingParams && !accessToken
+
+  // Redirect to external OAuth URLs via effect (avoids mutating window directly in handler)
   useEffect(() => {
-    if (missingParams) return
-    if (!accessToken) {
-      setNeedsLogin(true)
+    if (redirectUrl) {
+      window.location.href = redirectUrl
     }
-  }, [accessToken, missingParams])
+  }, [redirectUrl])
 
   // ── Handle login on the OAuth page ──────────────────────
   const handleLogin = async () => {
@@ -100,9 +97,8 @@ function OAuthAuthorizeContent() {
     setLoginError(null)
     try {
       await login(loginUsername, loginPassword, turnstileToken)
-      // After successful login, the Zustand store is updated.
-      // The component re-renders and shows the consent view.
-      setNeedsLogin(false)
+      // After successful login, the Zustand store updates accessToken.
+      // needsLogin is derived, so it automatically becomes false on re-render.
     } catch (err) {
       setLoginError(err instanceof Error ? err.message : 'loginFailed')
       setTurnstileToken(null)
@@ -130,7 +126,7 @@ function OAuthAuthorizeContent() {
       })
 
       // Redirect to the OAuth callback (NodeBB)
-      window.location.href = data.redirect_url
+      setRedirectUrl(data.redirect_url)
     } catch (err) {
       setError(err instanceof Error ? err.message : 'authorization_failed')
       setAuthorizing(false)
@@ -146,7 +142,7 @@ function OAuthAuthorizeContent() {
     if (state) {
       params.set('state', state)
     }
-    window.location.href = `${redirectUri}?${params.toString()}`
+    setRedirectUrl(`${redirectUri}?${params.toString()}`)
   }
 
   // ── Missing parameters ──────────────────────────────────
