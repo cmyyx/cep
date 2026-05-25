@@ -70,6 +70,7 @@
     "invalidEmail": "请输入有效的邮箱地址",
     "loginFailed": "登录失败，请检查用户名和密码",
     "registerFailed": "注册失败，请稍后重试",
+    "loggingIn": "登录中...",
     "missing_credentials": "请输入用户名和密码",
     "invalid_credentials": "用户名或密码错误",
     "account_disabled": "账号已被禁用",
@@ -112,6 +113,23 @@
       "turnstilePlaceholder": "1x00000000000000000000AA",
       "enable": "启用",
       "clear": "清除"
+    },
+    "oauth": {
+      "authorizeTitle": "授权登录",
+      "authorizeDescription": "<client></client> 请求访问你的 CEP 账号",
+      "unknownClient": "第三方应用",
+      "requestedScopes": "请求权限",
+      "scopeExplanation": "该应用将获得以下权限：",
+      "scopeProfile": "读取你的用户名和头像",
+      "scopeEmail": "读取你的邮箱地址",
+      "authorize": "授权并登录",
+      "cancel": "取消",
+      "authorizing": "授权中...",
+      "loginRequired": "请先登录",
+      "loginRequiredHint": "你需要登录 CEP 账号后才能授权 {client}",
+      "invalidRequest": "无效的授权请求",
+      "missingParams": "缺少必要参数，无法完成授权",
+      "privacyNote": "你的密码不会分享给第三方应用"
     }
   },
   "version": {

@@ -55,6 +55,7 @@
     "strengthVeryStrong": "Very Strong",
     "noAccount": "Don't have an account? Register now",
     "hasAccount": "Already have an account? Login now",
+    "loggingIn": "Logging in...",
     "missing_credentials": "Please enter username and password",
     "invalid_credentials": "Invalid username or password",
     "account_disabled": "Account has been disabled",
@@ -112,6 +113,23 @@
       "turnstilePlaceholder": "1x00000000000000000000AA",
       "enable": "Enable",
       "clear": "Clear"
+    },
+    "oauth": {
+      "authorizeTitle": "Authorize Login",
+      "authorizeDescription": "<client></client> wants to access your CEP account",
+      "unknownClient": "Third-party Application",
+      "requestedScopes": "Requested Permissions",
+      "scopeExplanation": "This application will be able to:",
+      "scopeProfile": "Read your username and avatar",
+      "scopeEmail": "Read your email address",
+      "authorize": "Authorize and Login",
+      "cancel": "Cancel",
+      "authorizing": "Authorizing...",
+      "loginRequired": "Login Required",
+      "loginRequiredHint": "You need to log in to your CEP account before authorizing {client}",
+      "invalidRequest": "Invalid Authorization Request",
+      "missingParams": "Missing required parameters, unable to complete authorization",
+      "privacyNote": "Your password will not be shared with the third-party application"
     }
   },
   "account": {

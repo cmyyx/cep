@@ -55,6 +55,7 @@
     "strengthVeryStrong": "強",
     "noAccount": "還沒有帳號？立即註冊",
     "hasAccount": "已有帳號？立即登入",
+    "loggingIn": "登入中...",
     "missing_credentials": "請輸入使用者名稱和密碼",
     "invalid_credentials": "使用者名稱或密碼錯誤",
     "account_disabled": "帳號已被停用",
@@ -112,6 +113,23 @@
       "turnstilePlaceholder": "1x00000000000000000000AA",
       "enable": "啟用",
       "clear": "清除"
+    },
+    "oauth": {
+      "authorizeTitle": "授權登入",
+      "authorizeDescription": "<client></client> 請求存取你的 CEP 帳號",
+      "unknownClient": "第三方應用",
+      "requestedScopes": "請求權限",
+      "scopeExplanation": "該應用將獲得以下權限：",
+      "scopeProfile": "讀取你的使用者名稱和頭像",
+      "scopeEmail": "讀取你的信箱地址",
+      "authorize": "授權並登入",
+      "cancel": "取消",
+      "authorizing": "授權中...",
+      "loginRequired": "請先登入",
+      "loginRequiredHint": "你需要登入 CEP 帳號後才能授權 {client}",
+      "invalidRequest": "無效的授權請求",
+      "missingParams": "缺少必要參數，無法完成授權",
+      "privacyNote": "你的密碼不會分享給第三方應用"
     }
   },
   "account": {

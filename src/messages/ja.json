@@ -55,6 +55,7 @@
     "strengthVeryStrong": "強い",
     "noAccount": "アカウントをお持ちでない方はこちら",
     "hasAccount": "アカウントをお持ちの方はこちら",
+    "loggingIn": "ログイン中...",
     "missing_credentials": "ユーザー名とパスワードを入力してください",
     "invalid_credentials": "ユーザー名またはパスワードが間違っています",
     "account_disabled": "アカウントが無効化されています",
@@ -112,6 +113,23 @@
       "turnstilePlaceholder": "1x00000000000000000000AA",
       "enable": "有効にする",
       "clear": "クリア"
+    },
+    "oauth": {
+      "authorizeTitle": "認証ログイン",
+      "authorizeDescription": "<client></client> があなたのCEPアカウントへのアクセスを要求しています",
+      "unknownClient": "サードパーティアプリ",
+      "requestedScopes": "要求権限",
+      "scopeExplanation": "このアプリは以下の権限を取得します：",
+      "scopeProfile": "ユーザー名とアバターの読み取り",
+      "scopeEmail": "メールアドレスの読み取り",
+      "authorize": "認証してログイン",
+      "cancel": "キャンセル",
+      "authorizing": "認証中...",
+      "loginRequired": "ログインが必要です",
+      "loginRequiredHint": "{client} を認証する前にCEPアカウントにログインしてください",
+      "invalidRequest": "無効な認証リクエスト",
+      "missingParams": "必要なパラメータが不足しています",
+      "privacyNote": "パスワードはサードパーティアプリと共有されません"
     }
   },
   "account": {
