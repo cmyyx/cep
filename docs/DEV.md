@@ -19,7 +19,7 @@ CEP 为纯静态站点，登录与云端同步依赖 `NEXT_PUBLIC_API_BASE_URL` 
 
 也可手动清除以下两个 localStorage key：
 
-```
+```text
 __cep_dev_api_url
 __cep_dev_turnstile_key
 ```

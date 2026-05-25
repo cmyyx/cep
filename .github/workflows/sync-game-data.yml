@@ -30,7 +30,7 @@ jobs:
           GH_TOKEN: ${{ secrets.GH_FORK_SYNC_TOKEN }}
         run: |
           gh api --method POST /repos/cmyyx/AKEData/merge-upstream \
-            -f branch='main' --silent || true
+            -f branch='main'
 
       - name: Check upstream changes
         id: diff
@@ -57,7 +57,7 @@ jobs:
 
           # Clone public translation repo (no auth needed)
           git clone --depth 1 --filter=blob:none --sparse --no-checkout \
-            https://github.com/owner/EndFieldTranslationReferrer.git upstream/EndFieldTranslationReferrer
+            https://github.com/SusieGlitter/EndFieldTranslationReferrer.git upstream/EndFieldTranslationReferrer
           git -C upstream/EndFieldTranslationReferrer sparse-checkout init --cone
           git -C upstream/EndFieldTranslationReferrer sparse-checkout set i18n
           git -C upstream/EndFieldTranslationReferrer checkout
@@ -99,7 +99,7 @@ jobs:
           GH_TOKEN: ${{ secrets.GH_FORK_SYNC_TOKEN }}
         run: |
           gh api --method POST /repos/cmyyx/AKEData/merge-upstream \
-            -f branch='main' --silent || true
+            -f branch='main'
 
       - name: Clone upstream repos
         env:
@@ -125,7 +125,7 @@ jobs:
 
           # Clone public translation repo (no auth needed)
           git clone --depth 1 --filter=blob:none --sparse --no-checkout \
-            https://github.com/owner/EndFieldTranslationReferrer.git upstream/EndFieldTranslationReferrer
+            https://github.com/SusieGlitter/EndFieldTranslationReferrer.git upstream/EndFieldTranslationReferrer
           git -C upstream/EndFieldTranslationReferrer sparse-checkout init --cone
           git -C upstream/EndFieldTranslationReferrer sparse-checkout set i18n
           git -C upstream/EndFieldTranslationReferrer checkout

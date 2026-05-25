@@ -575,14 +575,8 @@ function LoginUnavailableGuide() {
   const [devClicks, setDevClicks] = useState(0)
   const [lastClickTime, setLastClickTime] = useState(0)
   const [showDevPanel, setShowDevPanel] = useState(false)
-  const [devApiUrl, setDevApiUrl] = useState('')
-  const [devTurnstileKey, setDevTurnstileKey] = useState('')
-
-  useEffect(() => {
-    const { apiUrl, turnstileKey } = getDevOverrides()
-    setDevApiUrl(apiUrl)
-    setDevTurnstileKey(turnstileKey)
-  }, [])
+  const [devApiUrl, setDevApiUrl] = useState(() => getDevOverrides().apiUrl)
+  const [devTurnstileKey, setDevTurnstileKey] = useState(() => getDevOverrides().turnstileKey)
 
   const handleCloudClick = () => {
     const now = Date.now()
@@ -634,31 +628,31 @@ function LoginUnavailableGuide() {
             {/* Dev panel — 5-click trigger */}
             {showDevPanel && (
               <div className="rounded-lg border border-amber-200 bg-amber-50 dark:border-amber-800 dark:bg-amber-950/30 p-4 mb-6">
-                <h2 className="text-sm font-semibold mb-3 text-amber-800 dark:text-amber-200">Dev API 设置</h2>
+                <h2 className="text-sm font-semibold mb-3 text-amber-800 dark:text-amber-200">{t('auth.devPanel.title')}</h2>
                 <div className="space-y-3">
                   <div className="flex flex-col gap-1.5">
-                    <Label htmlFor="dev-api-url" className="text-xs text-amber-700 dark:text-amber-300">API Base URL</Label>
+                    <Label htmlFor="dev-api-url" className="text-xs text-amber-700 dark:text-amber-300">{t('auth.devPanel.apiUrlLabel')}</Label>
                     <Input
                       id="dev-api-url"
                       className="h-8 text-xs bg-white dark:bg-card border-amber-200 dark:border-amber-800"
-                      placeholder="https://localhost:8787"
+                      placeholder={t('auth.devPanel.apiUrlPlaceholder')}
                       value={devApiUrl}
                       onChange={(e) => setDevApiUrl(e.target.value)}
                     />
                   </div>
                   <div className="flex flex-col gap-1.5">
-                    <Label htmlFor="dev-turnstile-key" className="text-xs text-amber-700 dark:text-amber-300">Turnstile Site Key</Label>
+                    <Label htmlFor="dev-turnstile-key" className="text-xs text-amber-700 dark:text-amber-300">{t('auth.devPanel.turnstileLabel')}</Label>
                     <Input
                       id="dev-turnstile-key"
                       className="h-8 text-xs bg-white dark:bg-card border-amber-200 dark:border-amber-800"
-                      placeholder="1x00000000000000000000AA"
+                      placeholder={t('auth.devPanel.turnstilePlaceholder')}
                       value={devTurnstileKey}
                       onChange={(e) => setDevTurnstileKey(e.target.value)}
                     />
                   </div>
                   <div className="flex gap-2">
-                    <Button size="sm" className="flex-1" onClick={handleEnable}>启用</Button>
-                    <Button size="sm" variant="outline" onClick={handleClear}>清除</Button>
+                    <Button size="sm" className="flex-1" onClick={handleEnable}>{t('auth.devPanel.enable')}</Button>
+                    <Button size="sm" variant="outline" onClick={handleClear}>{t('auth.devPanel.clear')}</Button>
                   </div>
                 </div>
               </div>

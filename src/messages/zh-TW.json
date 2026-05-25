@@ -103,7 +103,16 @@
     "unavailableHowToAccess": "如何存取完整功能",
     "unavailableOption1": "使用非中國大陸 IP 存取",
     "unavailableOption2": "存取國際站（全地區可用）",
-    "unavailableOption2Note": "聯通用戶存取速度可能稍慢"
+    "unavailableOption2Note": "聯通用戶存取速度可能稍慢",
+    "devPanel": {
+      "title": "Dev API 設定",
+      "apiUrlLabel": "API Base URL",
+      "apiUrlPlaceholder": "https://localhost:8787",
+      "turnstileLabel": "Turnstile Site Key",
+      "turnstilePlaceholder": "1x00000000000000000000AA",
+      "enable": "啟用",
+      "clear": "清除"
+    }
   },
   "account": {
     "title": "我的",
@@ -461,7 +470,7 @@
       "cep-settings": { "label": "一般設定", "desc": "主題、背景圖片、語言等" },
       "editor-drafts": { "label": "編輯器草稿", "desc": "自訂角色編輯草稿" },
       "announcement-read": { "label": "公告已讀記錄", "desc": "已讀公告 ID 列表" },
-      "dev-overrides": { "desc": "開發調試" }
+      "dev-overrides": { "label": "Dev", "desc": "調試" }
     }
   },
   "legacyMigration": {

@@ -103,7 +103,16 @@
     "unavailableHowToAccess": "全機能へのアクセス方法",
     "unavailableOption1": "中国本土以外のIPでアクセス",
     "unavailableOption2": "国際サイトにアクセス（全地域対応）",
-    "unavailableOption2Note": "中国聯通のユーザーは速度が遅くなる場合があります"
+    "unavailableOption2Note": "中国聯通のユーザーは速度が遅くなる場合があります",
+    "devPanel": {
+      "title": "Dev API 設定",
+      "apiUrlLabel": "API Base URL",
+      "apiUrlPlaceholder": "https://localhost:8787",
+      "turnstileLabel": "Turnstile Site Key",
+      "turnstilePlaceholder": "1x00000000000000000000AA",
+      "enable": "有効にする",
+      "clear": "クリア"
+    }
   },
   "account": {
     "title": "マイアカウント",
@@ -461,7 +470,7 @@
       "cep-settings": { "label": "一般設定", "desc": "テーマ、背景画像、言語など" },
       "editor-drafts": { "label": "エディター下書き", "desc": "カスタムキャラクター編集の下書き" },
       "announcement-read": { "label": "お知らせ既読記録", "desc": "既読お知らせIDリスト" },
-      "dev-overrides": { "desc": "開発デバッグ" }
+      "dev-overrides": { "label": "Dev", "desc": "デバッグ" }
     }
   },
   "legacyMigration": {

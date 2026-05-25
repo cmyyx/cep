@@ -103,7 +103,16 @@
     "unavailableHowToAccess": "如何访问完整功能",
     "unavailableOption1": "使用非中国大陆 IP 访问",
     "unavailableOption2": "访问国际站（全地区可用）",
-    "unavailableOption2Note": "联通用户访问速度可能稍慢"
+    "unavailableOption2Note": "联通用户访问速度可能稍慢",
+    "devPanel": {
+      "title": "Dev API 设置",
+      "apiUrlLabel": "API Base URL",
+      "apiUrlPlaceholder": "https://localhost:8787",
+      "turnstileLabel": "Turnstile Site Key",
+      "turnstilePlaceholder": "1x00000000000000000000AA",
+      "enable": "启用",
+      "clear": "清除"
+    }
   },
   "version": {
     "version": "版本",
@@ -295,7 +304,7 @@
       "cep-settings": { "label": "通用设置", "desc": "主题、背景图片、语言等" },
       "editor-drafts": { "label": "编辑器草稿", "desc": "自定义角色编辑草稿" },
       "announcement-read": { "label": "公告已读记录", "desc": "已读公告 ID 列表" },
-      "dev-overrides": { "desc": "开发调试" }
+      "dev-overrides": { "label": "Dev", "desc": "调试" }
     }
   },
   "legacyMigration": {

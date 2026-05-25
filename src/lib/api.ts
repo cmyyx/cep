@@ -114,7 +114,8 @@ export async function api<T = unknown>(
   path: string,
   options: ApiOptions = {},
 ): Promise<T> {
-  if (!getApiBase()) {
+  const apiBase = getApiBase()
+  if (!apiBase) {
     throw new ApiError('auth_unavailable', 0, { message: 'API base URL is not configured' })
   }
 
@@ -130,7 +131,7 @@ export async function api<T = unknown>(
     headers['Authorization'] = `Bearer ${authToken}`
   }
 
-  const res = await fetch(`${getApiBase()}${path}`, {
+  const res = await fetch(`${apiBase}${path}`, {
     method,
     headers,
     body: body ? JSON.stringify(body) : undefined,
@@ -144,7 +145,7 @@ export async function api<T = unknown>(
       if (newToken) {
         headers['Authorization'] = `Bearer ${newToken}`
       }
-      const retryRes = await fetch(`${getApiBase()}${path}`, {
+      const retryRes = await fetch(`${apiBase}${path}`, {
         method,
         headers,
         body: body ? JSON.stringify(body) : undefined,

@@ -73,7 +73,7 @@ function buildModules(t: ReturnType<typeof useTranslations>): DataModule[] {
     },
     {
       id: 'dev-overrides',
-      label: 'Dev',
+      label: t('dataCleaner.modules.dev-overrides.label'),
       description: t('dataCleaner.modules.dev-overrides.desc'),
       keys: ['__cep_dev_api_url', '__cep_dev_turnstile_key'],
     },

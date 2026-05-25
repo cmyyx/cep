@@ -103,7 +103,16 @@
     "unavailableHowToAccess": "How to Access Full Features",
     "unavailableOption1": "Use a non-mainland China IP to visit",
     "unavailableOption2": "Visit the international site (available worldwide)",
-    "unavailableOption2Note": "China Unicom users may experience slower speeds"
+    "unavailableOption2Note": "China Unicom users may experience slower speeds",
+    "devPanel": {
+      "title": "Dev API Settings",
+      "apiUrlLabel": "API Base URL",
+      "apiUrlPlaceholder": "https://localhost:8787",
+      "turnstileLabel": "Turnstile Site Key",
+      "turnstilePlaceholder": "1x00000000000000000000AA",
+      "enable": "Enable",
+      "clear": "Clear"
+    }
   },
   "account": {
     "title": "My Account",
@@ -461,7 +470,7 @@
       "cep-settings": { "label": "General Settings", "desc": "Theme, background image, language, etc." },
       "editor-drafts": { "label": "Editor Drafts", "desc": "Custom character edit drafts" },
       "announcement-read": { "label": "Announcement Read Records", "desc": "Read announcement ID list" },
-      "dev-overrides": { "desc": "Dev" }
+      "dev-overrides": { "label": "Dev", "desc": "Debug" }
     }
   },
   "legacyMigration": {
