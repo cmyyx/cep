@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Script from "next/script";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { HeadScript } from "@/components/shared/head-script";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -41,12 +42,12 @@ export default function RootLayout({
       <head>
         {/* Prevent FOUC: apply theme class before React hydrates.
             Reads the same localStorage key as useSettingsStore.
-            Using next/script beforeInteractive so it executes before paint.
-            Must be in <head> — beforeInteractive scripts inside <body> trigger
-            a React warning about scripts not executing during client render. */}
-        <Script id="theme-fouc" strategy="beforeInteractive">
-          {`(function(){try{var d=document.documentElement;var t="auto";var s=localStorage.getItem("cep-settings");if(s){var p=JSON.parse(s);t=p.theme||"auto"}if(t==="auto"){t=window.matchMedia("(prefers-color-scheme:dark)").matches?"dark":"light"}if(t&&t!=="auto"){d.classList.add(t);if(t==="flashbang"){d.style.colorScheme="dark";d.setAttribute("data-theme","flashbang")}}}catch(e){}})()`}
-        </Script>
+            Uses dangerouslySetInnerHTML (via HeadScript) — the only
+            legitimate exception, for build-time static inline scripts. */}
+        <HeadScript
+          id="theme-fouc"
+          code={`(function(){try{var d=document.documentElement;var t="auto";var s=localStorage.getItem("cep-settings");if(s){var p=JSON.parse(s);t=p.theme||"auto"}if(t==="auto"){t=window.matchMedia("(prefers-color-scheme:dark)").matches?"dark":"light"}if(t&&t!=="auto"){d.classList.add(t);if(t==="flashbang"){d.style.colorScheme="dark";d.setAttribute("data-theme","flashbang")}}}catch(e){}})()`}
+        />
       </head>
       <body className="min-h-full flex flex-col">
         <TooltipProvider>{children}</TooltipProvider>

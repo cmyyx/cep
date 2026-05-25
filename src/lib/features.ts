@@ -3,6 +3,8 @@
  * All values are baked into the static bundle at build time.
  */
 
+import { resolveOptionalUrl } from '@/lib/utils'
+
 /** Split comma-separated env var into trimmed array, filtering empties. */
 function parseDomainList(raw: string | undefined): string[] {
   if (!raw) return []
@@ -12,12 +14,21 @@ function parseDomainList(raw: string | undefined): string[] {
     .filter(Boolean)
 }
 
+const _apiBaseUrl = resolveOptionalUrl(process.env.NEXT_PUBLIC_API_BASE_URL)
+const _forumUrl = resolveOptionalUrl(process.env.NEXT_PUBLIC_FORUM_URL)
 const _allowedDomains = parseDomainList(process.env.NEXT_PUBLIC_ALLOWED_DOMAINS)
 const _allowedEmbedDomains = parseDomainList(process.env.NEXT_PUBLIC_ALLOWED_EMBED_DOMAINS)
 
 export const FEATURES = {
-  /** Whether login / cloud sync is available (requires NEXT_PUBLIC_API_BASE_URL). */
-  auth: !!process.env.NEXT_PUBLIC_API_BASE_URL,
+  /** Whether login / cloud sync is available (requires NEXT_PUBLIC_API_BASE_URL).
+   *  Set to "disabled" on platforms that require a non-empty value to turn off. */
+  auth: !!_apiBaseUrl,
+
+  /** Whether the embedded forum is available (requires NEXT_PUBLIC_FORUM_URL). */
+  forum: !!_forumUrl,
+
+  /** Forum base URL (resolved, undefined if disabled/unset). */
+  forumUrl: _forumUrl,
 
   /** Whether Turnstile CAPTCHA is available. */
   turnstile: !!process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY,

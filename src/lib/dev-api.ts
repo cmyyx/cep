@@ -8,17 +8,27 @@
  * Accessible via 5-click gesture on the Cloud icon in LoginUnavailableGuide.
  */
 
+import { resolveOptionalUrl } from '@/lib/utils'
+
 const DEV_API_URL_KEY = '__cep_dev_api_url'
 const DEV_TURNSTILE_KEY = '__cep_dev_turnstile_key'
 
+function getEnvApiBaseUrl(): string {
+  return resolveOptionalUrl(process.env.NEXT_PUBLIC_API_BASE_URL) ?? ''
+}
+
 export function getApiBaseUrl(): string {
   if (typeof window === 'undefined') {
-    return process.env.NEXT_PUBLIC_API_BASE_URL ?? ''
+    return getEnvApiBaseUrl()
   }
   try {
-    return localStorage.getItem(DEV_API_URL_KEY) ?? process.env.NEXT_PUBLIC_API_BASE_URL ?? ''
+    const localVal = localStorage.getItem(DEV_API_URL_KEY)
+    if (localVal !== null) {
+      return resolveOptionalUrl(localVal) ?? ''
+    }
+    return getEnvApiBaseUrl()
   } catch {
-    return process.env.NEXT_PUBLIC_API_BASE_URL ?? ''
+    return getEnvApiBaseUrl()
   }
 }
 
