@@ -3,7 +3,7 @@
 import { useState, useRef, useMemo } from 'react'
 import Image from 'next/image'
 import { useTranslations } from 'next-intl'
-import { buttonVariants } from '@/components/ui/button'
+import { Button, buttonVariants } from '@/components/ui/button'
 import {
   Dialog,
   DialogContent,
@@ -67,13 +67,15 @@ export function PoolInfoStrip() {
             className="flex gap-3 px-3 py-3 overflow-x-auto scrollbar-thin scrollbar-thumb-muted-foreground/20 scrollbar-track-transparent"
           >
             {visuals.map((visual) => (
-              <button
+              <Button
                 key={visual.id}
+                type="button"
+                variant="ghost"
                 onClick={() => setSelectedVisual(visual)}
                 className={cn(
                   'relative flex-shrink-0 w-[280px] h-[160px] md:w-[320px] md:h-[180px] rounded-lg overflow-hidden',
-                  'shadow-[0px_0px_0px_1px_rgba(0,0,0,0.08)] cursor-pointer',
-                  'transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0px_2px_8px_rgba(0,0,0,0.12)]',
+                  'shadow-[0px_0px_0px_1px_rgba(0,0,0,0.08)] cursor-pointer p-0 h-auto',
+                  'transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0px_2px_8px_rgba(0,0,0,0.12)] hover:bg-transparent',
                   'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2'
                 )}
               >
@@ -104,7 +106,7 @@ export function PoolInfoStrip() {
                     {formatDate(visual.periodStart)} - {formatDate(visual.periodEnd)}
                   </p>
                 </div>
-              </button>
+              </Button>
             ))}
           </div>
         </div>

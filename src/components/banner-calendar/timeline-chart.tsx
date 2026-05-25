@@ -6,9 +6,9 @@ import { useBannerStore } from '@/stores/useBannerStore'
 import type { TimelineData } from '@/types/banner'
 import { cn } from '@/lib/utils'
 
-function InfoIcon({ note }: { note: string }) {
+function InfoIcon({ note, t }: { note: string; t: (key: string) => string }) {
   return (
-    <span className="relative inline-flex items-center ml-1" data-info-note={note}>
+    <span className="relative inline-flex items-center ml-1" data-info-note={t(note)}>
       <svg
         width="14"
         height="14"
@@ -186,7 +186,7 @@ export function TimelineChart({ data, t }: TimelineChartProps) {
             </div>
             <span className="text-sm font-medium whitespace-nowrap">
               {ch.name}
-              {ch.offRateNote && <InfoIcon note={ch.offRateNote} />}
+              {ch.offRateNote && <InfoIcon note={ch.offRateNote} t={t} />}
             </span>
             {ch.statusBadge && (
               <span

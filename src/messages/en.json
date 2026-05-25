@@ -214,7 +214,11 @@
     "poolInfo": "Banner Info",
     "poolInfoSubtitle": "Click artwork to view banner details",
     "viewDetails": "View Details",
-    "poolDuration": "Duration"
+    "poolDuration": "Duration",
+    "offRateNote": {
+      "tangtang": "Can only be obtained off-rate in Zhuang Fangyi's \"Spring Thunder\" limited search",
+      "luoxi": "Can only be obtained off-rate in Zhuang Fangyi's \"Spring Thunder\" limited search"
+    }
   },
   "refinement": {
     "searchPlaceholder": "Search equipment...",

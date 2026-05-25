@@ -292,7 +292,7 @@ function deriveTimelineData(
       const nextP = periodBounds.get(ch.period + 1)
       const afterP = periodBounds.get(ch.period + 2)
       if (nextP) {
-        bars.push(makeBar(nextP.startMs, afterP ? afterP.endMs : nextP.endMs, 'inPool', t('bannerCalendar.statusInPool'), ch.offRateNote ?? ''))
+        bars.push(makeBar(nextP.startMs, afterP ? afterP.endMs : nextP.endMs, 'inPool', t('bannerCalendar.statusInPool'), ch.offRateNote ? t(ch.offRateNote) : ''))
       }
     }
 

@@ -214,7 +214,11 @@
     "poolInfo": "卡池信息",
     "poolInfoSubtitle": "点击立绘查看卡池详情",
     "viewDetails": "查看详情",
-    "poolDuration": "卡池时间"
+    "poolDuration": "卡池时间",
+    "offRateNote": {
+      "tangtang": "只可在庄方宜的「春雷动」特许寻访里歪到",
+      "luoxi": "只可在庄方宜的「春雷动」特许寻访里歪到"
+    }
   },
   "refinement": {
     "searchPlaceholder": "搜索装备...",

@@ -214,7 +214,11 @@
     "poolInfo": "ガチャ情報",
     "poolInfoSubtitle": "イラストをクリックして詳細を表示",
     "viewDetails": "詳細を見る",
-    "poolDuration": "開催期間"
+    "poolDuration": "開催期間",
+    "offRateNote": {
+      "tangtang": "庄方宜の「春雷動」特許探索でのみオフレートで入手可能",
+      "luoxi": "庄方宜の「春雷動」特許探索でのみオフレートで入手可能"
+    }
   },
   "refinement": {
     "searchPlaceholder": "装備を検索...",
