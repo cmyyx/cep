@@ -22,7 +22,11 @@ export function getApiBaseUrl(): string {
     return getEnvApiBaseUrl()
   }
   try {
-    return localStorage.getItem(DEV_API_URL_KEY) ?? getEnvApiBaseUrl()
+    const localVal = localStorage.getItem(DEV_API_URL_KEY)
+    if (localVal !== null) {
+      return resolveOptionalUrl(localVal) ?? ''
+    }
+    return getEnvApiBaseUrl()
   } catch {
     return getEnvApiBaseUrl()
   }

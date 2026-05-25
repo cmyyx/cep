@@ -32,7 +32,7 @@ SITE_URL=https://end.canmoe.com
 
 本地开发可通过 5 击 Cloud 图标彩蛋临时覆盖（写入 localStorage），无需重新构建。详见 [DEV.md](./DEV.md)。
 
-```
+```bash
 # 开启
 NEXT_PUBLIC_API_BASE_URL=https://api.end.canmoe.com
 
@@ -75,7 +75,7 @@ NEXT_PUBLIC_ALLOWED_EMBED_DOMAINS=nodebb.example.com,forum.example.com
 
 论坛服务端需允许被 CEP 域名嵌入（配置 `X-Frame-Options: ALLOW-FROM` 或 `Content-Security-Policy: frame-ancestors`）。
 
-```
+```bash
 # 开启
 NEXT_PUBLIC_FORUM_URL=https://forum.302200.xyz
 

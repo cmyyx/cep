@@ -2,8 +2,8 @@ import { NextIntlClientProvider } from 'next-intl'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
-import Script from 'next/script'
 import { routing } from '@/i18n/routing'
+import { HeadScript } from '@/components/shared/head-script'
 import { SidebarProvider } from '@/components/ui/sidebar'
 import { AppSidebar } from '@/components/app-sidebar'
 import { Background } from '@/components/background'
@@ -75,9 +75,7 @@ export default async function LocaleLayout({
 
   return (
     <>
-      <Script id="html-lang" strategy="beforeInteractive">
-        {`document.documentElement.lang='${locale}'`}
-      </Script>
+      <HeadScript id="html-lang" code={`document.documentElement.lang='${locale}'`} />
       <NextIntlClientProvider messages={messages} locale={locale}>
       <LocaleGuard />
       <DomainGuard />

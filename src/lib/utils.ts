@@ -15,8 +15,10 @@ export function formatTime(iso: string): string {
 
 /** Treat "disabled" sentinel as unset for optional URL env vars. Used by features.ts and dev-api.ts. */
 export function resolveOptionalUrl(val: string | undefined): string | undefined {
-  if (!val || val === 'disabled') return undefined
-  return val
+  if (!val) return undefined
+  const normalized = val.trim()
+  if (normalized === '' || normalized.toLowerCase() === 'disabled') return undefined
+  return normalized
 }
 
 /** Mask email for privacy: u***@example.com */

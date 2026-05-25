@@ -96,8 +96,8 @@ export default function EssencePlannerPage() {
   // Helper: check whether a weapon should be visible in plan cards (respects hide settings)
   const isWeaponVisibleInPlans = useCallback(
     (weapon: import('@/types/matrix').Weapon): boolean => {
-      // UP weapons bypass hide filters when the setting is enabled
-      if (keepUpVisiblePlans && weapon.chars.some((c) => upCharSet.has(c))) return true
+      // UP and preview weapons bypass hide filters when the setting is enabled
+      if (keepUpVisiblePlans && (weapon.chars.some((c) => upCharSet.has(c)) || weapon.source === 'preview')) return true
       if (hideFourStarPlans && weapon.rarity === 4) return false
       if (hideUnownedPlans && weaponOwnership[weapon.id] !== true) return false
       if (hideEssenceOwnedPlans) {

@@ -26,7 +26,6 @@ import {
   Eye,
   Pen,
   MessageCircle,
-  ExternalLink,
   Settings,
   Download,
   Info,
