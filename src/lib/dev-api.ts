@@ -40,13 +40,15 @@ export function isAuthAvailable(): boolean {
 export function setDevOverrides(apiUrl: string, turnstileKey: string) {
   if (typeof window === 'undefined') return
   try {
-    if (apiUrl) {
-      localStorage.setItem(DEV_API_URL_KEY, apiUrl)
+    const trimmedApiUrl = apiUrl.trim()
+    if (trimmedApiUrl) {
+      localStorage.setItem(DEV_API_URL_KEY, trimmedApiUrl)
     } else {
       localStorage.removeItem(DEV_API_URL_KEY)
     }
-    if (turnstileKey) {
-      localStorage.setItem(DEV_TURNSTILE_KEY, turnstileKey)
+    const trimmedTurnstileKey = turnstileKey.trim()
+    if (trimmedTurnstileKey) {
+      localStorage.setItem(DEV_TURNSTILE_KEY, trimmedTurnstileKey)
     } else {
       localStorage.removeItem(DEV_TURNSTILE_KEY)
     }

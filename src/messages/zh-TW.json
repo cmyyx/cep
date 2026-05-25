@@ -130,7 +130,9 @@
     "loginRequiredHint": "你需要登入 CEP 帳號後才能授權 {client}",
     "invalidRequest": "無效的授權請求",
     "missingParams": "缺少必要參數，無法完成授權",
-    "privacyNote": "你的密碼不會分享給第三方應用"
+    "privacyNote": "你的密碼不會分享給第三方應用",
+    "authorizationFailed": "授權失敗，請重試",
+    "defaultScopes": "profile email"
   },
   "account": {
     "title": "我的",

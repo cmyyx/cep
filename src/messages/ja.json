@@ -130,7 +130,9 @@
     "loginRequiredHint": "{client} を認証する前にCEPアカウントにログインしてください",
     "invalidRequest": "無効な認証リクエスト",
     "missingParams": "必要なパラメータが不足しています",
-    "privacyNote": "パスワードはサードパーティアプリと共有されません"
+    "privacyNote": "パスワードはサードパーティアプリと共有されません",
+    "authorizationFailed": "認証に失敗しました。再試行してください",
+    "defaultScopes": "profile email"
   },
   "account": {
     "title": "マイアカウント",

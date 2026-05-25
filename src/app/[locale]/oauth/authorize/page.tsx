@@ -86,7 +86,7 @@ function OAuthAuthorizeContent() {
   // Redirect to external OAuth URLs via effect (avoids mutating window directly in handler)
   useEffect(() => {
     if (redirectUrl) {
-      window.location.href = redirectUrl
+      window.location.assign(redirectUrl)
     }
   }, [redirectUrl])
 
@@ -100,7 +100,7 @@ function OAuthAuthorizeContent() {
       // After successful login, the Zustand store updates accessToken.
       // needsLogin is derived, so it automatically becomes false on re-render.
     } catch (err) {
-      setLoginError(err instanceof Error ? err.message : 'loginFailed')
+      setLoginError(err instanceof Error ? err.message : t('auth.loginFailed'))
       setTurnstileToken(null)
       turnstileRef.current?.reset()
     } finally {
@@ -128,7 +128,7 @@ function OAuthAuthorizeContent() {
       // Redirect to the OAuth callback (NodeBB)
       setRedirectUrl(data.redirect_url)
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'authorization_failed')
+      setError(err instanceof Error ? err.message : t('oauth.authorizationFailed'))
       setAuthorizing(false)
     }
   }
@@ -284,7 +284,7 @@ function OAuthAuthorizeContent() {
               <div className="flex items-center justify-between text-sm">
                 <span className="text-muted-foreground">{t('oauth.requestedScopes')}</span>
                 <span className="font-medium text-foreground">
-                  {scope || 'profile email'}
+                  {scope || t('oauth.defaultScopes')}
                 </span>
               </div>
             </div>

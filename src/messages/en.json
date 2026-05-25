@@ -130,7 +130,9 @@
     "loginRequiredHint": "You need to log in to your CEP account before authorizing {client}",
     "invalidRequest": "Invalid Authorization Request",
     "missingParams": "Missing required parameters, unable to complete authorization",
-    "privacyNote": "Your password will not be shared with the third-party application"
+    "privacyNote": "Your password will not be shared with the third-party application",
+    "authorizationFailed": "Authorization failed, please try again",
+    "defaultScopes": "profile email"
   },
   "account": {
     "title": "My Account",

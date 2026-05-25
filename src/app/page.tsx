@@ -12,9 +12,12 @@ function detectLocale(): string {
   try {
     const raw = localStorage.getItem('cep-settings')
     if (raw) {
-      const s = JSON.parse(raw)
-      if (s.language && s.language !== 'auto' && SUPPORTED.includes(s.language)) {
-        return s.language
+      const parsed: unknown = JSON.parse(raw)
+      if (parsed && typeof parsed === 'object' && 'language' in parsed) {
+        const lang = (parsed as Record<string, unknown>).language
+        if (typeof lang === 'string' && lang !== 'auto' && (SUPPORTED as readonly string[]).includes(lang)) {
+          return lang
+        }
       }
     }
   } catch { /* ignore */ }

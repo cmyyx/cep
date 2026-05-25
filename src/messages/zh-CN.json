@@ -130,7 +130,9 @@
     "loginRequiredHint": "你需要登录 CEP 账号后才能授权 {client}",
     "invalidRequest": "无效的授权请求",
     "missingParams": "缺少必要参数，无法完成授权",
-    "privacyNote": "你的密码不会分享给第三方应用"
+    "privacyNote": "你的密码不会分享给第三方应用",
+    "authorizationFailed": "授权失败，请重试",
+    "defaultScopes": "profile email"
   },
   "version": {
     "version": "版本",
