@@ -1,4 +1,5 @@
 import { getApiBaseUrl } from '@/lib/dev-api'
+import type { ApiErrorCode } from '@/types/error-codes'
 
 const getApiBase = () => getApiBaseUrl()
 
@@ -319,7 +320,12 @@ export async function postSyncDataApi(payload: unknown, syncType: 'auto' | 'manu
  * Usage: `t(getErrorI18nKey(err.code))` in catch blocks.
  */
 export function getErrorI18nKey(code: string): string {
-  const map: Record<string, string> = {
+  /**
+   * Every key in this Record must be a member of the ApiErrorCode union type.
+   * TypeScript enforces this: forgetting to add a new error code here will
+   * cause a compile error (`tsc --noEmit`).
+   */
+  const map: Record<ApiErrorCode, string> = {
     // Auth
     unauthorized: 'auth.unauthorized',
     missing_credentials: 'auth.missing_credentials',
@@ -393,9 +399,12 @@ export function getErrorI18nKey(code: string): string {
     maintenance_mode: 'account.maintenanceMode',
     internal_server_error: 'account.serverError',
     not_found: 'account.notFound',
+
+    // Client-side (thrown by api.ts itself)
     invalid_response: 'account.invalidResponse',
+    auth_unavailable: 'auth.unavailable',
   };
-  return map[code] ?? code;
+  return map[code as ApiErrorCode] ?? code;
 }
 
 // ─── Token management (exported for store) ─────────────────

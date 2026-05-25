@@ -99,6 +99,7 @@
     "invalidSession": "会话已失效，请重新登录",
     "turnstileRequired": "请完成人机验证",
     "emailDomainUnsupported": "该邮箱服务商暂不支持，请更换其他邮箱",
+    "unavailable": "登录与云同步功能当前不可用",
     "unavailableTitle": "云端同步功能不可用",
     "unavailableDescription": "登录与云端同步功能在当前部署中不可用。可能原因：当前节点因地域限制暂不提供账号服务，或此部署未配置后端 API 服务器。",
     "unavailableHowToAccess": "如何访问完整功能",
@@ -298,10 +299,7 @@
     "importSummaryItems": "{count} 项",
     "importSummaryEmpty": "无数据",
     "importExportedBy": "导出端版本",
-    "importDevice": "设备",
-    "language": "语言",
-    "languageLabel": "界面语言",
-    "languageAuto": "AUTO"
+    "importDevice": "设备"
   },
   "dataCleaner": {
     "dialogTitle": "数据清理",
