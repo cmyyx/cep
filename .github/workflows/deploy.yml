@@ -63,6 +63,7 @@ jobs:
           NEXT_PUBLIC_ALLOWED_DOMAINS: ${{ vars.ALLOWED_DOMAINS }}
           NEXT_PUBLIC_ALLOWED_EMBED_DOMAINS: ${{ vars.ALLOWED_EMBED_DOMAINS }}
           NEXT_PUBLIC_OAUTH_CLIENT_NAMES: ${{ vars.OAUTH_CLIENT_NAMES }}
+          NEXT_PUBLIC_FORUM_URL: ${{ vars.FORUM_URL }}
 
       - name: Deploy to deploy branch
         run: |

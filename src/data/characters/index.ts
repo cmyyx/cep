@@ -9,6 +9,7 @@ import laevatainData from './laevatain.json'
 import lifengData from './lifeng.json'
 import pogranichnikData from './pogranichnik.json'
 import rossiData from './rossi.json'
+import snowshineData from './snowshine.json'
 import tangtangData from './tangtang.json'
 import yvonneData from './yvonne.json'
 import zhuangfangyiData from './zhuangfangyi.json'
@@ -21,6 +22,7 @@ export const characterGuideData: Record<string, CharacterGuideData> = {
   'lifeng': lifengData as CharacterGuideData,
   'pogranichnik': pogranichnikData as CharacterGuideData,
   'rossi': rossiData as CharacterGuideData,
+  'snowshine': snowshineData as CharacterGuideData,
   'tangtang': tangtangData as CharacterGuideData,
   'yvonne': yvonneData as CharacterGuideData,
   'zhuangfangyi': zhuangfangyiData as CharacterGuideData,
@@ -34,6 +36,7 @@ export const characterGuideList: CharacterGuideData[] = [
   lifengData as CharacterGuideData,
   pogranichnikData as CharacterGuideData,
   rossiData as CharacterGuideData,
+  snowshineData as CharacterGuideData,
   tangtangData as CharacterGuideData,
   yvonneData as CharacterGuideData,
   zhuangfangyiData as CharacterGuideData,

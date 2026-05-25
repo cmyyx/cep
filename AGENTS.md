@@ -153,6 +153,7 @@ SidebarProvider className="h-svh"              ← height: 100svh (确定值)
 - ❌ 第三方 UI 库（Ant Design, MUI, Chakra 等 —— Shadcn/UI 是唯一 UI 来源）
 - ❌ `useContext` 做全局状态
 - ❌ `dangerouslySetInnerHTML`
+  - **唯一例外**：`src/components/shared/head-script.tsx` 中的 `<head>` 内联脚本（主题闪烁防护、文档语言设置等），均为构建时静态代码，无 XSS 风险。其他场景一律禁止，禁止在例外文件之外使用。
 - ❌ 直接操作 DOM（`document.querySelector`, `getElementById` 等）
 - ❌ `eval`, `new Function`
 - ❌ `eslint` Error 或 Warning（必须 0 错误 0 警告）

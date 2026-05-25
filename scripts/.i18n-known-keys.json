@@ -95,6 +95,8 @@
         "missingRefreshToken",
         "noEmail",
         "none",
+        "off",
+        "on",
         "notFound",
         "notLoggedIn",
         "payloadTooLarge",

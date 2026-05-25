@@ -196,8 +196,8 @@ export const WeaponGrid = memo(function WeaponGrid() {
   // Base filter predicate: query + hide settings (shared by filteredWeapons and validOptions)
   const matchesBaseFilters = useCallback((w: Weapon) => {
     if (query && !w.name.includes(query) && !w.type.includes(query)) return false
-    // UP weapons bypass hide filters when the setting is enabled
-    if (keepUpVisibleList && isWeaponUp(w)) return true
+    // UP and preview weapons bypass hide filters when the setting is enabled
+    if (keepUpVisibleList && (isWeaponUp(w) || w.source === 'preview')) return true
     if (hideFourStar && w.rarity === 4) return false
     if (hideUnowned && weaponOwnership[w.id] !== true) return false
     if (hideEssenceOwned) {

@@ -393,7 +393,7 @@ export function AnnouncementPanel() {
       {/* Detail dialog — uses DialogContent for proper focus trap, Esc key, and accessibility */}
       <Dialog open={dialogOpen} onOpenChange={(open) => { if (!open) handleClose(); }}>
         {detail && (
-          <DialogContent className="sm:max-w-lg duration-200" showCloseButton={false}>
+          <DialogContent className="sm:max-w-lg max-h-[85vh] overflow-y-auto duration-200" showCloseButton={false}>
             <Button
               variant="ghost"
               size="icon-sm"
