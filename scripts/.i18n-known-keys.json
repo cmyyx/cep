@@ -49,15 +49,21 @@
     },
 
     "oauth": {
-      "comment": "OAuth authorize page. authorizeDescription uses t.rich() instead of t(), so static analysis cannot detect it.",
+      "comment": "OAuth authorize page. authorizeDescription uses t.rich(). Server error codes (invalidClient, invalidState, etc.) are resolved via t(getErrorI18nKey(serverError)).",
       "keys": [
-        "authorizeDescription"
+        "authorizeDescription",
+        "invalidClient",
+        "invalidState",
+        "invalidGrant",
+        "invalidToken",
+        "unsupportedGrantType"
       ]
     },
 
     "account": {
       "comment": "Sync settings, conflict dialog values, and server error codes. Accessed via t(syncError), t(entry.localVal), t(entry.cloudVal), t(getErrorI18nKey(code)), or computed string expressions.",
       "keys": [
+        "emailSendFailed",
         "cannotRevokeCurrent",
         "codeSentRecently",
         "customWeaponsLimit",
