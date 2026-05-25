@@ -556,7 +556,7 @@ function checkErrorCodes(allFiles, locales) {
     // Dynamic codes (e.g. from backend JSON) use expressions, not literals,
     // so they won't match this regex — which is correct because we can't
     // statically verify runtime error codes.
-    for (const m of content.matchAll(/throw new ApiError\(\s*'([^']+)'/g)) {
+    for (const m of content.matchAll(/throw\s+new\s+ApiError\(\s*['"]([^'"]+)['"]/g)) {
       thrownCodes.add(m[1])
     }
 
