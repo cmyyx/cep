@@ -1,6 +1,6 @@
 # 开发调试
 
-CEP 为纯静态站点，登录与云端同步依赖 `NEXT_PUBLIC_API_BASE_URL` 环境变量指向后端 API 服务器。构建时未配置该变量时，登录功能默认不可用。
+CEP 为纯静态站点，登录与云端同步依赖 `NEXT_PUBLIC_API_BASE_URL` 环境变量指向后端 API 服务器。如果构建时未配置该变量，登录功能默认不可用。
 
 ## 临时启用登录（无需重新构建）
 
@@ -17,7 +17,7 @@ CEP 为纯静态站点，登录与云端同步依赖 `NEXT_PUBLIC_API_BASE_URL` 
 
 进入设置 → 数据清理 → 找到 **Dev** 模块 → 点击「清理」。刷新页面后恢复默认状态。
 
-也可手动清除以下两个 localStorage key：
+也可手动清除以下两个 localStorage keys：
 
 ```text
 __cep_dev_api_url
