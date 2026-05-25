@@ -3,6 +3,9 @@
 import { useState, useEffect, useRef, Suspense } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { useTranslations } from 'next-intl'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { z } from 'zod'
 import { Loader2, LogIn, ShieldAlert } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -10,7 +13,7 @@ import { Label } from '@/components/ui/label'
 import { Turnstile, type TurnstileHandle } from '@/components/shared/turnstile'
 import { useAuthStore } from '@/stores/useAuthStore'
 import { getTurnstileSiteKey } from '@/lib/dev-api'
-import { api } from '@/lib/api'
+import { getErrorI18nKey, api } from '@/lib/api'
 /**
  * OAuth2 Authorization Page.
  *
@@ -25,10 +28,23 @@ import { api } from '@/lib/api'
  */
 
 // ── Client name mapping (can be extended) ──────────────────
-const CLIENT_NAMES: Record<string, string> = {
-  'nodebb-canmoe': 'NodeBB Forum',
-  'nodebb-07070721': 'NodeBB Forum',
-}
+const CLIENT_NAMES: Record<string, string> = (() => {
+  try {
+    const raw = process.env.NEXT_PUBLIC_OAUTH_CLIENT_NAMES || '{}'
+    const parsed: unknown = JSON.parse(raw)
+    if (parsed && typeof parsed === 'object' && !Array.isArray(parsed)) {
+      return parsed as Record<string, string>
+    }
+  } catch { /* ignore */ }
+  return {}
+})()
+
+const loginSchema = z.object({
+  login: z.string().min(1, { message: 'required' }),
+  password: z.string().min(1, { message: 'required' }),
+})
+
+type LoginForm = z.infer<typeof loginSchema>
 
 export default function OAuthAuthorizePage() {
   return (
@@ -68,12 +84,15 @@ function OAuthAuthorizeContent() {
   const [authorizing, setAuthorizing] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [redirectUrl, setRedirectUrl] = useState<string | null>(null)
-  const [loginUsername, setLoginUsername] = useState('')
-  const [loginPassword, setLoginPassword] = useState('')
-  const [loginError, setLoginError] = useState<string | null>(null)
-  const [loginLoading, setLoginLoading] = useState(false)
+  const [serverError, setServerError] = useState<string | null>(null)
   const [turnstileToken, setTurnstileToken] = useState<string | null>(null)
   const turnstileRef = useRef<TurnstileHandle>(null)
+  const isTurnstileConfigured = !!getTurnstileSiteKey()
+
+  const loginForm = useForm<LoginForm>({
+    resolver: zodResolver(loginSchema),
+    defaultValues: { login: '', password: '' },
+  })
 
   const clientName = CLIENT_NAMES[clientId] || clientId || t('oauth.unknownClient')
 
@@ -91,20 +110,16 @@ function OAuthAuthorizeContent() {
   }, [redirectUrl])
 
   // ── Handle login on the OAuth page ──────────────────────
-  const handleLogin = async () => {
-    if (!loginUsername || !loginPassword || !turnstileToken) return
-    setLoginLoading(true)
-    setLoginError(null)
+  const onLoginSubmit = async (data: LoginForm) => {
+    setServerError(null)
     try {
-      await login(loginUsername, loginPassword, turnstileToken)
+      await login(data.login, data.password, turnstileToken ?? '')
       // After successful login, the Zustand store updates accessToken.
       // needsLogin is derived, so it automatically becomes false on re-render.
     } catch (err) {
-      setLoginError(err instanceof Error ? err.message : t('auth.loginFailed'))
+      setServerError(err instanceof Error ? err.message : 'loginFailed')
       setTurnstileToken(null)
       turnstileRef.current?.reset()
-    } finally {
-      setLoginLoading(false)
     }
   }
 
@@ -177,17 +192,21 @@ function OAuthAuthorizeContent() {
                 </p>
               </div>
 
-              <div className="space-y-4">
+              <form onSubmit={(e) => loginForm.handleSubmit(onLoginSubmit)(e)} className="space-y-4">
                 <div className="space-y-2">
                   <Label htmlFor="oauth-login">{t('auth.usernameOrEmail')}</Label>
                   <Input
                     id="oauth-login"
                     className="bg-card border-border"
-                    value={loginUsername}
-                    onChange={(e) => setLoginUsername(e.target.value)}
-                    disabled={loginLoading}
+                    {...loginForm.register('login')}
+                    disabled={loginForm.formState.isSubmitting}
                     autoFocus
                   />
+                  {loginForm.formState.errors.login && (
+                    <p className="text-sm text-destructive">
+                      {t(`auth.${loginForm.formState.errors.login.message}`)}
+                    </p>
+                  )}
                 </div>
 
                 <div className="space-y-2">
@@ -196,16 +215,17 @@ function OAuthAuthorizeContent() {
                     id="oauth-password"
                     type="password"
                     className="bg-card border-border"
-                    value={loginPassword}
-                    onChange={(e) => setLoginPassword(e.target.value)}
-                    disabled={loginLoading}
-                    onKeyDown={(e) => {
-                      if (e.key === 'Enter') handleLogin()
-                    }}
+                    {...loginForm.register('password')}
+                    disabled={loginForm.formState.isSubmitting}
                   />
+                  {loginForm.formState.errors.password && (
+                    <p className="text-sm text-destructive">
+                      {t(`auth.${loginForm.formState.errors.password.message}`)}
+                    </p>
+                  )}
                 </div>
 
-                {getTurnstileSiteKey() && (
+                {isTurnstileConfigured && (
                   <div className="flex justify-center">
                     <Turnstile
                       ref={turnstileRef}
@@ -216,16 +236,22 @@ function OAuthAuthorizeContent() {
                   </div>
                 )}
 
-                {loginError && (
-                  <p className="text-sm text-destructive text-center">{loginError}</p>
+                {serverError && (
+                  <p className="text-sm text-destructive text-center">
+                    {t(getErrorI18nKey(serverError))}
+                  </p>
                 )}
 
                 <Button
                   className="w-full"
-                  onClick={handleLogin}
-                  disabled={!loginUsername || !loginPassword || !turnstileToken || loginLoading}
+                  type="submit"
+                  disabled={
+                    !loginForm.formState.isValid ||
+                    (isTurnstileConfigured && !turnstileToken) ||
+                    loginForm.formState.isSubmitting
+                  }
                 >
-                  {loginLoading ? (
+                  {loginForm.formState.isSubmitting ? (
                     <>
                       <Loader2 className="size-4 mr-2 animate-spin" />
                       {t('auth.loggingIn')}
@@ -234,7 +260,7 @@ function OAuthAuthorizeContent() {
                     t('nav.login')
                   )}
                 </Button>
-              </div>
+              </form>
 
               <div className="text-center">
                 <Button
