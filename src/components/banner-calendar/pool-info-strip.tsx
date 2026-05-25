@@ -74,7 +74,7 @@ export function PoolInfoStrip() {
                 onClick={() => setSelectedVisual(visual)}
                 className={cn(
                   'relative flex-shrink-0 w-[280px] h-[160px] md:w-[320px] md:h-[180px] rounded-lg overflow-hidden',
-                  'shadow-[0px_0px_0px_1px_rgba(0,0,0,0.08)] cursor-pointer p-0 h-auto',
+                  'shadow-[0px_0px_0px_1px_rgba(0,0,0,0.08)] cursor-pointer p-0',
                   'transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0px_2px_8px_rgba(0,0,0,0.12)] hover:bg-transparent',
                   'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2'
                 )}
