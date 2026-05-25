@@ -185,6 +185,8 @@
     "weaponListSuffix": " (Weapon List)",
     "planRecommendationSuffix": " (Plan Recommendations)",
     "none": "None",
+    "on": "On",
+    "off": "Off",
     "priceSave": "Save {percent}%",
     "priceRecommended": "Best Value",
     "scanToPay": "Scan to pay",

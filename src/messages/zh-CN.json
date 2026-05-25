@@ -667,6 +667,8 @@
     "weaponListSuffix": "（武器列表）",
     "planRecommendationSuffix": "（方案推荐）",
     "none": "无",
+    "on": "开启",
+    "off": "关闭",
     "priceSave": "省 {percent}%",
     "priceRecommended": "推荐",
     "emailNotVerifiedHint": "邮箱未验证，建议完成验证以保障账号安全",

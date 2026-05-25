@@ -185,6 +185,8 @@
     "weaponListSuffix": "（武器リスト）",
     "planRecommendationSuffix": "（プラン推薦）",
     "none": "なし",
+    "on": "オン",
+    "off": "オフ",
     "priceSave": "{percent}%お得",
     "priceRecommended": "おすすめ",
     "scanToPay": "スキャンして支払う",

@@ -185,6 +185,8 @@
     "weaponListSuffix": "（武器列表）",
     "planRecommendationSuffix": "（方案推薦）",
     "none": "無",
+    "on": "開啟",
+    "off": "關閉",
     "priceSave": "省 {percent}%",
     "priceRecommended": "推薦",
     "scanToPay": "請使用以下方式付款",
