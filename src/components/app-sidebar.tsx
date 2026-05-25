@@ -25,6 +25,8 @@ import {
   Calendar,
   Eye,
   Pen,
+  MessageCircle,
+  ExternalLink,
   Settings,
   Download,
   Info,
@@ -178,6 +180,29 @@ export function AppSidebar() {
             })}
           </SidebarMenu>
         </SidebarGroup>
+        {FEATURES.forum && (
+          <SidebarGroup>
+            <SidebarGroupLabel>{t('sidebar.community')}</SidebarGroupLabel>
+            <SidebarMenu>
+              <SidebarMenuItem>
+                <SidebarMenuButton
+                  isActive={pathname.startsWith(`/${locale}/forum`)}
+                  tooltip={t('sidebar.communityDesc')}
+                  render={<NavLink href={`/${locale}/forum`} loadingLabel={t('nav.forum')} />}
+                  onClick={() => {
+                    if (isMobile) setOpenMobile(false)
+                  }}
+                >
+                  <MessageCircle />
+                  <div className="flex flex-col min-w-0">
+                    <span className="truncate">{t('nav.forum')}</span>
+                    <span className="text-[10px] text-muted-foreground truncate">{t('sidebar.communityDesc')}</span>
+                  </div>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+            </SidebarMenu>
+          </SidebarGroup>
+        )}
       </SidebarContent>
       <SidebarFooter>
         <SidebarMenu>

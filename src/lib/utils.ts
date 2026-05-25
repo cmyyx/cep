@@ -13,6 +13,12 @@ export function formatTime(iso: string): string {
   return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}`
 }
 
+/** Treat "disabled" sentinel as unset for optional URL env vars. Used by features.ts and dev-api.ts. */
+export function resolveOptionalUrl(val: string | undefined): string | undefined {
+  if (!val || val === 'disabled') return undefined
+  return val
+}
+
 /** Mask email for privacy: u***@example.com */
 export function maskEmail(email: string | null | undefined): string {
   if (!email) return '—'
