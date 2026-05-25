@@ -2,6 +2,7 @@ import { NextIntlClientProvider } from 'next-intl'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
+import Script from 'next/script'
 import { routing } from '@/i18n/routing'
 import { SidebarProvider } from '@/components/ui/sidebar'
 import { AppSidebar } from '@/components/app-sidebar'
@@ -16,6 +17,7 @@ import { AnnouncementLoader } from '@/components/home/announcement-loader'
 import { SyncManager } from '@/components/shared/sync-manager'
 import { LegacyMigrationDialog } from '@/components/shared/legacy-migration-dialog'
 import { DomainGuard } from '@/components/shared/domain-guard'
+import { LocaleGuard } from '@/components/shared/locale-guard'
 import { VersionProvider } from '@/hooks/use-version'
 import { versionData } from '@/generated/version-data'
 
@@ -72,7 +74,12 @@ export default async function LocaleLayout({
   messages.suits = await loadGameI18n('suits')
 
   return (
-    <NextIntlClientProvider messages={messages} locale={locale}>
+    <>
+      <Script id="html-lang" strategy="beforeInteractive">
+        {`document.documentElement.lang='${locale}'`}
+      </Script>
+      <NextIntlClientProvider messages={messages} locale={locale}>
+      <LocaleGuard />
       <DomainGuard />
       <VersionProvider initialInfo={versionData}>
         <SidebarProvider className="h-svh">
@@ -97,5 +104,6 @@ export default async function LocaleLayout({
         </SidebarProvider>
       </VersionProvider>
     </NextIntlClientProvider>
+    </>
   )
 }

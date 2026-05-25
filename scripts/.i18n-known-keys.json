@@ -47,6 +47,13 @@
       ]
     },
 
+    "oauth": {
+      "comment": "OAuth authorize page. authorizeDescription uses t.rich() instead of t(), so static analysis cannot detect it.",
+      "keys": [
+        "authorizeDescription"
+      ]
+    },
+
     "account": {
       "comment": "Sync settings, conflict dialog values, and server error codes. Accessed via t(syncError), t(entry.localVal), t(entry.cloudVal), t(getErrorI18nKey(code)), or computed string expressions.",
       "keys": [

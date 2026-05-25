@@ -5,6 +5,7 @@ import { useRouter, usePathname } from 'next/navigation'
 import { useLocale } from 'next-intl'
 import { Languages, Check } from 'lucide-react'
 import { SidebarMenuButton, useSidebar } from '@/components/ui/sidebar'
+import { useSettingsStore } from '@/stores/useSettingsStore'
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -13,6 +14,7 @@ import {
 } from '@/components/ui/dropdown-menu'
 
 const LOCALES = ['zh-CN', 'zh-TW', 'ja', 'en'] as const
+const DEFAULT = 'zh-CN'
 
 const LOCALE_LABELS: Record<string, string> = {
   'zh-CN': '简体中文',
@@ -21,27 +23,50 @@ const LOCALE_LABELS: Record<string, string> = {
   en: 'English',
 }
 
+function detectBrowserLocale(): string {
+  if (typeof window === 'undefined') return DEFAULT
+  const nav = navigator.language
+  const match = LOCALES.find((l) => l.split('-')[0] === nav.split('-')[0])
+  return match ?? DEFAULT
+}
+
 export function LanguageSwitcher() {
   const router = useRouter()
   const pathname = usePathname()
-  const locale = useLocale()
+  const urlLocale = useLocale()
+  const language = useSettingsStore((s) => s.language)
+  const setLanguage = useSettingsStore((s) => s.setLanguage)
 
-  const handleSwitch = useCallback((newLocale: string) => {
-    if (newLocale === locale) return
-    const newPath = pathname.replace(`/${locale}`, `/${newLocale}`)
-    router.push(newPath)
-  }, [pathname, locale, router])
+  const handleSwitch = useCallback(
+    (value: string) => {
+      if (value === 'auto') {
+        setLanguage('auto')
+        const detected = detectBrowserLocale()
+        if (detected !== urlLocale) {
+          router.push(pathname.replace(`/${urlLocale}`, `/${detected}`))
+        }
+      } else {
+        const lang = value as 'zh-CN' | 'zh-TW' | 'ja' | 'en'
+        setLanguage(lang)
+        if (lang !== urlLocale) {
+          router.push(pathname.replace(`/${urlLocale}`, `/${lang}`))
+        }
+      }
+    },
+    [pathname, urlLocale, router, setLanguage],
+  )
 
   const { isMobile } = useSidebar()
-  const currentLabel = LOCALE_LABELS[locale] ?? locale
+
+  // Display label reflects user PREFERENCE, not current URL locale
+  const displayLabel =
+    language === 'auto' ? 'AUTO' : (LOCALE_LABELS[urlLocale] ?? urlLocale)
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger
-        render={<SidebarMenuButton tooltip={currentLabel} />}
-      >
+      <DropdownMenuTrigger render={<SidebarMenuButton tooltip={displayLabel} />}>
         <Languages />
-        <span>{currentLabel}</span>
+        <span>{displayLabel}</span>
       </DropdownMenuTrigger>
       <DropdownMenuContent
         align="start"
@@ -49,6 +74,16 @@ export function LanguageSwitcher() {
         sideOffset={4}
         className="!w-auto min-w-36"
       >
+        {/* AUTO option — follow browser */}
+        <DropdownMenuItem
+          onClick={() => handleSwitch('auto')}
+          className="flex items-center justify-between"
+        >
+          <span>AUTO</span>
+          {language === 'auto' && (
+            <Check className="size-3.5 text-muted-foreground" />
+          )}
+        </DropdownMenuItem>
         {LOCALES.map((loc) => (
           <DropdownMenuItem
             key={loc}
@@ -56,7 +91,7 @@ export function LanguageSwitcher() {
             className="flex items-center justify-between"
           >
             <span>{LOCALE_LABELS[loc]}</span>
-            {loc === locale && (
+            {language !== 'auto' && loc === urlLocale && (
               <Check className="size-3.5 text-muted-foreground" />
             )}
           </DropdownMenuItem>
