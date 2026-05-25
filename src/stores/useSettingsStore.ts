@@ -5,22 +5,27 @@ interface SettingsState {
   backgroundBlur: boolean
   backgroundUrl: string
   theme: 'auto' | 'light' | 'dark' | 'flashbang'
+  language: 'auto' | 'zh-CN' | 'zh-TW' | 'ja' | 'en'
 
   toggleBackground: () => void
   toggleBlur: () => void
   setBackgroundUrl: (url: string) => void
   restoreDefaultBg: () => void
   setTheme: (theme: 'auto' | 'light' | 'dark' | 'flashbang') => void
+  setLanguage: (language: 'auto' | 'zh-CN' | 'zh-TW' | 'ja' | 'en') => void
   hydrateFromStorage: () => void
 }
 
 const DEFAULT_BG = 'https://img.canmoe.com/image?img=ua'
+
+const SUPPORTED_LANGUAGES = ['auto', 'zh-CN', 'zh-TW', 'ja', 'en'] as const
 
 const DEFAULTS = {
   backgroundEnabled: true,
   backgroundBlur: true,
   backgroundUrl: DEFAULT_BG,
   theme: 'auto' as const,
+  language: 'auto' as const,
 }
 
 function loadSettings() {
@@ -44,6 +49,7 @@ function saveSettings(state: SettingsState) {
         backgroundBlur: state.backgroundBlur,
         backgroundUrl: state.backgroundUrl,
         theme: state.theme,
+        language: state.language,
       })
     )
   } catch {
@@ -67,11 +73,13 @@ export const useSettingsStore = create<SettingsState>((set) => ({
     if (saved) {
       const allowedThemes: SettingsState['theme'][] = ['auto', 'light', 'dark', 'flashbang']
       const theme = allowedThemes.includes(saved.theme) ? saved.theme : DEFAULTS.theme
+      const language = SUPPORTED_LANGUAGES.includes(saved.language) ? saved.language : DEFAULTS.language
       set({
         backgroundEnabled: saved.backgroundEnabled ?? DEFAULTS.backgroundEnabled,
         backgroundBlur: saved.backgroundBlur ?? DEFAULTS.backgroundBlur,
         backgroundUrl: saved.backgroundUrl || DEFAULTS.backgroundUrl,
         theme,
+        language,
       })
     }
   },
@@ -105,5 +113,11 @@ export const useSettingsStore = create<SettingsState>((set) => ({
       const next = { ...s, theme }
       saveSettings(next as SettingsState)
       return { theme: next.theme }
+    }),
+  setLanguage: (language) =>
+    set((s) => {
+      const next = { ...s, language }
+      saveSettings(next as SettingsState)
+      return { language: next.language }
     }),
 }))
