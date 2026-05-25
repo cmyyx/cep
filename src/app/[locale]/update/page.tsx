@@ -119,6 +119,7 @@ export default function UpdatePage() {
 
   // Fetch changelog on mount
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     fetchChangelog()
     return () => abortRef.current?.abort()
   }, [fetchChangelog])
