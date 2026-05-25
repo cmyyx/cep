@@ -99,6 +99,7 @@
     "invalidSession": "セッションが無効です。再ログインしてください。",
     "turnstileRequired": "認証を完了してください",
     "emailDomainUnsupported": "このメールプロバイダーはサポートされていません。別のメールアドレスを使用してください。",
+    "unavailable": "ログインとクラウド同期は現在利用できません",
     "unavailableTitle": "クラウド同期は利用できません",
     "unavailableDescription": "現在このデプロイメントではログインおよびクラウド同期を利用できません。考えられる理由：このノードが地域制限されている、またはこのデプロイメントにバックエンド API サーバーが設定されていません。",
     "unavailableHowToAccess": "全機能へのアクセス方法",
@@ -464,10 +465,7 @@
     "importSummaryItems": "{count} 項目",
     "importSummaryEmpty": "データなし",
     "importExportedBy": "アプリバージョン",
-    "importDevice": "デバイス",
-    "language": "言語",
-    "languageLabel": "画面言語",
-    "languageAuto": "AUTO"
+    "importDevice": "デバイス"
   },
   "dataCleaner": {
     "dialogTitle": "データクリーンアップ",

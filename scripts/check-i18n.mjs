@@ -528,6 +528,94 @@ function resolveVar(varName, constants, targetSet) {
   return false
 }
 
+// ─── Phase 2c: Error code ↔ i18n key cross-reference ──────────────────────
+
+/**
+ * Cross-references literal `throw new ApiError('xxx', ...)` calls against the
+ * mapping table in getErrorI18nKey().
+ *
+ * This catches error codes that are thrown but never mapped to an i18n key —
+ * a gap that the main t()-call scanning cannot detect because the error code
+ * travels through getErrorI18nKey() at runtime, not through a direct t() call.
+ */
+function checkErrorCodes(allFiles, locales) {
+  const errors = []
+  const warnings = []
+  const thrownCodes = new Set()
+  const mappedCodes = new Map()  // errorCode → i18nKey
+
+  // path.sep-agnostic: match 'src/lib/api.ts' (POSIX) and 'src\lib\api.ts' (Windows).
+  const API_FILE = allFiles.find(
+    (f) => f.endsWith('api.ts') && (f.includes('src/lib') || f.includes('src\\lib'))
+  )
+
+  for (const file of allFiles) {
+    const content = readFileSync(file, 'utf-8')
+
+    // Collect literal error codes from `throw new ApiError('xxx', ...)`
+    // Dynamic codes (e.g. from backend JSON) use expressions, not literals,
+    // so they won't match this regex — which is correct because we can't
+    // statically verify runtime error codes.
+    for (const m of content.matchAll(/throw\s+new\s+ApiError\(\s*['"]([^'"]+)['"]/g)) {
+      thrownCodes.add(m[1])
+    }
+
+    // Collect mappings from getErrorI18nKey()'s map (only in api.ts)
+    if (file === API_FILE) {
+      // Find the getErrorI18nKey function body
+      const fnMatch = content.match(
+        /export function getErrorI18nKey[\s\S]*?\{([\s\S]*?)\n\}/
+      )
+      if (fnMatch) {
+        const fnBody = fnMatch[1]
+        // Match entries like:  some_code: 'namespace.key',
+        for (const m of fnBody.matchAll(/^\s*(\w+)\s*:\s*'([^']+)'/gm)) {
+          // Skip the Record type annotation itself (the value after ':' in
+          // `const map: Record<...> = {` is not a code mapping)
+          if (m[1] === 'map') continue
+          mappedCodes.set(m[1], m[2])
+        }
+      }
+    }
+  }
+
+  // P0: thrown literally but NOT in the mapping table
+  //     → t(getErrorI18nKey(code)) will return the raw code, causing
+  //       MISSING_MESSAGE at runtime if the code is not a valid i18n key.
+  for (const code of [...thrownCodes].sort()) {
+    if (!mappedCodes.has(code)) {
+      errors.push(
+        `[P0] Error code "${code}" thrown via new ApiError() has NO mapping in getErrorI18nKey()`
+      )
+    }
+  }
+
+  // P0: mapped i18n key missing from one or more locale JSONs
+  for (const [code, i18nKey] of mappedCodes) {
+    for (const [locale, localeKeys] of locales) {
+      if (!localeKeys.has(i18nKey)) {
+        errors.push(
+          `[P0] Error code "${code}" maps to i18n key "${i18nKey}" which is MISSING from ${locale}.json`
+        )
+      }
+    }
+  }
+
+  // P2: client-side code in map but never thrown literally
+  //     Backend-only codes are expected to only come from server responses,
+  //     so we only flag client-side codes defined in ApiErrorCode.
+  const clientSideCodes = new Set(['invalid_response', 'auth_unavailable'])
+  for (const [code] of mappedCodes) {
+    if (!thrownCodes.has(code) && clientSideCodes.has(code)) {
+      warnings.push(
+        `[P2] Error code "${code}" has a mapping in getErrorI18nKey() but is never thrown via new ApiError()`
+      )
+    }
+  }
+
+  return { errors, warnings }
+}
+
 // ─── Phase 3: Cross-reference ───────────────────────────────────────────────
 
 function check(locales, usedKeys, unresolved) {
@@ -628,7 +716,15 @@ function main() {
   }
   console.log()
 
-  const { errors, warnings, info, exitCode } = check(locales, usedKeys, allUnresolved)
+  const phase3 = check(locales, usedKeys, allUnresolved)
+
+  // Phase 2c: Error code cross-reference
+  const ecResult = checkErrorCodes(allFiles, locales)
+
+  const errors = [...phase3.errors, ...ecResult.errors]
+  const warnings = [...phase3.warnings, ...ecResult.warnings]
+  const info = phase3.info
+  const exitCode = errors.length > 0 ? 1 : phase3.exitCode
 
   if (errors.length > 0) {
     console.log(`─── ERRORS (${errors.length}) ───\n`)

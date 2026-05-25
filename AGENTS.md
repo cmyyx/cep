@@ -164,6 +164,20 @@ SidebarProvider className="h-svh"              ← height: 100svh (确定值)
 - 翻译 key 使用路径式，例如 `t("nav.essencePlanner")`。
 - 翻译文件放在 `src/messages/<locale>.json`。
 
+### 错误码 → i18n 映射规范（强制）
+
+所有 `ApiError` 的错误码必须通过 `getErrorI18nKey()` 映射到 i18n key，**禁止将原始错误码直接传给 `t()`**。
+
+**新增错误码的 checklist（三步，缺一不可）：**
+
+1. 在 `src/types/error-codes.ts` 的 `ApiErrorCode` 联合类型中添加新 code
+2. 在 `src/lib/api.ts` 的 `getErrorI18nKey()` 映射表中添加 `code: 'namespace.i18nKey'` 条目
+3. 在所有 locale JSON（zh-CN / en / ja / zh-TW）中添加对应的 i18n key 及其翻译文本
+
+**编译期保障：** `getErrorI18nKey` 的映射表类型为 `Record<ApiErrorCode, string>`，TypeScript 强制补全所有 code 的映射，遗漏会导致 `tsc --noEmit` 报错。
+
+**CI 保障：** `node scripts/check-i18n.mjs` 的 Phase 2c 会交叉比对所有 `throw new ApiError('xxx', ...)` 字面量与映射表，映射缺失 → P0 阻断构建。
+
 ## 代码质量
 
 - 每个功能文件必须有对应的测试文件（`.test.ts` 或 `.test.tsx`）。
