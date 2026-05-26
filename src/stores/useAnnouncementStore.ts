@@ -226,7 +226,6 @@ export const useAnnouncementStore = create<AnnouncementState>()(
       name: 'cep-announcement-read-ids',
       storage: createJSONStorage(() => localStorage),
       partialize: (state) => ({ readIds: state.readIds }),
-      skipHydration: true,
     }
   )
 )
