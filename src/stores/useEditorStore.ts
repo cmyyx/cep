@@ -83,6 +83,7 @@ function createEmptyCharacter(): CharacterGuideData {
       operationTips: '',
       teamSlots: [],
       attributions: [],
+      skillPriorities: [],
     },
   }
 }
@@ -104,18 +105,19 @@ function toDraft(data: CharacterGuideData, isSource = false): EditorDraftCharact
     guide: {
       ...data.guide,
       equipRows: data.guide?.equipRows?.map((row) => ({
-        weapons: row.weapons?.map((w) => ({ ...w })) ?? [],
-        equipment: row.equipment?.map((e) => (e ? { ...e } : null)) ?? [null, null, null, null],
+        weapons: row.weapons?.map((w) => ({ ...w, id: w.id || crypto.randomUUID() })) ?? [],
+        equipment: row.equipment?.map((e) => (e ? { ...e, id: e.id || crypto.randomUUID() } : null)) ?? [null, null, null, null],
       })) ?? [],
       teamSlots: data.guide?.teamSlots?.map((slot) => ({
         ...slot,
         options: slot.options?.map((opt) => ({
           ...opt,
-          weapons: opt.weapons?.map((w) => ({ ...w })) ?? [],
-          equipment: opt.equipment?.map((e) => ({ ...e })) ?? [],
+          weapons: opt.weapons?.map((w) => ({ ...w, id: w.id || crypto.randomUUID() })) ?? [],
+          equipment: opt.equipment?.map((e) => ({ ...e, id: e.id || crypto.randomUUID() })) ?? [],
         })) ?? [],
       })) ?? [],
       attributions: data.guide?.attributions?.map((a) => ({ ...a })) ?? [],
+      skillPriorities: data.guide?.skillPriorities?.map((sp) => ({ ...sp })) ?? [],
     },
   }
 }

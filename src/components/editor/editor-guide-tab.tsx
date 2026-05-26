@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback } from 'react'
+import { useCallback, useState } from 'react'
 import { useTranslations } from 'next-intl'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -9,6 +9,7 @@ import { Textarea } from '@/components/ui/textarea'
 import { useEditorStore, type GuideSubTab } from '@/stores/useEditorStore'
 import { cn } from '@/lib/utils'
 import type { EditorDraftCharacter } from '@/stores/useEditorStore'
+import { isWeaponNameValid, isEquipNameValid } from '@/lib/validate-editor-names'
 import { Plus, Trash2 } from 'lucide-react'
 
 const GUIDE_SUB_TABS: { key: GuideSubTab; labelKey: string }[] = [
@@ -19,13 +20,30 @@ const GUIDE_SUB_TABS: { key: GuideSubTab; labelKey: string }[] = [
 
 export type EditorGuideTabProps = {
   draft: EditorDraftCharacter
+  isReadOnly?: boolean
 }
 
-export function EditorGuideTab({ draft }: EditorGuideTabProps) {
+export function EditorGuideTab({ draft, isReadOnly }: EditorGuideTabProps) {
   const t = useTranslations()
   const updateDraft = useEditorStore((s) => s.updateDraft)
   const guideSubTab = useEditorStore((s) => s.guideSubTab)
   const setGuideSubTab = useEditorStore((s) => s.setGuideSubTab)
+
+  // Validation state: keys are "wpn-{id}", "equip-{id}", "teamwpn-{id}", or "teamequip-{id}".
+  const [invalidNames, setInvalidNames] = useState<Set<string>>(new Set())
+
+  const validateNameField = useCallback(
+    (key: string, name: string, category: 'weapon' | 'equip') => {
+      const isValid = category === 'weapon' ? isWeaponNameValid(name) : isEquipNameValid(name)
+      setInvalidNames((prev) => {
+        const next = new Set(prev)
+        if (isValid) next.delete(key)
+        else next.add(key)
+        return next
+      })
+    },
+    [],
+  )
 
   // ===== Equip Rows =====
   const addEquipRow = useCallback(() => {
@@ -39,7 +57,22 @@ export function EditorGuideTab({ draft }: EditorGuideTabProps) {
 
   const removeEquipRow = useCallback(
     (index: number) => {
-      updateDraft(draft.id, (d) => { d.guide.equipRows.splice(index, 1) })
+      let removedWpnIds: string[] = []
+      let removedEqIds: string[] = []
+      updateDraft(draft.id, (d) => {
+        const row = d.guide.equipRows[index]
+        if (row) {
+          removedWpnIds = row.weapons.map((w) => w.id).filter(Boolean) as string[]
+          removedEqIds = row.equipment.map((e) => e?.id).filter(Boolean) as string[]
+        }
+        d.guide.equipRows.splice(index, 1)
+      })
+      setInvalidNames((prev) => {
+        const n = new Set(prev)
+        for (const id of removedWpnIds) n.delete(`wpn-${id}`)
+        for (const id of removedEqIds) n.delete(`equip-${id}`)
+        return n
+      })
     },
     [draft.id, updateDraft]
   )
@@ -49,7 +82,7 @@ export function EditorGuideTab({ draft }: EditorGuideTabProps) {
       updateDraft(draft.id, (d) => {
         const row = d.guide.equipRows[rowIndex]
         if (!row) return
-        row.weapons.push({ name: '', icon: '', note: '', rarity: null })
+        row.weapons.push({ id: crypto.randomUUID(), name: '', icon: '', note: '', rarity: null })
       })
     },
     [draft.id, updateDraft]
@@ -57,9 +90,14 @@ export function EditorGuideTab({ draft }: EditorGuideTabProps) {
 
   const removeWeapon = useCallback(
     (rowIndex: number, weaponIndex: number) => {
+      let removedId: string | undefined
       updateDraft(draft.id, (d) => {
-        d.guide.equipRows[rowIndex]?.weapons?.splice(weaponIndex, 1)
+        const removed = d.guide.equipRows[rowIndex]?.weapons?.splice(weaponIndex, 1)
+        removedId = removed?.[0]?.id
       })
+      if (removedId) {
+        setInvalidNames((prev) => { const n = new Set(prev); n.delete(`wpn-${removedId}`); return n })
+      }
     },
     [draft.id, updateDraft]
   )
@@ -82,7 +120,7 @@ export function EditorGuideTab({ draft }: EditorGuideTabProps) {
         if (!row) return
         let entry = row.equipment[slotIndex]
         if (!entry) {
-          entry = { name: '', icon: '', note: '', rarity: null }
+          entry = { id: crypto.randomUUID(), name: '', icon: '', note: '', rarity: null }
           row.equipment[slotIndex] = entry
         }
         ;(entry as unknown as Record<string, unknown>)[field] = field === 'rarity' ? (value === '' ? null : Number(value)) : value
@@ -111,7 +149,24 @@ export function EditorGuideTab({ draft }: EditorGuideTabProps) {
 
   const removeTeamSlot = useCallback(
     (index: number) => {
-      updateDraft(draft.id, (d) => { d.guide.teamSlots.splice(index, 1) })
+      const removedIds: string[] = []
+      updateDraft(draft.id, (d) => {
+        const slot = d.guide.teamSlots[index]
+        if (slot) {
+          for (const opt of slot.options) {
+            for (const w of opt.weapons) { if (w.id) removedIds.push(`teamwpn-${w.id}`) }
+            for (const eq of opt.equipment) { if (eq.id) removedIds.push(`teamequip-${eq.id}`) }
+          }
+        }
+        d.guide.teamSlots.splice(index, 1)
+      })
+      if (removedIds.length > 0) {
+        setInvalidNames((prev) => {
+          const n = new Set(prev)
+          for (const id of removedIds) n.delete(id)
+          return n
+        })
+      }
     },
     [draft.id, updateDraft]
   )
@@ -129,9 +184,22 @@ export function EditorGuideTab({ draft }: EditorGuideTabProps) {
 
   const removeTeamOption = useCallback(
     (slotIndex: number, optionIndex: number) => {
+      const removedIds: string[] = []
       updateDraft(draft.id, (d) => {
+        const opt = d.guide.teamSlots[slotIndex]?.options?.[optionIndex]
+        if (opt) {
+          for (const w of opt.weapons) { if (w.id) removedIds.push(`teamwpn-${w.id}`) }
+          for (const eq of opt.equipment) { if (eq.id) removedIds.push(`teamequip-${eq.id}`) }
+        }
         d.guide.teamSlots[slotIndex]?.options?.splice(optionIndex, 1)
       })
+      if (removedIds.length > 0) {
+        setInvalidNames((prev) => {
+          const n = new Set(prev)
+          for (const id of removedIds) n.delete(id)
+          return n
+        })
+      }
     },
     [draft.id, updateDraft]
   )
@@ -152,7 +220,7 @@ export function EditorGuideTab({ draft }: EditorGuideTabProps) {
       updateDraft(draft.id, (d) => {
         const option = d.guide.teamSlots[slotIndex]?.options?.[optionIndex]
         if (!option) return
-        option.weapons.push({ name: '', icon: '', note: '', rarity: null })
+        option.weapons.push({ id: crypto.randomUUID(), name: '', icon: '', note: '', rarity: null })
       })
     },
     [draft.id, updateDraft]
@@ -160,9 +228,14 @@ export function EditorGuideTab({ draft }: EditorGuideTabProps) {
 
   const removeTeamOptWeapon = useCallback(
     (slotIndex: number, optionIndex: number, weaponIndex: number) => {
+      let removedId: string | undefined
       updateDraft(draft.id, (d) => {
-        d.guide.teamSlots[slotIndex]?.options?.[optionIndex]?.weapons?.splice(weaponIndex, 1)
+        const removed = d.guide.teamSlots[slotIndex]?.options?.[optionIndex]?.weapons?.splice(weaponIndex, 1)
+        removedId = removed?.[0]?.id
       })
+      if (removedId) {
+        setInvalidNames((prev) => { const n = new Set(prev); n.delete(`teamwpn-${removedId}`); return n })
+      }
     },
     [draft.id, updateDraft]
   )
@@ -172,7 +245,7 @@ export function EditorGuideTab({ draft }: EditorGuideTabProps) {
       updateDraft(draft.id, (d) => {
         const option = d.guide.teamSlots[slotIndex]?.options?.[optionIndex]
         if (!option) return
-        option.equipment.push({ name: '', icon: '', note: '', rarity: null })
+        option.equipment.push({ id: crypto.randomUUID(), name: '', icon: '', note: '', rarity: null })
       })
     },
     [draft.id, updateDraft]
@@ -180,9 +253,14 @@ export function EditorGuideTab({ draft }: EditorGuideTabProps) {
 
   const removeTeamOptEquip = useCallback(
     (slotIndex: number, optionIndex: number, equipIndex: number) => {
+      let removedId: string | undefined
       updateDraft(draft.id, (d) => {
-        d.guide.teamSlots[slotIndex]?.options?.[optionIndex]?.equipment?.splice(equipIndex, 1)
+        const removed = d.guide.teamSlots[slotIndex]?.options?.[optionIndex]?.equipment?.splice(equipIndex, 1)
+        removedId = removed?.[0]?.id
       })
+      if (removedId) {
+        setInvalidNames((prev) => { const n = new Set(prev); n.delete(`teamequip-${removedId}`); return n })
+      }
     },
     [draft.id, updateDraft]
   )
@@ -225,7 +303,7 @@ export function EditorGuideTab({ draft }: EditorGuideTabProps) {
         <div className="space-y-3">
           <div className="flex items-center justify-between">
             <span className="text-xs text-muted-foreground">{t('editor.guideEquipRows')}</span>
-            <Button variant="outline" size="sm" onClick={addEquipRow}>
+            <Button variant="outline" size="sm" onClick={addEquipRow} disabled={isReadOnly}>
               <Plus className="w-3 h-3 mr-1" />
               {t('editor.addEquipRow')}
             </Button>
@@ -249,6 +327,7 @@ export function EditorGuideTab({ draft }: EditorGuideTabProps) {
                   size="sm"
                   onClick={() => removeEquipRow(ri)}
                   className="h-6 w-6 p-0 text-muted-foreground hover:text-destructive"
+                  disabled={isReadOnly}
                 >
                   <Trash2 className="w-3 h-3" />
                 </Button>
@@ -263,23 +342,35 @@ export function EditorGuideTab({ draft }: EditorGuideTabProps) {
                     size="sm"
                     onClick={() => addWeapon(ri)}
                     className="h-5 text-[10px] px-1"
+                    disabled={isReadOnly}
                   >
                     <Plus className="w-2.5 h-2.5" />
                   </Button>
                 </div>
-                {row.weapons.map((w, wi) => (
-                  <div key={wi} className="flex items-center gap-1 mb-1">
+                {row.weapons.map((w, wi) => {
+                  const wpnKey = `wpn-${w.id}`
+                  return (
+                  <div key={wi} className="mb-1">
+                    <div className="flex items-center gap-1">
                     <Input
                       value={w.name}
-                      onChange={(e) => updateWeapon(ri, wi, 'name', e.target.value)}
+                      onChange={(e) => {
+                        updateWeapon(ri, wi, 'name', e.target.value)
+                        if (invalidNames.has(wpnKey)) {
+                          setInvalidNames((prev) => { const n = new Set(prev); n.delete(wpnKey); return n })
+                        }
+                      }}
+                      onBlur={() => validateNameField(wpnKey, w.name, 'weapon')}
                       placeholder={t('editor.placeholderGuideName')}
-                      className="h-7 text-xs flex-1"
+                      className={cn('h-7 text-xs flex-1', invalidNames.has(wpnKey) && 'border-ship-red ring-1 ring-ship-red/30')}
+                      readOnly={isReadOnly}
                     />
                     <Input
                       value={w.note}
                       onChange={(e) => updateWeapon(ri, wi, 'note', e.target.value)}
                       placeholder={t('editor.placeholderGuideNote')}
                       className="h-7 text-xs w-20"
+                      readOnly={isReadOnly}
                     />
                     <Input
                       type="number"
@@ -293,17 +384,24 @@ export function EditorGuideTab({ draft }: EditorGuideTabProps) {
                         (w.rarity ?? 0) >= 6 && 'text-rarity-6-star',
                         (w.rarity ?? 0) >= 5 && (w.rarity ?? 0) < 6 && 'text-rarity-5-star'
                       )}
+                      readOnly={isReadOnly}
                     />
                     <Button
                       variant="ghost"
                       size="sm"
                       onClick={() => removeWeapon(ri, wi)}
                       className="h-7 w-6 p-0 text-muted-foreground hover:text-destructive"
+                      disabled={isReadOnly}
                     >
                       <Trash2 className="w-3 h-3" />
                     </Button>
+                    </div>
+                    {invalidNames.has(wpnKey) && (
+                      <p className="text-[10px] text-ship-red leading-tight mt-0.5">{t('editor.weaponNotFound')}</p>
+                    )}
                   </div>
-                ))}
+                  )
+                })}
               </div>
 
               {/* Equipment slots */}
@@ -312,8 +410,10 @@ export function EditorGuideTab({ draft }: EditorGuideTabProps) {
                 <div className="grid grid-cols-2 gap-1">
                   {[0, 1, 2, 3].map((ei) => {
                     const eq = row.equipment[ei]
+                    const eqKey = eq ? `equip-${eq.id}` : ''
                     return (
-                      <div key={ei} className="flex items-center gap-1">
+                      <div key={ei}>
+                        <div className="flex items-center gap-1">
                         <span className="text-[10px] text-muted-foreground w-8">
                           {[t('equip.slot.armor'), t('equip.slot.gloves'), t('equip.slot.accessory'), t('equip.slot.accessory2')][ei]}
                         </span>
@@ -321,15 +421,23 @@ export function EditorGuideTab({ draft }: EditorGuideTabProps) {
                           <>
                             <Input
                               value={eq.name}
-                              onChange={(e) => updateEquip(ri, ei, 'name', e.target.value)}
+                              onChange={(e) => {
+                                updateEquip(ri, ei, 'name', e.target.value)
+                                if (invalidNames.has(eqKey)) {
+                                  setInvalidNames((prev) => { const n = new Set(prev); n.delete(eqKey); return n })
+                                }
+                              }}
+                              onBlur={() => validateNameField(eqKey, eq.name, 'equip')}
                               placeholder="Name"
-                              className="h-7 text-xs flex-1"
+                              className={cn('h-7 text-xs flex-1', invalidNames.has(eqKey) && 'border-ship-red ring-1 ring-ship-red/30')}
+                              readOnly={isReadOnly}
                             />
                             <Input
                               value={eq.note}
                               onChange={(e) => updateEquip(ri, ei, 'note', e.target.value)}
                               placeholder={t('editor.placeholderGuideNote')}
                               className="h-7 text-xs w-16"
+                              readOnly={isReadOnly}
                             />
                             <Input
                               type="number"
@@ -339,12 +447,14 @@ export function EditorGuideTab({ draft }: EditorGuideTabProps) {
                               onChange={(e) => updateEquip(ri, ei, 'rarity', e.target.value)}
                               placeholder={t('editor.placeholderGuideRarity')}
                               className="h-7 text-xs w-12"
+                              readOnly={isReadOnly}
                             />
                             <Button
                               variant="ghost"
                               size="sm"
                               onClick={() => clearEquip(ri, ei)}
                               className="h-7 w-6 p-0 text-[10px] text-muted-foreground hover:text-destructive"
+                              disabled={isReadOnly}
                             >
                               x
                             </Button>
@@ -355,9 +465,14 @@ export function EditorGuideTab({ draft }: EditorGuideTabProps) {
                             size="sm"
                             onClick={() => updateEquip(ri, ei, 'name', '')}
                             className="h-7 text-[10px] text-muted-foreground/50"
+                            disabled={isReadOnly}
                           >
                             {t('editor.guideAddEquip')}
                           </Button>
+                        )}
+                        </div>
+                        {invalidNames.has(eqKey) && (
+                          <p className="text-[10px] text-ship-red leading-tight mt-0.5">{t('editor.equipNotFound')}</p>
                         )}
                       </div>
                     )
@@ -379,6 +494,7 @@ export function EditorGuideTab({ draft }: EditorGuideTabProps) {
               onChange={(e) => updateGuideField('analysis', e.target.value)}
               className="min-h-[120px] resize-y"
               placeholder={t('editor.placeholderAnalysis')}
+              readOnly={isReadOnly}
             />
           </div>
           <div className="space-y-1.5">
@@ -388,6 +504,7 @@ export function EditorGuideTab({ draft }: EditorGuideTabProps) {
               onChange={(e) => updateGuideField('teamTips', e.target.value)}
               className="min-h-[80px] resize-y"
               placeholder={t('editor.placeholderTeamTips')}
+              readOnly={isReadOnly}
             />
           </div>
           <div className="space-y-1.5">
@@ -397,6 +514,7 @@ export function EditorGuideTab({ draft }: EditorGuideTabProps) {
               onChange={(e) => updateGuideField('operationTips', e.target.value)}
               className="min-h-[80px] resize-y"
               placeholder={t('editor.placeholderOperationTips')}
+              readOnly={isReadOnly}
             />
           </div>
         </div>
@@ -407,7 +525,7 @@ export function EditorGuideTab({ draft }: EditorGuideTabProps) {
         <div className="space-y-3">
           <div className="flex items-center justify-between">
             <span className="text-xs text-muted-foreground">{t('editor.guideTeamSlots')}</span>
-            <Button variant="outline" size="sm" onClick={addTeamSlot}>
+            <Button variant="outline" size="sm" onClick={addTeamSlot} disabled={isReadOnly}>
               <Plus className="w-3 h-3 mr-1" />
               {t('editor.addTeamSlot')}
             </Button>
@@ -431,6 +549,7 @@ export function EditorGuideTab({ draft }: EditorGuideTabProps) {
                   size="sm"
                   onClick={() => removeTeamSlot(si)}
                   className="h-6 w-6 p-0 text-muted-foreground hover:text-destructive"
+                  disabled={isReadOnly}
                 >
                   <Trash2 className="w-3 h-3" />
                 </Button>
@@ -448,18 +567,21 @@ export function EditorGuideTab({ draft }: EditorGuideTabProps) {
                       onChange={(e) => updateTeamOptionField(si, oi, 'name', e.target.value)}
                       placeholder={t('editor.placeholderTeamCharName')}
                       className="h-7 text-sm flex-1"
+                      readOnly={isReadOnly}
                     />
                     <Input
                       value={opt.tag}
                       onChange={(e) => updateTeamOptionField(si, oi, 'tag', e.target.value)}
                       placeholder={t('editor.placeholderTag')}
                       className="h-7 text-xs w-24"
+                      readOnly={isReadOnly}
                     />
                     <Button
                       variant="ghost"
                       size="sm"
                       onClick={() => removeTeamOption(si, oi)}
                       className="h-7 w-6 p-0 text-muted-foreground hover:text-destructive"
+                      disabled={isReadOnly}
                     >
                       <Trash2 className="w-3 h-3" />
                     </Button>
@@ -474,12 +596,16 @@ export function EditorGuideTab({ draft }: EditorGuideTabProps) {
                         size="sm"
                         onClick={() => addTeamOptWeapon(si, oi)}
                         className="h-5 text-[10px] px-1"
+                        disabled={isReadOnly}
                       >
                         <Plus className="w-2.5 h-2.5" />
                       </Button>
                     </div>
-                    {opt.weapons.map((w, wi) => (
-                      <div key={wi} className="flex items-center gap-1 mb-0.5">
+                    {opt.weapons.map((w, wi) => {
+                      const twKey = `teamwpn-${w.id}`
+                      return (
+                      <div key={wi} className="mb-0.5">
+                        <div className="flex items-center gap-1">
                         <Input
                           value={w.name}
                           onChange={(e) => {
@@ -488,9 +614,14 @@ export function EditorGuideTab({ draft }: EditorGuideTabProps) {
                               if (!optW) return
                               optW.name = e.target.value
                             })
+                            if (invalidNames.has(twKey)) {
+                              setInvalidNames((prev) => { const n = new Set(prev); n.delete(twKey); return n })
+                            }
                           }}
+                          onBlur={() => validateNameField(twKey, w.name, 'weapon')}
                           placeholder={t('editor.placeholderGuideName')}
-                          className="h-7 text-xs flex-1"
+                          className={cn('h-7 text-xs flex-1', invalidNames.has(twKey) && 'border-ship-red ring-1 ring-ship-red/30')}
+                          readOnly={isReadOnly}
                         />
                         <Input
                           value={w.note}
@@ -503,6 +634,7 @@ export function EditorGuideTab({ draft }: EditorGuideTabProps) {
                           }}
                           placeholder={t('editor.placeholderGuideNote')}
                           className="h-7 text-xs w-20"
+                          readOnly={isReadOnly}
                         />
                         <Input
                           type="number"
@@ -518,17 +650,24 @@ export function EditorGuideTab({ draft }: EditorGuideTabProps) {
                           }}
                           placeholder={t('editor.placeholderGuideRarity')}
                           className="h-7 text-xs w-12"
+                          readOnly={isReadOnly}
                         />
                         <Button
                           variant="ghost"
                           size="sm"
                           onClick={() => removeTeamOptWeapon(si, oi, wi)}
                           className="h-7 w-6 p-0 text-muted-foreground hover:text-destructive"
+                          disabled={isReadOnly}
                         >
                           <Trash2 className="w-3 h-3" />
                         </Button>
+                        </div>
+                        {invalidNames.has(twKey) && (
+                          <p className="text-[10px] text-ship-red leading-tight mt-0.5">{t('editor.weaponNotFound')}</p>
+                        )}
                       </div>
-                    ))}
+                      )
+                    })}
                   </div>
 
                   {/* Option equipment */}
@@ -540,12 +679,16 @@ export function EditorGuideTab({ draft }: EditorGuideTabProps) {
                         size="sm"
                         onClick={() => addTeamOptEquip(si, oi)}
                         className="h-5 text-[10px] px-1"
+                        disabled={isReadOnly}
                       >
                         <Plus className="w-2.5 h-2.5" />
                       </Button>
                     </div>
-                    {opt.equipment.map((eq, ei) => (
-                      <div key={ei} className="flex items-center gap-1 mb-0.5">
+                    {opt.equipment.map((eq, ei) => {
+                      const teKey = `teamequip-${eq.id}`
+                      return (
+                      <div key={ei} className="mb-0.5">
+                        <div className="flex items-center gap-1">
                         <Input
                           value={eq.name}
                           onChange={(e) => {
@@ -554,9 +697,14 @@ export function EditorGuideTab({ draft }: EditorGuideTabProps) {
                               if (!optE) return
                               optE.name = e.target.value
                             })
+                            if (invalidNames.has(teKey)) {
+                              setInvalidNames((prev) => { const n = new Set(prev); n.delete(teKey); return n })
+                            }
                           }}
+                          onBlur={() => validateNameField(teKey, eq.name, 'equip')}
                           placeholder={t('editor.placeholderGuideName')}
-                          className="h-7 text-xs flex-1"
+                          className={cn('h-7 text-xs flex-1', invalidNames.has(teKey) && 'border-ship-red ring-1 ring-ship-red/30')}
+                          readOnly={isReadOnly}
                         />
                         <Input
                           type="number"
@@ -572,17 +720,24 @@ export function EditorGuideTab({ draft }: EditorGuideTabProps) {
                           }}
                           placeholder={t('editor.placeholderGuideRarity')}
                           className="h-7 text-xs w-12"
+                          readOnly={isReadOnly}
                         />
                         <Button
                           variant="ghost"
                           size="sm"
                           onClick={() => removeTeamOptEquip(si, oi, ei)}
                           className="h-7 w-6 p-0 text-muted-foreground hover:text-destructive"
+                          disabled={isReadOnly}
                         >
                           <Trash2 className="w-3 h-3" />
                         </Button>
+                        </div>
+                        {invalidNames.has(teKey) && (
+                          <p className="text-[10px] text-ship-red leading-tight mt-0.5">{t('editor.equipNotFound')}</p>
+                        )}
                       </div>
-                    ))}
+                      )
+                    })}
                   </div>
                 </div>
               ))}
@@ -592,6 +747,7 @@ export function EditorGuideTab({ draft }: EditorGuideTabProps) {
                 size="sm"
                 onClick={() => addTeamOption(si)}
                 className="h-7 text-xs ml-3"
+                disabled={isReadOnly}
               >
                 <Plus className="w-3 h-3 mr-1" />
                 {t('editor.addTeamOption')}

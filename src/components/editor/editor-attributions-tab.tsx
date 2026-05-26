@@ -10,8 +10,10 @@ import { Plus, Trash2 } from 'lucide-react'
 
 export function EditorAttributionsTab({
   draft,
+  isReadOnly,
 }: {
   draft: EditorDraftCharacter
+  isReadOnly?: boolean
 }) {
   const t = useTranslations()
   const updateDraft = useEditorStore((s) => s.updateDraft)
@@ -46,7 +48,7 @@ export function EditorAttributionsTab({
     <div className="space-y-4 max-w-2xl">
       <div className="flex items-center justify-between">
         <h3 className="text-sm font-semibold tracking-tight">{t('editor.guideAttributions')}</h3>
-        <Button variant="outline" size="sm" onClick={addAttribution}>
+        <Button variant="outline" size="sm" onClick={addAttribution} disabled={isReadOnly}>
           <Plus className="w-3 h-3 mr-1" />
           {t('editor.addAttribution')}
         </Button>
@@ -65,6 +67,7 @@ export function EditorAttributionsTab({
               size="sm"
               onClick={() => removeAttribution(ai)}
               className="h-6 w-6 p-0 text-muted-foreground hover:text-destructive"
+              disabled={isReadOnly}
             >
               <Trash2 className="w-3 h-3" />
             </Button>
@@ -77,6 +80,7 @@ export function EditorAttributionsTab({
                 onChange={(e) => updateAttr(ai, 'role', e.target.value)}
                 placeholder={t('editor.placeholderAttributionRole')}
                 className="h-7 text-xs"
+                readOnly={isReadOnly}
               />
             </div>
             <div className="space-y-1">
@@ -86,6 +90,7 @@ export function EditorAttributionsTab({
                 onChange={(e) => updateAttr(ai, 'name', e.target.value)}
                 placeholder={t('editor.placeholderAttributionName')}
                 className="h-7 text-xs"
+                readOnly={isReadOnly}
               />
             </div>
           </div>
@@ -96,6 +101,7 @@ export function EditorAttributionsTab({
               onChange={(e) => updateAttr(ai, 'url', e.target.value)}
               placeholder="https://..."
               className="h-7 text-xs"
+              readOnly={isReadOnly}
             />
           </div>
           <div className="space-y-1">
@@ -105,6 +111,7 @@ export function EditorAttributionsTab({
               onChange={(e) => updateAttr(ai, 'note', e.target.value)}
               placeholder={t('editor.placeholderAttributionNote')}
               className="h-7 text-xs"
+              readOnly={isReadOnly}
             />
           </div>
         </div>

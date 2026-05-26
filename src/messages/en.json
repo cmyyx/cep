@@ -493,14 +493,38 @@
     "clearedAll": "All data cleared",
     "clearedUnknown": "Unknown data: {key}",
     "modules": {
-      "essence-settings": { "label": "Essence Planner Marks", "desc": "Weapon ownership, essence status, notes, custom weapons, display settings" },
-      "matrix-session": { "label": "Essence Planner UI State", "desc": "Selected weapons, base stat selection, plan expand state, filter settings" },
-      "refinement-session": { "label": "Refinement Planner", "desc": "Selected equip, collapsed suit state, filter conditions" },
-      "user-data": { "label": "User Profile & Tokens", "desc": "User info" },
-      "cep-settings": { "label": "General Settings", "desc": "Theme, background image, language, etc." },
-      "editor-drafts": { "label": "Editor Drafts", "desc": "Custom character edit drafts" },
-      "announcement-read": { "label": "Announcement Read Records", "desc": "Read announcement ID list" },
-      "dev-overrides": { "label": "Dev", "desc": "Debug" }
+      "essence-settings": {
+        "label": "Essence Planner Marks",
+        "desc": "Weapon ownership, essence status, notes, custom weapons, display settings"
+      },
+      "matrix-session": {
+        "label": "Essence Planner UI State",
+        "desc": "Selected weapons, base stat selection, plan expand state, filter settings"
+      },
+      "refinement-session": {
+        "label": "Refinement Planner",
+        "desc": "Selected equip, collapsed suit state, filter conditions"
+      },
+      "user-data": {
+        "label": "User Profile & Tokens",
+        "desc": "User info"
+      },
+      "cep-settings": {
+        "label": "General Settings",
+        "desc": "Theme, background image, language, etc."
+      },
+      "editor-drafts": {
+        "label": "Editor Drafts",
+        "desc": "Custom character edit drafts"
+      },
+      "announcement-read": {
+        "label": "Announcement Read Records",
+        "desc": "Read announcement ID list"
+      },
+      "dev-overrides": {
+        "label": "Dev",
+        "desc": "Debug"
+      }
     }
   },
   "legacyMigration": {
@@ -700,7 +724,10 @@
     "noRowsMessage": "No rows. Click \"{addSkillRow}\" to start.",
     "noTalents": "No talents.",
     "noBaseSkills": "No base skills.",
-    "noPotentials": "No potentials."
+    "noPotentials": "No potentials.",
+    "materialNotFound": "Material name not found, please verify spelling",
+    "weaponNotFound": "Weapon name not found, please verify spelling",
+    "equipNotFound": "Equipment name not found, please verify spelling"
   },
   "common": {
     "collapse": "Collapse",

@@ -44,3 +44,15 @@ export function downloadJson(content: string, filename: string) {
   a.click()
   URL.revokeObjectURL(url)
 }
+
+/**
+ * Strip quantity suffix from material names.
+ * "协议圆盘 x20" → "协议圆盘"
+ * "折金票 x1.6k" → "折金票"
+ */
+export function stripMaterialQuantity(name: string): string {
+  return name
+    .replace(/\s*x\d+$/i, '')
+    .replace(/\s*x[\d.]+[kK]?$/i, '')
+    .trim()
+}

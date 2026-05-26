@@ -493,14 +493,38 @@
     "clearedAll": "已清除全部資料",
     "clearedUnknown": "未知資料: {key}",
     "modules": {
-      "essence-settings": { "label": "基質規劃器標記資料", "desc": "武器擁有、基質狀態、備註、自訂武器、顯示設定" },
-      "matrix-session": { "label": "基質規劃器 UI 狀態", "desc": "已選武器、基礎屬性選擇、方案展開狀態、篩選設定" },
-      "refinement-session": { "label": "精鍛規劃器", "desc": "已選裝備、套裝收起狀態、篩選條件" },
-      "user-data": { "label": "使用者資料與權杖", "desc": "使用者資訊" },
-      "cep-settings": { "label": "一般設定", "desc": "主題、背景圖片、語言等" },
-      "editor-drafts": { "label": "編輯器草稿", "desc": "自訂角色編輯草稿" },
-      "announcement-read": { "label": "公告已讀記錄", "desc": "已讀公告 ID 列表" },
-      "dev-overrides": { "label": "Dev", "desc": "調試" }
+      "essence-settings": {
+        "label": "基質規劃器標記資料",
+        "desc": "武器擁有、基質狀態、備註、自訂武器、顯示設定"
+      },
+      "matrix-session": {
+        "label": "基質規劃器 UI 狀態",
+        "desc": "已選武器、基礎屬性選擇、方案展開狀態、篩選設定"
+      },
+      "refinement-session": {
+        "label": "精鍛規劃器",
+        "desc": "已選裝備、套裝收起狀態、篩選條件"
+      },
+      "user-data": {
+        "label": "使用者資料與權杖",
+        "desc": "使用者資訊"
+      },
+      "cep-settings": {
+        "label": "一般設定",
+        "desc": "主題、背景圖片、語言等"
+      },
+      "editor-drafts": {
+        "label": "編輯器草稿",
+        "desc": "自訂角色編輯草稿"
+      },
+      "announcement-read": {
+        "label": "公告已讀記錄",
+        "desc": "已讀公告 ID 列表"
+      },
+      "dev-overrides": {
+        "label": "Dev",
+        "desc": "調試"
+      }
     }
   },
   "legacyMigration": {
@@ -700,7 +724,10 @@
     "noRowsMessage": "暫無數據行。點擊「{addSkillRow}」開始。",
     "noTalents": "暫無天賦。",
     "noBaseSkills": "暫無基建技能。",
-    "noPotentials": "暫無潛能。"
+    "noPotentials": "暫無潛能。",
+    "materialNotFound": "未找到該材料名稱，請確認是否拼寫正確",
+    "weaponNotFound": "未找到該武器名稱，請確認是否拼寫正確",
+    "equipNotFound": "未找到該裝備名稱，請確認是否拼寫正確"
   },
   "common": {
     "collapse": "收起",

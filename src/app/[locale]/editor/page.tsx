@@ -280,13 +280,13 @@ export default function EditorPage() {
               </div>
 
               {/* Tab content — keyed only by selectedId to preserve input focus */}
-              <div className={cn('flex-1 overflow-y-scroll p-4', selectedIsSource && 'opacity-80 pointer-events-none')}>
-                {activeTab === 'basic' && <EditorBasicTab key={`${mountedDraftKey}-basic`} draft={selectedDraft} />}
-                {activeTab === 'skills' && <EditorSkillsTab key={`${mountedDraftKey}-skills`} draft={selectedDraft} />}
-                {activeTab === 'talents' && <EditorTalentsTab key={`${mountedDraftKey}-talents`} draft={selectedDraft} />}
-                {activeTab === 'materials' && <EditorMaterialsTab key={`${mountedDraftKey}-materials`} draft={selectedDraft} />}
-                {activeTab === 'guide' && <EditorGuideTab key={`${mountedDraftKey}-guide`} draft={selectedDraft} />}
-                {activeTab === 'attributions' && <EditorAttributionsTab key={`${mountedDraftKey}-attributions`} draft={selectedDraft} />}
+              <div className={cn('flex-1 overflow-y-scroll p-4', selectedIsSource && 'opacity-80')}>
+                {activeTab === 'basic' && <EditorBasicTab key={`${mountedDraftKey}-basic`} draft={selectedDraft} isReadOnly={selectedIsSource} />}
+                {activeTab === 'skills' && <EditorSkillsTab key={`${mountedDraftKey}-skills`} draft={selectedDraft} isReadOnly={selectedIsSource} />}
+                {activeTab === 'talents' && <EditorTalentsTab key={`${mountedDraftKey}-talents`} draft={selectedDraft} isReadOnly={selectedIsSource} />}
+                {activeTab === 'materials' && <EditorMaterialsTab key={`${mountedDraftKey}-materials`} draft={selectedDraft} isReadOnly={selectedIsSource} />}
+                {activeTab === 'guide' && <EditorGuideTab key={`${mountedDraftKey}-guide`} draft={selectedDraft} isReadOnly={selectedIsSource} />}
+                {activeTab === 'attributions' && <EditorAttributionsTab key={`${mountedDraftKey}-attributions`} draft={selectedDraft} isReadOnly={selectedIsSource} />}
               </div>
             </>
           )}

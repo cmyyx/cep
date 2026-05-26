@@ -5,16 +5,33 @@ import { useTranslations } from 'next-intl'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { Textarea } from '@/components/ui/textarea'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
 import { useEditorStore } from '@/stores/useEditorStore'
 import type { EditorDraftCharacter } from '@/stores/useEditorStore'
 import { Plus, Trash2, ChevronDown, ChevronRight } from 'lucide-react'
 
 const SKILL_LABELS = ['Lv1', 'Lv2', 'Lv3', 'Lv4', 'Lv5', 'Lv6', 'Lv7', 'Lv8', 'Lv9', 'M1', 'M2', 'M3']
 
+const SKILL_TYPE_OPTIONS = ['普通攻击', '战技', '连携技', '终结技'] as const
+
+const RELATION_OPTIONS: { value: '>' | '>=' | '='; label: string }[] = [
+  { value: '>', label: '> 优先' },
+  { value: '>=', label: '≥ 大于等于' },
+  { value: '=', label: '= 同级' },
+]
+
 export function EditorSkillsTab({
   draft,
+  isReadOnly,
 }: {
   draft: EditorDraftCharacter
+  isReadOnly?: boolean
 }) {
   const t = useTranslations()
   const updateDraft = useEditorStore((s) => s.updateDraft)
@@ -126,14 +143,153 @@ export function EditorSkillsTab({
     [draft.id, updateDraft]
   )
 
+  // ---- Skill upgrade priority ----
+
+  const addSkillPriority = useCallback(() => {
+    updateDraft(draft.id, (d) => {
+      d.guide.skillPriorities ??= []
+      if (d.guide.skillPriorities.length >= 4) return
+      d.guide.skillPriorities.push({ skillName: '', note: '' })
+    })
+  }, [draft.id, updateDraft])
+
+  const removeSkillPriority = useCallback(
+    (index: number) => {
+      updateDraft(draft.id, (d) => {
+        d.guide.skillPriorities ??= []
+        d.guide.skillPriorities.splice(index, 1)
+      })
+    },
+    [draft.id, updateDraft]
+  )
+
+  const updateSkillPriority = useCallback(
+    (index: number, field: 'skillName' | 'note', value: string) => {
+      updateDraft(draft.id, (d) => {
+        d.guide.skillPriorities ??= []
+        const sp = d.guide.skillPriorities[index]
+        if (!sp) return
+        sp[field] = value
+      })
+    },
+    [draft.id, updateDraft]
+  )
+
+  const setSkillPriorityRelation = useCallback(
+    (index: number, relation: '>' | '>=' | '=' | undefined) => {
+      updateDraft(draft.id, (d) => {
+        d.guide.skillPriorities ??= []
+        const sp = d.guide.skillPriorities[index]
+        if (!sp) return
+        sp.relation = relation
+      })
+    },
+    [draft.id, updateDraft]
+  )
+
   return (
     <div className="space-y-4 max-w-[960px]">
       <div className="flex items-center justify-between">
         <h3 className="text-sm font-semibold tracking-tight">{t('editor.tabSkills')}</h3>
-        <Button variant="outline" size="sm" onClick={addSkill}>
+        <Button variant="outline" size="sm" onClick={addSkill} disabled={isReadOnly}>
           <Plus className="w-3 h-3 mr-1" />
           {t('editor.addSkill')}
         </Button>
+      </div>
+
+      {/* Skill upgrade priority */}
+      <div className="[box-shadow:var(--shadow-border)] rounded-md p-3 space-y-2 bg-muted/30">
+        <div className="flex items-center justify-between">
+          <span className="text-xs font-semibold text-foreground/80">技能升级优先级</span>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={addSkillPriority}
+            disabled={isReadOnly || (draft.guide.skillPriorities ?? []).length >= 4}
+            className="h-6 text-[11px] px-2"
+          >
+            <Plus className="w-2.5 h-2.5 mr-1" />
+            添加技能
+          </Button>
+        </div>
+
+        {(draft.guide.skillPriorities ?? []).length === 0 && (
+          <p className="text-[11px] text-muted-foreground italic">暂无技能优先级，添加后可指定升级顺序。</p>
+        )}
+
+        {(draft.guide.skillPriorities ?? []).map((sp, i) => {
+          const priorities = draft.guide.skillPriorities ?? []
+          const isLast = i === priorities.length - 1
+          const usedNames = new Set(
+            priorities
+              .filter((_, idx) => idx !== i)
+              .map((s) => s.skillName)
+              .filter(Boolean)
+          )
+          return (
+            <div key={i} className="flex items-center gap-1">
+              <span className="font-geist-mono text-[10px] text-muted-foreground w-5 shrink-0 text-right">
+                #{i + 1}
+              </span>
+              <Select
+                value={sp.skillName}
+                onValueChange={(v) => { if (v) updateSkillPriority(i, 'skillName', v) }}
+                disabled={isReadOnly}
+              >
+                <SelectTrigger size="sm" className="h-7 text-xs flex-1">
+                  <SelectValue>{(v: string | null) => v || '选择技能类型'}</SelectValue>
+                </SelectTrigger>
+                <SelectContent>
+                  {SKILL_TYPE_OPTIONS.map((name) => (
+                    <SelectItem
+                      key={name}
+                      value={name}
+                      disabled={usedNames.has(name)}
+                    >
+                      {name}{usedNames.has(name) ? '（已选）' : ''}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              <Input
+                value={sp.note}
+                onChange={(e) => updateSkillPriority(i, 'note', e.target.value)}
+                placeholder="备注"
+                className="h-7 text-xs w-28"
+                readOnly={isReadOnly}
+              />
+              {!isLast && (
+                <Select
+                  value={sp.relation ?? ''}
+                  onValueChange={(v) =>
+                    setSkillPriorityRelation(i, (v || undefined) as '>' | '>=' | '=' | undefined)
+                  }
+                  disabled={isReadOnly}
+                >
+                  <SelectTrigger size="sm" className="h-7 text-xs w-[6.5rem]">
+                    <SelectValue>{(v: string | null) => v || '关系到下一项'}</SelectValue>
+                  </SelectTrigger>
+                  <SelectContent>
+                    {RELATION_OPTIONS.map((opt) => (
+                      <SelectItem key={opt.value} value={opt.value}>
+                        {opt.label}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              )}
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => removeSkillPriority(i)}
+                className="h-7 w-6 p-0 text-muted-foreground hover:text-destructive shrink-0"
+                disabled={isReadOnly}
+              >
+                <Trash2 className="w-3 h-3" />
+              </Button>
+            </div>
+          )
+        })}
       </div>
 
       {draft.skills.length === 0 && (
@@ -164,18 +320,21 @@ export function EditorSkillsTab({
                   onChange={(e) => updateSkillField(si, 'name', e.target.value)}
                   placeholder={t('editor.skillName')}
                   className="h-7 text-sm flex-1"
+                  readOnly={isReadOnly}
                 />
                 <Input
                   value={skill.type}
                   onChange={(e) => updateSkillField(si, 'type', e.target.value)}
                   placeholder={t('editor.skillType')}
                   className="h-7 text-sm w-24"
+                  readOnly={isReadOnly}
                 />
                 <Button
                   variant="ghost"
                   size="sm"
                   onClick={(e) => { e.preventDefault(); removeSkill(si) }}
                   className="h-7 w-7 p-0 text-muted-foreground hover:text-destructive shrink-0"
+                  disabled={isReadOnly}
                 >
                   <Trash2 className="w-3.5 h-3.5" />
                 </Button>
@@ -186,6 +345,7 @@ export function EditorSkillsTab({
                 placeholder={t('editor.skillDesc')}
                 rows={3}
                 className="text-xs resize-y"
+                readOnly={isReadOnly}
               />
             </div>
           </div>
@@ -201,12 +361,13 @@ export function EditorSkillsTab({
                       onChange={(e) => updateTableTitle(si, ti, e.target.value)}
                       placeholder={t('editor.placeholderDataTableTitle')}
                       className="h-7 text-xs w-40"
+                      readOnly={isReadOnly}
                     />
-                    <Button variant="ghost" size="sm" onClick={(e) => { e.preventDefault(); addRow(si, ti) }} className="h-6 text-[11px] px-2">
+                    <Button variant="ghost" size="sm" onClick={(e) => { e.preventDefault(); addRow(si, ti) }} className="h-6 text-[11px] px-2" disabled={isReadOnly}>
                       <Plus className="w-3 h-3 mr-1" />
                       {t('editor.addSkillRow')}
                     </Button>
-                    <Button variant="ghost" size="sm" onClick={(e) => { e.preventDefault(); removeTable(si, ti) }} className="h-6 text-[11px] px-2 text-muted-foreground hover:text-destructive ml-auto">
+                    <Button variant="ghost" size="sm" onClick={(e) => { e.preventDefault(); removeTable(si, ti) }} className="h-6 text-[11px] px-2 text-muted-foreground hover:text-destructive ml-auto" disabled={isReadOnly}>
                       <Trash2 className="w-3 h-3" />
                     </Button>
                   </div>
@@ -233,6 +394,7 @@ export function EditorSkillsTab({
                               onChange={(e) => updateRowName(si, ti, ri, e.target.value)}
                               placeholder={t('editor.placeholderParamName')}
                               className="h-7 text-xs w-28 shrink-0"
+                              readOnly={isReadOnly}
                             />
                             {SKILL_LABELS.map((_, li) => (
                               <Input
@@ -241,6 +403,7 @@ export function EditorSkillsTab({
                                 onChange={(e) => updateRowValue(si, ti, ri, li, e.target.value)}
                                 className="h-7 text-xs w-[72px] shrink-0 font-geist-mono"
                                 placeholder="-"
+                                readOnly={isReadOnly}
                               />
                             ))}
                             <Button
@@ -248,6 +411,7 @@ export function EditorSkillsTab({
                               size="sm"
                               onClick={(e) => { e.preventDefault(); removeRow(si, ti, ri) }}
                               className="h-7 w-6 p-0 text-muted-foreground hover:text-destructive shrink-0"
+                              disabled={isReadOnly}
                             >
                               <Trash2 className="w-3 h-3" />
                             </Button>
@@ -265,7 +429,7 @@ export function EditorSkillsTab({
                 </div>
               ))}
 
-              <Button variant="outline" size="sm" onClick={(e) => { e.preventDefault(); addTable(si) }} className="h-7 text-xs">
+              <Button variant="outline" size="sm" onClick={(e) => { e.preventDefault(); addTable(si) }} className="h-7 text-xs" disabled={isReadOnly}>
                 <Plus className="w-3 h-3 mr-1" />
                 {t('editor.addSkillTable')}
               </Button>

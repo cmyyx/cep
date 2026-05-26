@@ -91,7 +91,7 @@ export const WeaponCard = memo(function WeaponCard({
   const isPreview = wid.startsWith('preview:')
   const imageSrc = (isCustom || isPreview) ? undefined : wid.startsWith('data:')
     ? wid
-    : `/images/weapons/${wid}.avif`
+    : `/images/weapon/${wid}.avif`
   const displayName = (isCustom || isPreview) ? weapon.name : (t(`weapons.${wid}`) ?? weapon.name)
 
   return (

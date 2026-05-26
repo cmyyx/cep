@@ -5,19 +5,15 @@ import { usePathname } from 'next/navigation'
 import { useAnnouncementStore } from '@/stores/useAnnouncementStore'
 
 /**
- * Hydrates persisted readIds then loads announcements.
- * Re-fetches on every route change so announcements stay fresh across SPA navigations.
+ * Triggers announcement loading on mount and on every route change.
+ * Hydration is handled automatically by Zustand persist (no skipHydration).
  */
 export function AnnouncementLoader() {
   const pathname = usePathname()
   const loadAnnouncements = useAnnouncementStore((s) => s.loadAnnouncements)
 
   useEffect(() => {
-    const init = async () => {
-      await useAnnouncementStore.persist.rehydrate()
-      loadAnnouncements()
-    }
-    init()
+    loadAnnouncements()
   }, [pathname, loadAnnouncements])
 
   return null

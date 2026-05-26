@@ -160,14 +160,23 @@ interface MatrixState {
   selectedRegions: string[]
   /** Region filter — selected sub-region names. */
   selectedSubRegions: string[]
+  /** Shared weapon search query (lifted from WeaponGrid). */
+  weaponSearchQuery: string
+  /** Shared weapon attr filters (serializable Record<string, string[]>). */
+  weaponAttrFilters: Record<string, string[]>
+  /** Current visible weapon IDs (written by WeaponGrid, read by select-all). */
+  visibleWeaponIds: string[]
 
   toggleWeapon: (weaponId: string) => void
-  selectAllWeapons: () => void
+  selectAllWeapons: (ids?: string[]) => void
   clearWeapons: () => void
   toggleDungeonExpand: (planKey: string) => void
   setDungeonS1Selection: (planKey: string, s1: string[]) => void
   setSelectedRegions: (regions: string[]) => void
   setSelectedSubRegions: (subs: string[]) => void
+  setWeaponSearchQuery: (q: string) => void
+  setWeaponAttrFilters: (filters: Record<string, string[]>) => void
+  setVisibleWeaponIds: (ids: string[]) => void
   /** Synchronously recompute plans (used on rehydration / fallback). */
   computePlans: () => void
 }
@@ -183,6 +192,9 @@ export const useMatrixStore = create<MatrixState>()(
       dungeonS1Selections: {},
       selectedRegions: [],
       selectedSubRegions: [],
+      weaponSearchQuery: '',
+      weaponAttrFilters: {},
+      visibleWeaponIds: [],
 
       toggleWeapon: (weaponId: string) => {
         const current = get().selectedWeaponIds
@@ -205,9 +217,12 @@ export const useMatrixStore = create<MatrixState>()(
         schedulePlansUpdate(set, get)
       },
 
-      selectAllWeapons: () => {
-        const ids = toSortedArray(new Set(weapons.map((w) => w.id)))
-        set({ selectedWeaponIds: ids, plansStale: true })
+      selectAllWeapons: (ids?: string[]) => {
+        const next = ids
+          ? toSortedArray(new Set(ids))
+          : toSortedArray(new Set(weapons.map((w) => w.id)))
+        if (next.length === 0) return
+        set({ selectedWeaponIds: next, plansStale: true })
         schedulePlansUpdate(set, get)
       },
 
@@ -240,6 +255,18 @@ export const useMatrixStore = create<MatrixState>()(
 
       setSelectedSubRegions: (subs: string[]) => {
         set({ selectedSubRegions: subs })
+      },
+
+      setWeaponSearchQuery: (q: string) => {
+        set({ weaponSearchQuery: q })
+      },
+
+      setWeaponAttrFilters: (filters: Record<string, string[]>) => {
+        set({ weaponAttrFilters: filters })
+      },
+
+      setVisibleWeaponIds: (ids: string[]) => {
+        set({ visibleWeaponIds: ids })
       },
 
       computePlans: () => {
