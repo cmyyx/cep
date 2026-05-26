@@ -29,6 +29,23 @@ export function EditorGuideTab({ draft, isReadOnly }: EditorGuideTabProps) {
   const guideSubTab = useEditorStore((s) => s.guideSubTab)
   const setGuideSubTab = useEditorStore((s) => s.setGuideSubTab)
 
+  // Validation state: keys are "wpn-{id}", "equip-{id}", "teamwpn-{id}", or "teamequip-{id}".
+  // Falls back to index-based keys for legacy draft items that lack an id field.
+  const [invalidNames, setInvalidNames] = useState<Set<string>>(new Set())
+
+  const validateNameField = useCallback(
+    (key: string, name: string, category: 'weapon' | 'equip') => {
+      const isValid = category === 'weapon' ? isWeaponNameValid(name) : isEquipNameValid(name)
+      setInvalidNames((prev) => {
+        const next = new Set(prev)
+        if (isValid) next.delete(key)
+        else next.add(key)
+        return next
+      })
+    },
+    [],
+  )
+
   // ===== Equip Rows =====
   const addEquipRow = useCallback(() => {
     updateDraft(draft.id, (d) => {
@@ -41,7 +58,22 @@ export function EditorGuideTab({ draft, isReadOnly }: EditorGuideTabProps) {
 
   const removeEquipRow = useCallback(
     (index: number) => {
-      updateDraft(draft.id, (d) => { d.guide.equipRows.splice(index, 1) })
+      let removedWpnIds: string[] = []
+      let removedEqIds: string[] = []
+      updateDraft(draft.id, (d) => {
+        const row = d.guide.equipRows[index]
+        if (row) {
+          removedWpnIds = row.weapons.map((w) => w.id).filter(Boolean) as string[]
+          removedEqIds = row.equipment.map((e) => e?.id).filter(Boolean) as string[]
+        }
+        d.guide.equipRows.splice(index, 1)
+      })
+      setInvalidNames((prev) => {
+        const n = new Set(prev)
+        for (const id of removedWpnIds) n.delete(`wpn-${id}`)
+        for (const id of removedEqIds) n.delete(`equip-${id}`)
+        return n
+      })
     },
     [draft.id, updateDraft]
   )
@@ -51,7 +83,7 @@ export function EditorGuideTab({ draft, isReadOnly }: EditorGuideTabProps) {
       updateDraft(draft.id, (d) => {
         const row = d.guide.equipRows[rowIndex]
         if (!row) return
-        row.weapons.push({ name: '', icon: '', note: '', rarity: null })
+        row.weapons.push({ id: crypto.randomUUID(), name: '', icon: '', note: '', rarity: null })
       })
     },
     [draft.id, updateDraft]
@@ -59,9 +91,14 @@ export function EditorGuideTab({ draft, isReadOnly }: EditorGuideTabProps) {
 
   const removeWeapon = useCallback(
     (rowIndex: number, weaponIndex: number) => {
+      let removedId: string | undefined
       updateDraft(draft.id, (d) => {
-        d.guide.equipRows[rowIndex]?.weapons?.splice(weaponIndex, 1)
+        const removed = d.guide.equipRows[rowIndex]?.weapons?.splice(weaponIndex, 1)
+        removedId = removed?.[0]?.id
       })
+      if (removedId) {
+        setInvalidNames((prev) => { const n = new Set(prev); n.delete(`wpn-${removedId}`); return n })
+      }
     },
     [draft.id, updateDraft]
   )
@@ -84,7 +121,7 @@ export function EditorGuideTab({ draft, isReadOnly }: EditorGuideTabProps) {
         if (!row) return
         let entry = row.equipment[slotIndex]
         if (!entry) {
-          entry = { name: '', icon: '', note: '', rarity: null }
+          entry = { id: crypto.randomUUID(), name: '', icon: '', note: '', rarity: null }
           row.equipment[slotIndex] = entry
         }
         ;(entry as unknown as Record<string, unknown>)[field] = field === 'rarity' ? (value === '' ? null : Number(value)) : value
@@ -104,22 +141,6 @@ export function EditorGuideTab({ draft, isReadOnly }: EditorGuideTabProps) {
     [draft.id, updateDraft]
   )
 
-  // Validation state: keys are "wpn-{ri}-{wi}" or "equip-{ri}-{ei}" or "teamwpn-{si}-{oi}-{wi}" or "teamequip-{si}-{oi}-{ei}"
-  const [invalidNames, setInvalidNames] = useState<Set<string>>(new Set())
-
-  const validateNameField = useCallback(
-    (key: string, name: string, category: 'weapon' | 'equip') => {
-      const isValid = category === 'weapon' ? isWeaponNameValid(name) : isEquipNameValid(name)
-      setInvalidNames((prev) => {
-        const next = new Set(prev)
-        if (isValid) next.delete(key)
-        else next.add(key)
-        return next
-      })
-    },
-    [],
-  )
-
   // ===== Team Slots =====
   const addTeamSlot = useCallback(() => {
     updateDraft(draft.id, (d) => {
@@ -129,7 +150,24 @@ export function EditorGuideTab({ draft, isReadOnly }: EditorGuideTabProps) {
 
   const removeTeamSlot = useCallback(
     (index: number) => {
-      updateDraft(draft.id, (d) => { d.guide.teamSlots.splice(index, 1) })
+      const removedIds: string[] = []
+      updateDraft(draft.id, (d) => {
+        const slot = d.guide.teamSlots[index]
+        if (slot) {
+          for (const opt of slot.options) {
+            for (const w of opt.weapons) { if (w.id) removedIds.push(`teamwpn-${w.id}`) }
+            for (const eq of opt.equipment) { if (eq.id) removedIds.push(`teamequip-${eq.id}`) }
+          }
+        }
+        d.guide.teamSlots.splice(index, 1)
+      })
+      if (removedIds.length > 0) {
+        setInvalidNames((prev) => {
+          const n = new Set(prev)
+          for (const id of removedIds) n.delete(id)
+          return n
+        })
+      }
     },
     [draft.id, updateDraft]
   )
@@ -147,9 +185,22 @@ export function EditorGuideTab({ draft, isReadOnly }: EditorGuideTabProps) {
 
   const removeTeamOption = useCallback(
     (slotIndex: number, optionIndex: number) => {
+      const removedIds: string[] = []
       updateDraft(draft.id, (d) => {
+        const opt = d.guide.teamSlots[slotIndex]?.options?.[optionIndex]
+        if (opt) {
+          for (const w of opt.weapons) { if (w.id) removedIds.push(`teamwpn-${w.id}`) }
+          for (const eq of opt.equipment) { if (eq.id) removedIds.push(`teamequip-${eq.id}`) }
+        }
         d.guide.teamSlots[slotIndex]?.options?.splice(optionIndex, 1)
       })
+      if (removedIds.length > 0) {
+        setInvalidNames((prev) => {
+          const n = new Set(prev)
+          for (const id of removedIds) n.delete(id)
+          return n
+        })
+      }
     },
     [draft.id, updateDraft]
   )
@@ -170,7 +221,7 @@ export function EditorGuideTab({ draft, isReadOnly }: EditorGuideTabProps) {
       updateDraft(draft.id, (d) => {
         const option = d.guide.teamSlots[slotIndex]?.options?.[optionIndex]
         if (!option) return
-        option.weapons.push({ name: '', icon: '', note: '', rarity: null })
+        option.weapons.push({ id: crypto.randomUUID(), name: '', icon: '', note: '', rarity: null })
       })
     },
     [draft.id, updateDraft]
@@ -178,9 +229,14 @@ export function EditorGuideTab({ draft, isReadOnly }: EditorGuideTabProps) {
 
   const removeTeamOptWeapon = useCallback(
     (slotIndex: number, optionIndex: number, weaponIndex: number) => {
+      let removedId: string | undefined
       updateDraft(draft.id, (d) => {
-        d.guide.teamSlots[slotIndex]?.options?.[optionIndex]?.weapons?.splice(weaponIndex, 1)
+        const removed = d.guide.teamSlots[slotIndex]?.options?.[optionIndex]?.weapons?.splice(weaponIndex, 1)
+        removedId = removed?.[0]?.id
       })
+      if (removedId) {
+        setInvalidNames((prev) => { const n = new Set(prev); n.delete(`teamwpn-${removedId}`); return n })
+      }
     },
     [draft.id, updateDraft]
   )
@@ -190,7 +246,7 @@ export function EditorGuideTab({ draft, isReadOnly }: EditorGuideTabProps) {
       updateDraft(draft.id, (d) => {
         const option = d.guide.teamSlots[slotIndex]?.options?.[optionIndex]
         if (!option) return
-        option.equipment.push({ name: '', icon: '', note: '', rarity: null })
+        option.equipment.push({ id: crypto.randomUUID(), name: '', icon: '', note: '', rarity: null })
       })
     },
     [draft.id, updateDraft]
@@ -198,9 +254,14 @@ export function EditorGuideTab({ draft, isReadOnly }: EditorGuideTabProps) {
 
   const removeTeamOptEquip = useCallback(
     (slotIndex: number, optionIndex: number, equipIndex: number) => {
+      let removedId: string | undefined
       updateDraft(draft.id, (d) => {
-        d.guide.teamSlots[slotIndex]?.options?.[optionIndex]?.equipment?.splice(equipIndex, 1)
+        const removed = d.guide.teamSlots[slotIndex]?.options?.[optionIndex]?.equipment?.splice(equipIndex, 1)
+        removedId = removed?.[0]?.id
       })
+      if (removedId) {
+        setInvalidNames((prev) => { const n = new Set(prev); n.delete(`teamequip-${removedId}`); return n })
+      }
     },
     [draft.id, updateDraft]
   )
@@ -288,7 +349,7 @@ export function EditorGuideTab({ draft, isReadOnly }: EditorGuideTabProps) {
                   </Button>
                 </div>
                 {row.weapons.map((w, wi) => {
-                  const wpnKey = `wpn-${ri}-${wi}`
+                  const wpnKey = w.id ? `wpn-${w.id}` : `wpn-${ri}-${wi}`
                   return (
                   <div key={wi} className="mb-1">
                     <div className="flex items-center gap-1">
@@ -350,7 +411,7 @@ export function EditorGuideTab({ draft, isReadOnly }: EditorGuideTabProps) {
                 <div className="grid grid-cols-2 gap-1">
                   {[0, 1, 2, 3].map((ei) => {
                     const eq = row.equipment[ei]
-                    const eqKey = `equip-${ri}-${ei}`
+                    const eqKey = eq?.id ? `equip-${eq.id}` : `equip-${ri}-${ei}`
                     return (
                       <div key={ei}>
                         <div className="flex items-center gap-1">
@@ -542,7 +603,7 @@ export function EditorGuideTab({ draft, isReadOnly }: EditorGuideTabProps) {
                       </Button>
                     </div>
                     {opt.weapons.map((w, wi) => {
-                      const twKey = `teamwpn-${si}-${oi}-${wi}`
+                      const twKey = w.id ? `teamwpn-${w.id}` : `teamwpn-${si}-${oi}-${wi}`
                       return (
                       <div key={wi} className="mb-0.5">
                         <div className="flex items-center gap-1">
@@ -625,7 +686,7 @@ export function EditorGuideTab({ draft, isReadOnly }: EditorGuideTabProps) {
                       </Button>
                     </div>
                     {opt.equipment.map((eq, ei) => {
-                      const teKey = `teamequip-${si}-${oi}-${ei}`
+                      const teKey = eq.id ? `teamequip-${eq.id}` : `teamequip-${si}-${oi}-${ei}`
                       return (
                       <div key={ei} className="mb-0.5">
                         <div className="flex items-center gap-1">

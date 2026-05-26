@@ -11,9 +11,15 @@ import { SkillTables } from './skill-tables'
 import type { CharacterGuideData, GuideEquipRow, TeamSlot, GuideEquipEntry, TeamSlotOption } from '@/types/character-guide'
 import { weapons } from '@/data/weapons'
 import { equips } from '@/data/equips'
+import { MATERIAL_NAMES } from '@/data/material-names'
 
-// Runtime name→id maps built from authoritative data sources (no JSON maintenance)
-const weaponNameToId = new Map(weapons.map((w) => [w.name, w.id]))
+// Runtime name→id maps built from authoritative data sources (no JSON maintenance).
+// Exclude non-standard IDs (preview:, custom-, data:) that would produce invalid image URLs.
+const weaponNameToId = new Map(
+  weapons
+    .filter((w) => !w.id.startsWith('preview:') && !w.id.startsWith('custom-') && !w.id.startsWith('data:'))
+    .map((w) => [w.name, w.id])
+)
 const equipNameToId = new Map(equips.filter((e) => e.imageId).map((e) => [e.name, e.imageId]))
 
 type ViewMode = 'info' | 'guide'
@@ -44,7 +50,7 @@ function getEquipImageSrc(name: string): string | null {
 
 function getItemImageSrc(name: string): string | null {
   const cleanName = stripMaterialQuantity(name)
-  if (!cleanName) return null
+  if (!cleanName || !MATERIAL_NAMES.has(cleanName)) return null
   // item images follow name→name.avif pattern
   return `/images/item/${cleanName}.avif`
 }

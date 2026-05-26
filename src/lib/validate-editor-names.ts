@@ -20,13 +20,15 @@ const KNOWN_EQUIP_NAMES = new Set(equips.map((e) => e.name))
 // ── Validation ──
 
 export function isWeaponNameValid(name: string): boolean {
-  if (!name.trim()) return true
-  return KNOWN_WEAPON_NAMES.has(name)
+  const normalized = name.trim()
+  if (!normalized) return true
+  return KNOWN_WEAPON_NAMES.has(normalized)
 }
 
 export function isEquipNameValid(name: string): boolean {
-  if (!name.trim()) return true
-  return KNOWN_EQUIP_NAMES.has(name)
+  const normalized = name.trim()
+  if (!normalized) return true
+  return KNOWN_EQUIP_NAMES.has(normalized)
 }
 
 export function isMaterialNameValid(name: string): boolean {

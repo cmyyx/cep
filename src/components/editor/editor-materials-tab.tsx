@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button'
 import { useEditorStore } from '@/stores/useEditorStore'
 import type { EditorDraftCharacter } from '@/stores/useEditorStore'
 import { isMaterialNameValid } from '@/lib/validate-editor-names'
+import { cn } from '@/lib/utils'
 import { Plus, Trash2 } from 'lucide-react'
 
 const ELITE_LEVELS = ['elite1', 'elite2', 'elite3', 'elite4'] as const
@@ -21,6 +22,9 @@ export function EditorMaterialsTab({
 }) {
   const t = useTranslations()
   const updateDraft = useEditorStore((s) => s.updateDraft)
+
+  // Track invalid material entries: key = `${level}-${index}`
+  const [invalidMaterials, setInvalidMaterials] = useState<Set<string>>(new Set())
 
   const addMaterial = useCallback(
     (level: (typeof ELITE_LEVELS)[number]) => {
@@ -38,6 +42,15 @@ export function EditorMaterialsTab({
         if (!d.materials[level]) return
         d.materials[level].splice(index, 1)
       })
+      // Clear validation state for the affected level — splice shifts indices, invalidating old keys
+      setInvalidMaterials((prev) => {
+        const next = new Set(prev)
+        const prefix = `${level}-`
+        for (const k of next) {
+          if (k.startsWith(prefix)) next.delete(k)
+        }
+        return next
+      })
     },
     [draft.id, updateDraft]
   )
@@ -51,9 +64,6 @@ export function EditorMaterialsTab({
     },
     [draft.id, updateDraft]
   )
-
-  // Track invalid material entries: key = `${level}-${index}`
-  const [invalidMaterials, setInvalidMaterials] = useState<Set<string>>(new Set())
 
   return (
     <div className="space-y-4 max-w-lg">
@@ -103,7 +113,7 @@ export function EditorMaterialsTab({
                     }
                   }}
                   placeholder={t('editor.placeholderMaterial')}
-                  className={`h-7 text-xs ${isInvalid ? 'border-ship-red ring-1 ring-ship-red/30' : ''}`}
+                  className={cn('h-7 text-xs', isInvalid && 'border-ship-red ring-1 ring-ship-red/30')}
                   readOnly={isReadOnly}
                 />
                 <Button

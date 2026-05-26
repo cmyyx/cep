@@ -195,15 +195,14 @@ export const WeaponGrid = memo(function WeaponGrid() {
   )
 
   const toggleFilter = useCallback((key: AttrKey, value: string) => {
-    const current = filters[key]
-    const next = new Set(current)
-    if (next.has(value)) next.delete(value)
-    else next.add(value)
-    setStoreAttrFilters({
-      ...storeAttrFilters,
-      [key]: Array.from(next),
-    })
-  }, [filters, storeAttrFilters, setStoreAttrFilters])
+    // Read latest state via getState() to avoid stale closure (instead of reading
+    // storeAttrFilters / filters from the render closure).
+    const prev = useMatrixStore.getState().weaponAttrFilters
+    const current = new Set(prev[key] ?? [])
+    if (current.has(value)) current.delete(value)
+    else current.add(value)
+    setStoreAttrFilters({ ...prev, [key]: Array.from(current) })
+  }, [setStoreAttrFilters])
 
   // Base filter predicate: query + hide settings
   const matchesBaseFilters = useCallback((w: Weapon) => {

@@ -59,6 +59,8 @@ export interface CharacterMaterials {
 // ---- 攻略推荐 ----
 
 export interface GuideEquipEntry {
+  /** Stable identifier for editor validation keys. Not present in source data. */
+  id?: string
   name: string
   icon: string
   note: string
