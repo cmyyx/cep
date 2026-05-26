@@ -1,6 +1,6 @@
 'use client'
 
-import { useMemo, useState, useCallback, useEffect, useRef } from 'react'
+import { useMemo, useState, useCallback, useEffect } from 'react'
 import { useTranslations } from 'next-intl'
 import { SidebarTrigger } from '@/components/ui/sidebar'
 import { Button } from '@/components/ui/button'
@@ -27,7 +27,6 @@ export default function EssencePlannerPage() {
   const [customWeaponOpen, setCustomWeaponOpen] = useState(false)
   const [mobileView, setMobileView] = useState<MobileView>('weapons')
   const [viewAllOpen, setViewAllOpen] = useState(false)
-  const visibleWeaponIdsRef = useRef<string[]>([])
 
   // Dynamic region data from dungeon list
   const regions = useMemo(() => getRegions(dungeons), [])
@@ -432,7 +431,7 @@ export default function EssencePlannerPage() {
           {t('essence.selectedCount', { count: selectedCount })}
         </span>
         <div className="flex-1" />
-        <Button variant="outline" size="sm" onClick={() => selectAllWeapons(visibleWeaponIdsRef.current)}>
+        <Button variant="outline" size="sm" onClick={() => selectAllWeapons(useMatrixStore.getState().visibleWeaponIds)}>
           {t('essence.selectAll')}
         </Button>
         <Button variant="ghost" size="sm" onClick={clearWeapons}>
@@ -456,7 +455,7 @@ export default function EssencePlannerPage() {
       {/* Desktop layout: left weapon grid + right plans */}
       <div className="hidden md:flex flex-1 overflow-hidden">
         <div className="grow min-w-96 max-w-[33.333%] border-r border-border overflow-y-scroll p-3">
-          <WeaponGrid onVisibleIdsChange={(ids) => { visibleWeaponIdsRef.current = ids }} />
+          <WeaponGrid />
         </div>
         <div className="flex-1 overflow-y-auto p-4">
           {renderPlanList()}
@@ -499,7 +498,7 @@ export default function EssencePlannerPage() {
         <div className="flex-1 overflow-y-auto">
           {mobileView === 'weapons' ? (
             <div className="p-3">
-              <WeaponGrid onVisibleIdsChange={(ids) => { visibleWeaponIdsRef.current = ids }} />
+              <WeaponGrid />
             </div>
           ) : (
             <div className="p-4">

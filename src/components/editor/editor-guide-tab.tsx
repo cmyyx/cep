@@ -287,20 +287,22 @@ export function EditorGuideTab({ draft, isReadOnly }: EditorGuideTabProps) {
                     <Plus className="w-2.5 h-2.5" />
                   </Button>
                 </div>
-                {row.weapons.map((w, wi) => (
-                  <div key={wi} className="flex items-center gap-1 mb-1">
+                {row.weapons.map((w, wi) => {
+                  const wpnKey = `wpn-${ri}-${wi}`
+                  return (
+                  <div key={wi} className="mb-1">
+                    <div className="flex items-center gap-1">
                     <Input
                       value={w.name}
                       onChange={(e) => {
                         updateWeapon(ri, wi, 'name', e.target.value)
-                        const key = `wpn-${ri}-${wi}`
-                        if (invalidNames.has(key)) {
-                          setInvalidNames((prev) => { const n = new Set(prev); n.delete(key); return n })
+                        if (invalidNames.has(wpnKey)) {
+                          setInvalidNames((prev) => { const n = new Set(prev); n.delete(wpnKey); return n })
                         }
                       }}
-                      onBlur={() => validateNameField(`wpn-${ri}-${wi}`, w.name, 'weapon')}
+                      onBlur={() => validateNameField(wpnKey, w.name, 'weapon')}
                       placeholder={t('editor.placeholderGuideName')}
-                      className={cn('h-7 text-xs flex-1', invalidNames.has(`wpn-${ri}-${wi}`) && 'border-ship-red ring-1 ring-ship-red/30')}
+                      className={cn('h-7 text-xs flex-1', invalidNames.has(wpnKey) && 'border-ship-red ring-1 ring-ship-red/30')}
                       readOnly={isReadOnly}
                     />
                     <Input
@@ -333,8 +335,13 @@ export function EditorGuideTab({ draft, isReadOnly }: EditorGuideTabProps) {
                     >
                       <Trash2 className="w-3 h-3" />
                     </Button>
+                    </div>
+                    {invalidNames.has(wpnKey) && (
+                      <p className="text-[10px] text-ship-red leading-tight mt-0.5">{t('editor.weaponNotFound')}</p>
+                    )}
                   </div>
-                ))}
+                  )
+                })}
               </div>
 
               {/* Equipment slots */}
@@ -343,8 +350,10 @@ export function EditorGuideTab({ draft, isReadOnly }: EditorGuideTabProps) {
                 <div className="grid grid-cols-2 gap-1">
                   {[0, 1, 2, 3].map((ei) => {
                     const eq = row.equipment[ei]
+                    const eqKey = `equip-${ri}-${ei}`
                     return (
-                      <div key={ei} className="flex items-center gap-1">
+                      <div key={ei}>
+                        <div className="flex items-center gap-1">
                         <span className="text-[10px] text-muted-foreground w-8">
                           {[t('equip.slot.armor'), t('equip.slot.gloves'), t('equip.slot.accessory'), t('equip.slot.accessory2')][ei]}
                         </span>
@@ -354,14 +363,13 @@ export function EditorGuideTab({ draft, isReadOnly }: EditorGuideTabProps) {
                               value={eq.name}
                               onChange={(e) => {
                                 updateEquip(ri, ei, 'name', e.target.value)
-                                const key = `equip-${ri}-${ei}`
-                                if (invalidNames.has(key)) {
-                                  setInvalidNames((prev) => { const n = new Set(prev); n.delete(key); return n })
+                                if (invalidNames.has(eqKey)) {
+                                  setInvalidNames((prev) => { const n = new Set(prev); n.delete(eqKey); return n })
                                 }
                               }}
-                              onBlur={() => validateNameField(`equip-${ri}-${ei}`, eq.name, 'equip')}
+                              onBlur={() => validateNameField(eqKey, eq.name, 'equip')}
                               placeholder="Name"
-                              className={cn('h-7 text-xs flex-1', invalidNames.has(`equip-${ri}-${ei}`) && 'border-ship-red ring-1 ring-ship-red/30')}
+                              className={cn('h-7 text-xs flex-1', invalidNames.has(eqKey) && 'border-ship-red ring-1 ring-ship-red/30')}
                               readOnly={isReadOnly}
                             />
                             <Input
@@ -401,6 +409,10 @@ export function EditorGuideTab({ draft, isReadOnly }: EditorGuideTabProps) {
                           >
                             {t('editor.guideAddEquip')}
                           </Button>
+                        )}
+                        </div>
+                        {invalidNames.has(eqKey) && (
+                          <p className="text-[10px] text-ship-red leading-tight mt-0.5">{t('editor.equipNotFound')}</p>
                         )}
                       </div>
                     )
@@ -529,8 +541,11 @@ export function EditorGuideTab({ draft, isReadOnly }: EditorGuideTabProps) {
                         <Plus className="w-2.5 h-2.5" />
                       </Button>
                     </div>
-                    {opt.weapons.map((w, wi) => (
-                      <div key={wi} className="flex items-center gap-1 mb-0.5">
+                    {opt.weapons.map((w, wi) => {
+                      const twKey = `teamwpn-${si}-${oi}-${wi}`
+                      return (
+                      <div key={wi} className="mb-0.5">
+                        <div className="flex items-center gap-1">
                         <Input
                           value={w.name}
                           onChange={(e) => {
@@ -539,14 +554,13 @@ export function EditorGuideTab({ draft, isReadOnly }: EditorGuideTabProps) {
                               if (!optW) return
                               optW.name = e.target.value
                             })
-                            const key = `teamwpn-${si}-${oi}-${wi}`
-                            if (invalidNames.has(key)) {
-                              setInvalidNames((prev) => { const n = new Set(prev); n.delete(key); return n })
+                            if (invalidNames.has(twKey)) {
+                              setInvalidNames((prev) => { const n = new Set(prev); n.delete(twKey); return n })
                             }
                           }}
-                          onBlur={() => validateNameField(`teamwpn-${si}-${oi}-${wi}`, w.name, 'weapon')}
+                          onBlur={() => validateNameField(twKey, w.name, 'weapon')}
                           placeholder={t('editor.placeholderGuideName')}
-                          className={cn('h-7 text-xs flex-1', invalidNames.has(`teamwpn-${si}-${oi}-${wi}`) && 'border-ship-red ring-1 ring-ship-red/30')}
+                          className={cn('h-7 text-xs flex-1', invalidNames.has(twKey) && 'border-ship-red ring-1 ring-ship-red/30')}
                           readOnly={isReadOnly}
                         />
                         <Input
@@ -587,8 +601,13 @@ export function EditorGuideTab({ draft, isReadOnly }: EditorGuideTabProps) {
                         >
                           <Trash2 className="w-3 h-3" />
                         </Button>
+                        </div>
+                        {invalidNames.has(twKey) && (
+                          <p className="text-[10px] text-ship-red leading-tight mt-0.5">{t('editor.weaponNotFound')}</p>
+                        )}
                       </div>
-                    ))}
+                      )
+                    })}
                   </div>
 
                   {/* Option equipment */}
@@ -605,8 +624,11 @@ export function EditorGuideTab({ draft, isReadOnly }: EditorGuideTabProps) {
                         <Plus className="w-2.5 h-2.5" />
                       </Button>
                     </div>
-                    {opt.equipment.map((eq, ei) => (
-                      <div key={ei} className="flex items-center gap-1 mb-0.5">
+                    {opt.equipment.map((eq, ei) => {
+                      const teKey = `teamequip-${si}-${oi}-${ei}`
+                      return (
+                      <div key={ei} className="mb-0.5">
+                        <div className="flex items-center gap-1">
                         <Input
                           value={eq.name}
                           onChange={(e) => {
@@ -615,14 +637,13 @@ export function EditorGuideTab({ draft, isReadOnly }: EditorGuideTabProps) {
                               if (!optE) return
                               optE.name = e.target.value
                             })
-                            const key = `teamequip-${si}-${oi}-${ei}`
-                            if (invalidNames.has(key)) {
-                              setInvalidNames((prev) => { const n = new Set(prev); n.delete(key); return n })
+                            if (invalidNames.has(teKey)) {
+                              setInvalidNames((prev) => { const n = new Set(prev); n.delete(teKey); return n })
                             }
                           }}
-                          onBlur={() => validateNameField(`teamequip-${si}-${oi}-${ei}`, eq.name, 'equip')}
+                          onBlur={() => validateNameField(teKey, eq.name, 'equip')}
                           placeholder={t('editor.placeholderGuideName')}
-                          className={cn('h-7 text-xs flex-1', invalidNames.has(`teamequip-${si}-${oi}-${ei}`) && 'border-ship-red ring-1 ring-ship-red/30')}
+                          className={cn('h-7 text-xs flex-1', invalidNames.has(teKey) && 'border-ship-red ring-1 ring-ship-red/30')}
                           readOnly={isReadOnly}
                         />
                         <Input
@@ -650,8 +671,13 @@ export function EditorGuideTab({ draft, isReadOnly }: EditorGuideTabProps) {
                         >
                           <Trash2 className="w-3 h-3" />
                         </Button>
+                        </div>
+                        {invalidNames.has(teKey) && (
+                          <p className="text-[10px] text-ship-red leading-tight mt-0.5">{t('editor.equipNotFound')}</p>
+                        )}
                       </div>
-                    ))}
+                      )
+                    })}
                   </div>
                 </div>
               ))}

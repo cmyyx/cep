@@ -3,51 +3,50 @@
 import { memo, useState } from 'react'
 import Image from 'next/image'
 import { useTranslations } from 'next-intl'
-import { cn } from '@/lib/utils'
+import { cn, stripMaterialQuantity } from '@/lib/utils'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { ElementBadge, RarityStars } from './element-badge'
 import { SkillTables } from './skill-tables'
 import type { CharacterGuideData, GuideEquipRow, TeamSlot, GuideEquipEntry, TeamSlotOption } from '@/types/character-guide'
-import weaponImageMap from '@/data/weapon-image-map.json'
-import equipImageMap from '@/data/equip-image-map.json'
-import itemImageMap from '@/data/item-image-map.json'
+import { weapons } from '@/data/weapons'
+import { equips } from '@/data/equips'
+
+// Runtime name→id maps built from authoritative data sources (no JSON maintenance)
+const weaponNameToId = new Map(weapons.map((w) => [w.name, w.id]))
+const equipNameToId = new Map(equips.filter((e) => e.imageId).map((e) => [e.name, e.imageId]))
 
 type ViewMode = 'info' | 'guide'
 
 // ---- Image helpers ----
 
 function getWeaponImageSrc(name: string): string | null {
-  const imageId = (weaponImageMap as Record<string, string>)[name]
-  if (imageId) return `/images/weapon/${imageId}`
-  return null
+  const id = weaponNameToId.get(name)
+  return id ? `/images/weapon/${id}.avif` : null
 }
 
 function getEquipImageSrc(name: string): string | null {
-  const map = equipImageMap as Record<string, string>
   // Exact match
-  if (map[name]) return `/images/equip/${map[name]}`
+  const id = equipNameToId.get(name)
+  if (id) return `/images/equip/${id}.avif`
   // Try matching base name (strip ·壹型, ·贰型, ·叁型 suffix)
   const baseName = name.replace(/[·‧]壹型|[·‧]贰型|[·‧]叁型/g, '').trim()
-  if (map[baseName]) return `/images/equip/${map[baseName]}`
+  const baseId = equipNameToId.get(baseName)
+  if (baseId) return `/images/equip/${baseId}.avif`
   // Try fuzzy: find any key that contains the base name
-  for (const [key, val] of Object.entries(map)) {
+  for (const [key, val] of equipNameToId) {
     if (key.includes(baseName) || baseName.includes(key)) {
-      return `/images/equip/${val}`
+      return `/images/equip/${val}.avif`
     }
   }
   return null
 }
 
 function getItemImageSrc(name: string): string | null {
-  // Material names in guide data like "协议圆盘 x8" — extract the item name part
-  const cleanName = name.replace(/\s*x\d+$/i, '').replace(/\s*x[\d.]+[kK]?$/i, '').trim()
-  const fileName = (itemImageMap as Record<string, string>)[cleanName]
-  if (fileName) return `/images/item/${fileName}`
-  // Try exact match
-  const exactFile = (itemImageMap as Record<string, string>)[name]
-  if (exactFile) return `/images/item/${exactFile}`
-  return null
+  const cleanName = stripMaterialQuantity(name)
+  if (!cleanName) return null
+  // item images follow name→name.avif pattern
+  return `/images/item/${cleanName}.avif`
 }
 
 // ---- Collapsible section ----

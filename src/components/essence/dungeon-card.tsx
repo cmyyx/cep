@@ -31,7 +31,7 @@ interface ThumbProps {
 function weaponImageSrc(id?: string): string | undefined {
   if (!id || id.startsWith('custom-') || id.startsWith('preview:')) return undefined
   if (id.startsWith('data:')) return id
-  return `/images/weapons/${id}.avif`
+  return `/images/weapon/${id}.avif`
 }
 
 interface RowProps extends ThumbProps {

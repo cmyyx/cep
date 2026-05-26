@@ -160,6 +160,12 @@ interface MatrixState {
   selectedRegions: string[]
   /** Region filter — selected sub-region names. */
   selectedSubRegions: string[]
+  /** Shared weapon search query (lifted from WeaponGrid). */
+  weaponSearchQuery: string
+  /** Shared weapon attr filters (serializable Record<string, string[]>). */
+  weaponAttrFilters: Record<string, string[]>
+  /** Current visible weapon IDs (written by WeaponGrid, read by select-all). */
+  visibleWeaponIds: string[]
 
   toggleWeapon: (weaponId: string) => void
   selectAllWeapons: (ids?: string[]) => void
@@ -168,6 +174,9 @@ interface MatrixState {
   setDungeonS1Selection: (planKey: string, s1: string[]) => void
   setSelectedRegions: (regions: string[]) => void
   setSelectedSubRegions: (subs: string[]) => void
+  setWeaponSearchQuery: (q: string) => void
+  setWeaponAttrFilters: (filters: Record<string, string[]>) => void
+  setVisibleWeaponIds: (ids: string[]) => void
   /** Synchronously recompute plans (used on rehydration / fallback). */
   computePlans: () => void
 }
@@ -183,6 +192,9 @@ export const useMatrixStore = create<MatrixState>()(
       dungeonS1Selections: {},
       selectedRegions: [],
       selectedSubRegions: [],
+      weaponSearchQuery: '',
+      weaponAttrFilters: {},
+      visibleWeaponIds: [],
 
       toggleWeapon: (weaponId: string) => {
         const current = get().selectedWeaponIds
@@ -243,6 +255,18 @@ export const useMatrixStore = create<MatrixState>()(
 
       setSelectedSubRegions: (subs: string[]) => {
         set({ selectedSubRegions: subs })
+      },
+
+      setWeaponSearchQuery: (q: string) => {
+        set({ weaponSearchQuery: q })
+      },
+
+      setWeaponAttrFilters: (filters: Record<string, string[]>) => {
+        set({ weaponAttrFilters: filters })
+      },
+
+      setVisibleWeaponIds: (ids: string[]) => {
+        set({ visibleWeaponIds: ids })
       },
 
       computePlans: () => {

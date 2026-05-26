@@ -104,21 +104,28 @@ const FilterChip = memo(function FilterChip({
   )
 })
 
-export const WeaponGrid = memo(function WeaponGrid({
-  onVisibleIdsChange,
-}: {
-  onVisibleIdsChange?: (ids: string[]) => void
-}) {
+function attrFiltersToSets(record: Record<string, string[]>): Record<AttrKey, Set<string>> {
+  return {
+    primaryStat: new Set(record.primaryStat ?? []),
+    elementalDamage: new Set(record.elementalDamage ?? []),
+    specialAbility: new Set(record.specialAbility ?? []),
+  }
+}
+
+export const WeaponGrid = memo(function WeaponGrid() {
   const t = useTranslations()
-  const [query, setQuery] = useState('')
   const filterCollapsed = useEssenceSettingsStore((s) => s.weaponFilterCollapsed)
   const toggleFilterCollapsed = useEssenceSettingsStore((s) => s.toggleWeaponFilterCollapsed)
-  const [filters, setFilters] = useState<Record<AttrKey, Set<string>>>({
-    primaryStat: new Set(),
-    elementalDamage: new Set(),
-    specialAbility: new Set(),
-  })
   const selectedWeaponIds = useMatrixStore((s) => s.selectedWeaponIds)
+
+  // Shared filter state (lifted to store so desktop/mobile instances stay in sync)
+  const query = useMatrixStore((s) => s.weaponSearchQuery)
+  const setQuery = useMatrixStore((s) => s.setWeaponSearchQuery)
+  const storeAttrFilters = useMatrixStore((s) => s.weaponAttrFilters)
+  const setStoreAttrFilters = useMatrixStore((s) => s.setWeaponAttrFilters)
+  const setVisibleWeaponIds = useMatrixStore((s) => s.setVisibleWeaponIds)
+
+  const filters = useMemo(() => attrFiltersToSets(storeAttrFilters), [storeAttrFilters])
 
   // Banner UP character names (reactive via store, refreshed every 60s)
   const upCharacterNames = useBannerStore((s) => s.upCharacterNames)
@@ -162,7 +169,6 @@ export const WeaponGrid = memo(function WeaponGrid({
       }
     }
 
-    // Sort function: rarity desc (6,5,4), then name asc
     const sortWeapons = (weapons: Weapon[]) => {
       return weapons.sort((a, b) => {
         if (a.rarity !== b.rarity) {
@@ -189,18 +195,19 @@ export const WeaponGrid = memo(function WeaponGrid({
   )
 
   const toggleFilter = useCallback((key: AttrKey, value: string) => {
-    setFilters((prev) => {
-      const next = new Set(prev[key])
-      if (next.has(value)) next.delete(value)
-      else next.add(value)
-      return { ...prev, [key]: next }
+    const current = filters[key]
+    const next = new Set(current)
+    if (next.has(value)) next.delete(value)
+    else next.add(value)
+    setStoreAttrFilters({
+      ...storeAttrFilters,
+      [key]: Array.from(next),
     })
-  }, [])
+  }, [filters, storeAttrFilters, setStoreAttrFilters])
 
-  // Base filter predicate: query + hide settings (shared by filteredWeapons and validOptions)
+  // Base filter predicate: query + hide settings
   const matchesBaseFilters = useCallback((w: Weapon) => {
     if (query && !w.name.includes(query) && !w.type.includes(query)) return false
-    // UP and preview weapons bypass hide filters when the setting is enabled
     if (keepUpVisibleList && (isWeaponUp(w) || w.source === 'preview')) return true
     if (hideFourStar && w.rarity === 4) return false
     if (hideUnowned && weaponOwnership[w.id] !== true) return false
@@ -229,7 +236,6 @@ export const WeaponGrid = memo(function WeaponGrid({
       const otherFilters = otherKeys.filter((k) => filters[k].size > 0)
 
       for (const weapon of allWeapons) {
-        // Apply base filters (query, hide settings) + other attribute filters
         if (!matchesBaseFilters(weapon)) continue
         let matchesOthers = true
         for (const ok of otherFilters) {
@@ -258,14 +264,14 @@ export const WeaponGrid = memo(function WeaponGrid({
     })
   }, [allWeapons, matchesBaseFilters, filters])
 
-  // Report visible weapon IDs to parent so select-all can target only visible
+  // Write visible weapon IDs to shared store so select-all button can read them
   const visibleIds = useMemo(
     () => filteredWeapons.map((w) => w.id),
     [filteredWeapons],
   )
   useEffect(() => {
-    onVisibleIdsChange?.(visibleIds)
-  }, [visibleIds, onVisibleIdsChange])
+    setVisibleWeaponIds(visibleIds)
+  }, [visibleIds, setVisibleWeaponIds])
 
   return (
     <div className="flex flex-col gap-3">
