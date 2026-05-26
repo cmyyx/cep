@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState, useCallback, useMemo, memo, useRef, useEffect } from 'react'
-import { useTranslations } from 'next-intl'
+import { useTranslations, useLocale } from 'next-intl'
 import ReactMarkdown from 'react-markdown'
 import rehypeSanitize, { defaultSchema } from 'rehype-sanitize'
 import { Megaphone, ChevronRight, ImageOff, XIcon } from 'lucide-react'
@@ -30,13 +30,14 @@ function AnnouncementItem({
   onOpen: () => void
 }) {
   const t = useTranslations()
+  const locale = useLocale()
   const isImportant = announcement.priority === 'important'
 
   const dateStr = (() => {
     try {
       const d = new Date(announcement.publishTime)
       if (isNaN(d.getTime())) return ''
-      return new Intl.DateTimeFormat(undefined, {
+      return new Intl.DateTimeFormat(locale, {
         year: 'numeric',
         month: 'long',
         day: 'numeric',
@@ -213,6 +214,7 @@ const MarkdownContent = memo(function MarkdownContent({
 
 export function AnnouncementPanel() {
   const t = useTranslations()
+  const locale = useLocale()
   const [detail, setDetail] = useState<Announcement | null>(null)
   const [dialogOpen, setDialogOpen] = useState(false)
   const [lightboxSrc, setLightboxSrc] = useState<string | null>(null)
@@ -419,7 +421,7 @@ export function AnnouncementPanel() {
                     const d = new Date(detail.publishTime)
                     if (isNaN(d.getTime())) return ''
                     return t('home.publishedAt', {
-                      time: new Intl.DateTimeFormat(undefined, {
+                      time: new Intl.DateTimeFormat(locale, {
                         year: 'numeric',
                         month: 'long',
                         day: 'numeric',

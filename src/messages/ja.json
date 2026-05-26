@@ -493,14 +493,38 @@
     "clearedAll": "すべてのデータを消去しました",
     "clearedUnknown": "不明なデータ: {key}",
     "modules": {
-      "essence-settings": { "label": "エッセンスプランナー マーク", "desc": "武器所持、エッセンス状態、メモ、カスタム武器、表示設定" },
-      "matrix-session": { "label": "エッセンスプランナー UI状態", "desc": "選択武器、基礎ステータス選択、プラン展開状態、フィルター設定" },
-      "refinement-session": { "label": "精錬プランナー", "desc": "選択装備、スーツ折り畳み状態、フィルター条件" },
-      "user-data": { "label": "ユーザープロフィール＆トークン", "desc": "ユーザー情報" },
-      "cep-settings": { "label": "一般設定", "desc": "テーマ、背景画像、言語など" },
-      "editor-drafts": { "label": "エディター下書き", "desc": "カスタムキャラクター編集の下書き" },
-      "announcement-read": { "label": "お知らせ既読記録", "desc": "既読お知らせIDリスト" },
-      "dev-overrides": { "label": "Dev", "desc": "デバッグ" }
+      "essence-settings": {
+        "label": "エッセンスプランナー マーク",
+        "desc": "武器所持、エッセンス状態、メモ、カスタム武器、表示設定"
+      },
+      "matrix-session": {
+        "label": "エッセンスプランナー UI状態",
+        "desc": "選択武器、基礎ステータス選択、プラン展開状態、フィルター設定"
+      },
+      "refinement-session": {
+        "label": "精錬プランナー",
+        "desc": "選択装備、スーツ折り畳み状態、フィルター条件"
+      },
+      "user-data": {
+        "label": "ユーザープロフィール＆トークン",
+        "desc": "ユーザー情報"
+      },
+      "cep-settings": {
+        "label": "一般設定",
+        "desc": "テーマ、背景画像、言語など"
+      },
+      "editor-drafts": {
+        "label": "エディター下書き",
+        "desc": "カスタムキャラクター編集の下書き"
+      },
+      "announcement-read": {
+        "label": "お知らせ既読記録",
+        "desc": "既読お知らせIDリスト"
+      },
+      "dev-overrides": {
+        "label": "Dev",
+        "desc": "デバッグ"
+      }
     }
   },
   "legacyMigration": {
@@ -700,7 +724,10 @@
     "noRowsMessage": "行がありません。「{addSkillRow}」をクリックして追加してください。",
     "noTalents": "素質がありません。",
     "noBaseSkills": "基地スキルがありません。",
-    "noPotentials": "潜在がありません。"
+    "noPotentials": "潜在がありません。",
+    "materialNotFound": "この材料名が見つかりません。スペルを確認してください",
+    "weaponNotFound": "この武器名が見つかりません。スペルを確認してください",
+    "equipNotFound": "この装備名が見つかりません。スペルを確認してください"
   },
   "common": {
     "collapse": "折りたたむ",

@@ -431,7 +431,7 @@ export default function EssencePlannerPage() {
           {t('essence.selectedCount', { count: selectedCount })}
         </span>
         <div className="flex-1" />
-        <Button variant="outline" size="sm" onClick={selectAllWeapons}>
+        <Button variant="outline" size="sm" onClick={() => selectAllWeapons(useMatrixStore.getState().visibleWeaponIds)}>
           {t('essence.selectAll')}
         </Button>
         <Button variant="ghost" size="sm" onClick={clearWeapons}>

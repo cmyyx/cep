@@ -324,14 +324,38 @@
     "clearedAll": "已清除全部数据",
     "clearedUnknown": "未知数据: {key}",
     "modules": {
-      "essence-settings": { "label": "基质规划器标记数据", "desc": "武器拥有、基质状态、备注、自定义武器、显示设置" },
-      "matrix-session": { "label": "基质规划器 UI 状态", "desc": "已选武器、基础属性选择、方案展开状态、筛选设置" },
-      "refinement-session": { "label": "精锻规划器", "desc": "已选装备、套装收起状态、筛选条件" },
-      "user-data": { "label": "用户资料与令牌", "desc": "用户信息" },
-      "cep-settings": { "label": "通用设置", "desc": "主题、背景图片、语言等" },
-      "editor-drafts": { "label": "编辑器草稿", "desc": "自定义角色编辑草稿" },
-      "announcement-read": { "label": "公告已读记录", "desc": "已读公告 ID 列表" },
-      "dev-overrides": { "label": "Dev", "desc": "调试" }
+      "essence-settings": {
+        "label": "基质规划器标记数据",
+        "desc": "武器拥有、基质状态、备注、自定义武器、显示设置"
+      },
+      "matrix-session": {
+        "label": "基质规划器 UI 状态",
+        "desc": "已选武器、基础属性选择、方案展开状态、筛选设置"
+      },
+      "refinement-session": {
+        "label": "精锻规划器",
+        "desc": "已选装备、套装收起状态、筛选条件"
+      },
+      "user-data": {
+        "label": "用户资料与令牌",
+        "desc": "用户信息"
+      },
+      "cep-settings": {
+        "label": "通用设置",
+        "desc": "主题、背景图片、语言等"
+      },
+      "editor-drafts": {
+        "label": "编辑器草稿",
+        "desc": "自定义角色编辑草稿"
+      },
+      "announcement-read": {
+        "label": "公告已读记录",
+        "desc": "已读公告 ID 列表"
+      },
+      "dev-overrides": {
+        "label": "Dev",
+        "desc": "调试"
+      }
     }
   },
   "legacyMigration": {
@@ -531,7 +555,10 @@
     "noRowsMessage": "暂无数据行。点击「{addSkillRow}」开始。",
     "noTalents": "暂无天赋。",
     "noBaseSkills": "暂无基建技能。",
-    "noPotentials": "暂无潜能。"
+    "noPotentials": "暂无潜能。",
+    "materialNotFound": "未找到该材料名称，请确认是否拼写正确",
+    "weaponNotFound": "未找到该武器名称，请确认是否拼写正确",
+    "equipNotFound": "未找到该装备名称，请确认是否拼写正确"
   },
   "common": {
     "collapse": "收起",

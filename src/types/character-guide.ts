@@ -59,6 +59,8 @@ export interface CharacterMaterials {
 // ---- 攻略推荐 ----
 
 export interface GuideEquipEntry {
+  /** Stable identifier for editor validation keys. Not present in source data. */
+  id?: string
   name: string
   icon: string
   note: string
@@ -90,6 +92,18 @@ export interface GuideAttribution {
   note: string
 }
 
+/** Skill upgrade priority relation between two adjacent skills */
+export type SkillPriorityRelation = '>' | '>=' | '='
+
+export interface SkillPriorityItem {
+  /** 普通攻击 | 战技 | 连携技 | 终结技 */
+  skillName: string
+  /** 可选备注，如 "优先M3" */
+  note: string
+  /** 与下一个技能的关系（最后一项无此字段） */
+  relation?: SkillPriorityRelation
+}
+
 export interface CharacterGuide {
   equipRows: GuideEquipRow[]
   analysis: string
@@ -97,6 +111,7 @@ export interface CharacterGuide {
   operationTips: string
   teamSlots: TeamSlot[]
   attributions: GuideAttribution[]
+  skillPriorities?: SkillPriorityItem[]
 }
 
 // ---- 顶层完整类型 ----

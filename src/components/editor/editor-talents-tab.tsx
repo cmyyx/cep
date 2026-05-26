@@ -12,8 +12,10 @@ const ENTRY_LIST_STYLE = 'border border-border/30 rounded-md p-3 space-y-2'
 
 export function EditorTalentsTab({
   draft,
+  isReadOnly,
 }: {
   draft: EditorDraftCharacter
+  isReadOnly?: boolean
 }) {
   const t = useTranslations()
   const updateDraft = useEditorStore((s) => s.updateDraft)
@@ -112,7 +114,7 @@ export function EditorTalentsTab({
       <div>
         <div className="flex items-center justify-between mb-2">
           <h3 className="text-sm font-semibold tracking-tight">{t('charGuide.talents')}</h3>
-          <Button variant="outline" size="sm" onClick={addTalent}>
+          <Button variant="outline" size="sm" onClick={addTalent} disabled={isReadOnly}>
             <Plus className="w-3 h-3 mr-1" />
             {t('editor.addTalent')}
           </Button>
@@ -129,12 +131,14 @@ export function EditorTalentsTab({
                   onChange={(e) => updateTalent(ti, 'name', e.target.value)}
                   placeholder={t('editor.placeholderTalentName')}
                   className="h-7 text-sm flex-1"
+                  readOnly={isReadOnly}
                 />
                 <Button
                   variant="ghost"
                   size="sm"
                   onClick={() => removeTalent(ti)}
                   className="h-7 w-7 p-0 text-muted-foreground hover:text-destructive"
+                  disabled={isReadOnly}
                 >
                   <Trash2 className="w-3.5 h-3.5" />
                 </Button>
@@ -144,6 +148,7 @@ export function EditorTalentsTab({
                 onChange={(e) => updateTalent(ti, 'description', e.target.value)}
                 placeholder={t('editor.placeholderTalentDesc')}
                 className="h-7 text-xs"
+                readOnly={isReadOnly}
               />
             </div>
           ))}
@@ -154,7 +159,7 @@ export function EditorTalentsTab({
       <div>
         <div className="flex items-center justify-between mb-2">
           <h3 className="text-sm font-semibold tracking-tight">{t('charGuide.baseSkills')}</h3>
-          <Button variant="outline" size="sm" onClick={addBaseSkill}>
+          <Button variant="outline" size="sm" onClick={addBaseSkill} disabled={isReadOnly}>
             <Plus className="w-3 h-3 mr-1" />
             {t('editor.addBaseSkill')}
           </Button>
@@ -171,12 +176,14 @@ export function EditorTalentsTab({
                   onChange={(e) => updateBaseSkill(bi, 'name', e.target.value)}
                   placeholder={t('editor.placeholderBaseSkillName')}
                   className="h-7 text-sm flex-1"
+                  readOnly={isReadOnly}
                 />
                 <Button
                   variant="ghost"
                   size="sm"
                   onClick={() => removeBaseSkill(bi)}
                   className="h-7 w-7 p-0 text-muted-foreground hover:text-destructive"
+                  disabled={isReadOnly}
                 >
                   <Trash2 className="w-3.5 h-3.5" />
                 </Button>
@@ -186,6 +193,7 @@ export function EditorTalentsTab({
                 onChange={(e) => updateBaseSkill(bi, 'description', e.target.value)}
                 placeholder={t('editor.placeholderBaseSkillDesc')}
                 className="h-7 text-xs"
+                readOnly={isReadOnly}
               />
             </div>
           ))}
@@ -196,7 +204,7 @@ export function EditorTalentsTab({
       <div>
         <div className="flex items-center justify-between mb-2">
           <h3 className="text-sm font-semibold tracking-tight">{t('charGuide.potentials')}</h3>
-          <Button variant="outline" size="sm" onClick={addPotential}>
+          <Button variant="outline" size="sm" onClick={addPotential} disabled={isReadOnly}>
             <Plus className="w-3 h-3 mr-1" />
             {t('editor.addPotential')}
           </Button>
@@ -216,12 +224,13 @@ export function EditorTalentsTab({
                   onChange={(e) => updatePotential(pi, 'name', e.target.value)}
                   placeholder={t('editor.placeholderPotentialName')}
                   className="h-7 text-sm flex-1"
+                  readOnly={isReadOnly}
                 />
                 <Button
                   variant="ghost"
                   size="sm"
                   onClick={() => movePotential(pi, -1)}
-                  disabled={pi === 0}
+                  disabled={isReadOnly || pi === 0}
                   className="h-7 w-6 p-0"
                 >
                   <ChevronUp className="w-3 h-3" />
@@ -230,7 +239,7 @@ export function EditorTalentsTab({
                   variant="ghost"
                   size="sm"
                   onClick={() => movePotential(pi, 1)}
-                  disabled={pi === draft.potentials.length - 1}
+                  disabled={isReadOnly || pi === draft.potentials.length - 1}
                   className="h-7 w-6 p-0"
                 >
                   <ChevronDown className="w-3 h-3" />
@@ -240,6 +249,7 @@ export function EditorTalentsTab({
                   size="sm"
                   onClick={() => removePotential(pi)}
                   className="h-7 w-7 p-0 text-muted-foreground hover:text-destructive"
+                  disabled={isReadOnly}
                 >
                   <Trash2 className="w-3.5 h-3.5" />
                 </Button>
@@ -249,6 +259,7 @@ export function EditorTalentsTab({
                 onChange={(e) => updatePotential(pi, 'description', e.target.value)}
                 placeholder={t('editor.placeholderPotentialDesc')}
                 className="h-7 text-xs"
+                readOnly={isReadOnly}
               />
             </div>
           ))}
