@@ -198,7 +198,7 @@ export function EditorSkillsTab({
       </div>
 
       {/* Skill upgrade priority */}
-      <div className="border border-border/20 rounded-md p-3 space-y-2 bg-muted/30">
+      <div className="[box-shadow:var(--shadow-border)] rounded-md p-3 space-y-2 bg-muted/30">
         <div className="flex items-center justify-between">
           <span className="text-xs font-semibold text-foreground/80">技能升级优先级</span>
           <Button

@@ -30,7 +30,6 @@ export function EditorGuideTab({ draft, isReadOnly }: EditorGuideTabProps) {
   const setGuideSubTab = useEditorStore((s) => s.setGuideSubTab)
 
   // Validation state: keys are "wpn-{id}", "equip-{id}", "teamwpn-{id}", or "teamequip-{id}".
-  // Falls back to index-based keys for legacy draft items that lack an id field.
   const [invalidNames, setInvalidNames] = useState<Set<string>>(new Set())
 
   const validateNameField = useCallback(
@@ -349,7 +348,7 @@ export function EditorGuideTab({ draft, isReadOnly }: EditorGuideTabProps) {
                   </Button>
                 </div>
                 {row.weapons.map((w, wi) => {
-                  const wpnKey = w.id ? `wpn-${w.id}` : `wpn-${ri}-${wi}`
+                  const wpnKey = `wpn-${w.id}`
                   return (
                   <div key={wi} className="mb-1">
                     <div className="flex items-center gap-1">
@@ -411,7 +410,7 @@ export function EditorGuideTab({ draft, isReadOnly }: EditorGuideTabProps) {
                 <div className="grid grid-cols-2 gap-1">
                   {[0, 1, 2, 3].map((ei) => {
                     const eq = row.equipment[ei]
-                    const eqKey = eq?.id ? `equip-${eq.id}` : `equip-${ri}-${ei}`
+                    const eqKey = eq ? `equip-${eq.id}` : ''
                     return (
                       <div key={ei}>
                         <div className="flex items-center gap-1">
@@ -603,7 +602,7 @@ export function EditorGuideTab({ draft, isReadOnly }: EditorGuideTabProps) {
                       </Button>
                     </div>
                     {opt.weapons.map((w, wi) => {
-                      const twKey = w.id ? `teamwpn-${w.id}` : `teamwpn-${si}-${oi}-${wi}`
+                      const twKey = `teamwpn-${w.id}`
                       return (
                       <div key={wi} className="mb-0.5">
                         <div className="flex items-center gap-1">
@@ -686,7 +685,7 @@ export function EditorGuideTab({ draft, isReadOnly }: EditorGuideTabProps) {
                       </Button>
                     </div>
                     {opt.equipment.map((eq, ei) => {
-                      const teKey = eq.id ? `teamequip-${eq.id}` : `teamequip-${si}-${oi}-${ei}`
+                      const teKey = `teamequip-${eq.id}`
                       return (
                       <div key={ei} className="mb-0.5">
                         <div className="flex items-center gap-1">

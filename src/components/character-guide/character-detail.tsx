@@ -516,7 +516,7 @@ function InfoView({ character }: { character: CharacterGuideData }) {
       <CollapsibleSection title={t('charGuide.skills')}>
         {/* Skill upgrade priority banner */}
         {character.guide?.skillPriorities && character.guide.skillPriorities.length > 0 && (
-          <div className="mb-4 px-3 py-2.5 rounded-md bg-muted/40 border border-border/15">
+          <div className="mb-4 px-3 py-2.5 rounded-md bg-muted/40 [box-shadow:var(--shadow-border)]">
             <span className="text-[10px] text-muted-foreground font-medium tracking-wide">
               技能升级优先级
             </span>
