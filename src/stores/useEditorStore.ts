@@ -83,6 +83,7 @@ function createEmptyCharacter(): CharacterGuideData {
       operationTips: '',
       teamSlots: [],
       attributions: [],
+      skillPriorities: [],
     },
   }
 }

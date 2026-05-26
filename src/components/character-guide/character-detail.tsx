@@ -1,6 +1,6 @@
 'use client'
 
-import { memo, useState } from 'react'
+import React, { memo, useState } from 'react'
 import Image from 'next/image'
 import { useTranslations } from 'next-intl'
 import { cn, stripMaterialQuantity } from '@/lib/utils'
@@ -514,6 +514,44 @@ function InfoView({ character }: { character: CharacterGuideData }) {
     <>
       {/* Skills */}
       <CollapsibleSection title={t('charGuide.skills')}>
+        {/* Skill upgrade priority banner */}
+        {character.guide?.skillPriorities && character.guide.skillPriorities.length > 0 && (
+          <div className="mb-4 px-3 py-2.5 rounded-md bg-muted/40 border border-border/15">
+            <span className="text-[10px] text-muted-foreground font-medium tracking-wide">
+              技能升级优先级
+            </span>
+            <div className="flex flex-wrap items-center gap-x-1 gap-y-0.5 mt-1.5">
+              {(() => {
+                const priorities = character.guide.skillPriorities
+                return priorities.map((sp, i) => {
+                  const prevRelation = i > 0 ? priorities[i - 1].relation : undefined
+                  return (
+                <React.Fragment key={i}>
+                  {prevRelation && (
+                    <span className={cn(
+                      'font-geist-mono text-[11px] shrink-0 select-none px-1',
+                      prevRelation === '>' && 'text-foreground/90 font-semibold',
+                      prevRelation === '>=' && 'text-foreground/70 font-medium',
+                      prevRelation === '=' && 'text-muted-foreground',
+                    )}>
+                      {prevRelation === '>' ? '>' : prevRelation === '>=' ? '≥' : '='}
+                    </span>
+                  )}
+                  <span className="inline-flex items-baseline gap-1">
+                    <span className="text-xs text-foreground/80">
+                      {sp.skillName}
+                    </span>
+                    {sp.note && (
+                      <span className="text-[10px] text-muted-foreground/60">({sp.note})</span>
+                    )}
+                  </span>
+                </React.Fragment>
+                  )
+                })
+              })()}
+            </div>
+          </div>
+        )}
         {character.skills.map((skill, si) => (
           <div key={si} className="mb-4 last:mb-0">
             <div className="flex items-center gap-2 mb-1">
