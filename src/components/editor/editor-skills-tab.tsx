@@ -13,8 +13,10 @@ const SKILL_LABELS = ['Lv1', 'Lv2', 'Lv3', 'Lv4', 'Lv5', 'Lv6', 'Lv7', 'Lv8', 'L
 
 export function EditorSkillsTab({
   draft,
+  isReadOnly,
 }: {
   draft: EditorDraftCharacter
+  isReadOnly?: boolean
 }) {
   const t = useTranslations()
   const updateDraft = useEditorStore((s) => s.updateDraft)
@@ -130,7 +132,7 @@ export function EditorSkillsTab({
     <div className="space-y-4 max-w-[960px]">
       <div className="flex items-center justify-between">
         <h3 className="text-sm font-semibold tracking-tight">{t('editor.tabSkills')}</h3>
-        <Button variant="outline" size="sm" onClick={addSkill}>
+        <Button variant="outline" size="sm" onClick={addSkill} disabled={isReadOnly}>
           <Plus className="w-3 h-3 mr-1" />
           {t('editor.addSkill')}
         </Button>
@@ -164,18 +166,21 @@ export function EditorSkillsTab({
                   onChange={(e) => updateSkillField(si, 'name', e.target.value)}
                   placeholder={t('editor.skillName')}
                   className="h-7 text-sm flex-1"
+                  readOnly={isReadOnly}
                 />
                 <Input
                   value={skill.type}
                   onChange={(e) => updateSkillField(si, 'type', e.target.value)}
                   placeholder={t('editor.skillType')}
                   className="h-7 text-sm w-24"
+                  readOnly={isReadOnly}
                 />
                 <Button
                   variant="ghost"
                   size="sm"
                   onClick={(e) => { e.preventDefault(); removeSkill(si) }}
                   className="h-7 w-7 p-0 text-muted-foreground hover:text-destructive shrink-0"
+                  disabled={isReadOnly}
                 >
                   <Trash2 className="w-3.5 h-3.5" />
                 </Button>
@@ -186,6 +191,7 @@ export function EditorSkillsTab({
                 placeholder={t('editor.skillDesc')}
                 rows={3}
                 className="text-xs resize-y"
+                readOnly={isReadOnly}
               />
             </div>
           </div>
@@ -201,12 +207,13 @@ export function EditorSkillsTab({
                       onChange={(e) => updateTableTitle(si, ti, e.target.value)}
                       placeholder={t('editor.placeholderDataTableTitle')}
                       className="h-7 text-xs w-40"
+                      readOnly={isReadOnly}
                     />
-                    <Button variant="ghost" size="sm" onClick={(e) => { e.preventDefault(); addRow(si, ti) }} className="h-6 text-[11px] px-2">
+                    <Button variant="ghost" size="sm" onClick={(e) => { e.preventDefault(); addRow(si, ti) }} className="h-6 text-[11px] px-2" disabled={isReadOnly}>
                       <Plus className="w-3 h-3 mr-1" />
                       {t('editor.addSkillRow')}
                     </Button>
-                    <Button variant="ghost" size="sm" onClick={(e) => { e.preventDefault(); removeTable(si, ti) }} className="h-6 text-[11px] px-2 text-muted-foreground hover:text-destructive ml-auto">
+                    <Button variant="ghost" size="sm" onClick={(e) => { e.preventDefault(); removeTable(si, ti) }} className="h-6 text-[11px] px-2 text-muted-foreground hover:text-destructive ml-auto" disabled={isReadOnly}>
                       <Trash2 className="w-3 h-3" />
                     </Button>
                   </div>
@@ -233,6 +240,7 @@ export function EditorSkillsTab({
                               onChange={(e) => updateRowName(si, ti, ri, e.target.value)}
                               placeholder={t('editor.placeholderParamName')}
                               className="h-7 text-xs w-28 shrink-0"
+                              readOnly={isReadOnly}
                             />
                             {SKILL_LABELS.map((_, li) => (
                               <Input
@@ -241,6 +249,7 @@ export function EditorSkillsTab({
                                 onChange={(e) => updateRowValue(si, ti, ri, li, e.target.value)}
                                 className="h-7 text-xs w-[72px] shrink-0 font-geist-mono"
                                 placeholder="-"
+                                readOnly={isReadOnly}
                               />
                             ))}
                             <Button
@@ -248,6 +257,7 @@ export function EditorSkillsTab({
                               size="sm"
                               onClick={(e) => { e.preventDefault(); removeRow(si, ti, ri) }}
                               className="h-7 w-6 p-0 text-muted-foreground hover:text-destructive shrink-0"
+                              disabled={isReadOnly}
                             >
                               <Trash2 className="w-3 h-3" />
                             </Button>
@@ -265,7 +275,7 @@ export function EditorSkillsTab({
                 </div>
               ))}
 
-              <Button variant="outline" size="sm" onClick={(e) => { e.preventDefault(); addTable(si) }} className="h-7 text-xs">
+              <Button variant="outline" size="sm" onClick={(e) => { e.preventDefault(); addTable(si) }} className="h-7 text-xs" disabled={isReadOnly}>
                 <Plus className="w-3 h-3 mr-1" />
                 {t('editor.addSkillTable')}
               </Button>

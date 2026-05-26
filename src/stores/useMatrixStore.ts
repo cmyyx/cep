@@ -162,7 +162,7 @@ interface MatrixState {
   selectedSubRegions: string[]
 
   toggleWeapon: (weaponId: string) => void
-  selectAllWeapons: () => void
+  selectAllWeapons: (ids?: string[]) => void
   clearWeapons: () => void
   toggleDungeonExpand: (planKey: string) => void
   setDungeonS1Selection: (planKey: string, s1: string[]) => void
@@ -205,9 +205,12 @@ export const useMatrixStore = create<MatrixState>()(
         schedulePlansUpdate(set, get)
       },
 
-      selectAllWeapons: () => {
-        const ids = toSortedArray(new Set(weapons.map((w) => w.id)))
-        set({ selectedWeaponIds: ids, plansStale: true })
+      selectAllWeapons: (ids?: string[]) => {
+        const next = ids
+          ? toSortedArray(new Set(ids))
+          : toSortedArray(new Set(weapons.map((w) => w.id)))
+        if (next.length === 0) return
+        set({ selectedWeaponIds: next, plansStale: true })
         schedulePlansUpdate(set, get)
       },
 

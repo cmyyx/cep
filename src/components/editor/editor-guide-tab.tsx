@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback } from 'react'
+import { useCallback, useState } from 'react'
 import { useTranslations } from 'next-intl'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -9,6 +9,7 @@ import { Textarea } from '@/components/ui/textarea'
 import { useEditorStore, type GuideSubTab } from '@/stores/useEditorStore'
 import { cn } from '@/lib/utils'
 import type { EditorDraftCharacter } from '@/stores/useEditorStore'
+import { isWeaponNameValid, isEquipNameValid } from '@/lib/validate-editor-names'
 import { Plus, Trash2 } from 'lucide-react'
 
 const GUIDE_SUB_TABS: { key: GuideSubTab; labelKey: string }[] = [
@@ -19,9 +20,10 @@ const GUIDE_SUB_TABS: { key: GuideSubTab; labelKey: string }[] = [
 
 export type EditorGuideTabProps = {
   draft: EditorDraftCharacter
+  isReadOnly?: boolean
 }
 
-export function EditorGuideTab({ draft }: EditorGuideTabProps) {
+export function EditorGuideTab({ draft, isReadOnly }: EditorGuideTabProps) {
   const t = useTranslations()
   const updateDraft = useEditorStore((s) => s.updateDraft)
   const guideSubTab = useEditorStore((s) => s.guideSubTab)
@@ -100,6 +102,22 @@ export function EditorGuideTab({ draft }: EditorGuideTabProps) {
       })
     },
     [draft.id, updateDraft]
+  )
+
+  // Validation state: keys are "wpn-{ri}-{wi}" or "equip-{ri}-{ei}" or "teamwpn-{si}-{oi}-{wi}" or "teamequip-{si}-{oi}-{ei}"
+  const [invalidNames, setInvalidNames] = useState<Set<string>>(new Set())
+
+  const validateNameField = useCallback(
+    (key: string, name: string, category: 'weapon' | 'equip') => {
+      const isValid = category === 'weapon' ? isWeaponNameValid(name) : isEquipNameValid(name)
+      setInvalidNames((prev) => {
+        const next = new Set(prev)
+        if (isValid) next.delete(key)
+        else next.add(key)
+        return next
+      })
+    },
+    [],
   )
 
   // ===== Team Slots =====
@@ -225,7 +243,7 @@ export function EditorGuideTab({ draft }: EditorGuideTabProps) {
         <div className="space-y-3">
           <div className="flex items-center justify-between">
             <span className="text-xs text-muted-foreground">{t('editor.guideEquipRows')}</span>
-            <Button variant="outline" size="sm" onClick={addEquipRow}>
+            <Button variant="outline" size="sm" onClick={addEquipRow} disabled={isReadOnly}>
               <Plus className="w-3 h-3 mr-1" />
               {t('editor.addEquipRow')}
             </Button>
@@ -249,6 +267,7 @@ export function EditorGuideTab({ draft }: EditorGuideTabProps) {
                   size="sm"
                   onClick={() => removeEquipRow(ri)}
                   className="h-6 w-6 p-0 text-muted-foreground hover:text-destructive"
+                  disabled={isReadOnly}
                 >
                   <Trash2 className="w-3 h-3" />
                 </Button>
@@ -263,6 +282,7 @@ export function EditorGuideTab({ draft }: EditorGuideTabProps) {
                     size="sm"
                     onClick={() => addWeapon(ri)}
                     className="h-5 text-[10px] px-1"
+                    disabled={isReadOnly}
                   >
                     <Plus className="w-2.5 h-2.5" />
                   </Button>
@@ -271,15 +291,24 @@ export function EditorGuideTab({ draft }: EditorGuideTabProps) {
                   <div key={wi} className="flex items-center gap-1 mb-1">
                     <Input
                       value={w.name}
-                      onChange={(e) => updateWeapon(ri, wi, 'name', e.target.value)}
+                      onChange={(e) => {
+                        updateWeapon(ri, wi, 'name', e.target.value)
+                        const key = `wpn-${ri}-${wi}`
+                        if (invalidNames.has(key)) {
+                          setInvalidNames((prev) => { const n = new Set(prev); n.delete(key); return n })
+                        }
+                      }}
+                      onBlur={() => validateNameField(`wpn-${ri}-${wi}`, w.name, 'weapon')}
                       placeholder={t('editor.placeholderGuideName')}
-                      className="h-7 text-xs flex-1"
+                      className={cn('h-7 text-xs flex-1', invalidNames.has(`wpn-${ri}-${wi}`) && 'border-ship-red ring-1 ring-ship-red/30')}
+                      readOnly={isReadOnly}
                     />
                     <Input
                       value={w.note}
                       onChange={(e) => updateWeapon(ri, wi, 'note', e.target.value)}
                       placeholder={t('editor.placeholderGuideNote')}
                       className="h-7 text-xs w-20"
+                      readOnly={isReadOnly}
                     />
                     <Input
                       type="number"
@@ -293,12 +322,14 @@ export function EditorGuideTab({ draft }: EditorGuideTabProps) {
                         (w.rarity ?? 0) >= 6 && 'text-rarity-6-star',
                         (w.rarity ?? 0) >= 5 && (w.rarity ?? 0) < 6 && 'text-rarity-5-star'
                       )}
+                      readOnly={isReadOnly}
                     />
                     <Button
                       variant="ghost"
                       size="sm"
                       onClick={() => removeWeapon(ri, wi)}
                       className="h-7 w-6 p-0 text-muted-foreground hover:text-destructive"
+                      disabled={isReadOnly}
                     >
                       <Trash2 className="w-3 h-3" />
                     </Button>
@@ -321,15 +352,24 @@ export function EditorGuideTab({ draft }: EditorGuideTabProps) {
                           <>
                             <Input
                               value={eq.name}
-                              onChange={(e) => updateEquip(ri, ei, 'name', e.target.value)}
+                              onChange={(e) => {
+                                updateEquip(ri, ei, 'name', e.target.value)
+                                const key = `equip-${ri}-${ei}`
+                                if (invalidNames.has(key)) {
+                                  setInvalidNames((prev) => { const n = new Set(prev); n.delete(key); return n })
+                                }
+                              }}
+                              onBlur={() => validateNameField(`equip-${ri}-${ei}`, eq.name, 'equip')}
                               placeholder="Name"
-                              className="h-7 text-xs flex-1"
+                              className={cn('h-7 text-xs flex-1', invalidNames.has(`equip-${ri}-${ei}`) && 'border-ship-red ring-1 ring-ship-red/30')}
+                              readOnly={isReadOnly}
                             />
                             <Input
                               value={eq.note}
                               onChange={(e) => updateEquip(ri, ei, 'note', e.target.value)}
                               placeholder={t('editor.placeholderGuideNote')}
                               className="h-7 text-xs w-16"
+                              readOnly={isReadOnly}
                             />
                             <Input
                               type="number"
@@ -339,12 +379,14 @@ export function EditorGuideTab({ draft }: EditorGuideTabProps) {
                               onChange={(e) => updateEquip(ri, ei, 'rarity', e.target.value)}
                               placeholder={t('editor.placeholderGuideRarity')}
                               className="h-7 text-xs w-12"
+                              readOnly={isReadOnly}
                             />
                             <Button
                               variant="ghost"
                               size="sm"
                               onClick={() => clearEquip(ri, ei)}
                               className="h-7 w-6 p-0 text-[10px] text-muted-foreground hover:text-destructive"
+                              disabled={isReadOnly}
                             >
                               x
                             </Button>
@@ -355,6 +397,7 @@ export function EditorGuideTab({ draft }: EditorGuideTabProps) {
                             size="sm"
                             onClick={() => updateEquip(ri, ei, 'name', '')}
                             className="h-7 text-[10px] text-muted-foreground/50"
+                            disabled={isReadOnly}
                           >
                             {t('editor.guideAddEquip')}
                           </Button>
@@ -379,6 +422,7 @@ export function EditorGuideTab({ draft }: EditorGuideTabProps) {
               onChange={(e) => updateGuideField('analysis', e.target.value)}
               className="min-h-[120px] resize-y"
               placeholder={t('editor.placeholderAnalysis')}
+              readOnly={isReadOnly}
             />
           </div>
           <div className="space-y-1.5">
@@ -388,6 +432,7 @@ export function EditorGuideTab({ draft }: EditorGuideTabProps) {
               onChange={(e) => updateGuideField('teamTips', e.target.value)}
               className="min-h-[80px] resize-y"
               placeholder={t('editor.placeholderTeamTips')}
+              readOnly={isReadOnly}
             />
           </div>
           <div className="space-y-1.5">
@@ -397,6 +442,7 @@ export function EditorGuideTab({ draft }: EditorGuideTabProps) {
               onChange={(e) => updateGuideField('operationTips', e.target.value)}
               className="min-h-[80px] resize-y"
               placeholder={t('editor.placeholderOperationTips')}
+              readOnly={isReadOnly}
             />
           </div>
         </div>
@@ -407,7 +453,7 @@ export function EditorGuideTab({ draft }: EditorGuideTabProps) {
         <div className="space-y-3">
           <div className="flex items-center justify-between">
             <span className="text-xs text-muted-foreground">{t('editor.guideTeamSlots')}</span>
-            <Button variant="outline" size="sm" onClick={addTeamSlot}>
+            <Button variant="outline" size="sm" onClick={addTeamSlot} disabled={isReadOnly}>
               <Plus className="w-3 h-3 mr-1" />
               {t('editor.addTeamSlot')}
             </Button>
@@ -431,6 +477,7 @@ export function EditorGuideTab({ draft }: EditorGuideTabProps) {
                   size="sm"
                   onClick={() => removeTeamSlot(si)}
                   className="h-6 w-6 p-0 text-muted-foreground hover:text-destructive"
+                  disabled={isReadOnly}
                 >
                   <Trash2 className="w-3 h-3" />
                 </Button>
@@ -448,18 +495,21 @@ export function EditorGuideTab({ draft }: EditorGuideTabProps) {
                       onChange={(e) => updateTeamOptionField(si, oi, 'name', e.target.value)}
                       placeholder={t('editor.placeholderTeamCharName')}
                       className="h-7 text-sm flex-1"
+                      readOnly={isReadOnly}
                     />
                     <Input
                       value={opt.tag}
                       onChange={(e) => updateTeamOptionField(si, oi, 'tag', e.target.value)}
                       placeholder={t('editor.placeholderTag')}
                       className="h-7 text-xs w-24"
+                      readOnly={isReadOnly}
                     />
                     <Button
                       variant="ghost"
                       size="sm"
                       onClick={() => removeTeamOption(si, oi)}
                       className="h-7 w-6 p-0 text-muted-foreground hover:text-destructive"
+                      disabled={isReadOnly}
                     >
                       <Trash2 className="w-3 h-3" />
                     </Button>
@@ -474,6 +524,7 @@ export function EditorGuideTab({ draft }: EditorGuideTabProps) {
                         size="sm"
                         onClick={() => addTeamOptWeapon(si, oi)}
                         className="h-5 text-[10px] px-1"
+                        disabled={isReadOnly}
                       >
                         <Plus className="w-2.5 h-2.5" />
                       </Button>
@@ -488,9 +539,15 @@ export function EditorGuideTab({ draft }: EditorGuideTabProps) {
                               if (!optW) return
                               optW.name = e.target.value
                             })
+                            const key = `teamwpn-${si}-${oi}-${wi}`
+                            if (invalidNames.has(key)) {
+                              setInvalidNames((prev) => { const n = new Set(prev); n.delete(key); return n })
+                            }
                           }}
+                          onBlur={() => validateNameField(`teamwpn-${si}-${oi}-${wi}`, w.name, 'weapon')}
                           placeholder={t('editor.placeholderGuideName')}
-                          className="h-7 text-xs flex-1"
+                          className={cn('h-7 text-xs flex-1', invalidNames.has(`teamwpn-${si}-${oi}-${wi}`) && 'border-ship-red ring-1 ring-ship-red/30')}
+                          readOnly={isReadOnly}
                         />
                         <Input
                           value={w.note}
@@ -503,6 +560,7 @@ export function EditorGuideTab({ draft }: EditorGuideTabProps) {
                           }}
                           placeholder={t('editor.placeholderGuideNote')}
                           className="h-7 text-xs w-20"
+                          readOnly={isReadOnly}
                         />
                         <Input
                           type="number"
@@ -518,12 +576,14 @@ export function EditorGuideTab({ draft }: EditorGuideTabProps) {
                           }}
                           placeholder={t('editor.placeholderGuideRarity')}
                           className="h-7 text-xs w-12"
+                          readOnly={isReadOnly}
                         />
                         <Button
                           variant="ghost"
                           size="sm"
                           onClick={() => removeTeamOptWeapon(si, oi, wi)}
                           className="h-7 w-6 p-0 text-muted-foreground hover:text-destructive"
+                          disabled={isReadOnly}
                         >
                           <Trash2 className="w-3 h-3" />
                         </Button>
@@ -540,6 +600,7 @@ export function EditorGuideTab({ draft }: EditorGuideTabProps) {
                         size="sm"
                         onClick={() => addTeamOptEquip(si, oi)}
                         className="h-5 text-[10px] px-1"
+                        disabled={isReadOnly}
                       >
                         <Plus className="w-2.5 h-2.5" />
                       </Button>
@@ -554,9 +615,15 @@ export function EditorGuideTab({ draft }: EditorGuideTabProps) {
                               if (!optE) return
                               optE.name = e.target.value
                             })
+                            const key = `teamequip-${si}-${oi}-${ei}`
+                            if (invalidNames.has(key)) {
+                              setInvalidNames((prev) => { const n = new Set(prev); n.delete(key); return n })
+                            }
                           }}
+                          onBlur={() => validateNameField(`teamequip-${si}-${oi}-${ei}`, eq.name, 'equip')}
                           placeholder={t('editor.placeholderGuideName')}
-                          className="h-7 text-xs flex-1"
+                          className={cn('h-7 text-xs flex-1', invalidNames.has(`teamequip-${si}-${oi}-${ei}`) && 'border-ship-red ring-1 ring-ship-red/30')}
+                          readOnly={isReadOnly}
                         />
                         <Input
                           type="number"
@@ -572,12 +639,14 @@ export function EditorGuideTab({ draft }: EditorGuideTabProps) {
                           }}
                           placeholder={t('editor.placeholderGuideRarity')}
                           className="h-7 text-xs w-12"
+                          readOnly={isReadOnly}
                         />
                         <Button
                           variant="ghost"
                           size="sm"
                           onClick={() => removeTeamOptEquip(si, oi, ei)}
                           className="h-7 w-6 p-0 text-muted-foreground hover:text-destructive"
+                          disabled={isReadOnly}
                         >
                           <Trash2 className="w-3 h-3" />
                         </Button>
@@ -592,6 +661,7 @@ export function EditorGuideTab({ draft }: EditorGuideTabProps) {
                 size="sm"
                 onClick={() => addTeamOption(si)}
                 className="h-7 text-xs ml-3"
+                disabled={isReadOnly}
               >
                 <Plus className="w-3 h-3 mr-1" />
                 {t('editor.addTeamOption')}

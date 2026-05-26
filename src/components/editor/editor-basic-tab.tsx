@@ -19,9 +19,10 @@ const STAT_KEYS = [
 
 export type EditorBasicTabProps = {
   draft: EditorDraftCharacter
+  isReadOnly?: boolean
 }
 
-export function EditorBasicTab({ draft }: EditorBasicTabProps) {
+export function EditorBasicTab({ draft, isReadOnly }: EditorBasicTabProps) {
   const t = useTranslations()
   const updateDraft = useEditorStore((s) => s.updateDraft)
   const setSelectedId = useEditorStore((s) => s.setSelectedId)
@@ -112,6 +113,7 @@ export function EditorBasicTab({ draft }: EditorBasicTabProps) {
             pattern="[a-z-]+"
             autoComplete="off"
             spellCheck={false}
+            readOnly={isReadOnly}
           />
           {idCollision && (
             <p className="text-[10px] text-ship-red leading-tight">
@@ -126,6 +128,7 @@ export function EditorBasicTab({ draft }: EditorBasicTabProps) {
             onChange={(e) => updateField('name', e.target.value)}
             className="h-8 text-sm"
             placeholder={t('editor.placeholderCharacterName')}
+            readOnly={isReadOnly}
           />
         </div>
       </div>
@@ -140,6 +143,7 @@ export function EditorBasicTab({ draft }: EditorBasicTabProps) {
             value={draft.rarity}
             onChange={(e) => updateField('rarity', Math.max(1, Math.min(6, Number(e.target.value) || 1)))}
             className="h-8 text-sm"
+            readOnly={isReadOnly}
           />
         </div>
         <div className="space-y-1.5">
@@ -148,6 +152,7 @@ export function EditorBasicTab({ draft }: EditorBasicTabProps) {
             value={draft.element}
             onChange={(e) => updateField('element', e.target.value)}
             className="h-8 text-sm"
+            readOnly={isReadOnly}
           />
         </div>
         <div className="space-y-1.5">
@@ -156,6 +161,7 @@ export function EditorBasicTab({ draft }: EditorBasicTabProps) {
             value={draft.weaponType}
             onChange={(e) => updateField('weaponType', e.target.value)}
             className="h-8 text-sm"
+            readOnly={isReadOnly}
           />
         </div>
       </div>
@@ -167,6 +173,7 @@ export function EditorBasicTab({ draft }: EditorBasicTabProps) {
             value={draft.mainAbility}
             onChange={(e) => updateField('mainAbility', e.target.value)}
             className="h-8 text-sm"
+            readOnly={isReadOnly}
           />
         </div>
         <div className="space-y-1.5">
@@ -175,6 +182,7 @@ export function EditorBasicTab({ draft }: EditorBasicTabProps) {
             value={draft.subAbility}
             onChange={(e) => updateField('subAbility', e.target.value)}
             className="h-8 text-sm"
+            readOnly={isReadOnly}
           />
         </div>
         <div className="space-y-1.5">
@@ -183,6 +191,7 @@ export function EditorBasicTab({ draft }: EditorBasicTabProps) {
             value={draft.profession}
             onChange={(e) => updateField('profession', e.target.value)}
             className="h-8 text-sm"
+            readOnly={isReadOnly}
           />
         </div>
       </div>
@@ -198,6 +207,7 @@ export function EditorBasicTab({ draft }: EditorBasicTabProps) {
                 value={draft.stats[key] || ''}
                 onChange={(e) => updateStat(key, e.target.value)}
                 className="h-7 text-sm"
+                readOnly={isReadOnly}
               />
             </div>
           ))}

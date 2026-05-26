@@ -1,6 +1,6 @@
 'use client'
 
-import { memo, useState, useRef, useMemo, useCallback } from 'react'
+import { memo, useState, useRef, useMemo, useCallback, useEffect } from 'react'
 import { useTranslations } from 'next-intl'
 import { cn } from '@/lib/utils'
 import { Input } from '@/components/ui/input'
@@ -104,7 +104,11 @@ const FilterChip = memo(function FilterChip({
   )
 })
 
-export const WeaponGrid = memo(function WeaponGrid() {
+export const WeaponGrid = memo(function WeaponGrid({
+  onVisibleIdsChange,
+}: {
+  onVisibleIdsChange?: (ids: string[]) => void
+}) {
   const t = useTranslations()
   const [query, setQuery] = useState('')
   const filterCollapsed = useEssenceSettingsStore((s) => s.weaponFilterCollapsed)
@@ -253,6 +257,15 @@ export const WeaponGrid = memo(function WeaponGrid() {
       return true
     })
   }, [allWeapons, matchesBaseFilters, filters])
+
+  // Report visible weapon IDs to parent so select-all can target only visible
+  const visibleIds = useMemo(
+    () => filteredWeapons.map((w) => w.id),
+    [filteredWeapons],
+  )
+  useEffect(() => {
+    onVisibleIdsChange?.(visibleIds)
+  }, [visibleIds, onVisibleIdsChange])
 
   return (
     <div className="flex flex-col gap-3">
