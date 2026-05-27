@@ -10,6 +10,7 @@
     "announcements": "公告",
     "announcementsLoadError": "載入公告失敗",
     "publishedAt": "發布於 {time}",
+    "updatedAt": "最後修改於 {time}",
     "importantBanner": "您有 {count} 條重要公告未讀",
     "clickToView": "點擊查看",
     "importantBadge": "重要",
