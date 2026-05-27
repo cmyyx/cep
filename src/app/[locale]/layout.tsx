@@ -16,6 +16,7 @@ import { ImportantAnnouncementBanner } from '@/components/home/important-announc
 import { AnnouncementLoader } from '@/components/home/announcement-loader'
 import { SyncManager } from '@/components/shared/sync-manager'
 import { LegacyMigrationDialog } from '@/components/shared/legacy-migration-dialog'
+import { DebugLabel } from '@/components/shared/debug-label'
 import { DomainGuard } from '@/components/shared/domain-guard'
 import { LocaleGuard } from '@/components/shared/locale-guard'
 import { VersionProvider } from '@/hooks/use-version'
@@ -78,6 +79,7 @@ export default async function LocaleLayout({
       <HeadScript id="html-lang" code={`document.documentElement.lang='${locale}'`} />
       <NextIntlClientProvider messages={messages} locale={locale}>
       <LocaleGuard />
+      <DebugLabel />
       <DomainGuard />
       <VersionProvider initialInfo={versionData}>
         <SidebarProvider className="h-svh">
