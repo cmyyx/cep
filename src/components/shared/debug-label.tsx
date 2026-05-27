@@ -19,7 +19,7 @@ export function DebugLabel() {
   const [mounted, setMounted] = useState(false)
   const [hiding, setHiding] = useState(false)
   const [removed, setRemoved] = useState(false)
-  const timerRef = useRef<ReturnType<typeof setTimeout>>()
+  const timerRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined)
 
   useEffect(() => {
     // Trigger fade-in on next paint so the transition animates
