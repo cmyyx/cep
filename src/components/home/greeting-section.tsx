@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState, useCallback } from 'react'
+import { useSyncExternalStore } from 'react'
 import { useTranslations, useLocale } from 'next-intl'
 
 interface GreetingSectionProps {
@@ -20,22 +20,25 @@ function formatDateStr(locale: string): string {
   }
 }
 
+/** Stable placeholder used during SSR/hydration to avoid mismatch. */
+const PLACEHOLDER_DATE = ''
+
 export function GreetingSection({ greetingKey }: GreetingSectionProps) {
   const t = useTranslations()
   const locale = useLocale()
 
-  const [todayStr, setTodayStr] = useState(() => formatDateStr(locale))
-
-  const updateDate = useCallback(() => {
-    const next = formatDateStr(locale)
-    setTodayStr((prev) => (prev !== next ? next : prev))
-  }, [locale])
-
-  useEffect(() => {
-    // Periodic re-check so the date updates within 60s of midnight
-    const interval = setInterval(updateDate, 60_000)
-    return () => clearInterval(interval)
-  }, [updateDate])
+  // useSyncExternalStore: server snapshot is the empty string (no Date()
+  // during SSG), client snapshot is the real formatted date. React
+  // handles the transition from server→client without hydration errors.
+  const todayStr = useSyncExternalStore(
+    // Re-check every 60s so date updates near midnight
+    (onStoreChange) => {
+      const id = setInterval(onStoreChange, 60_000)
+      return () => clearInterval(id)
+    },
+    () => formatDateStr(locale),
+    () => PLACEHOLDER_DATE,
+  )
 
   return (
     <div className="space-y-1">
