@@ -67,8 +67,7 @@ export function VersionProvider({ children, initialInfo }: { children: ReactNode
 
       if (initialCommit.current === data.commit) {
         // Same commit, but check if buildTime changed (redeployment without new commit)
-        const localBuildTime = localInfo?.buildTime ?? ''
-        if (localBuildTime && data.buildTime !== localBuildTime) {
+        if (data.buildTime !== (localInfo?.buildTime ?? '')) {
           setIsUpdateAvailable(true)
           if (data.forceUpgradeSerial !== (localInfo?.forceUpgradeSerial ?? 0)) {
             setForceUpgrade(true)
