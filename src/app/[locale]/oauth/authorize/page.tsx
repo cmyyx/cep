@@ -143,7 +143,8 @@ function OAuthAuthorizeContent() {
       // Redirect to the OAuth callback (NodeBB)
       setRedirectUrl(data.redirect_url)
     } catch (err) {
-      setError(err instanceof Error ? err.message : t('oauth.authorizationFailed'))
+      const code = err instanceof Error ? err.message : String(err ?? '')
+      setError(t(getErrorI18nKey(code)))
       setAuthorizing(false)
     }
   }
@@ -294,9 +295,8 @@ function OAuthAuthorizeContent() {
                   {t('oauth.authorizeTitle')}
                 </h1>
                 <p className="text-sm text-muted-foreground mt-2 leading-relaxed">
-                  {t.rich('oauth.authorizeDescription', {
-                    client: () => <span className="font-medium text-foreground">{clientName}</span>,
-                  })}
+                  <span className="font-medium text-foreground">{clientName}</span>
+                  {t('oauth.authorizeDescription')}
                 </p>
               </div>
             </div>

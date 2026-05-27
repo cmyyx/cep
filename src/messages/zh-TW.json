@@ -120,7 +120,7 @@
   },
   "oauth": {
     "authorizeTitle": "授權登入",
-    "authorizeDescription": "<client></client> 請求存取你的 CEP 帳號",
+    "authorizeDescription": " 請求存取你的 CEP 帳號",
     "unknownClient": "第三方應用",
     "requestedScopes": "請求權限",
     "scopeExplanation": "該應用將獲得以下權限：",

@@ -120,7 +120,7 @@
   },
   "oauth": {
     "authorizeTitle": "認証ログイン",
-    "authorizeDescription": "<client></client> があなたのCEPアカウントへのアクセスを要求しています",
+    "authorizeDescription": " があなたのCEPアカウントへのアクセスを要求しています",
     "unknownClient": "サードパーティアプリ",
     "requestedScopes": "要求権限",
     "scopeExplanation": "このアプリは以下の権限を取得します：",
