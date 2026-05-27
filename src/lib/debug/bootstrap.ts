@@ -93,6 +93,6 @@ var C=0,T=0;document.addEventListener('click',function(e){
   /* Label click — check ancestors for data-debug="label" */
   var t=e.target;while(t){if(t.getAttribute&&t.getAttribute('data-debug')==='label'){e.stopPropagation();openPanel();return}t=t.parentElement}
   /* 5-click gesture (not on label) */
-  C++;if(T)clearTimeout(T);if(C>=5){C=0;togglePanel()}T=setTimeout(function(){C=0},1000)
+  C++;if(T)clearTimeout(T);if(C>=7){C=0;togglePanel()}T=setTimeout(function(){C=0},1000)
 },true);
 })();`.replace(/\n\s*/g, '')
