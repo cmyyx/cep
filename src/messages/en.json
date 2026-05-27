@@ -120,7 +120,7 @@
   },
   "oauth": {
     "authorizeTitle": "Authorize Login",
-    "authorizeDescription": "<client></client> wants to access your CEP account",
+    "authorizeDescription": " wants to access your CEP account",
     "unknownClient": "Third-party Application",
     "requestedScopes": "Requested Permissions",
     "scopeExplanation": "This application will be able to:",

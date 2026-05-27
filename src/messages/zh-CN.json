@@ -120,7 +120,7 @@
   },
   "oauth": {
     "authorizeTitle": "授权登录",
-    "authorizeDescription": "<client></client> 请求访问你的 CEP 账号",
+    "authorizeDescription": " 请求访问你的 CEP 账号",
     "unknownClient": "第三方应用",
     "requestedScopes": "请求权限",
     "scopeExplanation": "该应用将获得以下权限：",
