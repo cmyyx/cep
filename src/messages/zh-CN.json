@@ -777,6 +777,7 @@
     "openInNewTab": "内嵌体验受限？在新标签页打开可获得完整论坛体验。"
   },
   "sidebar": {
+    "toggle": "切换侧边栏",
     "community": "Community",
     "communityDesc": "反馈 · 建议 · 交流"
   },

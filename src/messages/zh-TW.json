@@ -777,6 +777,7 @@
     "openInNewTab": "內嵌體驗受限？在新分頁開啟可獲得完整論壇體驗。"
   },
   "sidebar": {
+    "toggle": "切換側邊欄",
     "community": "Community",
     "communityDesc": "回饋 · 建議 · 交流"
   },
