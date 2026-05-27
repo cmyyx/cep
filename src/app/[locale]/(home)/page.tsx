@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState, useCallback } from 'react'
+import { useSyncExternalStore } from 'react'
 import { useTranslations } from 'next-intl'
 import { SidebarTrigger } from '@/components/ui/sidebar'
 import { Separator } from '@/components/ui/separator'
@@ -18,22 +18,24 @@ function getGreetingKey(): string {
   return 'home.greetingEvening'
 }
 
+/** Stable placeholder used during SSR/hydration to avoid mismatch. */
+const PLACEHOLDER_GREETING = 'home.greetingMorning'
+
 export default function HomePage() {
   const t = useTranslations()
-  const [greetingKey, setGreetingKey] = useState(() => getGreetingKey())
 
-  const updateGreeting = useCallback(() => {
-    setGreetingKey((prev) => {
-      const next = getGreetingKey()
-      return prev !== next ? next : prev
-    })
-  }, [])
-
-  useEffect(() => {
-    // Re-check every minute so the greeting updates near time boundaries
-    const interval = setInterval(updateGreeting, 60_000)
-    return () => clearInterval(interval)
-  }, [updateGreeting])
+  // useSyncExternalStore: server snapshot is the stable placeholder (no
+  // Date.now() during SSG), client snapshot is the real greeting. React
+  // handles the transition from server→client without hydration errors.
+  const greetingKey = useSyncExternalStore(
+    // Re-check every 60s so greeting updates near time boundaries
+    (onStoreChange) => {
+      const id = setInterval(onStoreChange, 60_000)
+      return () => clearInterval(id)
+    },
+    () => getGreetingKey(),
+    () => PLACEHOLDER_GREETING,
+  )
 
   return (
     <div className="flex flex-col flex-1 min-h-0">

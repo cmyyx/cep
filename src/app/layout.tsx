@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import Script from "next/script";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { HeadScript } from "@/components/shared/head-script";
+import { DEBUG_BOOTSTRAP_CODE } from "@/lib/debug/bootstrap";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -48,6 +49,14 @@ export default function RootLayout({
           id="theme-fouc"
           code={`(function(){try{var d=document.documentElement;var t="auto";var s=localStorage.getItem("cep-settings");if(s){var p=JSON.parse(s);t=p.theme||"auto"}if(t==="auto"){t=window.matchMedia("(prefers-color-scheme:dark)").matches?"dark":"light"}if(t&&t!=="auto"){d.classList.add(t);if(t==="flashbang"){d.style.colorScheme="dark";d.setAttribute("data-theme","flashbang")}}}catch(e){}})()`}
         />
+        {/* Debug capture — hooks console + global errors before any other script runs.
+            Creates a [DEBUG] label (bottom-right) during page load as crash-recovery entry point.
+            AGENTS.md exception: inline styles + bare DOM elements — this is a devtools-style
+            debug surface that MUST function when React and external CSS are unavailable. */}
+        <HeadScript id="debug-bootstrap" code={DEBUG_BOOTSTRAP_CODE} />
+        {/* Preload + execute the debug panel early, so the [DEBUG] button works
+            without network delay. Uses afterInteractive so it doesn't block hydration. */}
+        <Script src="/debug-panel.js" strategy="afterInteractive" />
       </head>
       <body className="min-h-full flex flex-col">
         <TooltipProvider>{children}</TooltipProvider>

@@ -4,6 +4,8 @@ import * as React from "react"
 import { mergeProps } from "@base-ui/react/merge-props"
 import { useRender } from "@base-ui/react/use-render"
 import { cva, type VariantProps } from "class-variance-authority"
+import { useTranslations } from "next-intl"
+import { PanelLeftIcon } from "lucide-react"
 
 import { useIsMobile } from "@/hooks/use-mobile"
 import { cn } from "@/lib/utils"
@@ -23,8 +25,6 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip"
-import { PanelLeftIcon } from "lucide-react"
-
 const SIDEBAR_COOKIE_NAME = "sidebar_state"
 const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7
 const SIDEBAR_WIDTH = "16rem"
@@ -70,18 +70,20 @@ function SidebarProvider({
   const [openMobile, setOpenMobile] = React.useState(false)
 
   // Always initialise with defaultOpen to keep SSG HTML and first client render identical.
-  const [_open, _setOpen] = React.useState(defaultOpen)
+  // useReducer dispatch is stable and safe to call from effects (unlike useState setters).
+  const [_open, _dispatchOpen] = React.useReducer(
+    (_state: boolean, action: boolean) => action,
+    defaultOpen
+  )
 
-  /* eslint-disable react-hooks/set-state-in-effect -- one-time hydration from external storage */
   React.useLayoutEffect(() => {
     const match = document.cookie.match(
       new RegExp(`(?:^|; )${SIDEBAR_COOKIE_NAME}=([^;]*)`)
     )
     if (match) {
-      _setOpen(match[1] === 'true')
+      _dispatchOpen(match[1] === 'true')
     }
   }, [])
-  /* eslint-enable react-hooks/set-state-in-effect */
   const open = openProp ?? _open
   const setOpen = React.useCallback(
     (value: boolean | ((value: boolean) => boolean)) => {
@@ -89,7 +91,7 @@ function SidebarProvider({
       if (setOpenProp) {
         setOpenProp(openState)
       } else {
-        _setOpen(openState)
+        _dispatchOpen(openState)
       }
 
       // This sets the cookie to keep the sidebar state.
@@ -268,8 +270,10 @@ function SidebarTrigger({
   ...props
 }: React.ComponentProps<typeof Button>) {
   const { toggleSidebar } = useSidebar()
+  const t = useTranslations()
+  const tooltipText = t("sidebar.toggle")
 
-  return (
+  const button = (
     <Button
       data-sidebar="trigger"
       data-slot="sidebar-trigger"
@@ -283,8 +287,17 @@ function SidebarTrigger({
       {...props}
     >
       <PanelLeftIcon />
-      <span className="sr-only">Toggle Sidebar</span>
+      <span className="sr-only">{tooltipText}</span>
     </Button>
+  )
+
+  return (
+    <Tooltip>
+      <TooltipTrigger render={button} />
+      <TooltipContent side="right" align="center">
+        {tooltipText}
+      </TooltipContent>
+    </Tooltip>
   )
 }
 
