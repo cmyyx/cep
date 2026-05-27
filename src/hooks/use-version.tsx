@@ -119,10 +119,10 @@ export function VersionProvider({ children, initialInfo }: { children: ReactNode
 
   const checkNow = useCallback(() => { fetchVersion(true) }, [fetchVersion])
   // Use location.replace() instead of reload() — on mobile browsers,
-  // reload() may restore from bfcache or skip resource re-download,
-  // causing CSS/JS version mismatch. replace() performs a full
-  // navigation (identical to user typing the URL), which guarantees
-  // all resources are re-requested with proper cache negotiation.
+  // reload() may restore from bfcache (no network request), causing
+  // CSS/JS version mismatch. replace() performs a full navigation
+  // which bypasses bfcache. HTML freshness thereafter depends on
+  // Cache-Control headers (this project serves HTML with no-cache).
   const refreshPage = useCallback(() => {
     window.location.replace(window.location.href)
   }, [])
