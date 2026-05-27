@@ -434,6 +434,27 @@ export function AnnouncementPanel() {
                   }
                 })()}
               </DialogDescription>
+              {detail.updatedTime && detail.updatedTime !== detail.publishTime && (() => {
+                try {
+                  const d = new Date(detail.updatedTime)
+                  if (isNaN(d.getTime())) return null
+                  return (
+                    <p className="text-xs text-muted-foreground/70 mt-0.5">
+                      {t('home.updatedAt', {
+                        time: new Intl.DateTimeFormat(locale, {
+                          year: 'numeric',
+                          month: 'long',
+                          day: 'numeric',
+                          hour: 'numeric',
+                          minute: '2-digit',
+                        }).format(d),
+                      })}
+                    </p>
+                  )
+                } catch {
+                  return null
+                }
+              })()}
             </DialogHeader>
 
             <MarkdownContent

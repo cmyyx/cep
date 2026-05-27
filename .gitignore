@@ -17,6 +17,9 @@
 /.next/
 /out/
 
+# generated announcement meta (built by prebuild scripts)
+/public/announcements/index.generated.json
+
 # generated SEO artifacts (built by prebuild scripts)
 /public/robots.txt
 /public/sitemap.xml
