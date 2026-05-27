@@ -61,13 +61,14 @@ async function fetchJSONWithProgress<T>(
   return JSON.parse(text) as T
 }
 
-/** Raw item shape from index.json — content is optional (loaded from .md file) */
+/** Raw item shape from index.generated.json — content is optional (loaded from .md file) */
 interface AnnouncementIndexItem {
   id: string
   title: string
   content?: string
   file?: string
   publishTime: string
+  updatedTime?: string
   priority?: 'normal' | 'important'
 }
 
@@ -99,7 +100,7 @@ export const useAnnouncementStore = create<AnnouncementState>()(
         try {
           // Phase 1: fetch index.json (40% of progress)
           const indexItems = await fetchJSONWithProgress<AnnouncementIndexItem[]>(
-            '/announcements/index.json',
+            '/announcements/index.generated.json',
             (fileProgress) => {
               const overall = 40 * fileProgress
               useAppInitStore.getState().setProgress(overall)
@@ -167,6 +168,7 @@ export const useAnnouncementStore = create<AnnouncementState>()(
                 title: item.title,
                 content,
                 publishTime: item.publishTime,
+                updatedTime: item.updatedTime,
                 priority: item.priority === 'important' ? 'important' : 'normal',
                 file: item.file,
               }

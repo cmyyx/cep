@@ -116,7 +116,7 @@ const WeaponThumbnail = memo(function WeaponThumbnail({
           <div
             ref={triggerRef}
             className={cn(
-              'relative w-12 h-12 rounded-md overflow-hidden cursor-default',
+              'relative w-16 h-16 rounded-md overflow-hidden cursor-default',
               'bg-[url(/images/item-frame-bg.png)] bg-cover bg-center',
               inRange && isSelected && 'shadow-[0_0_0_1px_rgba(251,191,36,0.5)]',
               inRange && !isSelected && 'shadow-[0_0_0_1px_rgba(0,0,0,0.08)]',
@@ -136,8 +136,8 @@ const WeaponThumbnail = memo(function WeaponThumbnail({
           unoptimized
         />
         {inRange && isSelected && (
-          <div className="absolute top-0 right-0 size-3 bg-amber-400 rounded-bl-sm flex items-center justify-center z-30">
-            <span className="text-[6px] text-black font-bold">✓</span>
+          <div className="absolute top-0 right-0 size-4 bg-amber-400 rounded-bl-sm flex items-center justify-center z-30">
+            <span className="text-[8px] text-black font-bold">✓</span>
           </div>
         )}
       </TooltipTrigger>
@@ -629,7 +629,7 @@ export const DungeonCard = memo(function DungeonCard({
 
       {/* Thumbnails (collapsed) or Rows (expanded) */}
       {!isExpanded ? (
-        <div key="collapsed" className="flex flex-wrap gap-1.5">
+        <div key="collapsed" className="flex flex-wrap gap-2">
           {visibleMatched.map(({ weapon, isSelected }) => (
             <div key={weapon.id} className="flex flex-col gap-0.5 items-center">
               <WeaponThumbnail
@@ -660,7 +660,7 @@ export const DungeonCard = memo(function DungeonCard({
                 </div>
               )}
               {showNotes && (
-                <div className="w-16">
+                <div className="w-20">
                   <EditableNote
                     note={weaponNotes[weapon.id] || ''}
                     onSave={(value) => setWeaponNote?.(weapon.id, value)}

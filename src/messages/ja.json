@@ -10,6 +10,7 @@
     "announcements": "お知らせ",
     "announcementsLoadError": "お知らせの読み込みに失敗しました",
     "publishedAt": "{time} に公開",
+    "updatedAt": "{time} に更新",
     "importantBanner": "未読の重要なお知らせが {count} 件あります",
     "clickToView": "クリックして表示",
     "importantBadge": "重要",
