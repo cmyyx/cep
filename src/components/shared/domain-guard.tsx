@@ -1,12 +1,15 @@
-import Script from 'next/script'
+import { HeadScript } from '@/components/shared/head-script'
 import { FEATURES } from '@/lib/features'
 
 /**
- * Injects a blocking inline <script> that runs before React hydration.
+ * Injects a blocking inline <script> into <head> that runs before React hydration.
  * Detects unauthorized mirrors and iframe embeds, replacing the page
  * content with a bilingual warning if the current origin is not allowed.
  *
- * Only emits the script when antiMirror or antiEmbed is enabled at build time.
+ * Uses a plain <script> with dangerouslySetInnerHTML (via HeadScript)
+ * instead of next/script — it must live in <head> where React's hydration
+ * root cannot reach it. Only emits the script when antiMirror or
+ * antiEmbed is enabled at build time.
  */
 export function DomainGuard() {
   if (!FEATURES.antiMirror && !FEATURES.antiEmbed) return null
@@ -27,8 +30,7 @@ export function DomainGuard() {
 })();
 `.trim()
 
-  // eslint-disable-next-line @next/next/no-before-interactive-script-outside-document
-  return <Script id="domain-guard" strategy="beforeInteractive">{scriptBody}</Script>
+  return <HeadScript id="domain-guard" code={scriptBody} />
 }
 
 function buildMirrorSnippet(allowedDomainsJson: string, officialDomains: string[]): string {

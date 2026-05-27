@@ -54,6 +54,9 @@ export default function RootLayout({
             The 7-click gesture is available from the first frame; the visual label
             is rendered by the DebugLabel React component after hydration. */}
         <HeadScript id="debug-bootstrap" code={DEBUG_BOOTSTRAP_CODE} />
+        {/* DomainGuard — injected into <head> so React hydration never sees the
+            <script> tag. Runs synchronously before any React code loads. */}
+        <DomainGuard />
         {/* Preload + execute the debug panel early, so the [DEBUG] button works
             without network delay. Uses afterInteractive so it doesn't block hydration. */}
         <Script src="/debug-panel.js" strategy="afterInteractive" />
@@ -82,7 +85,6 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-full flex flex-col">
-        <DomainGuard />
         <TooltipProvider>{children}</TooltipProvider>
       </body>
     </html>
