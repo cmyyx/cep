@@ -84,7 +84,7 @@ export default function RootLayout({
           data-cf-beacon='{"token": "2d3a7ea7fd75438ca7195e0687c32333"}'
         />
       </head>
-      <body className="min-h-full flex flex-col">
+      <body className="min-h-full flex flex-col" suppressHydrationWarning>
         <TooltipProvider>{children}</TooltipProvider>
       </body>
     </html>
