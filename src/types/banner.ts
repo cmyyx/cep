@@ -123,11 +123,11 @@ export interface TimelineTooltip {
 
 /** Banner pool visual info for the info strip */
 export interface BannerVisual {
-  id: string           // 唯一标识，如 "1.2-spring-thunder"
+  id: string           // 唯一标识，如 "1.2-huiguangqingdian"
   title: string        // 卡池名称，如 "「春雷动，万物生」特许寻访"
   subtitle?: string    // 副标题，如 "庄方宜"
   description: string  // 卡池详细描述
-  imageUrl: string     // 宣传图路径，如 "/images/banners/1.2-spring-thunder.webp"
+  imageUrl: string     // 宣传图路径
   officialUrl?: string // 官方公告链接（可选）
   version: string      // 版本号，用于排序，如 "1.2"
   periodStart: string  // ISO 时间

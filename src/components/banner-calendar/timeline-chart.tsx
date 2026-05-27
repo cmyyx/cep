@@ -7,8 +7,16 @@ import type { TimelineData } from '@/types/banner'
 import { cn } from '@/lib/utils'
 
 function InfoIcon({ note, t }: { note: string; t: (key: string) => string }) {
+  const label = t(note)
   return (
-    <span className="relative inline-flex items-center ml-1" data-info-note={t(note)}>
+    <span
+      className="relative inline-flex items-center ml-1"
+      data-info-note={label}
+      tabIndex={0}
+      role="img"
+      aria-label={label}
+      title={label}
+    >
       <svg
         width="14"
         height="14"
@@ -19,6 +27,7 @@ function InfoIcon({ note, t }: { note: string; t: (key: string) => string }) {
         strokeLinecap="round"
         strokeLinejoin="round"
         className="text-sky-400 cursor-help"
+        aria-hidden="true"
       >
         <circle cx="12" cy="12" r="10" />
         <path d="M12 16v-4" />
@@ -164,15 +173,15 @@ export function TimelineChart({ data, t }: TimelineChartProps) {
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
     >
-      {/* Left: Character column */}
-      <div className="w-52 shrink-0 shadow-[1px_0px_0px_0px_rgba(0,0,0,0.08)] bg-muted/30">
-        <div className="h-8 flex items-center px-3 shadow-[0px_1px_0px_0px_rgba(0,0,0,0.08)] text-xs font-medium text-muted-foreground">
-          {t('bannerCalendar.characterHeader')}
+      {/* Left: Character column — narrow on mobile, full on lg+ */}
+      <div className="w-14 lg:w-52 shrink-0 shadow-[1px_0px_0px_0px_rgba(0,0,0,0.08)] bg-muted/30 transition-[width]">
+        <div className="h-8 flex items-center px-2 lg:px-3 shadow-[0px_1px_0px_0px_rgba(0,0,0,0.08)] text-xs font-medium text-muted-foreground">
+          <span className="hidden lg:inline">{t('bannerCalendar.characterHeader')}</span>
         </div>
         {data.charRows.map((ch) => (
           <div
             key={ch.name}
-            className="h-[52px] flex items-center gap-2 px-3 border-b border-border/50"
+            className="h-[52px] flex items-center gap-2 px-2 lg:px-3 border-b border-border/50"
           >
             <div className="relative size-8 rounded-full overflow-hidden bg-muted shrink-0">
               <Image
@@ -184,14 +193,20 @@ export function TimelineChart({ data, t }: TimelineChartProps) {
                 loading="lazy"
               />
             </div>
-            <span className="text-sm font-medium whitespace-nowrap">
+            <span className="text-sm font-medium whitespace-nowrap hidden lg:inline">
               {ch.name}
               {ch.offRateNote && <InfoIcon note={ch.offRateNote} t={t} />}
             </span>
+            {/* Mobile: InfoIcon next to avatar when no name shown */}
+            {ch.offRateNote && (
+              <span className="lg:hidden">
+                <InfoIcon note={ch.offRateNote} t={t} />
+              </span>
+            )}
             {ch.statusBadge && (
               <span
                 className={cn(
-                  'text-[10px] px-1.5 py-0.5 rounded-full whitespace-nowrap font-medium ml-auto',
+                  'text-[10px] px-1.5 py-0.5 rounded-full whitespace-nowrap font-medium ml-auto hidden lg:inline',
                   ch.statusBadge.type === 'active' && 'bg-emerald-500/20 text-emerald-400',
                   ch.statusBadge.type === 'upcoming' && 'bg-amber-500/20 text-amber-400',
                   ch.statusBadge.type === 'inPool' && 'bg-sky-500/20 text-sky-400',
@@ -207,7 +222,7 @@ export function TimelineChart({ data, t }: TimelineChartProps) {
       </div>
 
       {/* Right: Gantt chart */}
-      <div ref={rightPanelRef} data-timeline-right className="flex-1 overflow-x-auto">
+      <div ref={rightPanelRef} data-timeline-right className="flex-1 overflow-auto">
         <div style={{ width: data.canvasW }} className="relative">
           <div className="h-8 flex border-b">
             {data.months.map((m) => (

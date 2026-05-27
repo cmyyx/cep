@@ -1,8 +1,8 @@
 'use client'
 
-import { useState, useRef, useMemo } from 'react'
+import { useState, useMemo } from 'react'
 import Image from 'next/image'
-import { useTranslations } from 'next-intl'
+import { useTranslations, useLocale } from 'next-intl'
 import { Button, buttonVariants } from '@/components/ui/button'
 import {
   Dialog,
@@ -17,14 +17,14 @@ import type { BannerVisual } from '@/types/banner'
 
 export function PoolInfoStrip() {
   const t = useTranslations()
+  const locale = useLocale()
   const [selectedVisual, setSelectedVisual] = useState<BannerVisual | null>(null)
-  const scrollRef = useRef<HTMLDivElement>(null)
 
   // Sort by version descending
   const visuals = useMemo(() => {
     return [...bannerVisuals].sort((a, b) => {
-      const vA = a.version.split('.').map(Number)
-      const vB = b.version.split('.').map(Number)
+      const vA = a.version.split('.').map(v => parseInt(v, 10) || 0)
+      const vB = b.version.split('.').map(v => parseInt(v, 10) || 0)
       for (let i = 0; i < Math.max(vA.length, vB.length); i++) {
         const numA = vA[i] ?? 0
         const numB = vB[i] ?? 0
@@ -39,7 +39,7 @@ export function PoolInfoStrip() {
 
   const formatDate = (iso: string) => {
     const date = new Date(iso)
-    return date.toLocaleDateString(undefined, {
+    return date.toLocaleDateString(locale, {
       year: 'numeric',
       month: '2-digit',
       day: '2-digit',
@@ -62,10 +62,7 @@ export function PoolInfoStrip() {
           </div>
 
           {/* Horizontal scroll strip */}
-          <div
-            ref={scrollRef}
-            className="flex gap-3 px-3 py-3 overflow-x-auto scrollbar-thin scrollbar-thumb-muted-foreground/20 scrollbar-track-transparent"
-          >
+          <div className="flex gap-3 px-3 py-3 overflow-x-auto scrollbar-thin scrollbar-thumb-muted-foreground/20 scrollbar-track-transparent">
             {visuals.map((visual) => (
               <Button
                 key={visual.id}
@@ -149,11 +146,13 @@ export function PoolInfoStrip() {
 
               {/* Description */}
               <div className="prose prose-sm dark:prose-invert max-w-none">
-                {selectedVisual.description.split('\n').map((line, i) => (
-                  <p key={i} className={line.trim() === '' ? 'h-2' : ''}>
-                    {line}
-                  </p>
-                ))}
+                {selectedVisual.description.split('\n').map((line, i) =>
+                  line.trim() ? (
+                    <p key={i}>{line}</p>
+                  ) : (
+                    <br key={`desc-br-${i}`} />
+                  )
+                )}
               </div>
 
               {/* Official link button */}
