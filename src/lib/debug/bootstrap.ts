@@ -18,6 +18,9 @@
  * ================================================================
  */
 
+/** Number of rapid clicks (within 1 second) to toggle the debug console. */
+const DEBUG_CLICK_THRESHOLD = 7
+
 export const DEBUG_BOOTSTRAP_CODE = `(function(){
 var B=[],M=1000;
 function A(l,a){
@@ -31,7 +34,7 @@ window.addEventListener('unhandledrejection',function(e){A('error',['[Rejection]
 window.__cep_debug__={getLogs:function(){return B.slice()},clear:function(){B.length=0},getEnv:function(){return{url:location.href,ua:navigator.userAgent,lang:navigator.language,plat:navigator.platform||'',size:innerWidth+'x'+innerHeight,dpr:String(devicePixelRatio||1),time:new Date().toISOString()}}};
 
 /* openPanel — always opens (used by label click and settings page).
-   togglePanel — toggles open/closed (used by 5-click gesture).
+   togglePanel — toggles open/closed (used by multi-click gesture).
    Both load /debug-panel.js on demand if not yet loaded. */
 function openPanel(){
   if(window.__cep_debug__&&window.__cep_debug__._openPanel){
@@ -86,13 +89,13 @@ function loadPanel(cb){
   else{window.addEventListener('load',function(){setTimeout(hide,3000)})}
 })();
 
-/* 5-click gesture + label click — both delegated on document (capture phase).
+/* Multi-click gesture + label click — both delegated on document (capture phase).
    Child-bound handlers are unreachable when Next.js error overlay calls
    stopPropagation() at document level. */
 var C=0,T=0;document.addEventListener('click',function(e){
   /* Label click — check ancestors for data-debug="label" */
   var t=e.target;while(t){if(t.getAttribute&&t.getAttribute('data-debug')==='label'){e.stopPropagation();openPanel();return}t=t.parentElement}
-  /* 5-click gesture (not on label) */
-  C++;if(T)clearTimeout(T);if(C>=5){C=0;togglePanel()}T=setTimeout(function(){C=0},1000)
+  /* Multi-click gesture (not on label) */
+  C++;if(T)clearTimeout(T);if(C>=${DEBUG_CLICK_THRESHOLD}){C=0;togglePanel()}T=setTimeout(function(){C=0},1000)
 },true);
 })();`.replace(/\n\s*/g, '')
