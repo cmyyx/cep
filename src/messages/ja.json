@@ -777,6 +777,7 @@
     "openInNewTab": "埋め込み表示に制限がありますか？新しいタブで完全なフォーラム体験をご利用ください。"
   },
   "sidebar": {
+    "toggle": "サイドバーを切り替え",
     "community": "Community",
     "communityDesc": "フィードバック · 提案 · 交流"
   },

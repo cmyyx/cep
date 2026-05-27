@@ -11,6 +11,7 @@ import { Upload } from 'lucide-react'
 import { DataCleaner } from '@/components/shared/data-cleaner'
 import { DataExporter } from '@/components/shared/data-exporter'
 import { DataImporter } from '@/components/shared/data-importer'
+import { openDebugConsole } from '@/components/shared/debug-console'
 import {
   Select,
   SelectContent,
@@ -178,6 +179,25 @@ export default function SettingsPage() {
               </div>
               <DataImporter />
             </div>
+          </div>
+        </section>
+
+        {/* 分隔线 */}
+        <div className="h-px bg-border" />
+
+        {/* 调试控制台入口 */}
+        <section className="flex flex-col gap-4">
+          <h2 className="text-sm font-medium text-muted-foreground">Debug</h2>
+          <div className="flex items-center justify-between py-2">
+            <div className="flex flex-col gap-1">
+              <span className="text-sm">Debug Console</span>
+              <span className="text-xs text-muted-foreground">
+                View captured console logs, errors, and environment info.
+              </span>
+            </div>
+            <Button variant="outline" size="sm" onClick={() => openDebugConsole()}>
+              Open
+            </Button>
           </div>
         </section>
       </div>

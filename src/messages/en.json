@@ -777,6 +777,7 @@
     "openInNewTab": "Embedded experience limited? Open in a new tab for the full forum experience."
   },
   "sidebar": {
+    "toggle": "Toggle Sidebar",
     "community": "Community",
     "communityDesc": "Feedback · Suggestions · Chat"
   },
