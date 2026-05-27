@@ -3,7 +3,8 @@ import { Geist, Geist_Mono } from "next/font/google";
 import Script from "next/script";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { HeadScript } from "@/components/shared/head-script";
-import { DEBUG_BOOTSTRAP_CODE } from "@/lib/debug/bootstrap";
+import { DEBUG_BOOTSTRAP_CODE } from "@/lib/debug/bootstrap"
+import { DomainGuard } from '@/components/shared/domain-guard';
 import "./globals.css";
 
 const geistSans = Geist({
@@ -81,6 +82,7 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-full flex flex-col">
+        <DomainGuard />
         <TooltipProvider>{children}</TooltipProvider>
       </body>
     </html>
