@@ -50,18 +50,14 @@ export default function RootLayout({
           code={`(function(){try{var d=document.documentElement;var t="auto";var s=localStorage.getItem("cep-settings");if(s){var p=JSON.parse(s);t=p.theme||"auto"}if(t==="auto"){t=window.matchMedia("(prefers-color-scheme:dark)").matches?"dark":"light"}if(t&&t!=="auto"){d.classList.add(t);if(t==="flashbang"){d.style.colorScheme="dark";d.setAttribute("data-theme","flashbang")}}}catch(e){}})()`}
         />
         {/* Debug capture — hooks console + global errors before any other script runs.
-            Creates a [DEBUG] label (bottom-right) during page load as crash-recovery entry point.
-            AGENTS.md exception: inline styles + bare DOM elements — this is a devtools-style
-            debug surface that MUST function when React and external CSS are unavailable. */}
+            The 7-click gesture is available from the first frame; the visual label
+            is rendered by the DebugLabel React component after hydration. */}
         <HeadScript id="debug-bootstrap" code={DEBUG_BOOTSTRAP_CODE} />
         {/* Preload + execute the debug panel early, so the [DEBUG] button works
             without network delay. Uses afterInteractive so it doesn't block hydration. */}
         <Script src="/debug-panel.js" strategy="afterInteractive" />
-      </head>
-      <body className="min-h-full flex flex-col">
-        <TooltipProvider>{children}</TooltipProvider>
-
-        {/* Analytics — afterInteractive: loads after page is interactive. */}
+        {/* Analytics — all in <head> to avoid React hydration conflicts
+            (React does not reconcile <head> children). */}
         <Script
           strategy="afterInteractive"
           src="https://u.2x.nz/script.js"
@@ -83,6 +79,9 @@ export default function RootLayout({
           src="https://static.cloudflareinsights.com/beacon.min.js"
           data-cf-beacon='{"token": "2d3a7ea7fd75438ca7195e0687c32333"}'
         />
+      </head>
+      <body className="min-h-full flex flex-col">
+        <TooltipProvider>{children}</TooltipProvider>
       </body>
     </html>
   );

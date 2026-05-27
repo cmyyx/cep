@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState, useRef } from 'react'
+import { useEffect, useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 
@@ -8,30 +8,43 @@ import { cn } from '@/lib/utils'
  * Floating debug console label.
  *
  * Renders a small button at the bottom-right of the viewport.
- * Auto-hides after 3 seconds with a fade-out transition.
+ * Auto-hides 3s after window.onload with a fade-out transition.
  * Click opens the debug console panel.
  *
  * The 7-click gesture works independently via the <head> inline bootstrap
  * script — this label is only a visual hint. The gesture is available from
  * the first frame regardless of whether this component has rendered.
+ *
+ * Labels and strings in this component are intentionally hardcoded in
+ * English — this is a developer tool, not a user-facing UI, and should
+ * remain readable regardless of the user's locale setting.
  */
 export function DebugLabel() {
   const [mounted, setMounted] = useState(false)
   const [hiding, setHiding] = useState(false)
   const [removed, setRemoved] = useState(false)
-  const timerRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined)
 
   useEffect(() => {
     // Trigger fade-in on next paint so the transition animates
     const raf = requestAnimationFrame(() => setMounted(true))
 
-    timerRef.current = setTimeout(() => setHiding(true), 3000)
+    let hideTimer: ReturnType<typeof setTimeout>
+    let removeTimer: ReturnType<typeof setTimeout>
 
-    const removeTimer = setTimeout(() => setRemoved(true), 3700)
+    const startTimers = () => {
+      hideTimer = setTimeout(() => setHiding(true), 3000)
+      removeTimer = setTimeout(() => setRemoved(true), 3700)
+    }
+
+    if (document.readyState === 'complete') {
+      startTimers()
+    } else {
+      window.addEventListener('load', startTimers, { once: true })
+    }
 
     return () => {
       cancelAnimationFrame(raf)
-      clearTimeout(timerRef.current)
+      clearTimeout(hideTimer)
       clearTimeout(removeTimer)
     }
   }, [])
@@ -45,10 +58,10 @@ export function DebugLabel() {
       size="sm"
       aria-label="Debug Console"
       className={cn(
-        'fixed bottom-3 right-3 z-[9999]',
+        'fixed bottom-3 right-3 z-[2147483647]',
         'rounded-md px-2.5 py-1 h-auto',
         'text-[13px] font-medium tracking-[0.5px]',
-        'bg-black/55 text-white border border-white/20',
+        'bg-black/55 text-white shadow-[0px_0px_0px_1px_rgba(255,255,255,0.2)]',
         'transition-opacity duration-700',
         mounted && !hiding ? 'opacity-100' : 'opacity-0',
         // Keep ghost variant hover appearance consistent with the dark label

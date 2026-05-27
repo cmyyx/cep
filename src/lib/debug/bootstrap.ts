@@ -49,21 +49,24 @@ function togglePanel(){
   loadPanel(function(){if(window.__cep_debug__&&window.__cep_debug__._togglePanel)window.__cep_debug__._togglePanel()})
 }
 function loadPanel(cb){
+  if(_loadCbs){_loadCbs.push(cb);return}
+  _loadCbs=[cb];
   var s=document.createElement('script');
   s.src='/debug-panel.js';
-  s.onload=cb;
-  s.onerror=function(){alert('Failed to load debug panel.')};
+  s.onload=function(){var cbs=_loadCbs;_loadCbs=null;for(var i=0;i<cbs.length;i++)cbs[i]()};
+  s.onerror=function(){_loadCbs=null;alert('Failed to load debug panel.')};
   document.head.appendChild(s);
 }
 
 /* Expose to React DebugLabel component. */
+window.__cep_debug__ = window.__cep_debug__ || {};
 window.__cep_debug__.openPanel=openPanel;
 window.__cep_debug__.togglePanel=togglePanel;
 
 /* Multi-click gesture + label click — both delegated on document (capture phase).
    Child-bound handlers are unreachable when Next.js error overlay calls
    stopPropagation() at document level. */
-var C=0,T=0;document.addEventListener('click',function(e){
+var C=0,T=0,_loadCbs=null;document.addEventListener('click',function(e){
   /* Label click — check ancestors for data-debug="label" */
   var t=e.target;while(t){if(t.getAttribute&&t.getAttribute('data-debug')==='label'){e.stopPropagation();openPanel();return}t=t.parentElement}
   /* Multi-click gesture (not on label) */
