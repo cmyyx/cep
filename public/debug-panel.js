@@ -96,7 +96,7 @@
       }).catch(function () {
         callback(null)
       })
-    } catch (e) {
+    } catch {
       callback(null)
     }
   }
@@ -321,7 +321,7 @@
     try {
       document.execCommand('copy')
       showToast('Copied to clipboard')
-    } catch (e) {
+    } catch {
       alert(
         'Copy failed. Please select and copy manually:\n\n' + text.substring(0, 2000)
       )
