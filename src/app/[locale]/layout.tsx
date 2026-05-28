@@ -3,7 +3,6 @@ import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
 import { routing } from '@/i18n/routing'
-import { HeadScript } from '@/components/shared/head-script'
 import { SidebarProvider } from '@/components/ui/sidebar'
 import { AppSidebar } from '@/components/app-sidebar'
 import { Background } from '@/components/background'
@@ -75,7 +74,6 @@ export default async function LocaleLayout({
 
   return (
     <>
-      <HeadScript id="html-lang" code={`document.documentElement.lang='${locale}'`} />
       <NextIntlClientProvider messages={messages} locale={locale}>
       <LocaleGuard />
       <DebugLabel />

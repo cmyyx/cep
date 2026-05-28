@@ -57,6 +57,10 @@ export function LocaleGuard() {
   const urlLocale = useLocale()
 
   useEffect(() => {
+    document.documentElement.lang = urlLocale
+  }, [urlLocale])
+
+  useEffect(() => {
     const explicit = getExplicitLanguage()
     const effective = explicit ?? detectBrowserLocale()
     if (effective !== urlLocale) {
