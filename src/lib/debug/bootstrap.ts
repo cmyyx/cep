@@ -6,12 +6,12 @@
  * ================================================================
  *
  * 1. **Inline styles (style attribute on DOM elements)**:
- *    CRASH-RECOVERY TOOL. When CSS is not loaded, the debug label MUST
- *    render using only inline styles. Debug chrome only.
+ *    N/A — the floating debug label has been moved to a React component
+ *    (DebugLabel). No inline styles remain in this script.
  *
  * 2. **Bare DOM elements (createElement, appendChild)**:
- *    LAST-RESORT debugging surface. Must function when React/Shadcn
- *    are unavailable. All DOM is scoped to __cep_debug__ prefix.
+ *    N/A — the debug label has been moved to a React component. This
+ *    script no longer touches the DOM, only events + console.
  *
  * 3. **`dangerouslySetInnerHTML`** (via HeadScript in layout.tsx):
  *    Already covered by existing exception for head-script.tsx.
@@ -49,50 +49,24 @@ function togglePanel(){
   loadPanel(function(){if(window.__cep_debug__&&window.__cep_debug__._togglePanel)window.__cep_debug__._togglePanel()})
 }
 function loadPanel(cb){
-  var lbl=document.getElementById('__cep_debug_label');
-  if(lbl){lbl.textContent='Loading...';lbl.style.cursor='wait';lbl.style.opacity='0.7'}
+  if(_loadCbs){_loadCbs.push(cb);return}
+  _loadCbs=[cb];
   var s=document.createElement('script');
   s.src='/debug-panel.js';
-  s.onload=function(){
-    if(lbl){lbl.textContent='Debug Console';lbl.style.cursor='pointer';lbl.style.opacity='1'}
-    cb()
-  };
-  s.onerror=function(){
-    if(lbl){lbl.textContent='Debug Console';lbl.style.cursor='pointer';lbl.style.opacity='1'}
-    alert('Failed to load debug panel.')
-  };
+  s.onload=function(){var cbs=_loadCbs;_loadCbs=null;for(var i=0;i<cbs.length;i++)cbs[i]()};
+  s.onerror=function(){_loadCbs=null;alert('Failed to load debug panel.')};
   document.head.appendChild(s);
 }
 
-/* Floating [DEBUG] label — visible during page load, auto-hides after
-   load completes. Pure DOM, no CSS/React dependency. Single-click opens. */
-(function(){
-  var label=document.createElement('button');
-  label.id='__cep_debug_label';
-  label.textContent='Debug Console';
-  label.setAttribute('style','position:fixed;bottom:12px;right:12px;z-index:2147483647;'+
-    'background:rgba(0,0,0,0.55);color:#fff;border:1px solid rgba(255,255,255,0.2);'+
-    'font-size:13px;padding:4px 10px;border-radius:4px;font-weight:500;'+
-    'letter-spacing:0.5px;cursor:pointer;'+
-    'font-family:system-ui,-apple-system,sans-serif;'+
-    '-webkit-tap-highlight-color:transparent;touch-action:manipulation;user-select:none;outline:none;'+
-    'transition:opacity 0.6s ease;opacity:1');
-  /* Bind via document capture delegation — survives Next.js error overlay
-     which calls stopPropagation() at document level. Child-bound handlers
-     never receive the event. */
-  label.setAttribute('data-debug','label');
-  (function a(){if(document.body)document.body.appendChild(label);else requestAnimationFrame(a)})();
-
-  /* Auto-hide after page finishes loading (window.onload + 3s grace) */
-  function hide(){label.style.opacity='0';setTimeout(function(){if(label.parentNode)label.parentNode.removeChild(label)},700)}
-  if(document.readyState==='complete'){setTimeout(hide,3000)}
-  else{window.addEventListener('load',function(){setTimeout(hide,3000)})}
-})();
+/* Expose to React DebugLabel component. */
+window.__cep_debug__ = window.__cep_debug__ || {};
+window.__cep_debug__.openPanel=openPanel;
+window.__cep_debug__.togglePanel=togglePanel;
 
 /* Multi-click gesture + label click — both delegated on document (capture phase).
    Child-bound handlers are unreachable when Next.js error overlay calls
    stopPropagation() at document level. */
-var C=0,T=0;document.addEventListener('click',function(e){
+var C=0,T=0,_loadCbs=null;document.addEventListener('click',function(e){
   /* Label click — check ancestors for data-debug="label" */
   var t=e.target;while(t){if(t.getAttribute&&t.getAttribute('data-debug')==='label'){e.stopPropagation();openPanel();return}t=t.parentElement}
   /* Multi-click gesture (not on label) */

@@ -108,6 +108,7 @@ export function AppSidebar() {
   const versionStr = localInfo?.version ?? info?.version ?? ''
   const versionMajorMinor = versionStr ? versionStr.split('-')[0].split('.').slice(0, 2).join('.') : ''
   const versionBuildTime = localInfo?.buildTime ?? info?.buildTime ?? ''
+  const versionBuildTimeText = mounted && versionBuildTime ? formatTime(versionBuildTime) : '--:--'
 
   return (
     <Sidebar collapsible="icon">
@@ -251,7 +252,7 @@ export function AppSidebar() {
                   <span>{t('version.compatibleVersion')}: {versionMajorMinor}</span>
                   <br />
                   <span className="text-muted-foreground">
-                    {versionBuildTime ? formatTime(versionBuildTime) : ''} | {versionStr}
+                    {versionBuildTimeText} | {versionStr}
                   </span>
                 </span>
               ) : (
