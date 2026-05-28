@@ -94,7 +94,7 @@ export function buildLocaleHref(targetLocale: SupportedLocale): string {
   // Find and replace the locale segment (first non-empty segment)
   if (segments.length > 1 && segments[1]) {
     // Check if the first segment is a supported locale
-    const isLocale = (SUPPORTED as readonly string[]).includes(segments[1])
+    const isLocale = SUPPORTED.some((l) => l.toLowerCase() === segments[1].toLowerCase())
     if (isLocale) {
       segments[1] = targetLocale
     } else {

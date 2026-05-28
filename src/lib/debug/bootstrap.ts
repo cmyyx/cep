@@ -77,7 +77,7 @@ var _own='script[src="/debug-panel.js"],script#debug-bootstrap,script#theme-fouc
           var added=muts[i].addedNodes;if(!added)continue;
           for(var j=0;j<added.length;j++){
             var n=added[j];scanNode(n);
-            if(n.nodeType===1){var t=(n.tagName||'').toUpperCase();if(t==='SCRIPT'||t==='STYLE')scanChildren(n)}
+            if(n.nodeType===1)scanChildren(n)
           }
         }
       });
@@ -87,8 +87,9 @@ var _own='script[src="/debug-panel.js"],script#debug-bootstrap,script#theme-fouc
     }catch(e){A('dom',['observer-error',e.message||String(e)])}
   }
 
-  /* Polling fallback — catches injections the observer misses */
-  setInterval(function(){scanChildren(document.head||document.documentElement);scanChildren(document.body||document.documentElement)},2000);
+  /* Polling fallback — catches injections the observer misses.
+     Gated by visibilityState to avoid background CPU/battery drain. */
+  setInterval(function(){if(document.visibilityState!=='visible')return;scanChildren(document.head||document.documentElement);scanChildren(document.body||document.documentElement)},2000);
 
   window.__cep_debug__=window.__cep_debug__||{};
   window.__cep_debug__._injectedCount=function(){return ic};

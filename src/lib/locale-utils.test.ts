@@ -32,8 +32,19 @@ const mockLocation = {
 
 const mockNavigator = { language: 'en-US' }
 
-// Setup globals — stub individually so typeof checks resolve correctly
+// Save originals and stub globals for each test.
+// vi.stubGlobal replaces the property descriptor; vi.restoreAllMocks()
+// does NOT undo it. We must manually restore originals in afterEach.
+let origWindow: typeof globalThis.window
+let origNavigator: typeof globalThis.navigator
+let origLocation: typeof globalThis.location
+let origLocalStorage: typeof globalThis.localStorage
+
 beforeEach(() => {
+  origWindow = globalThis.window
+  origNavigator = globalThis.navigator
+  origLocation = globalThis.location
+  origLocalStorage = globalThis.localStorage
   vi.stubGlobal('window', { location: mockLocation, navigator: mockNavigator, localStorage: mockLocalStorage })
   vi.stubGlobal('navigator', mockNavigator)
   vi.stubGlobal('location', mockLocation)
@@ -42,6 +53,10 @@ beforeEach(() => {
 
 afterEach(() => {
   vi.restoreAllMocks()
+  globalThis.window = origWindow
+  globalThis.navigator = origNavigator
+  globalThis.location = origLocation
+  globalThis.localStorage = origLocalStorage
   for (const key in mockLocalStorageData) {
     delete mockLocalStorageData[key]
   }
