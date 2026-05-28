@@ -143,6 +143,15 @@
       '<button id="__d_filter_resource" class="__d_filter" data-f="resource" style="' +
       BTN_STYLE +
       'color:#6bcbff;">Res</button>' +
+      '<button id="__d_filter_dom" class="__d_filter" data-f="dom" style="' +
+      BTN_STYLE +
+      'color:#a78bfa;">DOM</button>' +
+      '<button id="__d_filter_touch" class="__d_filter" data-f="touch" style="' +
+      BTN_STYLE +
+      'color:#34d399;">Touch</button>' +
+      '<button id="__d_filter_layout" class="__d_filter" data-f="layout" style="' +
+      BTN_STYLE +
+      'color:#fb923c;">Layout</button>' +
       '<button id="__d_copy" style="' +
       BTN_STYLE +
       '">Copy</button>' +
@@ -192,6 +201,9 @@
       if (id === '__d_filter_error') { setFilter('error'); return }
       if (id === '__d_filter_warn') { setFilter('warn'); return }
       if (id === '__d_filter_resource') { setFilter('resource'); return }
+      if (id === '__d_filter_dom') { setFilter('dom'); return }
+      if (id === '__d_filter_touch') { setFilter('touch'); return }
+      if (id === '__d_filter_layout') { setFilter('layout'); return }
     }, true)
   }
 
@@ -210,10 +222,9 @@
       currentFilter === 'all'
         ? logs
         : logs.filter(function (e) {
-            return (
-              e.l === currentFilter ||
-              (currentFilter === 'error' && (e.l === 'error' || e.l === 'resource'))
-            )
+            if (currentFilter === 'error') return e.l === 'error' || e.l === 'resource'
+            if (currentFilter === 'layout') return e.l === 'layout' || e.l === 'env'
+            return e.l === currentFilter
           })
 
     var html = ''
@@ -230,7 +241,13 @@
               ? '#ffd93d'
               : e.l === 'resource'
                 ? '#6bcbff'
-                : '#aaa'
+                : e.l === 'dom'
+                  ? '#a78bfa'
+                  : e.l === 'touch'
+                    ? '#34d399'
+                    : e.l === 'layout' || e.l === 'env'
+                      ? '#fb923c'
+                      : '#aaa'
         var ts = new Date(e.t).toLocaleTimeString()
         var tx = e.a
           .map(function (s) {
@@ -266,6 +283,16 @@
         ':</strong> ' +
         esc(String(env[keys[k]])) +
         '</span>'
+    }
+    // Injected element count from MutationObserver
+    if (api._injectedCount) {
+      var ic = api._injectedCount()
+      if (ic > 0) {
+        envHtml +=
+          '<span style="margin-right:16px;color:#a78bfa;"><strong>injected:</strong> ' +
+          ic +
+          '</span>'
+      }
     }
     envEl.innerHTML = envHtml
   }
