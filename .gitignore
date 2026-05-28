@@ -53,3 +53,8 @@ next-env.d.ts
 .ace-tool/
 .opencode
 sync-game-data.config.json
+
+# generated build artifacts (prebuild scripts)
+/public/version.json
+/public/changelog.json
+/src/generated/version-data.ts
