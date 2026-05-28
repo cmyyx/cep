@@ -26,6 +26,8 @@ jobs:
         with:
           fetch-depth: 0
 
+      - uses: pnpm/action-setup@v6
+
       - uses: actions/setup-node@v5
         with:
           node-version: 22
@@ -48,8 +50,6 @@ jobs:
           if [ -z "$MSG" ]; then MSG="${{ inputs.version }}"; fi
           git tag -a "${{ inputs.version }}" -m "$MSG"
           git push origin "${{ inputs.version }}"
-
-      - uses: pnpm/action-setup@v6
 
       - name: Setup pnpm
         run: pnpm install --frozen-lockfile
