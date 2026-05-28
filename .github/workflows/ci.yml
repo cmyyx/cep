@@ -24,6 +24,9 @@ jobs:
 
       - run: pnpm install --frozen-lockfile
 
+      - name: Generate version data
+        run: node scripts/generate-version.mjs
+
       - name: Type check
         run: pnpm exec tsc --noEmit
 
