@@ -280,6 +280,19 @@ export const useEditorStore = create<EditorStoreState>()(
       name: 'cep-editor-drafts',
       storage: createJSONStorage(() => localStorage),
       version: 2,
+      migrate: (persisted: unknown): PersistedState => {
+        if (persisted && typeof persisted === 'object') {
+          return persisted as PersistedState
+        }
+        return {
+          draftCharacters: [],
+          selectedId: null,
+          activeTab: 'basic',
+          guideSubTab: 'equip',
+          expandedSections: {},
+          editorPickerOpen: true,
+        }
+      },
       partialize: (state): PersistedState => ({
         // Only persist NON-source characters (modified drafts)
         draftCharacters: state.draftCharacters
