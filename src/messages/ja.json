@@ -559,6 +559,7 @@
     "statusRerunActive": "復刻中",
     "badgeActive": "UP! 残り{days}日",
     "badgeUpcoming": "復刻まで{days}日",
+    "badgeRerunActive": "残り{days}日",
     "badgeInPool": "恒常枠",
     "badgeStandard": "恒常",
     "badgeOut": "OUT!",
@@ -566,7 +567,15 @@
     "today": "今日",
     "sortDefault": "デフォルト",
     "sortAsc": "バージョン昇順",
-    "sortDesc": "バージョン降順"
+    "sortDesc": "バージョン降順",
+    "poolInfo": "ガチャ情報",
+    "poolInfoSubtitle": "イラストをクリックして詳細を表示",
+    "viewDetails": "詳細を見る",
+    "poolDuration": "開催期間",
+    "offRateNote": {
+      "tangtang": "庄方宜の「春雷動」特許探索でのみオフレートで入手可能",
+      "luoxi": "庄方宜の「春雷動」特許探索でのみオフレートで入手可能"
+    }
   },
   "refinement": {
     "searchPlaceholder": "装備を検索...",

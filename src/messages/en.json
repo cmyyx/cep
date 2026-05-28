@@ -559,6 +559,7 @@
     "statusRerunActive": "Rerun",
     "badgeActive": "UP! {days}d left",
     "badgeUpcoming": "Rerun in {days}d",
+    "badgeRerunActive": "{days} days left",
     "badgeInPool": "In Pool",
     "badgeStandard": "Standard",
     "badgeOut": "OUT!",
@@ -566,7 +567,15 @@
     "today": "Today",
     "sortDefault": "Default",
     "sortAsc": "Version Asc",
-    "sortDesc": "Version Desc"
+    "sortDesc": "Version Desc",
+    "poolInfo": "Banner Info",
+    "poolInfoSubtitle": "Click artwork to view banner details",
+    "viewDetails": "View Details",
+    "poolDuration": "Duration",
+    "offRateNote": {
+      "tangtang": "Can only be obtained off-rate in Zhuang Fangyi's \"Spring Thunder\" limited search",
+      "luoxi": "Can only be obtained off-rate in Zhuang Fangyi's \"Spring Thunder\" limited search"
+    }
   },
   "refinement": {
     "searchPlaceholder": "Search equipment...",
