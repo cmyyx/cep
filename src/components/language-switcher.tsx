@@ -1,7 +1,7 @@
 'use client'
 
 import { useCallback } from 'react'
-import { useRouter, usePathname } from 'next/navigation'
+import { usePathname } from 'next/navigation'
 import { useLocale } from 'next-intl'
 import { Languages, Check } from 'lucide-react'
 import { SidebarMenuButton, useSidebar } from '@/components/ui/sidebar'
@@ -31,7 +31,6 @@ function detectBrowserLocale(): string {
 }
 
 export function LanguageSwitcher() {
-  const router = useRouter()
   const pathname = usePathname()
   const urlLocale = useLocale()
   const language = useSettingsStore((s) => s.language)
@@ -43,24 +42,24 @@ export function LanguageSwitcher() {
         setLanguage('auto')
         const detected = detectBrowserLocale()
         if (detected !== urlLocale) {
-          router.push(pathname.replace(`/${urlLocale}`, `/${detected}`))
+          window.location.href = pathname.replace(`/${urlLocale}`, `/${detected}`)
         }
       } else {
         const lang = value as 'zh-CN' | 'zh-TW' | 'ja' | 'en'
         setLanguage(lang)
         if (lang !== urlLocale) {
-          router.push(pathname.replace(`/${urlLocale}`, `/${lang}`))
+          window.location.href = pathname.replace(`/${urlLocale}`, `/${lang}`)
         }
       }
     },
-    [pathname, urlLocale, router, setLanguage],
+    [pathname, urlLocale, setLanguage],
   )
 
   const { isMobile } = useSidebar()
 
   // Display label reflects user PREFERENCE, not current URL locale
   const displayLabel =
-    language === 'auto' ? 'AUTO' : (LOCALE_LABELS[urlLocale] ?? urlLocale)
+    language === 'auto' ? 'AUTO' : (LOCALE_LABELS[language] ?? language)
 
   return (
     <DropdownMenu>
@@ -91,7 +90,7 @@ export function LanguageSwitcher() {
             className="flex items-center justify-between"
           >
             <span>{LOCALE_LABELS[loc]}</span>
-            {language !== 'auto' && loc === urlLocale && (
+            {language !== 'auto' && loc === language && (
               <Check className="size-3.5 text-muted-foreground" />
             )}
           </DropdownMenuItem>

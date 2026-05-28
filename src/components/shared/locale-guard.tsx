@@ -3,6 +3,7 @@
 import { useEffect } from 'react'
 import { useRouter, usePathname } from 'next/navigation'
 import { useLocale } from 'next-intl'
+import { useSettingsStore } from '@/stores/useSettingsStore'
 
 const SUPPORTED = ['zh-CN', 'zh-TW', 'ja', 'en'] as const
 const DEFAULT = 'zh-CN'
@@ -55,6 +56,7 @@ export function LocaleGuard() {
   const router = useRouter()
   const pathname = usePathname()
   const urlLocale = useLocale()
+  const language = useSettingsStore((s) => s.language)
 
   useEffect(() => {
     document.documentElement.lang = urlLocale
@@ -66,7 +68,7 @@ export function LocaleGuard() {
     if (effective !== urlLocale) {
       router.replace(pathname.replace(`/${urlLocale}`, `/${effective}`))
     }
-  }, [urlLocale, pathname, router])
+  }, [urlLocale, pathname, router, language])
 
   return null
 }
