@@ -8,7 +8,7 @@ import { cn } from '@/lib/utils'
  * Floating debug console label.
  *
  * Renders a small button at the bottom-right of the viewport.
- * Auto-hides 3s after window.onload with a fade-out transition.
+ * Auto-hides when page finishes loading with a fade-out transition.
  * Click opens the debug console panel.
  *
  * The 7-click gesture works independently via the <head> inline bootstrap
@@ -32,8 +32,8 @@ export function DebugLabel() {
     let removeTimer: ReturnType<typeof setTimeout>
 
     const startTimers = () => {
-      hideTimer = setTimeout(() => setHiding(true), 3000)
-      removeTimer = setTimeout(() => setRemoved(true), 3700)
+      hideTimer = setTimeout(() => setHiding(true), 0)
+      removeTimer = setTimeout(() => setRemoved(true), 700)
     }
 
     if (document.readyState === 'complete') {
