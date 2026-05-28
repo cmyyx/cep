@@ -56,11 +56,11 @@ export default function AboutPage() {
       </div>
 
       {/* Main content */}
-      <div className="flex-1 overflow-auto p-8">
+      <div className="flex-1 overflow-auto p-4 md:p-8">
         <div className="max-w-3xl mx-auto">
-          {/* Hero: left-right layout */}
-          <div className="flex items-center gap-8 mb-10">
-            <div className="relative w-48 aspect-[9/16] shrink-0">
+          {/* Hero: left-right layout (stacked on mobile) */}
+          <div className="flex flex-col md:flex-row items-center md:items-start gap-6 md:gap-8 mb-10">
+            <div className="relative w-32 md:w-48 aspect-[9/16] shrink-0">
               <Image
                 src="/CEP.png"
                 alt="CEP Endfield Planner"

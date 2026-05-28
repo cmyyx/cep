@@ -280,6 +280,8 @@ export const useEditorStore = create<EditorStoreState>()(
       name: 'cep-editor-drafts',
       storage: createJSONStorage(() => localStorage),
       version: 2,
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      migrate: (persisted: unknown, _version: number) => persisted as PersistedState,
       partialize: (state): PersistedState => ({
         // Only persist NON-source characters (modified drafts)
         draftCharacters: state.draftCharacters
