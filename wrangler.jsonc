@@ -1,6 +1,6 @@
 {
   "$schema": "https://raw.githubusercontent.com/cloudflare/workers-sdk/main/packages/wrangler/config-schema.json",
-  "name": "cep",
+  "name": "cep-dev",
   "compatibility_date": "2026-05-05", 
   "assets": {
     "directory": "./out",
