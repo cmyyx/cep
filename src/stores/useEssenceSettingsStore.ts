@@ -23,6 +23,9 @@ const FLAG_DEFAULTS: Record<SettingKey, boolean> = {
   enableOwnershipEditPlans: false,
   enableNotesPlans: false,
 
+  enableTooltipList: true,
+  enableTooltipPlans: true,
+
   keepUpVisibleList: true,
   keepUpVisiblePlans: true,
 
