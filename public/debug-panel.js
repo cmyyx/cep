@@ -31,7 +31,8 @@
   var panelVisible = false
   var panelEl = null
   var currentFilter = 'all'
-  var refreshTimer = null // interval for live-updating log display
+  var followMode = true // auto-scroll to latest on update
+  var followBtn = null // reference to the Follow button
 
   // ---- helpers ----
 
@@ -143,6 +144,15 @@
       '<button id="__d_filter_resource" class="__d_filter" data-f="resource" style="' +
       BTN_STYLE +
       'color:#6bcbff;">Res</button>' +
+      '<button id="__d_filter_dom" class="__d_filter" data-f="dom" style="' +
+      BTN_STYLE +
+      'color:#a78bfa;">DOM</button>' +
+      '<button id="__d_filter_touch" class="__d_filter" data-f="touch" style="' +
+      BTN_STYLE +
+      'color:#34d399;">Touch</button>' +
+      '<button id="__d_filter_layout" class="__d_filter" data-f="layout" style="' +
+      BTN_STYLE +
+      'color:#fb923c;">Layout</button>' +
       '<button id="__d_copy" style="' +
       BTN_STYLE +
       '">Copy</button>' +
@@ -164,6 +174,33 @@
         '-webkit-overflow-scrolling:touch;overscroll-behavior:contain;'
     )
     panelEl.appendChild(logContainer)
+
+    /* -- Follow button (absolute, overlaying bottom-right of log area) -- */
+    followBtn = document.createElement('button')
+    followBtn.id = '__d_follow'
+    followBtn.textContent = 'Follow \u2193'
+    followBtn.setAttribute(
+      'style',
+      'display:none;position:absolute;bottom:44px;right:16px;' +
+        'padding:4px 12px;background:rgba(59,130,246,0.9);color:#fff;border:none;' +
+        'border-radius:4px;font-size:11px;font-family:system-ui;cursor:pointer;' +
+        'z-index:1;'
+    )
+    panelEl.appendChild(followBtn)
+
+    /* Scroll detection — toggle follow mode based on scroll position */
+    logContainer.addEventListener('scroll', function () {
+      var gap = logContainer.scrollHeight - logContainer.scrollTop - logContainer.clientHeight
+      if (followMode && gap > 100) {
+        // User scrolled up — exit follow mode
+        followMode = false
+        followBtn.style.display = 'block'
+      } else if (!followMode && gap < 10) {
+        // User scrolled back to bottom — re-enter follow mode
+        followMode = true
+        followBtn.style.display = 'none'
+      }
+    })
 
     /* -- env info footer (fixed) -- */
     var envEl = document.createElement('div')
@@ -192,6 +229,10 @@
       if (id === '__d_filter_error') { setFilter('error'); return }
       if (id === '__d_filter_warn') { setFilter('warn'); return }
       if (id === '__d_filter_resource') { setFilter('resource'); return }
+      if (id === '__d_filter_dom') { setFilter('dom'); return }
+      if (id === '__d_filter_touch') { setFilter('touch'); return }
+      if (id === '__d_filter_layout') { setFilter('layout'); return }
+      if (id === '__d_follow') { followMode = true; followBtn.style.display = 'none'; var lc = document.getElementById('__d_logs'); if (lc) lc.scrollTop = lc.scrollHeight; return }
     }, true)
   }
 
@@ -210,10 +251,9 @@
       currentFilter === 'all'
         ? logs
         : logs.filter(function (e) {
-            return (
-              e.l === currentFilter ||
-              (currentFilter === 'error' && (e.l === 'error' || e.l === 'resource'))
-            )
+            if (currentFilter === 'error') return e.l === 'error' || e.l === 'resource'
+            if (currentFilter === 'layout') return e.l === 'layout' || e.l === 'env'
+            return e.l === currentFilter
           })
 
     var html = ''
@@ -230,7 +270,13 @@
               ? '#ffd93d'
               : e.l === 'resource'
                 ? '#6bcbff'
-                : '#aaa'
+                : e.l === 'dom'
+                  ? '#a78bfa'
+                  : e.l === 'touch'
+                    ? '#34d399'
+                    : e.l === 'layout' || e.l === 'env'
+                      ? '#fb923c'
+                      : '#aaa'
         var ts = new Date(e.t).toLocaleTimeString()
         var tx = e.a
           .map(function (s) {
@@ -255,6 +301,11 @@
     }
     logContainer.innerHTML = html
 
+    // Auto-scroll to bottom if in follow mode
+    if (followMode) {
+      logContainer.scrollTop = logContainer.scrollHeight
+    }
+
     // Env info
     var env = api.getEnv()
     var keys = Object.keys(env)
@@ -266,6 +317,16 @@
         ':</strong> ' +
         esc(String(env[keys[k]])) +
         '</span>'
+    }
+    // Injected element count from MutationObserver
+    if (api._injectedCount) {
+      var ic = api._injectedCount()
+      if (ic > 0) {
+        envHtml +=
+          '<span style="margin-right:16px;color:#a78bfa;"><strong>injected:</strong> ' +
+          ic +
+          '</span>'
+      }
     }
     envEl.innerHTML = envHtml
   }
@@ -382,24 +443,23 @@
 
   // ---- open / close ----
 
-  var REFRESH_MS = 500
-
   function startRefresh() {
     stopRefresh()
-    refreshTimer = setInterval(renderLogs, REFRESH_MS)
+    api._onLog = renderLogs
   }
 
   function stopRefresh() {
-    if (refreshTimer) {
-      clearInterval(refreshTimer)
-      refreshTimer = null
-    }
+    api._onLog = null
   }
 
   function openPanelOnly() {
     /* Hide the floating label while panel is visible */
     var lbl = document.getElementById('__cep_debug_label')
     if (lbl) lbl.style.display = 'none'
+
+    // Reset follow mode on open
+    followMode = true
+    if (followBtn) followBtn.style.display = 'none'
 
     if (!panelEl) {
       createPanel()

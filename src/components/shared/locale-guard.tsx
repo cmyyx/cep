@@ -28,7 +28,7 @@ export function LocaleGuard() {
     const explicit = getExplicitLanguage()
     const effective = explicit ?? detectBrowserLocale()
     if (effective !== urlLocale) {
-      window.location.href = buildLocaleHref(effective)
+      window.location.replace(buildLocaleHref(effective))
     }
   }, [urlLocale])
 
