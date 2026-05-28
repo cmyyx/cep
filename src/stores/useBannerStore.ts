@@ -83,6 +83,11 @@ function formatMonthLabel(date: Date, locale?: string): string {
   catch { return `${date.getFullYear()}/${date.getMonth() + 1}` }
 }
 
+function formatMonthShort(date: Date, locale?: string): string {
+  try { return new Intl.DateTimeFormat(locale, { month: 'short' }).format(date) }
+  catch { return `${date.getMonth() + 1}月` }
+}
+
 function formatFullDate(ms: number, locale?: string): string {
   const d = new Date(ms)
   try { return new Intl.DateTimeFormat(locale, { year: 'numeric', month: 'numeric', day: 'numeric' }).format(d) }
@@ -205,7 +210,8 @@ function deriveTimelineData(
     }
 
     if (hasActiveMain) return { badgeType: 'active', priority: 0 }
-    if (hasActiveRerun || hasUpcomingRerun) return { badgeType: 'upcoming', priority: 1 }
+    if (hasActiveRerun) return { badgeType: 'rerunActive', priority: 0.5 }
+    if (hasUpcomingRerun) return { badgeType: 'upcoming', priority: 1 }
     if (ch.period != null && currentPeriod > 0 && currentPeriod - ch.period >= 1 && currentPeriod - ch.period <= 2) {
       return { badgeType: 'inPool', priority: 2 }
     }
@@ -235,7 +241,7 @@ function deriveTimelineData(
   const rStart = new Date(gMin)
   rStart.setDate(1); rStart.setHours(0, 0, 0, 0)
   const rEnd = new Date(gMax)
-  rEnd.setMonth(rEnd.getMonth() + 2); rEnd.setDate(1); rEnd.setHours(0, 0, 0, 0)
+  rEnd.setMonth(rEnd.getMonth() + 1); rEnd.setDate(1); rEnd.setHours(0, 0, 0, 0)
   const rStartMs = rStart.getTime()
   const rEndMs = rEnd.getTime()
   const totalDays = Math.ceil((rEndMs - rStartMs) / DAY_MS)
@@ -246,7 +252,7 @@ function deriveTimelineData(
     const nxt = new Date(cur); nxt.setMonth(nxt.getMonth() + 1)
     const mEnd = Math.min(nxt.getTime(), rEndMs)
     const days = Math.ceil((mEnd - cur.getTime()) / DAY_MS)
-    months.push({ label: formatMonthLabel(cur, locale), wPx: Math.round(days * pxPerDay) })
+    months.push({ label: formatMonthLabel(cur, locale), shortLabel: formatMonthShort(cur, locale), wPx: Math.round(days * pxPerDay) })
     cur.setMonth(cur.getMonth() + 1)
   }
 
@@ -260,10 +266,11 @@ function deriveTimelineData(
     const widthPx = Math.max(((endMs - startMs) / DAY_MS) * pxPerDay, 4)
     const fullLabel = `${formatFullDate(startMs, locale)} – ${formatFullDate(endMs, locale)}`
     const shortLabel = `${formatShortDate(startMs, locale)}–${formatShortDate(endMs, locale)}`
+    const veryShortLabel = formatShortDate(startMs, locale)
     const durationDays = Math.ceil((endMs - startMs) / DAY_MS)
     return {
       leftPx, widthPx, cls,
-      dateLabel: widthPx >= 40 ? shortLabel : '',
+      dateLabel: widthPx >= 60 ? shortLabel : widthPx >= 28 ? veryShortLabel : '',
       fullLabel, charName: '', charLabel: '',
       statusText, durationDays, versionLabel, startMs, endMs,
     }
@@ -277,7 +284,7 @@ function deriveTimelineData(
       const isActive = nowMs >= w.startMs && nowMs <= w.endMs
       const isPast = nowMs > w.endMs
       if (w.isRerun) {
-        bars.push(makeBar(w.startMs, w.endMs, 'rerun',
+        bars.push(makeBar(w.startMs, w.endMs, isActive ? 'rerunActive' : 'rerun',
           isActive ? t('bannerCalendar.statusRerunActive') : isPast ? t('bannerCalendar.statusPast') : t('bannerCalendar.statusUpcoming'), w.version))
       } else if (isActive) {
         bars.push(makeBar(w.startMs, w.endMs, 'active', t('bannerCalendar.statusActive'), w.version))
@@ -303,11 +310,12 @@ function deriveTimelineData(
     if (badgeType === 'active') {
       const w = ch.wins.find((w) => !w.isRerun && nowMs >= w.startMs && nowMs <= w.endMs)
       if (w) { const d = Math.max(1, Math.ceil((w.endMs - nowMs) / DAY_MS)); statusBadge = { type: 'active', days: d, text: t('bannerCalendar.badgeActive', { days: d }) } }
-    } else if (badgeType === 'upcoming') {
+    } else if (badgeType === 'rerunActive') {
       const active = ch.wins.find((w) => w.isRerun && nowMs >= w.startMs && nowMs <= w.endMs)
+      if (active) { const d = Math.max(1, Math.ceil((active.endMs - nowMs) / DAY_MS)); statusBadge = { type: 'rerunActive', days: d, text: t('bannerCalendar.badgeRerunActive', { days: d }) } }
+    } else if (badgeType === 'upcoming') {
       const upcoming = ch.wins.find((w) => w.isRerun && nowMs < w.startMs)
-      if (active) { const d = Math.max(1, Math.ceil((active.endMs - nowMs) / DAY_MS)); statusBadge = { type: 'upcoming', days: d, text: t('bannerCalendar.badgeRerunActive', { days: d }) } }
-      else if (upcoming) { const d = Math.max(1, Math.ceil((upcoming.startMs - nowMs) / DAY_MS)); statusBadge = { type: 'upcoming', days: d, text: t('bannerCalendar.badgeUpcoming', { days: d }) } }
+      if (upcoming) { const d = Math.max(1, Math.ceil((upcoming.startMs - nowMs) / DAY_MS)); statusBadge = { type: 'upcoming', days: d, text: t('bannerCalendar.badgeUpcoming', { days: d }) } }
     } else if (badgeType === 'inPool') {
       statusBadge = { type: 'inPool', text: t('bannerCalendar.badgeInPool') }
     } else {
