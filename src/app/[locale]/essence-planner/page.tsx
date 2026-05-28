@@ -520,10 +520,9 @@ export default function EssencePlannerPage() {
           )}
         </div>
 
-        {/* Bottom bar — sticky so it stays visible even if flex layout is
-            disrupted by browser extensions injecting code. pb-safe adds
-            safe-area-inset-bottom for notched devices / browser toolbars. */}
-        <div className="sticky bottom-0 flex items-center justify-between px-4 py-2.5 pb-[calc(0.625rem+env(safe-area-inset-bottom,0px))] shadow-[inset_0px_1px_0px_0px_rgba(0,0,0,0.08)] bg-background">
+        {/* Bottom bar — sticky, offset above version watermark. safe-area-inset
+            handled by bottom positioning (not padding) to avoid double-counting. */}
+        <div className="sticky bottom-[calc(2rem+env(safe-area-inset-bottom,0px))] z-40 flex items-center justify-between px-4 py-2.5 shadow-[inset_0px_1px_0px_0px_rgba(0,0,0,0.08)] bg-background">
           <span className="text-sm text-muted-foreground">
             {t('essence.selectedCount', { count: selectedCount })}
           </span>
