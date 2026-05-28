@@ -3,7 +3,7 @@ import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
 import { routing } from '@/i18n/routing'
-import { HeadScript } from '@/components/shared/head-script'
+import { LocaleScript } from '@/components/shared/locale-script'
 import { SidebarProvider } from '@/components/ui/sidebar'
 import { AppSidebar } from '@/components/app-sidebar'
 import { Background } from '@/components/background'
@@ -38,6 +38,10 @@ export async function generateMetadata({
     title: {
       template: `%s - ${t('app.name')}`,
       default: t('app.name'),
+    },
+    // Set html lang attribute for this locale route
+    other: {
+      'data-locale': locale,
     },
   }
 }
@@ -75,7 +79,7 @@ export default async function LocaleLayout({
 
   return (
     <>
-      <HeadScript id="html-lang" code={`document.documentElement.lang='${locale}'`} />
+      <LocaleScript locale={locale} />
       <NextIntlClientProvider messages={messages} locale={locale}>
       <LocaleGuard />
       <DomainGuard />
