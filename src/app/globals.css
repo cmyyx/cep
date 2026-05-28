@@ -253,6 +253,18 @@
   overscroll-behavior: none;
 }
 
+/* ─── Safe-area layout utilities ─── */
+
+/* Watermark: 0.5rem base offset + safe-area */
+@utility safe-area-watermark {
+  bottom: calc(0.5rem + env(safe-area-inset-bottom, 0px));
+}
+
+/* Bottom bar: 2rem base offset (above watermark) + safe-area */
+@utility safe-area-bottom-bar {
+  bottom: calc(2rem + env(safe-area-inset-bottom, 0px));
+}
+
 /* ─── App init overlay keyframes ─── */
 
 /* Engineering grid slow drift */
