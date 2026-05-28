@@ -25,12 +25,12 @@ describe('cn', () => {
 
 describe('formatTime', () => {
   it('formats ISO string to readable format', () => {
-    const result = formatTime('2025-01-15T08:30:00.000Z')
+    const result = formatTime(new Date(2025, 0, 15, 8, 30).toISOString())
     expect(result).toMatch(/^2025-01-15 \d{2}:\d{2}$/)
   })
 
   it('pads single-digit months and days', () => {
-    const result = formatTime('2025-03-05T00:00:00.000Z')
+    const result = formatTime(new Date(2025, 2, 5, 0, 0).toISOString())
     expect(result).toMatch(/^2025-03-05/)
   })
 

@@ -3,7 +3,6 @@ import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
 import { routing } from '@/i18n/routing'
-import { HeadScript } from '@/components/shared/head-script'
 import { SidebarProvider } from '@/components/ui/sidebar'
 import { AppSidebar } from '@/components/app-sidebar'
 import { Background } from '@/components/background'
@@ -16,7 +15,7 @@ import { ImportantAnnouncementBanner } from '@/components/home/important-announc
 import { AnnouncementLoader } from '@/components/home/announcement-loader'
 import { SyncManager } from '@/components/shared/sync-manager'
 import { LegacyMigrationDialog } from '@/components/shared/legacy-migration-dialog'
-import { DomainGuard } from '@/components/shared/domain-guard'
+import { DebugLabel } from '@/components/shared/debug-label'
 import { LocaleGuard } from '@/components/shared/locale-guard'
 import { VersionProvider } from '@/hooks/use-version'
 import { versionData } from '@/generated/version-data'
@@ -75,10 +74,9 @@ export default async function LocaleLayout({
 
   return (
     <>
-      <HeadScript id="html-lang" code={`document.documentElement.lang='${locale}'`} />
       <NextIntlClientProvider messages={messages} locale={locale}>
       <LocaleGuard />
-      <DomainGuard />
+      <DebugLabel />
       <VersionProvider initialInfo={versionData}>
         <SidebarProvider className="h-svh">
           <ThemeProvider>

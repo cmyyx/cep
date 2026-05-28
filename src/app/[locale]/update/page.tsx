@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useCallback, useRef } from 'react'
+import { useState, useEffect, useCallback, useRef, useSyncExternalStore } from 'react'
 import { useTranslations } from 'next-intl'
 import { SidebarTrigger } from '@/components/ui/sidebar'
 import { Button } from '@/components/ui/button'
@@ -29,6 +29,9 @@ function parseChangelogEntry(entry: string) {
 
 function VersionCard({ label, info }: { label: string; info: VersionInfo }) {
   const t = useTranslations()
+  const mounted = useSyncExternalStore(() => () => {}, () => true, () => false)
+  const commitTimeText = mounted ? formatTime(info.commitTime) : '--:--'
+  const buildTimeText = mounted ? formatTime(info.buildTime) : '--:--'
 
   return (
     <div className="flex-1 rounded-lg shadow-[0px_0px_0px_1px_rgba(0,0,0,0.08)] p-4">
@@ -48,11 +51,11 @@ function VersionCard({ label, info }: { label: string; info: VersionInfo }) {
         </div>
         <div className="flex items-center justify-between">
           <span className="text-xs text-muted-foreground">{t('version.commitTime')}</span>
-          <span className="text-sm font-mono">{formatTime(info.commitTime)}</span>
+          <span className="text-sm font-mono">{commitTimeText}</span>
         </div>
         <div className="flex items-center justify-between">
           <span className="text-xs text-muted-foreground">{t('version.buildTime')}</span>
-          <span className="text-sm font-mono">{formatTime(info.buildTime)}</span>
+          <span className="text-sm font-mono">{buildTimeText}</span>
         </div>
       </div>
     </div>
