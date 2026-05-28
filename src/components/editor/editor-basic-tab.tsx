@@ -110,7 +110,7 @@ export function EditorBasicTab({ draft, isReadOnly }: EditorBasicTabProps) {
             onChange={(e) => handleIdChange(e.target.value)}
             className={cn('h-8 text-sm font-geist-mono', idCollision && 'border-ship-red ring-1 ring-ship-red/30')}
             placeholder={t('editor.placeholderCharacterId')}
-            pattern="[a-z-]+"
+            pattern="[a-z\-]+"
             autoComplete="off"
             spellCheck={false}
             readOnly={isReadOnly}

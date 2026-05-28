@@ -27,7 +27,7 @@ export function VersionWatermark() {
 
   return (
     <>
-      <div className="absolute bottom-2 left-2 z-10 pointer-events-none">
+      <div className="absolute safe-area-watermark left-2 z-10 pointer-events-none">
         <Button
           variant="ghost"
           size="sm"
