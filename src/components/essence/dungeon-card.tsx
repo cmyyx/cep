@@ -105,42 +105,45 @@ const WeaponThumbnail = memo(function WeaponThumbnail({
   inRange,
 }: ThumbProps) {
   const t = useTranslations()
+  const enableTooltip = useEssenceSettingsStore((s) => s.enableTooltipPlans)
   const [open, setOpen] = useState(false)
   const triggerRef = useCloseOnScroll(open, setOpen)
   const weaponName = (weapon.id?.startsWith('custom-') || weapon.id?.startsWith('preview:')) ? weapon.name : (t(`weapons.${weapon.id}`) ?? weapon.name)
 
+  const thumb = (
+    <div
+      ref={triggerRef}
+      className={cn(
+        'relative w-16 h-16 rounded-md overflow-hidden cursor-default',
+        'bg-[url(/images/item-frame-bg.png)] bg-cover bg-center',
+        inRange && isSelected && 'shadow-[0_0_0_1px_rgba(251,191,36,0.5)]',
+        inRange && !isSelected && 'shadow-[0_0_0_1px_rgba(0,0,0,0.08)]',
+        !inRange && isSelected && 'shadow-[0_0_0_1px_rgba(251,191,36,0.2)] opacity-40',
+        !inRange && !isSelected && 'shadow-[0_0_0_1px_rgba(0,0,0,0.04)] opacity-30',
+      )}
+    >
+      {(() => { const s = weaponImageSrc(weapon.id); if (!s) return <span className="absolute inset-0 flex items-center justify-center text-lg font-semibold text-white/40">{weapon.name?.charAt(0) ?? '?'}</span>; return <Image src={s} alt={weaponName} fill className="object-cover z-10" unoptimized /> })()}
+      <Image
+        src={`/images/item-band-${weapon.rarity}.png`}
+        alt=""
+        width={200}
+        height={10}
+        className="absolute -inset-x-px bottom-0 z-20 w-[calc(100%+2px)] max-w-none object-cover object-bottom pointer-events-none"
+        unoptimized
+      />
+      {inRange && isSelected && (
+        <div className="absolute top-0 right-0 size-4 bg-amber-400 rounded-bl-sm flex items-center justify-center z-30">
+          <span className="text-[8px] text-black font-bold">✓</span>
+        </div>
+      )}
+    </div>
+  )
+
+  if (!enableTooltip) return thumb
+
   return (
     <Tooltip open={open} onOpenChange={setOpen}>
-      <TooltipTrigger
-        render={
-          <div
-            ref={triggerRef}
-            className={cn(
-              'relative w-16 h-16 rounded-md overflow-hidden cursor-default',
-              'bg-[url(/images/item-frame-bg.png)] bg-cover bg-center',
-              inRange && isSelected && 'shadow-[0_0_0_1px_rgba(251,191,36,0.5)]',
-              inRange && !isSelected && 'shadow-[0_0_0_1px_rgba(0,0,0,0.08)]',
-              !inRange && isSelected && 'shadow-[0_0_0_1px_rgba(251,191,36,0.2)] opacity-40',
-              !inRange && !isSelected && 'shadow-[0_0_0_1px_rgba(0,0,0,0.04)] opacity-30',
-            )}
-          />
-        }
-      >
-        {(() => { const s = weaponImageSrc(weapon.id); if (!s) return <span className="absolute inset-0 flex items-center justify-center text-lg font-semibold text-white/40">{weapon.name?.charAt(0) ?? '?'}</span>; return <Image src={s} alt={weaponName} fill className="object-cover z-10" unoptimized /> })()}
-        <Image
-          src={`/images/item-band-${weapon.rarity}.png`}
-          alt=""
-          width={200}
-          height={10}
-          className="absolute -inset-x-px bottom-0 z-20 w-[calc(100%+2px)] max-w-none object-cover object-bottom pointer-events-none"
-          unoptimized
-        />
-        {inRange && isSelected && (
-          <div className="absolute top-0 right-0 size-4 bg-amber-400 rounded-bl-sm flex items-center justify-center z-30">
-            <span className="text-[8px] text-black font-bold">✓</span>
-          </div>
-        )}
-      </TooltipTrigger>
+      <TooltipTrigger render={thumb} />
       <TooltipContent
         side="top"
         className="text-xs text-foreground bg-popover/95"
@@ -244,7 +247,7 @@ const WeaponRow = memo(function WeaponRow({
                 </>
               )}
               {onNoteChange && (
-                <div className="w-20 flex-shrink-0">
+                <div className="w-16 flex-shrink-0">
                   <EditableNote
                     note={note || ''}
                     onSave={onNoteChange}
@@ -252,7 +255,7 @@ const WeaponRow = memo(function WeaponRow({
                 </div>
               )}
               {!onNoteChange && note && (
-                <span className="text-[10px] text-muted-foreground truncate max-w-24 flex-shrink-0">
+                <span className="text-[10px] text-muted-foreground truncate max-w-16 flex-shrink-0">
                   {note}
                 </span>
               )}
@@ -300,7 +303,7 @@ const WeaponRow = memo(function WeaponRow({
                   </>
                 )}
                 {onNoteChange && (
-                  <div className="w-20 flex-shrink-0">
+                  <div className="w-16 flex-shrink-0">
                     <EditableNote
                       note={note || ''}
                       onSave={onNoteChange}
@@ -308,7 +311,7 @@ const WeaponRow = memo(function WeaponRow({
                   </div>
                 )}
                 {!onNoteChange && note && (
-                  <span className="text-[10px] text-muted-foreground truncate max-w-24 flex-shrink-0">
+                  <span className="text-[10px] text-muted-foreground truncate max-w-16 flex-shrink-0">
                     {note}
                   </span>
                 )}
@@ -357,7 +360,7 @@ const WeaponRow = memo(function WeaponRow({
                   </>
                 )}
                 {onNoteChange && (
-                  <div className="w-20 flex-shrink-0">
+                  <div className="w-16 flex-shrink-0">
                     <EditableNote
                       note={note || ''}
                       onSave={onNoteChange}
@@ -365,7 +368,7 @@ const WeaponRow = memo(function WeaponRow({
                   </div>
                 )}
                 {!onNoteChange && note && (
-                  <span className="text-[10px] text-muted-foreground truncate max-w-24 flex-shrink-0">
+                  <span className="text-[10px] text-muted-foreground truncate max-w-16 flex-shrink-0">
                     {note}
                   </span>
                 )}
@@ -660,7 +663,7 @@ export const DungeonCard = memo(function DungeonCard({
                 </div>
               )}
               {showNotes && (
-                <div className="w-20">
+                <div className="w-16">
                   <EditableNote
                     note={weaponNotes[weapon.id] || ''}
                     onSave={(value) => setWeaponNote?.(weapon.id, value)}
@@ -700,7 +703,7 @@ export const DungeonCard = memo(function DungeonCard({
                         </span>
                       </>
                     )}
-                    {showNotes && <div className="w-20 flex-shrink-0">{'\u200B'}</div>}
+                    {showNotes && <div className="w-16 flex-shrink-0">{'\u200B'}</div>}
                   </div>
                 )}
                 <span className="ml-auto text-[10px] font-semibold flex-shrink-0 min-w-12 text-right">{'\u200B'}</span>

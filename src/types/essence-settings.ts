@@ -20,6 +20,10 @@ export interface EssenceSettingsFlags {
   keepUpVisibleList: boolean
   keepUpVisiblePlans: boolean
 
+  // ── Tooltip ──
+  enableTooltipList: boolean
+  enableTooltipPlans: boolean
+
   // ── 子设置 ──
   onlyHideWhenBothOwned: boolean
 }
