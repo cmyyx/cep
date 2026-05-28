@@ -1,47 +1,12 @@
 'use client'
 
 import { useEffect } from 'react'
-import { useRouter, usePathname } from 'next/navigation'
 import { useLocale } from 'next-intl'
-import { useSettingsStore } from '@/stores/useSettingsStore'
-
-const SUPPORTED = ['zh-CN', 'zh-TW', 'ja', 'en'] as const
-const DEFAULT = 'zh-CN'
-
-/**
- * Reads the user's explicit language preference directly from localStorage,
- * avoiding the Zustand hydration timing race.
- * Returns null when set to 'auto' or not present.
- */
-function getExplicitLanguage(): string | null {
-  if (typeof window === 'undefined') return null
-  try {
-    const raw = localStorage.getItem('cep-settings')
-    if (raw) {
-      const parsed: unknown = JSON.parse(raw)
-      if (parsed && typeof parsed === 'object' && 'language' in parsed) {
-        const lang = (parsed as Record<string, unknown>).language
-        if (
-          typeof lang === 'string' &&
-          lang !== 'auto' &&
-          (SUPPORTED as readonly string[]).includes(lang)
-        ) {
-          return lang
-        }
-      }
-    }
-  } catch {
-    /* ignore corrupt data */
-  }
-  return null
-}
-
-function detectBrowserLocale(): string {
-  if (typeof window === 'undefined') return DEFAULT
-  const nav = navigator.language
-  const match = SUPPORTED.find((l) => l.split('-')[0] === nav.split('-')[0])
-  return match ?? DEFAULT
-}
+import {
+  getExplicitLanguage,
+  detectBrowserLocale,
+  buildLocaleHref,
+} from '@/lib/locale-utils'
 
 /**
  * Guards against locale mismatch between URL and user preference.
@@ -53,10 +18,7 @@ function detectBrowserLocale(): string {
  * Does not render any UI.
  */
 export function LocaleGuard() {
-  const router = useRouter()
-  const pathname = usePathname()
   const urlLocale = useLocale()
-  const language = useSettingsStore((s) => s.language)
 
   useEffect(() => {
     document.documentElement.lang = urlLocale
@@ -66,9 +28,9 @@ export function LocaleGuard() {
     const explicit = getExplicitLanguage()
     const effective = explicit ?? detectBrowserLocale()
     if (effective !== urlLocale) {
-      router.replace(pathname.replace(`/${urlLocale}`, `/${effective}`))
+      window.location.href = buildLocaleHref(effective)
     }
-  }, [urlLocale, pathname, router, language])
+  }, [urlLocale])
 
   return null
 }

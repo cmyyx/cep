@@ -1,7 +1,6 @@
 'use client'
 
 import { useCallback } from 'react'
-import { usePathname } from 'next/navigation'
 import { useLocale } from 'next-intl'
 import { Languages, Check } from 'lucide-react'
 import { SidebarMenuButton, useSidebar } from '@/components/ui/sidebar'
@@ -12,9 +11,9 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
 } from '@/components/ui/dropdown-menu'
+import { detectBrowserLocale, buildLocaleHref } from '@/lib/locale-utils'
 
 const LOCALES = ['zh-CN', 'zh-TW', 'ja', 'en'] as const
-const DEFAULT = 'zh-CN'
 
 const LOCALE_LABELS: Record<string, string> = {
   'zh-CN': '简体中文',
@@ -23,15 +22,7 @@ const LOCALE_LABELS: Record<string, string> = {
   en: 'English',
 }
 
-function detectBrowserLocale(): string {
-  if (typeof window === 'undefined') return DEFAULT
-  const nav = navigator.language
-  const match = LOCALES.find((l) => l.split('-')[0] === nav.split('-')[0])
-  return match ?? DEFAULT
-}
-
 export function LanguageSwitcher() {
-  const pathname = usePathname()
   const urlLocale = useLocale()
   const language = useSettingsStore((s) => s.language)
   const setLanguage = useSettingsStore((s) => s.setLanguage)
@@ -42,22 +33,21 @@ export function LanguageSwitcher() {
         setLanguage('auto')
         const detected = detectBrowserLocale()
         if (detected !== urlLocale) {
-          window.location.href = pathname.replace(`/${urlLocale}`, `/${detected}`)
+          window.location.href = buildLocaleHref(detected)
         }
       } else {
         const lang = value as 'zh-CN' | 'zh-TW' | 'ja' | 'en'
         setLanguage(lang)
         if (lang !== urlLocale) {
-          window.location.href = pathname.replace(`/${urlLocale}`, `/${lang}`)
+          window.location.href = buildLocaleHref(lang)
         }
       }
     },
-    [pathname, urlLocale, setLanguage],
+    [urlLocale, setLanguage],
   )
 
   const { isMobile } = useSidebar()
 
-  // Display label reflects user PREFERENCE, not current URL locale
   const displayLabel =
     language === 'auto' ? 'AUTO' : (LOCALE_LABELS[language] ?? language)
 
