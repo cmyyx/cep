@@ -31,7 +31,7 @@ function A(l,a){
 window.addEventListener('error',function(e){if(e.target===window||(e.target&&e.message))A('error',[e.message||'Unknown',(e.filename||'')+':'+(e.lineno||'')]);});
 window.addEventListener('error',function(e){var t=e.target;if(t&&(t instanceof HTMLLinkElement||t instanceof HTMLScriptElement||t instanceof HTMLImageElement))A('resource',[(t.tagName||'el').toLowerCase()+' failed: '+(t.href||t.src||'')])},true);
 window.addEventListener('unhandledrejection',function(e){A('error',['[Rejection]',e.reason])});
-window.__cep_debug__={getLogs:function(){return B.slice()},clear:function(){B.length=0},getEnv:function(){return{url:location.href,ua:navigator.userAgent,lang:navigator.language,plat:navigator.platform||'',size:innerWidth+'x'+innerHeight,dpr:String(devicePixelRatio||1),time:new Date().toISOString()}}};
+window.__cep_debug__={getLogs:function(){return B.slice()},clear:function(){B.length=0},getEnv:function(){var v=window.__cep_debug__.version;var e={url:location.href,ua:navigator.userAgent,lang:navigator.language,plat:navigator.platform||'',size:innerWidth+'x'+innerHeight,dpr:String(devicePixelRatio||1),time:new Date().toISOString()};if(v){e.version=v.version;e.commit=v.commit;e.commitCount=v.count;e.commitTime=v.commitTime;e.buildTime=v.buildTime}return e}};
 
 /* openPanel — always opens (used by label click and settings page).
    togglePanel — toggles open/closed (used by multi-click gesture).

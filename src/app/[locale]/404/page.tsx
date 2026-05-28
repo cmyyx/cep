@@ -1,7 +1,10 @@
 'use client'
 
+import { useSyncExternalStore } from 'react'
 import Link from 'next/link'
 import { useLocale, useTranslations } from 'next-intl'
+import { useVersion } from '@/hooks/use-version'
+import { formatTime } from '@/lib/utils'
 
 /**
  * Locale-aware 404 page (regular route, NOT the special not-found file).
@@ -16,6 +19,12 @@ import { useLocale, useTranslations } from 'next-intl'
 export default function NotFoundPage() {
   const locale = useLocale()
   const t = useTranslations()
+  const { info, localInfo } = useVersion()
+  const mounted = useSyncExternalStore(() => () => {}, () => true, () => false)
+  const displayInfo = localInfo ?? info
+
+  const commitTimeText = mounted && displayInfo?.commitTime ? formatTime(displayInfo.commitTime) : '--:--'
+  const buildTimeText = mounted && displayInfo?.buildTime ? formatTime(displayInfo.buildTime) : '--:--'
 
   return (
     <div className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-background">
@@ -54,6 +63,16 @@ export default function NotFoundPage() {
         >
           {t('notFound.homeLink')}
         </Link>
+
+        {/* Version info */}
+        {displayInfo && (
+          <div className="text-[11px] text-muted-foreground/60 space-y-0.5 text-center">
+            <p>{t('version.version')}: {displayInfo.version}</p>
+            <p>{t('version.commitCount')}: {displayInfo.count}</p>
+            <p>{t('version.commitTime')}: {commitTimeText}</p>
+            <p>{t('version.buildTime')}: {buildTimeText}</p>
+          </div>
+        )}
       </div>
     </div>
   )
