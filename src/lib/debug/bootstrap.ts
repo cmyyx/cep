@@ -26,6 +26,7 @@ var B=[],M=1000;
 function A(l,a){
   var s=[];for(var i=0;i<a.length;i++){var v=a[i];try{s.push(typeof v==='string'?v:JSON.stringify(v))}catch(e){s.push(String(v))}}
   B.push({l:l,t:Date.now(),a:s});if(B.length>M)B.shift();
+  var d=window.__cep_debug__;if(d&&d._onLog)d._onLog();
 }
 (function(){var L=['debug','log','warn','error'];for(var i=0;i<L.length;i++){(function(lev){var o=console[lev].bind(console);console[lev]=function(){A(lev,Array.prototype.slice.call(arguments));o.apply(console,arguments)}})(L[i])}})();
 window.addEventListener('error',function(e){if(e.target===window||(e.target&&e.message))A('error',[e.message||'Unknown',(e.filename||'')+':'+(e.lineno||'')]);});
