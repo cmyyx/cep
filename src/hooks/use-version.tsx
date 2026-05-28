@@ -165,6 +165,16 @@ export function VersionProvider({ children, initialInfo }: { children: ReactNode
     }
   }, [fetchVersion])
 
+  // Inject version info into debug console for export
+  useEffect(() => {
+    if (localInfo && typeof window !== 'undefined') {
+      const api = (window as unknown as Record<string, unknown>).__cep_debug__ as Record<string, unknown> | undefined
+      if (api) {
+        api.version = localInfo
+      }
+    }
+  }, [localInfo])
+
   return (
     <VersionContext.Provider value={{ info, localInfo, isUpdateAvailable, isChecking, lastCheckResult, forceUpgrade, checkNow, refreshPage }}>
       {children}

@@ -236,6 +236,23 @@
   }
 }
 
+/* ─── Defensive layout: svh fallback + overscroll + safe-area ─── */
+
+/* Fallback for browsers that don't support 100svh (Chrome <108, Safari <15.4).
+   Uses @supports to only apply when svh is NOT supported. */
+@supports not (height: 100svh) {
+  [data-slot="sidebar-wrapper"] {
+    min-height: 100vh;
+    height: 100vh;
+  }
+}
+
+/* Prevent scroll chaining on scrollable panels — stops the page from
+   bouncing when an inner panel reaches its scroll boundary. */
+[data-slot="sidebar-wrapper"] {
+  overscroll-behavior: none;
+}
+
 /* ─── App init overlay keyframes ─── */
 
 /* Engineering grid slow drift */

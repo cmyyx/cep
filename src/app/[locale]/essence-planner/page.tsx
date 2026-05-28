@@ -494,8 +494,8 @@ export default function EssencePlannerPage() {
           </Button>
         </div>
 
-        {/* Content area */}
-        <div className="flex-1 overflow-y-auto">
+        {/* Content area — min-h-0 prevents flex overflow if layout chain breaks */}
+        <div className="flex-1 min-h-0 overflow-y-auto">
           {mobileView === 'weapons' ? (
             <div className="p-3">
               <WeaponGrid />
@@ -520,8 +520,10 @@ export default function EssencePlannerPage() {
           )}
         </div>
 
-        {/* Bottom bar */}
-        <div className="flex items-center justify-between px-4 py-2.5 border-t border-border bg-background">
+        {/* Bottom bar — sticky so it stays visible even if flex layout is
+            disrupted by browser extensions injecting code. pb-safe adds
+            safe-area-inset-bottom for notched devices / browser toolbars. */}
+        <div className="sticky bottom-0 flex items-center justify-between px-4 py-2.5 pb-[calc(0.625rem+env(safe-area-inset-bottom,0px))] shadow-[inset_0px_1px_0px_0px_rgba(0,0,0,0.08)] bg-background">
           <span className="text-sm text-muted-foreground">
             {t('essence.selectedCount', { count: selectedCount })}
           </span>

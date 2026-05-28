@@ -17,6 +17,7 @@ import { SyncManager } from '@/components/shared/sync-manager'
 import { LegacyMigrationDialog } from '@/components/shared/legacy-migration-dialog'
 import { DebugLabel } from '@/components/shared/debug-label'
 import { LocaleGuard } from '@/components/shared/locale-guard'
+import { VersionWatermark } from '@/components/shared/version-watermark'
 import { VersionProvider } from '@/hooks/use-version'
 import { versionData } from '@/generated/version-data'
 
@@ -94,6 +95,7 @@ export default async function LocaleLayout({
               <ImportantAnnouncementBanner />
               {children}
               <NavigationLoadingOverlay />
+              <VersionWatermark />
             </main>
             <NavigationListener />
           </ThemeProvider>
