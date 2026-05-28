@@ -9,6 +9,7 @@ export interface BannerWindow {
 export interface BannerSchedule {
   [characterName: string]: {
     windows: BannerWindow[]
+    offRateNote?: string
   }
 }
 
@@ -31,6 +32,7 @@ export interface CharacterSchedule {
   avatarSrc: string
   period: number | null // main UP period (from non-rerun window)
   isStandard: boolean
+  offRateNote?: string
 }
 
 /** Per-character normalized schedule index */
@@ -42,7 +44,7 @@ export interface CharacterScheduleIndex {
 export interface TimelineBar {
   leftPx: number
   widthPx: number
-  cls: 'active' | 'past' | 'upcoming' | 'rerun' | 'inPool'
+  cls: 'active' | 'past' | 'upcoming' | 'rerun' | 'rerunActive' | 'inPool'
   dateLabel: string
   fullLabel: string
   charName: string
@@ -57,12 +59,13 @@ export interface TimelineBar {
 /**
  * Status badge for a character row.
  * - active: 当期主UP (绿色)
- * - upcoming: 复刻中/待复刻 (橙色)
+ * - rerunActive: 复刻进行中 (绿色)
+ * - upcoming: 待复刻 (橙色)
  * - inPool: 可歪限定 — 当期歪池可歪到的前1~2期限定 (浅蓝色)
  * - out: 已退池限定 — 距当前超过2期 (深灰)
  * - standard: 常驻角色 — 永久可歪 (白色/浅灰)
  */
-export type StatusBadgeType = 'active' | 'upcoming' | 'inPool' | 'out' | 'standard'
+export type StatusBadgeType = 'active' | 'rerunActive' | 'upcoming' | 'inPool' | 'out' | 'standard'
 
 export interface StatusBadge {
   type: StatusBadgeType
@@ -77,11 +80,13 @@ export interface TimelineCharRow {
   bars: TimelineBar[]
   hasActive: boolean
   statusBadge: StatusBadge | null
+  offRateNote?: string
 }
 
 /** A month column header */
 export interface TimelineMonth {
   label: string
+  shortLabel: string
   wPx: number
 }
 
@@ -116,4 +121,17 @@ export interface TimelineTooltip {
   versionLabel: string
   x: number
   y: number
+}
+
+/** Banner pool visual info for the info strip */
+export interface BannerVisual {
+  id: string           // 唯一标识，如 "1.2-huiguangqingdian"
+  title: string        // 卡池名称，如 "「春雷动，万物生」特许寻访"
+  subtitle?: string    // 副标题，如 "庄方宜"
+  description: string  // 卡池详细描述
+  imageUrl: string     // 宣传图路径
+  officialUrl?: string // 官方公告链接（可选）
+  version: string      // 版本号，用于排序，如 "1.2"
+  periodStart: string  // ISO 时间
+  periodEnd: string    // ISO 时间
 }

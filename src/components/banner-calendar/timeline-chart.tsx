@@ -31,6 +31,7 @@ export function TimelineChart({ data, t }: TimelineChartProps) {
   const tooltipDurationRef = useRef<HTMLDivElement>(null)
 
   const rowsHeight = data.charRows.length * ROW_H
+  const hideYear = data.months.some((m) => m.wPx < 60)
 
   const hideTooltip = useCallback(() => {
     hoveredBarKeyRef.current = ''
@@ -39,6 +40,9 @@ export function TimelineChart({ data, t }: TimelineChartProps) {
 
   const handleMouseMove = useCallback(
     (e: React.MouseEvent) => {
+      // Close bar tooltip before re-evaluating
+      if (tooltipRef.current) tooltipRef.current.style.display = 'none'
+
       const rightPanel = rightPanelRef.current
       if (!rightPanel) return
 
@@ -120,15 +124,15 @@ export function TimelineChart({ data, t }: TimelineChartProps) {
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
     >
-      {/* Left: Character column */}
-      <div className="w-52 shrink-0 shadow-[1px_0px_0px_0px_rgba(0,0,0,0.08)] bg-muted/30">
-        <div className="h-8 flex items-center px-3 shadow-[0px_1px_0px_0px_rgba(0,0,0,0.08)] text-xs font-medium text-muted-foreground">
-          {t('bannerCalendar.characterHeader')}
+      {/* Left: Character column — narrow on mobile, full on lg+ */}
+      <div className="w-14 lg:w-52 shrink-0 shadow-[1px_0px_0px_0px_rgba(0,0,0,0.08)] bg-muted/30 transition-[width]">
+        <div className="h-8 flex items-center px-2 lg:px-3 shadow-[0px_1px_0px_0px_rgba(0,0,0,0.08)] text-xs font-medium text-muted-foreground">
+          <span className="hidden lg:inline">{t('bannerCalendar.characterHeader')}</span>
         </div>
         {data.charRows.map((ch) => (
           <div
             key={ch.name}
-            className="h-[52px] flex items-center gap-2 px-3 border-b border-border/50"
+            className="h-[52px] flex items-center gap-2 px-2 lg:px-3 border-b border-border/50"
           >
             <div className="relative size-8 rounded-full overflow-hidden bg-muted shrink-0">
               <Image
@@ -140,12 +144,15 @@ export function TimelineChart({ data, t }: TimelineChartProps) {
                 loading="lazy"
               />
             </div>
-            <span className="text-sm font-medium whitespace-nowrap">{ch.name}</span>
+            <span className="text-sm font-medium whitespace-nowrap hidden lg:inline">
+              {ch.name}
+            </span>
             {ch.statusBadge && (
               <span
                 className={cn(
-                  'text-[10px] px-1.5 py-0.5 rounded-full whitespace-nowrap font-medium ml-auto',
+                  'text-[10px] px-1.5 py-0.5 rounded-full whitespace-nowrap font-medium ml-auto hidden lg:inline',
                   ch.statusBadge.type === 'active' && 'bg-emerald-500/20 text-emerald-400',
+                  ch.statusBadge.type === 'rerunActive' && 'bg-emerald-500/20 text-emerald-400',
                   ch.statusBadge.type === 'upcoming' && 'bg-amber-500/20 text-amber-400',
                   ch.statusBadge.type === 'inPool' && 'bg-sky-500/20 text-sky-400',
                   ch.statusBadge.type === 'out' && 'bg-muted text-muted-foreground',
@@ -160,16 +167,16 @@ export function TimelineChart({ data, t }: TimelineChartProps) {
       </div>
 
       {/* Right: Gantt chart */}
-      <div ref={rightPanelRef} data-timeline-right className="flex-1 overflow-x-auto">
+      <div ref={rightPanelRef} data-timeline-right className="flex-1 overflow-auto">
         <div style={{ width: data.canvasW }} className="relative">
           <div className="h-8 flex border-b">
             {data.months.map((m) => (
               <div
                 key={m.label}
-                className="flex items-center px-2 text-xs text-muted-foreground border-r border-border/50 shrink-0"
+                className="flex items-center px-2 text-xs text-muted-foreground border-r border-border/50 shrink-0 whitespace-nowrap overflow-hidden"
                 style={{ width: m.wPx }}
               >
-                {m.label}
+                {hideYear ? m.shortLabel : m.label}
               </div>
             ))}
           </div>
@@ -193,11 +200,12 @@ export function TimelineChart({ data, t }: TimelineChartProps) {
                   <div
                     key={`${bar.startMs}-${bar.endMs}-${bar.versionLabel}`}
                     className={cn(
-                      'absolute top-2 h-7 rounded-sm flex items-center justify-center text-[10px] font-medium cursor-default',
+                      'absolute top-2 h-7 rounded-sm flex items-center justify-center text-[10px] font-medium cursor-default whitespace-nowrap',
                       bar.cls === 'active' && 'bg-emerald-500/80 text-white',
                       bar.cls === 'past' && 'bg-muted-foreground/30 text-muted-foreground',
                       bar.cls === 'upcoming' && 'border-2 border-dashed border-amber-400/70 text-amber-400 bg-amber-400/10',
                       bar.cls === 'rerun' && 'border-2 border-dashed border-amber-400/70 text-amber-400 bg-amber-400/10',
+                      bar.cls === 'rerunActive' && 'bg-emerald-500/80 text-white',
                       bar.cls === 'inPool' && 'bg-sky-400/40 text-sky-800 dark:text-sky-200 border border-sky-400/50',
                     )}
                     style={{ left: bar.leftPx, width: bar.widthPx }}
@@ -233,7 +241,7 @@ export function TimelineChart({ data, t }: TimelineChartProps) {
         </div>
       </div>
 
-      {/* Tooltip */}
+      {/* Bar tooltip */}
       <div
         ref={tooltipRef}
         className="fixed z-50 pointer-events-none rounded-md shadow-[0px_0px_0px_1px_rgba(0,0,0,0.08)] bg-popover px-3 py-2 text-popover-foreground shadow-md"

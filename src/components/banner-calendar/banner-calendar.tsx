@@ -7,6 +7,7 @@ import { useBannerStore } from '@/stores/useBannerStore'
 import { SidebarTrigger } from '@/components/ui/sidebar'
 import { TimelineControls } from './timeline-controls'
 import { TimelineChart } from './timeline-chart'
+import { PoolInfoStrip } from './pool-info-strip'
 
 export function BannerCalendar() {
   const t = useTranslations()
@@ -129,8 +130,8 @@ export function BannerCalendar() {
         </div>
       )}
 
-      {/* Main timeline - fills available space */}
-      <div className="flex-1 min-h-0 px-4 pt-2 pb-0">
+      {/* Main timeline - fills available space, vertical scroll on overflow */}
+      <div className="flex-1 min-h-0 overflow-y-auto px-4 pt-2 pb-0">
         {hasData ? (
           <TimelineChart data={timelineData} t={t} />
         ) : (
@@ -139,6 +140,9 @@ export function BannerCalendar() {
           </div>
         )}
       </div>
+
+      {/* Banner pool info strip */}
+      <PoolInfoStrip />
 
       {/* Standard characters table - follows page margins */}
       {hasStandard && (

@@ -390,6 +390,7 @@
     "statusRerunActive": "复刻中",
     "badgeActive": "UP! 剩余{days}天",
     "badgeUpcoming": "还有{days}天复刻",
+    "badgeRerunActive": "剩余{days}天",
     "badgeInPool": "在池中",
     "badgeStandard": "常驻",
     "badgeOut": "OUT!",
@@ -397,7 +398,15 @@
     "today": "今天",
     "sortDefault": "默认排序",
     "sortAsc": "版本升序",
-    "sortDesc": "版本降序"
+    "sortDesc": "版本降序",
+    "poolInfo": "卡池信息",
+    "poolInfoSubtitle": "点击立绘查看卡池详情",
+    "viewDetails": "查看详情",
+    "poolDuration": "卡池时间",
+    "offRateNote": {
+      "tangtang": "只可在庄方宜的「春雷动」特许寻访里歪到",
+      "luoxi": "只可在庄方宜的「春雷动」特许寻访里歪到"
+    }
   },
   "refinement": {
     "searchPlaceholder": "搜索装备...",
