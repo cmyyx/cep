@@ -19,7 +19,7 @@
  */
 
 /** Number of rapid clicks (within 1 second) to toggle the debug console. */
-const DEBUG_CLICK_THRESHOLD = 15
+const DEBUG_CLICK_THRESHOLD = 7
 
 export const DEBUG_BOOTSTRAP_CODE = `(function(){
 var B=[],M=1000;
@@ -186,10 +186,10 @@ window.__cep_debug__.togglePanel=togglePanel;
 /* Multi-click gesture + label click — both delegated on document (capture phase).
    Child-bound handlers are unreachable when Next.js error overlay calls
    stopPropagation() at document level. */
-var C=0,T=0,_loadCbs=null;document.addEventListener('click',function(e){
+var C=0,F=0,_loadCbs=null;document.addEventListener('click',function(e){
   /* Label click — check ancestors for data-debug="label" */
   var t=e.target;while(t){if(t.getAttribute&&t.getAttribute('data-debug')==='label'){e.stopPropagation();openPanel();return}t=t.parentElement}
-  /* Multi-click gesture (not on label) */
-  C++;if(T)clearTimeout(T);if(C>=${DEBUG_CLICK_THRESHOLD}){C=0;togglePanel()}T=setTimeout(function(){C=0},1000)
+  /* Multi-click gesture (not on label): 1-second fixed window from first click */
+  var n=Date.now();if(n-F>1000)C=0;if(C===0)F=n;C++;if(C>=${DEBUG_CLICK_THRESHOLD}){C=0;togglePanel()}
 },true);
 })();`.replace(/\n\s*/g, '')
