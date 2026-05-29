@@ -265,6 +265,11 @@
   bottom: calc(2rem + env(safe-area-inset-bottom, 0px));
 }
 
+/* Bottom bar: margin version for normal-flow layout (avoids sticky overlap bug) */
+@utility safe-area-mb {
+  margin-bottom: calc(2rem + env(safe-area-inset-bottom, 0px));
+}
+
 /* ─── App init overlay keyframes ─── */
 
 /* Engineering grid slow drift */

@@ -36,10 +36,10 @@ export default function RefinementPlannerPage() {
 
       {/* Desktop layout: left equip list + right recommendations */}
       <div className="hidden md:flex flex-1 overflow-hidden">
-        <div className="w-1/2 shrink-0 border-r border-border overflow-y-scroll p-3">
+        <div className="w-1/2 shrink-0 border-r border-border overflow-y-scroll p-3 pb-16">
           <EquipList />
         </div>
-        <div className="flex-1 overflow-y-scroll p-4">
+        <div className="flex-1 overflow-y-scroll p-4 pb-16">
           <RefinementPanel />
         </div>
       </div>
@@ -79,11 +79,11 @@ export default function RefinementPlannerPage() {
         {/* Content area — min-h-0 prevents flex overflow if layout chain breaks */}
         <div className="flex-1 min-h-0 overflow-y-auto">
           {mobileView === 'equips' ? (
-            <div className="p-3">
+            <div className="p-3 pb-16">
               <EquipList />
             </div>
           ) : (
-            <div className="p-4">
+            <div className="p-4 pb-16">
               {/* Selected equip context header */}
               {hasSelection && (
                 <button
@@ -99,9 +99,9 @@ export default function RefinementPlannerPage() {
           )}
         </div>
 
-        {/* Bottom bar — sticky, offset above version watermark. safe-area-inset
-            handled by bottom positioning (not padding) to avoid double-counting. */}
-        <div className="sticky safe-area-bottom-bar z-40 flex items-center justify-between px-4 py-2.5 shadow-[inset_0px_1px_0px_0px_rgba(0,0,0,0.08)] bg-background">
+        {/* Bottom bar — relative with margin-bottom for watermark clearance.
+            safe-area-inset handled via safe-area-mb utility. */}
+        <div className="relative safe-area-mb z-40 flex items-center justify-between px-4 py-2.5 shadow-[inset_0px_1px_0px_0px_rgba(0,0,0,0.08)] bg-background">
           <span className="text-sm text-muted-foreground">
             {hasSelection
               ? t('refinement.hasSelection')
