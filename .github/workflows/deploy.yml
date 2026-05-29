@@ -54,6 +54,9 @@ jobs:
       - name: Setup pnpm
         run: pnpm install --frozen-lockfile
 
+      - name: Fetch all tags
+        run: git fetch --tags --force
+
       - name: Build
         run: pnpm run build
         env:
