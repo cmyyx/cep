@@ -405,6 +405,23 @@
               ]
             },
             {
+              "name": "冷却时间",
+              "values": [
+                "20秒",
+                "20秒",
+                "20秒",
+                "20秒",
+                "20秒",
+                "20秒",
+                "20秒",
+                "20秒",
+                "20秒",
+                "20秒",
+                "20秒",
+                "20秒"
+              ]
+            },
+            {
               "name": "持续伤害总倍率",
               "values": [
                 "142%",
@@ -608,7 +625,8 @@
             "name": "落草",
             "icon": "",
             "note": "专武",
-            "rarity": 6
+            "rarity": 6,
+            "id": "30656db1-ea67-4732-8a96-0e30ab93684d"
           }
         ],
         "equipment": [
@@ -616,25 +634,29 @@
             "name": "清波重甲",
             "icon": "",
             "note": "",
-            "rarity": 5
+            "rarity": 5,
+            "id": "4f27a88b-2458-4368-b8fe-09716e5c0d8c"
           },
           {
             "name": "清波手甲",
             "icon": "",
             "note": "",
-            "rarity": 5
+            "rarity": 5,
+            "id": "17802ca8-8f76-4284-adeb-0ca9924ff405"
           },
           {
             "name": "清波定位仪",
             "icon": "",
             "note": "",
-            "rarity": 5
+            "rarity": 5,
+            "id": "7141b21b-5c8e-4af9-be08-9b1f51b67a70"
           },
           {
             "name": "生物辅助护板",
             "icon": "",
             "note": "",
-            "rarity": 5
+            "rarity": 5,
+            "id": "21e56bf5-49e6-4be8-9d99-df184ffaa166"
           }
         ]
       },
@@ -644,7 +666,8 @@
             "name": "望乡",
             "icon": "",
             "note": "通行证",
-            "rarity": 6
+            "rarity": 6,
+            "id": "4526dd45-4b29-4518-afe6-3ad180af4f21"
           }
         ],
         "equipment": [
@@ -652,25 +675,29 @@
             "name": "碾骨重护甲·贰型",
             "icon": "",
             "note": "",
-            "rarity": 5
+            "rarity": 5,
+            "id": "f26d0435-00bd-442e-a1da-a5adf6c5690b"
           },
           {
             "name": "碾骨腕带·壹型",
             "icon": "",
             "note": "",
-            "rarity": 5
+            "rarity": 5,
+            "id": "47c083e7-ee50-4701-a6f4-27b506d6fecd"
           },
           {
             "name": "碾骨面具·贰型",
             "icon": "",
             "note": "",
-            "rarity": 5
+            "rarity": 5,
+            "id": "51b98775-2da8-490f-b8fa-42141b4cc7f1"
           },
           {
             "name": "纾难印章",
             "icon": "",
             "note": "0潜建议",
-            "rarity": 5
+            "rarity": 5,
+            "id": "327499b8-ffd4-45de-a1e5-c2a6488619cc"
           }
         ]
       },
@@ -680,7 +707,8 @@
             "name": "楔子",
             "icon": "",
             "note": "",
-            "rarity": 6
+            "rarity": 6,
+            "id": "735063cc-21b9-4920-846b-287c9201aa85"
           }
         ],
         "equipment": [
@@ -688,25 +716,29 @@
             "name": "碾骨重护甲·贰型",
             "icon": "",
             "note": "",
-            "rarity": 5
+            "rarity": 5,
+            "id": "cd339559-1886-411a-96ba-7efb1679e077"
           },
           {
             "name": "碾骨腕带·壹型",
             "icon": "",
             "note": "",
-            "rarity": 5
+            "rarity": 5,
+            "id": "b8abd37d-aa60-4159-b419-88f6a06f2da3"
           },
           {
             "name": "碾骨面具·贰型",
             "icon": "",
             "note": "",
-            "rarity": 5
+            "rarity": 5,
+            "id": "08d5ba21-1afe-4fc9-acec-fa0bdea486cf"
           },
           {
             "name": "碾骨面具·贰型",
             "icon": "",
             "note": "4潜建议",
-            "rarity": 5
+            "rarity": 5,
+            "id": "527c10c7-747c-4105-b8e1-ede4aab1cde7"
           }
         ]
       }
@@ -727,7 +759,8 @@
                 "name": "艺术暴君",
                 "icon": "",
                 "note": "",
-                "rarity": 6
+                "rarity": 6,
+                "id": "8caf5947-1f49-4ea6-8b7f-ea556f490606"
               }
             ],
             "equipment": [
@@ -735,25 +768,29 @@
                 "name": "M.I.警用罩衣",
                 "icon": "",
                 "note": "",
-                "rarity": 5
+                "rarity": 5,
+                "id": "0c1688e0-310f-457d-b50e-98e77dc56095"
               },
               {
                 "name": "M.I.警用手环",
                 "icon": "",
                 "note": "",
-                "rarity": 5
+                "rarity": 5,
+                "id": "3fe7bf34-22ad-46dc-bead-7724e2846134"
               },
               {
                 "name": "M.I.警用工具组",
                 "icon": "",
                 "note": "",
-                "rarity": 5
+                "rarity": 5,
+                "id": "ebd71688-1d51-4222-96c2-1b793de5fde1"
               },
               {
                 "name": "M.I.警用工具组",
                 "icon": "",
                 "note": "",
-                "rarity": 5
+                "rarity": 5,
+                "id": "c9c2e1be-5f8a-4d7a-ae97-ac8b687621fd"
               }
             ]
           },
@@ -765,7 +802,8 @@
                 "name": "赫拉芬格",
                 "icon": "",
                 "note": "",
-                "rarity": 6
+                "rarity": 6,
+                "id": "34cd6e97-cf3a-4f4b-846b-bad8b159af23"
               }
             ],
             "equipment": [
@@ -773,25 +811,29 @@
                 "name": "点剑轻装甲",
                 "icon": "",
                 "note": "",
-                "rarity": 5
+                "rarity": 5,
+                "id": "883b90b3-346d-41da-8698-0af6dc1cd189"
               },
               {
                 "name": "潮涌手甲",
                 "icon": "",
                 "note": "",
-                "rarity": 5
+                "rarity": 5,
+                "id": "2a4be56f-0c08-4444-bec5-56f0933f7906"
               },
               {
                 "name": "悬河供氧栓",
                 "icon": "",
                 "note": "",
-                "rarity": 5
+                "rarity": 5,
+                "id": "7036755a-cd27-4c4f-848f-3c392b55237d"
               },
               {
                 "name": "悬河供氧栓",
                 "icon": "",
                 "note": "",
-                "rarity": 5
+                "rarity": 5,
+                "id": "da5fc77f-3c71-4874-9736-98b58844e005"
               }
             ]
           }
@@ -809,7 +851,8 @@
                 "name": "落草",
                 "icon": "",
                 "note": "",
-                "rarity": 6
+                "rarity": 6,
+                "id": "e3368668-5392-4ecc-8f67-7a53247bf311"
               }
             ],
             "equipment": [
@@ -817,25 +860,29 @@
                 "name": "清波重甲",
                 "icon": "",
                 "note": "",
-                "rarity": 5
+                "rarity": 5,
+                "id": "cd152a55-29a8-4a50-9e12-62b29129c454"
               },
               {
                 "name": "清波手甲",
                 "icon": "",
                 "note": "",
-                "rarity": 5
+                "rarity": 5,
+                "id": "9bee11eb-c1bb-4da2-b0f1-d7f913a0992e"
               },
               {
                 "name": "清波定位仪",
                 "icon": "",
                 "note": "",
-                "rarity": 5
+                "rarity": 5,
+                "id": "58c2ba77-ddf5-49cd-8228-76a396e3558c"
               },
               {
                 "name": "生物辅助护板",
                 "icon": "",
                 "note": "",
-                "rarity": 5
+                "rarity": 5,
+                "id": "4c45fd22-5098-4e5c-9353-e854e3a6b36a"
               }
             ]
           }
@@ -853,7 +900,8 @@
                 "name": "爆破单元",
                 "icon": "",
                 "note": "",
-                "rarity": 6
+                "rarity": 6,
+                "id": "857cf983-0a67-404f-8ee7-f341cf86e293"
               }
             ],
             "equipment": [
@@ -861,25 +909,29 @@
                 "name": "纾难护甲",
                 "icon": "",
                 "note": "",
-                "rarity": 5
+                "rarity": 5,
+                "id": "caafba08-cd9e-49ab-a3d6-06636f814788"
               },
               {
                 "name": "拓荒纤维手套·壹型",
                 "icon": "",
                 "note": "",
-                "rarity": 5
+                "rarity": 5,
+                "id": "597e8343-cdfa-4036-b0eb-9913a9d533cb"
               },
               {
                 "name": "拓荒增量供氧栓·壹型",
                 "icon": "",
                 "note": "",
-                "rarity": 5
+                "rarity": 5,
+                "id": "c7454936-7ab1-4b39-8d2b-a11e29745219"
               },
               {
                 "name": "拓荒增量供氧栓·壹型",
                 "icon": "",
                 "note": "",
-                "rarity": 5
+                "rarity": 5,
+                "id": "cec0c981-eb19-4d85-8c6f-985c4a0d82a8"
               }
             ]
           }
@@ -897,7 +949,8 @@
                 "name": "悼亡诗",
                 "icon": "",
                 "note": "",
-                "rarity": 5
+                "rarity": 5,
+                "id": "c6504ef7-7a67-4c7b-a74a-dff1ad361231"
               }
             ],
             "equipment": [
@@ -905,25 +958,29 @@
                 "name": "碾骨披巾·壹型",
                 "icon": "",
                 "note": "",
-                "rarity": 5
+                "rarity": 5,
+                "id": "f5c7839b-df05-4062-b608-32bfdfdd26e3"
               },
               {
                 "name": "长息护手·壹型",
                 "icon": "",
                 "note": "",
-                "rarity": 5
+                "rarity": 5,
+                "id": "351ab3bb-f704-469e-9c09-f00d8eaf8b70"
               },
               {
                 "name": "长息辅助臂",
                 "icon": "",
                 "note": "",
-                "rarity": 5
+                "rarity": 5,
+                "id": "f745db8b-0279-4b9e-bc83-080c3d3e7075"
               },
               {
                 "name": "长息辅助臂",
                 "icon": "",
                 "note": "",
-                "rarity": 5
+                "rarity": 5,
+                "id": "54698036-929b-455f-b9dd-0fb1e1b6aeb8"
               }
             ]
           },
@@ -935,7 +992,8 @@
                 "name": "热熔切割器",
                 "icon": "",
                 "note": "",
-                "rarity": 6
+                "rarity": 6,
+                "id": "bb3bd527-4219-407f-9990-5572a14447e2"
               }
             ],
             "equipment": [
@@ -943,25 +1001,29 @@
                 "name": "纾难护甲",
                 "icon": "",
                 "note": "",
-                "rarity": 5
+                "rarity": 5,
+                "id": "b1a60bde-1409-4eca-8e66-fe257b3892f6"
               },
               {
                 "name": "拓荒纤维手套·壹型",
                 "icon": "",
                 "note": "",
-                "rarity": 5
+                "rarity": 5,
+                "id": "410d6ce3-62a6-48bc-bb13-37e5bcfa1092"
               },
               {
                 "name": "拓荒增量供氧栓·壹型",
                 "icon": "",
                 "note": "",
-                "rarity": 5
+                "rarity": 5,
+                "id": "7f5bf314-d6a4-4459-b06c-57f2aea5f574"
               },
               {
                 "name": "拓荒增量供氧栓·壹型",
                 "icon": "",
                 "note": "",
-                "rarity": 5
+                "rarity": 5,
+                "id": "43b09262-f368-4094-b3b2-049a21ac8758"
               }
             ]
           },
@@ -973,7 +1035,8 @@
                 "name": "沧溟星梦",
                 "icon": "",
                 "note": "",
-                "rarity": 6
+                "rarity": 6,
+                "id": "dab4fc9a-e429-4ee6-b688-81e07f0173ad"
               }
             ],
             "equipment": [
@@ -981,25 +1044,29 @@
                 "name": "长息装甲",
                 "icon": "",
                 "note": "",
-                "rarity": 5
+                "rarity": 5,
+                "id": "2251a26d-9533-4523-8270-9491dadeb79d"
               },
               {
                 "name": "长息护手·壹型",
                 "icon": "",
                 "note": "",
-                "rarity": 5
+                "rarity": 5,
+                "id": "7c8ffc08-848d-4f12-95a5-4af8286dfc7f"
               },
               {
                 "name": "长息辅助臂",
                 "icon": "",
                 "note": "",
-                "rarity": 5
+                "rarity": 5,
+                "id": "19c149c2-ff40-4d01-8391-5229f10dae49"
               },
               {
                 "name": "长息辅助臂",
                 "icon": "",
                 "note": "",
-                "rarity": 5
+                "rarity": 5,
+                "id": "cc97a3bb-374c-431a-ae04-27717c580aca"
               }
             ]
           }
@@ -1024,6 +1091,27 @@
         "name": "沈念",
         "url": "https://space.bilibili.com/661696099",
         "note": "个人攻略补全喵~结合了血狼、梦轩等大佬的攻略及个人实战体验做的瞄~"
+      }
+    ],
+    "skillPriorities": [
+      {
+        "skillName": "战技",
+        "note": "建议专3",
+        "relation": ">"
+      },
+      {
+        "skillName": "终结技",
+        "note": "可以专3",
+        "relation": ">="
+      },
+      {
+        "skillName": "连携技",
+        "note": "可以专3",
+        "relation": ">"
+      },
+      {
+        "skillName": "普通攻击",
+        "note": ""
       }
     ]
   }
