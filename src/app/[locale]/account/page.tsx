@@ -12,7 +12,7 @@ import { Badge } from '@/components/ui/badge'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Separator } from '@/components/ui/separator'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-import { Loader2, Cloud, HardDrive, AlertTriangle, CheckCircle2, Mail, Shield, RefreshCw, LogOut, Crown, Key, Send, Zap, Monitor, X, Eye, EyeOff } from 'lucide-react'
+import { Loader2, Cloud, HardDrive, AlertTriangle, CheckCircle2, Mail, Shield, RefreshCw, LogOut, Crown, Key, Send, Zap, Monitor, X, Eye, EyeOff, Gift } from 'lucide-react'
 import { Switch } from '@/components/ui/switch'
 import { useAuthStore } from '@/stores/useAuthStore'
 import { useEssenceSettingsStore } from '@/stores/useEssenceSettingsStore'
@@ -21,6 +21,7 @@ import { getSyncTimestamps, subscribeSyncTimestamps, setAutoSyncConflictCallback
 import { cn, maskEmail, isValidEmail, formatTime } from '@/lib/utils'
 import { SyncConflictDialog } from '@/components/shared/sync-conflict-dialog'
 import { equipById } from '@/data/equips'
+import { redeemCodeApi } from '@/lib/api'
 
 // ─── Sync ────────────────────────────────────────────────────
 
@@ -148,8 +149,18 @@ export default function AccountPage() {
   const [claimRef, setClaimRef] = useState(''); const [claimMerchant, setClaimMerchant] = useState(''); const [claimPaidTime, setClaimPaidTime] = useState('')
   const [claimSubmitting, setClaimSubmitting] = useState(false); const [claimError, setClaimError] = useState<string|null>(null); const [claimSuccess, setClaimSuccess] = useState(false)
 
+  // Redeem
+  const [redeemCode, setRedeemCode] = useState('')
+  const [redeeming, setRedeeming] = useState(false)
+  const [redeemError, setRedeemError] = useState<string | null>(null)
+  const [redeemResult, setRedeemResult] = useState<{ days: number; until: string } | null>(null)
+  const redeemHistory = useAuthStore(s => s.redeemHistory)
+
   // Tier
   const premiumUntil = premiumUntilStr ? new Date(premiumUntilStr).getTime() : 0
+
+  // Tab state
+  const [accountTab, setAccountTab] = useState<'account' | 'membership'>('account')
   const trialUntil = premiumTrialStr ? new Date(premiumTrialStr).getTime() : 0
   // eslint-disable-next-line react-hooks/purity -- reading current time for tier expiry check
   const now = Date.now()
@@ -375,6 +386,22 @@ export default function AccountPage() {
   const handleRevokeSession = async (sessionId: number) => { setRevokingIds(prev => new Set(prev).add(sessionId)); try { await revokeSession(sessionId) } catch { /* error handled by store */ } finally { setRevokingIds(prev => { const next = new Set(prev); next.delete(sessionId); return next }) } }
   const handleLogout = async () => { setLogoutLoading(true); await logout(); router.replace(`/${locale}`) }
 
+  // Redeem handler
+  const handleRedeem = async () => {
+    if (!redeemCode.trim()) return
+    setRedeeming(true); setRedeemError(null); setRedeemResult(null)
+    try {
+      const res = await redeemCodeApi(redeemCode.trim())
+      setRedeemResult({ days: res.days_granted, until: res.new_trial_until })
+      setRedeemCode('')
+      fetchMeGlobal()
+    } catch (err) {
+      setRedeemError(err instanceof ApiError ? err.code : 'unknown_error')
+    } finally {
+      setRedeeming(false)
+    }
+  }
+
   const localData = collectLocalData()
   const rows = buildSyncRows(localData, cloudData?.data as Record<string,unknown>|null)
   const hasCloudData = cloudVersion != null && cloudVersion > 0
@@ -563,7 +590,16 @@ export default function AccountPage() {
   return (
     <div className="flex flex-col flex-1 min-h-0 overflow-hidden">
       <div className="flex items-center gap-3 px-4 py-2 border-b border-border"><SidebarTrigger /><h1 className="text-base font-semibold tracking-tight">{t('account.title')}</h1></div>
-      <div className="flex-1 overflow-y-auto p-6"><div className="max-w-2xl mx-auto space-y-6">
+      <div className="flex-1 overflow-y-auto p-6 [scrollbar-gutter:stable]"><div className="max-w-2xl mx-auto space-y-6">
+
+        {/* ── Tab Navigation ── */}
+        <div className="flex rounded-lg border border-border overflow-hidden">
+          <Button variant="ghost" onClick={() => setAccountTab('account')} className={cn('flex-1 rounded-none py-2.5 text-sm font-medium transition-colors', accountTab === 'account' ? 'bg-accent text-accent-foreground' : 'hover:bg-muted/50 text-muted-foreground')}>{t('account.tabAccount')}</Button>
+          <Button variant="ghost" onClick={() => setAccountTab('membership')} className={cn('flex-1 rounded-none py-2.5 text-sm font-medium transition-colors', accountTab === 'membership' ? 'bg-accent text-accent-foreground' : 'hover:bg-muted/50 text-muted-foreground')}>{t('account.tabMembership')}</Button>
+        </div>
+
+        {/* ── Tab: Account ── */}
+        {accountTab === 'account' && <>
 
         {/* ── Profile ── */}
         <Card>
@@ -749,6 +785,11 @@ export default function AccountPage() {
           </CardContent>
         </Card>
 
+        </>}
+
+        {/* ── Tab: Membership ── */}
+        {accountTab === 'membership' && <>
+
         {/* ── Premium ── */}
         <Card>
           <CardHeader className="pb-3"><CardTitle className="text-sm font-semibold flex items-center gap-2"><Crown className="size-4"/>{t('account.premiumTitle')}</CardTitle></CardHeader>
@@ -803,6 +844,55 @@ export default function AccountPage() {
             {paymentClaims.length>0&&<div className="space-y-2"><h4 className="text-xs font-medium text-muted-foreground">{t('account.paymentHistory')}</h4>{paymentClaims.map(c=><div key={c.id} className="rounded-md border border-border px-3 py-2 text-xs"><div className="flex justify-between items-center"><span className="text-muted-foreground">#{c.id} {c.channel==='alipay'?t('account.channelAlipay'):t('account.channelWechat')}</span><Badge className={cn(c.status==='approved'&&'bg-green-100 text-green-700',c.status==='rejected'&&'bg-red-100 text-red-700',c.status==='pending'&&'bg-amber-100 text-amber-700')}>{c.status==='approved'?t('account.claimApproved'):c.status==='rejected'?t('account.claimRejected'):t('account.claimPending')}</Badge></div><div className="text-muted-foreground mt-1">{c.external_reference}</div>{c.admin_note&&<div className="text-muted-foreground italic mt-0.5">{c.admin_note}</div>}</div>)}</div>}
           </CardContent>
         </Card>
+
+        {/* ── Redeem ── */}
+        <Card>
+          <CardHeader className="pb-3"><CardTitle className="text-sm font-semibold flex items-center gap-2"><Gift className="size-4"/>{t('account.redeemCode')}</CardTitle></CardHeader>
+          <CardContent className="space-y-3">
+            <div className="flex gap-2">
+              <Input
+                className="h-9 text-sm bg-card border-border flex-1 font-mono"
+                value={redeemCode}
+                onChange={e => setRedeemCode(e.target.value.replace(/[^a-zA-Z0-9._-]/g, ''))}
+                placeholder={t('account.redeemCodePlaceholder')}
+              />
+              <Button size="sm" className="h-9" onClick={handleRedeem} disabled={!redeemCode.trim() || redeeming}>
+                {redeeming ? <Loader2 className="size-4 mr-1 animate-spin" /> : null}
+                {t('account.redeemButton')}
+              </Button>
+            </div>
+            {redeemResult && (
+              <div className="rounded-md bg-green-50 dark:bg-green-950/30 border border-green-200 dark:border-green-800 px-3 py-2 text-xs text-green-700 dark:text-green-200">
+                {t('account.redeemSuccess', { days: redeemResult.days })}
+                <br />
+                {t('account.redeemExpiresAt', { date: new Date(redeemResult.until).toLocaleString() })}
+              </div>
+            )}
+            {redeemError && (
+              <p className="text-xs text-destructive">{t(getErrorI18nKey(redeemError))}</p>
+            )}
+            <div className="rounded-md bg-muted/50 px-3 py-2 text-xs text-muted-foreground">
+              <span className="font-medium">{t('account.redeemHowToGet')}</span>
+              <br />{t('account.redeemHowToGetHint')}
+            </div>
+            {redeemHistory.length > 0 && (
+              <>
+                <Separator />
+                <h4 className="text-xs font-medium text-muted-foreground">{t('account.redeemHistory')}</h4>
+                <div className="space-y-1">
+                  {redeemHistory.map((h) => (
+                    <div key={h.redeemed_at} className="flex justify-between text-xs text-muted-foreground">
+                      <span>+{h.days_granted} {t('account.trial')}</span>
+                      <span>{new Date(h.redeemed_at).toLocaleDateString()}</span>
+                    </div>
+                  ))}
+                </div>
+              </>
+            )}
+          </CardContent>
+        </Card>
+
+        </>}
 
       </div></div>
     </div>
