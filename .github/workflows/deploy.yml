@@ -9,11 +9,11 @@ on:
         description: 'Version tag (e.g., v0.2.0)'
         required: true
         type: string
-      message:
-        description: 'Tag message — add [force] for mandatory upgrade'
+      force:
+        description: 'Force upgrade'
         required: false
-        type: string
-        default: ''
+        type: boolean
+        default: false
 
 jobs:
   deploy:
@@ -47,9 +47,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          MSG="${{ inputs.message }}"
-          if [ -z "$MSG" ]; then MSG="${{ inputs.version }}"; fi
-          git tag -a "${{ inputs.version }}" -m "$MSG"
+          git tag -a "${{ inputs.version }}" -m "${{ inputs.version }}"
           git push origin "${{ inputs.version }}"
 
       - name: Setup pnpm
@@ -57,29 +55,22 @@ jobs:
 
       - name: Compute deploy serial
         id: deploy-serial
-        env:
-          DEPLOY_MSG: ${{ inputs.message }}
         run: |
           CURRENT=${{ vars.FORCE_UPGRADE_SERIAL }}
           CURRENT=${CURRENT:-0}
           IS_FORCE=false
 
-          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
-            if printf '%s' "$DEPLOY_MSG" | grep -qF '[force]'; then
-              IS_FORCE=true
-              NEXT=$((CURRENT + 1))
-              echo "serial=${NEXT}" >> $GITHUB_OUTPUT
-              echo "next-serial=${NEXT}" >> $GITHUB_OUTPUT
-            else
-              echo "serial=${CURRENT}" >> $GITHUB_OUTPUT
-            fi
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ "${{ inputs.force }}" = "true" ]; then
+            IS_FORCE=true
+            NEXT=$((CURRENT + 1))
+            echo "serial=${NEXT}" >> $GITHUB_OUTPUT
+            echo "next-serial=${NEXT}" >> $GITHUB_OUTPUT
           else
             echo "serial=${CURRENT}" >> $GITHUB_OUTPUT
           fi
 
           echo "is-force=${IS_FORCE}" >> $GITHUB_OUTPUT
-          SERIAL=$(tail -1 "$GITHUB_OUTPUT" | grep '^serial=' | cut -d= -f2)
-          echo "Deploy serial: ${SERIAL}, force: ${IS_FORCE}"
+          echo "Deploy serial: serial=${SERIAL:-$CURRENT}, force=${IS_FORCE}"
 
       - name: Build
         run: pnpm run build
