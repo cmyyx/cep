@@ -69,8 +69,14 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
+          # 保存构建产物到临时目录
+          cp -r out $RUNNER_TEMP/out
           git checkout --orphan deploy-temp
-          cp -r out/* .
+          # 清空工作目录
+          find . -maxdepth 1 ! -name '.git' ! -name '.' -exec rm -rf {} +
+          # 从临时目录复制回来
+          cp -r $RUNNER_TEMP/out/* .
           git add -A
-          git commit -m "deploy: ${{ github.ref_name || inputs.version }}"
+          COMMIT_MSG=$(git log -1 --pretty=%s $GITHUB_SHA)
+          git commit -m "deploy: ${{ github.ref_name || inputs.version }} - $COMMIT_MSG"
           git push origin deploy-temp:deploy --force
