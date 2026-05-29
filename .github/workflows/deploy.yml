@@ -21,7 +21,6 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
-      actions: write
     steps:
       - uses: actions/checkout@v5
         with:
@@ -42,41 +41,52 @@ jobs:
             exit 1
           fi
 
-      - name: Create and push tag
-        if: github.event_name == 'workflow_dispatch'
+      - name: Prepare deploy tag and force marker
+        id: tag-prep
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git tag -a "${{ inputs.version }}" -m "${{ inputs.version }}"
-          git push origin "${{ inputs.version }}"
+
+          if [ "${{ github.event_name }}" = "push" ]; then
+            TAG_NAME="${{ github.ref_name }}"
+            if echo "$TAG_NAME" | grep -q '\-force$'; then
+              IS_FORCE=true
+              CLEAN_TAG=$(echo "$TAG_NAME" | sed 's/-force$//')
+            else
+              IS_FORCE=false
+              CLEAN_TAG="$TAG_NAME"
+            fi
+          else
+            CLEAN_TAG="${{ inputs.version }}"
+            IS_FORCE="${{ inputs.force }}"
+            git tag -a "$CLEAN_TAG" -m "$CLEAN_TAG"
+            git push origin "$CLEAN_TAG"
+          fi
+
+          if [ "$IS_FORCE" = "true" ]; then
+            OLD=$(git tag -l 'force-*' | head -1)
+            if [ -n "$OLD" ]; then
+              CURRENT=$(echo "$OLD" | sed 's/force-//')
+              git push origin --delete "$OLD" 2>/dev/null || true
+              git tag -d "$OLD" 2>/dev/null || true
+            else
+              CURRENT=0
+            fi
+            NEXT=$((CURRENT + 1))
+            git tag "force-${NEXT}"
+            git push origin "force-${NEXT}"
+            echo "Updated force marker: force-${CURRENT} -> force-${NEXT}"
+          fi
+
+          echo "clean-tag=${CLEAN_TAG}" >> $GITHUB_OUTPUT
 
       - name: Setup pnpm
         run: pnpm install --frozen-lockfile
 
-      - name: Compute deploy serial
-        id: deploy-serial
-        run: |
-          CURRENT=${{ vars.FORCE_UPGRADE_SERIAL }}
-          CURRENT=${CURRENT:-0}
-          IS_FORCE=false
-
-          if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ "${{ inputs.force }}" = "true" ]; then
-            IS_FORCE=true
-            NEXT=$((CURRENT + 1))
-            echo "serial=${NEXT}" >> $GITHUB_OUTPUT
-            echo "next-serial=${NEXT}" >> $GITHUB_OUTPUT
-          else
-            echo "serial=${CURRENT}" >> $GITHUB_OUTPUT
-          fi
-
-          echo "is-force=${IS_FORCE}" >> $GITHUB_OUTPUT
-          echo "Deploy serial: serial=${SERIAL:-$CURRENT}, force=${IS_FORCE}"
-
       - name: Build
         run: pnpm run build
         env:
-          DEPLOY_TAG: ${{ github.event_name == 'push' && github.ref_name || inputs.version }}
-          FORCE_UPGRADE_SERIAL: ${{ steps.deploy-serial.outputs.serial }}
+          DEPLOY_TAG: ${{ steps.tag-prep.outputs.clean-tag }}
           SITE_URL: https://end.canmoe.com
           NEXT_PUBLIC_API_BASE_URL: ${{ vars.API_BASE_URL }}
           NEXT_PUBLIC_TURNSTILE_SITE_KEY: ${{ secrets.TURNSTILE_SITE_KEY }}
@@ -84,14 +94,6 @@ jobs:
           NEXT_PUBLIC_ALLOWED_EMBED_DOMAINS: ${{ vars.ALLOWED_EMBED_DOMAINS }}
           NEXT_PUBLIC_OAUTH_CLIENT_NAMES: ${{ vars.OAUTH_CLIENT_NAMES }}
           NEXT_PUBLIC_FORUM_URL: ${{ vars.FORUM_URL }}
-
-      - name: Persist force upgrade serial
-        if: steps.deploy-serial.outputs.is-force == 'true'
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          gh variable set FORCE_UPGRADE_SERIAL --body "${{ steps.deploy-serial.outputs.next-serial }}"
-          echo "FORCE_UPGRADE_SERIAL updated to ${{ steps.deploy-serial.outputs.next-serial }}"
 
       - name: Deploy to deploy branch
         run: |

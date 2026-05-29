@@ -30,16 +30,12 @@ const changelog = changelogRaw
 
 // 统计含 [force] 标记的 tag 数量，生成强制升级序列号
 // Priority 1: CI 注入的 FORCE_UPGRADE_SERIAL 环境变量（通过 GitHub API 计算）
-// Priority 2: 本地 git tag 注解
+// Priority 2: 从 force-N 轻量级 tag 名提取序列号（始终最多一个）
 function getForceUpgradeSerial() {
-  const ciSerial = process.env.FORCE_UPGRADE_SERIAL
-  if (ciSerial !== undefined && ciSerial !== '') {
-    const n = Number(ciSerial)
-    if (!isNaN(n) && n >= 0) return n
-  }
-  const output = git("tag -l v* --format=%(contents)") || ""
-  const matches = output.match(/\[force\]/g)
-  return matches ? matches.length : 0
+  const tag = (git("tag -l force-*") || "").trim()
+  if (!tag) return 0
+  const m = tag.match(/^force-(\d+)$/)
+  return m ? Number(m[1]) : 0
 }
 
 // 优先从 CI 注入的 DEPLOY_TAG 环境变量读取 semver（构建机可能拉不到完整的 git tags）

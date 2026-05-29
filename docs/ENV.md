@@ -126,6 +126,5 @@ NEXT_PUBLIC_FORUM_URL=https://forum.example.com
 | `ALLOWED_EMBED_DOMAINS` | Variable | `NEXT_PUBLIC_ALLOWED_EMBED_DOMAINS` |
 | `OAUTH_CLIENT_NAMES` | Variable | `NEXT_PUBLIC_OAUTH_CLIENT_NAMES` |
 | `FORUM_URL` | Variable | `NEXT_PUBLIC_FORUM_URL` |
-| `FORCE_UPGRADE_SERIAL` | Variable | `FORCE_UPGRADE_SERIAL`（构建时注入，非 `NEXT_PUBLIC_`） |
 
 > `SITE_URL` 为硬编码的 `https://end.canmoe.com`，直接写在 `deploy.yml` 中（非敏感信息）。
