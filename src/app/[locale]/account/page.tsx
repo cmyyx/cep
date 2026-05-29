@@ -396,7 +396,7 @@ export default function AccountPage() {
       setRedeemCode('')
       fetchMeGlobal()
     } catch (err) {
-      setRedeemError(err instanceof Error ? err.message : 'redeemInvalidCode')
+      setRedeemError(err instanceof ApiError ? err.code : 'unknown_error')
     } finally {
       setRedeeming(false)
     }
@@ -594,8 +594,8 @@ export default function AccountPage() {
 
         {/* ── Tab Navigation ── */}
         <div className="flex rounded-lg border border-border overflow-hidden">
-          <button onClick={() => setAccountTab('account')} className={cn('flex-1 py-2.5 text-sm font-medium transition-colors', accountTab === 'account' ? 'bg-accent text-accent-foreground' : 'hover:bg-muted/50 text-muted-foreground')}>{t('account.tabAccount')}</button>
-          <button onClick={() => setAccountTab('membership')} className={cn('flex-1 py-2.5 text-sm font-medium transition-colors', accountTab === 'membership' ? 'bg-accent text-accent-foreground' : 'hover:bg-muted/50 text-muted-foreground')}>{t('account.tabMembership')}</button>
+          <Button variant="ghost" onClick={() => setAccountTab('account')} className={cn('flex-1 rounded-none py-2.5 text-sm font-medium transition-colors', accountTab === 'account' ? 'bg-accent text-accent-foreground' : 'hover:bg-muted/50 text-muted-foreground')}>{t('account.tabAccount')}</Button>
+          <Button variant="ghost" onClick={() => setAccountTab('membership')} className={cn('flex-1 rounded-none py-2.5 text-sm font-medium transition-colors', accountTab === 'membership' ? 'bg-accent text-accent-foreground' : 'hover:bg-muted/50 text-muted-foreground')}>{t('account.tabMembership')}</Button>
         </div>
 
         {/* ── Tab: Account ── */}
@@ -880,8 +880,8 @@ export default function AccountPage() {
                 <Separator />
                 <h4 className="text-xs font-medium text-muted-foreground">{t('account.redeemHistory')}</h4>
                 <div className="space-y-1">
-                  {redeemHistory.map((h, i) => (
-                    <div key={i} className="flex justify-between text-xs text-muted-foreground">
+                  {redeemHistory.map((h) => (
+                    <div key={h.redeemed_at} className="flex justify-between text-xs text-muted-foreground">
                       <span>+{h.days_granted} {t('account.trial')}</span>
                       <span>{new Date(h.redeemed_at).toLocaleDateString()}</span>
                     </div>
