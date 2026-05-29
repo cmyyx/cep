@@ -21,11 +21,11 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+      actions: write
     steps:
       - uses: actions/checkout@v5
         with:
           fetch-depth: 0
-          fetch-tags: true
 
       - uses: pnpm/action-setup@v6
 
@@ -55,13 +55,37 @@ jobs:
       - name: Setup pnpm
         run: pnpm install --frozen-lockfile
 
-      - name: Fetch all tags
-        run: git fetch --tags --force
+      - name: Compute deploy serial
+        id: deploy-serial
+        env:
+          DEPLOY_MSG: ${{ inputs.message }}
+        run: |
+          CURRENT=${{ vars.FORCE_UPGRADE_SERIAL }}
+          CURRENT=${CURRENT:-0}
+          IS_FORCE=false
+
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            if printf '%s' "$DEPLOY_MSG" | grep -qF '[force]'; then
+              IS_FORCE=true
+              NEXT=$((CURRENT + 1))
+              echo "serial=${NEXT}" >> $GITHUB_OUTPUT
+              echo "next-serial=${NEXT}" >> $GITHUB_OUTPUT
+            else
+              echo "serial=${CURRENT}" >> $GITHUB_OUTPUT
+            fi
+          else
+            echo "serial=${CURRENT}" >> $GITHUB_OUTPUT
+          fi
+
+          echo "is-force=${IS_FORCE}" >> $GITHUB_OUTPUT
+          SERIAL=$(tail -1 "$GITHUB_OUTPUT" | grep '^serial=' | cut -d= -f2)
+          echo "Deploy serial: ${SERIAL}, force: ${IS_FORCE}"
 
       - name: Build
         run: pnpm run build
         env:
           DEPLOY_TAG: ${{ github.event_name == 'push' && github.ref_name || inputs.version }}
+          FORCE_UPGRADE_SERIAL: ${{ steps.deploy-serial.outputs.serial }}
           SITE_URL: https://end.canmoe.com
           NEXT_PUBLIC_API_BASE_URL: ${{ vars.API_BASE_URL }}
           NEXT_PUBLIC_TURNSTILE_SITE_KEY: ${{ secrets.TURNSTILE_SITE_KEY }}
@@ -69,6 +93,14 @@ jobs:
           NEXT_PUBLIC_ALLOWED_EMBED_DOMAINS: ${{ vars.ALLOWED_EMBED_DOMAINS }}
           NEXT_PUBLIC_OAUTH_CLIENT_NAMES: ${{ vars.OAUTH_CLIENT_NAMES }}
           NEXT_PUBLIC_FORUM_URL: ${{ vars.FORUM_URL }}
+
+      - name: Persist force upgrade serial
+        if: steps.deploy-serial.outputs.is-force == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh variable set FORCE_UPGRADE_SERIAL --body "${{ steps.deploy-serial.outputs.next-serial }}"
+          echo "FORCE_UPGRADE_SERIAL updated to ${{ steps.deploy-serial.outputs.next-serial }}"
 
       - name: Deploy to deploy branch
         run: |

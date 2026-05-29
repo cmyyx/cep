@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { useTranslations } from 'next-intl'
 import { Info, X } from 'lucide-react'
 import { Button } from '@/components/ui/button'
@@ -28,11 +28,7 @@ function setDismissed() {
 
 export function EmbedWarningBanner() {
   const t = useTranslations()
-  const [visible, setVisible] = useState(true)
-
-  useEffect(() => {
-    if (isDismissed()) setVisible(false)
-  }, [])
+  const [visible, setVisible] = useState(() => !isDismissed())
 
   if (!visible) return null
 

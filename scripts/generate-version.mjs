@@ -29,7 +29,14 @@ const changelog = changelogRaw
   : []
 
 // 统计含 [force] 标记的 tag 数量，生成强制升级序列号
+// Priority 1: CI 注入的 FORCE_UPGRADE_SERIAL 环境变量（通过 GitHub API 计算）
+// Priority 2: 本地 git tag 注解
 function getForceUpgradeSerial() {
+  const ciSerial = process.env.FORCE_UPGRADE_SERIAL
+  if (ciSerial !== undefined && ciSerial !== '') {
+    const n = Number(ciSerial)
+    if (!isNaN(n) && n >= 0) return n
+  }
   const output = git("tag -l v* --format=%(contents)") || ""
   const matches = output.match(/\[force\]/g)
   return matches ? matches.length : 0
