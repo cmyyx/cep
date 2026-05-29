@@ -114,7 +114,23 @@
         "userNotFound",
         "weaponListSuffix",
         "weaponNotesLimit",
-        "weaponOwnershipLimit"
+        "weaponOwnershipLimit",
+        "redeemExpired",
+        "redeemAlreadyUsed",
+        "redeemRevoked",
+        "redeemBelongsToOther",
+        "redeemInvalidDays",
+        "redeemInvalidCount",
+        "redeemInvalidExpiry",
+        "redeemInsufficientPermission"
+      ]
+    },
+
+    "bannerCalendar": {
+      "comment": "Banner off-rate notes accessed via t(ch.offRateNote) from banner-data.ts. Static checker cannot trace the dynamic property access pattern.",
+      "keys": [
+        "offRateNote.tangtang",
+        "offRateNote.luoxi"
       ]
     }
   }

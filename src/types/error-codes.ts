@@ -98,6 +98,16 @@ export type ApiErrorCode =
   | 'email_send_failed'
   | 'smtp_config_invalid'
 
+  // ── Redeem (backend) ──
+  | 'code_expired'
+  | 'code_already_used'
+  | 'code_revoked'
+  | 'code_belongs_to_other'
+  | 'invalid_days'
+  | 'invalid_count'
+  | 'invalid_expiry'
+  | 'insufficient_permission'
+
   // ── Client-side (thrown by api.ts itself, not from backend) ──
   | 'invalid_response'
   | 'auth_unavailable'

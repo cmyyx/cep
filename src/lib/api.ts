@@ -212,6 +212,12 @@ export interface MeResponse {
   premium_trial_until: string | null
   payment_claims: unknown[]
   sessions: SessionInfo[]
+  redeem_history: RedeemHistoryItem[]
+}
+
+export interface RedeemHistoryItem {
+  days_granted: number
+  redeemed_at: string
 }
 
 export async function loginApi(
@@ -308,6 +314,21 @@ export async function postSyncDataApi(payload: unknown, syncType: 'auto' | 'manu
     method: 'POST',
     body: payload,
     headers: { 'X-Sync-Type': syncType },
+  })
+}
+
+// ─── Redeem API ────────────────────────────────────────────
+
+export interface RedeemResponse {
+  success: boolean
+  days_granted: number
+  new_trial_until: string
+}
+
+export async function redeemCodeApi(code: string) {
+  return api<RedeemResponse>('/api/redeem', {
+    method: 'POST',
+    body: { code },
   })
 }
 
@@ -412,6 +433,16 @@ export function getErrorI18nKey(code: string): string {
     // Email service
     email_send_failed: 'account.emailSendFailed',
     smtp_config_invalid: 'account.serverError',
+
+    // Redeem
+    code_expired: 'account.redeemExpired',
+    code_already_used: 'account.redeemAlreadyUsed',
+    code_revoked: 'account.redeemRevoked',
+    code_belongs_to_other: 'account.redeemBelongsToOther',
+    invalid_days: 'account.redeemInvalidDays',
+    invalid_count: 'account.redeemInvalidCount',
+    invalid_expiry: 'account.redeemInvalidExpiry',
+    insufficient_permission: 'account.redeemInsufficientPermission',
 
     // Client-side (thrown by api.ts itself)
     invalid_response: 'account.invalidResponse',
