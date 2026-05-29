@@ -784,7 +784,8 @@
     "unavailable": "社群論壇暫未開放。",
     "openDirectly": "在新分頁開啟",
     "openDirectlyShort": "新分頁",
-    "openInNewTab": "內嵌體驗受限？在新分頁開啟可獲得完整論壇體驗。"
+    "openInNewTab": "內嵌體驗受限？在新分頁開啟可獲得完整論壇體驗。",
+    "embedWarning": "受瀏覽器安全策略限制，內嵌視窗無法完成登入與授權操作。可正常瀏覽內容，如需發文、回覆或登入，請前往外部分頁。"
   },
   "sidebar": {
     "toggle": "切換側邊欄",

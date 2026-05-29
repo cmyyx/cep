@@ -25,6 +25,7 @@ jobs:
       - uses: actions/checkout@v5
         with:
           fetch-depth: 0
+          fetch-tags: true
 
       - uses: pnpm/action-setup@v6
 
@@ -60,6 +61,7 @@ jobs:
       - name: Build
         run: pnpm run build
         env:
+          DEPLOY_TAG: ${{ github.event_name == 'push' && github.ref_name || inputs.version }}
           SITE_URL: https://end.canmoe.com
           NEXT_PUBLIC_API_BASE_URL: ${{ vars.API_BASE_URL }}
           NEXT_PUBLIC_TURNSTILE_SITE_KEY: ${{ secrets.TURNSTILE_SITE_KEY }}

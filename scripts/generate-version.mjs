@@ -35,14 +35,23 @@ function getForceUpgradeSerial() {
   return matches ? matches.length : 0
 }
 
-// 优先读取当前 HEAD 指向的 tag 中的 semver，本地开发无 tag 时 fallback 到 package.json
+// 优先从 CI 注入的 DEPLOY_TAG 环境变量读取 semver（构建机可能拉不到完整的 git tags）
+// 其次读取当前 HEAD 指向的 tag 中的 semver，本地开发无 tag 时 fallback 到 package.json
 function getSemver() {
+  // Priority 1: CI-provided tag name (e.g., v1.2.0)
+  const ciTag = process.env.DEPLOY_TAG
+  if (ciTag) {
+    const m = String(ciTag).trim().match(/^v(\d+\.\d+\.\d+)/)
+    if (m) return m[1]
+  }
+  // Priority 2: git tag pointing at HEAD
   const tags = git("tag -l v* --points-at HEAD") || ""
   const lines = tags.split("\n").filter(Boolean)
   for (const tag of lines) {
     const m = tag.trim().match(/^v(\d+\.\d+\.\d+)/)
     if (m) return m[1]
   }
+  // Priority 3: package.json version
   return pkg.version || "0.0.0"
 }
 

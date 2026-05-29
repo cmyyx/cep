@@ -4,6 +4,7 @@ import { useTranslations } from 'next-intl'
 import { SidebarTrigger } from '@/components/ui/sidebar'
 import { FEATURES } from '@/lib/features'
 import { MessageSquareOff, ExternalLink } from 'lucide-react'
+import { EmbedWarningBanner } from '@/components/forum/embed-warning-banner'
 
 export default function ForumPage() {
   const t = useTranslations()
@@ -27,7 +28,7 @@ export default function ForumPage() {
         <h1 className="text-base font-semibold tracking-tight shrink-0">
           {t('nav.forum')}
         </h1>
-        <span className="hidden sm:inline text-xs text-muted-foreground">
+        <span className="text-xs text-muted-foreground truncate">
           {t('forum.openInNewTab')}
         </span>
         <a
@@ -41,6 +42,9 @@ export default function ForumPage() {
           <span className="inline sm:hidden">{t('forum.openDirectlyShort')}</span>
         </a>
       </div>
+
+      {/* Embed warning */}
+      <EmbedWarningBanner />
 
       {/* Forum iframe */}
       <iframe

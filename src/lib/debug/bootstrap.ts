@@ -19,7 +19,7 @@
  */
 
 /** Number of rapid clicks (within 1 second) to toggle the debug console. */
-const DEBUG_CLICK_THRESHOLD = 9
+const DEBUG_CLICK_THRESHOLD = 11
 
 export const DEBUG_BOOTSTRAP_CODE = `(function(){
 var B=[],M=1000;

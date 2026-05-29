@@ -784,7 +784,8 @@
     "unavailable": "社区论坛暂未开放。",
     "openDirectly": "在新标签页打开",
     "openDirectlyShort": "新标签页",
-    "openInNewTab": "内嵌体验受限？在新标签页打开可获得完整论坛体验。"
+    "openInNewTab": "内嵌体验受限？在新标签页打开可获得完整论坛体验。",
+    "embedWarning": "受浏览器安全策略限制，内嵌窗口无法完成登录与授权操作。可正常浏览内容，如需发帖、回复或登录，请前往外部标签页。"
   },
   "sidebar": {
     "toggle": "切换侧边栏",

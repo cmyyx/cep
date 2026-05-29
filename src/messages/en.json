@@ -784,7 +784,8 @@
     "unavailable": "Community forum is currently unavailable.",
     "openDirectly": "Open in new tab",
     "openDirectlyShort": "New Tab",
-    "openInNewTab": "Embedded experience limited? Open in a new tab for the full forum experience."
+    "openInNewTab": "Embedded experience limited? Open in a new tab for the full forum experience.",
+    "embedWarning": "Due to browser security restrictions, login and authorization cannot be completed inside the embedded window. You can browse content normally. To post, reply, or log in, please open in an external tab."
   },
   "sidebar": {
     "toggle": "Toggle Sidebar",
