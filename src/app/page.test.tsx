@@ -45,7 +45,7 @@ describe('RootRedirect', () => {
     expect(mockReplace).toHaveBeenCalledWith('/en')
   })
 
-  it('falls back to location.replace after 10s timeout when router.replace is ineffective', async () => {
+  it('falls back to location.replace after 2s inner timeout when router.replace does not navigate', async () => {
     const locationReplace = vi.fn()
     vi.spyOn(window, 'location', 'get').mockReturnValue({
       ...window.location,
@@ -58,7 +58,7 @@ describe('RootRedirect', () => {
     })
 
     await act(async () => {
-      vi.advanceTimersByTime(10_000)
+      vi.advanceTimersByTime(2_000)
     })
 
     expect(locationReplace).toHaveBeenCalledWith('/en')

@@ -24,10 +24,12 @@ const BROWSER_GUARD_CODE = `(function(){
 var issues=${BROWSER_DETECT_CODE};
 if(issues.length===0)return;
 
+var critical=issues.indexOf('CSS_API')>=0||issues.indexOf('CSS_VARS')>=0;
+if(!critical)return;
+
 (function show(missing){
   if(document.getElementById('cep-browser-warn'))return;
 
-  var critical=missing.indexOf('CSS_API')>=0||missing.indexOf('CSS_VARS')>=0;
   var d=document.createElement('div');
   d.id='cep-browser-warn';
   d.innerHTML=${JSON.stringify(GUARD_OVERLAY_OPEN)}+
@@ -42,7 +44,7 @@ if(issues.length===0)return;
     '<p style="font-size:13px;color:#999;max-width:420px;">'+
     'Your browser is outdated and lacks required features.<br>'+
     'Please upgrade to ${BROWSER_LINKS}.</p>'+
-    (critical?
+    (true?
       '<p style="font-size:13px;color:#cc3333;max-width:380px;margin-top:8px;">'+
       '\\u7F3A\\u5931\\u5173\\u952E\\u529F\\u80FD\\uFF1A'+
       '<code style="font-family:monospace;background:#f5f5f5;padding:2px 6px;border-radius:3px;">'+missing.join(', ')+'</code>'+

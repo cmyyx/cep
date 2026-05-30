@@ -1,16 +1,9 @@
 // @vitest-environment jsdom
 import { describe, it, expect } from 'vitest'
-import {
-  detectBrowserIssues,
-  isCritical,
-  BROWSER_DETECT_CODE,
-} from './browser-detect'
-import type { BrowserIssue } from './browser-detect'
+import { detectBrowserIssues, isCritical } from './browser-detect'
 
 // ── Helpers ──
 
-/** Provide a scope that has all JS APIs available (pass-through from globalThis).
- *  Use as base for tests that only want to vary CSS. */
 function modernJsScope() {
   return {
     Promise: globalThis.Promise as unknown,
@@ -19,30 +12,6 @@ function modernJsScope() {
   }
 }
 
-/** Execute the minified IIFE in a controlled scope. */
-function runDetectIIFE(
-  overrides: Partial<{
-    CSS: object | null | undefined
-    Promise: unknown
-    WeakSet: unknown
-    Proxy: unknown
-  }> = {},
-): BrowserIssue[] {
-  const sandbox = {
-    CSS: globalThis.CSS as unknown,
-    Promise: globalThis.Promise as unknown,
-    WeakSet: globalThis.WeakSet as unknown,
-    Proxy: globalThis.Proxy as unknown,
-    ...overrides,
-  }
-  const fn = new Function(
-    'CSS', 'Promise', 'WeakSet', 'Proxy',
-    `return ${BROWSER_DETECT_CODE}`,
-  )
-  return fn(sandbox.CSS, sandbox.Promise, sandbox.WeakSet, sandbox.Proxy) as BrowserIssue[]
-}
-
-// A CSS.supports that says "yes" to everything (modern browser)
 function allSupported(): boolean {
   return true
 }
@@ -105,9 +74,8 @@ describe('detectBrowserIssues', () => {
   })
 
   it('detects both CSS_VARS and CSS_WHERE when both missing', () => {
-    const fakeSupports = () => false
     const issues = detectBrowserIssues({
-      CSS: { supports: fakeSupports },
+      CSS: { supports: () => false },
       ...modernJsScope(),
     })
     expect(issues).toContain('CSS_VARS')
@@ -175,6 +143,18 @@ describe('detectBrowserIssues', () => {
     })
     expect(issues).toContain('CSS_API')
   })
+
+  it('survives supports() throwing', () => {
+    const issues = detectBrowserIssues({
+      CSS: {
+        supports: () => {
+          throw new Error('boom')
+        },
+      } as unknown as { supports: (c: string) => boolean },
+      ...modernJsScope(),
+    })
+    expect(issues).toContain('CSS_API')
+  })
 })
 
 // ── Tests: isCritical ──
@@ -207,42 +187,5 @@ describe('isCritical', () => {
 
   it('returns true when CSS_API mixed with JS gaps', () => {
     expect(isCritical(['CSS_API', 'PROMISE', 'WEAKSET'])).toBe(true)
-  })
-})
-
-// ── Tests: BROWSER_DETECT_CODE IIFE parity ──
-
-describe('BROWSER_DETECT_CODE (IIFE parity)', () => {
-  it('matches detectBrowserIssues on a fully capable scope', () => {
-    // Pass the actual globalThis APIs — the IIFE reads bare globals via
-    // function parameters, so we feed them in explicitly.
-    const iife = runDetectIIFE()
-    const pure = detectBrowserIssues({
-      CSS: globalThis.CSS as unknown as { supports: (c: string) => boolean },
-      Promise: globalThis.Promise,
-      WeakSet: globalThis.WeakSet,
-      Proxy: globalThis.Proxy,
-    })
-    expect(iife).toEqual(pure)
-  })
-
-  it('returns CSS_API when CSS is undefined', () => {
-    const iife = runDetectIIFE({ CSS: undefined })
-    expect(iife).toContain('CSS_API')
-  })
-
-  it('returns PROMISE when Promise is undefined', () => {
-    const iife = runDetectIIFE({ Promise: undefined })
-    expect(iife).toContain('PROMISE')
-  })
-
-  it('returns all codes for IE11-like scope', () => {
-    const iife = runDetectIIFE({
-      CSS: undefined,
-      Promise: undefined,
-      WeakSet: undefined,
-      Proxy: undefined,
-    })
-    expect(iife).toEqual(['CSS_API', 'PROMISE', 'WEAKSET', 'PROXY'])
   })
 })

@@ -46,7 +46,6 @@ window.addEventListener('load',function(){
   for(var i=0;i<document.styleSheets.length;i++){
     var s=document.styleSheets[i];
     if(!s||!s.href)continue;
-    if(s.href.indexOf('/_next/static/chunks/')<0)continue;
     try{
       var r=s.cssRules;
       if(!r||r.length===0){empty.push(s.href);}

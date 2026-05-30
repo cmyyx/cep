@@ -40,8 +40,12 @@ export function detectBrowserIssues(scope: DetectScope): BrowserIssue[] {
     issues.push('CSS_API')
   } else {
     const s = scope.CSS!.supports!
-    if (!s('(--custom:1)'))               issues.push('CSS_VARS')
-    if (!s('selector(:where(*))'))        issues.push('CSS_WHERE')
+    try {
+      if (!s('(--custom:1)'))        issues.push('CSS_VARS')
+      if (!s('selector(:where(*))')) issues.push('CSS_WHERE')
+    } catch {
+      issues.push('CSS_API')
+    }
   }
 
   // ── JS API checks ──
@@ -77,8 +81,10 @@ var h=false;
 try{h=typeof CSS!=='undefined'&&typeof CSS.supports==='function'}catch(e){}
 if(!h){i.push('CSS_API')}
 else{
-  if(!CSS.supports('(--custom:1)'))i.push('CSS_VARS');
-  if(!CSS.supports('selector(:where(*))'))i.push('CSS_WHERE')
+  try{
+    if(!CSS.supports('(--custom:1)'))i.push('CSS_VARS');
+    if(!CSS.supports('selector(:where(*))'))i.push('CSS_WHERE')
+  }catch(e){i.push('CSS_API')}
 }
 if(typeof Promise==='undefined')i.push('PROMISE');
 if(typeof WeakSet==='undefined')i.push('WEAKSET');
