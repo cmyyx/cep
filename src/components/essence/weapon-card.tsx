@@ -7,6 +7,7 @@ import Image from 'next/image'
 import { useMatrixStore } from '@/stores/useMatrixStore'
 import { useEssenceSettingsStore } from '@/stores/useEssenceSettingsStore'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
+import { useIsMobile } from '@/hooks/use-mobile'
 import { resolveStatI18nKey } from '@/data/stat-i18n-map'
 import type { Weapon } from '@/types/matrix'
 
@@ -84,7 +85,67 @@ export const WeaponCard = memo(function WeaponCard({
   const [open, setOpen] = useState(false)
   const triggerRef = useCloseOnScroll(open, setOpen)
 
+  const isMobile = useIsMobile()
+  const longPressTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const longPressTriggeredRef = useRef(false)
+  const pointerStartRef = useRef<{ x: number; y: number } | null>(null)
+
+  const clearLongPress = useCallback(() => {
+    if (longPressTimerRef.current) {
+      clearTimeout(longPressTimerRef.current)
+      longPressTimerRef.current = null
+    }
+  }, [])
+
+  // On mobile, prevent Base UI from auto-opening the tooltip (focus/hover),
+  // but allow it to close (blur/click-outside) for natural dismissal.
+  const handleOpenChange = useCallback((nextOpen: boolean) => {
+    if (isMobile && enableTooltip) {
+      if (!nextOpen) setOpen(false)
+      return
+    }
+    setOpen(nextOpen)
+  }, [isMobile, enableTooltip])
+
+  const handlePointerDown = useCallback((e: React.PointerEvent) => {
+    if (!isMobile || !enableTooltip) return
+    longPressTriggeredRef.current = false
+    pointerStartRef.current = { x: e.clientX, y: e.clientY }
+    clearLongPress()
+    longPressTimerRef.current = setTimeout(() => {
+      longPressTriggeredRef.current = true
+      setOpen(true)
+    }, 500)
+  }, [isMobile, enableTooltip, clearLongPress])
+
+  const handlePointerMove = useCallback((e: React.PointerEvent) => {
+    if (!pointerStartRef.current) return
+    const dx = e.clientX - pointerStartRef.current.x
+    const dy = e.clientY - pointerStartRef.current.y
+    if (Math.abs(dx) > 10 || Math.abs(dy) > 10) {
+      clearLongPress()
+      pointerStartRef.current = null
+    }
+  }, [clearLongPress])
+
+  const handlePointerEnd = useCallback(() => {
+    clearLongPress()
+    pointerStartRef.current = null
+    if (longPressTriggeredRef.current) {
+      setOpen(false)
+      longPressTriggeredRef.current = false
+    }
+  }, [clearLongPress])
+
+  const handleContextMenu = useCallback((e: React.MouseEvent) => {
+    e.preventDefault()
+  }, [])
+
   const handleToggle = useCallback(() => {
+    if (longPressTriggeredRef.current) {
+      longPressTriggeredRef.current = false
+      return
+    }
     toggleWeapon(weapon.id)
   }, [toggleWeapon, weapon.id])
 
@@ -102,9 +163,15 @@ export const WeaponCard = memo(function WeaponCard({
       type="button"
       onClick={handleToggle}
       disabled={disabled}
+      onPointerDown={isMobile && enableTooltip ? handlePointerDown : undefined}
+      onPointerMove={isMobile && enableTooltip ? handlePointerMove : undefined}
+      onPointerUp={isMobile && enableTooltip ? handlePointerEnd : undefined}
+      onPointerCancel={isMobile && enableTooltip ? handlePointerEnd : undefined}
+      onContextMenu={isMobile && enableTooltip ? handleContextMenu : undefined}
       className={cn(
         'group relative flex items-center justify-center aspect-square rounded-lg border cursor-pointer overflow-hidden transition-all',
         'bg-[url(/images/item-frame-bg.png)] bg-cover bg-center',
+        isMobile && enableTooltip && 'touch-manipulation',
         disabled && 'opacity-30 cursor-not-allowed pointer-events-none',
         !disabled && [
           isSelected
@@ -206,7 +273,7 @@ export const WeaponCard = memo(function WeaponCard({
   if (!enableTooltip) return trigger
 
   return (
-    <Tooltip open={open} onOpenChange={setOpen}>
+    <Tooltip open={open} onOpenChange={handleOpenChange}>
       <TooltipTrigger render={trigger} />
       <TooltipContent
         side="top"
