@@ -63,7 +63,7 @@ export function BootstrapScreen({ timedOut = false, status }: BootstrapScreenPro
           ) : (
             <>
               <div className="relative h-[3px] w-full bg-muted rounded-full overflow-hidden">
-                <div className="absolute inset-y-0 left-0 bg-gradient-to-r from-develop-blue via-preview-pink to-ship-red rounded-full animate-[bootstrap-progress_1.5s_ease-out_forwards]" />
+                <div className="absolute inset-y-0 left-0 bg-gradient-to-r from-develop-blue via-preview-pink to-ship-red rounded-full animate-[bootstrap-progress_10s_ease-out_forwards]" />
               </div>
               <p className="mt-3 text-center font-mono text-[11px] tracking-[0.2em] text-muted-foreground/60 uppercase select-none">
                 REDIRECTING TO YOUR LANGUAGE
