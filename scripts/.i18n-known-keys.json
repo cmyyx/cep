@@ -34,7 +34,8 @@
         "usernameTooLong",
         "usernameTooShort",
         "username_taken",
-        "weak_password"
+        "weak_password",
+        "networkError"
       ]
     },
 

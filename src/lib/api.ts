@@ -53,6 +53,7 @@ async function doRefresh(): Promise<boolean> {
       body: JSON.stringify({ refreshToken }),
     })
     if (!res.ok) {
+      console.warn(`[HTTP] POST /api/auth/refresh → ${res.status}`)
       if (res.status === 401 || res.status === 403) {
         clearTokens()
         if (typeof window !== 'undefined') { try { localStorage.removeItem('cep-last-sync-sig') } catch {} }
@@ -75,8 +76,10 @@ async function doRefresh(): Promise<boolean> {
       } catch { /* store not available */ }
       return true
     }
+    console.warn('[HTTP] POST /api/auth/refresh → invalid response (missing tokens)')
     return false
-  } catch {
+  } catch (err) {
+    console.warn('[HTTP] POST /api/auth/refresh → network error', err instanceof Error ? err.message : String(err))
     return false
   }
 }
@@ -132,11 +135,17 @@ export async function api<T = unknown>(
     headers['Authorization'] = `Bearer ${authToken}`
   }
 
-  const res = await fetch(`${apiBase}${path}`, {
-    method,
-    headers,
-    body: body ? JSON.stringify(body) : undefined,
-  })
+  let res: Response
+  try {
+    res = await fetch(`${apiBase}${path}`, {
+      method,
+      headers,
+      body: body ? JSON.stringify(body) : undefined,
+    })
+  } catch (err) {
+    console.warn(`[HTTP] ${method} ${path} → network error`, err instanceof Error ? err.message : String(err))
+    throw new ApiError('network_error', 0, { message: err instanceof Error ? err.message : String(err) })
+  }
 
   // If 401 and not already retried, attempt refresh then retry once
   if (res.status === 401 && !noAuth && !token) {
@@ -146,18 +155,22 @@ export async function api<T = unknown>(
       if (newToken) {
         headers['Authorization'] = `Bearer ${newToken}`
       }
-      const retryRes = await fetch(`${apiBase}${path}`, {
-        method,
-        headers,
-        body: body ? JSON.stringify(body) : undefined,
-      })
+      let retryRes: Response
+      try {
+        retryRes = await fetch(`${apiBase}${path}`, {
+          method,
+          headers,
+          body: body ? JSON.stringify(body) : undefined,
+        })
+      } catch (err) {
+        console.warn(`[HTTP] ${method} ${path} → network error [retry]`, err instanceof Error ? err.message : String(err))
+        throw new ApiError('network_error', 0, { message: err instanceof Error ? err.message : String(err) })
+      }
       const retryData = await safeJson<Record<string, unknown>>(retryRes)
       if (!retryRes.ok) {
-        throw new ApiError(
-          (retryData as Record<string, unknown>).error as string ?? 'unknown_error',
-          retryRes.status,
-          retryData,
-        )
+        const retryCode = (retryData as Record<string, unknown>).error as string ?? 'unknown_error'
+        console.warn(`[HTTP] ${method} ${path} → ${retryRes.status} (${retryCode}) [retry]`)
+        throw new ApiError(retryCode, retryRes.status, retryData)
       }
       return retryData as T
     }
@@ -165,8 +178,11 @@ export async function api<T = unknown>(
 
   const data = await safeJson<Record<string, unknown>>(res)
   if (!res.ok) {
-    throw new ApiError((data as Record<string, unknown>).error as string ?? 'unknown_error', res.status, data)
+    const code = (data as Record<string, unknown>).error as string ?? 'unknown_error'
+    console.warn(`[HTTP] ${method} ${path} → ${res.status} (${code})`)
+    throw new ApiError(code, res.status, data)
   }
+  console.debug(`[API] ${method} ${path} → ${res.status}`)
   return data as T
 }
 
@@ -447,6 +463,7 @@ export function getErrorI18nKey(code: string): string {
     // Client-side (thrown by api.ts itself)
     invalid_response: 'account.invalidResponse',
     auth_unavailable: 'auth.unavailable',
+    network_error: 'auth.networkError',
   };
   return map[code as ApiErrorCode] ?? code;
 }

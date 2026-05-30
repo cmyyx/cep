@@ -14,8 +14,8 @@ import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from '@
 import { Turnstile, type TurnstileHandle } from '@/components/shared/turnstile'
 import { SidebarTrigger } from '@/components/ui/sidebar'
 import { useAuthStore } from '@/stores/useAuthStore'
-import { getErrorI18nKey } from '@/lib/api'
-import { getApiBaseUrl, getTurnstileSiteKey, isAuthAvailable, getDevOverrides, setDevOverrides, clearDevOverrides } from '@/lib/dev-api'
+import { api, getErrorI18nKey } from '@/lib/api'
+import { getTurnstileSiteKey, isAuthAvailable, getDevOverrides, setDevOverrides, clearDevOverrides } from '@/lib/dev-api'
 import { cn } from '@/lib/utils'
 
 const loginSchema = z.object({
@@ -107,15 +107,14 @@ function LoginPageContent() {
     if (!resetEmail) return
     setResetSending(true); setResetError(null)
     try {
-      const res = await fetch(`${getApiBaseUrl()}/api/password/send-reset`, {
+      await api('/api/password/send-reset', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: resetEmail }),
+        body: { email: resetEmail },
+        noAuth: true,
       })
-      if (!res.ok) { setResetError('sendResetFailed'); return }
       setResetStep('code')
-    } catch {
-      setResetError('sendResetFailed')
+    } catch (err) {
+      setResetError(err instanceof Error ? err.message : 'sendResetFailed')
     } finally { setResetSending(false) }
   }
 
@@ -125,12 +124,11 @@ function LoginPageContent() {
     if (resetNewPassword !== resetConfirmPassword) { setResetError('passwordsNotMatch'); return }
     setResetSubmitting(true); setResetError(null)
     try {
-      const res = await fetch(`${getApiBaseUrl()}/api/password/reset`, {
+      await api('/api/password/reset', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: resetEmail, code: resetCode, newPassword: resetNewPassword }),
+        body: { email: resetEmail, code: resetCode, newPassword: resetNewPassword },
+        noAuth: true,
       })
-      if (!res.ok) { const d = await res.json(); throw new Error(d.error ?? 'resetFailed') }
       setResetSent(true)
     } catch (err) {
       setResetError(err instanceof Error ? err.message : 'resetFailed')

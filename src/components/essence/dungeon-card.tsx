@@ -131,7 +131,7 @@ const WeaponThumbnail = memo(function WeaponThumbnail({
         className="absolute -inset-x-px bottom-0 z-20 w-[calc(100%+2px)] max-w-none object-cover object-bottom pointer-events-none"
         unoptimized
       />
-      {inRange && isSelected && (
+      {isSelected && (
         <div className="absolute top-0 right-0 size-4 bg-amber-400 rounded-bl-sm flex items-center justify-center z-30">
           <span className="text-[8px] text-black font-bold">✓</span>
         </div>

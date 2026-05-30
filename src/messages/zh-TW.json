@@ -102,6 +102,7 @@
     "turnstileRequired": "請完成人機驗證",
     "emailDomainUnsupported": "該信箱服務商暫不支援，請更換其他信箱",
     "unavailable": "登入與雲端同步功能當前不可用",
+    "networkError": "網路請求失敗，請檢查網路連線",
     "unavailableTitle": "雲端同步功能不可用",
     "unavailableDescription": "登入與雲端同步功能在當前部署中不可用。可能原因：當前節點因地域限制暫不提供帳號服務，或此部署未配置後端 API 伺服器。",
     "unavailableHowToAccess": "如何存取完整功能",
