@@ -63,6 +63,12 @@
       .replace(/"/g, '&quot;')
   }
 
+  function isHttpLog(e) {
+    if (!e.a || e.a.length === 0 || typeof e.a[0] !== 'string') return false
+    return (e.l === 'warn' && e.a[0].indexOf('[HTTP]') === 0) ||
+           (e.l === 'debug' && e.a[0].indexOf('[API]') === 0)
+  }
+
   // ---- integrity (SHA-256) ----
 
   function buildLogPayload() {
@@ -153,6 +159,9 @@
       '<button id="__d_filter_layout" class="__d_filter" data-f="layout" style="' +
       BTN_STYLE +
       'color:#fb923c;">Layout</button>' +
+      '<button id="__d_filter_http" class="__d_filter" data-f="http" style="' +
+      BTN_STYLE +
+      'color:#60a5fa;">HTTP</button>' +
       '<button id="__d_copy" style="' +
       BTN_STYLE +
       '">Copy</button>' +
@@ -232,6 +241,7 @@
       if (id === '__d_filter_dom') { setFilter('dom'); return }
       if (id === '__d_filter_touch') { setFilter('touch'); return }
       if (id === '__d_filter_layout') { setFilter('layout'); return }
+      if (id === '__d_filter_http') { setFilter('http'); return }
       if (id === '__d_follow') { followMode = true; followBtn.style.display = 'none'; var lc = document.getElementById('__d_logs'); if (lc) lc.scrollTop = lc.scrollHeight; return }
     }, true)
   }
@@ -253,6 +263,7 @@
         : logs.filter(function (e) {
             if (currentFilter === 'error') return e.l === 'error' || e.l === 'resource'
             if (currentFilter === 'layout') return e.l === 'layout' || e.l === 'env'
+            if (currentFilter === 'http') return isHttpLog(e)
             return e.l === currentFilter
           })
 
@@ -266,17 +277,19 @@
         var lc =
           e.l === 'error'
             ? '#ff6b6b'
-            : e.l === 'warn'
-              ? '#ffd93d'
-              : e.l === 'resource'
-                ? '#6bcbff'
-                : e.l === 'dom'
-                  ? '#a78bfa'
-                  : e.l === 'touch'
-                    ? '#34d399'
-                    : e.l === 'layout' || e.l === 'env'
-                      ? '#fb923c'
-                      : '#aaa'
+            : isHttpLog(e)
+              ? '#60a5fa'
+              : e.l === 'warn'
+                ? '#ffd93d'
+                : e.l === 'resource'
+                  ? '#6bcbff'
+                  : e.l === 'dom'
+                    ? '#a78bfa'
+                    : e.l === 'touch'
+                      ? '#34d399'
+                      : e.l === 'layout' || e.l === 'env'
+                        ? '#fb923c'
+                        : '#aaa'
         var ts = new Date(e.t).toLocaleTimeString()
         var tx = e.a
           .map(function (s) {

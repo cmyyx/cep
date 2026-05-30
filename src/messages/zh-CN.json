@@ -102,6 +102,7 @@
     "turnstileRequired": "请完成人机验证",
     "emailDomainUnsupported": "该邮箱服务商暂不支持，请更换其他邮箱",
     "unavailable": "登录与云同步功能当前不可用",
+    "networkError": "网络请求失败，请检查网络连接",
     "unavailableTitle": "云端同步功能不可用",
     "unavailableDescription": "登录与云端同步功能在当前部署中不可用。可能原因：当前节点因地域限制暂不提供账号服务，或此部署未配置后端 API 服务器。",
     "unavailableHowToAccess": "如何访问完整功能",

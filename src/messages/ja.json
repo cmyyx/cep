@@ -102,6 +102,7 @@
     "turnstileRequired": "認証を完了してください",
     "emailDomainUnsupported": "このメールプロバイダーはサポートされていません。別のメールアドレスを使用してください。",
     "unavailable": "ログインとクラウド同期は現在利用できません",
+    "networkError": "ネットワークリクエストに失敗しました。接続を確認してください。",
     "unavailableTitle": "クラウド同期は利用できません",
     "unavailableDescription": "現在このデプロイメントではログインおよびクラウド同期を利用できません。考えられる理由：このノードが地域制限されている、またはこのデプロイメントにバックエンド API サーバーが設定されていません。",
     "unavailableHowToAccess": "全機能へのアクセス方法",

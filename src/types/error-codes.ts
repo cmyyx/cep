@@ -111,3 +111,4 @@ export type ApiErrorCode =
   // ── Client-side (thrown by api.ts itself, not from backend) ──
   | 'invalid_response'
   | 'auth_unavailable'
+  | 'network_error'

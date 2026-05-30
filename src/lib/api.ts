@@ -47,12 +47,18 @@ async function doRefresh(): Promise<boolean> {
   if (!refreshToken) return false
 
   try {
-    const res = await fetch(`${getApiBase()}/api/auth/refresh`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ refreshToken }),
-    })
+    const res = await fetchWithLogging(
+      `${getApiBase()}/api/auth/refresh`,
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ refreshToken }),
+      },
+      'POST',
+      '/api/auth/refresh',
+    )
     if (!res.ok) {
+      console.warn(`[HTTP] POST /api/auth/refresh → ${res.status}`)
       if (res.status === 401 || res.status === 403) {
         clearTokens()
         if (typeof window !== 'undefined') { try { localStorage.removeItem('cep-last-sync-sig') } catch {} }
@@ -75,8 +81,13 @@ async function doRefresh(): Promise<boolean> {
       } catch { /* store not available */ }
       return true
     }
+    console.warn('[HTTP] POST /api/auth/refresh → invalid response (missing tokens)')
     return false
-  } catch {
+  } catch (err) {
+    // Re-throw network errors so callers can distinguish from auth failures (401/403).
+    // fetchWithLogging already logged and wrapped the error as ApiError('network_error').
+    if (err instanceof ApiError && err.code === 'network_error') throw err
+    console.warn('[HTTP] POST /api/auth/refresh → unexpected error', err instanceof Error ? err.message : String(err))
     return false
   }
 }
@@ -98,6 +109,24 @@ async function safeJson<T>(res: Response): Promise<T> {
     return JSON.parse(text) as T
   } catch {
     throw new ApiError('invalid_response', res.status, { raw: text.slice(0, 500) })
+  }
+}
+
+// ─── Fetch with network error logging ─────────────────────
+
+async function fetchWithLogging(
+  url: string,
+  init: RequestInit,
+  method: string,
+  path: string,
+  retryLabel?: string,
+): Promise<Response> {
+  try {
+    return await fetch(url, init)
+  } catch (err) {
+    const suffix = retryLabel ? ` [${retryLabel}]` : ''
+    console.warn(`[HTTP] ${method} ${path} → network error${suffix}`, err instanceof Error ? err.message : String(err))
+    throw new ApiError('network_error', 0, { message: err instanceof Error ? err.message : String(err) })
   }
 }
 
@@ -132,11 +161,13 @@ export async function api<T = unknown>(
     headers['Authorization'] = `Bearer ${authToken}`
   }
 
-  const res = await fetch(`${apiBase}${path}`, {
+  const fetchInit: RequestInit = {
     method,
     headers,
     body: body ? JSON.stringify(body) : undefined,
-  })
+  }
+
+  const res = await fetchWithLogging(`${apiBase}${path}`, fetchInit, method, path)
 
   // If 401 and not already retried, attempt refresh then retry once
   if (res.status === 401 && !noAuth && !token) {
@@ -146,18 +177,12 @@ export async function api<T = unknown>(
       if (newToken) {
         headers['Authorization'] = `Bearer ${newToken}`
       }
-      const retryRes = await fetch(`${apiBase}${path}`, {
-        method,
-        headers,
-        body: body ? JSON.stringify(body) : undefined,
-      })
+      const retryRes = await fetchWithLogging(`${apiBase}${path}`, fetchInit, method, path, 'retry')
       const retryData = await safeJson<Record<string, unknown>>(retryRes)
       if (!retryRes.ok) {
-        throw new ApiError(
-          (retryData as Record<string, unknown>).error as string ?? 'unknown_error',
-          retryRes.status,
-          retryData,
-        )
+        const retryCode = (retryData as Record<string, unknown>).error as string ?? 'unknown_error'
+        console.warn(`[HTTP] ${method} ${path} → ${retryRes.status} (${retryCode}) [retry]`)
+        throw new ApiError(retryCode, retryRes.status, retryData)
       }
       return retryData as T
     }
@@ -165,8 +190,11 @@ export async function api<T = unknown>(
 
   const data = await safeJson<Record<string, unknown>>(res)
   if (!res.ok) {
-    throw new ApiError((data as Record<string, unknown>).error as string ?? 'unknown_error', res.status, data)
+    const code = (data as Record<string, unknown>).error as string ?? 'unknown_error'
+    console.warn(`[HTTP] ${method} ${path} → ${res.status} (${code})`)
+    throw new ApiError(code, res.status, data)
   }
+  console.debug(`[API] ${method} ${path} → ${res.status}`)
   return data as T
 }
 
@@ -447,6 +475,7 @@ export function getErrorI18nKey(code: string): string {
     // Client-side (thrown by api.ts itself)
     invalid_response: 'account.invalidResponse',
     auth_unavailable: 'auth.unavailable',
+    network_error: 'auth.networkError',
   };
   return map[code as ApiErrorCode] ?? code;
 }

@@ -102,6 +102,7 @@
     "turnstileRequired": "Please complete the verification",
     "emailDomainUnsupported": "This email provider is not supported, please use another email",
     "unavailable": "Login and cloud sync are currently unavailable",
+    "networkError": "Network request failed. Please check your connection.",
     "unavailableTitle": "Cloud Sync Unavailable",
     "unavailableDescription": "Login and cloud sync are currently unavailable in this deployment. Possible reasons: this node is geo-restricted, or this deployment does not have a backend API server configured.",
     "unavailableHowToAccess": "How to Access Full Features",
