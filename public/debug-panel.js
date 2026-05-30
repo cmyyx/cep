@@ -63,6 +63,12 @@
       .replace(/"/g, '&quot;')
   }
 
+  function isHttpLog(e) {
+    if (!e.a || e.a.length === 0 || typeof e.a[0] !== 'string') return false
+    return (e.l === 'warn' && e.a[0].indexOf('[HTTP]') === 0) ||
+           (e.l === 'debug' && e.a[0].indexOf('[API]') === 0)
+  }
+
   // ---- integrity (SHA-256) ----
 
   function buildLogPayload() {
@@ -257,7 +263,7 @@
         : logs.filter(function (e) {
             if (currentFilter === 'error') return e.l === 'error' || e.l === 'resource'
             if (currentFilter === 'layout') return e.l === 'layout' || e.l === 'env'
-            if (currentFilter === 'http') return e.l === 'warn' && e.a.length > 0 && e.a[0].indexOf('[HTTP]') === 0
+            if (currentFilter === 'http') return isHttpLog(e)
             return e.l === currentFilter
           })
 
@@ -271,7 +277,7 @@
         var lc =
           e.l === 'error'
             ? '#ff6b6b'
-            : e.l === 'warn' && e.a.length > 0 && e.a[0].indexOf('[HTTP]') === 0
+            : isHttpLog(e)
               ? '#60a5fa'
               : e.l === 'warn'
                 ? '#ffd93d'

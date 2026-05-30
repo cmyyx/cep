@@ -14,7 +14,7 @@ import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from '@
 import { Turnstile, type TurnstileHandle } from '@/components/shared/turnstile'
 import { SidebarTrigger } from '@/components/ui/sidebar'
 import { useAuthStore } from '@/stores/useAuthStore'
-import { api, getErrorI18nKey } from '@/lib/api'
+import { api, ApiError, getErrorI18nKey } from '@/lib/api'
 import { getTurnstileSiteKey, isAuthAvailable, getDevOverrides, setDevOverrides, clearDevOverrides } from '@/lib/dev-api'
 import { cn } from '@/lib/utils'
 
@@ -114,7 +114,7 @@ function LoginPageContent() {
       })
       setResetStep('code')
     } catch (err) {
-      setResetError(err instanceof Error ? err.message : 'sendResetFailed')
+      setResetError(err instanceof ApiError ? getErrorI18nKey(err.code) : 'sendResetFailed')
     } finally { setResetSending(false) }
   }
 
@@ -131,7 +131,7 @@ function LoginPageContent() {
       })
       setResetSent(true)
     } catch (err) {
-      setResetError(err instanceof Error ? err.message : 'resetFailed')
+      setResetError(err instanceof ApiError ? getErrorI18nKey(err.code) : 'resetFailed')
     } finally { setResetSubmitting(false) }
   }
 
