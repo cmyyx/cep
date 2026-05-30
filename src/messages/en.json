@@ -435,7 +435,7 @@
     "hideFourStar": "Hide 4-star weapons",
     "enableOwnershipEdit": "Enable ownership editing",
     "enableNotes": "Enable notes",
-    "enableTooltip": "Show weapon stats on hover",
+    "enableTooltip": "Hover or hold to show stats",
     "keepUpVisible": "Always show UP and preview weapons (bypass hide filters above)",
     "onlyHideWhenBothOwned": "Only hide when both essence and weapon are owned",
     "settingItem": "Setting",

@@ -5,6 +5,9 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { HeadScript } from "@/components/shared/head-script";
 import { DEBUG_BOOTSTRAP_CODE } from "@/lib/debug/bootstrap"
 import { DomainGuard } from '@/components/shared/domain-guard';
+import { CssGuard } from '@/components/shared/css-guard';
+import { BrowserGuard } from '@/components/shared/browser-guard';
+import { NoscriptFallback } from '@/components/shared/noscript-fallback';
 import "./globals.css";
 
 const geistSans = Geist({
@@ -54,6 +57,12 @@ export default function RootLayout({
             The 7-click gesture is available from the first frame; the visual label
             is rendered by the DebugLabel React component after hydration. */}
         <HeadScript id="debug-bootstrap" code={DEBUG_BOOTSTRAP_CODE} />
+        {/* CssGuard — detects CSS <link> load failures and shows a fallback.
+            Purely event-driven (no setTimeout): error capture + window.load audit. */}
+        <CssGuard />
+        {/* BrowserGuard — detects outdated browsers missing critical CSS/JS
+            features and shows an upgrade reminder. */}
+        <BrowserGuard />
         {/* DomainGuard — injected into <head> so React hydration never sees the
             <script> tag. Runs synchronously before any React code loads. */}
         <DomainGuard />
@@ -85,6 +94,7 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-full flex flex-col" suppressHydrationWarning>
+        <NoscriptFallback />
         <TooltipProvider>{children}</TooltipProvider>
       </body>
     </html>
