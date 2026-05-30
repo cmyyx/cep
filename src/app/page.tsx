@@ -25,10 +25,13 @@ export default function RootRedirect() {
   useEffect(() => {
     const startTime = Date.now()
     let redirected = false
+    let routerInitiated = false
+    let mounted = true
+    let innerTimeoutId: ReturnType<typeof setTimeout> | undefined
 
     const log = (step: string, data?: Record<string, unknown>) => {
       console.log('[RootRedirect]', step, data ?? '')
-      setStatus(step)
+      if (mounted) setStatus(step)
     }
 
     const fallbackRedirect = (locale: SupportedLocale) => {
@@ -51,10 +54,11 @@ export default function RootRedirect() {
 
         log('router-replace-start', { target: `/${locale}` })
         router.replace(`/${locale}`)
+        routerInitiated = true
         log('router-replace-called')
 
-        setTimeout(() => {
-          if (!redirected && window.location.pathname === '/') {
+        innerTimeoutId = setTimeout(() => {
+          if (mounted && !redirected && window.location.pathname === '/') {
             log('router-replace-ineffective', { currentPath: window.location.pathname })
             fallbackRedirect(locale)
           }
@@ -69,10 +73,10 @@ export default function RootRedirect() {
     }
 
     const timeoutId = setTimeout(() => {
-      if (!redirected) {
+      if (!redirected && !routerInitiated) {
         log('timeout', { elapsed: Date.now() - startTime })
-        setTimedOut(true)
-        const locale = getExplicitLanguage() ?? detectBrowserLocale() ?? 'zh-CN'
+        if (mounted) setTimedOut(true)
+        const locale = getExplicitLanguage() ?? detectBrowserLocale()
         fallbackRedirect(locale)
       }
     }, REDIRECT_TIMEOUT)
@@ -84,7 +88,11 @@ export default function RootRedirect() {
     })
     performRedirect()
 
-    return () => clearTimeout(timeoutId)
+    return () => {
+      mounted = false
+      clearTimeout(timeoutId)
+      clearTimeout(innerTimeoutId)
+    }
   }, [router])
 
   return <BootstrapScreen timedOut={timedOut} status={status} />
