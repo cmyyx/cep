@@ -11,6 +11,7 @@ export async function generateMetadata({
   return {
     title: t('account.title'),
     description: t('meta.accountDescription'),
+    keywords: t('meta.accountKeywords').split(',').map((k) => k.trim()).filter(Boolean),
     openGraph: {
       title: `${t('account.title')} - ${t('app.name')}`,
       description: t('meta.accountDescription'),

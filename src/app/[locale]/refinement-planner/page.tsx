@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { useTranslations } from 'next-intl'
+import { usePathname } from 'next/navigation'
 import { SidebarTrigger } from '@/components/ui/sidebar'
 import { Button } from '@/components/ui/button'
 import { EquipList } from '@/components/refinement/equip-list'
@@ -9,11 +10,15 @@ import { RefinementPanel } from '@/components/refinement/refinement-panel'
 import { useRefinementStore } from '@/stores/useRefinementStore'
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@/components/ui/sheet'
 import { cn } from '@/lib/utils'
+import { StructuredData } from '@/components/shared/structured-data'
+import { useSiteUrl } from '@/hooks/use-site-url'
 
 type MobileView = 'equips' | 'recommend'
 
 export default function RefinementPlannerPage() {
   const t = useTranslations()
+  const pathname = usePathname()
+  const siteUrl = useSiteUrl()
   const [mobileView, setMobileView] = useState<MobileView>('equips')
   const [viewEquipOpen, setViewEquipOpen] = useState(false)
 
@@ -21,18 +26,25 @@ export default function RefinementPlannerPage() {
   const hasSelection = selectedEquipId !== null
 
   return (
-    <div className="flex flex-col flex-1 min-h-0 overflow-hidden">
-      {/* Top bar */}
-      <div className="flex items-center gap-3 px-4 py-2 border-b border-border">
-        <SidebarTrigger />
-        <h1 className="text-base font-semibold tracking-tight">
-          {t('nav.refinementPlanner')}
-        </h1>
-        <div className="flex-1" />
-        <span className="text-xs text-muted-foreground hidden md:inline">
-          {t('app.name')}
-        </span>
-      </div>
+    <>
+      <StructuredData
+        type="WebApplication"
+        name={`${t('app.name')} - ${t('nav.refinementPlanner')}`}
+        description={t('meta.refinementPlannerDescription')}
+        url={`${siteUrl}${pathname}`}
+      />
+      <div className="flex flex-col flex-1 min-h-0 overflow-hidden">
+        {/* Top bar */}
+        <div className="flex items-center gap-3 px-4 py-2 border-b border-border">
+          <SidebarTrigger />
+          <h1 className="text-base font-semibold tracking-tight">
+            {t('nav.refinementPlanner')}
+          </h1>
+          <div className="flex-1" />
+          <span className="text-xs text-muted-foreground hidden md:inline">
+            {t('app.name')}
+          </span>
+        </div>
 
       {/* Desktop layout: left equip list + right recommendations */}
       <div className="hidden md:flex flex-1 overflow-hidden">
@@ -140,5 +152,6 @@ export default function RefinementPlannerPage() {
         </SheetContent>
       </Sheet>
     </div>
+    </>
   )
 }
