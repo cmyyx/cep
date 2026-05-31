@@ -8,6 +8,7 @@ import { GreetingSection } from '@/components/home/greeting-section'
 import { RealTimeClock } from '@/components/home/real-time-clock'
 import { OverviewCards } from '@/components/home/overview-cards'
 import { AnnouncementPanel } from '@/components/home/announcement-panel'
+import { StructuredData } from '@/components/shared/structured-data'
 
 function getGreetingKey(): string {
   const hour = new Date().getHours()
@@ -38,14 +39,20 @@ export default function HomePage() {
   )
 
   return (
-    <div className="flex flex-col flex-1 min-h-0">
-      {/* Top bar */}
-      <div className="flex items-center gap-3 px-4 py-2 border-b border-border">
-        <SidebarTrigger />
-        <h1 className="text-base font-semibold tracking-tight">
-          {t('app.name')}
-        </h1>
-      </div>
+    <>
+      <StructuredData
+        type="WebApplication"
+        name="CEP 终末地规划器"
+        description="《明日方舟：终末地》规划工具集——基质计算、精锻计算、角色攻略、卡池日历等一站式解决方案。"
+      />
+      <div className="flex flex-col flex-1 min-h-0">
+        {/* Top bar */}
+        <div className="flex items-center gap-3 px-4 py-2 border-b border-border">
+          <SidebarTrigger />
+          <h1 className="text-base font-semibold tracking-tight">
+            {t('app.name')}
+          </h1>
+        </div>
 
       {/* Scrollable content */}
       <div className="flex-1 overflow-auto">
@@ -59,5 +66,6 @@ export default function HomePage() {
         </div>
       </div>
     </div>
+    </>
   )
 }

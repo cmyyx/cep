@@ -9,6 +9,7 @@ import { RefinementPanel } from '@/components/refinement/refinement-panel'
 import { useRefinementStore } from '@/stores/useRefinementStore'
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@/components/ui/sheet'
 import { cn } from '@/lib/utils'
+import { StructuredData } from '@/components/shared/structured-data'
 
 type MobileView = 'equips' | 'recommend'
 
@@ -21,18 +22,24 @@ export default function RefinementPlannerPage() {
   const hasSelection = selectedEquipId !== null
 
   return (
-    <div className="flex flex-col flex-1 min-h-0 overflow-hidden">
-      {/* Top bar */}
-      <div className="flex items-center gap-3 px-4 py-2 border-b border-border">
-        <SidebarTrigger />
-        <h1 className="text-base font-semibold tracking-tight">
-          {t('nav.refinementPlanner')}
-        </h1>
-        <div className="flex-1" />
-        <span className="text-xs text-muted-foreground hidden md:inline">
-          {t('app.name')}
-        </span>
-      </div>
+    <>
+      <StructuredData
+        type="WebApplication"
+        name="CEP 终末地规划器 - 精锻规划"
+        description="精锻规划与计算工具——装备精锻方案计算，查找最优精锻装备，快速查找所有较好适配装备，支持筛选装备制作材料。"
+      />
+      <div className="flex flex-col flex-1 min-h-0 overflow-hidden">
+        {/* Top bar */}
+        <div className="flex items-center gap-3 px-4 py-2 border-b border-border">
+          <SidebarTrigger />
+          <h1 className="text-base font-semibold tracking-tight">
+            {t('nav.refinementPlanner')}
+          </h1>
+          <div className="flex-1" />
+          <span className="text-xs text-muted-foreground hidden md:inline">
+            {t('app.name')}
+          </span>
+        </div>
 
       {/* Desktop layout: left equip list + right recommendations */}
       <div className="hidden md:flex flex-1 overflow-hidden">
@@ -140,5 +147,6 @@ export default function RefinementPlannerPage() {
         </SheetContent>
       </Sheet>
     </div>
+    </>
   )
 }

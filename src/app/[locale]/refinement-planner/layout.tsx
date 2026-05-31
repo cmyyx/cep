@@ -13,6 +13,7 @@ export async function generateMetadata({
     return {
       title: t('nav.refinementPlanner'),
       description: t('meta.refinementPlannerDescription'),
+      keywords: t('meta.refinementPlannerKeywords').split(','),
       openGraph: {
         title: `${t('nav.refinementPlanner')} - ${t('app.name')}`,
         description: t('meta.refinementPlannerDescription'),
@@ -25,6 +26,7 @@ export async function generateMetadata({
     return {
       title: t('nav.refinementPlanner'),
       description: t('meta.refinementPlannerDescription'),
+      keywords: t('meta.refinementPlannerKeywords').split(','),
       openGraph: {
         title: `${t('nav.refinementPlanner')} - ${t('app.name')}`,
         description: t('meta.refinementPlannerDescription'),

@@ -11,6 +11,7 @@ export async function generateMetadata({
   return {
     title: t('settings.title'),
     description: t('meta.settingsDescription'),
+    keywords: t('meta.settingsKeywords').split(','),
     openGraph: {
       title: `${t('settings.title')} - ${t('app.name')}`,
       description: t('meta.settingsDescription'),

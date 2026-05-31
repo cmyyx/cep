@@ -11,6 +11,7 @@ export async function generateMetadata({
   return {
     title: t('nav.editor'),
     description: t('meta.editorDescription'),
+    keywords: t('meta.editorKeywords').split(','),
     openGraph: {
       title: `${t('nav.editor')} - ${t('app.name')}`,
       description: t('meta.editorDescription'),

@@ -20,6 +20,7 @@ import { weapons as staticWeapons } from '@/data/weapons'
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@/components/ui/sheet'
 import { cn } from '@/lib/utils'
 import { Plus } from 'lucide-react'
+import { StructuredData } from '@/components/shared/structured-data'
 type MobileView = 'weapons' | 'plans'
 
 export default function EssencePlannerPage() {
@@ -420,32 +421,38 @@ export default function EssencePlannerPage() {
   }
 
   return (
-    <div className="flex flex-col flex-1 min-h-0 overflow-hidden">
-      {/* Top bar */}
-      <div className="flex items-center gap-3 px-4 py-2 border-b border-border">
-        <SidebarTrigger />
-        <h1 className="text-base font-semibold tracking-tight">
-          {t('nav.essencePlanner')}
-        </h1>
-        <span className="text-xs text-muted-foreground">
-          {t('essence.selectedCount', { count: selectedCount })}
-        </span>
-        <div className="flex-1" />
-        <Button variant="outline" size="sm" onClick={() => selectAllWeapons(useMatrixStore.getState().visibleWeaponIds)}>
-          {t('essence.selectAll')}
-        </Button>
-        <Button variant="ghost" size="sm" onClick={clearWeapons}>
-          {t('essence.clearAll')}
-        </Button>
-        <Button
-          variant="ghost"
-          size="icon-sm"
-          onClick={() => setCustomWeaponOpen(true)}
-          aria-label={t('essence.customWeapons')}
-        >
-          <Plus className="size-4" />
-        </Button>
-        <EssenceSettingsDialog />
+    <>
+      <StructuredData
+        type="WebApplication"
+        name="CEP 终末地规划器 - 基质规划"
+        description="基质规划与计算工具——多武器基质刷取优化方案计算，支持自由选择基础属性，设定地区优先级，标记拥有状态与智能方案排序。"
+      />
+      <div className="flex flex-col flex-1 min-h-0 overflow-hidden">
+        {/* Top bar */}
+        <div className="flex items-center gap-3 px-4 py-2 border-b border-border">
+          <SidebarTrigger />
+          <h1 className="text-base font-semibold tracking-tight">
+            {t('nav.essencePlanner')}
+          </h1>
+          <span className="text-xs text-muted-foreground">
+            {t('essence.selectedCount', { count: selectedCount })}
+          </span>
+          <div className="flex-1" />
+          <Button variant="outline" size="sm" onClick={() => selectAllWeapons(useMatrixStore.getState().visibleWeaponIds)}>
+            {t('essence.selectAll')}
+          </Button>
+          <Button variant="ghost" size="sm" onClick={clearWeapons}>
+            {t('essence.clearAll')}
+          </Button>
+          <Button
+            variant="ghost"
+            size="icon-sm"
+            onClick={() => setCustomWeaponOpen(true)}
+            aria-label={t('essence.customWeapons')}
+          >
+            <Plus className="size-4" />
+          </Button>
+          <EssenceSettingsDialog />
         <CustomWeaponDialog
           open={customWeaponOpen}
           onOpenChange={setCustomWeaponOpen}
@@ -569,5 +576,6 @@ export default function EssencePlannerPage() {
         </SheetContent>
       </Sheet>
     </div>
+    </>
   )
 }
