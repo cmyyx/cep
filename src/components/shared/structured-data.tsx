@@ -1,32 +1,39 @@
+import { HeadScript } from '@/components/shared/head-script'
+
 interface StructuredDataProps {
   type: 'WebApplication' | 'WebPage'
   name: string
   description: string
-  url?: string
+  url: string
 }
 
 export function StructuredData({ type, name, description, url }: StructuredDataProps) {
-  const siteUrl = 'https://end.canmoe.com'
-
-  const data = {
+  const baseData = {
     '@context': 'https://schema.org',
     '@type': type,
     name,
     description,
-    url: url || siteUrl,
-    applicationCategory: 'GameApplication',
-    operatingSystem: 'Web',
-    offers: {
-      '@type': 'Offer',
-      price: '0',
-      priceCurrency: 'CNY',
-    },
+    url,
   }
 
+  const applicationData = type === 'WebApplication'
+    ? {
+        applicationCategory: 'GameApplication',
+        operatingSystem: 'Web',
+        offers: {
+          '@type': 'Offer',
+          price: '0',
+          priceCurrency: 'CNY',
+        },
+      }
+    : {}
+
+  const data = { ...baseData, ...applicationData }
+
   return (
-    <script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
+    <HeadScript
+      id={`json-ld-${type.toLowerCase()}`}
+      code={JSON.stringify(data)}
     />
   )
 }

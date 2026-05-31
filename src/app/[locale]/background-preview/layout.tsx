@@ -11,7 +11,7 @@ export async function generateMetadata({
   return {
     title: t('nav.backgroundPreview'),
     description: t('meta.backgroundPreviewDescription'),
-    keywords: t('meta.backgroundPreviewKeywords').split(','),
+    keywords: t('meta.backgroundPreviewKeywords').split(',').map((k) => k.trim()).filter(Boolean),
     openGraph: {
       title: `${t('nav.backgroundPreview')} - ${t('app.name')}`,
       description: t('meta.backgroundPreviewDescription'),

@@ -2,6 +2,7 @@
 
 import { useMemo, useState, useCallback, useEffect } from 'react'
 import { useTranslations } from 'next-intl'
+import { usePathname } from 'next/navigation'
 import { SidebarTrigger } from '@/components/ui/sidebar'
 import { Button } from '@/components/ui/button'
 import { WeaponGrid } from '@/components/essence/weapon-grid'
@@ -21,10 +22,13 @@ import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@/components/ui/sh
 import { cn } from '@/lib/utils'
 import { Plus } from 'lucide-react'
 import { StructuredData } from '@/components/shared/structured-data'
+import { useSiteUrl } from '@/hooks/use-site-url'
 type MobileView = 'weapons' | 'plans'
 
 export default function EssencePlannerPage() {
   const t = useTranslations()
+  const pathname = usePathname()
+  const siteUrl = useSiteUrl()
   const [customWeaponOpen, setCustomWeaponOpen] = useState(false)
   const [mobileView, setMobileView] = useState<MobileView>('weapons')
   const [viewAllOpen, setViewAllOpen] = useState(false)
@@ -424,8 +428,9 @@ export default function EssencePlannerPage() {
     <>
       <StructuredData
         type="WebApplication"
-        name="CEP 终末地规划器 - 基质规划"
-        description="基质规划与计算工具——多武器基质刷取优化方案计算，支持自由选择基础属性，设定地区优先级，标记拥有状态与智能方案排序。"
+        name={`${t('app.name')} - ${t('nav.essencePlanner')}`}
+        description={t('meta.essencePlannerDescription')}
+        url={`${siteUrl}${pathname}`}
       />
       <div className="flex flex-col flex-1 min-h-0 overflow-hidden">
         {/* Top bar */}

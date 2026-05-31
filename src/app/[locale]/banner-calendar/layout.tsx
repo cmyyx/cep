@@ -11,7 +11,7 @@ export async function generateMetadata({
   return {
     title: t('nav.bannerCalendar'),
     description: t('meta.bannerCalendarDescription'),
-    keywords: t('meta.bannerCalendarKeywords').split(','),
+    keywords: t('meta.bannerCalendarKeywords').split(',').map((k) => k.trim()).filter(Boolean),
     openGraph: {
       title: `${t('nav.bannerCalendar')} - ${t('app.name')}`,
       description: t('meta.bannerCalendarDescription'),

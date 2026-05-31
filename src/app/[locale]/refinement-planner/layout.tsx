@@ -13,7 +13,7 @@ export async function generateMetadata({
     return {
       title: t('nav.refinementPlanner'),
       description: t('meta.refinementPlannerDescription'),
-      keywords: t('meta.refinementPlannerKeywords').split(','),
+      keywords: t('meta.refinementPlannerKeywords').split(',').map((k) => k.trim()).filter(Boolean),
       openGraph: {
         title: `${t('nav.refinementPlanner')} - ${t('app.name')}`,
         description: t('meta.refinementPlannerDescription'),
@@ -26,11 +26,11 @@ export async function generateMetadata({
     return {
       title: t('nav.refinementPlanner'),
       description: t('meta.refinementPlannerDescription'),
-      keywords: t('meta.refinementPlannerKeywords').split(','),
+      keywords: t('meta.refinementPlannerKeywords').split(',').map((k) => k.trim()).filter(Boolean),
       openGraph: {
         title: `${t('nav.refinementPlanner')} - ${t('app.name')}`,
         description: t('meta.refinementPlannerDescription'),
-        images: [`/og/refinement-planner/${locale}.png`],
+        images: [`/og/refinement-planner/${routing.defaultLocale}.png`],
       },
     }
   }

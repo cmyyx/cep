@@ -19,6 +19,7 @@ import { DebugLabel } from '@/components/shared/debug-label'
 import { LocaleGuard } from '@/components/shared/locale-guard'
 import { VersionWatermark } from '@/components/shared/version-watermark'
 import { VersionProvider } from '@/hooks/use-version'
+import { SiteUrlProvider } from '@/hooks/use-site-url'
 import { versionData } from '@/generated/version-data'
 
 export function generateStaticParams() {
@@ -56,6 +57,8 @@ export default async function LocaleLayout({
 
   setRequestLocale(locale)
 
+  const siteUrl = process.env.SITE_URL || 'https://end.canmoe.com'
+
   const messages = (await import(`../../messages/${locale}.json`)).default
   // Merge game content translations from auto-generated i18n files
   // Each category is loaded conditionally — files may not exist on first build
@@ -78,6 +81,7 @@ export default async function LocaleLayout({
       <NextIntlClientProvider messages={messages} locale={locale}>
       <LocaleGuard />
       <DebugLabel />
+      <SiteUrlProvider url={siteUrl}>
       <VersionProvider initialInfo={versionData}>
         <SidebarProvider className="h-svh">
           <ThemeProvider>
@@ -101,6 +105,7 @@ export default async function LocaleLayout({
           </ThemeProvider>
         </SidebarProvider>
       </VersionProvider>
+      </SiteUrlProvider>
     </NextIntlClientProvider>
     </>
   )

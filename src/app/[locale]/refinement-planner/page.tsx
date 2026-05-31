@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { useTranslations } from 'next-intl'
+import { usePathname } from 'next/navigation'
 import { SidebarTrigger } from '@/components/ui/sidebar'
 import { Button } from '@/components/ui/button'
 import { EquipList } from '@/components/refinement/equip-list'
@@ -10,11 +11,14 @@ import { useRefinementStore } from '@/stores/useRefinementStore'
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@/components/ui/sheet'
 import { cn } from '@/lib/utils'
 import { StructuredData } from '@/components/shared/structured-data'
+import { useSiteUrl } from '@/hooks/use-site-url'
 
 type MobileView = 'equips' | 'recommend'
 
 export default function RefinementPlannerPage() {
   const t = useTranslations()
+  const pathname = usePathname()
+  const siteUrl = useSiteUrl()
   const [mobileView, setMobileView] = useState<MobileView>('equips')
   const [viewEquipOpen, setViewEquipOpen] = useState(false)
 
@@ -25,8 +29,9 @@ export default function RefinementPlannerPage() {
     <>
       <StructuredData
         type="WebApplication"
-        name="CEP 终末地规划器 - 精锻规划"
-        description="精锻规划与计算工具——装备精锻方案计算，查找最优精锻装备，快速查找所有较好适配装备，支持筛选装备制作材料。"
+        name={`${t('app.name')} - ${t('nav.refinementPlanner')}`}
+        description={t('meta.refinementPlannerDescription')}
+        url={`${siteUrl}${pathname}`}
       />
       <div className="flex flex-col flex-1 min-h-0 overflow-hidden">
         {/* Top bar */}
