@@ -13,6 +13,7 @@ import { Checkbox } from '@/components/ui/checkbox'
 import { ChevronDown } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { resolveStatI18nKey } from '@/data/stat-i18n-map'
+import { computeEffectiveS1 } from '@/lib/planner/s1-utils'
 
 interface DungeonCardProps {
   plan: DungeonPlan
@@ -424,11 +425,6 @@ export const DungeonCard = memo(function DungeonCard({
     toggleDungeonExpand(planKey)
   }, [toggleDungeonExpand, planKey])
 
-  const effectiveS1 = useMemo(() => {
-    if (!plan.needsS1Choice) return plan.s1Candidates
-    return dungeonS1Selections[planKey] || plan.selectedS1
-  }, [plan, planKey, dungeonS1Selections])
-
   // Filter matchedWeapons based on plan-side hide settings
   const visibleMatched = useMemo(() => {
     return plan.matchedWeapons.filter(({ weapon }) => {
@@ -466,6 +462,20 @@ export const DungeonCard = memo(function DungeonCard({
   const visibleS1Candidates = useMemo(() => {
     return plan.s1Candidates.filter((s1) => (visibleS1Counts[s1] || 0) > 0)
   }, [plan.s1Candidates, visibleS1Counts])
+
+  // Effective S1: filter against visible candidates so hidden-weapon stats
+  // never linger as "selected" when they have no visible weapons.
+  const effectiveS1 = useMemo(() => {
+    return computeEffectiveS1(
+      dungeonS1Selections[planKey],
+      plan.selectedS1,
+      visibleS1Candidates,
+    )
+  }, [plan.selectedS1, planKey, dungeonS1Selections, visibleS1Candidates])
+
+  // Whether the S1 picker is needed (based on visible candidates, not solver's
+  // original count which may include now-hidden weapons)
+  const visibleNeedsS1Choice = visibleS1Candidates.length > 3
 
   // Count selected weapons that are both visible and in S1 range
   const visibleSelected = useMemo(() => {
@@ -583,7 +593,7 @@ export const DungeonCard = memo(function DungeonCard({
       </div>
 
       {/* S1 Picker */}
-      {plan.needsS1Choice && (
+      {visibleNeedsS1Choice && (
         <div className="mb-3 p-3 rounded-md border border-amber-500/20 bg-amber-500/5">
           <p className="text-xs text-amber-600 mb-2">
             {t('essence.s1PickerHint', { candidates: visibleS1Candidates.length })}
