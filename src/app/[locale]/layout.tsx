@@ -21,6 +21,7 @@ import { VersionWatermark } from '@/components/shared/version-watermark'
 import { VersionProvider } from '@/hooks/use-version'
 import { SiteUrlProvider } from '@/hooks/use-site-url'
 import { versionData } from '@/generated/version-data'
+import { DEFAULT_SITE_URL } from '@/lib/constants'
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }))
@@ -33,7 +34,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params
   const t = await getTranslations({ locale })
-  const siteUrl = process.env.SITE_URL || 'https://cep.example.com'
+  const siteUrl = process.env.SITE_URL || DEFAULT_SITE_URL
   return {
     metadataBase: new URL(siteUrl),
     title: {
@@ -57,7 +58,7 @@ export default async function LocaleLayout({
 
   setRequestLocale(locale)
 
-  const siteUrl = process.env.SITE_URL || 'https://end.canmoe.com'
+  const siteUrl = process.env.SITE_URL || DEFAULT_SITE_URL
 
   const messages = (await import(`../../messages/${locale}.json`)).default
   // Merge game content translations from auto-generated i18n files
