@@ -115,7 +115,7 @@ export const WeaponCard = memo(function WeaponCard({
     longPressTimerRef.current = setTimeout(() => {
       longPressTriggeredRef.current = true
       setOpen(true)
-    }, 500)
+    }, 300)
   }, [isMobile, enableTooltip, clearLongPress])
 
   const handlePointerMove = useCallback((e: React.PointerEvent) => {
