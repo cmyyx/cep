@@ -10,6 +10,8 @@ import { GUARD_OVERLAY_OPEN, GUARD_OVERLAY_CLOSE } from '@/components/shared/gua
  *
  *   1. capture-phase `error` listener on <link rel="stylesheet">
  *   2. `window.load` → audit document.styleSheets.cssRules
+ *      (same-origin only — cross-origin stylesheets from browser
+ *      extensions are skipped to avoid false positives)
  *
  * The fallback is pure inline HTML with zero external dependencies,
  * so it works even when every CSS and JS file fails.
@@ -46,6 +48,7 @@ window.addEventListener('load',function(){
   for(var i=0;i<document.styleSheets.length;i++){
     var s=document.styleSheets[i];
     if(!s||!s.href)continue;
+    try{if(new URL(s.href).origin!==location.origin)continue;}catch(e){continue;}
     try{
       var r=s.cssRules;
       if(!r||r.length===0){empty.push(s.href);}
