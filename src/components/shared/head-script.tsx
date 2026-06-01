@@ -8,10 +8,11 @@
  * NEVER use dangerouslySetInnerHTML anywhere else. NEVER pass
  * user-generated content into the `code` prop.
  */
-export function HeadScript({ id, code }: { id: string; code: string }) {
+export function HeadScript({ id, code, type }: { id: string; code: string; type?: string }) {
   return (
     <script
       id={id}
+      type={type}
       suppressHydrationWarning
       dangerouslySetInnerHTML={{ __html: code }}
     />

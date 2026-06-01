@@ -7,7 +7,6 @@ const getApiBase = () => getApiBaseUrl()
 
 function silentLog(level: 'warn' | 'debug' | 'error', ...args: unknown[]) {
   if (typeof window !== 'undefined') {
-    // @ts-expect-error __cep_debug__.silentLog is defined by bootstrap.ts
     window.__cep_debug__?.silentLog?.(level, args)
   }
 }

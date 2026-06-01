@@ -69,7 +69,6 @@ export function DebugLabel() {
       )}
       onClick={(e) => {
         e.stopPropagation()
-        // @ts-expect-error __cep_debug__.openPanel set by inline bootstrap script
         window.__cep_debug__?.openPanel?.()
       }}
     >
