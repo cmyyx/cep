@@ -33,7 +33,8 @@ export function StructuredData({ type, name, description, url }: StructuredDataP
   return (
     <HeadScript
       id={`json-ld-${type.toLowerCase()}`}
-      code={JSON.stringify(data)}
+      type="application/ld+json"
+      code={JSON.stringify(data).replace(/</g, '\\u003c')}
     />
   )
 }

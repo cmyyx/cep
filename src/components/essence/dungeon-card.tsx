@@ -7,6 +7,7 @@ import { cn } from '@/lib/utils'
 import type { DungeonPlan, WeaponMatch } from '@/lib/planner/essence-solver'
 import { useMatrixStore, getPlanKey } from '@/stores/useMatrixStore'
 import { useEssenceSettingsStore } from '@/stores/useEssenceSettingsStore'
+import { useBannerStore } from '@/stores/useBannerStore'
 import { OwnershipBadge, EditableNote } from '@/components/essence/ownership-badge'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
 import { Checkbox } from '@/components/ui/checkbox'
@@ -487,6 +488,9 @@ export const DungeonCard = memo(function DungeonCard({
   const setWeaponOwnership = useEssenceSettingsStore((s) => s.setWeaponOwnership)
   const setEssenceStatus = useEssenceSettingsStore((s) => s.setEssenceStatus)
   const setWeaponNote = useEssenceSettingsStore((s) => s.setWeaponNote)
+  const keepUpVisible = useEssenceSettingsStore((s) => s.keepUpVisiblePlans)
+  const upCharacterNames = useBannerStore((s) => s.upCharacterNames)
+  const upCharSet = useMemo(() => new Set(upCharacterNames), [upCharacterNames])
 
   const handleToggleExpand = useCallback(() => {
     toggleDungeonExpand(planKey)
@@ -495,6 +499,7 @@ export const DungeonCard = memo(function DungeonCard({
   // Filter matchedWeapons based on plan-side hide settings
   const visibleMatched = useMemo(() => {
     return plan.matchedWeapons.filter(({ weapon }) => {
+      if (keepUpVisible && (weapon.chars.some((c) => upCharSet.has(c)) || weapon.source === 'preview')) return true
       if (hideFourStar && weapon.rarity === 4) return false
       if (hideUnowned && weaponOwnership[weapon.id] !== true) return false
       if (hideEssenceOwned) {
@@ -510,6 +515,7 @@ export const DungeonCard = memo(function DungeonCard({
     })
   }, [
     plan.matchedWeapons,
+    keepUpVisible, upCharSet,
     hideFourStar, hideUnowned, hideEssenceOwned, onlyBothOwned,
     weaponOwnership, essenceStatus,
   ])

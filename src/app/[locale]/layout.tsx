@@ -12,6 +12,7 @@ import { NavigationLoadingOverlay } from '@/components/shared/navigation-loading
 import { NavigationProgressBar } from '@/components/shared/navigation-progress-bar'
 import { AppInitOverlay } from '@/components/shared/app-init-overlay'
 import { ImportantAnnouncementBanner } from '@/components/home/important-announcement-banner'
+import { HolidayBanner } from '@/components/shared/holiday-banner'
 import { AnnouncementLoader } from '@/components/home/announcement-loader'
 import { SyncManager } from '@/components/shared/sync-manager'
 import { LegacyMigrationDialog } from '@/components/shared/legacy-migration-dialog'
@@ -97,6 +98,7 @@ export default async function LocaleLayout({
             <main className="flex flex-col flex-1 w-full relative overflow-hidden">
               {/* Navigation progress bar — immediate feedback on every nav */}
               <NavigationProgressBar />
+              <HolidayBanner />
               <ImportantAnnouncementBanner />
               {children}
               <NavigationLoadingOverlay />

@@ -17,6 +17,7 @@ import { useEssenceSettingsStore } from '@/stores/useEssenceSettingsStore'
 import { useMatrixStore } from '@/stores/useMatrixStore'
 import { useRefinementStore } from '@/stores/useRefinementStore'
 import { useAuthStore } from '@/stores/useAuthStore'
+import { useHolidayStore } from '@/stores/useHolidayStore'
 
 // ─── 数据模块定义 ──────────────────────────────────────────────
 
@@ -70,6 +71,12 @@ function buildModules(t: ReturnType<typeof useTranslations>): DataModule[] {
       label: t('dataCleaner.modules.announcement-read.label'),
       description: t('dataCleaner.modules.announcement-read.desc'),
       keys: ['cep-announcement-read-ids'],
+    },
+    {
+      id: 'holiday-state',
+      label: t('dataCleaner.modules.holiday-state.label'),
+      description: t('dataCleaner.modules.holiday-state.desc'),
+      keys: ['cep-holiday'],
     },
     {
       id: 'dev-overrides',
@@ -215,6 +222,9 @@ export function DataCleaner() {
       case 'user-data':
         // logout clears auth tokens and redirects — call only when explicitly clearing auth
         useAuthStore.getState().logout()
+        break
+      case 'holiday-state':
+        useHolidayStore.setState({ dismissedHolidays: {}, holidayEffectsEnabled: true })
         break
     }
   }, [])

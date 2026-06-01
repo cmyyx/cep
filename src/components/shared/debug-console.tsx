@@ -16,7 +16,6 @@ let panelLoadPromise: Promise<void> | null = null
 /** Ensure debug-panel.js is loaded and executed. Idempotent. */
 function ensurePanelLoaded(): Promise<void> {
   // Already loaded (by layout.tsx afterInteractive Script or previous call)
-  // @ts-expect-error __cep_debug__ is set by the bootstrap inline script
   if (window.__cep_debug__?._openPanel) return Promise.resolve()
 
   if (!panelLoadPromise) {
@@ -43,6 +42,5 @@ function ensurePanelLoaded(): Promise<void> {
  */
 export async function openDebugConsole(): Promise<void> {
   await ensurePanelLoaded()
-  // @ts-expect-error __cep_debug__._openPanel is defined by debug-panel.js
   window.__cep_debug__?._openPanel?.()
 }

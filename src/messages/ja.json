@@ -539,7 +539,11 @@
       },
       "announcement-read": {
         "label": "お知らせ既読記録",
-        "desc": "既読お知らせIDリスト"
+        "desc": "既読のお知らせIDリスト"
+      },
+      "holiday-state": {
+        "label": "祝日エフェクトの状態",
+        "desc": "祝日バナーの非表示記録とエフェクト切替"
       },
       "dev-overrides": {
         "label": "Dev",
@@ -832,5 +836,20 @@
     "github": "GitHub",
     "forum": "フォーラム",
     "qqGroup": "QQグループ 1045523485"
+  },
+  "holiday": {
+    "newYear": {
+      "banner": "新年おめでとうございます！",
+      "countdown": "新年まであと"
+    },
+    "gameAnniversary": {
+      "banner": "「アークナイツ：エンドフィールド」が{yearText}周年を迎えました！すべての管理者の皆様への感謝と、これからもよろしくお願いします！"
+    },
+    "toolAnniversary": {
+      "banner": "CEPが{yearText}周年を迎えました！ご利用とサポートに感謝いたします！"
+    },
+    "childrensDay": {
+      "banner": "こどもの日おめでとうございます！いつでも好奇心を持ち続けましょう！"
+    }
   }
 }

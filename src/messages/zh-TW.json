@@ -541,6 +541,10 @@
         "label": "公告已讀記錄",
         "desc": "已讀公告 ID 列表"
       },
+      "holiday-state": {
+        "label": "節日效果狀態",
+        "desc": "節日橫幅關閉記錄和效果開關"
+      },
       "dev-overrides": {
         "label": "Dev",
         "desc": "調試"
@@ -832,5 +836,20 @@
     "github": "GitHub",
     "forum": "論壇",
     "qqGroup": "QQ群 1045523485"
+  },
+  "holiday": {
+    "newYear": {
+      "banner": "新年快樂！",
+      "countdown": "距離新年還有"
+    },
+    "gameAnniversary": {
+      "banner": "《明日方舟：終末地》上線 {yearText} 週年！感謝所有管理員的支持與陪伴，新的一年繼續同行！"
+    },
+    "toolAnniversary": {
+      "banner": "CEP 上線 {yearText} 週年！感謝您的使用與支持！"
+    },
+    "childrensDay": {
+      "banner": "六一兒童節快樂！願你永遠保持好奇心！"
+    }
   }
 }

@@ -539,7 +539,11 @@
       },
       "announcement-read": {
         "label": "Announcement Read Records",
-        "desc": "Read announcement ID list"
+        "desc": "List of read announcement IDs"
+      },
+      "holiday-state": {
+        "label": "Holiday Effects State",
+        "desc": "Holiday banner dismiss records and effects toggle"
       },
       "dev-overrides": {
         "label": "Dev",
@@ -832,5 +836,20 @@
     "github": "GitHub",
     "forum": "Forum",
     "qqGroup": "QQ Group 1045523485"
+  },
+  "holiday": {
+    "newYear": {
+      "banner": "Happy New Year!",
+      "countdown": "Countdown to New Year"
+    },
+    "gameAnniversary": {
+      "banner": "Arknights: Endfield {yearText} anniversary! Thank you to all Administrators for your support and companionship!"
+    },
+    "toolAnniversary": {
+      "banner": "CEP {yearText} anniversary! Thank you for using and supporting us!"
+    },
+    "childrensDay": {
+      "banner": "Happy Children's Day! May you always stay curious!"
+    }
   }
 }
