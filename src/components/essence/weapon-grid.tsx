@@ -21,11 +21,9 @@ const ATTR_KEYS: AttrKey[] = ['primaryStat', 'elementalDamage', 'specialAbility'
 
 import type { Weapon } from '@/types/matrix'
 
-/** Build attr values from full weapon list (static + custom),
- *  plus dungeon pool values for elementalDamage (s2Pool) and
- *  specialAbility (s3Pool) so skills like "强攻" that exist in
- *  dungeons but not on any weapon still appear in the filter
- *  (shown as disabled / strikethrough). */
+/** 返回从 dungeon pool 派生的静态属性值数组。
+ *  ALL_PRIMARY_STATS、ALL_ELEMENTAL_DAMAGE、ALL_SPECIAL_ABILITIES
+ *  在导入时从 dungeon s1Pool/s2Pool/s3Pool 一次性计算。 */
 function buildAttrValues(): Record<AttrKey, string[]> {
   return {
     primaryStat: ALL_PRIMARY_STATS,

@@ -10,7 +10,7 @@ import { useEssenceSettingsStore } from '@/stores/useEssenceSettingsStore'
 import { OwnershipBadge, EditableNote } from '@/components/essence/ownership-badge'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
 import { Checkbox } from '@/components/ui/checkbox'
-import { ChevronDown } from 'lucide-react'
+import { ChevronDown, Check } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { resolveStatI18nKey } from '@/data/stat-i18n-map'
 import { computeEffectiveS1 } from '@/lib/planner/s1-utils'
@@ -123,6 +123,10 @@ const WeaponThumbnail = memo(function WeaponThumbnail({
     }
   }, [])
 
+  useEffect(() => {
+    return () => clearLongPress()
+  }, [clearLongPress])
+
   const handleOpenChange = useCallback((nextOpen: boolean) => {
     if (isMobile && enableTooltip) {
       if (!nextOpen) setOpen(false)
@@ -197,7 +201,7 @@ const WeaponThumbnail = memo(function WeaponThumbnail({
       />
       {isSelected && (
         <div className="absolute top-0 right-0 size-4 bg-amber-400 rounded-bl-sm flex items-center justify-center z-30">
-          <span className="text-[8px] text-black font-bold">✓</span>
+          <Check className="size-2.5 text-black" strokeWidth={3} />
         </div>
       )}
     </button>
