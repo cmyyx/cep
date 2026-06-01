@@ -1,5 +1,3 @@
-import { HeadScript } from '@/components/shared/head-script'
-
 interface StructuredDataProps {
   type: 'WebApplication' | 'WebPage'
   name: string
@@ -31,9 +29,11 @@ export function StructuredData({ type, name, description, url }: StructuredDataP
   const data = { ...baseData, ...applicationData }
 
   return (
-    <HeadScript
+    <script
       id={`json-ld-${type.toLowerCase()}`}
-      code={JSON.stringify(data)}
+      type="application/ld+json"
+      suppressHydrationWarning
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
     />
   )
 }
