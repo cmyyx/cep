@@ -179,6 +179,10 @@ function loadPanel(cb){
   document.head.appendChild(s);
 }
 
+/* Silent log — writes to debug buffer without calling native console.
+   Used by api.ts to keep HTTP logs out of the browser console. */
+window.__cep_debug__.silentLog=function(l,a){A(l,a)};
+
 /* Expose to React DebugLabel component. */
 window.__cep_debug__.openPanel=openPanel;
 window.__cep_debug__.togglePanel=togglePanel;

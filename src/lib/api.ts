@@ -3,6 +3,15 @@ import type { ApiErrorCode } from '@/types/error-codes'
 
 const getApiBase = () => getApiBaseUrl()
 
+// ─── Silent logging (debug panel only, no browser console) ──
+
+function silentLog(level: 'warn' | 'debug' | 'error', ...args: unknown[]) {
+  if (typeof window !== 'undefined') {
+    // @ts-expect-error __cep_debug__.silentLog is defined by bootstrap.ts
+    window.__cep_debug__?.silentLog?.(level, args)
+  }
+}
+
 // ─── Token storage helpers ──────────────────────────────────
 
 function getTokens(): { accessToken: string | null; refreshToken: string | null } {
@@ -58,7 +67,7 @@ async function doRefresh(): Promise<boolean> {
       '/api/auth/refresh',
     )
     if (!res.ok) {
-      console.warn(`[HTTP] POST /api/auth/refresh → ${res.status}`)
+      silentLog('warn', `[HTTP] POST /api/auth/refresh → ${res.status}`)
       if (res.status === 401 || res.status === 403) {
         clearTokens()
         if (typeof window !== 'undefined') { try { localStorage.removeItem('cep-last-sync-sig') } catch {} }
@@ -81,13 +90,13 @@ async function doRefresh(): Promise<boolean> {
       } catch { /* store not available */ }
       return true
     }
-    console.warn('[HTTP] POST /api/auth/refresh → invalid response (missing tokens)')
+    silentLog('warn', '[HTTP] POST /api/auth/refresh → invalid response (missing tokens)')
     return false
   } catch (err) {
     // Re-throw network errors so callers can distinguish from auth failures (401/403).
     // fetchWithLogging already logged and wrapped the error as ApiError('network_error').
     if (err instanceof ApiError && err.code === 'network_error') throw err
-    console.warn('[HTTP] POST /api/auth/refresh → unexpected error', err instanceof Error ? err.message : String(err))
+    silentLog('warn', '[HTTP] POST /api/auth/refresh → unexpected error', err instanceof Error ? err.message : String(err))
     return false
   }
 }
@@ -125,7 +134,7 @@ async function fetchWithLogging(
     return await fetch(url, init)
   } catch (err) {
     const suffix = retryLabel ? ` [${retryLabel}]` : ''
-    console.warn(`[HTTP] ${method} ${path} → network error${suffix}`, err instanceof Error ? err.message : String(err))
+    silentLog('warn', `[HTTP] ${method} ${path} → network error${suffix}`, err instanceof Error ? err.message : String(err))
     throw new ApiError('network_error', 0, { message: err instanceof Error ? err.message : String(err) })
   }
 }
@@ -181,7 +190,7 @@ export async function api<T = unknown>(
       const retryData = await safeJson<Record<string, unknown>>(retryRes)
       if (!retryRes.ok) {
         const retryCode = (retryData as Record<string, unknown>).error as string ?? 'unknown_error'
-        console.warn(`[HTTP] ${method} ${path} → ${retryRes.status} (${retryCode}) [retry]`)
+        silentLog('warn', `[HTTP] ${method} ${path} → ${retryRes.status} (${retryCode}) [retry]`)
         throw new ApiError(retryCode, retryRes.status, retryData)
       }
       return retryData as T
@@ -191,10 +200,10 @@ export async function api<T = unknown>(
   const data = await safeJson<Record<string, unknown>>(res)
   if (!res.ok) {
     const code = (data as Record<string, unknown>).error as string ?? 'unknown_error'
-    console.warn(`[HTTP] ${method} ${path} → ${res.status} (${code})`)
+    silentLog('warn', `[HTTP] ${method} ${path} → ${res.status} (${code})`)
     throw new ApiError(code, res.status, data)
   }
-  console.debug(`[API] ${method} ${path} → ${res.status}`)
+  silentLog('debug', `[API] ${method} ${path} → ${res.status}`)
   return data as T
 }
 
