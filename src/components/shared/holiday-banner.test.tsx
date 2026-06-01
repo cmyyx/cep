@@ -83,7 +83,7 @@ describe('HolidayBanner', () => {
     const { container } = render(<HolidayBanner />)
 
     const btn = container.querySelector('button')
-    expect(btn).toBeDefined()
+    expect(btn).not.toBeNull()
     fireEvent.click(btn!)
     expect(mockDismiss).not.toHaveBeenCalled()
 
@@ -97,13 +97,13 @@ describe('HolidayBanner', () => {
       phase: 'active',
     }
     const { container, rerender } = render(<HolidayBanner />)
-    expect(container.querySelector('[role="status"]')).toBeDefined()
+    expect(container.querySelector('[role="status"]')).not.toBeNull()
 
     mockActiveHoliday = {
       config: { id: 'new-year', i18nKey: 'holiday.newYear', icon: 'party-popper' },
       phase: 'active',
     }
     rerender(<HolidayBanner />)
-    expect(container.querySelector('[role="status"]')).toBeDefined()
+    expect(container.querySelector('[role="status"]')).not.toBeNull()
   })
 })
