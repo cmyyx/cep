@@ -826,5 +826,11 @@
   "notFound": {
     "title": "Page Not Found",
     "homeLink": "Return Home"
+  },
+  "feedback": {
+    "title": "Having issues? Contact us:",
+    "github": "GitHub",
+    "forum": "Forum",
+    "qqGroup": "QQ Group 1045523485"
   }
 }

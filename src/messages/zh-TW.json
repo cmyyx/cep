@@ -826,5 +826,11 @@
   "notFound": {
     "title": "頁面未找到",
     "homeLink": "返回首頁"
+  },
+  "feedback": {
+    "title": "遇到問題？回饋管道：",
+    "github": "GitHub",
+    "forum": "論壇",
+    "qqGroup": "QQ群 1045523485"
   }
 }

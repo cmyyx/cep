@@ -826,5 +826,11 @@
   "notFound": {
     "title": "ページが見つかりません",
     "homeLink": "ホームに戻る"
+  },
+  "feedback": {
+    "title": "問題がありますか？フィードバック先：",
+    "github": "GitHub",
+    "forum": "フォーラム",
+    "qqGroup": "QQグループ 1045523485"
   }
 }

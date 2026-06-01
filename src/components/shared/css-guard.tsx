@@ -1,5 +1,5 @@
 import { HeadScript } from '@/components/shared/head-script'
-import { GUARD_OVERLAY_OPEN, GUARD_OVERLAY_CLOSE } from '@/components/shared/guard-layout'
+import { GUARD_OVERLAY_OPEN, GUARD_OVERLAY_CLOSE, GUARD_FEEDBACK_HTML } from '@/components/shared/guard-layout'
 
 /**
  * Inline CSS load failure guard — injected into <head>.
@@ -26,7 +26,8 @@ const CSS_CONTENT =
   'background:#171717;color:#fff;font-size:15px;cursor:pointer;'+
   'font-family:system-ui,sans-serif;">'+
   '\u5237\u65B0\u9875\u9762 Refresh'+
-  '</button>'
+  '</button>'+
+  GUARD_FEEDBACK_HTML
 
 const CSS_GUARD_CODE = `(function(){
 var F=[];

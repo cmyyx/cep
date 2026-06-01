@@ -1,6 +1,7 @@
 'use client'
 
 import Image from 'next/image'
+import { GuardFeedback } from '@/components/shared/guard-layout'
 
 interface BootstrapScreenProps {
   timedOut?: boolean
@@ -78,6 +79,9 @@ export function BootstrapScreen({ timedOut = false, status }: BootstrapScreenPro
             {status}
           </p>
         )}
+
+        {/* Feedback channels */}
+        <GuardFeedback />
       </div>
 
       {/* Noscript fallback for users with JavaScript disabled */}
@@ -106,6 +110,7 @@ export function BootstrapScreen({ timedOut = false, status }: BootstrapScreenPro
                 Please enable JavaScript in your browser settings and refresh the page.
               </p>
             </div>
+            <GuardFeedback />
           </div>
         </div>
       </noscript>

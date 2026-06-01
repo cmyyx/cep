@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react'
-import { GuardOverlay } from '@/components/shared/guard-layout'
+import { GuardOverlay, GuardFeedback } from '@/components/shared/guard-layout'
 
 interface NoscriptFallbackProps {
   subtitle?: ReactNode
@@ -44,6 +44,7 @@ export function NoscriptFallback({
           <p className="m-0">{descriptionZh}</p>
           <p className="m-0 text-[13px] text-[#999]">{descriptionEn}</p>
         </div>
+        <GuardFeedback />
       </GuardOverlay>
     </noscript>
   )
