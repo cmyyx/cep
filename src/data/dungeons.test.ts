@@ -25,10 +25,22 @@ describe('dungeons data', () => {
     }
   })
 
+  it('every dungeon has non-empty s1Pool', () => {
+    for (const d of dungeons) {
+      expect(d.s1Pool.length).toBeGreaterThan(0)
+    }
+  })
+
   it('s2Pool and s3Pool have no duplicate entries', () => {
     for (const d of dungeons) {
       expect(new Set(d.s2Pool).size).toBe(d.s2Pool.length)
       expect(new Set(d.s3Pool).size).toBe(d.s3Pool.length)
+    }
+  })
+
+  it('s1Pool has no duplicate entries', () => {
+    for (const d of dungeons) {
+      expect(new Set(d.s1Pool).size).toBe(d.s1Pool.length)
     }
   })
 })
