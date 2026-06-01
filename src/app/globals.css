@@ -49,6 +49,10 @@
   --color-rarity-6-star: #ff7100;
   --color-rarity-5-star: #ffcc00;
 
+  /* Holiday accent colors (set via data-holiday attribute) */
+  --color-holiday-accent: var(--holiday-accent, transparent);
+  --color-holiday-accent-foreground: var(--holiday-accent-foreground, var(--foreground));
+
   /* DESIGN.md radius scale */
   --radius-none: 0;
   --radius-micro: calc(var(--radius) * 0.3333);
@@ -114,6 +118,32 @@
   --chart-3: #666666;
   --chart-4: #808080;
   --chart-5: #ebebeb;
+
+  /* Holiday default variables (no holiday active) */
+  --holiday-accent: transparent;
+  --holiday-accent-foreground: #171717;
+}
+
+/* ─── Holiday theme variants (light mode) ─── */
+
+:root[data-holiday="new-year"] {
+  --holiday-accent: #ffd700;
+  --holiday-accent-foreground: #171717;
+}
+
+:root[data-holiday="game-anniversary"] {
+  --holiday-accent: #ff7100;
+  --holiday-accent-foreground: #ffffff;
+}
+
+:root[data-holiday="tool-anniversary"] {
+  --holiday-accent: #0a72ef;
+  --holiday-accent-foreground: #ffffff;
+}
+
+:root[data-holiday="childrens-day"] {
+  --holiday-accent: #f472b6;
+  --holiday-accent-foreground: #171717;
 }
 
 .dark {
@@ -143,6 +173,28 @@
   --sidebar-accent-foreground: #fafafa;
   --sidebar-border: rgba(255, 255, 255, 0.1);
   --sidebar-ring: rgba(255, 255, 255, 0.3);
+}
+
+/* ─── Holiday theme variants (dark mode) ─── */
+
+.dark[data-holiday="new-year"] {
+  --holiday-accent: #ffd700;
+  --holiday-accent-foreground: #fafafa;
+}
+
+.dark[data-holiday="game-anniversary"] {
+  --holiday-accent: #ff8c33;
+  --holiday-accent-foreground: #fafafa;
+}
+
+.dark[data-holiday="tool-anniversary"] {
+  --holiday-accent: #3b82f6;
+  --holiday-accent-foreground: #fafafa;
+}
+
+.dark[data-holiday="childrens-day"] {
+  --holiday-accent: #f9a8d4;
+  --holiday-accent-foreground: #fafafa;
 }
 
 .flashbang {
