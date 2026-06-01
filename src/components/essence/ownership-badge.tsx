@@ -5,6 +5,7 @@ import { useTranslations } from 'next-intl'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
+import { Check } from 'lucide-react'
 
 // ─── Ownership pill badge ──────────────────────────────────────────────────
 
@@ -45,7 +46,7 @@ export function OwnershipBadge({
             : 'border-border bg-muted/50 hover:border-foreground/30',
         )}
       >
-        {active && <span className="text-[7px] leading-none">✓</span>}
+        {active && <Check className="size-2.5 leading-none" strokeWidth={3} />}
       </Button>
     )
   }
@@ -67,7 +68,7 @@ export function OwnershipBadge({
           : 'border-border text-muted-foreground hover:border-foreground/30',
       )}
     >
-      {active && <span className="text-[7px]">✓</span>}
+      {active && <Check className="size-2.5" strokeWidth={3} />}
       <span>{label}</span>
     </Button>
   )

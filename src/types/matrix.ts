@@ -14,6 +14,7 @@ export interface Weapon {
 export interface Dungeon {
   id: string
   name: string
+  s1Pool: string[]
   s2Pool: string[]
   s3Pool: string[]
 }

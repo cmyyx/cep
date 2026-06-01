@@ -7,6 +7,7 @@ import Image from 'next/image'
 import { useMatrixStore } from '@/stores/useMatrixStore'
 import { useEssenceSettingsStore } from '@/stores/useEssenceSettingsStore'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
+import { Check } from 'lucide-react'
 import { useIsMobile } from '@/hooks/use-mobile'
 import { resolveStatI18nKey } from '@/data/stat-i18n-map'
 import type { Weapon } from '@/types/matrix'
@@ -115,7 +116,7 @@ export const WeaponCard = memo(function WeaponCard({
     longPressTimerRef.current = setTimeout(() => {
       longPressTriggeredRef.current = true
       setOpen(true)
-    }, 500)
+    }, 300)
   }, [isMobile, enableTooltip, clearLongPress])
 
   const handlePointerMove = useCallback((e: React.PointerEvent) => {
@@ -264,7 +265,7 @@ export const WeaponCard = memo(function WeaponCard({
       {/* Selected checkmark */}
       {isSelected && (
         <div className="absolute top-2 right-2 size-6 rounded-full bg-amber-400 flex items-center justify-center z-30 shadow-md">
-          <span className="text-[10px] text-black font-bold">✓</span>
+          <Check className="size-3 text-black" strokeWidth={3} />
         </div>
       )}
     </button>

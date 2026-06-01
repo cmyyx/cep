@@ -1,6 +1,6 @@
 import { HeadScript } from '@/components/shared/head-script'
 import { BROWSER_DETECT_CODE } from '@/lib/browser-detect'
-import { GUARD_OVERLAY_OPEN, GUARD_OVERLAY_CLOSE } from '@/components/shared/guard-layout'
+import { GUARD_OVERLAY_OPEN, GUARD_OVERLAY_CLOSE, GUARD_FEEDBACK_HTML } from '@/components/shared/guard-layout'
 
 /**
  * Inline browser capability guard — injected into <head>.
@@ -50,6 +50,7 @@ if(!critical)return;
       '<code style="font-family:monospace;background:#f5f5f5;padding:2px 6px;border-radius:3px;">'+missing.join(', ')+'</code>'+
       '</p>'
     :'')+
+    ${JSON.stringify(GUARD_FEEDBACK_HTML)}+
     ${JSON.stringify(GUARD_OVERLAY_CLOSE)};
   (document.body||document.documentElement).appendChild(d);
 })(issues);

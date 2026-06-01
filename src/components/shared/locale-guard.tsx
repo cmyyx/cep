@@ -2,20 +2,14 @@
 
 import { useEffect } from 'react'
 import { useLocale } from 'next-intl'
-import {
-  getExplicitLanguage,
-  detectBrowserLocale,
-  buildLocaleHref,
-} from '@/lib/locale-utils'
+import { getExplicitLanguage, buildLocaleHref } from '@/lib/locale-utils'
 
 /**
- * Guards against locale mismatch between URL and user preference.
+ * Guards against locale mismatch when the user has an explicit language preference.
  *
- * On mount, reads language preference directly from localStorage
- * (bypassing Zustand hydration timing) and redirects if the URL
- * locale differs from the effective language.
- *
- * Does not render any UI.
+ * - Explicit language set (e.g. 'zh-CN'): redirects to match the preference.
+ * - AUTO: does nothing — the URL locale is respected. Initial `/` → `/[locale]`
+ *   redirect is handled by RootRedirect (`src/app/page.tsx`).
  */
 export function LocaleGuard() {
   const urlLocale = useLocale()
@@ -26,9 +20,8 @@ export function LocaleGuard() {
 
   useEffect(() => {
     const explicit = getExplicitLanguage()
-    const effective = explicit ?? detectBrowserLocale()
-    if (effective !== urlLocale) {
-      window.location.replace(buildLocaleHref(effective))
+    if (explicit && explicit !== urlLocale) {
+      window.location.replace(buildLocaleHref(explicit))
     }
   }, [urlLocale])
 

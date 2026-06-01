@@ -10,10 +10,11 @@ import { useEssenceSettingsStore } from '@/stores/useEssenceSettingsStore'
 import { OwnershipBadge, EditableNote } from '@/components/essence/ownership-badge'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
 import { Checkbox } from '@/components/ui/checkbox'
-import { ChevronDown } from 'lucide-react'
+import { ChevronDown, Check } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { resolveStatI18nKey } from '@/data/stat-i18n-map'
 import { computeEffectiveS1 } from '@/lib/planner/s1-utils'
+import { useIsMobile } from '@/hooks/use-mobile'
 
 interface DungeonCardProps {
   plan: DungeonPlan
@@ -61,7 +62,7 @@ function useCloseOnScroll(
   open: boolean,
   setOpen: (open: boolean) => void,
 ) {
-  const ref = useRef<HTMLDivElement>(null)
+  const ref = useRef<HTMLButtonElement>(null)
 
   useEffect(() => {
     if (!open || !ref.current) return
@@ -109,14 +110,80 @@ const WeaponThumbnail = memo(function WeaponThumbnail({
   const enableTooltip = useEssenceSettingsStore((s) => s.enableTooltipPlans)
   const [open, setOpen] = useState(false)
   const triggerRef = useCloseOnScroll(open, setOpen)
+
+  const isMobile = useIsMobile()
+  const longPressTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const longPressTriggeredRef = useRef(false)
+  const pointerStartRef = useRef<{ x: number; y: number } | null>(null)
+
+  const clearLongPress = useCallback(() => {
+    if (longPressTimerRef.current) {
+      clearTimeout(longPressTimerRef.current)
+      longPressTimerRef.current = null
+    }
+  }, [])
+
+  useEffect(() => {
+    return () => clearLongPress()
+  }, [clearLongPress])
+
+  const handleOpenChange = useCallback((nextOpen: boolean) => {
+    if (isMobile && enableTooltip) {
+      if (!nextOpen) setOpen(false)
+      return
+    }
+    setOpen(nextOpen)
+  }, [isMobile, enableTooltip])
+
+  const handlePointerDown = useCallback((e: React.PointerEvent) => {
+    if (!isMobile || !enableTooltip) return
+    longPressTriggeredRef.current = false
+    pointerStartRef.current = { x: e.clientX, y: e.clientY }
+    clearLongPress()
+    longPressTimerRef.current = setTimeout(() => {
+      longPressTriggeredRef.current = true
+      setOpen(true)
+    }, 300)
+  }, [isMobile, enableTooltip, clearLongPress])
+
+  const handlePointerMove = useCallback((e: React.PointerEvent) => {
+    if (!pointerStartRef.current) return
+    const dx = e.clientX - pointerStartRef.current.x
+    const dy = e.clientY - pointerStartRef.current.y
+    if (Math.abs(dx) > 10 || Math.abs(dy) > 10) {
+      clearLongPress()
+      pointerStartRef.current = null
+    }
+  }, [clearLongPress])
+
+  const handlePointerEnd = useCallback(() => {
+    clearLongPress()
+    pointerStartRef.current = null
+    if (longPressTriggeredRef.current) {
+      setOpen(false)
+      longPressTriggeredRef.current = false
+    }
+  }, [clearLongPress])
+
+  const handleContextMenu = useCallback((e: React.MouseEvent) => {
+    e.preventDefault()
+  }, [])
+
   const weaponName = (weapon.id?.startsWith('custom-') || weapon.id?.startsWith('preview:')) ? weapon.name : (t(`weapons.${weapon.id}`) ?? weapon.name)
 
   const thumb = (
-    <div
+    <button
+      type="button"
       ref={triggerRef}
+      onPointerDown={isMobile && enableTooltip ? handlePointerDown : undefined}
+      onPointerMove={isMobile && enableTooltip ? handlePointerMove : undefined}
+      onPointerUp={isMobile && enableTooltip ? handlePointerEnd : undefined}
+      onPointerCancel={isMobile && enableTooltip ? handlePointerEnd : undefined}
+      onContextMenu={isMobile && enableTooltip ? handleContextMenu : undefined}
       className={cn(
-        'relative w-16 h-16 rounded-md overflow-hidden cursor-default',
+        'relative w-16 h-16 rounded-md overflow-hidden cursor-default select-none',
         'bg-[url(/images/item-frame-bg.png)] bg-cover bg-center',
+        isMobile && enableTooltip && 'touch-manipulation',
         inRange && isSelected && 'shadow-[0_0_0_1px_rgba(251,191,36,0.5)]',
         inRange && !isSelected && 'shadow-[0_0_0_1px_rgba(0,0,0,0.08)]',
         !inRange && isSelected && 'shadow-[0_0_0_1px_rgba(251,191,36,0.2)] opacity-40',
@@ -134,16 +201,16 @@ const WeaponThumbnail = memo(function WeaponThumbnail({
       />
       {isSelected && (
         <div className="absolute top-0 right-0 size-4 bg-amber-400 rounded-bl-sm flex items-center justify-center z-30">
-          <span className="text-[8px] text-black font-bold">✓</span>
+          <Check className="size-2.5 text-black" strokeWidth={3} />
         </div>
       )}
-    </div>
+    </button>
   )
 
   if (!enableTooltip) return thumb
 
   return (
-    <Tooltip open={open} onOpenChange={setOpen}>
+    <Tooltip open={open} onOpenChange={handleOpenChange}>
       <TooltipTrigger render={thumb} />
       <TooltipContent
         side="top"

@@ -30,9 +30,10 @@ export function solve(
   const dungeonPlans: DungeonPlan[] = []
 
   for (const dungeon of dungeons) {
-    // Eligible: weapons whose s2 AND s3 are BOTH in this dungeon's pools
+    // Eligible: weapons whose s1 AND s2 AND s3 are ALL in this dungeon's pools
     const eligible = allWeapons.filter(
       (w) =>
+        dungeon.s1Pool.includes(w.primaryStat) &&
         dungeon.s2Pool.includes(w.elementalDamage) &&
         dungeon.s3Pool.includes(w.specialAbility),
     )

@@ -1,7 +1,8 @@
 import { describe, it, expect } from 'vitest'
 import { computeEffectiveS1 } from './s1-utils'
+import { ALL_PRIMARY_STATS } from '@/lib/essence-utils'
 
-const ALL_S1 = ['力量提升', '敏捷提升', '智识提升', '意志提升', '主能力提升'] as const
+const ALL_S1 = ALL_PRIMARY_STATS
 
 describe('computeEffectiveS1', () => {
   // ── <= 3 visible candidates → use all visible, ignore stored/solver ──

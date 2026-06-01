@@ -23,10 +23,8 @@ import { weapons as staticWeapons } from '@/data/weapons'
 import type { Weapon } from '@/types/matrix'
 import { cn } from '@/lib/utils'
 import { resolveStatI18nKey } from '@/data/stat-i18n-map'
+import { ALL_PRIMARY_STATS, ALL_ELEMENTAL_DAMAGE, ALL_SPECIAL_ABILITIES } from '@/lib/essence-utils'
 
-const STATS = [...new Set(staticWeapons.map((w) => w.primaryStat))].sort()
-const ELEMENTS = [...new Set(staticWeapons.map((w) => w.elementalDamage))].sort()
-const ABILITIES = [...new Set(staticWeapons.map((w) => w.specialAbility))].sort()
 const TYPES = [...new Set(staticWeapons.map((w) => w.type))].sort()
 const RARITIES = [4, 5, 6] as const
 
@@ -47,9 +45,9 @@ export function WeaponFormDialog({
   const [name, setName] = useState(initial?.name ?? '')
   const [rarity, setRarity] = useState<4 | 5 | 6>(initial?.rarity ?? 5)
   const [type, setType] = useState(initial?.type ?? TYPES[0])
-  const [primaryStat, setPrimaryStat] = useState(initial?.primaryStat ?? STATS[0])
-  const [elementalDamage, setElemental] = useState(initial?.elementalDamage ?? ELEMENTS[0])
-  const [specialAbility, setAbility] = useState(initial?.specialAbility ?? ABILITIES[0])
+  const [primaryStat, setPrimaryStat] = useState(initial?.primaryStat ?? ALL_PRIMARY_STATS[0])
+  const [elementalDamage, setElemental] = useState(initial?.elementalDamage ?? ALL_ELEMENTAL_DAMAGE[0])
+  const [specialAbility, setAbility] = useState(initial?.specialAbility ?? ALL_SPECIAL_ABILITIES[0])
 
   const handleSave = () => {
     if (!name.trim()) return
@@ -145,7 +143,7 @@ export function WeaponFormDialog({
                 <SelectValue>{(v: string) => t(resolveStatI18nKey(v) ?? v) ?? ''}</SelectValue>
               </SelectTrigger>
               <SelectContent>
-                {STATS.map((opt) => (
+                {ALL_PRIMARY_STATS.map((opt) => (
                   <SelectItem key={opt} value={opt}>{t(resolveStatI18nKey(opt) ?? opt)}</SelectItem>
                 ))}
               </SelectContent>
@@ -158,7 +156,7 @@ export function WeaponFormDialog({
                 <SelectValue>{(v: string) => t(resolveStatI18nKey(v) ?? v) ?? ''}</SelectValue>
               </SelectTrigger>
               <SelectContent>
-                {ELEMENTS.map((opt) => (
+                {ALL_ELEMENTAL_DAMAGE.map((opt) => (
                   <SelectItem key={opt} value={opt}>{t(resolveStatI18nKey(opt) ?? opt)}</SelectItem>
                 ))}
               </SelectContent>
@@ -171,7 +169,7 @@ export function WeaponFormDialog({
                 <SelectValue>{(v: string) => t(resolveStatI18nKey(v) ?? v) ?? ''}</SelectValue>
               </SelectTrigger>
               <SelectContent>
-                {ABILITIES.map((opt) => (
+                {ALL_SPECIAL_ABILITIES.map((opt) => (
                   <SelectItem key={opt} value={opt}>{t(resolveStatI18nKey(opt) ?? opt)}</SelectItem>
                 ))}
               </SelectContent>

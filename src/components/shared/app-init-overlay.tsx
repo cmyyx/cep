@@ -5,6 +5,7 @@ import Image from 'next/image'
 import { useTranslations } from 'next-intl'
 import { useAppInitStore } from '@/stores/useAppInitStore'
 import { cn } from '@/lib/utils'
+import { GuardFeedback } from '@/components/shared/guard-layout'
 
 /**
  * Full-viewport cinematic loading overlay.
@@ -243,6 +244,9 @@ export function AppInitOverlay() {
             </p>
           )}
         </div>
+
+        {/* Feedback channels */}
+        <GuardFeedback title={t('feedback.title')} />
       </div>
     </div>
   )
