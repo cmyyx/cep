@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useCallback, useSyncExternalStore } from 'react'
+import { useState, useEffect, useCallback, useMemo, useSyncExternalStore } from 'react'
 import { useLocale } from 'next-intl'
 import {
   getActiveHoliday,
@@ -34,16 +34,17 @@ export function useHoliday(): UseHolidayResult {
 
   const [now, setNow] = useState(() => new Date())
 
+  const phase = useMemo(() => getActiveHoliday(now)?.phase, [now])
+
   useEffect(() => {
     if (!enabled || !mounted) return
 
     const tick = () => setNow(new Date())
-    const active = getActiveHoliday(now)
-    const interval = active?.phase === 'countdown' ? 1000 : 60_000
+    const interval = phase === 'countdown' ? 1000 : 60_000
 
     const timer = setInterval(tick, interval)
     return () => clearInterval(timer)
-  }, [enabled, mounted, now])
+  }, [enabled, mounted, phase])
 
   const active = getActiveHoliday(now)
   const year = now.getFullYear()

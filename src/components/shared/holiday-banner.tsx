@@ -1,9 +1,10 @@
 'use client'
 
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef } from 'react'
 import { useTranslations } from 'next-intl'
 import { PartyPopper, Gift, Cake, Star, X } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { Button } from '@/components/ui/button'
 import { useHoliday } from '@/hooks/use-holiday'
 import type { HolidayConfig } from '@/lib/holidays'
 
@@ -104,36 +105,16 @@ export function HolidayBanner() {
       ) : (
         <NormalContent config={config} yearText={yearText} t={t} />
       )}
-      <button
+      <Button
         type="button"
+        variant="ghost"
+        size="icon-sm"
         onClick={handleDismiss}
-        className={cn(
-          'ml-1 p-0.5 rounded-sm opacity-70 hover:opacity-100',
-          'transition-opacity focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring'
-        )}
+        className="ml-1 opacity-70 hover:opacity-100"
         aria-label={t('common.close')}
       >
         <X className="size-3.5" />
-      </button>
+      </Button>
     </div>
   )
-}
-
-export function HolidayThemeOverlay() {
-  const { activeHoliday } = useHoliday()
-
-  useEffect(() => {
-    const root = document.documentElement
-    const id = activeHoliday?.config.id
-    if (id) {
-      root.setAttribute('data-holiday', id)
-    } else {
-      root.removeAttribute('data-holiday')
-    }
-    return () => {
-      root.removeAttribute('data-holiday')
-    }
-  }, [activeHoliday])
-
-  return null
 }

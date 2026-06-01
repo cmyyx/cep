@@ -12,7 +12,7 @@ import { NavigationLoadingOverlay } from '@/components/shared/navigation-loading
 import { NavigationProgressBar } from '@/components/shared/navigation-progress-bar'
 import { AppInitOverlay } from '@/components/shared/app-init-overlay'
 import { ImportantAnnouncementBanner } from '@/components/home/important-announcement-banner'
-import { HolidayBanner, HolidayThemeOverlay } from '@/components/shared/holiday-banner'
+import { HolidayBanner } from '@/components/shared/holiday-banner'
 import { AnnouncementLoader } from '@/components/home/announcement-loader'
 import { SyncManager } from '@/components/shared/sync-manager'
 import { LegacyMigrationDialog } from '@/components/shared/legacy-migration-dialog'
@@ -87,7 +87,6 @@ export default async function LocaleLayout({
       <VersionProvider initialInfo={versionData}>
         <SidebarProvider className="h-svh">
           <ThemeProvider>
-            <HolidayThemeOverlay />
             {/* Curtain — covers everything during init, fades out when ready */}
             <AppInitOverlay />
 
