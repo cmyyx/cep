@@ -1,10 +1,9 @@
 import { test, expect } from '@playwright/test'
-import { waitForAppReady } from './helpers'
+import { gotoAndReady } from './helpers'
 
 test.describe('Locale Switching', () => {
   test('switch to English via URL', async ({ page }) => {
-    await page.goto('/en', { waitUntil: 'domcontentloaded' })
-    await waitForAppReady(page)
+    await gotoAndReady(page, '/en')
 
     // URL should contain /en/
     expect(page.url()).toContain('/en')
@@ -15,16 +14,14 @@ test.describe('Locale Switching', () => {
   })
 
   test('switch to Japanese via URL', async ({ page }) => {
-    await page.goto('/ja', { waitUntil: 'domcontentloaded' })
-    await waitForAppReady(page)
+    await gotoAndReady(page, '/ja')
 
     // URL should contain /ja/
     expect(page.url()).toContain('/ja')
   })
 
   test('direct URL access to locale', async ({ page }) => {
-    await page.goto('/ja/', { waitUntil: 'domcontentloaded' })
-    await waitForAppReady(page)
+    await gotoAndReady(page, '/ja/')
 
     // Should be on Japanese locale
     expect(page.url()).toContain('/ja')
@@ -34,19 +31,19 @@ test.describe('Locale Switching', () => {
   })
 
   test('locale switcher changes locale', async ({ page }) => {
-    await page.goto('/zh-CN', { waitUntil: 'domcontentloaded' })
-    await waitForAppReady(page)
+    await gotoAndReady(page, '/zh-CN')
 
-    // Find and click the language switcher
-    const langSwitcher = page.getByRole('button').filter({ hasText: /中|zh/i }).first()
-    await expect(langSwitcher).toBeVisible()
+    // Language switcher shows "AUTO" by default (language setting is 'auto')
+    const langSwitcher = page.getByRole('button').filter({ hasText: /AUTO|中|zh|English|日本語/i }).first()
+    await expect(langSwitcher).toBeVisible({ timeout: 5000 })
     await langSwitcher.click()
 
-    // Click English option
-    const enOption = page.getByText(/english|en/i).first()
-    await expect(enOption).toBeVisible()
+    // Click English option in dropdown
+    const enOption = page.getByRole('menuitem').filter({ hasText: /english/i }).first()
+    await expect(enOption).toBeVisible({ timeout: 3000 })
     await enOption.click()
-    await waitForAppReady(page)
-    expect(page.url()).toContain('/en')
+
+    // Wait for navigation (window.location.href causes full page navigation)
+    await expect.poll(() => page.url(), { timeout: 15_000 }).toContain('/en')
   })
 })

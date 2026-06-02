@@ -1,19 +1,27 @@
-import { type Page } from '@playwright/test'
+import { type Page, expect } from '@playwright/test'
 
 /**
- * Wait for the AppInitOverlay loading screen to finish and unmount.
+ * Navigate to a locale page and wait for it to be fully interactive.
  *
- * The overlay blocks all interaction with the page for ~3.5 seconds
- * (1.2s initial animation + 0.8s data loading + 0.5s ready delay + 0.45s exit).
- * Tests that need to interact with sidebar or page content must call this
- * after page.goto() and before any element lookups.
+ * Uses 'domcontentloaded' (not 'load') because external analytics scripts
+ * may never load in the test environment, preventing the 'load' event.
+ * Then waits for the AppInitOverlay to finish and sidebar to be ready.
  */
-export async function waitForAppReady(page: Page) {
+export async function gotoAndReady(page: Page, url: string) {
+  await page.goto(url, { waitUntil: 'domcontentloaded' })
+  // Wait for the overlay to detach (animation + unmount)
   const overlay = page.getByTestId('app-init-overlay')
   try {
-    await overlay.waitFor({ state: 'detached', timeout: 10_000 })
+    await overlay.waitFor({ state: 'detached', timeout: 15_000 })
   } catch {
-    // Overlay may not exist if the page doesn't have the locale layout
-    // (e.g. /_not-found, /blocked). This is fine — just continue.
+    // Overlay may not exist on pages without locale layout
+  }
+  // Wait for the sidebar to be visible (confirms React hydration complete)
+  try {
+    await expect(
+      page.locator('[data-slot="sidebar-wrapper"]').first()
+    ).toBeVisible({ timeout: 10_000 })
+  } catch {
+    // Page may not have sidebar (e.g. /_not-found)
   }
 }
