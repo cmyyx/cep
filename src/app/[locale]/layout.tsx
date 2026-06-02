@@ -19,6 +19,7 @@ import { LegacyMigrationDialog } from '@/components/shared/legacy-migration-dial
 import { DebugLabel } from '@/components/shared/debug-label'
 import { LocaleGuard } from '@/components/shared/locale-guard'
 import { VersionWatermark } from '@/components/shared/version-watermark'
+import { ExtensionCssDetector } from '@/components/shared/extension-css-detector'
 import { VersionProvider } from '@/hooks/use-version'
 import { SiteUrlProvider } from '@/hooks/use-site-url'
 import { versionData } from '@/generated/version-data'
@@ -100,6 +101,7 @@ export default async function LocaleLayout({
               <NavigationProgressBar />
               <HolidayBanner />
               <ImportantAnnouncementBanner />
+              <ExtensionCssDetector />
               {children}
               <NavigationLoadingOverlay />
               <VersionWatermark />
