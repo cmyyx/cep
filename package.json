@@ -9,6 +9,7 @@
     "start": "next start",
     "lint": "eslint",
     "test": "vitest run",
+    "test:e2e": "playwright test",
     "check:i18n": "node scripts/check-i18n.mjs",
     "sync:check": "npx tsx scripts/sync-game-data.ts --check",
     "sync:update": "npx tsx scripts/sync-game-data.ts --update",
@@ -36,6 +37,7 @@
     "zustand": "^5.0.12"
   },
   "devDependencies": {
+    "@playwright/test": "^1.52.0",
     "@tailwindcss/postcss": "^4",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.2",
@@ -47,6 +49,7 @@
     "eslint-config-next": "16.2.4",
     "jsdom": "^29.1.1",
     "satori": "^0.26.0",
+    "serve": "^14.2.4",
     "sharp": "^0.34.5",
     "tailwindcss": "^4",
     "typescript": "^5",

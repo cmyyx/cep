@@ -1,0 +1,73 @@
+import { test, expect } from '@playwright/test'
+
+test.describe('Extension CSS Detector', () => {
+  test('banner appears when external CSS is injected', async ({ page }) => {
+    await page.goto('/zh-CN', { waitUntil: 'domcontentloaded' })
+    await page.locator('[data-cep-canary]').waitFor({ state: 'attached' })
+
+    // Inject external CSS that overrides canary styles
+    await page.evaluate(() => {
+      const style = document.createElement('style')
+      style.textContent = '[data-cep-canary] { display: block !important; }'
+      document.head.appendChild(style)
+    })
+
+    // Wait for the banner to appear
+    const banner = page.locator('text=检测到页面样式被篡改')
+    await expect(banner).toBeVisible({ timeout: 5000 })
+  })
+
+  test('banner can be closed', async ({ page }) => {
+    await page.goto('/zh-CN', { waitUntil: 'domcontentloaded' })
+    await page.locator('[data-cep-canary]').waitFor({ state: 'attached' })
+
+    // Inject external CSS
+    await page.evaluate(() => {
+      const style = document.createElement('style')
+      style.textContent = '[data-cep-canary] { display: block !important; }'
+      document.head.appendChild(style)
+    })
+
+    // Wait for banner and close it
+    const banner = page.locator('text=检测到页面样式被篡改')
+    await expect(banner).toBeVisible({ timeout: 5000 })
+    await page.getByRole('button', { name: /关闭|close/i }).click()
+    await expect(banner).not.toBeVisible()
+  })
+
+  test('banner does not appear when no CSS injection', async ({ page }) => {
+    await page.goto('/zh-CN', { waitUntil: 'domcontentloaded' })
+    await page.locator('[data-cep-canary]').waitFor({ state: 'attached' })
+
+    // Wait a moment for any potential detection
+    await page.waitForTimeout(1000)
+
+    // Banner should not exist
+    const banner = page.locator('text=检测到页面样式被篡改')
+    await expect(banner).not.toBeVisible()
+  })
+
+  test('canary hardcoded values match actual CSS', async ({ page }) => {
+    await page.goto('/zh-CN', { waitUntil: 'domcontentloaded' })
+    await page.locator('[data-cep-canary]').waitFor({ state: 'attached' })
+
+    // Read the canary's actual computed styles
+    const styles = await page.locator('[data-cep-canary]').evaluate((el) => {
+      const cs = getComputedStyle(el)
+      return {
+        display: cs.display,
+        fontSize: cs.fontSize,
+        padding: cs.padding,
+        color: cs.color,
+      }
+    })
+
+    // Verify against expected values
+    expect(styles.display).toBe('flex')
+    expect(styles.fontSize).toBe('14px')
+    expect(styles.padding).toBe('16px')
+
+    // Color depends on theme — default is light
+    expect(styles.color).toBe('rgb(23, 23, 23)')
+  })
+})

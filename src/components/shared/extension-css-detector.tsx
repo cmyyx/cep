@@ -9,20 +9,20 @@ import { useCssInjectionStore } from '@/stores/useCssInjectionStore'
 
 const CANARY_SELECTOR = '[data-cep-canary]'
 
-const COLOR_EXPECTED: Record<string, string> = {
+export const COLOR_EXPECTED: Record<string, string> = {
   light: 'rgb(23, 23, 23)',
   dark: 'rgb(250, 250, 250)',
   flashbang: 'rgb(0, 0, 0)',
 }
 
-function getTheme(): string {
+export function getTheme(): string {
   const cl = document.documentElement.classList
   if (cl.contains('flashbang')) return 'flashbang'
   if (cl.contains('dark')) return 'dark'
   return 'light'
 }
 
-function checkCanary(): boolean {
+export function checkCanary(): boolean {
   const el = document.querySelector(CANARY_SELECTOR)
   if (!el) return false
   const cs = getComputedStyle(el)
