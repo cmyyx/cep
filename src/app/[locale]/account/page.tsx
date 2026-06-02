@@ -283,11 +283,12 @@ export default function AccountPage() {
                   setConflictPending(false)
                   setConflict(null)
                   setSyncStatus('success')
-                }).catch(() => {
-                  setConflictPending(false)
-                  setConflict(null)
+                }).catch((err) => {
+                  // Keep conflict visible — do NOT clear conflict state.
+                  // Do NOT call fetchCloud() here; a successful GET would
+                  // mask the failed POST.
                   setSyncStatus('error')
-                  fetchCloud()
+                  setSyncError(getSyncErrorKey(err))
                 })
               }
             },
@@ -430,14 +431,16 @@ export default function AccountPage() {
         cloudVersion: latest.version,
         cloudUpdatedAt: latest.updatedAt,
         resolve: (choice) => {
-          if (choice === 'cloud' && cloudRaw) {
+          if (choice === 'cloud') {
             setSkipNextPush(true)
-            applyCloudDataToLocal(cloudRaw)
+            // cloudRaw may be null (empty cloud snapshot) — treat as valid
+            const raw = cloudRaw ?? {} as Record<string, unknown>
+            applyCloudDataToLocal(raw)
             setCloudVersion(latest.version)
             updateCloudVersion(latest.version)
-            syncStoresFromCloudPayload(cloudRaw)
+            syncStoresFromCloudPayload(raw)
             setSkipNextPush(false)
-            setLastSyncSignature(computeSyncSignature(cloudRaw))
+            setLastSyncSignature(computeSyncSignature(raw))
             fetchCloud().then(() => {
               setConflictPending(false)
               setConflict(null)
@@ -463,18 +466,19 @@ export default function AccountPage() {
                 setConflict(null)
                 setSyncStatus('success')
               })
-              .catch(() => {
-                setConflictPending(false)
-                setConflict(null)
+              .catch((err) => {
+                // Keep conflict visible — do NOT clear conflict state.
+                // Do NOT call fetchCloud() here; a successful GET would
+                // mask the failed POST and make it appear the local merge succeeded.
                 setSyncStatus('error')
-                fetchCloud()
+                setSyncError(getSyncErrorKey(err))
               })
           }
         },
       })
-    } catch {
+    } catch (err) {
       setSyncStatus('error')
-      setSyncError('account.versionConflict')
+      setSyncError(getSyncErrorKey(err))
     }
   }
 
@@ -678,10 +682,12 @@ export default function AccountPage() {
             }).then(() => {
               setConflictPending(false)
               setConflict(null)
-            }).catch(() => {
-              setConflictPending(false)
-              setConflict(null)
-              fetchCloud()
+            }).catch((err) => {
+              // Keep conflict visible — do NOT clear conflict state.
+              // Do NOT call fetchCloud() here; a successful GET would
+              // mask the failed POST.
+              setSyncStatus('error')
+              setSyncError(getSyncErrorKey(err))
             })
           }
         },

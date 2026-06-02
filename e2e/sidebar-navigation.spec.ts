@@ -20,21 +20,16 @@ test.describe('Sidebar Navigation', () => {
 
     // The SidebarTrigger is the collapse/expand button
     const trigger = page.locator('[data-sidebar="trigger"]').first()
-    const sidebar = page.locator('[data-slot="sidebar-wrapper"]').first()
 
     await expect(trigger).toBeVisible({ timeout: 3000 })
 
-    // Click to collapse
+    // Click to collapse — assert data-state changes to "collapsed"
     await trigger.click()
-    await page.waitForTimeout(300) // Wait for animation
+    await expect(page.locator('[data-slot="sidebar"][data-state="collapsed"]')).toBeVisible({ timeout: 5000 })
 
-    // Sidebar should still exist
-    const sidebarBox = await sidebar.boundingBox()
-    expect(sidebarBox).not.toBeNull()
-
-    // Click to expand
+    // Click to expand — assert data-state changes to "expanded"
     await trigger.click()
-    await page.waitForTimeout(300)
+    await expect(page.locator('[data-slot="sidebar"][data-state="expanded"]')).toBeVisible({ timeout: 5000 })
   })
 
   test('mobile viewport opens drawer', async ({ page }) => {

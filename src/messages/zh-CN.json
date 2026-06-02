@@ -308,7 +308,8 @@
     "importSummaryEmpty": "无数据",
     "importExportedBy": "导出端版本",
     "importDevice": "设备",
-    "exportFailed": "导出失败，请重试或在设置中手动复制数据。"
+    "exportFailed": "导出失败，请重试或在设置中手动复制数据。",
+    "exportShareTitle": "CEP 数据导出"
   },
   "dataCleaner": {
     "dialogTitle": "数据清理",

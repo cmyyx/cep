@@ -495,7 +495,8 @@
     "importSummaryEmpty": "No data",
     "importExportedBy": "App Version",
     "importDevice": "Device",
-    "exportFailed": "Export failed. Please try again or copy data manually from settings."
+    "exportFailed": "Export failed. Please try again or copy data manually from settings.",
+    "exportShareTitle": "CEP Data Export"
   },
   "dataCleaner": {
     "dialogTitle": "Data Cleaner",

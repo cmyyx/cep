@@ -112,8 +112,7 @@ export function ExtensionCssDetector() {
       {/* Canary — hidden element with known Tailwind classes for style tampering detection */}
       <div
         data-cep-canary
-        className="flex text-sm p-4 font-sans text-foreground"
-        style={{ position: 'absolute', visibility: 'hidden', pointerEvents: 'none', height: 0, overflow: 'hidden' }}
+        className="absolute invisible pointer-events-none h-0 overflow-hidden flex text-sm p-4 font-sans text-foreground"
       />
       {visible && (
         <div

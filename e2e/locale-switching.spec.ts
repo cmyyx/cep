@@ -38,9 +38,10 @@ test.describe('Locale Switching', () => {
     await expect(langSwitcher).toBeVisible({ timeout: 5000 })
     await langSwitcher.click()
 
-    // Click English option in dropdown
-    const enOption = page.getByRole('menuitem').filter({ hasText: /english/i }).first()
-    await expect(enOption).toBeVisible({ timeout: 3000 })
+    // Scope to the opened language menu, then locate the English option
+    const langMenu = page.locator('[role="menu"]').first()
+    await expect(langMenu).toBeVisible({ timeout: 3000 })
+    const enOption = langMenu.getByRole('menuitem', { name: /english/i })
     await enOption.click()
 
     // Wait for navigation (window.location.href causes full page navigation)

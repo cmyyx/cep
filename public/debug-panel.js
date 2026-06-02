@@ -441,6 +441,18 @@
     }
   }
 
+  // Shared download-then-clipboard fallback sequence — used by both
+  // the mobile share rejection handler and the desktop branch so that
+  // exceptions are contained and clipboard is always the last resort.
+  function ensureExportViaDownloadThenClipboard(jsonStr, filename, payloadLength) {
+    try {
+      fallbackDownload(jsonStr, filename)
+      showToast('Exported ' + payloadLength + ' log entries')
+    } catch {
+      fallbackCopyJson(jsonStr)
+    }
+  }
+
   function exportLogs() {
     var env = api.getEnv()
     var payload = buildLogPayload()
@@ -475,8 +487,7 @@
             function () { showToast('Shared ' + payload.length + ' log entries') },
             function (err) {
               if (err.name === 'AbortError') return
-              fallbackDownload(jsonStr, filename)
-              showToast('Exported ' + payload.length + ' log entries')
+              ensureExportViaDownloadThenClipboard(jsonStr, filename, payload.length)
             }
           )
           return
@@ -485,14 +496,8 @@
         }
       }
 
-      /* Desktop / fallback: <a download> */
-      try {
-        fallbackDownload(jsonStr, filename)
-        showToast('Exported ' + payload.length + ' log entries')
-      } catch {
-        /* Last resort: copy to clipboard */
-        fallbackCopyJson(jsonStr)
-      }
+      /* Desktop / fallback: <a download> → clipboard */
+      ensureExportViaDownloadThenClipboard(jsonStr, filename, payload.length)
     })
   }
 

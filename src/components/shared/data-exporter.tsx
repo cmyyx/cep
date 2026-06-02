@@ -48,27 +48,30 @@ async function fallbackCopyJson(data: Record<string, unknown>): Promise<boolean>
   return false
 }
 
-async function downloadJson(data: Record<string, unknown>, filename: string, fallbackMessage: string) {
+async function downloadJson(data: Record<string, unknown>, filename: string, fallbackMessage: string, shareTitle?: string): Promise<boolean> {
   const json = JSON.stringify(data, null, 2)
 
   if (isMobileDevice() && navigator.share && typeof File !== 'undefined') {
     try {
       const file = new File([json], filename, { type: 'application/json' })
-      await navigator.share({ files: [file], title: 'CEP Data Export' })
-      return
+      await navigator.share({ files: [file], title: shareTitle ?? 'CEP Data Export' })
+      return true
     } catch (err: unknown) {
-      if (err instanceof Error && err.name === 'AbortError') return
+      if (err instanceof Error && err.name === 'AbortError') return false
       /* fall through to download */
     }
   }
 
   try {
     fallbackDownload(data, filename)
+    return true
   } catch {
     const copied = await fallbackCopyJson(data)
     if (!copied) {
       alert(fallbackMessage)
+      return false
     }
+    return true
   }
 }
 
@@ -146,8 +149,8 @@ export function DataExporter() {
       modules: moduleData,
     }
     const dateStr = new Date().toISOString().slice(0, 10)
-    await downloadJson(exportData, `cep-data-export-${dateStr}.json`, t('settings.exportFailed'))
-    setOpen(false)
+    const success = await downloadJson(exportData, `cep-data-export-${dateStr}.json`, t('settings.exportFailed'), t('settings.exportShareTitle'))
+    if (success) setOpen(false)
   }, [checked, moduleEntries, t])
 
   return (
