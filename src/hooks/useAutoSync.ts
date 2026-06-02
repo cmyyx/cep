@@ -767,8 +767,11 @@ export function useAutoSync() {
         cloudUpdatedAt: res.updatedAt,
       }
       notifyTimestamps()
-    } catch {
+    } catch (err) {
       pullCompletedRef.current = true
+      if (err instanceof Error && err.message !== 'version_conflict') {
+        notifySync({ type: 'sync_error', message: err.message })
+      }
     }
   }, [pushToCloud]) // pushToCloud is stable (useCallback with [])
 
