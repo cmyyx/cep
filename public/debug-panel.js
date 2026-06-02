@@ -403,6 +403,44 @@
     document.body.removeChild(ta)
   }
 
+  function isMobile() {
+    return /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent)
+  }
+
+  function fallbackDownload(jsonStr, filename) {
+    var blob = new Blob([jsonStr], { type: 'application/json' })
+    var url = URL.createObjectURL(blob)
+    var a = document.createElement('a')
+    a.href = url
+    a.download = filename
+    document.body.appendChild(a)
+    a.click()
+    document.body.removeChild(a)
+    URL.revokeObjectURL(url)
+  }
+
+  function fallbackCopyJson(jsonStr) {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(jsonStr).then(
+        function () { showToast('Copied debug data to clipboard') },
+        function () { alert('Export failed. Please try copying from the text box:\n\n' + jsonStr.substring(0, 3000)) }
+      )
+    } else {
+      var ta = document.createElement('textarea')
+      ta.value = jsonStr
+      ta.setAttribute('style', 'position:fixed;top:-9999px;')
+      document.body.appendChild(ta)
+      ta.select()
+      try {
+        document.execCommand('copy')
+        showToast('Copied debug data to clipboard')
+      } catch {
+        alert('Export failed. Please try copying from the text box:\n\n' + jsonStr.substring(0, 3000))
+      }
+      document.body.removeChild(ta)
+    }
+  }
+
   function exportLogs() {
     var env = api.getEnv()
     var payload = buildLogPayload()
@@ -424,16 +462,37 @@
             },
       }
 
-      var blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' })
-      var url = URL.createObjectURL(blob)
-      var a = document.createElement('a')
-      a.href = url
-      a.download = 'cep-debug-' + Date.now() + '.json'
-      document.body.appendChild(a)
-      a.click()
-      document.body.removeChild(a)
-      URL.revokeObjectURL(url)
-      showToast('Exported ' + payload.length + ' log entries')
+      var jsonStr = JSON.stringify(data, null, 2)
+      var filename = 'cep-debug-' + Date.now() + '.json'
+
+      /* Mobile browsers have poor <a download> support.
+         Try Web Share API first (native mobile share sheet),
+         then fall back to download, then clipboard. */
+      if (isMobile() && navigator.share && window.File) {
+        try {
+          var file = new File([jsonStr], filename, { type: 'application/json' })
+          navigator.share({ files: [file], title: 'CEP Debug Log' }).then(
+            function () { showToast('Shared ' + payload.length + ' log entries') },
+            function (err) {
+              if (err.name === 'AbortError') return
+              fallbackDownload(jsonStr, filename)
+              showToast('Exported ' + payload.length + ' log entries')
+            }
+          )
+          return
+        } catch {
+          /* File constructor or share() not supported, fall through */
+        }
+      }
+
+      /* Desktop / fallback: <a download> */
+      try {
+        fallbackDownload(jsonStr, filename)
+        showToast('Exported ' + payload.length + ' log entries')
+      } catch {
+        /* Last resort: copy to clipboard */
+        fallbackCopyJson(jsonStr)
+      }
     })
   }
 

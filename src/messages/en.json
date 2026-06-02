@@ -494,7 +494,8 @@
     "importSummaryItems": "{count} items",
     "importSummaryEmpty": "No data",
     "importExportedBy": "App Version",
-    "importDevice": "Device"
+    "importDevice": "Device",
+    "exportFailed": "Export failed. Please try again or copy data manually from settings."
   },
   "dataCleaner": {
     "dialogTitle": "Data Cleaner",

@@ -61,7 +61,7 @@ export function detectBrowserIssues(scope: DetectScope): BrowserIssue[] {
  * the page from rendering at all (no CSS custom properties, no CSS API).
  */
 export function isCritical(issues: BrowserIssue[]): boolean {
-  return issues.includes('CSS_API') || issues.includes('CSS_VARS')
+  return issues.includes('CSS_API') || issues.includes('CSS_VARS') || issues.includes('CSS_WHERE')
 }
 
 /**

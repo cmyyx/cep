@@ -165,6 +165,7 @@ export function AppInitOverlay() {
 
   return (
     <div
+      data-testid="app-init-overlay"
       className={cn(
         'fixed inset-0 z-[100] flex flex-col items-center justify-center bg-background',
         'transition-opacity duration-400 ease-out',

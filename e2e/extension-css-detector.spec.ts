@@ -1,8 +1,10 @@
 import { test, expect } from '@playwright/test'
+import { waitForAppReady } from './helpers'
 
 test.describe('Extension CSS Detector', () => {
   test('banner appears when external CSS is injected', async ({ page }) => {
     await page.goto('/zh-CN', { waitUntil: 'domcontentloaded' })
+    await waitForAppReady(page)
     await page.locator('[data-cep-canary]').waitFor({ state: 'attached' })
 
     // Inject external CSS that overrides canary styles
@@ -19,6 +21,7 @@ test.describe('Extension CSS Detector', () => {
 
   test('banner can be closed', async ({ page }) => {
     await page.goto('/zh-CN', { waitUntil: 'domcontentloaded' })
+    await waitForAppReady(page)
     await page.locator('[data-cep-canary]').waitFor({ state: 'attached' })
 
     // Inject external CSS
@@ -37,6 +40,7 @@ test.describe('Extension CSS Detector', () => {
 
   test('banner does not appear when no CSS injection', async ({ page }) => {
     await page.goto('/zh-CN', { waitUntil: 'domcontentloaded' })
+    await waitForAppReady(page)
     await page.locator('[data-cep-canary]').waitFor({ state: 'attached' })
 
     // Wait a moment for any potential detection
@@ -49,6 +53,7 @@ test.describe('Extension CSS Detector', () => {
 
   test('canary hardcoded values match actual CSS', async ({ page }) => {
     await page.goto('/zh-CN', { waitUntil: 'domcontentloaded' })
+    await waitForAppReady(page)
     await page.locator('[data-cep-canary]').waitFor({ state: 'attached' })
 
     // Read the canary's actual computed styles

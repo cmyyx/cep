@@ -494,7 +494,8 @@
     "importSummaryItems": "{count} 項",
     "importSummaryEmpty": "無資料",
     "importExportedBy": "匯出端版本",
-    "importDevice": "裝置"
+    "importDevice": "裝置",
+    "exportFailed": "匯出失敗，請重試或在設定中手動複製資料。"
   },
   "dataCleaner": {
     "dialogTitle": "資料清理",

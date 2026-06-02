@@ -19,7 +19,12 @@ import PreviewToggle from '@/components/shared/preview-toggle'
 
 // ─── 工具 ─────────────────────────────────────────────────────
 
-function downloadJson(data: Record<string, unknown>, filename: string) {
+function isMobileDevice(): boolean {
+  if (typeof navigator === 'undefined') return false
+  return /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent)
+}
+
+function fallbackDownload(data: Record<string, unknown>, filename: string) {
   const json = JSON.stringify(data, null, 2)
   const blob = new Blob([json], { type: 'application/json' })
   const url = URL.createObjectURL(blob)
@@ -30,6 +35,41 @@ function downloadJson(data: Record<string, unknown>, filename: string) {
   a.click()
   document.body.removeChild(a)
   URL.revokeObjectURL(url)
+}
+
+async function fallbackCopyJson(data: Record<string, unknown>): Promise<boolean> {
+  const json = JSON.stringify(data, null, 2)
+  if (navigator.clipboard?.writeText) {
+    try {
+      await navigator.clipboard.writeText(json)
+      return true
+    } catch { /* fall through */ }
+  }
+  return false
+}
+
+async function downloadJson(data: Record<string, unknown>, filename: string, fallbackMessage: string) {
+  const json = JSON.stringify(data, null, 2)
+
+  if (isMobileDevice() && navigator.share && typeof File !== 'undefined') {
+    try {
+      const file = new File([json], filename, { type: 'application/json' })
+      await navigator.share({ files: [file], title: 'CEP Data Export' })
+      return
+    } catch (err: unknown) {
+      if (err instanceof Error && err.name === 'AbortError') return
+      /* fall through to download */
+    }
+  }
+
+  try {
+    fallbackDownload(data, filename)
+  } catch {
+    const copied = await fallbackCopyJson(data)
+    if (!copied) {
+      alert(fallbackMessage)
+    }
+  }
 }
 
 // ─── 主组件 ───────────────────────────────────────────────────
@@ -79,7 +119,7 @@ export function DataExporter() {
     if (v) initChecked()
   }, [initChecked])
 
-  const handleExport = useCallback(() => {
+  const handleExport = useCallback(async () => {
     const moduleData: Record<string, unknown> = {}
     for (const entry of moduleEntries) {
       if (checked.has(entry.id) && entry.data !== null) {
@@ -94,7 +134,6 @@ export function DataExporter() {
         platform: (() => {
           if (typeof navigator === 'undefined') return 'unknown'
           const raw = navigator.platform ?? ''
-          // 映射常见 legacy 值到可读名称
           if (raw.startsWith('Win')) return 'Windows'
           if (raw.startsWith('Mac')) return 'macOS'
           if (raw.startsWith('Linux')) return 'Linux'
@@ -107,9 +146,9 @@ export function DataExporter() {
       modules: moduleData,
     }
     const dateStr = new Date().toISOString().slice(0, 10)
-    downloadJson(exportData, `cep-data-export-${dateStr}.json`)
+    await downloadJson(exportData, `cep-data-export-${dateStr}.json`, t('settings.exportFailed'))
     setOpen(false)
-  }, [checked, moduleEntries])
+  }, [checked, moduleEntries, t])
 
   return (
     <>
