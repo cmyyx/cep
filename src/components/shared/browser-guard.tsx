@@ -24,7 +24,7 @@ const BROWSER_GUARD_CODE = `(function(){
 var issues=${BROWSER_DETECT_CODE};
 if(issues.length===0)return;
 
-var critical=issues.indexOf('CSS_API')>=0||issues.indexOf('CSS_VARS')>=0;
+var critical=issues.indexOf('CSS_API')>=0||issues.indexOf('CSS_VARS')>=0||issues.indexOf('CSS_WHERE')>=0;
 if(!critical)return;
 
 (function show(missing){

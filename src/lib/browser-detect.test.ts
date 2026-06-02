@@ -172,8 +172,8 @@ describe('isCritical', () => {
     expect(isCritical(['CSS_API', 'CSS_VARS'])).toBe(true)
   })
 
-  it('returns false for CSS_WHERE alone', () => {
-    expect(isCritical(['CSS_WHERE'])).toBe(false)
+  it('returns true for CSS_WHERE alone', () => {
+    expect(isCritical(['CSS_WHERE'])).toBe(true)
   })
 
   it('returns false for JS-only gaps', () => {

@@ -4,14 +4,21 @@ import { GUARD_OVERLAY_OPEN, GUARD_OVERLAY_CLOSE, GUARD_FEEDBACK_HTML } from '@/
 /**
  * Inline CSS load failure guard — injected into <head>.
  *
- * Detects when CSS <link> resources fail to load (network error, 404,
- * blocked by extension) and shows a fallback UI. Uses only browser
- * lifecycle events — no setTimeout, no polling:
+ * Detects when the application's CSS fails to load and shows a fallback UI.
+ * Detection uses a CSS custom property sentinel (--cep-css-loaded) defined
+ * in globals.css on :root. This is immune to false positives from
+ * browser-injected stylesheets (e.g. Via browser's ad blocker CSS) because
+ * those stylesheets don't define our sentinel variable.
  *
- *   1. capture-phase `error` listener on <link rel="stylesheet">
- *   2. `window.load` → audit document.styleSheets.cssRules
- *      (same-origin only — cross-origin stylesheets from browser
- *      extensions are skipped to avoid false positives)
+ * Timing is handled by two mechanisms:
+ *   1. MutationObserver — tracks dynamically injected <link rel="stylesheet">
+ *      elements (Turbopack loads CSS via JS after window.load). Each link's
+ *      load/error event is monitored; the audit waits for all to settle.
+ *   2. window.load — signals that initial HTML resources are done.
+ *
+ * The audit runs only after window.load has fired AND all tracked
+ * stylesheets have settled (load or error). No custom timeout — the
+ * browser's native <link> load/error behavior handles timeouts.
  *
  * The fallback is pure inline HTML with zero external dependencies,
  * so it works even when every CSS and JS file fails.
@@ -30,7 +37,7 @@ const CSS_CONTENT =
   GUARD_FEEDBACK_HTML
 
 const CSS_GUARD_CODE = `(function(){
-var F=[];
+var F=[],_loadDone=false,_pending=0,_audited=false;
 
 /* Layer 1 — network errors on <link rel="stylesheet"> */
 document.addEventListener('error',function(e){
@@ -43,23 +50,67 @@ document.addEventListener('error',function(e){
   }
 },true);
 
-/* Layer 2 — window.load: all resources settled. Audit styleSheets. */
-window.addEventListener('load',function(){
-  var has=false,empty=[];
-  for(var i=0;i<document.styleSheets.length;i++){
-    var s=document.styleSheets[i];
-    if(!s||!s.href)continue;
-    try{if(new URL(s.href).origin!==location.origin)continue;}catch(e){continue;}
-    try{
-      var r=s.cssRules;
-      if(!r||r.length===0){empty.push(s.href);}
-      else{has=true;}
-    }catch(e){empty.push(s.href);}
+/* Layer 2 — MutationObserver tracks dynamically injected <link> elements.
+   Each load/error is monitored. Audit runs when all settle + window.load. */
+function trackSheet(link){
+  _pending++;
+  var done=false;
+  function settle(){
+    if(done)return; done=true;
+    _pending--;
+    tryAudit();
   }
-  for(var j=0;j<empty.length;j++)F.push({url:empty[j],reason:'empty-or-unparseable'});
+  link.addEventListener('load',settle,{once:true});
+  link.addEventListener('error',function(){
+    F.push({url:link.href||'',reason:'network'});
+    settle();
+  },{once:true});
+  try{if(link.sheet)settle();}catch(e){}
+}
 
-  if(!has||F.length>0)show();
+function tryAudit(){
+  if(_audited||!_loadDone||_pending>0)return;
+  _audited=true;
+  runAudit();
+}
+
+window.addEventListener('load',function(){
+  _loadDone=true;
+  tryAudit();
 });
+
+if(document.readyState==='complete'){
+  _loadDone=true;
+  setTimeout(tryAudit,0);
+}
+
+var mo=new MutationObserver(function(muts){
+  for(var i=0;i<muts.length;i++){
+    var nodes=muts[i].addedNodes;
+    for(var j=0;j<nodes.length;j++){
+      var n=nodes[j];
+      if(n.nodeType!==1)continue;
+      if(n.tagName==='LINK'){
+        var rel=n.getAttribute('rel');
+        if(rel==='stylesheet')trackSheet(n);
+      }
+      var ch=n.querySelectorAll&&n.querySelectorAll('link[rel="stylesheet"]');
+      if(ch)for(var k=0;k<ch.length;k++)trackSheet(ch[k]);
+    }
+  }
+});
+mo.observe(document.documentElement,{childList:true,subtree:true});
+
+/* Audit — check CSS sentinel variable.
+   --cep-css-loaded is defined in globals.css on :root.
+   Browser-injected stylesheets don't define this variable. */
+function runAudit(){
+  try{
+    var v=getComputedStyle(document.documentElement).getPropertyValue('--cep-css-loaded');
+    if(v&&v.trim()==='1')return;
+  }catch(e){}
+  show();
+}
 
 function show(){
   if(document.getElementById('cep-css-fatal'))return;
@@ -68,7 +119,7 @@ function show(){
   d.innerHTML=${JSON.stringify(GUARD_OVERLAY_OPEN + CSS_CONTENT + GUARD_OVERLAY_CLOSE)};
   (document.body||document.documentElement).appendChild(d);
 }
-})();`.replace(/\n\s*/g, '')
+})()`.replace(/\n\s*/g, '')
 
 export function CssGuard() {
   return <HeadScript id="css-guard" code={CSS_GUARD_CODE} />

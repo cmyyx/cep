@@ -494,7 +494,9 @@
     "importSummaryItems": "{count} 項",
     "importSummaryEmpty": "無資料",
     "importExportedBy": "匯出端版本",
-    "importDevice": "裝置"
+    "importDevice": "裝置",
+    "exportFailed": "匯出失敗，請重試或在設定中手動複製資料。",
+    "exportShareTitle": "CEP 資料匯出"
   },
   "dataCleaner": {
     "dialogTitle": "資料清理",
@@ -851,5 +853,12 @@
     "childrensDay": {
       "banner": "六一兒童節快樂！願你永遠保持好奇心！"
     }
+  },
+  "extensionCss": {
+    "title": "偵測到頁面樣式被竄改",
+    "description": "頁面顯示異常時，請嘗試停用瀏覽器擴充功能或腳本後重新整理。偵測到外部樣式注入時，樣式相關問題回饋可能不予受理。"
+  },
+  "versionWatermark": {
+    "externalCssDetected": "偵測到外部CSS注入"
   }
 }

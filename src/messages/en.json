@@ -494,7 +494,9 @@
     "importSummaryItems": "{count} items",
     "importSummaryEmpty": "No data",
     "importExportedBy": "App Version",
-    "importDevice": "Device"
+    "importDevice": "Device",
+    "exportFailed": "Export failed. Please try again or copy data manually from settings.",
+    "exportShareTitle": "CEP Data Export"
   },
   "dataCleaner": {
     "dialogTitle": "Data Cleaner",
@@ -851,5 +853,12 @@
     "childrensDay": {
       "banner": "Happy Children's Day! May you always stay curious!"
     }
+  },
+  "extensionCss": {
+    "title": "Page styles have been modified",
+    "description": "If the page displays incorrectly, try disabling browser extensions or scripts and refresh. Style-related reports may not be accepted when external style injection is detected."
+  },
+  "versionWatermark": {
+    "externalCssDetected": "External CSS injection detected"
   }
 }

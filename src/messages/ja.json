@@ -494,7 +494,9 @@
     "importSummaryItems": "{count} 項目",
     "importSummaryEmpty": "データなし",
     "importExportedBy": "アプリバージョン",
-    "importDevice": "デバイス"
+    "importDevice": "デバイス",
+    "exportFailed": "エクスポートに失敗しました。再試行するか、設定からデータを手動でコピーしてください。",
+    "exportShareTitle": "CEP データエクスポート"
   },
   "dataCleaner": {
     "dialogTitle": "データクリーンアップ",
@@ -851,5 +853,12 @@
     "childrensDay": {
       "banner": "こどもの日おめでとうございます！いつでも好奇心を持ち続けましょう！"
     }
+  },
+  "extensionCss": {
+    "title": "ページスタイルの改変を検出しました",
+    "description": "ページの表示に問題がある場合は、ブラウザ拡張機能やスクリプトを無効にしてから更新してください。外部スタイルの注入が検出された場合、スタイルに関する問題報告は受け付けられない場合があります。"
+  },
+  "versionWatermark": {
+    "externalCssDetected": "外部CSS注入を検出しました"
   }
 }
