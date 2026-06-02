@@ -3,15 +3,19 @@ import { test, expect } from '@playwright/test'
 test.describe('Theme Switching', () => {
   test('switch to dark theme', async ({ page }) => {
     await page.goto('/zh-CN/settings', { waitUntil: 'domcontentloaded' })
-    await page.waitForTimeout(2000)
 
-    // Use localStorage to set theme directly (more reliable than UI interaction)
+    // Set theme via localStorage (app reads this on load)
     await page.evaluate(() => {
       const settings = JSON.parse(localStorage.getItem('cep-settings') || '{}')
       settings.theme = 'dark'
       localStorage.setItem('cep-settings', JSON.stringify(settings))
-      document.documentElement.classList.add('dark')
     })
+
+    // Reload to let the app apply the theme from localStorage
+    await page.reload({ waitUntil: 'domcontentloaded' })
+
+    // Wait for the dark class to be applied by the app's FOUC-prevention script
+    await page.waitForFunction(() => document.documentElement.classList.contains('dark'))
 
     // Verify <html> has dark class
     await expect(page.locator('html')).toHaveClass(/dark/, { timeout: 5000 })
@@ -19,21 +23,21 @@ test.describe('Theme Switching', () => {
 
   test('theme persists after refresh', async ({ page }) => {
     await page.goto('/zh-CN/settings', { waitUntil: 'domcontentloaded' })
-    await page.waitForTimeout(1000)
 
     // Set theme via localStorage
     await page.evaluate(() => {
       const settings = JSON.parse(localStorage.getItem('cep-settings') || '{}')
       settings.theme = 'dark'
       localStorage.setItem('cep-settings', JSON.stringify(settings))
-      document.documentElement.classList.add('dark')
     })
 
-    // Refresh
+    // Reload — the FOUC-prevention script should apply the dark class
     await page.reload({ waitUntil: 'domcontentloaded' })
-    await page.waitForTimeout(2000)
 
-    // Theme should persist (the FOUC-prevention script reads localStorage)
+    // Wait for the app to apply the theme
+    await page.waitForFunction(() => document.documentElement.classList.contains('dark'))
+
+    // Theme should persist
     const hasDarkClass = await page.evaluate(() => {
       return document.documentElement.classList.contains('dark')
     })

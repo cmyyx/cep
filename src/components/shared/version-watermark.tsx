@@ -1,11 +1,13 @@
 'use client'
 
 import { useSyncExternalStore } from 'react'
+import { useTranslations } from 'next-intl'
 import { AlertTriangle } from 'lucide-react'
 import { useVersion } from '@/hooks/use-version'
 import { useCssInjectionStore } from '@/stores/useCssInjectionStore'
 
 export function VersionWatermark() {
+  const t = useTranslations()
   const { info, localInfo } = useVersion()
   const mounted = useSyncExternalStore(() => () => {}, () => true, () => false)
   const detected = useCssInjectionStore((s) => s.detected)
@@ -24,7 +26,7 @@ export function VersionWatermark() {
         {detected && (
           <AlertTriangle
             className="inline-block w-3 h-3 ml-0.5 -mt-px text-amber-600/70 dark:text-amber-400/70"
-            aria-label="External CSS injection detected"
+            aria-label={t('versionWatermark.externalCssDetected')}
           />
         )}
       </span>

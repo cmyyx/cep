@@ -24,19 +24,19 @@ test.describe('Sidebar Navigation', () => {
     const collapseBtn = page.getByRole('button').filter({ hasText: /collapse|折叠|收起/i }).first()
     const sidebar = page.locator('[data-slot="sidebar-wrapper"]').first()
 
-    if (await collapseBtn.isVisible({ timeout: 3000 }).catch(() => false)) {
-      // Click to collapse
-      await collapseBtn.click()
-      await page.waitForTimeout(300) // Wait for animation
+    await expect(collapseBtn).toBeVisible({ timeout: 3000 })
 
-      // Sidebar should still exist
-      const sidebarBox = await sidebar.boundingBox()
-      expect(sidebarBox).not.toBeNull()
+    // Click to collapse
+    await collapseBtn.click()
+    await page.waitForTimeout(300) // Wait for animation
 
-      // Click to expand
-      await collapseBtn.click()
-      await page.waitForTimeout(300)
-    }
+    // Sidebar should still exist
+    const sidebarBox = await sidebar.boundingBox()
+    expect(sidebarBox).not.toBeNull()
+
+    // Click to expand
+    await collapseBtn.click()
+    await page.waitForTimeout(300)
   })
 
   test('mobile viewport opens drawer', async ({ page }) => {
@@ -47,14 +47,13 @@ test.describe('Sidebar Navigation', () => {
 
     // Find the hamburger menu button
     const menuBtn = page.getByRole('button').filter({ hasText: /menu|菜单/i }).first()
-    if (await menuBtn.isVisible({ timeout: 3000 }).catch(() => false)) {
-      await menuBtn.click()
-      await page.waitForTimeout(300) // Wait for drawer animation
+    await expect(menuBtn).toBeVisible({ timeout: 3000 })
+    await menuBtn.click()
+    await page.waitForTimeout(300) // Wait for drawer animation
 
-      // Sidebar should be visible in drawer mode
-      const sidebar = page.locator('[data-slot="sidebar-wrapper"]').first()
-      await expect(sidebar).toBeVisible()
-    }
+    // Sidebar should be visible in drawer mode
+    const sidebar = page.locator('[data-slot="sidebar-wrapper"]').first()
+    await expect(sidebar).toBeVisible()
   })
 
   test('navigation to multiple pages', async ({ page }) => {
@@ -63,11 +62,10 @@ test.describe('Sidebar Navigation', () => {
 
     // Navigate to essence planner
     const essenceLink = page.getByRole('link').filter({ hasText: /基质规划|essence/i }).first()
-    if (await essenceLink.isVisible({ timeout: 3000 }).catch(() => false)) {
-      await essenceLink.click()
-      await page.waitForTimeout(2000)
-      expect(page.url()).toContain('essence-planner')
-    }
+    await expect(essenceLink).toBeVisible({ timeout: 3000 })
+    await essenceLink.click()
+    await page.waitForTimeout(2000)
+    expect(page.url()).toContain('essence-planner')
 
     // Navigate to settings (use direct navigation for reliability)
     await page.goto('/zh-CN/settings', { waitUntil: 'domcontentloaded' })

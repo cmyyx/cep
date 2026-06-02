@@ -38,16 +38,14 @@ test.describe('Locale Switching', () => {
 
     // Find and click the language switcher
     const langSwitcher = page.getByRole('button').filter({ hasText: /中|zh/i }).first()
-    if (await langSwitcher.isVisible()) {
-      await langSwitcher.click()
+    await expect(langSwitcher).toBeVisible()
+    await langSwitcher.click()
 
-      // Click English option
-      const enOption = page.getByText(/english|en/i).first()
-      if (await enOption.isVisible()) {
-        await enOption.click()
-        await page.waitForTimeout(1000)
-        expect(page.url()).toContain('/en')
-      }
-    }
+    // Click English option
+    const enOption = page.getByText(/english|en/i).first()
+    await expect(enOption).toBeVisible()
+    await enOption.click()
+    await page.waitForTimeout(1000)
+    expect(page.url()).toContain('/en')
   })
 })

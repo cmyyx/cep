@@ -46,16 +46,16 @@ describe('checkCanary', () => {
     expect(checkCanary()).toBe(true)
   })
 
-  it('returns true when fontSize is overridden', () => {
+  it('returns false when fontSize is overridden (not checked)', () => {
     createCanary()
     mockComputedStyle({ fontSize: '20px' })
-    expect(checkCanary()).toBe(true)
+    expect(checkCanary()).toBe(false)
   })
 
-  it('returns true when padding is overridden', () => {
+  it('returns false when padding is overridden (not checked)', () => {
     createCanary()
     mockComputedStyle({ padding: '8px' })
-    expect(checkCanary()).toBe(true)
+    expect(checkCanary()).toBe(false)
   })
 
   it('returns true when color is overridden in light theme', () => {

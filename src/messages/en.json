@@ -855,5 +855,8 @@
   "extensionCss": {
     "title": "Page styles have been modified",
     "description": "If the page displays incorrectly, try disabling browser extensions or scripts and refresh. Style-related reports may not be accepted when external style injection is detected."
+  },
+  "versionWatermark": {
+    "externalCssDetected": "External CSS injection detected"
   }
 }

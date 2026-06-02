@@ -27,9 +27,10 @@ export function checkCanary(): boolean {
   if (!el) return false
   const cs = getComputedStyle(el)
 
+  // Focus on properties unlikely to be modified by user browser preferences.
+  // fontSize and padding are intentionally omitted — they can false-positive
+  // with non-default browser font settings or UA differences.
   if (cs.display !== 'flex') return true
-  if (cs.fontSize !== '14px') return true
-  if (cs.padding !== '16px') return true
   if (cs.color !== COLOR_EXPECTED[getTheme()]) return true
 
   return false
@@ -58,17 +59,23 @@ export function ExtensionCssDetector() {
 
     function handleMutation(mutations: MutationRecord[]) {
       for (const mutation of mutations) {
-        for (const node of mutation.addedNodes) {
-          if (node.nodeType !== 1) continue
-          const el = node as Element
-          const tag = el.tagName
-          if (tag === 'STYLE') { scheduleCheck(); return }
-          if (tag === 'LINK' && el.getAttribute('rel') === 'stylesheet') {
-            scheduleCheck(); return
+        if (mutation.type === 'childList') {
+          for (const node of mutation.addedNodes) {
+            if (node.nodeType !== 1) continue
+            const el = node as Element
+            const tag = el.tagName
+            if (tag === 'STYLE') { scheduleCheck(); return }
+            if (tag === 'LINK' && el.getAttribute('rel') === 'stylesheet') {
+              scheduleCheck(); return
+            }
+            if (el.querySelector?.('style, link[rel="stylesheet"]')) {
+              scheduleCheck(); return
+            }
           }
-          if (el.querySelector?.('style, link[rel="stylesheet"]')) {
-            scheduleCheck(); return
-          }
+        } else if (mutation.type === 'attributes' || mutation.type === 'characterData') {
+          // Attribute changes on <link> (href, media, disabled) or text changes in <style>
+          scheduleCheck()
+          return
         }
       }
     }
@@ -80,9 +87,15 @@ export function ExtensionCssDetector() {
       window.addEventListener('load', scheduleCheck, { once: true })
     }
 
-    // Watch for CSS injections (<style> / <link> additions)
+    // Watch for CSS injections (<style> / <link> additions) and modifications
     const cssObserver = new MutationObserver(handleMutation)
-    cssObserver.observe(document.documentElement, { childList: true, subtree: true })
+    cssObserver.observe(document.documentElement, {
+      childList: true,
+      subtree: true,
+      attributes: true,
+      attributeFilter: ['href', 'media', 'disabled'],
+      characterData: true,
+    })
 
     // Watch for theme class changes on <html>
     const themeObserver = new MutationObserver(scheduleCheck)
