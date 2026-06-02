@@ -70,6 +70,11 @@
 }
 
 :root {
+  /* CSS load sentinel — checked by css-guard.tsx to verify app CSS loaded.
+     Must be the first declaration so it's present even if the rest of the
+     stylesheet is truncated by a network error mid-transfer. */
+  --cep-css-loaded: 1;
+
   /* DESIGN.md colors — Vercel-inspired neutral palette */
   --background: #ffffff;
   --foreground: #171717;
