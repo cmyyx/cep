@@ -245,6 +245,7 @@ export interface MeResponse {
   plan_expires_at: string | null
   plan_expiring_soon: boolean
   premium_until: string | null
+  premium_pre_granted_until: string | null
   premium_trial_until: string | null
   payment_claims: unknown[]
   sessions: SessionInfo[]
@@ -426,6 +427,9 @@ export function getErrorI18nKey(code: string): string {
 
     // Payment
     invalid_channel: 'account.invalidChannel',
+    invalid_plan_type: 'account.invalidPlanType',
+    invalid_quantity: 'account.invalidQuantity',
+    too_many_pending_claims: 'account.tooManyPendingClaims',
     merchant_order_no_required_for_alipay: 'account.merchantOrderNoRequired',
     reference_too_long: 'account.referenceTooLong',
     merchant_order_no_too_long: 'account.merchantOrderNoTooLong',
