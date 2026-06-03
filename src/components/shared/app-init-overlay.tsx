@@ -32,14 +32,14 @@ export function AppInitOverlay() {
   const t = useTranslations()
 
   // Kick off task registration after mount.
-  const started = useAppInitStore((s) => s.phase !== 'splash')
+  // beginTracking() is idempotent — it checks hasCompleted internally.
   useEffect(() => {
-    if (hasCompleted || started) return
+    if (hasCompleted) return
     beginTracking()
-  }, [hasCompleted, started, beginTracking])
+  }, [hasCompleted, beginTracking])
 
-  // When all registered tasks complete → trigger exit sequence.
-  const allTasksDone = tasks.size > 0 && [...tasks].every((t) => completedTasks.has(t))
+  // When all registered tasks complete (or none were registered) → exit.
+  const allTasksDone = tasks.size === 0 || [...tasks].every((t) => completedTasks.has(t))
   const ready = useAppInitStore((s) => s.phase === 'ready')
   const markReadyFromStore = useCallback(() => markReady(), [markReady])
 
@@ -62,7 +62,7 @@ export function AppInitOverlay() {
 
   return (
     <div
-      data-testid="app-init-overlay"
+      data-app-init="true" data-testid="app-init-overlay"
       className={cn(
         'fixed inset-0 z-[100] flex flex-col items-center justify-center bg-background',
         'transition-opacity duration-400 ease-out',

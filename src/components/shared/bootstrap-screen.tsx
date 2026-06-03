@@ -112,10 +112,7 @@ export function BootstrapScreen({ timedOut = false, status }: BootstrapScreenPro
             </p>
             {/* Language selector — delayed 3s via CSS animation.
                 If the meta refresh succeeds, this never becomes visible. */}
-            <div
-              className="flex flex-col items-center gap-3 opacity-0"
-              style={{ animation: 'noscript-delay-reveal 0.3s ease-out 3s forwards' }}
-            >
+            <div className="flex flex-col items-center gap-3 opacity-0 animate-noscript-delay-reveal">
               <p className="text-xs text-muted-foreground">
                 选择语言 / Choose language / 言語を選択 / 選擇語言
               </p>

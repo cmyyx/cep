@@ -1,11 +1,8 @@
 import type { MetadataRoute } from 'next'
 import { routing } from '@/i18n/routing'
-import { DEFAULT_SITE_URL } from '@/lib/constants'
+import { getAlternates } from '@/lib/metadata'
 
 export const dynamic = 'force-static'
-
-const SITE_URL = process.env.SITE_URL || DEFAULT_SITE_URL
-const DEFAULT_LOCALE = routing.defaultLocale
 
 /**
  * Route definitions.
@@ -41,15 +38,10 @@ const ROUTES: {
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return ROUTES.map(({ path, priority, changefreq }) => {
-    const segments = path ? `/${path}` : ''
-
-    const languages: Record<string, string> = {}
-    for (const locale of routing.locales) {
-      languages[locale] = `${SITE_URL}/${locale}${segments}`
-    }
+    const { canonical, languages } = getAlternates(routing.defaultLocale, path)
 
     return {
-      url: `${SITE_URL}/${DEFAULT_LOCALE}${segments}`,
+      url: canonical,
       lastModified: new Date(),
       changeFrequency: changefreq,
       priority,
