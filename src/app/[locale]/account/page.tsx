@@ -93,6 +93,7 @@ export default function AccountPage() {
   const email = useAuthStore(s => s.email)
   const emailVerified = useAuthStore(s => s.emailVerified)
   const premiumUntilStr = useAuthStore(s => s.premiumUntil)
+  const premiumPreGrantedStr = useAuthStore(s => s.premiumPreGrantedUntil)
   const premiumTrialStr = useAuthStore(s => s.premiumTrialUntil)
   const logout = useAuthStore(s => s.logout)
   const accessToken = useAuthStore(s => s.accessToken)
@@ -143,6 +144,7 @@ export default function AccountPage() {
 
   // Payment
   const [showClaimForm, setShowClaimForm] = useState(false); const [claimChannel, setClaimChannel] = useState('alipay')
+  const [claimPlanType, setClaimPlanType] = useState('monthly'); const [claimQuantity, setClaimQuantity] = useState(1)
   const [claimRef, setClaimRef] = useState(''); const [claimMerchant, setClaimMerchant] = useState(''); const [claimPaidTime, setClaimPaidTime] = useState('')
   const [claimSubmitting, setClaimSubmitting] = useState(false); const [claimError, setClaimError] = useState<string|null>(null); const [claimSuccess, setClaimSuccess] = useState(false)
 
@@ -155,16 +157,19 @@ export default function AccountPage() {
 
   // Tier
   const premiumUntil = premiumUntilStr ? new Date(premiumUntilStr).getTime() : 0
+  const premiumPreGrantedUntil = premiumPreGrantedStr ? new Date(premiumPreGrantedStr).getTime() : 0
 
   // Tab state
   const [accountTab, setAccountTab] = useState<'account' | 'membership'>('account')
   const trialUntil = premiumTrialStr ? new Date(premiumTrialStr).getTime() : 0
   // eslint-disable-next-line react-hooks/purity -- reading current time for tier expiry check
   const now = Date.now()
-  const isTrial = !!(trialUntil > now && premiumUntil <= now)
-  const isPremium = !!(premiumUntil > now)
+  const isTrial = !!(trialUntil > now && premiumUntil <= now && premiumPreGrantedUntil <= now)
+  const isPremium = !!(premiumUntil > now || premiumPreGrantedUntil > now)
+  // True when premium comes ONLY from pre-grant (pending review), not from approved premium_until
+  const isPreGrantedOnly = !!(premiumPreGrantedUntil > now && premiumUntil <= now && trialUntil <= now)
   const displayTier: 'free'|'trial'|'premium' = isPremium ? 'premium' : isTrial ? 'trial' : 'free'
-  const planExpireDate = isPremium ? premiumUntilStr : isTrial ? premiumTrialStr : null
+  const planExpireDate = premiumUntil > now ? premiumUntilStr : premiumPreGrantedUntil > now ? premiumPreGrantedStr : isTrial ? premiumTrialStr : null
   const hasAutoSync = isPremium || isTrial
 
   // Sync conflict handling: auto-pull/push may detect conflicts and show dialog
@@ -517,7 +522,7 @@ export default function AccountPage() {
   const handleChangeEmail = async () => { if(!newEmail)return; if(!isValidEmail(newEmail)){setChangeEmailError('invalidEmail');return}; setEmailChanging(true); setChangeEmailError(null); try { await api('/api/email/request-change',{method:'POST',body:{newEmail}}); await fetchMeGlobal(); setChangeEmailSent(true) } catch (err) { setChangeEmailError(err instanceof Error ? err.message : 'send_failed') } finally { setEmailChanging(false) } }
   const handleSubmitChangeEmailCode = async () => { if(!changeEmailCode)return; setChangeEmailCodeSubmitting(true); setChangeEmailError(null); try { await api('/api/email/verify',{method:'POST',body:{code:changeEmailCode}}); await fetchMeGlobal(); setShowChangeEmail(false); setChangeEmailSent(false); setChangeEmailCode(''); setNewEmail('') } catch (err) { setChangeEmailError(err instanceof Error ? err.message : 'invalid_code') } finally { setChangeEmailCodeSubmitting(false) } }
   const handleChangePassword = async () => { setPwdError(null); if(!currentPwd||!newPwd||newPwd.length<6){setPwdError(t('auth.passwordTooShort'));return}; if(newPwd!==confirmPwd){setPwdError(t('auth.passwordsNotMatch'));return}; setPasswordChanging(true); try{await api('/api/password/change',{method:'POST',body:{currentPassword:currentPwd,newPassword:newPwd}});setShowChangePwd(false);setCurrentPwd('');setNewPwd('');setConfirmPwd('')}catch(err){setPwdError(err instanceof Error?err.message:'')}finally{setPasswordChanging(false)} }
-  const handleSubmitClaim = async () => { if(!claimRef)return; setClaimSubmitting(true);setClaimError(null);setClaimSuccess(false); try{await api('/api/payment/submit-claim',{method:'POST',body:{channel:claimChannel,externalReference:claimRef,merchantOrderNo:claimChannel==='alipay'?claimMerchant:null,paidTime:claimPaidTime||null}});setShowClaimForm(false);setClaimRef('');setClaimMerchant('');setClaimPaidTime('');setClaimSuccess(true);fetchMeGlobal()}catch(err){setClaimError(err instanceof Error?err.message:'')}finally{setClaimSubmitting(false)} }
+  const handleSubmitClaim = async () => { if(!claimRef)return; setClaimSubmitting(true);setClaimError(null);setClaimSuccess(false); try{const res=await api<{success:boolean;claimId:number;preGranted:boolean}>('/api/payment/submit-claim',{method:'POST',body:{channel:claimChannel,externalReference:claimRef,merchantOrderNo:claimChannel==='alipay'?claimMerchant:null,paidTime:claimPaidTime||null,planType:claimPlanType,quantity:claimQuantity}});setShowClaimForm(false);setClaimRef('');setClaimMerchant('');setClaimPaidTime('');setClaimPlanType('monthly');setClaimQuantity(1);setClaimSuccess(true);fetchMeGlobal()}catch(err){setClaimError(err instanceof Error?err.message:'')}finally{setClaimSubmitting(false)} }
   const handleRevokeSession = async (sessionId: number) => { setRevokingIds(prev => new Set(prev).add(sessionId)); try { await revokeSession(sessionId) } catch { /* error handled by store */ } finally { setRevokingIds(prev => { const next = new Set(prev); next.delete(sessionId); return next }) } }
   const handleLogout = async () => { setLogoutLoading(true); await logout(); router.replace(`/${locale}`) }
 
@@ -745,7 +750,7 @@ export default function AccountPage() {
             <div className="flex justify-between text-sm"><span className="text-muted-foreground">{t('auth.username')}</span><span className="font-medium">{username}</span></div>
             <div className="flex justify-between text-sm items-center"><span className="text-muted-foreground">{t('auth.email')}</span><span className="font-medium inline-flex items-center gap-1">{showFullEmail ? (email ?? '—') : maskEmail(email)}<button type="button" onClick={() => setShowFullEmail(!showFullEmail)} className="inline-flex items-center justify-center size-5 rounded hover:bg-muted transition-colors" title={showFullEmail ? t('account.hideEmail') : t('account.showEmail')}>{showFullEmail ? <EyeOff className="size-3" /> : <Eye className="size-3" />}</button></span></div>
             <div className="flex justify-between text-sm items-center"><span className="text-muted-foreground">{t('account.emailVerified')}</span>{emailVerified?<Badge variant="outline" className="text-green-600 border-green-600"><CheckCircle2 className="size-3 mr-1"/>{t('account.verified')}</Badge>:<Badge variant="outline" className="text-orange-600 border-orange-600"><AlertTriangle className="size-3 mr-1"/>{t('account.notVerified')}</Badge>}</div>
-            <div className="flex justify-between text-sm items-center"><span className="text-muted-foreground">{t('account.planTier')}</span><Badge className={displayTier==='premium'?'bg-purple-100 text-purple-700 border-purple-200':displayTier==='trial'?'bg-teal-100 text-teal-700 border-teal-200':'bg-muted text-muted-foreground'}>{displayTier==='premium'?'Premium':displayTier==='trial'?t('account.trial'):'Free'}</Badge></div>
+            <div className="flex justify-between text-sm items-center"><span className="text-muted-foreground">{t('account.planTier')}</span><span className="inline-flex items-center gap-1.5"><Badge className={displayTier==='premium'?'bg-purple-100 text-purple-700 border-purple-200':displayTier==='trial'?'bg-teal-100 text-teal-700 border-teal-200':'bg-muted text-muted-foreground'}>{displayTier==='premium'?'Premium':displayTier==='trial'?t('account.trial'):'Free'}</Badge>{isPreGrantedOnly&&<Badge className="bg-amber-100 text-amber-700 border-amber-200 text-[10px]">{t('account.claimPending')}</Badge>}</span></div>
             {planExpireDate&&<div className="flex justify-between text-sm"><span className="text-muted-foreground">{t('account.expiresAt')}</span><span className="font-medium text-xs">{new Date(planExpireDate).toLocaleString(undefined, { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' })}</span></div>}
             <Separator/>
             {!emailVerified && <div className="rounded-md bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800 px-3 py-2 text-xs text-amber-800 dark:text-amber-200 flex items-center justify-between"><span>{t('account.emailNotVerifiedHint')}</span><Button variant="outline" size="sm" className="h-7 text-xs" onClick={handleVerifyEmail} disabled={verifySending}>{verifySending?<Loader2 className="size-3 mr-1 animate-spin"/>:<Mail className="size-3 mr-1"/>}{t('account.verifyNow')}</Button></div>}
@@ -971,10 +976,12 @@ export default function AccountPage() {
             {!showClaimForm?<Button variant="outline" size="sm" className="w-full" onClick={()=>{setShowClaimForm(true);setClaimSuccess(false)}}><Send className="size-4 mr-2"/>{t('account.submitPayment')}</Button>:
             <div className="space-y-3 rounded-lg border border-border p-4">
               <div className="flex flex-col gap-2"><Label className="text-xs">{t('account.paymentChannel')}</Label><Select value={claimChannel} onValueChange={v=>{setClaimChannel(v??'alipay');setClaimMerchant('')}}><SelectTrigger className="h-8 text-xs"><SelectValue>{(v:string)=>v==='alipay'?t('account.channelAlipay'):t('account.channelWechat')}</SelectValue></SelectTrigger><SelectContent><SelectItem value="alipay">{t('account.channelAlipay')}</SelectItem><SelectItem value="wechat">{t('account.channelWechat')}</SelectItem></SelectContent></Select></div>
+              <div className="flex flex-col gap-2"><Label className="text-xs">{t('account.planType')}</Label><Select value={claimPlanType} onValueChange={v=>setClaimPlanType(v??'monthly')}><SelectTrigger className="h-8 text-xs"><SelectValue>{(v:string)=>{const map:Record<string,string>={monthly:t('account.planMonthly'),quarterly:t('account.planQuarterly'),yearly:t('account.planYearly')};return map[v]??v}}</SelectValue></SelectTrigger><SelectContent><SelectItem value="monthly">{t('account.planMonthly')}</SelectItem><SelectItem value="quarterly">{t('account.planQuarterly')}</SelectItem><SelectItem value="yearly">{t('account.planYearly')}</SelectItem></SelectContent></Select></div>
+              <div className="flex flex-col gap-1"><Label className="text-xs">{t('account.quantity')}</Label><Input className="h-8 text-xs bg-card border-border" type="number" min={1} max={999} value={claimQuantity} onChange={e=>setClaimQuantity(Math.max(1,Math.min(999,parseInt(e.target.value)||1)))} /></div>
               <div className="flex flex-col gap-1"><Label className="text-xs">{t('account.paymentTransactionId')}</Label><Input className="h-8 text-xs bg-card border-border" value={claimRef} onChange={e=>setClaimRef(e.target.value)} placeholder={t('account.paymentTransactionIdPlaceholder')}/></div>
               {claimChannel==='alipay'&&<div className="flex flex-col gap-1"><Label className="text-xs">{t('account.merchantOrderNo')}</Label><Input className="h-8 text-xs bg-card border-border" value={claimMerchant} onChange={e=>setClaimMerchant(e.target.value)} placeholder={t('account.merchantOrderNoPlaceholder')}/></div>}
               <div className="flex flex-col gap-1"><Label className="text-xs">{t('account.paymentTime')}</Label><Input className="h-8 text-xs bg-card border-border" type="datetime-local" value={claimPaidTime} onChange={e=>setClaimPaidTime(e.target.value)} /></div>
-              {claimSuccess&&<p className="text-xs text-green-600">{t('account.claimSubmitted')}</p>}
+              {claimSuccess&&<div className="rounded-md bg-green-50 border border-green-200 px-3 py-2 space-y-1"><p className="text-xs text-green-700 font-medium">{t('account.claimSubmitted')}</p><p className="text-xs text-green-600">{t('account.claimSubmittedPreGranted')}</p></div>}
               {claimError&&<p className="text-xs text-destructive">{t(getErrorI18nKey(claimError))}</p>}
               <div className="flex gap-2"><Button variant="ghost" size="sm" onClick={()=>{setShowClaimForm(false);setClaimError(null);setClaimSuccess(false)}}>{t('account.cancel')}</Button><Button size="sm" className="flex-1" onClick={handleSubmitClaim} disabled={!claimRef||claimSubmitting}>{claimSubmitting?<Loader2 className="size-4 mr-2 animate-spin"/>:null}{t('account.submit')}</Button></div>
             </div>}

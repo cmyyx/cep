@@ -54,6 +54,9 @@ export type ApiErrorCode =
 
   // ── Payment (backend) ──
   | 'invalid_channel'
+  | 'invalid_plan_type'
+  | 'invalid_quantity'
+  | 'too_many_pending_claims'
   | 'merchant_order_no_required_for_alipay'
   | 'reference_too_long'
   | 'merchant_order_no_too_long'
