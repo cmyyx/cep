@@ -867,6 +867,9 @@
     "title": "Page styles have been modified",
     "description": "If the page displays incorrectly, try disabling browser extensions or scripts and refresh. Style-related reports may not be accepted when external style injection is detected."
   },
+  "noscript": {
+    "banner": "This application requires JavaScript to run. Please enable JavaScript in your browser settings and refresh the page."
+  },
   "versionWatermark": {
     "externalCssDetected": "External CSS injection detected"
   }

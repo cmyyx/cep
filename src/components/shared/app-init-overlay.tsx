@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 import Image from 'next/image'
 import { useTranslations } from 'next-intl'
 import { useAppInitStore } from '@/stores/useAppInitStore'
@@ -8,160 +8,57 @@ import { cn } from '@/lib/utils'
 import { GuardFeedback } from '@/components/shared/guard-layout'
 
 /**
- * Full-viewport cinematic loading overlay.
+ * Full-viewport loading overlay.
  *
- * Renders from the very first server-side HTML frame — no `mounted` gate.
- * Content behind the overlay is invisible until it fades out, so layout
- * shifts (announcement banner, etc.) happen unseen.
+ * Renders from the very first SSG HTML frame to prevent layout shifts
+ * (announcement banner, etc.) from being visible before hydration completes.
  *
- * Progress tracking:
- *   0% → 15%   Slow initial animation (INITIALIZING label)
- *  15% → 90%   Real data loading (LOADING MODULES label)
- *  90% → 100%  Finalising (READY label)
- * 100%          Flash → fade out → markCompleted
+ * Instead of a fake percentage-based progress bar, shows an indeterminate
+ * skeleton shimmer — a CSS-only animation that communicates "loading" without
+ * lying about progress. Fades out when all registered init tasks complete.
+ *
+ * When JavaScript is disabled, the overlay is hidden by a .no-js CSS rule
+ * (see globals.css) so crawlers and no-JS users see the static SSG content.
  */
 export function AppInitOverlay() {
-  const phase = useAppInitStore((s) => s.phase)
-  const progress = useAppInitStore((s) => s.progress)
   const hasCompleted = useAppInitStore((s) => s.hasCompleted)
   const markReady = useAppInitStore((s) => s.markReady)
   const markCompleted = useAppInitStore((s) => s.markCompleted)
   const beginTracking = useAppInitStore((s) => s.beginTracking)
-  const setProgress = useAppInitStore((s) => s.setProgress)
   const tasks = useAppInitStore((s) => s.tasks)
   const completedTasks = useAppInitStore((s) => s.completedTasks)
 
-  // Exit animation state — driven by CSS transition, no layout impact
   const [exitPhase, setExitPhase] = useState<'none' | 'exiting'>('none')
   const t = useTranslations()
 
-  // Kick off tracking (hydration simulation + data task registration).
-  // This must run after mount because it uses requestAnimationFrame.
+  // Kick off task registration after mount.
+  const started = useAppInitStore((s) => s.phase !== 'splash')
   useEffect(() => {
-    if (hasCompleted) return
+    if (hasCompleted || started) return
     beginTracking()
-  }, [hasCompleted, beginTracking])
+  }, [hasCompleted, started, beginTracking])
 
-  // ── Slow initial animation: 0% → 15% over ~1200ms (ease-out cubic) ──
-  // Runs once when tracking starts, gives immediate visual feedback.
-  useEffect(() => {
-    if (phase !== 'tracking') return
-
-    let active = true
-    let rafId = 0
-    const start = Date.now()
-    const duration = 1200
-    const target = 15
-
-    const tick = () => {
-      if (!active) return
-      const elapsed = Date.now() - start
-      const t = Math.min(1, elapsed / duration)
-      const eased = 1 - Math.pow(1 - t, 3)
-      const simulated = target * eased
-      // Only advance if our simulated value is ahead of real progress
-      const current = useAppInitStore.getState().progress
-      if (simulated > current) {
-        setProgress(simulated)
-      }
-
-      if (t < 1) {
-        rafId = requestAnimationFrame(tick)
-      }
-    }
-
-    rafId = requestAnimationFrame(tick)
-    return () => {
-      active = false
-      cancelAnimationFrame(rafId)
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [phase])
-
-  // ── Data loading simulation: 15% → 90% over ~800ms (ease-out cubic) ──
-  // Kicks in after the initial slow animation completes.
-  useEffect(() => {
-    if (phase !== 'tracking') return
-
-    // Delay this animation to let the slow initial animation get to 15% first
-    const delayTimer = setTimeout(() => {
-      let active = true
-      let rafId = 0
-      const start = Date.now()
-      const duration = 800
-      const startVal = Math.max(useAppInitStore.getState().progress, 15)
-
-      const tick = () => {
-        if (!active) return
-        const elapsed = Date.now() - start
-        const t = Math.min(1, elapsed / duration)
-        const eased = 1 - Math.pow(1 - t, 3)
-        const simulated = startVal + (90 - startVal) * eased
-        // Only advance if our simulated value is ahead of real progress
-        const current = useAppInitStore.getState().progress
-        if (simulated > current) {
-          setProgress(simulated)
-        }
-
-        if (t < 1) {
-          rafId = requestAnimationFrame(tick)
-        } else {
-          // Ensure final value reaches at least 90 without regressing real progress
-          if (useAppInitStore.getState().progress < 90) {
-            setProgress(90)
-          }
-        }
-      }
-
-      rafId = requestAnimationFrame(tick)
-      return () => {
-        active = false
-        cancelAnimationFrame(rafId)
-      }
-    }, 1200) // Wait for slow initial animation to complete
-
-    return () => clearTimeout(delayTimer)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [phase])
-
-  // ── When all tasks complete → finalise ──
+  // When all registered tasks complete → trigger exit sequence.
   const allTasksDone = tasks.size > 0 && [...tasks].every((t) => completedTasks.has(t))
-  useEffect(() => {
-    if (phase === 'tracking' && allTasksDone) {
-      setProgress(90)
-      const timer = setTimeout(() => {
-        markReady()
-      }, 500)
-      return () => clearTimeout(timer)
-    }
-  }, [phase, allTasksDone, setProgress, markReady])
+  const ready = useAppInitStore((s) => s.phase === 'ready')
+  const markReadyFromStore = useCallback(() => markReady(), [markReady])
 
-  // ── Ready → exit sequence (opacity fade out → markCompleted) ──
   useEffect(() => {
-    if (phase !== 'ready') return
+    if (!allTasksDone || ready) return
+    markReadyFromStore()
+  }, [allTasksDone, ready, markReadyFromStore])
+
+  // Ready → exit animation → permanently hide.
+  useEffect(() => {
+    if (!ready || hasCompleted) return
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setExitPhase('exiting')
-    // After the opacity transition (duration-400), mark permanently done
-    const timer = setTimeout(() => {
-      markCompleted()
-    }, 450)
+    const timer = setTimeout(() => markCompleted(), 450)
     return () => clearTimeout(timer)
-  }, [phase, markCompleted])
+  }, [ready, hasCompleted, markCompleted])
 
-  // ── Never show again after first completion ──
+  // Never show again after first completion.
   if (hasCompleted) return null
-
-  // Phase label: INITIALIZING when progress < 15%, LOADING MODULES when >= 15%
-  const phaseLabel = phase === 'ready' ? t('app.phase.ready') : progress < 15 ? t('app.phase.splash') : t('app.phase.tracking')
-  // Show progress bar during tracking and ready phases
-  const showProgress = phase === 'tracking' || phase === 'ready'
-  const displayProgress = Math.min(100, Math.max(0, phase === 'ready' ? 100 : progress))
-  const glowColor =
-    displayProgress < 40
-      ? 'rgba(10,114,239,0.35)'
-      : displayProgress < 70
-        ? 'rgba(222,29,141,0.35)'
-        : 'rgba(255,91,79,0.35)'
 
   return (
     <div
@@ -169,14 +66,14 @@ export function AppInitOverlay() {
       className={cn(
         'fixed inset-0 z-[100] flex flex-col items-center justify-center bg-background',
         'transition-opacity duration-400 ease-out',
-        exitPhase === 'exiting' && 'opacity-0 pointer-events-none'
+        exitPhase === 'exiting' && 'opacity-0 pointer-events-none',
       )}
       aria-hidden={exitPhase === 'exiting'}
     >
-      {/* ── Engineering grid background ── */}
+      {/* Engineering grid background */}
       <div className="absolute inset-0 pointer-events-none animate-[grid-drift_20s_linear_infinite] bg-engineering-grid" />
 
-      {/* ── Content ── */}
+      {/* Content */}
       <div className="relative flex flex-col items-center gap-7 z-10">
         {/* Icon with breathing pulse */}
         <div className="animate-[icon-pulse_2s_ease-in-out_infinite] size-14 flex items-center justify-center">
@@ -194,10 +91,8 @@ export function AppInitOverlay() {
           </div>
         </div>
 
-        {/* Brand title with glitch converge */}
-        <h1
-          className="text-[48px] font-semibold font-mono tracking-[-2.88px] text-foreground select-none animate-[glitch-converge_1.2s_cubic-bezier(0.16,1,0.3,1)_forwards]"
-        >
+        {/* Brand */}
+        <h1 className="text-[48px] font-semibold font-mono tracking-[-2.88px] text-foreground select-none animate-[glitch-converge_1.2s_cubic-bezier(0.16,1,0.3,1)_forwards]">
           CEP
         </h1>
 
@@ -206,44 +101,13 @@ export function AppInitOverlay() {
           {t('home.title')}
         </p>
 
-        {/* ── Progress bar ── */}
-        <div
-          className={cn(
-            'w-[280px] transition-all duration-500 ease-out',
-            showProgress ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'
-          )}
-        >
-          <div className="relative h-[3px] w-full bg-muted rounded-full overflow-hidden">
-            {/* Fill bar */}
-            <div
-              className="absolute inset-y-0 left-0 bg-gradient-to-r from-develop-blue via-preview-pink to-ship-red rounded-full"
-              style={{
-                width: `${displayProgress}%`,
-                transition: 'width 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
-                boxShadow: displayProgress > 0 ? `0 0 10px ${glowColor}` : 'none',
-              }}
-            >
-              {/* Shimmer sweep */}
-              <div className="absolute inset-0 animate-[progress-shimmer_1.8s_ease-in-out_infinite] progress-shimmer-overlay" />
-            </div>
-
-            {/* Leading dot */}
-            {displayProgress > 0 && displayProgress < 100 && (
-              <div
-                className="absolute top-1/2 -translate-y-1/2 size-[5px] rounded-full bg-white shadow-[0_0_8px_rgba(10,114,239,0.7)] animate-[dot-pulse_1.5s_ease-in-out_infinite]"
-                style={{
-                  left: `calc(${displayProgress}% - 2.5px)`,
-                  transition: 'left 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
-                }}
-              />
-            )}
+        {/* Indeterminate shimmer bar — smooth continuous gradient sweep.
+            No percentages, no fake progress — a single clean animation
+            that just says "loading". */}
+        <div className="w-[280px] h-[4px] bg-muted rounded-full overflow-hidden">
+          <div className="h-full animate-[shimmer-slide_2s_linear_infinite]">
+            <div className="h-full w-[50%] rounded-full bg-gradient-to-r from-transparent via-develop-blue/35 to-transparent" />
           </div>
-
-          {phaseLabel && (
-            <p className="mt-3 text-center font-mono text-[11px] tracking-[0.2em] text-muted-foreground/60 uppercase select-none">
-              {phaseLabel}
-            </p>
-          )}
         </div>
 
         {/* Feedback channels */}

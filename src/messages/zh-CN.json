@@ -867,6 +867,9 @@
     "title": "检测到页面样式被篡改",
     "description": "页面显示异常时，请尝试禁用浏览器扩展或脚本后刷新。检测到外部样式注入时，样式相关问题反馈可能不予受理。"
   },
+  "noscript": {
+    "banner": "此应用需要 JavaScript 才能运行。请在浏览器设置中启用 JavaScript 后刷新页面。"
+  },
   "versionWatermark": {
     "externalCssDetected": "检测到外部CSS注入"
   }

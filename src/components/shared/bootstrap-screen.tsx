@@ -1,6 +1,7 @@
 'use client'
 
 import Image from 'next/image'
+import Link from 'next/link'
 import { GuardFeedback } from '@/components/shared/guard-layout'
 
 interface BootstrapScreenProps {
@@ -84,33 +85,47 @@ export function BootstrapScreen({ timedOut = false, status }: BootstrapScreenPro
         <GuardFeedback />
       </div>
 
-      {/* Noscript fallback for users with JavaScript disabled */}
+      {/* Noscript fallback: mirrors the BootstrapScreen brand layout.
+          <meta http-equiv="refresh"> auto-redirects to zh-CN in 0s.
+          Language buttons appear after a 3s delay — only visible if the
+          browser ignores the meta refresh or the redirect stalls. */}
       <noscript>
+        <meta httpEquiv="refresh" content="0;url=/zh-CN" />
         <div className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-background">
           <div className="absolute inset-0 pointer-events-none bg-engineering-grid" />
-          <div className="relative flex flex-col items-center gap-6 z-10 max-w-md text-center px-6">
-            <Image
-              src="/icon.svg"
-              alt=""
-              width={48}
-              height={48}
-              className="size-12"
-              unoptimized
-            />
-            <h1 className="text-2xl font-semibold tracking-tight">
-              CEP 终末地规划器
-            </h1>
-            <div className="space-y-3 text-muted-foreground">
-              <p>
-                此应用需要 JavaScript 才能运行。<br />
-                请在浏览器设置中启用 JavaScript 后刷新页面。
-              </p>
-              <p className="text-sm">
-                This application requires JavaScript to run.<br />
-                Please enable JavaScript in your browser settings and refresh the page.
-              </p>
+          <div className="relative flex flex-col items-center gap-7 z-10">
+            <div className="size-14 flex items-center justify-center">
+              <Image
+                src="/icon.svg"
+                alt=""
+                width={56}
+                height={56}
+                className="size-14"
+                unoptimized
+              />
             </div>
-            <GuardFeedback />
+            <h1 className="text-[48px] font-semibold font-mono tracking-[-2.88px] text-foreground select-none">
+              CEP
+            </h1>
+            <p className="text-sm text-muted-foreground tracking-[-0.32px] font-medium -mt-5 select-none">
+              终末地规划器
+            </p>
+            {/* Language selector — delayed 3s via CSS animation.
+                If the meta refresh succeeds, this never becomes visible. */}
+            <div
+              className="flex flex-col items-center gap-3 opacity-0"
+              style={{ animation: 'noscript-delay-reveal 0.3s ease-out 3s forwards' }}
+            >
+              <p className="text-xs text-muted-foreground">
+                选择语言 / Choose language / 言語を選択 / 選擇語言
+              </p>
+              <div className="flex flex-wrap justify-center gap-2">
+                <Link href="/zh-CN" className="rounded-md bg-muted px-4 py-2 text-sm font-medium transition-colors hover:bg-muted/80">简体中文</Link>
+                <Link href="/zh-TW" className="rounded-md bg-muted px-4 py-2 text-sm font-medium transition-colors hover:bg-muted/80">繁體中文</Link>
+                <Link href="/ja"    className="rounded-md bg-muted px-4 py-2 text-sm font-medium transition-colors hover:bg-muted/80">日本語</Link>
+                <Link href="/en"    className="rounded-md bg-muted px-4 py-2 text-sm font-medium transition-colors hover:bg-muted/80">English</Link>
+              </div>
+            </div>
           </div>
         </div>
       </noscript>
