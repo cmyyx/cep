@@ -791,7 +791,7 @@
     "invalidResponse": "服务器返回数据异常"
   },
   "meta": {
-    "homeDescription": "《明日方舟：终末地》规划工具集——基质计算、精锻计算、角色攻略、卡池日历等一站式解决方案。",
+    "homeDescription": "《明日方舟：终末地》规划工具集——基质规划与计算、精锻规划与计算、角色攻略、卡池日历等一站式解决方案。",
     "homeKeywords": "终末地规划器,明日方舟终末地,基质计算,精锻计算,终末地攻略,规划工具",
     "essencePlannerDescription": "基质规划与计算工具——多武器基质刷取优化方案计算，支持自由选择基础属性，设定地区优先级，标记拥有状态与智能方案排序。",
     "essencePlannerKeywords": "基质计算,基质规划,终末地基质,明日方舟终末地,基质刷取,基质优化,武器基质,基质方案,基质计算器,终末地规划器",
@@ -866,6 +866,9 @@
   "extensionCss": {
     "title": "检测到页面样式被篡改",
     "description": "页面显示异常时，请尝试禁用浏览器扩展或脚本后刷新。检测到外部样式注入时，样式相关问题反馈可能不予受理。"
+  },
+  "noscript": {
+    "banner": "此应用需要 JavaScript 才能运行。请在浏览器设置中启用 JavaScript 后刷新页面。"
   },
   "versionWatermark": {
     "externalCssDetected": "检测到外部CSS注入"

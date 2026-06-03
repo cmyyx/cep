@@ -6,7 +6,7 @@
  * Unified guard overlay layout — shared skeleton for all three error states:
  *   - CSS load failure (css-guard.tsx)
  *   - Browser outdated (browser-guard.tsx)
- *   - JavaScript disabled (noscript-fallback.tsx)
+ *   - JavaScript disabled (handled by <noscript> in [locale]/layout.tsx)
  *
  * Every overlay follows the same visual skeleton:
  *

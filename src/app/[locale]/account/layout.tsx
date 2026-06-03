@@ -1,5 +1,6 @@
 import { getTranslations } from 'next-intl/server'
 import type { Metadata } from 'next'
+import { getAlternates } from '@/lib/metadata'
 
 export async function generateMetadata({
   params,
@@ -12,6 +13,7 @@ export async function generateMetadata({
     title: t('account.title'),
     description: t('meta.accountDescription'),
     keywords: t('meta.accountKeywords').split(',').map((k) => k.trim()).filter(Boolean),
+    alternates: getAlternates(locale, 'account'),
     openGraph: {
       title: `${t('account.title')} - ${t('app.name')}`,
       description: t('meta.accountDescription'),

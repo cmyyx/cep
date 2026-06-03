@@ -61,6 +61,7 @@ export default async function LocaleLayout({
   setRequestLocale(locale)
 
   const siteUrl = process.env.SITE_URL || DEFAULT_SITE_URL
+  const t = await getTranslations({ locale })
 
   const messages = (await import(`../../messages/${locale}.json`)).default
   // Merge game content translations from auto-generated i18n files
@@ -97,6 +98,16 @@ export default async function LocaleLayout({
             <Background />
             <AppSidebar />
             <main className="flex flex-col flex-1 w-full relative overflow-hidden">
+              {/* When JS is disabled, show a lightweight i18n banner.
+                  Placed inside <main> so it's clear of the fixed sidebar. */}
+              <noscript>
+                <div
+                  data-nosnippet
+                  className="w-full text-left py-2.5 px-4 text-[13px] leading-relaxed bg-amber-50 text-amber-900 border-b border-amber-200"
+                >
+                  {t('noscript.banner')}
+                </div>
+              </noscript>
               {/* Navigation progress bar — immediate feedback on every nav */}
               <NavigationProgressBar />
               <HolidayBanner />

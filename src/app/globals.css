@@ -481,3 +481,30 @@
   animation: toast-progress 3s linear forwards;
   transform-origin: left center;
 }
+
+/* ── Shimmer slide for indeterminate loading indicator (AppInitOverlay).
+   Moves a gradient highlight from left to right in a loop. ── */
+@keyframes shimmer-slide {
+  0%   { transform: translateX(-100%); }
+  100% { transform: translateX(400%); }
+}
+
+/* ── Delayed reveal for noscript language selector on root path.
+   Starts invisible; after 3s (meta refresh timeout) fades in.
+   If the browser honoured the meta refresh, this never runs. ── */
+@utility animate-noscript-delay-reveal {
+  animation: noscript-delay-reveal 0.3s ease-out 3s forwards;
+}
+
+@keyframes noscript-delay-reveal {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* ── no-js pattern: <html class="no-js"> at SSG time, removed by inline
+   script on hydration. When JavaScript is disabled (or for crawlers that
+   don't execute JS), .no-js remains on <html>, allowing CSS to hide
+   JS-dependent overlays and reveal static content. ── */
+.no-js [data-app-init] {
+  display: none !important;
+}

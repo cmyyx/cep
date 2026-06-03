@@ -1,5 +1,6 @@
 import { getTranslations } from 'next-intl/server'
 import type { Metadata } from 'next'
+import { getAlternates } from '@/lib/metadata'
 
 export async function generateMetadata({
   params,
@@ -11,6 +12,7 @@ export async function generateMetadata({
   return {
     title: t('legal.termsTitle'),
     description: t('meta.termsDescription'),
+    alternates: getAlternates(locale, 'terms'),
     openGraph: {
       title: `${t('legal.termsTitle')} - ${t('app.name')}`,
       description: t('meta.termsDescription'),

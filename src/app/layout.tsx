@@ -7,7 +7,6 @@ import { DEBUG_BOOTSTRAP_CODE } from "@/lib/debug/bootstrap"
 import { DomainGuard } from '@/components/shared/domain-guard';
 import { CssGuard } from '@/components/shared/css-guard';
 import { BrowserGuard } from '@/components/shared/browser-guard';
-import { NoscriptFallback } from '@/components/shared/noscript-fallback';
 import "./globals.css";
 
 const geistSans = Geist({
@@ -41,7 +40,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased no-js`}
       suppressHydrationWarning
     >
       <head>
@@ -57,6 +56,13 @@ export default function RootLayout({
             The 7-click gesture is available from the first frame; the visual label
             is rendered by the DebugLabel React component after hydration. */}
         <HeadScript id="debug-bootstrap" code={DEBUG_BOOTSTRAP_CODE} />
+        {/* Remove no-js class ASAP — before any React content renders.
+            When JS is disabled the class stays, and .no-js CSS rules
+            hide JS-dependent overlays to reveal SSG content. */}
+        <HeadScript
+          id="no-js-remove"
+          code="document.documentElement.classList.remove('no-js')"
+        />
         {/* CssGuard — detects CSS <link> load failures and shows a fallback.
             Purely event-driven (no setTimeout): error capture + window.load audit. */}
         <CssGuard />
@@ -94,7 +100,6 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-full flex flex-col" suppressHydrationWarning>
-        <NoscriptFallback />
         <TooltipProvider>{children}</TooltipProvider>
       </body>
     </html>
