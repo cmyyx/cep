@@ -1,6 +1,7 @@
 import { getTranslations } from 'next-intl/server'
 import type { Metadata } from 'next'
 import { routing } from '@/i18n/routing'
+import { getAlternates } from '@/lib/metadata'
 
 export async function generateMetadata({
   params,
@@ -14,6 +15,7 @@ export async function generateMetadata({
       title: t('nav.refinementPlanner'),
       description: t('meta.refinementPlannerDescription'),
       keywords: t('meta.refinementPlannerKeywords').split(',').map((k) => k.trim()).filter(Boolean),
+      alternates: getAlternates(locale, 'refinement-planner'),
       openGraph: {
         title: `${t('nav.refinementPlanner')} - ${t('app.name')}`,
         description: t('meta.refinementPlannerDescription'),
@@ -22,15 +24,17 @@ export async function generateMetadata({
     }
   } catch {
     // Fall back to default locale if the requested locale fails
-    const t = await getTranslations({ locale: routing.defaultLocale })
+    const fallbackLocale = routing.defaultLocale
+    const t = await getTranslations({ locale: fallbackLocale })
     return {
       title: t('nav.refinementPlanner'),
       description: t('meta.refinementPlannerDescription'),
       keywords: t('meta.refinementPlannerKeywords').split(',').map((k) => k.trim()).filter(Boolean),
+      alternates: getAlternates(fallbackLocale, 'refinement-planner'),
       openGraph: {
         title: `${t('nav.refinementPlanner')} - ${t('app.name')}`,
         description: t('meta.refinementPlannerDescription'),
-        images: [`/og/refinement-planner/${routing.defaultLocale}.png`],
+        images: [`/og/refinement-planner/${fallbackLocale}.png`],
       },
     }
   }

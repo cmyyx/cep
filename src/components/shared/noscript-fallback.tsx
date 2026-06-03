@@ -1,51 +1,47 @@
-import type { ReactNode } from 'react'
-import { GuardOverlay, GuardFeedback } from '@/components/shared/guard-layout'
-
-interface NoscriptFallbackProps {
-  subtitle?: ReactNode
-  descriptionZh?: ReactNode
-  descriptionEn?: ReactNode
-}
-
 /**
  * JS-disabled fallback rendered as the first child of <body>.
  *
- * Wrapper uses inline styles (HeadScript exception — must render without
- * CSS). Children use Tailwind className strings, which do apply in SSR
- * output since the CSS <link> loads regardless of JS.
+ * Previously used GuardOverlay — a full-screen white overlay (fixed;inset:0;z-99999)
+ * that completely covered page content. This caused search engines like Bing
+ * (which don't reliably execute JavaScript) to index the overlay message as the
+ * page's primary content, ignoring meta descriptions and the SSG-pre-rendered
+ * static HTML underneath.
  *
- * All user-facing content accepts translated props; defaults are bilingual
- * so the fallback functions without i18n infrastructure.
+ * Now renders as a lightweight sticky top banner that warns users without
+ * blocking the actual page content. Search engines see both the banner
+ * (gated by data-nosnippet) and the real content.
+ *
+ * Inline styles are intentional — CSS <link> may fail to load when JS is
+ * disabled, so the banner must be self-contained.
  */
-export function NoscriptFallback({
-  subtitle = '需要 JavaScript',
-  descriptionZh = (
-    <>
-      此应用需要 JavaScript 才能运行。
-      <br />
-      请在浏览器设置中启用 JavaScript 后刷新页面。
-    </>
-  ),
-  descriptionEn = (
-    <>
-      This application requires JavaScript to run.
-      <br />
-      Please enable JavaScript in your browser settings and refresh the page.
-    </>
-  ),
-}: NoscriptFallbackProps) {
+export function NoscriptFallback() {
   return (
     <noscript>
-      <GuardOverlay>
-        <h2 className="text-base font-medium m-0 text-foreground">
-          {subtitle}
-        </h2>
-        <div className="text-[#666] max-w-[400px] leading-relaxed flex flex-col gap-3">
-          <p className="m-0">{descriptionZh}</p>
-          <p className="m-0 text-[13px] text-[#999]">{descriptionEn}</p>
-        </div>
-        <GuardFeedback />
-      </GuardOverlay>
+      {/* Hide the AppInitOverlay when JS is disabled — it's a full-screen
+          overlay (fixed;inset:0;z-100) that covers all page content and
+          only disappears after JS executes markCompleted(). Without this
+          rule, crawlers that don't run JS see a blank "INITIALIZING" screen
+          instead of the actual SSG-pre-rendered page. */}
+      <style>{`[data-testid="app-init-overlay"]{display:none!important}`}</style>
+      <div
+        data-nosnippet
+        style={{
+          display: 'block',
+          padding: '10px 16px',
+          background: '#fff3cd',
+          color: '#664d03',
+          borderBottom: '1px solid #ffecb5',
+          fontFamily: 'system-ui, -apple-system, sans-serif',
+          fontSize: '13px',
+          lineHeight: 1.5,
+          textAlign: 'center',
+        }}
+      >
+        此应用需要 JavaScript 才能运行。请在浏览器设置中启用 JavaScript 后刷新页面。
+        {' / '}
+        This application requires JavaScript to run. Please enable JavaScript and
+        refresh the page.
+      </div>
     </noscript>
   )
 }

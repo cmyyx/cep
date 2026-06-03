@@ -1,5 +1,6 @@
 import { getTranslations } from 'next-intl/server'
 import type { Metadata } from 'next'
+import { getAlternates } from '@/lib/metadata'
 
 export async function generateMetadata({
   params,
@@ -12,6 +13,7 @@ export async function generateMetadata({
     title: t('nav.bannerCalendar'),
     description: t('meta.bannerCalendarDescription'),
     keywords: t('meta.bannerCalendarKeywords').split(',').map((k) => k.trim()).filter(Boolean),
+    alternates: getAlternates(locale, 'banner-calendar'),
     openGraph: {
       title: `${t('nav.bannerCalendar')} - ${t('app.name')}`,
       description: t('meta.bannerCalendarDescription'),
