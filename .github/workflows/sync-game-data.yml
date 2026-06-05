@@ -10,10 +10,10 @@ jobs:
     outputs:
       changed: ${{ steps.diff.outputs.changed }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
-      - uses: pnpm/action-setup@v4
-      - uses: actions/setup-node@v4
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v6
         with:
           node-version: 22
           cache: 'pnpm'
@@ -55,6 +55,13 @@ jobs:
             TableCfg/I18nTextTable_TC.json
           git -C upstream/AKEData checkout
 
+          # Clone public AKEDatabase (no auth needed)
+          git clone --depth 1 --filter=blob:none --sparse --no-checkout \
+            https://github.com/NagiYume/AKEDatabase.git upstream/AKEDatabase
+          git -C upstream/AKEDatabase sparse-checkout init --cone
+          git -C upstream/AKEDatabase sparse-checkout set public/CH
+          git -C upstream/AKEDatabase checkout
+
           # Clone public translation repo (no auth needed)
           git clone --depth 1 --filter=blob:none --sparse --no-checkout \
             https://github.com/SusieGlitter/EndFieldTranslationReferrer.git upstream/EndFieldTranslationReferrer
@@ -66,6 +73,7 @@ jobs:
           set +e
           npx tsx scripts/sync-game-data.ts --check \
             --akedata upstream/AKEData \
+            --imagedb upstream/AKEDatabase \
             --translation upstream/EndFieldTranslationReferrer
           exit_code=$?
           set -e
@@ -83,10 +91,10 @@ jobs:
       contents: write
       pull-requests: write
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
-      - uses: pnpm/action-setup@v4
-      - uses: actions/setup-node@v4
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v6
         with:
           node-version: 22
           cache: 'pnpm'
@@ -123,6 +131,13 @@ jobs:
             TableCfg/I18nTextTable_TC.json
           git -C upstream/AKEData checkout
 
+          # Clone public AKEDatabase (no auth needed)
+          git clone --depth 1 --filter=blob:none --sparse --no-checkout \
+            https://github.com/NagiYume/AKEDatabase.git upstream/AKEDatabase
+          git -C upstream/AKEDatabase sparse-checkout init --cone
+          git -C upstream/AKEDatabase sparse-checkout set public/CH
+          git -C upstream/AKEDatabase checkout
+
           # Clone public translation repo (no auth needed)
           git clone --depth 1 --filter=blob:none --sparse --no-checkout \
             https://github.com/SusieGlitter/EndFieldTranslationReferrer.git upstream/EndFieldTranslationReferrer
@@ -134,6 +149,7 @@ jobs:
         run: |
           npx tsx scripts/sync-game-data.ts --update \
             --akedata upstream/AKEData \
+            --imagedb upstream/AKEDatabase \
             --translation upstream/EndFieldTranslationReferrer
 
       - name: Create Pull Request
@@ -145,6 +161,7 @@ jobs:
           body: |
             Automated sync from:
             - AKEData (output/CN/weapon, output/CN/equip, TableCfg/)
+            - AKEDatabase (public/CH/weapon, public/CH/equip)
             - EndFieldTranslationReferrer (i18n/)
 
             Generated files:

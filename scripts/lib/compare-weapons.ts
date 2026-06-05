@@ -59,10 +59,17 @@ export function compareWeapons(
   projectWeaponsTsPath: string,
   _weaponBasicTable: Record<string, unknown>,
   charWpnRecommend: Record<string, unknown>,
+  imagedbPath?: string,
 ): WeaponCompareResult {
-  const weaponDir = join(akedataPath, 'output', 'CN', 'weapon')
-  if (!existsSync(weaponDir)) {
-    console.warn('  [weapons] AKEData output/CN/weapon not found')
+  // Primary source: AKEDatabase/public/CH/weapon/ (always most up-to-date)
+  // Fallback: AKEData/output/CN/weapon/
+  const primaryDir = imagedbPath ? join(imagedbPath, 'public', 'CH', 'weapon') : null
+  const fallbackDir = join(akedataPath, 'output', 'CN', 'weapon')
+  const weaponDir = primaryDir && existsSync(primaryDir) ? primaryDir
+    : existsSync(fallbackDir) ? fallbackDir
+    : null
+  if (!weaponDir) {
+    console.warn('  [weapons] weapon dir not found')
     return { entries: [], newCount: 0, mismatchCount: 0, i18nEntries: [] }
   }
 
@@ -124,7 +131,7 @@ function extractProjectWeaponIds(tsPath: string): Set<string> {
   if (!existsSync(tsPath)) return new Set()
   const content = readFileSync(tsPath, 'utf-8')
   const ids = new Set<string>()
-  const re = /imageId:\s*['"]([^'"]+)['"]/g
+  const re = /id:\s*['"]([^'"]+)['"]/g
   let m: RegExpExecArray | null
   while ((m = re.exec(content)) !== null) {
     ids.add(m[1])

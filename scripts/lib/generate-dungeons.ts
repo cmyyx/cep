@@ -23,6 +23,19 @@ import {
 const SUPPORTED_LOCALES = ['zh-CN', 'en', 'ja', 'zh-TW'] as const
 const TEXTTABLE_SUFFIX: Record<string, string> = { 'zh-CN': 'CN', 'zh-TW': 'TC', 'en': 'EN', 'ja': 'JP' }
 
+/** Convert English name to camelCase key (e.g. "The Hub" -> "theHub") */
+function toCamelCase(name: string): string {
+  return name
+    .split(/[\s\-_]+/)
+    .map((word, i) => {
+      const clean = word.replace(/[^a-zA-Z0-9]/g, '')
+      if (!clean) return ''
+      return i === 0 ? clean.toLowerCase() : clean.charAt(0).toUpperCase() + clean.slice(1).toLowerCase()
+    })
+    .filter(Boolean)
+    .join('')
+}
+
 // Region mapping: gemCustomItemId suffix -> region display name
 interface RegionInfo {
   key: string
@@ -163,18 +176,9 @@ export function generateDungeonI18n(
       // Collect sub-region translations
       if (loc === 'zh-CN' && subRegion !== group.groupId) {
         const cnSubRaw = parseSubRegion(String(textTables['zh-CN']?.[group.nameTextId] ?? group.groupId))
-        // Find semantic key from region-i18n mapping (same logic)
-        const subKeyMap: Record<string, string> = {
-          '枢纽区': 'theHub', '源石研究园': 'originiumSciencePark',
-          '供能高地': 'powerPlateau', '矿脉源区': 'originLodespring',
-          '武陵城': 'wulingCity', '清波寨': 'qingboStockade',
-          '首墩': 'markerStone', '试验园区': 'testArea',
-        }
-        const semanticKey = subKeyMap[cnSubRaw] ?? cnSubRaw
-        // Warn for new sub-regions not yet in the mapping so maintainers know to update subKeyMap.
-        if (!subKeyMap[cnSubRaw] && cnSubRaw) {
-          console.warn(`  [generate-dungeons] Unmapped sub-region: "${cnSubRaw}" — add it to subKeyMap`)
-        }
+        // Generate semantic key from English translation (camelCase)
+        const enSubRaw = parseSubRegion(String(textTables['en']?.[group.nameTextId] ?? cnSubRaw))
+        const semanticKey = toCamelCase(enSubRaw)
         // Check if already collected
         if (!subRegionTerms.some(t => t.cnName === cnSubRaw)) {
           const tr: Record<string, string> = {}

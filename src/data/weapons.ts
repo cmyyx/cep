@@ -2,10 +2,10 @@ import type { Weapon } from '@/types/matrix'
 
 export const weapons: Weapon[] = [
   // ===== 六星 =====
-  { id: 'preview:赤缨', name: '赤缨', rarity: 6, type: '双手剑', primaryStat: '力量提升', elementalDamage: '攻击提升', specialAbility: '巧技', chars: ['弥弗'], source: 'preview' },
+  { id: 'wpn_claym_0017', name: '赤缨', rarity: 6, type: '双手剑', primaryStat: '力量提升', elementalDamage: '攻击提升', specialAbility: '巧技', chars: ['弥弗'], },
   { id: 'preview:镀红祝福', name: '镀红祝福', rarity: 6, type: '长柄武器', primaryStat: '敏捷提升', elementalDamage: '灼热伤害提升', specialAbility: '流转', chars: ['卡缪'], source: 'preview' },
-  { id: 'preview:幻想苦痛', name: '幻想苦痛', rarity: 6, type: '双手剑', primaryStat: '力量提升', elementalDamage: '源石技艺提升', specialAbility: '压制', chars: [], source: 'preview' },
-  { id: 'preview:灯火使命', name: '灯火使命', rarity: 6, type: '长柄武器', primaryStat: '敏捷提升', elementalDamage: '终结技充能效率提升', specialAbility: '效益', chars: [], source: 'preview' },
+  { id: 'wpn_claym_0016', name: '幻想苦痛', rarity: 6, type: '双手剑', primaryStat: '力量提升', elementalDamage: '源石技艺提升', specialAbility: '压制', chars: [], },
+  { id: 'wpn_lance_0007', name: '灯火使命', rarity: 6, type: '长柄武器', primaryStat: '敏捷提升', elementalDamage: '终结技充能效率提升', specialAbility: '效益', chars: [], },
   { id: 'wpn_funnel_0017', name: '雾中微光', rarity: 6, type: '施术单元', primaryStat: '意志提升', elementalDamage: '电磁伤害提升', specialAbility: '效益', chars: [] },
   { id: 'wpn_funnel_0015', name: '孤舟', rarity: 6, type: '施术单元', primaryStat: '意志提升', elementalDamage: '攻击提升', specialAbility: '压制', chars: ['庄方宜'] },
   { id: 'wpn_pistol_0007', name: '望乡', rarity: 6, type: '手铳', primaryStat: '敏捷提升', elementalDamage: '寒冷伤害提升', specialAbility: '压制', chars: [] },

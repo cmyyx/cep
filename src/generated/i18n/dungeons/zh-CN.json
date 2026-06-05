@@ -1,10 +1,11 @@
 {
   "world_energy_point_group01": "四号谷地·枢纽区",
-  "world_energy_point_group02": "四号谷地·源石研究园",
   "world_energy_point_group03": "四号谷地·矿脉源区",
-  "world_energy_point_group05": "武陵·武陵城",
-  "world_energy_point_group04": "四号谷地·供能高地",
-  "world_energy_point_group08": "武陵·试验园区",
   "world_energy_point_group06": "武陵·清波寨",
+  "world_energy_point_group02": "四号谷地·源石研究园",
+  "world_energy_point_group08": "武陵·试验园区",
+  "world_energy_point_group04": "四号谷地·供能高地",
+  "world_energy_point_group09": "武陵·藏剑谷",
+  "world_energy_point_group05": "武陵·武陵城",
   "world_energy_point_group07": "武陵·首墩"
 }

@@ -6,9 +6,9 @@
 
 | 仓库 | 用途 | 路径示例 |
 |------|------|---------|
-| AKEData | 武器/装备/角色/副本条目 + 属性数据 | `output/CN/weapon/`, `TableCfg/` |
-| EndFieldTranslationReferrer | TextTable 多语言翻译（EN/JP/KR/TC） | `i18n/I18nTextTable_{locale}.json` |
-| AKEDatabase | 武器/装备图标 PNG | `public/images/` |
+| [AKEData](https://github.com/cmyyx/AKEData) (fork) | 武器/装备/角色/副本条目 + 属性数据 | `output/CN/weapon/`, `TableCfg/` |
+| [EndFieldTranslationReferrer](https://github.com/SusieGlitter/EndFieldTranslationReferrer) | TextTable 多语言翻译（EN/JP/KR/TC） | `i18n/I18nTextTable_{locale}.json` |
+| [AKEDatabase](https://github.com/NagiYume/AKEDatabase) | 武器/装备数据（主要来源）+ 图标 PNG | `public/CH/weapon/`, `public/CH/equip/` |
 
 ## 环境准备
 
@@ -162,8 +162,8 @@ t(key)                                  // → "四号谷地" / "Valley IV"
 - **Sync 阶段**：有变更时运行 `sync:update`，自动创建 PR
 
 **需要配置**：
-- GitHub Secrets → `AKEDATA_PAT`（有权访问私有上游仓库的 Personal Access Token）
-- workflow 中的 `owner/AKEData` 替换为实际仓库路径
+- GitHub Secrets → `GH_FORK_SYNC_TOKEN`（有权访问私有 AKEData fork 的 Personal Access Token）
+- AKEDatabase 和 EndFieldTranslationReferrer 为公开仓库，无须认证
 
 ## 脚本目录结构
 
