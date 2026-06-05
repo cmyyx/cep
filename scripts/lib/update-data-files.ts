@@ -37,6 +37,7 @@ interface V2EquipData {
     list: { suitName: { text: string } }[]
   }
   equiptable: Record<string, {
+    partType: number
     displayAttrModifiers: DisplayAttrModifier[]
     displayBaseAttrModifier: DisplayAttrModifier
   }>
@@ -57,6 +58,13 @@ const WEAPON_TYPE_MAP: Record<number, string> = {
   3: '双手剑',
   4: '施术单元',
   5: '长柄武器',
+}
+
+/** Map upstream partType → Chinese equip slot label. */
+const PART_TYPE_MAP: Record<number, string> = {
+  0: '护甲',
+  1: '护手',
+  2: '配件',
 }
 
 // ── Blackboard key → gemTermId suffix mapping ────────────────────────────
@@ -417,7 +425,7 @@ export function updateEquipsFile(
       // Add to RAW_EQUIPS (with set info for grouped insertion)
       newRawEquipEntries.push({
         set: suitName,
-        line: `  { name: '${equipName}', set: '${suitName}', rarity: 5, type: '配件', sub1: '${sub1}', sub2: '${sub2}', special: '${special}', material: '${material}' }`,
+        line: `  { name: '${equipName}', set: '${suitName}', rarity: 5, type: '${PART_TYPE_MAP[equipData.partType] ?? '配件'}', sub1: '${sub1}', sub2: '${sub2}', special: '${special}', material: '${material}' }`,
       })
     }
   }

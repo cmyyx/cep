@@ -67,12 +67,12 @@ export const FilterChip = memo(function FilterChip({
             onClick={onToggle}
             aria-pressed={isSelected}
             className={cn(
-              'w-full px-1 py-0.5 rounded text-[11px] text-center border transition-colors bg-muted/60 h-auto min-h-0 min-w-0',
-              isSelected && 'bg-primary text-primary-foreground border-primary',
-              !isSelected && isValid && 'border-border hover:border-foreground/40 hover:bg-muted/80',
+              'w-full px-1 py-0.5 rounded text-[11px] text-center transition-colors bg-muted/60 h-auto min-h-0 min-w-0 shadow-[0_0_0_1px_rgba(0,0,0,0.08)]',
+              isSelected && 'bg-primary text-primary-foreground shadow-[0_0_0_1px_var(--color-primary)]',
+              !isSelected && isValid && 'hover:shadow-[0_0_0_1px_rgba(23,23,23,0.4)] hover:bg-muted/80',
               !isValid &&
                 !isSelected &&
-                'border-border/60 text-muted-foreground/40 line-through cursor-not-allowed',
+                'shadow-[0_0_0_1px_rgba(0,0,0,0.05)] text-muted-foreground/40 line-through cursor-not-allowed',
             )}
           />
         }
@@ -81,12 +81,12 @@ export const FilterChip = memo(function FilterChip({
         <span ref={visibleRef} className="truncate min-w-0">
           {displayText}
         </span>
-        {/* Hidden measurement copy: identical font, no clipping, out of flow */}
+        {/* Hidden measurement copy: identical font (inherited from parent),
+            no clipping, out of flow */}
         <span
           ref={measureRef}
           aria-hidden="true"
           className="absolute invisible whitespace-nowrap pointer-events-none"
-          style={{ font: 'inherit' }}
         >
           {displayText}
         </span>
