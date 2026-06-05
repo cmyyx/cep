@@ -1,8 +1,11 @@
-// Generates dungeon (Energy Alluvium) i18n from upstream game data.
+// Generates dungeon (Energy Alluvium) and region i18n from upstream game data.
+//
+// Stat/gem i18n (weaponStats, gemStats, equipStats) is generated separately
+// by generate-stat-i18n.ts.
+//
 // Sources:
 //   - WorldEnergyPointGroupTable.json -> group definitions, term pools, gemCustomItemId
 //   - WorldEnergyPointTable.json    -> per-level names (gameName.id)
-//   - GemTable.json                 -> gem term display names (tagName.id -> TextTable)
 //   - TextTable files              -> multi-language translations
 //
 // Uses raw regex extraction (not JSON.parse) for all int64 text ID fields

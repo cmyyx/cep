@@ -100,7 +100,7 @@ export const SlotRecommendationCard = memo(function SlotRecommendationCard({
         {topValueDisplay && (
           <span className="text-xs font-medium text-muted-foreground shrink-0">
             {targetAttr
-              ? `${t("equipStats." + targetAttr.key)}+${targetAttr.value}${targetAttr.unit}`
+              ? `${t('equipStats.' + targetAttr.key)}+${targetAttr.value}${targetAttr.unit}`
               : topValueDisplay}
           </span>
         )}

@@ -117,7 +117,7 @@ export const RefinementPanel = memo(function RefinementPanel() {
                       {t('refinement.subAttr2')}
                     </span>
                     <span className="font-medium">
-                      {selected.sub2 ? `${t("equipStats." + selected.sub2.key)}+${selected.sub2.value}${selected.sub2.unit}` : t('refinement.none')}
+                      {selected.sub2 ? `${t('equipStats.' + selected.sub2.key)}+${selected.sub2.value}${selected.sub2.unit}` : t('refinement.none')}
                     </span>
                   </div>
                   <div className="flex items-center gap-2">
@@ -125,7 +125,7 @@ export const RefinementPanel = memo(function RefinementPanel() {
                       {t('refinement.specialEffect')}
                     </span>
                     <span className="font-medium">
-                      {selected.special ? `${t("equipStats." + selected.special.key)}+${selected.special.value}${selected.special.unit}` : t('refinement.none')}
+                      {selected.special ? `${t('equipStats.' + selected.special.key)}+${selected.special.value}${selected.special.unit}` : t('refinement.none')}
                     </span>
                   </div>
                   <div className="flex items-center gap-2 mt-0.5">

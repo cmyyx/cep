@@ -10,31 +10,10 @@
 
 import { existsSync, readFileSync, readdirSync, mkdirSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
-import { parse as parseLossless } from 'lossless-json'
+import { parseJsonSafe } from './json-utils'
 
 const SUPPORTED_LOCALES = ['zh-CN', 'en', 'ja', 'zh-TW'] as const
 const TEXTTABLE_SUFFIX: Record<string, string> = { 'zh-CN': 'CN', 'zh-TW': 'TC', 'en': 'EN', 'ja': 'JP' }
-
-// ── Lossless JSON parsing (int64-safe) ───────────────────────────────────
-
-function convertLosslessToPlain(value: unknown): unknown {
-  if (value === null || value === undefined) return value
-  if (typeof value === 'object' && 'isLosslessNumber' in value) return String(value)
-  if (Array.isArray(value)) return value.map(convertLosslessToPlain)
-  if (typeof value === 'object') {
-    const result: Record<string, unknown> = {}
-    for (const [k, v] of Object.entries(value as Record<string, unknown>)) {
-      result[k] = convertLosslessToPlain(v)
-    }
-    return result
-  }
-  return value
-}
-
-function parseJsonSafe(filePath: string): unknown {
-  const raw = readFileSync(filePath, 'utf-8')
-  return convertLosslessToPlain(parseLossless(raw))
-}
 
 // ── TextTable helpers ────────────────────────────────────────────────────
 

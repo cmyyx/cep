@@ -4,28 +4,7 @@
 
 import { existsSync, readFileSync } from 'node:fs'
 import { join } from 'node:path'
-import { parse as parseLossless } from 'lossless-json'
-
-// ── Lossless JSON parsing (int64-safe) ───────────────────────────────────
-
-function parseJsonSafe(filePath: string): unknown {
-  const raw = readFileSync(filePath, 'utf-8')
-  const parsed = parseLossless(raw)
-  function convert(value: unknown): unknown {
-    if (value === null || value === undefined) return value
-    if (typeof value === 'object' && 'isLosslessNumber' in value) return String(value)
-    if (Array.isArray(value)) return value.map(convert)
-    if (typeof value === 'object') {
-      const result: Record<string, unknown> = {}
-      for (const [k, v] of Object.entries(value as Record<string, unknown>)) {
-        result[k] = convert(v)
-      }
-      return result
-    }
-    return value
-  }
-  return convert(parsed)
-}
+import { parseJsonSafe } from './json-utils'
 
 function loadCnTextTable(translationPath: string): Record<string, string> {
   try {
