@@ -1,12 +1,12 @@
 'use client'
 
-import { memo, useState, useRef, useMemo, useCallback, useEffect } from 'react'
+import { memo, useMemo, useCallback, useEffect } from 'react'
 import { useTranslations } from 'next-intl'
 import { cn } from '@/lib/utils'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
-import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
 
+import { FilterChip } from '@/components/shared/filter-chip'
 import { WeaponCard } from './weapon-card'
 import { weapons as staticWeapons } from '@/data/weapons'
 import { useMatrixStore } from '@/stores/useMatrixStore'
@@ -38,69 +38,7 @@ const ATTR_LABEL_KEYS: Record<AttrKey, string> = {
   specialAbility: 'essence.attrSpecial',
 }
 
-const FilterChip = memo(function FilterChip({
-  value,
-  label,
-  isValid,
-  isSelected,
-  onToggle,
-}: {
-  value: string
-  label?: string
-  isValid: boolean
-  isSelected: boolean
-  onToggle: () => void
-}) {
-  const spanRef = useRef<HTMLSpanElement>(null)
-  const [tooltipOpen, setTooltipOpen] = useState(false)
 
-  const handleOpenChange = useCallback(
-    (open: boolean) => {
-      // Suppress tooltip when text fits without truncation.
-      // Range.getBoundingClientRect() provides sub-pixel precision, avoiding
-      // the 1px rounding false negatives that scrollWidth/clientWidth suffer from.
-      if (open && spanRef.current) {
-        const range = document.createRange()
-        range.selectNodeContents(spanRef.current)
-        const textWidth = range.getBoundingClientRect().width
-        range.detach()
-        if (textWidth <= spanRef.current.getBoundingClientRect().width) {
-          return
-        }
-      }
-      setTooltipOpen(open)
-    },
-    [],
-  )
-
-  return (
-    <Tooltip open={tooltipOpen} onOpenChange={handleOpenChange}>
-      <TooltipTrigger
-        render={
-          <Button
-            type="button"
-            variant="ghost"
-            size="xs"
-            disabled={!isValid && !isSelected}
-            onClick={onToggle}
-            aria-pressed={isSelected}
-            className={cn(
-              'w-full px-1 py-0.5 rounded text-[11px] text-center border transition-colors bg-muted/60 h-auto min-h-0 min-w-0',
-              isSelected && 'bg-primary text-primary-foreground border-primary',
-              !isSelected && isValid && 'border-border hover:border-foreground/40 hover:bg-muted/80',
-              !isValid && !isSelected && 'border-border/60 text-muted-foreground/40 line-through cursor-not-allowed',
-            )}
-          />
-        }
-      >
-        <span ref={spanRef} className="truncate min-w-0">{label ?? value}</span>
-      </TooltipTrigger>
-      <TooltipContent side="top" className="text-xs">
-        {label ?? value}
-      </TooltipContent>
-    </Tooltip>
-  )
-})
 
 function attrFiltersToSets(record: Record<string, string[]>): Record<AttrKey, Set<string>> {
   return {

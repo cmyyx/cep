@@ -4,7 +4,7 @@
 
 import { existsSync, readFileSync, readdirSync, mkdirSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
-import { buildGemTableLookup, loadTextTable } from './stat-mapping'
+import { buildGemTableLookup } from './stat-mapping'
 
 const SUPPORTED_LOCALES = ['zh-CN', 'en', 'ja', 'zh-TW'] as const
 

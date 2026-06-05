@@ -9,7 +9,7 @@ import { fileURLToPath } from 'node:url'
 
 const root = resolve(fileURLToPath(import.meta.url), '..', '..')
 
-function fail(msg: string): never {
+function fail(msg) {
   console.error(msg)
   process.exit(1)
 }
@@ -21,8 +21,8 @@ const weaponsContent = readFileSync(weaponsTsPath, 'utf-8')
 
 // Extract weapon IDs: id: 'wpn_xxx'
 const weaponIdRe = /id:\s*'(wpn_[^']+)'/g
-let m: RegExpExecArray | null
-const missingWeaponImages: string[] = []
+let m
+const missingWeaponImages = []
 while ((m = weaponIdRe.exec(weaponsContent)) !== null) {
   const weaponId = m[1]
   if (weaponId.startsWith('preview:')) continue
@@ -39,7 +39,7 @@ const equipsContent = readFileSync(equipsTsPath, 'utf-8')
 
 // Extract EQUIP_ID_MAP values: 'name': 'item_equip_xxx'
 const equipIdRe = /':\s*'(item_equip_[^']+)'/g
-const missingEquipImages: string[] = []
+const missingEquipImages = []
 while ((m = equipIdRe.exec(equipsContent)) !== null) {
   const equipId = m[1]
   const avifPath = join(root, 'public', 'images', 'equip', `${equipId}.avif`)

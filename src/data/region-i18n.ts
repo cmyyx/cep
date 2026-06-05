@@ -16,6 +16,11 @@ import regionZhCn from '@/generated/i18n/regions/zh-CN.json'
 const REVERSE_MAP: Record<string, string> = {}
 for (const [key, cnName] of Object.entries(regionZhCn)) {
   if (typeof cnName === 'string') {
+    if (REVERSE_MAP[cnName] !== undefined && REVERSE_MAP[cnName] !== key) {
+      console.warn(
+        `[region-i18n] Duplicate CN name "${cnName}": existing key "${REVERSE_MAP[cnName]}", new key "${key}" — overwriting`,
+      )
+    }
     REVERSE_MAP[cnName] = key
   }
 }

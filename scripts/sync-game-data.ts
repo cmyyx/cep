@@ -75,7 +75,8 @@ function updatePreviewWeapons(
     // Remove source: 'preview' from updated weapons
     for (const { formalId } of updatable) {
       // Match the line containing id: 'wpn_xxx' and remove source: 'preview'
-      const lineRe = new RegExp(`(id:\\s*'${formalId}'[^}]*?)source:\\s*'preview',?\\s*`, 'g')
+      const escapedFormalId = formalId.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+      const lineRe = new RegExp(`(id:\\s*'${escapedFormalId}'[^}]*?)source:\\s*'preview',?\\s*`, 'g')
       updatedContent = updatedContent.replace(lineRe, '$1')
     }
     writeFileSync(weaponsTsPath, updatedContent, 'utf-8')

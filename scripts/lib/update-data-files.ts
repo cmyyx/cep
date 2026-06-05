@@ -447,22 +447,6 @@ export function updateDungeonsFile(
   const content = readFileSync(dungeonsTsPath, 'utf-8')
   const textTables = loadTextTable(translationPath, 'zh-CN')
 
-  // Load GemTable for gemTermId → Chinese name mapping (with lossless parsing)
-  const gemTablePath = join(akedataPath, 'TableCfg', 'GemTable.json')
-  const gemTable = existsSync(gemTablePath)
-    ? parseJsonSafe(gemTablePath)
-    : {}
-
-  // Build gemTermId → Chinese name mapping
-  const gemTermToCnName = new Map<string, string>()
-  for (const [gemTermId, gemData] of Object.entries(gemTable as Record<string, unknown>)) {
-    const data = gemData as Record<string, unknown>
-    const tagName = data.tagName as Record<string, unknown> | undefined
-    if (!tagName?.id) continue
-    const cnName = textTables[String(tagName.id)]
-    if (cnName) gemTermToCnName.set(gemTermId, cnName)
-  }
-
   // Load group table
   const groupTablePath = join(akedataPath, 'TableCfg', 'WorldEnergyPointGroupTable.json')
   const groupTable = existsSync(groupTablePath)

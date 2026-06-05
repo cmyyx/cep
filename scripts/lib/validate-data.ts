@@ -123,6 +123,27 @@ export function validateWeapons(
     }
 
     // Compare
+    if (upstreamPrimaryStat && upstreamPrimaryStat !== projectWeapon.primaryStat) {
+      issues.push({ category: 'weapon', id: weaponId, field: 'primaryStat', expected: upstreamPrimaryStat, actual: projectWeapon.primaryStat || '<empty>' })
+    } else if (!upstreamPrimaryStat && projectWeapon.primaryStat) {
+      issues.push({ category: 'weapon', id: weaponId, field: 'primaryStat', expected: '<empty>', actual: projectWeapon.primaryStat })
+    } else if (upstreamPrimaryStat && !projectWeapon.primaryStat) {
+      issues.push({ category: 'weapon', id: weaponId, field: 'primaryStat', expected: upstreamPrimaryStat, actual: '<empty>' })
+    }
+    if (upstreamElementalDamage && upstreamElementalDamage !== projectWeapon.elementalDamage) {
+      issues.push({ category: 'weapon', id: weaponId, field: 'elementalDamage', expected: upstreamElementalDamage, actual: projectWeapon.elementalDamage || '<empty>' })
+    } else if (!upstreamElementalDamage && projectWeapon.elementalDamage) {
+      issues.push({ category: 'weapon', id: weaponId, field: 'elementalDamage', expected: '<empty>', actual: projectWeapon.elementalDamage })
+    } else if (upstreamElementalDamage && !projectWeapon.elementalDamage) {
+      issues.push({ category: 'weapon', id: weaponId, field: 'elementalDamage', expected: upstreamElementalDamage, actual: '<empty>' })
+    }
+    if (upstreamSpecialAbility && upstreamSpecialAbility !== projectWeapon.specialAbility) {
+      issues.push({ category: 'weapon', id: weaponId, field: 'specialAbility', expected: upstreamSpecialAbility, actual: projectWeapon.specialAbility || '<empty>' })
+    } else if (!upstreamSpecialAbility && projectWeapon.specialAbility) {
+      issues.push({ category: 'weapon', id: weaponId, field: 'specialAbility', expected: '<empty>', actual: projectWeapon.specialAbility })
+    } else if (upstreamSpecialAbility && !projectWeapon.specialAbility) {
+      issues.push({ category: 'weapon', id: weaponId, field: 'specialAbility', expected: upstreamSpecialAbility, actual: '<empty>' })
+    }
   }
 
   return issues

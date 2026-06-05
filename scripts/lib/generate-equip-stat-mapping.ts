@@ -28,6 +28,7 @@ export function generateEquipStatMapping(
   ]
 
   let count = 0
+  const seen = new Set<string>()
 
   // AttributeShowConfigTable: CN name → attrType
   const attrCfgPath = join(akedataPath, 'TableCfg', 'AttributeShowConfigTable.json')
@@ -37,8 +38,12 @@ export function generateEquipStatMapping(
       if (!data.list?.[0]?.name?.id) continue
       const cn = tt[data.list[0].name.id]
       if (cn) {
-        lines.push(`  '${cn}': '${attrType}',`)
-        count++
+        const line = `  ${JSON.stringify(cn)}: ${JSON.stringify(attrType)},`
+        if (!seen.has(line)) {
+          seen.add(line)
+          lines.push(line)
+          count++
+        }
       }
     }
   }
@@ -50,9 +55,13 @@ export function generateEquipStatMapping(
     for (const [compositeAttr, data] of Object.entries(cfg)) {
       if (!data.list?.[0]?.name?.id) continue
       const cn = tt[data.list[0].name.id]
-      if (cn && !lines.some(l => l.includes(`'${cn}':`))) {
-        lines.push(`  '${cn}': '${compositeAttr}',`)
-        count++
+      if (cn) {
+        const line = `  ${JSON.stringify(cn)}: ${JSON.stringify(compositeAttr)},`
+        if (!seen.has(line)) {
+          seen.add(line)
+          lines.push(line)
+          count++
+        }
       }
     }
   }

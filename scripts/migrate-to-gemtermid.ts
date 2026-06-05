@@ -1,4 +1,4 @@
-#!/usr/bin/env npx tsx
+#!/usr/bin/env -S npx tsx
 // One-shot migration: replace CN stat names in weapons.ts / dungeons.ts with gemTermId.
 // Builds mapping from upstream GemTable → TextTable CN, with explicit overrides
 // for the 2 weapon skillNames that diverge from GemTable naming.

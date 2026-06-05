@@ -84,6 +84,10 @@ export function generateWeaponStatMapping(
       const suffix = BLACKBOARD_TO_GEM_SUFFIX[bbKey]
       if (suffix) {
         mapping[baseName] = `gat_passive_attr_${suffix}`
+      } else {
+        // Blackboard key unknown — fall back to CN name lookup in GemTable
+        const gemId = cnToGem.get(baseName)
+        if (gemId) mapping[baseName] = gemId
       }
     }
   }

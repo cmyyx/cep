@@ -272,11 +272,11 @@ const RAW_EQUIPS: RawEquip[] = [
   { name: '点剑重装甲·壹型', set: '点剑', rarity: 5, type: '护甲', sub1: '40+87', sub2: '39+58', special: '50+11.5%', material: '赫铜装备原件' },
   { name: '点剑战术手甲·壹型', set: '点剑', rarity: 5, type: '护手', sub1: '39+65', sub2: '42+43', special: '87+34', material: '赫铜装备原件' },
   { name: '点剑短刃', set: '点剑', rarity: 5, type: '配件', sub1: '40+32', sub2: '39+21', special: '28+51.8%', material: '赫铜装备原件' },
-  { name: '点剑纤维护甲', set: '点剑', rarity: 5, type: '配件', sub1: '39+87', sub2: '42+58', special: '50+11.5%', material: '赫铜装备原件' },
-  { name: '旧锋装甲', set: '旧锋', rarity: 5, type: '配件', sub1: '39+87', sub2: '42+58', special: '50+11.5%', material: '赫铜装备原件' },
-  { name: '旧锋装甲·壹型', set: '旧锋', rarity: 5, type: '配件', sub1: '40+87', sub2: '39+58', special: '87+21', material: '赫铜装备原件' },
-  { name: '旧锋手甲', set: '旧锋', rarity: 5, type: '配件', sub1: '39+65', sub2: '42+43', special: '87+35', material: '赫铜装备原件' },
-  { name: '旧锋手甲·壹型', set: '旧锋', rarity: 5, type: '配件', sub1: '40+65', sub2: '39+43', special: '87+35', material: '赫铜装备原件' },
+  { name: '点剑纤维护甲', set: '点剑', rarity: 5, type: '护甲', sub1: '39+87', sub2: '42+58', special: '50+11.5%', material: '赫铜装备原件' },
+  { name: '旧锋装甲', set: '旧锋', rarity: 5, type: '护甲', sub1: '39+87', sub2: '42+58', special: '50+11.5%', material: '赫铜装备原件' },
+  { name: '旧锋装甲·壹型', set: '旧锋', rarity: 5, type: '护甲', sub1: '40+87', sub2: '39+58', special: '87+21', material: '赫铜装备原件' },
+  { name: '旧锋手甲', set: '旧锋', rarity: 5, type: '护手', sub1: '39+65', sub2: '42+43', special: '87+35', material: '赫铜装备原件' },
+  { name: '旧锋手甲·壹型', set: '旧锋', rarity: 5, type: '护手', sub1: '40+65', sub2: '39+43', special: '87+35', material: '赫铜装备原件' },
   { name: '旧锋刺刃', set: '旧锋', rarity: 5, type: '配件', sub1: '39+32', sub2: '42+21', special: '50+23.0%', material: '赫铜装备原件' },
   { name: '旧锋刺刃·壹型', set: '旧锋', rarity: 5, type: '配件', sub1: '40+32', sub2: '39+21', special: '50+23.0%', material: '赫铜装备原件' }
 ]
