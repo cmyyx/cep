@@ -49,7 +49,7 @@ export const bannerSchedule: BannerSchedule = {
   },
   卡缪: {
     windows: [
-      { start: '2026-06-26T12:00:00+08:00', end: '2026-07-17T12:00:00+08:00', version: '1.3', period: 8, isRerun: false },
+      { start: '2026-06-26T12:00:00+08:00', end: '2026-07-16T12:00:00+08:00', version: '1.3', period: 8, isRerun: false },
     ],
   },
 }

@@ -13,7 +13,7 @@ import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip
 import { Checkbox } from '@/components/ui/checkbox'
 import { ChevronDown, Check } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { resolveStatI18nKey } from '@/data/stat-i18n-map'
+
 import { computeEffectiveS1 } from '@/lib/planner/s1-utils'
 import { useIsMobile } from '@/hooks/use-mobile'
 
@@ -221,9 +221,9 @@ const WeaponThumbnail = memo(function WeaponThumbnail({
           {weaponName}
         </p>
         <p className="text-muted-foreground/80">
-          {t(resolveStatI18nKey(weapon.primaryStat) ?? weapon.primaryStat)} |{' '}
-          {t(resolveStatI18nKey(weapon.elementalDamage) ?? weapon.elementalDamage)} |{' '}
-          {t(resolveStatI18nKey(weapon.specialAbility) ?? weapon.specialAbility)}
+          {t('weaponStats.' + weapon.primaryStat)} |{' '}
+          {t('weaponStats.' + weapon.elementalDamage)} |{' '}
+          {t('weaponStats.' + weapon.specialAbility)}
         </p>
       </TooltipContent>
     </Tooltip>
@@ -289,9 +289,9 @@ const WeaponRow = memo(function WeaponRow({
             className="text-xs text-muted-foreground min-w-0 truncate shrink-0"
             style={{ width: 'var(--max-attr-width)' } as React.CSSProperties}
           >
-            {t(resolveStatI18nKey(weapon.primaryStat) ?? weapon.primaryStat)} |{' '}
-            {t(resolveStatI18nKey(weapon.elementalDamage) ?? weapon.elementalDamage)} |{' '}
-            {t(resolveStatI18nKey(weapon.specialAbility) ?? weapon.specialAbility)}
+            {t('weaponStats.' + weapon.primaryStat)} |{' '}
+            {t('weaponStats.' + weapon.elementalDamage)} |{' '}
+            {t('weaponStats.' + weapon.specialAbility)}
           </span>
           {(showOwnership || onNoteChange || (note && !onNoteChange)) && (
             <div className="flex items-center gap-1 flex-shrink-0">
@@ -344,9 +344,9 @@ const WeaponRow = memo(function WeaponRow({
       {fallbackLevel === 1 && (
         <>
           <span className="text-xs text-muted-foreground min-w-0 truncate">
-            {t(resolveStatI18nKey(weapon.primaryStat) ?? weapon.primaryStat)} |{' '}
-            {t(resolveStatI18nKey(weapon.elementalDamage) ?? weapon.elementalDamage)} |{' '}
-            {t(resolveStatI18nKey(weapon.specialAbility) ?? weapon.specialAbility)}
+            {t('weaponStats.' + weapon.primaryStat)} |{' '}
+            {t('weaponStats.' + weapon.elementalDamage)} |{' '}
+            {t('weaponStats.' + weapon.specialAbility)}
           </span>
           <div className="basis-full flex-shrink-0 flex items-center gap-x-3">
             {(showOwnership || onNoteChange || (note && !onNoteChange)) && (
@@ -401,9 +401,9 @@ const WeaponRow = memo(function WeaponRow({
       {fallbackLevel === 2 && (
         <div className="basis-full flex-shrink-0 flex flex-col gap-y-1">
           <span className="text-xs text-muted-foreground min-w-0 truncate">
-            {t(resolveStatI18nKey(weapon.primaryStat) ?? weapon.primaryStat)} |{' '}
-            {t(resolveStatI18nKey(weapon.elementalDamage) ?? weapon.elementalDamage)} |{' '}
-            {t(resolveStatI18nKey(weapon.specialAbility) ?? weapon.specialAbility)}
+            {t('weaponStats.' + weapon.primaryStat)} |{' '}
+            {t('weaponStats.' + weapon.elementalDamage)} |{' '}
+            {t('weaponStats.' + weapon.specialAbility)}
           </span>
           <div className="flex items-center gap-x-3">
             {(showOwnership || onNoteChange || (note && !onNoteChange)) && (
@@ -652,7 +652,7 @@ export const DungeonCard = memo(function DungeonCard({
           {t('essence.primaryStatLabel')}: [
           {effectiveS1.map((s, i) => (
             <span key={s}>
-              <strong className="text-foreground">{t(resolveStatI18nKey(s) ?? s)}</strong>
+              <strong className="text-foreground">{t('gemStats.' + s)}</strong>
               {i < effectiveS1.length - 1 ? ', ' : ''}
             </span>
           ))}
@@ -661,7 +661,7 @@ export const DungeonCard = memo(function DungeonCard({
         <span className="text-muted-foreground/50">|</span>
         <span>
           {lockLabel}:{' '}
-          <strong className="text-foreground">{t(resolveStatI18nKey(plan.lockValue) ?? plan.lockValue)}</strong>
+          <strong className="text-foreground">{t('gemStats.' + plan.lockValue)}</strong>
         </span>
       </div>
 
@@ -705,7 +705,7 @@ export const DungeonCard = memo(function DungeonCard({
                         )
                       }}
                     />
-                    {t(resolveStatI18nKey(s1) ?? s1)} ({t('essence.weaponCount', { count: wCount })})
+                    {t('gemStats.' + s1)} ({t('essence.weaponCount', { count: wCount })})
                   </label>
                 )
               })}
@@ -770,9 +770,9 @@ export const DungeonCard = memo(function DungeonCard({
                   <span className="font-medium min-w-0 truncate w-28 flex-shrink-0">{weaponName}</span>
                 </div>
                 <span className="text-xs text-muted-foreground min-w-0">
-                  {t(resolveStatI18nKey(weapon.primaryStat) ?? weapon.primaryStat)} |{' '}
-                  {t(resolveStatI18nKey(weapon.elementalDamage) ?? weapon.elementalDamage)} |{' '}
-                  {t(resolveStatI18nKey(weapon.specialAbility) ?? weapon.specialAbility)}
+                  {t('weaponStats.' + weapon.primaryStat)} |{' '}
+                  {t('weaponStats.' + weapon.elementalDamage)} |{' '}
+                  {t('weaponStats.' + weapon.specialAbility)}
                 </span>
                 {(showOwnership || showNotes) && (
                   <div className="flex items-center gap-1 flex-shrink-0">

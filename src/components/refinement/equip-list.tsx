@@ -1,13 +1,12 @@
 'use client'
 
-import { memo, useMemo, useCallback, useState, useRef } from 'react'
+import { memo, useMemo } from 'react'
 import { useTranslations } from 'next-intl'
 import { ChevronDown } from 'lucide-react'
 import { cn } from '@/lib/utils'
-import { resolveStatI18nKey } from '@/data/stat-i18n-map'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
-import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
+import { FilterChip } from '@/components/shared/filter-chip'
 import { EquipSetGroup } from './equip-set-group'
 import { useRefinementStore, useGroupedSets } from '@/stores/useRefinementStore'
 import {
@@ -17,61 +16,6 @@ import {
 } from '@/data/equips'
 
 type FilterGroup = 'sub1' | 'sub2' | 'special'
-
-interface FilterChipProps {
-  value: string
-  isSelected: boolean
-  onToggle: () => void
-}
-
-const FilterChip = memo(function FilterChip({
-  value,
-  isSelected,
-  onToggle,
-}: FilterChipProps) {
-  const t = useTranslations()
-  const display = t(resolveStatI18nKey(value) ?? value) ?? value
-  const spanRef = useRef<HTMLSpanElement>(null)
-  const [tooltipOpen, setTooltipOpen] = useState(false)
-
-  const handleOpenChange = useCallback(
-    (open: boolean) => {
-      if (open && spanRef.current && spanRef.current.scrollWidth <= spanRef.current.clientWidth) {
-        return
-      }
-      setTooltipOpen(open)
-    },
-    [],
-  )
-
-  return (
-    <Tooltip open={tooltipOpen} onOpenChange={handleOpenChange}>
-      <TooltipTrigger
-        render={
-          <Button
-            type="button"
-            variant="ghost"
-            size="xs"
-            onClick={onToggle}
-            aria-pressed={isSelected}
-            className={cn(
-              'w-full px-1 py-0.5 rounded text-[11px] text-center border transition-colors bg-muted/60 h-auto min-h-0 min-w-0',
-              isSelected &&
-                'bg-primary text-primary-foreground border-primary',
-              !isSelected &&
-                'border-border hover:border-foreground/40 hover:bg-muted/80',
-            )}
-          />
-        }
-      >
-        <span ref={spanRef} className="truncate min-w-0">{display}</span>
-      </TooltipTrigger>
-      <TooltipContent side="top" className="text-xs">
-        {display}
-      </TooltipContent>
-    </Tooltip>
-  )
-})
 
 const REFINEMENT_FILTER_GROUPS: { filterKey: FilterGroup; labelKey: string; options: string[] }[] = [
   { filterKey: 'sub1', labelKey: 'refinement.subAttr1', options: sub1StatOptions },
@@ -159,14 +103,19 @@ export const EquipList = memo(function EquipList() {
                       {t(labelKey)}
                     </span>
                     <div className={isSpecial ? 'grid grid-cols-[repeat(auto-fill,minmax(7rem,1fr))] gap-1' : 'grid grid-cols-[repeat(auto-fill,minmax(5.5rem,1fr))] gap-1'}>
-                      {options.map((v) => (
-                        <FilterChip
-                          key={v}
-                          value={v}
-                          isSelected={selected.includes(v)}
-                          onToggle={() => toggleFilter(filterKey, v)}
-                        />
-                      ))}
+                      {options.map((v) => {
+                        const isSelected = selected.includes(v)
+                        return (
+                          <FilterChip
+                            key={v}
+                            value={v}
+                            label={t('equipStats.' + v)}
+                            isValid={true}
+                            isSelected={isSelected}
+                            onToggle={() => toggleFilter(filterKey, v)}
+                          />
+                        )
+                      })}
                     </div>
                   </div>
                 )

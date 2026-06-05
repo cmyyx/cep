@@ -27,10 +27,17 @@ export interface EquipCompareResult {
 export function compareEquips(
   akedataPath: string,
   projectEquipsTsPath: string,
+  imagedbPath?: string,
 ): EquipCompareResult {
-  const equipDir = join(akedataPath, 'output', 'CN', 'equip')
-  if (!existsSync(equipDir)) {
-    console.warn('  [equips] AKEData output/CN/equip not found')
+  // Primary source: AKEDatabase/public/CH/equip/ (always most up-to-date)
+  // Fallback: AKEData/output/CN/equip/
+  const primaryDir = imagedbPath ? join(imagedbPath, 'public', 'CH', 'equip') : null
+  const fallbackDir = join(akedataPath, 'output', 'CN', 'equip')
+  const equipDir = primaryDir && existsSync(primaryDir) ? primaryDir
+    : existsSync(fallbackDir) ? fallbackDir
+    : null
+  if (!equipDir) {
+    console.warn('  [equips] equip dir not found')
     return { entries: [], newCount: 0, i18nEntries: [] }
   }
 
@@ -48,6 +55,8 @@ export function compareEquips(
     const suitData = JSON.parse(readFileSync(join(equipDir, file), 'utf-8'))
     const suitId: string = suitData.suitID ?? file.replace('.json', '')
     const suitName: string = suitData['套组名称'] ?? suitId
+    // Filter out test/manual-edit entries
+    if (suitName.includes('手动编辑') || suitName.includes('手动')) continue
     const equipMap = suitData.equip as Record<string, unknown> | undefined
     if (!equipMap) continue
 
@@ -77,8 +86,12 @@ function extractProjectEquipIds(tsPath: string): Set<string> {
   if (!existsSync(tsPath)) return new Set()
   const content = readFileSync(tsPath, 'utf-8')
   const ids = new Set<string>()
-  const re = /id:\s*['"]([^'"]+)['"]/g
+  // Match id field (string literal or expression)
+  const idRe = /id:\s*['"]([^'"]+)['"]/g
   let m: RegExpExecArray | null
-  while ((m = re.exec(content)) !== null) ids.add(m[1])
+  while ((m = idRe.exec(content)) !== null) ids.add(m[1])
+  // Also match EQUIP_ID_MAP values (format: 'name': 'item_equip_xxx')
+  const mapRe = /:\s*'(item_equip_[^']+)'/g
+  while ((m = mapRe.exec(content)) !== null) ids.add(m[1])
   return ids
 }

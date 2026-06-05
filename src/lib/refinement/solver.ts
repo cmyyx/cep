@@ -23,7 +23,7 @@ function getCandidateBestMatch(
   for (const slotKey of SLOT_KEYS) {
     const slotAttr = candidate[slotKey]
     if (!slotAttr) continue
-    if (slotAttr.stat !== targetAttr.stat) continue
+    if (slotAttr.key !== targetAttr.key) continue
     if (slotAttr.unit !== targetAttr.unit) continue
     if (!Number.isFinite(slotAttr.value)) continue
     if (slotAttr.value < targetAttr.value) continue
@@ -120,7 +120,7 @@ export function buildSlotRecommendation(
 ): SlotRecommendation {
   const targetAttr = selected[slotKey]
 
-  if (!targetAttr || !targetAttr.stat || !Number.isFinite(targetAttr.value)) {
+  if (!targetAttr || !targetAttr.key || !Number.isFinite(targetAttr.value)) {
     return {
       slotKey,
       targetAttr,

@@ -22,7 +22,7 @@ import {
 import { weapons as staticWeapons } from '@/data/weapons'
 import type { Weapon } from '@/types/matrix'
 import { cn } from '@/lib/utils'
-import { resolveStatI18nKey } from '@/data/stat-i18n-map'
+
 import { ALL_PRIMARY_STATS, ALL_ELEMENTAL_DAMAGE, ALL_SPECIAL_ABILITIES } from '@/lib/essence-utils'
 
 const TYPES = [...new Set(staticWeapons.map((w) => w.type))].sort()
@@ -140,11 +140,11 @@ export function WeaponFormDialog({
             <span className="text-[10px] text-muted-foreground">{t('essence.attrPrimary')}</span>
             <Select value={primaryStat} onValueChange={(v) => v && setPrimaryStat(v)}>
               <SelectTrigger className="h-8 text-xs w-full">
-                <SelectValue>{(v: string) => t(resolveStatI18nKey(v) ?? v) ?? ''}</SelectValue>
+                <SelectValue>{(v: string) => t('weaponStats.' + v) ?? ''}</SelectValue>
               </SelectTrigger>
               <SelectContent>
                 {ALL_PRIMARY_STATS.map((opt) => (
-                  <SelectItem key={opt} value={opt}>{t(resolveStatI18nKey(opt) ?? opt)}</SelectItem>
+                  <SelectItem key={opt} value={opt}>{t('weaponStats.' + opt)}</SelectItem>
                 ))}
               </SelectContent>
             </Select>
@@ -153,11 +153,11 @@ export function WeaponFormDialog({
             <span className="text-[10px] text-muted-foreground">{t('essence.attrElemental')}</span>
             <Select value={elementalDamage} onValueChange={(v) => v && setElemental(v)}>
               <SelectTrigger className="h-8 text-xs w-full">
-                <SelectValue>{(v: string) => t(resolveStatI18nKey(v) ?? v) ?? ''}</SelectValue>
+                <SelectValue>{(v: string) => t('weaponStats.' + v) ?? ''}</SelectValue>
               </SelectTrigger>
               <SelectContent>
                 {ALL_ELEMENTAL_DAMAGE.map((opt) => (
-                  <SelectItem key={opt} value={opt}>{t(resolveStatI18nKey(opt) ?? opt)}</SelectItem>
+                  <SelectItem key={opt} value={opt}>{t('weaponStats.' + opt)}</SelectItem>
                 ))}
               </SelectContent>
             </Select>
@@ -166,11 +166,11 @@ export function WeaponFormDialog({
             <span className="text-[10px] text-muted-foreground">{t('essence.attrSpecial')}</span>
             <Select value={specialAbility} onValueChange={(v) => v && setAbility(v)}>
               <SelectTrigger className="h-8 text-xs w-full">
-                <SelectValue>{(v: string) => t(resolveStatI18nKey(v) ?? v) ?? ''}</SelectValue>
+                <SelectValue>{(v: string) => t('weaponStats.' + v) ?? ''}</SelectValue>
               </SelectTrigger>
               <SelectContent>
                 {ALL_SPECIAL_ABILITIES.map((opt) => (
-                  <SelectItem key={opt} value={opt}>{t(resolveStatI18nKey(opt) ?? opt)}</SelectItem>
+                  <SelectItem key={opt} value={opt}>{t('weaponStats.' + opt)}</SelectItem>
                 ))}
               </SelectContent>
             </Select>

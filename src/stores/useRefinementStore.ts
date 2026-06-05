@@ -192,17 +192,17 @@ export function useFilteredEquips(): Equip[] {
 
     // Sub1 stat filter
     if (sub1.length > 0) {
-      if (!e.sub1 || !sub1.includes(e.sub1.stat)) return false
+      if (!e.sub1 || !sub1.includes(e.sub1.key)) return false
     }
 
     // Sub2 stat filter
     if (sub2.length > 0) {
-      if (!e.sub2 || !sub2.includes(e.sub2.stat)) return false
+      if (!e.sub2 || !sub2.includes(e.sub2.key)) return false
     }
 
     // Special stat filter
     if (special.length > 0) {
-      if (!e.special || !special.includes(e.special.stat)) return false
+      if (!e.special || !special.includes(e.special.key)) return false
     }
 
     return true

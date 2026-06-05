@@ -13,7 +13,8 @@
     "check:i18n": "node scripts/check-i18n.mjs",
     "sync:check": "npx tsx scripts/sync-game-data.ts --check",
     "sync:update": "npx tsx scripts/sync-game-data.ts --update",
-    "sync:icons": "npx tsx scripts/convert-icons-cli.ts"
+    "sync:icons": "npx tsx scripts/convert-icons-cli.ts",
+    "note": "node scripts/new-announcement.mjs"
   },
   "dependencies": {
     "@base-ui/react": "^1.4.1",
@@ -22,6 +23,7 @@
     "@radix-ui/react-slider": "^1.3.6",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "lossless-json": "^4.3.0",
     "lucide-react": "^1.14.0",
     "next": "16.2.4",
     "next-intl": "^4.11.0",

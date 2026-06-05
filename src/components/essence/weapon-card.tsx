@@ -9,7 +9,7 @@ import { useEssenceSettingsStore } from '@/stores/useEssenceSettingsStore'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
 import { Check } from 'lucide-react'
 import { useIsMobile } from '@/hooks/use-mobile'
-import { resolveStatI18nKey } from '@/data/stat-i18n-map'
+
 import type { Weapon } from '@/types/matrix'
 
 /**
@@ -281,9 +281,9 @@ export const WeaponCard = memo(function WeaponCard({
         className="text-xs text-foreground bg-popover/95"
       >
         <p className="text-muted-foreground/80">
-          {t(resolveStatI18nKey(weapon.primaryStat) ?? weapon.primaryStat)} |{' '}
-          {t(resolveStatI18nKey(weapon.elementalDamage) ?? weapon.elementalDamage)} |{' '}
-          {t(resolveStatI18nKey(weapon.specialAbility) ?? weapon.specialAbility)}
+          {t('weaponStats.' + weapon.primaryStat)} |{' '}
+          {t('weaponStats.' + weapon.elementalDamage)} |{' '}
+          {t('weaponStats.' + weapon.specialAbility)}
         </p>
       </TooltipContent>
     </Tooltip>

@@ -20,7 +20,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "CEP 终末地规划器",
+  title: "CEP 终末地规划器（原终末地基质规划器）",
   description: "终末地规划器 — 基质规划 · 精锻规划 · 卡池日历",
   icons: {
     icon: [

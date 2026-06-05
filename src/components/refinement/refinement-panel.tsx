@@ -8,7 +8,6 @@ import { Button } from '@/components/ui/button'
 import { SlotRecommendationCard } from './slot-recommendation'
 import { useRefinementStore, useSelectedEquip, useRecommendations } from '@/stores/useRefinementStore'
 import { materialOptions } from '@/data/equips'
-import { resolveStatI18nKey } from '@/data/stat-i18n-map'
 
 // Map Chinese equip types to i18n keys
 const TYPE_TO_KEY: Record<string, string> = {
@@ -110,7 +109,7 @@ export const RefinementPanel = memo(function RefinementPanel() {
                       {t('refinement.subAttr1')}
                     </span>
                     <span className="font-medium">
-                      {selected.sub1 ? `${t(resolveStatI18nKey(selected.sub1.stat) ?? selected.sub1.stat)}+${selected.sub1.value}${selected.sub1.unit}` : t('refinement.none')}
+                      {selected.sub1 ? `${t('equipStats.' + selected.sub1.key)}+${selected.sub1.value}${selected.sub1.unit}` : t('refinement.none')}
                     </span>
                   </div>
                   <div className="flex items-center gap-2">
@@ -118,7 +117,7 @@ export const RefinementPanel = memo(function RefinementPanel() {
                       {t('refinement.subAttr2')}
                     </span>
                     <span className="font-medium">
-                      {selected.sub2 ? `${t(resolveStatI18nKey(selected.sub2.stat) ?? selected.sub2.stat)}+${selected.sub2.value}${selected.sub2.unit}` : t('refinement.none')}
+                      {selected.sub2 ? `${t('equipStats.' + selected.sub2.key)}+${selected.sub2.value}${selected.sub2.unit}` : t('refinement.none')}
                     </span>
                   </div>
                   <div className="flex items-center gap-2">
@@ -126,7 +125,7 @@ export const RefinementPanel = memo(function RefinementPanel() {
                       {t('refinement.specialEffect')}
                     </span>
                     <span className="font-medium">
-                      {selected.special ? `${t(resolveStatI18nKey(selected.special.stat) ?? selected.special.stat)}+${selected.special.value}${selected.special.unit}` : t('refinement.none')}
+                      {selected.special ? `${t('equipStats.' + selected.special.key)}+${selected.special.value}${selected.special.unit}` : t('refinement.none')}
                     </span>
                   </div>
                   <div className="flex items-center gap-2 mt-0.5">

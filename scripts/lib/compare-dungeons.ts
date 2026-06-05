@@ -23,10 +23,22 @@ export interface DungeonCompareResult {
   newCount: number
 }
 
+/** Extract dungeon IDs from project dungeons.ts file */
+function extractProjectDungeonIds(tsPath: string): Set<string> {
+  if (!existsSync(tsPath)) return new Set()
+  const content = readFileSync(tsPath, 'utf-8')
+  const ids = new Set<string>()
+  const re = /id:\s*['"]([^'"]+)['"]/g
+  let m: RegExpExecArray | null
+  while ((m = re.exec(content)) !== null) {
+    ids.add(m[1])
+  }
+  return ids
+}
+
 export function compareDungeons(
   akedataPath: string,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  _projectDungeonsTsPath: string,
+  projectDungeonsTsPath: string,
 ): DungeonCompareResult {
   const groupTablePath = join(akedataPath, 'TableCfg', 'WorldEnergyPointGroupTable.json')
   const levelTablePath = join(akedataPath, 'TableCfg', 'WorldEnergyPointTable.json')
@@ -35,6 +47,8 @@ export function compareDungeons(
     console.warn('  [dungeons] WorldEnergyPointGroupTable.json not found')
     return { entries: [], groupIds: [], newCount: 0 }
   }
+
+  const projectIds = extractProjectDungeonIds(projectDungeonsTsPath)
 
   const groupTable = JSON.parse(readFileSync(groupTablePath, 'utf-8')) as Record<string, Record<string, unknown>>
   const levelTable = existsSync(levelTablePath)
@@ -56,6 +70,7 @@ export function compareDungeons(
 
   const entries: DungeonEntry[] = []
   const groupIds: string[] = []
+  let newCount = 0
 
   for (const [groupId, gData] of Object.entries(groupTable)) {
     const gameGroupName = gData.gameGroupName as Record<string, unknown> | undefined
@@ -67,6 +82,9 @@ export function compareDungeons(
     // Use level-1 name text ID for display name (e.g. "Energy Alluvium: The Hub")
     const displayNameTextId = level1Info?.textId ?? nameTextId
 
+    const isNew = !projectIds.has(groupId)
+    if (isNew) newCount++
+
     entries.push({
       dungeonId: groupId,
       name: '', // Resolved later via TextTable in the generate step
@@ -75,10 +93,10 @@ export function compareDungeons(
       subRegion: '',
       secAttrTermIds,
       skillTermIds,
-      isNew: false,
+      isNew,
     })
     groupIds.push(groupId)
   }
 
-  return { entries, groupIds, newCount: 0 }
+  return { entries, groupIds, newCount }
 }

@@ -1,8 +1,11 @@
-// Generates dungeon (Energy Alluvium) i18n from upstream game data.
+// Generates dungeon (Energy Alluvium) and region i18n from upstream game data.
+//
+// Stat/gem i18n (weaponStats, gemStats, equipStats) is generated separately
+// by generate-stat-i18n.ts.
+//
 // Sources:
 //   - WorldEnergyPointGroupTable.json -> group definitions, term pools, gemCustomItemId
 //   - WorldEnergyPointTable.json    -> per-level names (gameName.id)
-//   - GemTable.json                 -> gem term display names (tagName.id -> TextTable)
 //   - TextTable files              -> multi-language translations
 //
 // Uses raw regex extraction (not JSON.parse) for all int64 text ID fields
@@ -17,11 +20,23 @@ import { join } from 'node:path'
 import {
   extractEnergyPointGroupNames,
   extractEnergyPointLevel1Names,
-  extractGemTermTextIds,
 } from './extract-textid'
 
 const SUPPORTED_LOCALES = ['zh-CN', 'en', 'ja', 'zh-TW'] as const
 const TEXTTABLE_SUFFIX: Record<string, string> = { 'zh-CN': 'CN', 'zh-TW': 'TC', 'en': 'EN', 'ja': 'JP' }
+
+/** Convert English name to camelCase key (e.g. "The Hub" -> "theHub") */
+function toCamelCase(name: string): string {
+  return name
+    .split(/[\s\-_]+/)
+    .map((word, i) => {
+      const clean = word.replace(/[^a-zA-Z0-9]/g, '')
+      if (!clean) return ''
+      return i === 0 ? clean.toLowerCase() : clean.charAt(0).toUpperCase() + clean.slice(1).toLowerCase()
+    })
+    .filter(Boolean)
+    .join('')
+}
 
 // Region mapping: gemCustomItemId suffix -> region display name
 interface RegionInfo {
@@ -55,10 +70,8 @@ interface DungeonGroupData {
 export interface DungeonI18nResult {
   dungeonWritten: string[]
   regionWritten: string[]
-  statsWritten: string[]
   dungeonCount: number
   regionCount: number
-  statCount: number
   missing: number
 }
 
@@ -68,13 +81,12 @@ export function generateDungeonI18n(
   outputDir: string,
 ): DungeonI18nResult {
   const result: DungeonI18nResult = {
-    dungeonWritten: [], regionWritten: [], statsWritten: [],
-    dungeonCount: 0, regionCount: 0, statCount: 0, missing: 0,
+    dungeonWritten: [], regionWritten: [],
+    dungeonCount: 0, regionCount: 0, missing: 0,
   }
 
   const groupTablePath = join(akedataPath, 'TableCfg', 'WorldEnergyPointGroupTable.json')
   const levelTablePath = join(akedataPath, 'TableCfg', 'WorldEnergyPointTable.json')
-  const gemTablePath = join(akedataPath, 'TableCfg', 'GemTable.json')
 
   if (!existsSync(groupTablePath)) {
     console.warn('  [dungeons] WorldEnergyPointGroupTable.json not found')
@@ -93,7 +105,6 @@ export function generateDungeonI18n(
   // Extract text IDs from raw JSON (preserves int64 precision)
   const groupNameMap = extractEnergyPointGroupNames(groupTablePath)
   const level1NameMap = extractEnergyPointLevel1Names(levelTablePath)
-  const gemTermTextIds = extractGemTermTextIds(gemTablePath)
 
   // Parse group table for term pools and gemCustomItemId (no int64 IDs in these fields)
   const groupTable = JSON.parse(readFileSync(groupTablePath, 'utf-8')) as Record<string, Record<string, unknown>>
@@ -163,17 +174,12 @@ export function generateDungeonI18n(
       // Collect sub-region translations
       if (loc === 'zh-CN' && subRegion !== group.groupId) {
         const cnSubRaw = parseSubRegion(String(textTables['zh-CN']?.[group.nameTextId] ?? group.groupId))
-        // Find semantic key from region-i18n mapping (same logic)
-        const subKeyMap: Record<string, string> = {
-          '枢纽区': 'theHub', '源石研究园': 'originiumSciencePark',
-          '供能高地': 'powerPlateau', '矿脉源区': 'originLodespring',
-          '武陵城': 'wulingCity', '清波寨': 'qingboStockade',
-          '首墩': 'markerStone', '试验园区': 'testArea',
-        }
-        const semanticKey = subKeyMap[cnSubRaw] ?? cnSubRaw
-        // Warn for new sub-regions not yet in the mapping so maintainers know to update subKeyMap.
-        if (!subKeyMap[cnSubRaw] && cnSubRaw) {
-          console.warn(`  [generate-dungeons] Unmapped sub-region: "${cnSubRaw}" — add it to subKeyMap`)
+        // Generate semantic key from English translation (camelCase)
+        const enSubRaw = parseSubRegion(String(textTables['en']?.[group.nameTextId] ?? cnSubRaw))
+        let semanticKey = toCamelCase(enSubRaw)
+        // Fallback when English is missing and CN-only chars are stripped by toCamelCase
+        if (!semanticKey) {
+          semanticKey = toCamelCase(cnSubRaw) || group.groupId
         }
         // Check if already collected
         if (!subRegionTerms.some(t => t.cnName === cnSubRaw)) {
@@ -213,61 +219,6 @@ export function generateDungeonI18n(
     const path = join(regionOutDir, `${loc}.json`)
     writeFileSync(path, JSON.stringify(regionData[loc], null, 2) + '\n', 'utf-8')
     result.regionWritten.push(path)
-  }
-
-  // Generate stat/term i18n from GemTable (all pools: S1 + S2 + S3)
-  const allGemTerms = [...new Set(groups.flatMap(g => [...g.primAttrTermIds, ...g.secAttrTermIds, ...g.skillTermIds]))]
-
-  const statData: Record<string, Record<string, string>> = {}
-  for (const loc of SUPPORTED_LOCALES) statData[loc] = {}
-
-  for (const gemTermId of allGemTerms) {
-    const textId = gemTermTextIds[gemTermId]
-    for (const loc of SUPPORTED_LOCALES) {
-      let text = ''
-      if (textId) {
-        text = textTables[loc]?.[textId] ?? ''
-      }
-      if (!text) {
-        text = textId ? (textTables['zh-CN']?.[textId] ?? gemTermId) : gemTermId
-        if (!textId || !(textTables[loc]?.[textId])) result.missing++
-      }
-      statData[loc][gemTermId] = String(text).replace(/\n/g, ' ').trim()
-    }
-    result.statCount++
-  }
-
-  // Also generate compound equip stats (not in GemTable, direct TextTable lookup)
-  const compoundStats = [
-    '连携技伤害加成', '普通攻击伤害加成', '战技伤害加成',
-    '终结技伤害加成', '所有技能伤害加成', '全伤害减免',
-    '对失衡目标伤害加成', '寒冷和电磁伤害加成', '灼热和自然伤害加成',
-    '副能力',
-  ]
-  for (const cnName of compoundStats) {
-    // Find text ID by searching CN TextTable for exact match
-    let textId = ''
-    for (const [id, text] of Object.entries(textTables['zh-CN'] ?? {})) {
-      if (text === cnName) { textId = id; break }
-    }
-    for (const loc of SUPPORTED_LOCALES) {
-      let text = ''
-      if (textId) text = textTables[loc]?.[textId] ?? ''
-      if (!text) {
-        text = cnName
-        if (!textId) result.missing++
-      }
-      statData[loc][cnName] = String(text).replace(/\n/g, ' ').trim()
-    }
-    result.statCount++
-  }
-
-  const statsOutDir = join(outputDir, 'stats')
-  mkdirSync(statsOutDir, { recursive: true })
-  for (const loc of SUPPORTED_LOCALES) {
-    const path = join(statsOutDir, `${loc}.json`)
-    writeFileSync(path, JSON.stringify(statData[loc], null, 2) + '\n', 'utf-8')
-    result.statsWritten.push(path)
   }
 
   return result

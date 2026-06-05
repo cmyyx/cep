@@ -1,7 +1,7 @@
 /** 解析后的属性值（sub1 / sub2 / special 统一格式） */
 export interface ParsedStat {
-  /** 属性名，如 "意志"、"终结技充能效率" */
-  stat: string
+  /** 属性标识符（gemTermId / attrType / compositeAttr） */
+  key: string
   /** 数值 */
   value: number
   /** 单位（"" 或 "%"） */
