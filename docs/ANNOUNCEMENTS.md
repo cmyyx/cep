@@ -12,8 +12,31 @@ public/announcements/
 
 ## 新增公告
 
+使用快捷命令，自动完成文件创建 + index.json 注册 + 打开编辑器：
+
+```bash
+# 普通公告
+pnpm note "服务器维护通知"
+
+# 重要公告（首页顶部横幅展示）
+pnpm note "紧急：数据迁移通知" important
+```
+
+脚本自动完成：
+1. 生成文件名 `YYYY-MM-DD-NNN.md`（当天日期 + 自增序号）
+2. 创建 `.md` 文件（含标题 Heading）
+3. 在 `index.json` 中注册条目（含自动生成的 `id`、`publishTime`、`priority`）
+4. 按 `publishTime` 降序重排 `index.json`
+5. 用系统默认编辑器打开 `.md` 文件
+
+> 构建时 `scripts/generate-announcement-meta.mjs` 自动从 git 历史填充 `publishTime` 和 `updatedTime`，覆盖脚本生成的初始值。
+
+### 手动创建（不推荐）
+
+如需手动操作：
+
 1. 在 `public/announcements/` 下创建 `.md` 文件，命名格式 `YYYY-MM-DD-NNN.md`
-2. 在 `index.json` 中添加条目：
+2. 在 `index.json` 中添加条目（`publishTime` 可省略，构建时自动填充）：
 
 ```json
 {
@@ -25,7 +48,6 @@ public/announcements/
 ```
 
 3. `git add` + `git commit`
-4. 构建时 `scripts/generate-announcement-meta.mjs` 自动从 git 历史填充 `publishTime` 和 `updatedTime`
 
 ## 时间字段自动生成
 
@@ -47,7 +69,7 @@ public/announcements/
 | `file` | 二选一 | 指向 `.md` 文件的相对路径 |
 | `content` | 二选一 | 内联 Markdown 内容（仅简单公告，不推荐） |
 | `priority` | 是 | `"normal"` 或 `"important"` |
-| `publishTime` | 否 | 手动覆盖值（**仅在 git 不可用时作为 fallback**） |
+| `publishTime` | 否 | `pnpm note` 自动填写；构建时由 git 历史覆盖（**仅在 git 不可用时作为 fallback**） |
 
 - `file` 和 `content` 不能同时为空
 - `file` 存在时，`.md` 内容优先于 `content`
