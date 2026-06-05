@@ -173,7 +173,11 @@ export function generateDungeonI18n(
         const cnSubRaw = parseSubRegion(String(textTables['zh-CN']?.[group.nameTextId] ?? group.groupId))
         // Generate semantic key from English translation (camelCase)
         const enSubRaw = parseSubRegion(String(textTables['en']?.[group.nameTextId] ?? cnSubRaw))
-        const semanticKey = toCamelCase(enSubRaw)
+        let semanticKey = toCamelCase(enSubRaw)
+        // Fallback when English is missing and CN-only chars are stripped by toCamelCase
+        if (!semanticKey) {
+          semanticKey = toCamelCase(cnSubRaw) || group.groupId
+        }
         // Check if already collected
         if (!subRegionTerms.some(t => t.cnName === cnSubRaw)) {
           const tr: Record<string, string> = {}

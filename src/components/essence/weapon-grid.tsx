@@ -56,8 +56,10 @@ const FilterChip = memo(function FilterChip({
 
   const handleOpenChange = useCallback(
     (open: boolean) => {
-      // Block opening when text fits (scrollWidth === clientWidth)
-      if (open && spanRef.current && spanRef.current.scrollWidth <= spanRef.current.clientWidth) {
+      // Block opening when text fits without truncation.
+      // Use offsetWidth < scrollWidth (not <=) to avoid 1px rounding false negatives
+      // that can block tooltip on barely-truncated words like "Detonate".
+      if (open && spanRef.current && spanRef.current.offsetWidth >= spanRef.current.scrollWidth) {
         return
       }
       setTooltipOpen(open)

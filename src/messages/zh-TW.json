@@ -36,7 +36,7 @@
     "terms": "服務條款"
   },
   "app": {
-    "name": "CEP 終末地規劃器",
+    "name": "CEP 終末地規劃器（原終末地基質規劃器）",
     "phase": {
       "splash": "INITIALIZING",
       "tracking": "LOADING MODULES",

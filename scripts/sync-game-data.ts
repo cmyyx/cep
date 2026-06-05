@@ -46,36 +46,36 @@ function updatePreviewWeapons(
   weaponsTsPath: string,
   nameMap: Map<string, string>,
   updateMode: boolean,
-): { previewCount: number; updatable: { name: string; previewId: string;正式Id: string }[]; updated: number } {
+): { previewCount: number; updatable: { name: string; previewId: string; formalId: string }[]; updated: number } {
   if (!existsSync(weaponsTsPath)) return { previewCount: 0, updatable: [], updated: 0 }
   const content = readFileSync(weaponsTsPath, 'utf-8')
   // Match preview weapons: { id: 'preview:XXX', ... source: 'preview' }
   const previewRe = /\{\s*id:\s*'(preview:[^']+)'[^}]*?name:\s*'([^']+)'[^}]*?source:\s*'preview'[^}]*?\}/g
-  const updatable: { name: string; previewId: string; 正式Id: string }[] = []
+  const updatable: { name: string; previewId: string; formalId: string }[] = []
   let previewCount = 0
   let m: RegExpExecArray | null
   while ((m = previewRe.exec(content)) !== null) {
     previewCount++
     const previewId = m[1]
     const name = m[2]
-    const 正式Id = nameMap.get(name)
-    if (正式Id) {
-      updatable.push({ name, previewId, 正式Id })
+    const formalId = nameMap.get(name)
+    if (formalId) {
+      updatable.push({ name, previewId, formalId })
     }
   }
   if (updateMode && updatable.length > 0) {
     let updatedContent = content
-    for (const { previewId, 正式Id } of updatable) {
+    for (const { previewId, formalId } of updatable) {
       // Replace id: 'preview:XXX' with id: 'wpn_xxx'
       updatedContent = updatedContent.replace(
         new RegExp(`id:\\s*'${previewId.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}'`, 'g'),
-        `id: '${正式Id}'`,
+        `id: '${formalId}'`,
       )
     }
     // Remove source: 'preview' from updated weapons
-    for (const { 正式Id } of updatable) {
+    for (const { formalId } of updatable) {
       // Match the line containing id: 'wpn_xxx' and remove source: 'preview'
-      const lineRe = new RegExp(`(id:\\s*'${正式Id}'[^}]*?)source:\\s*'preview',?\\s*`, 'g')
+      const lineRe = new RegExp(`(id:\\s*'${formalId}'[^}]*?)source:\\s*'preview',?\\s*`, 'g')
       updatedContent = updatedContent.replace(lineRe, '$1')
     }
     writeFileSync(weaponsTsPath, updatedContent, 'utf-8')
@@ -139,7 +139,7 @@ async function main() {
   if (previewResult.previewCount > 0) {
     console.log(`\n  Preview weapons: ${previewResult.previewCount} total, ${previewResult.updatable.length} updatable`)
     for (const p of previewResult.updatable) {
-      console.log(`    ${p.previewId} -> ${p.正式Id} (${p.name})`)
+      console.log(`    ${p.previewId} -> ${p.formalId} (${p.name})`)
     }
     if (previewResult.updated > 0) {
       console.log(`  Updated: ${previewResult.updated} preview weapons -> 正式 IDs`)
