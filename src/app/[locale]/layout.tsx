@@ -65,7 +65,6 @@ export default async function LocaleLayout({
 
   const messages = (await import(`../../messages/${locale}.json`)).default
   // Merge game content translations from auto-generated i18n files
-  // Each category is loaded conditionally — files may not exist on first build
   const loadGameI18n = async (category: string) => {
     try {
       return (await import(`../../generated/i18n/${category}/${locale}.json`)).default
@@ -74,7 +73,9 @@ export default async function LocaleLayout({
   messages.weapons = await loadGameI18n('weapons')
   messages.equips = await loadGameI18n('equips')
   messages.dungeons = await loadGameI18n('dungeons')
-  messages.stats = await loadGameI18n('stats')
+  messages.weaponStats = await loadGameI18n('weaponStats')
+  messages.gemStats = await loadGameI18n('gemStats')
+  messages.equipStats = await loadGameI18n('equipStats')
   messages.region = await loadGameI18n('regions')
   messages.equipTypes = await loadGameI18n('equipTypes')
   messages.materials = await loadGameI18n('materials')

@@ -5,7 +5,8 @@
 
 import { resolvePaths } from './lib/upstream'
 import { convertIcons } from './lib/convert-icons'
-import { resolve } from 'node:path'
+import { resolve, join } from 'node:path'
+import { readdirSync, existsSync } from 'node:fs'
 
 function parseArgs() {
   const a = process.argv.slice(2)
@@ -32,7 +33,17 @@ async function main() {
   console.log(`  Source: ${paths.imagedb}`)
   console.log(`  Target: ${publicDir}`)
 
-  const result = await convertIcons(paths.imagedb, publicDir, ['weapon', 'equip'])
+  // Collect all icon IDs from upstream iconbig/ directories
+  const targetIds: string[] = []
+  for (const cat of ['weapon', 'equip'] as const) {
+    const dir = join(paths.imagedb, 'public', 'images', cat, 'iconbig')
+    if (existsSync(dir)) {
+      const files = readdirSync(dir).filter(f => f.endsWith('.png'))
+      targetIds.push(...files.map(f => f.replace('.png', '')))
+    }
+  }
+
+  const result = await convertIcons(paths.imagedb, publicDir, ['weapon', 'equip'], targetIds)
 
   console.log(`  Converted: ${result.converted.length}`)
   console.log(`  Skipped: ${result.skipped.length}`)

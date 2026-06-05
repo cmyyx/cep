@@ -46,6 +46,9 @@ export function generateEquipI18n(
   for (const file of readdirSync(equipDir)) {
     if (!file.endsWith('.json') || file === 'manifest.json') continue
     const data = JSON.parse(readFileSync(join(equipDir, file), 'utf-8'))
+    const suitName = data['套组名称'] ?? ''
+    // Skip test/manual/placeholder entries
+    if (/test|测试|手动|debug|placeholder/i.test(suitName)) continue
     const equip = data.equip as Record<string, unknown> | undefined
     if (!equip) continue
 

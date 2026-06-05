@@ -9,7 +9,6 @@ import { useRefinementStore } from '@/stores/useRefinementStore'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
 import { Button } from '@/components/ui/button'
 import type { Equip } from '@/types/refinement'
-import { resolveStatI18nKey } from '@/data/stat-i18n-map'
 
 // Map Chinese equip types to i18n keys
 const TYPE_TO_KEY: Record<string, string> = {
@@ -192,9 +191,9 @@ export const EquipCard = memo(function EquipCard({
       <TooltipContent side="top" className="text-xs text-foreground bg-popover/95 max-w-none">
         <p className="font-semibold whitespace-nowrap">{displayName}</p>
         <p className="text-muted-foreground/80 whitespace-nowrap">
-          {equip.sub1 ? `${t(resolveStatI18nKey(equip.sub1.stat) ?? equip.sub1.stat)}+${equip.sub1.value}${equip.sub1.unit}` : ''}
-          {equip.sub2 ? ` · ${t(resolveStatI18nKey(equip.sub2.stat) ?? equip.sub2.stat)}+${equip.sub2.value}${equip.sub2.unit}` : ''}
-          {equip.special ? ` · ${t(resolveStatI18nKey(equip.special.stat) ?? equip.special.stat)}+${equip.special.value}${equip.special.unit}` : ''}
+          {equip.sub1 ? `${t('equipStats.' + equip.sub1.key)}+${equip.sub1.value}${equip.sub1.unit}` : ''}
+          {equip.sub2 ? ` · ${t('equipStats.' + equip.sub2.key)}+${equip.sub2.value}${equip.sub2.unit}` : ''}
+          {equip.special ? ` · ${t('equipStats.' + equip.special.key)}+${equip.special.value}${equip.special.unit}` : ''}
           {displayMaterial ? ` · ${displayMaterial}` : ''}
         </p>
       </TooltipContent>

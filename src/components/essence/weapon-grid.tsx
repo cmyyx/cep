@@ -6,7 +6,7 @@ import { cn } from '@/lib/utils'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
-import { resolveStatI18nKey } from '@/data/stat-i18n-map'
+
 import { WeaponCard } from './weapon-card'
 import { weapons as staticWeapons } from '@/data/weapons'
 import { useMatrixStore } from '@/stores/useMatrixStore'
@@ -316,7 +316,7 @@ export const WeaponGrid = memo(function WeaponGrid() {
                     <FilterChip
                           key={v}
                           value={v}
-                          label={t(resolveStatI18nKey(v) ?? v)}
+                          label={t('weaponStats.' + v)}
                           isValid={isValid}
                           isSelected={isSelected}
                           onToggle={() => toggleFilter(key, v)}

@@ -9,24 +9,19 @@
  * Keys match the generated src/generated/i18n/regions/*.json files.
  */
 
-const REGION_KEY_MAP: Record<string, string> = {
-  '四号谷地': 'fourthValley',
-  '武陵': 'wuling',
-}
+// Import generated region i18n data to build reverse mapping
+import regionZhCn from '@/generated/i18n/regions/zh-CN.json'
 
-const SUB_REGION_KEY_MAP: Record<string, string> = {
-  '枢纽区': 'theHub',
-  '源石研究园': 'originiumSciencePark',
-  '供能高地': 'powerPlateau',
-  '矿脉源区': 'originLodespring',
-  '武陵城': 'wulingCity',
-  '清波寨': 'qingboStockade',
-  '首墩': 'markerStone',
-  '试验园区': 'testArea',
+// Build reverse mapping: Chinese name → i18n key
+const REVERSE_MAP: Record<string, string> = {}
+for (const [key, cnName] of Object.entries(regionZhCn)) {
+  if (typeof cnName === 'string') {
+    REVERSE_MAP[cnName] = key
+  }
 }
 
 /** Get the i18n key for a region or sub-region raw Chinese name. Falls back to the raw name. */
 export function regionI18nKey(rawName: string): string {
-  const key = REGION_KEY_MAP[rawName] ?? SUB_REGION_KEY_MAP[rawName]
+  const key = REVERSE_MAP[rawName]
   return key ? `region.${key}` : `region.${rawName}`
 }

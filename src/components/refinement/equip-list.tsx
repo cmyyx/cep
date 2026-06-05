@@ -4,7 +4,6 @@ import { memo, useMemo, useCallback, useState, useRef } from 'react'
 import { useTranslations } from 'next-intl'
 import { ChevronDown } from 'lucide-react'
 import { cn } from '@/lib/utils'
-import { resolveStatI18nKey } from '@/data/stat-i18n-map'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
@@ -30,7 +29,7 @@ const FilterChip = memo(function FilterChip({
   onToggle,
 }: FilterChipProps) {
   const t = useTranslations()
-  const display = t(resolveStatI18nKey(value) ?? value) ?? value
+  const display = t('equipStats.' + value) ?? value
   const spanRef = useRef<HTMLSpanElement>(null)
   const [tooltipOpen, setTooltipOpen] = useState(false)
 

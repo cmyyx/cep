@@ -1,12 +1,19 @@
 #!/usr/bin/env node
 import { resolvePaths, getRepoHead, validatePaths } from './lib/upstream'
 import { generateWeaponI18n } from './lib/generate-weapons'
+import { generateWeaponStatsI18n } from './lib/generate-weapon-stats-i18n'
 import { generateEquipI18n } from './lib/generate-equips'
 import { generateDungeonI18n } from './lib/generate-dungeons'
 import { generateMetadataI18n } from './lib/generate-metadata'
+import { generateStatI18n } from './lib/generate-stat-i18n'
+import { generateWeaponStatMapping } from './lib/generate-weapon-stat-mapping'
+import { generateEquipStatMapping } from './lib/generate-equip-stat-mapping'
 import { compareWeapons } from './lib/compare-weapons'
 import { compareEquips } from './lib/compare-equips'
 import { compareDungeons } from './lib/compare-dungeons'
+import { updateWeaponsFile, updateEquipsFile, updateDungeonsFile } from './lib/update-data-files'
+import { validateAllData, validateImages } from './lib/validate-data'
+import { convertIcons } from './lib/convert-icons'
 import { readStoredSha, fetchTrackingBranch, updateTrackingBranch, branchExistsOnOrigin } from './lib/git-helpers'
 import { existsSync, readFileSync, readdirSync, mkdirSync, writeFileSync } from 'node:fs'
 import { join, resolve } from 'node:path'
@@ -139,8 +146,18 @@ async function main() {
     }
   }
   if (mode === 'update') {
+    // Update weapons.ts with new weapons
+    const newWeaponIds = wpnResult.entries.filter(w => w.isNew && w.rarity >= 4).map(w => w.weaponId)
+    if (newWeaponIds.length > 0) {
+      const updated = updateWeaponsFile(weaponsTsPath, newWeaponIds, paths.imagedb, paths.akedata, paths.translation)
+      console.log(`  Updated: ${updated} weapons added to weapons.ts`)
+    }
     const r = generateWeaponI18n(paths.akedata, paths.imagedb, paths.translation, generatedRoot)
     console.log(`  i18n: ${r.written.length} files, ${r.count} wpns, ${r.missing} missing`)
+    const ws = generateWeaponStatsI18n(paths.imagedb, paths.akedata, paths.translation, generatedRoot)
+    console.log(`  weaponStats: ${ws.written.length} files, ${ws.count} entries, ${ws.missing} missing`)
+    const sm = generateWeaponStatMapping(paths.imagedb, paths.akedata, paths.translation, join(projectRoot, 'src', 'generated'))
+    console.log(`  stat mapping: ${sm.written}, ${sm.count} entries`)
   }
 
   // Equips (AKEDatabase/public/CH as primary source)
@@ -151,8 +168,17 @@ async function main() {
     if (e.isNew) console.log(`  NEW  ${e.equipId}: ${e.name} (${e.rarity}star, ${e.slot})`)
   }
   if (mode === 'update') {
+    // Update equips.ts with new equips
+    const newEquipIds = equipResult.entries.filter(e => e.isNew).map(e => e.equipId)
+    if (newEquipIds.length > 0) {
+      const equipsTsPath = join(projectRoot, 'src', 'data', 'equips.ts')
+      const updated = updateEquipsFile(equipsTsPath, newEquipIds, paths.imagedb, paths.akedata, paths.translation)
+      console.log(`  Updated: ${updated} equips added to equips.ts`)
+    }
     const r = generateEquipI18n(paths.akedata, paths.imagedb, paths.translation, generatedRoot)
     console.log(`  i18n: ${r.written.length} files, ${r.count} entries, ${r.missing} missing`)
+    const em = generateEquipStatMapping(paths.akedata, paths.translation, join(projectRoot, 'src', 'generated'))
+    console.log(`  stat mapping: ${em.written}, ${em.count} entries`)
   }
 
   // Dungeons (Energy Alluvium) - generates dungeons + regions + stats i18n
@@ -163,10 +189,16 @@ async function main() {
     if (d.isNew) console.log(`  NEW  ${d.dungeonId}`)
   }
   if (mode === 'update') {
+    // Update dungeons.ts with new dungeons
+    const newDungeonIds = dungeonResult.entries.filter(d => d.isNew).map(d => d.dungeonId)
+    if (newDungeonIds.length > 0) {
+      const dungeonsTsPath = join(projectRoot, 'src', 'data', 'dungeons.ts')
+      const updated = updateDungeonsFile(dungeonsTsPath, newDungeonIds, paths.akedata, paths.translation)
+      console.log(`  Updated: ${updated} dungeons added to dungeons.ts`)
+    }
     const r = generateDungeonI18n(paths.akedata, paths.translation, generatedRoot)
     console.log(`  Dungeon i18n: ${r.dungeonWritten.length} files, ${r.dungeonCount} dungeons`)
     console.log(`  Region i18n: ${r.regionWritten.length} files, ${r.regionCount} regions`)
-    console.log(`  Stat i18n: ${r.statsWritten.length} files, ${r.statCount} gem terms, ${r.missing} missing`)
   }
 
   // Metadata: equip types, materials (with abbreviation->full mapping), suit names
@@ -174,6 +206,68 @@ async function main() {
   if (mode === 'update') {
     const m = generateMetadataI18n(paths.translation, generatedRoot, paths.imagedb, paths.akedata)
     console.log(`  i18n: ${m.files} files, ${m.terms} terms`)
+  }
+
+  // Generate stat i18n — gemStats (weapons/dungeons) + equipStats (equipment)
+  if (mode === 'update') {
+    console.log('\n-- Stat i18n --')
+    const r = generateStatI18n(paths.akedata, paths.translation, paths.imagedb, generatedRoot)
+    console.log(`  gemStats: ${r.gemWritten.length} files, ${r.gemCount} gem terms`)
+    console.log(`  equipStats: ${r.equipWritten.length} files, ${r.equipCount} equip terms`)
+    if (r.equipUnmatched.length > 0) {
+      console.log(`  Equip-specific attrs (using attrType key):`)
+      for (const u of r.equipUnmatched) console.log(`    ${u}`)
+    }
+    console.log(`  Missing translations: ${r.missing}`)
+  }
+
+  // Validate existing data against upstream
+  console.log('\n-- Validation --')
+  const validationIssues = validateAllData(paths.imagedb, paths.akedata, paths.translation, projectRoot)
+  if (validationIssues.length > 0) {
+    console.log(`  Found ${validationIssues.length} data inconsistency:`)
+    for (const issue of validationIssues) {
+      console.log(`  [${issue.category}] ${issue.id}.${issue.field}: expected "${issue.expected}", got "${issue.actual}"`)
+    }
+  } else {
+    console.log(`  All data consistent with upstream`)
+  }
+
+  // Validate image existence (always)
+  const missingImages = validateImages(projectRoot)
+  if (missingImages.length > 0) {
+    console.log(`\n  Missing images (${missingImages.length}):`)
+    for (const img of missingImages) {
+      console.log(`    ${img}`)
+    }
+  } else {
+    console.log(`  All images present`)
+  }
+
+  // Convert missing images (always, based on project data, not just new items)
+  if (mode === 'update') {
+    console.log('\n-- Image conversion --')
+    // Collect all image IDs referenced by project data
+    const targetIds: string[] = []
+    // Weapon IDs from weapons.ts
+    const wIds = readFileSync(join(projectRoot, 'src', 'data', 'weapons.ts'), 'utf-8')
+      .match(/id:\s*'(wpn_[^']+)'/g)
+      ?.map(m => m.replace(/id:\s*'([^']+)'/, '$1'))
+      .filter((id): id is string => !!id && !id.startsWith('preview:')) ?? []
+    targetIds.push(...wIds)
+    // Equip image IDs from EQUIP_ID_MAP values
+    const eIds = readFileSync(join(projectRoot, 'src', 'data', 'equips.ts'), 'utf-8')
+      .match(/':\s*'(item_equip_[^']+)'/g)
+      ?.map(m => m.replace(/':\s*'([^']+)'/, '$1'))
+      .filter((id): id is string => !!id) ?? []
+    targetIds.push(...eIds)
+
+    if (targetIds.length > 0) {
+      const iconResult = await convertIcons(paths.imagedb, join(projectRoot, 'public'), ['weapon', 'equip'], targetIds)
+      console.log(`  Weapons+equips: ${targetIds.length} targets, ${iconResult.converted.length} converted, ${iconResult.skipped.length} skipped, ${iconResult.missingSource.length} missing source`)
+    } else {
+      console.log(`  No image IDs found in project data`)
+    }
   }
 
   // SHA update
