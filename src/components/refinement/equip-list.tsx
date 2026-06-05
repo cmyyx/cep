@@ -35,10 +35,17 @@ const FilterChip = memo(function FilterChip({
 
   const handleOpenChange = useCallback(
     (open: boolean) => {
-      // Block opening when text fits without truncation.
-      // Use offsetWidth < scrollWidth (not <=) to avoid 1px rounding false negatives.
-      if (open && spanRef.current && spanRef.current.offsetWidth >= spanRef.current.scrollWidth) {
-        return
+      // Suppress tooltip when text fits without truncation.
+      // Range.getBoundingClientRect() provides sub-pixel precision, avoiding
+      // the 1px rounding false negatives that scrollWidth/clientWidth suffer from.
+      if (open && spanRef.current) {
+        const range = document.createRange()
+        range.selectNodeContents(spanRef.current)
+        const textWidth = range.getBoundingClientRect().width
+        range.detach()
+        if (textWidth <= spanRef.current.getBoundingClientRect().width) {
+          return
+        }
       }
       setTooltipOpen(open)
     },
