@@ -10,6 +10,7 @@ import {
   DropdownMenuTrigger,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuSeparator,
 } from '@/components/ui/dropdown-menu'
 import { detectBrowserLocale, buildLocaleHref } from '@/lib/locale-utils'
 
@@ -48,14 +49,18 @@ export function LanguageSwitcher() {
 
   const { isMobile } = useSidebar()
 
-  const displayLabel =
-    language === 'auto' ? 'AUTO' : (LOCALE_LABELS[language] ?? language)
+  const detectedLocale = detectBrowserLocale()
+  const sidebarLabel = LOCALE_LABELS[urlLocale] ?? urlLocale
+  const sidebarTooltip =
+    language === 'auto'
+      ? sidebarLabel + ' AUTO'
+      : sidebarLabel
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger render={<SidebarMenuButton tooltip={displayLabel} />}>
+      <DropdownMenuTrigger render={<SidebarMenuButton tooltip={sidebarTooltip} />}>
         <Languages />
-        <span>{displayLabel}</span>
+        <span>{sidebarLabel}</span>
       </DropdownMenuTrigger>
       <DropdownMenuContent
         align="start"
@@ -68,11 +73,9 @@ export function LanguageSwitcher() {
           onClick={() => handleSwitch('auto')}
           className="flex items-center justify-between"
         >
-          <span>AUTO</span>
-          {language === 'auto' && (
-            <Check className="size-3.5 text-muted-foreground" />
-          )}
+          <span>{LOCALE_LABELS[detectedLocale] + ' AUTO'}</span>
         </DropdownMenuItem>
+        <DropdownMenuSeparator />
         {LOCALES.map((loc) => (
           <DropdownMenuItem
             key={loc}
@@ -80,7 +83,7 @@ export function LanguageSwitcher() {
             className="flex items-center justify-between"
           >
             <span>{LOCALE_LABELS[loc]}</span>
-            {language !== 'auto' && loc === language && (
+            {loc === urlLocale && (
               <Check className="size-3.5 text-muted-foreground" />
             )}
           </DropdownMenuItem>

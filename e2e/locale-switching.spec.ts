@@ -41,7 +41,7 @@ test.describe('Locale Switching', () => {
     // Scope to the opened language menu, then locate the English option
     const langMenu = page.locator('[role="menu"]').first()
     await expect(langMenu).toBeVisible({ timeout: 3000 })
-    const enOption = langMenu.getByRole('menuitem', { name: /english/i })
+    const enOption = langMenu.getByRole('menuitem', { name: 'English', exact: true })
     await enOption.click()
 
     // Wait for navigation (window.location.href causes full page navigation)

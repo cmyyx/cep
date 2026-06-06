@@ -149,6 +149,185 @@ export function validateWeapons(
   return issues
 }
 
+// ── Validate equips ─────────────────────────────────────────────────────
+
+export function validateEquips(
+  imagedbPath: string,
+  akedataPath: string,
+  translationPath: string,
+  projectEquipsTsPath: string,
+): ValidationIssue[] {
+  const issues: ValidationIssue[] = []
+
+  // Read project equips data
+  if (!existsSync(projectEquipsTsPath)) return issues
+  const projectContent = readFileSync(projectEquipsTsPath, 'utf-8')
+
+  // Extract RAW_EQUIPS entries: field-order-independent parsing
+  // Find each object block and extract fields individually to avoid
+  // breakage when field order, quoting style, or formatting changes.
+  const projectEquips = new Map<string, { name: string; sub1: string; sub2: string; special: string }>()
+  const rawArrayStart = projectContent.indexOf('const RAW_EQUIPS')
+  if (rawArrayStart !== -1) {
+    const arrOpen = projectContent.indexOf('[', rawArrayStart)
+    if (arrOpen !== -1) {
+      let depth = 0
+      let objStart = -1
+      for (let i = arrOpen; i < projectContent.length; i++) {
+        if (projectContent[i] === '{') {
+          if (depth === 0) objStart = i
+          depth++
+        } else if (projectContent[i] === '}') {
+          depth--
+          if (depth === 0 && objStart !== -1) {
+            const objText = projectContent.slice(objStart, i + 1)
+            const field = (re: RegExp) => { const m = re.exec(objText); return m ? m[1] : '' }
+            const name = field(/name:\s*['"]([^'"]*)['"]/)
+            const sub1 = field(/sub1:\s*['"]([^'"]*)['"]/)
+            const sub2 = field(/sub2:\s*['"]([^'"]*)['"]/)
+            const special = field(/special:\s*['"]([^'"]*)['"]/)
+            const equipId = field(/equipId:\s*['"]([^'"]*)['"]/)
+            const iconId = field(/iconId:\s*['"]([^'"]*)['"]/)
+            const key = equipId || iconId
+            if (name && key) {
+              projectEquips.set(key, { name, sub1, sub2, special })
+            }
+            objStart = -1
+          }
+        }
+      }
+    }
+  }
+
+  // Read upstream v2_equip data
+  const v2EquipDir = join(imagedbPath, 'public', 'CH', 'v2_equip')
+  if (!existsSync(v2EquipDir)) return issues
+
+  // Load CN TextTable for attribute name resolution
+  let textTable: Record<string, string> = {}
+  try {
+    textTable = JSON.parse(readFileSync(join(translationPath, 'i18n', 'I18nTextTable_CN.json'), 'utf-8'))
+  } catch { return issues }
+
+  // Build attrType → { name, showPercent } mapping
+  const attrTypeMap = new Map<number, { name: string; showPercent: boolean }>()
+  const attrCfgPath = join(akedataPath, 'TableCfg', 'AttributeShowConfigTable.json')
+  if (existsSync(attrCfgPath)) {
+    const attrCfg = parseJsonSafe(attrCfgPath) as Record<string, { list: { name: { id: string }; showPercent: boolean }[] }>
+    for (const [attrTypeStr, data] of Object.entries(attrCfg)) {
+      if (!data.list?.[0]?.name?.id) continue
+      const cnName = textTable[data.list[0].name.id]
+      if (cnName) attrTypeMap.set(Number(attrTypeStr), { name: cnName, showPercent: data.list[0].showPercent })
+    }
+  }
+
+  // Build compositeAttr → { name, showPercent } mapping
+  const compositeCfg = new Map<string, { name: string; showPercent: boolean }>()
+  const compCfgPath = join(akedataPath, 'TableCfg', 'CompositeAttributeShowConfigTable.json')
+  if (existsSync(compCfgPath)) {
+    const compCfg = parseJsonSafe(compCfgPath) as Record<string, { list: { name: { id: string }; showPercent: boolean }[] }>
+    for (const [compositeAttr, data] of Object.entries(compCfg)) {
+      if (!data.list?.[0]?.name?.id) continue
+      const cnName = textTable[data.list[0].name.id]
+      if (cnName) compositeCfg.set(compositeAttr, { name: cnName, showPercent: data.list[0].showPercent })
+    }
+  }
+
+  // Format value (same precision-preserving logic as update-data-files.ts)
+  function formatValue(name: string, value: string, showPercent: boolean): string {
+    const num = parseFloat(value)
+    if (showPercent) {
+      const pct = num * 100
+      const clean = parseFloat(pct.toFixed(8))
+      return `${name}+${clean}%`
+    }
+    return Number.isInteger(num) ? `${name}+${num}` : `${name}+${parseFloat(value)}`
+  }
+
+  // For each v2_equip file, compare project equips against upstream
+  for (const file of readdirSync(v2EquipDir)) {
+    if (!file.endsWith('.json') || file === 'manifest.json') continue
+    const suitData = parseJsonSafe(join(v2EquipDir, file)) as Record<string, unknown>
+    const equiptable = (suitData.equiptable ?? {}) as Record<string, { displayAttrModifiers?: { attrIndex: number; attrType: number; attrValue: number; modifierType?: number; compositeAttr?: string }[] }>
+    const itemtable = (suitData.itemtable ?? {}) as Record<string, { name?: { text?: string } }>
+
+    for (const [upstreamEquipId, equipData] of Object.entries(equiptable)) {
+      const equipItem = itemtable[upstreamEquipId]
+      const equipName = equipItem?.name?.text ?? ''
+      if (!equipName) continue
+
+      // Look up project equip by equipId (O(1))
+      const projectEquip = projectEquips.get(upstreamEquipId)
+      if (!projectEquip) continue // Not in project data
+
+      // Build upstream stat strings from displayAttrModifiers
+      let upstreamSub1 = ''
+      let upstreamSub2 = ''
+      let upstreamSpecial = ''
+
+      for (const mod of equipData.displayAttrModifiers ?? []) {
+        if (Number(mod.attrIndex) === 0) continue
+
+        const modType = Number(mod.modifierType ?? 5)
+        const attrType = Number(mod.attrType)
+        const compositeAttr = String(mod.compositeAttr ?? '')
+
+        // Determine key and showPercent
+        let key: string
+        let showPercent: boolean
+
+        if (attrType === 0 && compositeAttr) {
+          // Composite attribute: key is the compositeAttr string itself
+          key = compositeAttr
+          // modifierType 6/8 = always percentage, 7 = always flat, 5 = from config
+          if (modType === 6 || modType === 8) showPercent = true
+          else if (modType === 7) showPercent = false
+          else showPercent = compositeCfg.get(compositeAttr)?.showPercent ?? false
+        } else {
+          // Regular attribute: key is the attrType number
+          const attrInfo = attrTypeMap.get(attrType)
+          if (!attrInfo) continue
+          key = String(attrType)
+          // modifierType 6/8 = always percentage, 7 = always flat, 5 = from config
+          if (modType === 6 || modType === 8) showPercent = true
+          else if (modType === 7) showPercent = false
+          else showPercent = attrInfo.showPercent
+        }
+
+        const statStr = formatValue(key, String(mod.attrValue), showPercent)
+        if (Number(mod.attrIndex) === 1) upstreamSub1 = statStr
+        else if (Number(mod.attrIndex) === 2) upstreamSub2 = statStr
+        else if (Number(mod.attrIndex) === 3) upstreamSpecial = statStr
+      }
+
+      // Compare each field
+      if (upstreamSub1 && upstreamSub1 !== projectEquip.sub1) {
+        issues.push({ category: 'equip', id: equipName, field: 'sub1', expected: upstreamSub1, actual: projectEquip.sub1 || '<empty>' })
+      } else if (!upstreamSub1 && projectEquip.sub1) {
+        issues.push({ category: 'equip', id: equipName, field: 'sub1', expected: '<empty>', actual: projectEquip.sub1 })
+      } else if (upstreamSub1 && !projectEquip.sub1) {
+        issues.push({ category: 'equip', id: equipName, field: 'sub1', expected: upstreamSub1, actual: '<empty>' })
+      }
+      if (upstreamSub2 && upstreamSub2 !== projectEquip.sub2) {
+        issues.push({ category: 'equip', id: equipName, field: 'sub2', expected: upstreamSub2, actual: projectEquip.sub2 || '<empty>' })
+      } else if (!upstreamSub2 && projectEquip.sub2) {
+        issues.push({ category: 'equip', id: equipName, field: 'sub2', expected: '<empty>', actual: projectEquip.sub2 })
+      } else if (upstreamSub2 && !projectEquip.sub2) {
+        issues.push({ category: 'equip', id: equipName, field: 'sub2', expected: upstreamSub2, actual: '<empty>' })
+      }
+      if (upstreamSpecial && upstreamSpecial !== projectEquip.special) {
+        issues.push({ category: 'equip', id: equipName, field: 'special', expected: upstreamSpecial, actual: projectEquip.special || '<empty>' })
+      } else if (!upstreamSpecial && projectEquip.special) {
+        issues.push({ category: 'equip', id: equipName, field: 'special', expected: '<empty>', actual: projectEquip.special })
+      } else if (upstreamSpecial && !projectEquip.special) {
+        issues.push({ category: 'equip', id: equipName, field: 'special', expected: upstreamSpecial, actual: '<empty>' })
+      }
+    }
+  }
+
+  return issues
+}
+
 // ── Validate dungeons ─────────────────────────────────────────────────────
 
 export function validateDungeons(
@@ -222,15 +401,18 @@ export function validateImages(projectRoot: string): string[] {
     }
   }
 
-  // Check equip images (from EQUIP_ID_MAP values)
+  // Check equip images (from RAW_EQUIPS equipId and iconId fields)
   const equipsPath = join(projectRoot, 'src', 'data', 'equips.ts')
   if (existsSync(equipsPath)) {
     const content = readFileSync(equipsPath, 'utf-8')
-    // Match EQUIP_ID_MAP values: 'name': 'item_equip_xxx'
-    const equipIdRegex = /':\s*'(item_equip_[^']+)'/g
+    // Collect all unique icon IDs from equipId and iconId fields
+    const iconIds = new Set<string>()
+    const equipIdRegex = /(?:equipId|iconId):\s*'(item_equip_[^']+)'/g
     let m: RegExpExecArray | null
     while ((m = equipIdRegex.exec(content)) !== null) {
-      const equipId = m[1]
+      iconIds.add(m[1])
+    }
+    for (const equipId of iconIds) {
       const avifPath = join(publicDir, 'images', 'equip', `${equipId}.avif`)
       if (!existsSync(avifPath)) {
         missing.push(`equip/${equipId}.avif`)
@@ -251,6 +433,7 @@ export function validateAllData(
 ): ValidationIssue[] {
   const issues: ValidationIssue[] = [
     ...validateWeapons(imagedbPath, akedataPath, translationPath, join(projectRoot, 'src', 'data', 'weapons.ts')),
+    ...validateEquips(imagedbPath, akedataPath, translationPath, join(projectRoot, 'src', 'data', 'equips.ts')),
     ...validateDungeons(akedataPath, translationPath, join(projectRoot, 'src', 'data', 'dungeons.ts')),
   ]
   return issues

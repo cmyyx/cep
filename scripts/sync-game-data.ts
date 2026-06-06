@@ -6,8 +6,6 @@ import { generateEquipI18n } from './lib/generate-equips'
 import { generateDungeonI18n } from './lib/generate-dungeons'
 import { generateMetadataI18n } from './lib/generate-metadata'
 import { generateStatI18n } from './lib/generate-stat-i18n'
-import { generateWeaponStatMapping } from './lib/generate-weapon-stat-mapping'
-import { generateEquipStatMapping } from './lib/generate-equip-stat-mapping'
 import { compareWeapons } from './lib/compare-weapons'
 import { compareEquips } from './lib/compare-equips'
 import { compareDungeons } from './lib/compare-dungeons'
@@ -157,8 +155,6 @@ async function main() {
     console.log(`  i18n: ${r.written.length} files, ${r.count} wpns, ${r.missing} missing`)
     const ws = generateWeaponStatsI18n(paths.imagedb, paths.akedata, paths.translation, generatedRoot)
     console.log(`  weaponStats: ${ws.written.length} files, ${ws.count} entries, ${ws.missing} missing`)
-    const sm = generateWeaponStatMapping(paths.imagedb, paths.akedata, paths.translation, join(projectRoot, 'src', 'generated'))
-    console.log(`  stat mapping: ${sm.written}, ${sm.count} entries`)
   }
 
   // Equips (AKEDatabase/public/CH as primary source)
@@ -169,17 +165,13 @@ async function main() {
     if (e.isNew) console.log(`  NEW  ${e.equipId}: ${e.name} (${e.rarity}star, ${e.slot})`)
   }
   if (mode === 'update') {
-    // Update equips.ts with new equips
+    // Reconcile all equips: add new ones + fix any drifted values
     const newEquipIds = equipResult.entries.filter(e => e.isNew).map(e => e.equipId)
-    if (newEquipIds.length > 0) {
-      const equipsTsPath = join(projectRoot, 'src', 'data', 'equips.ts')
-      const updated = updateEquipsFile(equipsTsPath, newEquipIds, paths.imagedb, paths.akedata, paths.translation)
-      console.log(`  Updated: ${updated} equips added to equips.ts`)
-    }
+    const equipsTsPath = join(projectRoot, 'src', 'data', 'equips.ts')
+    const updated = updateEquipsFile(equipsTsPath, newEquipIds, paths.imagedb, paths.akedata, paths.translation, true)
+    console.log(`  Reconciled: ${updated} equips synced`)
     const r = generateEquipI18n(paths.akedata, paths.imagedb, paths.translation, generatedRoot)
     console.log(`  i18n: ${r.written.length} files, ${r.count} entries, ${r.missing} missing`)
-    const em = generateEquipStatMapping(paths.akedata, paths.translation, join(projectRoot, 'src', 'generated'))
-    console.log(`  stat mapping: ${em.written}, ${em.count} entries`)
   }
 
   // Dungeons (Energy Alluvium) - generates dungeons + regions + stats i18n
@@ -205,7 +197,7 @@ async function main() {
   // Metadata: equip types, materials (with abbreviation->full mapping), suit names
   console.log('\n-- Metadata --')
   if (mode === 'update') {
-    const m = generateMetadataI18n(paths.translation, generatedRoot, paths.imagedb, paths.akedata)
+    const m = generateMetadataI18n(paths.translation, generatedRoot, paths.imagedb)
     console.log(`  i18n: ${m.files} files, ${m.terms} terms`)
   }
 
@@ -256,12 +248,13 @@ async function main() {
       ?.map(m => m.replace(/id:\s*'([^']+)'/, '$1'))
       .filter((id): id is string => !!id && !id.startsWith('preview:')) ?? []
     targetIds.push(...wIds)
-    // Equip image IDs from EQUIP_ID_MAP values
-    const eIds = readFileSync(join(projectRoot, 'src', 'data', 'equips.ts'), 'utf-8')
-      .match(/':\s*'(item_equip_[^']+)'/g)
-      ?.map(m => m.replace(/':\s*'([^']+)'/, '$1'))
-      .filter((id): id is string => !!id) ?? []
-    targetIds.push(...eIds)
+    // Equip image IDs: union of equipId + iconId from RAW_EQUIPS inline fields
+    const equipContent = readFileSync(join(projectRoot, 'src', 'data', 'equips.ts'), 'utf-8')
+    const eIdSet = new Set<string>()
+    const eIdRe = /(?:equipId|iconId):\s*'(item_equip_[^']+)'/g
+    let em: RegExpExecArray | null
+    while ((em = eIdRe.exec(equipContent)) !== null) eIdSet.add(em[1])
+    targetIds.push(...eIdSet)
 
     if (targetIds.length > 0) {
       const iconResult = await convertIcons(paths.imagedb, join(projectRoot, 'public'), ['weapon', 'equip'], targetIds)

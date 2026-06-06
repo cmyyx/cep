@@ -7,6 +7,7 @@ import { DEBUG_BOOTSTRAP_CODE } from "@/lib/debug/bootstrap"
 import { DomainGuard } from '@/components/shared/domain-guard';
 import { CssGuard } from '@/components/shared/css-guard';
 import { BrowserGuard } from '@/components/shared/browser-guard';
+import { LocaleGuardHead } from '@/components/shared/locale-guard-head';
 import "./globals.css";
 
 const geistSans = Geist({
@@ -69,6 +70,9 @@ export default function RootLayout({
         {/* BrowserGuard — detects outdated browsers missing critical CSS/JS
             features and shows an upgrade reminder. */}
         <BrowserGuard />
+        {/* LocaleGuardHead — synchronously redirects to explicit language
+            preference before any page content renders, avoiding wrong-locale flash. */}
+        <LocaleGuardHead />
         {/* DomainGuard — injected into <head> so React hydration never sees the
             <script> tag. Runs synchronously before any React code loads. */}
         <DomainGuard />
@@ -79,7 +83,7 @@ export default function RootLayout({
             (React does not reconcile <head> children). */}
         <Script
           strategy="afterInteractive"
-          src="https://u.2x.nz/script.js"
+          src="https://umami.2x.nz/script.js"
           data-website-id="604899d8-6614-4230-9feb-974ba09fae4e"
         />
         <Script id="baidu-hmt" strategy="afterInteractive">
