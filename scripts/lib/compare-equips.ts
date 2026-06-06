@@ -86,12 +86,9 @@ function extractProjectEquipIds(tsPath: string): Set<string> {
   if (!existsSync(tsPath)) return new Set()
   const content = readFileSync(tsPath, 'utf-8')
   const ids = new Set<string>()
-  // Match id field (string literal or expression)
-  const idRe = /id:\s*['"]([^'"]+)['"]/g
+  // Extract equipId from RAW_EQUIPS entries: equipId: 'item_equip_xxx'
+  const equipIdRe = /equipId:\s*'(item_equip_[^']+)'/g
   let m: RegExpExecArray | null
-  while ((m = idRe.exec(content)) !== null) ids.add(m[1])
-  // Also match EQUIP_ID_MAP values (format: 'name': 'item_equip_xxx')
-  const mapRe = /:\s*'(item_equip_[^']+)'/g
-  while ((m = mapRe.exec(content)) !== null) ids.add(m[1])
+  while ((m = equipIdRe.exec(content)) !== null) ids.add(m[1])
   return ids
 }

@@ -29,10 +29,10 @@ describe('robots', () => {
     expect(result.sitemap).toMatch(/\/sitemap\.xml$/)
   })
 
-  it('uses SITE_URL env var when available', () => {
+  it('always uses DEFAULT_SITE_URL regardless of env', () => {
     process.env.SITE_URL = 'https://custom.example.com'
     const result = robots()
 
-    expect(result.sitemap).toBe('https://custom.example.com/sitemap.xml')
+    expect(result.sitemap).toBe('https://end.canmoe.com/sitemap.xml')
   })
 })

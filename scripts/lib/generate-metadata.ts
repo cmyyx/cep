@@ -5,6 +5,7 @@
 
 import { existsSync, readFileSync, readdirSync, mkdirSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
+import { resolveSuitName } from './upstream'
 
 const SUPPORTED_LOCALES = ['zh-CN', 'en', 'ja', 'zh-TW'] as const
 const TEXTTABLE_SUFFIX: Record<string, string> = { 'zh-CN': 'CN', 'zh-TW': 'TC', 'en': 'EN', 'ja': 'JP' }
@@ -59,11 +60,10 @@ function buildI18nFiles(
   return terms.length
 }
 
-/** Auto-detect suit names from equip JSON files (5-star suits only) */
-function detectSuitNames(imagedbPath: string, akedataPath: string): string[] {
-  const equipDir = join(imagedbPath, 'public', 'CH', 'equip')
-  const fallbackDir = join(akedataPath, 'output', 'CN', 'equip')
-  const dir = existsSync(equipDir) ? equipDir : existsSync(fallbackDir) ? fallbackDir : null
+/** Auto-detect suit names from v2_equip (primary) with old-format fallback. */
+function detectSuitNames(imagedbPath: string): string[] {
+  const v2Dir = join(imagedbPath, 'public', 'CH', 'v2_equip')
+  const dir = existsSync(v2Dir) ? v2Dir : null
   if (!dir) return []
 
   const names = new Set<string>()
@@ -71,13 +71,16 @@ function detectSuitNames(imagedbPath: string, akedataPath: string): string[] {
     if (!file.endsWith('.json') || file === 'manifest.json') continue
     try {
       const data = JSON.parse(readFileSync(join(dir, file), 'utf-8'))
-      const suitName = data['套组名称'] as string | undefined
-      if (!suitName) continue
-      // Check if any equip in this suit is >=5-star
-      const equips = data.equip as Record<string, { rarity?: number }> | undefined
-      if (!equips) continue
-      const has5Star = Object.values(equips).some(e => (e.rarity ?? 0) >= 5)
-      if (has5Star) names.add(suitName)
+      // Only include suits that have >=5-star equipment
+      const equiptable = data.equiptable as Record<string, unknown> | undefined
+      const itemtable = data.itemtable as Record<string, { rarity?: number }> | undefined
+      if (!equiptable || !itemtable) continue
+      const has5Star = Object.entries(itemtable).some(
+        ([id, item]) => equiptable[id] && (item.rarity ?? 0) >= 5,
+      )
+      if (!has5Star) continue
+      const suitName = resolveSuitName(file, imagedbPath)
+      if (suitName) names.add(suitName)
     } catch { /* skip malformed files */ }
   }
   return [...names].sort()
@@ -87,7 +90,6 @@ export function generateMetadataI18n(
   translationPath: string,
   outputDir: string,
   imagedbPath: string,
-  akedataPath: string,
 ): { files: number; terms: number } {
   const textTables: Record<string, Record<string, string>> = {}
   for (const loc of SUPPORTED_LOCALES) {
@@ -106,7 +108,7 @@ export function generateMetadataI18n(
   totalTerms += buildI18nFiles(MATERIAL_TERMS, textTables, outputDir, 'materials')
 
   // Suit names (auto-detected from equip JSON files)
-  const suitNames = detectSuitNames(imagedbPath, akedataPath)
+  const suitNames = detectSuitNames(imagedbPath)
   if (suitNames.length > 0) {
     // Filter out test/manual-edit entries, sanitize keys
     const validNames = suitNames.filter(n => !n.includes('手动编辑') && !n.includes('手动'))

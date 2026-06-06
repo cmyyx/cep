@@ -13,8 +13,7 @@ export function getAlternates(
   locale: string,
   path: string = '',
 ): { canonical: string; languages: Record<string, string> } {
-  const raw = process.env.SITE_URL || DEFAULT_SITE_URL
-  const siteUrl = raw.replace(/\/+$/, '')
+  const siteUrl = DEFAULT_SITE_URL
   const segments = path ? `/${path}` : ''
 
   const languages: Record<string, string> = {}

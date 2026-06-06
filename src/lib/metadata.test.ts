@@ -55,15 +55,8 @@ describe('getAlternates', () => {
     expect(result.languages['zh-CN']).toBe(`${DEFAULT_SITE_URL}/zh-CN/refinement-planner`)
   })
 
-  it('strips trailing slash from SITE_URL', () => {
-    process.env.SITE_URL = 'https://trailing.example.com/'
-    const result = getAlternates('zh-CN')
-
-    expect(result.canonical).toBe('https://trailing.example.com/zh-CN')
-  })
-
-  it('uses DEFAULT_SITE_URL when SITE_URL is not set', () => {
-    delete process.env.SITE_URL
+  it('always uses DEFAULT_SITE_URL regardless of env', () => {
+    process.env.SITE_URL = 'https://other.example.com'
     const result = getAlternates('ja')
 
     expect(result.canonical).toBe(`${DEFAULT_SITE_URL}/ja`)

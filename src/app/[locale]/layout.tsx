@@ -36,7 +36,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params
   const t = await getTranslations({ locale })
-  const siteUrl = process.env.SITE_URL || DEFAULT_SITE_URL
+  const siteUrl = DEFAULT_SITE_URL
   return {
     metadataBase: new URL(siteUrl),
     title: {
@@ -60,7 +60,7 @@ export default async function LocaleLayout({
 
   setRequestLocale(locale)
 
-  const siteUrl = process.env.SITE_URL || DEFAULT_SITE_URL
+  const siteUrl = DEFAULT_SITE_URL
   const t = await getTranslations({ locale })
 
   const messages = (await import(`../../messages/${locale}.json`)).default

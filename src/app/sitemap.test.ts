@@ -61,10 +61,10 @@ describe('sitemap', () => {
     expect(langs['x-default']).toBe(`https://end.canmoe.com/${DEFAULT_LOCALE}/essence-planner`)
   })
 
-  it('uses SITE_URL env var when set', () => {
+  it('always uses DEFAULT_SITE_URL regardless of env', () => {
     process.env.SITE_URL = 'https://custom.example.com'
     const result = sitemap()
-    const home = result.find((e) => e.url === `https://custom.example.com/${DEFAULT_LOCALE}`)
+    const home = result.find((e) => e.url === `https://end.canmoe.com/${DEFAULT_LOCALE}`)
     expect(home).toBeDefined()
   })
 })

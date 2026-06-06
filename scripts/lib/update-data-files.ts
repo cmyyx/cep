@@ -9,6 +9,7 @@ import { join } from 'node:path'
 import { parse as parseLossless } from 'lossless-json'
 import { buildGemTableLookup, loadTextTable } from './stat-mapping'
 import { buildEquipStatMapping } from './equip-stat-mapping'
+import { resolveSuitName } from './upstream'
 
 // ── Types ─────────────────────────────────────────────────────────────────
 
@@ -24,6 +25,8 @@ interface DisplayAttrModifier {
   attrIndex: number
   attrType: number
   attrValue: number
+  modifierType?: number
+  compositeAttr?: string
 }
 
 interface EquipFormula {
@@ -190,12 +193,21 @@ function buildAttrTypeMap(akedataPath: string, textTables: Record<string, string
   return attrMap
 }
 
-/** Format equip stat value based on showPercent flag */
-function formatEquipStat(name: string, value: number, showPercent: boolean): string {
+/**
+ * Format equip stat value based on showPercent flag.
+ * `value` is the raw string from lossless-json (exact game precision).
+ * No rounding — full game precision is preserved.
+ */
+function formatEquipStat(name: string, value: string, showPercent: boolean): string {
+  const num = parseFloat(value)
   if (showPercent) {
-    return `${name}+${(value * 100).toFixed(1)}%`
+    const pct = num * 100
+    // Clean floating-point noise at 8th decimal (far beyond game data precision of 3-4 decimals)
+    const clean = parseFloat(pct.toFixed(8))
+    return `${name}+${clean}%`
   }
-  return `${name}+${Math.round(value)}`
+  // Non-percentage: preserve exact game value, strip ".0" for integers
+  return Number.isInteger(num) ? `${name}+${num}` : `${name}+${parseFloat(value)}`
 }
 // ── Insertion helpers ─────────────────────────────────────────────────────
 
@@ -349,20 +361,41 @@ export function updateEquipsFile(
   imagedbPath: string,
   akedataPath: string,
   translationPath: string,
+  reconcileAll?: boolean,
 ): number {
-  if (newEquipIds.length === 0) return 0
-
   const content = readFileSync(equipsTsPath, 'utf-8')
   const textTables = loadTextTable(translationPath, 'zh-CN')
   const attrTypeMap = buildAttrTypeMap(akedataPath, textTables)
   const equipMapping = buildEquipStatMapping(akedataPath, translationPath)
 
+  // Build compositeAttr → showPercent mapping
+  const compositeCfg = new Map<string, boolean>()
+  const compCfgPath = join(akedataPath, 'TableCfg', 'CompositeAttributeShowConfigTable.json')
+  if (existsSync(compCfgPath)) {
+    const compCfg = parseJsonSafe(compCfgPath) as Record<string, { list: { name: { id: string }; showPercent: boolean }[] }>
+    for (const [compositeAttr, data] of Object.entries(compCfg)) {
+      if (data.list?.[0]?.name?.id) {
+        const cnName = textTables[data.list[0].name.id]
+        if (cnName) compositeCfg.set(compositeAttr, data.list[0].showPercent)
+      }
+    }
+  }
+
+  // Build set of equipIds to process: all existing + new (when reconciling), or just new
+  const targetIds = new Set<string>(newEquipIds)
+  if (reconcileAll) {
+    const existingRe = /equipId:\s*'(item_equip_[^']+)'/g
+    let em: RegExpExecArray | null
+    while ((em = existingRe.exec(content)) !== null) targetIds.add(em[1])
+  }
+  if (targetIds.size === 0) return 0
+
   // Use v2_equip data source
   const v2EquipDir = join(imagedbPath, 'public', 'CH', 'v2_equip')
   if (!existsSync(v2EquipDir)) return 0
 
-  const newIdMapEntries: string[] = []
-  const newRawEquipEntries: { set: string; line: string }[] = []
+  // Build a complete equipId → { line, set } map from upstream
+  const upstreamEntries = new Map<string, { set: string; line: string }>()
 
   for (const file of readdirSync(v2EquipDir)) {
     if (!file.endsWith('.json') || file === 'manifest.json') continue
@@ -372,10 +405,7 @@ export function updateEquipsFile(
     const itemtable = suitData.itemtable ?? {}
     const equipformulatable = suitData.equipformulatable ?? {}
 
-    // Get suit name from equipsuittable
-    const suitName = suitData.equipsuittable?.list?.[0]?.suitName?.text ?? file.replace('.json', '')
-
-    // Skip test/manual/placeholder entries
+    const suitName = resolveSuitName(file, imagedbPath)
     if (/test|测试|手动|debug|placeholder/i.test(suitName)) continue
 
     // Build outcomeEquipId → material name mapping
@@ -384,62 +414,111 @@ export function updateEquipsFile(
       if (!formula.outcomeEquipId || !formula.costItemId?.length) continue
       const materialId = formula.costItemId[0]
       const materialItem = itemtable[materialId]
-      if (materialItem?.name?.text) {
-        equipMaterialMap.set(formula.outcomeEquipId, materialItem.name.text)
-      }
+      if (materialItem?.name?.text) equipMaterialMap.set(formula.outcomeEquipId, materialItem.name.text)
     }
 
-    // Process each equip
     for (const [equipId, equipData] of Object.entries(equiptable)) {
-      if (!newEquipIds.includes(equipId)) continue
+      if (!targetIds.has(equipId)) continue
 
-      // Get equip name from itemtable
       const equipItem = itemtable[equipId]
       if (!equipItem?.name?.text) continue
 
-      const equipName = equipItem.name.text
+      const equipName = equipItem.name.text.replace(/[\r\n]+/g, '').trim()
       const material = equipMaterialMap.get(equipId) ?? ''
 
-      // Extract sub stats from displayAttrModifiers
-      let sub1 = ''
-      let sub2 = ''
-      let special = ''
-
+      let sub1 = ''; let sub2 = ''; let special = ''
       for (const mod of equipData.displayAttrModifiers ?? []) {
-        if (Number(mod.attrIndex) === 0) continue // Skip main stat (防御力)
+        if (Number(mod.attrIndex) === 0) continue
 
-        const attrInfo = attrTypeMap.get(Number(mod.attrType))
-        if (!attrInfo) continue
+        const modType = Number(mod.modifierType ?? 5)
+        const attrType = Number(mod.attrType)
+        const compositeAttr = String(mod.compositeAttr ?? '')
+        let key: string; let showPercent: boolean
 
-        const key = equipMapping.resolve(attrInfo.name)
-        const statStr = formatEquipStat(key, Number(mod.attrValue), attrInfo.showPercent)
+        if (attrType === 0 && compositeAttr) {
+          key = compositeAttr
+          if (modType === 6 || modType === 8) showPercent = true
+          else if (modType === 7) showPercent = false
+          else showPercent = compositeCfg.get(compositeAttr) ?? false
+        } else {
+          const attrInfo = attrTypeMap.get(attrType)
+          if (!attrInfo) continue
+          key = equipMapping.resolve(attrInfo.name)
+          if (modType === 6 || modType === 8) showPercent = true
+          else if (modType === 7) showPercent = false
+          else showPercent = attrInfo.showPercent
+        }
 
+        const statStr = formatEquipStat(key, String(mod.attrValue), showPercent)
         if (Number(mod.attrIndex) === 1) sub1 = statStr
         else if (Number(mod.attrIndex) === 2) sub2 = statStr
         else if (Number(mod.attrIndex) === 3) special = statStr
       }
 
-      // Add to EQUIP_ID_MAP
-      newIdMapEntries.push(`  '${equipName}': '${equipId}'`)
+      const equipItemData = itemtable[equipId]
+      const gameIconId = (equipItemData as Record<string, unknown>)?.iconId as string ?? ''
+      const iconId = (gameIconId && gameIconId !== equipId) ? gameIconId : equipId
 
-      // Add to RAW_EQUIPS (with set info for grouped insertion)
-      newRawEquipEntries.push({
+      upstreamEntries.set(equipId, {
         set: suitName,
-        line: `  { name: '${equipName}', set: '${suitName}', rarity: 5, type: '${PART_TYPE_MAP[equipData.partType] ?? '配件'}', sub1: '${sub1}', sub2: '${sub2}', special: '${special}', material: '${material}' }`,
+        line: `  { name: '${equipName}', set: '${suitName}', rarity: 5, type: '${PART_TYPE_MAP[equipData.partType] ?? '配件'}', sub1: '${sub1}', sub2: '${sub2}', special: '${special}', material: '${material}', equipId: '${equipId}', iconId: '${iconId}' }`,
       })
     }
   }
 
-  if (newIdMapEntries.length === 0) return 0
+  if (upstreamEntries.size === 0) return 0
 
-  // Update EQUIP_ID_MAP
-  let updatedContent = insertEntries(content, 'const EQUIP_ID_MAP: Record<string, string> = {', newIdMapEntries)
+  if (reconcileAll) {
+    // Full rewrite: replace entire RAW_EQUIPS array with upstream data
+    return rewriteRawEquips(content, equipsTsPath, upstreamEntries)
+  }
 
-  // Update RAW_EQUIPS (grouped by set)
-  updatedContent = insertRawEquipsBySet(updatedContent, newRawEquipEntries)
-
+  // Insert-only mode: append new entries grouped by set
+  const newEntries = [...upstreamEntries.values()]
+  const updatedContent = insertRawEquipsBySet(content, newEntries)
   writeFileSync(equipsTsPath, updatedContent, 'utf-8')
-  return newIdMapEntries.length
+  return newEntries.length
+}
+
+/** Replace the entire RAW_EQUIPS array in equips.ts with upstream data */
+function rewriteRawEquips(
+  content: string,
+  equipsTsPath: string,
+  upstreamEntries: Map<string, { set: string; line: string }>,
+): number {
+  // Determine line ending from the file
+  const lineEnd = content.includes('\r\n') ? '\r\n' : '\n'
+  const rawDecl = 'const RAW_EQUIPS: RawEquip[] = [' + lineEnd
+  const rawStart = content.indexOf(rawDecl)
+  if (rawStart === -1) return 0
+
+  // The array content starts right after '[' + lineEnd in rawDecl
+  const arrStart = rawStart + rawDecl.length
+
+  // Find matching ']' — count nested arrays
+  let depth = 0
+  let arrClose = -1
+  for (let i = arrStart; i < content.length; i++) {
+    if (content[i] === '[') depth++
+    if (content[i] === ']') {
+      if (depth === 0) { arrClose = i; break }
+      depth--
+    }
+  }
+  if (arrClose === -1) return 0
+
+  const tailContent = content.substring(arrClose + 1)
+  const preContent = content.substring(0, rawStart)
+
+  // Build new RAW_EQUIPS entirely from upstream
+  const upstreamLines = [...upstreamEntries.values()].map(e => e.line)
+  const newRawBlock = rawDecl + upstreamLines.join(',' + lineEnd) + lineEnd + ']'
+
+  // Clean tail: remove leading ';' and whitespace
+  const cleanTail = tailContent.replace(/^;\s*/, '').replace(/^\r?\n/, '')
+
+  writeFileSync(equipsTsPath, preContent + newRawBlock + ';' + lineEnd + lineEnd + cleanTail, 'utf-8')
+  return upstreamLines.length
 }
 
 // ── Update dungeons.ts ────────────────────────────────────────────────────

@@ -79,7 +79,7 @@ export default function RootLayout({
             (React does not reconcile <head> children). */}
         <Script
           strategy="afterInteractive"
-          src="https://u.2x.nz/script.js"
+          src="https://umami.2x.nz/script.js"
           data-website-id="604899d8-6614-4230-9feb-974ba09fae4e"
         />
         <Script id="baidu-hmt" strategy="afterInteractive">
