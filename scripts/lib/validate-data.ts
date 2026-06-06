@@ -163,12 +163,40 @@ export function validateEquips(
   if (!existsSync(projectEquipsTsPath)) return issues
   const projectContent = readFileSync(projectEquipsTsPath, 'utf-8')
 
-  // Extract RAW_EQUIPS entries: parse name, sub1, sub2, special, equipId
-  const rawEquipRe = /\{\s*name:\s*'([^']+)',\s*set:\s*'[^']*',\s*rarity:\s*\d+,\s*type:\s*'[^']*',\s*sub1:\s*'([^']*)',\s*sub2:\s*'([^']*)',\s*special:\s*'([^']*)',\s*material:\s*'[^']*',\s*equipId:\s*'([^']*)'/g
-  const projectEquips = new Map<string, { sub1: string; sub2: string; special: string; equipId: string }>()
-  let rm: RegExpExecArray | null
-  while ((rm = rawEquipRe.exec(projectContent)) !== null) {
-    projectEquips.set(rm[1], { sub1: rm[2], sub2: rm[3], special: rm[4], equipId: rm[5] })
+  // Extract RAW_EQUIPS entries: field-order-independent parsing
+  // Find each object block and extract fields individually to avoid
+  // breakage when field order, quoting style, or formatting changes.
+  const projectEquips = new Map<string, { name: string; sub1: string; sub2: string; special: string }>()
+  const rawArrayStart = projectContent.indexOf('const RAW_EQUIPS')
+  if (rawArrayStart !== -1) {
+    const arrOpen = projectContent.indexOf('[', rawArrayStart)
+    if (arrOpen !== -1) {
+      let depth = 0
+      let objStart = -1
+      for (let i = arrOpen; i < projectContent.length; i++) {
+        if (projectContent[i] === '{') {
+          if (depth === 0) objStart = i
+          depth++
+        } else if (projectContent[i] === '}') {
+          depth--
+          if (depth === 0 && objStart !== -1) {
+            const objText = projectContent.slice(objStart, i + 1)
+            const field = (re: RegExp) => { const m = re.exec(objText); return m ? m[1] : '' }
+            const name = field(/name:\s*['"]([^'"]*)['"]/)
+            const sub1 = field(/sub1:\s*['"]([^'"]*)['"]/)
+            const sub2 = field(/sub2:\s*['"]([^'"]*)['"]/)
+            const special = field(/special:\s*['"]([^'"]*)['"]/)
+            const equipId = field(/equipId:\s*['"]([^'"]*)['"]/)
+            const iconId = field(/iconId:\s*['"]([^'"]*)['"]/)
+            const key = equipId || iconId
+            if (name && key) {
+              projectEquips.set(key, { name, sub1, sub2, special })
+            }
+            objStart = -1
+          }
+        }
+      }
+    }
   }
 
   // Read upstream v2_equip data
@@ -228,11 +256,8 @@ export function validateEquips(
       const equipName = equipItem?.name?.text ?? ''
       if (!equipName) continue
 
-      // Find matching project equip by equipId
-      let projectEquip: { sub1: string; sub2: string; special: string; equipId: string } | undefined
-      for (const [, pe] of projectEquips) {
-        if (pe.equipId === upstreamEquipId) { projectEquip = pe; break }
-      }
+      // Look up project equip by equipId (O(1))
+      const projectEquip = projectEquips.get(upstreamEquipId)
       if (!projectEquip) continue // Not in project data
 
       // Build upstream stat strings from displayAttrModifiers

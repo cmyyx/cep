@@ -63,7 +63,8 @@ function buildI18nFiles(
 /** Auto-detect suit names from v2_equip (primary) with old-format fallback. */
 function detectSuitNames(imagedbPath: string): string[] {
   const v2Dir = join(imagedbPath, 'public', 'CH', 'v2_equip')
-  const dir = existsSync(v2Dir) ? v2Dir : null
+  const equipDir = join(imagedbPath, 'public', 'CH', 'equip')
+  const dir = existsSync(v2Dir) ? v2Dir : existsSync(equipDir) ? equipDir : null
   if (!dir) return []
 
   const names = new Set<string>()

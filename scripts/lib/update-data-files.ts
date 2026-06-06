@@ -248,10 +248,14 @@ function insertEntries(content: string, declarationPattern: string, newEntries: 
   let lineEnd = lastContentIdx + 1
   while (lineEnd < content.length && content[lineEnd] !== '\n') lineEnd++
 
+  // Ensure trailing comma on last inserted entry when not at array end
+  const tail = content.slice(lineEnd)
+  const needComma = !/^\s*\]/.test(tail)
+
   return (
     content.slice(0, lineEnd) + '\n' +
-    newEntries.join(',\n') +
-    content.slice(lineEnd)
+    newEntries.join(',\n') + (needComma ? ',' : '') +
+    tail
   )
 }
 
@@ -288,11 +292,14 @@ function insertRawEquipsBySet(content: string, newEntries: { set: string; line: 
     }
 
     if (lastSetLineEnd !== -1) {
-      // Insert after the last entry of this set
+      // Insert after the last entry of this set.
+      // Ensure trailing comma on last inserted entry when not at array end.
+      const tail = result.slice(lastSetLineEnd)
+      const needComma = !/^\s*\]/.test(tail)
       result =
         result.slice(0, lastSetLineEnd) + '\n' +
-        lines.join(',\n') +
-        result.slice(lastSetLineEnd)
+        lines.join(',\n') + (needComma ? ',' : '') +
+        tail
     } else {
       // Set not found, insert before the closing bracket
       const newCloseIdx = findContainerEnd(result, declPattern)
@@ -301,10 +308,12 @@ function insertRawEquipsBySet(content: string, newEntries: { set: string; line: 
         while (lastContentIdx >= 0 && /\s/.test(result[lastContentIdx])) lastContentIdx--
         let lineEnd = lastContentIdx + 1
         while (lineEnd < result.length && result[lineEnd] !== '\n') lineEnd++
+        const tail = result.slice(lineEnd)
+        const needComma = !/^\s*\]/.test(tail)
         result =
           result.slice(0, lineEnd) + '\n' +
-          lines.join(',\n') +
-          result.slice(lineEnd)
+          lines.join(',\n') + (needComma ? ',' : '') +
+          tail
       }
     }
   }
