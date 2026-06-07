@@ -65,7 +65,10 @@ pnpm sync:check
    └─ validatePaths() — 检查 AKEData/Translation 目录及必要子目录
 
 2. SHA 检查（非 --local 模式）
-   └─ 对比存储的 SHA 与当前 HEAD，无变动则跳过
+   └─ 对比 scripts/.cache/upstream-versions.json 中的 SHA（akedata + translation）与上游当前 HEAD
+   └─ 全部匹配 → 跳过
+   └─ 任一不匹配 + --check 模式 → exit code 2（CI 触发 sync job）
+   └─ 任一不匹配 + --update 模式 → 继续执行后续同步步骤
 
 3. 武器数据（Weapons）
    ├─ compareWeapons()       — 对比项目数据与上游，列出新增武器
@@ -98,7 +101,7 @@ pnpm sync:check
    └─ convertIcons()         — 上游 PNG → public/images/ 的 AVIF（weapon + equip）
 
 10. SHA 更新（非 --local 模式）
-    └─ updateTrackingBranch() — 更新 .akadata-sha + auto/upstream-tracking 分支
+    └─ writeUpstreamVersions() — 写入 scripts/.cache/upstream-versions.json（随 PR 提交）
 ```
 
 ## 单脚本调用

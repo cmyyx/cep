@@ -407,7 +407,7 @@
     "selectedCount": "已選 {count} 把",
     "selectAll": "全選",
     "clearAll": "清空",
-    "emptyHint": "選擇武器以查看推薦方案（將展示所有可刷武器，已選優先）",
+    "emptyHint": "選擇武器以查看推薦方案",
     "noPlanMatch": "當前篩選條件下無匹配方案",
     "computing": "正在計算方案...",
     "attrFilterTitle": "屬性篩選",

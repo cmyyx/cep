@@ -12,7 +12,7 @@ import { compareDungeons } from './lib/compare-dungeons'
 import { updateWeaponsFile, updateEquipsFile, updateDungeonsFile } from './lib/update-data-files'
 import { validateAllData, validateImages } from './lib/validate-data'
 import { convertIcons } from './lib/convert-icons'
-import { readStoredSha, fetchTrackingBranch, updateTrackingBranch, branchExistsOnOrigin } from './lib/git-helpers'
+import { readUpstreamVersions, writeUpstreamVersions } from './lib/git-helpers'
 import { existsSync, readFileSync, readdirSync, mkdirSync, writeFileSync } from 'node:fs'
 import { join, resolve } from 'node:path'
 
@@ -109,10 +109,17 @@ async function main() {
 
   // SHA check (skip for local mode or icons-only)
   if (!local && !iconsOnly) {
-    fetchTrackingBranch()
-    const stored = branchExistsOnOrigin('auto/upstream-tracking') ? readStoredSha('.akadata-sha') : null
-    const current = getRepoHead(paths.akedata)
-    if (stored && current === stored) { console.log('\n  Up to date.\n'); process.exit(0) }
+    const versions = readUpstreamVersions()
+    const currentAkedata = getRepoHead(paths.akedata)
+    const currentTranslation = getRepoHead(paths.translation)
+    if (
+      versions.akedata && versions.translation &&
+      currentAkedata === versions.akedata &&
+      currentTranslation === versions.translation
+    ) {
+      console.log('\n  Up to date.\n')
+      process.exit(0)
+    }
     if (mode === 'check') { process.exit(2) }
   }
 
@@ -264,10 +271,13 @@ async function main() {
     }
   }
 
-  // SHA update
+  // SHA update — write version file to working tree (committed via PR)
   if (mode === 'update' && !local) {
-    console.log('\n-- Updating SHA --')
-    updateTrackingBranch({ akedata: getRepoHead(paths.akedata), translation: getRepoHead(paths.translation) })
+    console.log('\n-- Updating upstream versions --')
+    writeUpstreamVersions({
+      akedata: getRepoHead(paths.akedata),
+      translation: getRepoHead(paths.translation),
+    })
   }
 
   console.log('\n  Done\n')
