@@ -24,7 +24,6 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Validate AKEData access token
-        id: token-check
         env:
           GH_TOKEN: ${{ secrets.GH_FORK_SYNC_TOKEN }}
         run: |
@@ -33,7 +32,6 @@ jobs:
             echo "::error::Cannot access private AKEData fork. GH_FORK_SYNC_TOKEN may be invalid or expired. Sync pipeline cannot verify upstream data integrity."
             exit 1
           fi
-          echo "token_valid=true" >> $GITHUB_OUTPUT
 
       - name: Sync AKEData fork from upstream
         env:
@@ -94,8 +92,11 @@ jobs:
           set -e
           if [ $exit_code -eq 2 ]; then
             echo "changed=true" >> $GITHUB_OUTPUT
-          else
+          elif [ $exit_code -eq 0 ]; then
             echo "changed=false" >> $GITHUB_OUTPUT
+          else
+            echo "::error::Check script failed with exit code $exit_code"
+            exit $exit_code
           fi
 
       - name: Cleanup upstream clones

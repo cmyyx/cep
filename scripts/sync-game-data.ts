@@ -111,7 +111,12 @@ async function main() {
   if (!local && !iconsOnly) {
     const versions = readUpstreamVersions()
     const currentAkedata = getRepoHead(paths.akedata)
-    if (versions.akedata && currentAkedata === versions.akedata) {
+    const currentTranslation = getRepoHead(paths.translation)
+    if (
+      versions.akedata && versions.translation &&
+      currentAkedata === versions.akedata &&
+      currentTranslation === versions.translation
+    ) {
       console.log('\n  Up to date.\n')
       process.exit(0)
     }
