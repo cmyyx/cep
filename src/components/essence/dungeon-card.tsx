@@ -617,9 +617,14 @@ export const DungeonCard = memo(function DungeonCard({
     return () => ro.disconnect()
   }, [isExpanded, recomputeAlign])
 
-  // Don't render plans where all weapons are hidden by hide filters —
-  // showing "selected: 0 / total: 0" is confusing and useless.
-  if (visibleTotal === 0) return null
+  // Don't render when:
+  // - all weapons are hidden by hide filters (visibleTotal === 0)
+  // - the plan has selected weapons but none survive hide filters —
+  //   showing only unselected weapons (e.g. selecting 扶摇 but seeing
+  //   only 楔子) is confusing and misleading.
+  const hasAnySelected = plan.matchedWeapons.some((m) => m.isSelected)
+  const hasVisibleSelected = visibleMatched.some((m) => m.isSelected)
+  if (visibleTotal === 0 || (hasAnySelected && !hasVisibleSelected)) return null
 
   return (
     <div className="rounded-lg border border-border bg-card p-4">
