@@ -17,9 +17,9 @@ export function resolvePaths(cliArgs: Record<string, string>): UpstreamPaths {
   }
   const fromConfig = readConfig()
   return {
-    akedata: fromCli.akedata || fromConfig.akedata || join(process.cwd(), 'upstream', 'AKEData'),
-    translation: fromCli.translation || fromConfig.translation || join(process.cwd(), 'upstream', 'EndFieldTranslationReferrer'),
-    imagedb: fromCli.imagedb || fromConfig.imagedb || join(process.cwd(), 'upstream', 'AKEDatabase'),
+    akedata: fromCli.akedata || fromConfig.akedata || join(process.cwd(), '..', 'upstream', 'AKEData'),
+    translation: fromCli.translation || fromConfig.translation || join(process.cwd(), '..', 'upstream', 'EndFieldTranslationReferrer'),
+    imagedb: fromCli.imagedb || fromConfig.imagedb || join(process.cwd(), '..', 'upstream', 'AKEDatabase'),
   }
 }
 

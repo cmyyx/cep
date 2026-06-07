@@ -23,9 +23,17 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Fetch tracking branch
+      - name: Validate AKEData access token
+        id: token-check
+        env:
+          GH_TOKEN: ${{ secrets.GH_FORK_SYNC_TOKEN }}
         run: |
-          git fetch origin auto/upstream-tracking || true
+          RESULT=$(gh api /repos/cmyyx/AKEData --jq .private 2>/dev/null) || true
+          if [ "$RESULT" != "true" ]; then
+            echo "::error::Cannot access private AKEData fork. GH_FORK_SYNC_TOKEN may be invalid or expired. Sync pipeline cannot verify upstream data integrity."
+            exit 1
+          fi
+          echo "token_valid=true" >> $GITHUB_OUTPUT
 
       - name: Sync AKEData fork from upstream
         env:
@@ -34,16 +42,18 @@ jobs:
           gh api --method POST /repos/cmyyx/AKEData/merge-upstream \
             -f branch='main'
 
-      - name: Check upstream changes
-        id: diff
+      - name: Clone upstream repos (outside working tree)
         env:
           GH_FORK_SYNC_TOKEN: ${{ secrets.GH_FORK_SYNC_TOKEN }}
         run: |
-          # Shallow sparse-clone AKEData fork (synced from upstream above)
+          UPSTREAM_DIR="$RUNNER_TEMP/upstream"
+          mkdir -p "$UPSTREAM_DIR"
+
+          # Clone AKEData fork (synced from upstream above)
           git clone --depth 1 --filter=blob:none --sparse --no-checkout \
-            "https://oauth2:${GH_FORK_SYNC_TOKEN}@github.com/cmyyx/AKEData.git" upstream/AKEData
-          git -C upstream/AKEData sparse-checkout init --cone
-          git -C upstream/AKEData sparse-checkout set \
+            "https://oauth2:${GH_FORK_SYNC_TOKEN}@github.com/cmyyx/AKEData.git" "$UPSTREAM_DIR/AKEData"
+          git -C "$UPSTREAM_DIR/AKEData" sparse-checkout init --cone
+          git -C "$UPSTREAM_DIR/AKEData" sparse-checkout set \
             output/CN/weapon output/CN/equip \
             TableCfg/WeaponBasicTable.json \
             TableCfg/CharWpnRecommendTable.json \
@@ -55,28 +65,31 @@ jobs:
             TableCfg/I18nTextTable_EN.json \
             TableCfg/I18nTextTable_JP.json \
             TableCfg/I18nTextTable_TC.json
-          git -C upstream/AKEData checkout
+          git -C "$UPSTREAM_DIR/AKEData" checkout
 
           # Clone public AKEDatabase (no auth needed)
           git clone --depth 1 --filter=blob:none --sparse --no-checkout \
-            https://github.com/NagiYume/AKEDatabase.git upstream/AKEDatabase
-          git -C upstream/AKEDatabase sparse-checkout init --cone
-          git -C upstream/AKEDatabase sparse-checkout set public/CH
-          git -C upstream/AKEDatabase checkout
+            https://github.com/NagiYume/AKEDatabase.git "$UPSTREAM_DIR/AKEDatabase"
+          git -C "$UPSTREAM_DIR/AKEDatabase" sparse-checkout init --cone
+          git -C "$UPSTREAM_DIR/AKEDatabase" sparse-checkout set public/CH
+          git -C "$UPSTREAM_DIR/AKEDatabase" checkout
 
           # Clone public translation repo (no auth needed)
           git clone --depth 1 --filter=blob:none --sparse --no-checkout \
-            https://github.com/SusieGlitter/EndFieldTranslationReferrer.git upstream/EndFieldTranslationReferrer
-          git -C upstream/EndFieldTranslationReferrer sparse-checkout init --cone
-          git -C upstream/EndFieldTranslationReferrer sparse-checkout set i18n
-          git -C upstream/EndFieldTranslationReferrer checkout
+            https://github.com/SusieGlitter/EndFieldTranslationReferrer.git "$UPSTREAM_DIR/EndFieldTranslationReferrer"
+          git -C "$UPSTREAM_DIR/EndFieldTranslationReferrer" sparse-checkout init --cone
+          git -C "$UPSTREAM_DIR/EndFieldTranslationReferrer" sparse-checkout set i18n
+          git -C "$UPSTREAM_DIR/EndFieldTranslationReferrer" checkout
 
+      - name: Check upstream changes
+        id: diff
+        run: |
           # Run check (exit code 2 = changed, 0 = no change)
           set +e
           npx tsx scripts/sync-game-data.ts --check \
-            --akedata upstream/AKEData \
-            --imagedb upstream/AKEDatabase \
-            --translation upstream/EndFieldTranslationReferrer
+            --akedata "$RUNNER_TEMP/upstream/AKEData" \
+            --imagedb "$RUNNER_TEMP/upstream/AKEDatabase" \
+            --translation "$RUNNER_TEMP/upstream/EndFieldTranslationReferrer"
           exit_code=$?
           set -e
           if [ $exit_code -eq 2 ]; then
@@ -84,6 +97,10 @@ jobs:
           else
             echo "changed=false" >> $GITHUB_OUTPUT
           fi
+
+      - name: Cleanup upstream clones
+        if: always()
+        run: rm -rf "$RUNNER_TEMP/upstream"
 
   sync:
     needs: check
@@ -106,6 +123,16 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Validate AKEData access token
+        env:
+          GH_TOKEN: ${{ secrets.GH_FORK_SYNC_TOKEN }}
+        run: |
+          RESULT=$(gh api /repos/cmyyx/AKEData --jq .private 2>/dev/null) || true
+          if [ "$RESULT" != "true" ]; then
+            echo "::error::Cannot access private AKEData fork. GH_FORK_SYNC_TOKEN may be invalid or expired. Sync pipeline cannot produce verified data."
+            exit 1
+          fi
+
       - name: Sync AKEData fork from upstream
         env:
           GH_TOKEN: ${{ secrets.GH_FORK_SYNC_TOKEN }}
@@ -113,15 +140,18 @@ jobs:
           gh api --method POST /repos/cmyyx/AKEData/merge-upstream \
             -f branch='main'
 
-      - name: Clone upstream repos
+      - name: Clone upstream repos (outside working tree)
         env:
           GH_FORK_SYNC_TOKEN: ${{ secrets.GH_FORK_SYNC_TOKEN }}
         run: |
+          UPSTREAM_DIR="$RUNNER_TEMP/upstream"
+          mkdir -p "$UPSTREAM_DIR"
+
           # Clone AKEData fork (synced from upstream above)
           git clone --depth 1 --filter=blob:none --sparse --no-checkout \
-            "https://oauth2:${GH_FORK_SYNC_TOKEN}@github.com/cmyyx/AKEData.git" upstream/AKEData
-          git -C upstream/AKEData sparse-checkout init --cone
-          git -C upstream/AKEData sparse-checkout set \
+            "https://oauth2:${GH_FORK_SYNC_TOKEN}@github.com/cmyyx/AKEData.git" "$UPSTREAM_DIR/AKEData"
+          git -C "$UPSTREAM_DIR/AKEData" sparse-checkout init --cone
+          git -C "$UPSTREAM_DIR/AKEData" sparse-checkout set \
             output/CN/weapon output/CN/equip \
             TableCfg/WeaponBasicTable.json \
             TableCfg/CharWpnRecommendTable.json \
@@ -133,28 +163,45 @@ jobs:
             TableCfg/I18nTextTable_EN.json \
             TableCfg/I18nTextTable_JP.json \
             TableCfg/I18nTextTable_TC.json
-          git -C upstream/AKEData checkout
+          git -C "$UPSTREAM_DIR/AKEData" checkout
 
           # Clone public AKEDatabase (no auth needed)
           git clone --depth 1 --filter=blob:none --sparse --no-checkout \
-            https://github.com/NagiYume/AKEDatabase.git upstream/AKEDatabase
-          git -C upstream/AKEDatabase sparse-checkout init --cone
-          git -C upstream/AKEDatabase sparse-checkout set public/CH
-          git -C upstream/AKEDatabase checkout
+            https://github.com/NagiYume/AKEDatabase.git "$UPSTREAM_DIR/AKEDatabase"
+          git -C "$UPSTREAM_DIR/AKEDatabase" sparse-checkout init --cone
+          git -C "$UPSTREAM_DIR/AKEDatabase" sparse-checkout set public/CH
+          git -C "$UPSTREAM_DIR/AKEDatabase" checkout
 
           # Clone public translation repo (no auth needed)
           git clone --depth 1 --filter=blob:none --sparse --no-checkout \
-            https://github.com/SusieGlitter/EndFieldTranslationReferrer.git upstream/EndFieldTranslationReferrer
-          git -C upstream/EndFieldTranslationReferrer sparse-checkout init --cone
-          git -C upstream/EndFieldTranslationReferrer sparse-checkout set i18n
-          git -C upstream/EndFieldTranslationReferrer checkout
+            https://github.com/SusieGlitter/EndFieldTranslationReferrer.git "$UPSTREAM_DIR/EndFieldTranslationReferrer"
+          git -C "$UPSTREAM_DIR/EndFieldTranslationReferrer" sparse-checkout init --cone
+          git -C "$UPSTREAM_DIR/EndFieldTranslationReferrer" sparse-checkout set i18n
+          git -C "$UPSTREAM_DIR/EndFieldTranslationReferrer" checkout
 
       - name: Run sync update
         run: |
           npx tsx scripts/sync-game-data.ts --update \
-            --akedata upstream/AKEData \
-            --imagedb upstream/AKEDatabase \
-            --translation upstream/EndFieldTranslationReferrer
+            --akedata "$RUNNER_TEMP/upstream/AKEData" \
+            --imagedb "$RUNNER_TEMP/upstream/AKEDatabase" \
+            --translation "$RUNNER_TEMP/upstream/EndFieldTranslationReferrer"
+
+      - name: Cleanup upstream clones
+        if: always()
+        run: rm -rf "$RUNNER_TEMP/upstream"
+
+      - name: Verify no submodule pollution
+        run: |
+          if [ -f .gitmodules ]; then
+            echo "::error::.gitmodules file detected in working tree! This indicates submodule pollution from upstream repo clones. Contents:"
+            cat .gitmodules
+            exit 1
+          fi
+          if git ls-files --error-unmatch .gitmodules >/dev/null 2>&1; then
+            echo "::error::.gitmodules is tracked by git! Submodule pollution has been committed."
+            exit 1
+          fi
+          echo "Submodule check passed — no .gitmodules pollution."
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v6

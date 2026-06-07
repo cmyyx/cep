@@ -24,7 +24,7 @@
 }
 ```
 
-如果上游仓库尚未 clone，脚本会使用默认路径 `upstream/AKEData` 等。可通过 CLI 参数覆盖：
+如果上游仓库尚未 clone，脚本会使用默认路径 `../upstream/AKEData` 等（项目目录外，避免 submodule 污染）。可通过 CLI 参数覆盖：
 
 ```bash
 pnpm sync:check --local \
@@ -140,18 +140,21 @@ t(key)                                  // → "四号谷地" / "Valley IV"
 | `equips.ts` 的 `id` | `EquipTable.json` 的 key（如 `item_equip_t4_suit_atb01_body_01`） |
 | `dungeons.ts` 的 `id` | `DungeonTable.json` 的 key（如 `dung_wuling_01`） |
 
-## SHA 追踪分支
+## SHA 追踪
 
-`auto/upstream-tracking`（orphan 分支，仅存 2 个文件，每次 force push）：
+SHA 追踪信息存储在主仓库文件 `scripts/.cache/upstream-versions.json` 中（随主分支提交）：
 
-```text
-.akadata-sha              ← AKEData HEAD commit
-.endfieldtranslation-sha  ← EndFieldTranslationReferrer HEAD commit
+```json
+{
+  "akedata": "abc123...",
+  "translation": "def456...",
+  "lastSync": "2026-06-07T00:00:00.000Z"
+}
 ```
 
-- `pnpm sync:check` 读取此分支的 SHA，与上游当前 HEAD 比较
+- `pnpm sync:check`：读取此文件记录的 SHA，与上游当前 HEAD 比较
 - 相同 → 跳过；不同 → 执行全量检查
-- `pnpm sync:update` 成功后更新 SHA
+- `pnpm sync:update` 成功后更新此文件（通过 PR 提交到主分支）
 
 ## CI 工作流
 
@@ -162,8 +165,9 @@ t(key)                                  // → "四号谷地" / "Valley IV"
 - **Sync 阶段**：有变更时运行 `sync:update`，自动创建 PR
 
 **需要配置**：
-- GitHub Secrets → `GH_FORK_SYNC_TOKEN`（有权访问私有 AKEData fork 的 Personal Access Token）
+- GitHub Secrets → `GH_FORK_SYNC_TOKEN`（有权访问私有 AKEData fork 的 Personal Access Token，过期/无效将硬阻断工作流）
 - AKEDatabase 和 EndFieldTranslationReferrer 为公开仓库，无须认证
+- **注意**：上游仓库必须在工作树外部 clone（CI 中用 `$RUNNER_TEMP`），禁止 clone 到项目目录内，否则会产生 submodule 污染
 
 ## 脚本目录结构
 

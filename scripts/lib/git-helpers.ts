@@ -1,81 +1,78 @@
-// Git operations for SHA tracking branch.
+// Upstream version tracking — file-based, no orphan branches, no submodules.
+// ================================================================================
+//
+// Replaced the old `auto/upstream-tracking` orphan branch approach with a simple
+// JSON file committed to the main branch.  This eliminates:
+//   - orphan branch force-push race conditions
+//   - .gitmodules / gitlink pollution (the old approach cloned upstream repos
+//     inside the working tree which Git interpreted as submodule entries)
+//
+// File: scripts/.cache/upstream-versions.json
 // ================================================================================
 
-import { execFileSync } from 'node:child_process'
-import { existsSync, writeFileSync, mkdirSync, rmSync } from 'node:fs'
-import { join } from 'node:path'
+import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs'
+import { join, dirname } from 'node:path'
+import { fileURLToPath } from 'node:url'
 
 // ── Constants ─────────────────────────────────────────────────────────────────
 
-const TRACKING_BRANCH = 'auto/upstream-tracking'
-const AKEDATA_SHA_FILE = '.akadata-sha'
-const TRANS_SHA_FILE = '.endfieldtranslation-sha'
+const VERSIONS_FILE = 'scripts/.cache/upstream-versions.json'
 
-// ── Reading ───────────────────────────────────────────────────────────────────
+// ── Helpers ───────────────────────────────────────────────────────────────────
 
-/** Read stored SHA from the tracking branch for the given file. */
-export function readStoredSha(file: string): string | null {
+function getProjectRoot(): string {
   try {
-    return execFileSync(
-      'git', ['show', `${TRACKING_BRANCH}:${file}`],
-      { encoding: 'utf-8', stdio: ['pipe', 'pipe', 'ignore'] },
-    ).trim()
+    return join(dirname(fileURLToPath(import.meta.url)), '..', '..')
   } catch {
-    return null
+    return process.cwd()
   }
 }
 
-/** Fetch the tracking branch from origin (may not exist yet). */
-export function fetchTrackingBranch(): void {
-  try {
-    execFileSync('git', ['fetch', 'origin', TRACKING_BRANCH], { stdio: 'ignore' })
-  } catch {
-    // Branch doesn't exist yet — that's OK
-  }
+// ── Public API ────────────────────────────────────────────────────────────────
+
+export interface UpstreamVersions {
+  /** AKEData fork HEAD commit SHA at last successful sync */
+  akedata: string | null
+  /** EndFieldTranslationReferrer HEAD commit SHA at last successful sync */
+  translation: string | null
+  /** ISO-8601 timestamp of last successful sync */
+  lastSync: string | null
 }
 
-// ── Writing ───────────────────────────────────────────────────────────────────
-
-/** Write new SHA values and force-push to tracking branch. */
-export function updateTrackingBranch(shas: { akedata: string; translation: string }): void {
-  const tmpDir = join(process.cwd(), '.tmp-tracking')
-  mkdirSync(tmpDir, { recursive: true })
-
+/** Read committed upstream version snapshot from the working tree. */
+export function readUpstreamVersions(): UpstreamVersions {
+  const versPath = join(getProjectRoot(), VERSIONS_FILE)
   try {
-    // Create orphan branch in temp dir
-    execFileSync('git', ['init', tmpDir], { stdio: 'ignore' })
-
-    writeFileSync(join(tmpDir, AKEDATA_SHA_FILE), shas.akedata + '\n', 'utf-8')
-    writeFileSync(join(tmpDir, TRANS_SHA_FILE), shas.translation + '\n', 'utf-8')
-
-    const cwd = process.cwd()
-    process.chdir(tmpDir)
-    try {
-      execFileSync('git', ['add', '.'], { stdio: 'ignore' })
-      const commitMsg = `${new Date().toISOString().slice(0, 10)} — AKEData: ${shas.akedata.slice(0, 7)}`
-      execFileSync(
-        'git',
-        ['-c', 'user.name=CEP Sync Bot', '-c', 'user.email=sync@cep.local', 'commit', '--allow-empty', '-m', commitMsg],
-        { stdio: 'ignore' },
-      )
-      execFileSync('git', ['push', cwd, `HEAD:refs/heads/${TRACKING_BRANCH}`, '--force'], { stdio: 'inherit' })
-    } finally {
-      process.chdir(cwd)
+    if (existsSync(versPath)) {
+      const raw = JSON.parse(readFileSync(versPath, 'utf-8')) as Partial<UpstreamVersions>
+      return {
+        akedata: raw.akedata ?? null,
+        translation: raw.translation ?? null,
+        lastSync: raw.lastSync ?? null,
+      }
     }
-  } finally {
-    // Cleanup
-    if (existsSync(tmpDir)) {
-      try { rmSync(tmpDir, { recursive: true, force: true }) } catch { /* ignore */ }
-    }
+  } catch {
+    // File missing or malformed — treat as no stored version (first run).
   }
+  return { akedata: null, translation: null, lastSync: null }
 }
 
-/** Check if a branch exists on origin. */
-export function branchExistsOnOrigin(branch: string): boolean {
-  try {
-    execFileSync('git', ['rev-parse', '--verify', `origin/${branch}`], { stdio: 'ignore' })
-    return true
-  } catch {
-    return false
+/**
+ * Write upstream version snapshot to the working tree.
+ * The caller (sync:update) is responsible for committing this file along with
+ * generated i18n / data changes.
+ */
+export function writeUpstreamVersions(shas: { akedata: string; translation: string }): void {
+  const root = getProjectRoot()
+  const cacheDir = join(root, 'scripts', '.cache')
+  mkdirSync(cacheDir, { recursive: true })
+
+  const versPath = join(cacheDir, 'upstream-versions.json')
+  const payload: UpstreamVersions = {
+    akedata: shas.akedata,
+    translation: shas.translation,
+    lastSync: new Date().toISOString(),
   }
+  writeFileSync(versPath, JSON.stringify(payload, null, 2) + '\n', 'utf-8')
+  console.log(`  [git-helpers] Wrote upstream versions → ${VERSIONS_FILE}`)
 }
