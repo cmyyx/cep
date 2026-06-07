@@ -279,26 +279,11 @@ export default function EssencePlannerPage() {
   }, [refreshBannerStatus])
 
   const renderPlanList = () => {
-    if (noWeaponsSelected) {
-      return (
-        <div className="flex items-center justify-center h-full text-sm text-muted-foreground">
-          {t('essence.emptyHint')}
-        </div>
-      )
-    }
-    if (sortedPlanOrder.length === 0) {
-      return (
-        <div className="flex items-center justify-center h-full text-sm text-muted-foreground">
-          {plansStale ? t('essence.computing') : t('essence.noPlanMatch')}
-        </div>
-      )
-    }
-
     const hasRegionFilter = selectedRegions.size > 0 || selectedSubRegions.size > 0
 
     return (
       <div className="flex flex-col gap-3">
-        {/* Region filter bar */}
+        {/* Region filter bar — always visible regardless of weapon selection */}
         <div className="flex flex-wrap items-center gap-x-2 gap-y-1.5">
           <span className="text-[10px] text-muted-foreground shrink-0">
             {t('essence.regionFilter')}
@@ -393,8 +378,19 @@ export default function EssencePlannerPage() {
             )
           })}
 
-        {/* Warning: weapons not covered by current region filter */}
-        {weaponsNotCovered.length > 0 && (
+        {/* Plan list or empty state */}
+        {noWeaponsSelected ? (
+          <div className="flex items-center justify-center py-16 text-sm text-muted-foreground">
+            {t('essence.emptyHint')}
+          </div>
+        ) : sortedPlanOrder.length === 0 ? (
+          <div className="flex items-center justify-center py-16 text-sm text-muted-foreground">
+            {plansStale ? t('essence.computing') : t('essence.noPlanMatch')}
+          </div>
+        ) : (
+          <>
+            {/* Warning: weapons not covered by current region filter */}
+            {weaponsNotCovered.length > 0 && (
           <div className="rounded-md border border-amber-500/20 bg-amber-500/5 px-3 py-2 text-xs text-amber-600">
             {t('essence.weaponNotCoveredByRegion', {
               weapons: weaponsNotCovered.map((id) => weaponNameMap.get(id) ?? id).join('、'),
@@ -402,23 +398,25 @@ export default function EssencePlannerPage() {
           </div>
         )}
 
-        {/* Plan list */}
-        {filteredPlanOrder.length === 0 ? (
-          <div className="flex items-center justify-center py-16 text-sm text-muted-foreground">
-            {t('essence.noPlanMatch')}
-          </div>
-        ) : (
-          filteredPlanOrder.map((planKey) => {
-            const plan = plansMap[planKey]
-            if (!plan) return null
-            return (
-              <DungeonCard
-                key={planKey}
-                plan={plan}
-                isExpanded={expandedSet.has(planKey)}
-              />
-            )
-          })
+            {/* Plan list */}
+            {filteredPlanOrder.length === 0 ? (
+              <div className="flex items-center justify-center py-16 text-sm text-muted-foreground">
+                {t('essence.noPlanMatch')}
+              </div>
+            ) : (
+              filteredPlanOrder.map((planKey) => {
+                const plan = plansMap[planKey]
+                if (!plan) return null
+                return (
+                  <DungeonCard
+                    key={planKey}
+                    plan={plan}
+                    isExpanded={expandedSet.has(planKey)}
+                  />
+                )
+              })
+            )}
+          </>
         )}
       </div>
     )
