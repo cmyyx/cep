@@ -15,6 +15,7 @@ export type BrowserIssue =
   | 'PROMISE'       // Promise not available
   | 'WEAKSET'       // WeakSet not available
   | 'PROXY'         // Proxy not available
+  | 'AVIF'          // AVIF image format not supported
 
 interface DetectScope {
   CSS?: { supports?: (cond: string) => boolean } | null
@@ -61,14 +62,21 @@ export function detectBrowserIssues(scope: DetectScope): BrowserIssue[] {
  * the page from rendering at all (no CSS custom properties, no CSS API).
  */
 export function isCritical(issues: BrowserIssue[]): boolean {
-  return issues.includes('CSS_API') || issues.includes('CSS_VARS') || issues.includes('CSS_WHERE')
+  return issues.includes('CSS_API') || issues.includes('CSS_VARS') || issues.includes('CSS_WHERE') || issues.includes('AVIF')
 }
 
 /**
  * Recommended minimum versions displayed to the user.
  */
 export const RECOMMENDED_BROWSERS =
-  'Chrome 99+ / Firefox 97+ / Safari 15.4+ / Edge 99+'
+  'Chrome 99+ / Firefox 97+ / Safari 16.0+ / Edge 99+'
+
+// ═══════════════════════════════════════════════════════════════
+// AVIF probe — 1x1 pixel AVIF for async capability detection
+// ═══════════════════════════════════════════════════════════════
+
+export const AVIF_PROBE_DATA =
+  'data:image/avif;base64,AAAAHGZ0eXBhdmlmAAAAAGF2aWZtaWYxbWlhZgAAAOptZXRhAAAAAAAAACFoZGxyAAAAAAAAAABwaWN0AAAAAAAAAAAAAAAAAAAAAA5waXRtAAAAAAABAAAAImlsb2MAAAAAREAAAQABAAAAAAEOAAEAAAAAAAAAGAAAACNpaW5mAAAAAAABAAAAFWluZmUCAAAAAAEAAGF2MDEAAAAAamlwcnAAAABLaXBjbwAAAAxhdjFDgSACAAAAABNjb2xybmNseAABAA0AAYAAAAAUaXNwZQAAAAAAAAABAAAAAQAAABBwaXhpAAAAAAMICAgAAAAXaXBtYQAAAAAAAAABAAEEgQIDBAAAACBtZGF0EgAKBzgABlAQ0BkyCxZAAABAAAB5S6v2'
 
 // ═══════════════════════════════════════════════════════════════
 // Minified IIFE — mirrors detectBrowserIssues exactly.

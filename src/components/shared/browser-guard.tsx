@@ -1,13 +1,16 @@
 import { HeadScript } from '@/components/shared/head-script'
-import { BROWSER_DETECT_CODE } from '@/lib/browser-detect'
+import { BROWSER_DETECT_CODE, AVIF_PROBE_DATA } from '@/lib/browser-detect'
 import { GUARD_OVERLAY_OPEN, GUARD_OVERLAY_CLOSE, GUARD_FEEDBACK_HTML } from '@/components/shared/guard-layout'
 
 /**
  * Inline browser capability guard — injected into <head>.
  *
- * Runs BROWSER_DETECT_CODE (a self-contained IIFE that returns an array
- * of missing feature codes), then displays an upgrade overlay if any
- * critical features are absent.
+ * Phase 1 (sync): runs BROWSER_DETECT_CODE to check CSS/JS APIs.
+ * Critical sync issues trigger an immediate upgrade overlay.
+ *
+ * Phase 2 (async): loads a 1x1 AVIF probe image to check AVIF
+ * decoding support. If AVIF is unsupported the overlay is shown
+ * after the async check completes.
  *
  * Detection logic lives in @/lib/browser-detect.ts (pure function + minified
  * IIFE). Tests are in @/lib/browser-detect.test.ts.
@@ -17,19 +20,12 @@ import { GUARD_OVERLAY_OPEN, GUARD_OVERLAY_CLOSE, GUARD_FEEDBACK_HTML } from '@/
 const BROWSER_LINKS =
   '<a href="https://www.google.com/chrome/" target="_blank" rel="noopener" style="color:#0a72ef;">Chrome 99+</a> / '+
   '<a href="https://www.mozilla.org/firefox/" target="_blank" rel="noopener" style="color:#0a72ef;">Firefox 97+</a> / '+
-  '<a href="https://www.apple.com/safari/" target="_blank" rel="noopener" style="color:#0a72ef;">Safari 15.4+</a> / '+
+  '<a href="https://www.apple.com/safari/" target="_blank" rel="noopener" style="color:#0a72ef;">Safari 16.0+</a> / '+
   '<a href="https://www.microsoft.com/edge" target="_blank" rel="noopener" style="color:#0a72ef;">Edge 99+</a>'
 
 const BROWSER_GUARD_CODE = `(function(){
-var issues=${BROWSER_DETECT_CODE};
-if(issues.length===0)return;
-
-var critical=issues.indexOf('CSS_API')>=0||issues.indexOf('CSS_VARS')>=0||issues.indexOf('CSS_WHERE')>=0;
-if(!critical)return;
-
-(function show(missing){
+function showOverlay(missing){
   if(document.getElementById('cep-browser-warn'))return;
-
   var d=document.createElement('div');
   d.id='cep-browser-warn';
   d.innerHTML=${JSON.stringify(GUARD_OVERLAY_OPEN)}+
@@ -48,12 +44,26 @@ if(!critical)return;
       '<p style="font-size:13px;color:#cc3333;max-width:380px;margin-top:8px;">'+
       '\\u7F3A\\u5931\\u5173\\u952E\\u529F\\u80FD\\uFF1A'+
       '<code style="font-family:monospace;background:#f5f5f5;padding:2px 6px;border-radius:3px;">'+missing.join(', ')+'</code>'+
+      '<br>Missing critical features: <code style="font-family:monospace;background:#f5f5f5;padding:2px 6px;border-radius:3px;">'+missing.join(', ')+'</code>'+
       '</p>'
     :'')+
     ${JSON.stringify(GUARD_FEEDBACK_HTML)}+
     ${JSON.stringify(GUARD_OVERLAY_CLOSE)};
   (document.body||document.documentElement).appendChild(d);
-})(issues);
+}
+
+/* Phase 1: sync CSS / JS API checks */
+var issues=${BROWSER_DETECT_CODE};
+if(issues.length>0){
+  var critical=issues.indexOf('CSS_API')>=0||issues.indexOf('CSS_VARS')>=0||issues.indexOf('CSS_WHERE')>=0;
+  if(critical){ showOverlay(issues); return; }
+}
+
+/* Phase 2: async AVIF decode check */
+var img=new Image();
+img.onload=function(){ if(!(img.width>0&&img.height>0)) showOverlay(['AVIF']); };
+img.onerror=function(){ showOverlay(['AVIF']); };
+img.src=${JSON.stringify(AVIF_PROBE_DATA)};
 })();`.replace(/\n\s*/g, '')
 
 export function BrowserGuard() {

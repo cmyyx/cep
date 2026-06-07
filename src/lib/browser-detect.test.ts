@@ -188,4 +188,12 @@ describe('isCritical', () => {
   it('returns true when CSS_API mixed with JS gaps', () => {
     expect(isCritical(['CSS_API', 'PROMISE', 'WEAKSET'])).toBe(true)
   })
+
+  it('returns true for AVIF alone', () => {
+    expect(isCritical(['AVIF'])).toBe(true)
+  })
+
+  it('returns true when AVIF mixed with JS gaps', () => {
+    expect(isCritical(['AVIF', 'PROMISE'])).toBe(true)
+  })
 })
