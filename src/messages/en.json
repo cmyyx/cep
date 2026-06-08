@@ -432,8 +432,8 @@
     "weaponsTab": "Weapons",
     "plansTab": "Plans",
     "viewPlans": "View Plans",
-    "manageWeapons": "Manage",
-    "viewAllSelected": "View All",
+    "manageWeapons": "Select Weapons",
+    "selectedList": "Selected List",
     "notePlaceholder": "Click to add note"
   },
   "essenceSettings": {

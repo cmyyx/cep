@@ -236,8 +236,8 @@
     "weaponsTab": "武器选择",
     "plansTab": "方案推荐",
     "viewPlans": "查看方案",
-    "manageWeapons": "管理武器",
-    "viewAllSelected": "查看全部",
+    "manageWeapons": "选择武器",
+    "selectedList": "已选清单",
     "notePlaceholder": "点击添加备注"
   },
   "essenceSettings": {

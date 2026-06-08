@@ -432,8 +432,8 @@
     "weaponsTab": "武器選択",
     "plansTab": "案内",
     "viewPlans": "案を見る",
-    "manageWeapons": "武器管理",
-    "viewAllSelected": "全て表示",
+    "manageWeapons": "武器選択",
+    "selectedList": "選択リスト",
     "notePlaceholder": "タップしてメモ追加"
   },
   "essenceSettings": {
