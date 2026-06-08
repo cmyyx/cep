@@ -126,13 +126,13 @@ export function VersionProvider({ children, initialInfo }: { children: ReactNode
   }, [localInfo])
 
   const checkNow = useCallback(() => { fetchVersion(true) }, [fetchVersion])
-  // Use location.replace() instead of reload() — on mobile browsers,
-  // reload() may restore from bfcache (no network request), causing
-  // CSS/JS version mismatch. replace() performs a full navigation
-  // which bypasses bfcache. HTML freshness thereafter depends on
-  // Cache-Control headers (this project serves HTML with no-cache).
   const refreshPage = useCallback(() => {
-    window.location.replace(window.location.href)
+    // Cache-busting: append a unique query param to force a full network request.
+    // This avoids both bfcache (unlike reload()) and HTTP disk cache (unlike plain
+    // replace()). The _t param is harmless — Next.js SSG ignores unknown query params.
+    const url = new URL(window.location.href)
+    url.searchParams.set('_t', Date.now().toString())
+    window.location.replace(url.toString())
   }, [])
 
   useEffect(() => {
