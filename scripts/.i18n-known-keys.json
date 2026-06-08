@@ -123,7 +123,13 @@
         "redeemInvalidDays",
         "redeemInvalidCount",
         "redeemInvalidExpiry",
-        "redeemInsufficientPermission"
+        "redeemInsufficientPermission",
+        "customWeaponsNotAllowed",
+        "invalidPlanType",
+        "invalidQuantity",
+        "serverError",
+        "tooManyPendingClaims",
+        "versionConflict"
       ]
     },
 
@@ -132,6 +138,16 @@
       "keys": [
         "offRateNote.tangtang",
         "offRateNote.luoxi"
+      ]
+    },
+
+    "holiday": {
+      "comment": "Holiday banner keys accessed via t(`${config.i18nKey}.banner`) in holiday-banner.tsx. The i18nKey comes from HOLIDAYS config at runtime.",
+      "keys": [
+        "childrensDay.banner",
+        "gameAnniversary.banner",
+        "newYear.banner",
+        "toolAnniversary.banner"
       ]
     }
   }

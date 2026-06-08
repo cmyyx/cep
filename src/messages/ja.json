@@ -36,12 +36,7 @@
     "terms": "利用規約"
   },
   "app": {
-    "name": "CEP エンドフィールドプランナー（旧終末地基質プランナー）",
-    "phase": {
-      "splash": "INITIALIZING",
-      "tracking": "LOADING MODULES",
-      "ready": "READY"
-    }
+    "name": "CEP エンドフィールドプランナー（旧終末地基質プランナー）"
   },
   "auth": {
     "usernameOrEmail": "ユーザー名 / メール",

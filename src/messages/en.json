@@ -36,12 +36,7 @@
     "terms": "Terms of Service"
   },
   "app": {
-    "name": "CEP Endfield Planner (formerly Endfield Essence Planner)",
-    "phase": {
-      "splash": "INITIALIZING",
-      "tracking": "LOADING MODULES",
-      "ready": "READY"
-    }
+    "name": "CEP Endfield Planner (formerly Endfield Essence Planner)"
   },
   "auth": {
     "usernameOrEmail": "Username / Email",

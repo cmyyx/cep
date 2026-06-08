@@ -118,13 +118,16 @@ export function GuardOverlay({ children }: { children: ReactNode }) {
 interface GuardFeedbackProps {
   title?: string
   className?: string
+  /** When provided, overrides hardcoded labels with i18n-aware labels. */
+  links?: { href: string; label: string }[]
 }
 
-function FeedbackLine({ lang }: { lang: 'zh' | 'en' }) {
+function FeedbackLine({ lang, links }: { lang: 'zh' | 'en'; links?: { href: string; label: string }[] }) {
+  const channels = links ?? FEEDBACK_CHANNELS
   const labelKey = lang === 'zh' ? 'labelZh' : 'labelEn'
   return (
     <>
-      {FEEDBACK_CHANNELS.map((ch, i) => (
+      {channels.map((ch, i) => (
         <span key={ch.href}>
           {i > 0 && ' \u00B7 '}
           <a
@@ -134,7 +137,7 @@ function FeedbackLine({ lang }: { lang: 'zh' | 'en' }) {
             className="hover:underline"
             style={{ color: '#0a72ef', marginLeft: i > 0 ? undefined : 4 }}
           >
-            {ch[labelKey]}
+            {'label' in ch ? ch.label : (ch as FeedbackChannel)[labelKey]}
           </a>
         </span>
       ))}
@@ -142,7 +145,9 @@ function FeedbackLine({ lang }: { lang: 'zh' | 'en' }) {
   )
 }
 
-export function GuardFeedback({ title, className }: GuardFeedbackProps) {
+export function GuardFeedback({ title, className, links }: GuardFeedbackProps) {
+  const hasLinks = links && links.length > 0
+
   return (
     <div
       className={cn('text-xs text-muted-foreground m-0', className)}
@@ -150,7 +155,20 @@ export function GuardFeedback({ title, className }: GuardFeedbackProps) {
     >
       {title ? (
         <p className="m-0" style={{ margin: 0 }}>
-          {title}<br /><FeedbackLine lang="zh" />
+          {title}<br />
+          {hasLinks ? (
+            links!.map((ch, i) => (
+              <span key={ch.href}>
+                {i > 0 && ' \u00B7 '}
+                <a href={ch.href} target="_blank" rel="noopener" className="hover:underline"
+                  style={{ color: '#0a72ef', marginLeft: i > 0 ? undefined : 4 }}>
+                  {ch.label}
+                </a>
+              </span>
+            ))
+          ) : (
+            <FeedbackLine lang="zh" />
+          )}
         </p>
       ) : (
         <>
