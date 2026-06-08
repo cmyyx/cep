@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button'
 
 import { FilterChip } from '@/components/shared/filter-chip'
 import { WeaponCard } from './weapon-card'
+import { SelectedWeaponsStrip } from './selected-weapons-strip'
 import { weapons as staticWeapons } from '@/data/weapons'
 import { useMatrixStore } from '@/stores/useMatrixStore'
 import { useEssenceSettingsStore } from '@/stores/useEssenceSettingsStore'
@@ -48,11 +49,19 @@ function attrFiltersToSets(record: Record<string, string[]>): Record<AttrKey, Se
   }
 }
 
-export const WeaponGrid = memo(function WeaponGrid() {
+// ─── Selected Weapons Strip ────────────────────────────────────────────────
+// Moved to ./selected-weapons-strip.tsx
+
+interface WeaponGridProps {
+  onViewAll?: () => void
+}
+
+export const WeaponGrid = memo(function WeaponGrid({ onViewAll }: WeaponGridProps) {
   const t = useTranslations()
   const filterCollapsed = useEssenceSettingsStore((s) => s.weaponFilterCollapsed)
   const toggleFilterCollapsed = useEssenceSettingsStore((s) => s.toggleWeaponFilterCollapsed)
   const selectedWeaponIds = useMatrixStore((s) => s.selectedWeaponIds)
+  const toggleWeapon = useMatrixStore((s) => s.toggleWeapon)
 
   // Shared filter state (lifted to store so desktop/mobile instances stay in sync)
   const query = useMatrixStore((s) => s.weaponSearchQuery)
@@ -208,9 +217,24 @@ export const WeaponGrid = memo(function WeaponGrid() {
     setVisibleWeaponIds(visibleIds)
   }, [visibleIds, setVisibleWeaponIds])
 
+  // Build O(1) lookup map for selected weapon strip
+  const selectedWeaponsMap = useMemo(() => {
+    const map = new Map<string, Weapon>()
+    for (const w of allWeapons) map.set(w.id, w)
+    return map
+  }, [allWeapons])
+
   return (
     <div className="flex flex-col gap-3">
       <Input placeholder={t('essence.searchWeapon')} value={query} onChange={(e) => setQuery(e.target.value)} className="text-sm" />
+
+      {/* Selected weapons strip */}
+      <SelectedWeaponsStrip
+        selectedIds={selectedWeaponIds}
+        weaponsMap={selectedWeaponsMap}
+        onToggleWeapon={toggleWeapon}
+        onViewAll={onViewAll}
+      />
 
       {/* Attribute filter — collapsible */}
       <div>

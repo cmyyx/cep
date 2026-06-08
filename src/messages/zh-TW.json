@@ -36,12 +36,7 @@
     "terms": "服務條款"
   },
   "app": {
-    "name": "CEP 終末地規劃器（原終末地基質規劃器）",
-    "phase": {
-      "splash": "INITIALIZING",
-      "tracking": "LOADING MODULES",
-      "ready": "READY"
-    }
+    "name": "CEP 終末地規劃器（原終末地基質規劃器）"
   },
   "auth": {
     "usernameOrEmail": "使用者名稱 / 信箱",
@@ -432,8 +427,8 @@
     "weaponsTab": "武器選擇",
     "plansTab": "方案推薦",
     "viewPlans": "檢視方案",
-    "manageWeapons": "管理武器",
-    "viewAllSelected": "檢視全部",
+    "manageWeapons": "選擇武器",
+    "selectedList": "已選清單",
     "notePlaceholder": "點擊添加備註"
   },
   "essenceSettings": {

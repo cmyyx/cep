@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState, useCallback } from 'react'
+import { useEffect, useState, useCallback, useMemo } from 'react'
 import Image from 'next/image'
 import { useTranslations } from 'next-intl'
 import { useAppInitStore } from '@/stores/useAppInitStore'
@@ -57,6 +57,13 @@ export function AppInitOverlay() {
     return () => clearTimeout(timer)
   }, [ready, hasCompleted, markCompleted])
 
+  // Built before early-return to satisfy Rules of Hooks.
+  const feedbackLinks = useMemo(() => [
+    { href: 'https://github.com/cmyyx/cep', label: t('feedback.github') },
+    { href: 'https://end.302200.xyz', label: t('feedback.forum') },
+    { href: 'https://qm.qq.com/q/Cjdo2aRikE', label: t('feedback.qqGroup') },
+  ], [t])
+
   // Never show again after first completion.
   if (hasCompleted) return null
 
@@ -111,7 +118,7 @@ export function AppInitOverlay() {
         </div>
 
         {/* Feedback channels */}
-        <GuardFeedback title={t('feedback.title')} />
+        <GuardFeedback title={t('feedback.title')} links={feedbackLinks} />
       </div>
     </div>
   )

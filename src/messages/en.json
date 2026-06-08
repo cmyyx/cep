@@ -36,12 +36,7 @@
     "terms": "Terms of Service"
   },
   "app": {
-    "name": "CEP Endfield Planner (formerly Endfield Essence Planner)",
-    "phase": {
-      "splash": "INITIALIZING",
-      "tracking": "LOADING MODULES",
-      "ready": "READY"
-    }
+    "name": "CEP Endfield Planner (formerly Endfield Essence Planner)"
   },
   "auth": {
     "usernameOrEmail": "Username / Email",
@@ -432,8 +427,8 @@
     "weaponsTab": "Weapons",
     "plansTab": "Plans",
     "viewPlans": "View Plans",
-    "manageWeapons": "Manage",
-    "viewAllSelected": "View All",
+    "manageWeapons": "Select Weapons",
+    "selectedList": "Selected List",
     "notePlaceholder": "Click to add note"
   },
   "essenceSettings": {

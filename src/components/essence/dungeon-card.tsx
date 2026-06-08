@@ -109,6 +109,7 @@ const WeaponThumbnail = memo(function WeaponThumbnail({
 }: ThumbProps) {
   const t = useTranslations()
   const enableTooltip = useEssenceSettingsStore((s) => s.enableTooltipPlans)
+  const toggleWeapon = useMatrixStore((s) => s.toggleWeapon)
   const [open, setOpen] = useState(false)
   const triggerRef = useCloseOnScroll(open, setOpen)
 
@@ -162,7 +163,7 @@ const WeaponThumbnail = memo(function WeaponThumbnail({
     pointerStartRef.current = null
     if (longPressTriggeredRef.current) {
       setOpen(false)
-      longPressTriggeredRef.current = false
+      // Do NOT reset longPressTriggeredRef here — let handleToggle consume it
     }
   }, [clearLongPress])
 
@@ -170,19 +171,30 @@ const WeaponThumbnail = memo(function WeaponThumbnail({
     e.preventDefault()
   }, [])
 
+  const handleToggle = useCallback(() => {
+    if (longPressTriggeredRef.current) {
+      longPressTriggeredRef.current = false
+      return
+    }
+    toggleWeapon(weapon.id)
+  }, [toggleWeapon, weapon.id])
+
   const weaponName = (weapon.id?.startsWith('custom-') || weapon.id?.startsWith('preview:')) ? weapon.name : (t(`weapons.${weapon.id}`) ?? weapon.name)
 
   const thumb = (
-    <button
-      type="button"
+    <Button
+      variant="ghost"
+      size="icon"
       ref={triggerRef}
+      onClick={handleToggle}
       onPointerDown={isMobile && enableTooltip ? handlePointerDown : undefined}
       onPointerMove={isMobile && enableTooltip ? handlePointerMove : undefined}
       onPointerUp={isMobile && enableTooltip ? handlePointerEnd : undefined}
       onPointerCancel={isMobile && enableTooltip ? handlePointerEnd : undefined}
       onContextMenu={isMobile && enableTooltip ? handleContextMenu : undefined}
       className={cn(
-        'relative w-16 h-16 rounded-md overflow-hidden cursor-default select-none',
+        'relative w-16 h-16 rounded-md overflow-hidden select-none',
+        isMobile && enableTooltip ? 'cursor-default' : 'cursor-pointer',
         'bg-[url(/images/item-frame-bg.png)] bg-cover bg-center',
         isMobile && enableTooltip && 'touch-manipulation',
         inRange && isSelected && 'shadow-[0_0_0_1px_rgba(251,191,36,0.5)]',
@@ -205,7 +217,7 @@ const WeaponThumbnail = memo(function WeaponThumbnail({
           <Check className="size-2.5 text-black" strokeWidth={3} />
         </div>
       )}
-    </button>
+    </Button>
   )
 
   if (!enableTooltip) return thumb
@@ -248,6 +260,7 @@ const WeaponRow = memo(function WeaponRow({
   onNoteChange,
 }: RowProps) {
   const t = useTranslations()
+  const toggleWeapon = useMatrixStore((s) => s.toggleWeapon)
   const weaponName = (weapon.id?.startsWith('custom-') || weapon.id?.startsWith('preview:')) ? weapon.name : (t(`weapons.${weapon.id}`) ?? weapon.name)
 
   return (
@@ -261,7 +274,11 @@ const WeaponRow = memo(function WeaponRow({
       )}
     >
       <div className="flex items-center gap-2 min-w-0 shrink-0">
-        <div className="relative size-10 rounded shadow-[0_0_0_1px_rgba(0,0,0,0.08)] bg-muted/30 flex-shrink-0 overflow-hidden bg-[url(/images/item-frame-bg.png)] bg-cover bg-center">
+        <Button
+          variant="ghost"
+          size="icon"
+          onClick={() => toggleWeapon(weapon.id)}
+          className="relative size-10 rounded shadow-[0_0_0_1px_rgba(0,0,0,0.08)] bg-muted/30 flex-shrink-0 overflow-hidden bg-[url(/images/item-frame-bg.png)] bg-cover bg-center cursor-pointer">
           {(() => { const s = weaponImageSrc(weapon.id); if (!s) return <span className="absolute inset-0 flex items-center justify-center text-lg font-semibold text-white/40">{weapon.name?.charAt(0) ?? '?'}</span>; return <Image src={s} alt={weaponName} fill className="object-cover z-10" unoptimized /> })()}
           <Image
             src={`/images/item-band-${weapon.rarity}.png`}
@@ -271,7 +288,7 @@ const WeaponRow = memo(function WeaponRow({
             className="absolute -inset-x-px bottom-0 z-20 w-[calc(100%+2px)] max-w-none object-cover object-bottom pointer-events-none"
             unoptimized
           />
-        </div>
+        </Button>
         <span
           className={cn(
             'font-medium min-w-0 truncate w-28 flex-shrink-0',

@@ -36,12 +36,7 @@
     "terms": "利用規約"
   },
   "app": {
-    "name": "CEP エンドフィールドプランナー（旧終末地基質プランナー）",
-    "phase": {
-      "splash": "INITIALIZING",
-      "tracking": "LOADING MODULES",
-      "ready": "READY"
-    }
+    "name": "CEP エンドフィールドプランナー（旧終末地基質プランナー）"
   },
   "auth": {
     "usernameOrEmail": "ユーザー名 / メール",
@@ -432,8 +427,8 @@
     "weaponsTab": "武器選択",
     "plansTab": "案内",
     "viewPlans": "案を見る",
-    "manageWeapons": "武器管理",
-    "viewAllSelected": "全て表示",
+    "manageWeapons": "武器選択",
+    "selectedList": "選択リスト",
     "notePlaceholder": "タップしてメモ追加"
   },
   "essenceSettings": {

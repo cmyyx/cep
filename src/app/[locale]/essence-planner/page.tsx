@@ -3,6 +3,7 @@
 import { useMemo, useState, useCallback, useEffect } from 'react'
 import { useTranslations } from 'next-intl'
 import { usePathname } from 'next/navigation'
+import { useIsMobile } from '@/hooks/use-mobile'
 import { SidebarTrigger } from '@/components/ui/sidebar'
 import { Button } from '@/components/ui/button'
 import { WeaponGrid } from '@/components/essence/weapon-grid'
@@ -32,6 +33,7 @@ export default function EssencePlannerPage() {
   const [customWeaponOpen, setCustomWeaponOpen] = useState(false)
   const [mobileView, setMobileView] = useState<MobileView>('weapons')
   const [viewAllOpen, setViewAllOpen] = useState(false)
+  const isMobile = useIsMobile()
 
   // Dynamic region data from dungeon list
   const regions = useMemo(() => getRegions(dungeons), [])
@@ -465,7 +467,7 @@ export default function EssencePlannerPage() {
       {/* Desktop layout: left weapon grid + right plans */}
       <div className="hidden md:flex flex-1 overflow-hidden">
         <div className="grow min-w-96 max-w-[33.333%] border-r border-border overflow-y-scroll p-3 pb-16">
-          <WeaponGrid />
+          <WeaponGrid onViewAll={() => setViewAllOpen(true)} />
         </div>
         <div className="flex-1 overflow-y-auto p-4 pb-16">
           {renderPlanList()}
@@ -508,77 +510,99 @@ export default function EssencePlannerPage() {
         <div className="flex-1 min-h-0 overflow-y-auto">
           {mobileView === 'weapons' ? (
             <div className="p-3 pb-16">
-              <WeaponGrid />
+              <WeaponGrid onViewAll={() => setViewAllOpen(true)} />
             </div>
           ) : (
             <div className="p-4 pb-16">
-              {/* Selected weapons context header */}
-              {!noWeaponsSelected && (
-                <Button
-                  type="button"
-                  variant="ghost"
-                  size="sm"
-                  onClick={() => setViewAllOpen(true)}
-                  className="flex items-center gap-2 mb-3"
-                >
-                  <span>{t('essence.selectedCount', { count: selectedCount })}</span>
-                  <span className="text-xs">{t('essence.viewAllSelected')}</span>
-                </Button>
-              )}
               {renderPlanList()}
             </div>
           )}
         </div>
 
-        {/* Bottom bar — relative with margin-bottom for watermark clearance.
-            safe-area-inset handled via safe-area-mb utility. */}
+        {/* Bottom bar */}
         <div className="relative safe-area-mb z-40 flex items-center justify-between px-4 py-2.5 shadow-[inset_0px_1px_0px_0px_rgba(0,0,0,0.08)] bg-background">
           <span className="text-sm text-muted-foreground">
             {t('essence.selectedCount', { count: selectedCount })}
           </span>
-          {mobileView === 'weapons' ? (
-            <Button
-              variant="default"
-              size="sm"
-              onClick={() => setMobileView('plans')}
-              disabled={noWeaponsSelected}
-            >
-              {t('essence.viewPlans')}
-            </Button>
-          ) : (
+          <div className="flex items-center gap-2">
             <Button
               variant="outline"
               size="sm"
-              onClick={() => setMobileView('weapons')}
+              onClick={() => setViewAllOpen(true)}
+              disabled={noWeaponsSelected}
             >
-              {t('essence.manageWeapons')}
+              {t('essence.selectedList')}
             </Button>
-          )}
+            {mobileView === 'weapons' ? (
+              <Button
+                variant="default"
+                size="sm"
+                onClick={() => setMobileView('plans')}
+                disabled={noWeaponsSelected}
+              >
+                {t('essence.viewPlans')}
+              </Button>
+            ) : (
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setMobileView('weapons')}
+              >
+                {t('essence.manageWeapons')}
+              </Button>
+            )}
+          </div>
         </div>
       </div>
 
-      {/* "View All" selected weapons bottom sheet */}
-      <Sheet open={viewAllOpen} onOpenChange={setViewAllOpen}>
-        <SheetContent side="bottom" className="max-h-[70vh] overflow-y-auto">
-          <SheetHeader>
-            <SheetTitle>{t('essence.selectedCount', { count: selectedCount })}</SheetTitle>
-          </SheetHeader>
-          <div className="grid grid-cols-3 gap-2 px-4 pb-4">
-            {selectedWeaponIds.map((id) => {
-              const weapon = allWeaponsMap.get(id)
-              if (!weapon) return null
-              return (
-                <WeaponCard
-                  key={id}
-                  weapon={weapon}
-                  isSelected={selectedSet.has(id)}
-                />
-              )
-            })}
-          </div>
-        </SheetContent>
-      </Sheet>
     </div>
+
+    {/* Selected weapons sheet (desktop: right panel, mobile: bottom sheet) */}
+    <Sheet open={viewAllOpen} onOpenChange={setViewAllOpen}>
+      <SheetContent
+        side={isMobile ? 'bottom' : 'right'}
+        className={cn(
+          'overflow-y-auto',
+          isMobile ? 'max-h-[70vh]' : '',
+        )}
+      >
+        <SheetHeader>
+          <SheetTitle>{t('essence.selectedCount', { count: selectedCount })}</SheetTitle>
+        </SheetHeader>
+        {!noWeaponsSelected && (
+          <div className="flex items-center gap-2 px-4 pb-3">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => selectAllWeapons(useMatrixStore.getState().visibleWeaponIds)}
+            >
+              {t('essence.selectAll')}
+            </Button>
+            <Button variant="ghost" size="sm" onClick={clearWeapons}>
+              {t('essence.clearAll')}
+            </Button>
+          </div>
+        )}
+        <div className="grid grid-cols-3 gap-2 px-4 pb-4">
+          {selectedWeaponIds.map((id) => {
+            const weapon = allWeaponsMap.get(id)
+            if (!weapon) return null
+            return (
+              <WeaponCard
+                key={id}
+                weapon={weapon}
+                isSelected={selectedSet.has(id)}
+              />
+            )
+          })}
+        </div>
+        {noWeaponsSelected && (
+          <div className="flex items-center justify-center py-16 text-sm text-muted-foreground">
+            {t('essence.emptyHint')}
+          </div>
+        )}
+      </SheetContent>
+    </Sheet>
     </>
   )
 }

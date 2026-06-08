@@ -36,12 +36,7 @@
     "terms": "服务条款"
   },
   "app": {
-    "name": "CEP 终末地规划器（原终末地基质规划器）",
-    "phase": {
-      "splash": "INITIALIZING",
-      "tracking": "LOADING MODULES",
-      "ready": "READY"
-    }
+    "name": "CEP 终末地规划器（原终末地基质规划器）"
   },
   "auth": {
     "required": "此项为必填",
@@ -236,8 +231,8 @@
     "weaponsTab": "武器选择",
     "plansTab": "方案推荐",
     "viewPlans": "查看方案",
-    "manageWeapons": "管理武器",
-    "viewAllSelected": "查看全部",
+    "manageWeapons": "选择武器",
+    "selectedList": "已选清单",
     "notePlaceholder": "点击添加备注"
   },
   "essenceSettings": {
