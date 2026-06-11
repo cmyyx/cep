@@ -16,21 +16,18 @@ on:
         default: false
 
 jobs:
-  deploy:
-    name: Build & Deploy
+  # ── Tag preparation (runs once, before matrix) ──────────
+  prepare:
+    name: Prepare
     runs-on: ubuntu-latest
     permissions:
       contents: write
+    outputs:
+      clean-tag: ${{ steps.tag-prep.outputs.clean-tag }}
     steps:
       - uses: actions/checkout@v5
         with:
           fetch-depth: 0
-
-      - uses: pnpm/action-setup@v6
-
-      - uses: actions/setup-node@v5
-        with:
-          node-version: 22
 
       - name: Validate version format
         if: github.event_name == 'workflow_dispatch'
@@ -80,20 +77,43 @@ jobs:
 
           echo "clean-tag=${CLEAN_TAG}" >> $GITHUB_OUTPUT
 
+  # ── Build & Deploy (matrix: intl + cn) ──────────────────
+  build-deploy:
+    name: Build & Deploy (${{ matrix.target }})
+    needs: prepare
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    strategy:
+      matrix:
+        target:
+          - intl
+          - cn
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - uses: pnpm/action-setup@v6
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+
       - name: Setup pnpm
         run: pnpm install --frozen-lockfile
 
       - name: Build
         run: pnpm run build
         env:
-          DEPLOY_TAG: ${{ steps.tag-prep.outputs.clean-tag }}
+          DEPLOY_TAG: ${{ needs.prepare.outputs.clean-tag }}
           SITE_URL: https://end.canmoe.com
-          NEXT_PUBLIC_API_BASE_URL: ${{ vars.API_BASE_URL }}
-          NEXT_PUBLIC_TURNSTILE_SITE_KEY: ${{ secrets.TURNSTILE_SITE_KEY }}
-          NEXT_PUBLIC_ALLOWED_DOMAINS: ${{ vars.ALLOWED_DOMAINS }}
-          NEXT_PUBLIC_ALLOWED_EMBED_DOMAINS: ${{ vars.ALLOWED_EMBED_DOMAINS }}
-          NEXT_PUBLIC_OAUTH_CLIENT_NAMES: ${{ vars.OAUTH_CLIENT_NAMES }}
-          NEXT_PUBLIC_FORUM_URL: ${{ vars.FORUM_URL }}
+          NEXT_PUBLIC_API_BASE_URL: ${{ matrix.target == 'intl' && vars.API_BASE_URL || '' }}
+          NEXT_PUBLIC_TURNSTILE_SITE_KEY: ${{ matrix.target == 'intl' && secrets.TURNSTILE_SITE_KEY || '' }}
+          NEXT_PUBLIC_ALLOWED_DOMAINS: ${{ matrix.target == 'intl' && vars.ALLOWED_DOMAINS || '' }}
+          NEXT_PUBLIC_ALLOWED_EMBED_DOMAINS: ${{ matrix.target == 'intl' && vars.ALLOWED_EMBED_DOMAINS || '' }}
+          NEXT_PUBLIC_OAUTH_CLIENT_NAMES: ${{ matrix.target == 'intl' && vars.OAUTH_CLIENT_NAMES || '' }}
+          NEXT_PUBLIC_FORUM_URL: ${{ matrix.target == 'intl' && vars.FORUM_URL || '' }}
 
       - name: Deploy to deploy branch
         run: |
@@ -108,5 +128,5 @@ jobs:
           cp -r $RUNNER_TEMP/out/* .
           git add -A
           COMMIT_MSG=$(git log -1 --pretty=%s $GITHUB_SHA)
-          git commit -m "deploy: ${{ github.ref_name || inputs.version }} - $COMMIT_MSG"
-          git push origin deploy-temp:deploy --force
+          git commit -m "deploy: ${{ github.ref_name || inputs.version }} [${{ matrix.target }}] - $COMMIT_MSG"
+          git push origin deploy-temp:deploy-${{ matrix.target }} --force
