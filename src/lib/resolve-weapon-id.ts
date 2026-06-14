@@ -30,9 +30,24 @@ export function resolveWeaponId(id: string): string {
 }
 
 /**
- * Resolve all keys in a Record that may contain preview-IDs.
- * If multiple preview keys resolve to the same game ID, last one wins.
+ * Resolve weapon IDs in a dungeonS1Selections structure
+ * (Record<planKey, weaponId[]>). Returns a new object with all
+ * weapon IDs resolved from preview: to their current game IDs.
  */
+export function resolveS1Selections(
+  s1: Record<string, string[]>,
+): Record<string, string[]> {
+  if (!s1 || typeof s1 !== 'object') return {}
+  const result = Object.create(null) as Record<string, string[]>
+  for (const [key, ids] of Object.entries(s1)) {
+    if (key === '__proto__' || key === 'constructor' || key === 'prototype') continue
+    if (Array.isArray(ids)) {
+      result[key] = ids.map((id) => (typeof id === 'string' ? resolveWeaponId(id) : id)).filter((v): v is string => typeof v === 'string')
+    }
+  }
+  return result
+}
+
 export function resolveWeaponIdKeys<V>(record: Record<string, V>): Record<string, V> {
   let needsResolve = false
   for (const key of Object.keys(record)) {

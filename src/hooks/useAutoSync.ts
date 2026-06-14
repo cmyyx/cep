@@ -6,6 +6,7 @@ import { useMatrixStore } from '@/stores/useMatrixStore'
 import { useRefinementStore } from '@/stores/useRefinementStore'
 import { useEssenceSettingsStore } from '@/stores/useEssenceSettingsStore'
 import { getSyncDataApi, postSyncDataApi, getTokens } from '@/lib/api'
+import { resolveWeaponId, resolveWeaponIdKeys, resolveS1Selections } from '@/lib/resolve-weapon-id'
 
 import { regionI18nKey } from '@/data/region-i18n'
 
@@ -39,9 +40,11 @@ function syncStoresFromCloudPayload(raw: Record<string, unknown>) {
   try {
     const ep = raw.essencePlanner as Record<string, unknown> | undefined
     if (ep) {
+      const rawIds: string[] = Array.isArray(ep.selectedWeaponIds) ? ep.selectedWeaponIds.filter((v): v is string => typeof v === 'string') : []
+      const rawS1: Record<string, string[]> = (ep.dungeonS1Selections ?? {}) as Record<string, string[]>
       useMatrixStore.setState({
-        selectedWeaponIds: (Array.isArray(ep.selectedWeaponIds) ? ep.selectedWeaponIds : []) as string[],
-        dungeonS1Selections: (ep.dungeonS1Selections ?? {}) as Record<string, string[]>,
+        selectedWeaponIds: rawIds.map(resolveWeaponId),
+        dungeonS1Selections: resolveS1Selections(rawS1),
         plansStale: true,
       })
       // Recompute plans immediately after applying cloud data. Without this,
@@ -57,9 +60,9 @@ function syncStoresFromCloudPayload(raw: Record<string, unknown>) {
     const es = raw.essenceSettings as Record<string, unknown> | undefined
     if (es) {
       const next: Record<string, unknown> = {}
-      if (es.weaponOwnership) next.weaponOwnership = es.weaponOwnership
-      if (es.essenceStatus) next.essenceStatus = es.essenceStatus
-      if (es.weaponNotes) next.weaponNotes = es.weaponNotes
+      if (es.weaponOwnership) next.weaponOwnership = resolveWeaponIdKeys(es.weaponOwnership as Record<string, unknown>)
+      if (es.essenceStatus) next.essenceStatus = resolveWeaponIdKeys(es.essenceStatus as Record<string, unknown>)
+      if (es.weaponNotes) next.weaponNotes = resolveWeaponIdKeys(es.weaponNotes as Record<string, unknown>)
       if (Array.isArray(es.customWeapons)) next.customWeapons = es.customWeapons
       if (es.flags) Object.assign(next, es.flags)
       if (es.regionFirst !== undefined) next.regionFirst = es.regionFirst

@@ -22,8 +22,34 @@ import { cn, maskEmail, isValidEmail, formatTime } from '@/lib/utils'
 import { SyncConflictDialog } from '@/components/shared/sync-conflict-dialog'
 import { equipById } from '@/data/equips'
 import { redeemCodeApi } from '@/lib/api'
+import { resolveWeaponId, resolveWeaponIdKeys, resolveS1Selections } from '@/lib/resolve-weapon-id'
 
 // ─── Sync ────────────────────────────────────────────────────
+
+/** Resolve stale preview:* weapon IDs in a cloud sync payload in-place.
+ *  Mutates the raw object so all downstream inline localStorage writes
+ *  and store updates automatically use resolved game IDs. */
+function resolveCloudWeaponIds(raw: Record<string, unknown>): void {
+  try {
+    const ep = raw.essencePlanner as Record<string, unknown> | undefined
+    if (ep) {
+      if (Array.isArray(ep.selectedWeaponIds)) {
+        ep.selectedWeaponIds = ep.selectedWeaponIds.filter((v): v is string => typeof v === 'string').map(resolveWeaponId)
+      }
+      if (ep.dungeonS1Selections) {
+        ep.dungeonS1Selections = resolveS1Selections(ep.dungeonS1Selections as Record<string, string[]>)
+      }
+    }
+  } catch { /* best-effort */ }
+  try {
+    const es = raw.essenceSettings as Record<string, unknown> | undefined
+    if (es) {
+      if (es.weaponOwnership) es.weaponOwnership = resolveWeaponIdKeys(es.weaponOwnership as Record<string, unknown>)
+      if (es.essenceStatus) es.essenceStatus = resolveWeaponIdKeys(es.essenceStatus as Record<string, unknown>)
+      if (es.weaponNotes) es.weaponNotes = resolveWeaponIdKeys(es.weaponNotes as Record<string, unknown>)
+    }
+  } catch { /* best-effort */ }
+}
 
 /** Module-level cache for collectLocalData to avoid redundant
  *  localStorage parsing when called multiple times in quick succession
@@ -77,8 +103,8 @@ function collectLocalData(): Record<string, unknown> {
     return _cachedLocalData.data
   }
   const data: Record<string, unknown> = {}
-  try { const r = localStorage.getItem('matrix-session'); if (r) { const p = JSON.parse(r); const s = p?.state ?? p; data.essencePlanner = { selectedWeaponIds: s.selectedWeaponIds ?? [], dungeonS1Selections: s.dungeonS1Selections ?? {} } } } catch {}
-  try { const r = localStorage.getItem('essence-settings'); if (r) { const p = JSON.parse(r); const s = p?.state ?? p; data.essenceSettings = { weaponOwnership: s.weaponOwnership ?? {}, essenceStatus: s.essenceStatus ?? {}, weaponNotes: s.weaponNotes ?? {}, customWeapons: s.customWeapons ?? [], flags: Object.fromEntries(['hideEssenceOwnedWeaponsList','hideEssenceOwnedWeaponsPlans','hideUnownedWeaponsList','hideUnownedWeaponsPlans','hideFourStarWeaponsList','hideFourStarWeaponsPlans','enableOwnershipEditList','enableOwnershipEditPlans','enableNotesList','enableNotesPlans','keepUpVisibleList','keepUpVisiblePlans','onlyHideWhenBothOwned'].map(k=>[k,s[k]??false])), regionFirst: s.regionFirst??null, regionSecond: s.regionSecond??null } } } catch {}
+  try { const r = localStorage.getItem('matrix-session'); if (r) { const p = JSON.parse(r); const s = p?.state ?? p; const ids = (Array.isArray(s.selectedWeaponIds) ? s.selectedWeaponIds : []).filter((v: unknown): v is string => typeof v === 'string'); data.essencePlanner = { selectedWeaponIds: ids.map(resolveWeaponId), dungeonS1Selections: resolveS1Selections((s.dungeonS1Selections ?? {}) as Record<string, string[]>) } } } catch {}
+  try { const r = localStorage.getItem('essence-settings'); if (r) { const p = JSON.parse(r); const s = p?.state ?? p; data.essenceSettings = { weaponOwnership: resolveWeaponIdKeys((s.weaponOwnership ?? {}) as Record<string, unknown>), essenceStatus: resolveWeaponIdKeys((s.essenceStatus ?? {}) as Record<string, unknown>), weaponNotes: resolveWeaponIdKeys((s.weaponNotes ?? {}) as Record<string, unknown>), customWeapons: s.customWeapons ?? [], flags: Object.fromEntries(['hideEssenceOwnedWeaponsList','hideEssenceOwnedWeaponsPlans','hideUnownedWeaponsList','hideUnownedWeaponsPlans','hideFourStarWeaponsList','hideFourStarWeaponsPlans','enableOwnershipEditList','enableOwnershipEditPlans','enableNotesList','enableNotesPlans','keepUpVisibleList','keepUpVisiblePlans','onlyHideWhenBothOwned'].map(k=>[k,s[k]??false])), regionFirst: s.regionFirst??null, regionSecond: s.regionSecond??null } } } catch {}
   try { const r = localStorage.getItem('refinement-session'); if (r) { const p = JSON.parse(r); const s = p?.state ?? p; data.refinementPlanner = { selectedEquipId: s.selectedEquipId ?? null } } } catch {}
   _cachedLocalData = { data, ts: Date.now() }
   return data
@@ -189,6 +215,7 @@ export default function AccountPage() {
       const res = await getSyncDataApi()
       const raw = res.data as Record<string, unknown> | null
       if (raw) {
+        resolveCloudWeaponIds(raw)
         const localData = collectLocalData()
         if (hasExistingLocalData(localData) && syncDataDiffers(localData, raw)) {
           // If local hasn't changed since last sync, auto-apply cloud silently
@@ -392,6 +419,8 @@ export default function AccountPage() {
   }, [])
 
   const applyCloudDataToLocal = (cloudRaw: Record<string, unknown>) => {
+    // Resolve stale preview: IDs before writing to localStorage.
+    resolveCloudWeaponIds(cloudRaw)
     try {
       const ep = cloudRaw.essencePlanner as Record<string, unknown> | undefined
       if (ep) {
@@ -433,6 +462,7 @@ export default function AccountPage() {
       const latest = await getSyncDataApi()
       const localData = collectLocalData()
       const cloudRaw = latest.data as Record<string, unknown> | null
+      if (cloudRaw) resolveCloudWeaponIds(cloudRaw)
       const localRows = buildSummaryRows(localData)
       const cloudRows = cloudRaw
         ? buildSummaryRows(cloudRaw)
@@ -607,6 +637,7 @@ export default function AccountPage() {
     if (!cloudData?.data || !cloudVersion || cloudVersion <= 0 || conflict) return
     const localData = collectLocalData()
     const cloudRaw = cloudData.data as Record<string, unknown>
+    resolveCloudWeaponIds(cloudRaw)
     if (hasExistingLocalData(localData) && syncDataDiffers(localData, cloudRaw)) {
       const lastSig = getLastSyncSignature()
       if (lastSig !== null && computeSyncSignature(localData) === lastSig) {
