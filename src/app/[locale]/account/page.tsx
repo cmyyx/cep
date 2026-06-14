@@ -34,7 +34,7 @@ function resolveCloudWeaponIds(raw: Record<string, unknown>): void {
     const ep = raw.essencePlanner as Record<string, unknown> | undefined
     if (ep) {
       if (Array.isArray(ep.selectedWeaponIds)) {
-        ep.selectedWeaponIds = (ep.selectedWeaponIds as string[]).map(resolveWeaponId)
+        ep.selectedWeaponIds = ep.selectedWeaponIds.filter((v): v is string => typeof v === 'string').map(resolveWeaponId)
       }
       if (ep.dungeonS1Selections) {
         ep.dungeonS1Selections = resolveS1Selections(ep.dungeonS1Selections as Record<string, string[]>)
@@ -103,7 +103,7 @@ function collectLocalData(): Record<string, unknown> {
     return _cachedLocalData.data
   }
   const data: Record<string, unknown> = {}
-  try { const r = localStorage.getItem('matrix-session'); if (r) { const p = JSON.parse(r); const s = p?.state ?? p; const ids: string[] = Array.isArray(s.selectedWeaponIds) ? s.selectedWeaponIds : []; data.essencePlanner = { selectedWeaponIds: ids.map(resolveWeaponId), dungeonS1Selections: resolveS1Selections((s.dungeonS1Selections ?? {}) as Record<string, string[]>) } } } catch {}
+  try { const r = localStorage.getItem('matrix-session'); if (r) { const p = JSON.parse(r); const s = p?.state ?? p; const ids = (Array.isArray(s.selectedWeaponIds) ? s.selectedWeaponIds : []).filter((v: unknown): v is string => typeof v === 'string'); data.essencePlanner = { selectedWeaponIds: ids.map(resolveWeaponId), dungeonS1Selections: resolveS1Selections((s.dungeonS1Selections ?? {}) as Record<string, string[]>) } } } catch {}
   try { const r = localStorage.getItem('essence-settings'); if (r) { const p = JSON.parse(r); const s = p?.state ?? p; data.essenceSettings = { weaponOwnership: resolveWeaponIdKeys((s.weaponOwnership ?? {}) as Record<string, unknown>), essenceStatus: resolveWeaponIdKeys((s.essenceStatus ?? {}) as Record<string, unknown>), weaponNotes: resolveWeaponIdKeys((s.weaponNotes ?? {}) as Record<string, unknown>), customWeapons: s.customWeapons ?? [], flags: Object.fromEntries(['hideEssenceOwnedWeaponsList','hideEssenceOwnedWeaponsPlans','hideUnownedWeaponsList','hideUnownedWeaponsPlans','hideFourStarWeaponsList','hideFourStarWeaponsPlans','enableOwnershipEditList','enableOwnershipEditPlans','enableNotesList','enableNotesPlans','keepUpVisibleList','keepUpVisiblePlans','onlyHideWhenBothOwned'].map(k=>[k,s[k]??false])), regionFirst: s.regionFirst??null, regionSecond: s.regionSecond??null } } } catch {}
   try { const r = localStorage.getItem('refinement-session'); if (r) { const p = JSON.parse(r); const s = p?.state ?? p; data.refinementPlanner = { selectedEquipId: s.selectedEquipId ?? null } } } catch {}
   _cachedLocalData = { data, ts: Date.now() }
