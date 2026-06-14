@@ -249,6 +249,40 @@ export const useEssenceSettingsStore = create<EssenceSettingsState>()(
           resetAllSettings: current.resetAllSettings,
         }
       },
+      /**
+       * After rehydration, force-write the resolved state back to localStorage
+       * to clean up stale preview:* keys.
+       *
+       * The merge phase above resolves stale preview keys (e.g.
+       * "preview:赤缨" → "wpn_claym_0017") in weaponOwnership / essenceStatus /
+       * weaponNotes. However, zustand/persist's hydration path calls the
+       * ORIGINAL setState (not the wrapped one that triggers setItem), so
+       * localStorage is NOT updated during rehydration. The old preview:*
+       * keys persist indefinitely until the user triggers a state change.
+       *
+       * We bypass zustand's setState→setItem chain entirely and write
+       * directly to localStorage using the same { state, version } envelope
+       * that zustand/persist expects. The current in-memory state (from get())
+       * has already been resolved by merge — we just need to persist it.
+       */
+      onRehydrateStorage: () => {
+        return () => {
+          try {
+            const resolvedState = useEssenceSettingsStore.getState()
+            // Serialize with the same envelope zustand/persist uses.
+            // JSON.stringify skips functions (store actions), so only
+            // data properties (with resolved weapon IDs) are written.
+            localStorage.setItem('essence-settings', JSON.stringify({
+              state: resolvedState,
+              version: 0,
+            }))
+          } catch {
+            // Silently ignore — the merge phase already has the correct
+            // state in memory; localStorage will catch up on next user
+            // interaction if this write fails (e.g. quota exceeded).
+          }
+        }
+      },
     },
   ),
 )

@@ -207,9 +207,21 @@ export default function AccountPage() {
             setCloudData(res); setSyncStatus('success'); updateLastPull(res.updatedAt)
             return
           }
-          // If cloud hasn't changed since last sync, local-only
-          // modifications are just pending data, not a conflict.
+          // If cloud hasn't changed since last sync but local has —
+          // user explicitly clicked "download", so apply cloud to local
+          // without prompting (same as path A, just a different sig check).
           if (lastSig !== null && computeSyncSignature(raw) === lastSig) {
+            setSkipNextPush(true)
+            const r = raw
+            try { const ep = r.essencePlanner as Record<string, unknown> | undefined; if (ep) { const current = JSON.parse(localStorage.getItem('matrix-session') || '{}'); const s = current?.state ?? current; if (Array.isArray(ep.selectedWeaponIds)) s.selectedWeaponIds = ep.selectedWeaponIds; if (ep.dungeonS1Selections) s.dungeonS1Selections = ep.dungeonS1Selections; localStorage.setItem('matrix-session', JSON.stringify({ ...current, state: s })) } } catch {}
+            try { const es = r.essenceSettings as Record<string, unknown> | undefined; if (es) { const current = JSON.parse(localStorage.getItem('essence-settings') || '{}'); const s = current?.state ?? current; if (es.weaponOwnership) s.weaponOwnership = es.weaponOwnership; if (es.essenceStatus) s.essenceStatus = es.essenceStatus; if (es.weaponNotes) s.weaponNotes = es.weaponNotes; if (Array.isArray(es.customWeapons)) s.customWeapons = es.customWeapons; if (es.flags) Object.assign(s, es.flags); if (es.regionFirst !== undefined) s.regionFirst = es.regionFirst; if (es.regionSecond !== undefined) s.regionSecond = es.regionSecond; localStorage.setItem('essence-settings', JSON.stringify({ ...current, state: s })) } } catch {}
+            try { const rp = r.refinementPlanner as Record<string, unknown> | undefined; if (rp) { const current = JSON.parse(localStorage.getItem('refinement-session') || '{}'); const s = current?.state ?? current; if (rp.selectedEquipId !== undefined) s.selectedEquipId = rp.selectedEquipId; localStorage.setItem('refinement-session', JSON.stringify({ ...current, state: s })) } } catch {}
+            syncStoresFromCloudPayload(r)
+            setSkipNextPush(false)
+            setCloudVersion(res.version)
+            updateCloudVersion(res.version)
+            setLastSyncSignature(computeSyncSignature(raw))
+            setCloudData(res); setSyncStatus('success'); updateLastPull(res.updatedAt)
             return
           }
           // Conflict: show dialog, don't apply
@@ -427,6 +439,7 @@ export default function AccountPage() {
         : { weapons: '0', equip: '', ownership: '0', essence: '0', customWeapons: '0', weaponNotes: '0' }
       const settingsDiff = cloudRaw ? buildSettingsDiff(localData, cloudRaw) : []
 
+      setSyncStatus('success')
       setConflictPending(true)
       setConflict({
         type: 'push_conflict',
