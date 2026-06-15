@@ -40,9 +40,6 @@ pnpm sync:check [--local]
 
 # 更新模式：生成 i18n 文件 + 转换图标
 pnpm sync:update [--local]
-
-# 图标转换（单独运行）
-pnpm sync:icons
 ```
 
 - `--local`：跳过 SHA 分支检查，直接使用本地文件路径

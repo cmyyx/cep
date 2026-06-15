@@ -14,7 +14,6 @@ import { resolveSuitName } from './upstream'
 // ── Types ─────────────────────────────────────────────────────────────────
 
 interface WeaponData {
-  weaponId: string
   title: string
   rarity: number
   weapontype: number
@@ -351,13 +350,13 @@ export function updateWeaponsFile(
     const { primaryStat, elementalDamage, specialAbility } = extractStatsFromSkillList(data.skilllist, cnToGem)
     const type = WEAPON_TYPE_MAP[data.weapontype] ?? '未知'
 
-    const weaponEntry = `  { id: '${data.weaponId}', name: '${data.title}', rarity: ${data.rarity}, type: '${type}', primaryStat: '${primaryStat}', elementalDamage: '${elementalDamage}', specialAbility: '${specialAbility}', chars: [] }`
+    const weaponEntry = `  { id: '${weaponId}', name: '${data.title}', rarity: ${data.rarity}, type: '${type}', primaryStat: '${primaryStat}', elementalDamage: '${elementalDamage}', specialAbility: '${specialAbility}', chars: [] }`
     newWeapons.push(weaponEntry)
   }
 
   if (newWeapons.length === 0) return 0
 
-  const updatedContent = insertEntries(content, 'export const weapons = [', newWeapons)
+  const updatedContent = insertEntries(content, 'export const weapons: Weapon[] = [', newWeapons)
   writeFileSync(weaponsTsPath, updatedContent, 'utf-8')
   return newWeapons.length
 }

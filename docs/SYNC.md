@@ -39,9 +39,6 @@ pnpm sync:check
 # 更新模式：同步武器/装备/地牢数据 + 生成 i18n + 转换图标
 pnpm sync:update
 
-# 仅转换图标（不更新数据）
-pnpm sync:icons
-
 # 本地模式：跳过 SHA 检查和 git fetch
 pnpm sync:update --local
 ```

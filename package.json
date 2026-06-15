@@ -13,7 +13,6 @@
     "check:i18n": "node scripts/check-i18n.mjs",
     "sync:check": "npx tsx scripts/sync-game-data.ts --check",
     "sync:update": "npx tsx scripts/sync-game-data.ts --update",
-    "sync:icons": "npx tsx scripts/convert-icons-cli.ts",
     "note": "node scripts/new-announcement.mjs"
   },
   "dependencies": {

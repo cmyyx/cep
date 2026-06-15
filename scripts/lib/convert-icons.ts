@@ -49,10 +49,12 @@ export async function convertIcons(
       continue
     }
 
+    const foundIds = new Set<string>()
     for (const file of readdirSync(srcDir)) {
       if (!file.endsWith('.png')) continue
       const id = file.replace('.png', '')
       if (!targetSet.has(id)) continue
+      foundIds.add(id)
 
       const srcPath = join(srcDir, file)
       const outPath = join(outDir, file.replace('.png', '.avif'))
@@ -76,6 +78,13 @@ export async function convertIcons(
         result.converted.push(file)
       } catch (err) {
         console.warn(`  [icons] failed to convert ${file}: ${err}`)
+      }
+    }
+    // Report target IDs that have no matching PNG in iconbig
+    const prefix = CATEGORY_PREFIX[category]
+    for (const id of targetIds) {
+      if (id.startsWith(prefix) && !foundIds.has(id)) {
+        result.missingSource.push(`${category}/${id}.png`)
       }
     }
   }
