@@ -1,6 +1,6 @@
 // @vitest-environment jsdom
 import { describe, it, expect } from 'vitest'
-import { detectBrowserIssues, isCritical } from './browser-detect'
+import { detectBrowserIssues, isCritical, type DocumentLike, type StyleElementLike } from './browser-detect'
 
 // ── Helpers ──
 
@@ -14,6 +14,20 @@ function modernJsScope() {
 
 function allSupported(): boolean {
   return true
+}
+
+/** Build a mock document whose injected <style> sheet reports `ruleCount` rules. */
+function makeDocMock(ruleCount: number): DocumentLike {
+  const makeStyle = (): StyleElementLike => ({
+    textContent: '',
+    sheet: { cssRules: new Array(ruleCount) },
+    remove: () => {},
+  })
+  return {
+    createElement: () => makeStyle(),
+    head: { appendChild: () => {} },
+    documentElement: { appendChild: () => {} },
+  }
 }
 
 // ── Tests: detectBrowserIssues ──
@@ -155,6 +169,60 @@ describe('detectBrowserIssues', () => {
     })
     expect(issues).toContain('CSS_API')
   })
+
+  // ── @layer probe (CSS_LAYER) ──
+
+  it('detects missing @layer when cssRules is empty', () => {
+    const issues = detectBrowserIssues({
+      CSS: { supports: allSupported },
+      ...modernJsScope(),
+      document: makeDocMock(0),
+    })
+    expect(issues).toEqual(['CSS_LAYER'])
+  })
+
+  it('passes when @layer is parsed (cssRules non-empty)', () => {
+    const issues = detectBrowserIssues({
+      CSS: { supports: allSupported },
+      ...modernJsScope(),
+      document: makeDocMock(1),
+    })
+    expect(issues).toEqual([])
+  })
+
+  it('detects CSS_LAYER when sheet is null', () => {
+    const doc: DocumentLike = {
+      createElement: () => ({ textContent: '', sheet: null, remove: () => {} }),
+      head: { appendChild: () => {} },
+    }
+    const issues = detectBrowserIssues({
+      CSS: { supports: allSupported },
+      ...modernJsScope(),
+      document: doc,
+    })
+    expect(issues).toEqual(['CSS_LAYER'])
+  })
+
+  it('detects CSS_LAYER when createElement throws', () => {
+    const doc: DocumentLike = {
+      createElement: () => { throw new Error('nope') },
+    }
+    const issues = detectBrowserIssues({
+      CSS: { supports: allSupported },
+      ...modernJsScope(),
+      document: doc,
+    })
+    expect(issues).toEqual(['CSS_LAYER'])
+  })
+
+  it('skips @layer probe when document is omitted', () => {
+    // Existing callers that don't pass document must not see CSS_LAYER.
+    const issues = detectBrowserIssues({
+      CSS: { supports: allSupported },
+      ...modernJsScope(),
+    })
+    expect(issues).toEqual([])
+  })
 })
 
 // ── Tests: isCritical ──
@@ -195,5 +263,13 @@ describe('isCritical', () => {
 
   it('returns true when AVIF mixed with JS gaps', () => {
     expect(isCritical(['AVIF', 'PROMISE'])).toBe(true)
+  })
+
+  it('returns true for CSS_LAYER alone', () => {
+    expect(isCritical(['CSS_LAYER'])).toBe(true)
+  })
+
+  it('returns true when CSS_LAYER mixed with JS gaps', () => {
+    expect(isCritical(['CSS_LAYER', 'PROMISE'])).toBe(true)
   })
 })

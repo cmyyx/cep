@@ -68,7 +68,7 @@ export const GUARD_FEEDBACK_HTML =
 
 /** Outer wrapper + header — used by IIFE guards as `d.innerHTML = GUARD_OVERLAY_OPEN + content + GUARD_OVERLAY_CLOSE`. */
 export const GUARD_OVERLAY_OPEN =
-  '<div style="position:fixed;inset:0;z-index:99999;display:flex;'+
+  '<div style="position:fixed;top:0;left:0;right:0;bottom:0;z-index:99999;display:flex;'+
   'flex-direction:column;align-items:center;justify-content:center;'+
   'background:#fff;color:#171717;font-family:system-ui,-apple-system,sans-serif;'+
   'text-align:center;padding:24px;gap:16px;">'+
@@ -86,7 +86,10 @@ export function GuardOverlay({ children }: { children: ReactNode }) {
     <div
       style={{
         position: 'fixed',
-        inset: 0,
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
         zIndex: 99999,
         display: 'flex',
         flexDirection: 'column',
