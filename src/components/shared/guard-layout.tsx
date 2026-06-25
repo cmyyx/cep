@@ -1,6 +1,7 @@
-/* eslint-disable @next/next/no-img-element */
 // Inline <img> is the only option here — next/image requires JavaScript,
 // and guard overlays must render in environments where JS/CSS may be broken.
+// Note: <img> appears only inside HTML string constants (GUARD_HEADER_HTML),
+// not as JSX, so @next/next/no-img-element does not trigger.
 
 /**
  * Unified guard overlay layout — shared skeleton for all three error states:
@@ -19,7 +20,6 @@
  * Legitimate exception to the "no inline style" rule (same class as HeadScript).
  */
 
-import type { ReactNode } from 'react'
 import { cn } from '@/lib/utils'
 
 // ═══════════════════════════════════════════════════════════════
@@ -78,45 +78,8 @@ export const GUARD_OVERLAY_OPEN =
 export const GUARD_OVERLAY_CLOSE = '</div>'
 
 // ═══════════════════════════════════════════════════════════════
-// React components — used by noscript / bootstrap / app-init overlays
+// React components — used by bootstrap / app-init overlays
 // ═══════════════════════════════════════════════════════════════
-
-export function GuardOverlay({ children }: { children: ReactNode }) {
-  return (
-    <div
-      style={{
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        zIndex: 99999,
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-        background: '#fff',
-        color: '#171717',
-        fontFamily: 'system-ui, -apple-system, sans-serif',
-        textAlign: 'center',
-        padding: 24,
-        gap: 16,
-      }}
-    >
-      <img
-        src="/icon.svg"
-        alt=""
-        width={48}
-        height={48}
-        style={{ display: 'block' }}
-      />
-      <h1 style={{ fontSize: 22, fontWeight: 600, margin: 0 }}>
-        CEP 终末地规划器
-      </h1>
-      {children}
-    </div>
-  )
-}
 
 interface GuardFeedbackProps {
   title?: string
