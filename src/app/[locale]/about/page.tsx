@@ -120,7 +120,7 @@ export default function AboutPage() {
                   href={url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group flex items-start justify-between gap-3 rounded-lg border border-border p-3 transition-colors hover:border-primary/40"
+                  className="group flex items-start justify-between gap-3 rounded-lg p-3 shadow-[var(--shadow-border)] transition-shadow hover:shadow-[var(--shadow-card)]"
                 >
                   <div className="min-w-0">
                     <p className="text-sm font-medium">{t(`about.${linkKey}Name`)}</p>
@@ -137,7 +137,7 @@ export default function AboutPage() {
             <h3 className="text-sm font-semibold mb-4 text-muted-foreground">{t('about.features')}</h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {FEATURE_KEYS.map(({ key: featureKey, icon: Icon }) => (
-                <div key={featureKey} className="flex items-start gap-3 rounded-lg border border-border p-3">
+                <div key={featureKey} className="flex items-start gap-3 rounded-lg p-3 shadow-[var(--shadow-border)]">
                   <Icon className="size-4 mt-0.5 text-primary shrink-0" />
                   <div>
                     <p className="text-sm font-medium">{t(`about.${featureKey}`)}</p>
@@ -151,7 +151,7 @@ export default function AboutPage() {
           {/* Tech stack */}
           <div className="mb-8">
             <h3 className="text-sm font-semibold mb-4 text-muted-foreground">{t('about.techStack')}</h3>
-            <div className="rounded-lg border border-border divide-y divide-border">
+            <div className="rounded-lg shadow-[var(--shadow-border)] divide-y divide-border">
               {TECH_KEYS.map((techKey) => (
                 <div key={techKey} className="flex items-center justify-between px-4 py-2.5">
                   <span className="text-sm text-muted-foreground">{t(`about.${techKey}`)}</span>
