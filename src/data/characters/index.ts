@@ -7,6 +7,7 @@ import ardeliaData from './ardelia.json'
 import gilbertaData from './gilberta.json'
 import laevatainData from './laevatain.json'
 import lifengData from './lifeng.json'
+import mifuData from './mifu.json'
 import pogranichnikData from './pogranichnik.json'
 import rossiData from './rossi.json'
 import snowshineData from './snowshine.json'
@@ -20,6 +21,7 @@ export const characterGuideData: Record<string, CharacterGuideData> = {
   'gilberta': gilbertaData as CharacterGuideData,
   'laevatain': laevatainData as CharacterGuideData,
   'lifeng': lifengData as CharacterGuideData,
+  'mifu': mifuData as CharacterGuideData,
   'pogranichnik': pogranichnikData as CharacterGuideData,
   'rossi': rossiData as CharacterGuideData,
   'snowshine': snowshineData as CharacterGuideData,
@@ -34,6 +36,7 @@ export const characterGuideList: CharacterGuideData[] = [
   gilbertaData as CharacterGuideData,
   laevatainData as CharacterGuideData,
   lifengData as CharacterGuideData,
+  mifuData as CharacterGuideData,
   pogranichnikData as CharacterGuideData,
   rossiData as CharacterGuideData,
   snowshineData as CharacterGuideData,

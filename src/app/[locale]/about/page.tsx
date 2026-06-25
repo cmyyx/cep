@@ -11,6 +11,7 @@ import {
   Calendar,
   Eye,
   Pen,
+  ExternalLink,
 } from 'lucide-react'
 
 const FEATURE_KEYS = [
@@ -41,6 +42,15 @@ const TECH_VALUES: Record<string, string> = {
   techI18n: 'next-intl (zh-CN / zh-TW / ja / en)',
   techDesign: 'Geist + Vercel Design Language',
 }
+
+const LINK_KEYS = [
+  { key: 'akedata', url: 'https://akedata.top' },
+  { key: 'jeiweb', url: 'https://jeiweb.sirrus.cc/#/' },
+  {
+    key: 'translationReferrer',
+    url: 'https://github.com/SusieGlitter/EndFieldTranslationReferrer',
+  },
+] as const
 
 export default function AboutPage() {
   const t = useTranslations()
@@ -100,12 +110,34 @@ export default function AboutPage() {
             </div>
           </div>
 
+          {/* Acknowledgements & Links */}
+          <div className="mb-8">
+            <h3 className="text-sm font-semibold mb-4 text-muted-foreground">{t('about.acknowledgements')}</h3>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              {LINK_KEYS.map(({ key: linkKey, url }) => (
+                <a
+                  key={linkKey}
+                  href={url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group flex items-start justify-between gap-3 rounded-lg p-3 shadow-[var(--shadow-border)] transition-shadow hover:shadow-[var(--shadow-card)]"
+                >
+                  <div className="min-w-0">
+                    <p className="text-sm font-medium">{t(`about.${linkKey}Name`)}</p>
+                    <p className="text-xs text-muted-foreground mt-0.5">{t(`about.${linkKey}Desc`)}</p>
+                  </div>
+                  <ExternalLink className="size-4 mt-0.5 text-muted-foreground shrink-0 group-hover:text-primary transition-colors" />
+                </a>
+              ))}
+            </div>
+          </div>
+
           {/* Features */}
           <div className="mb-8">
             <h3 className="text-sm font-semibold mb-4 text-muted-foreground">{t('about.features')}</h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {FEATURE_KEYS.map(({ key: featureKey, icon: Icon }) => (
-                <div key={featureKey} className="flex items-start gap-3 rounded-lg border border-border p-3">
+                <div key={featureKey} className="flex items-start gap-3 rounded-lg p-3 shadow-[var(--shadow-border)]">
                   <Icon className="size-4 mt-0.5 text-primary shrink-0" />
                   <div>
                     <p className="text-sm font-medium">{t(`about.${featureKey}`)}</p>
@@ -119,7 +151,7 @@ export default function AboutPage() {
           {/* Tech stack */}
           <div className="mb-8">
             <h3 className="text-sm font-semibold mb-4 text-muted-foreground">{t('about.techStack')}</h3>
-            <div className="rounded-lg border border-border divide-y divide-border">
+            <div className="rounded-lg shadow-[var(--shadow-border)] divide-y divide-border">
               {TECH_KEYS.map((techKey) => (
                 <div key={techKey} className="flex items-center justify-between px-4 py-2.5">
                   <span className="text-sm text-muted-foreground">{t(`about.${techKey}`)}</span>

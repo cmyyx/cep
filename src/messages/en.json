@@ -379,7 +379,14 @@
     "techForm": "Forms",
     "techI18n": "i18n",
     "techDesign": "Design System",
-    "contactEmail": "Contact: admin@canmoe.com"
+    "contactEmail": "Contact: admin@canmoe.com",
+    "acknowledgements": "Acknowledgements & Links",
+    "akedataName": "AKEData",
+    "akedataDesc": "Source of weapon and equipment data for this site",
+    "jeiwebName": "JEI-WEB",
+    "jeiwebDesc": "A Web-based item viewer and crafting planner",
+    "translationReferrerName": "EndField Translation Referrer",
+    "translationReferrerDesc": "Translation data source"
   },
   "essence": {
     "weaponSelected": "Selected",

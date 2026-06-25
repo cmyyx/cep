@@ -1,6 +1,6 @@
 // @vitest-environment jsdom
 import { describe, it, expect } from 'vitest'
-import { detectBrowserIssues, isCritical } from './browser-detect'
+import { detectBrowserIssues, isCritical, type DocumentLike, type StyleElementLike } from './browser-detect'
 
 // ── Helpers ──
 
@@ -16,6 +16,54 @@ function allSupported(): boolean {
   return true
 }
 
+/** At-rule / nesting probe strings — mirror the strings in browser-detect.ts. */
+const LAYER_RULE = '@layer cep-probe{}'
+const CONTAINER_RULE = '@container cep-probe(min-width:0){}'
+const PROPERTY_RULE = '@property --cep-probe{syntax:"<length>";inherits:false;initial-value:0px}'
+const NESTING_RULE = '.cep-probe{&{color:red}}'
+const ALL_PROBE_RULES = [LAYER_RULE, CONTAINER_RULE, PROPERTY_RULE, NESTING_RULE]
+
+/**
+ * Build a mock document whose injected <style> reports a non-empty cssRules
+ * list when its textContent matches one of `parseableRules`, and an empty
+ * list otherwise. Defaults to "all rules parse" (modern browser).
+ */
+function makeDocMock(parseableRules: string[] = ALL_PROBE_RULES): DocumentLike {
+  return {
+    createElement: () => {
+      let text = ''
+      const style = {
+        get textContent() { return text },
+        set textContent(v: string) { text = v },
+        get sheet() {
+          return parseableRules.includes(text)
+            ? { cssRules: [{}] as ArrayLike<unknown> }
+            : { cssRules: [] as ArrayLike<unknown> }
+        },
+        remove: () => {},
+      } as StyleElementLike
+      return style
+    },
+    head: { appendChild: () => {} },
+    documentElement: { appendChild: () => {} },
+  }
+}
+
+/** Mock document whose every <style> reports `sheet: null` (CSSOM broken). */
+function makeNullSheetDocMock(): DocumentLike {
+  return {
+    createElement: () => ({ textContent: '', sheet: null, remove: () => {} }),
+    head: { appendChild: () => {} },
+  }
+}
+
+/** Mock document whose createElement throws on every call. */
+function makeThrowingDocMock(): DocumentLike {
+  return {
+    createElement: () => { throw new Error('nope') },
+  }
+}
+
 // ── Tests: detectBrowserIssues ──
 
 describe('detectBrowserIssues', () => {
@@ -23,6 +71,7 @@ describe('detectBrowserIssues', () => {
     const issues = detectBrowserIssues({
       CSS: { supports: allSupported },
       ...modernJsScope(),
+      document: makeDocMock(),
     })
     expect(issues).toEqual([])
   })
@@ -59,6 +108,7 @@ describe('detectBrowserIssues', () => {
     const issues = detectBrowserIssues({
       CSS: { supports: fakeSupports },
       ...modernJsScope(),
+      document: makeDocMock(),
     })
     expect(issues).toEqual(['CSS_VARS'])
   })
@@ -69,23 +119,61 @@ describe('detectBrowserIssues', () => {
     const issues = detectBrowserIssues({
       CSS: { supports: fakeSupports },
       ...modernJsScope(),
+      document: makeDocMock(),
     })
     expect(issues).toEqual(['CSS_WHERE'])
   })
 
-  it('detects both CSS_VARS and CSS_WHERE when both missing', () => {
+  it('detects missing :has() selector support', () => {
+    const fakeSupports = (cond: string) =>
+      cond === 'selector(:has(*))' ? false : true
+    const issues = detectBrowserIssues({
+      CSS: { supports: fakeSupports },
+      ...modernJsScope(),
+      document: makeDocMock(),
+    })
+    expect(issues).toEqual(['CSS_HAS'])
+  })
+
+  it('detects missing oklch() support', () => {
+    const fakeSupports = (cond: string) =>
+      cond === 'color: oklch(0 0 0)' ? false : true
+    const issues = detectBrowserIssues({
+      CSS: { supports: fakeSupports },
+      ...modernJsScope(),
+      document: makeDocMock(),
+    })
+    expect(issues).toEqual(['CSS_OKLCH'])
+  })
+
+  it('detects missing color-mix() support', () => {
+    const fakeSupports = (cond: string) =>
+      cond === 'color: color-mix(in srgb, red, blue)' ? false : true
+    const issues = detectBrowserIssues({
+      CSS: { supports: fakeSupports },
+      ...modernJsScope(),
+      document: makeDocMock(),
+    })
+    expect(issues).toEqual(['CSS_COLOR_MIX'])
+  })
+
+  it('detects multiple CSS.supports gaps together', () => {
     const issues = detectBrowserIssues({
       CSS: { supports: () => false },
       ...modernJsScope(),
+      document: makeDocMock(),
     })
-    expect(issues).toContain('CSS_VARS')
-    expect(issues).toContain('CSS_WHERE')
+    expect(issues).toEqual(expect.arrayContaining([
+      'CSS_VARS', 'CSS_WHERE', 'CSS_HAS', 'CSS_OKLCH', 'CSS_COLOR_MIX',
+    ]))
+    expect(issues).not.toContain('CSS_API')
   })
 
   it('detects missing Promise', () => {
     const issues = detectBrowserIssues({
       CSS: { supports: allSupported },
       ...modernJsScope(),
+      document: makeDocMock(),
       Promise: undefined,
     })
     expect(issues).toEqual(['PROMISE'])
@@ -95,6 +183,7 @@ describe('detectBrowserIssues', () => {
     const issues = detectBrowserIssues({
       CSS: { supports: allSupported },
       ...modernJsScope(),
+      document: makeDocMock(),
       WeakSet: undefined,
     })
     expect(issues).toEqual(['WEAKSET'])
@@ -104,6 +193,7 @@ describe('detectBrowserIssues', () => {
     const issues = detectBrowserIssues({
       CSS: { supports: allSupported },
       ...modernJsScope(),
+      document: makeDocMock(),
       Proxy: undefined,
     })
     expect(issues).toEqual(['PROXY'])
@@ -113,6 +203,7 @@ describe('detectBrowserIssues', () => {
     const issues = detectBrowserIssues({
       CSS: { supports: allSupported },
       ...modernJsScope(),
+      document: makeDocMock(),
       Promise: undefined,
       WeakSet: undefined,
     })
@@ -155,6 +246,80 @@ describe('detectBrowserIssues', () => {
     })
     expect(issues).toContain('CSS_API')
   })
+
+  // ── At-rule / nesting probes ──
+
+  it('detects CSS_LAYER when @layer rule is dropped', () => {
+    const issues = detectBrowserIssues({
+      CSS: { supports: allSupported },
+      ...modernJsScope(),
+      document: makeDocMock(ALL_PROBE_RULES.filter(r => r !== LAYER_RULE)),
+    })
+    expect(issues).toEqual(['CSS_LAYER'])
+  })
+
+  it('detects CSS_CONTAINER when @container rule is dropped', () => {
+    const issues = detectBrowserIssues({
+      CSS: { supports: allSupported },
+      ...modernJsScope(),
+      document: makeDocMock(ALL_PROBE_RULES.filter(r => r !== CONTAINER_RULE)),
+    })
+    expect(issues).toEqual(['CSS_CONTAINER'])
+  })
+
+  it('detects CSS_PROPERTY when @property rule is dropped', () => {
+    const issues = detectBrowserIssues({
+      CSS: { supports: allSupported },
+      ...modernJsScope(),
+      document: makeDocMock(ALL_PROBE_RULES.filter(r => r !== PROPERTY_RULE)),
+    })
+    expect(issues).toEqual(['CSS_PROPERTY'])
+  })
+
+  it('detects CSS_NESTING when & selector is dropped', () => {
+    const issues = detectBrowserIssues({
+      CSS: { supports: allSupported },
+      ...modernJsScope(),
+      document: makeDocMock(ALL_PROBE_RULES.filter(r => r !== NESTING_RULE)),
+    })
+    expect(issues).toEqual(['CSS_NESTING'])
+  })
+
+  it('detects all at-rule gaps when cssRules is empty', () => {
+    const issues = detectBrowserIssues({
+      CSS: { supports: allSupported },
+      ...modernJsScope(),
+      document: makeDocMock([]),
+    })
+    expect(issues).toEqual(['CSS_LAYER', 'CSS_CONTAINER', 'CSS_PROPERTY', 'CSS_NESTING'])
+  })
+
+  it('detects all at-rule gaps when sheet is null', () => {
+    const issues = detectBrowserIssues({
+      CSS: { supports: allSupported },
+      ...modernJsScope(),
+      document: makeNullSheetDocMock(),
+    })
+    expect(issues).toEqual(['CSS_LAYER', 'CSS_CONTAINER', 'CSS_PROPERTY', 'CSS_NESTING'])
+  })
+
+  it('detects all at-rule gaps when createElement throws', () => {
+    const issues = detectBrowserIssues({
+      CSS: { supports: allSupported },
+      ...modernJsScope(),
+      document: makeThrowingDocMock(),
+    })
+    expect(issues).toEqual(['CSS_LAYER', 'CSS_CONTAINER', 'CSS_PROPERTY', 'CSS_NESTING'])
+  })
+
+  it('skips at-rule probes when document is omitted', () => {
+    // Callers that don't pass document must not see at-rule issues.
+    const issues = detectBrowserIssues({
+      CSS: { supports: allSupported },
+      ...modernJsScope(),
+    })
+    expect(issues).toEqual([])
+  })
 })
 
 // ── Tests: isCritical ──
@@ -176,6 +341,34 @@ describe('isCritical', () => {
     expect(isCritical(['CSS_WHERE'])).toBe(true)
   })
 
+  it('returns true for CSS_HAS alone', () => {
+    expect(isCritical(['CSS_HAS'])).toBe(true)
+  })
+
+  it('returns true for CSS_OKLCH alone', () => {
+    expect(isCritical(['CSS_OKLCH'])).toBe(true)
+  })
+
+  it('returns true for CSS_COLOR_MIX alone', () => {
+    expect(isCritical(['CSS_COLOR_MIX'])).toBe(true)
+  })
+
+  it('returns true for CSS_LAYER alone', () => {
+    expect(isCritical(['CSS_LAYER'])).toBe(true)
+  })
+
+  it('returns true for CSS_CONTAINER alone', () => {
+    expect(isCritical(['CSS_CONTAINER'])).toBe(true)
+  })
+
+  it('returns true for CSS_PROPERTY alone', () => {
+    expect(isCritical(['CSS_PROPERTY'])).toBe(true)
+  })
+
+  it('returns true for CSS_NESTING alone', () => {
+    expect(isCritical(['CSS_NESTING'])).toBe(true)
+  })
+
   it('returns false for JS-only gaps', () => {
     expect(isCritical(['PROMISE'])).toBe(false)
     expect(isCritical(['WEAKSET', 'PROXY'])).toBe(false)
@@ -195,5 +388,16 @@ describe('isCritical', () => {
 
   it('returns true when AVIF mixed with JS gaps', () => {
     expect(isCritical(['AVIF', 'PROMISE'])).toBe(true)
+  })
+
+  it('returns true when CSS_LAYER mixed with JS gaps', () => {
+    expect(isCritical(['CSS_LAYER', 'PROMISE'])).toBe(true)
+  })
+
+  it('returns true when all critical CSS issues present', () => {
+    expect(isCritical([
+      'CSS_API', 'CSS_VARS', 'CSS_WHERE', 'CSS_HAS', 'CSS_OKLCH',
+      'CSS_COLOR_MIX', 'CSS_LAYER', 'CSS_CONTAINER', 'CSS_PROPERTY', 'CSS_NESTING',
+    ])).toBe(true)
   })
 })

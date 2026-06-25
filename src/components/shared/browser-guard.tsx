@@ -16,12 +16,13 @@ import { GUARD_OVERLAY_OPEN, GUARD_OVERLAY_CLOSE, GUARD_FEEDBACK_HTML } from '@/
  * IIFE). Tests are in @/lib/browser-detect.test.ts.
  */
 
-/** Browser download links as inline HTML */
+/** Browser download links as inline HTML.
+ *  Versions must match RECOMMENDED_BROWSERS in @/lib/browser-detect.ts. */
 const BROWSER_LINKS =
-  '<a href="https://www.google.com/chrome/" target="_blank" rel="noopener" style="color:#0a72ef;">Chrome 99+</a> / '+
-  '<a href="https://www.mozilla.org/firefox/" target="_blank" rel="noopener" style="color:#0a72ef;">Firefox 97+</a> / '+
-  '<a href="https://www.apple.com/safari/" target="_blank" rel="noopener" style="color:#0a72ef;">Safari 16.0+</a> / '+
-  '<a href="https://www.microsoft.com/edge" target="_blank" rel="noopener" style="color:#0a72ef;">Edge 99+</a>'
+  '<a href="https://www.google.com/chrome/" target="_blank" rel="noopener" style="color:#0a72ef;">Chrome 112+</a> / '+
+  '<a href="https://www.mozilla.org/firefox/" target="_blank" rel="noopener" style="color:#0a72ef;">Firefox 128+</a> / '+
+  '<a href="https://www.apple.com/safari/" target="_blank" rel="noopener" style="color:#0a72ef;">Safari 16.5+</a> / '+
+  '<a href="https://www.microsoft.com/edge" target="_blank" rel="noopener" style="color:#0a72ef;">Edge 112+</a>'
 
 const BROWSER_GUARD_CODE = `(function(){
 function showOverlay(missing){
@@ -55,7 +56,16 @@ function showOverlay(missing){
 /* Phase 1: sync CSS / JS API checks */
 var issues=${BROWSER_DETECT_CODE};
 if(issues.length>0){
-  var critical=issues.indexOf('CSS_API')>=0||issues.indexOf('CSS_VARS')>=0||issues.indexOf('CSS_WHERE')>=0;
+  var critical=issues.indexOf('CSS_API')>=0
+    ||issues.indexOf('CSS_VARS')>=0
+    ||issues.indexOf('CSS_WHERE')>=0
+    ||issues.indexOf('CSS_HAS')>=0
+    ||issues.indexOf('CSS_OKLCH')>=0
+    ||issues.indexOf('CSS_COLOR_MIX')>=0
+    ||issues.indexOf('CSS_LAYER')>=0
+    ||issues.indexOf('CSS_CONTAINER')>=0
+    ||issues.indexOf('CSS_PROPERTY')>=0
+    ||issues.indexOf('CSS_NESTING')>=0;
   if(critical){ showOverlay(issues); return; }
 }
 

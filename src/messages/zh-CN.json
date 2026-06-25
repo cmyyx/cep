@@ -183,7 +183,14 @@
     "techForm": "表单",
     "techI18n": "国际化",
     "techDesign": "设计系统",
-    "contactEmail": "联系邮箱：admin@canmoe.com"
+    "contactEmail": "联系邮箱：admin@canmoe.com",
+    "acknowledgements": "鸣谢与链接",
+    "akedataName": "AKEData",
+    "akedataDesc": "本站武器与装备数据来源",
+    "jeiwebName": "JEI-WEB",
+    "jeiwebDesc": "一个基于 Web 的物品查看和合成规划工具",
+    "translationReferrerName": "EndField Translation Referrer",
+    "translationReferrerDesc": "翻译数据来源"
   },
   "essence": {
     "weaponSelected": "已选",
