@@ -11,6 +11,7 @@ import {
   Calendar,
   Eye,
   Pen,
+  ExternalLink,
 } from 'lucide-react'
 
 const FEATURE_KEYS = [
@@ -41,6 +42,15 @@ const TECH_VALUES: Record<string, string> = {
   techI18n: 'next-intl (zh-CN / zh-TW / ja / en)',
   techDesign: 'Geist + Vercel Design Language',
 }
+
+const LINK_KEYS = [
+  { key: 'akedata', url: 'https://akedata.top' },
+  { key: 'jeiweb', url: 'https://jeiweb.sirrus.cc/#/' },
+  {
+    key: 'translationReferrer',
+    url: 'https://github.com/SusieGlitter/EndFieldTranslationReferrer',
+  },
+] as const
 
 export default function AboutPage() {
   const t = useTranslations()
@@ -97,6 +107,28 @@ export default function AboutPage() {
                   {t('about.contactEmail')}
                 </a>
               </div>
+            </div>
+          </div>
+
+          {/* Acknowledgements & Links */}
+          <div className="mb-8">
+            <h3 className="text-sm font-semibold mb-4 text-muted-foreground">{t('about.acknowledgements')}</h3>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              {LINK_KEYS.map(({ key: linkKey, url }) => (
+                <a
+                  key={linkKey}
+                  href={url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group flex items-start justify-between gap-3 rounded-lg border border-border p-3 transition-colors hover:border-primary/40"
+                >
+                  <div className="min-w-0">
+                    <p className="text-sm font-medium">{t(`about.${linkKey}Name`)}</p>
+                    <p className="text-xs text-muted-foreground mt-0.5">{t(`about.${linkKey}Desc`)}</p>
+                  </div>
+                  <ExternalLink className="size-4 mt-0.5 text-muted-foreground shrink-0 group-hover:text-primary transition-colors" />
+                </a>
+              ))}
             </div>
           </div>
 
