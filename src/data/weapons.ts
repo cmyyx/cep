@@ -3,7 +3,7 @@ import type { Weapon } from '@/types/matrix'
 export const weapons: Weapon[] = [
   // ===== 六星 =====
   { id: 'wpn_claym_0017', name: '赤缨', rarity: 6, type: '双手剑', primaryStat: 'gat_passive_attr_str', elementalDamage: 'gat_passive_attr_atk', specialAbility: 'gst_passive_phyabn', chars: ['弭弗'], },
-  { id: 'preview:镀红祝福', name: '镀红祝福', rarity: 6, type: '长柄武器', primaryStat: 'gat_passive_attr_agi', elementalDamage: 'gat_passive_attr_firedam', specialAbility: 'gst_passive_tacafter', chars: ['卡缪'], source: 'preview' },
+  { id: 'wpn_lance_0015', name: '镀红祝福', rarity: 6, type: '长柄武器', primaryStat: 'gat_passive_attr_agi', elementalDamage: 'gat_passive_attr_firedam', specialAbility: 'gst_passive_tacafter', chars: ['卡缪'], },
   { id: 'wpn_claym_0016', name: '幻想苦痛', rarity: 6, type: '双手剑', primaryStat: 'gat_passive_attr_str', elementalDamage: 'gat_passive_attr_physpell', specialAbility: 'gst_passive_tactic', chars: [], },
   { id: 'wpn_lance_0007', name: '灯火使命', rarity: 6, type: '长柄武器', primaryStat: 'gat_passive_attr_agi', elementalDamage: 'gat_passive_attr_usp', specialAbility: 'gst_passive_keyword', chars: [], },
   { id: 'wpn_funnel_0017', name: '雾中微光', rarity: 6, type: '施术单元', primaryStat: 'gat_passive_attr_will', elementalDamage: 'gat_passive_attr_pulsedam', specialAbility: 'gst_passive_keyword', chars: [] },

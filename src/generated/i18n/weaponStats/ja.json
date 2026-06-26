@@ -27,7 +27,7 @@
   "gat_passive_attr_agi": "敏捷UP",
   "gat_passive_attr_phydam": "物理ダメージUP",
   "gat_passive_attr_firedam": "灼熱ダメージUP",
+  "gst_passive_tacafter": "流回",
   "gat_passive_attr_icedam": "寒冷ダメージUP",
-  "gst_passive_crit": "切骨",
-  "gst_passive_tacafter": "流回"
+  "gst_passive_crit": "切骨"
 }
