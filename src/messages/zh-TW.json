@@ -387,8 +387,12 @@
     "akedataDesc": "本站武器與裝備資料來源",
     "jeiwebName": "JEI-WEB",
     "jeiwebDesc": "一個基於 Web 的物品查看和合成規劃工具",
-    "translationReferrerName": "EndField Translation Referrer",
-    "translationReferrerDesc": "翻譯資料來源"
+    "adSlotTitle": "廣告位招租",
+    "adSlotDesc": "本站歡迎相關商業合作投放，詳情請聯絡下方任一管道諮詢。",
+    "adSlotContact": "聯絡方式",
+    "adSlotEmail": "信箱",
+    "adSlotQQGroup": "QQ群",
+    "adSlotBilibili": "嗶哩嗶哩私訊"
   },
   "essence": {
     "weaponSelected": "已選",

@@ -387,8 +387,12 @@
     "akedataDesc": "当サイトの武器・装備データソース",
     "jeiwebName": "JEI-WEB",
     "jeiwebDesc": "Web ベースのアイテム閲覧・合成計画ツール",
-    "translationReferrerName": "EndField Translation Referrer",
-    "translationReferrerDesc": "翻訳データソース"
+    "adSlotTitle": "広告枠募集中",
+    "adSlotDesc": "関連する商業提携を歓迎します。詳細は以下のいずれかの連絡先までお問い合わせください。",
+    "adSlotContact": "連絡先",
+    "adSlotEmail": "メール",
+    "adSlotQQGroup": "QQグループ",
+    "adSlotBilibili": "ビリビリDM"
   },
   "essence": {
     "weaponSelected": "選択済",

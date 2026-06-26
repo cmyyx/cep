@@ -46,10 +46,12 @@ const TECH_VALUES: Record<string, string> = {
 const LINK_KEYS = [
   { key: 'akedata', url: 'https://akedata.top' },
   { key: 'jeiweb', url: 'https://jeiweb.sirrus.cc/#/' },
-  {
-    key: 'translationReferrer',
-    url: 'https://github.com/SusieGlitter/EndFieldTranslationReferrer',
-  },
+] as const
+
+const AD_SLOT_CONTACTS = [
+  { key: 'adSlotEmail', value: 'admin@canmoe.com', href: 'mailto:admin@canmoe.com', external: false },
+  { key: 'adSlotQQGroup', value: '1045523485', href: null, external: false },
+  { key: 'adSlotBilibili', value: null, href: 'https://space.bilibili.com/1580942601', external: true },
 ] as const
 
 export default function AboutPage() {
@@ -106,6 +108,37 @@ export default function AboutPage() {
                 >
                   {t('about.contactEmail')}
                 </a>
+              </div>
+            </div>
+          </div>
+
+          {/* Ad slot */}
+          <div className="mb-8">
+            <h3 className="text-sm font-semibold mb-4 text-muted-foreground">{t('about.adSlotTitle')}</h3>
+            <div className="rounded-lg p-4 shadow-[var(--shadow-border)]">
+              <p className="text-sm text-muted-foreground leading-relaxed">{t('about.adSlotDesc')}</p>
+              <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs">
+                <span className="text-muted-foreground">{t('about.adSlotContact')}：</span>
+                {AD_SLOT_CONTACTS.map(({ key: contactKey, value, href, external }) => {
+                  const label = t(`about.${contactKey}`)
+                  const display = value ? `${label}: ${value}` : label
+                  if (!href) {
+                    return (
+                      <span key={contactKey} className="text-muted-foreground">{display}</span>
+                    )
+                  }
+                  return (
+                    <a
+                      key={contactKey}
+                      href={href}
+                      {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                      className="text-muted-foreground hover:text-foreground transition-colors underline underline-offset-2 inline-flex items-center gap-1"
+                    >
+                      {display}
+                      {external && <ExternalLink className="size-3" />}
+                    </a>
+                  )
+                })}
               </div>
             </div>
           </div>

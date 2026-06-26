@@ -191,8 +191,12 @@
     "akedataDesc": "本站武器与装备数据来源",
     "jeiwebName": "JEI-WEB",
     "jeiwebDesc": "一个基于 Web 的物品查看和合成规划工具",
-    "translationReferrerName": "EndField Translation Referrer",
-    "translationReferrerDesc": "翻译数据来源"
+    "adSlotTitle": "广告位招租",
+    "adSlotDesc": "本站欢迎相关商业合作投放，详情请联系下方任一渠道咨询。",
+    "adSlotContact": "联系方式",
+    "adSlotEmail": "邮箱",
+    "adSlotQQGroup": "QQ群(请私信璨梦踏月)",
+    "adSlotBilibili": "哔哩哔哩私信"
   },
   "essence": {
     "weaponSelected": "已选",

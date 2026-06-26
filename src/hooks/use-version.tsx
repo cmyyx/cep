@@ -129,10 +129,21 @@ export function VersionProvider({ children, initialInfo }: { children: ReactNode
   const refreshPage = useCallback(() => {
     // Cache-busting: append a unique query param to force a full network request.
     // This avoids both bfcache (unlike reload()) and HTTP disk cache (unlike plain
-    // replace()). The _t param is harmless — Next.js SSG ignores unknown query params.
+    // replace()). The _t param is stripped from the URL on next mount via the
+    // effect below, so it never lingers in the address bar or client-side navigations.
     const url = new URL(window.location.href)
     url.searchParams.set('_t', Date.now().toString())
     window.location.replace(url.toString())
+  }, [])
+
+  // Strip the cache-busting _t param left by refreshPage() so it doesn't
+  // persist in the URL bar or leak into subsequent client-side navigations.
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+    const url = new URL(window.location.href)
+    if (!url.searchParams.has('_t')) return
+    url.searchParams.delete('_t')
+    window.history.replaceState(window.history.state, '', url.toString())
   }, [])
 
   useEffect(() => {
