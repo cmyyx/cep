@@ -153,9 +153,11 @@ export const WeaponCard = memo(function WeaponCard({
   const wid = weapon.id || 'wpn_sword_0001'
   const isCustom = wid.startsWith('custom-')
   const isPreview = wid.startsWith('preview:')
+  // 优先使用 iconId（游戏原始资源映射，如 wpn_funnel_0008/0010 交叉指向）
+  const imageId = weapon.iconId ?? wid
   const imageSrc = (isCustom || isPreview) ? undefined : wid.startsWith('data:')
     ? wid
-    : `/images/weapon/${wid}.avif`
+    : `/images/weapon/${imageId}.avif`
   const displayName = (isCustom || isPreview) ? weapon.name : (t(`weapons.${wid}`) ?? weapon.name)
 
   const trigger = (

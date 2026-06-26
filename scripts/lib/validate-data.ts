@@ -380,17 +380,26 @@ export function validateImages(projectRoot: string): string[] {
   const publicDir = join(projectRoot, 'public')
 
   // Check weapon images
+  // 优先用 iconId（游戏原始资源映射）；缺失时回退到 id
   const weaponsPath = join(projectRoot, 'src', 'data', 'weapons.ts')
   if (existsSync(weaponsPath)) {
     const content = readFileSync(weaponsPath, 'utf-8')
-    const weaponIdRegex = /id:\s*'([^']+)'/g
+    // Match each weapon entry as a block, then extract id + iconId
+    // preview:xxx 跳过（无对应游戏数据/图片）
+    const entryRe = /\{[^}]*\}/g
     let m: RegExpExecArray | null
-    while ((m = weaponIdRegex.exec(content)) !== null) {
-      const weaponId = m[1]
-      if (weaponId.startsWith('preview:')) continue // Skip preview weapons
-      const avifPath = join(publicDir, 'images', 'weapon', `${weaponId}.avif`)
+    while ((m = entryRe.exec(content)) !== null) {
+      const entry = m[0]
+      const idMatch = /id:\s*'([^']+)'/.exec(entry)
+      if (!idMatch) continue
+      const weaponId = idMatch[1]
+      if (weaponId.startsWith('preview:')) continue
+      const iconIdMatch = /iconId:\s*'([^']+)'/.exec(entry)
+      const imageId = iconIdMatch?.[1] ?? weaponId
+      const avifPath = join(publicDir, 'images', 'weapon', `${imageId}.avif`)
       if (!existsSync(avifPath)) {
-        missing.push(`weapon/${weaponId}.avif`)
+        const ref = imageId === weaponId ? weaponId : `${imageId} (referenced by ${weaponId})`
+        missing.push(`weapon/${ref}.avif`)
       }
     }
   }

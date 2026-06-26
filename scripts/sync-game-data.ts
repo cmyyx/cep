@@ -9,7 +9,7 @@ import { generateStatI18n } from './lib/generate-stat-i18n'
 import { compareWeapons } from './lib/compare-weapons'
 import { compareEquips } from './lib/compare-equips'
 import { compareDungeons } from './lib/compare-dungeons'
-import { updateWeaponsFile, updateEquipsFile, updateDungeonsFile } from './lib/update-data-files'
+import { updateWeaponsFile, updateEquipsFile, updateDungeonsFile, reconcileWeaponsIconIds } from './lib/update-data-files'
 import { validateAllData, validateImages } from './lib/validate-data'
 import { convertIcons } from './lib/convert-icons'
 import { readUpstreamVersions, writeUpstreamVersions } from './lib/git-helpers'
@@ -147,8 +147,26 @@ async function main() {
   for (const w of wpnResult.entries) {
     if (w.isNew && w.rarity >= 4) console.log(`  NEW  ${w.weaponId}: ${w.title} (${w.rarity}star, ${w.typeName})`)
   }
-  // Preview weapon detection and update
+
+  // iconId consistency check (both check and update modes run this; check mode just reports)
   const weaponsTsPath = join(projectRoot, 'src', 'data', 'weapons.ts')
+  const iconIdReconcile = reconcileWeaponsIconIds(weaponsTsPath, paths.akedata, true)
+  if (iconIdReconcile.issues.length > 0) {
+    console.log(`  iconId issues: ${iconIdReconcile.issues.length} (added=${iconIdReconcile.issues.filter(i=>i.type==='missing').length}, mismatch=${iconIdReconcile.issues.filter(i=>i.type==='mismatch').length})`)
+    for (const issue of iconIdReconcile.issues) {
+      const tag = issue.type === 'missing' ? 'MISSING' : 'MISMATCH'
+      const actual = issue.actual || '<none>'
+      console.log(`    [${tag}] ${issue.weaponId}: expected "${issue.expected}", got "${actual}"`)
+    }
+    if (mode === 'check') {
+      // Block PR creation when iconId issues exist
+      console.error('  iconId reconciliation required. Run sync:update to fix.')
+      process.exit(2)
+    }
+  } else if (iconIdReconcile.unchanged > 0) {
+    console.log(`  iconId: ${iconIdReconcile.unchanged} verified, ${iconIdReconcile.skipped} skipped (no upstream entry)`)
+  }
+  // Preview weapon detection and update
   const weaponNameMap = buildWeaponNameMap(paths.imagedb, paths.akedata)
   const previewResult = updatePreviewWeapons(weaponsTsPath, weaponNameMap, mode === 'update')
   if (previewResult.previewCount > 0) {
@@ -175,6 +193,12 @@ async function main() {
     if (newWeaponIds.length > 0) {
       const updated = updateWeaponsFile(weaponsTsPath, newWeaponIds, paths.imagedb, paths.akedata)
       console.log(`  Updated: ${updated} weapons added to weapons.ts`)
+    }
+    // Reconcile iconId field against upstream ItemTable.iconId
+    // (adds missing iconId, fixes incorrect iconId for existing weapons)
+    const iconIdFix = reconcileWeaponsIconIds(weaponsTsPath, paths.akedata, false)
+    if (iconIdFix.added > 0 || iconIdFix.updated > 0) {
+      console.log(`  iconId reconciled: ${iconIdFix.added} added, ${iconIdFix.updated} updated, ${iconIdFix.unchanged} unchanged`)
     }
     const r = generateWeaponI18n(paths.akedata, paths.imagedb, generatedRoot)
     console.log(`  i18n: ${r.written.length} files, ${r.count} wpns, ${r.missing} missing`)
@@ -256,12 +280,14 @@ async function main() {
     console.log('\n-- Image conversion --')
     // Collect all image IDs referenced by project data
     const targetIds: string[] = []
-    // Weapon IDs from weapons.ts
+    // Weapon image IDs: union of id + iconId from weapons.ts inline fields
+    // iconId 与 id 不同时（如 wpn_funnel_0008/0010 游戏资源交叉指向），
+    // 必须同时转换 id 和 iconId 对应的 PNG，否则渲染层取不到 AVIF。
     const wIds = readFileSync(join(projectRoot, 'src', 'data', 'weapons.ts'), 'utf-8')
-      .match(/id:\s*'(wpn_[^']+)'/g)
-      ?.map(m => m.replace(/id:\s*'([^']+)'/, '$1'))
+      .match(/(?:id|iconId):\s*'(wpn_[^']+)'/g)
+      ?.map(m => m.replace(/(?:id|iconId):\s*'([^']+)'/, '$1'))
       .filter((id): id is string => !!id && !id.startsWith('preview:')) ?? []
-    targetIds.push(...wIds)
+    targetIds.push(...new Set(wIds))
     // Equip image IDs: union of equipId + iconId from RAW_EQUIPS inline fields
     const equipContent = readFileSync(join(projectRoot, 'src', 'data', 'equips.ts'), 'utf-8')
     const eIdSet = new Set<string>()
