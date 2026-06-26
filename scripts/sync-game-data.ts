@@ -115,8 +115,19 @@ async function main() {
       versions.akedata &&
       currentAkedata === versions.akedata
     ) {
-      console.log('\n  Up to date.\n')
-      process.exit(0)
+      // SHA matches, but still verify image integrity — a previous sync may
+      // have committed data without generating the corresponding images
+      // (e.g. sparse-checkout was missing the image source directory).
+      const projectRoot = resolve(join(import.meta.dirname ?? __dirname, '..'))
+      const missingImages = validateImages(projectRoot)
+      if (missingImages.length === 0) {
+        console.log('\n  Up to date.\n')
+        process.exit(0)
+      }
+      console.log(`\n  SHA matches but ${missingImages.length} image(s) missing — re-sync needed:`)
+      for (const img of missingImages) console.log(`    ${img}`)
+      if (mode === 'check') { process.exit(2) }
+      // update mode: fall through to full sync
     }
     if (mode === 'check') { process.exit(2) }
   }
