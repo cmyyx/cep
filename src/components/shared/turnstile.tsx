@@ -1,6 +1,8 @@
 'use client'
 
-import { useRef, useEffect, forwardRef, useImperativeHandle } from 'react'
+import { useRef, useEffect, useState, forwardRef, useImperativeHandle } from 'react'
+import { Loader2 } from 'lucide-react'
+import { cn } from '@/lib/utils'
 
 declare global {
   interface Window {
@@ -20,20 +22,32 @@ interface TurnstileOptions {
   'expired-callback'?: () => void
 }
 
+export type TurnstileStatus = 'loading' | 'ready'
+
 interface TurnstileProps {
   siteKey: string
   onVerify: (token: string) => void
   onExpire?: () => void
+  onStateChange?: (status: TurnstileStatus) => void
+  loadingText?: string
 }
 
 export interface TurnstileHandle {
   reset: () => void
 }
 
-export const Turnstile = forwardRef<TurnstileHandle, TurnstileProps>(function Turnstile({ siteKey, onVerify, onExpire }, ref) {
+export const Turnstile = forwardRef<TurnstileHandle, TurnstileProps>(function Turnstile(
+  { siteKey, onVerify, onExpire, onStateChange, loadingText },
+  ref,
+) {
   const containerRef = useRef<HTMLDivElement>(null)
   const widgetId = useRef<string>('')
   const rendered = useRef(false)
+  const [status, setStatus] = useState<TurnstileStatus>('loading')
+
+  // Keep onStateChange ref stable to avoid re-running effect
+  const onStateChangeRef = useRef(onStateChange)
+  onStateChangeRef.current = onStateChange
 
   // Expose reset to parent
   useImperativeHandle(ref, () => ({
@@ -74,6 +88,8 @@ export const Turnstile = forwardRef<TurnstileHandle, TurnstileProps>(function Tu
           }
         },
       })
+      setStatus('ready')
+      onStateChangeRef.current?.('ready')
     }
 
     // If Turnstile already loaded, render immediately
@@ -111,5 +127,21 @@ export const Turnstile = forwardRef<TurnstileHandle, TurnstileProps>(function Tu
     }
   }, [siteKey]) // Only re-render if siteKey changes (never)
 
-  return <div ref={containerRef} />
+  return (
+    <>
+      <div ref={containerRef} className={cn(status === 'loading' && 'hidden')} />
+      {status === 'loading' && (
+        <div
+          className="w-[300px] h-[65px] flex items-center justify-center gap-2 rounded-md bg-muted/40"
+          role="status"
+          aria-live="polite"
+        >
+          <Loader2 className="size-4 animate-spin text-muted-foreground" />
+          {loadingText && (
+            <span className="text-sm text-muted-foreground">{loadingText}</span>
+          )}
+        </div>
+      )}
+    </>
+  )
 })

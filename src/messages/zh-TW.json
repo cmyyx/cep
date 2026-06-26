@@ -95,6 +95,8 @@
     "invalidOrExpiredToken": "登入已過期，請重新登入",
     "invalidSession": "會話已失效，請重新登入",
     "turnstileRequired": "請完成人機驗證",
+    "turnstileLabel": "人機驗證",
+    "turnstileLoading": "人機驗證載入中...",
     "emailDomainUnsupported": "該信箱服務商暫不支援，請更換其他信箱",
     "unavailable": "登入與雲端同步功能當前不可用",
     "networkError": "網路請求失敗，請檢查網路連線",

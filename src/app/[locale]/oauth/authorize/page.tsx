@@ -88,6 +88,7 @@ function OAuthAuthorizeContent() {
   const [turnstileToken, setTurnstileToken] = useState<string | null>(null)
   const turnstileRef = useRef<TurnstileHandle>(null)
   const isTurnstileConfigured = !!getTurnstileSiteKey()
+  const turnstileBlocked = isTurnstileConfigured && !turnstileToken
 
   const loginForm = useForm<LoginForm>({
     resolver: zodResolver(loginSchema),
@@ -227,13 +228,17 @@ function OAuthAuthorizeContent() {
                 </div>
 
                 {isTurnstileConfigured && (
-                  <div className="flex justify-center">
-                    <Turnstile
-                      ref={turnstileRef}
-                      siteKey={getTurnstileSiteKey()}
-                      onVerify={setTurnstileToken}
-                      onExpire={() => setTurnstileToken(null)}
-                    />
+                  <div className="flex flex-col gap-2">
+                    <Label>{t('auth.turnstileLabel')}</Label>
+                    <div className="flex justify-center">
+                      <Turnstile
+                        ref={turnstileRef}
+                        siteKey={getTurnstileSiteKey()}
+                        onVerify={setTurnstileToken}
+                        onExpire={() => setTurnstileToken(null)}
+                        loadingText={t('auth.turnstileLoading')}
+                      />
+                    </div>
                   </div>
                 )}
 
@@ -248,7 +253,7 @@ function OAuthAuthorizeContent() {
                   type="submit"
                   disabled={
                     !loginForm.formState.isValid ||
-                    (isTurnstileConfigured && !turnstileToken) ||
+                    turnstileBlocked ||
                     loginForm.formState.isSubmitting
                   }
                 >
@@ -261,6 +266,11 @@ function OAuthAuthorizeContent() {
                     t('nav.login')
                   )}
                 </Button>
+                {turnstileBlocked && !loginForm.formState.isSubmitting && (
+                  <p className="text-xs text-muted-foreground text-center">
+                    {t('auth.turnstileRequired')}
+                  </p>
+                )}
               </form>
 
               <div className="text-center">

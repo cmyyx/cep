@@ -95,6 +95,8 @@
     "invalidOrExpiredToken": "Login expired, please log in again",
     "invalidSession": "Session invalid, please log in again",
     "turnstileRequired": "Please complete the verification",
+    "turnstileLabel": "Verification",
+    "turnstileLoading": "Loading verification...",
     "emailDomainUnsupported": "This email provider is not supported, please use another email",
     "unavailable": "Login and cloud sync are currently unavailable",
     "networkError": "Network request failed. Please check your connection.",

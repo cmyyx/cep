@@ -71,14 +71,12 @@ pnpm sync:check
    ├─ compareWeapons()       — 对比项目数据与上游，列出新增武器
    ├─ updateWeaponsFile()    — 新武器写入 src/data/weapons.ts
    ├─ generateWeaponI18n()   — 生成 src/generated/i18n/weapons/*.json
-   ├─ generateWeaponStatsI18n() — 生成 src/generated/i18n/weaponStats/*.json
-   └─ generateWeaponStatMapping() — 生成 src/generated/weapon-stat-mapping.ts
+   └─ generateWeaponStatsI18n() — 生成 src/generated/i18n/weaponStats/*.json
 
 4. 装备数据（Equips）
    ├─ compareEquips()        — 对比项目数据与上游
    ├─ updateEquipsFile()     — 新装备写入 src/data/equips.ts
-   ├─ generateEquipI18n()    — 生成 src/generated/i18n/equips/*.json
-   └─ generateEquipStatMapping() — 生成 src/generated/equip-stat-mapping.ts
+   └─ generateEquipI18n()    — 生成 src/generated/i18n/equips/*.json
 
 5. 地牢数据（Dungeons）
    ├─ compareDungeons()      — 对比项目数据与上游
@@ -94,10 +92,13 @@ pnpm sync:check
 8. 数据校验（Validation）
    └─ validateAllData()      — 校验 weapons/dungeons 与上游一致性
 
-9. 图标转换（Image conversion）
+9. 图标转换（Image conversion，仅 update 模式）
    └─ convertIcons()         — 上游 PNG → public/images/ 的 AVIF（weapon + equip）
 
-10. SHA 更新（非 --local 模式）
+10. 图片验证（Image validation）
+    └─ validateImages()      — 校验所有 weapon/equip AVIF 存在，缺失则 exit(1) 阻断同步
+
+11. SHA 更新（非 --local 模式）
     └─ writeUpstreamVersions() — 写入 scripts/.cache/upstream-versions.json（随 PR 提交）
 ```
 ## 单脚本调用
@@ -108,8 +109,8 @@ pnpm sync:check
 # 仅武器 i18n
 npx tsx scripts/lib/generate-weapons.ts
 
-# 仅装备 stat mapping
-npx tsx scripts/lib/generate-equip-stat-mapping.ts
+# 仅装备 i18n
+npx tsx scripts/lib/generate-equips.ts
 ```
 
 > 单脚本调用需要手动解析路径，一般通过 `sync-game-data.ts` 入口统一管理。
@@ -132,8 +133,6 @@ npx tsx scripts/lib/generate-equip-stat-mapping.ts
 | `src/generated/i18n/equipStats/*.json` | 装备属性多语言 |
 | `src/generated/i18n/equipTypes/*.json` | 装备类型多语言 |
 | `src/generated/i18n/materials/*.json` | 材料名多语言 |
-| `src/generated/weapon-stat-mapping.ts` | 武器技能名 → gemTermId 映射 |
-| `src/generated/equip-stat-mapping.ts` | 装备属性名 → canonical key 映射 |
 | `public/images/weapon/*.avif` | 武器图标 |
 | `public/images/equip/*.avif` | 装备图标 |
 

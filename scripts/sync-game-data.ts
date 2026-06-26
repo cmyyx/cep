@@ -240,18 +240,7 @@ async function main() {
     console.log(`  All data consistent with upstream`)
   }
 
-  // Validate image existence (always)
-  const missingImages = validateImages(projectRoot)
-  if (missingImages.length > 0) {
-    console.log(`\n  Missing images (${missingImages.length}):`)
-    for (const img of missingImages) {
-      console.log(`    ${img}`)
-    }
-  } else {
-    console.log(`  All images present`)
-  }
-
-  // Convert missing images (always, based on project data, not just new items)
+  // Convert images (update mode only, before validation so newly-converted AVIFs pass the check)
   if (mode === 'update') {
     console.log('\n-- Image conversion --')
     // Collect all image IDs referenced by project data
@@ -273,9 +262,29 @@ async function main() {
     if (targetIds.length > 0) {
       const iconResult = await convertIcons(paths.imagedb, join(projectRoot, 'public'), ['weapon', 'equip'], targetIds)
       console.log(`  Weapons+equips: ${targetIds.length} targets, ${iconResult.converted.length} converted, ${iconResult.skipped.length} skipped, ${iconResult.missingSource.length} missing source`)
+      if (iconResult.missingSource.length > 0) {
+        console.log(`  Missing source PNGs (cannot convert):`)
+        for (const src of iconResult.missingSource) {
+          console.log(`    ${src}`)
+        }
+      }
     } else {
       console.log(`  No image IDs found in project data`)
     }
+  }
+
+  // Validate image existence — block on missing images to prevent broken PRs
+  console.log('\n-- Image validation --')
+  const missingImages = validateImages(projectRoot)
+  if (missingImages.length > 0) {
+    console.error(`\n  ERROR: ${missingImages.length} missing image(s):`)
+    for (const img of missingImages) {
+      console.error(`    ${img}`)
+    }
+    console.error('\n  Images are required for build. Aborting to prevent broken deployment.')
+    process.exit(1)
+  } else {
+    console.log(`  All images present`)
   }
 
   // SHA update — write version file to working tree (committed via PR)

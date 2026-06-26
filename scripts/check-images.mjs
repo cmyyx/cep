@@ -1,67 +1,74 @@
 #!/usr/bin/env node
-// Prebuild check: verify all weapon/equip images referenced in data files exist.
-// Run before `next build` to fail early on missing images.
-// ================================================================================
 
-import { existsSync, readFileSync } from 'node:fs'
-import { resolve, join } from 'node:path'
-import { fileURLToPath } from 'node:url'
+/**
+ * Image integrity checker (prebuild gate).
+ *
+ * Verifies that every weapon/equip referenced in src/data/weapons.ts and
+ * src/data/equips.ts has a corresponding AVIF image in public/images/.
+ * Exits with code 1 if any image is missing, blocking the build.
+ *
+ * Usage:
+ *   node scripts/check-images.mjs
+ */
 
-const root = resolve(fileURLToPath(import.meta.url), '..', '..')
+import { readFileSync, existsSync } from 'fs'
+import { join, resolve, dirname } from 'path'
+import { fileURLToPath } from 'url'
 
-function fail(msg) {
-  console.error(msg)
+const __dirname = dirname(fileURLToPath(import.meta.url))
+const ROOT = resolve(__dirname, '..')
+const PUBLIC_DIR = join(ROOT, 'public')
+const WEAPONS_TS = join(ROOT, 'src', 'data', 'weapons.ts')
+const EQUIPS_TS = join(ROOT, 'src', 'data', 'equips.ts')
+
+const missing = []
+
+// ── Weapons ──────────────────────────────────────────────────────────────
+if (existsSync(WEAPONS_TS)) {
+  const content = readFileSync(WEAPONS_TS, 'utf-8')
+  const re = /id:\s*'([^']+)'/g
+  let m
+  while ((m = re.exec(content)) !== null) {
+    const weaponId = m[1]
+    if (weaponId.startsWith('preview:')) continue
+    const avifPath = join(PUBLIC_DIR, 'images', 'weapon', `${weaponId}.avif`)
+    if (!existsSync(avifPath)) {
+      missing.push(`weapon/${weaponId}.avif`)
+    }
+  }
+} else {
+  console.error('ERROR: weapons.ts not found at', WEAPONS_TS)
   process.exit(1)
 }
 
-// ── Check weapon images ──────────────────────────────────────────────────
-
-const weaponsTsPath = join(root, 'src', 'data', 'weapons.ts')
-const weaponsContent = readFileSync(weaponsTsPath, 'utf-8')
-
-// Extract weapon IDs: id: 'wpn_xxx'
-const weaponIdRe = /id:\s*'(wpn_[^']+)'/g
-let m
-const missingWeaponImages = []
-while ((m = weaponIdRe.exec(weaponsContent)) !== null) {
-  const weaponId = m[1]
-  if (weaponId.startsWith('preview:')) continue
-  const avifPath = join(root, 'public', 'images', 'weapon', `${weaponId}.avif`)
-  if (!existsSync(avifPath)) {
-    missingWeaponImages.push(`weapon/${weaponId}.avif`)
+// ── Equips ───────────────────────────────────────────────────────────────
+if (existsSync(EQUIPS_TS)) {
+  const content = readFileSync(EQUIPS_TS, 'utf-8')
+  const iconIds = new Set()
+  const re = /(?:equipId|iconId):\s*'(item_equip_[^']+)'/g
+  let m
+  while ((m = re.exec(content)) !== null) {
+    iconIds.add(m[1])
   }
-}
-
-// ── Check equip images ───────────────────────────────────────────────────
-
-const equipsTsPath = join(root, 'src', 'data', 'equips.ts')
-const equipsContent = readFileSync(equipsTsPath, 'utf-8')
-
-// Extract EQUIP_ID_MAP values: 'name': 'item_equip_xxx'
-const equipIdRe = /':\s*'(item_equip_[^']+)'/g
-const missingEquipImages = []
-while ((m = equipIdRe.exec(equipsContent)) !== null) {
-  const equipId = m[1]
-  const avifPath = join(root, 'public', 'images', 'equip', `${equipId}.avif`)
-  if (!existsSync(avifPath)) {
-    missingEquipImages.push(`equip/${equipId}.avif`)
+  for (const equipId of iconIds) {
+    const avifPath = join(PUBLIC_DIR, 'images', 'equip', `${equipId}.avif`)
+    if (!existsSync(avifPath)) {
+      missing.push(`equip/${equipId}.avif`)
+    }
   }
+} else {
+  console.error('ERROR: equips.ts not found at', EQUIPS_TS)
+  process.exit(1)
 }
 
-// ── Report ────────────────────────────────────────────────────────────────
-
-if (missingWeaponImages.length > 0) {
-  console.error(`\nMissing weapon images (${missingWeaponImages.length}):`)
-  missingWeaponImages.forEach(img => console.error(`  ${img}`))
+// ── Report ───────────────────────────────────────────────────────────────
+if (missing.length > 0) {
+  console.error(`\nERROR: ${missing.length} missing image(s):`)
+  for (const img of missing) {
+    console.error(`  ${img}`)
+  }
+  console.error('\nImages are required for build. Run sync:update to generate missing images.')
+  process.exit(1)
+} else {
+  console.log('check-images: All weapon/equip images present')
 }
-if (missingEquipImages.length > 0) {
-  console.error(`\nMissing equip images (${missingEquipImages.length}):`)
-  missingEquipImages.forEach(img => console.error(`  ${img}`))
-}
-
-const total = missingWeaponImages.length + missingEquipImages.length
-if (total > 0) {
-  fail(`\n${total} missing image(s). Run \`pnpm sync:update --local\` to sync images.\n`)
-}
-
-console.log('All weapon/equip images present.')

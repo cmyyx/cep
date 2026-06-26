@@ -91,6 +91,8 @@ function LoginPageContent() {
 
   const [turnstileToken, setTurnstileToken] = useState<string | null>(null)
   const turnstileRef = useRef<TurnstileHandle>(null)
+  const isTurnstileConfigured = !!getTurnstileSiteKey()
+  const turnstileBlocked = isTurnstileConfigured && !turnstileToken
 
   // Password reset
   const [resetStep, setResetStep] = useState<'email'|'code'>('email')
@@ -352,14 +354,18 @@ function LoginPageContent() {
               )}
             </div>
 
-            {getTurnstileSiteKey() && (
-              <div className="flex justify-center">
-                <Turnstile
-                  ref={turnstileRef}
-                  siteKey={getTurnstileSiteKey()}
-                  onVerify={setTurnstileToken}
-                  onExpire={() => setTurnstileToken(null)}
-                />
+            {isTurnstileConfigured && (
+              <div className="flex flex-col gap-2">
+                <Label>{t('auth.turnstileLabel')}</Label>
+                <div className="flex justify-center">
+                  <Turnstile
+                    ref={turnstileRef}
+                    siteKey={getTurnstileSiteKey()}
+                    onVerify={setTurnstileToken}
+                    onExpire={() => setTurnstileToken(null)}
+                    loadingText={t('auth.turnstileLoading')}
+                  />
+                </div>
               </div>
             )}
 
@@ -369,7 +375,7 @@ function LoginPageContent() {
               </p>
             )}
 
-            <Button type="submit" disabled={isLoading} className="w-full">
+            <Button type="submit" disabled={isLoading || turnstileBlocked} className="w-full">
               {isLoading ? (
                 <>
                   <Loader2 className="size-4 mr-2 animate-spin" />
@@ -379,6 +385,11 @@ function LoginPageContent() {
                 t('nav.login')
               )}
             </Button>
+            {turnstileBlocked && !isLoading && (
+              <p className="text-xs text-muted-foreground text-center">
+                {t('auth.turnstileRequired')}
+              </p>
+            )}
             <div className="text-center mt-2">
               <Button
                 type="button"
@@ -476,14 +487,18 @@ function LoginPageContent() {
               )}
             </div>
 
-            {getTurnstileSiteKey() && (
-              <div className="flex justify-center">
-                <Turnstile
-                  ref={turnstileRef}
-                  siteKey={getTurnstileSiteKey()}
-                  onVerify={setTurnstileToken}
-                  onExpire={() => setTurnstileToken(null)}
-                />
+            {isTurnstileConfigured && (
+              <div className="flex flex-col gap-2">
+                <Label>{t('auth.turnstileLabel')}</Label>
+                <div className="flex justify-center">
+                  <Turnstile
+                    ref={turnstileRef}
+                    siteKey={getTurnstileSiteKey()}
+                    onVerify={setTurnstileToken}
+                    onExpire={() => setTurnstileToken(null)}
+                    loadingText={t('auth.turnstileLoading')}
+                  />
+                </div>
               </div>
             )}
 
@@ -493,7 +508,7 @@ function LoginPageContent() {
               </p>
             )}
 
-            <Button type="submit" disabled={isLoading} className="w-full">
+            <Button type="submit" disabled={isLoading || turnstileBlocked} className="w-full">
               {isLoading ? (
                 <>
                   <Loader2 className="size-4 mr-2 animate-spin" />
@@ -503,6 +518,11 @@ function LoginPageContent() {
                 t('nav.register')
               )}
             </Button>
+            {turnstileBlocked && !isLoading && (
+              <p className="text-xs text-muted-foreground text-center">
+                {t('auth.turnstileRequired')}
+              </p>
+            )}
           </form>
         )}
 

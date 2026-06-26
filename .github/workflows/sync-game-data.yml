@@ -69,7 +69,7 @@ jobs:
           git clone --depth 1 --filter=blob:none --sparse --no-checkout \
             https://github.com/NagiYume/AKEDatabase.git "$UPSTREAM_DIR/AKEDatabase"
           git -C "$UPSTREAM_DIR/AKEDatabase" sparse-checkout init --cone
-          git -C "$UPSTREAM_DIR/AKEDatabase" sparse-checkout set public/CH
+          git -C "$UPSTREAM_DIR/AKEDatabase" sparse-checkout set public/CH public/images
           git -C "$UPSTREAM_DIR/AKEDatabase" checkout
 
       - name: Check upstream changes
@@ -162,7 +162,7 @@ jobs:
           git clone --depth 1 --filter=blob:none --sparse --no-checkout \
             https://github.com/NagiYume/AKEDatabase.git "$UPSTREAM_DIR/AKEDatabase"
           git -C "$UPSTREAM_DIR/AKEDatabase" sparse-checkout init --cone
-          git -C "$UPSTREAM_DIR/AKEDatabase" sparse-checkout set public/CH
+          git -C "$UPSTREAM_DIR/AKEDatabase" sparse-checkout set public/CH public/images
           git -C "$UPSTREAM_DIR/AKEDatabase" checkout
 
       - name: Run sync update

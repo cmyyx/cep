@@ -95,6 +95,8 @@
     "invalidOrExpiredToken": "登录已过期，请重新登录",
     "invalidSession": "会话已失效，请重新登录",
     "turnstileRequired": "请完成人机验证",
+    "turnstileLabel": "人机验证",
+    "turnstileLoading": "人机验证加载中...",
     "emailDomainUnsupported": "该邮箱服务商暂不支持，请更换其他邮箱",
     "unavailable": "登录与云同步功能当前不可用",
     "networkError": "网络请求失败，请检查网络连接",
