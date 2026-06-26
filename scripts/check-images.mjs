@@ -26,14 +26,23 @@ const missing = []
 // ── Weapons ──────────────────────────────────────────────────────────────
 if (existsSync(WEAPONS_TS)) {
   const content = readFileSync(WEAPONS_TS, 'utf-8')
-  const re = /id:\s*'([^']+)'/g
+  // 匹配每条 weapon entry 块，从块内提取 id + iconId
+  // 优先用 iconId（游戏原始资源映射）；缺失时回退到 id
+  // preview:xxx 跳过（无对应图片）
+  const entryRe = /\{[^}]*\}/g
   let m
-  while ((m = re.exec(content)) !== null) {
-    const weaponId = m[1]
+  while ((m = entryRe.exec(content)) !== null) {
+    const entry = m[0]
+    const idMatch = /id:\s*'([^']+)'/.exec(entry)
+    if (!idMatch) continue
+    const weaponId = idMatch[1]
     if (weaponId.startsWith('preview:')) continue
-    const avifPath = join(PUBLIC_DIR, 'images', 'weapon', `${weaponId}.avif`)
+    const iconIdMatch = /iconId:\s*'([^']+)'/.exec(entry)
+    const imageId = iconIdMatch?.[1] ?? weaponId
+    const avifPath = join(PUBLIC_DIR, 'images', 'weapon', `${imageId}.avif`)
     if (!existsSync(avifPath)) {
-      missing.push(`weapon/${weaponId}.avif`)
+      const ref = imageId === weaponId ? weaponId : `${imageId} (referenced by ${weaponId})`
+      missing.push(`weapon/${ref}.avif`)
     }
   }
 } else {

@@ -33,7 +33,9 @@ export const SelectedWeaponsStrip = memo(function SelectedWeaponsStrip({
           if (!weapon) return null
           const wid = weapon.id
           const isCustom = wid.startsWith('custom-') || wid.startsWith('preview:')
-          const imgSrc = isCustom ? undefined : `/images/weapon/${wid}.avif`
+          // 优先使用 iconId（游戏原始资源映射）
+          const imageId = weapon.iconId ?? wid
+          const imgSrc = isCustom ? undefined : `/images/weapon/${imageId}.avif`
           const displayName = isCustom ? weapon.name : (t(`weapons.${wid}`) ?? weapon.name)
 
           return (

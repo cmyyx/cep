@@ -335,6 +335,9 @@ export function updateWeaponsFile(
   // Build GemTable CN→gemTermId for special ability resolution
   const { cnToGem } = buildGemTableLookup(akedataPath)
 
+  // Load ItemTable for iconId resolution (game-side icon resource mapping)
+  const itemTable = loadItemTable(akedataPath)
+
   const primaryDir = join(imagedbPath, 'public', 'CH', 'weapon')
   const fallbackDir = join(akedataPath, 'output', 'CN', 'weapon')
   const weaponDir = existsSync(primaryDir) ? primaryDir : existsSync(fallbackDir) ? fallbackDir : null
@@ -348,8 +351,9 @@ export function updateWeaponsFile(
     const data = JSON.parse(readFileSync(filePath, 'utf-8')) as WeaponData
     const { primaryStat, elementalDamage, specialAbility } = extractStatsFromSkillList(data.skilllist, cnToGem)
     const type = WEAPON_TYPE_MAP[data.weapontype] ?? '未知'
+    const iconId = resolveWeaponIconId(itemTable, weaponId) ?? weaponId
 
-    const weaponEntry = `  { id: '${weaponId}', name: '${data.title}', rarity: ${data.rarity}, type: '${type}', primaryStat: '${primaryStat}', elementalDamage: '${elementalDamage}', specialAbility: '${specialAbility}', chars: [] }`
+    const weaponEntry = `  { id: '${weaponId}', iconId: '${iconId}', name: '${data.title}', rarity: ${data.rarity}, type: '${type}', primaryStat: '${primaryStat}', elementalDamage: '${elementalDamage}', specialAbility: '${specialAbility}', chars: [] }`
     newWeapons.push(weaponEntry)
   }
 
@@ -358,6 +362,126 @@ export function updateWeaponsFile(
   const updatedContent = insertEntries(content, 'export const weapons: Weapon[] = [', newWeapons)
   writeFileSync(weaponsTsPath, updatedContent, 'utf-8')
   return newWeapons.length
+}
+
+/**
+ * Reconcile iconId field in weapons.ts with upstream ItemTable.iconId.
+ *
+ * 行级 patch：保留 chars、分组注释、preview 标记，仅同步 iconId 字段。
+ * - 上游无此 weaponId → 跳过（不强制添加 iconId）
+ * - 已有 iconId 且与上游一致 → 不变
+ * - 已有 iconId 但与上游不一致 → 替换为上游值
+ * - 没有 iconId → 紧跟 id 后插入
+ *
+ * @param dryRun true=只检测不修改，返回 issues；false=实际修复
+ */
+export function reconcileWeaponsIconIds(
+  weaponsTsPath: string,
+  akedataPath: string,
+  dryRun = false,
+): { added: number; updated: number; unchanged: number; skipped: number; issues: IconIdIssue[] } {
+  const content = readFileSync(weaponsTsPath, 'utf-8')
+  const itemTable = loadItemTable(akedataPath)
+  if (!itemTable) {
+    return { added: 0, updated: 0, unchanged: 0, skipped: 0, issues: [] }
+  }
+
+  const issues: IconIdIssue[] = []
+  let added = 0, updated = 0, unchanged = 0, skipped = 0
+
+  // 匹配每行 weapon entry（按 id: 'wpn_xxx' 锚定，单行 entry）
+  // preview:xxx 跳过（无对应游戏数据）
+  const lineRe = /^(\s*\{\s*)id:\s*'(wpn_[^']+)'([^}]*?)(\s*\},?\s*)$/gm
+
+  const newContent = content.replace(lineRe, (full, prefix, weaponId, middle, suffix) => {
+    const upstreamIconId = resolveWeaponIconId(itemTable, weaponId)
+    if (!upstreamIconId) {
+      // 上游无此 weaponId 的 iconId 数据，跳过
+      skipped++
+      return full
+    }
+    const expectedIconId = upstreamIconId
+
+    const existingIconRe = /iconId:\s*'([^']+)'/
+    const existingMatch = middle.match(existingIconRe)
+
+    if (existingMatch) {
+      const currentIconId = existingMatch[1]
+      if (currentIconId === expectedIconId) {
+        unchanged++
+        return full
+      }
+      // 现有 iconId 与上游不一致
+      issues.push({
+        weaponId,
+        type: 'mismatch',
+        expected: expectedIconId,
+        actual: currentIconId,
+      })
+      if (dryRun) return full
+      updated++
+      const newMiddle = middle.replace(existingIconRe, `iconId: '${expectedIconId}'`)
+      return `${prefix}id: '${weaponId}'${newMiddle}${suffix}`
+    }
+
+    // 没有 iconId 字段
+    issues.push({
+      weaponId,
+      type: 'missing',
+      expected: expectedIconId,
+      actual: '',
+    })
+    if (dryRun) return full
+    added++
+    return `${prefix}id: '${weaponId}', iconId: '${expectedIconId}'${middle}${suffix}`
+  })
+
+  if (!dryRun && (added > 0 || updated > 0)) {
+    writeFileSync(weaponsTsPath, newContent, 'utf-8')
+  }
+  return { added, updated, unchanged, skipped, issues }
+}
+
+/** Load ItemTable.json from AKEData, returning a record of { id → { iconId } }.
+ *  Only extracts iconId (string), so JSON.parse is safe despite int64 fields elsewhere. */
+function loadItemTable(akedataPath: string): Record<string, { iconId?: string }> | null {
+  const itemTablePath = join(akedataPath, 'TableCfg', 'ItemTable.json')
+  if (!existsSync(itemTablePath)) return null
+  // 用 regex 提取，避免 JSON.parse 在 int64 字段（如 name.id）上的精度问题
+  const raw = readFileSync(itemTablePath, 'utf-8')
+  const result: Record<string, { iconId?: string }> = {}
+  const itemRe = /"(wpn_[^"]+)"\s*:\s*\{/g
+  let m: RegExpExecArray | null
+  while ((m = itemRe.exec(raw)) !== null) {
+    const itemId = m[1]
+    // 在该 item 的窗口内查找 iconId 字段（字符串或数字均接受）
+    const window = raw.substring(m.index, m.index + 3000)
+    const iconIdMatch = window.match(/"iconId"\s*:\s*("(wpn_[^"]+)"|(wpn_\w+))/)
+    if (iconIdMatch) {
+      // 兼容字符串（"wpn_xxx"）或裸字面量（wpn_xxx，理论上 JSON 不会出现，但兼容）
+      const iconId = iconIdMatch[2] ?? iconIdMatch[3]
+      result[itemId] = { iconId }
+    } else {
+      result[itemId] = {}
+    }
+  }
+  return result
+}
+
+/** Resolve weapon iconId from ItemTable; returns undefined when upstream has no entry or no iconId field */
+function resolveWeaponIconId(
+  itemTable: Record<string, { iconId?: string }> | null,
+  weaponId: string,
+): string | undefined {
+  if (!itemTable) return undefined
+  return itemTable[weaponId]?.iconId
+}
+
+export interface IconIdIssue {
+  weaponId: string
+  type: 'missing' | 'mismatch'
+  expected: string
+  actual: string
 }
 
 // ── Update equips.ts ──────────────────────────────────────────────────────

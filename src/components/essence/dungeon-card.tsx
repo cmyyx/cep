@@ -31,10 +31,12 @@ interface ThumbProps {
   inRange: boolean
 }
 
-function weaponImageSrc(id?: string): string | undefined {
+function weaponImageSrc(id?: string, iconId?: string): string | undefined {
   if (!id || id.startsWith('custom-') || id.startsWith('preview:')) return undefined
   if (id.startsWith('data:')) return id
-  return `/images/weapon/${id}.avif`
+  // 优先使用 iconId（游戏原始资源映射，如 wpn_funnel_0008/0010 交叉指向）
+  const imageId = iconId ?? id
+  return `/images/weapon/${imageId}.avif`
 }
 
 interface RowProps extends ThumbProps {
@@ -203,7 +205,7 @@ const WeaponThumbnail = memo(function WeaponThumbnail({
         !inRange && !isSelected && 'shadow-[0_0_0_1px_rgba(0,0,0,0.04)] opacity-30',
       )}
     >
-      {(() => { const s = weaponImageSrc(weapon.id); if (!s) return <span className="absolute inset-0 flex items-center justify-center text-lg font-semibold text-white/40">{weapon.name?.charAt(0) ?? '?'}</span>; return <Image src={s} alt={weaponName} fill className="object-cover z-10" unoptimized /> })()}
+      {(() => { const s = weaponImageSrc(weapon.id, weapon.iconId); if (!s) return <span className="absolute inset-0 flex items-center justify-center text-lg font-semibold text-white/40">{weapon.name?.charAt(0) ?? '?'}</span>; return <Image src={s} alt={weaponName} fill className="object-cover z-10" unoptimized /> })()}
       <Image
         src={`/images/item-band-${weapon.rarity}.png`}
         alt=""

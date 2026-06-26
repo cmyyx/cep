@@ -13,12 +13,13 @@ import { weapons } from '@/data/weapons'
 import { equips } from '@/data/equips'
 import { MATERIAL_NAMES } from '@/data/material-names'
 
-// Runtime name→id maps built from authoritative data sources (no JSON maintenance).
+// Runtime name→imageId maps built from authoritative data sources (no JSON maintenance).
 // Exclude non-standard IDs (preview:, custom-, data:) that would produce invalid image URLs.
-const weaponNameToId = new Map(
+// 武器图片用 iconId（游戏原始资源映射，如 wpn_funnel_0008/0010 交叉指向），缺失时回退到 id
+const weaponNameToImageId = new Map(
   weapons
     .filter((w) => !w.id.startsWith('preview:') && !w.id.startsWith('custom-') && !w.id.startsWith('data:'))
-    .map((w) => [w.name, w.id])
+    .map((w) => [w.name, w.iconId ?? w.id])
 )
 const equipNameToId = new Map(equips.filter((e) => e.imageId).map((e) => [e.name, e.imageId]))
 
@@ -27,7 +28,7 @@ type ViewMode = 'info' | 'guide'
 // ---- Image helpers ----
 
 function getWeaponImageSrc(name: string): string | null {
-  const id = weaponNameToId.get(name)
+  const id = weaponNameToImageId.get(name)
   return id ? `/images/weapon/${id}.avif` : null
 }
 

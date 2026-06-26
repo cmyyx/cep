@@ -1,5 +1,11 @@
 export interface Weapon {
   id: string
+  /**
+   * 游戏内 ItemTable.iconId，用于获取图标资源。
+   * 与 id 不同时表示游戏原始资源交叉指向（如 wpn_funnel_0008/0010）。
+   * 缺失时回退到 id。同步脚本会自动检测/补充/纠正该字段。
+   */
+  iconId?: string
   name: string
   rarity: 4 | 5 | 6
   type: string
