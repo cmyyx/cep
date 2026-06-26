@@ -382,9 +382,6 @@ export function reconcileWeaponsIconIds(
 ): { added: number; updated: number; unchanged: number; skipped: number; issues: IconIdIssue[] } {
   const content = readFileSync(weaponsTsPath, 'utf-8')
   const itemTable = loadItemTable(akedataPath)
-  if (!itemTable) {
-    return { added: 0, updated: 0, unchanged: 0, skipped: 0, issues: [] }
-  }
 
   const issues: IconIdIssue[] = []
   let added = 0, updated = 0, unchanged = 0, skipped = 0
@@ -443,22 +440,26 @@ export function reconcileWeaponsIconIds(
 }
 
 /** Load ItemTable.json from AKEData, returning a record of { id → { iconId } }.
- *  Only extracts iconId (string), so JSON.parse is safe despite int64 fields elsewhere. */
-function loadItemTable(akedataPath: string): Record<string, { iconId?: string }> | null {
+ *  Only extracts iconId (string), so regex-based parsing avoids JSON.parse int64 precision issues.
+ *  Throws when ItemTable.json is missing or unreadable — fail-closed to prevent
+ *  sync:check false positives and sync:update persisting bad iconId data. */
+function loadItemTable(akedataPath: string): Record<string, { iconId?: string }> {
   const itemTablePath = join(akedataPath, 'TableCfg', 'ItemTable.json')
-  if (!existsSync(itemTablePath)) return null
-  // 用 regex 提取，避免 JSON.parse 在 int64 字段（如 name.id）上的精度问题
+  if (!existsSync(itemTablePath)) {
+    throw new Error(`ItemTable.json not found at ${itemTablePath} — cannot reconcile weapon iconId`)
+  }
   const raw = readFileSync(itemTablePath, 'utf-8')
   const result: Record<string, { iconId?: string }> = {}
   const itemRe = /"(wpn_[^"]+)"\s*:\s*\{/g
   let m: RegExpExecArray | null
   while ((m = itemRe.exec(raw)) !== null) {
     const itemId = m[1]
-    // 在该 item 的窗口内查找 iconId 字段（字符串或数字均接受）
-    const window = raw.substring(m.index, m.index + 3000)
-    const iconIdMatch = window.match(/"iconId"\s*:\s*("(wpn_[^"]+)"|(wpn_\w+))/)
+    // 按对象边界精确切片，避免固定窗口泄漏到相邻 item（review r3482615236 / r3482640471）
+    const objStart = raw.indexOf('{', m.index)
+    const block = sliceTopLevelObject(raw, objStart)
+    const iconIdMatch = block.match(/"iconId"\s*:\s*("(wpn_[^"]+)"|(wpn_\w+))/)
     if (iconIdMatch) {
-      // 兼容字符串（"wpn_xxx"）或裸字面量（wpn_xxx，理论上 JSON 不会出现，但兼容）
+      // 兼容字符串（"wpn_xxx"）或裸字面量（理论上 JSON 不会出现，但兼容）
       const iconId = iconIdMatch[2] ?? iconIdMatch[3]
       result[itemId] = { iconId }
     } else {
@@ -468,12 +469,30 @@ function loadItemTable(akedataPath: string): Record<string, { iconId?: string }>
   return result
 }
 
-/** Resolve weapon iconId from ItemTable; returns undefined when upstream has no entry or no iconId field */
+/** Slice a top-level JSON object body starting at the position of its opening `{`.
+ *  Tracks `{`/`}` depth to stop at the matching close brace. */
+function sliceTopLevelObject(raw: string, start: number): string {
+  let depth = 0
+  let seenOpen = false
+  for (let i = start; i < raw.length; i++) {
+    const ch = raw[i]
+    if (ch === '{') {
+      depth++
+      seenOpen = true
+    } else if (ch === '}') {
+      depth--
+      if (seenOpen && depth === 0) return raw.slice(start, i + 1)
+    }
+  }
+  // 格式异常（未闭合）→ 返回剩余内容，让后续 match 自行失败
+  return raw.slice(start)
+}
+
+/** Resolve weapon iconId from ItemTable; returns undefined when upstream entry has no iconId field */
 function resolveWeaponIconId(
-  itemTable: Record<string, { iconId?: string }> | null,
+  itemTable: Record<string, { iconId?: string }>,
   weaponId: string,
 ): string | undefined {
-  if (!itemTable) return undefined
   return itemTable[weaponId]?.iconId
 }
 
