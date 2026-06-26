@@ -48,7 +48,11 @@ export function generateWeaponStatsI18n(
   // textId lookup so we never reverse-search the TextTable by skill name).
   const { cnToGem, gemToTextId } = buildGemTableLookup(akedataPath)
 
-  // Collect unique baseName → gemTermId pairs (dedup by baseName, first occurrence wins).
+  // Collect unique gemTermId → baseName pairs (dedup by gemTermId, first occurrence wins).
+  // Deduping by gemId (the i18n output key) ensures each output entry is written
+  // exactly once. baseName-based dedup allowed different baseNames sharing a gemId
+  // (e.g. pulsedam/electrondam → gat_passive_attr_pulsedam) to overwrite each other
+  // non-deterministically in the output map keyed by gemId.
   const seen = new Map<string, string>()
 
   for (const file of readdirSync(dir)) {
@@ -64,8 +68,6 @@ export function generateWeaponStatsI18n(
         .replace(/\s*\[[LMS]\]\s*$/, '')
         .trim()
 
-      if (seen.has(baseName)) continue
-
       const bbKey = skill.blackboard?.[0]?.key
       let gemId: string | undefined
       if (bbKey) {
@@ -74,7 +76,7 @@ export function generateWeaponStatsI18n(
       }
       if (!gemId) gemId = cnToGem[baseName] // special ability (gst_passive_*)
 
-      if (gemId) seen.set(baseName, gemId)
+      if (gemId && !seen.has(gemId)) seen.set(gemId, baseName)
     }
   }
 
@@ -84,7 +86,7 @@ export function generateWeaponStatsI18n(
   let count = 0
   let missing = 0
 
-  for (const [baseName, gemId] of seen) {
+  for (const [gemId, baseName] of seen) {
     const textId = gemToTextId[gemId]
 
     for (const loc of SUPPORTED_LOCALES) {
