@@ -12,11 +12,11 @@
   "gst_passive_force": "强攻",
   "gat_passive_attr_usp": "终结技充能效率提升",
   "gst_passive_burst": "迸发",
-  "gat_passive_attr_physpell": "源石技艺强度提升",
+  "gat_passive_attr_physpell": "源石技艺提升",
   "gst_passive_break": "残暴",
   "gst_passive_phyabn": "巧技",
   "gat_passive_attr_wisd": "智识提升",
-  "gat_passive_attr_magicdam": "法术提升",
+  "gat_passive_attr_magicdam": "法术伤害提升",
   "gst_passive_spirit": "昂扬",
   "gat_passive_attr_pulsedam": "电磁伤害提升",
   "gst_passive_magabn": "附术",
@@ -27,7 +27,7 @@
   "gat_passive_attr_agi": "敏捷提升",
   "gat_passive_attr_phydam": "物理伤害提升",
   "gat_passive_attr_firedam": "灼热伤害提升",
+  "gst_passive_tacafter": "流转",
   "gat_passive_attr_icedam": "寒冷伤害提升",
-  "gst_passive_crit": "切骨",
-  "gst_passive_tacafter": "流转"
+  "gst_passive_crit": "切骨"
 }

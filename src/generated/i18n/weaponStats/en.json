@@ -1,6 +1,6 @@
 {
   "gat_passive_attr_str": "Strength Boost",
-  "gat_passive_attr_atk": "ATK Boost",
+  "gat_passive_attr_atk": "Attack Boost",
   "gst_passive_tactic": "Suppression",
   "gat_passive_attr_main": "Main Attribute Boost",
   "gat_passive_attr_will": "Will Boost",
@@ -16,7 +16,7 @@
   "gst_passive_break": "Brutality",
   "gst_passive_phyabn": "Combative",
   "gat_passive_attr_wisd": "Intellect Boost",
-  "gat_passive_attr_magicdam": "Arts Boost",
+  "gat_passive_attr_magicdam": "Arts DMG Boost",
   "gst_passive_spirit": "Inspiring",
   "gat_passive_attr_pulsedam": "Electric DMG Boost",
   "gst_passive_magabn": "Infliction",
@@ -27,7 +27,7 @@
   "gat_passive_attr_agi": "Agility Boost",
   "gat_passive_attr_phydam": "Physical DMG Boost",
   "gat_passive_attr_firedam": "Heat DMG Boost",
+  "gst_passive_tacafter": "Flow",
   "gat_passive_attr_icedam": "Cryo DMG Boost",
-  "gst_passive_crit": "Fracture",
-  "gst_passive_tacafter": "Flow"
+  "gst_passive_crit": "Fracture"
 }
