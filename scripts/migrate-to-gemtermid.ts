@@ -13,7 +13,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url))
 const projectRoot = join(__dirname, '..')
 
 const config = JSON.parse(readFileSync(join(projectRoot, 'sync-game-data.config.json'), 'utf-8'))
-const mapping = buildStatMapping(config.akedataPath, config.translationPath)
+const mapping = buildStatMapping(config.akedataPath)
 
 // ── Migration helpers ────────────────────────────────────────────────────
 

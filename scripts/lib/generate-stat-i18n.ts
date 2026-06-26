@@ -11,22 +11,7 @@
 import { existsSync, readFileSync, readdirSync, mkdirSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { parseJsonSafe } from './json-utils'
-
-const SUPPORTED_LOCALES = ['zh-CN', 'en', 'ja', 'zh-TW'] as const
-const TEXTTABLE_SUFFIX: Record<string, string> = { 'zh-CN': 'CN', 'zh-TW': 'TC', 'en': 'EN', 'ja': 'JP' }
-
-// ── TextTable helpers ────────────────────────────────────────────────────
-
-function loadTextTables(translationPath: string): Record<string, Record<string, string>> {
-  const tables: Record<string, Record<string, string>> = {}
-  for (const loc of SUPPORTED_LOCALES) {
-    const suffix = TEXTTABLE_SUFFIX[loc]
-    try {
-      tables[loc] = JSON.parse(readFileSync(join(translationPath, 'i18n', `I18nTextTable_${suffix}.json`), 'utf-8'))
-    } catch { tables[loc] = {} }
-  }
-  return tables
-}
+import { loadAllTextTables, SUPPORTED_LOCALES } from './stat-mapping'
 
 // ── GemTable extraction (regex, int64-safe) ──────────────────────────────
 
@@ -117,7 +102,6 @@ export interface StatI18nResult {
 
 export function generateStatI18n(
   akedataPath: string,
-  translationPath: string,
   imagedbPath: string,
   outputDir: string,
 ): StatI18nResult {
@@ -126,7 +110,7 @@ export function generateStatI18n(
     gemCount: 0, equipCount: 0, equipUnmatched: [], missing: 0,
   }
 
-  const textTables = loadTextTables(translationPath)
+  const textTables = loadAllTextTables(akedataPath)
 
   // ── gemStats: from GemTable ────────────────────────────────────────────
 

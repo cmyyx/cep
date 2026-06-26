@@ -72,13 +72,6 @@ jobs:
           git -C "$UPSTREAM_DIR/AKEDatabase" sparse-checkout set public/CH
           git -C "$UPSTREAM_DIR/AKEDatabase" checkout
 
-          # Clone public translation repo (no auth needed)
-          git clone --depth 1 --filter=blob:none --sparse --no-checkout \
-            https://github.com/SusieGlitter/EndFieldTranslationReferrer.git "$UPSTREAM_DIR/EndFieldTranslationReferrer"
-          git -C "$UPSTREAM_DIR/EndFieldTranslationReferrer" sparse-checkout init --cone
-          git -C "$UPSTREAM_DIR/EndFieldTranslationReferrer" sparse-checkout set i18n
-          git -C "$UPSTREAM_DIR/EndFieldTranslationReferrer" checkout
-
       - name: Check upstream changes
         id: diff
         run: |
@@ -86,8 +79,7 @@ jobs:
           set +e
           npx tsx scripts/sync-game-data.ts --check \
             --akedata "$RUNNER_TEMP/upstream/AKEData" \
-            --imagedb "$RUNNER_TEMP/upstream/AKEDatabase" \
-            --translation "$RUNNER_TEMP/upstream/EndFieldTranslationReferrer"
+            --imagedb "$RUNNER_TEMP/upstream/AKEDatabase"
           exit_code=$?
           set -e
           if [ $exit_code -eq 2 ]; then
@@ -173,19 +165,11 @@ jobs:
           git -C "$UPSTREAM_DIR/AKEDatabase" sparse-checkout set public/CH
           git -C "$UPSTREAM_DIR/AKEDatabase" checkout
 
-          # Clone public translation repo (no auth needed)
-          git clone --depth 1 --filter=blob:none --sparse --no-checkout \
-            https://github.com/SusieGlitter/EndFieldTranslationReferrer.git "$UPSTREAM_DIR/EndFieldTranslationReferrer"
-          git -C "$UPSTREAM_DIR/EndFieldTranslationReferrer" sparse-checkout init --cone
-          git -C "$UPSTREAM_DIR/EndFieldTranslationReferrer" sparse-checkout set i18n
-          git -C "$UPSTREAM_DIR/EndFieldTranslationReferrer" checkout
-
       - name: Run sync update
         run: |
           npx tsx scripts/sync-game-data.ts --update \
             --akedata "$RUNNER_TEMP/upstream/AKEData" \
-            --imagedb "$RUNNER_TEMP/upstream/AKEDatabase" \
-            --translation "$RUNNER_TEMP/upstream/EndFieldTranslationReferrer"
+            --imagedb "$RUNNER_TEMP/upstream/AKEDatabase"
 
       - name: Cleanup upstream clones
         if: always()
@@ -214,7 +198,6 @@ jobs:
             Automated sync from:
             - AKEData (output/CN/weapon, output/CN/equip, TableCfg/)
             - AKEDatabase (public/CH/weapon, public/CH/equip)
-            - EndFieldTranslationReferrer (i18n/)
 
             Generated files:
             - `src/generated/i18n/weapons/`

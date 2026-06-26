@@ -2,15 +2,10 @@
 // Used by equip data migration, sync generation, and validation.
 // ================================================================================
 
-import { existsSync, readFileSync } from 'node:fs'
+import { existsSync } from 'node:fs'
 import { join } from 'node:path'
 import { parseJsonSafe } from './json-utils'
-
-function loadCnTextTable(translationPath: string): Record<string, string> {
-  try {
-    return JSON.parse(readFileSync(join(translationPath, 'i18n', 'I18nTextTable_CN.json'), 'utf-8'))
-  } catch { return {} }
-}
+import { loadTextTable } from './stat-mapping'
 
 // ── Equip stat mapping ──────────────────────────────────────────────────
 
@@ -21,9 +16,8 @@ export interface EquipStatMapping {
 
 export function buildEquipStatMapping(
   akedataPath: string,
-  translationPath: string,
 ): EquipStatMapping {
-  const tt = loadCnTextTable(translationPath)
+  const tt = loadTextTable(akedataPath, 'zh-CN')
 
   // 1. AttributeShowConfigTable: CN name → attrType
   const cnToAttrType: Record<string, string> = {}

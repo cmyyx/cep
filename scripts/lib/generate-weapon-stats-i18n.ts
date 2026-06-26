@@ -1,26 +1,18 @@
 // Generates weaponStats/ i18n from weapon JSON skillNames.
-// Key = gemTermId, value = translated base name (without suffix like ·大 / [L]).
+// Key = gemTermId, value = translated base stat name.
+//
+// Translation resolution uses gemId → textId (from GemTable.tagName.id) → TextTable.
+// This bypasses the fragile full-skillName reverse-lookup against the TextTable,
+// which failed for gst_passive_* special abilities: their weapon skillName carries
+// a per-weapon suffix (e.g. "流转·汲罪") that the TextTable does not store — only
+// the base stat name ("流转") exists as a GemTable tagName. Resolving via gemId
+// guarantees every gat_passive_attr_* and gst_passive_* key maps to the correct
+// textId uniformly.
 // ================================================================================
 
 import { existsSync, readFileSync, readdirSync, mkdirSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
-import { buildGemTableLookup } from './stat-mapping'
-
-const SUPPORTED_LOCALES = ['zh-CN', 'en', 'ja', 'zh-TW'] as const
-
-/**
- * Remove stat suffix patterns from skill name.
- * CN/JP: 压制·苦痛重叠 → 压制
- * EN/TW: Suppression: Emergency Boost → Suppression
- * Stat boosts: ATK Boost [L] → ATK Boost
- */
-function stripSuffix(name: string): string {
-  return name
-    .replace(/[·・]\s*[^·・:]+$/, '')   // CN/JP suffix
-    .replace(/:\s*[^:·・]+$/, '')        // EN/TW suffix
-    .replace(/\s*\[[LMS]\]\s*$/, '')     // [L]/[M]/[S] suffix
-    .trim()
-}
+import { buildGemTableLookup, loadAllTextTables, SUPPORTED_LOCALES } from './stat-mapping'
 
 export interface WeaponStatsI18nResult {
   written: string[]
@@ -28,10 +20,21 @@ export interface WeaponStatsI18nResult {
   missing: number
 }
 
+// ── Blackboard key → gemTermId suffix (same as generate-weapon-stat-mapping.ts) ──
+
+const BLACKBOARD_TO_GEM_SUFFIX: Record<string, string> = {
+  str: 'str', agi: 'agi', wisd: 'wisd', will: 'will', mainattr: 'main',
+  atk: 'atk', hp: 'hp', phydam: 'phydam',
+  firedam: 'firedam', electrondam: 'pulsedam', pulsedam: 'pulsedam',
+  icedam: 'icedam', crystdam: 'icedam',
+  naturaldam: 'naturaldam', crirate: 'crirate',
+  usp: 'usp', usgs: 'usp',
+  heal: 'heal', physpell: 'physpell', spelldam: 'magicdam',
+}
+
 export function generateWeaponStatsI18n(
   imagedbPath: string,
   akedataPath: string,
-  translationPath: string,
   outputDir: string,
 ): WeaponStatsI18nResult {
   const weaponDir = join(imagedbPath, 'public', 'CH', 'weapon')
@@ -39,30 +42,18 @@ export function generateWeaponStatsI18n(
   const dir = existsSync(weaponDir) ? weaponDir : existsSync(fallbackDir) ? fallbackDir : null
   if (!dir) return { written: [], count: 0, missing: 0 }
 
-  const textTables: Record<string, Record<string, string>> = {}
-  for (const loc of SUPPORTED_LOCALES) {
-    const suffix = { 'zh-CN': 'CN', 'zh-TW': 'TC', 'en': 'EN', 'ja': 'JP' }[loc]
-    try {
-      textTables[loc] = JSON.parse(readFileSync(join(translationPath, 'i18n', `I18nTextTable_${suffix}.json`), 'utf-8'))
-    } catch { textTables[loc] = {} }
-  }
+  const textTables = loadAllTextTables(akedataPath)
 
-  // Build blackboard key → gemTermId mapping (same as generate-weapon-stat-mapping.ts)
-  const BB_TO_SUFFIX: Record<string, string> = {
-    str: 'str', agi: 'agi', wisd: 'wisd', will: 'will', mainattr: 'main',
-    atk: 'atk', hp: 'hp', phydam: 'phydam',
-    firedam: 'firedam', electrondam: 'pulsedam', pulsedam: 'pulsedam',
-    icedam: 'icedam', crystdam: 'icedam',
-    naturaldam: 'naturaldam', crirate: 'crirate',
-    usp: 'usp', usgs: 'usp',
-    heal: 'heal', physpell: 'physpell', spelldam: 'magicdam',
-  }
+  // GemTable lookup: cnToGem (special-ability resolution) + gemToTextId (direct
+  // textId lookup so we never reverse-search the TextTable by skill name).
+  const { cnToGem, gemToTextId } = buildGemTableLookup(akedataPath)
 
-  // Build GemTable lookup for special abilities (gst_passive_*)
-  const { cnToGem } = buildGemTableLookup(akedataPath, translationPath)
-
-  // Collect unique skillName → gemTermId
-  const seen = new Map<string, { gemId: string; cnFull: string }>()
+  // Collect unique gemTermId → baseName pairs (dedup by gemTermId, first occurrence wins).
+  // Deduping by gemId (the i18n output key) ensures each output entry is written
+  // exactly once. baseName-based dedup allowed different baseNames sharing a gemId
+  // (e.g. pulsedam/electrondam → gat_passive_attr_pulsedam) to overwrite each other
+  // non-deterministically in the output map keyed by gemId.
+  const seen = new Map<string, string>()
 
   for (const file of readdirSync(dir)) {
     if (!file.endsWith('.json') || file === 'manifest.json') continue
@@ -70,29 +61,23 @@ export function generateWeaponStatsI18n(
 
     for (const skill of (data.skilllist ?? []) as Array<{ skillName: string; blackboard?: { key: string }[] }>) {
       const fullName = skill.skillName
-      const baseName = stripSuffix(fullName)
-
-      if (seen.has(baseName)) continue
+      // Derive base name (before '·' / ':' / '[L]') for special-ability CN lookup.
+      const baseName = fullName
+        .replace(/[·・]\s*[^·・:]+$/, '')
+        .replace(/:\s*[^:·・]+$/, '')
+        .replace(/\s*\[[LMS]\]\s*$/, '')
+        .trim()
 
       const bbKey = skill.blackboard?.[0]?.key
       let gemId: string | undefined
       if (bbKey) {
-        const suffix = BB_TO_SUFFIX[bbKey]
+        const suffix = BLACKBOARD_TO_GEM_SUFFIX[bbKey]
         if (suffix) gemId = `gat_passive_attr_${suffix}`
       }
-      if (!gemId) gemId = cnToGem[baseName] // special ability
+      if (!gemId) gemId = cnToGem[baseName] // special ability (gst_passive_*)
 
-      if (gemId && !seen.has(baseName)) {
-        seen.set(baseName, { gemId, cnFull: fullName })
-      }
+      if (gemId && !seen.has(gemId)) seen.set(gemId, baseName)
     }
-  }
-
-  // Search TextTable for each full skillName to get translations
-  const cnTextTable = textTables['zh-CN']
-  const nameToTextId = new Map<string, string>()
-  for (const [textId, text] of Object.entries(cnTextTable)) {
-    nameToTextId.set(text, textId)
   }
 
   const i18nData: Record<string, Record<string, string>> = {}
@@ -101,15 +86,17 @@ export function generateWeaponStatsI18n(
   let count = 0
   let missing = 0
 
-  for (const [baseName, { gemId, cnFull }] of seen) {
-    const textId = nameToTextId.get(cnFull)
+  for (const [gemId, baseName] of seen) {
+    const textId = gemToTextId[gemId]
+
     for (const loc of SUPPORTED_LOCALES) {
       let text = ''
       if (textId) {
         text = textTables[loc]?.[textId] ?? ''
-        text = stripSuffix(text)
       }
       if (!text) {
+        // No textId (GemTable entry without tagName.id) or no translation for this
+        // locale — fall back to the CN base name so the UI never shows a raw key.
         text = baseName
         if (!textId || !(textTables[loc]?.[textId])) missing++
       }
