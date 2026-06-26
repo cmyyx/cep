@@ -7,7 +7,7 @@
 import { existsSync, readFileSync, readdirSync } from 'node:fs'
 import { join } from 'node:path'
 import { parse as parseLossless } from 'lossless-json'
-import { buildGemTableLookup } from './stat-mapping'
+import { buildGemTableLookup, loadTextTable } from './stat-mapping'
 
 // ── Lossless JSON parsing ─────────────────────────────────────────────────
 
@@ -50,7 +50,6 @@ export interface ValidationIssue {
 export function validateWeapons(
   imagedbPath: string,
   akedataPath: string,
-  translationPath: string,
   projectWeaponsTsPath: string,
 ): ValidationIssue[] {
   const issues: ValidationIssue[] = []
@@ -86,7 +85,7 @@ export function validateWeapons(
   const PRIMARY_KEYS = new Set(['str', 'agi', 'wisd', 'will', 'mainattr'])
 
   // Build GemTable CN→gemTermId for special ability resolution
-  const { cnToGem } = buildGemTableLookup(akedataPath, translationPath)
+  const { cnToGem } = buildGemTableLookup(akedataPath)
 
   for (const file of readdirSync(weaponDir)) {
     if (!file.endsWith('.json') || file === 'manifest.json') continue
@@ -154,7 +153,6 @@ export function validateWeapons(
 export function validateEquips(
   imagedbPath: string,
   akedataPath: string,
-  translationPath: string,
   projectEquipsTsPath: string,
 ): ValidationIssue[] {
   const issues: ValidationIssue[] = []
@@ -204,10 +202,7 @@ export function validateEquips(
   if (!existsSync(v2EquipDir)) return issues
 
   // Load CN TextTable for attribute name resolution
-  let textTable: Record<string, string> = {}
-  try {
-    textTable = JSON.parse(readFileSync(join(translationPath, 'i18n', 'I18nTextTable_CN.json'), 'utf-8'))
-  } catch { return issues }
+  const textTable = loadTextTable(akedataPath, 'zh-CN')
 
   // Build attrType → { name, showPercent } mapping
   const attrTypeMap = new Map<number, { name: string; showPercent: boolean }>()
@@ -332,7 +327,6 @@ export function validateEquips(
 
 export function validateDungeons(
   akedataPath: string,
-  translationPath: string,
   projectDungeonsTsPath: string,
 ): ValidationIssue[] {
   const issues: ValidationIssue[] = []
@@ -428,13 +422,12 @@ export function validateImages(projectRoot: string): string[] {
 export function validateAllData(
   imagedbPath: string,
   akedataPath: string,
-  translationPath: string,
   projectRoot: string,
 ): ValidationIssue[] {
   const issues: ValidationIssue[] = [
-    ...validateWeapons(imagedbPath, akedataPath, translationPath, join(projectRoot, 'src', 'data', 'weapons.ts')),
-    ...validateEquips(imagedbPath, akedataPath, translationPath, join(projectRoot, 'src', 'data', 'equips.ts')),
-    ...validateDungeons(akedataPath, translationPath, join(projectRoot, 'src', 'data', 'dungeons.ts')),
+    ...validateWeapons(imagedbPath, akedataPath, join(projectRoot, 'src', 'data', 'weapons.ts')),
+    ...validateEquips(imagedbPath, akedataPath, join(projectRoot, 'src', 'data', 'equips.ts')),
+    ...validateDungeons(akedataPath, join(projectRoot, 'src', 'data', 'dungeons.ts')),
   ]
   return issues
 }

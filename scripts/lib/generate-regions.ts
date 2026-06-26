@@ -4,12 +4,10 @@
 // Uses raw regex extraction to preserve int64 text ID precision.
 // ================================================================================
 
-import { readFileSync, mkdirSync, writeFileSync } from 'node:fs'
+import { mkdirSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { extractEnergyPointLevel1Names, extractEnergyPointGroupNames } from './extract-textid'
-
-const SUPPORTED_LOCALES = ['zh-CN', 'en', 'ja', 'zh-TW'] as const
-const TEXTTABLE_SUFFIX: Record<string, string> = { 'zh-CN': 'CN', 'zh-TW': 'TC', 'en': 'EN', 'ja': 'JP' }
+import { loadAllTextTables, SUPPORTED_LOCALES } from './stat-mapping'
 
 /**
  * Generate region i18n files from upstream energy point data.
@@ -22,17 +20,10 @@ const TEXTTABLE_SUFFIX: Record<string, string> = { 'zh-CN': 'CN', 'zh-TW': 'TC',
  */
 export function generateRegionI18n(
   akedataPath: string,
-  translationPath: string,
   outputDir: string,
 ): string[] {
-  // Load TextTable for all locales
-  const textTables: Record<string, Record<string, string>> = {}
-  for (const loc of SUPPORTED_LOCALES) {
-    const suffix = TEXTTABLE_SUFFIX[loc]
-    try {
-      textTables[loc] = JSON.parse(readFileSync(join(translationPath, 'i18n', `I18nTextTable_${suffix}.json`), 'utf-8'))
-    } catch { textTables[loc] = {} }
-  }
+  // Load TextTable for all locales (from AKEData/TableCfg)
+  const textTables = loadAllTextTables(akedataPath)
 
   // Extract text IDs from raw JSON (preserves int64 precision)
   const levelTablePath = join(akedataPath, 'TableCfg', 'WorldEnergyPointTable.json')

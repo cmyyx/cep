@@ -6,14 +6,11 @@
 import { existsSync, readFileSync, readdirSync, mkdirSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { extractItemNameIds } from './extract-textid'
-
-const SUPPORTED_LOCALES = ['zh-CN', 'en', 'ja', 'zh-TW'] as const
-const TEXTTABLE_SUFFIX: Record<string, string> = { 'zh-CN': 'CN', 'zh-TW': 'TC', 'en': 'EN', 'ja': 'JP' }
+import { loadAllTextTables, SUPPORTED_LOCALES } from './stat-mapping'
 
 export function generateWeaponI18n(
   akedataPath: string,
   imagedbPath: string,
-  translationPath: string,
   outputDir: string,
 ): { written: string[]; count: number; missing: number } {
   // Primary source: AKEDatabase/public/CH/weapon/ (always most up-to-date)
@@ -26,14 +23,8 @@ export function generateWeaponI18n(
 
   if (!weaponDir) return { written: [], count: 0, missing: 0 }
 
-  // Load TextTable for all locales
-  const textTables: Record<string, Record<string, string>> = {}
-  for (const loc of SUPPORTED_LOCALES) {
-    const suffix = TEXTTABLE_SUFFIX[loc]
-    try {
-      textTables[loc] = JSON.parse(readFileSync(join(translationPath, 'i18n', `I18nTextTable_${suffix}.json`), 'utf-8'))
-    } catch { textTables[loc] = {} }
-  }
+  // Load TextTable for all locales (from AKEData/TableCfg)
+  const textTables = loadAllTextTables(akedataPath)
 
   // Extract localized name text IDs from ItemTable.json
   const itemTablePath = join(akedataPath, 'TableCfg', 'ItemTable.json')

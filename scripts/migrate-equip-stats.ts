@@ -11,7 +11,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url))
 const projectRoot = join(__dirname, '..')
 const config = JSON.parse(readFileSync(join(projectRoot, 'sync-game-data.config.json'), 'utf-8'))
 
-const mapping = buildEquipStatMapping(config.akedataPath, config.translationPath)
+const mapping = buildEquipStatMapping(config.akedataPath)
 
 function migrateStatString(raw: string): string {
   // Support both "意志+32" and "全伤害减免 17.2%" formats

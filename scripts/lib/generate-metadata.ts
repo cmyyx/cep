@@ -6,9 +6,7 @@
 import { existsSync, readFileSync, readdirSync, mkdirSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { resolveSuitName } from './upstream'
-
-const SUPPORTED_LOCALES = ['zh-CN', 'en', 'ja', 'zh-TW'] as const
-const TEXTTABLE_SUFFIX: Record<string, string> = { 'zh-CN': 'CN', 'zh-TW': 'TC', 'en': 'EN', 'ja': 'JP' }
+import { loadAllTextTables, SUPPORTED_LOCALES } from './stat-mapping'
 
 // Equip types: Chinese display name -> i18n key
 const EQUIP_TYPE_TERMS: { key: string; cnSearch: string }[] = [
@@ -88,17 +86,12 @@ function detectSuitNames(imagedbPath: string): string[] {
 }
 
 export function generateMetadataI18n(
-  translationPath: string,
+  akedataPath: string,
   outputDir: string,
   imagedbPath: string,
 ): { files: number; terms: number } {
-  const textTables: Record<string, Record<string, string>> = {}
-  for (const loc of SUPPORTED_LOCALES) {
-    const suffix = TEXTTABLE_SUFFIX[loc]
-    try {
-      textTables[loc] = JSON.parse(readFileSync(join(translationPath, 'i18n', `I18nTextTable_${suffix}.json`), 'utf-8'))
-    } catch { textTables[loc] = {} }
-  }
+  // Load TextTable for all locales (from AKEData/TableCfg)
+  const textTables = loadAllTextTables(akedataPath)
 
   let totalTerms = 0
 

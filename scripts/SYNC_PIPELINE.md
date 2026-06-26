@@ -1,13 +1,12 @@
 # Game Data Sync Pipeline
 
-将上游仓库（AKEData、EndFieldTranslationReferrer、AKEDatabase）的游戏数据同步到项目，生成多语言 i18n 文件和图标。
+将上游仓库（AKEData、AKEDatabase）的游戏数据同步到项目，生成多语言 i18n 文件和图标。多语言翻译直接取自 `AKEData/TableCfg/I18nTextTable_*.json`。
 
 ## 上游数据源
 
 | 仓库 | 用途 | 路径示例 |
 |------|------|---------|
-| [AKEData](https://github.com/cmyyx/AKEData) (fork) | 武器/装备/角色/副本条目 + 属性数据 | `output/CN/weapon/`, `TableCfg/` |
-| [EndFieldTranslationReferrer](https://github.com/SusieGlitter/EndFieldTranslationReferrer) | TextTable 多语言翻译（EN/JP/KR/TC） | `i18n/I18nTextTable_{locale}.json` |
+| [AKEData](https://github.com/cmyyx/AKEData) (fork) | 武器/装备/角色/副本条目 + 属性数据 + 多语言翻译（TableCfg/I18nTextTable_*.json） | `output/CN/weapon/`, `TableCfg/` |
 | [AKEDatabase](https://github.com/NagiYume/AKEDatabase) | 武器/装备数据（主要来源）+ 图标 PNG | `public/CH/weapon/`, `public/CH/equip/` |
 
 ## 环境准备
@@ -19,7 +18,6 @@
 ```json
 {
   "akedataPath": "D:/GitHub/AKEData",
-  "translationPath": "D:/GitHub/EndFieldTranslationReferrer",
   "imagedbPath": "D:/GitHub/AKEDatabase"
 }
 ```
@@ -29,7 +27,7 @@
 ```bash
 pnpm sync:check --local \
   --akedata D:/GitHub/AKEData \
-  --translation D:/GitHub/EndFieldTranslationReferrer
+  --imagedb D:/GitHub/AKEDatabase
 ```
 
 ## CLI 命令
@@ -144,7 +142,6 @@ SHA 追踪信息存储在主仓库文件 `scripts/.cache/upstream-versions.json`
 ```json
 {
   "akedata": "abc123...",
-  "translation": "def456...",
   "lastSync": "2026-06-07T00:00:00.000Z"
 }
 ```
@@ -163,7 +160,7 @@ SHA 追踪信息存储在主仓库文件 `scripts/.cache/upstream-versions.json`
 
 **需要配置**：
 - GitHub Secrets → `GH_FORK_SYNC_TOKEN`（有权访问私有 AKEData fork 的 Personal Access Token，过期/无效将硬阻断工作流）
-- AKEDatabase 和 EndFieldTranslationReferrer 为公开仓库，无须认证
+- AKEDatabase 为公开仓库，无须认证
 - **注意**：上游仓库必须在工作树外部 clone（CI 中用 `$RUNNER_TEMP`），禁止 clone 到项目目录内，否则会产生 submodule 污染
 
 ## 脚本目录结构

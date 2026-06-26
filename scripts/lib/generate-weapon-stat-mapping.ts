@@ -47,7 +47,6 @@ export interface WeaponStatMappingResult {
 export function generateWeaponStatMapping(
   imagedbPath: string,
   akedataPath: string,
-  translationPath: string,
   outputDir: string,
 ): WeaponStatMappingResult {
   const weaponDir = join(imagedbPath, 'public', 'CH', 'weapon')
@@ -56,7 +55,7 @@ export function generateWeaponStatMapping(
   if (!dir) return { written: '', count: 0 }
 
   // Build GemTable lookup for special abilities
-  const gemLookup = buildGemTableLookup(akedataPath, translationPath)
+  const gemLookup = buildGemTableLookup(akedataPath)
   const cnToGem = new Map(Object.entries(gemLookup.cnToGem))
 
   const mapping: Record<string, string> = {}

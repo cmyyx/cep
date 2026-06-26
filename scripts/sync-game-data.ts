@@ -89,7 +89,7 @@ function parseArgs() {
     mode: (a.includes('--update') ? 'update' : 'check') as 'check' | 'update',
     local: a.includes('--local'),
     iconsOnly: a.includes('--icons-only'),
-    paths: Object.fromEntries(['akedata','translation','imagedb'].map((k) => {
+    paths: Object.fromEntries(['akedata','imagedb'].map((k) => {
       const idx = a.indexOf('--' + k); return [k, idx >= 0 ? a[idx+1] ?? '' : '']
     })),
   }
@@ -99,7 +99,7 @@ async function main() {
   const { mode, local, iconsOnly, paths: cliPaths } = parseArgs()
   console.log(`\n[sync] mode=${mode} local=${local} iconsOnly=${iconsOnly}`)
   const paths = resolvePaths(cliPaths)
-  console.log(`  AKEData: ${paths.akedata}\n  AKEDatabase: ${paths.imagedb}\n  Translation: ${paths.translation}`)
+  console.log(`  AKEData: ${paths.akedata}\n  AKEDatabase: ${paths.imagedb}`)
   const warnings = validatePaths(paths)
   if (warnings.length > 0) {
     console.warn('\n  Warnings:')
@@ -111,11 +111,9 @@ async function main() {
   if (!local && !iconsOnly) {
     const versions = readUpstreamVersions()
     const currentAkedata = getRepoHead(paths.akedata)
-    const currentTranslation = getRepoHead(paths.translation)
     if (
-      versions.akedata && versions.translation &&
-      currentAkedata === versions.akedata &&
-      currentTranslation === versions.translation
+      versions.akedata &&
+      currentAkedata === versions.akedata
     ) {
       console.log('\n  Up to date.\n')
       process.exit(0)
@@ -152,15 +150,24 @@ async function main() {
     }
   }
   if (mode === 'update') {
-    // Update weapons.ts with new weapons
-    const newWeaponIds = wpnResult.entries.filter(w => w.isNew && w.rarity >= 4).map(w => w.weaponId)
+    // Update weapons.ts with new weapons.
+    // Exclude weapons that were just promoted from preview → formal IDs:
+    // compareWeapons() ran before updatePreviewWeapons(), so a promoted weapon
+    // still appears as "new" in wpnResult.entries. Filtering it out prevents a
+    // duplicate append — the preview entry was already renamed in-place (with
+    // its chars preserved), so appending again would create two entries with
+    // the same id.
+    const promotedFormalIds = new Set(previewResult.updatable.map(p => p.formalId))
+    const newWeaponIds = wpnResult.entries
+      .filter(w => w.isNew && w.rarity >= 4 && !promotedFormalIds.has(w.weaponId))
+      .map(w => w.weaponId)
     if (newWeaponIds.length > 0) {
-      const updated = updateWeaponsFile(weaponsTsPath, newWeaponIds, paths.imagedb, paths.akedata, paths.translation)
+      const updated = updateWeaponsFile(weaponsTsPath, newWeaponIds, paths.imagedb, paths.akedata)
       console.log(`  Updated: ${updated} weapons added to weapons.ts`)
     }
-    const r = generateWeaponI18n(paths.akedata, paths.imagedb, paths.translation, generatedRoot)
+    const r = generateWeaponI18n(paths.akedata, paths.imagedb, generatedRoot)
     console.log(`  i18n: ${r.written.length} files, ${r.count} wpns, ${r.missing} missing`)
-    const ws = generateWeaponStatsI18n(paths.imagedb, paths.akedata, paths.translation, generatedRoot)
+    const ws = generateWeaponStatsI18n(paths.imagedb, paths.akedata, generatedRoot)
     console.log(`  weaponStats: ${ws.written.length} files, ${ws.count} entries, ${ws.missing} missing`)
   }
 
@@ -175,9 +182,9 @@ async function main() {
     // Reconcile all equips: add new ones + fix any drifted values
     const newEquipIds = equipResult.entries.filter(e => e.isNew).map(e => e.equipId)
     const equipsTsPath = join(projectRoot, 'src', 'data', 'equips.ts')
-    const updated = updateEquipsFile(equipsTsPath, newEquipIds, paths.imagedb, paths.akedata, paths.translation, true)
+    const updated = updateEquipsFile(equipsTsPath, newEquipIds, paths.imagedb, paths.akedata, true)
     console.log(`  Reconciled: ${updated} equips synced`)
-    const r = generateEquipI18n(paths.akedata, paths.imagedb, paths.translation, generatedRoot)
+    const r = generateEquipI18n(paths.akedata, paths.imagedb, generatedRoot)
     console.log(`  i18n: ${r.written.length} files, ${r.count} entries, ${r.missing} missing`)
   }
 
@@ -193,10 +200,10 @@ async function main() {
     const newDungeonIds = dungeonResult.entries.filter(d => d.isNew).map(d => d.dungeonId)
     if (newDungeonIds.length > 0) {
       const dungeonsTsPath = join(projectRoot, 'src', 'data', 'dungeons.ts')
-      const updated = updateDungeonsFile(dungeonsTsPath, newDungeonIds, paths.akedata, paths.translation)
+      const updated = updateDungeonsFile(dungeonsTsPath, newDungeonIds, paths.akedata)
       console.log(`  Updated: ${updated} dungeons added to dungeons.ts`)
     }
-    const r = generateDungeonI18n(paths.akedata, paths.translation, generatedRoot)
+    const r = generateDungeonI18n(paths.akedata, generatedRoot)
     console.log(`  Dungeon i18n: ${r.dungeonWritten.length} files, ${r.dungeonCount} dungeons`)
     console.log(`  Region i18n: ${r.regionWritten.length} files, ${r.regionCount} regions`)
   }
@@ -204,14 +211,14 @@ async function main() {
   // Metadata: equip types, materials (with abbreviation->full mapping), suit names
   console.log('\n-- Metadata --')
   if (mode === 'update') {
-    const m = generateMetadataI18n(paths.translation, generatedRoot, paths.imagedb)
+    const m = generateMetadataI18n(paths.akedata, generatedRoot, paths.imagedb)
     console.log(`  i18n: ${m.files} files, ${m.terms} terms`)
   }
 
   // Generate stat i18n — gemStats (weapons/dungeons) + equipStats (equipment)
   if (mode === 'update') {
     console.log('\n-- Stat i18n --')
-    const r = generateStatI18n(paths.akedata, paths.translation, paths.imagedb, generatedRoot)
+    const r = generateStatI18n(paths.akedata, paths.imagedb, generatedRoot)
     console.log(`  gemStats: ${r.gemWritten.length} files, ${r.gemCount} gem terms`)
     console.log(`  equipStats: ${r.equipWritten.length} files, ${r.equipCount} equip terms`)
     if (r.equipUnmatched.length > 0) {
@@ -223,7 +230,7 @@ async function main() {
 
   // Validate existing data against upstream
   console.log('\n-- Validation --')
-  const validationIssues = validateAllData(paths.imagedb, paths.akedata, paths.translation, projectRoot)
+  const validationIssues = validateAllData(paths.imagedb, paths.akedata, projectRoot)
   if (validationIssues.length > 0) {
     console.log(`  Found ${validationIssues.length} data inconsistency:`)
     for (const issue of validationIssues) {
@@ -276,7 +283,6 @@ async function main() {
     console.log('\n-- Updating upstream versions --')
     writeUpstreamVersions({
       akedata: getRepoHead(paths.akedata),
-      translation: getRepoHead(paths.translation),
     })
   }
 

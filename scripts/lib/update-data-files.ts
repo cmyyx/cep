@@ -327,14 +327,13 @@ export function updateWeaponsFile(
   newWeaponIds: string[],
   imagedbPath: string,
   akedataPath: string,
-  translationPath: string,
 ): number {
   if (newWeaponIds.length === 0) return 0
 
   const content = readFileSync(weaponsTsPath, 'utf-8')
 
   // Build GemTable CN→gemTermId for special ability resolution
-  const { cnToGem } = buildGemTableLookup(akedataPath, translationPath)
+  const { cnToGem } = buildGemTableLookup(akedataPath)
 
   const primaryDir = join(imagedbPath, 'public', 'CH', 'weapon')
   const fallbackDir = join(akedataPath, 'output', 'CN', 'weapon')
@@ -368,13 +367,12 @@ export function updateEquipsFile(
   newEquipIds: string[],
   imagedbPath: string,
   akedataPath: string,
-  translationPath: string,
   reconcileAll?: boolean,
 ): number {
   const content = readFileSync(equipsTsPath, 'utf-8')
-  const textTables = loadTextTable(translationPath, 'zh-CN')
+  const textTables = loadTextTable(akedataPath, 'zh-CN')
   const attrTypeMap = buildAttrTypeMap(akedataPath, textTables)
-  const equipMapping = buildEquipStatMapping(akedataPath, translationPath)
+  const equipMapping = buildEquipStatMapping(akedataPath)
 
   // Build compositeAttr → showPercent mapping
   const compositeCfg = new Map<string, boolean>()
@@ -535,12 +533,11 @@ export function updateDungeonsFile(
   dungeonsTsPath: string,
   newDungeonIds: string[],
   akedataPath: string,
-  translationPath: string,
 ): number {
   if (newDungeonIds.length === 0) return 0
 
   const content = readFileSync(dungeonsTsPath, 'utf-8')
-  const textTables = loadTextTable(translationPath, 'zh-CN')
+  const textTables = loadTextTable(akedataPath, 'zh-CN')
 
   // Load group table
   const groupTablePath = join(akedataPath, 'TableCfg', 'WorldEnergyPointGroupTable.json')
@@ -610,10 +607,9 @@ export function updateDungeonsFile(
 export function updateStatI18nMap(
   statI18nMapPath: string,
   akedataPath: string,
-  translationPath: string,
 ): number {
   const content = readFileSync(statI18nMapPath, 'utf-8')
-  const textTables = loadTextTable(translationPath, 'zh-CN')
+  const textTables = loadTextTable(akedataPath, 'zh-CN')
 
   const gemTablePath = join(akedataPath, 'TableCfg', 'GemTable.json')
   if (!existsSync(gemTablePath)) return 0

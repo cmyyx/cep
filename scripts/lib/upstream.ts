@@ -4,7 +4,6 @@ import { execFileSync } from 'node:child_process'
 
 export interface UpstreamPaths {
   akedata: string
-  translation: string
   imagedb: string
 }
 
@@ -12,13 +11,11 @@ export interface UpstreamPaths {
 export function resolvePaths(cliArgs: Record<string, string>): UpstreamPaths {
   const fromCli = {
     akedata: cliArgs['akedata'] ?? cliArgs['a'] ?? '',
-    translation: cliArgs['translation'] ?? cliArgs['t'] ?? '',
     imagedb: cliArgs['imagedb'] ?? cliArgs['i'] ?? '',
   }
   const fromConfig = readConfig()
   return {
     akedata: fromCli.akedata || fromConfig.akedata || join(process.cwd(), '..', 'upstream', 'AKEData'),
-    translation: fromCli.translation || fromConfig.translation || join(process.cwd(), '..', 'upstream', 'EndFieldTranslationReferrer'),
     imagedb: fromCli.imagedb || fromConfig.imagedb || join(process.cwd(), '..', 'upstream', 'AKEDatabase'),
   }
 }
@@ -30,7 +27,6 @@ function readConfig(): Partial<UpstreamPaths> {
       const raw = JSON.parse(readFileSync(configPath, 'utf-8'))
       return {
         akedata: raw.akedata ?? raw.akedataPath ?? '',
-        translation: raw.translation ?? raw.translationPath ?? '',
         imagedb: raw.imagedb ?? raw.imagedbPath ?? '',
       }
     }
@@ -114,7 +110,6 @@ export function validatePaths(paths: UpstreamPaths): string[] {
   const warnings: string[] = []
   const checks: [string, string, string[]][] = [
     [paths.akedata, 'AKEData', ['output/CN/weapon', 'output/CN/equip', 'TableCfg']],
-    [paths.translation, 'EndFieldTranslationReferrer', ['i18n']],
   ]
   for (const [rootPath, label, subdirs] of checks) {
     if (!existsSync(rootPath)) { warnings.push(`${label}: path not found - "${rootPath}"`); continue }

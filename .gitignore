@@ -58,3 +58,5 @@ sync-game-data.config.json
 /public/version.json
 /public/changelog.json
 /src/generated/version-data.ts
+.codebuddy/
+.workbuddy/
