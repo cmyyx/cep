@@ -90,6 +90,8 @@ export const WeaponCard = memo(function WeaponCard({
   const longPressTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const longPressTriggeredRef = useRef(false)
   const pointerStartRef = useRef<{ x: number; y: number } | null>(null)
+  // True from pointerdown until pointerup/cancel — blocks Base UI close while finger is down
+  const isPointerDownRef = useRef(false)
 
   const clearLongPress = useCallback(() => {
     if (longPressTimerRef.current) {
@@ -99,9 +101,10 @@ export const WeaponCard = memo(function WeaponCard({
   }, [])
 
   // On mobile, prevent Base UI from auto-opening the tooltip (focus/hover),
-  // but allow it to close (blur/click-outside) for natural dismissal.
+  // and block close requests while the user's finger is still down.
   const handleOpenChange = useCallback((nextOpen: boolean) => {
     if (isMobile && enableTooltip) {
+      if (!nextOpen && isPointerDownRef.current) return
       if (!nextOpen) setOpen(false)
       return
     }
@@ -110,6 +113,7 @@ export const WeaponCard = memo(function WeaponCard({
 
   const handlePointerDown = useCallback((e: React.PointerEvent) => {
     if (!isMobile || !enableTooltip) return
+    isPointerDownRef.current = true
     longPressTriggeredRef.current = false
     pointerStartRef.current = { x: e.clientX, y: e.clientY }
     clearLongPress()
@@ -130,11 +134,13 @@ export const WeaponCard = memo(function WeaponCard({
   }, [clearLongPress])
 
   const handlePointerEnd = useCallback(() => {
+    isPointerDownRef.current = false
     clearLongPress()
     pointerStartRef.current = null
+    // If long press was triggered, keep tooltip open — user taps elsewhere / scrolls to dismiss
     if (longPressTriggeredRef.current) {
-      setOpen(false)
       longPressTriggeredRef.current = false
+      return
     }
   }, [clearLongPress])
 
@@ -174,7 +180,7 @@ export const WeaponCard = memo(function WeaponCard({
       className={cn(
         'group relative flex items-center justify-center aspect-square rounded-lg border cursor-pointer overflow-hidden transition-all',
         'bg-[url(/images/item-frame-bg.png)] bg-cover bg-center',
-        isMobile && enableTooltip && 'touch-manipulation',
+        isMobile && enableTooltip && 'touch-manipulation select-none [-webkit-touch-callout:none]',
         disabled && 'opacity-30 cursor-not-allowed pointer-events-none',
         !disabled && [
           isSelected

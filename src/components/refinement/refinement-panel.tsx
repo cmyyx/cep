@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button'
 import { SlotRecommendationCard } from './slot-recommendation'
 import { useRefinementStore, useSelectedEquip, useRecommendations } from '@/stores/useRefinementStore'
 import { materialOptions } from '@/data/equips'
+import { useIsMobile } from '@/hooks/use-mobile'
 
 // Map Chinese equip types to i18n keys
 const TYPE_TO_KEY: Record<string, string> = {
@@ -22,6 +23,7 @@ export const RefinementPanel = memo(function RefinementPanel() {
   const recommendations = useRecommendations()
   const filterMaterial = useRefinementStore((s) => s.filterMaterial)
   const toggleFilter = useRefinementStore((s) => s.toggleFilter)
+  const isMobile = useIsMobile()
 
   return (
     <div className="flex flex-col gap-4">
@@ -71,13 +73,13 @@ export const RefinementPanel = memo(function RefinementPanel() {
           <div className="rounded-lg border border-border bg-card p-4">
             <div className="flex items-start gap-4">
               {/* Equip thumbnail */}
-              <div className="relative w-20 h-20 shrink-0 rounded-lg border border-border overflow-hidden bg-[url(/images/item-frame-bg.png)] bg-cover bg-center">
+              <div className={cn('relative shrink-0 rounded-lg border border-border overflow-hidden bg-[url(/images/item-frame-bg.png)] bg-cover bg-center', isMobile ? 'w-20 h-20' : 'w-24 h-24')}>
                 {selected.imageId && (
                   <Image
                     src={`/images/equip/${selected.imageId}.avif`}
                     alt={t(`equips.${selected.id}`) ?? selected.name}
                     fill
-                    sizes="80px"
+                    sizes={isMobile ? '80px' : '96px'}
                     className="object-cover"
                     unoptimized
                   />
@@ -136,6 +138,14 @@ export const RefinementPanel = memo(function RefinementPanel() {
                       {t(`materials.${selected.material}`) ?? selected.material}
                     </span>
                   </div>
+                  {selected.voucher && (
+                    <div className="flex items-center gap-2">
+                      <span className="text-muted-foreground shrink-0 w-14" />
+                      <span className="text-[11px] text-muted-foreground">
+                        {t(`materials.${selected.voucher.name}`) ?? selected.voucher.name}x{selected.voucher.count}
+                      </span>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>

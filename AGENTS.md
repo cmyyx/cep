@@ -8,6 +8,8 @@ This version has breaking changes — APIs, conventions, and file structure may 
 
 ## 禁止使用emoji
 
+## 遵守 @ponytail.md 文件要求
+
 ## 设计系统
 
 **DESIGN.md 是本项目的设计系统宪章**，所有 UI 组件、颜色、排版、间距、阴影、圆角等视觉决策必须遵守 DESIGN.md 中定义的设计令牌和模式。DESIGN.md 与本文档同级，每次会话自动加载。

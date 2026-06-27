@@ -8,6 +8,7 @@ import { EquipCard } from './equip-card'
 import { useRefinementStore } from '@/stores/useRefinementStore'
 import type { SlotRecommendation } from '@/types/refinement'
 import { ChevronDown } from 'lucide-react'
+import { useIsMobile } from '@/hooks/use-mobile'
 
 const SLOT_LABEL_KEYS: Record<string, string> = {
   sub1: 'refinement.subAttr1',
@@ -61,6 +62,8 @@ export const SlotRecommendationCard = memo(function SlotRecommendationCard({
   const { slotKey, targetAttr, topValueDisplay, candidates } =
     recommendation
 
+  const isMobile = useIsMobile()
+
   const isExpanded = expandedRecommendations[slotKey] ?? false
 
   // ── Dynamic column measurement ──────────────────────────────────────────
@@ -90,18 +93,26 @@ export const SlotRecommendationCard = memo(function SlotRecommendationCard({
 
   return (
     <div className="rounded-lg border border-border bg-card p-4">
-      {/* Header */}
-      <div className="flex items-center justify-between gap-2 mb-3">
-        <div className="flex items-center gap-2 min-w-0">
-          <h4 className="text-sm font-semibold truncate">
-            {t(SLOT_LABEL_KEYS[slotKey] || slotKey)}
-          </h4>
-        </div>
+      {/* Header with inline status tip */}
+      <div className="flex flex-wrap items-center gap-x-2 gap-y-1 mb-3">
+        <h4 className="text-sm font-semibold shrink-0">
+          {t(SLOT_LABEL_KEYS[slotKey] || slotKey)}
+        </h4>
         {topValueDisplay && (
-          <span className="text-xs font-medium text-muted-foreground shrink-0">
+          <span className="text-xs font-medium text-muted-foreground min-w-0 truncate">
             {targetAttr
               ? `${t('equipStats.' + targetAttr.key)}+${targetAttr.value}${targetAttr.unit}`
               : topValueDisplay}
+          </span>
+        )}
+        {targetAttr && recommendation.hasHigherValues && (
+          <span className="text-xs text-muted-foreground">
+            {t('refinement.recommendOther')}
+          </span>
+        )}
+        {targetAttr && !recommendation.hasHigherValues && candidates.length > 0 && (
+          <span className="text-xs text-muted-foreground">
+            {t('refinement.recommendSelf')}
           </span>
         )}
       </div>
@@ -110,18 +121,6 @@ export const SlotRecommendationCard = memo(function SlotRecommendationCard({
       {!targetAttr && (
         <p className="text-xs text-muted-foreground">
           {t('refinement.missingTargetAttr')}
-        </p>
-      )}
-
-      {/* Status tip */}
-      {targetAttr && recommendation.hasHigherValues && (
-        <p className="text-xs text-muted-foreground mb-2">
-          {t('refinement.recommendOther')}
-        </p>
-      )}
-      {targetAttr && !recommendation.hasHigherValues && candidates.length > 0 && (
-        <p className="text-xs text-muted-foreground mb-2">
-          {t('refinement.recommendSelf')}
         </p>
       )}
 
@@ -141,7 +140,8 @@ export const SlotRecommendationCard = memo(function SlotRecommendationCard({
       {candidates.length > 0 && (
         <div
           ref={gridRef}
-          className="grid grid-cols-[repeat(auto-fill,minmax(5rem,1fr))] gap-1.5"
+          className="grid gap-1.5"
+          style={{ gridTemplateColumns: `repeat(auto-fill, minmax(${isMobile ? '5rem' : '6rem'}, 1fr))` }}
         >
           {visibleCandidates.map((c) => (
             <div
@@ -153,12 +153,18 @@ export const SlotRecommendationCard = memo(function SlotRecommendationCard({
                   equip={c.equip}
                   isSelected={false}
                   compact
+                  readOnly
                   badgeValue={`+${c.matchAttr.value}${c.matchAttr.unit}`}
                 />
               </div>
               <span className="text-[9px] text-muted-foreground truncate max-w-full text-center leading-none">
                 {c.equip.material ? (t(`materials.${c.equip.material}`) ?? c.equip.material) : ''}
               </span>
+              {c.equip.voucher && (
+                <span className="text-[9px] text-muted-foreground truncate max-w-full text-center leading-none">
+                  {t(`materials.${c.equip.voucher.name}`) ?? c.equip.voucher.name}x{c.equip.voucher.count}
+                </span>
+              )}
             </div>
           ))}
         </div>

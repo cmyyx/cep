@@ -30,6 +30,9 @@ interface DisplayAttrModifier {
 
 interface EquipFormula {
   costItemId: string[]
+  costItemNum: number[]
+  costGoldId: string
+  costGoldNum: number
   outcomeEquipId: string
 }
 
@@ -559,11 +562,20 @@ export function updateEquipsFile(
 
     // Build outcomeEquipId → material name mapping
     const equipMaterialMap = new Map<string, string>()
+    // Build outcomeEquipId → voucher info mapping
+    const equipVoucherMap = new Map<string, { name: string; count: number }>()
     for (const formula of Object.values(equipformulatable)) {
       if (!formula.outcomeEquipId || !formula.costItemId?.length) continue
       const materialId = formula.costItemId[0]
       const materialItem = itemtable[materialId]
       if (materialItem?.name?.text) equipMaterialMap.set(formula.outcomeEquipId, materialItem.name.text)
+      // Extract voucher from costGoldId / costGoldNum
+      if (formula.costGoldId && formula.costGoldNum > 0) {
+        const voucherItem = itemtable[formula.costGoldId]
+        if (voucherItem?.name?.text) {
+          equipVoucherMap.set(formula.outcomeEquipId, { name: voucherItem.name.text, count: formula.costGoldNum })
+        }
+      }
     }
 
     for (const [equipId, equipData] of Object.entries(equiptable)) {
@@ -608,9 +620,12 @@ export function updateEquipsFile(
       const gameIconId = (equipItemData as Record<string, unknown>)?.iconId as string ?? ''
       const iconId = (gameIconId && gameIconId !== equipId) ? gameIconId : equipId
 
+      const voucherInfo = equipVoucherMap.get(equipId)
+      const voucher = voucherInfo ? `${voucherInfo.name}x${voucherInfo.count}` : ''
+
       upstreamEntries.set(equipId, {
         set: suitName,
-        line: `  { name: '${equipName}', set: '${suitName}', rarity: 5, type: '${PART_TYPE_MAP[equipData.partType] ?? '配件'}', sub1: '${sub1}', sub2: '${sub2}', special: '${special}', material: '${material}', equipId: '${equipId}', iconId: '${iconId}' }`,
+        line: `  { name: '${equipName}', set: '${suitName}', rarity: 5, type: '${PART_TYPE_MAP[equipData.partType] ?? '配件'}', sub1: '${sub1}', sub2: '${sub2}', special: '${special}', material: '${material}', voucher: '${voucher}', equipId: '${equipId}', iconId: '${iconId}' }`,
       })
     }
   }

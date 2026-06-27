@@ -33,8 +33,18 @@ export interface Equip {
   special: ParsedStat | null
   /** 制造材料 */
   material: string
+  /** 制造调度券 */
+  voucher: EquipVoucher | null
   /** 图片文件名（不含扩展名） */
   imageId: string
+}
+
+/** 调度券消耗条目 */
+export interface EquipVoucher {
+  /** 调度券名称（如 "谷地调度券"） */
+  name: string
+  /** 消耗数量 */
+  count: number
 }
 
 /** 装备套组 */

@@ -8,6 +8,7 @@ import { cn } from '@/lib/utils'
 import { useRefinementStore } from '@/stores/useRefinementStore'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
 import { Button } from '@/components/ui/button'
+import { useIsMobile } from '@/hooks/use-mobile'
 import type { Equip } from '@/types/refinement'
 
 // Map Chinese equip types to i18n keys
@@ -82,6 +83,8 @@ interface EquipCardProps {
   compact?: boolean
   /** Show a value badge on the card (used in recommendation) */
   badgeValue?: string
+  /** Read-only mode: no click selection, tooltip only (for recommendation cards) */
+  readOnly?: boolean
 }
 
 export const EquipCard = memo(function EquipCard({
@@ -89,15 +92,83 @@ export const EquipCard = memo(function EquipCard({
   isSelected,
   compact = false,
   badgeValue,
+  readOnly = false,
 }: EquipCardProps) {
   const t = useTranslations()
   const selectEquip = useRefinementStore((s) => s.selectEquip)
   const [open, setOpen] = useState(false)
   const triggerRef = useCloseOnScroll(open, setOpen)
 
+  const isMobile = useIsMobile()
+  const longPressTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const longPressTriggeredRef = useRef(false)
+  const pointerStartRef = useRef<{ x: number; y: number } | null>(null)
+  // True from pointerdown until pointerup/cancel — blocks Base UI close while finger is down
+  const isPointerDownRef = useRef(false)
+
+  const clearLongPress = useCallback(() => {
+    if (longPressTimerRef.current) {
+      clearTimeout(longPressTimerRef.current)
+      longPressTimerRef.current = null
+    }
+  }, [])
+
+  // On mobile, prevent Base UI from auto-opening the tooltip (focus/hover),
+  // and block close requests while the user's finger is still down.
+  const handleOpenChange = useCallback((nextOpen: boolean) => {
+    if (isMobile) {
+      if (!nextOpen && isPointerDownRef.current) return
+      if (!nextOpen) setOpen(false)
+      return
+    }
+    setOpen(nextOpen)
+  }, [isMobile])
+
+  const handlePointerDown = useCallback((e: React.PointerEvent) => {
+    if (!isMobile) return
+    isPointerDownRef.current = true
+    longPressTriggeredRef.current = false
+    pointerStartRef.current = { x: e.clientX, y: e.clientY }
+    clearLongPress()
+    longPressTimerRef.current = setTimeout(() => {
+      longPressTriggeredRef.current = true
+      setOpen(true)
+    }, 300)
+  }, [isMobile, clearLongPress])
+
+  const handlePointerMove = useCallback((e: React.PointerEvent) => {
+    if (!pointerStartRef.current) return
+    const dx = e.clientX - pointerStartRef.current.x
+    const dy = e.clientY - pointerStartRef.current.y
+    if (Math.abs(dx) > 10 || Math.abs(dy) > 10) {
+      clearLongPress()
+      pointerStartRef.current = null
+    }
+  }, [clearLongPress])
+
+  const handlePointerEnd = useCallback(() => {
+    isPointerDownRef.current = false
+    clearLongPress()
+    pointerStartRef.current = null
+    // If long press was triggered, keep tooltip open — user taps elsewhere / scrolls to dismiss
+    if (longPressTriggeredRef.current) {
+      longPressTriggeredRef.current = false
+      return
+    }
+  }, [clearLongPress])
+
+  const handleContextMenu = useCallback((e: React.MouseEvent) => {
+    e.preventDefault()
+  }, [])
+
   const handleClick = useCallback(() => {
+    if (longPressTriggeredRef.current) {
+      longPressTriggeredRef.current = false
+      return
+    }
+    if (readOnly) return
     selectEquip(equip.id)
-  }, [selectEquip, equip.id])
+  }, [selectEquip, equip.id, readOnly])
 
   const variant = getVariant(equip.name)
   const displayName = t(`equips.${equip.id}`) ?? equip.name
@@ -108,7 +179,7 @@ export const EquipCard = memo(function EquipCard({
     : ''
 
   return (
-    <Tooltip open={open} onOpenChange={setOpen}>
+    <Tooltip open={open} onOpenChange={handleOpenChange}>
       <TooltipTrigger
         render={
           <Button
@@ -116,9 +187,16 @@ export const EquipCard = memo(function EquipCard({
             type="button"
             variant="ghost"
             onClick={handleClick}
+            onPointerDown={isMobile ? handlePointerDown : undefined}
+            onPointerMove={isMobile ? handlePointerMove : undefined}
+            onPointerUp={isMobile ? handlePointerEnd : undefined}
+            onPointerCancel={isMobile ? handlePointerEnd : undefined}
+            onContextMenu={isMobile ? handleContextMenu : undefined}
             className={cn(
-              'group relative flex items-center justify-center aspect-square w-full rounded-lg border-0 cursor-pointer overflow-hidden transition-all h-auto px-0',
+              'group relative flex items-center justify-center aspect-square w-full rounded-lg border-0 overflow-hidden transition-all h-auto px-0',
               'bg-[url(/images/item-frame-bg.png)] bg-cover bg-center',
+              isMobile && 'touch-manipulation select-none [-webkit-touch-callout:none]',
+              readOnly ? 'cursor-default' : 'cursor-pointer',
               isSelected
                 ? 'shadow-[0px_0px_0px_1px_#fbbf24,0_25px_50px_-12px_rgba(0,0,0,0.25)] ring-2 ring-amber-400/50 ring-offset-2 ring-offset-background'
                 : 'shadow-[0px_0px_0px_1px_rgba(0,0,0,0.08)] hover:ring-2 hover:ring-white/40',
@@ -154,7 +232,7 @@ export const EquipCard = memo(function EquipCard({
         <div className="absolute bottom-1.5 left-0 right-0 z-30 px-2 text-center">
           <p className={cn(
             'leading-tight font-semibold text-stone-100 truncate drop-shadow-md',
-            compact ? 'text-[10px]' : 'text-xs',
+            compact ? (isMobile ? 'text-[10px]' : 'text-xs') : (isMobile ? 'text-xs' : 'text-sm'),
           )}>
             {displayName}
           </p>
@@ -188,13 +266,17 @@ export const EquipCard = memo(function EquipCard({
           </div>
         )}
       </TooltipTrigger>
-      <TooltipContent side="top" className="text-xs text-foreground bg-popover/95 max-w-none">
+      <TooltipContent side="top" sideOffset={8} className={cn(
+        'text-xs text-foreground bg-popover/95',
+        isMobile ? 'max-w-[calc(100vw-2rem)]' : 'max-w-none',
+      )}>
         <p className="font-semibold whitespace-nowrap">{displayName}</p>
-        <p className="text-muted-foreground/80 whitespace-nowrap">
+        <p className={cn('text-muted-foreground/80', isMobile ? 'whitespace-normal' : 'whitespace-nowrap')}>
           {equip.sub1 ? `${t('equipStats.' + equip.sub1.key)}+${equip.sub1.value}${equip.sub1.unit}` : ''}
           {equip.sub2 ? ` · ${t('equipStats.' + equip.sub2.key)}+${equip.sub2.value}${equip.sub2.unit}` : ''}
           {equip.special ? ` · ${t('equipStats.' + equip.special.key)}+${equip.special.value}${equip.special.unit}` : ''}
           {displayMaterial ? ` · ${displayMaterial}` : ''}
+          {equip.voucher ? ` · ${t(`materials.${equip.voucher.name}`) ?? equip.voucher.name}x${equip.voucher.count}` : ''}
         </p>
       </TooltipContent>
     </Tooltip>
