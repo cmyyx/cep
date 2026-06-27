@@ -1,6 +1,6 @@
-// Generates metadata i18n: equip types, materials, and equip suit names.
+// Generates metadata i18n: equip types, materials/vouchers, and equip suit names.
 // Suit names are auto-detected from AKEDatabase/public/CH/equip/ JSON files.
-// Materials use full game names (not abbreviations).
+// Materials and vouchers are auto-detected from equipformulatable in v2_equip.
 // ================================================================================
 
 import { existsSync, readFileSync, readdirSync, mkdirSync, writeFileSync } from 'node:fs'
@@ -13,13 +13,6 @@ const EQUIP_TYPE_TERMS: { key: string; cnSearch: string }[] = [
   { key: 'body', cnSearch: '护甲' },
   { key: 'hand', cnSearch: '护手' },
   { key: 'edc', cnSearch: '配件' },
-]
-
-// Materials: full game names (key matches equip data material field)
-const MATERIAL_TERMS: { key: string; cnSearch: string }[] = [
-  { key: '息壤装备原件', cnSearch: '息壤装备原件' },
-  { key: '赤铜装备原件', cnSearch: '赤铜装备原件' },
-  { key: '赫铜装备原件', cnSearch: '赫铜装备原件' },
 ]
 
 function findTextId(cnTable: Record<string, string>, searchTerm: string): string {
@@ -85,6 +78,46 @@ function detectSuitNames(imagedbPath: string): string[] {
   return [...names].sort()
 }
 
+/** Auto-detect material and voucher names from v2_equip equipformulatable. */
+function detectMaterialAndVoucherNames(imagedbPath: string): string[] {
+  const v2Dir = join(imagedbPath, 'public', 'CH', 'v2_equip')
+  if (!existsSync(v2Dir)) return []
+
+  const names = new Set<string>()
+  for (const file of readdirSync(v2Dir)) {
+    if (!file.endsWith('.json') || file === 'manifest.json') continue
+    try {
+      const data = JSON.parse(readFileSync(join(v2Dir, file), 'utf-8'))
+      const equiptable = data.equiptable as Record<string, unknown> | undefined
+      const itemtable = data.itemtable as Record<string, { name?: { text: string }; rarity?: number }> | undefined
+      const equipformulatable = data.equipformulatable as Record<string, {
+        costItemId?: string[]
+        costGoldId?: string
+        outcomeEquipId?: string
+      }> | undefined
+      if (!equiptable || !itemtable || !equipformulatable) continue
+
+      for (const formula of Object.values(equipformulatable)) {
+        if (!formula.outcomeEquipId) continue
+        // Only process formulas for >=5-star equipment
+        const outItem = itemtable[formula.outcomeEquipId]
+        if (!outItem || (outItem.rarity ?? 0) < 5) continue
+        // Material names from costItemId
+        for (const costId of formula.costItemId ?? []) {
+          const costItem = itemtable[costId]
+          if (costItem?.name?.text) names.add(costItem.name.text)
+        }
+        // Voucher name from costGoldId
+        if (formula.costGoldId) {
+          const goldItem = itemtable[formula.costGoldId]
+          if (goldItem?.name?.text) names.add(goldItem.name.text)
+        }
+      }
+    } catch { /* skip malformed files */ }
+  }
+  return [...names].sort()
+}
+
 export function generateMetadataI18n(
   akedataPath: string,
   outputDir: string,
@@ -98,8 +131,10 @@ export function generateMetadataI18n(
   // Equipment types
   totalTerms += buildI18nFiles(EQUIP_TYPE_TERMS, textTables, outputDir, 'equipTypes')
 
-  // Materials (full game names, no abbreviation mapping needed)
-  totalTerms += buildI18nFiles(MATERIAL_TERMS, textTables, outputDir, 'materials')
+  // Materials & vouchers (auto-detected from v2_equip equipformulatable)
+  const materialAndVoucherNames = detectMaterialAndVoucherNames(imagedbPath)
+  const materialTerms = materialAndVoucherNames.map(name => ({ key: name, cnSearch: name }))
+  totalTerms += buildI18nFiles(materialTerms, textTables, outputDir, 'materials')
 
   // Suit names (auto-detected from equip JSON files)
   const suitNames = detectSuitNames(imagedbPath)

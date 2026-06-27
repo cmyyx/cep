@@ -8,6 +8,7 @@ import { useRefinementStore } from '@/stores/useRefinementStore'
 import type { Equip } from '@/types/refinement'
 import { ChevronDown } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import { useIsMobile } from '@/hooks/use-mobile'
 
 interface EquipSetGroupProps {
   setName: string
@@ -24,6 +25,7 @@ export const EquipSetGroup = memo(function EquipSetGroup({
   const selectedEquipId = useRefinementStore((s) => s.selectedEquipId)
 
   const isCollapsed = collapsedSets[setName] ?? true
+  const isMobile = useIsMobile()
 
   const handleToggle = useCallback(() => {
     toggleSetCollapsed(setName)
@@ -64,7 +66,14 @@ export const EquipSetGroup = memo(function EquipSetGroup({
         {...(isCollapsed ? { inert: true as const } : {})}
       >
         <div className="overflow-hidden">
-          <div className="grid grid-cols-[repeat(auto-fill,minmax(6rem,1fr))] gap-2 p-3 pt-0">
+          <div
+            className={cn(
+              'grid gap-2 p-3 pt-0',
+              isMobile
+                ? 'grid-cols-[repeat(auto-fill,minmax(6rem,1fr))]'
+                : 'grid-cols-[repeat(auto-fill,minmax(7rem,1fr))]',
+            )}
+          >
             {equips.map((equip) => (
               <div key={equip.id} className="flex flex-col gap-0.5">
                 <EquipCard

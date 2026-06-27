@@ -6,6 +6,7 @@ import { useMatrixStore } from '@/stores/useMatrixStore'
 import { useRefinementStore } from '@/stores/useRefinementStore'
 import { useEssenceSettingsStore } from '@/stores/useEssenceSettingsStore'
 import { getSyncDataApi, postSyncDataApi, getTokens } from '@/lib/api'
+import { FEATURES } from '@/lib/features'
 import { resolveWeaponId, resolveWeaponIdKeys, resolveS1Selections } from '@/lib/resolve-weapon-id'
 
 import { regionI18nKey } from '@/data/region-i18n'
@@ -21,6 +22,7 @@ const MAX_PUSH_RETRIES = 5
  * of React render timing.
  */
 function shouldAutoSync(): boolean {
+  if (!FEATURES.auth) return false
   const settings = useEssenceSettingsStore.getState()
   if (!settings.autoSyncEnabled) return false
   const auth = useAuthStore.getState()
@@ -795,6 +797,7 @@ export function useAutoSync() {
 
   // ── First-login pull + auto-pull setup ─────────────────
   useEffect(() => {
+    if (!FEATURES.auth) return
     if (!accessToken) return
     if (!firstPullDoneRef.current) {
       firstPullDoneRef.current = true
