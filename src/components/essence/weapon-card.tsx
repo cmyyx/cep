@@ -7,6 +7,7 @@ import Image from 'next/image'
 import { useMatrixStore } from '@/stores/useMatrixStore'
 import { useEssenceSettingsStore } from '@/stores/useEssenceSettingsStore'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
+import { Button } from '@/components/ui/button'
 import { Check } from 'lucide-react'
 import { useMobileLongPressTooltip } from '@/hooks/use-mobile-long-press-tooltip'
 
@@ -61,8 +62,10 @@ export const WeaponCard = memo(function WeaponCard({
   const displayName = (isCustom || isPreview) ? weapon.name : (t(`weapons.${wid}`) ?? weapon.name)
 
   const trigger = (
-    <button
+    <Button
       ref={triggerRef}
+      variant="ghost"
+      size="card"
       type="button"
       onClick={handleToggle}
       disabled={disabled}
@@ -72,7 +75,7 @@ export const WeaponCard = memo(function WeaponCard({
       onPointerCancel={isMobile && enableTooltip ? handlePointerEnd : undefined}
       onContextMenu={isMobile && enableTooltip ? handleContextMenu : undefined}
       className={cn(
-        'group relative flex items-center justify-center aspect-square rounded-lg border cursor-pointer overflow-hidden transition-all',
+        'group relative flex items-center justify-center aspect-square w-full rounded-lg border cursor-pointer overflow-hidden transition-all',
         'bg-[url(/images/item-frame-bg.png)] bg-cover bg-center',
         isMobile && enableTooltip && 'touch-manipulation select-none [-webkit-touch-callout:none]',
         disabled && 'opacity-30 cursor-not-allowed pointer-events-none',
@@ -170,7 +173,7 @@ export const WeaponCard = memo(function WeaponCard({
           <Check className="size-3 text-black" strokeWidth={3} />
         </div>
       )}
-    </button>
+    </Button>
   )
 
   if (!enableTooltip) return trigger

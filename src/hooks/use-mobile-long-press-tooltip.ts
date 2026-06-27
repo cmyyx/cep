@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
+import type { Dispatch, MouseEvent, MutableRefObject, PointerEvent, RefObject, SetStateAction } from 'react'
 import { useIsMobile } from './use-mobile'
 import { useCloseOnScroll } from './use-close-on-scroll'
 
@@ -7,14 +8,14 @@ const MOVE_THRESHOLD = 10
 
 interface UseMobileLongPressTooltipReturn {
   open: boolean
-  setOpen: React.Dispatch<React.SetStateAction<boolean>>
-  triggerRef: React.RefObject<HTMLButtonElement | null>
-  longPressTriggered: React.MutableRefObject<boolean>
+  setOpen: Dispatch<SetStateAction<boolean>>
+  triggerRef: RefObject<HTMLButtonElement | null>
+  longPressTriggered: MutableRefObject<boolean>
   handleOpenChange: (nextOpen: boolean) => void
-  handlePointerDown: (e: React.PointerEvent) => void
-  handlePointerMove: (e: React.PointerEvent) => void
+  handlePointerDown: (e: PointerEvent) => void
+  handlePointerMove: (e: PointerEvent) => void
   handlePointerEnd: () => void
-  handleContextMenu: (e: React.MouseEvent) => void
+  handleContextMenu: (e: MouseEvent) => void
   swallowLongPressClick: () => boolean
   isMobile: boolean
 }
@@ -66,7 +67,7 @@ export function useMobileLongPressTooltip(
     setOpen(nextOpen)
   }, [mobileEnabled])
 
-  const handlePointerDown = useCallback((e: React.PointerEvent) => {
+  const handlePointerDown = useCallback((e: PointerEvent) => {
     if (!mobileEnabled) return
     isPointerDownRef.current = true
     longPressTriggeredRef.current = false
@@ -78,7 +79,7 @@ export function useMobileLongPressTooltip(
     }, LONG_PRESS_DELAY)
   }, [mobileEnabled, clearLongPress])
 
-  const handlePointerMove = useCallback((e: React.PointerEvent) => {
+  const handlePointerMove = useCallback((e: PointerEvent) => {
     if (!pointerStartRef.current) return
     const dx = e.clientX - pointerStartRef.current.x
     const dy = e.clientY - pointerStartRef.current.y
@@ -97,7 +98,7 @@ export function useMobileLongPressTooltip(
     if (longPressTriggeredRef.current) return
   }, [clearLongPress])
 
-  const handleContextMenu = useCallback((e: React.MouseEvent) => {
+  const handleContextMenu = useCallback((e: MouseEvent) => {
     e.preventDefault()
   }, [])
 

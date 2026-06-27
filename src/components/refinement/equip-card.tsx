@@ -89,6 +89,7 @@ export const EquipCard = memo(function EquipCard({
             ref={triggerRef}
             type="button"
             variant="ghost"
+            size="card"
             onClick={handleClick}
             onPointerDown={isMobile ? handlePointerDown : undefined}
             onPointerMove={isMobile ? handlePointerMove : undefined}
@@ -96,7 +97,7 @@ export const EquipCard = memo(function EquipCard({
             onPointerCancel={isMobile ? handlePointerEnd : undefined}
             onContextMenu={isMobile ? handleContextMenu : undefined}
             className={cn(
-              'group relative flex items-center justify-center aspect-square w-full rounded-lg border-0 overflow-hidden transition-all h-auto px-0',
+              'group relative flex items-center justify-center aspect-square w-full rounded-lg border-0 overflow-hidden transition-all',
               'bg-[url(/images/item-frame-bg.png)] bg-cover bg-center',
               isMobile && 'touch-manipulation select-none [-webkit-touch-callout:none]',
               readOnly ? 'cursor-default' : 'cursor-pointer',
