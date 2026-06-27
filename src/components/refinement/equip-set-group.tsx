@@ -67,8 +67,12 @@ export const EquipSetGroup = memo(function EquipSetGroup({
       >
         <div className="overflow-hidden">
           <div
-            className="grid gap-2 p-3 pt-0"
-            style={{ gridTemplateColumns: `repeat(auto-fill, minmax(${isMobile ? '6rem' : '7rem'}, 1fr))` }}
+            className={cn(
+              'grid gap-2 p-3 pt-0',
+              isMobile
+                ? 'grid-cols-[repeat(auto-fill,minmax(6rem,1fr))]'
+                : 'grid-cols-[repeat(auto-fill,minmax(7rem,1fr))]',
+            )}
           >
             {equips.map((equip) => (
               <div key={equip.id} className="flex flex-col gap-0.5">

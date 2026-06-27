@@ -133,10 +133,8 @@ export function generateMetadataI18n(
 
   // Materials & vouchers (auto-detected from v2_equip equipformulatable)
   const materialAndVoucherNames = detectMaterialAndVoucherNames(imagedbPath)
-  if (materialAndVoucherNames.length > 0) {
-    const materialTerms = materialAndVoucherNames.map(name => ({ key: name, cnSearch: name }))
-    totalTerms += buildI18nFiles(materialTerms, textTables, outputDir, 'materials')
-  }
+  const materialTerms = materialAndVoucherNames.map(name => ({ key: name, cnSearch: name }))
+  totalTerms += buildI18nFiles(materialTerms, textTables, outputDir, 'materials')
 
   // Suit names (auto-detected from equip JSON files)
   const suitNames = detectSuitNames(imagedbPath)

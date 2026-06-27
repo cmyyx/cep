@@ -1,6 +1,6 @@
 'use client'
 
-import { memo, useCallback, useState, useRef, useEffect } from 'react'
+import { memo, useCallback } from 'react'
 import { useTranslations } from 'next-intl'
 import Image from 'next/image'
 import { Check } from 'lucide-react'
@@ -8,7 +8,7 @@ import { cn } from '@/lib/utils'
 import { useRefinementStore } from '@/stores/useRefinementStore'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
 import { Button } from '@/components/ui/button'
-import { useIsMobile } from '@/hooks/use-mobile'
+import { useMobileLongPressTooltip } from '@/hooks/use-mobile-long-press-tooltip'
 import type { Equip } from '@/types/refinement'
 
 // Map Chinese equip types to i18n keys
@@ -35,47 +35,6 @@ const MODEL_I18N_MAP: Record<string, string> = {
   'Ⅲ型': 'refinement.modelTypeIII',
 }
 
-/** Dismiss tooltip on scroll */
-function useCloseOnScroll(open: boolean, setOpen: (open: boolean) => void) {
-  const ref = useRef<HTMLButtonElement>(null)
-
-  useEffect(() => {
-    if (!open || !ref.current) return
-
-    const scrollables: HTMLElement[] = []
-    let el: HTMLElement | null = ref.current.parentElement
-    while (el) {
-      const style = window.getComputedStyle(el)
-      if (/(auto|scroll)/.test(style.overflow + style.overflowY)) {
-        scrollables.push(el)
-      }
-      el = el.parentElement
-    }
-
-    const handler = () => setOpen(false)
-    scrollables.forEach((el) => {
-      el.addEventListener('scroll', handler, { passive: true })
-      el.addEventListener('wheel', handler, { passive: true })
-    })
-    window.addEventListener('scroll', handler, { passive: true })
-    window.addEventListener('wheel', handler, { passive: true })
-    document.scrollingElement?.addEventListener('scroll', handler, { passive: true })
-    document.scrollingElement?.addEventListener('wheel', handler, { passive: true })
-    return () => {
-      scrollables.forEach((el) => {
-        el.removeEventListener('scroll', handler)
-        el.removeEventListener('wheel', handler)
-      })
-      window.removeEventListener('scroll', handler)
-      window.removeEventListener('wheel', handler)
-      document.scrollingElement?.removeEventListener('scroll', handler)
-      document.scrollingElement?.removeEventListener('wheel', handler)
-    }
-  }, [open, setOpen])
-
-  return ref
-}
-
 interface EquipCardProps {
   equip: Equip
   isSelected: boolean
@@ -96,79 +55,23 @@ export const EquipCard = memo(function EquipCard({
 }: EquipCardProps) {
   const t = useTranslations()
   const selectEquip = useRefinementStore((s) => s.selectEquip)
-  const [open, setOpen] = useState(false)
-  const triggerRef = useCloseOnScroll(open, setOpen)
-
-  const isMobile = useIsMobile()
-  const longPressTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
-  const longPressTriggeredRef = useRef(false)
-  const pointerStartRef = useRef<{ x: number; y: number } | null>(null)
-  // True from pointerdown until pointerup/cancel — blocks Base UI close while finger is down
-  const isPointerDownRef = useRef(false)
-
-  const clearLongPress = useCallback(() => {
-    if (longPressTimerRef.current) {
-      clearTimeout(longPressTimerRef.current)
-      longPressTimerRef.current = null
-    }
-  }, [])
-
-  // On mobile, prevent Base UI from auto-opening the tooltip (focus/hover),
-  // and block close requests while the user's finger is still down.
-  const handleOpenChange = useCallback((nextOpen: boolean) => {
-    if (isMobile) {
-      if (!nextOpen && isPointerDownRef.current) return
-      if (!nextOpen) setOpen(false)
-      return
-    }
-    setOpen(nextOpen)
-  }, [isMobile])
-
-  const handlePointerDown = useCallback((e: React.PointerEvent) => {
-    if (!isMobile) return
-    isPointerDownRef.current = true
-    longPressTriggeredRef.current = false
-    pointerStartRef.current = { x: e.clientX, y: e.clientY }
-    clearLongPress()
-    longPressTimerRef.current = setTimeout(() => {
-      longPressTriggeredRef.current = true
-      setOpen(true)
-    }, 300)
-  }, [isMobile, clearLongPress])
-
-  const handlePointerMove = useCallback((e: React.PointerEvent) => {
-    if (!pointerStartRef.current) return
-    const dx = e.clientX - pointerStartRef.current.x
-    const dy = e.clientY - pointerStartRef.current.y
-    if (Math.abs(dx) > 10 || Math.abs(dy) > 10) {
-      clearLongPress()
-      pointerStartRef.current = null
-    }
-  }, [clearLongPress])
-
-  const handlePointerEnd = useCallback(() => {
-    isPointerDownRef.current = false
-    clearLongPress()
-    pointerStartRef.current = null
-    // If long press was triggered, keep tooltip open — user taps elsewhere / scrolls to dismiss
-    if (longPressTriggeredRef.current) {
-      longPressTriggeredRef.current = false
-      return
-    }
-  }, [clearLongPress])
-
-  const handleContextMenu = useCallback((e: React.MouseEvent) => {
-    e.preventDefault()
-  }, [])
+  const {
+    open,
+    triggerRef,
+    handleOpenChange,
+    handlePointerDown,
+    handlePointerMove,
+    handlePointerEnd,
+    handleContextMenu,
+    swallowLongPressClick,
+    isMobile,
+  } = useMobileLongPressTooltip()
 
   const handleClick = useCallback(() => {
-    if (longPressTriggeredRef.current) {
-      longPressTriggeredRef.current = false
-      return
-    }
+    if (swallowLongPressClick()) return
     if (readOnly) return
     selectEquip(equip.id)
-  }, [selectEquip, equip.id, readOnly])
+  }, [selectEquip, equip.id, readOnly, swallowLongPressClick])
 
   const variant = getVariant(equip.name)
   const displayName = t(`equips.${equip.id}`) ?? equip.name

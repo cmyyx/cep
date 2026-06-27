@@ -140,8 +140,12 @@ export const SlotRecommendationCard = memo(function SlotRecommendationCard({
       {candidates.length > 0 && (
         <div
           ref={gridRef}
-          className="grid gap-1.5"
-          style={{ gridTemplateColumns: `repeat(auto-fill, minmax(${isMobile ? '5rem' : '6rem'}, 1fr))` }}
+          className={cn(
+            'grid gap-1.5',
+            isMobile
+              ? 'grid-cols-[repeat(auto-fill,minmax(5rem,1fr))]'
+              : 'grid-cols-[repeat(auto-fill,minmax(6rem,1fr))]',
+          )}
         >
           {visibleCandidates.map((c) => (
             <div
