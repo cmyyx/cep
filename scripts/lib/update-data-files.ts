@@ -8,7 +8,6 @@ import { existsSync, readFileSync, readdirSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { parse as parseLossless } from 'lossless-json'
 import { buildGemTableLookup, loadTextTable } from './stat-mapping'
-import { buildEquipStatMapping } from './equip-stat-mapping'
 import { resolveSuitName } from './upstream'
 import { buildAttrShowConfigs, resolveFormat, formatEquipStat } from './equip-stat-format'
 
@@ -472,7 +471,6 @@ export function updateEquipsFile(
 ): number {
   const content = readFileSync(equipsTsPath, 'utf-8')
   const { attrTypeMap, compositeCfg } = buildAttrShowConfigs(akedataPath)
-  const equipMapping = buildEquipStatMapping(akedataPath)
 
   // Build set of equipIds to process: all existing + new (when reconciling), or just new
   const targetIds = new Set<string>(newEquipIds)
@@ -544,7 +542,7 @@ export function updateEquipsFile(
         } else {
           const attrInfo = attrTypeMap.get(attrType)
           if (!attrInfo) continue
-          key = equipMapping.resolve(attrInfo.name)
+          key = String(attrType)
           valueFormat = resolveFormat(attrInfo, String(attrType), modType)
         }
 

@@ -108,6 +108,22 @@ describe('formatEquipStat', () => {
   it('throws on unbalanced parens', () => {
     expect(() => formatEquipStat('Z', '1', '{(value:0}')).toThrow()
   })
+
+  it('throws on malformed numeric literal (e.g. 1..2)', () => {
+    expect(() => formatEquipStat('Z', '1', '{1..2-value:0}')).toThrow(/畸形数字字面量/)
+  })
+
+  it('throws on non-numeric attrValue (empty string)', () => {
+    expect(() => formatEquipStat('Z', '', '{value:0.0%}')).toThrow(/不是合法数值/)
+  })
+
+  it('throws on non-numeric attrValue (text)', () => {
+    expect(() => formatEquipStat('Z', 'abc', '{value:0.0%}')).toThrow(/不是合法数值/)
+  })
+
+  it('throws on non-numeric attrValue with empty valueFormat', () => {
+    expect(() => formatEquipStat('Z', '', '')).toThrow(/不是合法数值/)
+  })
 })
 
 describe('resolveFormat', () => {

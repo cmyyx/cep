@@ -51,7 +51,9 @@ function getGridColumns(gridEl: HTMLElement | null): number {
   const minmaxMatch = tpl?.match(/minmax\(\s*([\d.]+)(px|rem)\s*,/)
   if (minmaxMatch) {
     const value = parseFloat(minmaxMatch[1])
-    const minPx = minmaxMatch[2] === 'rem' ? value * 16 : value
+    const minPx = minmaxMatch[2] === 'rem'
+      ? value * parseFloat(getComputedStyle(document.documentElement).fontSize)
+      : value
     const gap = parseFloat(style.columnGap || style.gap || '0') || 0
     const width = gridEl.clientWidth
     if (minPx > 0 && width > 0) {

@@ -61,7 +61,11 @@ function tokenizeExpr(src: string): ExprToken[] {
     if ((ch >= '0' && ch <= '9') || ch === '.') {
       let j = i
       while (j < src.length && ((src[j] >= '0' && src[j] <= '9') || src[j] === '.')) j++
-      tokens.push(parseFloat(src.slice(i, j)))
+      const lexeme = src.slice(i, j)
+      if (!/^\d+(\.\d+)?$/.test(lexeme)) {
+        throw new Error(`equip-stat-format: 公式 "${src}" 中存在畸形数字字面量 "${lexeme}"`)
+      }
+      tokens.push(parseFloat(lexeme))
       i = j
       continue
     }
@@ -175,14 +179,18 @@ export function parseValueFormat(fmt: string): { formula: string; spec: string }
 export function formatEquipStat(name: string, value: string, valueFormat: string): string {
   const parsed = parseValueFormat(valueFormat)
 
+  // attrValue 必须是合法数值——空字符串或非数值输入会导致 NaN 静默传播
+  const num = parseFloat(value)
+  if (Number.isNaN(num)) {
+    throw new Error(`equip-stat-format: attrValue="${value}" 不是合法数值（name="${name}"）`)
+  }
+
   // 空 valueFormat: 原始值
   if (!parsed) {
-    const num = parseFloat(value)
-    return Number.isInteger(num) ? `${name}+${num}` : `${name}+${parseFloat(value)}`
+    return Number.isInteger(num) ? `${name}+${num}` : `${name}+${num}`
   }
 
   // 应用公式
-  const num = parseFloat(value)
   const result = evalAst(parseExprTokens(tokenizeExpr(parsed.formula)), num)
 
   // .NET 风格格式说明符: "0.0%" 表示 ×100 加 %, "0" / "" 表示无 %
