@@ -24,28 +24,42 @@ interface SlotRecommendationCardProps {
 }
 
 /**
- * Read the actual number of grid columns from computed style.
- * Returns `DEFAULT_COLUMNS` if the grid cannot be measured yet.
+ * Measure the actual number of grid columns from computed style.
+ *
+ * Never relies on counting rendered children — the visible child count
+ * is itself derived from this function's return value, so child-based
+ * counting creates a circular dependency that traps the grid at
+ * DEFAULT_COLUMNS forever.
+ *
+ * Path 1: modern browsers expand auto-fill/auto-fit to explicit track
+ *         sizes in the computed value (e.g. "96px 96px 96px 96px").
+ * Path 2: if the repeat() syntax is preserved, parse the minmax()
+ *         minimum and divide the container width by it.
  */
 function getGridColumns(gridEl: HTMLElement | null): number {
   if (!gridEl) return DEFAULT_COLUMNS
   const style = getComputedStyle(gridEl)
-  const tpl = style.gridTemplateColumns || ''
-  // grid-template-columns looks like "80px 80px 80px 80px" or "repeat(auto-fill, minmax(80px, 1fr))"
-  if (tpl.includes('repeat')) {
-    // For repeat(), count actual rendered columns via child positions
-    const children = gridEl.children
-    if (children.length === 0) return DEFAULT_COLUMNS
-    let cols = 1
-    const firstTop = (children[0] as HTMLElement).offsetTop
-    for (let i = 1; i < children.length; i++) {
-      if ((children[i] as HTMLElement).offsetTop > firstTop) break
-      cols++
-    }
-    return cols
+  const tpl = style.gridTemplateColumns
+
+  // Path 1 — resolved explicit tracks
+  if (tpl && tpl !== 'none' && !tpl.includes('repeat(')) {
+    const count = tpl.split(/\s+/).filter(Boolean).length
+    if (count > 0) return count
   }
-  // Static template: count space-separated values
-  return tpl.split(' ').filter(Boolean).length || DEFAULT_COLUMNS
+
+  // Path 2 — repeat() preserved: calculate from minmax() + container width
+  const minmaxMatch = tpl?.match(/minmax\(\s*([\d.]+)(px|rem)\s*,/)
+  if (minmaxMatch) {
+    const value = parseFloat(minmaxMatch[1])
+    const minPx = minmaxMatch[2] === 'rem' ? value * 16 : value
+    const gap = parseFloat(style.columnGap || style.gap || '0') || 0
+    const width = gridEl.clientWidth
+    if (minPx > 0 && width > 0) {
+      return Math.max(1, Math.floor((width + gap) / (minPx + gap)))
+    }
+  }
+
+  return DEFAULT_COLUMNS
 }
 
 export const SlotRecommendationCard = memo(function SlotRecommendationCard({
@@ -80,7 +94,7 @@ export const SlotRecommendationCard = memo(function SlotRecommendationCard({
     const ro = new ResizeObserver(measure)
     ro.observe(el)
     return () => ro.disconnect()
-  }, [])
+  }, [isMobile])
 
   // Collapsed view shows exactly one row (columns count)
   const hasMore = candidates.length > columns
