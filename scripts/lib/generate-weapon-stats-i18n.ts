@@ -20,7 +20,7 @@ export interface WeaponStatsI18nResult {
   missing: number
 }
 
-// ── Blackboard key → gemTermId suffix (same as generate-weapon-stat-mapping.ts) ──
+// ── Blackboard key → gemTermId suffix ──
 
 const BLACKBOARD_TO_GEM_SUFFIX: Record<string, string> = {
   str: 'str', agi: 'agi', wisd: 'wisd', will: 'will', mainattr: 'main',
