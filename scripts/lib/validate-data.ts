@@ -7,7 +7,8 @@
 import { existsSync, readFileSync, readdirSync } from 'node:fs'
 import { join } from 'node:path'
 import { parse as parseLossless } from 'lossless-json'
-import { buildGemTableLookup, loadTextTable } from './stat-mapping'
+import { buildGemTableLookup } from './stat-mapping'
+import { buildAttrShowConfigs, resolveFormat, formatEquipStat } from './equip-stat-format'
 
 // ── Lossless JSON parsing ─────────────────────────────────────────────────
 
@@ -201,43 +202,8 @@ export function validateEquips(
   const v2EquipDir = join(imagedbPath, 'public', 'CH', 'v2_equip')
   if (!existsSync(v2EquipDir)) return issues
 
-  // Load CN TextTable for attribute name resolution
-  const textTable = loadTextTable(akedataPath, 'zh-CN')
-
-  // Build attrType → { name, showPercent } mapping
-  const attrTypeMap = new Map<number, { name: string; showPercent: boolean }>()
-  const attrCfgPath = join(akedataPath, 'TableCfg', 'AttributeShowConfigTable.json')
-  if (existsSync(attrCfgPath)) {
-    const attrCfg = parseJsonSafe(attrCfgPath) as Record<string, { list: { name: { id: string }; showPercent: boolean }[] }>
-    for (const [attrTypeStr, data] of Object.entries(attrCfg)) {
-      if (!data.list?.[0]?.name?.id) continue
-      const cnName = textTable[data.list[0].name.id]
-      if (cnName) attrTypeMap.set(Number(attrTypeStr), { name: cnName, showPercent: data.list[0].showPercent })
-    }
-  }
-
-  // Build compositeAttr → { name, showPercent } mapping
-  const compositeCfg = new Map<string, { name: string; showPercent: boolean }>()
-  const compCfgPath = join(akedataPath, 'TableCfg', 'CompositeAttributeShowConfigTable.json')
-  if (existsSync(compCfgPath)) {
-    const compCfg = parseJsonSafe(compCfgPath) as Record<string, { list: { name: { id: string }; showPercent: boolean }[] }>
-    for (const [compositeAttr, data] of Object.entries(compCfg)) {
-      if (!data.list?.[0]?.name?.id) continue
-      const cnName = textTable[data.list[0].name.id]
-      if (cnName) compositeCfg.set(compositeAttr, { name: cnName, showPercent: data.list[0].showPercent })
-    }
-  }
-
-  // Format value (same precision-preserving logic as update-data-files.ts)
-  function formatValue(name: string, value: string, showPercent: boolean): string {
-    const num = parseFloat(value)
-    if (showPercent) {
-      const pct = num * 100
-      const clean = parseFloat(pct.toFixed(8))
-      return `${name}+${clean}%`
-    }
-    return Number.isInteger(num) ? `${name}+${num}` : `${name}+${parseFloat(value)}`
-  }
+  // Build attrType → AttrShowConfig and compositeAttr → AttrShowConfig (with valueFormat)
+  const { attrTypeMap, compositeCfg } = buildAttrShowConfigs(akedataPath)
 
   // For each v2_equip file, compare project equips against upstream
   for (const file of readdirSync(v2EquipDir)) {
@@ -267,29 +233,20 @@ export function validateEquips(
         const attrType = Number(mod.attrType)
         const compositeAttr = String(mod.compositeAttr ?? '')
 
-        // Determine key and showPercent
         let key: string
-        let showPercent: boolean
+        let valueFormat: string
 
         if (attrType === 0 && compositeAttr) {
-          // Composite attribute: key is the compositeAttr string itself
           key = compositeAttr
-          // modifierType 6/8 = always percentage, 7 = always flat, 5 = from config
-          if (modType === 6 || modType === 8) showPercent = true
-          else if (modType === 7) showPercent = false
-          else showPercent = compositeCfg.get(compositeAttr)?.showPercent ?? false
+          valueFormat = resolveFormat(compositeCfg.get(compositeAttr), compositeAttr, modType)
         } else {
-          // Regular attribute: key is the attrType number
           const attrInfo = attrTypeMap.get(attrType)
           if (!attrInfo) continue
           key = String(attrType)
-          // modifierType 6/8 = always percentage, 7 = always flat, 5 = from config
-          if (modType === 6 || modType === 8) showPercent = true
-          else if (modType === 7) showPercent = false
-          else showPercent = attrInfo.showPercent
+          valueFormat = resolveFormat(attrInfo, String(attrType), modType)
         }
 
-        const statStr = formatValue(key, String(mod.attrValue), showPercent)
+        const statStr = formatEquipStat(key, String(mod.attrValue), valueFormat)
         if (Number(mod.attrIndex) === 1) upstreamSub1 = statStr
         else if (Number(mod.attrIndex) === 2) upstreamSub2 = statStr
         else if (Number(mod.attrIndex) === 3) upstreamSpecial = statStr

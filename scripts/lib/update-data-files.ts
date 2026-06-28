@@ -10,6 +10,7 @@ import { parse as parseLossless } from 'lossless-json'
 import { buildGemTableLookup, loadTextTable } from './stat-mapping'
 import { buildEquipStatMapping } from './equip-stat-mapping'
 import { resolveSuitName } from './upstream'
+import { buildAttrShowConfigs, resolveFormat, formatEquipStat } from './equip-stat-format'
 
 // ── Types ─────────────────────────────────────────────────────────────────
 
@@ -48,11 +49,6 @@ interface V2EquipData {
   }>
   itemtable: Record<string, { name: { text: string } }>
   equipformulatable: Record<string, EquipFormula>
-}
-
-interface AttrInfo {
-  name: string
-  showPercent: boolean
 }
 
 // ── Constants ─────────────────────────────────────────────────────────────
@@ -168,49 +164,8 @@ function convertLosslessToPlain(value: unknown): unknown {
 }
 
 // ── Attribute name resolution ─────────────────────────────────────────────
+// (移除 buildAttrTypeMap 和 formatEquipStat —— 已统一到 ./equip-stat-format 共享模块)
 
-/** Build attrType → AttrInfo mapping from AttributeShowConfigTable + TextTable */
-function buildAttrTypeMap(akedataPath: string, textTables: Record<string, string>): Map<number, AttrInfo> {
-  const attrMap = new Map<number, AttrInfo>()
-
-  const configPath = join(akedataPath, 'TableCfg', 'AttributeShowConfigTable.json')
-  if (!existsSync(configPath)) return attrMap
-
-  const config = parseJsonSafe(configPath) as Record<string, {
-    list: { name: { id: string }; showPercent: boolean }[]
-  }>
-
-  for (const [attrTypeStr, data] of Object.entries(config)) {
-    const attrType = Number(attrTypeStr)
-    if (!data.list || data.list.length === 0) continue
-
-    const firstEntry = data.list[0]
-    const nameId = firstEntry.name.id
-    const name = textTables[nameId] ?? ''
-    if (!name) continue
-
-    attrMap.set(attrType, { name, showPercent: firstEntry.showPercent })
-  }
-
-  return attrMap
-}
-
-/**
- * Format equip stat value based on showPercent flag.
- * `value` is the raw string from lossless-json (exact game precision).
- * No rounding — full game precision is preserved.
- */
-function formatEquipStat(name: string, value: string, showPercent: boolean): string {
-  const num = parseFloat(value)
-  if (showPercent) {
-    const pct = num * 100
-    // Clean floating-point noise at 8th decimal (far beyond game data precision of 3-4 decimals)
-    const clean = parseFloat(pct.toFixed(8))
-    return `${name}+${clean}%`
-  }
-  // Non-percentage: preserve exact game value, strip ".0" for integers
-  return Number.isInteger(num) ? `${name}+${num}` : `${name}+${parseFloat(value)}`
-}
 // ── Insertion helpers ─────────────────────────────────────────────────────
 
 /**
@@ -516,22 +471,8 @@ export function updateEquipsFile(
   reconcileAll?: boolean,
 ): number {
   const content = readFileSync(equipsTsPath, 'utf-8')
-  const textTables = loadTextTable(akedataPath, 'zh-CN')
-  const attrTypeMap = buildAttrTypeMap(akedataPath, textTables)
+  const { attrTypeMap, compositeCfg } = buildAttrShowConfigs(akedataPath)
   const equipMapping = buildEquipStatMapping(akedataPath)
-
-  // Build compositeAttr → showPercent mapping
-  const compositeCfg = new Map<string, boolean>()
-  const compCfgPath = join(akedataPath, 'TableCfg', 'CompositeAttributeShowConfigTable.json')
-  if (existsSync(compCfgPath)) {
-    const compCfg = parseJsonSafe(compCfgPath) as Record<string, { list: { name: { id: string }; showPercent: boolean }[] }>
-    for (const [compositeAttr, data] of Object.entries(compCfg)) {
-      if (data.list?.[0]?.name?.id) {
-        const cnName = textTables[data.list[0].name.id]
-        if (cnName) compositeCfg.set(compositeAttr, data.list[0].showPercent)
-      }
-    }
-  }
 
   // Build set of equipIds to process: all existing + new (when reconciling), or just new
   const targetIds = new Set<string>(newEquipIds)
@@ -594,23 +535,20 @@ export function updateEquipsFile(
         const modType = Number(mod.modifierType ?? 5)
         const attrType = Number(mod.attrType)
         const compositeAttr = String(mod.compositeAttr ?? '')
-        let key: string; let showPercent: boolean
+        let key: string
+        let valueFormat: string
 
         if (attrType === 0 && compositeAttr) {
           key = compositeAttr
-          if (modType === 6 || modType === 8) showPercent = true
-          else if (modType === 7) showPercent = false
-          else showPercent = compositeCfg.get(compositeAttr) ?? false
+          valueFormat = resolveFormat(compositeCfg.get(compositeAttr), compositeAttr, modType)
         } else {
           const attrInfo = attrTypeMap.get(attrType)
           if (!attrInfo) continue
           key = equipMapping.resolve(attrInfo.name)
-          if (modType === 6 || modType === 8) showPercent = true
-          else if (modType === 7) showPercent = false
-          else showPercent = attrInfo.showPercent
+          valueFormat = resolveFormat(attrInfo, String(attrType), modType)
         }
 
-        const statStr = formatEquipStat(key, String(mod.attrValue), showPercent)
+        const statStr = formatEquipStat(key, String(mod.attrValue), valueFormat)
         if (Number(mod.attrIndex) === 1) sub1 = statStr
         else if (Number(mod.attrIndex) === 2) sub2 = statStr
         else if (Number(mod.attrIndex) === 3) special = statStr
