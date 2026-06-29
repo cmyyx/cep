@@ -86,7 +86,13 @@ export const SlotRecommendationCard = memo(function SlotRecommendationCard({
   const gridRef = useRef<HTMLDivElement>(null)
   const [columns, setColumns] = useState(DEFAULT_COLUMNS)
 
+  // Re-run when the grid is (re)created: the grid div is unmounted when
+  // candidates is empty, so without this dep the ResizeObserver stays bound
+  // to the stale detached element and resets columns to the default.
+  const hasCandidates = candidates.length > 0
+
   useEffect(() => {
+    if (!hasCandidates) return
     const el = gridRef.current
     if (!el) return
 
@@ -96,7 +102,7 @@ export const SlotRecommendationCard = memo(function SlotRecommendationCard({
     const ro = new ResizeObserver(measure)
     ro.observe(el)
     return () => ro.disconnect()
-  }, [isMobile])
+  }, [isMobile, hasCandidates])
 
   // Collapsed view shows exactly one row (columns count)
   const hasMore = candidates.length > columns
