@@ -384,7 +384,7 @@
     "contactEmail": "聯絡信箱：admin@canmoe.com",
     "acknowledgements": "鳴謝與連結",
     "akedataName": "AKEData",
-    "akedataDesc": "本站武器與裝備資料來源",
+    "akedataDesc": "本站武器、裝備資料與遊戲內文本翻譯資料來源",
     "jeiwebName": "JEI-WEB",
     "jeiwebDesc": "一個基於 Web 的物品查看和合成規劃工具",
     "adSlotTitle": "廣告位招租",
@@ -392,7 +392,14 @@
     "adSlotContact": "聯絡方式",
     "adSlotEmail": "信箱",
     "adSlotQQGroup": "QQ群",
-    "adSlotBilibili": "嗶哩嗶哩私訊"
+    "adSlotBilibili": "嗶哩嗶哩私訊",
+    "donationTitle": "贊助支持",
+    "donationDesc": "您的贊助將用於伺服器維護與升級、功能開發與維護；您的鼓勵與認可是我維護的動力，感謝您的支持！！！",
+    "donationAlipayNote": "支付寶渠道由於限制看不到暱稱，請在備註中署名",
+    "donationAlipay": "支付寶",
+    "donationWechat": "微信",
+    "donationListTitle": "贊助名單",
+    "donationEmpty": "暫無"
   },
   "essence": {
     "weaponSelected": "已選",

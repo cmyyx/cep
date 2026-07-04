@@ -384,7 +384,7 @@
     "contactEmail": "Contact: admin@canmoe.com",
     "acknowledgements": "Acknowledgements & Links",
     "akedataName": "AKEData",
-    "akedataDesc": "Source of weapon and equipment data for this site",
+    "akedataDesc": "Source of weapon, equipment, and in-game text translation data for this site",
     "jeiwebName": "JEI-WEB",
     "jeiwebDesc": "A Web-based item viewer and crafting planner",
     "adSlotTitle": "Advertising Slot Available",
@@ -392,7 +392,14 @@
     "adSlotContact": "Contact",
     "adSlotEmail": "Email",
     "adSlotQQGroup": "QQ Group",
-    "adSlotBilibili": "Bilibili DM"
+    "adSlotBilibili": "Bilibili DM",
+    "donationTitle": "Support",
+    "donationDesc": "Your support will be used for server maintenance and upgrades, feature development and maintenance. Your encouragement and recognition are my motivation — thank you for your support!",
+    "donationAlipayNote": "Alipay does not show sender nicknames due to restrictions — please include your name in the payment note.",
+    "donationAlipay": "Alipay",
+    "donationWechat": "WeChat",
+    "donationListTitle": "Donor List",
+    "donationEmpty": "None"
   },
   "essence": {
     "weaponSelected": "Selected",

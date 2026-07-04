@@ -188,7 +188,7 @@
     "contactEmail": "联系邮箱：admin@canmoe.com",
     "acknowledgements": "鸣谢与链接",
     "akedataName": "AKEData",
-    "akedataDesc": "本站武器与装备数据来源",
+    "akedataDesc": "本站武器、装备数据与游戏内文本翻译数据来源",
     "jeiwebName": "JEI-WEB",
     "jeiwebDesc": "一个基于 Web 的物品查看和合成规划工具",
     "adSlotTitle": "广告位招租",
@@ -196,7 +196,14 @@
     "adSlotContact": "联系方式",
     "adSlotEmail": "邮箱",
     "adSlotQQGroup": "QQ群(请私信璨梦踏月)",
-    "adSlotBilibili": "哔哩哔哩私信"
+    "adSlotBilibili": "哔哩哔哩私信",
+    "donationTitle": "赞赏支持",
+    "donationDesc": "您的赞赏将用于服务器维护与升级、功能开发与维护；您的鼓励与认可是我维护的动力，感谢您的支持！！！",
+    "donationAlipayNote": "支付宝渠道由于限制看不到昵称，请在备注中署名",
+    "donationAlipay": "支付宝",
+    "donationWechat": "微信",
+    "donationListTitle": "赞赏名单",
+    "donationEmpty": "暂无"
   },
   "essence": {
     "weaponSelected": "已选",

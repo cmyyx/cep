@@ -4,6 +4,7 @@ import { useTranslations } from 'next-intl'
 import Image from 'next/image'
 import { SidebarTrigger } from '@/components/ui/sidebar'
 import { Badge } from '@/components/ui/badge'
+import { DonationSection } from '@/components/about/donation-section'
 import {
   Swords,
   Users,
@@ -142,6 +143,9 @@ export default function AboutPage() {
               </div>
             </div>
           </div>
+
+          {/* Donation */}
+          <DonationSection />
 
           {/* Acknowledgements & Links */}
           <div className="mb-8">
