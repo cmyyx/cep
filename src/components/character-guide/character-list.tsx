@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 import { RarityStars } from './element-badge'
 import type { CharacterGuideData } from '@/types/character-guide'
+import { withImageCacheVersion } from '@/lib/image-url'
 
 interface CharacterListProps {
   characters: CharacterGuideData[]
@@ -161,7 +162,7 @@ export const CharacterList = memo(function CharacterList({
               <div className="w-9 h-9 rounded-full bg-muted shrink-0 flex items-center justify-center overflow-hidden shadow-[0px_0px_0px_1px_rgba(0,0,0,0.08)] relative">
                 {!failedImages.has(char.name) ? (
                   <Image
-                    src={`/images/characters/${char.name}.avif`}
+                    src={withImageCacheVersion(`/images/characters/${char.name}.avif`)}
                     alt={char.name}
                     fill
                     unoptimized

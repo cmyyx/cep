@@ -1,7 +1,8 @@
 import { execSync } from "node:child_process"
-import { readFileSync, writeFileSync, mkdirSync } from "node:fs"
+import { readFileSync, writeFileSync, mkdirSync, readdirSync, statSync } from "node:fs"
 import { resolve, dirname } from "node:path"
 import { fileURLToPath } from "node:url"
+import { createHash } from "node:crypto"
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const root = resolve(__dirname, "..")
@@ -58,6 +59,33 @@ function getSemver() {
   return pkg.version || "0.0.0"
 }
 
+// 计算 public/images/ 目录的内容 hash 作为图片缓存版本号
+// 任何图片文件的新增/修改/删除都会改变此值，用于绕过浏览器旧缓存
+// 读取失败时 fallback 到 buildTime 的 hash，确保总有值
+function getImageCacheVersion() {
+  const imagesDir = resolve(root, "public", "images")
+  try {
+    const entries = []
+    const walk = (dir) => {
+      for (const ent of readdirSync(dir, { withFileTypes: true })) {
+        const full = resolve(dir, ent.name)
+        if (ent.isDirectory()) {
+          walk(full)
+        } else if (ent.isFile()) {
+          const rel = full.slice(imagesDir.length).replace(/\\/g, "/")
+          const mtime = statSync(full).mtimeMs
+          entries.push(`${rel}:${mtime}`)
+        }
+      }
+    }
+    walk(imagesDir)
+    entries.sort()
+    return createHash("sha256").update(entries.join("\n")).digest("hex").slice(0, 8)
+  } catch {
+    return createHash("sha256").update(new Date().toISOString()).digest("hex").slice(0, 8)
+  }
+}
+
 const semver = getSemver()
 const commitHash = git("rev-parse --short HEAD") || "unknown"
 const count = Number(git("rev-list --count HEAD")) || 0
@@ -71,6 +99,7 @@ const version = {
   buildTime: new Date().toISOString(),
   version: derivedVersion,
   forceUpgradeSerial: getForceUpgradeSerial(),
+  imageCacheVersion: getImageCacheVersion(),
 }
 
 const outPath = resolve(root, "public", "version.json")

@@ -9,6 +9,7 @@ import { SlotRecommendationCard } from './slot-recommendation'
 import { useRefinementStore, useSelectedEquip, useRecommendations } from '@/stores/useRefinementStore'
 import { materialOptions } from '@/data/equips'
 import { useIsMobile } from '@/hooks/use-mobile'
+import { withImageCacheVersion } from '@/lib/image-url'
 
 // Map Chinese equip types to i18n keys
 const TYPE_TO_KEY: Record<string, string> = {
@@ -76,7 +77,7 @@ export const RefinementPanel = memo(function RefinementPanel() {
               <div className={cn('relative shrink-0 rounded-lg border border-border overflow-hidden bg-[url(/images/item-frame-bg.png)] bg-cover bg-center', isMobile ? 'w-20 h-20' : 'w-24 h-24')}>
                 {selected.imageId && (
                   <Image
-                    src={`/images/equip/${selected.imageId}.avif`}
+                    src={withImageCacheVersion(`/images/equip/${selected.imageId}.avif`)}
                     alt={t(`equips.${selected.id}`) ?? selected.name}
                     fill
                     sizes={isMobile ? '80px' : '96px'}
@@ -85,7 +86,7 @@ export const RefinementPanel = memo(function RefinementPanel() {
                   />
                 )}
                 <Image
-                  src={`/images/item-band-${selected.rarity}.png`}
+                  src={withImageCacheVersion(`/images/item-band-${selected.rarity}.png`)}
                   alt=""
                   width={200}
                   height={40}

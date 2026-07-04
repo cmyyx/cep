@@ -5,4 +5,5 @@ export interface VersionInfo {
   buildTime: string
   version: string
   forceUpgradeSerial: number
+  imageCacheVersion: string
 }

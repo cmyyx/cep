@@ -9,6 +9,7 @@ import { useRefinementStore } from '@/stores/useRefinementStore'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
 import { Button } from '@/components/ui/button'
 import { useMobileLongPressTooltip } from '@/hooks/use-mobile-long-press-tooltip'
+import { withImageCacheVersion } from '@/lib/image-url'
 import type { Equip } from '@/types/refinement'
 
 // Map Chinese equip types to i18n keys
@@ -78,7 +79,7 @@ export const EquipCard = memo(function EquipCard({
   const displayType = t(`equipTypes.${TYPE_TO_KEY[equip.type] ?? equip.type}`) ?? equip.type
   const displayMaterial = equip.material ? (t(`materials.${equip.material}`) ?? equip.material) : ''
   const imageSrc = equip.imageId
-    ? `/images/equip/${equip.imageId}.avif`
+    ? withImageCacheVersion(`/images/equip/${equip.imageId}.avif`)
     : ''
 
   return (
@@ -124,7 +125,7 @@ export const EquipCard = memo(function EquipCard({
 
         {/* Rarity band */}
         <Image
-          src={`/images/item-band-${equip.rarity}.png`}
+          src={withImageCacheVersion(`/images/item-band-${equip.rarity}.png`)}
           alt=""
           width={200}
           height={40}

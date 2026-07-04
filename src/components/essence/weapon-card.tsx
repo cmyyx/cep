@@ -10,6 +10,7 @@ import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip
 import { Button } from '@/components/ui/button'
 import { Check } from 'lucide-react'
 import { useMobileLongPressTooltip } from '@/hooks/use-mobile-long-press-tooltip'
+import { withImageCacheVersion } from '@/lib/image-url'
 
 import type { Weapon } from '@/types/matrix'
 
@@ -58,7 +59,7 @@ export const WeaponCard = memo(function WeaponCard({
   const imageId = weapon.iconId ?? wid
   const imageSrc = (isCustom || isPreview) ? undefined : wid.startsWith('data:')
     ? wid
-    : `/images/weapon/${imageId}.avif`
+    : withImageCacheVersion(`/images/weapon/${imageId}.avif`)
   const displayName = (isCustom || isPreview) ? weapon.name : (t(`weapons.${wid}`) ?? weapon.name)
 
   const trigger = (
@@ -111,7 +112,7 @@ export const WeaponCard = memo(function WeaponCard({
               className="relative size-8 rounded-full bg-black/60 border border-white/35 shadow-md overflow-hidden"
             >
               <Image
-                src={`/images/characters/${char}.avif`}
+                src={withImageCacheVersion(`/images/characters/${char}.avif`)}
                 alt={char}
                 fill
                 className="object-cover"
@@ -124,7 +125,7 @@ export const WeaponCard = memo(function WeaponCard({
 
       {/* Rarity band image */}
       <Image
-        src={`/images/item-band-${weapon.rarity}.png`}
+        src={withImageCacheVersion(`/images/item-band-${weapon.rarity}.png`)}
         alt=""
         width={200}
         height={40}

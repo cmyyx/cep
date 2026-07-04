@@ -5,6 +5,7 @@ import { useTranslations } from 'next-intl'
 import Image from 'next/image'
 import { ChevronRight } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import { withImageCacheVersion } from '@/lib/image-url'
 
 import type { Weapon } from '@/types/matrix'
 
@@ -35,7 +36,7 @@ export const SelectedWeaponsStrip = memo(function SelectedWeaponsStrip({
           const isCustom = wid.startsWith('custom-') || wid.startsWith('preview:')
           // 优先使用 iconId（游戏原始资源映射）
           const imageId = weapon.iconId ?? wid
-          const imgSrc = isCustom ? undefined : `/images/weapon/${imageId}.avif`
+          const imgSrc = isCustom ? undefined : withImageCacheVersion(`/images/weapon/${imageId}.avif`)
           const displayName = isCustom ? weapon.name : (t(`weapons.${wid}`) ?? weapon.name)
 
           return (
@@ -61,7 +62,7 @@ export const SelectedWeaponsStrip = memo(function SelectedWeaponsStrip({
                   </span>
                 )}
                 <Image
-                  src={`/images/item-band-${weapon.rarity}.png`}
+                  src={withImageCacheVersion(`/images/item-band-${weapon.rarity}.png`)}
                   alt=""
                   width={100}
                   height={6}

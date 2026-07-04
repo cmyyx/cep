@@ -16,6 +16,7 @@ import { EditorMaterialsTab } from '@/components/editor/editor-materials-tab'
 import { EditorGuideTab } from '@/components/editor/editor-guide-tab'
 import { EditorAttributionsTab } from '@/components/editor/editor-attributions-tab'
 import { Plus, Download, Upload, Trash2, Lock, GitFork } from 'lucide-react'
+import { withImageCacheVersion } from '@/lib/image-url'
 
 const TABS: { key: EditorTab; labelKey: string }[] = [
   { key: 'basic', labelKey: 'editor.tabBasic' },
@@ -210,7 +211,7 @@ export default function EditorPage() {
                     <div className="w-7 h-7 rounded-full bg-muted shrink-0 flex items-center justify-center overflow-hidden shadow-[0px_0px_0px_1px_rgba(0,0,0,0.08)]">
                       {!failedImages.has(draft.id) && (
                         <Image
-                          src={`/images/characters/${draft.name}.avif`}
+                          src={withImageCacheVersion(`/images/characters/${draft.name}.avif`)}
                           alt={draft.name}
                           width={28}
                           height={28}
