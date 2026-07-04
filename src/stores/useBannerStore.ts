@@ -1,4 +1,5 @@
 import { create } from 'zustand'
+import { withImageCacheVersion } from '@/lib/image-url'
 import { bannerSchedule, standardCharacters } from '@/data/banner-data'
 import { isCharacterOnBanner } from '@/lib/banner-utils'
 import type {
@@ -59,7 +60,7 @@ function normalizeSchedule(source: BannerSchedule): CharacterScheduleIndex {
 
     result[characterName] = {
       characterName, windows,
-      avatarSrc: `/images/characters/${characterName}.avif`,
+      avatarSrc: withImageCacheVersion(`/images/characters/${characterName}.avif`),
       period: mainPeriod, isStandard: false,
       offRateNote: entry.offRateNote,
     }
@@ -69,7 +70,7 @@ function normalizeSchedule(source: BannerSchedule): CharacterScheduleIndex {
     if (result[name]) continue
     result[name] = {
       characterName: name, windows: [],
-      avatarSrc: `/images/characters/${name}.avif`,
+      avatarSrc: withImageCacheVersion(`/images/characters/${name}.avif`),
       period: null, isStandard: true,
     }
   }

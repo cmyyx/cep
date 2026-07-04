@@ -17,6 +17,7 @@ import { Button } from '@/components/ui/button'
 
 import { computeEffectiveS1 } from '@/lib/planner/s1-utils'
 import { useIsMobile } from '@/hooks/use-mobile'
+import { withImageCacheVersion } from '@/lib/image-url'
 
 interface DungeonCardProps {
   plan: DungeonPlan
@@ -37,7 +38,7 @@ function weaponImageSrc(id?: string, iconId?: string): string | undefined {
   if (id.startsWith('data:')) return id
   // 优先使用 iconId（游戏原始资源映射，如 wpn_funnel_0008/0010 交叉指向）
   const imageId = iconId ?? id
-  return `/images/weapon/${imageId}.avif`
+  return withImageCacheVersion(`/images/weapon/${imageId}.avif`)
 }
 
 interface RowProps extends ThumbProps {
@@ -158,7 +159,7 @@ const WeaponThumbnail = memo(function WeaponThumbnail({
     >
       {(() => { const s = weaponImageSrc(weapon.id, weapon.iconId); if (!s) return <span className="absolute inset-0 flex items-center justify-center text-lg font-semibold text-white/40">{weapon.name?.charAt(0) ?? '?'}</span>; return <Image src={s} alt={weaponName} fill className="object-cover z-10" unoptimized /> })()}
       <Image
-        src={`/images/item-band-${weapon.rarity}.png`}
+        src={withImageCacheVersion(`/images/item-band-${weapon.rarity}.png`)}
         alt=""
         width={200}
         height={10}
@@ -234,7 +235,7 @@ const WeaponRow = memo(function WeaponRow({
           className="relative size-10 rounded shadow-[0_0_0_1px_rgba(0,0,0,0.08)] bg-muted/30 flex-shrink-0 overflow-hidden bg-[url(/images/item-frame-bg.png)] bg-cover bg-center cursor-pointer">
           {(() => { const s = weaponImageSrc(weapon.id); if (!s) return <span className="absolute inset-0 flex items-center justify-center text-lg font-semibold text-white/40">{weapon.name?.charAt(0) ?? '?'}</span>; return <Image src={s} alt={weaponName} fill className="object-cover z-10" unoptimized /> })()}
           <Image
-            src={`/images/item-band-${weapon.rarity}.png`}
+            src={withImageCacheVersion(`/images/item-band-${weapon.rarity}.png`)}
             alt=""
             width={200}
             height={8}

@@ -12,6 +12,7 @@ import type { CharacterGuideData, GuideEquipRow, TeamSlot, GuideEquipEntry, Team
 import { weapons } from '@/data/weapons'
 import { equips } from '@/data/equips'
 import { MATERIAL_NAMES } from '@/data/material-names'
+import { withImageCacheVersion } from '@/lib/image-url'
 
 // Runtime name→imageId maps built from authoritative data sources (no JSON maintenance).
 // Exclude non-standard IDs (preview:, custom-, data:) that would produce invalid image URLs.
@@ -29,21 +30,21 @@ type ViewMode = 'info' | 'guide'
 
 function getWeaponImageSrc(name: string): string | null {
   const id = weaponNameToImageId.get(name)
-  return id ? `/images/weapon/${id}.avif` : null
+  return id ? withImageCacheVersion(`/images/weapon/${id}.avif`) : null
 }
 
 function getEquipImageSrc(name: string): string | null {
   // Exact match
   const id = equipNameToId.get(name)
-  if (id) return `/images/equip/${id}.avif`
+  if (id) return withImageCacheVersion(`/images/equip/${id}.avif`)
   // Try matching base name (strip ·壹型, ·贰型, ·叁型 suffix)
   const baseName = name.replace(/[·‧]壹型|[·‧]贰型|[·‧]叁型/g, '').trim()
   const baseId = equipNameToId.get(baseName)
-  if (baseId) return `/images/equip/${baseId}.avif`
+  if (baseId) return withImageCacheVersion(`/images/equip/${baseId}.avif`)
   // Try fuzzy: find any key that contains the base name
   for (const [key, val] of equipNameToId) {
     if (key.includes(baseName) || baseName.includes(key)) {
-      return `/images/equip/${val}.avif`
+      return withImageCacheVersion(`/images/equip/${val}.avif`)
     }
   }
   return null
@@ -53,7 +54,7 @@ function getItemImageSrc(name: string): string | null {
   const cleanName = stripMaterialQuantity(name)
   if (!cleanName || !MATERIAL_NAMES.has(cleanName)) return null
   // item images follow name→name.avif pattern
-  return `/images/item/${cleanName}.avif`
+  return withImageCacheVersion(`/images/item/${cleanName}.avif`)
 }
 
 // ---- Collapsible section ----
@@ -138,7 +139,7 @@ function GuideCard({
       {/* Rarity band */}
       {rarity && !bandFailed && (
         <Image
-          src={`/images/item-band-${rarity}.png`}
+          src={withImageCacheVersion(`/images/item-band-${rarity}.png`)}
           alt=""
           width={200}
           height={40}
@@ -278,7 +279,7 @@ function OptionDisplay({ option, isRecommended, isAlternative }: { option: TeamS
         <div className="w-10 h-10 rounded-full bg-muted flex items-center justify-center overflow-hidden shadow-[0px_0px_0px_1px_rgba(0,0,0,0.08)] relative">
           {!avatarFailed && (
             <Image
-              src={`/images/characters/${option.name}.avif`}
+              src={withImageCacheVersion(`/images/characters/${option.name}.avif`)}
               alt={option.name}
               fill
               unoptimized
@@ -376,7 +377,7 @@ export const CharacterDetail = memo(function CharacterDetail({
     )
   }
 
-  const cardPath = `/images/characters/${character.name}_card.avif`
+  const cardPath = withImageCacheVersion(`/images/characters/${character.name}_card.avif`)
 
   return (
     <div className="flex flex-col h-full overflow-y-scroll">
@@ -402,7 +403,7 @@ export const CharacterDetail = memo(function CharacterDetail({
           <div className="w-14 h-14 rounded-full bg-muted shrink-0 flex items-center justify-center overflow-hidden shadow-[0px_0px_0px_1px_rgba(0,0,0,0.08)] relative">
             {!avatarFailed && (
               <Image
-                src={`/images/characters/${character.name}.avif`}
+                src={withImageCacheVersion(`/images/characters/${character.name}.avif`)}
                 alt={character.name}
                 fill
                 unoptimized

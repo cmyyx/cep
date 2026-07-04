@@ -1,7 +1,8 @@
 import { execSync } from "node:child_process"
-import { readFileSync, writeFileSync, mkdirSync } from "node:fs"
+import { readFileSync, writeFileSync, mkdirSync, readdirSync } from "node:fs"
 import { resolve, dirname } from "node:path"
 import { fileURLToPath } from "node:url"
+import { createHash } from "node:crypto"
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const root = resolve(__dirname, "..")
@@ -58,6 +59,40 @@ function getSemver() {
   return pkg.version || "0.0.0"
 }
 
+// 计算 public/images/ 目录的内容 hash 作为图片缓存版本号
+// 任何图片文件的新增/修改/删除都会改变此值，用于绕过浏览器旧缓存
+// 使用文件内容（而非 mtime）哈希，确保 CI/新 clone 环境下版本号稳定
+// 读取失败时使用空内容 hash 作为确定性回退，避免每次构建产生不同版本号
+function getImageCacheVersion() {
+  const imagesDir = resolve(root, "public", "images")
+  try {
+    const hash = createHash("sha256")
+    const walk = (dir) => {
+      const files = readdirSync(dir, { withFileTypes: true }).sort((a, b) =>
+        a.name.localeCompare(b.name)
+      )
+      for (const ent of files) {
+        const full = resolve(dir, ent.name)
+        if (ent.isDirectory()) {
+          walk(full)
+        } else if (ent.isFile()) {
+          const rel = full.slice(imagesDir.length).replace(/\\/g, "/")
+          hash.update(rel)
+          hash.update(readFileSync(full))
+        }
+      }
+    }
+    walk(imagesDir)
+    return hash.digest("hex").slice(0, 8)
+  } catch (err) {
+    console.warn(
+      "[generate-version] 读取 public/images 失败，使用空内容 hash 作为图片缓存版本号：",
+      err?.message ?? err
+    )
+    return createHash("sha256").update("").digest("hex").slice(0, 8)
+  }
+}
+
 const semver = getSemver()
 const commitHash = git("rev-parse --short HEAD") || "unknown"
 const count = Number(git("rev-list --count HEAD")) || 0
@@ -71,6 +106,7 @@ const version = {
   buildTime: new Date().toISOString(),
   version: derivedVersion,
   forceUpgradeSerial: getForceUpgradeSerial(),
+  imageCacheVersion: getImageCacheVersion(),
 }
 
 const outPath = resolve(root, "public", "version.json")
