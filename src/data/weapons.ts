@@ -2,6 +2,9 @@ import type { Weapon } from '@/types/matrix'
 
 export const weapons: Weapon[] = [
   // ===== 六星 =====
+  // --- preview：官方预告，游戏实装后由 `pnpm sync:update` 自动 promote 为正式 id ---
+  { id: 'preview:四二式·肃阵', name: '四二式·肃阵', rarity: 6, type: '施术单元', primaryStat: 'gat_passive_attr_wisd', elementalDamage: 'gat_passive_attr_usp', specialAbility: 'gst_passive_burst', chars: [], source: 'preview' },
+  { id: 'preview:曜夜的首演', name: '曜夜的首演', rarity: 6, type: '长柄武器', primaryStat: 'gat_passive_attr_will', elementalDamage: 'gat_passive_attr_heal', specialAbility: 'gst_passive_heal', chars: [], source: 'preview' },
   { id: 'wpn_claym_0017', iconId: 'wpn_claym_0017', name: '赤缨', rarity: 6, type: '双手剑', primaryStat: 'gat_passive_attr_str', elementalDamage: 'gat_passive_attr_atk', specialAbility: 'gst_passive_phyabn', chars: ['弭弗'], },
   { id: 'wpn_lance_0015', iconId: 'wpn_lance_0015', name: '镀红祝福', rarity: 6, type: '长柄武器', primaryStat: 'gat_passive_attr_agi', elementalDamage: 'gat_passive_attr_firedam', specialAbility: 'gst_passive_tacafter', chars: ['卡缪'], },
   { id: 'wpn_claym_0016', iconId: 'wpn_claym_0016', name: '幻想苦痛', rarity: 6, type: '双手剑', primaryStat: 'gat_passive_attr_str', elementalDamage: 'gat_passive_attr_physpell', specialAbility: 'gst_passive_tactic', chars: [], },
