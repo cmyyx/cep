@@ -1,39 +1,39 @@
 import { describe, it, expect, vi } from 'vitest'
 
-const { mockVersionData } = vi.hoisted(() => ({
-  mockVersionData: { imageCacheVersion: 'abc12345' },
+const { mockManifest } = vi.hoisted(() => ({
+  mockManifest: {} as Record<string, string>,
 }))
 
-vi.mock('@/generated/version-data', () => ({
-  versionData: mockVersionData,
+vi.mock('@/generated/image-hash-manifest', () => ({
+  imageHashManifest: mockManifest,
 }))
 
 import { withImageCacheVersion } from './image-url'
 
 describe('withImageCacheVersion', () => {
-  it('appends ?v= when version is present', () => {
-    mockVersionData.imageCacheVersion = 'abc12345'
+  it('appends ?v= when hash exists for path', () => {
+    mockManifest['/images/weapon/foo.avif'] = 'abc12345'
     expect(withImageCacheVersion('/images/weapon/foo.avif')).toBe(
       '/images/weapon/foo.avif?v=abc12345'
     )
   })
 
   it('uses & separator when path already has query string', () => {
-    mockVersionData.imageCacheVersion = 'abc12345'
+    mockManifest['/images/weapon/foo.avif'] = 'abc12345'
     expect(
       withImageCacheVersion('/images/weapon/foo.avif?size=small')
     ).toBe('/images/weapon/foo.avif?size=small&v=abc12345')
   })
 
-  it('returns path unchanged when version is empty', () => {
-    mockVersionData.imageCacheVersion = ''
+  it('returns path unchanged when no hash exists for path', () => {
+    delete mockManifest['/images/weapon/foo.avif']
     expect(withImageCacheVersion('/images/weapon/foo.avif')).toBe(
       '/images/weapon/foo.avif'
     )
   })
 
-  it('does not append separator when version is empty even if path has query', () => {
-    mockVersionData.imageCacheVersion = ''
+  it('does not append separator when no hash exists even if path has query', () => {
+    delete mockManifest['/images/weapon/foo.avif']
     expect(
       withImageCacheVersion('/images/weapon/foo.avif?size=small')
     ).toBe('/images/weapon/foo.avif?size=small')
