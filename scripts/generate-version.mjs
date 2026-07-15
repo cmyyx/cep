@@ -62,36 +62,29 @@ function getSemver() {
 // 为 public/images/ 中每个文件单独计算内容 hash，生成 manifest
 // key 为 URL 路径（如 /images/weapon/foo.avif），value 为 8 位 SHA-256 前缀
 // 仅内容变动的图片 URL 会变化，避免一张图片修改导致全部图片重新请求
-// 读取失败时返回空 manifest，URL 不附加版本号
+// 读取失败时直接抛错阻断构建，避免 cache-busting 被悄悄禁用
 function generateImageManifest() {
   const imagesDir = resolve(root, "public", "images")
   const manifest = {}
-  try {
-    const walk = (dir) => {
-      const files = readdirSync(dir, { withFileTypes: true }).sort((a, b) =>
-        a.name.localeCompare(b.name)
-      )
-      for (const ent of files) {
-        const full = resolve(dir, ent.name)
-        if (ent.isDirectory()) {
-          walk(full)
-        } else if (ent.isFile()) {
-          const rel = full.slice(imagesDir.length).replace(/\\/g, "/")
-          const urlPath = `/images${rel}`
-          manifest[urlPath] = createHash("sha256")
-            .update(readFileSync(full))
-            .digest("hex")
-            .slice(0, 8)
-        }
+  const walk = (dir) => {
+    const files = readdirSync(dir, { withFileTypes: true }).sort((a, b) =>
+      a.name.localeCompare(b.name)
+    )
+    for (const ent of files) {
+      const full = resolve(dir, ent.name)
+      if (ent.isDirectory()) {
+        walk(full)
+      } else if (ent.isFile()) {
+        const rel = full.slice(imagesDir.length).replace(/\\/g, "/")
+        const urlPath = `/images${rel}`
+        manifest[urlPath] = createHash("sha256")
+          .update(readFileSync(full))
+          .digest("hex")
+          .slice(0, 8)
       }
     }
-    walk(imagesDir)
-  } catch (err) {
-    console.warn(
-      "[generate-version] 读取 public/images 失败，图片哈希清单为空：",
-      err?.message ?? err
-    )
   }
+  walk(imagesDir)
   return manifest
 }
 
