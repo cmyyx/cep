@@ -1,12 +1,12 @@
 // Generates metadata i18n: equip types, materials/vouchers, and equip suit names.
-// Suit names are auto-detected from AKEDatabase/public/CH/equip/ JSON files.
-// Materials and vouchers are auto-detected from equipformulatable in v2_equip.
+// Suit names are auto-detected from AKEData/TableCfg/EquipSuitTable.json.
+// Materials and vouchers are auto-detected from EquipFormulaChainTable.json.
 // ================================================================================
 
-import { existsSync, readFileSync, readdirSync, mkdirSync, writeFileSync } from 'node:fs'
+import { existsSync, readFileSync, mkdirSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
-import { resolveSuitName } from './upstream'
-import { loadAllTextTables, SUPPORTED_LOCALES } from './stat-mapping'
+import { parseJsonSafe } from './json-utils'
+import { loadAllTextTables, loadTextTable, SUPPORTED_LOCALES } from './stat-mapping'
 
 // Equip types: Chinese display name -> i18n key
 const EQUIP_TYPE_TERMS: { key: string; cnSearch: string }[] = [
@@ -51,77 +51,104 @@ function buildI18nFiles(
   return terms.length
 }
 
-/** Auto-detect suit names from v2_equip (primary) with old-format fallback. */
-function detectSuitNames(imagedbPath: string): string[] {
-  const v2Dir = join(imagedbPath, 'public', 'CH', 'v2_equip')
-  const equipDir = join(imagedbPath, 'public', 'CH', 'equip')
-  const dir = existsSync(v2Dir) ? v2Dir : existsSync(equipDir) ? equipDir : null
-  if (!dir) return []
-
-  const names = new Set<string>()
-  for (const file of readdirSync(dir)) {
-    if (!file.endsWith('.json') || file === 'manifest.json') continue
-    try {
-      const data = JSON.parse(readFileSync(join(dir, file), 'utf-8'))
-      // Only include suits that have >=5-star equipment
-      const equiptable = data.equiptable as Record<string, unknown> | undefined
-      const itemtable = data.itemtable as Record<string, { rarity?: number }> | undefined
-      if (!equiptable || !itemtable) continue
-      const has5Star = Object.entries(itemtable).some(
-        ([id, item]) => equiptable[id] && (item.rarity ?? 0) >= 5,
-      )
-      if (!has5Star) continue
-      const suitName = resolveSuitName(file, imagedbPath)
-      if (suitName) names.add(suitName)
-    } catch { /* skip malformed files */ }
+/** Regex-based extraction of itemId→rarity for equip items from ItemTable raw text.
+ *  Avoids full JSON.parse of the 110K+ line file. */
+function buildEquipRarityMap(itemTablePath: string): Map<string, number> {
+  const map = new Map<string, number>()
+  if (!existsSync(itemTablePath)) return map
+  const raw = readFileSync(itemTablePath, 'utf-8')
+  const itemRe = /"(\w+)"\s*:\s*\{/g
+  let m: RegExpExecArray | null
+  while ((m = itemRe.exec(raw)) !== null) {
+    const itemId = m[1]
+    if (!itemId.startsWith('item_equip_')) continue
+    const window = raw.substring(m.index, m.index + 3000)
+    const rarityMatch = window.match(/"rarity"\s*:\s*(-?\d+)/)
+    if (rarityMatch?.[1]) {
+      map.set(itemId, Number(rarityMatch[1]))
+    }
   }
+  return map
+}
+
+/** Auto-detect suit names from EquipSuitTable, filtering to ≥5★ suits. */
+function detectSuitNames(akedataPath: string): string[] {
+  const suitTablePath = join(akedataPath, 'TableCfg', 'EquipSuitTable.json')
+  const itemTablePath = join(akedataPath, 'TableCfg', 'ItemTable.json')
+  if (!existsSync(suitTablePath) || !existsSync(itemTablePath)) return []
+
+  const suitTable = parseJsonSafe(suitTablePath) as Record<string, {
+    equipList?: string[]
+    list?: { suitName?: { id: string } }[]
+  }>
+  const equipRarity = buildEquipRarityMap(itemTablePath)
+  const textTable = loadTextTable(akedataPath, 'zh-CN')
+  const names = new Set<string>()
+
+  for (const [, suit] of Object.entries(suitTable)) {
+    const suitNameId = suit.list?.[0]?.suitName?.id
+    if (!suitNameId) continue
+    const suitName = textTable[String(suitNameId)]
+    if (!suitName) continue
+
+    const has5Star = (suit.equipList ?? []).some(eid => (equipRarity.get(eid) ?? 0) >= 5)
+    if (has5Star) names.add(suitName)
+  }
+
   return [...names].sort()
 }
 
-/** Auto-detect material and voucher names from v2_equip equipformulatable. */
-function detectMaterialAndVoucherNames(imagedbPath: string): string[] {
-  const v2Dir = join(imagedbPath, 'public', 'CH', 'v2_equip')
-  if (!existsSync(v2Dir)) return []
+/** Regex-based extraction of itemId→CN name for all items from ItemTable+TextTable. */
+function buildItemCnNameMap(itemTablePath: string, textTable: Record<string, string>): Map<string, string> {
+  const map = new Map<string, string>()
+  if (!existsSync(itemTablePath)) return map
+  const raw = readFileSync(itemTablePath, 'utf-8')
+  const itemRe = /"(\w+)"\s*:\s*\{/g
+  let m: RegExpExecArray | null
+  while ((m = itemRe.exec(raw)) !== null) {
+    const itemId = m[1]
+    if (!itemId.startsWith('item_')) continue
+    const window = raw.substring(m.index, m.index + 3000)
+    const nameMatch = window.match(/"name"\s*:\s*\{[^}]*?"id"\s*:\s*(-?\d+)/)
+    if (nameMatch?.[1]) {
+      const cn = textTable[nameMatch[1]]
+      if (cn) map.set(itemId, cn)
+    }
+  }
+  return map
+}
 
+/** Auto-detect material and voucher names from EquipFormulaChainTable. */
+function detectMaterialAndVoucherNames(akedataPath: string): string[] {
+  const chainTablePath = join(akedataPath, 'TableCfg', 'EquipFormulaChainTable.json')
+  const itemTablePath = join(akedataPath, 'TableCfg', 'ItemTable.json')
+  if (!existsSync(chainTablePath) || !existsSync(itemTablePath)) return []
+
+  const chainTable = JSON.parse(readFileSync(chainTablePath, 'utf-8')) as Record<string, {
+    chainList?: { costItemId?: string[]; costGoldId?: string }[]
+  }>
+  const textTable = loadTextTable(akedataPath, 'zh-CN')
+  const itemNameMap = buildItemCnNameMap(itemTablePath, textTable)
   const names = new Set<string>()
-  for (const file of readdirSync(v2Dir)) {
-    if (!file.endsWith('.json') || file === 'manifest.json') continue
-    try {
-      const data = JSON.parse(readFileSync(join(v2Dir, file), 'utf-8'))
-      const equiptable = data.equiptable as Record<string, unknown> | undefined
-      const itemtable = data.itemtable as Record<string, { name?: { text: string }; rarity?: number }> | undefined
-      const equipformulatable = data.equipformulatable as Record<string, {
-        costItemId?: string[]
-        costGoldId?: string
-        outcomeEquipId?: string
-      }> | undefined
-      if (!equiptable || !itemtable || !equipformulatable) continue
 
-      for (const formula of Object.values(equipformulatable)) {
-        if (!formula.outcomeEquipId) continue
-        // Only process formulas for >=5-star equipment
-        const outItem = itemtable[formula.outcomeEquipId]
-        if (!outItem || (outItem.rarity ?? 0) < 5) continue
-        // Material names from costItemId
-        for (const costId of formula.costItemId ?? []) {
-          const costItem = itemtable[costId]
-          if (costItem?.name?.text) names.add(costItem.name.text)
-        }
-        // Voucher name from costGoldId
-        if (formula.costGoldId) {
-          const goldItem = itemtable[formula.costGoldId]
-          if (goldItem?.name?.text) names.add(goldItem.name.text)
-        }
+  for (const [, tier] of Object.entries(chainTable)) {
+    for (const chain of tier.chainList ?? []) {
+      for (const costId of chain.costItemId ?? []) {
+        const name = itemNameMap.get(costId)
+        if (name) names.add(name)
       }
-    } catch { /* skip malformed files */ }
+      if (chain.costGoldId) {
+        const name = itemNameMap.get(chain.costGoldId)
+        if (name) names.add(name)
+      }
+    }
   }
+
   return [...names].sort()
 }
-
 export function generateMetadataI18n(
   akedataPath: string,
   outputDir: string,
-  imagedbPath: string,
 ): { files: number; terms: number } {
   // Load TextTable for all locales (from AKEData/TableCfg)
   const textTables = loadAllTextTables(akedataPath)
@@ -131,13 +158,15 @@ export function generateMetadataI18n(
   // Equipment types
   totalTerms += buildI18nFiles(EQUIP_TYPE_TERMS, textTables, outputDir, 'equipTypes')
 
-  // Materials & vouchers (auto-detected from v2_equip equipformulatable)
-  const materialAndVoucherNames = detectMaterialAndVoucherNames(imagedbPath)
+  // Materials & vouchers (auto-detected from EquipFormulaChainTable)
+  const materialAndVoucherNames = detectMaterialAndVoucherNames(akedataPath)
   const materialTerms = materialAndVoucherNames.map(name => ({ key: name, cnSearch: name }))
   totalTerms += buildI18nFiles(materialTerms, textTables, outputDir, 'materials')
 
-  // Suit names (auto-detected from equip JSON files)
-  const suitNames = detectSuitNames(imagedbPath)
+  // Suit names (auto-detected from EquipSuitTable)
+  const suitNames = detectSuitNames(akedataPath)
+  // Always include standalone equipment
+  if (!suitNames.includes('独立装备')) suitNames.push('独立装备')
   if (suitNames.length > 0) {
     // Filter out test/manual-edit entries, sanitize keys
     const validNames = suitNames.filter(n => !n.includes('手动编辑') && !n.includes('手动'))

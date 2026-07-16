@@ -1,10 +1,12 @@
 // Compares AKEData weapon data against project weapons.
 // Detects new weapons, name mismatches, weapon types, and 专武 associations.
+// Data sourced from AKEData/TableCfg/ (WeaponBasicTable, ItemTable, I18nTextTable).
 // ================================================================================
 
-import { existsSync, readFileSync, readdirSync } from 'node:fs'
+import { existsSync, readFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { extractItemNameIds } from './extract-textid'
+import { loadTextTable } from './stat-mapping'
 
 // ── Constants ─────────────────────────────────────────────────────────────────
 
@@ -30,12 +32,12 @@ const WEAPON_PREFIX_TYPE: Record<string, string> = {
 
 export interface WeaponEntry {
   weaponId: string
-  title: string             // official CN name (from output/CN)
+  title: string             // official CN name (from I18nTextTable_CN)
   rarity: number
   weaponType: number        // numeric type from WeaponBasicTable
   typeName: string          // resolved type name
   engNameTextId: string     // TextTable ID for engName (used for i18n lookup)
-  iconPath: string
+  iconPath: string          // iconId from ItemTable
   isNew: boolean            // not in project
   nameMismatch?: string     // project name differs from official
   charAssociation?: {       // 专武 detection
@@ -54,27 +56,66 @@ export interface WeaponCompareResult {
 
 // ── Main comparator ───────────────────────────────────────────────────────────
 
+/** Type for WeaponBasicTable entries (loaded from TableCfg). */
+interface WeaponBasicEntry {
+  weaponId: string
+  rarity: number
+  weaponType: number
+  weaponSkillList: string[]
+}
+
+/** Load ItemTable iconId → weaponId mapping via regex (avoids int64 truncation). */
+function loadItemTableForCompare(akedataPath: string): Record<string, string> {
+  const itemTablePath = join(akedataPath, 'TableCfg', 'ItemTable.json')
+  if (!existsSync(itemTablePath)) return {}
+  const raw = readFileSync(itemTablePath, 'utf-8')
+  const result: Record<string, string> = {}
+  // Match weapon entries and extract iconId
+  const itemRe = /"(wpn_[^"]+)"\s*:\s*\{/g
+  let m: RegExpExecArray | null
+  while ((m = itemRe.exec(raw)) !== null) {
+    const itemId = m[1]
+    const objStart = raw.indexOf('{', m.index)
+    const depth = (() => {
+      let d = 0, pos = objStart
+      for (; pos < raw.length; pos++) {
+        if (raw[pos] === '{') d++
+        else if (raw[pos] === '}') { d--; if (d === 0) return pos + 1 }
+      }
+      return raw.length
+    })()
+    const block = raw.slice(objStart, depth)
+    const iconIdMatch = block.match(/"iconId"\s*:\s*"(wpn_[^"]+)"|"iconId"\s*:\s*(wpn_\w+)/)
+    if (iconIdMatch) {
+      result[itemId] = iconIdMatch[1] ?? iconIdMatch[2] ?? itemId
+    } else {
+      result[itemId] = itemId
+    }
+  }
+  return result
+}
+
 export function compareWeapons(
   akedataPath: string,
   projectWeaponsTsPath: string,
-  _weaponBasicTable: Record<string, unknown>,
   charWpnRecommend: Record<string, unknown>,
-  imagedbPath?: string,
 ): WeaponCompareResult {
-  // Primary source: AKEDatabase/public/CH/weapon/ (always most up-to-date)
-  // Fallback: AKEData/output/CN/weapon/
-  const primaryDir = imagedbPath ? join(imagedbPath, 'public', 'CH', 'weapon') : null
-  const fallbackDir = join(akedataPath, 'output', 'CN', 'weapon')
-  const weaponDir = primaryDir && existsSync(primaryDir) ? primaryDir
-    : existsSync(fallbackDir) ? fallbackDir
-    : null
-  if (!weaponDir) {
-    console.warn('  [weapons] weapon dir not found')
+  const wpnBasicPath = join(akedataPath, 'TableCfg', 'WeaponBasicTable.json')
+  if (!existsSync(wpnBasicPath)) {
+    console.warn('  [weapons] WeaponBasicTable.json not found')
     return { entries: [], newCount: 0, mismatchCount: 0, i18nEntries: [] }
   }
 
+  const wpnBasic = JSON.parse(readFileSync(wpnBasicPath, 'utf-8')) as Record<string, WeaponBasicEntry>
+
   // Extract localized name text IDs from ItemTable.json (avoids int64 truncation)
   const weaponTextIds = extractItemNameIds(join(akedataPath, 'TableCfg', 'ItemTable.json'))
+
+  // Load CN TextTable for display names
+  const cnTextTable = loadTextTable(akedataPath, 'zh-CN')
+
+  // Load ItemTable for iconId resolution
+  const itemTable = loadItemTableForCompare(akedataPath)
 
   // Read project weapon IDs
   const projectIds = extractProjectWeaponIds(projectWeaponsTsPath)
@@ -84,18 +125,15 @@ export function compareWeapons(
   let newCount = 0
   const mismatchCount = 0
 
-  // Read all output/CN/weapon/*.json files
-  for (const file of readdirSync(weaponDir)) {
-    if (!file.endsWith('.json') || file === 'manifest.json') continue
-    const weaponId = file.replace('.json', '')
-    const data = JSON.parse(readFileSync(join(weaponDir, file), 'utf-8'))
-    const title: string = data.title ?? weaponId
-    const rarity: number = data.rarity ?? 1
-    const weaponType: number = data.weapontype ?? 0
-    const iconPath: string = data.icon ?? ''
+  // Iterate WeaponBasicTable entries (76 weapons, all current)
+  for (const [weaponId, wpnData] of Object.entries(wpnBasic)) {
+    const rarity: number = wpnData.rarity ?? 1
+    const weaponType: number = wpnData.weaponType ?? 0
+    const iconPath: string = itemTable[weaponId] ?? weaponId
 
-    // Get ItemTable.name.id for localized display name (precise int64)
+    // Get localized display name from ItemTable.name.id → I18nTextTable_CN
     const nameTextId = weaponTextIds[weaponId] ?? ''
+    const title = nameTextId ? (cnTextTable[nameTextId] ?? weaponId) : weaponId
 
     // Resolve type name
     const typeName = WEAPON_TYPE_MAP[weaponType] ?? inferTypeFromId(weaponId)

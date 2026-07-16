@@ -13,29 +13,32 @@ import { updateWeaponsFile, updateEquipsFile, updateDungeonsFile, reconcileWeapo
 import { validateAllData, validateImages } from './lib/validate-data'
 import { convertIcons } from './lib/convert-icons'
 import { readUpstreamVersions, writeUpstreamVersions } from './lib/git-helpers'
-import { existsSync, readFileSync, readdirSync, mkdirSync, writeFileSync } from 'node:fs'
+import { existsSync, readFileSync, mkdirSync, writeFileSync } from 'node:fs'
 import { join, resolve } from 'node:path'
+import { extractItemNameIds } from './lib/extract-textid'
+import { loadTextTable } from './lib/stat-mapping'
 
-/** Build weapon name → weaponId mapping from AKEDatabase + AKEData */
-function buildWeaponNameMap(imagedbPath: string, akedataPath: string): Map<string, string> {
+/** Build weapon name → weaponId mapping from TableCfg (WeaponBasicTable + ItemTable + I18nTextTable_CN). */
+function buildWeaponNameMap(akedataPath: string): Map<string, string> {
   const nameMap = new Map<string, string>()
-  // Primary: AKEDatabase/public/CH/weapon/
-  const primaryDir = imagedbPath ? join(imagedbPath, 'public', 'CH', 'weapon') : null
-  // Fallback: AKEData/output/CN/weapon/
-  const fallbackDir = join(akedataPath, 'output', 'CN', 'weapon')
-  const weaponDir = primaryDir && existsSync(primaryDir) ? primaryDir
-    : existsSync(fallbackDir) ? fallbackDir
-    : null
-  if (!weaponDir) return nameMap
-  for (const file of readdirSync(weaponDir)) {
-    if (!file.endsWith('.json') || file === 'manifest.json') continue
-    const weaponId = file.replace('.json', '')
-    try {
-      const data = JSON.parse(readFileSync(join(weaponDir, file), 'utf-8'))
-      const title: string = data.title ?? weaponId
-      if (title) nameMap.set(title, weaponId)
-    } catch { /* skip malformed files */ }
+
+  // Load WeaponBasicTable for weapon list
+  const wpnBasicPath = join(akedataPath, 'TableCfg', 'WeaponBasicTable.json')
+  if (!existsSync(wpnBasicPath)) return nameMap
+  const wpnBasic = JSON.parse(readFileSync(wpnBasicPath, 'utf-8')) as Record<string, unknown>
+
+  // Load ItemTable name text IDs
+  const weaponTextIds = extractItemNameIds(join(akedataPath, 'TableCfg', 'ItemTable.json'))
+
+  // Load CN TextTable for display names
+  const cnTextTable = loadTextTable(akedataPath, 'zh-CN')
+
+  for (const weaponId of Object.keys(wpnBasic)) {
+    const nameTextId = weaponTextIds[weaponId]
+    const title = nameTextId ? (cnTextTable[nameTextId] ?? weaponId) : weaponId
+    if (title) nameMap.set(title, weaponId)
   }
+
   return nameMap
 }
 
@@ -136,13 +139,13 @@ async function main() {
   const generatedRoot = join(projectRoot, 'src', 'generated', 'i18n')
   mkdirSync(generatedRoot, { recursive: true })
 
-  // Weapons (AKEDatabase/public/CH as primary source)
+  // Weapons (AKEData as source)
   console.log('\n-- Weapons --')
   const charWpnRecPath = join(paths.akedata, 'TableCfg', 'CharWpnRecommendTable.json')
   const charWpnRec = existsSync(charWpnRecPath)
     ? JSON.parse(readFileSync(charWpnRecPath, 'utf-8')) as Record<string, unknown>
     : {}
-  const wpnResult = compareWeapons(paths.akedata, join(projectRoot, 'src', 'data', 'weapons.ts'), {}, charWpnRec, paths.imagedb)
+  const wpnResult = compareWeapons(paths.akedata, join(projectRoot, 'src', 'data', 'weapons.ts'), charWpnRec)
   console.log(`  Total: ${wpnResult.entries.length} | New >=4star: ${wpnResult.entries.filter(w=>w.isNew&&w.rarity>=4).length}`)
   for (const w of wpnResult.entries) {
     if (w.isNew && w.rarity >= 4) console.log(`  NEW  ${w.weaponId}: ${w.title} (${w.rarity}star, ${w.typeName})`)
@@ -159,7 +162,6 @@ async function main() {
       console.log(`    [${tag}] ${issue.weaponId}: expected "${issue.expected}", got "${actual}"`)
     }
     if (mode === 'check') {
-      // Block PR creation when iconId issues exist
       console.error('  iconId reconciliation required. Run sync:update to fix.')
       process.exit(2)
     }
@@ -167,7 +169,7 @@ async function main() {
     console.log(`  iconId: ${iconIdReconcile.unchanged} verified, ${iconIdReconcile.skipped} skipped (no upstream entry)`)
   }
   // Preview weapon detection and update
-  const weaponNameMap = buildWeaponNameMap(paths.imagedb, paths.akedata)
+  const weaponNameMap = buildWeaponNameMap(paths.akedata)
   const previewResult = updatePreviewWeapons(weaponsTsPath, weaponNameMap, mode === 'update')
   if (previewResult.previewCount > 0) {
     console.log(`\n  Preview weapons: ${previewResult.previewCount} total, ${previewResult.updatable.length} updatable`)
@@ -179,48 +181,38 @@ async function main() {
     }
   }
   if (mode === 'update') {
-    // Update weapons.ts with new weapons.
-    // Exclude weapons that were just promoted from preview → formal IDs:
-    // compareWeapons() ran before updatePreviewWeapons(), so a promoted weapon
-    // still appears as "new" in wpnResult.entries. Filtering it out prevents a
-    // duplicate append — the preview entry was already renamed in-place (with
-    // its chars preserved), so appending again would create two entries with
-    // the same id.
     const promotedFormalIds = new Set(previewResult.updatable.map(p => p.formalId))
     const newWeaponIds = wpnResult.entries
       .filter(w => w.isNew && w.rarity >= 4 && !promotedFormalIds.has(w.weaponId))
       .map(w => w.weaponId)
     if (newWeaponIds.length > 0) {
-      const updated = updateWeaponsFile(weaponsTsPath, newWeaponIds, paths.imagedb, paths.akedata)
+      const updated = updateWeaponsFile(weaponsTsPath, newWeaponIds, paths.akedata)
       console.log(`  Updated: ${updated} weapons added to weapons.ts`)
     }
-    // Reconcile iconId field against upstream ItemTable.iconId
-    // (adds missing iconId, fixes incorrect iconId for existing weapons)
     const iconIdFix = reconcileWeaponsIconIds(weaponsTsPath, paths.akedata, false)
     if (iconIdFix.added > 0 || iconIdFix.updated > 0) {
       console.log(`  iconId reconciled: ${iconIdFix.added} added, ${iconIdFix.updated} updated, ${iconIdFix.unchanged} unchanged`)
     }
-    const r = generateWeaponI18n(paths.akedata, paths.imagedb, generatedRoot)
-    console.log(`  i18n: ${r.written.length} files, ${r.count} wpns, ${r.missing} missing`)
-    const ws = generateWeaponStatsI18n(paths.imagedb, paths.akedata, generatedRoot)
+    const wI18n = generateWeaponI18n(paths.akedata, generatedRoot)
+    console.log(`  i18n: ${wI18n.written.length} files, ${wI18n.count} wpns, ${wI18n.missing} missing`)
+    const ws = generateWeaponStatsI18n(paths.akedata, generatedRoot)
     console.log(`  weaponStats: ${ws.written.length} files, ${ws.count} entries, ${ws.missing} missing`)
   }
 
-  // Equips (AKEDatabase/public/CH as primary source)
+  // Equips (AKEData as source)
   console.log('\n-- Equips (>=5star) --')
-  const equipResult = compareEquips(paths.akedata, join(projectRoot, 'src', 'data', 'equips.ts'), paths.imagedb)
+  const equipResult = compareEquips(paths.akedata, join(projectRoot, 'src', 'data', 'equips.ts'))
   console.log(`  Total: ${equipResult.entries.length} | New: ${equipResult.newCount}`)
   for (const e of equipResult.entries) {
     if (e.isNew) console.log(`  NEW  ${e.equipId}: ${e.name} (${e.rarity}star, ${e.slot})`)
   }
   if (mode === 'update') {
-    // Reconcile all equips: add new ones + fix any drifted values
     const newEquipIds = equipResult.entries.filter(e => e.isNew).map(e => e.equipId)
     const equipsTsPath = join(projectRoot, 'src', 'data', 'equips.ts')
-    const updated = updateEquipsFile(equipsTsPath, newEquipIds, paths.imagedb, paths.akedata, true)
+    const updated = updateEquipsFile(equipsTsPath, newEquipIds, paths.akedata, true)
     console.log(`  Reconciled: ${updated} equips synced`)
-    const r = generateEquipI18n(paths.akedata, paths.imagedb, generatedRoot)
-    console.log(`  i18n: ${r.written.length} files, ${r.count} entries, ${r.missing} missing`)
+    const eI18n = generateEquipI18n(paths.akedata, generatedRoot)
+    console.log(`  i18n: ${eI18n.written.length} files, ${eI18n.count} entries, ${eI18n.missing} missing`)
   }
 
   // Dungeons (Energy Alluvium) - generates dungeons + regions + stats i18n
@@ -246,14 +238,14 @@ async function main() {
   // Metadata: equip types, materials (with abbreviation->full mapping), suit names
   console.log('\n-- Metadata --')
   if (mode === 'update') {
-    const m = generateMetadataI18n(paths.akedata, generatedRoot, paths.imagedb)
+    const m = generateMetadataI18n(paths.akedata, generatedRoot)
     console.log(`  i18n: ${m.files} files, ${m.terms} terms`)
   }
 
   // Generate stat i18n — gemStats (weapons/dungeons) + equipStats (equipment)
   if (mode === 'update') {
     console.log('\n-- Stat i18n --')
-    const r = generateStatI18n(paths.akedata, paths.imagedb, generatedRoot)
+    const r = generateStatI18n(paths.akedata, generatedRoot)
     console.log(`  gemStats: ${r.gemWritten.length} files, ${r.gemCount} gem terms`)
     console.log(`  equipStats: ${r.equipWritten.length} files, ${r.equipCount} equip terms`)
     if (r.equipUnmatched.length > 0) {
@@ -265,7 +257,7 @@ async function main() {
 
   // Validate existing data against upstream
   console.log('\n-- Validation --')
-  const validationIssues = validateAllData(paths.imagedb, paths.akedata, projectRoot)
+  const validationIssues = validateAllData(paths.akedata, projectRoot)
   if (validationIssues.length > 0) {
     console.log(`  Found ${validationIssues.length} data inconsistency:`)
     for (const issue of validationIssues) {

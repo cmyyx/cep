@@ -15,11 +15,11 @@
   "50": "Physical DMG Bonus",
   "61": "DMG Bonus vs. Staggered",
   "87": "Arts Intensity",
-  "Sub": "Secondary Attribute",
   "AllSkillDamageIncrease": "All Skill DMG Dealt Bonus",
-  "CrystAndPulseDamageIncrease": "Cryo and Electric DMG Dealt Bonus",
-  "FireAndNaturalDamageIncrease": "Heat and Nature DMG Dealt Bonus",
   "AllDamageTakenScalar": "Final DMG Reduction",
+  "Sub": "Secondary Attribute",
   "Main": "Main Attribute",
-  "SpellDamageIncrease": "Arts DMG Dealt Bonus"
+  "CrystAndPulseDamageIncrease": "Cryo and Electric DMG Dealt Bonus",
+  "SpellDamageIncrease": "Arts DMG Dealt Bonus",
+  "FireAndNaturalDamageIncrease": "Heat and Nature DMG Dealt Bonus"
 }

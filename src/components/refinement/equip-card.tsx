@@ -78,10 +78,13 @@ export const EquipCard = memo(function EquipCard({
   const displayName = t(`equips.${equip.id}`) ?? equip.name
   const displayType = t(`equipTypes.${TYPE_TO_KEY[equip.type] ?? equip.type}`) ?? equip.type
   const displayMaterial = equip.material ? (t(`materials.${equip.material}`) ?? equip.material) : ''
+  const displayAltMaterial = equip.altMaterial ? (t(`materials.${equip.altMaterial}`) ?? equip.altMaterial) : ''
+  const displayVoucher = equip.voucher ? `${t(`materials.${equip.voucher.name}`) ?? equip.voucher.name}x${equip.voucher.count}` : ''
+  const displayAltVoucher = equip.altVoucher ? `${t(`materials.${equip.altVoucher.name}`) ?? equip.altVoucher.name}x${equip.altVoucher.count}` : ''
+  const combinedVoucher = [displayVoucher, displayAltVoucher].filter(Boolean).join(' | ')
   const imageSrc = equip.imageId
     ? withImageCacheVersion(`/images/equip/${equip.imageId}.avif`)
     : ''
-
   return (
     <Tooltip open={open} onOpenChange={handleOpenChange}>
       <TooltipTrigger
@@ -181,7 +184,8 @@ export const EquipCard = memo(function EquipCard({
           {equip.sub2 ? ` · ${t('equipStats.' + equip.sub2.key)}+${equip.sub2.value}${equip.sub2.unit}` : ''}
           {equip.special ? ` · ${t('equipStats.' + equip.special.key)}+${equip.special.value}${equip.special.unit}` : ''}
           {displayMaterial ? ` · ${displayMaterial}` : ''}
-          {equip.voucher ? ` · ${t(`materials.${equip.voucher.name}`) ?? equip.voucher.name}x${equip.voucher.count}` : ''}
+          {displayAltMaterial ? ` | ${displayAltMaterial}` : ''}
+          {displayVoucher || displayAltVoucher ? ` · ${combinedVoucher}` : ''}
         </p>
       </TooltipContent>
     </Tooltip>

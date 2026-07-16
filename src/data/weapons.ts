@@ -3,8 +3,11 @@ import type { Weapon } from '@/types/matrix'
 export const weapons: Weapon[] = [
   // ===== 六星 =====
   // --- preview：官方预告，游戏实装后由 `pnpm sync:update` 自动 promote 为正式 id ---
-  { id: 'preview:四二式·肃阵', name: '四二式·肃阵', rarity: 6, type: '施术单元', primaryStat: 'gat_passive_attr_wisd', elementalDamage: 'gat_passive_attr_usp', specialAbility: 'gst_passive_burst', chars: [], source: 'preview' },
-  { id: 'preview:曜夜的首演', name: '曜夜的首演', rarity: 6, type: '长柄武器', primaryStat: 'gat_passive_attr_will', elementalDamage: 'gat_passive_attr_heal', specialAbility: 'gst_passive_heal', chars: [], source: 'preview' },
+  { id: 'wpn_sword_0026', iconId: 'wpn_sword_0026', name: '遥望', rarity: 6, type: '手铳', primaryStat: 'gat_passive_attr_main', elementalDamage: 'gat_passive_attr_physpell', specialAbility: 'gst_passive_force', chars: [] },
+  { id: 'wpn_funnel_0018', iconId: 'wpn_funnel_0018', name: '联结点', rarity: 6, type: '单手剑', primaryStat: 'gat_passive_attr_wisd', elementalDamage: 'gat_passive_attr_usp', specialAbility: 'gst_passive_keyword', chars: [] },
+  { id: 'wpn_lance_0016', iconId: 'wpn_lance_0016', name: '黄金时代', rarity: 6, type: '长柄武器', primaryStat: 'gat_passive_attr_will', elementalDamage: 'gat_passive_attr_heal', specialAbility: 'gst_passive_combo', chars: [] },
+  { id: 'wpn_funnel_0016', iconId: 'wpn_funnel_0016', name: '四二式·肃阵', rarity: 6, type: '施术单元', primaryStat: 'gat_passive_attr_wisd', elementalDamage: 'gat_passive_attr_usp', specialAbility: 'gst_passive_burst', chars: ['诀'], },
+  { id: 'preview:曜夜的首演', name: '曜夜的首演', rarity: 6, type: '长柄武器', primaryStat: 'gat_passive_attr_will', elementalDamage: 'gat_passive_attr_heal', specialAbility: 'gst_passive_heal', chars: ['梨诺'], source: 'preview' },
   { id: 'wpn_claym_0017', iconId: 'wpn_claym_0017', name: '赤缨', rarity: 6, type: '双手剑', primaryStat: 'gat_passive_attr_str', elementalDamage: 'gat_passive_attr_atk', specialAbility: 'gst_passive_phyabn', chars: ['弭弗'], },
   { id: 'wpn_lance_0015', iconId: 'wpn_lance_0015', name: '镀红祝福', rarity: 6, type: '长柄武器', primaryStat: 'gat_passive_attr_agi', elementalDamage: 'gat_passive_attr_firedam', specialAbility: 'gst_passive_tacafter', chars: ['卡缪'], },
   { id: 'wpn_claym_0016', iconId: 'wpn_claym_0016', name: '幻想苦痛', rarity: 6, type: '双手剑', primaryStat: 'gat_passive_attr_str', elementalDamage: 'gat_passive_attr_physpell', specialAbility: 'gst_passive_tactic', chars: [], },
@@ -75,5 +78,5 @@ export const weapons: Weapon[] = [
   { id: 'wpn_pistol_0002', iconId: 'wpn_pistol_0002', name: '呼啸守卫', rarity: 4, type: '手铳', primaryStat: 'gat_passive_attr_wisd', elementalDamage: 'gat_passive_attr_atk', specialAbility: 'gst_passive_tactic', chars: [] },
   { id: 'wpn_pistol_0003', iconId: 'wpn_pistol_0003', name: '长路', rarity: 4, type: '手铳', primaryStat: 'gat_passive_attr_str', elementalDamage: 'gat_passive_attr_magicdam', specialAbility: 'gst_passive_combo', chars: [] },
   { id: 'wpn_funnel_0001', iconId: 'wpn_funnel_0001', name: '全自动骇新星', rarity: 4, type: '施术单元', primaryStat: 'gat_passive_attr_wisd', elementalDamage: 'gat_passive_attr_magicdam', specialAbility: 'gst_passive_spirit', chars: [] },
-  { id: 'wpn_funnel_0003', iconId: 'wpn_funnel_0003', name: '荧光雷羽', rarity: 4, type: '施术单元', primaryStat: 'gat_passive_attr_will', elementalDamage: 'gat_passive_attr_atk', specialAbility: 'gst_passive_tactic', chars: [] },
+  { id: 'wpn_funnel_0003', iconId: 'wpn_funnel_0003', name: '荧光雷羽', rarity: 4, type: '施术单元', primaryStat: 'gat_passive_attr_will', elementalDamage: 'gat_passive_attr_atk', specialAbility: 'gst_passive_tactic', chars: [] }
 ]

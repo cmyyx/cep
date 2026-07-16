@@ -31,11 +31,14 @@ export interface Equip {
   sub2: ParsedStat | null
   /** 特殊属性 */
   special: ParsedStat | null
-  /** 制造材料 */
+  /** 制造材料（默认工艺） */
   material: string
-  /** 制造调度券 */
+  /** 制造材料（兼容工艺，可选） */
+  altMaterial?: string
+  /** 制造调度券（默认工艺） */
   voucher: EquipVoucher | null
-  /** 图片文件名（不含扩展名） */
+  /** 制造调度券（兼容工艺，可选） */
+  altVoucher?: EquipVoucher | null
   imageId: string
 }
 
