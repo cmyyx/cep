@@ -44,7 +44,7 @@ export function validateWeapons(
   if (!existsSync(projectWeaponsTsPath)) return issues
   const projectContent = readFileSync(projectWeaponsTsPath, 'utf-8')
 
-  const weaponRegex = /\{\s*id:\s*'([^']+)',\s*name:\s*'[^']*',\s*rarity:\s*\d+,\s*type:\s*'[^']*',\s*primaryStat:\s*'([^']*)',\s*elementalDamage:\s*'([^']*)',\s*specialAbility:\s*'([^']*)'/g
+  const weaponRegex = /\{\s*id:\s*'([^']+)'(?:,\s*iconId:\s*'[^']*')?,\s*name:\s*'[^']*',\s*rarity:\s*\d+,\s*type:\s*'[^']*',\s*primaryStat:\s*'([^']*)',\s*elementalDamage:\s*'([^']*)',\s*specialAbility:\s*'([^']*)'/g
   const projectWeapons = new Map<string, { primaryStat: string; elementalDamage: string; specialAbility: string }>()
   let m: RegExpExecArray | null
   while ((m = weaponRegex.exec(projectContent)) !== null) {
@@ -97,30 +97,32 @@ export function validateWeapons(
 
       const bundle = entry.SkillPatchDataBundle[0]
       const bbKey = bundle.blackboard?.[0]?.key
-      if (!bbKey) continue
 
-      const suffix = BB_TO_SUFFIX[bbKey]
-      if (!suffix) {
-        // Special ability: resolve skillName.id → CN text → extract baseName → cnToGem
-        const skillTextId = bundle.skillName?.id
-        if (skillTextId) {
-          const cnName = cnTextTable[skillTextId]
-          if (cnName) {
-            const idx = cnName.indexOf('·')
-            const baseName = idx === -1 ? cnName : cnName.slice(0, idx)
-            const gemId = cnToGem[baseName]
-            if (gemId && !upstreamSpecialAbility) upstreamSpecialAbility = gemId
+      if (bbKey) {
+        const suffix = BB_TO_SUFFIX[bbKey]
+        if (suffix) {
+          const gemId = `gat_passive_attr_${suffix}`
+          if (PRIMARY_KEYS.has(bbKey)) {
+            if (!upstreamPrimaryStat) upstreamPrimaryStat = gemId
+          } else {
+            if (!upstreamElementalDamage) upstreamElementalDamage = gemId
           }
+          continue
         }
-        continue
       }
 
-      const gemId = `gat_passive_attr_${suffix}`
-      if (PRIMARY_KEYS.has(bbKey)) {
-        if (!upstreamPrimaryStat) upstreamPrimaryStat = gemId
-      } else {
-        if (!upstreamElementalDamage) upstreamElementalDamage = gemId
+      // Special ability: resolve skillName.id → CN text → cnToGem
+      const skillTextId = bundle.skillName?.id
+      if (skillTextId) {
+        const cnName = cnTextTable[skillTextId]
+        if (cnName) {
+          const idx = cnName.indexOf('·')
+          const baseName = idx === -1 ? cnName : cnName.slice(0, idx)
+          const gemId = cnToGem[baseName]
+          if (gemId && !upstreamSpecialAbility) upstreamSpecialAbility = gemId
+        }
       }
+
     }
 
     // Compare
@@ -245,17 +247,15 @@ export function validateEquips(
       if (Number(mod.attrIndex) === 1) upstreamSub1 = statStr
       else if (Number(mod.attrIndex) === 2) upstreamSub2 = statStr
       else if (Number(mod.attrIndex) === 3) upstreamSpecial = statStr
+    // Compare each field — report both mismatches and stale project values
+    const compareField = (field: string, upstream: string, project: string) => {
+      if (upstream !== project) {
+        issues.push({ category: 'equip', id: equipName, field, expected: upstream || '<empty>', actual: project || '<empty>' })
+      }
     }
-
-    // Compare each field
-    if (upstreamSub1 && upstreamSub1 !== projectEquip.sub1) {
-      issues.push({ category: 'equip', id: equipName, field: 'sub1', expected: upstreamSub1, actual: projectEquip.sub1 || '<empty>' })
-    }
-    if (upstreamSub2 && upstreamSub2 !== projectEquip.sub2) {
-      issues.push({ category: 'equip', id: equipName, field: 'sub2', expected: upstreamSub2, actual: projectEquip.sub2 || '<empty>' })
-    }
-    if (upstreamSpecial && upstreamSpecial !== projectEquip.special) {
-      issues.push({ category: 'equip', id: equipName, field: 'special', expected: upstreamSpecial, actual: projectEquip.special || '<empty>' })
+    compareField('sub1', upstreamSub1, projectEquip.sub1)
+    compareField('sub2', upstreamSub2, projectEquip.sub2)
+    compareField('special', upstreamSpecial, projectEquip.special)
     }
   }
 
@@ -290,16 +290,30 @@ export function validateDungeons(
     })
   }
 
-  // For each group table entry with energy point IDs, validate
+  // Compare pool contents against upstream group data
   for (const [groupId, groupData] of Object.entries(groupTable)) {
     const projectDungeon = projectDungeons.get(groupId)
     if (!projectDungeon) continue
 
-    const levelIds = (groupData.levelIds ?? []) as string[]
-    if (!levelIds.length) continue
+    const upstreamS1 = (groupData.primAttrTermIds ?? []) as string[]
+    const upstreamS2 = (groupData.secAttrTermIds ?? []) as string[]
+    const upstreamS3 = (groupData.skillTermIds ?? []) as string[]
 
-    // Validate pool contents against upstream
-    // More detailed validation can be added here
+    const comparePool = (label: string, upstream: string[], project: string[]) => {
+      const upSet = new Set(upstream)
+      const projSet = new Set(project)
+      const missing = upstream.filter(t => !projSet.has(t))
+      const extra = project.filter(t => !upSet.has(t))
+      if (missing.length > 0) {
+        issues.push({ category: 'dungeon', id: groupId, field: `${label}_missing`, expected: missing.join(', '), actual: '' })
+      }
+      if (extra.length > 0) {
+        issues.push({ category: 'dungeon', id: groupId, field: `${label}_extra`, expected: '', actual: extra.join(', ') })
+      }
+    }
+    comparePool('s1', upstreamS1, projectDungeon.s1Pool)
+    comparePool('s2', upstreamS2, projectDungeon.s2Pool)
+    comparePool('s3', upstreamS3, projectDungeon.s3Pool)
   }
 
   return issues

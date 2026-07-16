@@ -189,8 +189,10 @@ export const SlotRecommendationCard = memo(function SlotRecommendationCard({
               </span>
               {(c.equip.voucher || c.equip.altVoucher) && (
                 <span className="text-[9px] text-muted-foreground truncate max-w-full text-center leading-none">
-                  {c.equip.voucher ? `${t(`materials.${c.equip.voucher.name}`) ?? c.equip.voucher.name}x${c.equip.voucher.count}` : ''}
-                  {c.equip.altVoucher ? ` | ${t(`materials.${c.equip.altVoucher.name}`) ?? c.equip.altVoucher.name}x${c.equip.altVoucher.count}` : ''}
+                  {[
+                    c.equip.voucher ? `${t(`materials.${c.equip.voucher.name}`) ?? c.equip.voucher.name}x${c.equip.voucher.count}` : '',
+                    c.equip.altVoucher ? `${t(`materials.${c.equip.altVoucher.name}`) ?? c.equip.altVoucher.name}x${c.equip.altVoucher.count}` : '',
+                  ].filter(Boolean).join(' | ')}
                 </span>
               )}
             </div>

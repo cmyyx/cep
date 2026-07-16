@@ -81,6 +81,7 @@ export const EquipCard = memo(function EquipCard({
   const displayAltMaterial = equip.altMaterial ? (t(`materials.${equip.altMaterial}`) ?? equip.altMaterial) : ''
   const displayVoucher = equip.voucher ? `${t(`materials.${equip.voucher.name}`) ?? equip.voucher.name}x${equip.voucher.count}` : ''
   const displayAltVoucher = equip.altVoucher ? `${t(`materials.${equip.altVoucher.name}`) ?? equip.altVoucher.name}x${equip.altVoucher.count}` : ''
+  const combinedVoucher = [displayVoucher, displayAltVoucher].filter(Boolean).join(' | ')
   const imageSrc = equip.imageId
     ? withImageCacheVersion(`/images/equip/${equip.imageId}.avif`)
     : ''
@@ -184,8 +185,7 @@ export const EquipCard = memo(function EquipCard({
           {equip.special ? ` · ${t('equipStats.' + equip.special.key)}+${equip.special.value}${equip.special.unit}` : ''}
           {displayMaterial ? ` · ${displayMaterial}` : ''}
           {displayAltMaterial ? ` | ${displayAltMaterial}` : ''}
-          {displayVoucher ? ` · ${displayVoucher}` : ''}
-          {displayAltVoucher ? ` | ${displayAltVoucher}` : ''}
+          {displayVoucher || displayAltVoucher ? ` · ${combinedVoucher}` : ''}
         </p>
       </TooltipContent>
     </Tooltip>

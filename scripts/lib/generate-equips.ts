@@ -2,9 +2,8 @@
 // Only >=5star equipment. Uses ItemTable.name.id for properly localized display names.
 // ================================================================================
 
-import { existsSync, readFileSync, mkdirSync, writeFileSync } from 'node:fs'
+import { existsSync, mkdirSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
-import { extractItemNameIds } from './extract-textid'
 import { loadAllTextTables, SUPPORTED_LOCALES } from './stat-mapping'
 import { parseJsonSafe } from './json-utils'
 
@@ -27,10 +26,7 @@ export function generateEquipI18n(
   // Load TextTable for all locales (from AKEData/TableCfg)
   const textTables = loadAllTextTables(akedataPath)
 
-  // Extract localized name text IDs from ItemTable.json
-  const nameTextIdMap = extractItemNameIds(itemTablePath)
-
-  // Load full ItemTable for rarity filtering
+  // Load full ItemTable for name resolution + rarity filtering
   const itemTable = parseJsonSafe(itemTablePath) as Record<string, ItemTableEntry>
 
   // Load EquipTable
@@ -49,8 +45,7 @@ export function generateEquipI18n(
     const rarity = Number(itemData.rarity ?? 1)
     if (rarity < 5) continue
 
-    const nameTextId = nameTextIdMap[itemId]
-
+    const nameTextId = String(itemData.name?.id ?? '')
     for (const loc of SUPPORTED_LOCALES) {
       if (loc === 'zh-CN') {
         // CN name from ItemTable.name.id -> CN TextTable

@@ -108,29 +108,30 @@ function extractStatsFromSkillIds(
 
     const bundle = entry.SkillPatchDataBundle[0]
     const bbKey = bundle.blackboard?.[0]?.key
-    if (!bbKey) continue
 
-    const suffix = BLACKBOARD_TO_GEM_SUFFIX[bbKey]
-    if (!suffix) {
-      // Not a blackboard-mapped stat — try special ability via CN name
-      const skillTextId = bundle.skillName?.id
-      if (skillTextId) {
-        const cnName = cnTextTable[skillTextId]
-        if (cnName) {
-          const baseName = extractBaseStatName(cnName)
-          const gemId = cnToGem[baseName]
-          if (gemId && !specialAbility) specialAbility = gemId
+    if (bbKey) {
+      const suffix = BLACKBOARD_TO_GEM_SUFFIX[bbKey]
+      if (suffix) {
+        const gemId = `gat_passive_attr_${suffix}`
+        if (PRIMARY_KEYS.has(bbKey)) {
+          if (!primaryStat) primaryStat = gemId
+        } else {
+          if (!elementalDamage) elementalDamage = gemId
         }
+        continue
       }
-      continue
     }
 
-    const gemId = `gat_passive_attr_${suffix}`
-
-    if (PRIMARY_KEYS.has(bbKey)) {
-      if (!primaryStat) primaryStat = gemId
-    } else {
-      if (!elementalDamage) elementalDamage = gemId
+    // No blackboard-mapped stat (missing bbKey or unknown suffix) —
+    // try special ability via CN name
+    const skillTextId = bundle.skillName?.id
+    if (skillTextId) {
+      const cnName = cnTextTable[skillTextId]
+      if (cnName) {
+        const baseName = extractBaseStatName(cnName)
+        const gemId = cnToGem[baseName]
+        if (gemId && !specialAbility) specialAbility = gemId
+      }
     }
   }
 

@@ -76,8 +76,7 @@ export function generateWeaponStatsI18n(
 
   // GemTable lookup: cnToGem (special-ability resolution) + gemToTextId (direct
   // textId lookup so we never reverse-search the TextTable by skill name).
-  const { cnToGem, gemToTextId } = buildGemTableLookup(akedataPath)
-
+  const { cnToGem, gemToCn, gemToTextId } = buildGemTableLookup(akedataPath)
   // Load CN TextTable for resolving skillName.id → CN text
   const cnTextTable = loadTextTable(akedataPath, 'zh-CN')
 
@@ -115,9 +114,9 @@ export function generateWeaponStatsI18n(
         continue
       }
 
-      // Blackboard-mapped stat: use blackboard key as fallback baseName
+      // Blackboard-mapped stat: use gemToCn as fallback baseName
       if (!seen.has(gemId)) {
-        seen.set(gemId, bbKey ?? '')
+        seen.set(gemId, gemToCn[gemId] ?? bbKey ?? '')
       }
     }
   }
