@@ -4,20 +4,32 @@
  * ================================================================================
  */
 
-import { existsSync, readFileSync, readdirSync, writeFileSync } from 'node:fs'
+import { existsSync, readFileSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
-import { parse as parseLossless } from 'lossless-json'
+import { parseJsonSafe } from './json-utils'
 import { buildGemTableLookup, loadTextTable } from './stat-mapping'
-import { resolveSuitName } from './upstream'
+import { extractItemNameIds } from './extract-textid'
 import { buildAttrShowConfigs, resolveFormat, formatEquipStat } from './equip-stat-format'
 
 // ── Types ─────────────────────────────────────────────────────────────────
 
-interface WeaponData {
-  title: string
+// ── SkillPatchTable types ─────────────────────────────────────────────────
+
+interface SkillPatchBundle {
+  blackboard?: { key: string; value: number }[]
+  skillId: string
+  skillName: { id: string; text: string }
+}
+
+interface SkillPatchEntry {
+  SkillPatchDataBundle: SkillPatchBundle[]
+}
+
+interface WeaponBasicEntry {
+  weaponId: string
   rarity: number
-  weapontype: number
-  skilllist: { skillName: string; blackboard: { key: string; value: unknown }[] }[]
+  weaponType: number
+  weaponSkillList: string[]
 }
 
 interface DisplayAttrModifier {
@@ -28,27 +40,6 @@ interface DisplayAttrModifier {
   compositeAttr?: string
 }
 
-interface EquipFormula {
-  costItemId: string[]
-  costItemNum: number[]
-  costGoldId: string
-  costGoldNum: number
-  outcomeEquipId: string
-}
-
-interface V2EquipData {
-  suitId: string
-  equipsuittable: {
-    list: { suitName: { text: string } }[]
-  }
-  equiptable: Record<string, {
-    partType: number
-    displayAttrModifiers: DisplayAttrModifier[]
-    displayBaseAttrModifier: DisplayAttrModifier
-  }>
-  itemtable: Record<string, { name: { text: string } }>
-  equipformulatable: Record<string, EquipFormula>
-}
 
 // ── Constants ─────────────────────────────────────────────────────────────
 
@@ -92,12 +83,15 @@ function extractBaseStatName(skillName: string): string {
 }
 
 /**
- * Extract weapon stats from skilllist, returning gemTermId directly.
+ * Extract weapon stats from weaponSkillList IDs + SkillPatchTable,
+ * returning gemTermId directly.
  * Primary/elemental: resolved via blackboard[0].key → gemTermId suffix.
- * Special abilities: resolved via GemTable CN name lookup.
+ * Special abilities: resolved via SkillPatchTable skillName.id → CN TextTable → GemTable CN name lookup.
  */
-function extractStatsFromSkillList(
-  skilllist: WeaponData['skilllist'],
+function extractStatsFromSkillIds(
+  skillIds: string[],
+  skillPatch: Record<string, SkillPatchEntry>,
+  cnTextTable: Record<string, string>,
   cnToGem: Record<string, string>,
 ): {
   primaryStat: string
@@ -108,16 +102,26 @@ function extractStatsFromSkillList(
   let elementalDamage = ''
   let specialAbility = ''
 
-  for (const skill of skilllist) {
-    const bbKey = skill.blackboard?.[0]?.key
+  for (const skillId of skillIds) {
+    const entry = skillPatch[skillId]
+    if (!entry?.SkillPatchDataBundle?.[0]) continue
+
+    const bundle = entry.SkillPatchDataBundle[0]
+    const bbKey = bundle.blackboard?.[0]?.key
     if (!bbKey) continue
 
     const suffix = BLACKBOARD_TO_GEM_SUFFIX[bbKey]
     if (!suffix) {
       // Not a blackboard-mapped stat — try special ability via CN name
-      const baseName = extractBaseStatName(skill.skillName)
-      const gemId = cnToGem[baseName]
-      if (gemId && !specialAbility) specialAbility = gemId
+      const skillTextId = bundle.skillName?.id
+      if (skillTextId) {
+        const cnName = cnTextTable[skillTextId]
+        if (cnName) {
+          const baseName = extractBaseStatName(cnName)
+          const gemId = cnToGem[baseName]
+          if (gemId && !specialAbility) specialAbility = gemId
+        }
+      }
       continue
     }
 
@@ -131,35 +135,6 @@ function extractStatsFromSkillList(
   }
 
   return { primaryStat, elementalDamage, specialAbility }
-}
-
-/**
- * Parse JSON file preserving large integers as strings.
- * Returns a plain object with large integers converted to strings.
- */
-function parseJsonSafe(filePath: string): unknown {
-  const raw = readFileSync(filePath, 'utf-8')
-  const parsed = parseLossless(raw)
-  return convertLosslessToPlain(parsed)
-}
-
-/** Recursively convert LosslessNumber values to strings */
-function convertLosslessToPlain(value: unknown): unknown {
-  if (value === null || value === undefined) return value
-  if (typeof value === 'object' && 'isLosslessNumber' in value) {
-    return String(value)
-  }
-  if (Array.isArray(value)) {
-    return value.map(convertLosslessToPlain)
-  }
-  if (typeof value === 'object') {
-    const result: Record<string, unknown> = {}
-    for (const [k, v] of Object.entries(value as Record<string, unknown>)) {
-      result[k] = convertLosslessToPlain(v)
-    }
-    return result
-  }
-  return value
 }
 
 // ── Attribute name resolution ─────────────────────────────────────────────
@@ -204,17 +179,16 @@ function insertEntries(content: string, declarationPattern: string, newEntries: 
   let lineEnd = lastContentIdx + 1
   while (lineEnd < content.length && content[lineEnd] !== '\n') lineEnd++
 
-  // Ensure trailing comma on last inserted entry when not at array end
+  // If the last old entry already has a trailing comma, don't double it
+  const needsComma = content[lastContentIdx] !== ','
   const tail = content.slice(lineEnd)
-  const needComma = !/^\s*\]/.test(tail)
 
   return (
-    content.slice(0, lineEnd) + '\n' +
-    newEntries.join(',\n') + (needComma ? ',' : '') +
+    content.slice(0, lineEnd) + (needsComma ? ',' : '') + '\n' +
+    newEntries.join(',\n') + '\n' +
     tail
   )
 }
-
 /**
  * Insert RAW_EQUIPS entries grouped by set.
  * Finds the last entry of the same set and inserts after it.
@@ -282,44 +256,79 @@ function insertRawEquipsBySet(content: string, newEntries: { set: string; line: 
 export function updateWeaponsFile(
   weaponsTsPath: string,
   newWeaponIds: string[],
-  imagedbPath: string,
   akedataPath: string,
 ): number {
   if (newWeaponIds.length === 0) return 0
 
   const content = readFileSync(weaponsTsPath, 'utf-8')
 
+  // Load WeaponBasicTable for weapon metadata
+  const wpnBasicPath = join(akedataPath, 'TableCfg', 'WeaponBasicTable.json')
+  if (!existsSync(wpnBasicPath)) return 0
+  const wpnBasic = JSON.parse(readFileSync(wpnBasicPath, 'utf-8')) as Record<string, WeaponBasicEntry>
+
+  // Load SkillPatchTable (lossless-json for int64-safe skillName.id)
+  const skillPatchPath = join(akedataPath, 'TableCfg', 'SkillPatchTable.json')
+  const skillPatch = existsSync(skillPatchPath)
+    ? parseJsonSafe(skillPatchPath) as Record<string, SkillPatchEntry>
+    : {}
+
   // Build GemTable CN→gemTermId for special ability resolution
   const { cnToGem } = buildGemTableLookup(akedataPath)
 
+  // Load CN TextTable for resolving skillName.id → CN text
+  const cnTextTable = loadTextTable(akedataPath, 'zh-CN')
   // Load ItemTable for iconId resolution (game-side icon resource mapping)
   const itemTable = loadItemTable(akedataPath)
 
-  const primaryDir = join(imagedbPath, 'public', 'CH', 'weapon')
-  const fallbackDir = join(akedataPath, 'output', 'CN', 'weapon')
-  const weaponDir = existsSync(primaryDir) ? primaryDir : existsSync(fallbackDir) ? fallbackDir : null
-  if (!weaponDir) return 0
-
+  // Load ItemTable name text IDs for display name resolution
+  const weaponNameTextIds = extractItemNameIds(join(akedataPath, 'TableCfg', 'ItemTable.json'))
   const newWeapons: string[] = []
   for (const weaponId of newWeaponIds) {
-    const filePath = join(weaponDir, `${weaponId}.json`)
-    if (!existsSync(filePath)) continue
+    const wpnEntry = wpnBasic[weaponId]
+    if (!wpnEntry) continue
 
-    const data = JSON.parse(readFileSync(filePath, 'utf-8')) as WeaponData
-    const { primaryStat, elementalDamage, specialAbility } = extractStatsFromSkillList(data.skilllist, cnToGem)
-    const type = WEAPON_TYPE_MAP[data.weapontype] ?? '未知'
+    const skillIds = wpnEntry.weaponSkillList ?? []
+    const { primaryStat, elementalDamage, specialAbility } = extractStatsFromSkillIds(skillIds, skillPatch, cnTextTable, cnToGem)
+    const type = WEAPON_TYPE_MAP[wpnEntry.weaponType] ?? '未知'
     const iconId = resolveWeaponIconId(itemTable, weaponId) ?? weaponId
 
-    const weaponEntry = `  { id: '${weaponId}', iconId: '${iconId}', name: '${data.title}', rarity: ${data.rarity}, type: '${type}', primaryStat: '${primaryStat}', elementalDamage: '${elementalDamage}', specialAbility: '${specialAbility}', chars: [] }`
+    const nameTextId = weaponNameTextIds[weaponId] ?? ''
+    const name = cnTextTable[nameTextId] || weaponId
+
+    const weaponEntry = `  { id: '${weaponId}', iconId: '${iconId}', name: '${name}', rarity: ${wpnEntry.rarity}, type: '${type}', primaryStat: '${primaryStat}', elementalDamage: '${elementalDamage}', specialAbility: '${specialAbility}', chars: [] }`
     newWeapons.push(weaponEntry)
   }
 
   if (newWeapons.length === 0) return 0
 
+  // Insert new weapons after the // ===== 六星 ===== section header
+  const sectionMarker = '// ===== 六星 ====='
+  const sectionIdx = content.indexOf(sectionMarker)
+  if (sectionIdx !== -1) {
+    // Find end of the section marker line
+    let insertPos = sectionIdx + sectionMarker.length
+    while (insertPos < content.length && content[insertPos] !== '\n') insertPos++
+    insertPos++ // skip the newline
+    // Also skip the preview comment line if present
+    const nextLineEnd = content.indexOf('\n', insertPos)
+    if (nextLineEnd !== -1) {
+      const previewLine = content.slice(insertPos, nextLineEnd)
+      if (previewLine.includes('preview')) {
+        insertPos = nextLineEnd + 1
+      }
+    }
+    const newBlock = newWeapons.join(',\n') + ',\n'
+    const updatedContent = content.slice(0, insertPos) + newBlock + content.slice(insertPos)
+    writeFileSync(weaponsTsPath, updatedContent, 'utf-8')
+    return newWeapons.length
+  }
+  // Fallback: insert at the end
   const updatedContent = insertEntries(content, 'export const weapons: Weapon[] = [', newWeapons)
   writeFileSync(weaponsTsPath, updatedContent, 'utf-8')
   return newWeapons.length
 }
+
 
 /**
  * Reconcile iconId field in weapons.ts with upstream ItemTable.iconId.
@@ -465,7 +474,6 @@ export interface IconIdIssue {
 export function updateEquipsFile(
   equipsTsPath: string,
   newEquipIds: string[],
-  imagedbPath: string,
   akedataPath: string,
   reconcileAll?: boolean,
 ): number {
@@ -481,89 +489,194 @@ export function updateEquipsFile(
   }
   if (targetIds.size === 0) return 0
 
-  // Use v2_equip data source
-  const v2EquipDir = join(imagedbPath, 'public', 'CH', 'v2_equip')
-  if (!existsSync(v2EquipDir)) return 0
+  // Load CN TextTable for name resolution
+  const textTable = loadTextTable(akedataPath, 'zh-CN')
 
-  // Build a complete equipId → { line, set } map from upstream
+  // Load tables from AKEData
+  const equipTablePath = join(akedataPath, 'TableCfg', 'EquipTable.json')
+  const itemTablePath = join(akedataPath, 'TableCfg', 'ItemTable.json')
+  const suitTablePath = join(akedataPath, 'TableCfg', 'EquipSuitTable.json')
+  const formulaTablePath = join(akedataPath, 'TableCfg', 'EquipFormulaTable.json')
+  const formulaReversePath = join(akedataPath, 'TableCfg', 'EquipFormulaReverseTable.json')
+  const chainTablePath = join(akedataPath, 'TableCfg', 'EquipFormulaChainTable.json')
+
+  if (!existsSync(equipTablePath) || !existsSync(itemTablePath)) return 0
+
+  type EquipEntryData = {
+    displayAttrModifiers?: DisplayAttrModifier[]
+    partType: number
+    suitID: string
+  }
+
+  type ItemEntryData = {
+    name?: { id: string; text: string }
+    rarity?: number
+    iconId?: string
+  }
+
+  const equipTable = parseJsonSafe(equipTablePath) as Record<string, EquipEntryData>
+  const itemTable = parseJsonSafe(itemTablePath) as Record<string, ItemEntryData>
+
+  // Resolve item name from ItemTable via text table
+  function resolveItemName(itemId: string): string {
+    const item = itemTable[itemId]
+    if (!item?.name) return ''
+    if (item.name.text) return item.name.text.replace(/[\r\n]+/g, '').trim()
+    if (item.name.id) {
+      return (textTable[item.name.id] ?? '').replace(/[\r\n]+/g, '').trim()
+    }
+    return ''
+  }
+
+  // Build suitId → suitName map from EquipSuitTable
+  const suitNameMap = new Map<string, string>()
+  if (existsSync(suitTablePath)) {
+    const suitTable = parseJsonSafe(suitTablePath) as Record<string, {
+      list?: { suitName?: { id: string; text: string } }[]
+    }>
+    for (const [suitId, suitData] of Object.entries(suitTable)) {
+      const nameObj = suitData?.list?.[0]?.suitName
+      if (!nameObj) continue
+      const name = nameObj.text
+        || (nameObj.id ? textTable[nameObj.id] ?? '' : '')
+      if (name) suitNameMap.set(suitId, name.replace(/[\r\n]+/g, '').trim())
+    }
+  }
+
+  // Build formula lookup maps
+  const formulaReverse: Record<string, string> = existsSync(formulaReversePath)
+    ? parseJsonSafe(formulaReversePath) as Record<string, string>
+    : {}
+  const formulaTable = existsSync(formulaTablePath)
+    ? parseJsonSafe(formulaTablePath) as Record<string, { level: string }>
+    : {}
+
+  type ChainEntry = {
+    chainId: number
+    costGoldId: string
+    costGoldNum: number
+    costItemId: string[]
+    isDefault: boolean
+  }
+  const chainTable = existsSync(chainTablePath)
+    ? parseJsonSafe(chainTablePath) as Record<string, { chainList?: ChainEntry[] }>
+    : {}
+
   const upstreamEntries = new Map<string, { set: string; line: string }>()
 
-  for (const file of readdirSync(v2EquipDir)) {
-    if (!file.endsWith('.json') || file === 'manifest.json') continue
+  for (const [equipId, equipData] of Object.entries(equipTable)) {
+    if (!targetIds.has(equipId)) continue
+    if (!equipId.startsWith('item_equip_')) continue
 
-    const suitData = parseJsonSafe(join(v2EquipDir, file)) as V2EquipData
-    const equiptable = suitData.equiptable ?? {}
-    const itemtable = suitData.itemtable ?? {}
-    const equipformulatable = suitData.equipformulatable ?? {}
+    const itemData = itemTable[equipId]
+    if (!itemData) continue
 
-    const suitName = resolveSuitName(file, imagedbPath)
-    if (/test|测试|手动|debug|placeholder/i.test(suitName)) continue
+    const rarity = Number(itemData.rarity ?? 0)
+    if (rarity < 5) continue
 
-    // Build outcomeEquipId → material name mapping
-    const equipMaterialMap = new Map<string, string>()
-    // Build outcomeEquipId → voucher info mapping
-    const equipVoucherMap = new Map<string, { name: string; count: number }>()
-    for (const formula of Object.values(equipformulatable)) {
-      if (!formula.outcomeEquipId || !formula.costItemId?.length) continue
-      const materialId = formula.costItemId[0]
-      const materialItem = itemtable[materialId]
-      if (materialItem?.name?.text) equipMaterialMap.set(formula.outcomeEquipId, materialItem.name.text)
-      // Extract voucher from costGoldId / costGoldNum
-      if (formula.costGoldId && formula.costGoldNum > 0) {
-        const voucherItem = itemtable[formula.costGoldId]
-        if (voucherItem?.name?.text) {
-          equipVoucherMap.set(formula.outcomeEquipId, { name: voucherItem.name.text, count: formula.costGoldNum })
+    const equipName = resolveItemName(equipId)
+    if (!equipName) continue
+
+    // Suit name
+    // Suit name: empty suitID → standalone equipment
+    const suitId = String(equipData.suitID ?? '')
+    const set = suitId ? (suitNameMap.get(suitId) || suitId) : '独立装备'
+
+    // Type
+    const type = PART_TYPE_MAP[Number(equipData.partType)] ?? '配件'
+
+    // Stats from displayAttrModifiers
+    let sub1 = ''; let sub2 = ''; let special = ''
+    for (const mod of equipData.displayAttrModifiers ?? []) {
+      if (Number(mod.attrIndex) === 0) continue
+
+      const modType = Number(mod.modifierType ?? 5)
+      const attrType = Number(mod.attrType)
+      const compositeAttr = String(mod.compositeAttr ?? '')
+      let key: string
+      let valueFormat: string
+
+      if (attrType === 0 && compositeAttr) {
+        key = compositeAttr
+        valueFormat = resolveFormat(compositeCfg.get(compositeAttr), compositeAttr, modType)
+      } else {
+        const attrInfo = attrTypeMap.get(attrType)
+        if (!attrInfo) continue
+        key = String(attrType)
+        valueFormat = resolveFormat(attrInfo, String(attrType), modType)
+      }
+
+      const statStr = formatEquipStat(key, String(mod.attrValue), valueFormat)
+      if (Number(mod.attrIndex) === 1) sub1 = statStr
+      else if (Number(mod.attrIndex) === 2) sub2 = statStr
+      else if (Number(mod.attrIndex) === 3) special = statStr
+    }
+
+    // Material and voucher from formula chain
+    let material = ''
+    let altMaterial = ''
+    let voucher = ''
+    let altVoucher = ''
+
+    const formulaId = formulaReverse[equipId]
+    if (formulaId) {
+      const level = formulaTable[formulaId]?.level
+      if (level) {
+        const chainData = chainTable[level]
+        if (chainData?.chainList && chainData.chainList.length > 0) {
+          // Default recipe
+          const defaultChain = chainData.chainList.find(c => c.isDefault)
+          if (defaultChain?.costItemId?.[0]) {
+            material = resolveItemName(defaultChain.costItemId[0])
+            if (defaultChain.costGoldId) {
+              voucher = `${resolveItemName(defaultChain.costGoldId)}x${defaultChain.costGoldNum}`
+            }
+          }
+
+          // Alternative recipe: non-default entry with highest chainId
+          const altChains = chainData.chainList
+            .filter(c => !c.isDefault && c.costItemId?.[0])
+            .sort((a, b) => b.chainId - a.chainId)
+          if (altChains.length > 0) {
+            const alt = altChains[0]
+            altMaterial = resolveItemName(alt.costItemId[0])
+            if (alt.costGoldId) {
+              altVoucher = `${resolveItemName(alt.costGoldId)}x${alt.costGoldNum}`
+            }
+          }
         }
       }
     }
 
-    for (const [equipId, equipData] of Object.entries(equiptable)) {
-      if (!targetIds.has(equipId)) continue
+    // Icon ID
+    const iconId = (itemData.iconId && itemData.iconId !== equipId) ? itemData.iconId : equipId
 
-      const equipItem = itemtable[equipId]
-      if (!equipItem?.name?.text) continue
+    // Build RawEquip line
+    const fields: string[] = [
+      `name: '${equipName}'`,
+      `set: '${set}'`,
+      `rarity: 5`,
+      `type: '${type}'`,
+      `sub1: '${sub1}'`,
+      `sub2: '${sub2}'`,
+      `special: '${special}'`,
+      `material: '${material}'`,
+    ]
+    if (altMaterial) fields.push(`altMaterial: '${altMaterial}'`)
+    if (voucher) fields.push(`voucher: '${voucher}'`)
+    else fields.push(`voucher: ''`)
+    if (altVoucher) fields.push(`altVoucher: '${altVoucher}'`)
+    else if (altMaterial) fields.push(`altVoucher: ''`)
+    fields.push(`equipId: '${equipId}'`)
+    fields.push(`iconId: '${iconId}'`)
 
-      const equipName = equipItem.name.text.replace(/[\r\n]+/g, '').trim()
-      const material = equipMaterialMap.get(equipId) ?? ''
+    // Filter out test/manual/placeholder suits
+    if (/test|测试|手动|debug|placeholder/i.test(set)) continue
 
-      let sub1 = ''; let sub2 = ''; let special = ''
-      for (const mod of equipData.displayAttrModifiers ?? []) {
-        if (Number(mod.attrIndex) === 0) continue
-
-        const modType = Number(mod.modifierType ?? 5)
-        const attrType = Number(mod.attrType)
-        const compositeAttr = String(mod.compositeAttr ?? '')
-        let key: string
-        let valueFormat: string
-
-        if (attrType === 0 && compositeAttr) {
-          key = compositeAttr
-          valueFormat = resolveFormat(compositeCfg.get(compositeAttr), compositeAttr, modType)
-        } else {
-          const attrInfo = attrTypeMap.get(attrType)
-          if (!attrInfo) continue
-          key = String(attrType)
-          valueFormat = resolveFormat(attrInfo, String(attrType), modType)
-        }
-
-        const statStr = formatEquipStat(key, String(mod.attrValue), valueFormat)
-        if (Number(mod.attrIndex) === 1) sub1 = statStr
-        else if (Number(mod.attrIndex) === 2) sub2 = statStr
-        else if (Number(mod.attrIndex) === 3) special = statStr
-      }
-
-      const equipItemData = itemtable[equipId]
-      const gameIconId = (equipItemData as Record<string, unknown>)?.iconId as string ?? ''
-      const iconId = (gameIconId && gameIconId !== equipId) ? gameIconId : equipId
-
-      const voucherInfo = equipVoucherMap.get(equipId)
-      const voucher = voucherInfo ? `${voucherInfo.name}x${voucherInfo.count}` : ''
-
-      upstreamEntries.set(equipId, {
-        set: suitName,
-        line: `  { name: '${equipName}', set: '${suitName}', rarity: 5, type: '${PART_TYPE_MAP[equipData.partType] ?? '配件'}', sub1: '${sub1}', sub2: '${sub2}', special: '${special}', material: '${material}', voucher: '${voucher}', equipId: '${equipId}', iconId: '${iconId}' }`,
-      })
-    }
+    upstreamEntries.set(equipId, {
+      set,
+      line: `  { ${fields.join(', ')} }`,
+    })
   }
 
   if (upstreamEntries.size === 0) return 0
@@ -610,15 +723,32 @@ function rewriteRawEquips(
   const tailContent = content.substring(arrClose + 1)
   const preContent = content.substring(0, rawStart)
 
-  // Build new RAW_EQUIPS entirely from upstream
-  const upstreamLines = [...upstreamEntries.values()].map(e => e.line)
-  const newRawBlock = rawDecl + upstreamLines.join(',' + lineEnd) + lineEnd + ']'
-
-  // Clean tail: remove leading ';' and whitespace
+  // Build new RAW_EQUIPS grouped by set with set comments
+  const bySet = new Map<string, string[]>()
+  for (const entry of upstreamEntries.values()) {
+    const arr = bySet.get(entry.set) || []
+    arr.push(entry.line)
+    bySet.set(entry.set, arr)
+  }
+  // Sort sets alphabetically (zh-CN order), with 独立装备 last
+  const setOrder = [...bySet.keys()].sort((a, b) => {
+    if (a === '独立装备') return 1
+    if (b === '独立装备') return -1
+    return a.localeCompare(b, 'zh-CN')
+  })
+  const groupedLines: string[] = []
+  for (let si = 0; si < setOrder.length; si++) {
+    const setName = setOrder[si]
+    const entries = bySet.get(setName)!
+    const isLast = si === setOrder.length - 1
+    groupedLines.push(`  // ${setName}`)
+    groupedLines.push(entries.join(',\n') + (isLast ? '' : ','))
+  }
+  const newRawBlock = rawDecl + groupedLines.join('\n') + '\n' + ']'
   const cleanTail = tailContent.replace(/^;\s*/, '').replace(/^\r?\n/, '')
 
   writeFileSync(equipsTsPath, preContent + newRawBlock + ';' + lineEnd + lineEnd + cleanTail, 'utf-8')
-  return upstreamLines.length
+  return upstreamEntries.size
 }
 
 // ── Update dungeons.ts ────────────────────────────────────────────────────
@@ -644,7 +774,6 @@ export function updateDungeonsFile(
   const levelTable = existsSync(levelTablePath)
     ? parseJsonSafe(levelTablePath)
     : {}
-
   const newDungeons: string[] = []
   for (const groupId of newDungeonIds) {
     const gData = (groupTable as Record<string, unknown>)[groupId] as Record<string, unknown> | undefined
@@ -652,13 +781,13 @@ export function updateDungeonsFile(
 
     // Get level-1 name text ID for sub-region
     let nameTextId = ''
+    let regionLvlId = ''
     for (const [, lData] of Object.entries(levelTable as Record<string, unknown>)) {
       if ((lData as Record<string, unknown>).gameGroupId === groupId) {
         const gameName = (lData as Record<string, unknown>).gameName as Record<string, unknown> | undefined
-        if (gameName?.id) {
-          nameTextId = String(gameName.id)
-          break
-        }
+        if (gameName?.id) nameTextId = String(gameName.id)
+        regionLvlId = String((lData as Record<string, unknown>).levelId ?? '')
+        break
       }
     }
 
@@ -667,8 +796,12 @@ export function updateDungeonsFile(
     // Split by '·' to get sub-region name (e.g., "重度能量淤积点·藏剑谷" → "藏剑谷")
     const dotIdx = fullName.indexOf('·')
     const subRegionName = dotIdx !== -1 ? fullName.slice(dotIdx + 1) : fullName
-    // Use placeholder for region name (user must fill manually)
-    const dungeonName = `<待填写>·${subRegionName}`
+
+    // Resolve region name from levelId prefix
+    let regionName = ''
+    if (regionLvlId.startsWith('map01')) regionName = '四号谷地'
+    else if (regionLvlId.startsWith('map02')) regionName = '武陵'
+    const dungeonName = regionName ? `${regionName}·${subRegionName}` : `<待填写>·${subRegionName}`
 
     // Convert gemTermIds directly (data file uses gemTermId keys)
     const primAttrTermIds = (gData.primAttrTermIds ?? []) as string[]

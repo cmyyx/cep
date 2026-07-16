@@ -1,4 +1,4 @@
-// Generates weaponStats/ i18n from weapon JSON skillNames.
+// Generates weaponStats/ i18n from WeaponBasicTable + SkillPatchTable.
 // Key = gemTermId, value = translated base stat name.
 //
 // Translation resolution uses gemId → textId (from GemTable.tagName.id) → TextTable.
@@ -10,9 +10,10 @@
 // textId uniformly.
 // ================================================================================
 
-import { existsSync, readFileSync, readdirSync, mkdirSync, writeFileSync } from 'node:fs'
+import { existsSync, readFileSync, mkdirSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
-import { buildGemTableLookup, loadAllTextTables, SUPPORTED_LOCALES } from './stat-mapping'
+import { parseJsonSafe } from './json-utils'
+import { buildGemTableLookup, loadAllTextTables, loadTextTable, SUPPORTED_LOCALES } from './stat-mapping'
 
 export interface WeaponStatsI18nResult {
   written: string[]
@@ -32,15 +33,44 @@ const BLACKBOARD_TO_GEM_SUFFIX: Record<string, string> = {
   heal: 'heal', physpell: 'physpell', spelldam: 'magicdam',
 }
 
+/** Extract base stat name from skill full name (before '·' / ':' / '[LMS]'). */
+function extractBaseStatName(skillName: string): string {
+  return skillName
+    .replace(/[·・]\s*[^·・:]+$/, '')
+    .replace(/:\s*[^:·・]+$/, '')
+    .replace(/\s*\[[LMS]\]\s*$/, '')
+    .trim()
+}
+
+// ── SkillPatchTable types ──
+
+interface SkillPatchBundle {
+  blackboard?: { key: string; value: number }[]
+  skillId: string
+  skillName: { id: string; text: string }
+}
+
+interface SkillPatchEntry {
+  SkillPatchDataBundle: SkillPatchBundle[]
+}
+
+// ── Main generator ────────────────────────────────────────────────────────────
+
 export function generateWeaponStatsI18n(
-  imagedbPath: string,
   akedataPath: string,
   outputDir: string,
 ): WeaponStatsI18nResult {
-  const weaponDir = join(imagedbPath, 'public', 'CH', 'weapon')
-  const fallbackDir = join(akedataPath, 'output', 'CN', 'weapon')
-  const dir = existsSync(weaponDir) ? weaponDir : existsSync(fallbackDir) ? fallbackDir : null
-  if (!dir) return { written: [], count: 0, missing: 0 }
+  // Load WeaponBasicTable for weaponSkillList
+  const wpnBasicPath = join(akedataPath, 'TableCfg', 'WeaponBasicTable.json')
+  if (!existsSync(wpnBasicPath)) return { written: [], count: 0, missing: 0 }
+
+  const wpnBasic = JSON.parse(readFileSync(wpnBasicPath, 'utf-8')) as Record<string, { weaponSkillList?: string[] }>
+
+  // Load SkillPatchTable (lossless-json for int64-safe skillName.id)
+  const skillPatchPath = join(akedataPath, 'TableCfg', 'SkillPatchTable.json')
+  if (!existsSync(skillPatchPath)) return { written: [], count: 0, missing: 0 }
+
+  const skillPatch = parseJsonSafe(skillPatchPath) as Record<string, SkillPatchEntry>
 
   const textTables = loadAllTextTables(akedataPath)
 
@@ -48,35 +78,47 @@ export function generateWeaponStatsI18n(
   // textId lookup so we never reverse-search the TextTable by skill name).
   const { cnToGem, gemToTextId } = buildGemTableLookup(akedataPath)
 
+  // Load CN TextTable for resolving skillName.id → CN text
+  const cnTextTable = loadTextTable(akedataPath, 'zh-CN')
+
   // Collect unique gemTermId → baseName pairs (dedup by gemTermId, first occurrence wins).
-  // Deduping by gemId (the i18n output key) ensures each output entry is written
-  // exactly once. baseName-based dedup allowed different baseNames sharing a gemId
-  // (e.g. pulsedam/electrondam → gat_passive_attr_pulsedam) to overwrite each other
-  // non-deterministically in the output map keyed by gemId.
   const seen = new Map<string, string>()
 
-  for (const file of readdirSync(dir)) {
-    if (!file.endsWith('.json') || file === 'manifest.json') continue
-    const data = JSON.parse(readFileSync(join(dir, file), 'utf-8'))
+  // Iterate WeaponBasicTable entries
+  for (const [, wpnData] of Object.entries(wpnBasic)) {
+    const skillList = wpnData.weaponSkillList ?? []
+    for (const skillId of skillList) {
+      const entry = skillPatch[skillId]
+      if (!entry?.SkillPatchDataBundle?.[0]) continue
 
-    for (const skill of (data.skilllist ?? []) as Array<{ skillName: string; blackboard?: { key: string }[] }>) {
-      const fullName = skill.skillName
-      // Derive base name (before '·' / ':' / '[L]') for special-ability CN lookup.
-      const baseName = fullName
-        .replace(/[·・]\s*[^·・:]+$/, '')
-        .replace(/:\s*[^:·・]+$/, '')
-        .replace(/\s*\[[LMS]\]\s*$/, '')
-        .trim()
+      const bundle = entry.SkillPatchDataBundle[0]
+      const bbKey = bundle.blackboard?.[0]?.key
 
-      const bbKey = skill.blackboard?.[0]?.key
+      // Try blackboard key → gemTermId suffix
       let gemId: string | undefined
       if (bbKey) {
         const suffix = BLACKBOARD_TO_GEM_SUFFIX[bbKey]
         if (suffix) gemId = `gat_passive_attr_${suffix}`
       }
-      if (!gemId) gemId = cnToGem[baseName] // special ability (gst_passive_*)
 
-      if (gemId && !seen.has(gemId)) seen.set(gemId, baseName)
+      // Special ability: resolve skillName.id → CN text → extract baseName → cnToGem
+      if (!gemId) {
+        const skillTextId = bundle.skillName?.id
+        if (skillTextId) {
+          const cnName = cnTextTable[skillTextId]
+          if (cnName) {
+            const baseName = extractBaseStatName(cnName)
+            gemId = cnToGem[baseName]
+            if (gemId && !seen.has(gemId)) seen.set(gemId, baseName)
+          }
+        }
+        continue
+      }
+
+      // Blackboard-mapped stat: use blackboard key as fallback baseName
+      if (!seen.has(gemId)) {
+        seen.set(gemId, bbKey ?? '')
+      }
     }
   }
 

@@ -52,6 +52,16 @@ export const bannerSchedule: BannerSchedule = {
       { start: '2026-06-26T12:00:00+08:00', end: '2026-07-16T12:00:00+08:00', version: '1.3', period: 8, isRerun: false },
     ],
   },
+  诀: {
+    windows: [
+      { start: '2026-07-16T12:00:00+08:00', end: '2026-08-19T12:00:00+08:00', version: '1.4', period: 9, isRerun: false },
+    ],
+  },
+  梨诺: {
+    windows: [
+      { start: '2026-08-09T12:00:00+08:00', end: '2026-09-02T12:00:00+08:00', version: '1.4', period: 9, isRerun: false },
+    ],
+  },
 }
 
 /** Standard (permanent pool) 6-star characters — always available, never OUT */

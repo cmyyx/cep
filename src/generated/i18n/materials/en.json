@@ -1,6 +1,13 @@
 {
+  "原木": "Wood",
   "息壤装备原件": "Xiranite Component",
+  "晶体外壳": "Origocrust",
   "武陵调度券": "Wuling Stock Bill",
+  "灼铜装备原件": "Pyrrolite Component",
+  "紫晶装备原件": "Amethyst Component",
+  "蓝铁装备原件": "Ferrium Component",
+  "谷地调度券": "Valley Stock Bill",
   "赤铜装备原件": "Cuprium Component",
-  "赫铜装备原件": "Hetonite Component"
+  "赫铜装备原件": "Hetonite Component",
+  "高晶装备原件": "Cryston Component"
 }

@@ -1,32 +1,40 @@
-// Generates equip i18n from AKEDatabase/public/CH (primary) + AKEData (fallback).
+// Generates equip i18n from AKEData/TableCfg (EquipTable + ItemTable).
 // Only >=5star equipment. Uses ItemTable.name.id for properly localized display names.
 // ================================================================================
 
-import { existsSync, readFileSync, readdirSync, mkdirSync, writeFileSync } from 'node:fs'
+import { existsSync, readFileSync, mkdirSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { extractItemNameIds } from './extract-textid'
 import { loadAllTextTables, SUPPORTED_LOCALES } from './stat-mapping'
+import { parseJsonSafe } from './json-utils'
+
+interface ItemTableEntry {
+  name?: { id?: string | number }
+  rarity?: number
+}
 
 export function generateEquipI18n(
   akedataPath: string,
-  imagedbPath: string,
   outputDir: string,
 ): { written: string[]; count: number; missing: number } {
-  // Primary source: AKEDatabase/public/CH/equip/ (always most up-to-date)
-  const primaryDir = join(imagedbPath, 'public', 'CH', 'equip')
-  const fallbackDir = join(akedataPath, 'output', 'CN', 'equip')
-  const equipDir = existsSync(primaryDir) ? primaryDir
-    : existsSync(fallbackDir) ? fallbackDir
-    : null
+  const equipTablePath = join(akedataPath, 'TableCfg', 'EquipTable.json')
+  const itemTablePath = join(akedataPath, 'TableCfg', 'ItemTable.json')
 
-  if (!equipDir) return { written: [], count: 0, missing: 0 }
+  if (!existsSync(equipTablePath) || !existsSync(itemTablePath)) {
+    return { written: [], count: 0, missing: 0 }
+  }
 
   // Load TextTable for all locales (from AKEData/TableCfg)
   const textTables = loadAllTextTables(akedataPath)
 
   // Extract localized name text IDs from ItemTable.json
-  const itemTablePath = join(akedataPath, 'TableCfg', 'ItemTable.json')
   const nameTextIdMap = extractItemNameIds(itemTablePath)
+
+  // Load full ItemTable for rarity filtering
+  const itemTable = parseJsonSafe(itemTablePath) as Record<string, ItemTableEntry>
+
+  // Load EquipTable
+  const equipTable = parseJsonSafe(equipTablePath) as Record<string, unknown>
 
   const i18nData: Record<string, Record<string, string>> = {}
   for (const loc of SUPPORTED_LOCALES) i18nData[loc] = {}
@@ -34,38 +42,35 @@ export function generateEquipI18n(
   let count = 0
   let missing = 0
 
-  for (const file of readdirSync(equipDir)) {
-    if (!file.endsWith('.json') || file === 'manifest.json') continue
-    const data = JSON.parse(readFileSync(join(equipDir, file), 'utf-8'))
-    const suitName = data['套组名称'] ?? ''
-    // Skip test/manual/placeholder entries
-    if (/test|测试|手动|debug|placeholder/i.test(suitName)) continue
-    const equip = data.equip as Record<string, unknown> | undefined
-    if (!equip) continue
+  for (const [itemId] of Object.entries(equipTable)) {
+    const itemData = itemTable[itemId]
+    if (!itemData) continue
 
-    for (const [itemId, itemData] of Object.entries(equip)) {
-      const item = itemData as Record<string, unknown>
-      if ((item.rarity as number) < 5) continue
-      const cnName = String(item.name ?? itemId).replace(/\n/g, ' ').trim()
-      const nameTextId = nameTextIdMap[itemId]
+    const rarity = Number(itemData.rarity ?? 1)
+    if (rarity < 5) continue
 
-      for (const loc of SUPPORTED_LOCALES) {
-        if (loc === 'zh-CN') {
-          i18nData[loc][itemId] = cnName
-        } else {
-          let text = ''
-          if (nameTextId) {
-            text = textTables[loc]?.[nameTextId] ?? ''
-          }
-          if (!text) {
-            text = textTables['zh-CN']?.[nameTextId] ?? cnName
-            if (!nameTextId || !(textTables[loc]?.[nameTextId])) missing++
-          }
-          i18nData[loc][itemId] = text.replace(/\n/g, ' ').trim()
+    const nameTextId = nameTextIdMap[itemId]
+
+    for (const loc of SUPPORTED_LOCALES) {
+      if (loc === 'zh-CN') {
+        // CN name from ItemTable.name.id -> CN TextTable
+        const cnName = nameTextId
+          ? (textTables['zh-CN']?.[nameTextId] ?? itemId)
+          : itemId
+        i18nData[loc][itemId] = String(cnName).replace(/\n/g, ' ').trim()
+      } else {
+        let text = ''
+        if (nameTextId) {
+          text = textTables[loc]?.[nameTextId] ?? ''
         }
+        if (!text) {
+          text = textTables['zh-CN']?.[nameTextId] ?? itemId
+          if (!nameTextId || !(textTables[loc]?.[nameTextId])) missing++
+        }
+        i18nData[loc][itemId] = text.replace(/\n/g, ' ').trim()
       }
-      count++
     }
+    count++
   }
 
   const outDir = join(outputDir, 'equips')

@@ -15,11 +15,11 @@
   "50": "物理傷害加成",
   "61": "對失衡目標傷害加成",
   "87": "源石技藝強度",
-  "Sub": "副能力",
   "AllSkillDamageIncrease": "所有技能傷害加成",
-  "CrystAndPulseDamageIncrease": "寒冷和電磁傷害加成",
-  "FireAndNaturalDamageIncrease": "灼熱和自然傷害加成",
   "AllDamageTakenScalar": "總傷害減免",
+  "Sub": "副能力",
   "Main": "主能力",
-  "SpellDamageIncrease": "法術傷害加成"
+  "CrystAndPulseDamageIncrease": "寒冷和電磁傷害加成",
+  "SpellDamageIncrease": "法術傷害加成",
+  "FireAndNaturalDamageIncrease": "灼熱和自然傷害加成"
 }

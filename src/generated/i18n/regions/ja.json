@@ -3,11 +3,13 @@
   "wuling": "武陵",
   "theHub": "中枢エリア",
   "originLodespring": "鉱山エリア",
-  "qingboStockade": "清波砦",
   "originiumSciencePark": "源石研究パーク",
-  "testArea": "実験区域",
   "powerPlateau": "エネルギー高地",
-  "swordVaultDale": "蔵剣谷",
+  "yinglungPass": "応龍関",
   "wulingCity": "武陵城",
-  "markerStone": "首礎"
+  "qingboStockade": "清波砦",
+  "northWulingEz": "北部封鎖区域",
+  "markerStone": "首礎",
+  "testArea": "実験区域",
+  "swordVaultDale": "蔵剣谷"
 }

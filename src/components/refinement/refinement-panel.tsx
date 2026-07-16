@@ -137,6 +137,7 @@ export const RefinementPanel = memo(function RefinementPanel() {
                     </span>
                     <span className="text-[11px] text-muted-foreground">
                       {t(`materials.${selected.material}`) ?? selected.material}
+                      {selected.altMaterial ? ` | ${t(`materials.${selected.altMaterial}`) ?? selected.altMaterial}` : ''}
                     </span>
                   </div>
                   {selected.voucher && (
@@ -144,6 +145,7 @@ export const RefinementPanel = memo(function RefinementPanel() {
                       <span className="text-muted-foreground shrink-0 w-14" />
                       <span className="text-[11px] text-muted-foreground">
                         {t(`materials.${selected.voucher.name}`) ?? selected.voucher.name}x{selected.voucher.count}
+                        {selected.altVoucher ? ` | ${t(`materials.${selected.altVoucher.name}`) ?? selected.altVoucher.name}x${selected.altVoucher.count}` : ''}
                       </span>
                     </div>
                   )}

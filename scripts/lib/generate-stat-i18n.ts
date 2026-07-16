@@ -8,7 +8,7 @@
 // JavaScript Number truncation (> 2^53).
 // ================================================================================
 
-import { existsSync, readFileSync, readdirSync, mkdirSync, writeFileSync } from 'node:fs'
+import { existsSync, readFileSync, mkdirSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { parseJsonSafe } from './json-utils'
 import { loadAllTextTables, SUPPORTED_LOCALES } from './stat-mapping'
@@ -102,7 +102,6 @@ export interface StatI18nResult {
 
 export function generateStatI18n(
   akedataPath: string,
-  imagedbPath: string,
   outputDir: string,
 ): StatI18nResult {
   const result: StatI18nResult = {
@@ -140,25 +139,22 @@ export function generateStatI18n(
     result.gemWritten.push(path)
   }
 
-  // ── equipStats: from v2_equip displayAttrModifiers + Composite ──────
+  // ── equipStats: from EquipTable displayAttrModifiers + Composite ──────
 
-  const v2EquipDir = join(imagedbPath, 'public', 'CH', 'v2_equip')
+  const equipTablePath = join(akedataPath, 'TableCfg', 'EquipTable.json')
   const usedAttrTypes = new Set<string>()
   const usedCompositeAttrs = new Set<string>()
 
-  if (existsSync(v2EquipDir)) {
-    for (const file of readdirSync(v2EquipDir)) {
-      if (!file.endsWith('.json') || file === 'manifest.json') continue
-      const data = JSON.parse(readFileSync(join(v2EquipDir, file), 'utf-8'))
-      const et = data.equiptable as Record<string, Record<string, unknown>> | undefined
-      if (!et) continue
-      for (const [, ed] of Object.entries(et)) {
-        for (const mod of (ed.displayAttrModifiers as Array<Record<string, unknown>>) ?? []) {
-          const attrType = String(mod.attrType ?? '')
-          const compositeAttr = String(mod.compositeAttr ?? '')
-          if (attrType && attrType !== '0') usedAttrTypes.add(attrType)
-          if (compositeAttr) usedCompositeAttrs.add(compositeAttr)
-        }
+  if (existsSync(equipTablePath)) {
+    const equipTable = parseJsonSafe(equipTablePath) as Record<string, {
+      displayAttrModifiers?: Array<{ attrType?: number | string; compositeAttr?: string }>
+    }>
+    for (const [, equipEntry] of Object.entries(equipTable)) {
+      for (const mod of equipEntry.displayAttrModifiers ?? []) {
+        const attrType = String(mod.attrType ?? '')
+        const compositeAttr = String(mod.compositeAttr ?? '')
+        if (attrType && attrType !== '0') usedAttrTypes.add(attrType)
+        if (compositeAttr) usedCompositeAttrs.add(compositeAttr)
       }
     }
   }

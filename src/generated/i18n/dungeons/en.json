@@ -1,11 +1,13 @@
 {
   "world_energy_point_group01": "Valley IV·The Hub",
   "world_energy_point_group03": "Valley IV·Origin Lodespring",
-  "world_energy_point_group06": "Wuling·Qingbo Stockade",
   "world_energy_point_group02": "Valley IV·Originium Science Park",
-  "world_energy_point_group08": "Wuling·Test Area",
   "world_energy_point_group04": "Valley IV·Power Plateau",
-  "world_energy_point_group09": "Wuling·Sword Vault Dale",
+  "world_energy_point_group10": "Wuling·Yinglung Pass",
   "world_energy_point_group05": "Wuling·Wuling City",
-  "world_energy_point_group07": "Wuling·Marker Stone"
+  "world_energy_point_group06": "Wuling·Qingbo Stockade",
+  "world_energy_point_group11": "Wuling·North Wuling EZ",
+  "world_energy_point_group07": "Wuling·Marker Stone",
+  "world_energy_point_group08": "Wuling·Test Area",
+  "world_energy_point_group09": "Wuling·Sword Vault Dale"
 }
