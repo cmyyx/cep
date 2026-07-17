@@ -186,6 +186,18 @@ function deriveSchedule(entries: BannerEntry[]): BannerSchedule {
     schedule[name].windows.push(...data.windows)
   }
 
+  // Ensure windows are sorted chronologically for each character
+  for (const data of Object.values(schedule)) {
+    data.windows.sort((a, b) => {
+      if (a.start === b.start) {
+        const aPeriod = typeof a.period === 'number' ? a.period : 0
+        const bPeriod = typeof b.period === 'number' ? b.period : 0
+        return aPeriod - bPeriod
+      }
+      return a.start.localeCompare(b.start)
+    })
+  }
+
   return schedule as BannerSchedule
 }
 

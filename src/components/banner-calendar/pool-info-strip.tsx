@@ -1,12 +1,13 @@
 'use client'
 
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useRef } from 'react'
 import Image from 'next/image'
 import { useTranslations, useLocale } from 'next-intl'
-import { Info } from 'lucide-react'
+import { Info, X } from 'lucide-react'
 import { Button, buttonVariants } from '@/components/ui/button'
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogDescription,
   DialogHeader,
@@ -21,6 +22,7 @@ export function PoolInfoStrip() {
   const locale = useLocale()
   const [selectedVisual, setSelectedVisual] = useState<BannerEntry | null>(null)
   const [cardState, setCardState] = useState<'closed' | 'open' | 'closing'>('closed')
+  const closeTimerRef = useRef<ReturnType<typeof setTimeout>>(undefined)
 
   // Sort by version descending
   const visuals = useMemo(() => {
@@ -40,10 +42,19 @@ export function PoolInfoStrip() {
   if (visuals.length === 0) return null
 
   const isCardVisible = cardState !== 'closed'
-  const openCard = () => setCardState('open')
+  const openCard = () => {
+    if (closeTimerRef.current !== undefined) {
+      clearTimeout(closeTimerRef.current)
+      closeTimerRef.current = undefined
+    }
+    setCardState('open')
+  }
   const closeCard = () => {
     setCardState('closing')
-    setTimeout(() => setCardState('closed'), 150)
+    closeTimerRef.current = setTimeout(() => {
+      setCardState('closed')
+      closeTimerRef.current = undefined
+    }, 150)
   }
 
   const formatDate = (iso: string) => {
@@ -122,7 +133,11 @@ export function PoolInfoStrip() {
       <Dialog open={!!selectedVisual} onOpenChange={(open) => {
         if (!open) { setSelectedVisual(null); setCardState('closed') }
       }}>
-        <DialogContent className="sm:max-w-4xl p-0 gap-0 overflow-hidden [&>button]:hidden">
+        <DialogContent className="sm:max-w-4xl p-0 gap-0 overflow-hidden">
+          <DialogClose className="absolute top-3 left-3 z-40 flex items-center justify-center size-8 rounded-full text-white/90 hover:text-white bg-black/30 hover:bg-black/50 transition-colors ring-offset-background focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2">
+            <X className="size-4" />
+            <span className="sr-only">{t('common.close')}</span>
+          </DialogClose>
           {selectedVisual && (
             <div className="relative aspect-video w-full overflow-hidden rounded-[inherit]">
               {/* Banner image */}
