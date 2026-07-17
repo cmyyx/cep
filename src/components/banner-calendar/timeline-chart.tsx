@@ -155,6 +155,7 @@ export function TimelineChart({ data, t }: TimelineChartProps) {
                   ch.statusBadge.type === 'rerunActive' && 'bg-emerald-500/20 text-emerald-400',
                   ch.statusBadge.type === 'upcoming' && 'bg-amber-500/20 text-amber-400',
                   ch.statusBadge.type === 'inPool' && 'bg-sky-500/20 text-sky-400',
+                  ch.statusBadge.type === 'notYetAppeared' && 'bg-violet-500/20 text-violet-400',
                   ch.statusBadge.type === 'out' && 'bg-muted text-muted-foreground',
                   ch.statusBadge.type === 'standard' && 'bg-secondary text-secondary-foreground',
                 )}
