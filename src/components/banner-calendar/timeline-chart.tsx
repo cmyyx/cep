@@ -155,6 +155,7 @@ export function TimelineChart({ data, t }: TimelineChartProps) {
                   ch.statusBadge.type === 'rerunActive' && 'bg-emerald-500/20 text-emerald-400',
                   ch.statusBadge.type === 'upcoming' && 'bg-amber-500/20 text-amber-400',
                   ch.statusBadge.type === 'inPool' && 'bg-sky-500/20 text-sky-400',
+                  ch.statusBadge.type === 'notYetAppeared' && 'bg-violet-500/20 text-violet-400',
                   ch.statusBadge.type === 'out' && 'bg-muted text-muted-foreground',
                   ch.statusBadge.type === 'standard' && 'bg-secondary text-secondary-foreground',
                 )}
@@ -204,7 +205,7 @@ export function TimelineChart({ data, t }: TimelineChartProps) {
                       bar.cls === 'active' && 'bg-emerald-500/80 text-white',
                       bar.cls === 'past' && 'bg-muted-foreground/30 text-muted-foreground',
                       bar.cls === 'upcoming' && 'border-2 border-dashed border-amber-400/70 text-amber-400 bg-amber-400/10',
-                      bar.cls === 'rerun' && 'border-2 border-dashed border-amber-400/70 text-amber-400 bg-amber-400/10',
+                      bar.cls === 'rerun' && 'bg-muted-foreground/20 text-muted-foreground border-2 border-dashed border-muted-foreground/40',
                       bar.cls === 'rerunActive' && 'bg-emerald-500/80 text-white',
                       bar.cls === 'inPool' && 'bg-sky-400/40 text-sky-800 dark:text-sky-200 border border-sky-400/50',
                     )}

@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 import { withImageCacheVersion } from '@/lib/image-url'
-import { bannerSchedule, standardCharacters } from '@/data/banner-data'
+import { bannerSchedule, standardCharacters } from '@/data/banner'
 import { isCharacterOnBanner } from '@/lib/banner-utils'
 import type {
   BannerSchedule,
@@ -214,6 +214,12 @@ function deriveTimelineData(
     if (hasActiveMain) return { badgeType: 'active', priority: 0 }
     if (hasActiveRerun) return { badgeType: 'rerunActive', priority: 0.5 }
     if (hasUpcomingRerun) return { badgeType: 'upcoming', priority: 1 }
+
+    // Never appeared — all windows are in the future
+    if (ch.wins.length > 0 && ch.wins.every(w => w.startMs > nowMs)) {
+      return { badgeType: 'notYetAppeared', priority: 1.2 }
+    }
+
     if (ch.period != null && currentPeriod > 0 && currentPeriod - ch.period >= 1 && currentPeriod - ch.period <= 2) {
       return { badgeType: 'inPool', priority: 2 }
     }
@@ -320,6 +326,8 @@ function deriveTimelineData(
       if (upcoming) { const d = Math.max(1, Math.ceil((upcoming.startMs - nowMs) / DAY_MS)); statusBadge = { type: 'upcoming', days: d, text: t('bannerCalendar.badgeUpcoming', { days: d }) } }
     } else if (badgeType === 'inPool') {
       statusBadge = { type: 'inPool', text: t('bannerCalendar.badgeInPool') }
+    } else if (badgeType === 'notYetAppeared') {
+      statusBadge = { type: 'notYetAppeared', text: t('bannerCalendar.badgeNotYetAppeared') }
     } else {
       statusBadge = { type: 'out', text: t('bannerCalendar.badgeOut') }
     }

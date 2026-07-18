@@ -611,6 +611,7 @@
     "badgeRerunActive": "{days} days left",
     "badgeInPool": "In Pool",
     "badgeStandard": "Standard",
+    "badgeNotYetAppeared": "Coming Soon",
     "badgeOut": "OUT!",
     "durationDays": "{days} days",
     "today": "Today",
@@ -621,6 +622,7 @@
     "poolInfoSubtitle": "Click artwork to view banner details",
     "viewDetails": "View Details",
     "poolDuration": "Duration",
+    "clickToClose": "Click empty area to close",
     "offRateNote": {
       "tangtang": "Can only be obtained off-rate in Zhuang Fangyi's \"Spring Thunder\" limited search",
       "luoxi": "Can only be obtained off-rate in Zhuang Fangyi's \"Spring Thunder\" limited search"
