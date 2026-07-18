@@ -20,13 +20,13 @@ export interface BannerEntry {
 }
 
 // Future banners without visuals yet — schedule data only
-const PENDING_SCHEDULE: Record<string, { windows: BannerWindow[] }> = {
+const PENDING_SCHEDULE = {
   梨诺: {
     windows: [
-      { start: '2026-08-09T12:00:00+08:00', end: '2026-09-02T11:59:00+08:00', version: '1.4', period: 9, isRerun: false },
+      { start: '2026-08-09T12:00:00+08:00', end: '2026-09-02T11:59:00+08:00', version: '1.4', period: 10, isRerun: false },
     ],
   },
-}
+} as const satisfies Record<string, { windows: BannerWindow[] }>
 
 const STANDARD_CHARS = ['艾尔黛拉', '余烬', '黎风', '别礼', '骏卫'] as const
 export const standardCharacters: readonly string[] = STANDARD_CHARS
