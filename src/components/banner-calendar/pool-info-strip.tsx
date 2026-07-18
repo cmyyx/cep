@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useMemo, useRef } from 'react'
+import { useState, useMemo, useRef, useEffect } from 'react'
 import Image from 'next/image'
 import { useTranslations, useLocale } from 'next-intl'
 import { Info, X } from 'lucide-react'
@@ -23,6 +23,15 @@ export function PoolInfoStrip() {
   const [selectedVisual, setSelectedVisual] = useState<BannerEntry | null>(null)
   const [cardState, setCardState] = useState<'closed' | 'open' | 'closing'>('closed')
   const closeTimerRef = useRef<ReturnType<typeof setTimeout>>(undefined)
+
+  useEffect(() => {
+    return () => {
+      if (closeTimerRef.current !== undefined) {
+        clearTimeout(closeTimerRef.current)
+        closeTimerRef.current = undefined
+      }
+    }
+  }, [])
 
   // Sort by version descending
   const visuals = useMemo(() => {
@@ -168,18 +177,18 @@ export function PoolInfoStrip() {
               {/* Info button — only when card is closed */}
               {cardState === 'closed' && (
                 <div className="absolute top-3 right-3 z-20">
-                  <button
+                  <Button
                     type="button"
+                    variant="ghost"
+                    size="icon"
                     onClick={openCard}
                     className={cn(
-                      'flex items-center justify-center size-8 rounded-full',
-                      'text-white/90 hover:text-white',
-                      'bg-black/30 hover:bg-black/50',
-                      'transition-colors'
+                      'rounded-full text-white/90 hover:text-white',
+                      'bg-black/30 hover:bg-black/50'
                     )}
                   >
                     <Info className="size-4" />
-                  </button>
+                  </Button>
                 </div>
               )}
 
@@ -244,7 +253,7 @@ export function PoolInfoStrip() {
                           href={selectedVisual.officialUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className={buttonVariants({ variant: 'link', size: 'sm' }) + ' h-auto px-0 text-xs'}
+                          className={cn(buttonVariants({ variant: 'link', size: 'sm' }), 'h-auto px-0 text-xs')}
                         >
                           {t('bannerCalendar.viewDetails')}
                         </a>
