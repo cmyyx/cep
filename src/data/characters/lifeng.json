@@ -588,10 +588,53 @@
             "name": "负山",
             "icon": "",
             "note": "",
-            "rarity": 6
+            "rarity": 6,
+            "id": "ce80c3e4-7151-4889-837d-50eb868cc214"
           },
           {
             "name": "骁勇",
+            "icon": "",
+            "note": "",
+            "rarity": 6,
+            "id": "9e2fce40-0c68-4c4e-a834-dd424b3610e8"
+          }
+        ],
+        "equipment": [
+          {
+            "name": "50式应龙重甲·壹型",
+            "icon": "",
+            "note": "",
+            "rarity": 5,
+            "id": "aa0558f9-4f62-472f-8fc5-a8a596331ce1"
+          },
+          {
+            "name": "点剑战术手甲",
+            "icon": "",
+            "note": "",
+            "rarity": 5,
+            "id": "3eb0a94b-918c-4948-b022-f98156abf053"
+          },
+          {
+            "name": "点剑火石",
+            "icon": "",
+            "note": "",
+            "rarity": 5,
+            "id": "1e33b1a1-21f1-4515-bb71-ba2152449825"
+          },
+          {
+            "name": "点剑火石",
+            "icon": "",
+            "note": "",
+            "rarity": 5,
+            "id": "b4c70e8e-f910-4ae8-9b6d-138b789f17e3"
+          }
+        ]
+      },
+      {
+        "weapons": [
+          {
+            "id": "cac454f7-6e0f-4cb0-a87b-71feb065872d",
+            "name": "灯火使命",
             "icon": "",
             "note": "",
             "rarity": 6
@@ -599,34 +642,39 @@
         ],
         "equipment": [
           {
-            "name": "碾骨重护甲·壹型",
+            "name": "纾难护甲",
             "icon": "",
             "note": "",
-            "rarity": 5
+            "rarity": 5,
+            "id": "bc3ae2e7-9348-4ae3-9873-7873ed049a6a"
           },
           {
-            "name": "点剑战术手甲",
+            "name": "长息手套",
             "icon": "",
             "note": "",
-            "rarity": 5
+            "rarity": 5,
+            "id": "bc0b4985-9425-484d-808f-d648f7891c03"
           },
           {
-            "name": "点剑火石",
+            "name": "纾难印章",
             "icon": "",
             "note": "",
-            "rarity": 5
+            "rarity": 5,
+            "id": "22b92ab3-27df-4128-9a75-623dadf1518e"
           },
           {
-            "name": "点剑火石",
+            "name": "纾难印章",
             "icon": "",
             "note": "",
-            "rarity": 5
+            "rarity": 5,
+            "id": "832d5b78-c478-4776-9512-a0742c1fa2ff"
           }
         ]
       },
       {
         "weapons": [
           {
+            "id": "a9492eed-b762-44db-aa10-21428064f4bc",
             "name": "嵌合正义",
             "icon": "",
             "note": "",
@@ -635,25 +683,29 @@
         ],
         "equipment": [
           {
-            "name": "碾骨重护甲·壹型",
+            "id": "bc3caf26-8e00-4f9d-9bdf-b0e733ca8f4b",
+            "name": "50式应龙重甲·壹型",
             "icon": "",
             "note": "",
             "rarity": 5
           },
           {
-            "name": "轻超域护手",
+            "id": "ee61171c-b3d7-4401-916a-9e71dc38195d",
+            "name": "长息手套",
             "icon": "",
             "note": "",
             "rarity": 5
           },
           {
-            "name": "轻超域稳定盘",
+            "id": "7a820f58-2d57-4c5b-8bb7-1d4df72b5e6a",
+            "name": "长息蓄电核",
             "icon": "",
             "note": "",
             "rarity": 5
           },
           {
-            "name": "轻超域稳定盘",
+            "id": "c9ff029f-b876-49e5-96e4-69160927ee1f",
+            "name": "长息蓄电核",
             "icon": "",
             "note": "",
             "rarity": 5
@@ -677,10 +729,55 @@
                 "name": "负山",
                 "icon": "",
                 "note": "",
-                "rarity": 6
+                "rarity": 6,
+                "id": "2d198ea0-158d-41f2-b07d-8849c5facba0"
               },
               {
                 "name": "骁勇",
+                "icon": "",
+                "note": "",
+                "rarity": 6,
+                "id": "4cb84e28-2e8e-4241-b1b2-554975de4ffc"
+              }
+            ],
+            "equipment": [
+              {
+                "name": "50式应龙重甲·壹型",
+                "icon": "",
+                "note": "",
+                "rarity": 5,
+                "id": "16f68fcc-ca6d-4643-9326-21cb8d7cd31b"
+              },
+              {
+                "name": "点剑战术手甲",
+                "icon": "",
+                "note": "",
+                "rarity": 5,
+                "id": "5921df83-07ec-447a-87c0-ddc5e6edf6e0"
+              },
+              {
+                "name": "点剑火石",
+                "icon": "",
+                "note": "",
+                "rarity": 5,
+                "id": "577e4c7b-4ff2-4290-b54d-cc5506c93618"
+              },
+              {
+                "name": "点剑火石",
+                "icon": "",
+                "note": "",
+                "rarity": 5,
+                "id": "680d1734-196e-474e-99f2-abe464ec96a7"
+              }
+            ]
+          },
+          {
+            "name": "黎风",
+            "tag": "副C",
+            "weapons": [
+              {
+                "id": "5741734e-8c25-4729-b2ee-03d1f09516c8",
+                "name": "灯火使命",
                 "icon": "",
                 "note": "",
                 "rarity": 6
@@ -688,25 +785,29 @@
             ],
             "equipment": [
               {
-                "name": "碾骨重护甲·壹型",
+                "id": "e24d8595-a53b-47b6-948f-f0fb96498fd9",
+                "name": "纾难护甲",
                 "icon": "",
                 "note": "",
                 "rarity": 5
               },
               {
-                "name": "点剑战术手甲",
+                "id": "85486e1a-d11d-44f6-8e0f-98655cc1405d",
+                "name": "长息手套",
                 "icon": "",
                 "note": "",
                 "rarity": 5
               },
               {
-                "name": "点剑火石",
+                "id": "a7605a15-8e9d-4769-8d9a-f6587290cc5a",
+                "name": "纾难印章",
                 "icon": "",
                 "note": "",
                 "rarity": 5
               },
               {
-                "name": "点剑火石",
+                "id": "e6ec6fab-1de0-436d-b6fd-51160b6c5d26",
+                "name": "纾难印章",
                 "icon": "",
                 "note": "",
                 "rarity": 5
@@ -720,11 +821,26 @@
         "note": "",
         "options": [
           {
-            "name": "管理员(男)",
+            "name": "弭弗",
             "tag": "主C",
             "weapons": [
               {
-                "name": "宏愿",
+                "name": "赤缨",
+                "icon": "",
+                "note": "",
+                "rarity": 6,
+                "id": "3a8cebc1-4bba-4fb8-af81-5a0206fd4407"
+              },
+              {
+                "id": "3bd64c21-cc85-4002-a749-3fd4546b0cae",
+                "name": "典范",
+                "icon": "",
+                "note": "",
+                "rarity": 6
+              },
+              {
+                "id": "7f7f81e9-27f3-45fb-93b9-f22ae203e233",
+                "name": "幻想苦痛",
                 "icon": "",
                 "note": "",
                 "rarity": 6
@@ -732,28 +848,82 @@
             ],
             "equipment": [
               {
-                "name": "点剑重装甲",
+                "name": "旧锋装甲",
                 "icon": "",
                 "note": "",
-                "rarity": 5
+                "rarity": 5,
+                "id": "30ce8fb6-dd89-4d01-94d0-c4f63528829a"
               },
               {
-                "name": "轻超域护手",
+                "name": "旧锋手甲",
                 "icon": "",
                 "note": "",
-                "rarity": 5
+                "rarity": 5,
+                "id": "ae676359-fff9-477d-bc1b-2aeff71bc33d"
               },
               {
-                "name": "点剑火石",
+                "name": "旧锋刺刃",
                 "icon": "",
                 "note": "",
-                "rarity": 5
+                "rarity": 5,
+                "id": "59cd5352-ef82-49f7-bd95-02429ded1003"
               },
               {
-                "name": "点剑火石",
+                "name": "点剑定位信标",
                 "icon": "",
                 "note": "",
-                "rarity": 5
+                "rarity": 5,
+                "id": "4a2c0e71-ac98-42bb-af31-4a0bb27e07c3"
+              }
+            ]
+          },
+          {
+            "name": "管理员(男)",
+            "tag": "主C",
+            "weapons": [
+              {
+                "name": "宏愿",
+                "icon": "",
+                "note": "",
+                "rarity": 6,
+                "id": "3a8cebc1-4bba-4fb8-af81-5a0206fd4407"
+              },
+              {
+                "id": "ea4c6911-6af6-4a70-8b68-eba022383deb",
+                "name": "遥望",
+                "icon": "",
+                "note": "",
+                "rarity": 6
+              }
+            ],
+            "equipment": [
+              {
+                "name": "点剑重装甲·壹型",
+                "icon": "",
+                "note": "",
+                "rarity": 5,
+                "id": "30ce8fb6-dd89-4d01-94d0-c4f63528829a"
+              },
+              {
+                "name": "旧锋手甲·壹型",
+                "icon": "",
+                "note": "",
+                "rarity": 5,
+                "id": "ae676359-fff9-477d-bc1b-2aeff71bc33d"
+              },
+              {
+                "name": "旧锋刺刃·壹型",
+                "icon": "",
+                "note": "",
+                "rarity": 5,
+                "id": "59cd5352-ef82-49f7-bd95-02429ded1003"
+              },
+              {
+                "name": "旧锋刺刃·壹型",
+                "icon": "",
+                "note": "",
+                "rarity": 5,
+                "id": "4a2c0e71-ac98-42bb-af31-4a0bb27e07c3"
               }
             ]
           },
@@ -765,33 +935,38 @@
                 "name": "典范",
                 "icon": "",
                 "note": "",
-                "rarity": 6
+                "rarity": 6,
+                "id": "e8fa8bcc-d9e8-46d7-b46b-0ab01fd4cd75"
               }
             ],
             "equipment": [
               {
-                "name": "50式应龙重甲",
+                "name": "旧锋装甲",
                 "icon": "",
                 "note": "",
-                "rarity": 5
+                "rarity": 5,
+                "id": "a3503a52-503c-48f7-a1cc-25640122537c"
               },
               {
-                "name": "生物辅助臂甲",
+                "name": "旧锋手甲",
                 "icon": "",
                 "note": "",
-                "rarity": 5
+                "rarity": 5,
+                "id": "4ee0660f-8ba7-4f2a-a0e1-deae9db0a3e2"
               },
               {
-                "name": "50式应龙雷达",
+                "name": "旧锋刺刃",
                 "icon": "",
                 "note": "",
-                "rarity": 5
+                "rarity": 5,
+                "id": "ac6cf0ce-9eb8-4e6a-9966-7b3c938c53df"
               },
               {
-                "name": "50式应龙雷达",
+                "name": "点剑定位信标",
                 "icon": "",
                 "note": "",
-                "rarity": 5
+                "rarity": 5,
+                "id": "efb25c63-029e-458a-b19e-39f9f8273293"
               }
             ]
           }
@@ -809,39 +984,45 @@
                 "name": "扶摇",
                 "icon": "",
                 "note": "",
-                "rarity": 6
+                "rarity": 6,
+                "id": "fe09f05b-970d-4b21-b14c-7d7c63858d7b"
               },
               {
                 "name": "光荣记忆",
                 "icon": "",
                 "note": "",
-                "rarity": 6
+                "rarity": 6,
+                "id": "ef65146e-8606-4788-89c5-b70e77b78053"
               }
             ],
             "equipment": [
               {
-                "name": "点剑重装甲",
+                "name": "50式应龙重甲·壹型",
                 "icon": "",
                 "note": "",
-                "rarity": 5
+                "rarity": 5,
+                "id": "2c81a8ab-163d-45cf-b009-3a59039ab482"
               },
               {
                 "name": "点剑战术手甲",
                 "icon": "",
                 "note": "",
-                "rarity": 5
+                "rarity": 5,
+                "id": "3d2e444a-e0f1-4e78-a835-a7e3f21f15f1"
               },
               {
-                "name": "点剑火石",
+                "name": "点剑短刃",
                 "icon": "",
                 "note": "",
-                "rarity": 5
+                "rarity": 5,
+                "id": "045c5250-5963-4292-b496-981e0840142a"
               },
               {
-                "name": "碾骨面具",
+                "name": "点剑短刃",
                 "icon": "",
                 "note": "",
-                "rarity": 5
+                "rarity": 5,
+                "id": "d216d1fa-db44-4240-870d-2ccce58332a6"
               }
             ]
           }
@@ -859,13 +1040,22 @@
                 "name": "不知归",
                 "icon": "",
                 "note": "",
-                "rarity": 6
+                "rarity": 6,
+                "id": "4b7f25cb-b69b-4585-9d16-4dc603bd6e37"
               },
               {
                 "name": "热熔切割器",
                 "icon": "",
                 "note": "",
-                "rarity": 6
+                "rarity": 6,
+                "id": "a10964c2-aae6-4b46-bfc8-70b287a58813"
+              },
+              {
+                "id": "be4a5a65-6373-4b59-a7ce-84256c72b836",
+                "name": "坚城铸造者",
+                "icon": "",
+                "note": "",
+                "rarity": 5
               }
             ],
             "equipment": [
@@ -873,34 +1063,103 @@
                 "name": "长息装甲",
                 "icon": "",
                 "note": "",
-                "rarity": 5
+                "rarity": 5,
+                "id": "4d435cc5-dfbe-4bfc-9b1c-e3b25357b4bd"
               },
               {
                 "name": "动火用手套",
                 "icon": "",
                 "note": "",
-                "rarity": 5
+                "rarity": 5,
+                "id": "4a54f8ef-7c10-4afb-9806-4bc92df83547"
               },
               {
                 "name": "动火用电力匣",
                 "icon": "",
                 "note": "",
-                "rarity": 5
+                "rarity": 5,
+                "id": "1a08e644-adeb-4d21-b9dc-439390895eaa"
               },
               {
                 "name": "动火用电力匣",
                 "icon": "",
                 "note": "",
-                "rarity": 5
+                "rarity": 5,
+                "id": "e450beb0-574d-4c17-8498-dc3ec24ee391"
               }
             ]
           },
           {
-            "name": "艾尔黛拉",
+            "name": "余烬",
             "tag": "生存",
             "weapons": [
               {
-                "name": "沧溟星梦",
+                "name": "大雷斑",
+                "icon": "",
+                "note": "",
+                "rarity": 6,
+                "id": "49546b2f-8667-42b3-9e47-3cac97d34428"
+              },
+              {
+                "id": "1e5cec63-21be-4509-abf5-f89893b5548b",
+                "name": "昔日精品",
+                "icon": "",
+                "note": "",
+                "rarity": 6
+              },
+              {
+                "id": "b141826a-259b-4878-985a-a0e5023fee0e",
+                "name": "终点之声",
+                "icon": "",
+                "note": "",
+                "rarity": 5
+              }
+            ],
+            "equipment": [
+              {
+                "name": "生物辅助重甲",
+                "icon": "",
+                "note": "",
+                "rarity": 5,
+                "id": "0e65909c-17c8-498b-b628-c2a80685e543"
+              },
+              {
+                "name": "生物辅助手甲",
+                "icon": "",
+                "note": "",
+                "rarity": 5,
+                "id": "2d02eb2b-820c-4ade-8abd-49e82cc495ef"
+              },
+              {
+                "name": "生物辅助接驳器·壹型",
+                "icon": "",
+                "note": "",
+                "rarity": 5,
+                "id": "16a2b183-dbba-4914-a93d-9a5e3d41c2c5"
+              },
+              {
+                "name": "生物辅助接驳器·壹型",
+                "icon": "",
+                "note": "",
+                "rarity": 5,
+                "id": "0f1b9bed-dae7-4aff-a6a7-2b2fb756a5ac"
+              }
+            ]
+          },
+          {
+            "name": "余烬",
+            "tag": "副C",
+            "weapons": [
+              {
+                "id": "3e4fc75d-8e8d-41d4-bab9-3e30ca006d0d",
+                "name": "典范",
+                "icon": "",
+                "note": "",
+                "rarity": 6
+              },
+              {
+                "id": "fb62fc30-56e1-421b-bcb9-fe0ac3a13ada",
+                "name": "破碎君王",
                 "icon": "",
                 "note": "",
                 "rarity": 6
@@ -908,28 +1167,82 @@
             ],
             "equipment": [
               {
-                "name": "生物辅助胸甲",
+                "id": "394f449d-3dd9-42a7-926b-071f6a5b6880",
+                "name": "轻超域护板",
                 "icon": "",
                 "note": "",
                 "rarity": 5
               },
               {
-                "name": "生物辅助手甲",
+                "id": "c88b0b2f-e51a-413b-b3a8-fe77bf056ad5",
+                "name": "点剑战术手套",
                 "icon": "",
                 "note": "",
                 "rarity": 5
               },
               {
-                "name": "生物辅助护盾针",
+                "id": "ae87adef-2c21-421b-968f-b22268f9fe89",
+                "name": "点剑微型滤芯",
                 "icon": "",
                 "note": "",
                 "rarity": 5
               },
               {
-                "name": "生物辅助护盾针",
+                "id": "eee77014-9a91-4560-a415-be2313d95788",
+                "name": "点剑微型滤芯",
                 "icon": "",
                 "note": "",
                 "rarity": 5
+              }
+            ]
+          },
+          {
+            "name": "大潘",
+            "tag": "副C",
+            "weapons": [
+              {
+                "id": "cdd108e2-d78c-4a0e-92ba-c295fb6a7942",
+                "name": "典范",
+                "icon": "",
+                "note": "",
+                "rarity": 6
+              },
+              {
+                "id": "76a723a1-5fef-486b-97f3-66047b2b07bb",
+                "name": "古渠",
+                "icon": "",
+                "note": "",
+                "rarity": 5
+              }
+            ],
+            "equipment": [
+              {
+                "id": "c67f0cd0-4ceb-47dd-8729-465af17e0753",
+                "name": "点剑轻装甲",
+                "icon": "",
+                "note": "",
+                "rarity": null
+              },
+              {
+                "id": "928d03d5-7fe0-410b-82e9-199f03a83486",
+                "name": "生物辅助臂甲",
+                "icon": "",
+                "note": "",
+                "rarity": null
+              },
+              {
+                "id": "fbcc332e-195d-424d-9d17-cbe904fc4797",
+                "name": "点剑定位信标",
+                "icon": "",
+                "note": "",
+                "rarity": null
+              },
+              {
+                "id": "c3f1323d-03e1-4711-b36c-df586b120809",
+                "name": "点剑定位信标",
+                "icon": "",
+                "note": "",
+                "rarity": null
               }
             ]
           }
@@ -942,7 +1255,14 @@
         "name": "Starmash",
         "url": "https://space.bilibili.com/527563568",
         "note": ""
+      },
+      {
+        "role": "修改",
+        "name": "Fatalis.冥影",
+        "url": "https://space.bilibili.com/341633836",
+        "note": ""
       }
-    ]
+    ],
+    "skillPriorities": []
   }
 }
