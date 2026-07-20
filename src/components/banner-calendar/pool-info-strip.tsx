@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useMemo, useRef } from 'react'
+import { useState, useMemo, useRef, useEffect } from 'react'
 import Image from 'next/image'
 import { useTranslations, useLocale } from 'next-intl'
 import { Info, X } from 'lucide-react'
@@ -9,13 +9,13 @@ import {
   Dialog,
   DialogClose,
   DialogContent,
-  DialogDescription,
-  DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog'
 import { cn } from '@/lib/utils'
 import { bannerEntries } from '@/data/banner'
 import type { BannerEntry } from '@/data/banner'
+
+const CARD_CLOSE_DURATION = 150 // ms — must match `duration-150` in animation classes
 
 export function PoolInfoStrip() {
   const t = useTranslations()
@@ -23,6 +23,15 @@ export function PoolInfoStrip() {
   const [selectedVisual, setSelectedVisual] = useState<BannerEntry | null>(null)
   const [cardState, setCardState] = useState<'closed' | 'open' | 'closing'>('closed')
   const closeTimerRef = useRef<ReturnType<typeof setTimeout>>(undefined)
+
+  useEffect(() => {
+    return () => {
+      if (closeTimerRef.current !== undefined) {
+        clearTimeout(closeTimerRef.current)
+        closeTimerRef.current = undefined
+      }
+    }
+  }, [])
 
   // Sort by version descending
   const visuals = useMemo(() => {
@@ -54,7 +63,7 @@ export function PoolInfoStrip() {
     closeTimerRef.current = setTimeout(() => {
       setCardState('closed')
       closeTimerRef.current = undefined
-    }, 150)
+    }, CARD_CLOSE_DURATION)
   }
 
   const formatDate = (iso: string) => {
@@ -133,11 +142,12 @@ export function PoolInfoStrip() {
       <Dialog open={!!selectedVisual} onOpenChange={(open) => {
         if (!open) { setSelectedVisual(null); setCardState('closed') }
       }}>
-        <DialogContent className="sm:max-w-4xl p-0 gap-0 overflow-hidden">
+        <DialogContent className="sm:max-w-4xl p-0 gap-0 overflow-hidden" showCloseButton={false}>
           <DialogClose className="absolute top-3 left-3 z-40 flex items-center justify-center size-8 rounded-full text-white/90 hover:text-white bg-black/30 hover:bg-black/50 transition-colors ring-offset-background focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2">
             <X className="size-4" />
             <span className="sr-only">{t('common.close')}</span>
           </DialogClose>
+          <DialogTitle className="sr-only">{selectedVisual?.title ?? t('bannerCalendar.poolInfo')}</DialogTitle>
           {selectedVisual && (
             <div className="relative aspect-video w-full overflow-hidden rounded-[inherit]">
               {/* Banner image */}
@@ -168,18 +178,19 @@ export function PoolInfoStrip() {
               {/* Info button — only when card is closed */}
               {cardState === 'closed' && (
                 <div className="absolute top-3 right-3 z-20">
-                  <button
+                  <Button
                     type="button"
+                    variant="ghost"
+                    size="icon"
+                    aria-label={t('bannerCalendar.poolInfo')}
                     onClick={openCard}
                     className={cn(
-                      'flex items-center justify-center size-8 rounded-full',
-                      'text-white/90 hover:text-white',
-                      'bg-black/30 hover:bg-black/50',
-                      'transition-colors'
+                      'rounded-full text-white/90 hover:text-white',
+                      'bg-black/30 hover:bg-black/50'
                     )}
                   >
                     <Info className="size-4" />
-                  </button>
+                  </Button>
                 </div>
               )}
 
@@ -208,16 +219,16 @@ export function PoolInfoStrip() {
                 >
                   {/* Header */}
                   <div className="px-4 pt-3 pb-1">
-                    <DialogHeader className="px-0 py-0">
-                      <DialogTitle className="text-sm font-semibold leading-tight">
+                    <div className="flex flex-col gap-2 px-0 py-0">
+                      <h3 className="text-sm font-semibold leading-tight">
                         {selectedVisual.title}
-                      </DialogTitle>
+                      </h3>
                       {selectedVisual.subtitle && (
-                        <DialogDescription className="text-xs text-muted-foreground mt-0.5">
+                        <p className="text-xs text-muted-foreground mt-0.5">
                           {selectedVisual.subtitle}
-                        </DialogDescription>
+                        </p>
                       )}
-                    </DialogHeader>
+                    </div>
                   </div>
 
                   {/* Body */}
@@ -244,7 +255,7 @@ export function PoolInfoStrip() {
                           href={selectedVisual.officialUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className={buttonVariants({ variant: 'link', size: 'sm' }) + ' h-auto px-0 text-xs'}
+                          className={cn(buttonVariants({ variant: 'link', size: 'sm' }), 'h-auto px-0 text-xs')}
                         >
                           {t('bannerCalendar.viewDetails')}
                         </a>
