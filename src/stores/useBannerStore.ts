@@ -1,5 +1,6 @@
 import { create } from 'zustand'
 import { withImageCacheVersion } from '@/lib/image-url'
+import { getCharacterAvatarPath } from '@/lib/character-images'
 import { bannerSchedule, standardCharacters } from '@/data/banner'
 import { isCharacterOnBanner } from '@/lib/banner-utils'
 import type {
@@ -58,9 +59,11 @@ function normalizeSchedule(source: BannerSchedule): CharacterScheduleIndex {
 
     const mainPeriod = windows.find((w) => !w.isRerun && w.period != null)?.period ?? null
 
+    const avatarPath = getCharacterAvatarPath(characterName)
+    if (!avatarPath) throw new Error(`Missing character avatar mapping: ${characterName}`)
     result[characterName] = {
       characterName, windows,
-      avatarSrc: withImageCacheVersion(`/images/characters/${characterName}.avif`),
+      avatarSrc: withImageCacheVersion(avatarPath),
       period: mainPeriod, isStandard: false,
       offRateNote: entry.offRateNote,
     }
@@ -68,9 +71,11 @@ function normalizeSchedule(source: BannerSchedule): CharacterScheduleIndex {
 
   for (const name of standardCharacters) {
     if (result[name]) continue
+    const avatarPath = getCharacterAvatarPath(name)
+    if (!avatarPath) throw new Error(`Missing character avatar mapping: ${name}`)
     result[name] = {
       characterName: name, windows: [],
-      avatarSrc: withImageCacheVersion(`/images/characters/${name}.avif`),
+      avatarSrc: withImageCacheVersion(avatarPath),
       period: null, isStandard: true,
     }
   }

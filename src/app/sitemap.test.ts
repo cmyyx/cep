@@ -1,6 +1,9 @@
 import { describe, it, expect, afterEach } from 'vitest'
 import { routing } from '@/i18n/routing'
-import sitemap from '@/app/sitemap'
+import sitemap, { ROUTES } from '@/app/sitemap'
+import { wikiCharacters } from '@/generated/data/wiki/characters'
+import { wikiWeapons } from '@/generated/data/wiki/weapons'
+import { wikiEquipment } from '@/generated/data/wiki/equipment'
 
 const DEFAULT_LOCALE = routing.defaultLocale
 const LOCALES = routing.locales
@@ -16,11 +19,15 @@ describe('sitemap', () => {
     }
   })
 
-  it('returns an array with one entry per route', () => {
+  it('returns every list route and generated Wiki detail route', () => {
     const result = sitemap()
-    expect(Array.isArray(result)).toBe(true)
-    // ROUTES has 15 entries
-    expect(result.length).toBe(15)
+
+    expect(result).toHaveLength(
+      ROUTES.length + wikiCharacters.length + wikiWeapons.length + wikiEquipment.length
+    )
+    expect(result.some((entry) => entry.url.endsWith(`/wiki/characters/${wikiCharacters[0].id}`))).toBe(true)
+    expect(result.some((entry) => entry.url.endsWith(`/wiki/weapons/${wikiWeapons[0].id}`))).toBe(true)
+    expect(result.some((entry) => entry.url.endsWith(`/wiki/equipment/${wikiEquipment[0].id}`))).toBe(true)
   })
 
   it('each entry has url, lastModified, changeFrequency, priority, alternates', () => {

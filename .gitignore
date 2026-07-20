@@ -60,3 +60,4 @@ sync-game-data.config.json
 /src/generated/version-data.ts
 .codebuddy/
 .workbuddy/
+docs/superpowers/

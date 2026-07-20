@@ -1,0 +1,210 @@
+{
+  "id": "item_equip_t4_suit_usp02_edc_02",
+  "category": "equipment",
+  "stats": [
+    {
+      "attributeId": "3",
+      "values": [
+        21,
+        21,
+        21,
+        21
+      ],
+      "displayValues": [
+        "防御力+21",
+        "防御力+21",
+        "防御力+21",
+        "防御力+21"
+      ]
+    },
+    {
+      "attributeId": "41",
+      "values": [
+        32,
+        35,
+        38,
+        41
+      ],
+      "displayValues": [
+        "智识+32",
+        "智识+35",
+        "智识+38",
+        "智识+41"
+      ]
+    },
+    {
+      "attributeId": "42",
+      "values": [
+        21,
+        23,
+        25,
+        27
+      ],
+      "displayValues": [
+        "意志+21",
+        "意志+23",
+        "意志+25",
+        "意志+27"
+      ]
+    },
+    {
+      "attributeId": "29",
+      "values": [
+        0.207,
+        0.2277,
+        0.2484,
+        0.2691
+      ],
+      "displayValues": [
+        "治疗效率加成+20.7%",
+        "治疗效率加成+22.77%",
+        "治疗效率加成+24.84%",
+        "治疗效率加成+26.91%"
+      ]
+    }
+  ],
+  "suitEffects": [
+    {
+      "id": "passive_equipsuit_usp_02",
+      "name": {
+        "zh-CN": "长息",
+        "en": "Eternal Xiranite",
+        "ja": "流転",
+        "zh-TW": "長息"
+      },
+      "description": {
+        "zh-CN": "3件套组效果：装备者生命值<@ba.vup>+1000</>。\n装备者施加<#ba.enhance>增幅</>、<#ba.guard>庇护</>、<#ba.vulnerable>脆弱</>、<#ba.weak>虚弱</>后，使其他队友造成的伤害<@ba.vup>+16%</>，持续15秒。该效果无法叠加。",
+        "en": "3-piece set effect: Wearer's HP <@ba.vup>+1000</>.\nAfter the wearer applies <#ba.enhance>Amp</>, <#ba.guard>Protected</>, <#ba.vulnerable>Susceptibility</>, or <#ba.weak>Weakened</>, other teammates gain DMG Dealt <@ba.vup>+16%</> for 15s. This effect cannot stack.",
+        "ja": "3点セット効果：装備中、HP<@ba.vup>+1000</>\n自身が<#ba.enhance>増幅</>、<#ba.guard>加護</>、<#ba.vulnerable>脆弱</>、<#ba.weak>弱体化</>を付与すると、15秒間編成中の他の味方の与えるダメージ<@ba.vup>+16%</>\nこの効果は重ね掛け不可",
+        "zh-TW": "3件套裝效果：裝備者生命值<@ba.vup>+1000</>。\n裝備者施加<#ba.enhance>增幅</>、<#ba.guard>庇護</>、<#ba.vulnerable>脆弱</>、<#ba.weak>虛弱</>後，使其他隊友造成的傷害<@ba.vup>+16%</>，持續15秒。該效果無法疊加。"
+      },
+      "requiredPieces": 3
+    }
+  ],
+  "craftingRecipes": [
+    {
+      "chainId": 4000,
+      "discount": 1,
+      "isDefault": true,
+      "materials": [
+        {
+          "itemId": "item_equip_script_4",
+          "name": {
+            "zh-CN": "息壤装备原件",
+            "en": "Xiranite Component",
+            "ja": "息壌装備部品",
+            "zh-TW": "息壤裝備原件"
+          },
+          "iconId": "item_equip_script_4",
+          "rarity": 4,
+          "count": 50
+        },
+        {
+          "itemId": "item_domain_jinlong_coupon",
+          "name": {
+            "zh-CN": "武陵调度券",
+            "en": "Wuling Stock Bill",
+            "ja": "武陵取引券",
+            "zh-TW": "武陵調度券"
+          },
+          "iconId": "item_domain_jinlong_coupon",
+          "rarity": 5,
+          "count": 8000
+        }
+      ]
+    },
+    {
+      "chainId": 4001,
+      "discount": 1,
+      "isDefault": false,
+      "materials": [
+        {
+          "itemId": "item_equip_script_4_1",
+          "name": {
+            "zh-CN": "赤铜装备原件",
+            "en": "Cuprium Component",
+            "ja": "赤銅装備部品",
+            "zh-TW": "赤銅裝備原件"
+          },
+          "iconId": "item_equip_script_4_1",
+          "rarity": 4,
+          "count": 50
+        },
+        {
+          "itemId": "item_domain_jinlong_coupon",
+          "name": {
+            "zh-CN": "武陵调度券",
+            "en": "Wuling Stock Bill",
+            "ja": "武陵取引券",
+            "zh-TW": "武陵調度券"
+          },
+          "iconId": "item_domain_jinlong_coupon",
+          "rarity": 5,
+          "count": 8000
+        }
+      ]
+    },
+    {
+      "chainId": 4002,
+      "discount": 1,
+      "isDefault": false,
+      "materials": [
+        {
+          "itemId": "item_equip_script_4_2",
+          "name": {
+            "zh-CN": "赫铜装备原件",
+            "en": "Hetonite Component",
+            "ja": "緋銅装備部品",
+            "zh-TW": "赫銅裝備原件"
+          },
+          "iconId": "item_equip_script_4_2",
+          "rarity": 4,
+          "count": 10
+        },
+        {
+          "itemId": "item_domain_jinlong_coupon",
+          "name": {
+            "zh-CN": "武陵调度券",
+            "en": "Wuling Stock Bill",
+            "ja": "武陵取引券",
+            "zh-TW": "武陵調度券"
+          },
+          "iconId": "item_domain_jinlong_coupon",
+          "rarity": 5,
+          "count": 8000
+        }
+      ]
+    },
+    {
+      "chainId": 4003,
+      "discount": 0.01,
+      "isDefault": false,
+      "materials": [
+        {
+          "itemId": "item_equip_script_4_3",
+          "name": {
+            "zh-CN": "灼铜装备原件",
+            "en": "Pyrrolite Component",
+            "ja": "焔銅装備部品",
+            "zh-TW": "灼銅裝備原件"
+          },
+          "iconId": "item_equip_script_4_3",
+          "rarity": 4,
+          "count": 5
+        },
+        {
+          "itemId": "item_domain_jinlong_coupon",
+          "name": {
+            "zh-CN": "武陵调度券",
+            "en": "Wuling Stock Bill",
+            "ja": "武陵取引券",
+            "zh-TW": "武陵調度券"
+          },
+          "iconId": "item_domain_jinlong_coupon",
+          "rarity": 5,
+          "count": 80
+        }
+      ]
+    }
+  ]
+}

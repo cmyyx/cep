@@ -33,6 +33,8 @@ function getProjectRoot(): string {
 export interface UpstreamVersions {
   /** AKEData fork HEAD commit SHA at last successful sync */
   akedata: string | null
+  /** AKEDatabase HEAD commit SHA at last successful sync */
+  imagedb: string | null
   /** ISO-8601 timestamp of last successful sync */
   lastSync: string | null
 }
@@ -45,13 +47,26 @@ export function readUpstreamVersions(): UpstreamVersions {
       const raw = JSON.parse(readFileSync(versPath, 'utf-8')) as Partial<UpstreamVersions>
       return {
         akedata: raw.akedata ?? null,
+        imagedb: raw.imagedb ?? null,
         lastSync: raw.lastSync ?? null,
       }
     }
   } catch {
     // File missing or malformed — treat as no stored version (first run).
   }
-  return { akedata: null, lastSync: null }
+  return { akedata: null, imagedb: null, lastSync: null }
+}
+
+export function upstreamVersionsMatch(
+  stored: UpstreamVersions,
+  current: { akedata: string; imagedb: string }
+): boolean {
+  return Boolean(
+    stored.akedata &&
+    stored.imagedb &&
+    stored.akedata === current.akedata &&
+    stored.imagedb === current.imagedb
+  )
 }
 
 /**
@@ -59,7 +74,7 @@ export function readUpstreamVersions(): UpstreamVersions {
  * The caller (sync:update) is responsible for committing this file along with
  * generated i18n / data changes.
  */
-export function writeUpstreamVersions(shas: { akedata: string }): void {
+export function writeUpstreamVersions(shas: { akedata: string; imagedb: string }): void {
   const root = getProjectRoot()
   const cacheDir = join(root, 'scripts', '.cache')
   mkdirSync(cacheDir, { recursive: true })
@@ -67,6 +82,7 @@ export function writeUpstreamVersions(shas: { akedata: string }): void {
   const versPath = join(cacheDir, 'upstream-versions.json')
   const payload: UpstreamVersions = {
     akedata: shas.akedata,
+    imagedb: shas.imagedb,
     lastSync: new Date().toISOString(),
   }
   writeFileSync(versPath, JSON.stringify(payload, null, 2) + '\n', 'utf-8')

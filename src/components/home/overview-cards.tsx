@@ -1,7 +1,7 @@
 'use client'
 
 import { useTranslations, useLocale } from 'next-intl'
-import { Swords, Users, Wrench, Calendar } from 'lucide-react'
+import { Swords, Wrench, Calendar } from 'lucide-react'
 import { NavLink } from '@/components/shared/nav-link'
 import { Card, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
 import { cn } from '@/lib/utils'
@@ -36,13 +36,6 @@ const CARDS: OverviewCardData[] = [
     Icon: Wrench,
     accentClass: 'text-preview-pink',
   },
-  {
-    href: '/character-guide',
-    labelKey: 'nav.characterGuide',
-    descKey: 'about.characterGuideDesc',
-    Icon: Users,
-    accentClass: 'text-muted-foreground',
-  },
 ]
 
 export function OverviewCards() {
@@ -54,7 +47,7 @@ export function OverviewCards() {
       <h3 className="text-sm font-semibold tracking-[-0.32px] text-foreground">
         {t('home.quickLinks')}
       </h3>
-      <div className="grid grid-cols-2 gap-3 xl:grid-cols-4">
+      <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
         {CARDS.map(({ href, labelKey, descKey, Icon, accentClass }) => {
           const fullHref = `/${locale}${href}`
           const title = t(labelKey)

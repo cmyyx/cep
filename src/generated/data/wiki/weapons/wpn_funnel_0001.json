@@ -1,0 +1,869 @@
+{
+  "id": "wpn_funnel_0001",
+  "category": "weapons",
+  "maxLevel": 90,
+  "levels": [
+    {
+      "level": 1,
+      "baseAttack": 34
+    },
+    {
+      "level": 2,
+      "baseAttack": 38
+    },
+    {
+      "level": 3,
+      "baseAttack": 41
+    },
+    {
+      "level": 4,
+      "baseAttack": 45
+    },
+    {
+      "level": 5,
+      "baseAttack": 48
+    },
+    {
+      "level": 6,
+      "baseAttack": 52
+    },
+    {
+      "level": 7,
+      "baseAttack": 55
+    },
+    {
+      "level": 8,
+      "baseAttack": 59
+    },
+    {
+      "level": 9,
+      "baseAttack": 62
+    },
+    {
+      "level": 10,
+      "baseAttack": 65
+    },
+    {
+      "level": 11,
+      "baseAttack": 69
+    },
+    {
+      "level": 12,
+      "baseAttack": 72
+    },
+    {
+      "level": 13,
+      "baseAttack": 76
+    },
+    {
+      "level": 14,
+      "baseAttack": 79
+    },
+    {
+      "level": 15,
+      "baseAttack": 83
+    },
+    {
+      "level": 16,
+      "baseAttack": 86
+    },
+    {
+      "level": 17,
+      "baseAttack": 90
+    },
+    {
+      "level": 18,
+      "baseAttack": 93
+    },
+    {
+      "level": 19,
+      "baseAttack": 96
+    },
+    {
+      "level": 20,
+      "baseAttack": 100
+    },
+    {
+      "level": 21,
+      "baseAttack": 103
+    },
+    {
+      "level": 22,
+      "baseAttack": 107
+    },
+    {
+      "level": 23,
+      "baseAttack": 110
+    },
+    {
+      "level": 24,
+      "baseAttack": 114
+    },
+    {
+      "level": 25,
+      "baseAttack": 117
+    },
+    {
+      "level": 26,
+      "baseAttack": 121
+    },
+    {
+      "level": 27,
+      "baseAttack": 124
+    },
+    {
+      "level": 28,
+      "baseAttack": 127
+    },
+    {
+      "level": 29,
+      "baseAttack": 131
+    },
+    {
+      "level": 30,
+      "baseAttack": 134
+    },
+    {
+      "level": 31,
+      "baseAttack": 138
+    },
+    {
+      "level": 32,
+      "baseAttack": 141
+    },
+    {
+      "level": 33,
+      "baseAttack": 145
+    },
+    {
+      "level": 34,
+      "baseAttack": 148
+    },
+    {
+      "level": 35,
+      "baseAttack": 152
+    },
+    {
+      "level": 36,
+      "baseAttack": 155
+    },
+    {
+      "level": 37,
+      "baseAttack": 158
+    },
+    {
+      "level": 38,
+      "baseAttack": 162
+    },
+    {
+      "level": 39,
+      "baseAttack": 165
+    },
+    {
+      "level": 40,
+      "baseAttack": 169
+    },
+    {
+      "level": 41,
+      "baseAttack": 172
+    },
+    {
+      "level": 42,
+      "baseAttack": 176
+    },
+    {
+      "level": 43,
+      "baseAttack": 179
+    },
+    {
+      "level": 44,
+      "baseAttack": 183
+    },
+    {
+      "level": 45,
+      "baseAttack": 186
+    },
+    {
+      "level": 46,
+      "baseAttack": 189
+    },
+    {
+      "level": 47,
+      "baseAttack": 193
+    },
+    {
+      "level": 48,
+      "baseAttack": 196
+    },
+    {
+      "level": 49,
+      "baseAttack": 200
+    },
+    {
+      "level": 50,
+      "baseAttack": 203
+    },
+    {
+      "level": 51,
+      "baseAttack": 207
+    },
+    {
+      "level": 52,
+      "baseAttack": 210
+    },
+    {
+      "level": 53,
+      "baseAttack": 214
+    },
+    {
+      "level": 54,
+      "baseAttack": 217
+    },
+    {
+      "level": 55,
+      "baseAttack": 220
+    },
+    {
+      "level": 56,
+      "baseAttack": 224
+    },
+    {
+      "level": 57,
+      "baseAttack": 227
+    },
+    {
+      "level": 58,
+      "baseAttack": 231
+    },
+    {
+      "level": 59,
+      "baseAttack": 234
+    },
+    {
+      "level": 60,
+      "baseAttack": 238
+    },
+    {
+      "level": 61,
+      "baseAttack": 241
+    },
+    {
+      "level": 62,
+      "baseAttack": 245
+    },
+    {
+      "level": 63,
+      "baseAttack": 248
+    },
+    {
+      "level": 64,
+      "baseAttack": 251
+    },
+    {
+      "level": 65,
+      "baseAttack": 255
+    },
+    {
+      "level": 66,
+      "baseAttack": 258
+    },
+    {
+      "level": 67,
+      "baseAttack": 262
+    },
+    {
+      "level": 68,
+      "baseAttack": 265
+    },
+    {
+      "level": 69,
+      "baseAttack": 269
+    },
+    {
+      "level": 70,
+      "baseAttack": 272
+    },
+    {
+      "level": 71,
+      "baseAttack": 276
+    },
+    {
+      "level": 72,
+      "baseAttack": 279
+    },
+    {
+      "level": 73,
+      "baseAttack": 282
+    },
+    {
+      "level": 74,
+      "baseAttack": 286
+    },
+    {
+      "level": 75,
+      "baseAttack": 289
+    },
+    {
+      "level": 76,
+      "baseAttack": 293
+    },
+    {
+      "level": 77,
+      "baseAttack": 296
+    },
+    {
+      "level": 78,
+      "baseAttack": 300
+    },
+    {
+      "level": 79,
+      "baseAttack": 303
+    },
+    {
+      "level": 80,
+      "baseAttack": 307
+    },
+    {
+      "level": 81,
+      "baseAttack": 310
+    },
+    {
+      "level": 82,
+      "baseAttack": 313
+    },
+    {
+      "level": 83,
+      "baseAttack": 317
+    },
+    {
+      "level": 84,
+      "baseAttack": 320
+    },
+    {
+      "level": 85,
+      "baseAttack": 324
+    },
+    {
+      "level": 86,
+      "baseAttack": 327
+    },
+    {
+      "level": 87,
+      "baseAttack": 331
+    },
+    {
+      "level": 88,
+      "baseAttack": 334
+    },
+    {
+      "level": 89,
+      "baseAttack": 338
+    },
+    {
+      "level": 90,
+      "baseAttack": 341
+    }
+  ],
+  "breakthroughs": [
+    {
+      "stage": 1,
+      "requiredLevel": 20,
+      "stats": [
+        {
+          "attributeId": "baseAttack",
+          "value": 100
+        }
+      ],
+      "materials": [
+        {
+          "itemId": "item_weapon_break_low",
+          "name": {
+            "zh-CN": "强固模具",
+            "en": "Cast Die",
+            "ja": "硬質金型",
+            "zh-TW": "強固模具"
+          },
+          "iconId": "item_weapon_break_low",
+          "rarity": 3,
+          "count": 5
+        },
+        {
+          "itemId": "item_plant_spcstone_1_1",
+          "name": {
+            "zh-CN": "轻黯石",
+            "en": "Kalkonyx",
+            "ja": "軽闇石",
+            "zh-TW": "輕黯石"
+          },
+          "iconId": "item_plant_spcstone_1_1",
+          "rarity": 4,
+          "count": 3
+        },
+        {
+          "itemId": "item_gold",
+          "name": {
+            "zh-CN": "折金票",
+            "en": "T-Creds",
+            "ja": "折金券",
+            "zh-TW": "折金票"
+          },
+          "iconId": "item_gold",
+          "rarity": 4,
+          "count": 2200
+        }
+      ]
+    },
+    {
+      "stage": 2,
+      "requiredLevel": 40,
+      "stats": [
+        {
+          "attributeId": "baseAttack",
+          "value": 169
+        }
+      ],
+      "materials": [
+        {
+          "itemId": "item_weapon_break_low",
+          "name": {
+            "zh-CN": "强固模具",
+            "en": "Cast Die",
+            "ja": "硬質金型",
+            "zh-TW": "強固模具"
+          },
+          "iconId": "item_weapon_break_low",
+          "rarity": 3,
+          "count": 18
+        },
+        {
+          "itemId": "item_plant_spcstone_1_2",
+          "name": {
+            "zh-CN": "中黯石",
+            "en": "Auronyx",
+            "ja": "中闇石",
+            "zh-TW": "中黯石"
+          },
+          "iconId": "item_plant_spcstone_1_2",
+          "rarity": 4,
+          "count": 5
+        },
+        {
+          "itemId": "item_gold",
+          "name": {
+            "zh-CN": "折金票",
+            "en": "T-Creds",
+            "ja": "折金券",
+            "zh-TW": "折金票"
+          },
+          "iconId": "item_gold",
+          "rarity": 4,
+          "count": 8500
+        }
+      ]
+    },
+    {
+      "stage": 3,
+      "requiredLevel": 60,
+      "stats": [
+        {
+          "attributeId": "baseAttack",
+          "value": 238
+        }
+      ],
+      "materials": [
+        {
+          "itemId": "item_weapon_break_high",
+          "name": {
+            "zh-CN": "重型强固模具",
+            "en": "Heavy Cast Die",
+            "ja": "重硬質金型",
+            "zh-TW": "重型強固模具"
+          },
+          "iconId": "item_weapon_break_high",
+          "rarity": 4,
+          "count": 20
+        },
+        {
+          "itemId": "item_plant_spcstone_1_3",
+          "name": {
+            "zh-CN": "重黯石",
+            "en": "Umbronyx",
+            "ja": "重闇石",
+            "zh-TW": "重黯石"
+          },
+          "iconId": "item_plant_spcstone_1_3",
+          "rarity": 4,
+          "count": 5
+        },
+        {
+          "itemId": "item_gold",
+          "name": {
+            "zh-CN": "折金票",
+            "en": "T-Creds",
+            "ja": "折金券",
+            "zh-TW": "折金票"
+          },
+          "iconId": "item_gold",
+          "rarity": 4,
+          "count": 25000
+        }
+      ]
+    },
+    {
+      "stage": 4,
+      "requiredLevel": 80,
+      "stats": [
+        {
+          "attributeId": "baseAttack",
+          "value": 307
+        }
+      ],
+      "materials": [
+        {
+          "itemId": "item_weapon_break_high",
+          "name": {
+            "zh-CN": "重型强固模具",
+            "en": "Heavy Cast Die",
+            "ja": "重硬質金型",
+            "zh-TW": "重型強固模具"
+          },
+          "iconId": "item_weapon_break_high",
+          "rarity": 4,
+          "count": 30
+        },
+        {
+          "itemId": "item_char_skill_specialize_5",
+          "name": {
+            "zh-CN": "三相纳米片",
+            "en": "Triphasic Nanoflake",
+            "ja": "三相ナノフレーク",
+            "zh-TW": "三相奈米片"
+          },
+          "iconId": "item_char_skill_specialize_5",
+          "rarity": 5,
+          "count": 16
+        },
+        {
+          "itemId": "item_plant_spcstone_2_1",
+          "name": {
+            "zh-CN": "燎石",
+            "en": "Igneosite",
+            "ja": "燎石",
+            "zh-TW": "燎石"
+          },
+          "iconId": "item_plant_spcstone_2_1",
+          "rarity": 5,
+          "count": 8
+        },
+        {
+          "itemId": "item_gold",
+          "name": {
+            "zh-CN": "折金票",
+            "en": "T-Creds",
+            "ja": "折金券",
+            "zh-TW": "折金票"
+          },
+          "iconId": "item_gold",
+          "rarity": 4,
+          "count": 90000
+        }
+      ]
+    }
+  ],
+  "skills": [
+    {
+      "id": "wpn_attr_wisd_low",
+      "name": {
+        "zh-CN": "智识提升·小",
+        "en": "Intellect Boost [S]",
+        "ja": "知性UP・小",
+        "zh-TW": "智識提升·小"
+      },
+      "description": {
+        "zh-CN": "智识<@ba.vup>+93</>",
+        "en": "Intellect <@ba.vup>+93</>",
+        "ja": "知性<@ba.vup>+93</>",
+        "zh-TW": "智識<@ba.vup>+93</>"
+      },
+      "levels": [
+        {
+          "level": 1,
+          "description": {
+            "zh-CN": "智识<@ba.vup>+12</>",
+            "en": "Intellect <@ba.vup>+12</>",
+            "ja": "知性<@ba.vup>+12</>",
+            "zh-TW": "智識<@ba.vup>+12</>"
+          }
+        },
+        {
+          "level": 2,
+          "description": {
+            "zh-CN": "智识<@ba.vup>+21</>",
+            "en": "Intellect <@ba.vup>+21</>",
+            "ja": "知性<@ba.vup>+21</>",
+            "zh-TW": "智識<@ba.vup>+21</>"
+          }
+        },
+        {
+          "level": 3,
+          "description": {
+            "zh-CN": "智识<@ba.vup>+31</>",
+            "en": "Intellect <@ba.vup>+31</>",
+            "ja": "知性<@ba.vup>+31</>",
+            "zh-TW": "智識<@ba.vup>+31</>"
+          }
+        },
+        {
+          "level": 4,
+          "description": {
+            "zh-CN": "智识<@ba.vup>+40</>",
+            "en": "Intellect <@ba.vup>+40</>",
+            "ja": "知性<@ba.vup>+40</>",
+            "zh-TW": "智識<@ba.vup>+40</>"
+          }
+        },
+        {
+          "level": 5,
+          "description": {
+            "zh-CN": "智识<@ba.vup>+50</>",
+            "en": "Intellect <@ba.vup>+50</>",
+            "ja": "知性<@ba.vup>+50</>",
+            "zh-TW": "智識<@ba.vup>+50</>"
+          }
+        },
+        {
+          "level": 6,
+          "description": {
+            "zh-CN": "智识<@ba.vup>+60</>",
+            "en": "Intellect <@ba.vup>+60</>",
+            "ja": "知性<@ba.vup>+60</>",
+            "zh-TW": "智識<@ba.vup>+60</>"
+          }
+        },
+        {
+          "level": 7,
+          "description": {
+            "zh-CN": "智识<@ba.vup>+69</>",
+            "en": "Intellect <@ba.vup>+69</>",
+            "ja": "知性<@ba.vup>+69</>",
+            "zh-TW": "智識<@ba.vup>+69</>"
+          }
+        },
+        {
+          "level": 8,
+          "description": {
+            "zh-CN": "智识<@ba.vup>+79</>",
+            "en": "Intellect <@ba.vup>+79</>",
+            "ja": "知性<@ba.vup>+79</>",
+            "zh-TW": "智識<@ba.vup>+79</>"
+          }
+        },
+        {
+          "level": 9,
+          "description": {
+            "zh-CN": "智识<@ba.vup>+93</>",
+            "en": "Intellect <@ba.vup>+93</>",
+            "ja": "知性<@ba.vup>+93</>",
+            "zh-TW": "智識<@ba.vup>+93</>"
+          }
+        }
+      ]
+    },
+    {
+      "id": "wpn_sp_attr_magicdam_low",
+      "name": {
+        "zh-CN": "法术提升·小",
+        "en": "Arts Boost [S]",
+        "ja": "アーツダメージUP・小",
+        "zh-TW": "法術提升·小"
+      },
+      "description": {
+        "zh-CN": "法术伤害<@ba.vup>+26.0%</>",
+        "en": "Arts DMG Dealt <@ba.vup>+26.0%</>",
+        "ja": "アーツダメージ<@ba.vup>+26.0%</>",
+        "zh-TW": "法術傷害<@ba.vup>+26.0%</>"
+      },
+      "levels": [
+        {
+          "level": 1,
+          "description": {
+            "zh-CN": "法术伤害<@ba.vup>+3.3%</>",
+            "en": "Arts DMG Dealt <@ba.vup>+3.3%</>",
+            "ja": "アーツダメージ<@ba.vup>+3.3%</>",
+            "zh-TW": "法術傷害<@ba.vup>+3.3%</>"
+          }
+        },
+        {
+          "level": 2,
+          "description": {
+            "zh-CN": "法术伤害<@ba.vup>+6.0%</>",
+            "en": "Arts DMG Dealt <@ba.vup>+6.0%</>",
+            "ja": "アーツダメージ<@ba.vup>+6.0%</>",
+            "zh-TW": "法術傷害<@ba.vup>+6.0%</>"
+          }
+        },
+        {
+          "level": 3,
+          "description": {
+            "zh-CN": "法术伤害<@ba.vup>+8.7%</>",
+            "en": "Arts DMG Dealt <@ba.vup>+8.7%</>",
+            "ja": "アーツダメージ<@ba.vup>+8.7%</>",
+            "zh-TW": "法術傷害<@ba.vup>+8.7%</>"
+          }
+        },
+        {
+          "level": 4,
+          "description": {
+            "zh-CN": "法术伤害<@ba.vup>+11.3%</>",
+            "en": "Arts DMG Dealt <@ba.vup>+11.3%</>",
+            "ja": "アーツダメージ<@ba.vup>+11.3%</>",
+            "zh-TW": "法術傷害<@ba.vup>+11.3%</>"
+          }
+        },
+        {
+          "level": 5,
+          "description": {
+            "zh-CN": "法术伤害<@ba.vup>+14.0%</>",
+            "en": "Arts DMG Dealt <@ba.vup>+14.0%</>",
+            "ja": "アーツダメージ<@ba.vup>+14.0%</>",
+            "zh-TW": "法術傷害<@ba.vup>+14.0%</>"
+          }
+        },
+        {
+          "level": 6,
+          "description": {
+            "zh-CN": "法术伤害<@ba.vup>+16.7%</>",
+            "en": "Arts DMG Dealt <@ba.vup>+16.7%</>",
+            "ja": "アーツダメージ<@ba.vup>+16.7%</>",
+            "zh-TW": "法術傷害<@ba.vup>+16.7%</>"
+          }
+        },
+        {
+          "level": 7,
+          "description": {
+            "zh-CN": "法术伤害<@ba.vup>+19.3%</>",
+            "en": "Arts DMG Dealt <@ba.vup>+19.3%</>",
+            "ja": "アーツダメージ<@ba.vup>+19.3%</>",
+            "zh-TW": "法術傷害<@ba.vup>+19.3%</>"
+          }
+        },
+        {
+          "level": 8,
+          "description": {
+            "zh-CN": "法术伤害<@ba.vup>+22.0%</>",
+            "en": "Arts DMG Dealt <@ba.vup>+22.0%</>",
+            "ja": "アーツダメージ<@ba.vup>+22.0%</>",
+            "zh-TW": "法術傷害<@ba.vup>+22.0%</>"
+          }
+        },
+        {
+          "level": 9,
+          "description": {
+            "zh-CN": "法术伤害<@ba.vup>+26.0%</>",
+            "en": "Arts DMG Dealt <@ba.vup>+26.0%</>",
+            "ja": "アーツダメージ<@ba.vup>+26.0%</>",
+            "zh-TW": "法術傷害<@ba.vup>+26.0%</>"
+          }
+        }
+      ]
+    },
+    {
+      "id": "sk_wpn_funnel_0001",
+      "name": {
+        "zh-CN": "昂扬·远途起始",
+        "en": "Inspiring: Start of a Saga",
+        "ja": "昂揚・遠路の始まり",
+        "zh-TW": "昂揚·遠途起始"
+      },
+      "description": {
+        "zh-CN": "当装备者的生命值高于<@ba.vup>80%</>时，攻击力<@ba.vup>+42.0%</>。",
+        "en": "When the wielder's HP is above <@ba.vup>80%</>, ATK <@ba.vup>+42.0%</>.",
+        "ja": "装備中、自身のHPが<@ba.vup>80%</>より高いとき、攻撃力<@ba.vup>+42.0%</>",
+        "zh-TW": "當裝備者的生命值高於<@ba.vup>80%</>時，攻擊力<@ba.vup>+42.0%</>。"
+      },
+      "levels": [
+        {
+          "level": 1,
+          "description": {
+            "zh-CN": "当装备者的生命值高于<@ba.vup>80%</>时，攻击力<@ba.vup>+15.0%</>。",
+            "en": "When the wielder's HP is above <@ba.vup>80%</>, ATK <@ba.vup>+15.0%</>.",
+            "ja": "装備中、自身のHPが<@ba.vup>80%</>より高いとき、攻撃力<@ba.vup>+15.0%</>",
+            "zh-TW": "當裝備者的生命值高於<@ba.vup>80%</>時，攻擊力<@ba.vup>+15.0%</>。"
+          }
+        },
+        {
+          "level": 2,
+          "description": {
+            "zh-CN": "当装备者的生命值高于<@ba.vup>80%</>时，攻击力<@ba.vup>+18.0%</>。",
+            "en": "When the wielder's HP is above <@ba.vup>80%</>, ATK <@ba.vup>+18.0%</>.",
+            "ja": "装備中、自身のHPが<@ba.vup>80%</>より高いとき、攻撃力<@ba.vup>+18.0%</>",
+            "zh-TW": "當裝備者的生命值高於<@ba.vup>80%</>時，攻擊力<@ba.vup>+18.0%</>。"
+          }
+        },
+        {
+          "level": 3,
+          "description": {
+            "zh-CN": "当装备者的生命值高于<@ba.vup>80%</>时，攻击力<@ba.vup>+21.0%</>。",
+            "en": "When the wielder's HP is above <@ba.vup>80%</>, ATK <@ba.vup>+21.0%</>.",
+            "ja": "装備中、自身のHPが<@ba.vup>80%</>より高いとき、攻撃力<@ba.vup>+21.0%</>",
+            "zh-TW": "當裝備者的生命值高於<@ba.vup>80%</>時，攻擊力<@ba.vup>+21.0%</>。"
+          }
+        },
+        {
+          "level": 4,
+          "description": {
+            "zh-CN": "当装备者的生命值高于<@ba.vup>80%</>时，攻击力<@ba.vup>+24.0%</>。",
+            "en": "When the wielder's HP is above <@ba.vup>80%</>, ATK <@ba.vup>+24.0%</>.",
+            "ja": "装備中、自身のHPが<@ba.vup>80%</>より高いとき、攻撃力<@ba.vup>+24.0%</>",
+            "zh-TW": "當裝備者的生命值高於<@ba.vup>80%</>時，攻擊力<@ba.vup>+24.0%</>。"
+          }
+        },
+        {
+          "level": 5,
+          "description": {
+            "zh-CN": "当装备者的生命值高于<@ba.vup>80%</>时，攻击力<@ba.vup>+27.0%</>。",
+            "en": "When the wielder's HP is above <@ba.vup>80%</>, ATK <@ba.vup>+27.0%</>.",
+            "ja": "装備中、自身のHPが<@ba.vup>80%</>より高いとき、攻撃力<@ba.vup>+27.0%</>",
+            "zh-TW": "當裝備者的生命值高於<@ba.vup>80%</>時，攻擊力<@ba.vup>+27.0%</>。"
+          }
+        },
+        {
+          "level": 6,
+          "description": {
+            "zh-CN": "当装备者的生命值高于<@ba.vup>80%</>时，攻击力<@ba.vup>+30.0%</>。",
+            "en": "When the wielder's HP is above <@ba.vup>80%</>, ATK <@ba.vup>+30.0%</>.",
+            "ja": "装備中、自身のHPが<@ba.vup>80%</>より高いとき、攻撃力<@ba.vup>+30.0%</>",
+            "zh-TW": "當裝備者的生命值高於<@ba.vup>80%</>時，攻擊力<@ba.vup>+30.0%</>。"
+          }
+        },
+        {
+          "level": 7,
+          "description": {
+            "zh-CN": "当装备者的生命值高于<@ba.vup>80%</>时，攻击力<@ba.vup>+33.0%</>。",
+            "en": "When the wielder's HP is above <@ba.vup>80%</>, ATK <@ba.vup>+33.0%</>.",
+            "ja": "装備中、自身のHPが<@ba.vup>80%</>より高いとき、攻撃力<@ba.vup>+33.0%</>",
+            "zh-TW": "當裝備者的生命值高於<@ba.vup>80%</>時，攻擊力<@ba.vup>+33.0%</>。"
+          }
+        },
+        {
+          "level": 8,
+          "description": {
+            "zh-CN": "当装备者的生命值高于<@ba.vup>80%</>时，攻击力<@ba.vup>+36.0%</>。",
+            "en": "When the wielder's HP is above <@ba.vup>80%</>, ATK <@ba.vup>+36.0%</>.",
+            "ja": "装備中、自身のHPが<@ba.vup>80%</>より高いとき、攻撃力<@ba.vup>+36.0%</>",
+            "zh-TW": "當裝備者的生命值高於<@ba.vup>80%</>時，攻擊力<@ba.vup>+36.0%</>。"
+          }
+        },
+        {
+          "level": 9,
+          "description": {
+            "zh-CN": "当装备者的生命值高于<@ba.vup>80%</>时，攻击力<@ba.vup>+42.0%</>。",
+            "en": "When the wielder's HP is above <@ba.vup>80%</>, ATK <@ba.vup>+42.0%</>.",
+            "ja": "装備中、自身のHPが<@ba.vup>80%</>より高いとき、攻撃力<@ba.vup>+42.0%</>",
+            "zh-TW": "當裝備者的生命值高於<@ba.vup>80%</>時，攻擊力<@ba.vup>+42.0%</>。"
+          }
+        }
+      ]
+    }
+  ]
+}

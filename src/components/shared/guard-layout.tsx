@@ -26,17 +26,19 @@ import { cn } from '@/lib/utils'
 // Feedback channels — single source of truth for all overlays
 // ═══════════════════════════════════════════════════════════════
 
-interface FeedbackChannel {
+export interface FeedbackChannel {
   href: string
   labelZh: string
   labelEn: string
 }
 
-const FEEDBACK_CHANNELS: FeedbackChannel[] = [
-  { href: 'https://github.com/cmyyx/cep', labelZh: 'GitHub', labelEn: 'GitHub' },
-  { href: 'https://end.302200.xyz', labelZh: '\u8BBA\u575B', labelEn: 'Forum' },
-  { href: 'https://qm.qq.com/q/Cjdo2aRikE', labelZh: 'QQ\u7FA4 1045523485', labelEn: 'QQ Group 1045523485' },
-]
+export const FEEDBACK_CHANNELS = {
+  github: { href: 'https://github.com/cmyyx/cep', labelZh: 'GitHub', labelEn: 'GitHub' },
+  forum: { href: 'https://end.302200.xyz', labelZh: '\u8BBA\u575B', labelEn: 'Forum' },
+  qqGroup: { href: 'https://qm.qq.com/q/Cjdo2aRikE', labelZh: 'QQ\u7FA4 1045523485', labelEn: 'QQ Group 1045523485' },
+} as const satisfies Record<string, FeedbackChannel>
+
+const FEEDBACK_CHANNEL_LIST = Object.values(FEEDBACK_CHANNELS)
 
 const FEEDBACK_TITLE_ZH = '\u9047\u5230\u95EE\u9898\uFF1F\u53CD\u9988\u6E20\u9053\uFF1A'
 const FEEDBACK_TITLE_EN = 'Having issues? Contact us:'
@@ -54,13 +56,13 @@ export const GUARD_HEADER_HTML =
 export const GUARD_FEEDBACK_HTML =
   '<p style="font-size:12px;color:#999;margin:0;line-height:1.8;">'+
   FEEDBACK_TITLE_ZH+'<br>'+
-  FEEDBACK_CHANNELS.map(
+  FEEDBACK_CHANNEL_LIST.map(
     (ch) => '<a href="'+ch.href+'" target="_blank" rel="noopener" '+
     'style="color:#0a72ef;margin-left:4px;">'+ch.labelZh+'</a>'
   ).join(' &middot; ')+
   '<br>'+
   FEEDBACK_TITLE_EN+'<br>'+
-  FEEDBACK_CHANNELS.map(
+  FEEDBACK_CHANNEL_LIST.map(
     (ch) => '<a href="'+ch.href+'" target="_blank" rel="noopener" '+
     'style="color:#0a72ef;margin-left:4px;">'+ch.labelEn+'</a>'
   ).join(' &middot; ')+
@@ -89,7 +91,7 @@ interface GuardFeedbackProps {
 }
 
 function FeedbackLine({ lang, links }: { lang: 'zh' | 'en'; links?: { href: string; label: string }[] }) {
-  const channels = links ?? FEEDBACK_CHANNELS
+  const channels = links ?? FEEDBACK_CHANNEL_LIST
   const labelKey = lang === 'zh' ? 'labelZh' : 'labelEn'
   return (
     <>

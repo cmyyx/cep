@@ -1,0 +1,100 @@
+{
+  "id": "item_equip_t0_parts_tundra01_body_02",
+  "category": "equipment",
+  "stats": [
+    {
+      "attributeId": "3",
+      "values": [
+        8,
+        8,
+        8,
+        8
+      ],
+      "displayValues": [
+        "防御力+8",
+        "防御力+8",
+        "防御力+8",
+        "防御力+8"
+      ]
+    },
+    {
+      "attributeId": "41",
+      "values": [
+        15,
+        15,
+        15,
+        15
+      ],
+      "displayValues": [
+        "智识+15",
+        "智识+15",
+        "智识+15",
+        "智识+15"
+      ]
+    },
+    {
+      "attributeId": "42",
+      "values": [
+        10,
+        10,
+        10,
+        10
+      ],
+      "displayValues": [
+        "意志+10",
+        "意志+10",
+        "意志+10",
+        "意志+10"
+      ]
+    },
+    {
+      "attributeId": "1",
+      "values": [
+        46.3273721859878,
+        46.3273721859878,
+        46.3273721859878,
+        46.3273721859878
+      ],
+      "displayValues": [
+        "生命值+46.32737219",
+        "生命值+46.32737219",
+        "生命值+46.32737219",
+        "生命值+46.32737219"
+      ]
+    }
+  ],
+  "suitEffects": [],
+  "craftingRecipes": [
+    {
+      "chainId": 1005,
+      "discount": 1,
+      "isDefault": true,
+      "materials": [
+        {
+          "itemId": "item_crystal_shell",
+          "name": {
+            "zh-CN": "晶体外壳",
+            "en": "Origocrust",
+            "ja": "結晶外殻",
+            "zh-TW": "晶體外殼"
+          },
+          "iconId": "item_crystal_shell",
+          "rarity": 2,
+          "count": 10
+        },
+        {
+          "itemId": "item_plant_tundra_wood",
+          "name": {
+            "zh-CN": "原木",
+            "en": "Wood",
+            "ja": "木材",
+            "zh-TW": "原木"
+          },
+          "iconId": "item_plant_tundra_wood",
+          "rarity": 1,
+          "count": 2
+        }
+      ]
+    }
+  ]
+}

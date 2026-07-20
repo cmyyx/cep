@@ -2,6 +2,7 @@
 
 import { memo, useMemo, useCallback, useEffect } from 'react'
 import { useTranslations } from 'next-intl'
+import { ChevronDown } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
@@ -15,34 +16,43 @@ import { useEssenceSettingsStore } from '@/stores/useEssenceSettingsStore'
 import { useBannerStore } from '@/stores/useBannerStore'
 import { OwnershipBadge, EditableNote } from './ownership-badge'
 import { ALL_PRIMARY_STATS, ALL_ELEMENTAL_DAMAGE, ALL_SPECIAL_ABILITIES } from '@/lib/essence-utils'
+import { getValidWeaponFilterOptions, matchesWeaponFilters, WEAPON_FILTER_KEYS, type WeaponFilterKey, type WeaponFilterSets } from '@/lib/weapon-filters'
 
-type AttrKey = keyof Pick<Weapon, 'primaryStat' | 'elementalDamage' | 'specialAbility'>
 
-const ATTR_KEYS: AttrKey[] = ['primaryStat', 'elementalDamage', 'specialAbility']
+const ATTR_KEYS: WeaponFilterKey[] = WEAPON_FILTER_KEYS
 
 import type { Weapon } from '@/types/matrix'
 
-/** 返回从 dungeon pool 派生的静态属性值数组。
+/** 返回武器筛选的完整候选值：weaponType 根据传入的 weapons 动态生成；
  *  ALL_PRIMARY_STATS、ALL_ELEMENTAL_DAMAGE、ALL_SPECIAL_ABILITIES
- *  在导入时从 dungeon s1Pool/s2Pool/s3Pool 一次性计算。 */
-function buildAttrValues(): Record<AttrKey, string[]> {
+ *  分别在导入时从 dungeon s1Pool/s2Pool/s3Pool 静态计算。 */
+function buildAttrValues(weapons: readonly Weapon[]): Record<WeaponFilterKey, string[]> {
   return {
+    weaponType: [...new Set(weapons.map((weapon) => weapon.type))].sort(),
     primaryStat: ALL_PRIMARY_STATS,
     elementalDamage: ALL_ELEMENTAL_DAMAGE,
     specialAbility: ALL_SPECIAL_ABILITIES,
   }
 }
-
-const ATTR_LABEL_KEYS: Record<AttrKey, string> = {
+const ATTR_LABEL_KEYS: Record<WeaponFilterKey, string> = {
+  weaponType: 'essence.weaponType',
   primaryStat: 'essence.attrPrimary',
   elementalDamage: 'essence.attrElemental',
   specialAbility: 'essence.attrSpecial',
 }
 
+const WEAPON_TYPE_LABEL_KEYS: Record<string, string> = {
+  '单手剑': 'essence.weaponTypes.oneHandedSword',
+  '施术单元': 'essence.weaponTypes.casterUnit',
+  '双手剑': 'essence.weaponTypes.greatsword',
+  '长柄武器': 'essence.weaponTypes.polearm',
+  '手铳': 'essence.weaponTypes.pistol',
+}
 
 
-function attrFiltersToSets(record: Record<string, string[]>): Record<AttrKey, Set<string>> {
+function attrFiltersToSets(record: Record<string, string[]>): WeaponFilterSets {
   return {
+    weaponType: new Set(record.weaponType ?? []),
     primaryStat: new Set(record.primaryStat ?? []),
     elementalDamage: new Set(record.elementalDamage ?? []),
     specialAbility: new Set(record.specialAbility ?? []),
@@ -131,7 +141,7 @@ export const WeaponGrid = memo(function WeaponGrid({ onViewAll }: WeaponGridProp
   }, [customWeapons, isWeaponUp])
 
   // Dynamic attr values based on full weapon list
-  const attrValues = useMemo(() => buildAttrValues(), [])
+  const attrValues = useMemo(() => buildAttrValues(allWeapons), [allWeapons])
 
   // O(1) membership test instead of O(n) Array.includes
   const selectedSet = useMemo(
@@ -139,9 +149,7 @@ export const WeaponGrid = memo(function WeaponGrid({ onViewAll }: WeaponGridProp
     [selectedWeaponIds],
   )
 
-  const toggleFilter = useCallback((key: AttrKey, value: string) => {
-    // Read latest state via getState() to avoid stale closure (instead of reading
-    // storeAttrFilters / filters from the render closure).
+  const toggleFilter = useCallback((key: WeaponFilterKey, value: string) => {
     const prev = useMatrixStore.getState().weaponAttrFilters
     const current = new Set(prev[key] ?? [])
     if (current.has(value)) current.delete(value)
@@ -167,46 +175,15 @@ export const WeaponGrid = memo(function WeaponGrid({ onViewAll }: WeaponGridProp
     return true
   }, [query, keepUpVisibleList, isWeaponUp, hideFourStar, hideUnowned, hideEssenceOwned, onlyBothOwned, weaponOwnership, essenceStatus])
 
-  // Compute valid options for each category given selections in other categories
   const validOptions = useMemo(() => {
-    const result: Record<AttrKey, Set<string>> = {
-      primaryStat: new Set(),
-      elementalDamage: new Set(),
-      specialAbility: new Set(),
-    }
+    const eligibleWeapons = allWeapons.filter(matchesBaseFilters)
+    return getValidWeaponFilterOptions(eligibleWeapons, filters)
+  }, [allWeapons, filters, matchesBaseFilters])
 
-    for (const key of ATTR_KEYS) {
-      const otherKeys = ATTR_KEYS.filter((k) => k !== key)
-      const otherFilters = otherKeys.filter((k) => filters[k].size > 0)
-
-      for (const weapon of allWeapons) {
-        if (!matchesBaseFilters(weapon)) continue
-        let matchesOthers = true
-        for (const ok of otherFilters) {
-          if (!filters[ok].has(weapon[ok])) {
-            matchesOthers = false
-            break
-          }
-        }
-        if (matchesOthers) {
-          result[key].add(weapon[key])
-        }
-      }
-    }
-
-    return result
-  }, [filters, allWeapons, matchesBaseFilters])
-
-  // Filter weapons (attr + search + hide settings)
-  const filteredWeapons = useMemo(() => {
-    return allWeapons.filter((w) => {
-      if (!matchesBaseFilters(w)) return false
-      for (const key of ATTR_KEYS) {
-        if (filters[key].size > 0 && !filters[key].has(w[key])) return false
-      }
-      return true
-    })
-  }, [allWeapons, matchesBaseFilters, filters])
+  const filteredWeapons = useMemo(
+    () => allWeapons.filter((weapon) => matchesBaseFilters(weapon) && matchesWeaponFilters(weapon, filters)),
+    [allWeapons, filters, matchesBaseFilters]
+  )
 
   // Write visible weapon IDs to shared store so select-all button can read them
   const visibleIds = useMemo(
@@ -241,25 +218,12 @@ export const WeaponGrid = memo(function WeaponGrid({ onViewAll }: WeaponGridProp
         <Button
           type="button"
           variant="ghost"
-          size="xs"
           onClick={toggleFilterCollapsed}
-          className="flex w-full items-center gap-1 text-[10px] text-muted-foreground hover:text-foreground transition-colors h-auto p-0"
+          aria-expanded={!filterCollapsed}
+          className="flex min-h-10 w-full items-center gap-2 px-3 text-sm text-muted-foreground transition-colors hover:text-foreground"
         >
+          <ChevronDown className={cn('size-4 transition-transform', filterCollapsed ? '-rotate-90' : 'rotate-0')} />
           <span className="flex-1 text-left">{t('essence.attrFilterTitle')}</span>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="12"
-            height="12"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className={cn('transition-transform', filterCollapsed ? '-rotate-90' : 'rotate-0')}
-          >
-            <path d="m6 9 6 6 6-6" />
-          </svg>
         </Button>
         <div
           id="weapon-attr-filter"
@@ -269,35 +233,31 @@ export const WeaponGrid = memo(function WeaponGrid({ onViewAll }: WeaponGridProp
           )}
         >
           <div className="overflow-hidden">
-            <div className="flex flex-col gap-2 mt-1.5">
-            {ATTR_KEYS.map((key) => {
-              const values = attrValues[key]
-              const valid = validOptions[key]
-              const selected = filters[key]
-              const isSpecialAbility = key === 'specialAbility'
-              return (
-                <div key={key} className="flex flex-col gap-1">
-                  <span className="text-[10px] text-muted-foreground">{t(ATTR_LABEL_KEYS[key])}</span>
-                  <div className={isSpecialAbility ? 'grid grid-cols-[repeat(auto-fill,minmax(3.5rem,1fr))] gap-1' : 'grid grid-cols-[repeat(auto-fill,minmax(5.5rem,1fr))] gap-1'}>
-                    {values.map((v) => {
-                      const isValid = valid.has(v)
-                      const isSelected = selected.has(v)
-                      return (
-                    <FilterChip
-                          key={v}
-                          value={v}
-                          label={t('weaponStats.' + v)}
-                          isValid={isValid}
-                          isSelected={isSelected}
-                          onToggle={() => toggleFilter(key, v)}
+            <div className="mt-1.5 flex flex-col gap-2">
+              {ATTR_KEYS.map((key) => {
+                const values = attrValues[key]
+                const valid = validOptions[key]
+                const selected = filters[key]
+                const isSpecialAbility = key === 'specialAbility'
+                return (
+                  <div key={key} className="flex flex-col gap-1">
+                    <span className="text-[10px] text-muted-foreground">{t(ATTR_LABEL_KEYS[key])}</span>
+                    <div className={isSpecialAbility ? 'grid grid-cols-[repeat(auto-fill,minmax(3.5rem,1fr))] gap-1' : 'grid grid-cols-[repeat(auto-fill,minmax(5.5rem,1fr))] gap-1'}>
+                      {values.map((value) => (
+                        <FilterChip
+                          key={value}
+                          value={value}
+                          label={key === 'weaponType' ? t(WEAPON_TYPE_LABEL_KEYS[value] ?? value) : t(`weaponStats.${value}`)}
+                          isValid={valid.has(value)}
+                          isSelected={selected.has(value)}
+                          onToggle={() => toggleFilter(key, value)}
                         />
-                      )
-                    })}
+                      ))}
+                    </div>
                   </div>
-                </div>
-              )
-            })}
-          </div>
+                )
+              })}
+            </div>
           </div>
         </div>
       </div>

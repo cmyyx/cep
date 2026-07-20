@@ -1,0 +1,210 @@
+{
+  "id": "item_equip_t4_suit_burst01_hand_01",
+  "category": "equipment",
+  "stats": [
+    {
+      "attributeId": "3",
+      "values": [
+        42,
+        42,
+        42,
+        42
+      ],
+      "displayValues": [
+        "防御力+42",
+        "防御力+42",
+        "防御力+42",
+        "防御力+42"
+      ]
+    },
+    {
+      "attributeId": "39",
+      "values": [
+        65,
+        71,
+        78,
+        84
+      ],
+      "displayValues": [
+        "力量+65",
+        "力量+71",
+        "力量+78",
+        "力量+84"
+      ]
+    },
+    {
+      "attributeId": "42",
+      "values": [
+        43,
+        47,
+        51,
+        55
+      ],
+      "displayValues": [
+        "意志+43",
+        "意志+47",
+        "意志+51",
+        "意志+55"
+      ]
+    },
+    {
+      "attributeId": "CrystAndPulseDamageIncrease",
+      "values": [
+        0.19166666666666668,
+        0.21083333,
+        0.23,
+        0.24916667
+      ],
+      "displayValues": [
+        "寒冷和电磁伤害加成+19.16666667%",
+        "寒冷和电磁伤害加成+21.083333%",
+        "寒冷和电磁伤害加成+23%",
+        "寒冷和电磁伤害加成+24.916667%"
+      ]
+    }
+  ],
+  "suitEffects": [
+    {
+      "id": "passive_equipsuit_burst_01",
+      "name": {
+        "zh-CN": "潮涌",
+        "en": "Tide Surge",
+        "ja": "満潮",
+        "zh-TW": "潮湧"
+      },
+      "description": {
+        "zh-CN": "3件套组效果：装备者所有技能伤害<@ba.vup>+20%</>。\n装备者使敌人达到<@ba.key>2</>层及以上<#ba.spellinflict>法术附着</>后，造成的<@ba.key>法术伤害</><@ba.vup>+35%</>，持续15秒，该效果无法叠加。",
+        "en": "3-piece set effect: Wearer's Skill DMG Dealt <@ba.vup>+20%</>.\nAfter the wearer applies <@ba.key>2</> or more stacks of <#ba.spellinflict>Arts Infliction</> on the enemy, the wearer gains <@ba.key>Arts DMG Dealt</> <@ba.vup>+35%</> for 15s. This effect cannot stack.",
+        "ja": "3点セット効果：装備中、すべてのスキルダメージ<@ba.vup>+20%</>\n自身が敵の<#ba.spellinflict>アーツ付着</>段階を<@ba.key>2</>以上にすると、15秒間与える<@ba.key>アーツダメージ</><@ba.vup>+35%</>\nこの効果は重ね掛け不可",
+        "zh-TW": "3件套裝效果：裝備者所有技能傷害<@ba.vup>+20%</>。\n裝備者使敵人達到<@ba.key>2</>層及以上<#ba.spellinflict>法術附著</>後，造成的<@ba.key>法術傷害</><@ba.vup>+35%</>，持續15秒，該效果無法疊加。"
+      },
+      "requiredPieces": 3
+    }
+  ],
+  "craftingRecipes": [
+    {
+      "chainId": 4000,
+      "discount": 1,
+      "isDefault": true,
+      "materials": [
+        {
+          "itemId": "item_equip_script_4",
+          "name": {
+            "zh-CN": "息壤装备原件",
+            "en": "Xiranite Component",
+            "ja": "息壌装備部品",
+            "zh-TW": "息壤裝備原件"
+          },
+          "iconId": "item_equip_script_4",
+          "rarity": 4,
+          "count": 50
+        },
+        {
+          "itemId": "item_domain_jinlong_coupon",
+          "name": {
+            "zh-CN": "武陵调度券",
+            "en": "Wuling Stock Bill",
+            "ja": "武陵取引券",
+            "zh-TW": "武陵調度券"
+          },
+          "iconId": "item_domain_jinlong_coupon",
+          "rarity": 5,
+          "count": 8000
+        }
+      ]
+    },
+    {
+      "chainId": 4001,
+      "discount": 1,
+      "isDefault": false,
+      "materials": [
+        {
+          "itemId": "item_equip_script_4_1",
+          "name": {
+            "zh-CN": "赤铜装备原件",
+            "en": "Cuprium Component",
+            "ja": "赤銅装備部品",
+            "zh-TW": "赤銅裝備原件"
+          },
+          "iconId": "item_equip_script_4_1",
+          "rarity": 4,
+          "count": 50
+        },
+        {
+          "itemId": "item_domain_jinlong_coupon",
+          "name": {
+            "zh-CN": "武陵调度券",
+            "en": "Wuling Stock Bill",
+            "ja": "武陵取引券",
+            "zh-TW": "武陵調度券"
+          },
+          "iconId": "item_domain_jinlong_coupon",
+          "rarity": 5,
+          "count": 8000
+        }
+      ]
+    },
+    {
+      "chainId": 4002,
+      "discount": 1,
+      "isDefault": false,
+      "materials": [
+        {
+          "itemId": "item_equip_script_4_2",
+          "name": {
+            "zh-CN": "赫铜装备原件",
+            "en": "Hetonite Component",
+            "ja": "緋銅装備部品",
+            "zh-TW": "赫銅裝備原件"
+          },
+          "iconId": "item_equip_script_4_2",
+          "rarity": 4,
+          "count": 10
+        },
+        {
+          "itemId": "item_domain_jinlong_coupon",
+          "name": {
+            "zh-CN": "武陵调度券",
+            "en": "Wuling Stock Bill",
+            "ja": "武陵取引券",
+            "zh-TW": "武陵調度券"
+          },
+          "iconId": "item_domain_jinlong_coupon",
+          "rarity": 5,
+          "count": 8000
+        }
+      ]
+    },
+    {
+      "chainId": 4003,
+      "discount": 0.01,
+      "isDefault": false,
+      "materials": [
+        {
+          "itemId": "item_equip_script_4_3",
+          "name": {
+            "zh-CN": "灼铜装备原件",
+            "en": "Pyrrolite Component",
+            "ja": "焔銅装備部品",
+            "zh-TW": "灼銅裝備原件"
+          },
+          "iconId": "item_equip_script_4_3",
+          "rarity": 4,
+          "count": 5
+        },
+        {
+          "itemId": "item_domain_jinlong_coupon",
+          "name": {
+            "zh-CN": "武陵调度券",
+            "en": "Wuling Stock Bill",
+            "ja": "武陵取引券",
+            "zh-TW": "武陵調度券"
+          },
+          "iconId": "item_domain_jinlong_coupon",
+          "rarity": 5,
+          "count": 80
+        }
+      ]
+    }
+  ]
+}

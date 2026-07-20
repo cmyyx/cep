@@ -11,6 +11,7 @@ import { parseJsonSafe } from './json-utils'
 import { buildGemTableLookup, loadTextTable } from './stat-mapping'
 import { extractItemNameIds } from './extract-textid'
 import { buildAttrShowConfigs, resolveFormat, formatEquipStat } from './equip-stat-format'
+import type { WikiAssets } from './wiki-assets'
 
 // ── Validation result ─────────────────────────────────────────────────────
 
@@ -247,7 +248,8 @@ export function validateEquips(
       if (Number(mod.attrIndex) === 1) upstreamSub1 = statStr
       else if (Number(mod.attrIndex) === 2) upstreamSub2 = statStr
       else if (Number(mod.attrIndex) === 3) upstreamSpecial = statStr
-    // Compare each field — report both mismatches and stale project values
+    }
+
     const compareField = (field: string, upstream: string, project: string) => {
       if (upstream !== project) {
         issues.push({ category: 'equip', id: equipName, field, expected: upstream || '<empty>', actual: project || '<empty>' })
@@ -256,7 +258,6 @@ export function validateEquips(
     compareField('sub1', upstreamSub1, projectEquip.sub1)
     compareField('sub2', upstreamSub2, projectEquip.sub2)
     compareField('special', upstreamSpecial, projectEquip.special)
-    }
   }
 
   return issues
@@ -322,45 +323,20 @@ export function validateDungeons(
 // ── Validate image existence ──────────────────────────────────────────────
 
 export function validateImages(projectRoot: string): string[] {
-  const missing: string[] = []
-
-  // Read weapons.ts and equips.ts to find all image references
-  const weaponsPath = join(projectRoot, 'src', 'data', 'weapons.ts')
-  const equipsPath = join(projectRoot, 'src', 'data', 'equips.ts')
-
-  const checkImage = (basePath: string, id: string) => {
-    const avifPath = join(basePath, `${id}.avif`)
-    const pngPath = join(basePath, `${id}.png`)
-    if (!existsSync(avifPath) && !existsSync(pngPath)) {
-      missing.push(id)
-    }
-  }
-
-  // Weapon images
-  if (existsSync(weaponsPath)) {
-    const wContent = readFileSync(weaponsPath, 'utf-8')
-    const wIds = wContent.match(/(?:id|iconId):\s*'(wpn_[^']+)'/g)
-      ?.map(m => m.replace(/(?:id|iconId):\s*'([^']+)'/, '$1'))
-      .filter((id): id is string => !!id && !id.startsWith('preview:')) ?? []
-    const wUnique = new Set(wIds)
-    for (const id of wUnique) {
-      checkImage(join(projectRoot, 'public', 'weapon'), id)
-    }
-  }
-
-  // Equip images
-  if (existsSync(equipsPath)) {
-    const eContent = readFileSync(equipsPath, 'utf-8')
-    const eIds = eContent.match(/(?:equipId|iconId):\s*'(item_equip_[^']+)'/g)
-      ?.map(m => m.replace(/(?:equipId|iconId):\s*'([^']+)'/, '$1'))
-      .filter((id): id is string => !!id) ?? []
-    const eUnique = new Set(eIds)
-    for (const id of eUnique) {
-      checkImage(join(projectRoot, 'public', 'equip'), id)
-    }
-  }
-
-  return missing
+  const manifestPath = join(projectRoot, 'src', 'generated', 'data', 'wiki', 'assets.json')
+  if (!existsSync(manifestPath)) return ['/src/generated/data/wiki/assets.json']
+  const assets = JSON.parse(readFileSync(manifestPath, 'utf8')) as WikiAssets
+  const paths = [
+    ...assets.characters.map((id) => `/images/characters/${id}.avif`),
+    ...assets.characterFullBody.map((id) => `/images/characters/full/${id}.avif`),
+    ...assets.characterPotential.map((id) => `/images/wiki/character-potential/${id}.avif`),
+    ...assets.weapons.map((id) => `/images/weapon/${id}.avif`),
+    ...assets.equipment.map((id) => `/images/equip/${id}.avif`),
+    ...assets.skills.map((id) => `/images/wiki/skills/${id}.avif`),
+    ...assets.logisticsSkills.map((id) => `/images/wiki/logistics/${id}.avif`),
+    ...assets.materials.map((id) => `/images/items/${id}.avif`),
+  ]
+  return paths.filter((path) => !existsSync(join(projectRoot, 'public', path)))
 }
 
 // ── Main validation function ──────────────────────────────────────────────

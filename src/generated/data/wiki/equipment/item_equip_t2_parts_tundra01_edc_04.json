@@ -1,0 +1,79 @@
+{
+  "id": "item_equip_t2_parts_tundra01_edc_04",
+  "category": "equipment",
+  "stats": [
+    {
+      "attributeId": "3",
+      "values": [
+        10.799999999999999,
+        10.799999999999999,
+        10.799999999999999,
+        10.799999999999999
+      ],
+      "displayValues": [
+        "防御力+10.8",
+        "防御力+10.8",
+        "防御力+10.8",
+        "防御力+10.8"
+      ]
+    },
+    {
+      "attributeId": "42",
+      "values": [
+        22,
+        22,
+        22,
+        22
+      ],
+      "displayValues": [
+        "意志+22",
+        "意志+22",
+        "意志+22",
+        "意志+22"
+      ]
+    },
+    {
+      "attributeId": "1",
+      "values": [
+        0.228
+      ],
+      "displayValues": [
+        "生命值+22.8%"
+      ]
+    }
+  ],
+  "suitEffects": [],
+  "craftingRecipes": [
+    {
+      "chainId": 2000,
+      "discount": 1,
+      "isDefault": true,
+      "materials": [
+        {
+          "itemId": "item_equip_script_2",
+          "name": {
+            "zh-CN": "蓝铁装备原件",
+            "en": "Ferrium Component",
+            "ja": "青鉄装備部品",
+            "zh-TW": "藍鐵裝備原件"
+          },
+          "iconId": "item_equip_script_2",
+          "rarity": 2,
+          "count": 50
+        },
+        {
+          "itemId": "item_domain_tundra_coupon",
+          "name": {
+            "zh-CN": "谷地调度券",
+            "en": "Valley Stock Bill",
+            "ja": "谷地取引券",
+            "zh-TW": "谷地調度券"
+          },
+          "iconId": "item_domain_tundra_coupon",
+          "rarity": 5,
+          "count": 1200
+        }
+      ]
+    }
+  ]
+}

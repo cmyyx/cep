@@ -1,0 +1,85 @@
+{
+  "id": "item_equip_t4_parts_wuling02_hand_02",
+  "category": "equipment",
+  "stats": [
+    {
+      "attributeId": "3",
+      "values": [
+        42,
+        42,
+        42,
+        42
+      ],
+      "displayValues": [
+        "防御力+42",
+        "防御力+42",
+        "防御力+42",
+        "防御力+42"
+      ]
+    },
+    {
+      "attributeId": "42",
+      "values": [
+        86,
+        94,
+        103,
+        111
+      ],
+      "displayValues": [
+        "意志+86",
+        "意志+94",
+        "意志+103",
+        "意志+111"
+      ]
+    },
+    {
+      "attributeId": "32",
+      "values": [
+        0.36,
+        0.396,
+        0.432,
+        0.468
+      ],
+      "displayValues": [
+        "战技伤害加成+36%",
+        "战技伤害加成+39.6%",
+        "战技伤害加成+43.2%",
+        "战技伤害加成+46.8%"
+      ]
+    }
+  ],
+  "suitEffects": [],
+  "craftingRecipes": [
+    {
+      "chainId": 4003,
+      "discount": 0.01,
+      "isDefault": true,
+      "materials": [
+        {
+          "itemId": "item_equip_script_4_3",
+          "name": {
+            "zh-CN": "灼铜装备原件",
+            "en": "Pyrrolite Component",
+            "ja": "焔銅装備部品",
+            "zh-TW": "灼銅裝備原件"
+          },
+          "iconId": "item_equip_script_4_3",
+          "rarity": 4,
+          "count": 50
+        },
+        {
+          "itemId": "item_domain_jinlong_coupon",
+          "name": {
+            "zh-CN": "武陵调度券",
+            "en": "Wuling Stock Bill",
+            "ja": "武陵取引券",
+            "zh-TW": "武陵調度券"
+          },
+          "iconId": "item_domain_jinlong_coupon",
+          "rarity": 5,
+          "count": 360
+        }
+      ]
+    }
+  ]
+}

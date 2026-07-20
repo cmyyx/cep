@@ -1,16 +1,23 @@
 'use client'
 
-import { memo, useCallback } from 'react'
-import { useTranslations } from 'next-intl'
+import { memo, useCallback, useRef, useState } from 'react'
+import { useLocale, useTranslations } from 'next-intl'
 import Image from 'next/image'
-import { Check } from 'lucide-react'
+import { Check, ChevronDown } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { useRefinementStore } from '@/stores/useRefinementStore'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
 import { Button } from '@/components/ui/button'
+import { Badge } from '@/components/ui/badge'
 import { useMobileLongPressTooltip } from '@/hooks/use-mobile-long-press-tooltip'
 import { withImageCacheVersion } from '@/lib/image-url'
+import { PlannerWikiPreview } from '@/components/shared/planner-wiki-preview'
+import { WikiMaterialList } from '@/components/shared/wiki-material-list'
+import { plainWikiPreviewText } from '@/components/shared/planner-wiki-preview'
+import { wikiEquipmentPlannerPreviews } from '@/generated/data/wiki/planner-previews'
 import type { Equip } from '@/types/refinement'
+import type { WikiCraftingRecipe } from '@/types/wiki'
+import type { TooltipRootChangeEventDetails } from '@base-ui/react/tooltip'
 
 // Map Chinese equip types to i18n keys
 const TYPE_TO_KEY: Record<string, string> = {
@@ -36,6 +43,31 @@ const MODEL_I18N_MAP: Record<string, string> = {
   'Ⅲ型': 'refinement.modelTypeIII',
 }
 
+export function splitPlannerRecipes(recipes: WikiCraftingRecipe[]) {
+  const featured = recipes.filter((recipe) => recipe.isDefault || (recipe.discount > 0 && recipe.discount < 1)).sort((left, right) => Number(right.isDefault) - Number(left.isDefault))
+  const featuredIds = new Set(featured.map((recipe) => recipe.chainId))
+  return {
+    featured,
+    other: recipes.filter((recipe) => !featuredIds.has(recipe.chainId)),
+  }
+}
+
+export function getPlannerStatPreview(
+  equip: Pick<Equip, 'sub1' | 'sub2' | 'special'>,
+  preview: typeof wikiEquipmentPlannerPreviews[string] | undefined,
+  slot: 'sub1' | 'sub2' | 'special',
+) {
+  const stat = equip[slot]
+  if (!stat) return { levelOne: '—', maxLevel: '—' }
+  const plannerStats = [equip.sub1, equip.sub2, equip.special].filter(Boolean)
+  const statIndex = plannerStats.indexOf(stat)
+  const range = statIndex >= 0 ? preview?.stats[statIndex + 1] : undefined
+  return {
+    levelOne: plainWikiPreviewText(range?.levelOne ?? `+${stat.value}${stat.unit}`),
+    maxLevel: plainWikiPreviewText(range?.maxLevel ?? '—'),
+  }
+}
+
 interface EquipCardProps {
   equip: Equip
   isSelected: boolean
@@ -55,6 +87,7 @@ export const EquipCard = memo(function EquipCard({
   readOnly = false,
 }: EquipCardProps) {
   const t = useTranslations()
+  const locale = useLocale()
   const selectEquip = useRefinementStore((s) => s.selectEquip)
   const {
     open,
@@ -77,16 +110,39 @@ export const EquipCard = memo(function EquipCard({
   const variant = getVariant(equip.name)
   const displayName = t(`equips.${equip.id}`) ?? equip.name
   const displayType = t(`equipTypes.${TYPE_TO_KEY[equip.type] ?? equip.type}`) ?? equip.type
-  const displayMaterial = equip.material ? (t(`materials.${equip.material}`) ?? equip.material) : ''
-  const displayAltMaterial = equip.altMaterial ? (t(`materials.${equip.altMaterial}`) ?? equip.altMaterial) : ''
-  const displayVoucher = equip.voucher ? `${t(`materials.${equip.voucher.name}`) ?? equip.voucher.name}x${equip.voucher.count}` : ''
-  const displayAltVoucher = equip.altVoucher ? `${t(`materials.${equip.altVoucher.name}`) ?? equip.altVoucher.name}x${equip.altVoucher.count}` : ''
-  const combinedVoucher = [displayVoucher, displayAltVoucher].filter(Boolean).join(' | ')
+  const wikiPreview = wikiEquipmentPlannerPreviews[equip.id]
+  const recipeGroups = splitPlannerRecipes(wikiPreview?.craftingRecipes ?? [])
+  const [showOtherRecipes, setShowOtherRecipes] = useState(false)
+  const recipeToggleRef = useRef<HTMLButtonElement>(null)
+  const handleTooltipOpenChange = useCallback((
+    nextOpen: boolean,
+    details: TooltipRootChangeEventDetails,
+  ) => {
+    const eventTargetsToggle = details.event?.composedPath().some((target) =>
+      target instanceof Element && target.closest('[data-recipe-toggle="true"]')
+    ) ?? false
+    const toggleHasFocus = recipeToggleRef.current?.contains(document.activeElement)
+    if (
+      !nextOpen &&
+      ((details.reason === 'outside-press' && eventTargetsToggle) ||
+        ((details.reason === 'trigger-hover' || details.reason === 'trigger-focus') && toggleHasFocus))
+    ) {
+      details.cancel()
+      return
+    }
+    handleOpenChange(nextOpen)
+  }, [handleOpenChange])
+  const toggleOtherRecipes = useCallback(() => {
+    setShowOtherRecipes((value) => !value)
+  }, [])
+  const previewValue = (slot: 'sub1' | 'sub2' | 'special') =>
+    getPlannerStatPreview(equip, wikiPreview, slot)
+  const previewLabels = wikiPreview?.stats[1] ?? wikiPreview?.stats[0]
   const imageSrc = equip.imageId
     ? withImageCacheVersion(`/images/equip/${equip.imageId}.avif`)
     : ''
   return (
-    <Tooltip open={open} onOpenChange={handleOpenChange}>
+    <Tooltip open={open} onOpenChange={handleTooltipOpenChange} disableHoverablePopup={false}>
       <TooltipTrigger
         render={
           <Button
@@ -174,19 +230,55 @@ export const EquipCard = memo(function EquipCard({
           </div>
         )}
       </TooltipTrigger>
-      <TooltipContent side="top" sideOffset={8} className={cn(
-        'text-xs text-foreground bg-popover/95',
-        isMobile ? 'max-w-[calc(100vw-2rem)]' : 'max-w-none',
+      <TooltipContent side="top" sideOffset={8} collisionPadding={24} className={cn(
+        'max-h-[var(--available-height)] max-w-[calc(100vw-3rem)] overflow-y-auto overscroll-contain bg-popover p-3 text-popover-foreground shadow-[var(--shadow-card)]',
+        isMobile ? 'max-w-[calc(100vw-3rem)]' : 'max-w-none',
       )}>
-        <p className="font-semibold whitespace-nowrap">{displayName}</p>
-        <p className={cn('text-muted-foreground/80', isMobile ? 'whitespace-normal' : 'whitespace-nowrap')}>
-          {equip.sub1 ? `${t('equipStats.' + equip.sub1.key)}+${equip.sub1.value}${equip.sub1.unit}` : ''}
-          {equip.sub2 ? ` · ${t('equipStats.' + equip.sub2.key)}+${equip.sub2.value}${equip.sub2.unit}` : ''}
-          {equip.special ? ` · ${t('equipStats.' + equip.special.key)}+${equip.special.value}${equip.special.unit}` : ''}
-          {displayMaterial ? ` · ${displayMaterial}` : ''}
-          {displayAltMaterial ? ` | ${displayAltMaterial}` : ''}
-          {displayVoucher || displayAltVoucher ? ` · ${combinedVoucher}` : ''}
-        </p>
+        <PlannerWikiPreview
+          title={displayName}
+          rarity={equip.rarity}
+          compact={isMobile}
+          levelOneLabel={previewLabels?.levelOneLabel}
+          maxLevelLabel={previewLabels?.maxLevelLabel}
+          rows={[
+            ...(equip.sub1 ? [{ label: t(`equipStats.${equip.sub1.key}`), ...previewValue('sub1') }] : []),
+            ...(equip.sub2 ? [{ label: t(`equipStats.${equip.sub2.key}`), ...previewValue('sub2') }] : []),
+            ...(equip.special ? [{ label: t(`equipStats.${equip.special.key}`), ...previewValue('special') }] : []),
+          ]}
+          footer={recipeGroups.featured.length > 0 ? (
+            <div className="space-y-2 pt-1">
+              <div className="max-h-56 space-y-2 overflow-y-auto pr-1">
+                {[...recipeGroups.featured, ...(showOtherRecipes ? recipeGroups.other : [])].map((recipe) => (
+                  <div key={recipe.chainId} className="space-y-2 rounded-md bg-muted/35 p-2.5">
+                    <div className="flex flex-wrap items-center gap-1.5">
+                      <span className="text-xs font-medium">{t('wiki.recipe')} #{recipe.chainId}</span>
+                      {recipe.isDefault ? <Badge>{t('wiki.defaultRecipe')}</Badge> : null}
+                      {recipe.discount > 0 && recipe.discount < 1 ? (
+                        <Badge variant="secondary" className="text-ship-red">-{Math.round((1 - recipe.discount) * 100)}%</Badge>
+                      ) : null}
+                    </div>
+                    <WikiMaterialList materials={recipe.materials} compact />
+                  </div>
+                ))}
+              </div>
+              {recipeGroups.other.length > 0 ? (
+                <Button
+                  data-recipe-toggle="true"
+                  type="button"
+                  variant="ghost"
+                  ref={recipeToggleRef}
+                  size="sm"
+                  onClick={toggleOtherRecipes}
+                  className="w-full justify-center rounded-md"
+                >
+                  <ChevronDown className={cn('transition-transform', showOtherRecipes && 'rotate-180')} />
+                  {showOtherRecipes ? t('wiki.hideOtherRecipes') : t('wiki.showOtherRecipes', { count: recipeGroups.other.length })}
+                </Button>
+              ) : null}
+            </div>
+          ) : undefined}
+          wikiHref={equip.id.startsWith('item_equip_') ? `/${locale}/wiki/equipment/${equip.id}` : undefined}
+        />
       </TooltipContent>
     </Tooltip>
   )

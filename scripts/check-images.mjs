@@ -20,6 +20,7 @@ const ROOT = resolve(__dirname, '..')
 const PUBLIC_DIR = join(ROOT, 'public')
 const WEAPONS_TS = join(ROOT, 'src', 'data', 'weapons.ts')
 const EQUIPS_TS = join(ROOT, 'src', 'data', 'equips.ts')
+const WIKI_ASSETS = join(ROOT, 'src', 'generated', 'data', 'wiki', 'assets.json')
 
 const missing = []
 
@@ -70,6 +71,26 @@ if (existsSync(EQUIPS_TS)) {
   process.exit(1)
 }
 
+// ── Wiki asset manifest ──────────────────────────────────────────────────
+if (existsSync(WIKI_ASSETS)) {
+  const assets = JSON.parse(readFileSync(WIKI_ASSETS, 'utf-8'))
+  const wikiPaths = [
+    ...assets.characters.map((id) => `characters/${id}.avif`),
+    ...assets.characterFullBody.map((id) => `characters/full/${id}.avif`),
+    ...assets.characterPotential.map((id) => `wiki/character-potential/${id}.avif`),
+    ...assets.weapons.map((id) => `weapon/${id}.avif`),
+    ...assets.equipment.map((id) => `equip/${id}.avif`),
+    ...assets.skills.map((id) => `wiki/skills/${id}.avif`),
+    ...assets.logisticsSkills.map((id) => `wiki/logistics/${id}.avif`),
+    ...assets.materials.map((id) => `items/${id}.avif`),
+  ]
+  for (const imagePath of wikiPaths) {
+    if (!existsSync(join(PUBLIC_DIR, 'images', imagePath))) missing.push(imagePath)
+  }
+} else {
+  missing.push('src/generated/data/wiki/assets.json')
+}
+
 // ── Report ───────────────────────────────────────────────────────────────
 if (missing.length > 0) {
   console.error(`\nERROR: ${missing.length} missing image(s):`)
@@ -79,5 +100,5 @@ if (missing.length > 0) {
   console.error('\nImages are required for build. Run sync:update to generate missing images.')
   process.exit(1)
 } else {
-  console.log('check-images: All weapon/equip images present')
+  console.log('check-images: All planner and Wiki images present')
 }

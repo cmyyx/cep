@@ -2,7 +2,7 @@
 
 import { memo, useMemo, useCallback, useState, useRef, useEffect, useLayoutEffect } from 'react'
 import Image from 'next/image'
-import { useTranslations } from 'next-intl'
+import { useLocale, useTranslations } from 'next-intl'
 import { cn } from '@/lib/utils'
 import type { DungeonPlan, WeaponMatch } from '@/lib/planner/essence-solver'
 import { useMatrixStore, getPlanKey } from '@/stores/useMatrixStore'
@@ -18,6 +18,9 @@ import { Button } from '@/components/ui/button'
 import { computeEffectiveS1 } from '@/lib/planner/s1-utils'
 import { useIsMobile } from '@/hooks/use-mobile'
 import { withImageCacheVersion } from '@/lib/image-url'
+import { PlannerWikiPreview } from '@/components/shared/planner-wiki-preview'
+import { getWeaponWikiPreview } from '@/lib/weapon-wiki-preview'
+import type { WikiLocale } from '@/types/wiki'
 
 interface DungeonCardProps {
   plan: DungeonPlan
@@ -62,6 +65,7 @@ const WeaponThumbnail = memo(function WeaponThumbnail({
   inRange,
 }: ThumbProps) {
   const t = useTranslations()
+  const locale = useLocale() as WikiLocale
   const enableTooltip = useEssenceSettingsStore((s) => s.enableTooltipPlans)
   const toggleWeapon = useMatrixStore((s) => s.toggleWeapon)
   const [open, setOpen] = useState(false)
@@ -134,6 +138,7 @@ const WeaponThumbnail = memo(function WeaponThumbnail({
   }, [toggleWeapon, weapon.id])
 
   const weaponName = (weapon.id?.startsWith('custom-') || weapon.id?.startsWith('preview:')) ? weapon.name : (t(`weapons.${weapon.id}`) ?? weapon.name)
+  const preview = getWeaponWikiPreview(weapon.id, locale)
 
   const thumb = (
     <Button
@@ -181,16 +186,22 @@ const WeaponThumbnail = memo(function WeaponThumbnail({
       <TooltipTrigger render={thumb} />
       <TooltipContent
         side="top"
-        className="text-xs text-foreground bg-popover/95"
+        sideOffset={8}
+        className="max-h-[var(--available-height)] max-w-[calc(100vw-2rem)] overflow-y-auto overscroll-contain bg-popover p-3 text-popover-foreground shadow-[var(--shadow-card)]"
       >
-        <p className={cn('font-semibold', !inRange && 'line-through')}>
-          {weaponName}
-        </p>
-        <p className="text-muted-foreground/80">
-          {t('weaponStats.' + weapon.primaryStat)} |{' '}
-          {t('weaponStats.' + weapon.elementalDamage)} |{' '}
-          {t('weaponStats.' + weapon.specialAbility)}
-        </p>
+        <PlannerWikiPreview
+          compact={isMobile}
+          title={weaponName}
+          rarity={weapon.rarity}
+          levelOneLabel={preview.levelOneLabel}
+          maxLevelLabel={preview.maxLevelLabel}
+          rows={[
+            { label: t('weaponStats.' + weapon.primaryStat), ...preview.values[0] },
+            { label: t('weaponStats.' + weapon.elementalDamage), ...preview.values[1] },
+            { label: t('weaponStats.' + weapon.specialAbility), ...preview.values[2], truncate: true },
+          ]}
+          wikiHref={preview.wikiHref}
+        />
       </TooltipContent>
     </Tooltip>
   )
@@ -233,7 +244,7 @@ const WeaponRow = memo(function WeaponRow({
           size="icon"
           onClick={() => toggleWeapon(weapon.id)}
           className="relative size-10 rounded shadow-[0_0_0_1px_rgba(0,0,0,0.08)] bg-muted/30 flex-shrink-0 overflow-hidden bg-[url(/images/item-frame-bg.png)] bg-cover bg-center cursor-pointer">
-          {(() => { const s = weaponImageSrc(weapon.id); if (!s) return <span className="absolute inset-0 flex items-center justify-center text-lg font-semibold text-white/40">{weapon.name?.charAt(0) ?? '?'}</span>; return <Image src={s} alt={weaponName} fill className="object-cover z-10" unoptimized /> })()}
+          {(() => { const s = weaponImageSrc(weapon.id, weapon.iconId); if (!s) return <span className="absolute inset-0 flex items-center justify-center text-lg font-semibold text-white/40">{weapon.name?.charAt(0) ?? '?'}</span>; return <Image src={s} alt={weaponName} fill className="object-cover z-10" unoptimized /> })()}
           <Image
             src={withImageCacheVersion(`/images/item-band-${weapon.rarity}.png`)}
             alt=""
@@ -816,7 +827,7 @@ export const DungeonCard = memo(function DungeonCard({
         size="sm"
         onClick={handleToggleExpand}
         aria-expanded={isExpanded}
-        className="mt-3 h-auto flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground"
+        className="mt-3 min-h-9 w-full justify-center gap-1 rounded-md bg-muted/35 px-3 text-xs text-muted-foreground hover:bg-muted/60 hover:text-foreground"
       >
         <ChevronDown
           className={cn(

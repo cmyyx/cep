@@ -28,9 +28,12 @@ This version has breaking changes — APIs, conventions, and file structure may 
 |--------|------|------|
 | 6★ | `#ff7100` | 暖橙色，最高稀有度 |
 | 5★ | `#ffcc00` | 金色，次高稀有度 |
-| 1-4★ | 默认继承色 | 低稀有度不做特殊强调 |
+| 4★ | `#b380ff` | 紫色 |
+| 3★ | `#33c2ff` | 蓝色 |
+| 2★ | `#b4d945` | 绿色 |
+| 1★ | `#b2b2b2` | 灰色，缺失或无效稀有度的回退 |
 
-所有星级显示（RarityStars 组件、装备稀有度标签等）统一使用上述色值。在 `globals.css` 中通过 `@theme` 定义为 `--color-rarity-6-star: #ff7100` 和 `--color-rarity-5-star: #ffcc00`，组件中使用 `text-rarity-6-star` / `text-rarity-5-star` 类名（Tailwind v4 CSS-first 配置自动生成），根据稀有度条件动态切换 className，禁止使用内联 `style={{ color }}`。
+所有星级显示（RarityStars 组件、装备稀有度标签等）统一使用上述色值。在 `globals.css` 中通过 `@theme` 定义 `--color-rarity-{1..6}-star` 令牌，组件中使用对应的 `text-rarity-{1..6}-star` 类名（Tailwind v4 CSS-first 配置自动生成），根据稀有度条件动态切换 className，禁止使用内联 `style={{ color }}`。缺失或无效稀有度统一规范化为 1★，并选择 `/images/item-band-1.png`；有效稀有度选择对应 `/images/item-band-N.png`。
 
 ## 技术栈（不可变）
 
@@ -43,7 +46,7 @@ This version has breaking changes — APIs, conventions, and file structure may 
 | 状态管理 | Zustand | 仅限客户端状态 |
 | 表单 | react-hook-form + zod | Shadcn/UI Form 组件绑定 |
 | 国际化 | next-intl | 基于路由的多语言 `/[locale]/...` |
-| 包管理 | pnpm 9 | 禁止 `npm install`，必须使用 `pnpm install` |
+| 包管理 | pnpm 11 | 要求 Node.js ≥22.13；禁止 `npm install`，必须使用 `pnpm install` |
 
 ### 纯静态站点约束
 

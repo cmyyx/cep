@@ -1,0 +1,117 @@
+{
+  "id": "item_equip_t3_suit_str01_edc_01",
+  "category": "equipment",
+  "stats": [
+    {
+      "attributeId": "3",
+      "values": [
+        15,
+        15,
+        15,
+        15
+      ],
+      "displayValues": [
+        "防御力+15",
+        "防御力+15",
+        "防御力+15",
+        "防御力+15"
+      ]
+    },
+    {
+      "attributeId": "39",
+      "values": [
+        23,
+        23,
+        23,
+        23
+      ],
+      "displayValues": [
+        "力量+23",
+        "力量+23",
+        "力量+23",
+        "力量+23"
+      ]
+    },
+    {
+      "attributeId": "42",
+      "values": [
+        15,
+        15,
+        15,
+        15
+      ],
+      "displayValues": [
+        "意志+15",
+        "意志+15",
+        "意志+15",
+        "意志+15"
+      ]
+    },
+    {
+      "attributeId": "2",
+      "values": [
+        0.147,
+        0.147,
+        0.147,
+        0.147
+      ],
+      "displayValues": [
+        "攻击力+14.7%",
+        "攻击力+14.7%",
+        "攻击力+14.7%",
+        "攻击力+14.7%"
+      ]
+    }
+  ],
+  "suitEffects": [
+    {
+      "id": "passive_equipsuit_str_01",
+      "name": {
+        "zh-CN": "重装信使",
+        "en": "Armored MSGR",
+        "ja": "重装トランスポーター",
+        "zh-TW": "重裝信使"
+      },
+      "description": {
+        "zh-CN": "3件套组效果：装备者力量<@ba.vup>+50</>。\n当装备者生命值低于50%时，受到的所有类型伤害<@ba.vup>-30%</>。",
+        "en": "3-piece set effect: Wearer's Strength <@ba.vup>+50</>. \nWhen the wearer's HP is below 50%, the wearer gains <@ba.vup>30%</> DMG Reduction against all types of DMG.",
+        "ja": "3点セット効果：装備中、筋力<@ba.vup>+50</>\n自身のHPが50%より低いとき、受ける全種類のダメージ<@ba.vup>-30%</>",
+        "zh-TW": "3件套裝效果：裝備者力量<@ba.vup>+50</>。\n當裝備者生命值低於50%時，受到的所有類型傷害<@ba.vup>-30%</>。"
+      },
+      "requiredPieces": 3
+    }
+  ],
+  "craftingRecipes": [
+    {
+      "chainId": 3000,
+      "discount": 1,
+      "isDefault": true,
+      "materials": [
+        {
+          "itemId": "item_equip_script_3",
+          "name": {
+            "zh-CN": "高晶装备原件",
+            "en": "Cryston Component",
+            "ja": "高晶装備部品",
+            "zh-TW": "高晶裝備原件"
+          },
+          "iconId": "item_equip_script_3",
+          "rarity": 3,
+          "count": 50
+        },
+        {
+          "itemId": "item_domain_tundra_coupon",
+          "name": {
+            "zh-CN": "谷地调度券",
+            "en": "Valley Stock Bill",
+            "ja": "谷地取引券",
+            "zh-TW": "谷地調度券"
+          },
+          "iconId": "item_domain_tundra_coupon",
+          "rarity": 5,
+          "count": 9600
+        }
+      ]
+    }
+  ]
+}

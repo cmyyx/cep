@@ -7,7 +7,7 @@
 | 仓库 | 用途 | 路径示例 |
 |------|------|---------|
 | [AKEData](https://github.com/cmyyx/AKEData) (fork) | 武器/装备/角色/副本条目 + 属性数据 + 多语言翻译（TableCfg/I18nTextTable_*.json） | `output/CN/weapon/`, `TableCfg/` |
-| [AKEDatabase](https://github.com/NagiYume/AKEDatabase) | 武器/装备数据（主要来源）+ 图标 PNG | `public/CH/weapon/`, `public/CH/equip/` |
+| [AKEDatabase](https://github.com/NagiYume/AKEDatabase) | 属性映射 maps.json | `public/*/maps.json` |
 
 ## 环境准备
 
@@ -142,13 +142,14 @@ SHA 追踪信息存储在主仓库文件 `scripts/.cache/upstream-versions.json`
 ```json
 {
   "akedata": "abc123...",
+  "imagedb": "def456...",
   "lastSync": "2026-06-07T00:00:00.000Z"
 }
 ```
 
-- `pnpm sync:check`：读取此文件记录的 SHA，与上游当前 HEAD 比较
-- 相同 → 跳过；不同 → 执行全量检查
-- `pnpm sync:update` 成功后更新此文件（通过 PR 提交到主分支）
+- `pnpm sync:check`：读取此文件记录的 AKEData 与 AKEDatabase SHA，并分别与两个上游当前 HEAD 比较
+- 两个 SHA 均相同且图片完整 → 跳过；任一不同或图片缺失 → 执行全量检查
+- `pnpm sync:update` 成功后同时更新两个 SHA（通过 PR 提交到主分支）
 
 ## CI 工作流
 
@@ -179,6 +180,6 @@ scripts/
     ├── compare-weapons.ts              ← 武器对比（新武器检测 + 专武检测）
     ├── compare-stats.ts                ← 词条提取
     ├── extract-textid.ts               ← 从原始 JSON 提取 int64 ID
-    ├── convert-icons.ts                ← PNG → AVIF
+    ├── convert-icons.ts                ← CDN PNG → AVIF（差量）
     └── git-helpers.ts                  ← SHA 分支读写
 ```

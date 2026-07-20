@@ -1,0 +1,117 @@
+{
+  "id": "item_equip_t2_suit_will01_body_01",
+  "category": "equipment",
+  "stats": [
+    {
+      "attributeId": "3",
+      "values": [
+        28.8,
+        28.8,
+        28.8,
+        28.8
+      ],
+      "displayValues": [
+        "防御力+28.8",
+        "防御力+28.8",
+        "防御力+28.8",
+        "防御力+28.8"
+      ]
+    },
+    {
+      "attributeId": "42",
+      "values": [
+        44,
+        44,
+        44,
+        44
+      ],
+      "displayValues": [
+        "意志+44",
+        "意志+44",
+        "意志+44",
+        "意志+44"
+      ]
+    },
+    {
+      "attributeId": "40",
+      "values": [
+        29,
+        29,
+        29,
+        29
+      ],
+      "displayValues": [
+        "敏捷+29",
+        "敏捷+29",
+        "敏捷+29",
+        "敏捷+29"
+      ]
+    },
+    {
+      "attributeId": "1",
+      "values": [
+        0.105,
+        0.105,
+        0.105,
+        0.105
+      ],
+      "displayValues": [
+        "生命值+10.5%",
+        "生命值+10.5%",
+        "生命值+10.5%",
+        "生命值+10.5%"
+      ]
+    }
+  ],
+  "suitEffects": [
+    {
+      "id": "passive_equipsuit_will_01",
+      "name": {
+        "zh-CN": "蚀电防护",
+        "en": "Mordvolt Resistant",
+        "ja": "蝕電防護",
+        "zh-TW": "蝕電防護"
+      },
+      "description": {
+        "zh-CN": "3件套组效果：装备者意志<@ba.vup>+50</>。\n当装备者生命值低于50%时，造成的治疗效果<@ba.vup>+30%</>。",
+        "en": "3-piece set effect: Wearer's Will <@ba.vup>+50</>. \nWhen the wearer's HP is below 50%, Treatment Effect <@ba.vup>+30%</>.",
+        "ja": "3点セット効果：装備中、意志<@ba.vup>+50</>\n自身のHPが50%より低いとき、与える回復効果<@ba.vup>+30%</>",
+        "zh-TW": "3件套裝效果：裝備者意志<@ba.vup>+50</>。\n當裝備者生命值低於50%時，造成的治療效果<@ba.vup>+30%</>。"
+      },
+      "requiredPieces": 3
+    }
+  ],
+  "craftingRecipes": [
+    {
+      "chainId": 2000,
+      "discount": 1,
+      "isDefault": true,
+      "materials": [
+        {
+          "itemId": "item_equip_script_2",
+          "name": {
+            "zh-CN": "蓝铁装备原件",
+            "en": "Ferrium Component",
+            "ja": "青鉄装備部品",
+            "zh-TW": "藍鐵裝備原件"
+          },
+          "iconId": "item_equip_script_2",
+          "rarity": 2,
+          "count": 50
+        },
+        {
+          "itemId": "item_domain_tundra_coupon",
+          "name": {
+            "zh-CN": "谷地调度券",
+            "en": "Valley Stock Bill",
+            "ja": "谷地取引券",
+            "zh-TW": "谷地調度券"
+          },
+          "iconId": "item_domain_tundra_coupon",
+          "rarity": 5,
+          "count": 1200
+        }
+      ]
+    }
+  ]
+}

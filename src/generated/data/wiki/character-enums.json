@@ -1,0 +1,77 @@
+{
+  "attributes": {},
+  "elements": {
+    "Cryst": {
+      "zh-CN": "寒冷",
+      "en": "Cryo",
+      "ja": "寒冷",
+      "zh-TW": "寒冷"
+    },
+    "Fire": {
+      "zh-CN": "灼热",
+      "en": "Heat",
+      "ja": "灼熱",
+      "zh-TW": "灼熱"
+    },
+    "Pulse": {
+      "zh-CN": "电磁",
+      "en": "Electric",
+      "ja": "電磁",
+      "zh-TW": "電磁"
+    },
+    "Natural": {
+      "zh-CN": "自然",
+      "en": "Nature",
+      "ja": "自然",
+      "zh-TW": "自然"
+    },
+    "Physical": {
+      "zh-CN": "物理",
+      "en": "Physical",
+      "ja": "物理",
+      "zh-TW": "物理"
+    }
+  },
+  "professions": {
+    "0": {
+      "zh-CN": "近卫",
+      "en": "Guard",
+      "ja": "前衛",
+      "zh-TW": "近衛"
+    },
+    "2": {
+      "zh-CN": "重装",
+      "en": "Defender",
+      "ja": "重装",
+      "zh-TW": "重裝"
+    },
+    "4": {
+      "zh-CN": "辅助",
+      "en": "Supporter",
+      "ja": "補助",
+      "zh-TW": "輔助"
+    },
+    "5": {
+      "zh-CN": "术师",
+      "en": "Caster",
+      "ja": "術師",
+      "zh-TW": "術師"
+    },
+    "7": {
+      "zh-CN": "先锋",
+      "en": "Vanguard",
+      "ja": "先鋒",
+      "zh-TW": "先鋒"
+    },
+    "8": {
+      "zh-CN": "突击",
+      "en": "Striker",
+      "ja": "突撃",
+      "zh-TW": "突擊"
+    }
+  },
+  "factions": {},
+  "weaponTypes": {},
+  "equipmentParts": {},
+  "skillTypes": {}
+}

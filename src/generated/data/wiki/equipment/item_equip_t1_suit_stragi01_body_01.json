@@ -1,0 +1,117 @@
+{
+  "id": "item_equip_t1_suit_stragi01_body_01",
+  "category": "equipment",
+  "stats": [
+    {
+      "attributeId": "3",
+      "values": [
+        22.400000000000002,
+        22.400000000000002,
+        22.400000000000002,
+        22.400000000000002
+      ],
+      "displayValues": [
+        "防御力+22.4",
+        "防御力+22.4",
+        "防御力+22.4",
+        "防御力+22.4"
+      ]
+    },
+    {
+      "attributeId": "39",
+      "values": [
+        30,
+        30,
+        30,
+        30
+      ],
+      "displayValues": [
+        "力量+30",
+        "力量+30",
+        "力量+30",
+        "力量+30"
+      ]
+    },
+    {
+      "attributeId": "40",
+      "values": [
+        30,
+        30,
+        30,
+        30
+      ],
+      "displayValues": [
+        "敏捷+30",
+        "敏捷+30",
+        "敏捷+30",
+        "敏捷+30"
+      ]
+    },
+    {
+      "attributeId": "AllDamageTakenScalar",
+      "values": [
+        0.9610764055742431,
+        0.9610764055742431,
+        0.9610764055742431,
+        0.9610764055742431
+      ],
+      "displayValues": [
+        "全伤害减免+3.89235944%",
+        "全伤害减免+3.89235944%",
+        "全伤害减免+3.89235944%",
+        "全伤害减免+3.89235944%"
+      ]
+    }
+  ],
+  "suitEffects": [
+    {
+      "id": "passive_equipsuit_stragi_01",
+      "name": {
+        "zh-CN": "集成重型",
+        "en": "AIC Heavy",
+        "ja": "集成重装",
+        "zh-TW": "整合重型"
+      },
+      "description": {
+        "zh-CN": "3件套组效果：装备者生命值<@ba.vup>+500</>。\n当装备者击败敌人后，回复<@ba.heal>100</>点生命值。该效果每5秒最多触发一次。",
+        "en": "3-piece set effect: Wearer's HP <@ba.vup>+500</>. \nAfter the wearer defeats an enemy, the wearer restores <@ba.heal>100</> HP. Effect trigger cooldown: 5s.",
+        "ja": "3点セット効果：装備中、HP<@ba.vup>+500</>\n自身が敵を倒すと、HPを<@ba.heal>100</>回復する\nこの効果は5秒に1回まで発動可能",
+        "zh-TW": "3件套裝效果：裝備者生命值<@ba.vup>+500</>。\n當裝備者擊敗敵人後，回復<@ba.heal>100</>點生命值。該效果每5秒最多觸發一次。"
+      },
+      "requiredPieces": 3
+    }
+  ],
+  "craftingRecipes": [
+    {
+      "chainId": 1011,
+      "discount": 1,
+      "isDefault": true,
+      "materials": [
+        {
+          "itemId": "item_equip_script_1",
+          "name": {
+            "zh-CN": "紫晶装备原件",
+            "en": "Amethyst Component",
+            "ja": "紫晶装備部品",
+            "zh-TW": "紫晶裝備原件"
+          },
+          "iconId": "item_equip_script_1",
+          "rarity": 2,
+          "count": 20
+        },
+        {
+          "itemId": "item_domain_tundra_coupon",
+          "name": {
+            "zh-CN": "谷地调度券",
+            "en": "Valley Stock Bill",
+            "ja": "谷地取引券",
+            "zh-TW": "谷地調度券"
+          },
+          "iconId": "item_domain_tundra_coupon",
+          "rarity": 5,
+          "count": 160
+        }
+      ]
+    }
+  ]
+}

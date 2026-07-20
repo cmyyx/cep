@@ -77,35 +77,6 @@ export function getChangedOutputFiles(repoPath: string, fromSha: string, toSha: 
   return output ? output.split('\n') : []
 }
 
-/**
- * Resolve a suit's display name from upstream data.
- * Uses v2_equip first, falls back to old-format equip JSON, finally the filename.
- * Both generate-metadata and update-data-files use this — ensures suits i18n
- * and RAW_EQUIPS data always agree on suit names.
- */
-export function resolveSuitName(suitFile: string, imagedbPath: string): string {
-  // 1. v2_equip: equipsuittable.list[0].suitName.text
-  const v2Path = join(imagedbPath, 'public', 'CH', 'v2_equip', suitFile)
-  if (existsSync(v2Path)) {
-    try {
-      const v2 = JSON.parse(readFileSync(v2Path, 'utf-8'))
-      const text = v2?.equipsuittable?.list?.[0]?.suitName?.text as string | undefined
-      if (text) return text
-    } catch { /* ignore */ }
-  }
-  // 2. Old-format: 套組名称
-  const oldPath = join(imagedbPath, 'public', 'CH', 'equip', suitFile)
-  if (existsSync(oldPath)) {
-    try {
-      const old = JSON.parse(readFileSync(oldPath, 'utf-8'))
-      const text = old['套组名称'] as string | undefined
-      if (text) return text
-    } catch { /* ignore */ }
-  }
-  // 3. Fallback: filename without .json
-  return suitFile.replace('.json', '')
-}
-
 export function validatePaths(paths: UpstreamPaths): string[] {
   const warnings: string[] = []
   const checks: [string, string, string[]][] = [

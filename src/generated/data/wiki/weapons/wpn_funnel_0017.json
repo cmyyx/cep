@@ -1,0 +1,869 @@
+{
+  "id": "wpn_funnel_0017",
+  "category": "weapons",
+  "maxLevel": 90,
+  "levels": [
+    {
+      "level": 1,
+      "baseAttack": 50
+    },
+    {
+      "level": 2,
+      "baseAttack": 54
+    },
+    {
+      "level": 3,
+      "baseAttack": 59
+    },
+    {
+      "level": 4,
+      "baseAttack": 64
+    },
+    {
+      "level": 5,
+      "baseAttack": 69
+    },
+    {
+      "level": 6,
+      "baseAttack": 74
+    },
+    {
+      "level": 7,
+      "baseAttack": 79
+    },
+    {
+      "level": 8,
+      "baseAttack": 84
+    },
+    {
+      "level": 9,
+      "baseAttack": 89
+    },
+    {
+      "level": 10,
+      "baseAttack": 94
+    },
+    {
+      "level": 11,
+      "baseAttack": 99
+    },
+    {
+      "level": 12,
+      "baseAttack": 104
+    },
+    {
+      "level": 13,
+      "baseAttack": 109
+    },
+    {
+      "level": 14,
+      "baseAttack": 114
+    },
+    {
+      "level": 15,
+      "baseAttack": 119
+    },
+    {
+      "level": 16,
+      "baseAttack": 124
+    },
+    {
+      "level": 17,
+      "baseAttack": 129
+    },
+    {
+      "level": 18,
+      "baseAttack": 134
+    },
+    {
+      "level": 19,
+      "baseAttack": 139
+    },
+    {
+      "level": 20,
+      "baseAttack": 144
+    },
+    {
+      "level": 21,
+      "baseAttack": 149
+    },
+    {
+      "level": 22,
+      "baseAttack": 153
+    },
+    {
+      "level": 23,
+      "baseAttack": 158
+    },
+    {
+      "level": 24,
+      "baseAttack": 163
+    },
+    {
+      "level": 25,
+      "baseAttack": 168
+    },
+    {
+      "level": 26,
+      "baseAttack": 173
+    },
+    {
+      "level": 27,
+      "baseAttack": 178
+    },
+    {
+      "level": 28,
+      "baseAttack": 183
+    },
+    {
+      "level": 29,
+      "baseAttack": 188
+    },
+    {
+      "level": 30,
+      "baseAttack": 193
+    },
+    {
+      "level": 31,
+      "baseAttack": 198
+    },
+    {
+      "level": 32,
+      "baseAttack": 203
+    },
+    {
+      "level": 33,
+      "baseAttack": 208
+    },
+    {
+      "level": 34,
+      "baseAttack": 213
+    },
+    {
+      "level": 35,
+      "baseAttack": 218
+    },
+    {
+      "level": 36,
+      "baseAttack": 223
+    },
+    {
+      "level": 37,
+      "baseAttack": 228
+    },
+    {
+      "level": 38,
+      "baseAttack": 233
+    },
+    {
+      "level": 39,
+      "baseAttack": 238
+    },
+    {
+      "level": 40,
+      "baseAttack": 243
+    },
+    {
+      "level": 41,
+      "baseAttack": 248
+    },
+    {
+      "level": 42,
+      "baseAttack": 252
+    },
+    {
+      "level": 43,
+      "baseAttack": 257
+    },
+    {
+      "level": 44,
+      "baseAttack": 262
+    },
+    {
+      "level": 45,
+      "baseAttack": 267
+    },
+    {
+      "level": 46,
+      "baseAttack": 272
+    },
+    {
+      "level": 47,
+      "baseAttack": 277
+    },
+    {
+      "level": 48,
+      "baseAttack": 282
+    },
+    {
+      "level": 49,
+      "baseAttack": 287
+    },
+    {
+      "level": 50,
+      "baseAttack": 292
+    },
+    {
+      "level": 51,
+      "baseAttack": 297
+    },
+    {
+      "level": 52,
+      "baseAttack": 302
+    },
+    {
+      "level": 53,
+      "baseAttack": 307
+    },
+    {
+      "level": 54,
+      "baseAttack": 312
+    },
+    {
+      "level": 55,
+      "baseAttack": 317
+    },
+    {
+      "level": 56,
+      "baseAttack": 322
+    },
+    {
+      "level": 57,
+      "baseAttack": 327
+    },
+    {
+      "level": 58,
+      "baseAttack": 332
+    },
+    {
+      "level": 59,
+      "baseAttack": 337
+    },
+    {
+      "level": 60,
+      "baseAttack": 342
+    },
+    {
+      "level": 61,
+      "baseAttack": 347
+    },
+    {
+      "level": 62,
+      "baseAttack": 351
+    },
+    {
+      "level": 63,
+      "baseAttack": 356
+    },
+    {
+      "level": 64,
+      "baseAttack": 361
+    },
+    {
+      "level": 65,
+      "baseAttack": 366
+    },
+    {
+      "level": 66,
+      "baseAttack": 371
+    },
+    {
+      "level": 67,
+      "baseAttack": 376
+    },
+    {
+      "level": 68,
+      "baseAttack": 381
+    },
+    {
+      "level": 69,
+      "baseAttack": 386
+    },
+    {
+      "level": 70,
+      "baseAttack": 391
+    },
+    {
+      "level": 71,
+      "baseAttack": 396
+    },
+    {
+      "level": 72,
+      "baseAttack": 401
+    },
+    {
+      "level": 73,
+      "baseAttack": 406
+    },
+    {
+      "level": 74,
+      "baseAttack": 411
+    },
+    {
+      "level": 75,
+      "baseAttack": 416
+    },
+    {
+      "level": 76,
+      "baseAttack": 421
+    },
+    {
+      "level": 77,
+      "baseAttack": 426
+    },
+    {
+      "level": 78,
+      "baseAttack": 431
+    },
+    {
+      "level": 79,
+      "baseAttack": 436
+    },
+    {
+      "level": 80,
+      "baseAttack": 441
+    },
+    {
+      "level": 81,
+      "baseAttack": 446
+    },
+    {
+      "level": 82,
+      "baseAttack": 450
+    },
+    {
+      "level": 83,
+      "baseAttack": 455
+    },
+    {
+      "level": 84,
+      "baseAttack": 460
+    },
+    {
+      "level": 85,
+      "baseAttack": 465
+    },
+    {
+      "level": 86,
+      "baseAttack": 470
+    },
+    {
+      "level": 87,
+      "baseAttack": 475
+    },
+    {
+      "level": 88,
+      "baseAttack": 480
+    },
+    {
+      "level": 89,
+      "baseAttack": 485
+    },
+    {
+      "level": 90,
+      "baseAttack": 490
+    }
+  ],
+  "breakthroughs": [
+    {
+      "stage": 1,
+      "requiredLevel": 20,
+      "stats": [
+        {
+          "attributeId": "baseAttack",
+          "value": 144
+        }
+      ],
+      "materials": [
+        {
+          "itemId": "item_weapon_break_low",
+          "name": {
+            "zh-CN": "强固模具",
+            "en": "Cast Die",
+            "ja": "硬質金型",
+            "zh-TW": "強固模具"
+          },
+          "iconId": "item_weapon_break_low",
+          "rarity": 3,
+          "count": 5
+        },
+        {
+          "itemId": "item_plant_spcstone_1_1",
+          "name": {
+            "zh-CN": "轻黯石",
+            "en": "Kalkonyx",
+            "ja": "軽闇石",
+            "zh-TW": "輕黯石"
+          },
+          "iconId": "item_plant_spcstone_1_1",
+          "rarity": 4,
+          "count": 3
+        },
+        {
+          "itemId": "item_gold",
+          "name": {
+            "zh-CN": "折金票",
+            "en": "T-Creds",
+            "ja": "折金券",
+            "zh-TW": "折金票"
+          },
+          "iconId": "item_gold",
+          "rarity": 4,
+          "count": 2200
+        }
+      ]
+    },
+    {
+      "stage": 2,
+      "requiredLevel": 40,
+      "stats": [
+        {
+          "attributeId": "baseAttack",
+          "value": 243
+        }
+      ],
+      "materials": [
+        {
+          "itemId": "item_weapon_break_low",
+          "name": {
+            "zh-CN": "强固模具",
+            "en": "Cast Die",
+            "ja": "硬質金型",
+            "zh-TW": "強固模具"
+          },
+          "iconId": "item_weapon_break_low",
+          "rarity": 3,
+          "count": 18
+        },
+        {
+          "itemId": "item_plant_spcstone_1_2",
+          "name": {
+            "zh-CN": "中黯石",
+            "en": "Auronyx",
+            "ja": "中闇石",
+            "zh-TW": "中黯石"
+          },
+          "iconId": "item_plant_spcstone_1_2",
+          "rarity": 4,
+          "count": 5
+        },
+        {
+          "itemId": "item_gold",
+          "name": {
+            "zh-CN": "折金票",
+            "en": "T-Creds",
+            "ja": "折金券",
+            "zh-TW": "折金票"
+          },
+          "iconId": "item_gold",
+          "rarity": 4,
+          "count": 8500
+        }
+      ]
+    },
+    {
+      "stage": 3,
+      "requiredLevel": 60,
+      "stats": [
+        {
+          "attributeId": "baseAttack",
+          "value": 342
+        }
+      ],
+      "materials": [
+        {
+          "itemId": "item_weapon_break_high",
+          "name": {
+            "zh-CN": "重型强固模具",
+            "en": "Heavy Cast Die",
+            "ja": "重硬質金型",
+            "zh-TW": "重型強固模具"
+          },
+          "iconId": "item_weapon_break_high",
+          "rarity": 4,
+          "count": 20
+        },
+        {
+          "itemId": "item_plant_spcstone_1_3",
+          "name": {
+            "zh-CN": "重黯石",
+            "en": "Umbronyx",
+            "ja": "重闇石",
+            "zh-TW": "重黯石"
+          },
+          "iconId": "item_plant_spcstone_1_3",
+          "rarity": 4,
+          "count": 5
+        },
+        {
+          "itemId": "item_gold",
+          "name": {
+            "zh-CN": "折金票",
+            "en": "T-Creds",
+            "ja": "折金券",
+            "zh-TW": "折金票"
+          },
+          "iconId": "item_gold",
+          "rarity": 4,
+          "count": 25000
+        }
+      ]
+    },
+    {
+      "stage": 4,
+      "requiredLevel": 80,
+      "stats": [
+        {
+          "attributeId": "baseAttack",
+          "value": 441
+        }
+      ],
+      "materials": [
+        {
+          "itemId": "item_weapon_break_high",
+          "name": {
+            "zh-CN": "重型强固模具",
+            "en": "Heavy Cast Die",
+            "ja": "重硬質金型",
+            "zh-TW": "重型強固模具"
+          },
+          "iconId": "item_weapon_break_high",
+          "rarity": 4,
+          "count": 30
+        },
+        {
+          "itemId": "item_char_skill_specialize_5",
+          "name": {
+            "zh-CN": "三相纳米片",
+            "en": "Triphasic Nanoflake",
+            "ja": "三相ナノフレーク",
+            "zh-TW": "三相奈米片"
+          },
+          "iconId": "item_char_skill_specialize_5",
+          "rarity": 5,
+          "count": 16
+        },
+        {
+          "itemId": "item_plant_spcstone_2_2",
+          "name": {
+            "zh-CN": "武陵石",
+            "en": "Wulingstone",
+            "ja": "武陵石",
+            "zh-TW": "武陵石"
+          },
+          "iconId": "item_plant_spcstone_2_2",
+          "rarity": 5,
+          "count": 8
+        },
+        {
+          "itemId": "item_gold",
+          "name": {
+            "zh-CN": "折金票",
+            "en": "T-Creds",
+            "ja": "折金券",
+            "zh-TW": "折金票"
+          },
+          "iconId": "item_gold",
+          "rarity": 4,
+          "count": 90000
+        }
+      ]
+    }
+  ],
+  "skills": [
+    {
+      "id": "wpn_attr_will_high",
+      "name": {
+        "zh-CN": "意志提升·大",
+        "en": "Will Boost [L]",
+        "ja": "意志UP・大",
+        "zh-TW": "意志提升·大"
+      },
+      "description": {
+        "zh-CN": "意志<@ba.vup>+156</>",
+        "en": "Will <@ba.vup>+156</>",
+        "ja": "意志<@ba.vup>+156</>",
+        "zh-TW": "意志<@ba.vup>+156</>"
+      },
+      "levels": [
+        {
+          "level": 1,
+          "description": {
+            "zh-CN": "意志<@ba.vup>+20</>",
+            "en": "Will <@ba.vup>+20</>",
+            "ja": "意志<@ba.vup>+20</>",
+            "zh-TW": "意志<@ba.vup>+20</>"
+          }
+        },
+        {
+          "level": 2,
+          "description": {
+            "zh-CN": "意志<@ba.vup>+36</>",
+            "en": "Will <@ba.vup>+36</>",
+            "ja": "意志<@ba.vup>+36</>",
+            "zh-TW": "意志<@ba.vup>+36</>"
+          }
+        },
+        {
+          "level": 3,
+          "description": {
+            "zh-CN": "意志<@ba.vup>+52</>",
+            "en": "Will <@ba.vup>+52</>",
+            "ja": "意志<@ba.vup>+52</>",
+            "zh-TW": "意志<@ba.vup>+52</>"
+          }
+        },
+        {
+          "level": 4,
+          "description": {
+            "zh-CN": "意志<@ba.vup>+68</>",
+            "en": "Will <@ba.vup>+68</>",
+            "ja": "意志<@ba.vup>+68</>",
+            "zh-TW": "意志<@ba.vup>+68</>"
+          }
+        },
+        {
+          "level": 5,
+          "description": {
+            "zh-CN": "意志<@ba.vup>+84</>",
+            "en": "Will <@ba.vup>+84</>",
+            "ja": "意志<@ba.vup>+84</>",
+            "zh-TW": "意志<@ba.vup>+84</>"
+          }
+        },
+        {
+          "level": 6,
+          "description": {
+            "zh-CN": "意志<@ba.vup>+100</>",
+            "en": "Will <@ba.vup>+100</>",
+            "ja": "意志<@ba.vup>+100</>",
+            "zh-TW": "意志<@ba.vup>+100</>"
+          }
+        },
+        {
+          "level": 7,
+          "description": {
+            "zh-CN": "意志<@ba.vup>+116</>",
+            "en": "Will <@ba.vup>+116</>",
+            "ja": "意志<@ba.vup>+116</>",
+            "zh-TW": "意志<@ba.vup>+116</>"
+          }
+        },
+        {
+          "level": 8,
+          "description": {
+            "zh-CN": "意志<@ba.vup>+132</>",
+            "en": "Will <@ba.vup>+132</>",
+            "ja": "意志<@ba.vup>+132</>",
+            "zh-TW": "意志<@ba.vup>+132</>"
+          }
+        },
+        {
+          "level": 9,
+          "description": {
+            "zh-CN": "意志<@ba.vup>+156</>",
+            "en": "Will <@ba.vup>+156</>",
+            "ja": "意志<@ba.vup>+156</>",
+            "zh-TW": "意志<@ba.vup>+156</>"
+          }
+        }
+      ]
+    },
+    {
+      "id": "wpn_sp_attr_electrondam_high",
+      "name": {
+        "zh-CN": "电磁伤害提升·大",
+        "en": "Electric DMG Boost [L]",
+        "ja": "電磁ダメージUP・大",
+        "zh-TW": "電磁傷害提升·大"
+      },
+      "description": {
+        "zh-CN": "电磁伤害<@ba.vup>+43.3%</>",
+        "en": "Electric DMG Dealt <@ba.vup>+43.3%</>",
+        "ja": "電磁ダメージ<@ba.vup>+43.3%</>",
+        "zh-TW": "電磁傷害<@ba.vup>+43.3%</>"
+      },
+      "levels": [
+        {
+          "level": 1,
+          "description": {
+            "zh-CN": "电磁伤害<@ba.vup>+5.6%</>",
+            "en": "Electric DMG Dealt <@ba.vup>+5.6%</>",
+            "ja": "電磁ダメージ<@ba.vup>+5.6%</>",
+            "zh-TW": "電磁傷害<@ba.vup>+5.6%</>"
+          }
+        },
+        {
+          "level": 2,
+          "description": {
+            "zh-CN": "电磁伤害<@ba.vup>+10.0%</>",
+            "en": "Electric DMG Dealt <@ba.vup>+10.0%</>",
+            "ja": "電磁ダメージ<@ba.vup>+10.0%</>",
+            "zh-TW": "電磁傷害<@ba.vup>+10.0%</>"
+          }
+        },
+        {
+          "level": 3,
+          "description": {
+            "zh-CN": "电磁伤害<@ba.vup>+14.4%</>",
+            "en": "Electric DMG Dealt <@ba.vup>+14.4%</>",
+            "ja": "電磁ダメージ<@ba.vup>+14.4%</>",
+            "zh-TW": "電磁傷害<@ba.vup>+14.4%</>"
+          }
+        },
+        {
+          "level": 4,
+          "description": {
+            "zh-CN": "电磁伤害<@ba.vup>+18.9%</>",
+            "en": "Electric DMG Dealt <@ba.vup>+18.9%</>",
+            "ja": "電磁ダメージ<@ba.vup>+18.9%</>",
+            "zh-TW": "電磁傷害<@ba.vup>+18.9%</>"
+          }
+        },
+        {
+          "level": 5,
+          "description": {
+            "zh-CN": "电磁伤害<@ba.vup>+23.3%</>",
+            "en": "Electric DMG Dealt <@ba.vup>+23.3%</>",
+            "ja": "電磁ダメージ<@ba.vup>+23.3%</>",
+            "zh-TW": "電磁傷害<@ba.vup>+23.3%</>"
+          }
+        },
+        {
+          "level": 6,
+          "description": {
+            "zh-CN": "电磁伤害<@ba.vup>+27.8%</>",
+            "en": "Electric DMG Dealt <@ba.vup>+27.8%</>",
+            "ja": "電磁ダメージ<@ba.vup>+27.8%</>",
+            "zh-TW": "電磁傷害<@ba.vup>+27.8%</>"
+          }
+        },
+        {
+          "level": 7,
+          "description": {
+            "zh-CN": "电磁伤害<@ba.vup>+32.2%</>",
+            "en": "Electric DMG Dealt <@ba.vup>+32.2%</>",
+            "ja": "電磁ダメージ<@ba.vup>+32.2%</>",
+            "zh-TW": "電磁傷害<@ba.vup>+32.2%</>"
+          }
+        },
+        {
+          "level": 8,
+          "description": {
+            "zh-CN": "电磁伤害<@ba.vup>+36.7%</>",
+            "en": "Electric DMG Dealt <@ba.vup>+36.7%</>",
+            "ja": "電磁ダメージ<@ba.vup>+36.7%</>",
+            "zh-TW": "電磁傷害<@ba.vup>+36.7%</>"
+          }
+        },
+        {
+          "level": 9,
+          "description": {
+            "zh-CN": "电磁伤害<@ba.vup>+43.3%</>",
+            "en": "Electric DMG Dealt <@ba.vup>+43.3%</>",
+            "ja": "電磁ダメージ<@ba.vup>+43.3%</>",
+            "zh-TW": "電磁傷害<@ba.vup>+43.3%</>"
+          }
+        }
+      ]
+    },
+    {
+      "id": "sk_wpn_funnel_0017",
+      "name": {
+        "zh-CN": "效益·微光层叠",
+        "en": "Efficacy: Overlapping Flickers",
+        "ja": "効率・重なる微光",
+        "zh-TW": "效益·微光層疊"
+      },
+      "description": {
+        "zh-CN": "攻击力<@ba.vup>+19.6%</>。\n装备者获得<#ba.pulseenhance>电磁增幅</>时，电磁伤害<@ba.vup>+15.4%</>，持续30秒。\n<@ba.info>同名效果最多叠加3层，每层单独计算持续时间，每0.1秒最多触发一次。</>",
+        "en": "ATK <@ba.vup>+19.6%</>.\nWhen the wielder gains <#ba.pulseenhance>Electric Amp</>, the wielder also gains Electric DMG Dealt <@ba.vup>+15.4%</> for 30s. \n<@ba.info>Max stacks for effects of the same name: 3. Duration of each stack is counted separately. Effect only triggers once every 0.1s.</>",
+        "ja": "攻撃力<@ba.vup>+19.6%</>\n装備中、自身が<#ba.pulseenhance>電磁増幅</>状態になるとき、30秒間電磁ダメージ<@ba.vup>+15.4%</>\n<@ba.info>同名効果は3回まで重ね掛け可能\n効果の持続時間は個別にカウントされ、0.1秒に1回まで発動可能</>",
+        "zh-TW": "攻擊力<@ba.vup>+19.6%</>。\n裝備者獲得<#ba.pulseenhance>電磁增幅</>時，電磁傷害<@ba.vup>+15.4%</>，持續30秒。\n<@ba.info>同名效果最多疊加3層，每層單獨計算持續時間，每0.1秒最多觸發一次。</>"
+      },
+      "levels": [
+        {
+          "level": 1,
+          "description": {
+            "zh-CN": "攻击力<@ba.vup>+7.0%</>。\n装备者获得<#ba.pulseenhance>电磁增幅</>时，电磁伤害<@ba.vup>+5.5%</>，持续30秒。\n<@ba.info>同名效果最多叠加3层，每层单独计算持续时间，每0.1秒最多触发一次。</>",
+            "en": "ATK <@ba.vup>+7.0%</>.\nWhen the wielder gains <#ba.pulseenhance>Electric Amp</>, the wielder also gains Electric DMG Dealt <@ba.vup>+5.5%</> for 30s. \n<@ba.info>Max stacks for effects of the same name: 3. Duration of each stack is counted separately. Effect only triggers once every 0.1s.</>",
+            "ja": "攻撃力<@ba.vup>+7.0%</>\n装備中、自身が<#ba.pulseenhance>電磁増幅</>状態になるとき、30秒間電磁ダメージ<@ba.vup>+5.5%</>\n<@ba.info>同名効果は3回まで重ね掛け可能\n効果の持続時間は個別にカウントされ、0.1秒に1回まで発動可能</>",
+            "zh-TW": "攻擊力<@ba.vup>+7.0%</>。\n裝備者獲得<#ba.pulseenhance>電磁增幅</>時，電磁傷害<@ba.vup>+5.5%</>，持續30秒。\n<@ba.info>同名效果最多疊加3層，每層單獨計算持續時間，每0.1秒最多觸發一次。</>"
+          }
+        },
+        {
+          "level": 2,
+          "description": {
+            "zh-CN": "攻击力<@ba.vup>+8.4%</>。\n装备者获得<#ba.pulseenhance>电磁增幅</>时，电磁伤害<@ba.vup>+6.6%</>，持续30秒。\n<@ba.info>同名效果最多叠加3层，每层单独计算持续时间，每0.1秒最多触发一次。</>",
+            "en": "ATK <@ba.vup>+8.4%</>.\nWhen the wielder gains <#ba.pulseenhance>Electric Amp</>, the wielder also gains Electric DMG Dealt <@ba.vup>+6.6%</> for 30s. \n<@ba.info>Max stacks for effects of the same name: 3. Duration of each stack is counted separately. Effect only triggers once every 0.1s.</>",
+            "ja": "攻撃力<@ba.vup>+8.4%</>\n装備中、自身が<#ba.pulseenhance>電磁増幅</>状態になるとき、30秒間電磁ダメージ<@ba.vup>+6.6%</>\n<@ba.info>同名効果は3回まで重ね掛け可能\n効果の持続時間は個別にカウントされ、0.1秒に1回まで発動可能</>",
+            "zh-TW": "攻擊力<@ba.vup>+8.4%</>。\n裝備者獲得<#ba.pulseenhance>電磁增幅</>時，電磁傷害<@ba.vup>+6.6%</>，持續30秒。\n<@ba.info>同名效果最多疊加3層，每層單獨計算持續時間，每0.1秒最多觸發一次。</>"
+          }
+        },
+        {
+          "level": 3,
+          "description": {
+            "zh-CN": "攻击力<@ba.vup>+9.8%</>。\n装备者获得<#ba.pulseenhance>电磁增幅</>时，电磁伤害<@ba.vup>+7.7%</>，持续30秒。\n<@ba.info>同名效果最多叠加3层，每层单独计算持续时间，每0.1秒最多触发一次。</>",
+            "en": "ATK <@ba.vup>+9.8%</>.\nWhen the wielder gains <#ba.pulseenhance>Electric Amp</>, the wielder also gains Electric DMG Dealt <@ba.vup>+7.7%</> for 30s. \n<@ba.info>Max stacks for effects of the same name: 3. Duration of each stack is counted separately. Effect only triggers once every 0.1s.</>",
+            "ja": "攻撃力<@ba.vup>+9.8%</>\n装備中、自身が<#ba.pulseenhance>電磁増幅</>状態になるとき、30秒間電磁ダメージ<@ba.vup>+7.7%</>\n<@ba.info>同名効果は3回まで重ね掛け可能\n効果の持続時間は個別にカウントされ、0.1秒に1回まで発動可能</>",
+            "zh-TW": "攻擊力<@ba.vup>+9.8%</>。\n裝備者獲得<#ba.pulseenhance>電磁增幅</>時，電磁傷害<@ba.vup>+7.7%</>，持續30秒。\n<@ba.info>同名效果最多疊加3層，每層單獨計算持續時間，每0.1秒最多觸發一次。</>"
+          }
+        },
+        {
+          "level": 4,
+          "description": {
+            "zh-CN": "攻击力<@ba.vup>+11.2%</>。\n装备者获得<#ba.pulseenhance>电磁增幅</>时，电磁伤害<@ba.vup>+8.8%</>，持续30秒。\n<@ba.info>同名效果最多叠加3层，每层单独计算持续时间，每0.1秒最多触发一次。</>",
+            "en": "ATK <@ba.vup>+11.2%</>.\nWhen the wielder gains <#ba.pulseenhance>Electric Amp</>, the wielder also gains Electric DMG Dealt <@ba.vup>+8.8%</> for 30s. \n<@ba.info>Max stacks for effects of the same name: 3. Duration of each stack is counted separately. Effect only triggers once every 0.1s.</>",
+            "ja": "攻撃力<@ba.vup>+11.2%</>\n装備中、自身が<#ba.pulseenhance>電磁増幅</>状態になるとき、30秒間電磁ダメージ<@ba.vup>+8.8%</>\n<@ba.info>同名効果は3回まで重ね掛け可能\n効果の持続時間は個別にカウントされ、0.1秒に1回まで発動可能</>",
+            "zh-TW": "攻擊力<@ba.vup>+11.2%</>。\n裝備者獲得<#ba.pulseenhance>電磁增幅</>時，電磁傷害<@ba.vup>+8.8%</>，持續30秒。\n<@ba.info>同名效果最多疊加3層，每層單獨計算持續時間，每0.1秒最多觸發一次。</>"
+          }
+        },
+        {
+          "level": 5,
+          "description": {
+            "zh-CN": "攻击力<@ba.vup>+12.6%</>。\n装备者获得<#ba.pulseenhance>电磁增幅</>时，电磁伤害<@ba.vup>+9.9%</>，持续30秒。\n<@ba.info>同名效果最多叠加3层，每层单独计算持续时间，每0.1秒最多触发一次。</>",
+            "en": "ATK <@ba.vup>+12.6%</>.\nWhen the wielder gains <#ba.pulseenhance>Electric Amp</>, the wielder also gains Electric DMG Dealt <@ba.vup>+9.9%</> for 30s. \n<@ba.info>Max stacks for effects of the same name: 3. Duration of each stack is counted separately. Effect only triggers once every 0.1s.</>",
+            "ja": "攻撃力<@ba.vup>+12.6%</>\n装備中、自身が<#ba.pulseenhance>電磁増幅</>状態になるとき、30秒間電磁ダメージ<@ba.vup>+9.9%</>\n<@ba.info>同名効果は3回まで重ね掛け可能\n効果の持続時間は個別にカウントされ、0.1秒に1回まで発動可能</>",
+            "zh-TW": "攻擊力<@ba.vup>+12.6%</>。\n裝備者獲得<#ba.pulseenhance>電磁增幅</>時，電磁傷害<@ba.vup>+9.9%</>，持續30秒。\n<@ba.info>同名效果最多疊加3層，每層單獨計算持續時間，每0.1秒最多觸發一次。</>"
+          }
+        },
+        {
+          "level": 6,
+          "description": {
+            "zh-CN": "攻击力<@ba.vup>+14.0%</>。\n装备者获得<#ba.pulseenhance>电磁增幅</>时，电磁伤害<@ba.vup>+11.0%</>，持续30秒。\n<@ba.info>同名效果最多叠加3层，每层单独计算持续时间，每0.1秒最多触发一次。</>",
+            "en": "ATK <@ba.vup>+14.0%</>.\nWhen the wielder gains <#ba.pulseenhance>Electric Amp</>, the wielder also gains Electric DMG Dealt <@ba.vup>+11.0%</> for 30s. \n<@ba.info>Max stacks for effects of the same name: 3. Duration of each stack is counted separately. Effect only triggers once every 0.1s.</>",
+            "ja": "攻撃力<@ba.vup>+14.0%</>\n装備中、自身が<#ba.pulseenhance>電磁増幅</>状態になるとき、30秒間電磁ダメージ<@ba.vup>+11.0%</>\n<@ba.info>同名効果は3回まで重ね掛け可能\n効果の持続時間は個別にカウントされ、0.1秒に1回まで発動可能</>",
+            "zh-TW": "攻擊力<@ba.vup>+14.0%</>。\n裝備者獲得<#ba.pulseenhance>電磁增幅</>時，電磁傷害<@ba.vup>+11.0%</>，持續30秒。\n<@ba.info>同名效果最多疊加3層，每層單獨計算持續時間，每0.1秒最多觸發一次。</>"
+          }
+        },
+        {
+          "level": 7,
+          "description": {
+            "zh-CN": "攻击力<@ba.vup>+15.4%</>。\n装备者获得<#ba.pulseenhance>电磁增幅</>时，电磁伤害<@ba.vup>+12.1%</>，持续30秒。\n<@ba.info>同名效果最多叠加3层，每层单独计算持续时间，每0.1秒最多触发一次。</>",
+            "en": "ATK <@ba.vup>+15.4%</>.\nWhen the wielder gains <#ba.pulseenhance>Electric Amp</>, the wielder also gains Electric DMG Dealt <@ba.vup>+12.1%</> for 30s. \n<@ba.info>Max stacks for effects of the same name: 3. Duration of each stack is counted separately. Effect only triggers once every 0.1s.</>",
+            "ja": "攻撃力<@ba.vup>+15.4%</>\n装備中、自身が<#ba.pulseenhance>電磁増幅</>状態になるとき、30秒間電磁ダメージ<@ba.vup>+12.1%</>\n<@ba.info>同名効果は3回まで重ね掛け可能\n効果の持続時間は個別にカウントされ、0.1秒に1回まで発動可能</>",
+            "zh-TW": "攻擊力<@ba.vup>+15.4%</>。\n裝備者獲得<#ba.pulseenhance>電磁增幅</>時，電磁傷害<@ba.vup>+12.1%</>，持續30秒。\n<@ba.info>同名效果最多疊加3層，每層單獨計算持續時間，每0.1秒最多觸發一次。</>"
+          }
+        },
+        {
+          "level": 8,
+          "description": {
+            "zh-CN": "攻击力<@ba.vup>+16.8%</>。\n装备者获得<#ba.pulseenhance>电磁增幅</>时，电磁伤害<@ba.vup>+13.2%</>，持续30秒。\n<@ba.info>同名效果最多叠加3层，每层单独计算持续时间，每0.1秒最多触发一次。</>",
+            "en": "ATK <@ba.vup>+16.8%</>.\nWhen the wielder gains <#ba.pulseenhance>Electric Amp</>, the wielder also gains Electric DMG Dealt <@ba.vup>+13.2%</> for 30s. \n<@ba.info>Max stacks for effects of the same name: 3. Duration of each stack is counted separately. Effect only triggers once every 0.1s.</>",
+            "ja": "攻撃力<@ba.vup>+16.8%</>\n装備中、自身が<#ba.pulseenhance>電磁増幅</>状態になるとき、30秒間電磁ダメージ<@ba.vup>+13.2%</>\n<@ba.info>同名効果は3回まで重ね掛け可能\n効果の持続時間は個別にカウントされ、0.1秒に1回まで発動可能</>",
+            "zh-TW": "攻擊力<@ba.vup>+16.8%</>。\n裝備者獲得<#ba.pulseenhance>電磁增幅</>時，電磁傷害<@ba.vup>+13.2%</>，持續30秒。\n<@ba.info>同名效果最多疊加3層，每層單獨計算持續時間，每0.1秒最多觸發一次。</>"
+          }
+        },
+        {
+          "level": 9,
+          "description": {
+            "zh-CN": "攻击力<@ba.vup>+19.6%</>。\n装备者获得<#ba.pulseenhance>电磁增幅</>时，电磁伤害<@ba.vup>+15.4%</>，持续30秒。\n<@ba.info>同名效果最多叠加3层，每层单独计算持续时间，每0.1秒最多触发一次。</>",
+            "en": "ATK <@ba.vup>+19.6%</>.\nWhen the wielder gains <#ba.pulseenhance>Electric Amp</>, the wielder also gains Electric DMG Dealt <@ba.vup>+15.4%</> for 30s. \n<@ba.info>Max stacks for effects of the same name: 3. Duration of each stack is counted separately. Effect only triggers once every 0.1s.</>",
+            "ja": "攻撃力<@ba.vup>+19.6%</>\n装備中、自身が<#ba.pulseenhance>電磁増幅</>状態になるとき、30秒間電磁ダメージ<@ba.vup>+15.4%</>\n<@ba.info>同名効果は3回まで重ね掛け可能\n効果の持続時間は個別にカウントされ、0.1秒に1回まで発動可能</>",
+            "zh-TW": "攻擊力<@ba.vup>+19.6%</>。\n裝備者獲得<#ba.pulseenhance>電磁增幅</>時，電磁傷害<@ba.vup>+15.4%</>，持續30秒。\n<@ba.info>同名效果最多疊加3層，每層單獨計算持續時間，每0.1秒最多觸發一次。</>"
+          }
+        }
+      ]
+    }
+  ]
+}

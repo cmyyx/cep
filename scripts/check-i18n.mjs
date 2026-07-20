@@ -318,6 +318,7 @@ function extractKeys(filePath, globalConstants) {
       const vals = globalConstants.get(propKey)
       if (vals) return vals
     }
+    if (GENERIC_VAR_NAMES.has(ms.arrayName)) return null
     return globalConstants.get(ms.arrayName) || null
   }
 
@@ -433,6 +434,7 @@ function extractKeys(filePath, globalConstants) {
         const vals = resolveFromMapScope(nearestMap, vn)
         if (vals) return vals
       }
+      if (GENERIC_VAR_NAMES.has(vn)) return null
       const dv = globalConstants.get(vn)
       if (dv) return dv
       for (const [cName, cValues] of globalConstants) {

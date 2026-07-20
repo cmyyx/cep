@@ -459,6 +459,10 @@
 
     computeIntegrity(payload, function (hash) {
       var data = {
+        version: env.version || null,
+        commitCount: typeof env.commitCount === 'number' ? env.commitCount : null,
+        commitTime: env.commitTime || null,
+        buildTime: env.buildTime || null,
         env: env,
         logs: payload,
         integrity: hash

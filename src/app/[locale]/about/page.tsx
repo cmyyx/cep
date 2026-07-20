@@ -7,21 +7,17 @@ import { Badge } from '@/components/ui/badge'
 import { DonationSection } from '@/components/about/donation-section'
 import {
   Swords,
-  Users,
   Wrench,
   Calendar,
   Eye,
-  Pen,
   ExternalLink,
 } from 'lucide-react'
 
 const FEATURE_KEYS = [
   { key: 'essencePlanner', icon: Swords },
-  { key: 'characterGuide', icon: Users },
   { key: 'refinementPlanner', icon: Wrench },
   { key: 'bannerCalendar', icon: Calendar },
   { key: 'backgroundPreview', icon: Eye },
-  { key: 'editor', icon: Pen },
 ] as const
 
 const TECH_KEYS = [

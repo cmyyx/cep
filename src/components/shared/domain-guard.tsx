@@ -1,24 +1,29 @@
 import { HeadScript } from '@/components/shared/head-script'
 import { FEATURES } from '@/lib/features'
+import { DEFAULT_SITE_URL } from '@/lib/constants'
+import { BLOCK_SESSION_KEY } from '@/lib/block-state'
 
 /**
  * Injects a synchronous inline <script> into <head> that runs before React
- * hydration. HTTP(S) blocks navigate to a static blocking page before React
- * starts; file:// blocks render a static message in the current document. This
- * avoids relying on an overlay inside React-managed DOM, which React can remove
- * during hydration recovery.
+ * hydration. Blocked requests navigate to the localized Shadcn blocking page
+ * before React starts; file:// builds redirect to the same page on the primary
+ * official site because local static assets cannot hydrate reliably there.
  */
 export function DomainGuard() {
-  if (!FEATURES.antiMirror && !FEATURES.antiEmbed) return null
 
   const allowedDomainsJson = JSON.stringify(FEATURES.allowedDomains)
   const allowedEmbedDomainsJson = JSON.stringify(FEATURES.allowedEmbedDomains)
-  const officialDomains = FEATURES.allowedDomains.map((d) => `https://${d}`)
+  const officialSite = (FEATURES.allowedDomains[0] ? `https://${FEATURES.allowedDomains[0]}` : DEFAULT_SITE_URL).replace(/\/$/, '')
 
   const scriptBody = `
 (function(){
+  var path=location.pathname;
+  var blockedPath=path.endsWith('/blocked')||path.endsWith('/blocked/')||path.endsWith('/blocked.html')||path.endsWith('/blocked.html/');
+  if(blockedPath)return;
+  var blockedReason='';try{blockedReason=sessionStorage.getItem(${JSON.stringify(BLOCK_SESSION_KEY)})||'';}catch(e){}
+  if(blockedReason){${buildRedirectBlock('BLOCK_STATE_ENFORCED')}return;}
   var host=location.hostname;
-  ${buildFileProtocolSnippet(officialDomains)}
+  ${buildFileProtocolSnippet(officialSite)}
   ${FEATURES.antiMirror ? buildMirrorSnippet(allowedDomainsJson) : ''}
   ${FEATURES.antiEmbed ? buildEmbedSnippet(allowedEmbedDomainsJson) : ''}
 })();
@@ -31,71 +36,17 @@ function buildConsoleError(errorCode: string): string {
   return `console.error(new Error(${JSON.stringify(errorCode)}));`
 }
 
-function buildRedirectBlock(errorCode: string, target: string): string {
-  const encodedTarget = JSON.stringify(target)
-  return buildConsoleError(errorCode) + `location.replace(${encodedTarget});`
+function buildRedirectBlock(errorCode: string, origin = ''): string {
+  return buildConsoleError(errorCode) +
+    `try{if(!sessionStorage.getItem(${JSON.stringify(BLOCK_SESSION_KEY)}))sessionStorage.setItem(${JSON.stringify(BLOCK_SESSION_KEY)},${JSON.stringify(errorCode)});}catch(e){}` +
+    "var _s=location.pathname.split('/'),_l=['zh-CN','zh-TW','ja','en'].indexOf(_s[1])>=0?_s[1]:'zh-CN';" +
+    `location.replace(${JSON.stringify(origin)}+'/'+_l+'/blocked');`
 }
 
-function buildFileProtocolBlock(bodyHtml: string, errorCode: string): string {
-  const html =
-    '<!doctype html><html lang="zh-CN"><head>' +
-    '<meta charset="utf-8">' +
-    '<meta name="viewport" content="width=device-width,initial-scale=1">' +
-    '<meta name="robots" content="noindex,nofollow">' +
-    '<title>Access Blocked</title>' +
-    '</head><body><main>' +
-    bodyHtml +
-    '</main></body></html>'
-  const encodedHtml = JSON.stringify(html).replace(/<\//g, '<\\/')
-
-  return (
-    buildConsoleError(errorCode) +
-    `var _p=${encodedHtml};` +
-    'document.open();document.write(_p);document.close();' +
-    'if(window.stop)window.stop();'
-  )
-}
-
-function escapeHtml(value: string): string {
-  const map: Record<string, string> = {
-    '&': '&amp;',
-    '<': '&lt;',
-    '>': '&gt;',
-    '"': '&quot;',
-    "'": '&#39;',
-  }
-  return value.replace(/[&<>"']/g, (ch) => map[ch] ?? ch)
-}
-
-function buildDomainListHtml(officialDomains: string[]): string {
-  if (officialDomains.length === 0) {
-    return '<li><code>Official domains are not configured.</code></li>'
-  }
-
-  return officialDomains
-    .map((d) => {
-      const safe = escapeHtml(d)
-      return `<li><a href="${safe}">${safe}</a></li>`
-    })
-    .join('')
-}
-
-function buildFileProtocolSnippet(officialDomains: string[]): string {
-  const listHtml = buildDomainListHtml(officialDomains)
+function buildFileProtocolSnippet(officialSite: string): string {
   return String.raw`
 if(location.protocol==='file:'){
-  ${buildFileProtocolBlock(
-    '<h1>访问被阻止</h1>' +
-      '<p>CEP 终末地规划器不能直接通过 file:// 打开 HTML 文件。</p>' +
-      '<p>请通过 Web 服务器访问静态构建产物，或直接访问官方站点：</p>' +
-      '<ul>' + listHtml + '</ul>' +
-      '<hr>' +
-      '<h1>File Access Blocked</h1>' +
-      '<p>CEP Endfield Planner cannot be opened directly through file:// HTML files.</p>' +
-      '<p>Please serve the static build through a web server, or visit an official site:</p>' +
-      '<ul>' + listHtml + '</ul>',
-    'FILE_PROTOCOL_BLOCKED'
-  )}
+  ${buildRedirectBlock('FILE_PROTOCOL_BLOCKED', officialSite)}
   return;
 }`.trim()
 }
@@ -104,7 +55,7 @@ function buildMirrorSnippet(allowedDomainsJson: string): string {
   return String.raw`
 var allowed=[].concat(${allowedDomainsJson});
 if(allowed.indexOf(host)===-1){
-  ${buildRedirectBlock('DOMAIN_BLOCKED', '/blocked.html')}
+  ${buildRedirectBlock('DOMAIN_BLOCKED')}
   return;
 }`.trim()
 }
@@ -119,7 +70,7 @@ if(window.self!==window.top){
   if(!parentHost)parentHost='unknown';
   var embedAllowed=[].concat(${allowedEmbedDomainsJson});
   if(embedAllowed.indexOf(parentHost)===-1){
-    ${buildRedirectBlock('EMBED_BLOCKED', '/blocked.html')}
+    ${buildRedirectBlock('EMBED_BLOCKED')}
     return;
   }
 }`.trim()

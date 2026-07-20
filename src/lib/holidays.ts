@@ -1,9 +1,10 @@
+export type HolidayTone = 'gold' | 'orange' | 'blue' | 'pink' | 'violet'
+
 export interface HolidayConfig {
   id: string
   month: number
   day: number
-  accentColor: string
-  accentColorDark: string
+  tone: HolidayTone
   i18nKey: string
   icon: 'party-popper' | 'gift' | 'cake' | 'star'
   launchYear?: number
@@ -22,8 +23,7 @@ export const HOLIDAYS: HolidayConfig[] = [
     id: 'new-year',
     month: 1,
     day: 1,
-    accentColor: '#ffd700',
-    accentColorDark: '#ffd700',
+    tone: 'gold',
     i18nKey: 'holiday.newYear',
     icon: 'party-popper',
   },
@@ -31,8 +31,7 @@ export const HOLIDAYS: HolidayConfig[] = [
     id: 'game-anniversary',
     month: 1,
     day: 22,
-    accentColor: '#ff7100',
-    accentColorDark: '#ff8c33',
+    tone: 'orange',
     i18nKey: 'holiday.gameAnniversary',
     icon: 'cake',
     launchYear: 2026,
@@ -41,8 +40,7 @@ export const HOLIDAYS: HolidayConfig[] = [
     id: 'tool-anniversary',
     month: 1,
     day: 29,
-    accentColor: '#0a72ef',
-    accentColorDark: '#3b82f6',
+    tone: 'blue',
     i18nKey: 'holiday.toolAnniversary',
     icon: 'gift',
     launchYear: 2026,
@@ -51,9 +49,16 @@ export const HOLIDAYS: HolidayConfig[] = [
     id: 'childrens-day',
     month: 6,
     day: 1,
-    accentColor: '#f472b6',
-    accentColorDark: '#f9a8d4',
+    tone: 'pink',
     i18nKey: 'holiday.childrensDay',
+    icon: 'star',
+  },
+  {
+    id: '0721',
+    month: 7,
+    day: 21,
+    tone: 'violet',
+    i18nKey: 'holiday.day0721',
     icon: 'star',
   },
 ]
