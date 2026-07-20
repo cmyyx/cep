@@ -354,7 +354,8 @@
     "forceUpgradeButton": "Refresh Now",
     "local": "Local",
     "remote": "Remote",
-    "changelogError": "Failed to load changelog"
+    "changelogError": "Failed to load changelog",
+    "forcedRelease": "Forced update"
   },
   "about": {
     "description": "A planning toolkit built for Arknights: Endfield",
@@ -753,6 +754,9 @@
     },
     "childrensDay": {
       "banner": "Happy Children's Day! May you always stay curious!"
+    },
+    "day0721": {
+      "banner": "Huh? What day is 0721? How curious~"
     }
   },
   "extensionCss": {

@@ -4,28 +4,18 @@ import { useState, useEffect, useCallback, useRef, useSyncExternalStore } from '
 import { useTranslations } from 'next-intl'
 import { SidebarTrigger } from '@/components/ui/sidebar'
 import { Button } from '@/components/ui/button'
+import { Badge } from '@/components/ui/badge'
 import { Skeleton } from '@/components/ui/skeleton'
 import { useVersion } from '@/hooks/use-version'
 import { cn, formatTime } from '@/lib/utils'
 import { MIN_LOADING_DISPLAY_MS } from '@/lib/constants'
 import { RefreshCw, ArrowRight } from 'lucide-react'
-import type { VersionInfo } from '@/types/version'
+import type { ChangelogEntry, VersionInfo } from '@/types/version'
 
 interface ChangelogResponse {
-  changelog: string[]
+  changelog: ChangelogEntry[]
 }
 
-function parseChangelogEntry(entry: string) {
-  const firstNewline = entry.indexOf('\n')
-  const firstLine = firstNewline === -1 ? entry : entry.slice(0, firstNewline)
-  const body = firstNewline === -1 ? '' : entry.slice(firstNewline + 1).trim()
-
-  const firstSpace = firstLine.indexOf(' ')
-  const hash = firstSpace === -1 ? '' : firstLine.slice(0, firstSpace)
-  const time = firstSpace === -1 ? '' : firstLine.slice(firstSpace + 1)
-
-  return { hash, time, body }
-}
 
 function VersionCard({ label, info }: { label: string; info: VersionInfo }) {
   const t = useTranslations()
@@ -65,7 +55,7 @@ function VersionCard({ label, info }: { label: string; info: VersionInfo }) {
 export default function UpdatePage() {
   const t = useTranslations()
   const { info, localInfo, isUpdateAvailable, isChecking, lastCheckResult, checkNow, refreshPage } = useVersion()
-  const [changelog, setChangelog] = useState<string[] | null>(null)
+  const [changelog, setChangelog] = useState<ChangelogEntry[] | null>(null)
   const [isLoading, setIsLoading] = useState(true)
   const [loadError, setLoadError] = useState(false)
 
@@ -82,7 +72,7 @@ export default function UpdatePage() {
     setLoadError(false)
 
     let didError = false
-    let changelogData: string[] = []
+    let changelogData: ChangelogEntry[] = []
 
     fetch('/changelog.json', { signal: controller.signal })
       .then((res) => {
@@ -275,31 +265,35 @@ export default function UpdatePage() {
             ) : (
               /* Success — appears with fade-in after skeleton exits */
               <ul className="animate-in fade-in duration-200 space-y-3">
-                {(changelog ?? []).map((entry, index) => {
-                  const { hash, time, body } =
-                    parseChangelogEntry(entry)
-                  return (
-                    <li key={hash || index} className="text-sm">
-                      <div className="flex items-center gap-2 flex-wrap">
-                        {hash && (
-                          <span className="font-mono text-xs px-1.5 py-0.5 rounded bg-muted text-muted-foreground">
-                            {hash}
-                          </span>
-                        )}
-                        {time && (
-                          <span className="text-xs text-muted-foreground">
-                            {formatTime(time)}
-                          </span>
-                        )}
-                      </div>
-                      {body && (
-                        <p className="mt-1 text-muted-foreground whitespace-pre-wrap">
-                          {body}
-                        </p>
+                {(changelog ?? []).map((entry, index) => (
+                  <li key={entry.commit || index} className="text-sm">
+                    <div className="flex items-center gap-2 flex-wrap">
+                      {entry.version && (
+                        <Badge variant="secondary" className="font-mono">
+                          {entry.version}
+                        </Badge>
                       )}
-                    </li>
-                  )
-                })}
+                      {entry.forceUpdate && (
+                        <Badge variant="destructive">{t('version.forcedRelease')}</Badge>
+                      )}
+                      {entry.commit && (
+                        <span className="font-mono text-xs px-1.5 py-0.5 rounded bg-muted text-muted-foreground">
+                          {entry.commit}
+                        </span>
+                      )}
+                      {entry.commitTime && (
+                        <span className="text-xs text-muted-foreground">
+                          {formatTime(entry.commitTime)}
+                        </span>
+                      )}
+                    </div>
+                    {entry.message && (
+                      <p className="mt-1 text-muted-foreground whitespace-pre-wrap">
+                        {entry.message}
+                      </p>
+                    )}
+                  </li>
+                ))}
               </ul>
             )}
           </div>

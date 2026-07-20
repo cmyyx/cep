@@ -2,10 +2,11 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
 import { render, act, fireEvent, cleanup } from '@testing-library/react'
 import { HolidayBanner } from './holiday-banner'
+import type { HolidayConfig } from '@/lib/holidays'
 
 const mockDismiss = vi.fn()
 let mockActiveHoliday: {
-  config: { id: string; i18nKey: string; icon: string; launchYear?: number }
+  config: Pick<HolidayConfig, 'id' | 'i18nKey' | 'icon' | 'tone' | 'launchYear'>
   phase: 'countdown' | 'active'
   yearNumber?: number
 } | null = null
@@ -53,7 +54,7 @@ describe('HolidayBanner', () => {
 
   it('renders NormalContent with icon and banner text', () => {
     mockActiveHoliday = {
-      config: { id: 'childrens-day', i18nKey: 'holiday.childrensDay', icon: 'star', launchYear: 2026 },
+      config: { id: 'childrens-day', i18nKey: 'holiday.childrensDay', icon: 'star', tone: 'pink', launchYear: 2026 },
       phase: 'active',
       yearNumber: 1,
     }
@@ -63,10 +64,21 @@ describe('HolidayBanner', () => {
     expect(text?.textContent).toBe('holiday.childrensDay.banner:1st')
   })
 
+  it('uses the configured holiday tone', () => {
+    mockActiveHoliday = {
+      config: { id: '0721', i18nKey: 'holiday.day0721', icon: 'star', tone: 'violet' },
+      phase: 'active',
+    }
+    const { container } = render(<HolidayBanner />)
+    const banner = container.querySelector('[role="status"]')
+    expect(banner?.classList.contains('bg-holiday-violet/10')).toBe(true)
+    expect(banner?.classList.contains('text-holiday-violet')).toBe(true)
+  })
+
   it('renders CountdownContent with timer', () => {
     mockNow = new Date(2025, 11, 31, 23, 30, 0)
     mockActiveHoliday = {
-      config: { id: 'new-year', i18nKey: 'holiday.newYear', icon: 'party-popper' },
+      config: { id: 'new-year', i18nKey: 'holiday.newYear', icon: 'party-popper', tone: 'gold' },
       phase: 'countdown',
     }
     const { container } = render(<HolidayBanner />)
@@ -77,7 +89,7 @@ describe('HolidayBanner', () => {
 
   it('dismiss button triggers exiting animation then calls dismiss', () => {
     mockActiveHoliday = {
-      config: { id: 'childrens-day', i18nKey: 'holiday.childrensDay', icon: 'star' },
+      config: { id: 'childrens-day', i18nKey: 'holiday.childrensDay', icon: 'star', tone: 'pink' },
       phase: 'active',
     }
     const { container } = render(<HolidayBanner />)
@@ -93,14 +105,14 @@ describe('HolidayBanner', () => {
 
   it('resets exiting when holiday changes', () => {
     mockActiveHoliday = {
-      config: { id: 'childrens-day', i18nKey: 'holiday.childrensDay', icon: 'star' },
+      config: { id: 'childrens-day', i18nKey: 'holiday.childrensDay', icon: 'star', tone: 'pink' },
       phase: 'active',
     }
     const { container, rerender } = render(<HolidayBanner />)
     expect(container.querySelector('[role="status"]')).not.toBeNull()
 
     mockActiveHoliday = {
-      config: { id: 'new-year', i18nKey: 'holiday.newYear', icon: 'party-popper' },
+      config: { id: 'new-year', i18nKey: 'holiday.newYear', icon: 'party-popper', tone: 'gold' },
       phase: 'active',
     }
     rerender(<HolidayBanner />)

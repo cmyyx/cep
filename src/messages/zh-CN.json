@@ -158,7 +158,8 @@
     "forceUpgradeButton": "立即刷新",
     "local": "本地",
     "remote": "云端",
-    "changelogError": "加载更新日志失败"
+    "changelogError": "加载更新日志失败",
+    "forcedRelease": "强制更新"
   },
   "about": {
     "description": "为《明日方舟：终末地》打造的工具集",
@@ -753,6 +754,9 @@
     },
     "childrensDay": {
       "banner": "六一儿童节快乐！愿你永远保持好奇心！"
+    },
+    "day0721": {
+      "banner": "欸?0721是什么日子呢,好奇怪欸~"
     }
   },
   "extensionCss": {

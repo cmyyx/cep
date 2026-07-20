@@ -6,13 +6,21 @@ import { PartyPopper, Gift, Cake, Star, X } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import { useHoliday } from '@/hooks/use-holiday'
-import type { HolidayConfig } from '@/lib/holidays'
+import type { HolidayConfig, HolidayTone } from '@/lib/holidays'
 
 const ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
   'party-popper': PartyPopper,
   gift: Gift,
   cake: Cake,
   star: Star,
+}
+
+const TONE_CLASSES: Record<HolidayTone, string> = {
+  gold: 'bg-holiday-gold/10 text-holiday-gold dark:bg-holiday-gold-dark/10 dark:text-holiday-gold-dark',
+  orange: 'bg-holiday-orange/10 text-holiday-orange dark:bg-holiday-orange-dark/10 dark:text-holiday-orange-dark',
+  blue: 'bg-holiday-blue/10 text-holiday-blue dark:bg-holiday-blue-dark/10 dark:text-holiday-blue-dark',
+  pink: 'bg-holiday-pink/10 text-holiday-pink dark:bg-holiday-pink-dark/10 dark:text-holiday-pink-dark',
+  violet: 'bg-holiday-violet/10 text-holiday-violet dark:bg-holiday-violet-dark/10 dark:text-holiday-violet-dark',
 }
 
 function HolidayIcon({ icon, className }: { icon: string; className?: string }) {
@@ -95,8 +103,8 @@ export function HolidayBanner() {
       aria-live="polite"
       className={cn(
         'flex items-center justify-center gap-2.5 px-4 py-2.5 text-sm font-medium',
-        'bg-develop-blue/10 border-b border-develop-blue/20 text-develop-blue',
-        'transition-all duration-200',
+        'shadow-[inset_0_-1px_0_rgba(0,0,0,0.06)] transition-all duration-200 dark:shadow-[inset_0_-1px_0_rgba(255,255,255,0.08)]',
+        TONE_CLASSES[config.tone],
         exiting && 'animate-toast-out opacity-0'
       )}
     >

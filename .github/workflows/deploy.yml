@@ -61,18 +61,12 @@ jobs:
           fi
 
           if [ "$IS_FORCE" = "true" ]; then
-            OLD=$(git tag -l 'force-*' | head -1)
-            if [ -n "$OLD" ]; then
-              CURRENT=$(echo "$OLD" | sed 's/force-//')
-              git push origin --delete "$OLD" 2>/dev/null || true
-              git tag -d "$OLD" 2>/dev/null || true
-            else
-              CURRENT=0
-            fi
+            CURRENT=$(git tag -l 'force-*' | sed -n 's/^force-\([0-9][0-9]*\)$/\1/p' | sort -n | tail -1)
+            CURRENT=${CURRENT:-0}
             NEXT=$((CURRENT + 1))
             git tag "force-${NEXT}"
             git push origin "force-${NEXT}"
-            echo "Updated force marker: force-${CURRENT} -> force-${NEXT}"
+            echo "Created force marker: force-${NEXT}"
           fi
 
           echo "clean-tag=${CLEAN_TAG}" >> $GITHUB_OUTPUT

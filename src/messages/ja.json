@@ -354,7 +354,8 @@
     "forceUpgradeButton": "今すぐ更新",
     "local": "ローカル",
     "remote": "リモート",
-    "changelogError": "更新ログの読み込みに失敗しました"
+    "changelogError": "更新ログの読み込みに失敗しました",
+    "forcedRelease": "強制アップデート"
   },
   "about": {
     "description": "アークナイツ：エンドフィールドのために作られた計画ツールキット",
@@ -753,6 +754,9 @@
     },
     "childrensDay": {
       "banner": "こどもの日おめでとうございます！いつでも好奇心を持ち続けましょう！"
+    },
+    "day0721": {
+      "banner": "あれ？0721って何の日だろう、不思議だね～"
     }
   },
   "extensionCss": {

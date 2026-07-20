@@ -98,6 +98,15 @@ describe('getActiveHoliday', () => {
     expect(result!.phase).toBe('active')
   })
 
+  it('returns the 0721 holiday on July 21', () => {
+    const result = getActiveHoliday(new Date(2026, 6, 21, 10, 0))
+    expect(result).not.toBeNull()
+    expect(result!.config.id).toBe('0721')
+    expect(result!.config.tone).toBe('violet')
+    expect(result!.phase).toBe('active')
+    expect(result!.yearNumber).toBeUndefined()
+  })
+
   it('returns game-anniversary with yearNumber on Jan 22', () => {
     const date = new Date(2027, 0, 22, 10, 0)
     const result = getActiveHoliday(date)
@@ -129,5 +138,6 @@ describe('getActiveHoliday', () => {
     expect(ids).toContain('game-anniversary')
     expect(ids).toContain('tool-anniversary')
     expect(ids).toContain('childrens-day')
+    expect(ids).toContain('0721')
   })
 })

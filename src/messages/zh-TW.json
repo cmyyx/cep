@@ -354,7 +354,8 @@
     "forceUpgradeButton": "立即刷新",
     "local": "本地",
     "remote": "雲端",
-    "changelogError": "載入更新日誌失敗"
+    "changelogError": "載入更新日誌失敗",
+    "forcedRelease": "強制更新"
   },
   "about": {
     "description": "為《明日方舟：終末地》打造的基質規劃工具集",
@@ -753,6 +754,9 @@
     },
     "childrensDay": {
       "banner": "六一兒童節快樂！願你永遠保持好奇心！"
+    },
+    "day0721": {
+      "banner": "欸？0721 是什麼日子呢，好奇怪欸～"
     }
   },
   "extensionCss": {
