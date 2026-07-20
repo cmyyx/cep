@@ -2,12 +2,14 @@ import { existsSync, mkdirSync, mkdtempSync, rmSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import sharp from 'sharp'
-import { afterEach, expect, it } from 'vitest'
+import { afterEach, expect, it, vi } from 'vitest'
 import { convertWikiAssets } from './convert-icons'
 
 const roots: string[] = []
 afterEach(() => {
   for (const root of roots.splice(0)) rmSync(root, { recursive: true, force: true })
+  vi.restoreAllMocks()
+  vi.unstubAllGlobals()
 })
 
 async function pngBuffer(): Promise<Buffer> {
@@ -67,10 +69,79 @@ it('fetches missing Wiki icons from the CDN layout and skips existing AVIF', asy
   expect(existsSync(join(output, 'images/wiki/character-potential/item_pic_1_chr_test.avif'))).toBe(true)
 })
 
+it('retries the default fetch with a timeout signal', async () => {
+  const root = mkdtempSync(join(tmpdir(), 'cep-icons-retry-'))
+  roots.push(root)
+  const output = join(root, 'public')
+  const png = await pngBuffer()
+  const fetchMock = vi.fn()
+    .mockRejectedValueOnce(new Error('temporary network failure'))
+    .mockResolvedValueOnce({
+      ok: true,
+      arrayBuffer: async () => png.buffer.slice(png.byteOffset, png.byteOffset + png.byteLength),
+    })
+  vi.stubGlobal('fetch', fetchMock)
+
+  const result = await convertWikiAssets(output, {
+    characters: [],
+    characterFullBody: [],
+    characterPotential: [],
+    weapons: ['retry-weapon'],
+    equipment: [],
+    skills: [],
+    logisticsSkills: [],
+    materials: [],
+  })
+
+  expect(fetchMock).toHaveBeenCalledTimes(2)
+  expect(fetchMock.mock.calls.every(([, init]) => init?.signal instanceof AbortSignal)).toBe(true)
+  expect(result.converted).toEqual(['/images/weapon/retry-weapon.avif'])
+})
+
+it('converts up to six icons concurrently while preserving result order', async () => {
+  const root = mkdtempSync(join(tmpdir(), 'cep-icons-pool-'))
+  roots.push(root)
+  const output = join(root, 'public')
+  const png = await pngBuffer()
+  const ids = Array.from({ length: 8 }, (_, index) => `weapon-${index}`)
+  let active = 0
+  let maxActive = 0
+  let releaseFetches!: () => void
+  let reportSixStarted!: () => void
+  const fetchGate = new Promise<void>((resolve) => { releaseFetches = resolve })
+  const sixStarted = new Promise<void>((resolve) => { reportSixStarted = resolve })
+
+  const conversion = convertWikiAssets(output, {
+    characters: [],
+    characterFullBody: [],
+    characterPotential: [],
+    weapons: ids,
+    equipment: [],
+    skills: [],
+    logisticsSkills: [],
+    materials: [],
+  }, {
+    fetchPng: async () => {
+      active += 1
+      maxActive = Math.max(maxActive, active)
+      if (active === 6) reportSixStarted()
+      await fetchGate
+      active -= 1
+      return png
+    },
+  })
+
+  await sixStarted
+  expect(maxActive).toBe(6)
+  releaseFetches()
+  const result = await conversion
+  expect(result.converted).toEqual(ids.map((id) => `/images/weapon/${id}.avif`))
+})
 it('records missing sources when CDN fetch fails', async () => {
   const root = mkdtempSync(join(tmpdir(), 'cep-icons-miss-'))
   roots.push(root)
   const output = join(root, 'public')
+  const errorSpy = vi.spyOn(console, 'error').mockImplementation(() => undefined)
 
   const result = await convertWikiAssets(output, {
     characters: [],
@@ -91,4 +162,8 @@ it('records missing sources when CDN fetch fails', async () => {
   expect(result.skipped).toEqual([])
   expect(result.missingSource).toEqual(['/images/weapon/missing-weapon.avif'])
   expect(existsSync(join(output, 'images/weapon/missing-weapon.avif'))).toBe(false)
+  expect(errorSpy).toHaveBeenCalledWith(
+    expect.stringContaining('missing-weapon.png'),
+    expect.any(Error)
+  )
 })

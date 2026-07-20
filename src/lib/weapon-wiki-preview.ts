@@ -4,8 +4,8 @@ import type { WikiLocale } from '@/types/wiki'
 
 const EMPTY_PREVIEW_VALUE = { levelOne: '—', maxLevel: '—' } as const
 
-export function getWeaponWikiPreview(weaponId: string, locale: WikiLocale) {
-  const preview = wikiWeaponPlannerPreviews[weaponId]
+export function getWeaponWikiPreview(weaponId: string | undefined, locale: WikiLocale) {
+  const preview = weaponId ? wikiWeaponPlannerPreviews[weaponId] : undefined
 
   return {
     levelOneLabel: preview?.stats[0]?.levelOneLabel,
@@ -18,6 +18,6 @@ export function getWeaponWikiPreview(weaponId: string, locale: WikiLocale) {
       const format = index < 2 ? plainWikiPreviewValue : plainWikiPreviewText
       return { levelOne: format(levelOne), maxLevel: format(maxLevel) }
     }),
-    wikiHref: weaponId.startsWith('wpn_') ? `/${locale}/wiki/weapons/${weaponId}` : undefined,
+    wikiHref: weaponId?.startsWith('wpn_') ? `/${locale}/wiki/weapons/${weaponId}` : undefined,
   }
 }

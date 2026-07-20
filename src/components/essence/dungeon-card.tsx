@@ -827,7 +827,7 @@ export const DungeonCard = memo(function DungeonCard({
         size="sm"
         onClick={handleToggleExpand}
         aria-expanded={isExpanded}
-        className="mt-3 h-auto flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground"
+        className="mt-3 min-h-9 w-full justify-center gap-1 rounded-md bg-muted/35 px-3 text-xs text-muted-foreground hover:bg-muted/60 hover:text-foreground"
       >
         <ChevronDown
           className={cn(

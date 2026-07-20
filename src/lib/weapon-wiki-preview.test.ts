@@ -24,3 +24,16 @@ it('returns placeholders and no link for non-Wiki weapon IDs', () => {
     wikiHref: undefined,
   })
 })
+
+it('returns placeholders and no link when the weapon ID is missing', () => {
+  expect(getWeaponWikiPreview(undefined, 'zh-CN')).toEqual({
+    levelOneLabel: undefined,
+    maxLevelLabel: undefined,
+    values: [
+      { levelOne: '—', maxLevel: '—' },
+      { levelOne: '—', maxLevel: '—' },
+      { levelOne: '—', maxLevel: '—' },
+    ],
+    wikiHref: undefined,
+  })
+})

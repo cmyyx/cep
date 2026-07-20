@@ -118,9 +118,9 @@ export const EquipCard = memo(function EquipCard({
     nextOpen: boolean,
     details: TooltipRootChangeEventDetails,
   ) => {
-    const eventTargetsToggle = details.event.composedPath().some((target) =>
+    const eventTargetsToggle = details.event?.composedPath().some((target) =>
       target instanceof Element && target.closest('[data-recipe-toggle="true"]')
-    )
+    ) ?? false
     const toggleHasFocus = recipeToggleRef.current?.contains(document.activeElement)
     if (
       !nextOpen &&

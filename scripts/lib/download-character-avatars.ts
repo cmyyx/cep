@@ -15,6 +15,7 @@ import {
   getCatalogItems,
   type CharacterImageTarget,
 } from './skland-character-images'
+import { fetchRemoteWithRetry, runPool } from './wiki-builder-utils'
 
 const CATALOG_URL =
   'https://wiki.skland.com/endfield/catalog?mainTypeId=1&subTypeId=1&filterIds=&header=0'
@@ -105,40 +106,6 @@ async function fetchRemote(url: string): Promise<Buffer> {
   return Buffer.from(await response.arrayBuffer())
 }
 
-/** Fetch once; on failure retry once; then throw. */
-export async function fetchRemoteWithRetry(
-  url: string,
-  fetchImpl: (url: string) => Promise<Buffer> = fetchRemote
-): Promise<Buffer> {
-  try {
-    return await fetchImpl(url)
-  } catch (firstError) {
-    try {
-      return await fetchImpl(url)
-    } catch (secondError) {
-      throw new Error(
-        `Failed to download ${url} after retry: ${String(secondError)} (first: ${String(firstError)})`
-      )
-    }
-  }
-}
-
-async function runPool<T>(
-  values: T[],
-  concurrency: number,
-  worker: (value: T) => Promise<void>
-): Promise<void> {
-  let cursor = 0
-  await Promise.all(
-    Array.from({ length: Math.min(concurrency, values.length) }, async () => {
-      while (cursor < values.length) {
-        const value = values[cursor]
-        cursor += 1
-        await worker(value)
-      }
-    })
-  )
-}
 
 export function serializeImageSources(
   sources: Readonly<Record<string, ImageSourceRecord>>
@@ -180,37 +147,37 @@ export async function downloadCharacterAvatars(
   }
 
   const jobs: ImageJob[] = []
-  for (const target of scrapedTargets) {
-    if (target.avatarId) {
-      if (!target.avatarUrl) {
-        throw new Error(`Missing Skland image URL for avatar/${target.avatarId}`)
-      }
-      jobs.push({
-        id: target.avatarId,
-        kind: 'avatar',
-        remoteUrl: target.avatarUrl,
-      })
-    }
-    if (target.fullBodyId) {
-      const remoteUrl = illustrations[target.fullBodyId]
-      if (!remoteUrl) {
-        throw new Error(`Missing Skland image URL for fullBody/${target.fullBodyId}`)
-      }
-      jobs.push({
-        id: target.fullBodyId,
-        kind: 'fullBody',
-        remoteUrl,
-      })
-    }
-  }
-
   const sources: Record<string, ImageSourceRecord> = {}
   try {
+    for (const target of scrapedTargets) {
+      if (target.avatarId) {
+        if (!target.avatarUrl) {
+          throw new Error(`Missing Skland image URL for avatar/${target.avatarId}`)
+        }
+        jobs.push({
+          id: target.avatarId,
+          kind: 'avatar',
+          remoteUrl: target.avatarUrl,
+        })
+      }
+      if (target.fullBodyId) {
+        const remoteUrl = illustrations[target.fullBodyId]
+        if (!remoteUrl) {
+          throw new Error(`Missing Skland image URL for fullBody/${target.fullBodyId}`)
+        }
+        jobs.push({
+          id: target.fullBodyId,
+          kind: 'fullBody',
+          remoteUrl,
+        })
+      }
+    }
+
     await runPool(jobs, 6, async (job) => {
       if (!job.remoteUrl) {
         throw new Error(`Missing Skland image URL for ${job.kind}/${job.id}`)
       }
-      const buffer = await fetchRemoteWithRetry(job.remoteUrl)
+      const buffer = await fetchRemoteWithRetry(job.remoteUrl, fetchRemote)
       sources[`${job.kind}/${job.id}`] = { source: 'skland', url: job.remoteUrl }
       const destination = join(
         job.kind === 'avatar' ? tempDir : tempFullDir,
@@ -220,12 +187,13 @@ export async function downloadCharacterAvatars(
     })
 
     writeFileSync(join(tempDir, 'sources.json'), serializeImageSources(sources), 'utf8')
-    rmSync(avatarDir, { recursive: true, force: true })
-    renameSync(tempDir, avatarDir)
   } catch (error) {
     rmSync(tempDir, { recursive: true, force: true })
     throw error
   }
+
+  rmSync(avatarDir, { recursive: true, force: true })
+  renameSync(tempDir, avatarDir)
 
   return {
     avatars: jobs.filter((job) => job.kind === 'avatar').length,

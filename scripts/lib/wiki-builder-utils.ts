@@ -164,3 +164,38 @@ export function collectWikiBlackboard(
   }
   return result
 }
+
+/** Fetch once; on failure retry once; then throw. */
+export async function fetchRemoteWithRetry(
+  url: string,
+  fetchImpl: (url: string) => Promise<Buffer>
+): Promise<Buffer> {
+  try {
+    return await fetchImpl(url)
+  } catch (firstError) {
+    try {
+      return await fetchImpl(url)
+    } catch (secondError) {
+      throw new Error(
+        `Failed to download ${url} after retry: ${String(secondError)} (first: ${String(firstError)})`
+      )
+    }
+  }
+}
+
+export async function runPool<T>(
+  values: readonly T[],
+  concurrency: number,
+  worker: (value: T, index: number) => Promise<void>
+): Promise<void> {
+  let cursor = 0
+  await Promise.all(
+    Array.from({ length: Math.min(concurrency, values.length) }, async () => {
+      while (cursor < values.length) {
+        const index = cursor
+        cursor += 1
+        await worker(values[index], index)
+      }
+    })
+  )
+}
