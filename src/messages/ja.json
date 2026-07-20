@@ -612,6 +612,7 @@
     "badgeRerunActive": "残り{days}日",
     "badgeInPool": "恒常枠",
     "badgeStandard": "恒常",
+    "badgeNotYetAppeared": "近日登場",
     "badgeOut": "OUT!",
     "durationDays": "{days}日間",
     "today": "今日",
@@ -622,6 +623,7 @@
     "poolInfoSubtitle": "イラストをクリックして詳細を表示",
     "viewDetails": "詳細を見る",
     "poolDuration": "開催期間",
+    "clickToClose": "空き領域をクリックして閉じる",
     "offRateNote": {
       "tangtang": "庄方宜の「春雷動」特許探索でのみオフレートで入手可能",
       "luoxi": "庄方宜の「春雷動」特許探索でのみオフレートで入手可能"

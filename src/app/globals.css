@@ -53,6 +53,9 @@
   --color-rarity-2-star: #b4d945;
   --color-rarity-1-star: #b2b2b2;
 
+  /* Timeline status badge colors */
+  --color-status-future: #a78bfa;
+
   /* DESIGN.md radius scale */
   --radius-none: 0;
   --radius-micro: calc(var(--radius) * 0.3333);

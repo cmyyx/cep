@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { bannerSchedule, standardCharacters } from './banner-data'
+import { bannerSchedule, standardCharacters } from './banner'
 
 describe('banner-data', () => {
   it('bannerSchedule has entries', () => {

@@ -1,4 +1,4 @@
-import { bannerSchedule } from '@/data/banner-data'
+import { bannerSchedule } from '@/data/banner'
 import type { Weapon } from '@/types/matrix'
 
 /**

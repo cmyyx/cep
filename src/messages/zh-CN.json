@@ -416,6 +416,7 @@
     "badgeRerunActive": "剩余{days}天",
     "badgeInPool": "在池中",
     "badgeStandard": "常驻",
+    "badgeNotYetAppeared": "即将登场",
     "badgeOut": "OUT!",
     "durationDays": "持续{days}天",
     "today": "今天",
@@ -426,6 +427,7 @@
     "poolInfoSubtitle": "点击立绘查看卡池详情",
     "viewDetails": "查看详情",
     "poolDuration": "卡池时间",
+    "clickToClose": "点击空白区域关闭",
     "offRateNote": {
       "tangtang": "只可在庄方宜的「春雷动」特许寻访里歪到",
       "luoxi": "只可在庄方宜的「春雷动」特许寻访里歪到"
