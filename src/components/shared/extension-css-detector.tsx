@@ -116,6 +116,7 @@ export function ExtensionCssDetector() {
       />
       {visible && (
         <div
+          data-testid="extension-css-banner"
           className={cn(
             'flex items-start gap-2.5 px-4 py-2.5 shadow-[0px_1px_0px_0px_rgba(0,0,0,0.06)] shrink-0',
             'bg-amber-50/60 dark:bg-amber-950/60 text-sm text-amber-800 dark:text-amber-200'

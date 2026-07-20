@@ -160,7 +160,7 @@ export function AppSidebar() {
         <SidebarGroup>
           <SidebarGroupLabel>Modules</SidebarGroupLabel>
           {isMobile || state !== 'collapsed' ? (
-            <div className="grid grid-cols-2 gap-1 px-2">
+            <SidebarMenu className="grid grid-cols-2 gap-1 px-2">
               {NAV_ITEMS.map(({ href, Icon, label }) => {
                 const fullHref = `/${locale}${href}`
                 const isActive = pathname.startsWith(fullHref)
@@ -182,7 +182,7 @@ export function AppSidebar() {
                   </SidebarMenuItem>
                 )
               })}
-            </div>
+            </SidebarMenu>
           ) : (
             <SidebarMenu>
               {NAV_ITEMS.map(({ href, Icon, label }) => {
@@ -212,7 +212,7 @@ export function AppSidebar() {
         <SidebarGroup>
           <SidebarGroupLabel>WIKI</SidebarGroupLabel>
           {isMobile || state !== 'collapsed' ? (
-            <div className="grid grid-cols-3 gap-1 px-2">
+            <SidebarMenu className="grid grid-cols-3 gap-1 px-2">
               {WIKI_ITEMS.map(({ href, label, Icon }) => {
                 const fullHref = `/${locale}${href}`
                 const labelText = t(label)
@@ -233,7 +233,7 @@ export function AppSidebar() {
                   </SidebarMenuItem>
                 )
               })}
-            </div>
+            </SidebarMenu>
           ) : (
             <SidebarMenu>
               {WIKI_ITEMS.map(({ href, label, Icon }) => {

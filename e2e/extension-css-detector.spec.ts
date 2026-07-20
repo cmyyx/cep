@@ -29,11 +29,9 @@ test.describe('Extension CSS Detector', () => {
       document.head.appendChild(style)
     })
 
-    // Wait for banner and close it
-    // Use hasText to match the parent div, not just the <p> text node
-    const banner = page.locator('div', { hasText: '检测到页面样式被篡改' }).first()
+    const banner = page.getByTestId('extension-css-banner')
     await expect(banner).toBeVisible({ timeout: 5000 })
-    await banner.getByRole('button', { name: /关闭|close/i }).click()
+    await banner.getByRole('button', { name: '关闭' }).click()
     await expect(banner).not.toBeVisible()
   })
 

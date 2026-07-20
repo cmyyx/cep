@@ -31,18 +31,19 @@ test.describe('Locale Switching', () => {
   })
 
   test('locale switcher changes locale', async ({ page }) => {
-    await gotoAndReady(page, '/zh-CN')
+    await gotoAndReady(page, '/zh-CN/settings')
 
-    // Language switcher shows "AUTO" by default (language setting is 'auto')
-    const langSwitcher = page.getByRole('button').filter({ hasText: /AUTO|中|zh|English|日本語/i }).first()
-    await expect(langSwitcher).toBeVisible({ timeout: 5000 })
-    await langSwitcher.click()
+    // Prefer the language select by its unique auto label to avoid the theme select.
+    const languageSelect = page
+      .locator('[data-slot="select-trigger"]')
+      .filter({ hasText: /跟随浏览器|跟隨瀏覽器|follow browser|ブラウザ/i })
+      .first()
+    await expect(languageSelect).toBeVisible({ timeout: 5000 })
+    await languageSelect.click()
 
-    // Scope to the opened language menu, then locate the English option
-    const langMenu = page.locator('[role="menu"]').first()
-    await expect(langMenu).toBeVisible({ timeout: 3000 })
-    const enOption = langMenu.getByRole('menuitem', { name: 'English', exact: true })
-    await enOption.click()
+    const englishOption = page.getByRole('option', { name: 'English', exact: true })
+    await expect(englishOption).toBeVisible({ timeout: 3000 })
+    await englishOption.click()
 
     // Wait for navigation (window.location.href causes full page navigation)
     await expect.poll(() => page.url(), { timeout: 15_000 }).toContain('/en')
