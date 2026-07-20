@@ -71,6 +71,7 @@ interface CharacterTableEntry {
 interface SkillSubDescription {
   name?: TextRef
   desc?: string
+  conditionId?: string
 }
 
 interface SkillPatch {
@@ -93,6 +94,16 @@ interface SkillGroup {
   name?: TextRef
   desc?: TextRef
   skillIdList?: string[]
+  conditionName1?: TextRef
+  conditionDesc1?: TextRef
+  conditionPostDesc1?: TextRef
+  conditionIcon1?: string
+  conditionName2?: TextRef
+  conditionDesc2?: TextRef
+  conditionPostDesc2?: TextRef
+  conditionIcon2?: string
+  conditionId1?: string
+  conditionId2?: string
 }
 
 interface RequiredItem {
@@ -185,6 +196,7 @@ interface PotentialTalentEffect {
 
 interface SpaceshipCharacterSkill {
   skillId?: string
+  skillIndex?: Numeric
   unlockHint?: TextRef
 }
 
@@ -194,6 +206,7 @@ interface SpaceshipCharacterSkillEntry {
 
 interface SpaceshipSkillEntry {
   icon?: string
+  level?: Numeric
   talentName?: TextRef
   name?: TextRef
   desc?: TextRef
@@ -310,11 +323,14 @@ function buildSkillLevels(
   return Array.from({ length: levelCount }, (_, levelIndex) => {
     const patchesAtLevel = patchSources.map(({ list }) => list[levelIndex] ?? list.at(-1))
     const level = numberValue(patchesAtLevel[0]?.level, levelIndex + 1)
+    const cost = costs.get(level)
     const coolDown = patchesAtLevel.find((patch) => numberValue(patch?.coolDown) > 0)?.coolDown
     const costValue = patchesAtLevel.find((patch) => numberValue(patch?.costValue) > 0)?.costValue
-    const cost = costs.get(level)
     const materials = cost
-      ? requiredItems(cost.itemBundle)
+      ? [
+        ...requiredItems(cost.itemBundle),
+        ...(numberValue(cost.goldCost) > 0 ? [{ id: 'item_gold', count: cost.goldCost }] : []),
+      ]
         .map((required) => material(required, itemTable, textTables))
         .filter((value): value is WikiMaterial => value !== null)
       : []
@@ -326,7 +342,6 @@ function buildSkillLevels(
       ),
       ...(coolDown === undefined ? {} : { coolDown: numberValue(coolDown) }),
       ...(costValue === undefined ? {} : { costValue: numberValue(costValue) }),
-      ...(cost?.goldCost === undefined ? {} : { goldCost: numberValue(cost.goldCost) }),
       ...(materials.length > 0 ? { materials } : {}),
     }
   })
@@ -358,6 +373,43 @@ function skillPatchSourceSignature(
     })),
   })))
 }
+function buildVariantPatchSources(
+  patchSources: Array<{ skillId: string; list: SkillPatch[] }>,
+  conditionId: string | undefined,
+  iconId: string | undefined
+): Array<{ skillId: string; list: SkillPatch[] }> {
+  const iconMatches = iconId
+    ? patchSources.filter((source) => source.list.some((patch) => patch.iconId === iconId))
+    : []
+  const selected = iconMatches.length > 0 ? iconMatches : patchSources
+  return selected.map((source) => ({
+    skillId: source.skillId,
+    list: source.list.map((patch) => ({
+      ...patch,
+      subDescDataList: (patch.subDescDataList ?? []).filter((metric) =>
+        !metric.conditionId || !conditionId || metric.conditionId === conditionId
+      ),
+    })),
+  }))
+}
+
+
+function cleanSkillCondition(value: string): string {
+  return value
+    .replace(/^\/\*|\*\/$/g, '')
+    .replace(/[（(]\s*<@ba\.vup>\{floor:deck_(?:wisd|will):0\}<\/>\s*[)）]/g, '')
+    .trim()
+}
+
+function localizeSkillCondition(
+  ref: TextRef | undefined,
+  textTables: CharacterWikiSource['textTables']
+): LocalizedText {
+  const value = localize(ref, textTables)
+  return Object.fromEntries(
+    Object.entries(value).map(([locale, text]) => [locale, cleanSkillCondition(text)])
+  ) as LocalizedText
+}
 
 function buildSkills(
   growth: CharacterGrowthEntry | undefined,
@@ -386,37 +438,54 @@ function buildSkills(
       for (const { list } of patchSources) {
         Object.assign(descriptionValues, collectBlackboard(list.at(-1)?.blackboard))
       }
-      const sourcesByIcon = new Map<string, typeof patchSources>()
-      const formSourcesByIcon = new Map<string, typeof patchSources>()
-      for (const source of patchSources) {
-        const iconId = source.list[0]?.iconId ?? ''
-        if (!iconId.startsWith('icon_')) continue
-        const iconSources = sourcesByIcon.get(iconId) ?? []
-        iconSources.push(source)
-        sourcesByIcon.set(iconId, iconSources)
-        if (numberValue(group.skillGroupType) === 2 && iconId.startsWith('icon_ultimate_skill_')) {
-          const formSources = formSourcesByIcon.get(iconId) ?? []
-          formSources.push(source)
-          formSourcesByIcon.set(iconId, formSources)
+      const sourceIcon = patchSources
+        .map((source) => source.list[0]?.iconId ?? '')
+        .find((iconId) => iconId.startsWith('icon_')) ?? ''
+      const variantSources = [
+        {
+          index: 1,
+          name: group.conditionName1,
+          condition: group.conditionDesc1,
+          conditionId: group.conditionId1,
+          description: group.conditionPostDesc1,
+          iconId: group.conditionIcon1,
+        },
+        {
+          index: 2,
+          name: group.conditionName2,
+          condition: group.conditionDesc2,
+          conditionId: group.conditionId2,
+          description: group.conditionPostDesc2,
+          iconId: group.conditionIcon2,
+        },
+      ]
+      const variants = variantSources.flatMap((variant): WikiCharacterSkillVariant[] => {
+        const name = localize(variant.name, textTables)
+        if (!name['zh-CN'] || name['zh-CN'] === '0') return []
+        const formPatchSources = buildVariantPatchSources(patchSources, variant.conditionId, variant.iconId)
+        const formDescriptionValues: Record<string, number> = {}
+        for (const { list } of formPatchSources) {
+          Object.assign(formDescriptionValues, collectBlackboard(list.at(-1)?.blackboard))
         }
-      }
-      const variants: WikiCharacterSkillVariant[] = formSourcesByIcon.size > 1
-        ? [...formSourcesByIcon].map(([iconId, sources]) => ({
-          id: sources[0].skillId,
-          iconId,
-          metrics: buildSkillMetrics(sources, textTables),
-          levels: buildSkillLevels(sources, costs, itemTable, textTables),
-        }))
-        : []
+        return [{
+          id: `${groupId}:form-${variant.index}`,
+          name,
+          condition: localizeSkillCondition(variant.condition, textTables),
+          description: localizeDescription(variant.description, textTables, formDescriptionValues),
+          iconId: variant.iconId || group.icon || sourceIcon,
+          metrics: buildSkillMetrics(formPatchSources, textTables),
+          levels: buildSkillLevels(formPatchSources, costs, itemTable, textTables),
+        }]
+      })
       return {
         id: groupId,
         typeId: String(group.skillGroupType ?? 0),
         name: localize(group.name, textTables),
         description: localizeDescription(group.desc, textTables, descriptionValues),
-        iconId: group.icon || [...sourcesByIcon.keys()][0] || '',
+        iconId: group.icon || sourceIcon,
         metrics,
         levels,
-        ...(variants.length > 1 ? { variants } : {}),
+        ...(variants.length > 0 ? { variants } : {}),
       }
     })
 }
@@ -541,6 +610,8 @@ function buildLogisticsSkills(
       description: localize(skill.desc, textTables),
       iconId: skill.icon,
       unlockHint: localize(reference.unlockHint, textTables),
+      index: numberValue(reference.skillIndex),
+      level: numberValue(skill.level, 1),
     }]
   })
 }

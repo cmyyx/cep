@@ -82,12 +82,14 @@ export interface WikiCharacterSkillLevel {
   values: string[]
   coolDown?: number
   costValue?: number
-  goldCost?: number
   materials?: WikiMaterial[]
 }
 
 export interface WikiCharacterSkillVariant {
   id: string
+  name: LocalizedText
+  condition: LocalizedText
+  description: LocalizedText
   iconId: string
   metrics: WikiSkillMetric[]
   levels: WikiCharacterSkillLevel[]
@@ -137,6 +139,8 @@ export interface WikiCharacterLogisticsNode {
 
 export interface WikiCharacterLogisticsSkill extends WikiNamedDescription {
   unlockHint: LocalizedText
+  index: number
+  level: number
 }
 export interface WikiEquipmentSuitEffect extends WikiNamedDescription {
   requiredPieces: number
@@ -245,6 +249,30 @@ export interface WikiEquipmentDetail {
   category: 'equipment'
   stats: WikiEquipmentStat[]
   suitEffects: WikiEquipmentSuitEffect[]
+  craftingRecipes: WikiCraftingRecipe[]
+}
+
+export interface WikiPlannerValueRange {
+  levelOne: LocalizedText
+  maxLevel: LocalizedText
+  levelOneLabel: string
+  maxLevelLabel: string
+}
+
+export interface WikiWeaponPlannerPreview {
+  stats: WikiPlannerValueRange[]
+}
+
+export interface WikiEquipmentPlannerStatPreview {
+  attributeId: string
+  levelOne: string
+  maxLevel: string
+  levelOneLabel: string
+  maxLevelLabel: string
+}
+
+export interface WikiEquipmentPlannerPreview {
+  stats: WikiEquipmentPlannerStatPreview[]
   craftingRecipes: WikiCraftingRecipe[]
 }
 

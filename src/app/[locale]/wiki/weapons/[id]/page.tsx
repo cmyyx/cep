@@ -53,7 +53,7 @@ export default async function WikiWeaponDetailPage({ params }: { params: Promise
           name={name}
           rarity={weapon.rarity}
           imageId={weapon.imageId}
-          meta={<><span>{t('wiki.weaponType')}: {weaponType}</span><span>{t('wiki.maxLevel')}: {weapon.maxLevel}</span></>}
+          meta={<span>{t('wiki.weaponType')}: {weaponType}</span>}
         />
       </WikiDetailShell>
     </div>

@@ -1,3 +1,5 @@
+import { versionData } from '@/generated/version-data'
+
 /**
  * Mobile debug bootstrap — inline script injected into <head> via HeadScript.
  *
@@ -145,6 +147,7 @@ var _own='script[src="/debug-panel.js"],script#debug-bootstrap,script#theme-fouc
 /* ── End enhanced monitors ── */
 
 window.__cep_debug__=window.__cep_debug__||{};
+window.__cep_debug__.version=${JSON.stringify(versionData)};
 window.__cep_debug__.getLogs=function(){return B.slice()};
 window.__cep_debug__.clear=function(){B.length=0};
 window.__cep_debug__.getEnv=function(){

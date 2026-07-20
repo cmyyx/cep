@@ -12,9 +12,11 @@ import { Check } from 'lucide-react'
 import { useMobileLongPressTooltip } from '@/hooks/use-mobile-long-press-tooltip'
 import { withImageCacheVersion } from '@/lib/image-url'
 import { getCharacterAvatarPath } from '@/lib/character-images'
-import { PlannerWikiPreview } from '@/components/shared/planner-wiki-preview'
+import { PlannerWikiPreview, plainWikiPreviewText, plainWikiPreviewValue } from '@/components/shared/planner-wiki-preview'
+import { wikiWeaponPlannerPreviews } from '@/generated/data/wiki/planner-previews'
 
 import type { Weapon } from '@/types/matrix'
+import type { WikiLocale } from '@/types/wiki'
 
 interface WeaponCardProps {
   weapon: Weapon
@@ -64,6 +66,19 @@ export const WeaponCard = memo(function WeaponCard({
     ? wid
     : withImageCacheVersion(`/images/weapon/${imageId}.avif`)
   const displayName = (isCustom || isPreview) ? weapon.name : (t(`weapons.${wid}`) ?? weapon.name)
+  const wikiPreview = wikiWeaponPlannerPreviews[wid]
+  const previewLocale = locale as WikiLocale
+  const previewValue = (index: number) => {
+    const range = wikiPreview?.stats[index]
+    if (!range) return { levelOne: '—', maxLevel: '—' }
+    const levelOne = range.levelOne[previewLocale] || range.levelOne['zh-CN']
+    const maxLevel = range.maxLevel[previewLocale] || range.maxLevel['zh-CN']
+    return {
+      levelOne: index < 2 ? plainWikiPreviewValue(levelOne) : plainWikiPreviewText(levelOne),
+      maxLevel: index < 2 ? plainWikiPreviewValue(maxLevel) : plainWikiPreviewText(maxLevel),
+    }
+  }
+  const previewLabels = wikiPreview?.stats[0]
 
   const trigger = (
     <Button
@@ -148,7 +163,7 @@ export const WeaponCard = memo(function WeaponCard({
         </p>
       </div>
 
-      {/* Banner UP badge — same row as character avatars */}
+      {/* Banner UP badge — aligned with preview badge */}
       {isOnBanner && (
         <div className="absolute top-2 right-0 z-30">
           <Image
@@ -156,7 +171,7 @@ export const WeaponCard = memo(function WeaponCard({
             alt="UP"
             width={132}
             height={60}
-            className="w-8 h-auto drop-shadow-md"
+            className="h-auto w-9 drop-shadow-md"
             unoptimized
           />
         </div>
@@ -193,16 +208,19 @@ export const WeaponCard = memo(function WeaponCard({
       <TooltipContent
         side="top"
         sideOffset={8}
-        className="max-w-[calc(100vw-2rem)] bg-popover p-3 text-popover-foreground shadow-[var(--shadow-card)]"
+        collisionPadding={24}
+        className="max-h-[var(--available-height)] max-w-[calc(100vw-3rem)] overflow-y-auto overscroll-contain bg-popover p-3 text-popover-foreground shadow-[var(--shadow-card)]"
       >
         <PlannerWikiPreview
           title={displayName}
-          imageSrc={imageSrc}
+          compact={isMobile}
           rarity={weapon.rarity}
+          levelOneLabel={previewLabels?.levelOneLabel}
+          maxLevelLabel={previewLabels?.maxLevelLabel}
           rows={[
-            { label: t('weaponStats.' + weapon.primaryStat), value: 'Lv.1' },
-            { label: t('weaponStats.' + weapon.elementalDamage), value: 'Lv.1' },
-            { label: t('weaponStats.' + weapon.specialAbility), value: 'Lv.1' },
+            { label: t('weaponStats.' + weapon.primaryStat), ...previewValue(0) },
+            { label: t('weaponStats.' + weapon.elementalDamage), ...previewValue(1) },
+            { label: t('weaponStats.' + weapon.specialAbility), ...previewValue(2), truncate: true },
           ]}
           wikiHref={!isCustom && !isPreview && wid.startsWith('wpn_') ? `/${locale}/wiki/weapons/${wid}` : undefined}
         />

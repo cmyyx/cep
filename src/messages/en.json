@@ -764,6 +764,11 @@
   "versionWatermark": {
     "externalCssDetected": "External CSS injection detected"
   },
+  "blocked": {
+    "title": "Access blocked",
+    "description": "The current domain or embedder is not authorized, so the page stopped loading.",
+    "notice": "Please use an official CEP Endfield Planner site. Do not mirror or embed this site without authorization."
+  },
   "wiki": {
     "title": "Game Data Wiki",
     "subtitle": "Browse all Arknights: Endfield game data sourced from AKEData.",
@@ -835,6 +840,8 @@
     "values": "Values",
     "recipe": "Recipe",
     "defaultRecipe": "Default Recipe",
+    "showOtherRecipes": "Show other recipes ({count})",
+    "hideOtherRecipes": "Hide other recipes",
     "female": "Female",
     "male": "Male",
     "backTo": "Back to {category}",
@@ -844,9 +851,8 @@
     "favorability": "Trust",
     "viewMaterials": "Materials {count}",
     "materialCount": "{count} material types",
-    "goldCost": "T-Creds",
+    "defaultUnlocked": "Unlocked by default",
     "skillForm": "Form {number}",
-    "logisticsNode": "Logistics Skill {index} · Lv.{level}",
     "potentialPreview": "Potential image preview",
     "openPotentialPreview": "Preview {name}",
     "closePreview": "Close preview",

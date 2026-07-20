@@ -37,7 +37,7 @@ const CSS_CONTENT =
   GUARD_FEEDBACK_HTML
 
 const CSS_GUARD_CODE = `(function(){
-var F=[],_loadDone=false,_pending=0,_audited=false;
+var F=[],_loadDone=false,_pending=0,_audited=false,_auditQueued=false;
 
 /* Layer 1 — network errors on <link rel="stylesheet"> */
 document.addEventListener('error',function(e){
@@ -69,9 +69,14 @@ function trackSheet(link){
 }
 
 function tryAudit(){
-  if(_audited||!_loadDone||_pending>0)return;
-  _audited=true;
-  runAudit();
+  if(_audited||_auditQueued||!_loadDone||_pending>0)return;
+  _auditQueued=true;
+  requestAnimationFrame(function(){requestAnimationFrame(function(){
+    _auditQueued=false;
+    if(_audited||!_loadDone||_pending>0)return;
+    _audited=true;
+    runAudit();
+  })});
 }
 
 window.addEventListener('load',function(){
@@ -109,6 +114,9 @@ function runAudit(){
     var v=getComputedStyle(document.documentElement).getPropertyValue('--cep-css-loaded');
     if(v&&v.trim()==='1')return;
   }catch(e){}
+  var S=[],L=document.querySelectorAll('link[rel="stylesheet"]');
+  for(var i=0;i<L.length;i++)S.push({url:L[i].href||'',sheet:!!L[i].sheet});
+  console.error('[CSS Guard] sentinel missing',JSON.stringify({failures:F,stylesheets:S,readyState:document.readyState}));
   show();
 }
 

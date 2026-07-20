@@ -248,7 +248,8 @@ export function validateEquips(
       if (Number(mod.attrIndex) === 1) upstreamSub1 = statStr
       else if (Number(mod.attrIndex) === 2) upstreamSub2 = statStr
       else if (Number(mod.attrIndex) === 3) upstreamSpecial = statStr
-    // Compare each field — report both mismatches and stale project values
+    }
+
     const compareField = (field: string, upstream: string, project: string) => {
       if (upstream !== project) {
         issues.push({ category: 'equip', id: equipName, field, expected: upstream || '<empty>', actual: project || '<empty>' })
@@ -257,7 +258,6 @@ export function validateEquips(
     compareField('sub1', upstreamSub1, projectEquip.sub1)
     compareField('sub2', upstreamSub2, projectEquip.sub2)
     compareField('special', upstreamSpecial, projectEquip.special)
-    }
   }
 
   return issues

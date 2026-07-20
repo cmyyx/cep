@@ -1,11 +1,11 @@
 'use client'
 
 import { useEffect, useState, useCallback, useMemo } from 'react'
-import Image from 'next/image'
 import { useTranslations } from 'next-intl'
 import { useAppInitStore } from '@/stores/useAppInitStore'
 import { cn } from '@/lib/utils'
 import { GuardFeedback } from '@/components/shared/guard-layout'
+import { FullScreenStatus } from '@/components/shared/full-screen-status'
 
 /**
  * Full-viewport loading overlay.
@@ -68,58 +68,24 @@ export function AppInitOverlay() {
   if (hasCompleted) return null
 
   return (
-    <div
-      data-app-init="true" data-testid="app-init-overlay"
+    <FullScreenStatus
+      data-app-init="true"
+      data-testid="app-init-overlay"
+      heading={t('home.title')}
+      animateIcon
+      indicator={(
+        <div className="h-1 w-[280px] overflow-hidden rounded-full bg-muted">
+          <div className="h-full animate-[shimmer-slide_2s_linear_infinite]">
+            <div className="h-full w-1/2 rounded-full bg-gradient-to-r from-transparent via-develop-blue/35 to-transparent" />
+          </div>
+        </div>
+      )}
+      footer={<GuardFeedback title={t('feedback.title')} links={feedbackLinks} />}
       className={cn(
-        'fixed inset-0 z-[100] flex flex-col items-center justify-center bg-background',
         'transition-opacity duration-400 ease-out',
-        exitPhase === 'exiting' && 'opacity-0 pointer-events-none',
+        exitPhase === 'exiting' && 'pointer-events-none opacity-0',
       )}
       aria-hidden={exitPhase === 'exiting'}
-    >
-      {/* Engineering grid background */}
-      <div className="absolute inset-0 pointer-events-none animate-[grid-drift_20s_linear_infinite] bg-engineering-grid" />
-
-      {/* Content */}
-      <div className="relative flex flex-col items-center gap-7 z-10">
-        {/* Icon with breathing pulse */}
-        <div className="animate-[icon-pulse_2s_ease-in-out_infinite] size-14 flex items-center justify-center">
-          <div className="relative size-14">
-            <Image
-              src="/icon.svg"
-              alt=""
-              width={56}
-              height={56}
-              className="size-14"
-              unoptimized
-              priority
-            />
-            <div className="absolute inset-0 -z-10 rounded-full bg-develop-blue/10 blur-xl scale-125 animate-[icon-glow_2s_ease-in-out_infinite]" />
-          </div>
-        </div>
-
-        {/* Brand */}
-        <h1 className="text-[48px] font-semibold font-mono tracking-[-2.88px] text-foreground select-none animate-[glitch-converge_1.2s_cubic-bezier(0.16,1,0.3,1)_forwards]">
-          CEP
-        </h1>
-
-        {/* Subtitle */}
-        <p className="text-sm text-muted-foreground tracking-[-0.32px] font-medium -mt-5 select-none">
-          {t('home.title')}
-        </p>
-
-        {/* Indeterminate shimmer bar — smooth continuous gradient sweep.
-            No percentages, no fake progress — a single clean animation
-            that just says "loading". */}
-        <div className="w-[280px] h-[4px] bg-muted rounded-full overflow-hidden">
-          <div className="h-full animate-[shimmer-slide_2s_linear_infinite]">
-            <div className="h-full w-[50%] rounded-full bg-gradient-to-r from-transparent via-develop-blue/35 to-transparent" />
-          </div>
-        </div>
-
-        {/* Feedback channels */}
-        <GuardFeedback title={t('feedback.title')} links={feedbackLinks} />
-      </div>
-    </div>
+    />
   )
 }

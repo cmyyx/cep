@@ -1,5 +1,6 @@
 import { expect, it } from 'vitest'
-import { buildWikiGlossary, mergeAttributeMapLabels } from './generate-wiki-data'
+import { buildPlannerWikiPreviews, buildWikiGlossary, mergeAttributeMapLabels } from './generate-wiki-data'
+import type { ItemWikiData } from './build-item-wiki'
 
 it('merges complete four-locale attribute maps for attributes absent from display config', () => {
   const labels = mergeAttributeMapLabels({
@@ -41,5 +42,29 @@ it('builds localized glossary terms from the upstream hyperlink table', () => {
       'zh-TW': '移除狀態。',
     },
     styleId: 'ba.key',
+  })
+})
+
+it('derives compact planner previews from Wiki detail data', () => {
+  const localized = (value: string) => ({ 'zh-CN': value, en: value, ja: value, 'zh-TW': value })
+  const data = {
+    weaponDetails: {
+      wpn_test: {
+        skills: [
+          { description: localized('max'), levels: [{ level: 1, description: localized('level one') }, { level: 9, description: localized('max') }] },
+        ],
+      },
+    },
+    equipmentDetails: {
+      equip_test: {
+        stats: [{ attributeId: '39', values: [1, 2], displayValues: ['力量+1', '力量+2'] }],
+        craftingRecipes: [{ chainId: 1, discount: 1, isDefault: true, materials: [] }],
+      },
+    },
+  } as unknown as ItemWikiData
+
+  expect(buildPlannerWikiPreviews(data, new Set(['wpn_test']), new Set(['equip_test']))).toMatchObject({
+    weapons: { wpn_test: { stats: [{ levelOne: localized('level one'), maxLevel: localized('max'), levelOneLabel: 'Lv.1', maxLevelLabel: 'Lv.9' }] } },
+    equipment: { equip_test: { stats: [{ attributeId: '39', levelOne: '1', maxLevel: '2', levelOneLabel: '+0', maxLevelLabel: '+1' }] } },
   })
 })

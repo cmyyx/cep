@@ -1,6 +1,6 @@
 import { expect, it } from 'vitest'
-import { getWikiEntityUpStatus, groupWikiEquipmentBySuit, sortWikiEntities } from './wiki-entity-grid'
-import type { WikiCharacterSummary, WikiEquipmentSummary, WikiWeaponSummary } from '@/types/wiki'
+import { getWikiEntityUpStatus, getWikiEquipmentModelKey, groupWikiEntities, groupWikiEquipmentBySuit, sortWikiEntities } from './wiki-entity-grid'
+import type { WikiCharacterSummary, WikiEquipmentSummary, WikiEnumLabels, WikiWeaponSummary } from '@/types/wiki'
 
 const localized = (zhCN: string, en = zhCN) => ({
   'zh-CN': zhCN,
@@ -23,19 +23,33 @@ const character = (id: string, name: string, rarity: number): WikiCharacterSumma
   subAttributeId: '40',
 })
 
-it('sorts by rarity descending and localized name ascending', () => {
+it('sorts by rarity descending then localized name ascending', () => {
   const entities = [
-    character('four', '四星', 4),
-    character('six-b', '乙', 6),
-    character('five', '五星', 5),
-    character('six-a', '甲', 6),
+    character('four', 'A', 4),
+    character('six-b', 'B', 6),
+    character('five', 'C', 5),
+    character('six-a', 'D', 6),
   ]
 
   expect(sortWikiEntities(entities, 'zh-CN').map((entity) => entity.id)).toEqual([
-    'six-a',
     'six-b',
+    'six-a',
     'five',
     'four',
+  ])
+})
+
+it('pins UP entities before rarity and name sorting', () => {
+  const entities = [
+    character('b', 'B', 6),
+    character('up-c', 'C', 5),
+    character('a', 'A', 4),
+  ]
+
+  expect(sortWikiEntities(entities, 'zh-CN', (entity) => entity.id === 'up-c').map((entity) => entity.id)).toEqual([
+    'up-c',
+    'b',
+    'a',
   ])
 })
 
@@ -79,4 +93,25 @@ it('puts independent equipment first and sorts sets and members by rarity', () =
     { key: 'suit-b', label: '套装乙', entities: [entities[2]] },
     { key: 'suit-a', label: '套装甲', entities: [entities[1], entities[0]] },
   ])
+})
+
+it('groups characters by enum order and recognizes equipment model suffixes', () => {
+  const entities = [
+    character('natural', '自然', 6),
+    { ...character('physical', '物理', 5), elementId: 'Physical' },
+  ]
+  entities[0].elementId = 'Natural'
+  const enums = {
+    elements: {
+      Physical: localized('物理'),
+      Natural: localized('自然'),
+    },
+  } as unknown as WikiEnumLabels
+
+  expect(groupWikiEntities(entities, { field: 'elementId', enumGroup: 'elements' }, enums, 'zh-CN').map((group) => group.key)).toEqual([
+    'Physical',
+    'Natural',
+  ])
+  expect(getWikiEquipmentModelKey('长息蓄电核·贰型')).toBe('refinement.modelTypeII')
+  expect(getWikiEquipmentModelKey('长息蓄电核')).toBeUndefined()
 })

@@ -10462,7 +10462,6 @@
             "440%",
             "88%"
           ],
-          "goldCost": 1000,
           "materials": [
             {
               "itemId": "item_char_skill_level_1_6",
@@ -10487,6 +10486,18 @@
               "iconId": "item_plant_crylplant_1_1",
               "rarity": 4,
               "count": 1
+            },
+            {
+              "itemId": "item_gold",
+              "name": {
+                "zh-CN": "折金票",
+                "en": "T-Creds",
+                "ja": "折金券",
+                "zh-TW": "折金票"
+              },
+              "iconId": "item_gold",
+              "rarity": 4,
+              "count": 1000
             }
           ]
         },
@@ -10502,7 +10513,6 @@
             "480%",
             "96%"
           ],
-          "goldCost": 2700,
           "materials": [
             {
               "itemId": "item_char_skill_level_1_6",
@@ -10527,6 +10537,18 @@
               "iconId": "item_plant_crylplant_1_1",
               "rarity": 4,
               "count": 2
+            },
+            {
+              "itemId": "item_gold",
+              "name": {
+                "zh-CN": "折金票",
+                "en": "T-Creds",
+                "ja": "折金券",
+                "zh-TW": "折金票"
+              },
+              "iconId": "item_gold",
+              "rarity": 4,
+              "count": 2700
             }
           ]
         },
@@ -10542,7 +10564,6 @@
             "520%",
             "104%"
           ],
-          "goldCost": 3200,
           "materials": [
             {
               "itemId": "item_char_skill_level_1_6",
@@ -10567,6 +10588,18 @@
               "iconId": "item_plant_crylplant_1_2",
               "rarity": 4,
               "count": 1
+            },
+            {
+              "itemId": "item_gold",
+              "name": {
+                "zh-CN": "折金票",
+                "en": "T-Creds",
+                "ja": "折金券",
+                "zh-TW": "折金票"
+              },
+              "iconId": "item_gold",
+              "rarity": 4,
+              "count": 3200
             }
           ]
         },
@@ -10582,7 +10615,6 @@
             "560%",
             "112%"
           ],
-          "goldCost": 4200,
           "materials": [
             {
               "itemId": "item_char_skill_level_1_6",
@@ -10607,6 +10639,18 @@
               "iconId": "item_plant_crylplant_1_2",
               "rarity": 4,
               "count": 1
+            },
+            {
+              "itemId": "item_gold",
+              "name": {
+                "zh-CN": "折金票",
+                "en": "T-Creds",
+                "ja": "折金券",
+                "zh-TW": "折金票"
+              },
+              "iconId": "item_gold",
+              "rarity": 4,
+              "count": 4200
             }
           ]
         },
@@ -10622,7 +10666,6 @@
             "600%",
             "120%"
           ],
-          "goldCost": 5400,
           "materials": [
             {
               "itemId": "item_char_skill_level_1_6",
@@ -10647,6 +10690,18 @@
               "iconId": "item_plant_crylplant_1_2",
               "rarity": 4,
               "count": 2
+            },
+            {
+              "itemId": "item_gold",
+              "name": {
+                "zh-CN": "折金票",
+                "en": "T-Creds",
+                "ja": "折金券",
+                "zh-TW": "折金票"
+              },
+              "iconId": "item_gold",
+              "rarity": 4,
+              "count": 5400
             }
           ]
         },
@@ -10662,7 +10717,6 @@
             "640%",
             "128%"
           ],
-          "goldCost": 8200,
           "materials": [
             {
               "itemId": "item_char_skill_level_7_12",
@@ -10687,6 +10741,18 @@
               "iconId": "item_plant_crylplant_1_3",
               "rarity": 4,
               "count": 1
+            },
+            {
+              "itemId": "item_gold",
+              "name": {
+                "zh-CN": "折金票",
+                "en": "T-Creds",
+                "ja": "折金券",
+                "zh-TW": "折金票"
+              },
+              "iconId": "item_gold",
+              "rarity": 4,
+              "count": 8200
             }
           ]
         },
@@ -10702,7 +10768,6 @@
             "680%",
             "136%"
           ],
-          "goldCost": 10500,
           "materials": [
             {
               "itemId": "item_char_skill_level_7_12",
@@ -10727,6 +10792,18 @@
               "iconId": "item_plant_crylplant_1_3",
               "rarity": 4,
               "count": 1
+            },
+            {
+              "itemId": "item_gold",
+              "name": {
+                "zh-CN": "折金票",
+                "en": "T-Creds",
+                "ja": "折金券",
+                "zh-TW": "折金票"
+              },
+              "iconId": "item_gold",
+              "rarity": 4,
+              "count": 10500
             }
           ]
         },
@@ -10742,7 +10819,6 @@
             "720%",
             "144%"
           ],
-          "goldCost": 18000,
           "materials": [
             {
               "itemId": "item_char_skill_level_7_12",
@@ -10767,6 +10843,18 @@
               "iconId": "item_plant_crylplant_1_3",
               "rarity": 4,
               "count": 2
+            },
+            {
+              "itemId": "item_gold",
+              "name": {
+                "zh-CN": "折金票",
+                "en": "T-Creds",
+                "ja": "折金券",
+                "zh-TW": "折金票"
+              },
+              "iconId": "item_gold",
+              "rarity": 4,
+              "count": 18000
             }
           ]
         },
@@ -10782,7 +10870,6 @@
             "770%",
             "154%"
           ],
-          "goldCost": 24000,
           "materials": [
             {
               "itemId": "item_char_skill_crown",
@@ -10831,6 +10918,18 @@
               "iconId": "item_plant_crylplant_2_1",
               "rarity": 5,
               "count": 3
+            },
+            {
+              "itemId": "item_gold",
+              "name": {
+                "zh-CN": "折金票",
+                "en": "T-Creds",
+                "ja": "折金券",
+                "zh-TW": "折金票"
+              },
+              "iconId": "item_gold",
+              "rarity": 4,
+              "count": 24000
             }
           ]
         },
@@ -10846,7 +10945,6 @@
             "830%",
             "166%"
           ],
-          "goldCost": 30000,
           "materials": [
             {
               "itemId": "item_char_skill_crown",
@@ -10895,6 +10993,18 @@
               "iconId": "item_plant_crylplant_2_1",
               "rarity": 5,
               "count": 6
+            },
+            {
+              "itemId": "item_gold",
+              "name": {
+                "zh-CN": "折金票",
+                "en": "T-Creds",
+                "ja": "折金券",
+                "zh-TW": "折金票"
+              },
+              "iconId": "item_gold",
+              "rarity": 4,
+              "count": 30000
             }
           ]
         },
@@ -10910,7 +11020,6 @@
             "900%",
             "180%"
           ],
-          "goldCost": 65000,
           "materials": [
             {
               "itemId": "item_char_skill_crown",
@@ -10959,6 +11068,18 @@
               "iconId": "item_plant_crylplant_2_1",
               "rarity": 5,
               "count": 12
+            },
+            {
+              "itemId": "item_gold",
+              "name": {
+                "zh-CN": "折金票",
+                "en": "T-Creds",
+                "ja": "折金券",
+                "zh-TW": "折金票"
+              },
+              "iconId": "item_gold",
+              "rarity": 4,
+              "count": 65000
             }
           ]
         }
@@ -11084,7 +11205,6 @@
             "15"
           ],
           "costValue": 100,
-          "goldCost": 1000,
           "materials": [
             {
               "itemId": "item_char_skill_level_1_6",
@@ -11109,6 +11229,18 @@
               "iconId": "item_plant_crylplant_1_1",
               "rarity": 4,
               "count": 1
+            },
+            {
+              "itemId": "item_gold",
+              "name": {
+                "zh-CN": "折金票",
+                "en": "T-Creds",
+                "ja": "折金券",
+                "zh-TW": "折金票"
+              },
+              "iconId": "item_gold",
+              "rarity": 4,
+              "count": 1000
             }
           ]
         },
@@ -11126,7 +11258,6 @@
             "15"
           ],
           "costValue": 100,
-          "goldCost": 2700,
           "materials": [
             {
               "itemId": "item_char_skill_level_1_6",
@@ -11151,6 +11282,18 @@
               "iconId": "item_plant_crylplant_1_1",
               "rarity": 4,
               "count": 2
+            },
+            {
+              "itemId": "item_gold",
+              "name": {
+                "zh-CN": "折金票",
+                "en": "T-Creds",
+                "ja": "折金券",
+                "zh-TW": "折金票"
+              },
+              "iconId": "item_gold",
+              "rarity": 4,
+              "count": 2700
             }
           ]
         },
@@ -11168,7 +11311,6 @@
             "15"
           ],
           "costValue": 100,
-          "goldCost": 3200,
           "materials": [
             {
               "itemId": "item_char_skill_level_1_6",
@@ -11193,6 +11335,18 @@
               "iconId": "item_plant_crylplant_1_2",
               "rarity": 4,
               "count": 1
+            },
+            {
+              "itemId": "item_gold",
+              "name": {
+                "zh-CN": "折金票",
+                "en": "T-Creds",
+                "ja": "折金券",
+                "zh-TW": "折金票"
+              },
+              "iconId": "item_gold",
+              "rarity": 4,
+              "count": 3200
             }
           ]
         },
@@ -11210,7 +11364,6 @@
             "15"
           ],
           "costValue": 100,
-          "goldCost": 4200,
           "materials": [
             {
               "itemId": "item_char_skill_level_1_6",
@@ -11235,6 +11388,18 @@
               "iconId": "item_plant_crylplant_1_2",
               "rarity": 4,
               "count": 1
+            },
+            {
+              "itemId": "item_gold",
+              "name": {
+                "zh-CN": "折金票",
+                "en": "T-Creds",
+                "ja": "折金券",
+                "zh-TW": "折金票"
+              },
+              "iconId": "item_gold",
+              "rarity": 4,
+              "count": 4200
             }
           ]
         },
@@ -11252,7 +11417,6 @@
             "15"
           ],
           "costValue": 100,
-          "goldCost": 5400,
           "materials": [
             {
               "itemId": "item_char_skill_level_1_6",
@@ -11277,6 +11441,18 @@
               "iconId": "item_plant_crylplant_1_2",
               "rarity": 4,
               "count": 2
+            },
+            {
+              "itemId": "item_gold",
+              "name": {
+                "zh-CN": "折金票",
+                "en": "T-Creds",
+                "ja": "折金券",
+                "zh-TW": "折金票"
+              },
+              "iconId": "item_gold",
+              "rarity": 4,
+              "count": 5400
             }
           ]
         },
@@ -11294,7 +11470,6 @@
             "15"
           ],
           "costValue": 100,
-          "goldCost": 8200,
           "materials": [
             {
               "itemId": "item_char_skill_level_7_12",
@@ -11319,6 +11494,18 @@
               "iconId": "item_plant_crylplant_1_3",
               "rarity": 4,
               "count": 1
+            },
+            {
+              "itemId": "item_gold",
+              "name": {
+                "zh-CN": "折金票",
+                "en": "T-Creds",
+                "ja": "折金券",
+                "zh-TW": "折金票"
+              },
+              "iconId": "item_gold",
+              "rarity": 4,
+              "count": 8200
             }
           ]
         },
@@ -11336,7 +11523,6 @@
             "15"
           ],
           "costValue": 100,
-          "goldCost": 10500,
           "materials": [
             {
               "itemId": "item_char_skill_level_7_12",
@@ -11361,6 +11547,18 @@
               "iconId": "item_plant_crylplant_1_3",
               "rarity": 4,
               "count": 1
+            },
+            {
+              "itemId": "item_gold",
+              "name": {
+                "zh-CN": "折金票",
+                "en": "T-Creds",
+                "ja": "折金券",
+                "zh-TW": "折金票"
+              },
+              "iconId": "item_gold",
+              "rarity": 4,
+              "count": 10500
             }
           ]
         },
@@ -11378,7 +11576,6 @@
             "15"
           ],
           "costValue": 100,
-          "goldCost": 18000,
           "materials": [
             {
               "itemId": "item_char_skill_level_7_12",
@@ -11403,6 +11600,18 @@
               "iconId": "item_plant_crylplant_1_3",
               "rarity": 4,
               "count": 2
+            },
+            {
+              "itemId": "item_gold",
+              "name": {
+                "zh-CN": "折金票",
+                "en": "T-Creds",
+                "ja": "折金券",
+                "zh-TW": "折金票"
+              },
+              "iconId": "item_gold",
+              "rarity": 4,
+              "count": 18000
             }
           ]
         },
@@ -11420,7 +11629,6 @@
             "15"
           ],
           "costValue": 100,
-          "goldCost": 24000,
           "materials": [
             {
               "itemId": "item_char_skill_crown",
@@ -11469,6 +11677,18 @@
               "iconId": "item_plant_crylplant_2_1",
               "rarity": 5,
               "count": 3
+            },
+            {
+              "itemId": "item_gold",
+              "name": {
+                "zh-CN": "折金票",
+                "en": "T-Creds",
+                "ja": "折金券",
+                "zh-TW": "折金票"
+              },
+              "iconId": "item_gold",
+              "rarity": 4,
+              "count": 24000
             }
           ]
         },
@@ -11486,7 +11706,6 @@
             "15"
           ],
           "costValue": 100,
-          "goldCost": 30000,
           "materials": [
             {
               "itemId": "item_char_skill_crown",
@@ -11535,6 +11754,18 @@
               "iconId": "item_plant_crylplant_2_1",
               "rarity": 5,
               "count": 6
+            },
+            {
+              "itemId": "item_gold",
+              "name": {
+                "zh-CN": "折金票",
+                "en": "T-Creds",
+                "ja": "折金券",
+                "zh-TW": "折金票"
+              },
+              "iconId": "item_gold",
+              "rarity": 4,
+              "count": 30000
             }
           ]
         },
@@ -11552,7 +11783,6 @@
             "15"
           ],
           "costValue": 100,
-          "goldCost": 65000,
           "materials": [
             {
               "itemId": "item_char_skill_crown",
@@ -11601,6 +11831,18 @@
               "iconId": "item_plant_crylplant_2_1",
               "rarity": 5,
               "count": 12
+            },
+            {
+              "itemId": "item_gold",
+              "name": {
+                "zh-CN": "折金票",
+                "en": "T-Creds",
+                "ja": "折金券",
+                "zh-TW": "折金票"
+              },
+              "iconId": "item_gold",
+              "rarity": 4,
+              "count": 65000
             }
           ]
         }
@@ -11706,7 +11948,6 @@
           ],
           "coolDown": 20,
           "costValue": 90,
-          "goldCost": 1000,
           "materials": [
             {
               "itemId": "item_char_skill_level_1_6",
@@ -11731,6 +11972,18 @@
               "iconId": "item_plant_crylplant_1_1",
               "rarity": 4,
               "count": 1
+            },
+            {
+              "itemId": "item_gold",
+              "name": {
+                "zh-CN": "折金票",
+                "en": "T-Creds",
+                "ja": "折金券",
+                "zh-TW": "折金票"
+              },
+              "iconId": "item_gold",
+              "rarity": 4,
+              "count": 1000
             }
           ]
         },
@@ -11747,7 +12000,6 @@
           ],
           "coolDown": 20,
           "costValue": 90,
-          "goldCost": 2700,
           "materials": [
             {
               "itemId": "item_char_skill_level_1_6",
@@ -11772,6 +12024,18 @@
               "iconId": "item_plant_crylplant_1_1",
               "rarity": 4,
               "count": 2
+            },
+            {
+              "itemId": "item_gold",
+              "name": {
+                "zh-CN": "折金票",
+                "en": "T-Creds",
+                "ja": "折金券",
+                "zh-TW": "折金票"
+              },
+              "iconId": "item_gold",
+              "rarity": 4,
+              "count": 2700
             }
           ]
         },
@@ -11788,7 +12052,6 @@
           ],
           "coolDown": 20,
           "costValue": 90,
-          "goldCost": 3200,
           "materials": [
             {
               "itemId": "item_char_skill_level_1_6",
@@ -11813,6 +12076,18 @@
               "iconId": "item_plant_crylplant_1_2",
               "rarity": 4,
               "count": 1
+            },
+            {
+              "itemId": "item_gold",
+              "name": {
+                "zh-CN": "折金票",
+                "en": "T-Creds",
+                "ja": "折金券",
+                "zh-TW": "折金票"
+              },
+              "iconId": "item_gold",
+              "rarity": 4,
+              "count": 3200
             }
           ]
         },
@@ -11829,7 +12104,6 @@
           ],
           "coolDown": 20,
           "costValue": 90,
-          "goldCost": 4200,
           "materials": [
             {
               "itemId": "item_char_skill_level_1_6",
@@ -11854,6 +12128,18 @@
               "iconId": "item_plant_crylplant_1_2",
               "rarity": 4,
               "count": 1
+            },
+            {
+              "itemId": "item_gold",
+              "name": {
+                "zh-CN": "折金票",
+                "en": "T-Creds",
+                "ja": "折金券",
+                "zh-TW": "折金票"
+              },
+              "iconId": "item_gold",
+              "rarity": 4,
+              "count": 4200
             }
           ]
         },
@@ -11870,7 +12156,6 @@
           ],
           "coolDown": 20,
           "costValue": 90,
-          "goldCost": 5400,
           "materials": [
             {
               "itemId": "item_char_skill_level_1_6",
@@ -11895,6 +12180,18 @@
               "iconId": "item_plant_crylplant_1_2",
               "rarity": 4,
               "count": 2
+            },
+            {
+              "itemId": "item_gold",
+              "name": {
+                "zh-CN": "折金票",
+                "en": "T-Creds",
+                "ja": "折金券",
+                "zh-TW": "折金票"
+              },
+              "iconId": "item_gold",
+              "rarity": 4,
+              "count": 5400
             }
           ]
         },
@@ -11911,7 +12208,6 @@
           ],
           "coolDown": 20,
           "costValue": 90,
-          "goldCost": 8200,
           "materials": [
             {
               "itemId": "item_char_skill_level_7_12",
@@ -11936,6 +12232,18 @@
               "iconId": "item_plant_crylplant_1_3",
               "rarity": 4,
               "count": 1
+            },
+            {
+              "itemId": "item_gold",
+              "name": {
+                "zh-CN": "折金票",
+                "en": "T-Creds",
+                "ja": "折金券",
+                "zh-TW": "折金票"
+              },
+              "iconId": "item_gold",
+              "rarity": 4,
+              "count": 8200
             }
           ]
         },
@@ -11952,7 +12260,6 @@
           ],
           "coolDown": 20,
           "costValue": 90,
-          "goldCost": 10500,
           "materials": [
             {
               "itemId": "item_char_skill_level_7_12",
@@ -11977,6 +12284,18 @@
               "iconId": "item_plant_crylplant_1_3",
               "rarity": 4,
               "count": 1
+            },
+            {
+              "itemId": "item_gold",
+              "name": {
+                "zh-CN": "折金票",
+                "en": "T-Creds",
+                "ja": "折金券",
+                "zh-TW": "折金票"
+              },
+              "iconId": "item_gold",
+              "rarity": 4,
+              "count": 10500
             }
           ]
         },
@@ -11993,7 +12312,6 @@
           ],
           "coolDown": 20,
           "costValue": 90,
-          "goldCost": 18000,
           "materials": [
             {
               "itemId": "item_char_skill_level_7_12",
@@ -12018,6 +12336,18 @@
               "iconId": "item_plant_crylplant_1_3",
               "rarity": 4,
               "count": 2
+            },
+            {
+              "itemId": "item_gold",
+              "name": {
+                "zh-CN": "折金票",
+                "en": "T-Creds",
+                "ja": "折金券",
+                "zh-TW": "折金票"
+              },
+              "iconId": "item_gold",
+              "rarity": 4,
+              "count": 18000
             }
           ]
         },
@@ -12034,7 +12364,6 @@
           ],
           "coolDown": 20,
           "costValue": 90,
-          "goldCost": 24000,
           "materials": [
             {
               "itemId": "item_char_skill_crown",
@@ -12083,6 +12412,18 @@
               "iconId": "item_plant_crylplant_2_1",
               "rarity": 5,
               "count": 3
+            },
+            {
+              "itemId": "item_gold",
+              "name": {
+                "zh-CN": "折金票",
+                "en": "T-Creds",
+                "ja": "折金券",
+                "zh-TW": "折金票"
+              },
+              "iconId": "item_gold",
+              "rarity": 4,
+              "count": 24000
             }
           ]
         },
@@ -12099,7 +12440,6 @@
           ],
           "coolDown": 20,
           "costValue": 90,
-          "goldCost": 30000,
           "materials": [
             {
               "itemId": "item_char_skill_crown",
@@ -12148,6 +12488,18 @@
               "iconId": "item_plant_crylplant_2_1",
               "rarity": 5,
               "count": 6
+            },
+            {
+              "itemId": "item_gold",
+              "name": {
+                "zh-CN": "折金票",
+                "en": "T-Creds",
+                "ja": "折金券",
+                "zh-TW": "折金票"
+              },
+              "iconId": "item_gold",
+              "rarity": 4,
+              "count": 30000
             }
           ]
         },
@@ -12164,7 +12516,6 @@
           ],
           "coolDown": 20,
           "costValue": 90,
-          "goldCost": 65000,
           "materials": [
             {
               "itemId": "item_char_skill_crown",
@@ -12213,6 +12564,18 @@
               "iconId": "item_plant_crylplant_2_1",
               "rarity": 5,
               "count": 12
+            },
+            {
+              "itemId": "item_gold",
+              "name": {
+                "zh-CN": "折金票",
+                "en": "T-Creds",
+                "ja": "折金券",
+                "zh-TW": "折金票"
+              },
+              "iconId": "item_gold",
+              "rarity": 4,
+              "count": 65000
             }
           ]
         }
@@ -12294,7 +12657,6 @@
             "10"
           ],
           "coolDown": 14,
-          "goldCost": 1000,
           "materials": [
             {
               "itemId": "item_char_skill_level_1_6",
@@ -12319,6 +12681,18 @@
               "iconId": "item_plant_crylplant_1_1",
               "rarity": 4,
               "count": 1
+            },
+            {
+              "itemId": "item_gold",
+              "name": {
+                "zh-CN": "折金票",
+                "en": "T-Creds",
+                "ja": "折金券",
+                "zh-TW": "折金票"
+              },
+              "iconId": "item_gold",
+              "rarity": 4,
+              "count": 1000
             }
           ]
         },
@@ -12332,7 +12706,6 @@
             "10"
           ],
           "coolDown": 14,
-          "goldCost": 2700,
           "materials": [
             {
               "itemId": "item_char_skill_level_1_6",
@@ -12357,6 +12730,18 @@
               "iconId": "item_plant_crylplant_1_1",
               "rarity": 4,
               "count": 2
+            },
+            {
+              "itemId": "item_gold",
+              "name": {
+                "zh-CN": "折金票",
+                "en": "T-Creds",
+                "ja": "折金券",
+                "zh-TW": "折金票"
+              },
+              "iconId": "item_gold",
+              "rarity": 4,
+              "count": 2700
             }
           ]
         },
@@ -12370,7 +12755,6 @@
             "10"
           ],
           "coolDown": 14,
-          "goldCost": 3200,
           "materials": [
             {
               "itemId": "item_char_skill_level_1_6",
@@ -12395,6 +12779,18 @@
               "iconId": "item_plant_crylplant_1_2",
               "rarity": 4,
               "count": 1
+            },
+            {
+              "itemId": "item_gold",
+              "name": {
+                "zh-CN": "折金票",
+                "en": "T-Creds",
+                "ja": "折金券",
+                "zh-TW": "折金票"
+              },
+              "iconId": "item_gold",
+              "rarity": 4,
+              "count": 3200
             }
           ]
         },
@@ -12408,7 +12804,6 @@
             "10"
           ],
           "coolDown": 14,
-          "goldCost": 4200,
           "materials": [
             {
               "itemId": "item_char_skill_level_1_6",
@@ -12433,6 +12828,18 @@
               "iconId": "item_plant_crylplant_1_2",
               "rarity": 4,
               "count": 1
+            },
+            {
+              "itemId": "item_gold",
+              "name": {
+                "zh-CN": "折金票",
+                "en": "T-Creds",
+                "ja": "折金券",
+                "zh-TW": "折金票"
+              },
+              "iconId": "item_gold",
+              "rarity": 4,
+              "count": 4200
             }
           ]
         },
@@ -12446,7 +12853,6 @@
             "10"
           ],
           "coolDown": 14,
-          "goldCost": 5400,
           "materials": [
             {
               "itemId": "item_char_skill_level_1_6",
@@ -12471,6 +12877,18 @@
               "iconId": "item_plant_crylplant_1_2",
               "rarity": 4,
               "count": 2
+            },
+            {
+              "itemId": "item_gold",
+              "name": {
+                "zh-CN": "折金票",
+                "en": "T-Creds",
+                "ja": "折金券",
+                "zh-TW": "折金票"
+              },
+              "iconId": "item_gold",
+              "rarity": 4,
+              "count": 5400
             }
           ]
         },
@@ -12484,7 +12902,6 @@
             "10"
           ],
           "coolDown": 14,
-          "goldCost": 8200,
           "materials": [
             {
               "itemId": "item_char_skill_level_7_12",
@@ -12509,6 +12926,18 @@
               "iconId": "item_plant_crylplant_1_3",
               "rarity": 4,
               "count": 1
+            },
+            {
+              "itemId": "item_gold",
+              "name": {
+                "zh-CN": "折金票",
+                "en": "T-Creds",
+                "ja": "折金券",
+                "zh-TW": "折金票"
+              },
+              "iconId": "item_gold",
+              "rarity": 4,
+              "count": 8200
             }
           ]
         },
@@ -12522,7 +12951,6 @@
             "10"
           ],
           "coolDown": 14,
-          "goldCost": 10500,
           "materials": [
             {
               "itemId": "item_char_skill_level_7_12",
@@ -12547,6 +12975,18 @@
               "iconId": "item_plant_crylplant_1_3",
               "rarity": 4,
               "count": 1
+            },
+            {
+              "itemId": "item_gold",
+              "name": {
+                "zh-CN": "折金票",
+                "en": "T-Creds",
+                "ja": "折金券",
+                "zh-TW": "折金票"
+              },
+              "iconId": "item_gold",
+              "rarity": 4,
+              "count": 10500
             }
           ]
         },
@@ -12560,7 +13000,6 @@
             "10"
           ],
           "coolDown": 13,
-          "goldCost": 18000,
           "materials": [
             {
               "itemId": "item_char_skill_level_7_12",
@@ -12585,6 +13024,18 @@
               "iconId": "item_plant_crylplant_1_3",
               "rarity": 4,
               "count": 2
+            },
+            {
+              "itemId": "item_gold",
+              "name": {
+                "zh-CN": "折金票",
+                "en": "T-Creds",
+                "ja": "折金券",
+                "zh-TW": "折金票"
+              },
+              "iconId": "item_gold",
+              "rarity": 4,
+              "count": 18000
             }
           ]
         },
@@ -12598,7 +13049,6 @@
             "10"
           ],
           "coolDown": 13,
-          "goldCost": 24000,
           "materials": [
             {
               "itemId": "item_char_skill_crown",
@@ -12647,6 +13097,18 @@
               "iconId": "item_plant_crylplant_2_1",
               "rarity": 5,
               "count": 3
+            },
+            {
+              "itemId": "item_gold",
+              "name": {
+                "zh-CN": "折金票",
+                "en": "T-Creds",
+                "ja": "折金券",
+                "zh-TW": "折金票"
+              },
+              "iconId": "item_gold",
+              "rarity": 4,
+              "count": 24000
             }
           ]
         },
@@ -12660,7 +13122,6 @@
             "10"
           ],
           "coolDown": 13,
-          "goldCost": 30000,
           "materials": [
             {
               "itemId": "item_char_skill_crown",
@@ -12709,6 +13170,18 @@
               "iconId": "item_plant_crylplant_2_1",
               "rarity": 5,
               "count": 6
+            },
+            {
+              "itemId": "item_gold",
+              "name": {
+                "zh-CN": "折金票",
+                "en": "T-Creds",
+                "ja": "折金券",
+                "zh-TW": "折金票"
+              },
+              "iconId": "item_gold",
+              "rarity": 4,
+              "count": 30000
             }
           ]
         },
@@ -12722,7 +13195,6 @@
             "10"
           ],
           "coolDown": 12,
-          "goldCost": 65000,
           "materials": [
             {
               "itemId": "item_char_skill_crown",
@@ -12771,6 +13243,18 @@
               "iconId": "item_plant_crylplant_2_1",
               "rarity": 5,
               "count": 12
+            },
+            {
+              "itemId": "item_gold",
+              "name": {
+                "zh-CN": "折金票",
+                "en": "T-Creds",
+                "ja": "折金券",
+                "zh-TW": "折金票"
+              },
+              "iconId": "item_gold",
+              "rarity": 4,
+              "count": 65000
             }
           ]
         }
@@ -13393,7 +13877,9 @@
         "en": "Reach E1 to unlock",
         "ja": "昇進段階1で解放",
         "zh-TW": "精英化階段一可解鎖"
-      }
+      },
+      "index": 0,
+      "level": 1
     },
     {
       "id": "spaceship_skill_chr_0027_tangtang_1_2",
@@ -13415,7 +13901,9 @@
         "en": "Reach E3 to activate",
         "ja": "昇進段階3で解放",
         "zh-TW": "精英化階段三可啟用"
-      }
+      },
+      "index": 0,
+      "level": 2
     },
     {
       "id": "spaceship_skill_chr_0027_tangtang_2_1",
@@ -13437,7 +13925,9 @@
         "en": "Reach E2 to unlock",
         "ja": "昇進段階2で解放",
         "zh-TW": "精英化階段二可解鎖"
-      }
+      },
+      "index": 1,
+      "level": 1
     },
     {
       "id": "spaceship_skill_chr_0027_tangtang_2_2",
@@ -13459,7 +13949,9 @@
         "en": "Reach E4 to activate",
         "ja": "昇進段階4で解放",
         "zh-TW": "精英化階段四可啟用"
-      }
+      },
+      "index": 1,
+      "level": 2
     }
   ],
   "cvNames": [

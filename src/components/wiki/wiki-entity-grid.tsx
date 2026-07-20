@@ -29,10 +29,17 @@ type WikiFilterField =
   | 'weaponTypeId'
   | 'partTypeId'
 
+type WikiGroupField = 'elementId' | 'weaponTypeId'
+
 interface WikiEntityFilter {
   field: WikiFilterField
   labelKey: string
   enumGroup?: WikiEnumGroup
+}
+
+interface WikiEntityGroupConfig {
+  field: WikiGroupField
+  enumGroup: WikiEnumGroup
 }
 
 interface WikiEntityGridProps {
@@ -40,6 +47,7 @@ interface WikiEntityGridProps {
   imageBasePath: string
   enums: WikiEnumLabels
   filters?: WikiEntityFilter[]
+  groupBy?: WikiEntityGroupConfig
 }
 
 function filterValue(entity: WikiEntitySummary, field: WikiFilterField): string {
@@ -58,13 +66,63 @@ const weaponCharacters = new Map(
     .map((weapon) => [weapon.id, weapon.chars])
 )
 
-export function sortWikiEntities(entities: WikiEntitySummary[], locale: WikiLocale) {
+const EQUIPMENT_MODEL_KEYS: Array<[string, string]> = [
+  ['壹型', 'refinement.modelTypeI'],
+  ['贰型', 'refinement.modelTypeII'],
+  ['叁型', 'refinement.modelTypeIII'],
+  ['Ⅰ型', 'refinement.modelTypeI'],
+  ['Ⅱ型', 'refinement.modelTypeII'],
+  ['Ⅲ型', 'refinement.modelTypeIII'],
+]
+
+export function getWikiEquipmentModelKey(name: string): string | undefined {
+  return EQUIPMENT_MODEL_KEYS.find(([suffix]) => name.includes(`·${suffix}`))?.[1]
+}
+
+export function sortWikiEntities(
+  entities: WikiEntitySummary[],
+  locale: WikiLocale,
+  isUp: (entity: WikiEntitySummary) => boolean = () => false
+) {
   return [...entities].sort((left, right) => {
+    const upDifference = Number(isUp(right)) - Number(isUp(left))
+    if (upDifference !== 0) return upDifference
     if (left.rarity !== right.rarity) return right.rarity - left.rarity
     const leftName = left.name[locale] || left.name['zh-CN'] || left.id
     const rightName = right.name[locale] || right.name['zh-CN'] || right.id
     return leftName.localeCompare(rightName, locale)
   })
+}
+
+export interface WikiEntityGroup {
+  key: string
+  label: string
+  entities: WikiEntitySummary[]
+}
+
+export function groupWikiEntities(
+  entities: WikiEntitySummary[],
+  config: WikiEntityGroupConfig,
+  enums: WikiEnumLabels,
+  locale: WikiLocale
+): WikiEntityGroup[] {
+  const groups = new Map<string, WikiEntitySummary[]>()
+  for (const entity of entities) {
+    const key = filterValue(entity, config.field)
+    if (!key) continue
+    const group = groups.get(key) ?? []
+    group.push(entity)
+    groups.set(key, group)
+  }
+  const order = new Map(Object.keys(enums[config.enumGroup]).map((key, index) => [key, index]))
+  return [...groups].map(([key, group]) => ({
+    key,
+    label: enums[config.enumGroup][key]?.[locale] || enums[config.enumGroup][key]?.['zh-CN'] || key,
+    entities: group,
+  })).sort((left, right) =>
+    (order.get(left.key) ?? Number.MAX_SAFE_INTEGER) - (order.get(right.key) ?? Number.MAX_SAFE_INTEGER) ||
+    left.label.localeCompare(right.label, locale)
+  )
 }
 
 export interface WikiEquipmentGroup {
@@ -123,6 +181,7 @@ export const WikiEntityGrid = memo(function WikiEntityGrid({
   imageBasePath,
   enums,
   filters = [],
+  groupBy,
 }: WikiEntityGridProps) {
   const t = useTranslations()
   const locale = useLocale() as WikiLocale
@@ -158,7 +217,7 @@ export const WikiEntityGrid = memo(function WikiEntityGrid({
 
   const filtered = useMemo(() => {
     const term = search.trim().toLocaleLowerCase(locale)
-    return sortWikiEntities(entities.filter((entity) => {
+    const matches = entities.filter((entity) => {
       const name = entity.name[locale] || entity.name['zh-CN'] || entity.id
       if (term && !name.toLocaleLowerCase(locale).includes(term) && !entity.id.includes(term)) {
         return false
@@ -166,8 +225,9 @@ export const WikiEntityGrid = memo(function WikiEntityGrid({
       return Object.entries(activeFilters).every(([field, selected]) => {
         return selected.size === 0 || selected.has(filterValue(entity, field as WikiFilterField))
       })
-    }), locale)
-  }, [activeFilters, entities, locale, search])
+    })
+    return sortWikiEntities(matches, locale, (entity) => getWikiEntityUpStatus(entity, upNames))
+  }, [activeFilters, entities, locale, search, upNames])
 
   const toggleFilter = useCallback((field: string, value: string) => {
     setActiveFilters((current) => {
@@ -194,10 +254,31 @@ export const WikiEntityGrid = memo(function WikiEntityGrid({
     () => filteredEquipment.length > 0 ? groupWikiEquipmentBySuit(filteredEquipment, locale, t('wiki.noSet')) : [],
     [filteredEquipment, locale, t]
   )
+  const entityGroups = useMemo(
+    () => groupBy && filteredEquipment.length === 0 ? groupWikiEntities(filtered, groupBy, enums, locale) : [],
+    [enums, filtered, filteredEquipment.length, groupBy, locale]
+  )
   const renderEntity = (entity: WikiEntitySummary) => {
     const imageSrc = withImageCacheVersion(`${imageBasePath}/${entity.imageId}.avif`)
     const displayName = entity.name[locale] || entity.name['zh-CN'] || entity.id
     const isUp = getWikiEntityUpStatus(entity, upNames)
+    const equipmentModelKey = entity.category === 'equipment'
+      ? getWikiEquipmentModelKey(entity.name['zh-CN'])
+      : undefined
+    const badges = entity.category === 'equipment' ? (
+      <span className="flex flex-col items-start gap-0.5">
+        <span className="rounded bg-black/55 px-1.5 py-0.5 text-[9px] font-medium text-stone-100 shadow-[var(--shadow-border)]">
+          {enumLabel('equipmentParts', entity.partTypeId)}
+        </span>
+        {equipmentModelKey ? (
+          <span className="rounded bg-amber-500/85 px-1.5 py-0.5 text-[10px] font-semibold text-black">
+            {t(equipmentModelKey)}
+          </span>
+        ) : null}
+      </span>
+    ) : isUp ? (
+      <Image src="/up.png" alt="UP" width={132} height={60} className="h-auto w-11 object-contain drop-shadow-md" unoptimized />
+    ) : undefined
     return (
       <NavLink
         key={entity.id}
@@ -210,9 +291,10 @@ export const WikiEntityGrid = memo(function WikiEntityGrid({
           backgroundSrc={entity.category === 'characters' ? '/images/character-frame-bg.png' : undefined}
           title={displayName}
           rarity={entity.rarity}
-          imageClassName="object-contain p-3"
-          badges={isUp ? <Image src="/up.png" alt="UP" width={132} height={60} className="h-auto w-11 object-contain" unoptimized /> : undefined}
-          className="rounded-none shadow-none"
+          imageClassName={entity.category === 'characters' || entity.category === 'equipment' ? 'object-cover' : 'object-contain p-3'}
+          badges={badges}
+          badgeClassName={entity.category === 'equipment' ? 'left-1 top-1' : 'left-auto right-0 top-2'}
+          className={entity.category === 'characters' ? 'aspect-[38/47] rounded-none shadow-none' : 'rounded-none shadow-none'}
         />
       </NavLink>
     )
@@ -306,6 +388,20 @@ export const WikiEntityGrid = memo(function WikiEntityGrid({
                 </section>
               )
             })}
+          </div>
+        ) : entityGroups.length > 0 ? (
+          <div className="space-y-5">
+            {entityGroups.map((group) => (
+              <section key={group.key} className="min-w-0 space-y-2">
+                <div className="flex items-center gap-2">
+                  <h2 className="text-sm font-semibold">{group.label}</h2>
+                  <Badge variant="secondary">{group.entities.length}</Badge>
+                </div>
+                <div className="grid grid-cols-[repeat(auto-fill,minmax(7rem,1fr))] gap-2 sm:grid-cols-[repeat(auto-fill,minmax(8rem,1fr))] xl:grid-cols-[repeat(auto-fill,minmax(9rem,1fr))]">
+                  {group.entities.map(renderEntity)}
+                </div>
+              </section>
+            ))}
           </div>
         ) : (
           <div className="grid grid-cols-[repeat(auto-fill,minmax(7rem,1fr))] gap-2 sm:grid-cols-[repeat(auto-fill,minmax(8rem,1fr))] xl:grid-cols-[repeat(auto-fill,minmax(9rem,1fr))]">

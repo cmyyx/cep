@@ -7,6 +7,7 @@ import {
   getVisibleSkillLevels,
   getVisibleWeaponLevels,
   getVoiceActorDisplayName,
+  getWidestTableValue,
 } from './wiki-detail-content'
 import type {
   WikiCharacterLevel,
@@ -68,6 +69,12 @@ it('merges only adjacent equal equipment values', () => {
   expect(getEquipmentStatValues(stat)).toEqual([0.2, 0.25, 0.3, 0.35])
 })
 
+it('uses the widest value from all levels for stable table sizing', () => {
+  expect(getWidestTableValue([9.27835, 89.07216, null])).toBe('89.07216')
+  expect(getWidestTableValue([undefined, ''])).toBe('—')
+})
+
+
 it('prefers original voice actor spelling and falls back to the UI locale', () => {
   const original: WikiCharacterVoiceName = {
     language: 'ko',
@@ -83,7 +90,7 @@ it('prefers original voice actor spelling and falls back to the UI locale', () =
   expect(getVoiceActorDisplayName(fallback, 'en')).toBe('KIM SOONMI')
 })
 
-it('shows distinct skill variants independently and keeps aggregate skills singular', () => {
+it('shows only named upstream skill forms', () => {
   const base: WikiCharacterSkill = {
     id: 'ultimate',
     typeId: '2',
@@ -93,13 +100,27 @@ it('shows distinct skill variants independently and keeps aggregate skills singu
     metrics: [],
     levels: skillLevels,
   }
-  expect(getSkillDisplayVariants(base)).toEqual([
-    { id: 'ultimate', iconId: 'ultimate-a', metrics: [], levels: skillLevels },
-  ])
+  expect(getSkillDisplayVariants(base)).toEqual([])
 
   const variants = [
-    { id: 'form-a', iconId: 'ultimate-a', metrics: [], levels: skillLevels },
-    { id: 'form-b', iconId: 'ultimate-b', metrics: [], levels: skillLevels },
+    {
+      id: 'form-int',
+      name: { 'zh-CN': '阵诀·智', en: 'INT', ja: '知', 'zh-TW': '陣訣·智' },
+      condition: { 'zh-CN': '智识≥意志', en: 'INT ≥ WILL', ja: '知性≥意志', 'zh-TW': '智識≥意志' },
+      description: { 'zh-CN': '伤害更高', en: 'More damage', ja: '高ダメージ', 'zh-TW': '傷害更高' },
+      iconId: 'ultimate-a',
+      metrics: [],
+      levels: skillLevels,
+    },
+    {
+      id: 'form-will',
+      name: { 'zh-CN': '阵诀·意', en: 'WILL', ja: '意', 'zh-TW': '陣訣·意' },
+      condition: { 'zh-CN': '意志>智识', en: 'WILL > INT', ja: '意志>知性', 'zh-TW': '意志>智識' },
+      description: { 'zh-CN': '牵引敌人', en: 'Pull enemies', ja: '牽引', 'zh-TW': '牽引敵人' },
+      iconId: 'ultimate-b',
+      metrics: [],
+      levels: skillLevels,
+    },
   ]
   expect(getSkillDisplayVariants({ ...base, variants })).toBe(variants)
 })

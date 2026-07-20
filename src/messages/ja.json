@@ -764,6 +764,11 @@
   "versionWatermark": {
     "externalCssDetected": "外部CSS注入を検出しました"
   },
+  "blocked": {
+    "title": "アクセスがブロックされました",
+    "description": "現在のドメインまたは埋め込み元は許可されていないため、ページの読み込みを停止しました。",
+    "notice": "CEPの公式サイトからアクセスしてください。許可なく本サイトをミラーまたは埋め込まないでください。"
+  },
   "wiki": {
     "title": "ゲームデータウィキ",
     "subtitle": "Arknights: Endfieldの全ゲームデータを閲覧。データはAKEDataから提供。",
@@ -835,6 +840,8 @@
     "values": "数値",
     "recipe": "レシピ",
     "defaultRecipe": "デフォルトレシピ",
+    "showOtherRecipes": "他のレシピを表示（{count}）",
+    "hideOtherRecipes": "他のレシピを閉じる",
     "female": "女性",
     "male": "男性",
     "backTo": "{category}に戻る",
@@ -844,9 +851,8 @@
     "favorability": "信頼度",
     "viewMaterials": "素材 {count}",
     "materialCount": "素材 {count} 種",
-    "goldCost": "Tクレジット",
+    "defaultUnlocked": "初期解放",
     "skillForm": "形態 {number}",
-    "logisticsNode": "後方勤務スキル {index} · Lv.{level}",
     "potentialPreview": "潜在能力画像プレビュー",
     "openPotentialPreview": "{name}をプレビュー",
     "closePreview": "プレビューを閉じる",

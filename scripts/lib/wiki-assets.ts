@@ -52,9 +52,6 @@ export function collectWikiAssets(source: WikiAssetSource): WikiAssets {
       if (skill.iconId) skills.add(skill.iconId)
       for (const variant of skill.variants ?? []) {
         if (variant.iconId) skills.add(variant.iconId)
-        for (const level of variant.levels) {
-          for (const material of level.materials ?? []) materials.add(material.iconId)
-        }
       }
       for (const level of skill.levels) {
         for (const material of level.materials ?? []) materials.add(material.iconId)

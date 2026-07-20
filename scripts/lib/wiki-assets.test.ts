@@ -38,7 +38,7 @@ it('collects every image referenced by Wiki summaries and details', () => {
           attributeNodes: [],
           logisticsNodes: [],
           potentials: [{ id: 'potential', level: 1, name, description: name, imageIds: ['potential_image'] }],
-          logisticsSkills: [{ id: 'logistics', name, description: name, iconId: 'logistics_icon', unlockHint: name }],
+          logisticsSkills: [{ id: 'logistics', name, description: name, iconId: 'logistics_icon', unlockHint: name, index: 0, level: 1 }],
           promotions: [{
             breakStage: 1,
             requiredLevel: 20,

@@ -9,6 +9,8 @@ import { useRefinementStore } from '@/stores/useRefinementStore'
 import type { SlotRecommendation } from '@/types/refinement'
 import { ChevronDown } from 'lucide-react'
 import { useIsMobile } from '@/hooks/use-mobile'
+import { WikiMaterialList } from '@/components/shared/wiki-material-list'
+import { wikiEquipmentPlannerPreviews } from '@/generated/data/wiki/planner-previews'
 
 const SLOT_LABEL_KEYS: Record<string, string> = {
   sub1: 'refinement.subAttr1',
@@ -183,18 +185,14 @@ export const SlotRecommendationCard = memo(function SlotRecommendationCard({
                   badgeValue={`+${c.matchAttr.value}${c.matchAttr.unit}`}
                 />
               </div>
-              <span className="text-[9px] text-muted-foreground truncate max-w-full text-center leading-none">
-                {c.equip.material ? (t(`materials.${c.equip.material}`) ?? c.equip.material) : ''}
-                {c.equip.altMaterial ? ` | ${t(`materials.${c.equip.altMaterial}`) ?? c.equip.altMaterial}` : ''}
-              </span>
-              {(c.equip.voucher || c.equip.altVoucher) && (
-                <span className="text-[9px] text-muted-foreground truncate max-w-full text-center leading-none">
-                  {[
-                    c.equip.voucher ? `${t(`materials.${c.equip.voucher.name}`) ?? c.equip.voucher.name}x${c.equip.voucher.count}` : '',
-                    c.equip.altVoucher ? `${t(`materials.${c.equip.altVoucher.name}`) ?? c.equip.altVoucher.name}x${c.equip.altVoucher.count}` : '',
-                  ].filter(Boolean).join(' | ')}
-                </span>
-              )}
+              {(() => {
+                const preview = wikiEquipmentPlannerPreviews[c.equip.id]
+                const defaultRecipe = preview?.craftingRecipes.find((recipe) => recipe.isDefault)
+                  ?? preview?.craftingRecipes[0]
+                return defaultRecipe ? (
+                  <WikiMaterialList materials={defaultRecipe.materials} compact iconOnly className="grid w-full grid-cols-2 gap-2" />
+                ) : null
+              })()}
             </div>
           ))}
         </div>
@@ -207,7 +205,7 @@ export const SlotRecommendationCard = memo(function SlotRecommendationCard({
           variant="ghost"
           size="sm"
           onClick={handleToggle}
-          className="mt-3 h-auto flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground"
+          className="mt-3 min-h-9 w-full justify-center gap-1 rounded-md bg-muted/35 px-3 text-xs text-muted-foreground hover:bg-muted/60 hover:text-foreground"
         >
           <ChevronDown
             className={cn(

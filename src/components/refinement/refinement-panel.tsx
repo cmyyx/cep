@@ -1,15 +1,20 @@
 'use client'
 
-import { memo } from 'react'
+import { memo, useState } from 'react'
 import Image from 'next/image'
+import { ChevronDown } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
+import { Badge } from '@/components/ui/badge'
 import { SlotRecommendationCard } from './slot-recommendation'
 import { useRefinementStore, useSelectedEquip, useRecommendations } from '@/stores/useRefinementStore'
 import { materialOptions } from '@/data/equips'
 import { useIsMobile } from '@/hooks/use-mobile'
 import { withImageCacheVersion } from '@/lib/image-url'
+import { WikiMaterialList } from '@/components/shared/wiki-material-list'
+import { wikiEquipmentPlannerPreviews } from '@/generated/data/wiki/planner-previews'
+import { splitPlannerRecipes } from './equip-card'
 
 // Map Chinese equip types to i18n keys
 const TYPE_TO_KEY: Record<string, string> = {
@@ -25,6 +30,15 @@ export const RefinementPanel = memo(function RefinementPanel() {
   const filterMaterial = useRefinementStore((s) => s.filterMaterial)
   const toggleFilter = useRefinementStore((s) => s.toggleFilter)
   const isMobile = useIsMobile()
+  const [expandedRecipeEquipId, setExpandedRecipeEquipId] = useState<string | null>(null)
+  const selectedWikiPreview = selected ? wikiEquipmentPlannerPreviews[selected.id] : undefined
+  const recipeGroups = splitPlannerRecipes(selectedWikiPreview?.craftingRecipes ?? [])
+  const defaultRecipe = recipeGroups.featured.find((recipe) => recipe.isDefault)
+    ?? recipeGroups.featured[0]
+    ?? recipeGroups.other[0]
+  const alternativeRecipes = [...recipeGroups.featured, ...recipeGroups.other]
+    .filter((recipe) => recipe.chainId !== defaultRecipe?.chainId)
+  const showOtherRecipes = selected?.id === expandedRecipeEquipId
 
   return (
     <div className="flex flex-col gap-4">
@@ -131,26 +145,43 @@ export const RefinementPanel = memo(function RefinementPanel() {
                       {selected.special ? `${t('equipStats.' + selected.special.key)}+${selected.special.value}${selected.special.unit}` : t('refinement.none')}
                     </span>
                   </div>
-                  <div className="flex items-center gap-2 mt-0.5">
-                    <span className="text-muted-foreground shrink-0 w-14">
-                      {t('refinement.material')}
-                    </span>
-                    <span className="text-[11px] text-muted-foreground">
-                      {t(`materials.${selected.material}`) ?? selected.material}
-                      {selected.altMaterial ? ` | ${t(`materials.${selected.altMaterial}`) ?? selected.altMaterial}` : ''}
-                    </span>
+                  <div className="mt-1 space-y-2">
+                    <span className="text-xs text-muted-foreground">{t('refinement.material')}</span>
+                    {defaultRecipe ? (
+                      <>
+                        <WikiMaterialList materials={defaultRecipe.materials} compact />
+                        {alternativeRecipes.length > 0 ? (
+                          <Button
+                            type="button"
+                            variant="ghost"
+                            size="sm"
+                            onClick={() => setExpandedRecipeEquipId(showOtherRecipes ? null : selected.id)}
+                            className="h-auto w-full justify-center rounded-md py-1.5 text-[11px]"
+                          >
+                            <ChevronDown className={cn('transition-transform', showOtherRecipes && 'rotate-180')} />
+                            {showOtherRecipes ? t('wiki.hideOtherRecipes') : t('wiki.showOtherRecipes', { count: alternativeRecipes.length })}
+                          </Button>
+                        ) : null}
+                        {showOtherRecipes ? (
+                          <div className="max-h-64 space-y-2 overflow-y-auto pr-1">
+                            {alternativeRecipes.map((recipe) => (
+                              <div key={recipe.chainId} className="space-y-2 rounded-md bg-muted/35 p-2">
+                                <div className="flex flex-wrap items-center gap-1.5">
+                                  <span className="text-[11px] font-medium">{t('wiki.recipe')} #{recipe.chainId}</span>
+                                  {recipe.discount > 0 && recipe.discount < 1 ? (
+                                    <Badge variant="secondary" className="text-ship-red">-{Math.round((1 - recipe.discount) * 100)}%</Badge>
+                                  ) : null}
+                                </div>
+                                <WikiMaterialList materials={recipe.materials} compact />
+                              </div>
+                            ))}
+                          </div>
+                        ) : null}
+                      </>
+                    ) : (
+                      <span className="text-[11px] text-muted-foreground">{t(`materials.${selected.material}`) ?? selected.material}</span>
+                    )}
                   </div>
-                  {(selected.voucher || selected.altVoucher) && (
-                    <div className="flex items-center gap-2">
-                      <span className="text-muted-foreground shrink-0 w-14" />
-                      <span className="text-[11px] text-muted-foreground">
-                        {[
-                          selected.voucher ? `${t(`materials.${selected.voucher.name}`) ?? selected.voucher.name}x${selected.voucher.count}` : '',
-                          selected.altVoucher ? `${t(`materials.${selected.altVoucher.name}`) ?? selected.altVoucher.name}x${selected.altVoucher.count}` : '',
-                        ].filter(Boolean).join(' | ')}
-                      </span>
-                    </div>
-                  )}
                 </div>
               </div>
             </div>

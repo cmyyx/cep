@@ -36,6 +36,7 @@ export default async function WikiWeaponsPage({ params }: { params: Promise<{ lo
         entities={wikiWeapons}
         imageBasePath="/images/weapon"
         enums={wikiEnums as WikiEnumLabels}
+        groupBy={{ field: 'weaponTypeId', enumGroup: 'weaponTypes' }}
         filters={[
           { field: 'rarity', labelKey: 'wiki.filter.rarity' },
           { field: 'weaponTypeId', labelKey: 'wiki.filter.weaponType', enumGroup: 'weaponTypes' },

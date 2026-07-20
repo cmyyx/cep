@@ -13,6 +13,8 @@ export interface RarityFrameProps {
   badges?: ReactNode
   className?: string
   imageClassName?: string
+  badgeClassName?: string
+  showTitle?: boolean
 }
 
 export function RarityFrame({
@@ -23,6 +25,8 @@ export function RarityFrame({
   badges,
   className,
   imageClassName,
+  badgeClassName,
+  showTitle = true,
 }: RarityFrameProps) {
   const [failedImageSrc, setFailedImageSrc] = useState<string | StaticImageData | null | undefined>(null)
   const imageFailed = failedImageSrc === imageSrc
@@ -71,10 +75,12 @@ export function RarityFrame({
         className="pointer-events-none absolute -inset-x-px bottom-0 z-20 w-[calc(100%+2px)] max-w-none object-cover object-bottom"
         unoptimized
       />
-      {badges ? <span className="absolute left-2 top-2 z-30">{badges}</span> : null}
-      <h3 className="absolute inset-x-0 bottom-2 z-30 truncate px-2 text-center text-sm font-semibold leading-tight text-stone-100 drop-shadow-md">
-        {title}
-      </h3>
+      {badges ? <span className={cn('absolute left-2 top-2 z-30', badgeClassName)}>{badges}</span> : null}
+      {showTitle ? (
+        <h3 className="absolute inset-x-0 bottom-2 z-30 truncate px-2 text-center text-sm font-semibold leading-tight text-stone-100 drop-shadow-md">
+          {title}
+        </h3>
+      ) : null}
     </article>
   )
 }

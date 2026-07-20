@@ -764,6 +764,11 @@
   "versionWatermark": {
     "externalCssDetected": "检测到外部CSS注入"
   },
+  "blocked": {
+    "title": "访问被阻止",
+    "description": "当前域名或嵌入来源未被授权，页面已停止加载。",
+    "notice": "请通过 CEP 终末地规划器官方站点访问，请勿在未经授权的情况下镜像或嵌入本站。"
+  },
   "wiki": {
     "title": "游戏数据维基",
     "subtitle": "浏览 Arknights: Endfield 的全部游戏数据，数据来源于 AKEData。",
@@ -835,6 +840,8 @@
     "values": "数值",
     "recipe": "配方",
     "defaultRecipe": "默认配方",
+    "showOtherRecipes": "展开其他配方（{count}）",
+    "hideOtherRecipes": "收起其他配方",
     "female": "女",
     "male": "男",
     "backTo": "返回{category}",
@@ -844,9 +851,8 @@
     "favorability": "信赖",
     "viewMaterials": "材料 {count}",
     "materialCount": "共 {count} 种材料",
-    "goldCost": "折金票",
+    "defaultUnlocked": "默认解锁",
     "skillForm": "形态 {number}",
-    "logisticsNode": "后勤技能 {index} · Lv.{level}",
     "potentialPreview": "潜能图片预览",
     "openPotentialPreview": "预览{name}",
     "closePreview": "关闭预览",

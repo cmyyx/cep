@@ -26,7 +26,11 @@ export function useCloseOnScroll(
       el = el.parentElement
     }
 
-    const handler = () => setOpen(false)
+    const handler = (event: Event) => {
+      const target = event.target
+      if (target instanceof Element && target.closest('[data-slot="tooltip-content"]')) return
+      setOpen(false)
+    }
     scrollables.forEach((el) => {
       el.addEventListener('scroll', handler, { passive: true })
       el.addEventListener('wheel', handler, { passive: true })

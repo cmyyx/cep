@@ -1,7 +1,7 @@
 interface CepDebugApi {
   getLogs(): Array<{ l: string; t: number; a: string[] }>
   clear(): void
-  getEnv(): Record<string, string>
+  getEnv(): Record<string, string | number>
   silentLog(level: 'warn' | 'debug' | 'error' | 'log', args: unknown[]): void
   openPanel(): void
   togglePanel(): void
@@ -12,7 +12,7 @@ interface CepDebugApi {
   version?: {
     version: string
     commit: string
-    count: string
+    count: number
     commitTime: string
     buildTime: string
   }

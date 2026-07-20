@@ -764,6 +764,11 @@
   "versionWatermark": {
     "externalCssDetected": "偵測到外部CSS注入"
   },
+  "blocked": {
+    "title": "存取已被阻止",
+    "description": "目前的網域或嵌入來源未經授權，頁面已停止載入。",
+    "notice": "請透過 CEP 終末地規劃器官方網站存取，請勿在未經授權的情況下鏡像或嵌入本站。"
+  },
   "wiki": {
     "title": "遊戲資料維基",
     "subtitle": "瀏覽 Arknights: Endfield 的全部遊戲資料，資料來源於 AKEData。",
@@ -835,6 +840,8 @@
     "values": "數值",
     "recipe": "配方",
     "defaultRecipe": "預設配方",
+    "showOtherRecipes": "展開其他配方（{count}）",
+    "hideOtherRecipes": "收起其他配方",
     "female": "女",
     "male": "男",
     "backTo": "返回{category}",
@@ -844,9 +851,8 @@
     "favorability": "信賴",
     "viewMaterials": "材料 {count}",
     "materialCount": "共 {count} 種材料",
-    "goldCost": "折金票",
+    "defaultUnlocked": "預設解鎖",
     "skillForm": "形態 {number}",
-    "logisticsNode": "後勤技能 {index} · Lv.{level}",
     "potentialPreview": "潛能圖片預覽",
     "openPotentialPreview": "預覽{name}",
     "closePreview": "關閉預覽",

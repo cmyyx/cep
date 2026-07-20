@@ -9,6 +9,12 @@ const textTables = {
     skill_name: '战技',
     skill_desc: '造成 {damage:0%} 伤害',
     metric_damage: '伤害倍率',
+    form_int: '阵诀·智',
+    form_will: '阵诀·意',
+    condition_int: '/*智识值(<@ba.vup>{floor:deck_wisd:0}</>) ≥ 意志值(<@ba.vup>{floor:deck_will:0}</>)，阵诀·智生效中。*/',
+    condition_will: '/*意志值(<@ba.vup>{floor:deck_will:0}</>) ＞ 智识值(<@ba.vup>{floor:deck_wisd:0}</>)，阵诀·意生效中。*/',
+    form_int_desc: '伤害更高。',
+    form_will_desc: '牵引敌人。',
     potential_name: '潜能一',
     potential_desc: '攻击力 +{atk-1:0%}',
     mapped_potential_desc: '敏捷 +{Agi:0}，技力消耗降低 {1-costValue:0%}',
@@ -35,6 +41,12 @@ const textTables = {
     skill_name: 'Combat Skill',
     skill_desc: 'Deals {damage:0%} damage',
     metric_damage: 'Damage Multiplier',
+    form_int: 'Array Arcana: INT',
+    form_will: 'Array Arcana: WILL',
+    condition_int: '/*Intellect (<@ba.vup>{floor:deck_wisd:0}</>) ≥ Will (<@ba.vup>{floor:deck_will:0}</>), INT active.*/',
+    condition_will: '/*Will (<@ba.vup>{floor:deck_will:0}</>) ＞ Intellect (<@ba.vup>{floor:deck_wisd:0}</>), WILL active.*/',
+    form_int_desc: 'Deals more damage.',
+    form_will_desc: 'Pulls enemies.',
     potential_name: 'Potential I',
     potential_desc: 'ATK +{atk-1:0%}',
     mapped_potential_desc: 'AGI +{Agi:0}; skill cost -{1-costValue:0%}',
@@ -140,6 +152,14 @@ const input = {
           name: { id: 'skill_name' },
           desc: { id: 'skill_desc' },
           skillIdList: ['ultimate_skill', 'ultimate_skill2', 'ultimate_skill3'],
+          conditionName1: { id: 'form_int' },
+          conditionDesc1: { id: 'condition_int' },
+          conditionPostDesc1: { id: 'form_int_desc' },
+          conditionIcon1: 'icon_ultimate_skill_test_a',
+          conditionName2: { id: 'form_will' },
+          conditionDesc2: { id: 'condition_will' },
+          conditionPostDesc2: { id: 'form_will_desc' },
+          conditionIcon2: 'icon_ultimate_skill_test_b',
         },
         normal: {
           skillGroupId: 'normal',
@@ -294,12 +314,13 @@ const input = {
   },
   spaceshipCharacterSkillTable: {
     chr_9000_endmin: {
-      skillList: [{ skillId: 'logistics_1', unlockHint: { id: 'unlock_e1' } }],
+      skillList: [{ skillId: 'logistics_1', skillIndex: 0, unlockHint: { id: 'unlock_e1' } }],
     },
   },
   spaceshipSkillTable: {
     logistics_1: {
       icon: 'logistics_icon',
+      level: 1,
       talentName: { id: 'logistics_talent' },
       name: { id: 'logistics_name' },
       desc: { id: 'logistics_desc' },
@@ -325,6 +346,7 @@ const input = {
     item_talent: { name: { id: 'item_name' }, iconId: 'item_talent_icon' },
     item_attribute: { name: { id: 'item_name' }, iconId: 'item_attribute_icon', rarity: 2 },
     item_factory: { name: { id: 'item_name' }, iconId: 'item_factory_icon', rarity: 5 },
+    item_gold: { name: { id: 'item_name' }, iconId: 'item_gold', rarity: 4 },
   },
   textTables,
 }
@@ -400,16 +422,58 @@ describe('character detail generation', () => {
     expect(skill.levels[10].label).toBe('M2')
     expect(skill.levels[11]).toMatchObject({ level: 12, label: 'M3', values: ['260%'] })
   })
-  it('emits skill costs, true ultimate forms, and growth nodes', () => {
+
+  it('splits form-specific metrics while retaining shared values', () => {
+    const scoped = structuredClone(input) as Parameters<typeof buildCharacterWikiData>[0]
+    const growth = scoped.characterGrowthTable.chr_9000_endmin
+    growth.skillGroupMap = {
+      ...growth.skillGroupMap,
+      conditional: {
+        skillGroupId: 'conditional',
+        skillGroupType: 3,
+        name: { id: 'skill_name' },
+        desc: { id: 'skill_desc' },
+        skillIdList: ['conditional_skill'],
+        conditionId1: 'form_int_id',
+        conditionName1: { id: 'form_int' },
+        conditionDesc1: { id: 'condition_int' },
+        conditionPostDesc1: { id: 'form_int_desc' },
+        conditionIcon1: 'icon_conditional_int',
+        conditionId2: 'form_will_id',
+        conditionName2: { id: 'form_will' },
+        conditionDesc2: { id: 'condition_will' },
+        conditionPostDesc2: { id: 'form_will_desc' },
+        conditionIcon2: 'icon_conditional_will',
+      },
+    }
+    scoped.skillPatchTable.conditional_skill = {
+      SkillPatchDataBundle: [{
+        level: 1,
+        iconId: 'icon_conditional_int',
+        subDescDataList: [
+          { name: { id: 'metric_damage' }, desc: '10%' },
+          { name: { id: 'metric_damage' }, desc: '20%', conditionId: 'form_int_id' },
+          { name: { id: 'metric_damage' }, desc: '30%', conditionId: 'form_will_id' },
+        ],
+      }],
+    }
+
+    const skill = buildCharacterWikiData(scoped).details.chr_9000_endmin.skills.find((entry) => entry.id === 'conditional')
+    expect(skill?.variants?.[0].levels[0].values).toEqual(['10%', '20%'])
+    expect(skill?.variants?.[1].levels[0].values).toEqual(['10%', '30%'])
+  })
+  it('emits skill costs, named skill forms, and growth nodes', () => {
     const detail = buildCharacterWikiData(input).details.chr_9000_endmin
     const skill = detail.skills.find((entry) => entry.id === 'group')
     expect(skill?.levels[0]).not.toHaveProperty('materials')
-    expect(skill?.levels[1]).toMatchObject({ goldCost: 1000, materials: [{ itemId: 'item_skill', count: 2, rarity: 3 }] })
+    expect(skill?.levels[1]).toMatchObject({ materials: [{ itemId: 'item_skill', count: 2, rarity: 3 }, { itemId: 'item_gold', count: 1000, rarity: 4 }] })
     const ultimate = detail.skills.find((entry) => entry.id === 'ultimate')
-    expect(ultimate?.variants).toHaveLength(2)
-    expect(ultimate?.variants?.map((variant) => variant.iconId)).toEqual(['icon_ultimate_skill_test_a', 'icon_ultimate_skill_test_b'])
-    expect(ultimate?.variants?.map((variant) => variant.metrics.length)).toEqual([1, 1])
-    expect(ultimate?.variants?.map((variant) => variant.levels.at(-1)?.values.length)).toEqual([1, 1])
+    expect(ultimate?.variants).toMatchObject([
+      { name: { en: 'Array Arcana: INT' }, condition: { 'zh-CN': '智识值 ≥ 意志值，阵诀·智生效中。' }, description: { en: 'Deals more damage.' }, iconId: 'icon_ultimate_skill_test_a' },
+      { name: { en: 'Array Arcana: WILL' }, condition: { 'zh-CN': '意志值 ＞ 智识值，阵诀·意生效中。' }, description: { en: 'Pulls enemies.' }, iconId: 'icon_ultimate_skill_test_b' },
+    ])
+    expect(ultimate?.variants?.[0].levels[0].values).toEqual(['200%'])
+    expect(ultimate?.variants?.[1].levels[0].values).toEqual(['300%'])
     const normal = detail.skills.find((entry) => entry.id === 'normal')
     expect(normal?.variants).toBeUndefined()
     expect(normal?.iconId).toBe('icon_attack_sword')
@@ -451,6 +515,8 @@ describe('character detail generation', () => {
       description: { en: 'Efficiency +20%' },
       iconId: 'logistics_icon',
       unlockHint: { en: 'Reach E1 to unlock' },
+      index: 0,
+      level: 1,
     })
     expect(detail.promotions[0]).toMatchObject({
       breakStage: 1,
