@@ -18,7 +18,7 @@ export const dynamic = 'force-static'
  * To add a new page to the sitemap, add an entry here.
  * To remove a page, delete its entry. No XML editing needed.
  */
-const ROUTES: {
+export const ROUTES: {
   path: string
   priority: number
   changefreq: NonNullable<MetadataRoute.Sitemap[number]['changeFrequency']>

@@ -9,11 +9,11 @@ export async function generateMetadata({
   const { locale } = await params
   const t = await getTranslations({ locale })
   return {
-    title: t('nav.wiki'),
+    title: 'WIKI',
     description: t('meta.wikiDescription'),
     keywords: t('meta.wikiKeywords').split(',').map((k) => k.trim()).filter(Boolean),
     openGraph: {
-      title: `${t('nav.wiki')} - ${t('app.name')}`,
+      title: `WIKI - ${t('app.name')}`,
       description: t('meta.wikiDescription'),
       images: [`/og/wiki/${locale}.png`],
     },

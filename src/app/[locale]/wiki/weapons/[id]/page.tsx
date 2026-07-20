@@ -23,7 +23,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const weapon = wikiWeapons.find((entry) => entry.id === id)
   if (!weapon) return { title: 'Not Found' }
   return {
-    title: `${weapon.name[locale as WikiLocale] || weapon.name['zh-CN']} - Wiki`,
+    title: `${weapon.name[locale as WikiLocale] || weapon.name['zh-CN']} - WIKI`,
     alternates: getAlternates(locale, `wiki/weapons/${id}`),
   }
 }

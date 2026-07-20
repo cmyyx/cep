@@ -12,7 +12,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const { locale } = await params
   const t = await getTranslations({ locale })
   return {
-    title: `${t('wiki.categories.equipment')} - ${t('nav.wiki')}`,
+    title: `${t('wiki.categories.equipment')} - WIKI`,
     alternates: getAlternates(locale, 'wiki/equipment'),
   }
 }

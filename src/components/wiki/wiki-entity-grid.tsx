@@ -249,7 +249,10 @@ export const WikiEntityGrid = memo(function WikiEntityGrid({
     [enums, locale]
   )
 
-  const filteredEquipment = filtered.filter((entity): entity is WikiEquipmentSummary => entity.category === 'equipment')
+  const filteredEquipment = useMemo(
+    () => filtered.filter((entity): entity is WikiEquipmentSummary => entity.category === 'equipment'),
+    [filtered]
+  )
   const equipmentGroups = useMemo(
     () => filteredEquipment.length > 0 ? groupWikiEquipmentBySuit(filteredEquipment, locale, t('wiki.noSet')) : [],
     [filteredEquipment, locale, t]

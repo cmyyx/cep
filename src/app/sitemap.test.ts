@@ -1,6 +1,6 @@
 import { describe, it, expect, afterEach } from 'vitest'
 import { routing } from '@/i18n/routing'
-import sitemap from '@/app/sitemap'
+import sitemap, { ROUTES } from '@/app/sitemap'
 import { wikiCharacters } from '@/generated/data/wiki/characters'
 import { wikiWeapons } from '@/generated/data/wiki/weapons'
 import { wikiEquipment } from '@/generated/data/wiki/equipment'
@@ -21,10 +21,9 @@ describe('sitemap', () => {
 
   it('returns every list route and generated Wiki detail route', () => {
     const result = sitemap()
-    const staticRouteCount = 16
 
     expect(result).toHaveLength(
-      staticRouteCount + wikiCharacters.length + wikiWeapons.length + wikiEquipment.length
+      ROUTES.length + wikiCharacters.length + wikiWeapons.length + wikiEquipment.length
     )
     expect(result.some((entry) => entry.url.endsWith(`/wiki/characters/${wikiCharacters[0].id}`))).toBe(true)
     expect(result.some((entry) => entry.url.endsWith(`/wiki/weapons/${wikiWeapons[0].id}`))).toBe(true)

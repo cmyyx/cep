@@ -4,7 +4,7 @@ import { memo, useCallback, useEffect, useRef, useState } from 'react'
 import { useTranslations } from 'next-intl'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
-import { EquipCard } from './equip-card'
+import { EquipCard, splitPlannerRecipes } from './equip-card'
 import { useRefinementStore } from '@/stores/useRefinementStore'
 import type { SlotRecommendation } from '@/types/refinement'
 import { ChevronDown } from 'lucide-react'
@@ -187,8 +187,8 @@ export const SlotRecommendationCard = memo(function SlotRecommendationCard({
               </div>
               {(() => {
                 const preview = wikiEquipmentPlannerPreviews[c.equip.id]
-                const defaultRecipe = preview?.craftingRecipes.find((recipe) => recipe.isDefault)
-                  ?? preview?.craftingRecipes[0]
+                const { featured, other } = splitPlannerRecipes(preview?.craftingRecipes ?? [])
+                const defaultRecipe = featured[0] ?? other[0]
                 return defaultRecipe ? (
                   <WikiMaterialList materials={defaultRecipe.materials} compact iconOnly className="grid w-full grid-cols-2 gap-2" />
                 ) : null

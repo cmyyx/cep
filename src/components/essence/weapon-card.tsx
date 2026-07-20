@@ -12,8 +12,8 @@ import { Check } from 'lucide-react'
 import { useMobileLongPressTooltip } from '@/hooks/use-mobile-long-press-tooltip'
 import { withImageCacheVersion } from '@/lib/image-url'
 import { getCharacterAvatarPath } from '@/lib/character-images'
-import { PlannerWikiPreview, plainWikiPreviewText, plainWikiPreviewValue } from '@/components/shared/planner-wiki-preview'
-import { wikiWeaponPlannerPreviews } from '@/generated/data/wiki/planner-previews'
+import { PlannerWikiPreview } from '@/components/shared/planner-wiki-preview'
+import { getWeaponWikiPreview } from '@/lib/weapon-wiki-preview'
 
 import type { Weapon } from '@/types/matrix'
 import type { WikiLocale } from '@/types/wiki'
@@ -66,19 +66,7 @@ export const WeaponCard = memo(function WeaponCard({
     ? wid
     : withImageCacheVersion(`/images/weapon/${imageId}.avif`)
   const displayName = (isCustom || isPreview) ? weapon.name : (t(`weapons.${wid}`) ?? weapon.name)
-  const wikiPreview = wikiWeaponPlannerPreviews[wid]
-  const previewLocale = locale as WikiLocale
-  const previewValue = (index: number) => {
-    const range = wikiPreview?.stats[index]
-    if (!range) return { levelOne: '—', maxLevel: '—' }
-    const levelOne = range.levelOne[previewLocale] || range.levelOne['zh-CN']
-    const maxLevel = range.maxLevel[previewLocale] || range.maxLevel['zh-CN']
-    return {
-      levelOne: index < 2 ? plainWikiPreviewValue(levelOne) : plainWikiPreviewText(levelOne),
-      maxLevel: index < 2 ? plainWikiPreviewValue(maxLevel) : plainWikiPreviewText(maxLevel),
-    }
-  }
-  const previewLabels = wikiPreview?.stats[0]
+  const preview = getWeaponWikiPreview(wid, locale as WikiLocale)
 
   const trigger = (
     <Button
@@ -215,14 +203,14 @@ export const WeaponCard = memo(function WeaponCard({
           title={displayName}
           compact={isMobile}
           rarity={weapon.rarity}
-          levelOneLabel={previewLabels?.levelOneLabel}
-          maxLevelLabel={previewLabels?.maxLevelLabel}
+          levelOneLabel={preview.levelOneLabel}
+          maxLevelLabel={preview.maxLevelLabel}
           rows={[
-            { label: t('weaponStats.' + weapon.primaryStat), ...previewValue(0) },
-            { label: t('weaponStats.' + weapon.elementalDamage), ...previewValue(1) },
-            { label: t('weaponStats.' + weapon.specialAbility), ...previewValue(2), truncate: true },
+            { label: t('weaponStats.' + weapon.primaryStat), ...preview.values[0] },
+            { label: t('weaponStats.' + weapon.elementalDamage), ...preview.values[1] },
+            { label: t('weaponStats.' + weapon.specialAbility), ...preview.values[2], truncate: true },
           ]}
-          wikiHref={!isCustom && !isPreview && wid.startsWith('wpn_') ? `/${locale}/wiki/weapons/${wid}` : undefined}
+          wikiHref={!isCustom && !isPreview ? preview.wikiHref : undefined}
         />
       </TooltipContent>
     </Tooltip>

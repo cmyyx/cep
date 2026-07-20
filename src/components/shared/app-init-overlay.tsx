@@ -4,7 +4,7 @@ import { useEffect, useState, useCallback, useMemo } from 'react'
 import { useTranslations } from 'next-intl'
 import { useAppInitStore } from '@/stores/useAppInitStore'
 import { cn } from '@/lib/utils'
-import { GuardFeedback } from '@/components/shared/guard-layout'
+import { FEEDBACK_CHANNELS, GuardFeedback } from '@/components/shared/guard-layout'
 import { FullScreenStatus } from '@/components/shared/full-screen-status'
 
 /**
@@ -59,9 +59,9 @@ export function AppInitOverlay() {
 
   // Built before early-return to satisfy Rules of Hooks.
   const feedbackLinks = useMemo(() => [
-    { href: 'https://github.com/cmyyx/cep', label: t('feedback.github') },
-    { href: 'https://end.302200.xyz', label: t('feedback.forum') },
-    { href: 'https://qm.qq.com/q/Cjdo2aRikE', label: t('feedback.qqGroup') },
+    { href: FEEDBACK_CHANNELS.github.href, label: t('feedback.github') },
+    { href: FEEDBACK_CHANNELS.forum.href, label: t('feedback.forum') },
+    { href: FEEDBACK_CHANNELS.qqGroup.href, label: t('feedback.qqGroup') },
   ], [t])
 
   // Never show again after first completion.

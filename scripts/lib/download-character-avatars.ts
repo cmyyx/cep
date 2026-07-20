@@ -19,7 +19,6 @@ import {
 const CATALOG_URL =
   'https://wiki.skland.com/endfield/catalog?mainTypeId=1&subTypeId=1&filterIds=&header=0'
 const ADMINISTRATOR_ID = 'chr_9000_endmin'
-const PREVIEW_ITEM_ID = '1683'
 const DEPRECATED_IDS: Record<string, true> = {
   chr_0002_endminm: true,
   chr_0003_endminf: true,

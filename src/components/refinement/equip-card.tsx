@@ -17,6 +17,7 @@ import { plainWikiPreviewText } from '@/components/shared/planner-wiki-preview'
 import { wikiEquipmentPlannerPreviews } from '@/generated/data/wiki/planner-previews'
 import type { Equip } from '@/types/refinement'
 import type { WikiCraftingRecipe } from '@/types/wiki'
+import type { TooltipRootChangeEventDetails } from '@base-ui/react/tooltip'
 
 // Map Chinese equip types to i18n keys
 const TYPE_TO_KEY: Record<string, string> = {
@@ -51,6 +52,22 @@ export function splitPlannerRecipes(recipes: WikiCraftingRecipe[]) {
   }
 }
 
+export function getPlannerStatPreview(
+  equip: Pick<Equip, 'sub1' | 'sub2' | 'special'>,
+  preview: typeof wikiEquipmentPlannerPreviews[string] | undefined,
+  slot: 'sub1' | 'sub2' | 'special',
+) {
+  const stat = equip[slot]
+  if (!stat) return { levelOne: '—', maxLevel: '—' }
+  const plannerStats = [equip.sub1, equip.sub2, equip.special].filter(Boolean)
+  const statIndex = plannerStats.indexOf(stat)
+  const range = statIndex >= 0 ? preview?.stats[statIndex + 1] : undefined
+  return {
+    levelOne: plainWikiPreviewText(range?.levelOne ?? `+${stat.value}${stat.unit}`),
+    maxLevel: plainWikiPreviewText(range?.maxLevel ?? '—'),
+  }
+}
+
 interface EquipCardProps {
   equip: Equip
   isSelected: boolean
@@ -74,7 +91,6 @@ export const EquipCard = memo(function EquipCard({
   const selectEquip = useRefinementStore((s) => s.selectEquip)
   const {
     open,
-    setOpen,
     triggerRef,
     handleOpenChange,
     handlePointerDown,
@@ -97,29 +113,31 @@ export const EquipCard = memo(function EquipCard({
   const wikiPreview = wikiEquipmentPlannerPreviews[equip.id]
   const recipeGroups = splitPlannerRecipes(wikiPreview?.craftingRecipes ?? [])
   const [showOtherRecipes, setShowOtherRecipes] = useState(false)
-  const suppressTooltipCloseUntilRef = useRef(0)
-  const handleTooltipOpenChange = useCallback((nextOpen: boolean) => {
-    if (!nextOpen && performance.now() < suppressTooltipCloseUntilRef.current) return
+  const recipeToggleRef = useRef<HTMLButtonElement>(null)
+  const handleTooltipOpenChange = useCallback((
+    nextOpen: boolean,
+    details: TooltipRootChangeEventDetails,
+  ) => {
+    const eventTargetsToggle = details.event.composedPath().some((target) =>
+      target instanceof Element && target.closest('[data-recipe-toggle="true"]')
+    )
+    const toggleHasFocus = recipeToggleRef.current?.contains(document.activeElement)
+    if (
+      !nextOpen &&
+      ((details.reason === 'outside-press' && eventTargetsToggle) ||
+        ((details.reason === 'trigger-hover' || details.reason === 'trigger-focus') && toggleHasFocus))
+    ) {
+      details.cancel()
+      return
+    }
     handleOpenChange(nextOpen)
   }, [handleOpenChange])
-  const prepareRecipeToggle = useCallback(() => {
-    suppressTooltipCloseUntilRef.current = performance.now() + 500
-  }, [])
   const toggleOtherRecipes = useCallback(() => {
-    prepareRecipeToggle()
-    setOpen(true)
     setShowOtherRecipes((value) => !value)
-    requestAnimationFrame(() => setOpen(true))
-  }, [prepareRecipeToggle, setOpen])
-  const previewValue = (stat: Equip['sub1']) => {
-    if (!stat) return { levelOne: '—', maxLevel: '—' }
-    const range = wikiPreview?.stats.find((entry) => entry.attributeId === stat.key)
-    return {
-      levelOne: plainWikiPreviewText(range?.levelOne ?? `+${stat.value}${stat.unit}`),
-      maxLevel: plainWikiPreviewText(range?.maxLevel ?? '—'),
-    }
-  }
-  const previewLabels = wikiPreview?.stats[0]
+  }, [])
+  const previewValue = (slot: 'sub1' | 'sub2' | 'special') =>
+    getPlannerStatPreview(equip, wikiPreview, slot)
+  const previewLabels = wikiPreview?.stats[1] ?? wikiPreview?.stats[0]
   const imageSrc = equip.imageId
     ? withImageCacheVersion(`/images/equip/${equip.imageId}.avif`)
     : ''
@@ -223,9 +241,9 @@ export const EquipCard = memo(function EquipCard({
           levelOneLabel={previewLabels?.levelOneLabel}
           maxLevelLabel={previewLabels?.maxLevelLabel}
           rows={[
-            ...(equip.sub1 ? [{ label: t(`equipStats.${equip.sub1.key}`), ...previewValue(equip.sub1) }] : []),
-            ...(equip.sub2 ? [{ label: t(`equipStats.${equip.sub2.key}`), ...previewValue(equip.sub2) }] : []),
-            ...(equip.special ? [{ label: t(`equipStats.${equip.special.key}`), ...previewValue(equip.special) }] : []),
+            ...(equip.sub1 ? [{ label: t(`equipStats.${equip.sub1.key}`), ...previewValue('sub1') }] : []),
+            ...(equip.sub2 ? [{ label: t(`equipStats.${equip.sub2.key}`), ...previewValue('sub2') }] : []),
+            ...(equip.special ? [{ label: t(`equipStats.${equip.special.key}`), ...previewValue('special') }] : []),
           ]}
           footer={recipeGroups.featured.length > 0 ? (
             <div className="space-y-2 pt-1">
@@ -245,10 +263,11 @@ export const EquipCard = memo(function EquipCard({
               </div>
               {recipeGroups.other.length > 0 ? (
                 <Button
+                  data-recipe-toggle="true"
                   type="button"
                   variant="ghost"
+                  ref={recipeToggleRef}
                   size="sm"
-                  onPointerDown={prepareRecipeToggle}
                   onClick={toggleOtherRecipes}
                   className="w-full justify-center rounded-md"
                 >

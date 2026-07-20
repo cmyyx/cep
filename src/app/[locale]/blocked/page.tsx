@@ -3,7 +3,7 @@
 import { ExternalLink } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { FullScreenStatus } from '@/components/shared/full-screen-status'
-import { GuardFeedback } from '@/components/shared/guard-layout'
+import { FEEDBACK_CHANNELS, GuardFeedback } from '@/components/shared/guard-layout'
 import { Button } from '@/components/ui/button'
 import { FEATURES } from '@/lib/features'
 import { DEFAULT_SITE_URL } from '@/lib/constants'
@@ -16,9 +16,9 @@ export default function BlockedPage() {
     ? FEATURES.allowedDomains
     : [new URL(DEFAULT_SITE_URL).hostname]
   const feedbackLinks = [
-    { href: 'https://github.com/cmyyx/cep', label: t('feedback.github') },
-    { href: 'https://end.302200.xyz', label: t('feedback.forum') },
-    { href: 'https://qm.qq.com/q/Cjdo2aRikE', label: t('feedback.qqGroup') },
+    { href: FEEDBACK_CHANNELS.github.href, label: t('feedback.github') },
+    { href: FEEDBACK_CHANNELS.forum.href, label: t('feedback.forum') },
+    { href: FEEDBACK_CHANNELS.qqGroup.href, label: t('feedback.qqGroup') },
   ]
 
   return (

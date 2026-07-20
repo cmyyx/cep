@@ -23,9 +23,9 @@ const ATTR_KEYS: WeaponFilterKey[] = WEAPON_FILTER_KEYS
 
 import type { Weapon } from '@/types/matrix'
 
-/** 返回从 dungeon pool 派生的静态属性值数组。
+/** 返回武器筛选的完整候选值：weaponType 根据传入的 weapons 动态生成；
  *  ALL_PRIMARY_STATS、ALL_ELEMENTAL_DAMAGE、ALL_SPECIAL_ABILITIES
- *  在导入时从 dungeon s1Pool/s2Pool/s3Pool 一次性计算。 */
+ *  分别在导入时从 dungeon s1Pool/s2Pool/s3Pool 静态计算。 */
 function buildAttrValues(weapons: readonly Weapon[]): Record<WeaponFilterKey, string[]> {
   return {
     weaponType: [...new Set(weapons.map((weapon) => weapon.type))].sort(),

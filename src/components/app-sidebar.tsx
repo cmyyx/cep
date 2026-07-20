@@ -20,6 +20,9 @@ import {
 } from '@/components/ui/sidebar'
 import {
   Swords,
+  Disc,
+  UsersRound,
+  Shirt,
   Wrench,
   Calendar,
   Eye,
@@ -43,10 +46,15 @@ import { cn, formatTime } from '@/lib/utils'
 import { ForceUpgradeDialog } from './shared/force-upgrade-dialog'
 
 const NAV_ITEMS = [
-  { href: '/essence-planner', label: 'nav.essencePlanner', Icon: Swords },
+  { href: '/essence-planner', label: 'nav.essencePlanner', Icon: Disc },
   { href: '/refinement-planner', label: 'nav.refinementPlanner', Icon: Wrench },
   { href: '/banner-calendar', label: 'nav.bannerCalendar', Icon: Calendar },
   { href: '/background-preview', label: 'nav.backgroundPreview', Icon: Eye },
+]
+const WIKI_ITEMS = [
+  { href: '/wiki/characters', label: 'wiki.categories.characters', Icon: UsersRound },
+  { href: '/wiki/weapons', label: 'wiki.categories.weapons', Icon: Swords },
+  { href: '/wiki/equipment', label: 'wiki.categories.equipment', Icon: Shirt },
 ]
 
 export function AppSidebar() {
@@ -180,11 +188,7 @@ export function AppSidebar() {
         <SidebarGroup>
           <SidebarGroupLabel>WIKI</SidebarGroupLabel>
           <SidebarMenu>
-            {[
-              { href: '/wiki/characters', label: 'wiki.categories.characters' },
-              { href: '/wiki/weapons', label: 'wiki.categories.weapons' },
-              { href: '/wiki/equipment', label: 'wiki.categories.equipment' },
-            ].map(({ href, label }) => {
+            {WIKI_ITEMS.map(({ href, label, Icon }) => {
               const fullHref = `/${locale}${href}`
               const labelText = t(label)
               return (
@@ -197,6 +201,7 @@ export function AppSidebar() {
                       if (isMobile) setOpenMobile(false)
                     }}
                   >
+                    <Icon />
                     <span>{labelText}</span>
                   </SidebarMenuButton>
                 </SidebarMenuItem>

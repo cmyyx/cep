@@ -5,6 +5,8 @@ import { useEffect } from 'react'
 const BLOCKED_SCREEN_SELECTOR = '[data-blocked-screen="true"]'
 const ALLOWED_INTERACTION_SELECTOR = '[data-blocked-allow="true"]'
 const BLOCKED_EVENTS = ['click', 'auxclick', 'pointerdown', 'touchstart', 'submit'] as const
+const CAPTURE_OPTIONS = { capture: true } as const
+const TOUCHSTART_OPTIONS = { capture: true, passive: false } as const
 
 function isAllowedTarget(target: EventTarget | null): boolean {
   return target instanceof Element && target.closest(ALLOWED_INTERACTION_SELECTOR) !== null
@@ -38,8 +40,10 @@ export function useBlockedPageGuard() {
       document.querySelector<HTMLElement>(ALLOWED_INTERACTION_SELECTOR)?.focus()
     }
 
+    const listenerOptions = (type: typeof BLOCKED_EVENTS[number]) =>
+      type === 'touchstart' ? TOUCHSTART_OPTIONS : CAPTURE_OPTIONS
     for (const type of BLOCKED_EVENTS) {
-      document.addEventListener(type, handleInteraction, true)
+      document.addEventListener(type, handleInteraction, listenerOptions(type))
     }
     document.addEventListener('focusin', handleFocus, true)
 
@@ -53,7 +57,7 @@ export function useBlockedPageGuard() {
     return () => {
       observer.disconnect()
       for (const type of BLOCKED_EVENTS) {
-        document.removeEventListener(type, handleInteraction, true)
+        document.removeEventListener(type, handleInteraction, listenerOptions(type))
       }
       document.removeEventListener('focusin', handleFocus, true)
     }

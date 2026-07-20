@@ -38,3 +38,18 @@ it('keeps keyboard focus inside the allowed blocked-page actions', () => {
 
   expect(document.activeElement).toBe(allowedAction)
 })
+
+it('registers touchstart as non-passive so preventDefault remains effective', () => {
+  const addEventListener = vi.spyOn(document, 'addEventListener')
+  render(<GuardHarness blockedAction={() => {}} allowedAction={() => {}} />)
+
+  expect(addEventListener).toHaveBeenCalledWith(
+    'touchstart',
+    expect.any(Function),
+    { capture: true, passive: false },
+  )
+
+  const event = new TouchEvent('touchstart', { bubbles: true, cancelable: true })
+  screen.getByTestId('blocked-action').dispatchEvent(event)
+  expect(event.defaultPrevented).toBe(true)
+})
