@@ -189,12 +189,18 @@ export async function runPool<T>(
   worker: (value: T, index: number) => Promise<void>
 ): Promise<void> {
   let cursor = 0
+  let failed = false
   await Promise.all(
     Array.from({ length: Math.min(concurrency, values.length) }, async () => {
-      while (cursor < values.length) {
+      while (!failed && cursor < values.length) {
         const index = cursor
         cursor += 1
-        await worker(values[index], index)
+        try {
+          await worker(values[index], index)
+        } catch (error) {
+          failed = true
+          throw error
+        }
       }
     })
   )

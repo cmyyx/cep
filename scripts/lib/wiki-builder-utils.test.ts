@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { cleanWikiText, evaluateWikiExpression, resolveWikiDescription } from './wiki-builder-utils'
+import { cleanWikiText, evaluateWikiExpression, resolveWikiDescription, runPool } from './wiki-builder-utils'
 
 describe('Wiki expression evaluation', () => {
   const values = {
@@ -42,5 +42,40 @@ describe('Wiki rich text preservation', () => {
     expect(cleanWikiText(
       '<@ba.vup>+{atk:0%}</> <#ba.consume>consume</> <image="TermIcon/test" scale=1.25> <script>alert(1)</script>'
     )).toBe('<@ba.vup>+{atk:0%}</> <#ba.consume>consume</> <image="TermIcon/test" scale=1.25> alert(1)')
+  })
+})
+
+describe('runPool', () => {
+  it('stops claiming queued work after the first worker failure', async () => {
+    const started: number[] = []
+    let releaseFailure!: () => void
+    const failureGate = new Promise<void>((resolve) => {
+      releaseFailure = resolve
+    })
+    let releaseHold!: () => void
+    const holdGate = new Promise<void>((resolve) => {
+      releaseHold = resolve
+    })
+    let reportReady!: () => void
+    const ready = new Promise<void>((resolve) => {
+      reportReady = resolve
+    })
+
+    const run = runPool([0, 1, 2, 3], 2, async (value) => {
+      started.push(value)
+      if (started.length === 2) reportReady()
+      if (value === 0) {
+        await failureGate
+        throw new Error('boom')
+      }
+      await holdGate
+    })
+
+    await ready
+    expect(started).toEqual([0, 1])
+    releaseFailure()
+    await expect(run).rejects.toThrow('boom')
+    releaseHold()
+    expect(started).toEqual([0, 1])
   })
 })
