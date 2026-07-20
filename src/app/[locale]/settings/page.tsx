@@ -1,9 +1,12 @@
 'use client'
 
-import { useState } from 'react'
-import { useTranslations } from 'next-intl'
+import { useState, useCallback } from 'react'
+import { useLocale, useTranslations } from 'next-intl'
+import { detectBrowserLocale, buildLocaleHref } from '@/lib/locale-utils'
+import { NavLink } from '@/components/shared/nav-link'
+import { Button, buttonVariants } from '@/components/ui/button'
+import { cn } from '@/lib/utils'
 import { SidebarTrigger } from '@/components/ui/sidebar'
-import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Switch } from '@/components/ui/switch'
@@ -31,6 +34,9 @@ import { useSettingsStore } from '@/stores/useSettingsStore'
 export default function SettingsPage() {
   const t = useTranslations()
 
+  const locale = useLocale()
+  const language = useSettingsStore((s) => s.language)
+  const setLanguage = useSettingsStore((s) => s.setLanguage)
   const {
     backgroundEnabled,
     backgroundBlur,
@@ -73,6 +79,31 @@ export default function SettingsPage() {
     flashbang: t('settings.themeFlashbang'),
   }
 
+  const LANGUAGE_LABELS: Record<string, string> = {
+    auto: t('settings.languageAuto'),
+    'zh-CN': t('settings.languageZhCN'),
+    'zh-TW': t('settings.languageZhTW'),
+    ja: t('settings.languageJa'),
+    en: t('settings.languageEn'),
+  }
+
+  const handleLanguageChange = useCallback((value: string | null) => {
+    if (!value) return
+    if (value === 'auto') {
+      setLanguage('auto')
+      const detected = detectBrowserLocale()
+      if (detected !== locale) {
+        window.location.href = buildLocaleHref(detected)
+      }
+      return
+    }
+    const next = value as 'zh-CN' | 'zh-TW' | 'ja' | 'en'
+    setLanguage(next)
+    if (next !== locale) {
+      window.location.href = buildLocaleHref(next)
+    }
+  }, [locale, setLanguage])
+
   return (
     <div className="flex flex-col flex-1 min-h-0 overflow-hidden">
       {/* Top bar */}
@@ -82,7 +113,7 @@ export default function SettingsPage() {
       </div>
 
       <div className="flex-1 overflow-y-auto p-4">
-        <div className="flex flex-col gap-6 max-w-lg">
+        <div className="flex w-full max-w-none flex-col gap-6">
         {/* 主题设置组 */}
         <section className="flex flex-col gap-4">
           <h2 className="text-sm font-medium text-muted-foreground">{t('settings.theme')}</h2>
@@ -102,6 +133,27 @@ export default function SettingsPage() {
                 </SelectContent>
               </Select>
             </div>
+          </div>
+        </section>
+
+        <div className="h-px bg-border" />
+
+        <section className="flex flex-col gap-4">
+          <h2 className="text-sm font-medium text-muted-foreground">{t('settings.language')}</h2>
+          <div className="flex items-center justify-between py-2">
+            <Label className="text-sm">{t('settings.languageMode')}</Label>
+            <Select value={language} onValueChange={handleLanguageChange}>
+              <SelectTrigger className="w-48">
+                <SelectValue>
+                  {(v: string) => LANGUAGE_LABELS[v] ?? v}
+                </SelectValue>
+              </SelectTrigger>
+              <SelectContent>
+                {Object.entries(LANGUAGE_LABELS).map(([k, v]) => (
+                  <SelectItem key={k} value={k}>{v}</SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
           </div>
         </section>
 
@@ -179,6 +231,29 @@ export default function SettingsPage() {
               </div>
               <DataImporter />
             </div>
+          </div>
+        </section>
+
+        <div className="h-px bg-border" />
+
+        <section className="flex flex-col gap-4">
+          <h2 className="text-sm font-medium text-muted-foreground">{t('settings.legal')}</h2>
+          <p className="text-xs text-muted-foreground">{t('settings.legalDesc')}</p>
+          <div className="flex flex-wrap gap-2">
+            <NavLink
+              href={`/${locale}/privacy`}
+              loadingLabel={t('settings.privacyLink')}
+              className={cn(buttonVariants({ variant: 'outline', size: 'sm' }))}
+            >
+              {t('settings.privacyLink')}
+            </NavLink>
+            <NavLink
+              href={`/${locale}/terms`}
+              loadingLabel={t('settings.termsLink')}
+              className={cn(buttonVariants({ variant: 'outline', size: 'sm' }))}
+            >
+              {t('settings.termsLink')}
+            </NavLink>
           </div>
         </section>
 

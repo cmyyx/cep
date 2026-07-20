@@ -52,6 +52,9 @@ export default function PrivacyPage() {
           <ReactMarkdown components={markdownComponents}>
             {t('legal.privacyContent')}
           </ReactMarkdown>
+          <ReactMarkdown components={markdownComponents}>
+            {t('legal.adTelemetryContent')}
+          </ReactMarkdown>
         </article>
       </div>
     </div>

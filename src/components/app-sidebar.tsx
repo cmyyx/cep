@@ -34,16 +34,14 @@ import {
   LogIn,
   CircleUser,
   AlertTriangle,
-  FileText,
-  Shield,
 } from 'lucide-react'
-import { LanguageSwitcher } from './language-switcher'
 import { useAuthStore } from '@/stores/useAuthStore'
 import { FEATURES } from '@/lib/features'
 import { useVersion } from '@/hooks/use-version'
 import { useAnnouncementStore, useImportantUnreadCount } from '@/stores/useAnnouncementStore'
 import { cn, formatTime } from '@/lib/utils'
 import { ForceUpgradeDialog } from './shared/force-upgrade-dialog'
+import { SidebarAd } from '@/components/shared/sidebar-ad'
 
 const NAV_ITEMS = [
   { href: '/essence-planner', label: 'nav.essencePlanner', Icon: Disc },
@@ -161,57 +159,107 @@ export function AppSidebar() {
       <SidebarContent>
         <SidebarGroup>
           <SidebarGroupLabel>Modules</SidebarGroupLabel>
-          <SidebarMenu>
-            {NAV_ITEMS.map(({ href, Icon, label }) => {
-              const fullHref = `/${locale}${href}`
-              const isActive = pathname.startsWith(fullHref)
-              const labelText = t(label)
-              return (
-                <SidebarMenuItem key={href}>
-                  <SidebarMenuButton
-                    isActive={isActive}
-                    tooltip={labelText}
-                    render={<NavLink href={fullHref} loadingLabel={labelText} />}
-                    onClick={() => {
-                      if (isMobile) setOpenMobile(false)
-                    }}
-                  >
-                    <Icon />
-                    <span>{labelText}</span>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              )
-            })}
-          </SidebarMenu>
+          {isMobile || state !== 'collapsed' ? (
+            <div className="grid grid-cols-2 gap-1 px-2">
+              {NAV_ITEMS.map(({ href, Icon, label }) => {
+                const fullHref = `/${locale}${href}`
+                const isActive = pathname.startsWith(fullHref)
+                const labelText = t(label)
+                return (
+                  <SidebarMenuItem key={href} className="list-none">
+                    <SidebarMenuButton
+                      isActive={isActive}
+                      tooltip={labelText}
+                      render={<NavLink href={fullHref} loadingLabel={labelText} />}
+                      onClick={() => {
+                        if (isMobile) setOpenMobile(false)
+                      }}
+                      className="h-auto min-h-14 flex-col items-center justify-center gap-1 px-1.5 py-2 text-[11px] leading-tight"
+                    >
+                      <Icon className="size-4 shrink-0" />
+                      <span className="w-full truncate text-center">{labelText}</span>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                )
+              })}
+            </div>
+          ) : (
+            <SidebarMenu>
+              {NAV_ITEMS.map(({ href, Icon, label }) => {
+                const fullHref = `/${locale}${href}`
+                const isActive = pathname.startsWith(fullHref)
+                const labelText = t(label)
+                return (
+                  <SidebarMenuItem key={href}>
+                    <SidebarMenuButton
+                      isActive={isActive}
+                      tooltip={labelText}
+                      render={<NavLink href={fullHref} loadingLabel={labelText} />}
+                      onClick={() => {
+                        if (isMobile) setOpenMobile(false)
+                      }}
+                    >
+                      <Icon />
+                      <span>{labelText}</span>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                )
+              })}
+            </SidebarMenu>
+          )}
         </SidebarGroup>
         {/* Wiki */}
         <SidebarGroup>
           <SidebarGroupLabel>WIKI</SidebarGroupLabel>
-          <SidebarMenu>
-            {WIKI_ITEMS.map(({ href, label, Icon }) => {
-              const fullHref = `/${locale}${href}`
-              const labelText = t(label)
-              return (
-                <SidebarMenuItem key={href}>
-                  <SidebarMenuButton
-                    isActive={pathname.startsWith(fullHref)}
-                    tooltip={labelText}
-                    render={<NavLink href={fullHref} loadingLabel={labelText} />}
-                    onClick={() => {
-                      if (isMobile) setOpenMobile(false)
-                    }}
-                  >
-                    <Icon />
-                    <span>{labelText}</span>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              )
-            })}
-          </SidebarMenu>
+          {isMobile || state !== 'collapsed' ? (
+            <div className="grid grid-cols-3 gap-1 px-2">
+              {WIKI_ITEMS.map(({ href, label, Icon }) => {
+                const fullHref = `/${locale}${href}`
+                const labelText = t(label)
+                return (
+                  <SidebarMenuItem key={href} className="list-none">
+                    <SidebarMenuButton
+                      isActive={pathname.startsWith(fullHref)}
+                      tooltip={labelText}
+                      render={<NavLink href={fullHref} loadingLabel={labelText} />}
+                      onClick={() => {
+                        if (isMobile) setOpenMobile(false)
+                      }}
+                      className="h-auto min-h-14 flex-col items-center justify-center gap-1 px-1 py-2 text-[11px] leading-tight"
+                    >
+                      <Icon className="size-4 shrink-0" />
+                      <span className="w-full truncate text-center">{labelText}</span>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                )
+              })}
+            </div>
+          ) : (
+            <SidebarMenu>
+              {WIKI_ITEMS.map(({ href, label, Icon }) => {
+                const fullHref = `/${locale}${href}`
+                const labelText = t(label)
+                return (
+                  <SidebarMenuItem key={href}>
+                    <SidebarMenuButton
+                      isActive={pathname.startsWith(fullHref)}
+                      tooltip={labelText}
+                      render={<NavLink href={fullHref} loadingLabel={labelText} />}
+                      onClick={() => {
+                        if (isMobile) setOpenMobile(false)
+                      }}
+                    >
+                      <Icon />
+                      <span>{labelText}</span>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                )
+              })}
+            </SidebarMenu>
+          )}
         </SidebarGroup>
         {FEATURES.forum && (
           <SidebarGroup>
-            <SidebarGroupLabel>{t('sidebar.community')}</SidebarGroupLabel>
             <SidebarMenu>
               <SidebarMenuItem>
                 <SidebarMenuButton
@@ -223,21 +271,25 @@ export function AppSidebar() {
                   }}
                 >
                   <MessageCircle />
-                  <div className="flex flex-col min-w-0">
+                  <div className="flex min-w-0 flex-col">
                     <span className="truncate">{t('nav.forum')}</span>
-                    <span className="text-[10px] text-muted-foreground truncate">{t('sidebar.communityDesc')}</span>
+                    <span className="truncate text-[10px] text-muted-foreground">
+                      {t('sidebar.communityDesc')}
+                    </span>
                   </div>
                 </SidebarMenuButton>
               </SidebarMenuItem>
             </SidebarMenu>
           </SidebarGroup>
         )}
+        {FEATURES.ads && (isMobile || state !== 'collapsed') && (
+          <div className="mt-auto shrink-0 px-2 pb-2 pt-1">
+            <SidebarAd />
+          </div>
+        )}
       </SidebarContent>
       <SidebarFooter>
         <SidebarMenu>
-          <SidebarMenuItem>
-            <LanguageSwitcher />
-          </SidebarMenuItem>
           {isUpdateAvailable && (
             <SidebarMenuItem>
               <div ref={refreshBtnRef}>
@@ -305,24 +357,6 @@ export function AppSidebar() {
             >
               <Info />
               <span>{t('nav.about')}</span>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
-          <SidebarMenuItem>
-            <SidebarMenuButton
-              render={<NavLink href={`/${locale}/privacy`} loadingLabel={t('nav.privacy')} />}
-              onClick={() => { if (isMobile) setOpenMobile(false) }}
-            >
-              <Shield className="size-4" />
-              <span className="text-muted-foreground">{t('nav.privacy')}</span>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
-          <SidebarMenuItem>
-            <SidebarMenuButton
-              render={<NavLink href={`/${locale}/terms`} loadingLabel={t('nav.terms')} />}
-              onClick={() => { if (isMobile) setOpenMobile(false) }}
-            >
-              <FileText className="size-4" />
-              <span className="text-muted-foreground">{t('nav.terms')}</span>
             </SidebarMenuButton>
           </SidebarMenuItem>
           {!mounted ? null : !FEATURES.auth ? (

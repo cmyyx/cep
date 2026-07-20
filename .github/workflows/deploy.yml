@@ -105,6 +105,8 @@ jobs:
           NEXT_PUBLIC_ALLOWED_DOMAINS: ${{ vars.ALLOWED_DOMAINS }}
           NEXT_PUBLIC_ALLOWED_EMBED_DOMAINS: ${{ vars.ALLOWED_EMBED_DOMAINS }}
           NEXT_PUBLIC_FORUM_URL: ${{ vars.FORUM_URL }}
+          NEXT_PUBLIC_ADS_ENABLED: ${{ matrix.target == 'cn' && vars.ADS_ENABLED || '' }}
+          NEXT_PUBLIC_AD_REPORT_URL: ${{ matrix.target == 'cn' && vars.AD_REPORT_URL || '' }}
           # ── 仅 intl 版本 ──
           NEXT_PUBLIC_API_BASE_URL: ${{ matrix.target == 'intl' && vars.API_BASE_URL || '' }}
           NEXT_PUBLIC_TURNSTILE_SITE_KEY: ${{ matrix.target == 'intl' && secrets.TURNSTILE_SITE_KEY || '' }}

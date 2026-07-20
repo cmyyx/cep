@@ -8,6 +8,8 @@ import { DomainGuard } from '@/components/shared/domain-guard';
 import { CssGuard } from '@/components/shared/css-guard';
 import { BrowserGuard } from '@/components/shared/browser-guard';
 import { LocaleGuardHead } from '@/components/shared/locale-guard-head';
+import { AdworkTelemetry } from '@/components/shared/adwork-telemetry'
+import { FEATURES } from '@/lib/features'
 import "./globals.css";
 
 const geistSans = Geist({
@@ -104,6 +106,7 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-full flex flex-col" suppressHydrationWarning>
+        {FEATURES.ads && <AdworkTelemetry />}
         <TooltipProvider>{children}</TooltipProvider>
       </body>
     </html>
