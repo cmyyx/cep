@@ -59,19 +59,13 @@ export const EquipList = memo(function EquipList() {
         <Button
           type="button"
           variant="ghost"
-          size="xs"
           onClick={toggleFilterCollapsed}
-          className="flex w-full items-center gap-1 text-[10px] text-muted-foreground hover:text-foreground transition-colors h-auto p-0"
+          aria-expanded={!filterCollapsed}
+          className="flex min-h-10 w-full items-center gap-2 px-3 text-sm text-muted-foreground transition-colors hover:text-foreground"
         >
-          <span className="flex-1 text-left">
-            {t('refinement.attributeFilters')}
-          </span>
-          <ChevronDown
-            className={cn(
-              'size-3 transition-transform',
-              filterCollapsed ? '-rotate-90' : 'rotate-0',
-            )}
-          />
+          <ChevronDown className={cn('size-4 transition-transform', filterCollapsed ? '-rotate-90' : 'rotate-0')} />
+          <span className="flex-1 text-left">{t('refinement.attributeFilters')}</span>
+          {hasActiveFilters && <span className="font-geist-mono text-xs">{filterSub1.length + filterSub2.length + filterSpecial.length}</span>}
         </Button>
         {hasActiveFilters && (
           <Button

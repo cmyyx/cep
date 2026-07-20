@@ -1,0 +1,148 @@
+{
+  "id": "item_equip_t4_suit_combo_cd01_body_01",
+  "category": "equipment",
+  "stats": [
+    {
+      "attributeId": "3",
+      "values": [
+        56,
+        56,
+        56,
+        56
+      ],
+      "displayValues": [
+        "防御力+56",
+        "防御力+56",
+        "防御力+56",
+        "防御力+56"
+      ]
+    },
+    {
+      "attributeId": "40",
+      "values": [
+        87,
+        95,
+        104,
+        113
+      ],
+      "displayValues": [
+        "敏捷+87",
+        "敏捷+95",
+        "敏捷+104",
+        "敏捷+113"
+      ]
+    },
+    {
+      "attributeId": "39",
+      "values": [
+        58,
+        63,
+        69,
+        75
+      ],
+      "displayValues": [
+        "力量+58",
+        "力量+63",
+        "力量+69",
+        "力量+75"
+      ]
+    },
+    {
+      "attributeId": "44",
+      "values": [
+        0.1232142857142857,
+        0.13553572,
+        0.14785714,
+        0.16017857
+      ],
+      "displayValues": [
+        "终结技充能效率+12.32142857%",
+        "终结技充能效率+13.553572%",
+        "终结技充能效率+14.785714%",
+        "终结技充能效率+16.017857%"
+      ]
+    }
+  ],
+  "suitEffects": [
+    {
+      "id": "passive_equipsuit_combo_cd01",
+      "name": {
+        "zh-CN": "清波",
+        "en": "Qingbo",
+        "ja": "清波",
+        "zh-TW": "清波"
+      },
+      "description": {
+        "zh-CN": "3件套组效果：装备者连携技冷却缩减<@ba.vup>+15%</>。\n当装备者施放连携技时，所有技能伤害<@ba.vup>+20%</>，持续15秒。该效果最多叠加2层，每层单独计算持续时间。",
+        "en": "3-piece set effect: Wearer's Combo Skill Cooldown Reduction <@ba.vup>+15%</>.\nWhen the wearer casts a combo skill, the wearer gains Skill DMG Dealt <@ba.vup>+20%</> (for every skill) for 15s. This effect can reach 2 stacks. Duration of each stack is counted separately.",
+        "ja": "3点セット効果：装備中、連携技CD短縮<@ba.vup>+15%</>\n自身が連携技を発動するとき、15秒間すべてのスキルダメージ<@ba.vup>+20%</>\nこの効果は最大2段階まで重ね掛け可能（持続時間は個別にカウントされる）",
+        "zh-TW": "3件套裝效果：裝備者連攜技冷卻縮減<@ba.vup>+15%</>。\n當裝備者施放連攜技時，所有技能傷害<@ba.vup>+20%</>，持續15秒。該效果最多疊加2層，每層單獨計算持續時間。"
+      },
+      "requiredPieces": 3
+    }
+  ],
+  "craftingRecipes": [
+    {
+      "chainId": 4002,
+      "discount": 1,
+      "isDefault": true,
+      "materials": [
+        {
+          "itemId": "item_equip_script_4_2",
+          "name": {
+            "zh-CN": "赫铜装备原件",
+            "en": "Hetonite Component",
+            "ja": "緋銅装備部品",
+            "zh-TW": "赫銅裝備原件"
+          },
+          "iconId": "item_equip_script_4_2",
+          "rarity": 4,
+          "count": 50
+        },
+        {
+          "itemId": "item_domain_jinlong_coupon",
+          "name": {
+            "zh-CN": "武陵调度券",
+            "en": "Wuling Stock Bill",
+            "ja": "武陵取引券",
+            "zh-TW": "武陵調度券"
+          },
+          "iconId": "item_domain_jinlong_coupon",
+          "rarity": 5,
+          "count": 25000
+        }
+      ]
+    },
+    {
+      "chainId": 4003,
+      "discount": 0.01,
+      "isDefault": false,
+      "materials": [
+        {
+          "itemId": "item_equip_script_4_3",
+          "name": {
+            "zh-CN": "灼铜装备原件",
+            "en": "Pyrrolite Component",
+            "ja": "焔銅装備部品",
+            "zh-TW": "灼銅裝備原件"
+          },
+          "iconId": "item_equip_script_4_3",
+          "rarity": 4,
+          "count": 25
+        },
+        {
+          "itemId": "item_domain_jinlong_coupon",
+          "name": {
+            "zh-CN": "武陵调度券",
+            "en": "Wuling Stock Bill",
+            "ja": "武陵取引券",
+            "zh-TW": "武陵調度券"
+          },
+          "iconId": "item_domain_jinlong_coupon",
+          "rarity": 5,
+          "count": 250
+        }
+      ]
+    }
+  ]
+}

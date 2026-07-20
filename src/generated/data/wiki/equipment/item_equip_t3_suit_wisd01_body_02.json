@@ -1,0 +1,117 @@
+{
+  "id": "item_equip_t3_suit_wisd01_body_02",
+  "category": "equipment",
+  "stats": [
+    {
+      "attributeId": "3",
+      "values": [
+        40,
+        40,
+        40,
+        40
+      ],
+      "displayValues": [
+        "防御力+40",
+        "防御力+40",
+        "防御力+40",
+        "防御力+40"
+      ]
+    },
+    {
+      "attributeId": "41",
+      "values": [
+        61,
+        61,
+        61,
+        61
+      ],
+      "displayValues": [
+        "智识+61",
+        "智识+61",
+        "智识+61",
+        "智识+61"
+      ]
+    },
+    {
+      "attributeId": "42",
+      "values": [
+        41,
+        41,
+        41,
+        41
+      ],
+      "displayValues": [
+        "意志+41",
+        "意志+41",
+        "意志+41",
+        "意志+41"
+      ]
+    },
+    {
+      "attributeId": "1",
+      "values": [
+        0.147,
+        0.147,
+        0.147,
+        0.147
+      ],
+      "displayValues": [
+        "生命值+14.7%",
+        "生命值+14.7%",
+        "生命值+14.7%",
+        "生命值+14.7%"
+      ]
+    }
+  ],
+  "suitEffects": [
+    {
+      "id": "passive_equipsuit_wisd_01",
+      "name": {
+        "zh-CN": "蚀电屏蔽",
+        "en": "Mordvolt Insulation",
+        "ja": "蝕電遮断",
+        "zh-TW": "蝕電絕緣"
+      },
+      "description": {
+        "zh-CN": "3件套组效果：装备者智识<@ba.vup>+50</>。\n当装备者生命值高于80%时，造成的<@ba.key>法术伤害</><@ba.vup>+20%</>。",
+        "en": "3-piece set effect: Wearer's Intellect <@ba.vup>+50</>. \nWhen the wearer's HP is above 80%, <@ba.key>Arts DMG</> <@ba.vup>+20%</>.",
+        "ja": "3点セット効果：装備中、知性<@ba.vup>+50</>\n自身のHPが80%より高いとき、与える<@ba.key>アーツダメージ</><@ba.vup>+20%</>",
+        "zh-TW": "3件套裝效果：裝備者智識<@ba.vup>+50</>。\n當裝備者生命值高於80%時，造成的<@ba.key>法術傷害</><@ba.vup>+20%</>。"
+      },
+      "requiredPieces": 3
+    }
+  ],
+  "craftingRecipes": [
+    {
+      "chainId": 3000,
+      "discount": 1,
+      "isDefault": true,
+      "materials": [
+        {
+          "itemId": "item_equip_script_3",
+          "name": {
+            "zh-CN": "高晶装备原件",
+            "en": "Cryston Component",
+            "ja": "高晶装備部品",
+            "zh-TW": "高晶裝備原件"
+          },
+          "iconId": "item_equip_script_3",
+          "rarity": 3,
+          "count": 50
+        },
+        {
+          "itemId": "item_domain_tundra_coupon",
+          "name": {
+            "zh-CN": "谷地调度券",
+            "en": "Valley Stock Bill",
+            "ja": "谷地取引券",
+            "zh-TW": "谷地調度券"
+          },
+          "iconId": "item_domain_tundra_coupon",
+          "rarity": 5,
+          "count": 9600
+        }
+      ]
+    }
+  ]
+}

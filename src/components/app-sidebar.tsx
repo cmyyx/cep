@@ -20,11 +20,9 @@ import {
 } from '@/components/ui/sidebar'
 import {
   Swords,
-  Users,
   Wrench,
   Calendar,
   Eye,
-  Pen,
   MessageCircle,
   Settings,
   Download,
@@ -46,11 +44,9 @@ import { ForceUpgradeDialog } from './shared/force-upgrade-dialog'
 
 const NAV_ITEMS = [
   { href: '/essence-planner', label: 'nav.essencePlanner', Icon: Swords },
-  { href: '/character-guide', label: 'nav.characterGuide', Icon: Users },
   { href: '/refinement-planner', label: 'nav.refinementPlanner', Icon: Wrench },
   { href: '/banner-calendar', label: 'nav.bannerCalendar', Icon: Calendar },
   { href: '/background-preview', label: 'nav.backgroundPreview', Icon: Eye },
-  { href: '/editor', label: 'nav.editor', Icon: Pen },
 ]
 
 export function AppSidebar() {
@@ -173,6 +169,34 @@ export function AppSidebar() {
                     }}
                   >
                     <Icon />
+                    <span>{labelText}</span>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              )
+            })}
+          </SidebarMenu>
+        </SidebarGroup>
+        {/* Wiki */}
+        <SidebarGroup>
+          <SidebarGroupLabel>WIKI</SidebarGroupLabel>
+          <SidebarMenu>
+            {[
+              { href: '/wiki/characters', label: 'wiki.categories.characters' },
+              { href: '/wiki/weapons', label: 'wiki.categories.weapons' },
+              { href: '/wiki/equipment', label: 'wiki.categories.equipment' },
+            ].map(({ href, label }) => {
+              const fullHref = `/${locale}${href}`
+              const labelText = t(label)
+              return (
+                <SidebarMenuItem key={href}>
+                  <SidebarMenuButton
+                    isActive={pathname.startsWith(fullHref)}
+                    tooltip={labelText}
+                    render={<NavLink href={fullHref} loadingLabel={labelText} />}
+                    onClick={() => {
+                      if (isMobile) setOpenMobile(false)
+                    }}
+                  >
                     <span>{labelText}</span>
                   </SidebarMenuButton>
                 </SidebarMenuItem>

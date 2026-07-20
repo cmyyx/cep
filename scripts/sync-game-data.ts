@@ -6,13 +6,17 @@ import { generateEquipI18n } from './lib/generate-equips'
 import { generateDungeonI18n } from './lib/generate-dungeons'
 import { generateMetadataI18n } from './lib/generate-metadata'
 import { generateStatI18n } from './lib/generate-stat-i18n'
+import { generateCharacterI18n } from './lib/generate-characters'
+import { generateWikiData } from './lib/generate-wiki-data'
 import { compareWeapons } from './lib/compare-weapons'
 import { compareEquips } from './lib/compare-equips'
 import { compareDungeons } from './lib/compare-dungeons'
 import { updateWeaponsFile, updateEquipsFile, updateDungeonsFile, reconcileWeaponsIconIds } from './lib/update-data-files'
 import { validateAllData, validateImages } from './lib/validate-data'
-import { convertIcons } from './lib/convert-icons'
-import { readUpstreamVersions, writeUpstreamVersions } from './lib/git-helpers'
+import { convertWikiAssets } from './lib/convert-icons'
+import { downloadCharacterAvatars } from './lib/download-character-avatars'
+import type { WikiAssets } from './lib/wiki-assets'
+import { readUpstreamVersions, upstreamVersionsMatch, writeUpstreamVersions } from './lib/git-helpers'
 import { existsSync, readFileSync, mkdirSync, writeFileSync } from 'node:fs'
 import { join, resolve } from 'node:path'
 import { extractItemNameIds } from './lib/extract-textid'
@@ -114,10 +118,11 @@ async function main() {
   if (!local && !iconsOnly) {
     const versions = readUpstreamVersions()
     const currentAkedata = getRepoHead(paths.akedata)
-    if (
-      versions.akedata &&
-      currentAkedata === versions.akedata
-    ) {
+    const currentImagedb = getRepoHead(paths.imagedb)
+    if (upstreamVersionsMatch(versions, {
+      akedata: currentAkedata,
+      imagedb: currentImagedb,
+    })) {
       // SHA matches, but still verify image integrity — a previous sync may
       // have committed data without generating the corresponding images
       // (e.g. sparse-checkout was missing the image source directory).
@@ -242,6 +247,20 @@ async function main() {
     console.log(`  i18n: ${m.files} files, ${m.terms} terms`)
   }
 
+  // Wiki data: characters + consolidated wiki entity arrays
+  console.log('\n-- Wiki data --')
+  if (mode === 'update') {
+    const dataOutputDir = join(projectRoot, 'src', 'generated', 'data')
+    const ch = generateCharacterI18n(paths.akedata, paths.imagedb, generatedRoot, dataOutputDir)
+    console.log(`  Characters: ${ch.written.length} files, ${ch.count} chars, ${ch.missing} missing`)
+    if (ch.dataWritten) console.log(`  Data: ${ch.dataWritten}`)
+
+    const wk = generateWikiData(paths.akedata, paths.imagedb, generatedRoot, dataOutputDir, ch.wikiData)
+    for (const cat of wk.categories) {
+      console.log(`  ${cat}: ${wk.counts[cat]} entities`)
+    }
+  }
+
   // Generate stat i18n — gemStats (weapons/dungeons) + equipStats (equipment)
   if (mode === 'update') {
     console.log('\n-- Stat i18n --')
@@ -267,38 +286,27 @@ async function main() {
     console.log(`  All data consistent with upstream`)
   }
 
-  // Convert images (update mode only, before validation so newly-converted AVIFs pass the check)
+  // Generate every image declared by the Wiki asset manifest before validation.
   if (mode === 'update') {
-    console.log('\n-- Image conversion --')
-    // Collect all image IDs referenced by project data
-    const targetIds: string[] = []
-    // Weapon image IDs: union of id + iconId from weapons.ts inline fields
-    // iconId 与 id 不同时（如 wpn_funnel_0008/0010 游戏资源交叉指向），
-    // 必须同时转换 id 和 iconId 对应的 PNG，否则渲染层取不到 AVIF。
-    const wIds = readFileSync(join(projectRoot, 'src', 'data', 'weapons.ts'), 'utf-8')
-      .match(/(?:id|iconId):\s*'(wpn_[^']+)'/g)
-      ?.map(m => m.replace(/(?:id|iconId):\s*'([^']+)'/, '$1'))
-      .filter((id): id is string => !!id && !id.startsWith('preview:')) ?? []
-    targetIds.push(...new Set(wIds))
-    // Equip image IDs: union of equipId + iconId from RAW_EQUIPS inline fields
-    const equipContent = readFileSync(join(projectRoot, 'src', 'data', 'equips.ts'), 'utf-8')
-    const eIdSet = new Set<string>()
-    const eIdRe = /(?:equipId|iconId):\s*'(item_equip_[^']+)'/g
-    let em: RegExpExecArray | null
-    while ((em = eIdRe.exec(equipContent)) !== null) eIdSet.add(em[1])
-    targetIds.push(...eIdSet)
-
-    if (targetIds.length > 0) {
-      const iconResult = await convertIcons(paths.imagedb, join(projectRoot, 'public'), ['weapon', 'equip'], targetIds)
-      console.log(`  Weapons+equips: ${targetIds.length} targets, ${iconResult.converted.length} converted, ${iconResult.skipped.length} skipped, ${iconResult.missingSource.length} missing source`)
-      if (iconResult.missingSource.length > 0) {
-        console.log(`  Missing source PNGs (cannot convert):`)
-        for (const src of iconResult.missingSource) {
-          console.log(`    ${src}`)
-        }
-      }
-    } else {
-      console.log(`  No image IDs found in project data`)
+    console.log('\n-- Image generation --')
+    const assets = JSON.parse(
+      readFileSync(join(projectRoot, 'src', 'generated', 'data', 'wiki', 'assets.json'), 'utf8')
+    ) as WikiAssets
+    const characterResult = await downloadCharacterAvatars(
+      join(projectRoot, 'public'),
+      paths.imagedb
+    )
+    console.log(
+      `  Characters: ${characterResult.avatars} avatars, ${characterResult.fullBody} full-body, ${characterResult.fallbacks} local fallbacks`
+    )
+    const iconResult = await convertWikiAssets(paths.imagedb, join(projectRoot, 'public'), assets)
+    console.log(
+      `  Icons: ${iconResult.converted.length} converted, ${iconResult.skipped.length} unchanged`
+    )
+    if (iconResult.missingSource.length > 0) {
+      throw new Error(
+        `Missing ${iconResult.missingSource.length} upstream Wiki image(s):\n${iconResult.missingSource.join('\n')}`
+      )
     }
   }
 
@@ -321,6 +329,7 @@ async function main() {
     console.log('\n-- Updating upstream versions --')
     writeUpstreamVersions({
       akedata: getRepoHead(paths.akedata),
+      imagedb: getRepoHead(paths.imagedb),
     })
   }
 

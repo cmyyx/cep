@@ -1,0 +1,79 @@
+{
+  "id": "item_equip_t3_parts_tundra01_edc_01",
+  "category": "equipment",
+  "stats": [
+    {
+      "attributeId": "3",
+      "values": [
+        15,
+        15,
+        15,
+        15
+      ],
+      "displayValues": [
+        "防御力+15",
+        "防御力+15",
+        "防御力+15",
+        "防御力+15"
+      ]
+    },
+    {
+      "attributeId": "39",
+      "values": [
+        31,
+        31,
+        31,
+        31
+      ],
+      "displayValues": [
+        "力量+31",
+        "力量+31",
+        "力量+31",
+        "力量+31"
+      ]
+    },
+    {
+      "attributeId": "AllDamageTakenScalar",
+      "values": [
+        0.8650519031141869
+      ],
+      "displayValues": [
+        "全伤害减免+13.49480969%"
+      ]
+    }
+  ],
+  "suitEffects": [],
+  "craftingRecipes": [
+    {
+      "chainId": 3000,
+      "discount": 1,
+      "isDefault": true,
+      "materials": [
+        {
+          "itemId": "item_equip_script_3",
+          "name": {
+            "zh-CN": "高晶装备原件",
+            "en": "Cryston Component",
+            "ja": "高晶装備部品",
+            "zh-TW": "高晶裝備原件"
+          },
+          "iconId": "item_equip_script_3",
+          "rarity": 3,
+          "count": 50
+        },
+        {
+          "itemId": "item_domain_tundra_coupon",
+          "name": {
+            "zh-CN": "谷地调度券",
+            "en": "Valley Stock Bill",
+            "ja": "谷地取引券",
+            "zh-TW": "谷地調度券"
+          },
+          "iconId": "item_domain_tundra_coupon",
+          "rarity": 5,
+          "count": 9600
+        }
+      ]
+    }
+  ]
+}

@@ -52,24 +52,25 @@ jobs:
             "https://oauth2:${GH_FORK_SYNC_TOKEN}@github.com/cmyyx/AKEData.git" "$UPSTREAM_DIR/AKEData"
           git -C "$UPSTREAM_DIR/AKEData" sparse-checkout init --cone
           git -C "$UPSTREAM_DIR/AKEData" sparse-checkout set \
-            output/CN/weapon output/CN/equip \
-            TableCfg/WeaponBasicTable.json \
-            TableCfg/CharWpnRecommendTable.json \
-            TableCfg/ItemTable.json \
-            TableCfg/WorldEnergyPointGroupTable.json \
-            TableCfg/WorldEnergyPointTable.json \
-            TableCfg/GemTable.json \
-            TableCfg/I18nTextTable_CN.json \
-            TableCfg/I18nTextTable_EN.json \
-            TableCfg/I18nTextTable_JP.json \
-            TableCfg/I18nTextTable_TC.json
+            TableCfg \
+            output/CN/weapon output/CN/equip
           git -C "$UPSTREAM_DIR/AKEData" checkout
 
           # Clone public AKEDatabase (no auth needed)
           git clone --depth 1 --filter=blob:none --sparse --no-checkout \
             https://github.com/NagiYume/AKEDatabase.git "$UPSTREAM_DIR/AKEDatabase"
           git -C "$UPSTREAM_DIR/AKEDatabase" sparse-checkout init --cone
-          git -C "$UPSTREAM_DIR/AKEDatabase" sparse-checkout set public/CH public/images
+          git -C "$UPSTREAM_DIR/AKEDatabase" sparse-checkout set \
+            public/CH/equip public/CH/v2_equip \
+            public/CH/maps.json public/EN/maps.json \
+            public/JP/maps.json public/TC/maps.json \
+            public/images/character/charpic \
+            public/images/character/imagepoaster/largesize \
+            public/images/character/skillicon \
+            public/images/character/spaceshipskillicon \
+            public/images/weapon/iconbig \
+            public/images/equip/iconbig \
+            public/images/item/itemiconbig
           git -C "$UPSTREAM_DIR/AKEDatabase" checkout
 
       - name: Check upstream changes
@@ -145,24 +146,25 @@ jobs:
             "https://oauth2:${GH_FORK_SYNC_TOKEN}@github.com/cmyyx/AKEData.git" "$UPSTREAM_DIR/AKEData"
           git -C "$UPSTREAM_DIR/AKEData" sparse-checkout init --cone
           git -C "$UPSTREAM_DIR/AKEData" sparse-checkout set \
-            output/CN/weapon output/CN/equip \
-            TableCfg/WeaponBasicTable.json \
-            TableCfg/CharWpnRecommendTable.json \
-            TableCfg/ItemTable.json \
-            TableCfg/WorldEnergyPointGroupTable.json \
-            TableCfg/WorldEnergyPointTable.json \
-            TableCfg/GemTable.json \
-            TableCfg/I18nTextTable_CN.json \
-            TableCfg/I18nTextTable_EN.json \
-            TableCfg/I18nTextTable_JP.json \
-            TableCfg/I18nTextTable_TC.json
+            TableCfg \
+            output/CN/weapon output/CN/equip
           git -C "$UPSTREAM_DIR/AKEData" checkout
 
           # Clone public AKEDatabase (no auth needed)
           git clone --depth 1 --filter=blob:none --sparse --no-checkout \
             https://github.com/NagiYume/AKEDatabase.git "$UPSTREAM_DIR/AKEDatabase"
           git -C "$UPSTREAM_DIR/AKEDatabase" sparse-checkout init --cone
-          git -C "$UPSTREAM_DIR/AKEDatabase" sparse-checkout set public/CH public/images
+          git -C "$UPSTREAM_DIR/AKEDatabase" sparse-checkout set \
+            public/CH/equip public/CH/v2_equip \
+            public/CH/maps.json public/EN/maps.json \
+            public/JP/maps.json public/TC/maps.json \
+            public/images/character/charpic \
+            public/images/character/imagepoaster/largesize \
+            public/images/character/skillicon \
+            public/images/character/spaceshipskillicon \
+            public/images/weapon/iconbig \
+            public/images/equip/iconbig \
+            public/images/item/itemiconbig
           git -C "$UPSTREAM_DIR/AKEDatabase" checkout
 
       - name: Run sync update
@@ -197,7 +199,7 @@ jobs:
           body: |
             Automated sync from:
             - AKEData (output/CN/weapon, output/CN/equip, TableCfg/)
-            - AKEDatabase (public/CH/weapon, public/CH/equip)
+            - AKEDatabase (public/CH/equip, public/CH/v2_equip, selected public/images icon directories)
 
             Generated files:
             - `src/generated/i18n/weapons/`

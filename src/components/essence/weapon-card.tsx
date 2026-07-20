@@ -1,7 +1,7 @@
 'use client'
 
 import { memo, useCallback } from 'react'
-import { useTranslations } from 'next-intl'
+import { useLocale, useTranslations } from 'next-intl'
 import { cn } from '@/lib/utils'
 import Image from 'next/image'
 import { useMatrixStore } from '@/stores/useMatrixStore'
@@ -11,6 +11,8 @@ import { Button } from '@/components/ui/button'
 import { Check } from 'lucide-react'
 import { useMobileLongPressTooltip } from '@/hooks/use-mobile-long-press-tooltip'
 import { withImageCacheVersion } from '@/lib/image-url'
+import { getCharacterAvatarPath } from '@/lib/character-images'
+import { PlannerWikiPreview } from '@/components/shared/planner-wiki-preview'
 
 import type { Weapon } from '@/types/matrix'
 
@@ -33,6 +35,7 @@ export const WeaponCard = memo(function WeaponCard({
   disabled,
 }: WeaponCardProps) {
   const t = useTranslations()
+  const locale = useLocale()
   const toggleWeapon = useMatrixStore((s) => s.toggleWeapon)
   const enableTooltip = useEssenceSettingsStore((s) => s.enableTooltipList)
   const {
@@ -106,20 +109,25 @@ export const WeaponCard = memo(function WeaponCard({
       {/* Character avatars */}
       {weapon.chars.length > 0 && (
         <div className="absolute top-2 left-2 flex gap-1 z-20">
-          {weapon.chars.map((char) => (
-            <div
-              key={char}
-              className="relative size-8 rounded-full bg-black/60 border border-white/35 shadow-md overflow-hidden"
-            >
-              <Image
-                src={withImageCacheVersion(`/images/characters/${char}.avif`)}
-                alt={char}
-                fill
-                className="object-cover"
-                unoptimized
-              />
-            </div>
-          ))}
+          {weapon.chars.map((char) => {
+            const avatarPath = getCharacterAvatarPath(char)
+            if (!avatarPath) return null
+
+            return (
+              <div
+                key={char}
+                className="relative size-8 rounded-full bg-black/60 border border-white/35 shadow-md overflow-hidden"
+              >
+                <Image
+                  src={withImageCacheVersion(avatarPath)}
+                  alt={char}
+                  fill
+                  className="object-cover"
+                  unoptimized
+                />
+              </div>
+            )
+          })}
         </div>
       )}
 
@@ -184,13 +192,20 @@ export const WeaponCard = memo(function WeaponCard({
       <TooltipTrigger render={trigger} />
       <TooltipContent
         side="top"
-        className="text-xs text-foreground bg-popover/95"
+        sideOffset={8}
+        className="max-w-[calc(100vw-2rem)] bg-popover p-3 text-popover-foreground shadow-[var(--shadow-card)]"
       >
-        <p className="text-muted-foreground/80">
-          {t('weaponStats.' + weapon.primaryStat)} |{' '}
-          {t('weaponStats.' + weapon.elementalDamage)} |{' '}
-          {t('weaponStats.' + weapon.specialAbility)}
-        </p>
+        <PlannerWikiPreview
+          title={displayName}
+          imageSrc={imageSrc}
+          rarity={weapon.rarity}
+          rows={[
+            { label: t('weaponStats.' + weapon.primaryStat), value: 'Lv.1' },
+            { label: t('weaponStats.' + weapon.elementalDamage), value: 'Lv.1' },
+            { label: t('weaponStats.' + weapon.specialAbility), value: 'Lv.1' },
+          ]}
+          wikiHref={!isCustom && !isPreview && wid.startsWith('wpn_') ? `/${locale}/wiki/weapons/${wid}` : undefined}
+        />
       </TooltipContent>
     </Tooltip>
   )

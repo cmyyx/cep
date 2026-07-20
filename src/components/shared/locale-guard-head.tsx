@@ -17,15 +17,18 @@ export function LocaleGuardHead() {
 
 const LOCALE_GUARD_HEAD_CODE = `(function(){
 try{
+var s=["zh-CN","zh-TW","ja","en"];
+var n=window.location.pathname;
+var g=n.split("/");
+var u=g.length>1?g[1]:"";
+var c=s.find(function(x){return x.toLowerCase()===u.toLowerCase()});
+if(c)document.documentElement.lang=c;
 var r=localStorage.getItem("cep-settings");
 if(!r)return;
 var p=JSON.parse(r);
 var l=p.language;
 if(!l||l==="auto")return;
-var s=["zh-CN","zh-TW","ja","en"];
 if(s.indexOf(l)===-1)return;
-var n=window.location.pathname;
-var g=n.split("/");
 if(g.length>1&&g[1]){
 var m=s.some(function(x){return x.toLowerCase()===g[1].toLowerCase()});
 if(m&&g[1].toLowerCase()===l.toLowerCase())return;

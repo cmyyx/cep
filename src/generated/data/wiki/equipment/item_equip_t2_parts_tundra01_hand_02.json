@@ -1,0 +1,100 @@
+{
+  "id": "item_equip_t2_parts_tundra01_hand_02",
+  "category": "equipment",
+  "stats": [
+    {
+      "attributeId": "3",
+      "values": [
+        21.599999999999998,
+        21.599999999999998,
+        21.599999999999998,
+        21.599999999999998
+      ],
+      "displayValues": [
+        "防御力+21.6",
+        "防御力+21.6",
+        "防御力+21.6",
+        "防御力+21.6"
+      ]
+    },
+    {
+      "attributeId": "41",
+      "values": [
+        36,
+        36,
+        36,
+        36
+      ],
+      "displayValues": [
+        "智识+36",
+        "智识+36",
+        "智识+36",
+        "智识+36"
+      ]
+    },
+    {
+      "attributeId": "40",
+      "values": [
+        24,
+        24,
+        24,
+        24
+      ],
+      "displayValues": [
+        "敏捷+24",
+        "敏捷+24",
+        "敏捷+24",
+        "敏捷+24"
+      ]
+    },
+    {
+      "attributeId": "1",
+      "values": [
+        0.19,
+        0.19,
+        0.19,
+        0.19
+      ],
+      "displayValues": [
+        "生命值+19%",
+        "生命值+19%",
+        "生命值+19%",
+        "生命值+19%"
+      ]
+    }
+  ],
+  "suitEffects": [],
+  "craftingRecipes": [
+    {
+      "chainId": 2000,
+      "discount": 1,
+      "isDefault": true,
+      "materials": [
+        {
+          "itemId": "item_equip_script_2",
+          "name": {
+            "zh-CN": "蓝铁装备原件",
+            "en": "Ferrium Component",
+            "ja": "青鉄装備部品",
+            "zh-TW": "藍鐵裝備原件"
+          },
+          "iconId": "item_equip_script_2",
+          "rarity": 2,
+          "count": 50
+        },
+        {
+          "itemId": "item_domain_tundra_coupon",
+          "name": {
+            "zh-CN": "谷地调度券",
+            "en": "Valley Stock Bill",
+            "ja": "谷地取引券",
+            "zh-TW": "谷地調度券"
+          },
+          "iconId": "item_domain_tundra_coupon",
+          "rarity": 5,
+          "count": 1200
+        }
+      ]
+    }
+  ]
+}

@@ -12,16 +12,21 @@ import { readFileSync, existsSync } from 'node:fs'
  *
  * Returns a map of itemId (string) -> name text ID (string).
  */
-export function extractItemNameIds(filePath: string): Record<string, string> {
+export function extractItemNameIds(
+  filePath: string,
+  prefixes?: string[],
+): Record<string, string> {
   if (!existsSync(filePath)) return {}
   const raw = readFileSync(filePath, 'utf-8')
   const result: Record<string, string> = {}
+  // Default: only weapon and equip prefixes (backward-compatible)
+  const allowedPrefixes = prefixes ?? ['wpn_', 'item_equip_']
 
   const itemRe = /"(\w+)"\s*:\s*\{/g
   let m: RegExpExecArray | null
   while ((m = itemRe.exec(raw)) !== null) {
     const itemId = m[1]
-    if (!itemId.startsWith('wpn_') && !itemId.startsWith('item_equip_')) continue
+    if (!allowedPrefixes.some((p) => itemId.startsWith(p))) continue
 
     const windowStart = m.index
     const window = raw.substring(windowStart, windowStart + 3000)

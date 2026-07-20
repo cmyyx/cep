@@ -1,0 +1,100 @@
+{
+  "id": "item_equip_t1_parts_tundra01_body_04",
+  "category": "equipment",
+  "stats": [
+    {
+      "attributeId": "3",
+      "values": [
+        22.400000000000002,
+        22.400000000000002,
+        22.400000000000002,
+        22.400000000000002
+      ],
+      "displayValues": [
+        "防御力+22.4",
+        "防御力+22.4",
+        "防御力+22.4",
+        "防御力+22.4"
+      ]
+    },
+    {
+      "attributeId": "40",
+      "values": [
+        37,
+        37,
+        37,
+        37
+      ],
+      "displayValues": [
+        "敏捷+37",
+        "敏捷+37",
+        "敏捷+37",
+        "敏捷+37"
+      ]
+    },
+    {
+      "attributeId": "42",
+      "values": [
+        25,
+        25,
+        25,
+        25
+      ],
+      "displayValues": [
+        "意志+25",
+        "意志+25",
+        "意志+25",
+        "意志+25"
+      ]
+    },
+    {
+      "attributeId": "2",
+      "values": [
+        11.716709215321123,
+        11.716709215321123,
+        11.716709215321123,
+        11.716709215321123
+      ],
+      "displayValues": [
+        "攻击力+11.71670922",
+        "攻击力+11.71670922",
+        "攻击力+11.71670922",
+        "攻击力+11.71670922"
+      ]
+    }
+  ],
+  "suitEffects": [],
+  "craftingRecipes": [
+    {
+      "chainId": 1011,
+      "discount": 1,
+      "isDefault": true,
+      "materials": [
+        {
+          "itemId": "item_equip_script_1",
+          "name": {
+            "zh-CN": "紫晶装备原件",
+            "en": "Amethyst Component",
+            "ja": "紫晶装備部品",
+            "zh-TW": "紫晶裝備原件"
+          },
+          "iconId": "item_equip_script_1",
+          "rarity": 2,
+          "count": 20
+        },
+        {
+          "itemId": "item_domain_tundra_coupon",
+          "name": {
+            "zh-CN": "谷地调度券",
+            "en": "Valley Stock Bill",
+            "ja": "谷地取引券",
+            "zh-TW": "谷地調度券"
+          },
+          "iconId": "item_domain_tundra_coupon",
+          "rarity": 5,
+          "count": 160
+        }
+      ]
+    }
+  ]
+}

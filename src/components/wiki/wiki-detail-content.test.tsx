@@ -1,0 +1,105 @@
+import { expect, it } from 'vitest'
+import {
+  getAdjacentSpans,
+  getEquipmentStatValues,
+  getSkillDisplayVariants,
+  getVisibleCharacterLevels,
+  getVisibleSkillLevels,
+  getVisibleWeaponLevels,
+  getVoiceActorDisplayName,
+} from './wiki-detail-content'
+import type {
+  WikiCharacterLevel,
+  WikiCharacterSkill,
+  WikiCharacterSkillLevel,
+  WikiCharacterVoiceName,
+  WikiEquipmentStat,
+  WikiSkillLevel,
+  WikiWeaponLevel,
+} from '@/types/wiki'
+
+const levels: WikiCharacterLevel[] = [
+  { level: 1, breakStage: 0, isBreakthrough: false, stats: [] },
+  { level: 20, breakStage: 1, isBreakthrough: true, stats: [] },
+  { level: 90, breakStage: 3, isBreakthrough: false, stats: [] },
+]
+
+it('shows only level 90 by default and every level when expanded', () => {
+  expect(getVisibleCharacterLevels(levels, false).map((level) => level.level)).toEqual([90])
+  expect(getVisibleCharacterLevels(levels, true)).toEqual(levels)
+})
+
+const weaponLevels: WikiWeaponLevel[] = [
+  { level: 1, baseAttack: 50 },
+  { level: 45, baseAttack: 300 },
+  { level: 90, baseAttack: 600 },
+]
+
+it('shows only level 90 weapon data by default and every level when expanded', () => {
+  expect(getVisibleWeaponLevels(weaponLevels, false)).toEqual([{ level: 90, baseAttack: 600 }])
+  expect(getVisibleWeaponLevels(weaponLevels, true)).toEqual(weaponLevels)
+})
+
+const skillLevels: WikiCharacterSkillLevel[] = [
+  { level: 1, label: 'Lv.1', values: ['100%'] },
+  { level: 9, label: 'Lv.9', values: ['180%'] },
+  { level: 10, label: 'M1', values: ['200%'] },
+  { level: 12, label: 'M3', values: ['240%'] },
+]
+
+it('shows only the highest skill level by default', () => {
+  expect(getVisibleSkillLevels(skillLevels, false)).toEqual([skillLevels.at(-1)])
+  expect(getVisibleSkillLevels(skillLevels, true)).toEqual(skillLevels)
+})
+
+const weaponSkillLevels: WikiSkillLevel[] = [
+  { level: 1, description: { 'zh-CN': 'Lv.1', en: 'Lv.1', ja: 'Lv.1', 'zh-TW': 'Lv.1' } },
+  { level: 9, description: { 'zh-CN': 'Lv.9', en: 'Lv.9', ja: 'Lv.9', 'zh-TW': 'Lv.9' } },
+]
+
+it('shows only the highest weapon skill level by default', () => {
+  expect(getVisibleSkillLevels(weaponSkillLevels, false)).toEqual([weaponSkillLevels.at(-1)])
+  expect(getVisibleSkillLevels(weaponSkillLevels, true)).toEqual(weaponSkillLevels)
+})
+
+it('merges only adjacent equal equipment values', () => {
+  expect(getAdjacentSpans([1, 1, 2, 1])).toEqual([2, 0, 1, 1])
+  const stat: WikiEquipmentStat = { attributeId: 'Sub', values: [0.2, 0.25, 0.3, 0.35] }
+  expect(getEquipmentStatValues(stat)).toEqual([0.2, 0.25, 0.3, 0.35])
+})
+
+it('prefers original voice actor spelling and falls back to the UI locale', () => {
+  const original: WikiCharacterVoiceName = {
+    language: 'ko',
+    original: '김순미',
+    localized: { 'zh-CN': '金顺美', en: 'KIM SOONMI', ja: 'キム・スンミ', 'zh-TW': '金順美' },
+  }
+  const fallback: WikiCharacterVoiceName = {
+    ...original,
+    original: '',
+  }
+
+  expect(getVoiceActorDisplayName(original, 'en')).toBe('김순미')
+  expect(getVoiceActorDisplayName(fallback, 'en')).toBe('KIM SOONMI')
+})
+
+it('shows distinct skill variants independently and keeps aggregate skills singular', () => {
+  const base: WikiCharacterSkill = {
+    id: 'ultimate',
+    typeId: '2',
+    name: { 'zh-CN': '破晦', en: 'Ultimate', ja: '必殺技', 'zh-TW': '破晦' },
+    description: { 'zh-CN': '描述', en: 'Description', ja: '説明', 'zh-TW': '描述' },
+    iconId: 'ultimate-a',
+    metrics: [],
+    levels: skillLevels,
+  }
+  expect(getSkillDisplayVariants(base)).toEqual([
+    { id: 'ultimate', iconId: 'ultimate-a', metrics: [], levels: skillLevels },
+  ])
+
+  const variants = [
+    { id: 'form-a', iconId: 'ultimate-a', metrics: [], levels: skillLevels },
+    { id: 'form-b', iconId: 'ultimate-b', metrics: [], levels: skillLevels },
+  ]
+  expect(getSkillDisplayVariants({ ...base, variants })).toBe(variants)
+})

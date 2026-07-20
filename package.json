@@ -2,8 +2,11 @@
   "name": "cep",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": ">=22.13"
+  },
   "scripts": {
-    "prebuild": "node scripts/generate-og.mjs && node scripts/generate-version.mjs && node scripts/generate-characters-index.mjs && node scripts/generate-announcement-meta.mjs && node scripts/validate-announcements.mjs && node scripts/check-i18n.mjs && node scripts/check-images.mjs",
+    "prebuild": "node scripts/generate-og.mjs && node scripts/generate-version.mjs && node scripts/generate-announcement-meta.mjs && node scripts/validate-announcements.mjs && node scripts/check-i18n.mjs && node scripts/check-images.mjs",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
@@ -11,8 +14,8 @@
     "test": "vitest run",
     "test:e2e": "playwright test",
     "check:i18n": "node scripts/check-i18n.mjs",
-    "sync:check": "npx tsx scripts/sync-game-data.ts --check",
-    "sync:update": "npx tsx scripts/sync-game-data.ts --update",
+    "sync:check": "tsx scripts/sync-game-data.ts --check",
+    "sync:update": "tsx scripts/sync-game-data.ts --update",
     "note": "node scripts/new-announcement.mjs"
   },
   "dependencies": {
@@ -53,8 +56,9 @@
     "serve": "^14.2.4",
     "sharp": "^0.34.5",
     "tailwindcss": "^4",
+    "tsx": "^4.20.6",
     "typescript": "^5",
     "vitest": "^4.1.5"
   },
-  "packageManager": "pnpm@9.14.4+sha512.c8180b3fbe4e4bca02c94234717896b5529740a6cbadf19fa78254270403ea2f27d4e1d46a08a0f56c89b63dc8ebfd3ee53326da720273794e6200fcf0d184ab"
+  "packageManager": "pnpm@11.13.1+sha512.b2fc7683b8a6525414e7d13e1ba28caaddde96bf66ec540bfaeb7e702b81f3e0be4d1f295edf7f9fe0396740a8dce4509c582ddf79891f4543fea32d37645f25"
 }

@@ -1,0 +1,869 @@
+{
+  "id": "wpn_sword_0008",
+  "category": "weapons",
+  "maxLevel": 90,
+  "levels": [
+    {
+      "level": 1,
+      "baseAttack": 34
+    },
+    {
+      "level": 2,
+      "baseAttack": 38
+    },
+    {
+      "level": 3,
+      "baseAttack": 41
+    },
+    {
+      "level": 4,
+      "baseAttack": 45
+    },
+    {
+      "level": 5,
+      "baseAttack": 48
+    },
+    {
+      "level": 6,
+      "baseAttack": 52
+    },
+    {
+      "level": 7,
+      "baseAttack": 55
+    },
+    {
+      "level": 8,
+      "baseAttack": 59
+    },
+    {
+      "level": 9,
+      "baseAttack": 62
+    },
+    {
+      "level": 10,
+      "baseAttack": 65
+    },
+    {
+      "level": 11,
+      "baseAttack": 69
+    },
+    {
+      "level": 12,
+      "baseAttack": 72
+    },
+    {
+      "level": 13,
+      "baseAttack": 76
+    },
+    {
+      "level": 14,
+      "baseAttack": 79
+    },
+    {
+      "level": 15,
+      "baseAttack": 83
+    },
+    {
+      "level": 16,
+      "baseAttack": 86
+    },
+    {
+      "level": 17,
+      "baseAttack": 90
+    },
+    {
+      "level": 18,
+      "baseAttack": 93
+    },
+    {
+      "level": 19,
+      "baseAttack": 96
+    },
+    {
+      "level": 20,
+      "baseAttack": 100
+    },
+    {
+      "level": 21,
+      "baseAttack": 103
+    },
+    {
+      "level": 22,
+      "baseAttack": 107
+    },
+    {
+      "level": 23,
+      "baseAttack": 110
+    },
+    {
+      "level": 24,
+      "baseAttack": 114
+    },
+    {
+      "level": 25,
+      "baseAttack": 117
+    },
+    {
+      "level": 26,
+      "baseAttack": 121
+    },
+    {
+      "level": 27,
+      "baseAttack": 124
+    },
+    {
+      "level": 28,
+      "baseAttack": 127
+    },
+    {
+      "level": 29,
+      "baseAttack": 131
+    },
+    {
+      "level": 30,
+      "baseAttack": 134
+    },
+    {
+      "level": 31,
+      "baseAttack": 138
+    },
+    {
+      "level": 32,
+      "baseAttack": 141
+    },
+    {
+      "level": 33,
+      "baseAttack": 145
+    },
+    {
+      "level": 34,
+      "baseAttack": 148
+    },
+    {
+      "level": 35,
+      "baseAttack": 152
+    },
+    {
+      "level": 36,
+      "baseAttack": 155
+    },
+    {
+      "level": 37,
+      "baseAttack": 158
+    },
+    {
+      "level": 38,
+      "baseAttack": 162
+    },
+    {
+      "level": 39,
+      "baseAttack": 165
+    },
+    {
+      "level": 40,
+      "baseAttack": 169
+    },
+    {
+      "level": 41,
+      "baseAttack": 172
+    },
+    {
+      "level": 42,
+      "baseAttack": 176
+    },
+    {
+      "level": 43,
+      "baseAttack": 179
+    },
+    {
+      "level": 44,
+      "baseAttack": 183
+    },
+    {
+      "level": 45,
+      "baseAttack": 186
+    },
+    {
+      "level": 46,
+      "baseAttack": 189
+    },
+    {
+      "level": 47,
+      "baseAttack": 193
+    },
+    {
+      "level": 48,
+      "baseAttack": 196
+    },
+    {
+      "level": 49,
+      "baseAttack": 200
+    },
+    {
+      "level": 50,
+      "baseAttack": 203
+    },
+    {
+      "level": 51,
+      "baseAttack": 207
+    },
+    {
+      "level": 52,
+      "baseAttack": 210
+    },
+    {
+      "level": 53,
+      "baseAttack": 214
+    },
+    {
+      "level": 54,
+      "baseAttack": 217
+    },
+    {
+      "level": 55,
+      "baseAttack": 220
+    },
+    {
+      "level": 56,
+      "baseAttack": 224
+    },
+    {
+      "level": 57,
+      "baseAttack": 227
+    },
+    {
+      "level": 58,
+      "baseAttack": 231
+    },
+    {
+      "level": 59,
+      "baseAttack": 234
+    },
+    {
+      "level": 60,
+      "baseAttack": 238
+    },
+    {
+      "level": 61,
+      "baseAttack": 241
+    },
+    {
+      "level": 62,
+      "baseAttack": 245
+    },
+    {
+      "level": 63,
+      "baseAttack": 248
+    },
+    {
+      "level": 64,
+      "baseAttack": 251
+    },
+    {
+      "level": 65,
+      "baseAttack": 255
+    },
+    {
+      "level": 66,
+      "baseAttack": 258
+    },
+    {
+      "level": 67,
+      "baseAttack": 262
+    },
+    {
+      "level": 68,
+      "baseAttack": 265
+    },
+    {
+      "level": 69,
+      "baseAttack": 269
+    },
+    {
+      "level": 70,
+      "baseAttack": 272
+    },
+    {
+      "level": 71,
+      "baseAttack": 276
+    },
+    {
+      "level": 72,
+      "baseAttack": 279
+    },
+    {
+      "level": 73,
+      "baseAttack": 282
+    },
+    {
+      "level": 74,
+      "baseAttack": 286
+    },
+    {
+      "level": 75,
+      "baseAttack": 289
+    },
+    {
+      "level": 76,
+      "baseAttack": 293
+    },
+    {
+      "level": 77,
+      "baseAttack": 296
+    },
+    {
+      "level": 78,
+      "baseAttack": 300
+    },
+    {
+      "level": 79,
+      "baseAttack": 303
+    },
+    {
+      "level": 80,
+      "baseAttack": 307
+    },
+    {
+      "level": 81,
+      "baseAttack": 310
+    },
+    {
+      "level": 82,
+      "baseAttack": 313
+    },
+    {
+      "level": 83,
+      "baseAttack": 317
+    },
+    {
+      "level": 84,
+      "baseAttack": 320
+    },
+    {
+      "level": 85,
+      "baseAttack": 324
+    },
+    {
+      "level": 86,
+      "baseAttack": 327
+    },
+    {
+      "level": 87,
+      "baseAttack": 331
+    },
+    {
+      "level": 88,
+      "baseAttack": 334
+    },
+    {
+      "level": 89,
+      "baseAttack": 338
+    },
+    {
+      "level": 90,
+      "baseAttack": 341
+    }
+  ],
+  "breakthroughs": [
+    {
+      "stage": 1,
+      "requiredLevel": 20,
+      "stats": [
+        {
+          "attributeId": "baseAttack",
+          "value": 100
+        }
+      ],
+      "materials": [
+        {
+          "itemId": "item_weapon_break_low",
+          "name": {
+            "zh-CN": "强固模具",
+            "en": "Cast Die",
+            "ja": "硬質金型",
+            "zh-TW": "強固模具"
+          },
+          "iconId": "item_weapon_break_low",
+          "rarity": 3,
+          "count": 5
+        },
+        {
+          "itemId": "item_plant_spcstone_1_1",
+          "name": {
+            "zh-CN": "轻黯石",
+            "en": "Kalkonyx",
+            "ja": "軽闇石",
+            "zh-TW": "輕黯石"
+          },
+          "iconId": "item_plant_spcstone_1_1",
+          "rarity": 4,
+          "count": 3
+        },
+        {
+          "itemId": "item_gold",
+          "name": {
+            "zh-CN": "折金票",
+            "en": "T-Creds",
+            "ja": "折金券",
+            "zh-TW": "折金票"
+          },
+          "iconId": "item_gold",
+          "rarity": 4,
+          "count": 2200
+        }
+      ]
+    },
+    {
+      "stage": 2,
+      "requiredLevel": 40,
+      "stats": [
+        {
+          "attributeId": "baseAttack",
+          "value": 169
+        }
+      ],
+      "materials": [
+        {
+          "itemId": "item_weapon_break_low",
+          "name": {
+            "zh-CN": "强固模具",
+            "en": "Cast Die",
+            "ja": "硬質金型",
+            "zh-TW": "強固模具"
+          },
+          "iconId": "item_weapon_break_low",
+          "rarity": 3,
+          "count": 18
+        },
+        {
+          "itemId": "item_plant_spcstone_1_2",
+          "name": {
+            "zh-CN": "中黯石",
+            "en": "Auronyx",
+            "ja": "中闇石",
+            "zh-TW": "中黯石"
+          },
+          "iconId": "item_plant_spcstone_1_2",
+          "rarity": 4,
+          "count": 5
+        },
+        {
+          "itemId": "item_gold",
+          "name": {
+            "zh-CN": "折金票",
+            "en": "T-Creds",
+            "ja": "折金券",
+            "zh-TW": "折金票"
+          },
+          "iconId": "item_gold",
+          "rarity": 4,
+          "count": 8500
+        }
+      ]
+    },
+    {
+      "stage": 3,
+      "requiredLevel": 60,
+      "stats": [
+        {
+          "attributeId": "baseAttack",
+          "value": 238
+        }
+      ],
+      "materials": [
+        {
+          "itemId": "item_weapon_break_high",
+          "name": {
+            "zh-CN": "重型强固模具",
+            "en": "Heavy Cast Die",
+            "ja": "重硬質金型",
+            "zh-TW": "重型強固模具"
+          },
+          "iconId": "item_weapon_break_high",
+          "rarity": 4,
+          "count": 20
+        },
+        {
+          "itemId": "item_plant_spcstone_1_3",
+          "name": {
+            "zh-CN": "重黯石",
+            "en": "Umbronyx",
+            "ja": "重闇石",
+            "zh-TW": "重黯石"
+          },
+          "iconId": "item_plant_spcstone_1_3",
+          "rarity": 4,
+          "count": 5
+        },
+        {
+          "itemId": "item_gold",
+          "name": {
+            "zh-CN": "折金票",
+            "en": "T-Creds",
+            "ja": "折金券",
+            "zh-TW": "折金票"
+          },
+          "iconId": "item_gold",
+          "rarity": 4,
+          "count": 25000
+        }
+      ]
+    },
+    {
+      "stage": 4,
+      "requiredLevel": 80,
+      "stats": [
+        {
+          "attributeId": "baseAttack",
+          "value": 307
+        }
+      ],
+      "materials": [
+        {
+          "itemId": "item_weapon_break_high",
+          "name": {
+            "zh-CN": "重型强固模具",
+            "en": "Heavy Cast Die",
+            "ja": "重硬質金型",
+            "zh-TW": "重型強固模具"
+          },
+          "iconId": "item_weapon_break_high",
+          "rarity": 4,
+          "count": 30
+        },
+        {
+          "itemId": "item_char_skill_specialize_3",
+          "name": {
+            "zh-CN": "快子遴捡晶格",
+            "en": "Tachyon Screening Lattice",
+            "ja": "タキオン精選格子",
+            "zh-TW": "迅子遴撿晶格"
+          },
+          "iconId": "item_char_skill_specialize_3",
+          "rarity": 5,
+          "count": 16
+        },
+        {
+          "itemId": "item_plant_spcstone_2_1",
+          "name": {
+            "zh-CN": "燎石",
+            "en": "Igneosite",
+            "ja": "燎石",
+            "zh-TW": "燎石"
+          },
+          "iconId": "item_plant_spcstone_2_1",
+          "rarity": 5,
+          "count": 8
+        },
+        {
+          "itemId": "item_gold",
+          "name": {
+            "zh-CN": "折金票",
+            "en": "T-Creds",
+            "ja": "折金券",
+            "zh-TW": "折金票"
+          },
+          "iconId": "item_gold",
+          "rarity": 4,
+          "count": 90000
+        }
+      ]
+    }
+  ],
+  "skills": [
+    {
+      "id": "wpn_attr_agi_low",
+      "name": {
+        "zh-CN": "敏捷提升·小",
+        "en": "Agility Boost [S]",
+        "ja": "敏捷UP・小",
+        "zh-TW": "敏捷提升·小"
+      },
+      "description": {
+        "zh-CN": "敏捷<@ba.vup>+93</>",
+        "en": "Agility <@ba.vup>+93</>",
+        "ja": "敏捷<@ba.vup>+93</>",
+        "zh-TW": "敏捷<@ba.vup>+93</>"
+      },
+      "levels": [
+        {
+          "level": 1,
+          "description": {
+            "zh-CN": "敏捷<@ba.vup>+12</>",
+            "en": "Agility <@ba.vup>+12</>",
+            "ja": "敏捷<@ba.vup>+12</>",
+            "zh-TW": "敏捷<@ba.vup>+12</>"
+          }
+        },
+        {
+          "level": 2,
+          "description": {
+            "zh-CN": "敏捷<@ba.vup>+21</>",
+            "en": "Agility <@ba.vup>+21</>",
+            "ja": "敏捷<@ba.vup>+21</>",
+            "zh-TW": "敏捷<@ba.vup>+21</>"
+          }
+        },
+        {
+          "level": 3,
+          "description": {
+            "zh-CN": "敏捷<@ba.vup>+31</>",
+            "en": "Agility <@ba.vup>+31</>",
+            "ja": "敏捷<@ba.vup>+31</>",
+            "zh-TW": "敏捷<@ba.vup>+31</>"
+          }
+        },
+        {
+          "level": 4,
+          "description": {
+            "zh-CN": "敏捷<@ba.vup>+40</>",
+            "en": "Agility <@ba.vup>+40</>",
+            "ja": "敏捷<@ba.vup>+40</>",
+            "zh-TW": "敏捷<@ba.vup>+40</>"
+          }
+        },
+        {
+          "level": 5,
+          "description": {
+            "zh-CN": "敏捷<@ba.vup>+50</>",
+            "en": "Agility <@ba.vup>+50</>",
+            "ja": "敏捷<@ba.vup>+50</>",
+            "zh-TW": "敏捷<@ba.vup>+50</>"
+          }
+        },
+        {
+          "level": 6,
+          "description": {
+            "zh-CN": "敏捷<@ba.vup>+60</>",
+            "en": "Agility <@ba.vup>+60</>",
+            "ja": "敏捷<@ba.vup>+60</>",
+            "zh-TW": "敏捷<@ba.vup>+60</>"
+          }
+        },
+        {
+          "level": 7,
+          "description": {
+            "zh-CN": "敏捷<@ba.vup>+69</>",
+            "en": "Agility <@ba.vup>+69</>",
+            "ja": "敏捷<@ba.vup>+69</>",
+            "zh-TW": "敏捷<@ba.vup>+69</>"
+          }
+        },
+        {
+          "level": 8,
+          "description": {
+            "zh-CN": "敏捷<@ba.vup>+79</>",
+            "en": "Agility <@ba.vup>+79</>",
+            "ja": "敏捷<@ba.vup>+79</>",
+            "zh-TW": "敏捷<@ba.vup>+79</>"
+          }
+        },
+        {
+          "level": 9,
+          "description": {
+            "zh-CN": "敏捷<@ba.vup>+93</>",
+            "en": "Agility <@ba.vup>+93</>",
+            "ja": "敏捷<@ba.vup>+93</>",
+            "zh-TW": "敏捷<@ba.vup>+93</>"
+          }
+        }
+      ]
+    },
+    {
+      "id": "wpn_sp_attr_phydam_low",
+      "name": {
+        "zh-CN": "物理伤害提升·小",
+        "en": "Physical DMG Boost [S]",
+        "ja": "物理ダメージUP・小",
+        "zh-TW": "物理傷害提升·小"
+      },
+      "description": {
+        "zh-CN": "物理伤害<@ba.vup>+26.0%</>",
+        "en": "Physical DMG Dealt <@ba.vup>+26.0%</>",
+        "ja": "物理ダメージ<@ba.vup>+26.0%</>",
+        "zh-TW": "物理傷害<@ba.vup>+26.0%</>"
+      },
+      "levels": [
+        {
+          "level": 1,
+          "description": {
+            "zh-CN": "物理伤害<@ba.vup>+3.3%</>",
+            "en": "Physical DMG Dealt <@ba.vup>+3.3%</>",
+            "ja": "物理ダメージ<@ba.vup>+3.3%</>",
+            "zh-TW": "物理傷害<@ba.vup>+3.3%</>"
+          }
+        },
+        {
+          "level": 2,
+          "description": {
+            "zh-CN": "物理伤害<@ba.vup>+6.0%</>",
+            "en": "Physical DMG Dealt <@ba.vup>+6.0%</>",
+            "ja": "物理ダメージ<@ba.vup>+6.0%</>",
+            "zh-TW": "物理傷害<@ba.vup>+6.0%</>"
+          }
+        },
+        {
+          "level": 3,
+          "description": {
+            "zh-CN": "物理伤害<@ba.vup>+8.7%</>",
+            "en": "Physical DMG Dealt <@ba.vup>+8.7%</>",
+            "ja": "物理ダメージ<@ba.vup>+8.7%</>",
+            "zh-TW": "物理傷害<@ba.vup>+8.7%</>"
+          }
+        },
+        {
+          "level": 4,
+          "description": {
+            "zh-CN": "物理伤害<@ba.vup>+11.3%</>",
+            "en": "Physical DMG Dealt <@ba.vup>+11.3%</>",
+            "ja": "物理ダメージ<@ba.vup>+11.3%</>",
+            "zh-TW": "物理傷害<@ba.vup>+11.3%</>"
+          }
+        },
+        {
+          "level": 5,
+          "description": {
+            "zh-CN": "物理伤害<@ba.vup>+14.0%</>",
+            "en": "Physical DMG Dealt <@ba.vup>+14.0%</>",
+            "ja": "物理ダメージ<@ba.vup>+14.0%</>",
+            "zh-TW": "物理傷害<@ba.vup>+14.0%</>"
+          }
+        },
+        {
+          "level": 6,
+          "description": {
+            "zh-CN": "物理伤害<@ba.vup>+16.7%</>",
+            "en": "Physical DMG Dealt <@ba.vup>+16.7%</>",
+            "ja": "物理ダメージ<@ba.vup>+16.7%</>",
+            "zh-TW": "物理傷害<@ba.vup>+16.7%</>"
+          }
+        },
+        {
+          "level": 7,
+          "description": {
+            "zh-CN": "物理伤害<@ba.vup>+19.3%</>",
+            "en": "Physical DMG Dealt <@ba.vup>+19.3%</>",
+            "ja": "物理ダメージ<@ba.vup>+19.3%</>",
+            "zh-TW": "物理傷害<@ba.vup>+19.3%</>"
+          }
+        },
+        {
+          "level": 8,
+          "description": {
+            "zh-CN": "物理伤害<@ba.vup>+22.0%</>",
+            "en": "Physical DMG Dealt <@ba.vup>+22.0%</>",
+            "ja": "物理ダメージ<@ba.vup>+22.0%</>",
+            "zh-TW": "物理傷害<@ba.vup>+22.0%</>"
+          }
+        },
+        {
+          "level": 9,
+          "description": {
+            "zh-CN": "物理伤害<@ba.vup>+26.0%</>",
+            "en": "Physical DMG Dealt <@ba.vup>+26.0%</>",
+            "ja": "物理ダメージ<@ba.vup>+26.0%</>",
+            "zh-TW": "物理傷害<@ba.vup>+26.0%</>"
+          }
+        }
+      ]
+    },
+    {
+      "id": "sk_wpn_sword_0008",
+      "name": {
+        "zh-CN": "压制·应急强化",
+        "en": "Suppression: Emergency Boost",
+        "ja": "圧制・応急強化",
+        "zh-TW": "壓制·緊急強化"
+      },
+      "description": {
+        "zh-CN": "装备者的战技命中敌人时，获得攻击力<@ba.vup>+33.6%</>，持续20秒。\n<@ba.info>同名效果无法叠加。</>",
+        "en": "When the wielder's battle skill hits the enemy, the wielder gains ATK <@ba.vup>+33.6%</> for 20s.\n<@ba.info>Effects of the same name cannot stack. </>",
+        "ja": "装備中、自身の戦技が敵に命中するとき、20秒間攻撃力<@ba.vup>+33.6%</>\n<@ba.info>同名効果は重ね掛け不可</>",
+        "zh-TW": "裝備者的戰技命中敵人時，獲得攻擊力<@ba.vup>+33.6%</>，持續20秒。\n<@ba.info>同名效果無法疊加。</>"
+      },
+      "levels": [
+        {
+          "level": 1,
+          "description": {
+            "zh-CN": "装备者的战技命中敌人时，获得攻击力<@ba.vup>+12.0%</>，持续20秒。\n<@ba.info>同名效果无法叠加。</>",
+            "en": "When the wielder's battle skill hits the enemy, the wielder gains ATK <@ba.vup>+12.0%</> for 20s.\n<@ba.info>Effects of the same name cannot stack. </>",
+            "ja": "装備中、自身の戦技が敵に命中するとき、20秒間攻撃力<@ba.vup>+12.0%</>\n<@ba.info>同名効果は重ね掛け不可</>",
+            "zh-TW": "裝備者的戰技命中敵人時，獲得攻擊力<@ba.vup>+12.0%</>，持續20秒。\n<@ba.info>同名效果無法疊加。</>"
+          }
+        },
+        {
+          "level": 2,
+          "description": {
+            "zh-CN": "装备者的战技命中敌人时，获得攻击力<@ba.vup>+14.4%</>，持续20秒。\n<@ba.info>同名效果无法叠加。</>",
+            "en": "When the wielder's battle skill hits the enemy, the wielder gains ATK <@ba.vup>+14.4%</> for 20s.\n<@ba.info>Effects of the same name cannot stack. </>",
+            "ja": "装備中、自身の戦技が敵に命中するとき、20秒間攻撃力<@ba.vup>+14.4%</>\n<@ba.info>同名効果は重ね掛け不可</>",
+            "zh-TW": "裝備者的戰技命中敵人時，獲得攻擊力<@ba.vup>+14.4%</>，持續20秒。\n<@ba.info>同名效果無法疊加。</>"
+          }
+        },
+        {
+          "level": 3,
+          "description": {
+            "zh-CN": "装备者的战技命中敌人时，获得攻击力<@ba.vup>+16.8%</>，持续20秒。\n<@ba.info>同名效果无法叠加。</>",
+            "en": "When the wielder's battle skill hits the enemy, the wielder gains ATK <@ba.vup>+16.8%</> for 20s.\n<@ba.info>Effects of the same name cannot stack. </>",
+            "ja": "装備中、自身の戦技が敵に命中するとき、20秒間攻撃力<@ba.vup>+16.8%</>\n<@ba.info>同名効果は重ね掛け不可</>",
+            "zh-TW": "裝備者的戰技命中敵人時，獲得攻擊力<@ba.vup>+16.8%</>，持續20秒。\n<@ba.info>同名效果無法疊加。</>"
+          }
+        },
+        {
+          "level": 4,
+          "description": {
+            "zh-CN": "装备者的战技命中敌人时，获得攻击力<@ba.vup>+19.2%</>，持续20秒。\n<@ba.info>同名效果无法叠加。</>",
+            "en": "When the wielder's battle skill hits the enemy, the wielder gains ATK <@ba.vup>+19.2%</> for 20s.\n<@ba.info>Effects of the same name cannot stack. </>",
+            "ja": "装備中、自身の戦技が敵に命中するとき、20秒間攻撃力<@ba.vup>+19.2%</>\n<@ba.info>同名効果は重ね掛け不可</>",
+            "zh-TW": "裝備者的戰技命中敵人時，獲得攻擊力<@ba.vup>+19.2%</>，持續20秒。\n<@ba.info>同名效果無法疊加。</>"
+          }
+        },
+        {
+          "level": 5,
+          "description": {
+            "zh-CN": "装备者的战技命中敌人时，获得攻击力<@ba.vup>+21.6%</>，持续20秒。\n<@ba.info>同名效果无法叠加。</>",
+            "en": "When the wielder's battle skill hits the enemy, the wielder gains ATK <@ba.vup>+21.6%</> for 20s.\n<@ba.info>Effects of the same name cannot stack. </>",
+            "ja": "装備中、自身の戦技が敵に命中するとき、20秒間攻撃力<@ba.vup>+21.6%</>\n<@ba.info>同名効果は重ね掛け不可</>",
+            "zh-TW": "裝備者的戰技命中敵人時，獲得攻擊力<@ba.vup>+21.6%</>，持續20秒。\n<@ba.info>同名效果無法疊加。</>"
+          }
+        },
+        {
+          "level": 6,
+          "description": {
+            "zh-CN": "装备者的战技命中敌人时，获得攻击力<@ba.vup>+24.0%</>，持续20秒。\n<@ba.info>同名效果无法叠加。</>",
+            "en": "When the wielder's battle skill hits the enemy, the wielder gains ATK <@ba.vup>+24.0%</> for 20s.\n<@ba.info>Effects of the same name cannot stack. </>",
+            "ja": "装備中、自身の戦技が敵に命中するとき、20秒間攻撃力<@ba.vup>+24.0%</>\n<@ba.info>同名効果は重ね掛け不可</>",
+            "zh-TW": "裝備者的戰技命中敵人時，獲得攻擊力<@ba.vup>+24.0%</>，持續20秒。\n<@ba.info>同名效果無法疊加。</>"
+          }
+        },
+        {
+          "level": 7,
+          "description": {
+            "zh-CN": "装备者的战技命中敌人时，获得攻击力<@ba.vup>+26.4%</>，持续20秒。\n<@ba.info>同名效果无法叠加。</>",
+            "en": "When the wielder's battle skill hits the enemy, the wielder gains ATK <@ba.vup>+26.4%</> for 20s.\n<@ba.info>Effects of the same name cannot stack. </>",
+            "ja": "装備中、自身の戦技が敵に命中するとき、20秒間攻撃力<@ba.vup>+26.4%</>\n<@ba.info>同名効果は重ね掛け不可</>",
+            "zh-TW": "裝備者的戰技命中敵人時，獲得攻擊力<@ba.vup>+26.4%</>，持續20秒。\n<@ba.info>同名效果無法疊加。</>"
+          }
+        },
+        {
+          "level": 8,
+          "description": {
+            "zh-CN": "装备者的战技命中敌人时，获得攻击力<@ba.vup>+28.8%</>，持续20秒。\n<@ba.info>同名效果无法叠加。</>",
+            "en": "When the wielder's battle skill hits the enemy, the wielder gains ATK <@ba.vup>+28.8%</> for 20s.\n<@ba.info>Effects of the same name cannot stack. </>",
+            "ja": "装備中、自身の戦技が敵に命中するとき、20秒間攻撃力<@ba.vup>+28.8%</>\n<@ba.info>同名効果は重ね掛け不可</>",
+            "zh-TW": "裝備者的戰技命中敵人時，獲得攻擊力<@ba.vup>+28.8%</>，持續20秒。\n<@ba.info>同名效果無法疊加。</>"
+          }
+        },
+        {
+          "level": 9,
+          "description": {
+            "zh-CN": "装备者的战技命中敌人时，获得攻击力<@ba.vup>+33.6%</>，持续20秒。\n<@ba.info>同名效果无法叠加。</>",
+            "en": "When the wielder's battle skill hits the enemy, the wielder gains ATK <@ba.vup>+33.6%</> for 20s.\n<@ba.info>Effects of the same name cannot stack. </>",
+            "ja": "装備中、自身の戦技が敵に命中するとき、20秒間攻撃力<@ba.vup>+33.6%</>\n<@ba.info>同名効果は重ね掛け不可</>",
+            "zh-TW": "裝備者的戰技命中敵人時，獲得攻擊力<@ba.vup>+33.6%</>，持續20秒。\n<@ba.info>同名效果無法疊加。</>"
+          }
+        }
+      ]
+    }
+  ]
+}

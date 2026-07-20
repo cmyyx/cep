@@ -16,6 +16,7 @@ export const TEXTTABLE_SUFFIX: Record<string, string> = {
   'zh-TW': 'TC',
   'en': 'EN',
   'ja': 'JP',
+  'ko': 'KR',
 }
 
 /**
@@ -32,7 +33,7 @@ export function loadTextTable(akedataPath: string, locale: string): Record<strin
 /** Load TextTables for all supported locales from AKEData/TableCfg. */
 export function loadAllTextTables(akedataPath: string): Record<string, Record<string, string>> {
   const tables: Record<string, Record<string, string>> = {}
-  for (const loc of SUPPORTED_LOCALES) {
+  for (const loc of [...SUPPORTED_LOCALES, 'ko']) {
     tables[loc] = loadTextTable(akedataPath, loc)
   }
   return tables

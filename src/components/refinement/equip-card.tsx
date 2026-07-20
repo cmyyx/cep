@@ -1,7 +1,7 @@
 'use client'
 
 import { memo, useCallback } from 'react'
-import { useTranslations } from 'next-intl'
+import { useLocale, useTranslations } from 'next-intl'
 import Image from 'next/image'
 import { Check } from 'lucide-react'
 import { cn } from '@/lib/utils'
@@ -10,6 +10,7 @@ import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip
 import { Button } from '@/components/ui/button'
 import { useMobileLongPressTooltip } from '@/hooks/use-mobile-long-press-tooltip'
 import { withImageCacheVersion } from '@/lib/image-url'
+import { PlannerWikiPreview } from '@/components/shared/planner-wiki-preview'
 import type { Equip } from '@/types/refinement'
 
 // Map Chinese equip types to i18n keys
@@ -55,6 +56,7 @@ export const EquipCard = memo(function EquipCard({
   readOnly = false,
 }: EquipCardProps) {
   const t = useTranslations()
+  const locale = useLocale()
   const selectEquip = useRefinementStore((s) => s.selectEquip)
   const {
     open,
@@ -175,18 +177,24 @@ export const EquipCard = memo(function EquipCard({
         )}
       </TooltipTrigger>
       <TooltipContent side="top" sideOffset={8} className={cn(
-        'text-xs text-foreground bg-popover/95',
+        'max-w-[calc(100vw-2rem)] bg-popover p-3 text-popover-foreground shadow-[var(--shadow-card)]',
         isMobile ? 'max-w-[calc(100vw-2rem)]' : 'max-w-none',
       )}>
-        <p className="font-semibold whitespace-nowrap">{displayName}</p>
-        <p className={cn('text-muted-foreground/80', isMobile ? 'whitespace-normal' : 'whitespace-nowrap')}>
-          {equip.sub1 ? `${t('equipStats.' + equip.sub1.key)}+${equip.sub1.value}${equip.sub1.unit}` : ''}
-          {equip.sub2 ? ` · ${t('equipStats.' + equip.sub2.key)}+${equip.sub2.value}${equip.sub2.unit}` : ''}
-          {equip.special ? ` · ${t('equipStats.' + equip.special.key)}+${equip.special.value}${equip.special.unit}` : ''}
-          {displayMaterial ? ` · ${displayMaterial}` : ''}
-          {displayAltMaterial ? ` | ${displayAltMaterial}` : ''}
-          {displayVoucher || displayAltVoucher ? ` · ${combinedVoucher}` : ''}
-        </p>
+        <PlannerWikiPreview
+          title={displayName}
+          imageSrc={imageSrc || undefined}
+          rarity={equip.rarity}
+          rows={[
+            ...(equip.sub1 ? [{ label: t(`equipStats.${equip.sub1.key}`), value: `+${equip.sub1.value}${equip.sub1.unit}` }] : []),
+            ...(equip.sub2 ? [{ label: t(`equipStats.${equip.sub2.key}`), value: `+${equip.sub2.value}${equip.sub2.unit}` }] : []),
+            ...(equip.special ? [{ label: t(`equipStats.${equip.special.key}`), value: `+${equip.special.value}${equip.special.unit}` }] : []),
+            ...((displayMaterial || displayAltMaterial || combinedVoucher) ? [{
+              label: t('wiki.craftingMaterials'),
+              value: <span className="space-y-0.5 text-right">{[displayMaterial, displayAltMaterial, combinedVoucher].filter(Boolean).map((value) => <span key={value} className="block">{value}</span>)}</span>,
+            }] : []),
+          ]}
+          wikiHref={equip.id.startsWith('item_equip_') ? `/${locale}/wiki/equipment/${equip.id}` : undefined}
+        />
       </TooltipContent>
     </Tooltip>
   )

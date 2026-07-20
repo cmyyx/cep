@@ -1,14 +1,16 @@
-// Converts game icons from upstream PNG to project AVIF format.
-// Both weapons and equips use the iconbig/ source directory.
-// Only converts images that are referenced in project data files.
-// ================================================================================
-// Parameters: quality 50, chroma 4:2:0, effort 4
-
-import { existsSync, readdirSync, statSync, mkdirSync, writeFileSync, readFileSync } from 'node:fs'
+import { existsSync, mkdirSync, readFileSync, statSync } from 'node:fs'
 import { join } from 'node:path'
 import sharp from 'sharp'
+import type { WikiAssets } from './wiki-assets'
 
-const AVIF_OPTIONS = { quality: 50, chromaSubsampling: '4:2:0', effort: 4 }
+const AVIF_OPTIONS = { quality: 50, chromaSubsampling: '4:2:0', effort: 4 } as const
+
+interface AssetCategory {
+  ids: string[]
+  source: string[]
+  output: string[]
+  sourceId?: (id: string) => string
+}
 
 export interface IconConversionResult {
   converted: string[]
@@ -16,76 +18,49 @@ export interface IconConversionResult {
   missingSource: string[]
 }
 
-const CATEGORY_PREFIX: Record<string, string> = { weapon: 'wpn_', equip: 'item_equip_' }
-
-/**
- * Convert only the specified PNG icons from AKEDatabase to AVIF.
- * `targetIds` is a list of icon filenames WITHOUT extension (e.g. "wpn_sword_0017").
- * Skips conversion when AVIF already exists and is not older than the source PNG.
- * Both weapon and equip icons are in iconbig/ under their respective category dirs.
- */
-export async function convertIcons(
+export async function convertWikiAssets(
   akedatabasePath: string,
   projectPublicDir: string,
-  categories: Array<'weapon' | 'equip'>,
-  targetIds: string[],
+  assets: WikiAssets
 ): Promise<IconConversionResult> {
   const result: IconConversionResult = { converted: [], skipped: [], missingSource: [] }
-  const targetSet = new Set(targetIds)
+  const categories: AssetCategory[] = [
+    { ids: assets.weapons, source: ['weapon', 'iconbig'], output: ['images', 'weapon'] },
+    { ids: assets.equipment, source: ['equip', 'iconbig'], output: ['images', 'equip'] },
+    { ids: assets.materials, source: ['item', 'itemiconbig'], output: ['images', 'items'] },
+    { ids: assets.skills, source: ['character', 'skillicon'], output: ['images', 'wiki', 'skills'] },
+    {
+      ids: assets.characterPotential,
+      source: ['character', 'imagepoaster', 'largesize'],
+      output: ['images', 'wiki', 'character-potential'],
+      sourceId: (id) => id.replace(/^item_/, ''),
+    },
+    {
+      ids: assets.logisticsSkills,
+      source: ['character', 'spaceshipskillicon'],
+      output: ['images', 'wiki', 'logistics'],
+    },
+  ]
 
   for (const category of categories) {
-    const srcDir = join(akedatabasePath, 'public', 'images', category, 'iconbig')
-    const outDir = join(projectPublicDir, 'images', category)
-    mkdirSync(outDir, { recursive: true })
+    const sourceDir = join(akedatabasePath, 'public', 'images', ...category.source)
+    const outputDir = join(projectPublicDir, ...category.output)
+    mkdirSync(outputDir, { recursive: true })
 
-    if (!existsSync(srcDir)) {
-      console.warn(`  [icons] source dir not found: ${srcDir}`)
-      const prefix = CATEGORY_PREFIX[category]
-      for (const id of targetIds) {
-        if (id.startsWith(prefix)) {
-          result.missingSource.push(`${category}/${id}.png`)
-        }
+    for (const id of category.ids) {
+      const sourcePath = join(sourceDir, `${category.sourceId?.(id) ?? id}.png`)
+      const outputPath = join(outputDir, `${id}.avif`)
+      const label = `/${category.output.join('/')}/${id}.avif`
+      if (!existsSync(sourcePath)) {
+        result.missingSource.push(label)
+        continue
       }
-      continue
-    }
-
-    const foundIds = new Set<string>()
-    for (const file of readdirSync(srcDir)) {
-      if (!file.endsWith('.png')) continue
-      const id = file.replace('.png', '')
-      if (!targetSet.has(id)) continue
-      foundIds.add(id)
-
-      const srcPath = join(srcDir, file)
-      const outPath = join(outDir, file.replace('.png', '.avif'))
-
-      // Skip if AVIF already exists and is not older than source PNG
-      if (existsSync(outPath)) {
-        const srcTime = statSync(srcPath).mtimeMs
-        const outTime = statSync(outPath).mtimeMs
-        if (outTime >= srcTime) {
-          result.skipped.push(file)
-          continue
-        }
+      if (existsSync(outputPath) && statSync(outputPath).mtimeMs >= statSync(sourcePath).mtimeMs) {
+        result.skipped.push(label)
+        continue
       }
-
-      try {
-        const pngBuffer = readFileSync(srcPath)
-        const avifBuffer = await sharp(pngBuffer)
-          .avif(AVIF_OPTIONS)
-          .toBuffer()
-        writeFileSync(outPath, avifBuffer)
-        result.converted.push(file)
-      } catch (err) {
-        console.warn(`  [icons] failed to convert ${file}: ${err}`)
-      }
-    }
-    // Report target IDs that have no matching PNG in iconbig
-    const prefix = CATEGORY_PREFIX[category]
-    for (const id of targetIds) {
-      if (id.startsWith(prefix) && !foundIds.has(id)) {
-        result.missingSource.push(`${category}/${id}.png`)
-      }
+      await sharp(readFileSync(sourcePath)).avif(AVIF_OPTIONS).toFile(outputPath)
+      result.converted.push(label)
     }
   }
 
