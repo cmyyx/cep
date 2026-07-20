@@ -1,6 +1,6 @@
 // @vitest-environment jsdom
-import { describe, it, expect, vi } from 'vitest'
-import { render, fireEvent } from '@testing-library/react'
+import { afterEach, describe, it, expect, vi } from 'vitest'
+import { cleanup, render, fireEvent, screen } from '@testing-library/react'
 import { PoolInfoStrip } from './pool-info-strip'
 
 const mockT = (key: string) => key
@@ -26,43 +26,42 @@ vi.mock('@/data/banner', () => ({
   ],
 }))
 
+afterEach(() => {
+  cleanup()
+})
+
 describe('PoolInfoStrip', () => {
   it('renders header text', () => {
-    const { container } = render(<PoolInfoStrip />)
-    expect(container.textContent).toContain('bannerCalendar.poolInfo')
+    render(<PoolInfoStrip />)
+    expect(screen.getByText('bannerCalendar.poolInfo')).toBeTruthy()
   })
 
   it('renders banner title from entries', () => {
-    const { container } = render(<PoolInfoStrip />)
-    expect(container.textContent).toContain('「临渊望北」特许寻访')
+    render(<PoolInfoStrip />)
+    expect(screen.getByRole('button', { name: /「临渊望北」特许寻访/ })).toBeTruthy()
   })
 
   it('opens dialog when a banner visual is clicked', () => {
-    const { container } = render(<PoolInfoStrip />)
-    const bannerBtn = container.querySelector('button')
-    expect(bannerBtn).not.toBeNull()
-    fireEvent.click(bannerBtn!)
-    const dialogTitle = document.querySelector('[data-slot="dialog-title"]')
-    expect(dialogTitle).not.toBeNull()
-    expect(dialogTitle?.textContent).toBe('「临渊望北」特许寻访')
+    render(<PoolInfoStrip />)
+    const bannerButton = screen.getByRole('button', { name: /「临渊望北」特许寻访/ })
+    fireEvent.click(bannerButton)
+    expect(screen.getByRole('dialog', { name: '「临渊望北」特许寻访' })).toBeTruthy()
+    expect(screen.getByRole('heading', { name: '「临渊望北」特许寻访' })).toBeTruthy()
   })
 
   it('expands info card when info button is clicked', () => {
-    const { container } = render(<PoolInfoStrip />)
-    const bannerBtn = container.querySelector('button')
-    fireEvent.click(bannerBtn!)
-    const infoBtn = document.querySelector('[aria-label="bannerCalendar.poolInfo"]')
-    expect(infoBtn).not.toBeNull()
-    fireEvent.click(infoBtn!)
-    expect(document.body.textContent).toContain('bannerCalendar.poolDuration')
+    render(<PoolInfoStrip />)
+    const bannerButton = screen.getByRole('button', { name: /「临渊望北」特许寻访/ })
+    fireEvent.click(bannerButton)
+    const infoButton = screen.getByLabelText('bannerCalendar.poolInfo')
+    fireEvent.click(infoButton)
+    expect(screen.getByText('bannerCalendar.poolDuration:')).toBeTruthy()
   })
 
   it('renders close button with accessible text', () => {
-    const { container } = render(<PoolInfoStrip />)
-    const bannerBtn = container.querySelector('button')
-    fireEvent.click(bannerBtn!)
-    const closeSpan = document.querySelector('span.sr-only')
-    expect(closeSpan).not.toBeNull()
-    expect(closeSpan?.textContent).toBe('common.close')
+    render(<PoolInfoStrip />)
+    const bannerButton = screen.getByRole('button', { name: /「临渊望北」特许寻访/ })
+    fireEvent.click(bannerButton)
+    expect(screen.getByRole('button', { name: 'common.close' })).toBeTruthy()
   })
 })
