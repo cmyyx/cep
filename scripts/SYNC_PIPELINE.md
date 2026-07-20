@@ -7,7 +7,7 @@
 | 仓库 | 用途 | 路径示例 |
 |------|------|---------|
 | [AKEData](https://github.com/cmyyx/AKEData) (fork) | 武器/装备/角色/副本条目 + 属性数据 + 多语言翻译（TableCfg/I18nTextTable_*.json） | `output/CN/weapon/`, `TableCfg/` |
-| [AKEDatabase](https://github.com/NagiYume/AKEDatabase) | 武器/装备数据（主要来源）+ 图标 PNG | `public/CH/weapon/`, `public/CH/equip/` |
+| [AKEDatabase](https://github.com/NagiYume/AKEDatabase) | 属性映射 maps.json | `public/*/maps.json` |
 
 ## 环境准备
 
@@ -180,6 +180,6 @@ scripts/
     ├── compare-weapons.ts              ← 武器对比（新武器检测 + 专武检测）
     ├── compare-stats.ts                ← 词条提取
     ├── extract-textid.ts               ← 从原始 JSON 提取 int64 ID
-    ├── convert-icons.ts                ← PNG → AVIF
+    ├── convert-icons.ts                ← CDN PNG → AVIF（差量）
     └── git-helpers.ts                  ← SHA 分支读写
 ```

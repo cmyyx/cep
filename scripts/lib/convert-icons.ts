@@ -1,9 +1,10 @@
-import { existsSync, mkdirSync, readFileSync, statSync } from 'node:fs'
+import { existsSync, mkdirSync } from 'node:fs'
 import { join } from 'node:path'
 import sharp from 'sharp'
 import type { WikiAssets } from './wiki-assets'
 
 const AVIF_OPTIONS = { quality: 50, chromaSubsampling: '4:2:0', effort: 4 } as const
+export const AKE_DATA_CDN = 'https://data.akedata.wiki'
 
 interface AssetCategory {
   ids: string[]
@@ -18,12 +19,25 @@ export interface IconConversionResult {
   missingSource: string[]
 }
 
+export interface ConvertWikiAssetsOptions {
+  cdnBase?: string
+  fetchPng?: (url: string) => Promise<Buffer>
+}
+
+async function defaultFetchPng(url: string): Promise<Buffer> {
+  const response = await fetch(url)
+  if (!response.ok) throw new Error(`HTTP ${response.status} for ${url}`)
+  return Buffer.from(await response.arrayBuffer())
+}
+
 export async function convertWikiAssets(
-  akedatabasePath: string,
   projectPublicDir: string,
-  assets: WikiAssets
+  assets: WikiAssets,
+  options: ConvertWikiAssetsOptions = {}
 ): Promise<IconConversionResult> {
   const result: IconConversionResult = { converted: [], skipped: [], missingSource: [] }
+  const cdnBase = (options.cdnBase ?? AKE_DATA_CDN).replace(/\/$/, '')
+  const fetchPng = options.fetchPng ?? defaultFetchPng
   const categories: AssetCategory[] = [
     { ids: assets.weapons, source: ['weapon', 'iconbig'], output: ['images', 'weapon'] },
     { ids: assets.equipment, source: ['equip', 'iconbig'], output: ['images', 'equip'] },
@@ -43,24 +57,26 @@ export async function convertWikiAssets(
   ]
 
   for (const category of categories) {
-    const sourceDir = join(akedatabasePath, 'public', 'images', ...category.source)
     const outputDir = join(projectPublicDir, ...category.output)
     mkdirSync(outputDir, { recursive: true })
 
     for (const id of category.ids) {
-      const sourcePath = join(sourceDir, `${category.sourceId?.(id) ?? id}.png`)
+      const sourceName = `${category.sourceId?.(id) ?? id}.png`
       const outputPath = join(outputDir, `${id}.avif`)
       const label = `/${category.output.join('/')}/${id}.avif`
-      if (!existsSync(sourcePath)) {
-        result.missingSource.push(label)
-        continue
-      }
-      if (existsSync(outputPath) && statSync(outputPath).mtimeMs >= statSync(sourcePath).mtimeMs) {
+      if (existsSync(outputPath)) {
         result.skipped.push(label)
         continue
       }
-      await sharp(readFileSync(sourcePath)).avif(AVIF_OPTIONS).toFile(outputPath)
-      result.converted.push(label)
+
+      const url = `${cdnBase}/public/images/${category.source.join('/')}/${sourceName}`
+      try {
+        const buffer = await fetchPng(url)
+        await sharp(buffer).avif(AVIF_OPTIONS).toFile(outputPath)
+        result.converted.push(label)
+      } catch {
+        result.missingSource.push(label)
+      }
     }
   }
 

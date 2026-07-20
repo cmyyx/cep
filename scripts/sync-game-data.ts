@@ -293,13 +293,12 @@ async function main() {
       readFileSync(join(projectRoot, 'src', 'generated', 'data', 'wiki', 'assets.json'), 'utf8')
     ) as WikiAssets
     const characterResult = await downloadCharacterAvatars(
-      join(projectRoot, 'public'),
-      paths.imagedb
+      join(projectRoot, 'public')
     )
     console.log(
-      `  Characters: ${characterResult.avatars} avatars, ${characterResult.fullBody} full-body, ${characterResult.fallbacks} local fallbacks`
+      `  Characters: ${characterResult.avatars} avatars, ${characterResult.fullBody} full-body`
     )
-    const iconResult = await convertWikiAssets(paths.imagedb, join(projectRoot, 'public'), assets)
+    const iconResult = await convertWikiAssets(join(projectRoot, 'public'), assets)
     console.log(
       `  Icons: ${iconResult.converted.length} converted, ${iconResult.skipped.length} unchanged`
     )

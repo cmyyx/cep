@@ -1,5 +1,4 @@
 import {
-  existsSync,
   mkdirSync,
   readFileSync,
   renameSync,
@@ -31,19 +30,16 @@ interface ImageJob {
   id: string
   kind: 'avatar' | 'fullBody'
   remoteUrl?: string
-  fallbackId: string
 }
 
 interface ImageSourceRecord {
-  source: 'skland' | 'akedatabase'
-  url?: string
-  fallbackId?: string
+  source: 'skland'
+  url: string
 }
 
 export interface CharacterImageDownloadResult {
   avatars: number
   fullBody: number
-  fallbacks: number
 }
 
 function loadReleasedNameMap(projectRoot: string): Record<string, string> {
@@ -60,49 +56,6 @@ function loadReleasedNameMap(projectRoot: string): Record<string, string> {
       )
       .map(([id, name]) => [name, id])
   )
-}
-
-function fallbackIdFor(targetId: string): string {
-  if (targetId === ADMINISTRATOR_ID || targetId.endsWith('-female')) {
-    return 'chr_0003_endminf'
-  }
-  if (targetId.endsWith('-male')) return 'chr_0002_endminm'
-  if (targetId === `skland-${PREVIEW_ITEM_ID}`) return 'chr_0034_liino'
-  return targetId
-}
-
-function createFallbackTargets(
-  releasedNameToId: Readonly<Record<string, string>>
-): CharacterImageTarget[] {
-  const targets: CharacterImageTarget[] = Object.entries(releasedNameToId).map(([name, id]) => ({
-    itemId: '',
-    name,
-    avatarUrl: '',
-    avatarId: id,
-    fullBodyId: id,
-  }))
-  targets.push(
-    {
-      itemId: '',
-      name: '管理员 (男)',
-      avatarUrl: '',
-      fullBodyId: `${ADMINISTRATOR_ID}-male`,
-    },
-    {
-      itemId: '',
-      name: '管理员 (女)',
-      avatarUrl: '',
-      avatarId: ADMINISTRATOR_ID,
-      fullBodyId: `${ADMINISTRATOR_ID}-female`,
-    },
-    {
-      itemId: PREVIEW_ITEM_ID,
-      name: '梨诺',
-      avatarUrl: '',
-      avatarId: `skland-${PREVIEW_ITEM_ID}`,
-    }
-  )
-  return targets
 }
 
 
@@ -146,33 +99,29 @@ async function collectSklandTargets(
   return { targets, illustrations }
 }
 
-function mergeFallbackTargets(
-  scraped: CharacterImageTarget[],
-  fallback: CharacterImageTarget[]
-): CharacterImageTarget[] {
-  const avatarIds = new Set(scraped.flatMap((target) => (target.avatarId ? [target.avatarId] : [])))
-  const fullBodyIds = new Set(
-    scraped.flatMap((target) => (target.fullBodyId ? [target.fullBodyId] : []))
-  )
-  const merged = [...scraped]
-
-  for (const target of fallback) {
-    const needsAvatar = target.avatarId && !avatarIds.has(target.avatarId)
-    const needsFullBody = target.fullBodyId && !fullBodyIds.has(target.fullBodyId)
-    if (!needsAvatar && !needsFullBody) continue
-    merged.push({
-      ...target,
-      avatarId: needsAvatar ? target.avatarId : undefined,
-      fullBodyId: needsFullBody ? target.fullBodyId : undefined,
-    })
-  }
-  return merged
-}
 
 async function fetchRemote(url: string): Promise<Buffer> {
   const response = await fetch(url)
   if (!response.ok) throw new Error(`HTTP ${response.status}`)
   return Buffer.from(await response.arrayBuffer())
+}
+
+/** Fetch once; on failure retry once; then throw. */
+export async function fetchRemoteWithRetry(
+  url: string,
+  fetchImpl: (url: string) => Promise<Buffer> = fetchRemote
+): Promise<Buffer> {
+  try {
+    return await fetchImpl(url)
+  } catch (firstError) {
+    try {
+      return await fetchImpl(url)
+    } catch (secondError) {
+      throw new Error(
+        `Failed to download ${url} after retry: ${String(secondError)} (first: ${String(firstError)})`
+      )
+    }
+  }
 }
 
 async function runPool<T>(
@@ -203,16 +152,15 @@ export function serializeImageSources(
 
 export async function downloadCharacterAvatars(
   outputDir = 'public',
-  akedatabasePath = resolve(process.cwd(), '..', 'AKEDatabase'),
   launchBrowser: () => Promise<Browser> = () => chromium.launch({ headless: true })
 ): Promise<CharacterImageDownloadResult> {
   const projectRoot = outputDir === 'public' ? process.cwd() : resolve(outputDir, '..')
   const releasedNameToId = loadReleasedNameMap(projectRoot)
-  const fallbackTargets = createFallbackTargets(releasedNameToId)
   const avatarDir = join(outputDir, 'images', 'characters')
   const tempDir = join(dirname(avatarDir), `.characters-${process.pid}-${Date.now()}`)
   const tempFullDir = join(tempDir, 'full')
   mkdirSync(tempFullDir, { recursive: true })
+
   let scrapedTargets: CharacterImageTarget[] = []
   let illustrations: Record<string, string> = {}
 
@@ -228,77 +176,48 @@ export async function downloadCharacterAvatars(
       await browser.close()
     }
   } catch (error) {
-    console.warn(`  [characters] Skland unavailable, using local assets: ${String(error)}`)
+    rmSync(tempDir, { recursive: true, force: true })
+    throw new Error(`Skland character scrape failed: ${String(error)}`)
   }
-  const targets = mergeFallbackTargets(scrapedTargets, fallbackTargets)
+
   const jobs: ImageJob[] = []
-  for (const target of targets) {
+  for (const target of scrapedTargets) {
     if (target.avatarId) {
+      if (!target.avatarUrl) {
+        throw new Error(`Missing Skland image URL for avatar/${target.avatarId}`)
+      }
       jobs.push({
         id: target.avatarId,
         kind: 'avatar',
-        remoteUrl: target.avatarUrl || undefined,
-        fallbackId: fallbackIdFor(target.avatarId),
+        remoteUrl: target.avatarUrl,
       })
     }
     if (target.fullBodyId) {
+      const remoteUrl = illustrations[target.fullBodyId]
+      if (!remoteUrl) {
+        throw new Error(`Missing Skland image URL for fullBody/${target.fullBodyId}`)
+      }
       jobs.push({
         id: target.fullBodyId,
         kind: 'fullBody',
-        remoteUrl: illustrations[target.fullBodyId],
-        fallbackId: fallbackIdFor(target.fullBodyId),
+        remoteUrl,
       })
     }
   }
 
   const sources: Record<string, ImageSourceRecord> = {}
-  let fallbacks = 0
   try {
     await runPool(jobs, 6, async (job) => {
-      let buffer: Buffer | null = null
-      let usedFallback = false
-      if (job.remoteUrl) {
-        try {
-          buffer = await fetchRemote(job.remoteUrl)
-          sources[`${job.kind}/${job.id}`] = { source: 'skland', url: job.remoteUrl }
-        } catch (error) {
-          console.warn(`  [characters] ${job.id} download fallback: ${String(error)}`)
-        }
+      if (!job.remoteUrl) {
+        throw new Error(`Missing Skland image URL for ${job.kind}/${job.id}`)
       }
-
-      if (!buffer) {
-        const fallbackPath = join(
-          akedatabasePath,
-          'public',
-          'images',
-          'character',
-          'charpic',
-          `${job.fallbackId}.png`
-        )
-        if (!existsSync(fallbackPath)) {
-          throw new Error(`Missing character image: ${job.id} (${fallbackPath})`)
-        }
-        buffer = readFileSync(fallbackPath)
-        usedFallback = true
-        fallbacks += 1
-        sources[`${job.kind}/${job.id}`] = {
-          source: 'akedatabase',
-          fallbackId: job.fallbackId,
-        }
-      }
-
-      let pipeline = sharp(buffer)
-      if (job.kind === 'avatar' && usedFallback) {
-        pipeline = pipeline.resize(456, 564, {
-          fit: 'contain',
-          background: { r: 0, g: 0, b: 0, alpha: 0 },
-        })
-      }
+      const buffer = await fetchRemoteWithRetry(job.remoteUrl)
+      sources[`${job.kind}/${job.id}`] = { source: 'skland', url: job.remoteUrl }
       const destination = join(
         job.kind === 'avatar' ? tempDir : tempFullDir,
         `${job.id}.avif`
       )
-      await pipeline.avif(AVIF_OPTIONS).toFile(destination)
+      await sharp(buffer).avif(AVIF_OPTIONS).toFile(destination)
     })
 
     writeFileSync(join(tempDir, 'sources.json'), serializeImageSources(sources), 'utf8')
@@ -312,7 +231,6 @@ export async function downloadCharacterAvatars(
   return {
     avatars: jobs.filter((job) => job.kind === 'avatar').length,
     fullBody: jobs.filter((job) => job.kind === 'fullBody').length,
-    fallbacks,
   }
 }
 
@@ -321,7 +239,7 @@ const isCli = process.argv[1]
   : false
 
 if (isCli) {
-  downloadCharacterAvatars(process.argv[2] ?? 'public', process.argv[3]).then(
+  downloadCharacterAvatars(process.argv[2] ?? 'public').then(
     (result) => console.log(`[characters] ${JSON.stringify(result)}`),
     (error: unknown) => {
       console.error(error)
