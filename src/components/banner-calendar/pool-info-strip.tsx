@@ -142,8 +142,8 @@ export function PoolInfoStrip() {
       <Dialog open={!!selectedVisual} onOpenChange={(open) => {
         if (!open) { setSelectedVisual(null); setCardState('closed') }
       }}>
-        <DialogContent className="sm:max-w-4xl p-0 gap-0 overflow-hidden" showCloseButton={false}>
-          <DialogClose className="absolute top-3 left-3 z-40 flex items-center justify-center size-8 rounded-full text-white/90 hover:text-white bg-black/30 hover:bg-black/50 transition-colors ring-offset-background focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2">
+        <DialogContent className="sm:max-w-4xl p-0 gap-0 overflow-hidden" showCloseButton={false} aria-describedby={undefined}>
+          <DialogClose className="absolute top-3 left-3 z-40 flex items-center justify-center size-8 rounded-full text-white/90 hover:text-white bg-black/30 hover:bg-black/50 transition-colors ring-offset-background focus:outline-hidden focus:ring-2 focus:ring-ring focus:ring-offset-2">
             <X className="size-4" />
             <span className="sr-only">{t('common.close')}</span>
           </DialogClose>
