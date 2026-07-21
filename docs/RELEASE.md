@@ -35,10 +35,10 @@ Tag 命名格式: `v<major>.<minor>.<patch>`。前两位表示适配的游戏版
 4. 如果是 `workflow_dispatch` 且勾选了 `force`：创建轻量级 `force-N` tag 并推送
 5. 运行 `prebuild`（生成 `version.json` + `version-data.ts`，注入 `DEPLOY_TAG` 环境变量；`forceUpgradeSerial` 由统计本地 `force-*` tag 数量得出）
 6. 运行 `next build`（SSG 静态导出到 `out/`）
-7. 将 `out/` 内容强制推送到 `deploy` 分支
-8. Cloudflare Pages 自动从 `deploy` 分支部署
+7. 将 `out/` 内容写入部署分支的 `public/`，强制推送到 `deploy-cn` / `deploy-intl`
+8. Cloudflare Pages 从对应部署分支读取，站点根目录为 `public/`
 
-`deploy` 分支不保留历史，每次强制覆盖。
+`deploy-*` 分支不保留历史，每次强制覆盖。部署分支布局为 `public/` 下的静态站点文件，而不是分支根目录直接铺站。
 
 ---
 

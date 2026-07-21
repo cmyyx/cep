@@ -121,8 +121,9 @@ jobs:
           git checkout --orphan deploy-temp
           # 清空工作目录
           find . -maxdepth 1 ! -name '.git' ! -name '.' -exec rm -rf {} +
-          # 从临时目录复制回来
-          cp -r $RUNNER_TEMP/out/* .
+          # 站点根放到 public/，配合托管平台 Root directory=public
+          mkdir -p public
+          cp -r $RUNNER_TEMP/out/* public/
           git add -A
           COMMIT_MSG=$(git log -1 --pretty=%s $GITHUB_SHA)
           git commit -m "deploy: ${{ github.ref_name || inputs.version }} [${{ matrix.target }}] - $COMMIT_MSG"
