@@ -1,0 +1,30 @@
+[
+  {
+    "id": "announce-2026-07-15-01",
+    "title": "新版本适配前说明以及暂定未来规划",
+    "file": "2026-07-15-01.md",
+    "publishTime": "2026-07-15T20:56:38+08:00",
+    "priority": "normal"
+  },
+  {
+    "id": "announce-2026-06-25-01",
+    "title": "反馈前请查看: 如何正确的反馈问题或提出建议",
+    "file": "2026-06-25-01.md",
+    "publishTime": "2026-06-25T23:35:56+08:00",
+    "priority": "important"
+  },
+  {
+    "id": "announce-2026-05-29-001",
+    "title": "CEP 终末地规划器全新上线",
+    "file": "2026-05-29-001.md",
+    "publishTime": "2026-05-26T03:45:00+08:00",
+    "priority": "normal"
+  },
+  {
+    "id": "announce-2026-05-09-002",
+    "title": "关于之前视频问我庄方宜出了吗,看这里",
+    "file": "2026-05-09-002.md",
+    "publishTime": "2026-05-09T16:24:00+08:00",
+    "priority": "normal"
+  }
+]
