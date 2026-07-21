@@ -282,8 +282,14 @@ export function AppSidebar() {
             </SidebarMenu>
           </SidebarGroup>
         )}
-        {FEATURES.ads && (isMobile || state !== 'collapsed') && (
-          <div className="mt-auto shrink-0 px-2 pb-2 pt-1">
+        {FEATURES.ads && (
+          <div
+            className={cn(
+              'mt-auto shrink-0 px-2 pb-2 pt-1',
+              // Keep the ad node mounted so adwork does not need a rescan.
+              !isMobile && state === 'collapsed' && 'hidden',
+            )}
+          >
             <SidebarAd />
           </div>
         )}

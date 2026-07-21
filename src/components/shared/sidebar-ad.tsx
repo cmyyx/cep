@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState, useSyncExternalStore } from 'react'
+import { useEffect, useRef, useState, useSyncExternalStore } from 'react'
 import { useTranslations } from 'next-intl'
 import { cn } from '@/lib/utils'
 import { FEATURES } from '@/lib/features'
@@ -22,12 +22,18 @@ export function shouldHideAdsForUser(
   )
 }
 
+function isAdSlotFilled(node: HTMLElement | null): boolean {
+  if (!node) return false
+  return node.classList.contains('adwork') && node.innerHTML.trim().length > 0
+}
+
 export function SidebarAd({ className }: { className?: string }) {
   const t = useTranslations()
   const mounted = useSyncExternalStore(() => () => {}, () => true, () => false)
   const premiumUntil = useAuthStore((s) => s.premiumUntil)
   const premiumPreGrantedUntil = useAuthStore((s) => s.premiumPreGrantedUntil)
   const [status, setStatus] = useState<AdStatus>('loading')
+  const slotRef = useRef<HTMLDivElement>(null)
   // eslint-disable-next-line react-hooks/purity -- membership expiry check
   const now = Date.now()
   const hideAds =
@@ -35,6 +41,11 @@ export function SidebarAd({ className }: { className?: string }) {
 
   useEffect(() => {
     if (!FEATURES.ads || hideAds) return
+
+    // Remount safety: SDK may have filled this slot before React reattached listeners.
+    if (isAdSlotFilled(slotRef.current)) {
+      setStatus('loaded')
+    }
 
     const onLoaded = () => setStatus('loaded')
     const onError = (event: Event) => {
@@ -65,7 +76,12 @@ export function SidebarAd({ className }: { className?: string }) {
         className,
       )}
     >
-      <div className="adwork-net adwork-auto w-full" data-id="1110" />
+      <div
+        ref={slotRef}
+        className="adwork-net adwork-auto w-full"
+        data-id="1110"
+        data-placeholder="none"
+      />
       {status !== 'loaded' && (
         <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center gap-1.5 bg-muted/40 px-3 py-4 text-center backdrop-blur-[1px]">
           <span className="text-xs font-medium text-muted-foreground">

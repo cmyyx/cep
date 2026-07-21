@@ -206,6 +206,8 @@ function Sidebar({
             } as React.CSSProperties
           }
           side={side}
+          // Keep ad DOM alive: adwork SDK only fills .adwork-net once per URL.
+          keepMounted
         >
           <SheetHeader className="sr-only">
             <SheetTitle>Sidebar</SheetTitle>
