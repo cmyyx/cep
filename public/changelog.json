@@ -1,0 +1,685 @@
+{
+  "changelog": [
+    {
+      "commit": "378fd206",
+      "commitTime": "2026-07-21T08:24:25+08:00",
+      "message": "清理无用资源,更新部署目录",
+      "version": "v1.4.4",
+      "forceUpdate": false
+    },
+    {
+      "commit": "9fc2fbc5",
+      "commitTime": "2026-07-21T07:36:55+08:00",
+      "message": "fix: 修复E2E测试报错",
+      "version": "v1.4.3",
+      "forceUpdate": false
+    },
+    {
+      "commit": "83a19944",
+      "commitTime": "2026-07-21T07:02:58+08:00",
+      "message": "新增WIKI，大幅调整tooltip，修复部分图标错误 (#75)\n\n* feat: 增加wiki板块\n\n* feat: 继续完成wiki板块,修复基质规划部分武器图片错误,基质规划筛选增加武器类型,修改武器和装备的tooltip,支持跳转到对应wiki,tooltip适配多制造材料\n\n* test(scripts): defer script library tests\n\n* test(scripts): add wiki pipeline coverage\n\n* refactor: 修改图标获取方式\n\n* chore: 批量清理和优化项目代码，修复多处细节问题\n\n* refactor: 抽离通用工具函数并优化多处逻辑\n\nclose #74\n\n* feat: 新增0721节日，修复横幅颜色问题，优化更新日志展示\n\n* fix(wiki-builder): 修复并发任务池无法在首个任务失败后停止调度的问题",
+      "forceUpdate": false
+    },
+    {
+      "commit": "e9d41de6",
+      "commitTime": "2026-07-21T01:22:56+08:00",
+      "message": "fix(pool-info-strip): add aria-describedby to DialogContent for accessibility (#76)",
+      "forceUpdate": false
+    },
+    {
+      "commit": "dcac2235",
+      "commitTime": "2026-07-20T15:57:57+08:00",
+      "message": "Beta v1.4.2 fix (#73)\n\n* fix(banner-calendar): polish pool-info-strip and add tests\n\n- Use cn() utility instead of string concatenation for className\n- Replace native button with Shadcn Button component\n- Add useEffect cleanup for closeTimerRef on unmount\n- Add pool-info-strip.test.tsx with basic rendering tests\n\n* fix: address code review feedback\n\n- Disable Dialog default close button, keep single custom DialogClose\n- Add persistent sr-only DialogTitle for dialog accessibility\n- Replace inner DialogTitle/Header with plain elements to avoid duplicate\n- Add aria-label on Info button using existing translation key\n- Define --color-status-future token, update notYetAppeared badge\n- Update PENDING_SCHEDULE period from 9 to 10 for 梨诺\n- Expand tests with dialog open/info button/close button coverage",
+      "forceUpdate": false
+    },
+    {
+      "commit": "416620e0",
+      "commitTime": "2026-07-18T21:50:05+08:00",
+      "message": "refactor(banner): unify data source and refine pool dialog UX (#71)\n\n* refactor(banner): unify data source and refine pool dialog UX\n\n- Merge banner-visuals.json and banner-data.ts into single src/data/banner.ts\n  with deriveschedule() deriving bannerSchedule from bannerEntries\n- Delete deprecated banner-data.ts, banner-data.test.ts, banner-visuals.json\n- Redesign pool detail dialog: 16:9 aspect-video image, floating frosted-glass\n  info card, click-area dismiss with exit animation (animate-out)\n- Add 'click empty area to close' hint text with fade animation\n- Preserve future banner characters via PENDING_SCHEDULE (梨诺)\n- Add notYetAppeared status badge type for characters with all future windows\n- Update all i18n locales (zh-CN/zh-TW/en/ja)\n\n* fix: revert packageManager to pnpm 9.14.4 for Netlify compatibility\n\n* fix: address review comments — race condition, a11y close btn, window sorting\n\n* fix(timeline): distinguish past rerun bars from upcoming visually",
+      "forceUpdate": false
+    },
+    {
+      "commit": "c39ed585",
+      "commitTime": "2026-07-16T20:09:20+08:00",
+      "message": "feat: 更新新武器,角色,装备,淤积点 (#70)\n\n* feat: 更新新武器,角色,装备,淤积点\n\n* refactor: 优化装备/武器数据处理与UI展示逻辑",
+      "version": "v1.4.0",
+      "forceUpdate": false
+    },
+    {
+      "commit": "b4ca3fa0",
+      "commitTime": "2026-07-16T01:53:17+08:00",
+      "message": "style(announcement-panel): 调整详情弹窗的最大宽度为2xl",
+      "forceUpdate": false
+    },
+    {
+      "commit": "be41fcd2",
+      "commitTime": "2026-07-16T00:34:32+08:00",
+      "message": "refactor: 优化图片缓存版本处理逻辑 (#69)\n\n* refactor: 优化图片缓存版本处理逻辑\n\n1. 重构图片缓存版本生成逻辑，改为单文件哈希清单而非全局哈希，仅修改的图片会更新缓存版本\n2. 移除VersionInfo中的imageCacheVersion字段，新增image-hash-manifest.ts导出图片哈希清单\n\n* fix(image-url): 修复图片缓存版本参数处理逻辑，补充多场景测试\n\n1.  修复原逻辑未正确处理URL片段(#)的问题，将版本参数插入到片段前\n2.  新增对URL编码路径的解码查找，适配含中文等编码字符的图片路径\n3.  重构generate-image-manifest脚本，移除失败告警直接抛错阻断构建\n4.  补充完整的测试用例覆盖各种URL场景",
+      "version": "v1.3.23",
+      "forceUpdate": false
+    },
+    {
+      "commit": "fed457a9",
+      "commitTime": "2026-07-12T06:40:40+08:00",
+      "message": "feat(weapons): 新增四二式·肃阵、曜夜的首演 preview 武器 (#68)",
+      "version": "v1.3.22",
+      "forceUpdate": false
+    },
+    {
+      "commit": "60948511",
+      "commitTime": "2026-07-04T18:05:52+08:00",
+      "message": "feat: 更新关于界面",
+      "version": "v1.3.21",
+      "forceUpdate": false
+    },
+    {
+      "commit": "23c36312",
+      "commitTime": "2026-07-04T17:33:58+08:00",
+      "message": "feat: 添加图片缓存版本号机制以解决缓存问题 (#66)\n\n* feat: 添加图片缓存版本号机制以解决缓存问题\n\n新增脚本生成图片目录哈希作为缓存版本，为所有图片URL附加版本参数避免旧缓存影响，更新类型定义并替换所有硬编码图片路径\n\n* refactor(image cache): 优化图片缓存版本号逻辑并完善测试\n\n1. 修复原代码中缓存版本号常量提前声明导致无法正确读取最新值的问题\n2. 增加对已带查询参数的URL正确使用&作为分隔符\n3. 重构图片hash计算逻辑，改用文件内容哈希而非修改时间，保证构建一致性\n4. 按文件名排序遍历文件，避免哈希结果受文件系统遍历顺序影响\n5. 新增完整的单元测试覆盖各种场景\n6. 优化错误回退逻辑，使用空内容哈希保证版本号确定性",
+      "forceUpdate": false
+    },
+    {
+      "commit": "92e1e2e6",
+      "commitTime": "2026-06-29T19:11:48+08:00",
+      "message": "fix(slot-recommendation): 修复候选列表为空时列宽错误重置的问题\n\n修复ResizeObserver绑定到已卸载的旧DOM元素导致的列数重置问题，添加hasCandidates依赖项并在无候选时跳过监听初始化",
+      "version": "v1.3.20",
+      "forceUpdate": false
+    },
+    {
+      "commit": "0e4df913",
+      "commitTime": "2026-06-29T01:01:32+08:00",
+      "message": "修复装备每行展示数量异常与部分装备数据错误\n\n* refactor(slot-recommendation): 重写网格列数计算逻辑\n\n1. 移除基于子元素位置的循环计数，避免循环依赖\n2. 新增两种标准计算路径：直接解析显式轨道、通过repeat语法和容器尺寸计算\n3. 修复ResizeObserver依赖缺失的问题，添加isMobile监听项\n\n* refactor(equip-stat): 重构装备属性格式化逻辑，统一到共享模块\n\n1.  重构 validate-data.ts 和 update-data-files.ts，移除重复的属性格式化代码\n2.  新增 equip-stat-format.ts 作为装备属性格式化的唯一真相源，支持自定义公式解析\n3.  修复生物辅助接驳器和纾难识别牌的伤害减免属性显示错误，将82%修正为正确的17%减免值\n4.  添加 equip-stat-format.test.ts 编写单元测试覆盖格式化逻辑\n5.  扩展 vitest 测试文件匹配规则，包含 scripts 目录下的测试文件\n\n* refactor: 移除废弃的装备 stat 映射相关代码\n\n1.  删除了 migrate-equip-stats.ts、migrate-to-gemtermid.ts 等废弃迁移脚本\n2.  移除了 equip-stat-mapping.ts、stat-mapping.ts 中的旧映射工具函数\n3.  简化了 update-equips-file 中的 stat 键获取逻辑，直接使用 attrType 作为键\n4.  优化了 rem 单位转换，使用动态根字体大小计算而非固定16px基准\n5.  新增了数值格式校验和错误抛出逻辑，增强数据合法性检查\n6.  更新了注释内容，移除过时的映射说明注释",
+      "version": "v1.3.19",
+      "forceUpdate": false
+    },
+    {
+      "commit": "0f66f8d7",
+      "commitTime": "2026-06-28T02:40:47+08:00",
+      "message": "feat(refinement): add武陵调度券支持与移动端优化 (#61)\n\n* feat(refinement): add武陵调度券支持与移动端优化\n\n1. 新增装备调度券相关类型定义与数据解析逻辑\n2. 自动生成多语言材料与调度券词条\n3. 优化移动端卡片布局与触摸交互\n4. 调整装备详情与推荐面板展示逻辑\n5. 新增ponytail开发规范文档\n\n* refactor: 抽离复用的移动端长提示 tooltip 和滚动关闭逻辑\n\n1.  将多处重复的 useCloseOnScroll 和移动端长按压 tooltip 逻辑抽离为独立 hooks\n2.  重构装备卡片、武器卡片、地下城卡片中的 tooltip 相关代码\n3.  优化响应式网格布局的类名写法，替换内联样式\n4.  简化元数据生成脚本的条件判断逻辑\n\n* style(ui): 统一卡片组件的按钮样式与类型\n\n1.  新增card尺寸变体适配卡片按钮样式\n2.  将equip-card和weapon-card的原生button替换为Button组件\n3.  简化卡片按钮的冗余类名，统一使用预设变体\n4.  优化移动端长按提示钩子的类型定义\n\n* fix(useAutoSync): 添加强制跳过自动同步的认证开关校验",
+      "version": "v1.3.18",
+      "forceUpdate": false
+    },
+    {
+      "commit": "df216c51",
+      "commitTime": "2026-06-27T00:21:50+08:00",
+      "message": "feat(weapon): add iconId field and support cross-resource weapon icon… (#60)\n\n* feat(weapon): add iconId field and support cross-resource weapon icon loading\n\n1.  新增Weapon接口的iconId可选字段，用于匹配游戏原生图标资源\n2.  全链路修改武器图标加载逻辑，优先使用iconId，缺失时回退到id\n3.  添加同步脚本自动校验和补全weapons.ts中的iconId数据\n4.  修复图片校验脚本，支持同时检测id和iconId对应的图标文件\n\n* refactor(scripts): rewrite item table loading logic to fix int64 precision issues",
+      "version": "v1.3.17",
+      "forceUpdate": false
+    },
+    {
+      "commit": "9a31f486",
+      "commitTime": "2026-06-26T21:26:53+08:00",
+      "message": "feat(about): 更新关于界面",
+      "version": "v1.3.16",
+      "forceUpdate": false
+    },
+    {
+      "commit": "66a6aaa7",
+      "commitTime": "2026-06-26T18:25:42+08:00",
+      "message": "chore: 修复图片缺失 (#59)",
+      "version": "v1.3.15",
+      "forceUpdate": false
+    },
+    {
+      "commit": "5d64ce2f",
+      "commitTime": "2026-06-26T18:17:50+08:00",
+      "message": "fix(sync-game-data): 补全镜像完整性校验逻辑",
+      "forceUpdate": false
+    },
+    {
+      "commit": "b0d126fe",
+      "commitTime": "2026-06-26T18:04:53+08:00",
+      "message": "refactor(auth,ci,build): 完善人机验证相关功能与流程\n\n1. 新增多语言下的人机验证标签与加载提示文案\n2. 重构Turnstile组件，添加加载状态与自定义加载文本\n3. 优化登录与授权页的人机验证UI与校验逻辑\n4. 更新CI同步脚本与图片校验脚本，调整图片处理流程\n5. 清理冗余的stat mapping生成脚本与文档",
+      "forceUpdate": false
+    },
+    {
+      "commit": "95c34665",
+      "commitTime": "2026-06-26T15:40:31+08:00",
+      "message": "chore: sync game data from upstream (#54)",
+      "version": "v1.3.14",
+      "forceUpdate": false
+    },
+    {
+      "commit": "704ed1d3",
+      "commitTime": "2026-06-26T15:35:44+08:00",
+      "message": "chore: 移除对 EndFieldTranslationReferrer 仓库的依赖 (#58)\n\n* chore: 移除对 EndFieldTranslationReferrer 仓库的依赖\n\n重构了上游数据源逻辑，将多语言翻译源从独立的 EndFieldTranslationReferrer 仓库切换到 AKEData 内置的 TableCfg/I18nTextTable 文件中，同时更新了所有相关脚本、配置文件和文档，删除了不再需要的翻译路径参数和缓存记录。\n\n* fix(generate-weapon-stats-i18n): 修复多技能共享gemId导致的覆盖问题",
+      "forceUpdate": false
+    },
+    {
+      "commit": "26d1b13d",
+      "commitTime": "2026-06-26T12:40:29+08:00",
+      "message": "ci(workflow): 调整同步数据工作流",
+      "forceUpdate": false
+    },
+    {
+      "commit": "adfc280a",
+      "commitTime": "2026-06-26T01:21:10+08:00",
+      "message": "feat(browser-detect): add CSS_LAYER support for @layer rule detection (#57)\n\n* feat(browser-detect): add CSS_LAYER support for @layer rule detection\n\n添加了对CSS @layer规则的浏览器兼容性检测，更新了临界问题判断逻辑，修复了浏览器兼容守卫的样式兼容写法，新增对应测试用例。\n\n* refactor(browser-detect): 升级浏览器兼容性检测与推荐版本\n\n1. 新增并更新多项CSS特性检测项，包括:has()、oklch、color-mix()、@container、@property和CSS嵌套语法\n2. 更新浏览器最低推荐版本，同步更新兼容的浏览器下载链接\n3. 重构浏览器特性检测逻辑，复用探针函数减少重复代码\n4. 完善配套测试用例，覆盖新增的检测项\n5. 移除过时的GuardOverlay组件与相关导入\n\n* feat: add acknowledgements section, update announcements and add new character\n\n1. 新增多语言的鸣谢与链接相关国际化文案\n2. 更新公告列表，替换旧公告并新增反馈指引公告\n3. 在关于页面新增鸣谢链接展示模块\n\n* docs: update announcement texts and about page style",
+      "forceUpdate": false
+    },
+    {
+      "commit": "d7df8a2f",
+      "commitTime": "2026-06-16T00:13:41+08:00",
+      "message": "fix: 修复一些同步数据的问题;此次提交为原准备增加三星武器,后发现难度过高,但中途改了一些同步数据的内容,遂尝试保留非适配三星武器的改动 (#56)",
+      "forceUpdate": false
+    },
+    {
+      "commit": "4c03d870",
+      "commitTime": "2026-06-15T22:05:30+08:00",
+      "message": "fix: 修复部分环境变量配置错误(即修复论坛入口丢失)",
+      "version": "v1.3.11",
+      "forceUpdate": false
+    },
+    {
+      "commit": "0336b569",
+      "commitTime": "2026-06-15T03:49:24+08:00",
+      "message": "feat: 增加云端同步时武器ID解析功能，确保本地数据与云端一致 (#55)\n\n* feat: 增加云端同步时武器ID解析功能，确保本地数据与云端一致\n\n* review fix",
+      "version": "v1.3.10",
+      "forceUpdate": false
+    },
+    {
+      "commit": "9b3d8e9f",
+      "commitTime": "2026-06-15T02:46:14+08:00",
+      "message": "fix: preview武器id迁移某些情况下未触发;本地数据变化,云端数据未变化时,无法将云端数据同步至本地",
+      "version": "v1.3.9",
+      "forceUpdate": false
+    },
+    {
+      "commit": "ddbcbbea",
+      "commitTime": "2026-06-11T14:55:12+08:00",
+      "message": "公告更新",
+      "version": "v1.3.8",
+      "forceUpdate": false
+    },
+    {
+      "commit": "519198eb",
+      "commitTime": "2026-06-11T14:39:28+08:00",
+      "message": "版本区分",
+      "version": "v1.3.7",
+      "forceUpdate": false
+    },
+    {
+      "commit": "ce217617",
+      "commitTime": "2026-06-09T13:36:56+08:00",
+      "message": "chore: sync game data from upstream (#53)",
+      "forceUpdate": false
+    },
+    {
+      "commit": "0dd08da9",
+      "commitTime": "2026-06-08T16:54:58+08:00",
+      "message": "refactor(use-version): improve page refresh logic to avoid cache and bfcache\n\n替换原有的简单replace跳转，改为添加时间戳参数的全量网络请求，彻底避免bfcache和HTTP缓存问题",
+      "forceUpdate": false
+    },
+    {
+      "commit": "72391964",
+      "commitTime": "2026-06-08T16:12:23+08:00",
+      "message": "chore: sync game data from upstream (#51)",
+      "version": "v1.3.6",
+      "forceUpdate": false
+    },
+    {
+      "commit": "df52cfee",
+      "commitTime": "2026-06-08T16:11:53+08:00",
+      "message": "feat(essence): 新增已选武器栏与弹窗查看功能，优化交互体验 (#52)\n\n* feat(essence): 新增已选武器栏与弹窗查看功能，优化交互体验\n\n1. 更新多语言文案，替换原有管理/全看按钮文本\n2. 新增顶部已选武器快速选择栏，支持点击移除武器\n3. 重构武器选择交互，点击武器卡片/行即可切换选中状态\n4. 重构移动端布局，将全看弹窗适配桌面右侧面板\n5. 优化移动端底部操作栏逻辑，调整按钮样式与功能\n\n* refactor: 整理代码并优化初始化与反馈组件\n\n1.  移除多语言文件中无用的app启动阶段配置\n2.  重构选中武器条组件，提取为独立文件\n3.  优化初始化加载覆盖层和反馈组件，支持自定义反馈链接\n4.  修复武器卡片按钮样式，替换为标准Button组件",
+      "forceUpdate": false
+    },
+    {
+      "commit": "2b1a2fca",
+      "commitTime": "2026-06-07T15:40:18+08:00",
+      "message": "feat: 角色攻略更新",
+      "version": "v1.3.5",
+      "forceUpdate": false
+    },
+    {
+      "commit": "b6c8edf2",
+      "commitTime": "2026-06-07T15:32:58+08:00",
+      "message": "fix(browser-detect): 修复了使用考古浏览器导致无法显示AVIF格式图片还能进入网站的问题",
+      "version": "v1.3.4",
+      "forceUpdate": false
+    },
+    {
+      "commit": "8b25e362",
+      "commitTime": "2026-06-07T14:11:48+08:00",
+      "message": "Beta 1.3.3 (#50)\n\n* refactor(sync): 替换SHA追踪分支为JSON文件存储方案\n\n1. 重构上游版本追踪逻辑，废弃auto/upstream-tracking孤儿分支方案，改用scripts/.cache/upstream-versions.json文件提交到主分支\n2. 修复上游仓库默认路径，将其移动到项目目录外避免submodule污染\n3. 更新CI工作流，将上游仓库克隆到RUNNER_TEMP目录而非项目内，并新增污染检查步骤\n4. 同步更新文档SYNC.md和SYNC_PIPELINE.md，修正流程说明\n5. 调整脚本路径解析逻辑，适配外部目录的上游仓库\n\n* fix(essence/dungeon-card): 修复筛选后仅显示未选中武器的问题\n\n新增判断逻辑，当计划有选中武器但全部被筛选隐藏时，不再渲染卡片，避免展示误导性的内容\n\n原PR为 #48，原作者关闭PR并删除分支，本提交继续修复该BUG\n\n* refactor(essence-planner): 优化空状态和布局逻辑\n\n1. 简化空状态渲染逻辑，统一空状态样式\n2. 移除冗余的无武器选中判断分支\n3. 调整区域筛选栏始终显示\n4. 同步更新中英文提示文案，移除冗余注释内容\n\n* docs(scripts): update sync docs and fix sha check logic",
+      "version": "v1.3.3",
+      "forceUpdate": false
+    },
+    {
+      "commit": "141f79e3",
+      "commitTime": "2026-06-06T23:49:44+08:00",
+      "message": "弭弗名称修正",
+      "version": "v1.3.2",
+      "forceUpdate": false
+    },
+    {
+      "commit": "1ee3945e",
+      "commitTime": "2026-06-06T18:26:33+08:00",
+      "message": "Beta 1.3.1 (#47)\n\n* refactor: 装备数据完全统一上游\n\n* feat(locale): add locale redirect guard to fix wrong language flash\n\n新增LocaleGuardHead组件实现首屏前同步语言重定向，避免页面加载时出现错语言闪屏；同时优化语言选择器的显示逻辑和样式。\n\n* refactor(scripts,e2e): 优化多处代码逻辑与检测能力\n\n1.  修复装备套装名称检测逻辑，新增equip目录 fallback\n2.  优化语言选择器匹配规则，使用精确匹配替代模糊匹配\n3.  重构insertEntries工具函数，自动处理末尾逗号补全\n4.  重写装备数据校验逻辑，支持字段顺序无关解析并提升查询效率",
+      "version": "v1.3.1",
+      "forceUpdate": true
+    },
+    {
+      "commit": "a1b997de",
+      "commitTime": "2026-06-06T03:17:44+08:00",
+      "message": "chore: 更新数据至 1.3 上半 (#44)\n\n* chore: 更新数据至 1.3 上半\n\n- 新增武器、装备、区域与副本的多语言翻译条目\n- 修复装备词条排序与自动匹配逻辑\n- 更新CI同步脚本与文档，适配新的数据源路径\n- 自动将预览武器替换为正式ID\n- 重构副本语义键生成逻辑，移除硬编码映射表\n\n* feat: 新增装备、武器素材与多语言支持，重构属性系统\n\n- 新增13张装备/武器图片资源\n- 新增lossless-json依赖处理大整数\n- 重构属性系统：将stat字段替换为key，统一属性标识符\n- 生成多语言属性翻译文件（zh-CN/zh-TW/en/ja）\n- 新增武器/装备属性映射脚本与自动生成逻辑\n- 移除旧的stat-i18n-map.ts，改用自动生成的映射文件\n- 清理废弃的i18n条目，新增空值过滤逻辑\n\n* chore: 更新应用名称与修复多处细节\n\n1. 更新各语言下的应用名称，补充原名说明\n2. 修复tooltip触发逻辑，避免1px宽度误差导致的误判\n3. 修复generate-dungeons脚本的语义键回退逻辑\n4. 修复sync-game-data中的中文变量名与日志输出\n5. 为CI工作流添加persist-credentials配置\n\n* refactor: 抽离通用无损JSON解析工具并整理代码\n\n1.  提取重复的lossless-json解析逻辑到json-utils.ts\n2.  修复tooltip打开条件判断逻辑和注释\n3.  替换所有文件内联的JSON解析代码\n4.  更新脚本注释说明和文件结构\n5.  统一替换双引号为单引号并删除旧的统计翻译文件\n\n* fix(components/filter-chip): 修复tooltip误触发的精度问题\n\n改用Range.getBoundingClientRect获取文本宽度，解决offsetWidth和scrollWidth的1px舍入误差导致的误判，正确在文本未溢出时隐藏tooltip\n\n* refactor: 整理代码结构并统一属性ID映射\n\n- 提取复用的FilterChip组件到shared目录\n- 修复equip stat映射重复条目问题\n- 为武器/装备数据迁移完善gemTermId fallback逻辑\n- 修复正则表达式转义问题避免注入风险\n- 优化数据验证逻辑增加缺失字段检查\n- 修复装备类型分类错误\n- 移除冗余的loadTextTable导入\n- 增加重复CN名称警告日志\n- 重构脚本shebang支持多参数\n顺带修正卡缪up时间\n\n* refactor(equip/filter): 优化装备类型匹配与筛选芯片样式\n\n1.  为装备数据添加partType字段映射，替换硬编码的配件类型\n2.  重构筛选芯片的样式实现，改用阴影替代边框实现选中/未选中状态\n3.  优化筛选芯片的文字测量逻辑注释\n\n* 更新公告\n\n* 更新文档",
+      "version": "v1.3.0",
+      "forceUpdate": false
+    },
+    {
+      "commit": "a19328d3",
+      "commitTime": "2026-06-04T02:51:33+08:00",
+      "message": "Beta 0.2.34 (#43)\n\n* feat: SEO优化与武器星级错误修复\n\n* refactor: 移除旧 noscript 组件，改用内置标签实现无JS提示\n\n1.  新增多语言的noscript.banner翻译文案\n2.  在根布局添加no-js类和移除脚本，实现无JS状态样式控制\n3.  将noscript提示移到语言布局中，替换原NoscriptFallback组件\n4.  简化初始化加载动画逻辑，改用纯CSS indeterminate 加载效果\n5.  删除废弃的NoscriptFallback组件及其测试用例\n\n* refactor: 重构站点元相关逻辑并完善测试\n\n1. 提取并重构站点URL处理、多语言链接生成逻辑到metadata工具库\n2. 移除冗余的SITE_URL全局变量定义，统一使用工具函数获取\n3. 优化noscript延迟显示动画的使用方式，替换选择器为data-app-init\n4. 新增robots、sitemap、metadata工具库的单元测试\n5. 修复站点URL尾部多余斜杠的问题\n6. 简化应用初始化 overlay 的依赖监听逻辑",
+      "version": "v1.2.13",
+      "forceUpdate": false
+    },
+    {
+      "commit": "c5f7c9e3",
+      "commitTime": "2026-06-03T18:32:18+08:00",
+      "message": "改个时间",
+      "forceUpdate": false
+    },
+    {
+      "commit": "8654aa5c",
+      "commitTime": "2026-06-03T16:17:40+08:00",
+      "message": "feat: 调整开通方式 (#42)\n\n* feat: 调整开通方式\n\n* feat: 添加新公告并更新Premium相关逻辑",
+      "version": "v1.2.12",
+      "forceUpdate": false
+    },
+    {
+      "commit": "13839491",
+      "commitTime": "2026-06-02T22:21:16+08:00",
+      "message": "Beta 0.2.32 (#41)\n\n* refactor(css-guard): 替换原有CSS加载检测逻辑为自定义属性哨兵方案\n\n* feat: add external CSS injection detection and prompt\n\n新增浏览器扩展/脚本篡改页面样式的检测功能，当检测到外部样式注入时展示告警提示\n\n* feat: add playwright e2e tests and ci support\n\n- 新增Playwright配置与端到端测试用例，覆盖主题切换、多语言切换、侧边栏导航和扩展CSS检测功能\n- 添加CI流水线的Playwright浏览器缓存与安装步骤，配置自动运行E2E测试\n- 新增扩展CSS检测器的单元测试与导出工具函数\n- 更新.gitignore忽略Playwright测试产物与结果目录\n- 新增serve依赖用于CI环境静态文件服务\n\n* fix: 优化同步错误处理逻辑\n\n* refactor: 优化扩展CSS检测逻辑\n\n* feat: add export failed prompt, improve export compatibility and browser detection\n\n1. 新增多语言的导出失败提示文案\n2. 优化数据导出逻辑，适配移动端设备，添加剪贴板 fallback 方案\n3. 修复浏览器临界检测逻辑，新增 CSS_WHERE 作为临界特性\n4. 为初始化遮罩添加测试ID，重构E2E测试使用统一等待方法\n5. 重构debug面板导出逻辑，提升移动端兼容性\n\n* refactor(e2e): 重构E2E测试工具函数，统一页面就绪逻辑\n\n将原有的waitForAppReady重命名为gotoAndReady，整合导航和页面就绪等待逻辑，增加侧边栏可见性检查来确认React hydration完成，同时更新所有测试用例以适配新的工具函数\n\n* feat(i18n): add export share title translations across locales",
+      "version": "v1.2.11",
+      "forceUpdate": false
+    },
+    {
+      "commit": "ddbf1163",
+      "commitTime": "2026-06-02T04:11:58+08:00",
+      "message": "Beta 0.2.31 (#39)\n\n* refactor(structured-data): 替换HeadScript为原生script标签\n\n移除了自定义HeadScript组件依赖，改用标准script标签实现结构化数据渲染，同时添加必要的ld+json类型和防 hydration 警告属性\n\n* refactor(debug): add silent log to separate debug logs from browser console\n\n将原有console.warn/debug调用替换为silentLog，让HTTP调试日志仅输出到调试面板而非浏览器控制台，同时新增全局silentLog方法暴露给调试模块使用\n\n* refactor: 清理类型忽略注释并新增调试类型定义\n\n1.  移除三处`@ts-expect-error`注释，新增debug.d.ts类型声明文件补全Window和CepDebugApi类型\n2.  重构HeadScript组件支持传入type属性，替换结构化数据组件的原生script标签为HeadScript\n3.  统一处理JSON-LD的转义逻辑\n\n* feat: add holiday banner and effect toggle system\n\n* fix(dungeon-card): 始终显示UP和前瞻武器在方案推荐不生效\nclose #40\n\n* refactor(holiday): 移除节日主题覆盖层，重构节日逻辑\n\n1.  从布局组件中移除HolidayThemeOverlay\n2.  删除全局样式中节日主题相关的CSS变量\n3.  优化use-holiday钩子，使用useMemo缓存活动节日阶段\n4.  将关闭按钮替换为shadcn/ui Button组件\n5.  新增三个测试文件完善测试覆盖率\n\n* test(holiday-banner): 将toBeDefined替换为not.toBeNull\n\n统一测试断言写法，让断言逻辑更贴合实际DOM节点检测场景",
+      "version": "v1.2.10",
+      "forceUpdate": false
+    },
+    {
+      "commit": "be220133",
+      "commitTime": "2026-06-01T19:12:29+08:00",
+      "message": "Beta 0.2.30 (#38)\n\n* fix(css-guard): 跳过跨域样式表检测避免误报\n\n补充了同源校验逻辑，过滤浏览器扩展的跨域样式表，防止出现误报的CSS加载失败检测结果\n\n* feat: add global feedback channel components and multilingual translations\n\n新增了统一的反馈渠道组件，补充了多语言的反馈相关翻译文本，并在多个加载/错误保护页面中接入了反馈入口\n\n* refactor(locale-guard): simplify locale mismatch guard logic\n\n移除了浏览器区域检测逻辑，仅在用户有显式语言偏好时才做重定向，更新组件文档说明当前行为\n\n* feat: 新增主属性池相关的配装功能与数据\n\n1.  扩展Dungeon类型新增s1Pool字段，补充所有副本的主属性池数据\n2.  新增essence-utils工具类，统一导出全量配装相关属性池\n3.  优化武器筛选逻辑，新增主属性匹配校验\n4.  重构武器表单与网格组件，使用统一的属性池数据替代静态枚举\n5.  新增数据校验测试，确保副本配置的合法性\n\n* refactor(components): 优化移动端卡片长按 tooltip 交互体验\n\n1.  为 dungeon-card 的 WeaponThumbnail 新增完整的移动端长按交互逻辑，包括指针事件处理、防抖移动判断\n2.  将 WeaponThumbnail 的外层 div 改为 button 并适配无障碍和触摸样式\n3.  将全局的长按超时从500ms调整为300ms，统一两处卡片的长按触发时机\n4.  复用并标准化移动端 tooltip 长按交互逻辑\n\n* refactor(essence): 替换内联✓符号为lucide-react的Check组件\n\n- 更新buildAttrValues函数注释，明确常量预计算逻辑\n- 新增两个测试文件覆盖工具常量和LocaleGuard组件\n- 修复移动端长 press 未清理的问题",
+      "version": "v1.2.9",
+      "forceUpdate": false
+    },
+    {
+      "commit": "e3aa6dd5",
+      "commitTime": "2026-06-01T02:14:21+08:00",
+      "message": "feat: 全站添加关键词元数据与结构化数据支持 (#36)\n\n* feat: 全站添加关键词元数据与结构化数据支持\n\n1. 为所有页面的generateMetadata添加keywords配置，读取对应语言的翻译内容并按逗号分割\n2. 新增结构化数据组件，为站点和页面添加Schema.org标记\n3. 补全所有多语言配置的关键词翻译项\n4. 为主页和功能页面添加对应的结构化数据渲染\n\n* refactor: 优化元数据关键词处理并新增站点URL上下文\n\n1. 为所有页面的meta keywords添加trim和空值过滤，清理无效关键词\n2. 新增use-site-url钩子和上下文提供者，统一管理站点URL\n3. 重构结构化数据组件，支持动态传入url并拆分公共逻辑\n4. 完善多个页面的结构化数据和元数据，使用国际化文本并注入正确的页面URL\n5. 修复精锻规划页的OG图片默认语言路径问题\n\n* refactor: 提取默认站点URL为常量并统一使用\n\n1.  将硬编码的默认站点URL提取到constants.ts中作为DEFAULT_SITE_URL常量\n2.  替换全局各处硬编码的默认站点URL为该常量\n3.  新增结构化数据组件的测试用例",
+      "forceUpdate": false
+    },
+    {
+      "commit": "1d4da9e0",
+      "commitTime": "2026-05-31T14:47:16+08:00",
+      "message": "refactor(planner): 重构S1选择逻辑，新增通用工具函数并修复隐藏武器影响选择的问题 (#35)\n\n1. 新增computeEffectiveS1工具函数统一处理有效S1选择逻辑\n2. 替换原有的useMemo计算逻辑，使用新工具函数过滤隐藏武器的无效S1选项\n3. 新增可见S1选择器判断逻辑，基于实际可见候选数而非原始配置\n4. 补充完整的单元测试覆盖各类边界场景",
+      "version": "v1.2.8",
+      "forceUpdate": false
+    },
+    {
+      "commit": "bc3c5db0",
+      "commitTime": "2026-05-30T20:34:22+08:00",
+      "message": "feat: 新增网络错误处理，重构API请求逻辑，修复基质规划-方案推荐-当武器被选中但基础属性冲突时选中标丢失 (#34)\n\n* feat: 新增网络错误处理，重构API请求逻辑，修复基质规划-方案推荐-当武器被选中但基础属性冲突时选中标丢失\n\n1. 新增network_error错误码与多语言文案\n2. 封装统一的api请求工具函数，替换原生fetch调用\n3. 为调试面板添加HTTP过滤功能\n4. 修复武器卡片选中状态显示逻辑\n\n* refactor: 重构日志过滤和API请求逻辑",
+      "version": "v1.2.7",
+      "forceUpdate": false
+    },
+    {
+      "commit": "b5f82308",
+      "commitTime": "2026-05-30T17:44:17+08:00",
+      "message": "根目录跳转增加超时时间,增加灰字状态指示,增加备用跳转方式 (#33)\n\n* 根目录跳转增加超时时间,增加灰字状态指示,增加备用跳转方式\n\n* review fix\n\n* 调整首屏动画时间,增加css加载失败检测,考古浏览器检测,js禁用检测\n\n* review fix\n\n* feat: 移动端支持通过长按显示武器属性",
+      "version": "v1.2.6",
+      "forceUpdate": false
+    },
+    {
+      "commit": "c4c23496",
+      "commitTime": "2026-05-30T01:26:47+08:00",
+      "message": "更新角色",
+      "forceUpdate": false
+    },
+    {
+      "commit": "0affa29c",
+      "commitTime": "2026-05-29T22:41:14+08:00",
+      "message": "feat(account): 新增兑换码功能与相关国际化文案 (#32)\n\n* feat(account): 新增兑换码功能与相关国际化文案\n\n* review fix",
+      "version": "v1.2.5",
+      "forceUpdate": false
+    },
+    {
+      "commit": "4a9fa790",
+      "commitTime": "2026-05-29T18:25:52+08:00",
+      "message": "武器/装备页面增加滚动余量,修复移动端和底栏重叠",
+      "version": "v1.2.4",
+      "forceUpdate": true
+    },
+    {
+      "commit": "99e87992",
+      "commitTime": "2026-05-29T18:12:11+08:00",
+      "message": "修复Debug Console计时问题",
+      "forceUpdate": false
+    },
+    {
+      "commit": "1611cae0",
+      "commitTime": "2026-05-29T18:03:35+08:00",
+      "message": "工作流更新",
+      "forceUpdate": false
+    },
+    {
+      "commit": "50b9bbdc",
+      "commitTime": "2026-05-29T17:49:33+08:00",
+      "message": "增加 Debug Console 触发难度",
+      "forceUpdate": false
+    },
+    {
+      "commit": "30556b54",
+      "commitTime": "2026-05-29T17:39:35+08:00",
+      "message": "refactor(ci): replace force-upgrade message parsing with boolean input",
+      "forceUpdate": false
+    },
+    {
+      "commit": "4dbe215c",
+      "commitTime": "2026-05-29T17:32:31+08:00",
+      "message": "fix: 版本号不再拦截点击",
+      "forceUpdate": false
+    },
+    {
+      "commit": "614a0d16",
+      "commitTime": "2026-05-29T17:24:21+08:00",
+      "message": "feat: 优化部署工作流，更新嵌入警告横幅逻辑",
+      "forceUpdate": false
+    },
+    {
+      "commit": "ab14bea4",
+      "commitTime": "2026-05-29T16:45:11+08:00",
+      "message": "feat: 添加嵌入警告横幅并更新相关翻译，优化部署流程",
+      "version": "v1.2.3",
+      "forceUpdate": false
+    },
+    {
+      "commit": "e22015e5",
+      "commitTime": "2026-05-29T16:23:38+08:00",
+      "message": "fix: 修正环境变量,修复部分配置错误",
+      "version": "v1.2.2",
+      "forceUpdate": false
+    },
+    {
+      "commit": "09a1aaab",
+      "commitTime": "2026-05-29T15:10:09+08:00",
+      "message": "chore: 更新部署工作流以保存构建产物并优化提交信息",
+      "version": "v1.2.1",
+      "forceUpdate": false
+    },
+    {
+      "commit": "68e2f46a",
+      "commitTime": "2026-05-29T01:00:20+08:00",
+      "message": "ci: generate version data before type check",
+      "forceUpdate": false
+    },
+    {
+      "commit": "ea87444d",
+      "commitTime": "2026-05-29T00:52:58+08:00",
+      "message": "chore: ignore build-generated version files",
+      "version": "v1.2.0",
+      "forceUpdate": false
+    },
+    {
+      "commit": "47651f2b",
+      "commitTime": "2026-05-29T00:15:39+08:00",
+      "message": "工作流顺序错误修复",
+      "forceUpdate": false
+    },
+    {
+      "commit": "c7f7cf5b",
+      "commitTime": "2026-05-29T00:04:29+08:00",
+      "message": "Beta 0.2.24 (#30)\n\n* feat: 悬浮时展示武器属性允许设置开关\n\n* 公告预更新\n\n* 公告文本修正",
+      "forceUpdate": false
+    },
+    {
+      "commit": "fa7347bc",
+      "commitTime": "2026-05-28T22:22:22+08:00",
+      "message": "Beta 0.2.10 (#18)\n\n* feat: 添加 Banner 日历 offRateNote 信息提示功能\n\n- 新增 InfoIcon 组件显示 offRateNote 提示\n- 添加 info tooltip 支持鼠标悬停显示详情\n- 在 store 和类型中传递 offRateNote 字段\n- 修复 rerun active 状态的 badge 翻译文本\n- 添加多语言翻译 key（en/ja/zh-CN/zh-TW）\n\n* feat: 添加卡池信息展示条及卡池视觉数据\n\nBanner 日历页面新增 PoolInfoStrip 组件，以横向滚动卡片形式展示各版本\n卡池宣传图，点击可查看详情弹窗（包含卡池描述、时间、官方链接）。\n新增 BannerVisual 类型和 7 个卡池的视觉数据，同步更新四语言翻译。\n\n* feat(banner-calendar): add off-rate note for limited pool characters\n\n1. 新增多语言的保底歪出提示文案\n2. 重构角色歪率提示的国际化调用逻辑\n3. 优化卡池信息弹窗的按钮组件类型与样式\n4. 简化根布局的内联脚本写法\n\n* style(banner-calendar): 移除pool-info-strip多余的h-auto样式\n\n修正卡片高度重复定义的问题，统一控制元素尺寸\n\n* fix(banner-calendar): 修复时间轴溢出遮挡、移动端适配及代码质量问题\n\n- fix: 时间轴 wrapper 添加 overflow-y-auto，修复内容溢出遮挡 PoolInfoStrip\n- feat: 时间轴左侧角色列响应式适配（移动端 w-14 仅头像，lg+ 恢复 w-52 完整列）\n- fix: InfoIcon 添加 tabIndex/role/aria-label/title，修复键盘无障碍访问\n- fix: version 排序 parseInt 防 NaN 崩溃\n- fix: description 空行改用 <br /> 替代空 <p> hack\n- fix: formatDate 传入 useLocale() locale 参数\n- refactor: 移除 pool-info-strip 中未使用的 scrollRef\n- chore: 删除未引用的死文件 banner-character-notes.json\n- chore: 移除未使用的依赖 @clack/prompts 和 sharp\n\n* chore: 同步 pnpm-lock.yaml（移除 @clack/prompts、sharp、satori）\n\n* feat(timeline-chart): 移除信息图标组件，优化时间轴标签显示逻辑\n\n---------\n\nCo-authored-by: Maple",
+      "forceUpdate": false
+    },
+    {
+      "commit": "eb89c0eb",
+      "commitTime": "2026-05-28T21:26:56+08:00",
+      "message": "Beta 0.2.23 (#29)\n\n* fix: 调整底部栏位置以避免与版本水印重叠，优化安全区域处理\n\n* fix: 调整关于页面的内边距和布局，优化移动端显示；修正字符ID输入模式以支持连字符\n\n* fix: 更新底部栏样式以使用安全区域工具，优化水印和底部栏的布局",
+      "forceUpdate": false
+    },
+    {
+      "commit": "be766006",
+      "commitTime": "2026-05-28T19:56:06+08:00",
+      "message": "Beta 0.2.22 (#28)\n\n* fix: 更新 locale 处理逻辑，确保在路径中正确插入或替换语言标识\n\n* feat: 为了防止反馈时考古,页面左下角添加了常驻版本号(可点击),404界面添加了版本号,Debug Console添加了版本号\n\n* feat: 增强调试面板，添加新的过滤按钮和防御性布局监控，优化DOM注入检测逻辑，进一步增加调试面板触发难度\n\nclose #27\n\n* fix: 优化调试面板和页面底部样式，增强DOM注入检测逻辑，修复测试环境中的全局变量管理\n\n* feat: 添加“跟随”按钮以增强日志面板的可用性，支持自动滚动到最新日志",
+      "forceUpdate": false
+    },
+    {
+      "commit": "a2bb6a12",
+      "commitTime": "2026-05-28T15:57:30+08:00",
+      "message": "feat: 添加调试标签组件，替换原有的调试标签逻辑 (#25)\n\n* feat: 添加调试标签组件，替换原有的调试标签逻辑\n\n* fix: 修复定时器引用类型，确保其初始化为 undefined\n\n* fix: 优化调试标签组件，调整定时器逻辑和样式，确保更好的用户体验\n\n* fix: 修正检测弹窗位置\n\n* fix: 更新 DomainGuard 组件，使用 HeadScript 替代 Script，确保脚本在 React hydration 前执行\n\n* fix: 在布局组件中为 body 添加 suppressHydrationWarning 属性，避免 React hydration 警告\n\n* fix: 尝试修复检测页面异常与418报错\n\n* fix: 使用 useSyncExternalStore 优化版本信息显示，确保在组件挂载时正确格式化时间\n\n* fix: 移除不必要的 useRouter 引用，改用 window.location.href 进行语言切换，确保更好的兼容性\n\n* feat: 重构语言检测逻辑，集中管理语言相关工具函数，优化页面重定向和语言切换\n\n* fix: 修正调试标签的自动隐藏逻辑，确保在页面加载完成后立即触发淡出过渡",
+      "forceUpdate": false
+    },
+    {
+      "commit": "f4ee82d3",
+      "commitTime": "2026-05-28T00:22:48+08:00",
+      "message": "fix: 更新 OAuth 授权描述，移除客户端占位符 (#24)",
+      "forceUpdate": false
+    },
+    {
+      "commit": "900bb787",
+      "commitTime": "2026-05-27T23:49:53+08:00",
+      "message": "fix: 更新版本检查逻辑以支持构建时间变化的情况，调整调试面板触发条件 (#23)\n\n* fix: 更新版本检查逻辑以支持构建时间变化的情况，调整调试面板触发条件\n\n* fix: 优化版本检查逻辑，支持构建时间变化的情况；调整调试面板的多次点击手势",
+      "forceUpdate": false
+    },
+    {
+      "commit": "217189a3",
+      "commitTime": "2026-05-27T22:30:24+08:00",
+      "message": "Beta 0.2.18 (#22)\n\n* refactor: 使用useSyncExternalStore替代useEffect和useState，优化组件状态管理\n\n* feat: 添加调试控制台功能，支持动态加载和日志查看\n\n* feat: 添加侧边栏切换功能的国际化支持\n\n* fix: 简化错误处理，移除不必要的异常参数\nfeat: 使用useReducer优化侧边栏状态管理\n\n* fix: 更新注释，澄清使用location.replace()的原因",
+      "forceUpdate": false
+    },
+    {
+      "commit": "42c78a1e",
+      "commitTime": "2026-05-27T18:03:53+08:00",
+      "message": "fix: 调整武器缩略图尺寸和标签样式，优化布局间距 (#21)\n\n* fix: 调整武器缩略图尺寸和标签样式，优化布局间距\n\n* feat: 支持自动生成公告元数据和更新时间显示",
+      "forceUpdate": false
+    },
+    {
+      "commit": "08c0fc1f",
+      "commitTime": "2026-05-26T18:09:37+08:00",
+      "message": "优化全选武器逻辑,修复武器ID错误,编辑器优化 (#20)\n\n* refactor: 优化全选武器逻辑，修复武器ID映射错误并清理无用资源\n\n1. 修复武器名称和ID的映射错误，修正\"爆破单元\"和\"骑士精神\"的武器ID\n2. 更新WeaponGrid组件，支持仅选中当前筛选可见的武器\n3. 重构selectAllWeapons方法，支持传入自定义选中ID列表\n4. 新增编辑器名称校验工具，添加缺失的国际化提示文本\n5. 优化编辑器各标签页的只读状态控制\n6. 清理大量未使用的武器图片资源\n\n* refactor: 简化图片资源加载逻辑，新增材料名处理工具\n\n- 新增stripMaterialQuantity工具函数处理带数量后缀的材料名\n- 重构武器/装备/材料图片加载逻辑，移除静态映射JSON文件\n- 全局替换weapons路径为weapon修正图片资源路径\n- 重构名称验证逻辑，使用静态数据集合替代懒加载缓存\n- 新增共享武器搜索与筛选状态管理\n- 移除废弃的图片映射生成脚本\n\n* refactor(editor): 重构编辑器表单验证与数据结构\n\n- 为装备条目添加可选id字段用于编辑器校验\n- 修复武器/装备名称校验函数的空白字符处理逻辑\n- 重构武器网格过滤器，避免闭包 stale 问题\n- 新增材料名称校验、工具函数与配套测试\n- 优化编辑器表单的校验状态管理，使用id替代索引作为校验键\n- 过滤掉无效的武器图片ID，避免生成错误链接\n- 修复材料图片加载逻辑，仅校验已知材料名称\n\n* feat: add skill upgrade priority editor and display\n\n- 新增技能升级优先级的数据类型和存储字段\n- 在角色详情页展示技能升级优先级列表\n- 添加编辑器面板支持增删改技能优先级配置\n\n* refactor(announcement): 调整公告存储的 hydration 逻辑并简化加载流程\n\n移除了 persist 的 skipHydration 配置，交由 zustand 自动处理持久化数据 hydration\n合并并简化了公告加载的初始化逻辑，不再手动调用 rehydrate\n\n* feat(announcement): 添加新内容\n\n* refactor: 优化编辑器组件与数据处理逻辑\n\n1. 为装备和武器条目自动生成缺失的UUID ID\n2. 简化编辑器内元素的key生成逻辑，不再使用索引回退方案\n3. 替换旧的边框样式方案为统一的shadow-border变量\n4. 为技能优先级数据添加ID处理逻辑\n5. 更新公告文档，补充装备图标问题的排查情况",
+      "forceUpdate": false
+    },
+    {
+      "commit": "b3313cf9",
+      "commitTime": "2026-05-26T04:44:35+08:00",
+      "message": "feat: 修复on,off缺失i18n,增加论坛区域,设置项调整 (#19)\n\n* fix: 修复on,off缺失i18n\n\n* feat: add embedded community forum feature\n\n1. 新增环境变量 NEXT_PUBLIC_FORUM_URL 控制论坛功能\n2. 添加侧边栏社区入口与内嵌论坛页面\n3. 新增多语言论坛相关文案与环境变量文档\n4. 新增工具函数处理禁用哨兵值的可选URL环境变量\n\n* feat: 新增前瞻武器显示支持，优化多项细节\n\n- 更新多语言文案，将UP武器显示扩展为UP和前瞻武器\n- 修复开发API URL处理逻辑，支持trim和disabled判断\n- 优化公告弹窗最大高度防止溢出\n- 新增合法的dangerouslySetInnerHTML使用场景并规范文档\n- 调整武器筛选逻辑，让前瞻武器也能跳过隐藏过滤",
+      "forceUpdate": false
+    },
+    {
+      "commit": "5c847a6d",
+      "commitTime": "2026-05-25T22:44:26+08:00",
+      "message": "feat: add OAuth and email service error codes with i18n support (#17)\n\n新增了后端OAuth认证和邮件服务相关的错误码枚举，同时补充了多语言的错误提示文案，更新了i18n识别键值和错误码国际化映射逻辑",
+      "forceUpdate": false
+    },
+    {
+      "commit": "c1d9582a",
+      "commitTime": "2026-05-25T22:13:33+08:00",
+      "message": "refactor: 新增标准化错误码国际化映射机制 (#16)\n\n* refactor: 新增标准化错误码国际化映射机制\n\n- 新增ApiErrorCode类型定义统一管理所有错误码\n- 重构getErrorI18nKey使用类型安全的映射表\n- 添加auth_unavailable错误码与对应国际化文案\n- 新增i18n错误码映射校验脚本与CI保障\n- 清理冗余的language相关翻译条目\n- 调整主题脚本放置位置修复 hydration 警告\n- 优化更新页面的请求取消与重复请求逻辑\n\n* fix(ui): 为useEffect添加缺失的eslint禁用注释\n\n修复react-hooks/exhaustive-deps lint警告，在useEffect中添加正确的eslint禁用注释，避免不必要的报错\n\n* refactor: 优化两处代码细节\n\n1. 将update页面的fetchChangelog调用放入microtask队列\n2. 升级i18n检查脚本的ApiError匹配正则，支持双引号匹配",
+      "forceUpdate": false
+    },
+    {
+      "commit": "84cee21f",
+      "commitTime": "2026-05-25T20:59:32+08:00",
+      "message": "build(wrangler): add 404 not found page handling (#15)",
+      "forceUpdate": false
+    },
+    {
+      "commit": "2bbc346c",
+      "commitTime": "2026-05-25T20:53:26+08:00",
+      "message": "Beta 0.2.11 (#14)\n\n* ci(github workflow): 改进数据同步工作流\n\n* style: 优化侧边栏菜单按钮样式与图标尺寸\n\n1. 调整README.md中logo的文件路径\n2. 移除侧边栏隐私、条款按钮的sm尺寸配置，统一图标大小为4并移除xs文本类\n3. 清理sidebar组件中冗余的sm尺寸样式选择器与部分peer状态判断\n\n* fix: 更新登录不可用提示\n\n* feat: 添加开发调试运行时覆盖功能\n\n* refactor: 完善开发调试面板功能与文案\n\n1.  重构setDevOverrides函数，支持空值清除存储项\n2.  缓存apiBase避免重复调用getApiBase\n3.  优化登录页开发面板初始数据加载逻辑\n4.  补充多语言文案与dev-overrides模块标签\n5.  修复CI脚本中的翻译仓库地址\n6.  优化文档代码块语法高亮\n\n* feat: add OAuth2 authorization page and multilingual texts\n\n新增了OAuth2授权页面，同时为简体中文、繁体中文、英文、日语四种语言补充了登录和OAuth授权相关的多语言文案，实现完整的第三方应用授权登录流程。\n\n* feat: add language auto mode and locale guard, rewrite 404 page\n\n1. 新增语言自动选择功能，支持从localStorage读取用户偏好设置\n2. 添加LocaleGuard组件修复Zustand hydration时区问题\n3. 重构根目录404页面，改为自动重定向到对应语言的404页面\n4. 完善国际化多语言配置，新增notFound和语言设置相关翻译\n5. 更新i18n已知键配置文件\n\n* build: add esa and wrangler configuration files\n\n* refactor(oauth/authorize): 重构授权页面逻辑，移除冗余代码并优化状态管理\n\n1. 移除未使用的useLocale、router、refreshToken导入和变量\n2. 将needsLogin改为派生状态，减少冗余的状态更新逻辑\n3. 使用redirectUrl状态统一处理页面跳转，避免直接操作window.location\n4. 简化并优化了初始化视图判断和登录后的状态处理\n\n* refactor: 优化本地化处理与授权流程，补充多语言文案\n\n1.  为多语言文件新增授权失败、默认权限范围的本地化文案\n2.  重构本地存储语言配置解析逻辑，增加类型安全检查\n3.  使用window.location.assign替代直接修改href跳转\n4.  将硬编码的默认权限范围替换为本地化文案\n5.  修复开发环境配置存储时未修剪空白字符的问题\n6.  为CI部署配置新增必要的环境变量\n\n* Update docs/DEV.md\n\nCo-authored-by: sourcery-ai[bot]\n\n* Update docs/DEV.md\n\nCo-authored-by: sourcery-ai[bot]\n\n* ci(github-actions): add OAUTH_CLIENT_NAMES env var injection\n\n---------\n\nCo-authored-by: sourcery-ai[bot]",
+      "forceUpdate": false
+    },
+    {
+      "commit": "27c7991f",
+      "commitTime": "2026-05-25T03:14:24+08:00",
+      "message": "update:干员攻略-昼雪 (#12)\n\n* update:干员攻略-昼雪\n\n* Update snowshine.json",
+      "forceUpdate": false
+    },
+    {
+      "commit": "000e598a",
+      "commitTime": "2026-05-25T02:47:49+08:00",
+      "message": "Beta 0.2.9 更新新淤积点,增加始终显示UP武器设置,初始化同步功能,i18n实现,SEO优化,旧版数据迁移,基质规划UI优化 (#13)\n\n* 淤积点更新\n\n* feat: 新增UP武器始终显示功能并优化细节\n\n1. 添加全局overflow: clip样式修复布局问题\n2. 新增keepUpVisible设置项让UP武器无视隐藏过滤器\n3. 为武器卡片和弹窗添加滚轮事件监听优化交互\n4. 优化tooltip弹窗性能添加contain:paint\n5. 重构banner状态管理，自动定时刷新UP角色列表\n6. 修复部分组件的事件监听逻辑\n\n* feat: 【未完成】新增账号系统与自动同步功能\n\n1. 新增用户认证状态管理，支持登录、注册、登出与会话管理\n2. 实现Cloudflare Turnstile人机验证组件\n3. 添加设备名称识别工具函数\n4. 新增邮箱掩码与格式校验工具函数\n5. 集成跨设备自动同步功能\n6. 重构侧边栏登录状态UI，替换旧认证弹窗\n7. 补充多语言国际化文案\n8. 在关于页面添加项目GitHub链接\n\n* feat: 新增支付渠道、自动同步、多语言区域翻译等功能\n\n2. 添加多语言的区域翻译配置文件\n3. 优化会话撤销逻辑，忽略404错误\n4. 新增区域国际化映射工具类\n5. 新增同步通知组件和冲突弹窗组件\n6. 重构自动同步hook，新增自动同步开关和同步通知\n7. 完善设置存储的状态和方法\n8. 新增全局同步通知回调机制\n9. 优化区域选择的国际化展示\n10. 补充多语言文案配置\n\n* feat: 新增多语言游戏数据支持，添加同步工具与本地化资源\n\n- 添加sync-game-data.config.example.json配置示例\n- 新增武器、装备、副本、属性、套装等多语言翻译文件\n- 更新i18n加载逻辑以支持动态加载生成的翻译资源\n- 重构区域名称映射逻辑，适配新的翻译数据结构\n- 为武器卡片、装备推荐、套装组等组件添加多语言支持\n- 新增武器/装备图标转换脚本与CI命令\n- 修复副本ID与上下文后缀翻译逻辑\n- 添加统计名称i18n映射表与工具函数\n\n* refactor: 同步更新游戏数据并完善多语言支持\n\n本次提交包含以下主要变更：\n1.  更新装备材料名称为完整的\"装备原件\"格式，统一所有语言环境的材料翻译\n2.  新增装备型号的多语言翻译，适配壹/贰/叁型和Ⅰ/Ⅱ/Ⅲ型格式\n3.  新增区域地图的多语言配置，补充枢纽区等子区域的翻译\n4.  修复装备套装名称匹配问题，移除点号避免翻译失效\n5.  更新地下城ID和数据结构，适配新的区域分组逻辑\n6.  新增复合属性的多语言翻译，统一伤害类属性的显示文本\n7.  自动检测装备套装名称，优化元数据生成脚本\n8.  修复图标转换脚本的目录路径问题，适配装备图标目录\n9.  优化装备卡片和筛选组件的显示逻辑，支持属性名称国际化\n10. 新增装备图片ID映射，修复长息护手的图片资源引用错误\n\n* style: 调整特殊属性过滤器的网格列宽\n\n针对特殊能力和特殊装备过滤器，分别调整它们的网格项最小宽度，让显示更合理\n\n* refactor(editor): 替换直接修改draft的方式为统一的updateDraft方法\n\n1. 移除所有组件内的markDirty和dirty相关逻辑，改用store的updateDraft方法统一管理草稿修改\n2. 重构editor store：移除draftVersion、dirtyIds相关代码，通过浅拷贝替换草稿数组来触发更新\n3. 替换所有原生button为shadcn/ui的Button组件，统一UI样式\n4. 新增store测试用例验证updateDraft的行为正确性\n5. 移除不必要的eslint禁用注释\n\n* refactor(i18n): 清理多语言文件中未使用的翻译键\n\n1.  移除了zh-CN、zh-TW、ja、en.json中未使用的syncWeaponSelection、paymentNote、paymentNotePlaceholder、on、off等翻译键\n2.  优化account页面的会员过期日期格式化逻辑，使用完整的日期时间格式\n3.  新增并完善i18n检查脚本的运行时密钥白名单功能，处理动态翻译键检测问题\n\n* refactor: 重构武器数据结构与同步功能，修复多项遗留问题\n\n1. 移除Weapon接口的imageId字段，改用id作为武器唯一标识\n2. 重构武器图片加载逻辑，支持自定义武器占位显示\n3. 完善同步功能：新增自动同步死锁修复、上传/下载分离的通知配置\n4. 新增数据持久化 sanitizer，清理过期无效的存储数据\n5. 优化多store数据同步逻辑，避免云同步导致的重复计算\n6. 更新全量多语言文案，修正同步相关提示文本\n7. 修复单元测试用例中的武器ID硬编码问题\n\n* fix(useAutoSync): 新增页面可见时拉取的冷却机制并清理冗余导入\n\n1.  为页面可见时的自动拉云操作添加10秒冷却防抖，避免频繁触发拉取\n2.  移除account页面中冗余的subscribePullResult订阅逻辑，清理无用导入项\n\n* refactor: 整理代码并修复代码质量问题\n\n本次提交进行了多项代码优化和清理工作：\n1. 移除未使用的fs模块方法、导入项和变量\n2. 为未使用的参数添加eslint禁用注释\n3. 简化数组map回调参数\n4. 修复登录表单提交处理方式\n5. 调整侧边栏和账号页面的冗余状态提取\n6. 更新AGENTS.md文档新增代码规范要求\n7. 修复自动同步逻辑的依赖项配置\n\n* refactor(login page): 拆分登录页组件包裹Suspense\n\n将登录页内容抽离为独立组件，使用Suspense包裹以适配next.js的搜索参数使用场景\n\n* refactor: 整理项目代码，修复多处类型和功能问题\n\n- 修复元数据生成逻辑，根据实际分类和语言数量计算输出文件数\n- 新增downloadJson工具函数，简化JSON下载逻辑\n- 为地下城生成脚本添加未映射子区域警告提示\n- 优化文档代码块格式，添加text语言标识\n- 修复矩阵存储选择器逻辑，新增自动重算触发\n- 严格化编辑器表单字段类型，移除类型断言\n- 新增表格UI组件库\n- 优化精华规划页面移动端样式和按钮组件\n- 替换原生textarea为Textarea组件，优化编辑器样式\n- 新增safeJson工具函数，增强API响应解析鲁棒性\n- 替换execSync为execFileSync，提升脚本安全性\n- 优化自动同步逻辑，添加重试机制和调试日志\n- 优化根布局脚本加载方式，修复水合警告\n- 新增本地数据缓存，减少重复解析\n- 替换img标签为next/image优化图片加载\n- 修复登录页面验证码密钥硬编码问题，替换原生表格为UI表格组件\n\n* fix(essence): 修复多个功能问题\n\n1. 隐藏无可见武器的地下城卡片，避免显示混淆的计数\n2. 云同步后立即重新计算配装，修复UI卡死问题\n3. 同步通知区分无变更和成功状态\n4. 补充地下城武器池到筛选选项，显示未实装的技能\n\n* refactor: 优化多语言文本与UI样式，修复同步日志\n\n- 为全语言包新增空状态提示文本\n- 将硬编码颜色替换为主题色变量统一样式\n- 为本地存储写入失败添加开发环境警告日志\n- 优化密码重置请求的错误处理逻辑\n- 条件渲染人机验证组件避免空密钥报错\n\n* feat(i18n): 补充多语言错误提示与登录相关文案\n\n1. 新增并完善zh-CN、zh-TW、ja、en多语言文案\n2. 新增getErrorI18nKey工具函数映射后端错误码到i18n键\n3. 重构登录页与账户页错误提示逻辑，统一使用i18n文案\n4. 新增密码修改提示与设备登出提示文案\n\n* feat: 添加旧版数据迁移、数据清理功能与武器名称映射表\n\n本次提交新增了多项核心功能：\n1.  新增武器名称ID映射表，用于旧版数据转换\n2.  添加旧版localStorage数据迁移工具，支持将旧版武器标记数据转换为新版格式\n3.  新增全局旧版数据迁移弹窗，在检测到旧数据时自动弹出供用户选择处理\n4.  在设置页面新增数据管理模块，集成本地存储数据清理工具\n5.  完善多语言国际化文案，新增claimSubmitted状态提示\n6.  修复提交认领后的状态提示与页面刷新逻辑\n\n* feat(settings): add data import and export functions\n\n新增数据导入导出功能，支持选择指定模块进行备份恢复，包含多语言支持、文件格式校验和防原型污染处理\n\n* feat(language-switcher): 重构语言选择器为下拉菜单模式\n\n1. 移除本地状态管理，改为直接切换对应语言\n2. 添加多语言选项下拉列表，显示当前选中语言的勾选标记\n3. 适配移动端侧边栏的下拉菜单位置\n4. 新增dropdown-menu基础组件\n\n* refactor: 整理代码复用与修复小问题\n\n主要变更：\n1. 提取复用PreviewToggle组件到单独文件，移除data-exporter和data-importer中的重复代码\n2. 修复legacy-migration-dialog中数据合并顺序\n3. 调整i18n正则允许key包含中划线\n4. 清理多语言文件中未使用的翻译词条\n5. 优化data-cleaner的UI样式与错误处理\n6. 修复账号页面的支付表单状态管理\n7. 更新i18n已知键列表\n\n* refactor: 多模块代码优化与功能完善\n\n1. 优化武器网格布局为自适应列宽\n2. 更新侧边栏登录状态逻辑与登出按钮\n3. 新增本地会话清除功能\n4. 完善版本检查UI与提示\n5. 简化数据导入导出面板\n6. 优化地下城卡片响应式布局\n7. 新增会话过期与版本更新通知\n8. 补充多语言文案与价格单位标注\n9. 简化本地存储清理逻辑\n\n* refactor(dungeon-card): 实现自适应布局的武器行展示\n\n重构了地牢卡片的武器行组件，添加了三级响应式布局：\n1.  单行对齐模式：所有元素在一行并统一属性列宽度\n2.  双行模式：属性行在上，操作栏在下\n3.  三行堆叠模式：内容溢出时垂直堆叠展示\n新增了基于ResizeObserver的自动布局计算逻辑，通过隐藏镜像元素测量实际宽度来选择最优布局方案\n\n* refactor(essence-planner): 重构武器可见性与计数逻辑\n\n将原有的选中武器计数函数拆分为可见性检查和通用计数两个函数，提升代码复用性与可读性，同时优化排序逻辑的依赖项。\n\n* refactor: 调整多处代码结构与样式，优化登录态侧边栏与导入导出组件\n\n1.  将PreviewToggle组件改为默认导出，重构其props类型定义并调整预览框阴影样式\n2.  优化auth store的logout逻辑，新增clearTokens调用并更新本地存储清除项\n3.  调整账号页面提交支付按钮的点击逻辑，新增重置claimSuccess状态\n4.  为同步通知组件的定时器添加统一管理\n5.  重构侧边栏的登录态菜单，拆分账号入口与过期会话按钮\n6.  优化武器卡片的边框样式为阴影，调整文字字重与占位符样式\n\n* refactor(auth): 重构认证状态恢复逻辑，修复zustand TDZ问题\n\n1. 移除旧的onRehydrateStorage钩子，改用useEffect在组件挂载后执行认证检查\n2. 为登录页添加清除会话按钮，在侧边栏移除过期会话操作项\n3. 优化分析脚本加载策略，调整武器卡片布局与测量逻辑\n4. 新增会话过期时的本地存储清理操作\n\n* feat: 添加前瞻武器和角色卡池，完善预览资源处理逻辑\n\n新增4个前瞻武器数据、弥弗与卡缪的角色卡池配置，补充武器来源类型注释\n新增武器ID解析工具，处理预览ID到正式ID的自动转换\n优化武器卡片、地下城组件对预览资源的适配逻辑\n完善持久化存储中的预览ID兼容处理\n新增2个角色和对应武器的图片资源\n\n* feat(weapon-card): add preview badge and sort preview weapons\n\n新增预览武器分类并在对应武器卡片上显示预览徽章，调整武器展示顺序为自定义→预览→UP池→其余武器\n\n* feat: add api base url check and region restricted login prompt\n\n1. 新增API_BASE_URL环境变量检测，未配置时直接抛出认证不可用错误\n2. 新增多语言的区域服务不可用提示文案，覆盖简体中文、繁体中文、英文、日文\n3. 添加域名防盗链和反内嵌的防护组件，构建时根据环境变量启用\n4. 侧边栏和登录页根据认证特性开关动态调整显示逻辑\n5. 新增构建时特性标志配置，统一管理环境变量派生的功能开关\n6. 更新README文档，新增环境变量说明章节\n\n* chore: 汇总修复与优化多项代码细节\n\n- 修复武器卡片图片alt文本为空\n- 重构反镜像/反嵌入功能判断逻辑\n- 增加武器ID解析时的原型污染防护\n- 优化地下城选择器的数组处理安全\n- 更新角色卡池的活动周期数值\n- 新增所有权徽章的tabIndex支持\n- 替换同步提示弹窗的原生按钮为shadcn组件\n\n* feat: 完成全站SEO与OG图优化，新增隐私政策、服务条款页面\n\n本次提交实现了多项核心功能与优化：\n1. 新增隐私政策、服务条款页面与侧边栏导航入口\n2. 为所有页面添加完整的meta标签与OG图配置\n3. 新增自动生成SEO文件与OG图片的构建脚本\n4. 新增多语言翻译文案与本地化支持\n5. 优化背景预览页布局与关于页联系信息\n6. 新增多个页面布局组件与基础路由\n\n* feat(character): add ardelia and yvonne character data\n\n新增两名干员艾尔黛拉和伊冯的角色数据文件，并将其加入角色指南索引与列表中。",
+      "forceUpdate": false
+    },
+    {
+      "commit": "c39c03a5",
+      "commitTime": "2026-05-14T02:19:13+08:00",
+      "message": "Beta 0.2.8 (#11)\n\n* feat(character-detail): 给角色详情页的图片添加priority属性\n\n为角色详情页的背景图片添加loading优先级属性，优化首屏图片加载体验\n\n* feat(announcement): 新增公告文件加载支持与图片预览功能\n\n1. 新增公告类型字段file，支持从独立md文件加载公告内容\n2. 添加公告验证脚本与prebuild钩子，校验公告配置合法性\n3. 新增公告索引index.json，添加示例公告文件\n4. 为markdown图片添加点击预览功能，支持全屏查看与ESC关闭\n5. 补充多语言国际化文案\n6. 重构公告数据加载逻辑，优先读取md文件内容\n\n* feat: 新增4个页面的布局组件并配置国际化元数据\n\n分别为editor、banner-calendar、character-guide、background-preview页面创建了专属布局文件，\n每个布局都根据当前语言加载对应国际化文案设置页面标题\n\n* refactor: 统一替换页面元数据为next-intl翻译函数\n\n1.  修复多个页面layout的元数据加载方式，改用getTranslations替代动态导入语言文件\n2.  移除图片组件不必要的priority属性\n3.  优化公告面板的光标样式和定时器清理逻辑\n4.  完善公告校验脚本的异常处理和路径安全校验\n5.  替换根布局的Script组件为原生script标签优化加载逻辑\n6.  重构公告数据加载逻辑，使用并行请求提升加载性能\n\n* feat(i18n): 新增通用关闭按钮文案并修复元数据降级与弹窗快捷键问题\n\n1. 为多语言文件新增common.close翻译词条\n2. 替换公告面板中硬编码的关闭按钮无障碍文案\n3. 优化弹窗Escape快捷键监听：使用捕获阶段避免被Radix Dialog拦截，同时阻止事件冒泡与默认行为\n4. 修复元数据加载失败时的默认语言降级逻辑",
+      "forceUpdate": false
+    },
+    {
+      "commit": "16a772d6",
+      "commitTime": "2026-05-13T19:31:46+08:00",
+      "message": "Beta 0.2.6 (#9)\n\n* feat(background-preview): 实现背景图片预览功能并完善交互\n\n新增多语言背景预览页面文案，重构页面逻辑：\n1. 支持点击全屏预览背景图，ESC或点击退出\n2. 添加批量下载背景包的快捷入口\n3. 优化全屏滚动锁定与键盘交互\n4. 移除冗余的图片刷新逻辑，使用缓存buster优化加载\n\n* feat: 新增角色攻略模块与配套资源(此commit作为存档,仅基本功能可用,部分bug仍在修复)\n\n新增了角色攻略数据、类型定义、组件与多语言文案，添加了大量武器/道具图片资源，补充了图片映射配置与构建脚本\n\n* refactor: 重构编辑器与角色数据相关代码\n\n1. 新增自动生成角色索引脚本，替换旧迁移脚本\n2. 移除编辑器组件的memo包装与不必要的依赖\n3. 优化角色列表显示，替换元素徽章为纯文本展示\n4. 重构角色指南状态管理，移除持久化存储\n5. 完善编辑器基础信息页的ID校验功能\n6. 清理多语言配置中冗余的翻译条目\n7. 调整编辑器装备槽位的显示逻辑与样式\n\n* refactor: 重构编辑器与角色相关代码并完善功能\n\n1. 修复角色数据、配置与国际化问题\n2. 优化编辑器与角色列表交互体验\n3. 新增6星稀有度配色与动态星级显示\n4. 完善构建脚本与类型安全优化\n5. 清理冗余代码与修复样式细节\n\n* refactor: 重构多组件图片渲染，新增国际化文案与功能\n\n- 新增 Textarea 基础组件统一多行输入框样式\n- 修复角色列表、详情等组件的 Next.js Image 迁移与加载失败兜底\n- 补全多语言国际化文案与对应翻译\n- 优化编辑器页面导入校验逻辑与代码细节\n- 修复编辑器标签页样式与文本框替换为统一 Textarea 组件\n- 优化统计模块文案与编辑器表单占位符\n\n* feat(character-guide): add mobile character list trigger and update styles\n\n1. 为移动端角色列表触发按钮添加国际化aria-label文案\n2. 将textarea组件重构为显式props类型定义\n3. 替换硬编码阴影样式为CSS变量--shadow-border\n4. 新增多语言环境下的\"打开角色列表\"国际化文案",
+      "forceUpdate": false
+    },
+    {
+      "commit": "ad620271",
+      "commitTime": "2026-05-12T17:55:38+08:00",
+      "message": "Beta 0.2.5 (#8)\n\n* feat(essence-planner): 实现移动端适配与多语言文案扩展\n\n1.  为精华规划页面添加移动端响应式布局，使用分段控制器切换武器/方案视图\n2.  新增查看已选武器的底部弹窗功能\n3.  调整桌面端卡片网格布局为2列起始\n4.  为侧边栏添加移动端点击自动收起菜单的逻辑\n5.  新增多语言的标签、按钮文案配置\n\n* feat: 新增精锻规划页面及相关功能，添加一批T4装备图片\n\n- 新增精锻规划器页面与布局，支持移动端/桌面端适配\n- 新增精锻相关的多语言国际化文案\n- 新增装备、推荐相关的类型定义与 zustand 状态管理\n- 实现装备列表分组折叠、筛选搜索、精锻推荐逻辑\n- 补充近百张T4装备的图片资源\n- 调整武器网格面板宽度适配布局\n- 优化tooltip弹窗的碰撞检测配置\n\n* style: 统一修复页面布局高度滚动问题\n\n更新所有页面根容器和主布局的样式，替换硬编码的vh高度计算为flex弹性布局方案：\n1. 给SidebarProvider添加h-svh类确定视口高度\n2. 修改main容器为flex-col布局并禁用自身滚动\n3. 统一所有页面根容器使用min-h-0+overflow-hidden来修复flex子项高度计算问题\n4. 补充页面布局规范文档说明修复原理和注意事项\n\n* fix: 修复武器卡片图标样式\n\n1. 调整武器卡片UP标识图的尺寸和样式\n\n* refactor(essence): 移除武器拥有优先级相关功能\n\n删除了所有武器拥有优先级排序的相关代码和多语言文案，简化了排序逻辑，仅保留地区优先级排序\n\n* feat(essence-planner): add region filter functionality\n\n新增了地区筛选功能，支持按大区和子区域筛选方案，添加对应多语言文案，并且在筛选无匹配方案时显示对应提示\n\n* feat: 实现规划器用户状态持久化功能\n\n完成基质规划和精锻规划的状态持久化改造：\n1. 为两个规划器的store添加zustand persist中间件，配置partialize仅持久化用户操作状态\n2. 新增武器筛选面板展开状态的持久化支持\n3. 重构区域筛选状态管理，使用数组替代Set适配localStorage序列化\n4. 修复计划列表排序逻辑，使用可见选中武器数替代总选中数\n5. 完善默认合并与重 hydration 后的计划重计算逻辑\n\n* chore: 整理代码并修复部分细节问题\n\n1. 修复AGENTS.md代码块语法高亮\n2. 移除WeaponGrid多余的初始折叠props逻辑\n3. 为精炼规划器元数据添加加载失败兜底\n4. 修复便签编辑时的失焦保存逻辑\n5. 简化装备组选中判断逻辑\n6. 将装备卡片选中图标替换为lucide的Check组件\n7. 替换装备列表的折叠图标为lucide的ChevronDown\n8. 新增404NotFound页面\n\n* refactor: 替换原生button为shadcn Button组件并优化无障碍属性\n\n- 移除全局overlay滚动条样式类\n- 为武器网格过滤器按钮添加无障碍属性\n- 优化装备组折叠面板的无障碍支持和样式\n- 统一装备卡片按钮的样式和组件实现",
+      "forceUpdate": false
+    },
+    {
+      "commit": "32c91c8e",
+      "commitTime": "2026-05-11T17:40:40+08:00",
+      "message": "增强属性过滤、武器管理及用户界面组件（UI组件） (#7)\n\n* feat(属性筛选): 属性筛选支持折叠并更新多语言文本\n\n- 将属性过滤器改为可折叠面板以节省空间\n- 添加属性过滤器标题的多语言支持\n- 优化过滤器按钮的布局为网格形式\n\n* feat(essence-planner): 添加武器拥有状态管理和自定义武器功能\n\n添加武器拥有状态标记、基质状态标记和备注功能\n支持添加和编辑自定义武器\n实现武器列表和方案推荐的隐藏设置\n优化武器卡片图片处理逻辑\n\n* feat(基质规划): 添加地区优先级和武器拥有状态排序功能\n\n新增地区优先级设置，支持两级区域优先选择\n添加武器拥有状态排序选项（未拥有优先/已拥有优先）\n优化基质方案排序逻辑，支持地区优先和武器拥有状态\n更新多语言翻译文件\n改进界面组件样式和交互\n\n* feat(武器卡片): 添加UP状态显示和滚动时关闭工具提示功能\n\n添加UP状态徽章显示当前UP武器\n实现滚动时自动关闭工具提示的功能\n优化武器列表排序，优先显示UP武器\n\n* 分析\n\n* feat(初始化界面): 添加启动进度条和初始化阶段显示\n\n添加启动进度条动画和初始化阶段标签，优化启动流程视觉效果\n- 在全局样式中添加进度条动画关键帧\n- 在启动界面添加进度条组件和状态提示\n- 调整初始化进度逻辑，分为三个阶段\n\n* refactor: 重构并完善基质规划器功能\n\n- 新增多语言国际化文案，补充武器/基质标签、图片校验等文本\n- 重构商店状态：将expandedDungeonIds重命名为expandedPlanKeys并同步所有引用\n- 优化滚动关闭弹窗逻辑，新增window和全局滚动元素监听\n- 替换原生select为shadcn/ui Select组件，重构自定义武器弹窗\n- 重构所有权徽章和备注组件，使用Button替代原生button并统一样式\n- 新增武器排序优先级类型定义并重构相关商店逻辑\n- 重构设置页面，使用国际化文本替代硬编码字符串\n- 优化搜索过滤逻辑，提取基础过滤条件复用代码\n- 更新i18n检测脚本，新增expandedPlanKeys跳过检测\n- 修复百度统计和Clarity脚本加载逻辑，拆分内联脚本和外部资源\n\n* refactor(weapon-grid): 重构筛选按钮为可复用FilterChip组件,更新翻译\n\n将原有的内联筛选按钮抽离为独立的FilterChip组件，添加了自适应tooltip功能，当文本溢出时才会显示提示，同时统一了组件样式和交互逻辑，提升代码可维护性\n\n* feat: add武器排序优化与图片上传功能开发适配\n\n1.  重构武器排序逻辑，新增按稀有度降序、名称升序的排序规则\n2.  补充多语言的图片上传开发中提示文案\n3.  替换原生文件上传为禁用状态并添加开发中提示\n4.  新增Blob URL内存泄漏清理逻辑\n5.  重构闪光弹警告弹窗为标准Dialog组件\n6.  替换选择器为官方SelectValue组件优化渲染\n\n* fix: 修复Select组件显示异常问题并统一多语言文案\n\n1.  为所有Select组件添加正确的SelectValue渲染函数，解决Base UI Select无法自动解析显示文本的问题\n2.  对齐ja/zh-CN/zh-TW/en多语言文件中weaponPriorityNone的文案为统一的\"无\"/\"None\"\n\n* refactor(essence): 重构自定义武器弹窗，提取公共表单组件\n\n1.  从custom-weapon-dialog.tsx抽离武器表单为独立的WeaponFormDialog组件\n2.  移除settings页面和弹窗中多余的blob URL释放逻辑\n3.  为设置页面添加国际化多语言支持\n4.  移除未使用的Upload图标导入",
+      "forceUpdate": false
+    },
+    {
+      "commit": "f69bda19",
+      "commitTime": "2026-05-10T16:31:15+08:00",
+      "message": "feat: 添加应用初始化加载动画及进度追踪 (#6)\n\n* feat: 添加应用初始化加载动画及进度追踪\n\n添加全局加载动画，包含品牌展示和进度条\n实现数据加载任务追踪和进度同步\n优化导航进度条动画效果\n添加加载状态最小显示时间防止闪烁\n更新多语言文案支持加载错误状态\n重构导航状态管理支持多级反馈\n\n* feat: 优化加载动画与共享样式\n\n为更新页和公告面板引入骨架屏退出后内容进入的顺序动画\n为导航进度条改用 animationend 事件重置，增强稳定性\n提取 bg-engineering-grid 与 progress-shimmer-overlay 公共样式\n改进 AppInitOverlay 进度动画及本地化阶段文本\n让 use-version 使用 MIN_LOADING_DISPLAY_MS 保证最小加载展示时间\n\n* feat(i18n): 添加国际化键检查工具和更新相关逻辑\n\nci: 在CI流程中添加i18n键检查步骤\nrefactor: 优化加载动画和进度条逻辑\ndocs: 更新AGENTS.md中的CSS规则和i18n检查要求\nfix: 修复公告面板和更新页面的动画处理\nchore: 清理未使用的国际化键",
+      "forceUpdate": false
+    },
+    {
+      "commit": "db13365c",
+      "commitTime": "2026-05-09T17:46:57+08:00",
+      "message": "Beta 0.2.2 优化主页,增加公告功能 (#5)\n\n* feat(公告,主页): 添加公告系统功能\n\n- 新增公告类型定义和存储逻辑\n- 实现重要公告横幅提醒\n- 添加公告面板展示所有公告\n- 支持公告已读状态管理\n- 新增多语言支持\n- 添加全局样式变量\n- 更新首页布局和欢迎模块\n\n* feat(公告): 增强公告功能并优化用户体验\n\n- 新增公告图片加载失败处理及错误提示\n- 优化公告弹窗动画效果和关闭行为\n- 添加重要公告标记和图片加载失败的多语言支持\n- 清理已删除公告的阅读记录\n- 更新公告内容展示样式和时间格式\n- 替换示例公告为实际内容并添加相关图片资源\n\n* feat: 添加公告加载器并优化公告相关功能\n\n使用zustand持久化中间件重构存储逻辑\n添加实时时钟组件和公告自动加载器\n改进Markdown渲染安全性和样式\n调整对话框动画和样式\n添加rehype-sanitize依赖以增强安全性\n\n* refactor(real-time-clock): 去除多余动画",
+      "forceUpdate": false
+    },
+    {
+      "commit": "d7ffaed3",
+      "commitTime": "2026-05-09T02:57:21+08:00",
+      "message": "fix(导航): 修复快速连续点击导致导航状态卡住的问题\n\n清除前一次导航的残留状态以防止快速点击导致的卡顿\n添加相同页面点击时的导航状态处理",
+      "forceUpdate": false
+    },
+    {
+      "commit": "e6ca3613",
+      "commitTime": "2026-05-09T02:38:12+08:00",
+      "message": "feat: 实现导航过渡效果和武器选择优化 (#4)\n\n* feat: 实现导航过渡效果和武器选择优化\n\n- 添加导航加载覆盖层和监听器组件，支持平滑的页面过渡\n- 重构武器选择逻辑，使用稳定的引用避免不必要的重渲染\n- 优化设置存储的SSR兼容性，确保首次渲染一致性\n- 更新.gitignore和版本信息，添加新的国际化文本\n- 改进侧边栏状态管理，修复SSG下的初始化问题\n\n* feat: 添加国际化支持和改进无障碍功能\n\n- 为多个页面添加 next-intl 翻译支持\n- 为导航加载遮罩添加 ARIA 角色和状态\n- 改进 NavLink 组件处理相同路径的逻辑\n- 更新测试清理逻辑\n- 替换边框样式为阴影效果\n- 增强主题设置的安全性检查\n\n* feat(i18n): 更新翻译文本和页面布局\n\n- 将\"update\"翻译统一修改为\"版本\"\n- 优化导航栏链接的路径匹配逻辑\n- 重构页面布局样式，统一顶部导航栏\n- 改进更新页面中的变更日志处理逻辑\n- 修复生成版本脚本中的正则表达式匹配问题",
+      "forceUpdate": false
+    },
+    {
+      "commit": "dcf5db42",
+      "commitTime": "2026-05-08T18:50:59+08:00",
+      "message": "Beta 0.2 (#3)\n\n* feat(banner-calendar): 实现卡池日历甘特图功能\n\n新增完整的卡池日历时间线展示系统：\n\n核心功能：\n- 基于 Zustand 的状态管理，支持甘特图数据派生与视口自适应\n- 甘特图时间线展示角色 UP 期、复刻期、在池期、已结束状态\n- 支持按版本升降序和默认优先级三种排序模式\n- 缩放滑块（1.5x-15x）、预览轴、适配视口等交互控件\n- 自动检测窗口边界并定时刷新、浏览器缩放自适应\n- 常驻角色独立展示卡片\n\n数据层：\n- 静态卡池排期数据（6 角色、含周期与复刻信息）\n- 未来周期预测算法（基于历史平均持续时间）\n- 角色状态判定：UP / 即将复刻 / 在池中 / 已退场 / 常驻\n\n国际化：\n- 四语言完整支持（zh-CN / en / ja / zh-TW）\n- 新增 bannerCalendar.* 命名空间翻译键值\n\n新增依赖：\n- @radix-ui/react-slider（Shadcn/UI Slider 组件）\n\nCo-authored-by: Maple\n\n* refactor(banner-calendar): 优化时间轴图表性能并移除冗余代码\n\n- 重构时间轴工具提示实现，改为纯DOM操作避免React重渲染\n- 移除不再使用的TimelineTooltip组件及相关状态管理\n- 优化鼠标事件处理逻辑，提升交互性能\n- 更新文档要求tsc和eslint必须0错误0警告\n\n* refactor(banner): 移除武器相关字段并优化时间轴布局\n\nfeat(test): 添加组件和store的单元测试\nstyle(ui): 更新滑块和阴影样式\nperf(timeline): 改进视口适应逻辑和性能\n\n* test(useBannerStore): 增加排序和今日状态验证测试\n\n添加对排序结果不相同的断言，并验证今日状态和今日价格字段的正确性\n\n---------\n\nCo-authored-by: Maple",
+      "forceUpdate": false
+    },
+    {
+      "commit": "4a8b2013",
+      "commitTime": "2026-05-08T00:46:18+08:00",
+      "message": "chore: 更新.gitignore并调整关于页面图片比例\n\n添加.ace-tool/到.gitignore忽略列表\n调整关于页面图片容器的宽高比为9:16",
+      "forceUpdate": false
+    },
+    {
+      "commit": "3e7e0a91",
+      "commitTime": "2026-05-07T22:48:06+08:00",
+      "message": "ci: 升级 pnpm/action-setup 从 v4 到 v6\n\n移除显式指定 pnpm 版本，直接使用 action 的最新版本",
+      "forceUpdate": false
+    },
+    {
+      "commit": "5155d662",
+      "commitTime": "2026-05-07T22:43:06+08:00",
+      "message": "ci: 使用 pnpm/action-setup 替代全局安装 pnpm\n\n在 CI 和部署工作流中使用 pnpm/action-setup 来设置 pnpm 环境，替代之前的全局安装方式，以提高可靠性和一致性",
+      "forceUpdate": false
+    },
+    {
+      "commit": "d6fcee5b",
+      "commitTime": "2026-05-07T22:39:28+08:00",
+      "message": "ci: 升级 GitHub Actions 依赖至 v5 版本\n\n将 actions/checkout 和 actions/setup-node 从 v4 升级到 v5 版本，以使用最新的功能和改进",
+      "forceUpdate": false
+    },
+    {
+      "commit": "605ebbb4",
+      "commitTime": "2026-05-07T22:28:56+08:00",
+      "message": "feat: 添加测试配置和测试用例\n\n添加Vitest测试框架配置\n为数据模块、工具函数和状态管理添加测试用例\n在package.json中添加测试脚本",
+      "forceUpdate": false
+    },
+    {
+      "commit": "223c7407",
+      "commitTime": "2026-05-07T22:13:25+08:00",
+      "message": "refactor: 优化图片组件和状态管理\n\n- 将 img 标签替换为 next/image 组件以提升性能\n- 使用 useSyncExternalStore 重构 useIsMobile 和 mounted 状态\n- 优化 SidebarProvider 的 cookie 读取逻辑\n- 移除未使用的导入和变量\n- 更新版本信息和 changelog",
+      "forceUpdate": false
+    },
+    {
+      "commit": "88b45211",
+      "commitTime": "2026-05-07T21:41:02+08:00",
+      "message": "ci(workflow): 迁移 CI/CD 到 pnpm 并支持手动触发\n\n- 将 npm 替换为 pnpm 9 作为包管理器\n- 添加 workflow_dispatch 触发器支持手动执行\n- 优化版本生成脚本，支持从 tag 读取 semver\n- 更新部署流程，支持手动输入版本号",
+      "forceUpdate": false
+    },
+    {
+      "commit": "3ce4283a",
+      "commitTime": "2026-05-07T21:05:07+08:00",
+      "message": "feat(version): 实现强制升级机制和版本检测优化\n\n重构版本检测系统，新增强制升级功能：\n- 添加 forceUpgradeSerial 字段和强制升级对话框组件\n- 优化版本比较逻辑，支持按时间判断更新方向\n- 分离 changelog 到独立文件按需加载\n- 完善多语言支持和文档说明\n- 修复侧边栏状态初始化问题",
+      "forceUpdate": false
+    },
+    {
+      "commit": "c2b8e4f8",
+      "commitTime": "2026-05-07T13:55:23+08:00",
+      "message": "Beta 0.1.0 (#2)\n\n* feat: 重构UI组件和页面设计\n\n## 主要变更\n\n### 设置页面\n- 移除卡片式布局，改用扁平分组式设计\n- 使用分隔线和标题组织设置项\n- 优化间距和视觉层级\n\n### 登录/注册系统\n- 新增 AuthDialog 弹窗组件，替代独立页面\n- 支持登录/注册表单切换，带平滑动画\n- 添加密码强度指示器（实时检测、进度条显示）\n- 完整的多语言支持（中/英/日/繁）\n\n### 侧边栏优化\n- 统一菜单按钮样式，使用 SidebarMenuButton 组件\n- 语言切换器改为按钮形式，支持 tooltip\n- 登录按钮显示用户状态（游客/用户名）\n- 添加 GitHub 项目链接按钮\n- 修复折叠状态下的显示问题\n\n### 主页问候系统\n- 新增时间段问候语（凌晨/早上/中午/下午/晚上）\n- 主标题\"欢迎使用\" + 副标题问候语\n- 无 emoji 设计规范\n\n### 背景预览页面\n- 重新设计为全屏预览模式\n- 支持下载和刷新功能\n- 使用项目配置的背景 API\n- 添加\"下载所有图片\"链接\n\n### 多语言完善\n- 补全所有缺失的翻译键值\n- 统一中/英/日/繁四语言支持\n\n* feat: 重构版本检测系统、新增更新页面与关于页面\n\n版本检测系统重构:\n- 从 dev-gxjc 分支采纳 Context + 轮询 + 获焦检测的版本检测逻辑\n- 新增 scripts/generate-version.mjs 构建脚本，从 git 提取版本信息\n- 版本号采用 package.json major.minor + git commit count 自动派生 patch\n- 新增 src/hooks/use-version.tsx (VersionProvider + useVersion hook)\n- 新增 src/types/version.ts 类型定义\n- 删除旧版 use-version-check.ts hook\n\n新增页面:\n- src/app/[locale]/update/page.tsx — 独立检查更新页面，显示版本信息和更新日志\n- src/app/[locale]/about/page.tsx — 关于页面，展示项目概述、功能模块、技术栈\n\n侧边栏优化:\n- 新增\"检查更新\"入口（Download 图标），位于设置按钮上方，带更新提示指示器\n- 新增\"关于\"入口（Info 图标），位于设置和登录之间\n- 修正 GitHub 链接指向 github.com/cmyyx/cep\n\n语言切换器修复:\n- 折叠状态下点击不再展开侧边栏，改用自定义 button + Tooltip\n- 切换后 tooltip 显示\"已切换到 [语言名]\"\n\nSidebarProvider 修复:\n- 初始化时从 cookie 读取侧边栏状态，修复 router.push 导致状态重置的问题\n\n其他:\n- src/lib/utils.ts 新增 formatTime() 工具函数\n- AGENTS.md 补充纯静态 SSG 部署约束说明\n- 4 个翻译文件新增 version.* 和 about.* 命名空间\n- 安装 shadcn badge 组件用于关于页面许可证展示\n\n* fix: 首页欢迎语和问候语国际化\n\n- 欢迎标题 \"欢迎使用\" 改为 t('home.welcome')\n- 时间段问候语从硬编码中文改为翻译 key（greetingNight/Morning/Noon/Afternoon/Evening）\n- 4 个语言文件新增对应翻译\n\n* fix: 版本号改为 semver + commit hash 格式\n\n版本号从 major.minor.commitCount 改为 package.json semver + git short hash\n如 0.1.0-c5d0775，避免 patch 数字膨胀，支持跨分支版本比较\n\n---------\n\nCo-authored-by: Maple",
+      "forceUpdate": false
+    },
+    {
+      "commit": "358ed8e8",
+      "commitTime": "2026-05-06T17:03:41+08:00",
+      "message": "style: 添加自定义滚动条样式\n\n- 为所有元素添加细滚动条样式\n- 实现悬停时显示滚动条效果\n- 添加暗黑模式下的滚动条样式适配",
+      "forceUpdate": false
+    },
+    {
+      "commit": "80c2e23f",
+      "commitTime": "2026-05-06T03:01:48+08:00",
+      "message": "fix: 修正新wrangler配置",
+      "forceUpdate": false
+    },
+    {
+      "commit": "45bd26f4",
+      "commitTime": "2026-05-06T02:59:07+08:00",
+      "message": "fix(language-switcher): 处理语言切换器中的空值情况\n\n当传入空值时直接返回，避免路径替换错误",
+      "forceUpdate": false
+    },
+    {
+      "commit": "8d99b235",
+      "commitTime": "2026-05-06T02:55:42+08:00",
+      "message": "fix: 修正主题切换处理并更新项目名称\n\n处理主题切换时增加空值检查，防止潜在错误\n将项目名称从大写改为小写以保持一致性",
+      "forceUpdate": false
+    },
+    {
+      "commit": "35840037",
+      "commitTime": "2026-05-06T02:51:18+08:00",
+      "message": "build: 添加wrangler.jsonc配置文件\n\n添加Cloudflare Workers的wrangler配置文件，用于设置项目名称、兼容日期和页面构建输出目录",
+      "forceUpdate": false
+    },
+    {
+      "commit": "0f5fa594",
+      "commitTime": "2026-05-06T02:43:05+08:00",
+      "message": "feat: 添加基质规划器核心功能与UI组件\n\n实现基质规划器核心功能，包括武器选择、淤积点方案计算与展示\n添加Shadcn/UI组件库及国际化支持\n引入zustand状态管理及背景主题系统",
+      "forceUpdate": false
+    },
+    {
+      "commit": "6de3e22f",
+      "commitTime": "2026-05-05T00:50:47+08:00",
+      "message": "项目初始化文件",
+      "forceUpdate": false
+    }
+  ]
+}
