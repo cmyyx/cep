@@ -10,13 +10,15 @@ import { loadTextTable } from './stat-mapping'
 
 // ── Constants ─────────────────────────────────────────────────────────────────
 
-/** weaponType number → project type name */
-const WEAPON_TYPE_MAP: Record<number, string> = {
-  1: '手铳',
-  2: '单手剑',
+/** weaponType number (from WeaponBasicTable) → project type name.
+ *  Source of truth: AKEData WeaponBasicTable + AKEDatabase maps.json weapon_id_map.
+ *  Verified against all weapon IDs — prefix matches type 1:1 (wpn_sword_→1, etc). */
+export const WEAPON_TYPE_MAP: Record<number, string> = {
+  1: '单手剑',
+  2: '施术单元',
   3: '双手剑',
-  4: '施术单元',
   5: '长柄武器',
+  6: '手铳',
 }
 
 /** weaponId prefix → type name (fallback when weaponType is unknown) */

@@ -139,10 +139,10 @@
       "zh-TW": "終結技能量上限"
     },
     "23": {
-      "zh-CN": "失衡承伤系数",
-      "en": "Poise Damage Taken Multiplier",
-      "ja": "失衡時被ダメージ係数",
-      "zh-TW": "失衡承傷係數"
+      "zh-CN": "连携技冷却最终加算",
+      "en": "Combo Skill Cooldown Final Addition",
+      "ja": "連携技CT最終加算",
+      "zh-TW": "連攜技冷卻最終加算"
     },
     "24": {
       "zh-CN": "失衡值承受系数",
@@ -277,10 +277,10 @@
       "zh-TW": "技力消耗增加"
     },
     "46": {
-      "zh-CN": "技能冷却时间增加",
-      "en": "Skill Cooldown Time Increase",
-      "ja": "スキルCT増加",
-      "zh-TW": "技能冷卻時間增加"
+      "zh-CN": "战技冷却时间增加",
+      "en": "Normal Skill Cooldown Time Increase",
+      "ja": "戦技CT増加",
+      "zh-TW": "戰技冷卻時間增加"
     },
     "47": {
       "zh-CN": "连携技冷却缩减",
@@ -558,6 +558,12 @@
       "ja": "KeywordSpeedUpScalar",
       "zh-TW": "KeywordSpeedUpScalar"
     },
+    "93": {
+      "zh-CN": "连携技冷却恢复系数",
+      "en": "Combo Skill Cooldown Recovery Multiplier",
+      "ja": "連携技CT回復係数",
+      "zh-TW": "連攜技冷卻恢復係數"
+    },
     "94": {
       "zh-CN": "物理抗性",
       "en": "Physical Resistance",
@@ -593,6 +599,12 @@
       "en": "Æther Resistance",
       "ja": "超域耐性",
       "zh-TW": "超域抗性"
+    },
+    "100": {
+      "zh-CN": "连携技冷却减免",
+      "en": "Combo Skill Cooldown Reduction",
+      "ja": "連携技CT短縮",
+      "zh-TW": "連攜技冷卻減免"
     },
     "baseAttack": {
       "zh-CN": "攻击力",

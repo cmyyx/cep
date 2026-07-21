@@ -9,6 +9,7 @@ import { join } from 'node:path'
 import { parseJsonSafe } from './json-utils'
 import { buildGemTableLookup, loadTextTable } from './stat-mapping'
 import { extractItemNameIds } from './extract-textid'
+import { WEAPON_TYPE_MAP } from './compare-weapons'
 import { buildAttrShowConfigs, resolveFormat, formatEquipStat } from './equip-stat-format'
 
 // ── Types ─────────────────────────────────────────────────────────────────
@@ -40,16 +41,7 @@ interface DisplayAttrModifier {
   compositeAttr?: string
 }
 
-
 // ── Constants ─────────────────────────────────────────────────────────────
-
-const WEAPON_TYPE_MAP: Record<number, string> = {
-  1: '手铳',
-  2: '单手剑',
-  3: '双手剑',
-  4: '施术单元',
-  5: '长柄武器',
-}
 
 /** Map upstream partType → Chinese equip slot label. */
 const PART_TYPE_MAP: Record<number, string> = {

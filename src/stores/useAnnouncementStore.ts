@@ -134,7 +134,7 @@ export const useAnnouncementStore = create<AnnouncementState>()(
 
               if (item.file) {
                 try {
-                  const mdRes = await fetch(`/announcements/${item.file}`)
+                  const mdRes = await fetch(`/announcements/${item.file}?t=${Date.now()}`)
                   if (mdRes.ok) {
                     content = await mdRes.text()
                   } else {

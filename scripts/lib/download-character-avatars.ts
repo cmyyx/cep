@@ -40,6 +40,15 @@ interface ImageSourceRecord {
 export interface CharacterImageDownloadResult {
   avatars: number
   fullBody: number
+  /**
+   * Scrape was skipped — browser unavailable, network failed, or Skland response
+   * lacked expected image URLs. Existing `images/characters` is left untouched so
+   * prior sync output remains valid; callers should mark the PR accordingly.
+   * ponytail: a partial scrape is never committed — on the first failure we bail
+   * out of the whole step rather than ship an incomplete character set.
+   */
+  skipped: boolean
+  skipReason?: string
 }
 
 function loadReleasedNameMap(projectRoot: string): Record<string, string> {
@@ -130,49 +139,50 @@ export async function downloadCharacterAvatars(
   let scrapedTargets: CharacterImageTarget[] = []
   let illustrations: Record<string, string> = {}
 
+  let browser: Browser | undefined
   try {
-    const browser = await launchBrowser()
-    try {
-      const context = await browser.newContext({ viewport: { width: 1280, height: 800 } })
-      const page = await context.newPage()
-      const scraped = await collectSklandTargets(page, context, releasedNameToId)
-      scrapedTargets = scraped.targets
-      illustrations = scraped.illustrations
-    } finally {
-      await browser.close()
-    }
+    browser = await launchBrowser()
+    const context = await browser.newContext({ viewport: { width: 1280, height: 800 } })
+    const page = await context.newPage()
+    const scraped = await collectSklandTargets(page, context, releasedNameToId)
+    scrapedTargets = scraped.targets
+    illustrations = scraped.illustrations
   } catch (error) {
     rmSync(tempDir, { recursive: true, force: true })
-    throw new Error(`Skland character scrape failed: ${String(error)}`)
+    return skippedResult(`Skland character scrape failed: ${String(error)}`)
+  } finally {
+    if (browser) await browser.close()
   }
 
   const jobs: ImageJob[] = []
   const sources: Record<string, ImageSourceRecord> = {}
-  try {
-    for (const target of scrapedTargets) {
-      if (target.avatarId) {
-        if (!target.avatarUrl) {
-          throw new Error(`Missing Skland image URL for avatar/${target.avatarId}`)
-        }
-        jobs.push({
-          id: target.avatarId,
-          kind: 'avatar',
-          remoteUrl: target.avatarUrl,
-        })
+  for (const target of scrapedTargets) {
+    if (target.avatarId) {
+      if (!target.avatarUrl) {
+        rmSync(tempDir, { recursive: true, force: true })
+        return skippedResult(`Missing Skland image URL for avatar/${target.avatarId}`)
       }
-      if (target.fullBodyId) {
-        const remoteUrl = illustrations[target.fullBodyId]
-        if (!remoteUrl) {
-          throw new Error(`Missing Skland image URL for fullBody/${target.fullBodyId}`)
-        }
-        jobs.push({
-          id: target.fullBodyId,
-          kind: 'fullBody',
-          remoteUrl,
-        })
-      }
+      jobs.push({
+        id: target.avatarId,
+        kind: 'avatar',
+        remoteUrl: target.avatarUrl,
+      })
     }
+    if (target.fullBodyId) {
+      const remoteUrl = illustrations[target.fullBodyId]
+      if (!remoteUrl) {
+        rmSync(tempDir, { recursive: true, force: true })
+        return skippedResult(`Missing Skland image URL for fullBody/${target.fullBodyId}`)
+      }
+      jobs.push({
+        id: target.fullBodyId,
+        kind: 'fullBody',
+        remoteUrl,
+      })
+    }
+  }
 
+  try {
     await runPool(jobs, 6, async (job) => {
       if (!job.remoteUrl) {
         throw new Error(`Missing Skland image URL for ${job.kind}/${job.id}`)
@@ -189,16 +199,20 @@ export async function downloadCharacterAvatars(
     writeFileSync(join(tempDir, 'sources.json'), serializeImageSources(sources), 'utf8')
   } catch (error) {
     rmSync(tempDir, { recursive: true, force: true })
-    throw error
+    return skippedResult(`Skland character download failed: ${String(error)}`)
   }
 
   rmSync(avatarDir, { recursive: true, force: true })
   renameSync(tempDir, avatarDir)
-
   return {
     avatars: jobs.filter((job) => job.kind === 'avatar').length,
     fullBody: jobs.filter((job) => job.kind === 'fullBody').length,
+    skipped: false,
   }
+}
+
+function skippedResult(skipReason: string): CharacterImageDownloadResult {
+  return { avatars: 0, fullBody: 0, skipped: true, skipReason }
 }
 
 const isCli = process.argv[1]

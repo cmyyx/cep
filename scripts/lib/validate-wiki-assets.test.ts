@@ -38,3 +38,28 @@ it('validates every path declared by the generated Wiki asset manifest', () => {
     '/images/items/material.avif',
   ])
 })
+
+it('skips character image paths when skipCharacterImages is set', () => {
+  const root = mkdtempSync(join(tmpdir(), 'cep-validate-skip-'))
+  roots.push(root)
+  const manifestDirectory = join(root, 'src/generated/data/wiki')
+  mkdirSync(manifestDirectory, { recursive: true })
+  writeFileSync(join(manifestDirectory, 'assets.json'), JSON.stringify({
+    characters: ['character'],
+    characterFullBody: ['full'],
+    characterPotential: ['potential'],
+    weapons: [],
+    equipment: ['equipment'],
+    skills: ['skill'],
+    logisticsSkills: ['logistics'],
+    materials: ['material'],
+  }))
+
+  expect(validateImages(root, { skipCharacterImages: true })).toEqual([
+    '/images/wiki/character-potential/potential.avif',
+    '/images/equip/equipment.avif',
+    '/images/wiki/skills/skill.avif',
+    '/images/wiki/logistics/logistics.avif',
+    '/images/items/material.avif',
+  ])
+})

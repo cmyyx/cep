@@ -10,6 +10,7 @@ import { join } from 'node:path'
 import { parseJsonSafe } from './json-utils'
 import { buildGemTableLookup, loadTextTable } from './stat-mapping'
 import { extractItemNameIds } from './extract-textid'
+import { WEAPON_TYPE_MAP } from './compare-weapons'
 import { buildAttrShowConfigs, resolveFormat, formatEquipStat } from './equip-stat-format'
 import type { WikiAssets } from './wiki-assets'
 
@@ -45,17 +46,17 @@ export function validateWeapons(
   if (!existsSync(projectWeaponsTsPath)) return issues
   const projectContent = readFileSync(projectWeaponsTsPath, 'utf-8')
 
-  const weaponRegex = /\{\s*id:\s*'([^']+)'(?:,\s*iconId:\s*'[^']*')?,\s*name:\s*'[^']*',\s*rarity:\s*\d+,\s*type:\s*'[^']*',\s*primaryStat:\s*'([^']*)',\s*elementalDamage:\s*'([^']*)',\s*specialAbility:\s*'([^']*)'/g
-  const projectWeapons = new Map<string, { primaryStat: string; elementalDamage: string; specialAbility: string }>()
+  const weaponRegex = /\{\s*id:\s*'([^']+)'(?:,\s*iconId:\s*'[^']*')?,\s*name:\s*'[^']*',\s*rarity:\s*\d+,\s*type:\s*'([^']*)',\s*primaryStat:\s*'([^']*)',\s*elementalDamage:\s*'([^']*)',\s*specialAbility:\s*'([^']*)'/g
+  const projectWeapons = new Map<string, { type: string; primaryStat: string; elementalDamage: string; specialAbility: string }>()
   let m: RegExpExecArray | null
   while ((m = weaponRegex.exec(projectContent)) !== null) {
-    projectWeapons.set(m[1], { primaryStat: m[2], elementalDamage: m[3], specialAbility: m[4] })
+    projectWeapons.set(m[1], { type: m[2], primaryStat: m[3], elementalDamage: m[4], specialAbility: m[5] })
   }
 
   // Load WeaponBasicTable (all weapon metadata)
   const wpnBasicPath = join(akedataPath, 'TableCfg', 'WeaponBasicTable.json')
   if (!existsSync(wpnBasicPath)) return issues
-  const wpnBasic = JSON.parse(readFileSync(wpnBasicPath, 'utf-8')) as Record<string, { weaponSkillList?: string[] }>
+  const wpnBasic = JSON.parse(readFileSync(wpnBasicPath, 'utf-8')) as Record<string, { weaponType?: number; weaponSkillList?: string[] }>
 
   // Load SkillPatchTable (lossless-json for int64-safe skillName.id)
   const skillPatchPath = join(akedataPath, 'TableCfg', 'SkillPatchTable.json')
@@ -87,6 +88,12 @@ export function validateWeapons(
     if (!projectWeapon) continue // Skip new weapons (handled elsewhere)
 
     const skillIds = wpnData.weaponSkillList ?? []
+
+    // Validate weapon type (weaponType → project type name)
+    const expectedType = wpnData.weaponType !== undefined ? WEAPON_TYPE_MAP[wpnData.weaponType] : undefined
+    if (expectedType && expectedType !== projectWeapon.type) {
+      issues.push({ category: 'weapon', id: weaponId, field: 'type', expected: expectedType, actual: projectWeapon.type || '<empty>' })
+    }
 
     // Extract upstream stats (blackboard key → gemTermId)
     let upstreamPrimaryStat = ''
@@ -322,13 +329,21 @@ export function validateDungeons(
 
 // ── Validate image existence ──────────────────────────────────────────────
 
-export function validateImages(projectRoot: string): string[] {
+export function validateImages(
+  projectRoot: string,
+  options: { skipCharacterImages?: boolean } = {}
+): string[] {
   const manifestPath = join(projectRoot, 'src', 'generated', 'data', 'wiki', 'assets.json')
   if (!existsSync(manifestPath)) return ['/src/generated/data/wiki/assets.json']
   const assets = JSON.parse(readFileSync(manifestPath, 'utf8')) as WikiAssets
+  const characterPaths = options.skipCharacterImages
+    ? []
+    : [
+        ...assets.characters.map((id) => `/images/characters/${id}.avif`),
+        ...assets.characterFullBody.map((id) => `/images/characters/full/${id}.avif`),
+      ]
   const paths = [
-    ...assets.characters.map((id) => `/images/characters/${id}.avif`),
-    ...assets.characterFullBody.map((id) => `/images/characters/full/${id}.avif`),
+    ...characterPaths,
     ...assets.characterPotential.map((id) => `/images/wiki/character-potential/${id}.avif`),
     ...assets.weapons.map((id) => `/images/weapon/${id}.avif`),
     ...assets.equipment.map((id) => `/images/equip/${id}.avif`),

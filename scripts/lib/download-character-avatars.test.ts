@@ -58,7 +58,7 @@ it('succeeds on the second download attempt', async () => {
   expect(buffer.toString()).toBe('ok')
 })
 
-it('throws when Chromium cannot launch (no local fallback)', async () => {
+it('returns skipped when Chromium cannot launch', async () => {
   const root = mkdtempSync(join(tmpdir(), 'cep-characters-'))
   roots.push(root)
   const publicDirectory = join(root, 'public')
@@ -69,15 +69,16 @@ it('throws when Chromium cannot launch (no local fallback)', async () => {
     JSON.stringify({ chr_9000_endmin: '管理员' })
   )
 
-  await expect(
-    downloadCharacterAvatars(publicDirectory, async () => {
-      throw new Error('Chromium unavailable')
-    })
-  ).rejects.toThrow(/Skland character scrape failed/)
+  const result = await downloadCharacterAvatars(publicDirectory, async () => {
+    throw new Error('Chromium unavailable')
+  })
+  expect(result.skipped).toBe(true)
+  expect(result.skipReason).toMatch(/Skland character scrape failed/)
+  expect(result.avatars).toBe(0)
   expect(existsSync(join(publicDirectory, 'images/characters'))).toBe(false)
 })
 
-it('throws when remote download fails after retry (no AKEDatabase fallback)', async () => {
+it('returns skipped when remote download fails after retry', async () => {
   const root = mkdtempSync(join(tmpdir(), 'cep-characters-'))
   roots.push(root)
   const publicDirectory = join(root, 'public')
@@ -113,12 +114,12 @@ it('throws when remote download fails after retry (no AKEDatabase fallback)', as
     throw new Error('download failed')
   }))
 
-  await expect(
-    downloadCharacterAvatars(
-      publicDirectory,
-      async () => ({ newContext: async () => context, close: async () => undefined }) as never
-    )
-  ).rejects.toThrow(/after retry|download failed|Missing Skland/)
+  const result = await downloadCharacterAvatars(
+    publicDirectory,
+    async () => ({ newContext: async () => context, close: async () => undefined }) as never
+  )
+  expect(result.skipped).toBe(true)
+  expect(result.skipReason).toMatch(/download failed|after retry|Missing Skland/)
 })
 
 it.each([
@@ -132,7 +133,7 @@ it.each([
     avatarUrl: 'https://cdn.example/avatar.png',
     detail: { data: { item: { document: {} } } },
   },
-])('removes temporary character data when the $kind URL is missing', async ({ kind, avatarUrl, detail }) => {
+])('returns skipped when the $kind URL is missing', async ({ kind, avatarUrl, detail }) => {
   const root = mkdtempSync(join(tmpdir(), 'cep-characters-missing-url-'))
   roots.push(root)
   const publicDirectory = join(root, 'public')
@@ -167,11 +168,12 @@ it.each([
     request: { get: async () => ({ json: async () => detail }) },
   }
 
-  await expect(downloadCharacterAvatars(
+  const result = await downloadCharacterAvatars(
     publicDirectory,
     async () => ({ newContext: async () => context, close: async () => undefined }) as never
-  )).rejects.toThrow(`Missing Skland image URL for ${kind}/chr_0004_pelica`)
-
+  )
+  expect(result.skipped).toBe(true)
+  expect(result.skipReason).toBe(`Missing Skland image URL for ${kind}/chr_0004_pelica`)
   expect(readdirSync(join(publicDirectory, 'images'))).toEqual([])
 })
 
@@ -231,5 +233,6 @@ it('writes avatars from successful Skland downloads', async () => {
   )
 
   expect(result.avatars).toBeGreaterThan(0)
+  expect(result.skipped).toBe(false)
   expect(existsSync(join(publicDirectory, 'images/characters/chr_0004_pelica.avif'))).toBe(true)
 })

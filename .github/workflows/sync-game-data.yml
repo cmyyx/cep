@@ -151,7 +151,17 @@ jobs:
             public/JP/maps.json public/TC/maps.json
           git -C "$UPSTREAM_DIR/AKEDatabase" checkout
 
+      - name: Cache Playwright browsers
+        uses: actions/cache@5a3ec84eff668545956fd18022155c47e93e2684 # v4.2.3
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
+
+      - name: Install Playwright browsers
+        run: pnpm exec playwright install --with-deps chromium
+
       - name: Run sync update
+        id: sync
         run: |
           npx tsx scripts/sync-game-data.ts --update \
             --akedata "$RUNNER_TEMP/upstream/AKEData" \
@@ -191,3 +201,4 @@ jobs:
             - `src/generated/i18n/dungeons/`
             - `src/generated/i18n/stats/`
             - `src/generated/i18n/regions/`
+            ${{ steps.sync.outputs.character_scrape_skipped == 'true' && format('⚠️ 头像未刷新：Skland 角色头像抓取被跳过（{0}），已有头像保留不变，需手动补刷。', steps.sync.outputs.character_scrape_reason) || '' }}

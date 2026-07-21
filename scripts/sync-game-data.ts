@@ -17,7 +17,7 @@ import { convertWikiAssets } from './lib/convert-icons'
 import { downloadCharacterAvatars } from './lib/download-character-avatars'
 import type { WikiAssets } from './lib/wiki-assets'
 import { readUpstreamVersions, upstreamVersionsMatch, writeUpstreamVersions } from './lib/git-helpers'
-import { existsSync, readFileSync, mkdirSync, writeFileSync } from 'node:fs'
+import { existsSync, readFileSync, mkdirSync, writeFileSync, appendFileSync } from 'node:fs'
 import { join, resolve } from 'node:path'
 import { extractItemNameIds } from './lib/extract-textid'
 import { loadTextTable } from './lib/stat-mapping'
@@ -287,6 +287,11 @@ async function main() {
   }
 
   // Generate every image declared by the Wiki asset manifest before validation.
+  // Skland character scrape is best-effort: if it fails (browser missing,
+  // network error, Skland layout change), keep the existing character images
+  // and flag the PR instead of blocking the data sync.
+  let characterScrapeSkipped = false
+  let characterScrapeReason = ''
   if (mode === 'update') {
     console.log('\n-- Image generation --')
     const assets = JSON.parse(
@@ -295,9 +300,15 @@ async function main() {
     const characterResult = await downloadCharacterAvatars(
       join(projectRoot, 'public')
     )
-    console.log(
-      `  Characters: ${characterResult.avatars} avatars, ${characterResult.fullBody} full-body`
-    )
+    if (characterResult.skipped) {
+      characterScrapeSkipped = true
+      characterScrapeReason = characterResult.skipReason ?? 'unknown reason'
+      console.log(`  Characters: SKIPPED — ${characterScrapeReason}`)
+    } else {
+      console.log(
+        `  Characters: ${characterResult.avatars} avatars, ${characterResult.fullBody} full-body`
+      )
+    }
     const iconResult = await convertWikiAssets(join(projectRoot, 'public'), assets)
     console.log(
       `  Icons: ${iconResult.converted.length} converted, ${iconResult.skipped.length} unchanged`
@@ -309,9 +320,13 @@ async function main() {
     }
   }
 
-  // Validate image existence — block on missing images to prevent broken PRs
+  // Validate image existence — block on missing images to prevent broken PRs.
+  // Character images are exempt when the scrape was skipped: existing files are
+  // preserved and the PR is flagged, so stale-but-present beats broken-missing.
   console.log('\n-- Image validation --')
-  const missingImages = validateImages(projectRoot)
+  const missingImages = validateImages(projectRoot, {
+    skipCharacterImages: characterScrapeSkipped,
+  })
   if (missingImages.length > 0) {
     console.error(`\n  ERROR: ${missingImages.length} missing image(s):`)
     for (const img of missingImages) {
@@ -321,6 +336,18 @@ async function main() {
     process.exit(1)
   } else {
     console.log(`  All images present`)
+  }
+
+  // Surface skip status to CI (consumed by the workflow to annotate the PR).
+  if (!local && characterScrapeSkipped) {
+    const githubOutput = process.env['GITHUB_OUTPUT']
+    if (githubOutput) {
+      appendFileSync(githubOutput, 'character_scrape_skipped=true\n')
+      appendFileSync(
+        githubOutput,
+        `character_scrape_reason=${characterScrapeReason.replace(/\r?\n/g, ' ')}\n`
+      )
+    }
   }
 
   // SHA update — write version file to working tree (committed via PR)
