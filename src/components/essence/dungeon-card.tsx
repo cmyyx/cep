@@ -8,7 +8,7 @@ import type { DungeonPlan, WeaponMatch } from '@/lib/planner/essence-solver'
 import { useMatrixStore, getPlanKey } from '@/stores/useMatrixStore'
 import { useEssenceSettingsStore } from '@/stores/useEssenceSettingsStore'
 import { useBannerStore } from '@/stores/useBannerStore'
-import { useCloseOnScroll } from '@/hooks/use-close-on-scroll'
+import { useMobileLongPressTooltip } from '@/hooks/use-mobile-long-press-tooltip'
 import { OwnershipBadge, EditableNote } from '@/components/essence/ownership-badge'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
 import { Checkbox } from '@/components/ui/checkbox'
@@ -16,10 +16,10 @@ import { ChevronDown, Check } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 
 import { computeEffectiveS1 } from '@/lib/planner/s1-utils'
-import { useIsMobile } from '@/hooks/use-mobile'
 import { withImageCacheVersion } from '@/lib/image-url'
 import { PlannerWikiPreview } from '@/components/shared/planner-wiki-preview'
 import { getWeaponWikiPreview } from '@/lib/weapon-wiki-preview'
+import { weaponMatchesS1, weaponStatLabel } from '@/lib/weapon-stats'
 import type { WikiLocale } from '@/types/wiki'
 
 interface DungeonCardProps {
@@ -68,74 +68,22 @@ const WeaponThumbnail = memo(function WeaponThumbnail({
   const locale = useLocale() as WikiLocale
   const enableTooltip = useEssenceSettingsStore((s) => s.enableTooltipPlans)
   const toggleWeapon = useMatrixStore((s) => s.toggleWeapon)
-  const [open, setOpen] = useState(false)
-  const triggerRef = useCloseOnScroll(open, setOpen)
-
-  const isMobile = useIsMobile()
-  const longPressTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
-  const longPressTriggeredRef = useRef(false)
-  const pointerStartRef = useRef<{ x: number; y: number } | null>(null)
-
-  const clearLongPress = useCallback(() => {
-    if (longPressTimerRef.current) {
-      clearTimeout(longPressTimerRef.current)
-      longPressTimerRef.current = null
-    }
-  }, [])
-
-  useEffect(() => {
-    return () => clearLongPress()
-  }, [clearLongPress])
-
-  const handleOpenChange = useCallback((nextOpen: boolean) => {
-    if (isMobile && enableTooltip) {
-      if (!nextOpen) setOpen(false)
-      return
-    }
-    setOpen(nextOpen)
-  }, [isMobile, enableTooltip])
-
-  const handlePointerDown = useCallback((e: React.PointerEvent) => {
-    if (!isMobile || !enableTooltip) return
-    longPressTriggeredRef.current = false
-    pointerStartRef.current = { x: e.clientX, y: e.clientY }
-    clearLongPress()
-    longPressTimerRef.current = setTimeout(() => {
-      longPressTriggeredRef.current = true
-      setOpen(true)
-    }, 300)
-  }, [isMobile, enableTooltip, clearLongPress])
-
-  const handlePointerMove = useCallback((e: React.PointerEvent) => {
-    if (!pointerStartRef.current) return
-    const dx = e.clientX - pointerStartRef.current.x
-    const dy = e.clientY - pointerStartRef.current.y
-    if (Math.abs(dx) > 10 || Math.abs(dy) > 10) {
-      clearLongPress()
-      pointerStartRef.current = null
-    }
-  }, [clearLongPress])
-
-  const handlePointerEnd = useCallback(() => {
-    clearLongPress()
-    pointerStartRef.current = null
-    if (longPressTriggeredRef.current) {
-      setOpen(false)
-      // Do NOT reset longPressTriggeredRef here — let handleToggle consume it
-    }
-  }, [clearLongPress])
-
-  const handleContextMenu = useCallback((e: React.MouseEvent) => {
-    e.preventDefault()
-  }, [])
+  const {
+    open,
+    triggerRef,
+    handleOpenChange,
+    handlePointerDown,
+    handlePointerMove,
+    handlePointerEnd,
+    handleContextMenu,
+    swallowLongPressClick,
+    isMobile,
+  } = useMobileLongPressTooltip(enableTooltip)
 
   const handleToggle = useCallback(() => {
-    if (longPressTriggeredRef.current) {
-      longPressTriggeredRef.current = false
-      return
-    }
+    if (swallowLongPressClick()) return
     toggleWeapon(weapon.id)
-  }, [toggleWeapon, weapon.id])
+  }, [toggleWeapon, weapon.id, swallowLongPressClick])
 
   const weaponName = (weapon.id?.startsWith('custom-') || weapon.id?.startsWith('preview:')) ? weapon.name : (t(`weapons.${weapon.id}`) ?? weapon.name)
   const preview = getWeaponWikiPreview(weapon.id, locale)
@@ -155,7 +103,7 @@ const WeaponThumbnail = memo(function WeaponThumbnail({
         'relative w-16 h-16 rounded-md overflow-hidden select-none',
         isMobile && enableTooltip ? 'cursor-default' : 'cursor-pointer',
         'bg-[url(/images/item-frame-bg.png)] bg-cover bg-center',
-        isMobile && enableTooltip && 'touch-manipulation',
+        isMobile && enableTooltip && 'touch-manipulation [-webkit-touch-callout:none] [&_img]:pointer-events-none [&_img]:select-none',
         inRange && isSelected && 'shadow-[0_0_0_1px_rgba(251,191,36,0.5)]',
         inRange && !isSelected && 'shadow-[0_0_0_1px_rgba(0,0,0,0.08)]',
         !inRange && isSelected && 'shadow-[0_0_0_1px_rgba(251,191,36,0.2)] opacity-40',
@@ -187,7 +135,10 @@ const WeaponThumbnail = memo(function WeaponThumbnail({
       <TooltipContent
         side="top"
         sideOffset={8}
-        className="max-h-[var(--available-height)] max-w-[calc(100vw-2rem)] overflow-y-auto overscroll-contain bg-popover p-3 text-popover-foreground shadow-[var(--shadow-card)]"
+        className={cn(
+          'max-h-[min(var(--available-height),calc(100svh-1.5rem))] max-w-[calc(100vw-2rem)] overflow-y-auto overscroll-contain bg-popover p-3 text-popover-foreground shadow-[var(--shadow-card)]',
+          isMobile && 'data-closed:animate-none',
+        )}
       >
         <PlannerWikiPreview
           compact={isMobile}
@@ -196,10 +147,10 @@ const WeaponThumbnail = memo(function WeaponThumbnail({
           levelOneLabel={preview.levelOneLabel}
           maxLevelLabel={preview.maxLevelLabel}
           rows={[
-            { label: t('weaponStats.' + weapon.primaryStat), ...preview.values[0] },
-            { label: t('weaponStats.' + weapon.elementalDamage), ...preview.values[1] },
-            { label: t('weaponStats.' + weapon.specialAbility), ...preview.values[2], truncate: true },
-          ]}
+            { label: weaponStatLabel(weapon.primaryStat, t), ...preview.values[0] },
+            { label: weaponStatLabel(weapon.elementalDamage, t), ...preview.values[1] },
+            { label: weaponStatLabel(weapon.specialAbility, t), ...preview.values[2], truncate: true },
+          ].filter((_, index) => [weapon.primaryStat, weapon.elementalDamage, weapon.specialAbility][index] !== null)}
           wikiHref={preview.wikiHref}
         />
       </TooltipContent>
@@ -271,9 +222,9 @@ const WeaponRow = memo(function WeaponRow({
             className="text-xs text-muted-foreground min-w-0 truncate shrink-0"
             style={{ width: 'var(--max-attr-width)' } as React.CSSProperties}
           >
-            {t('weaponStats.' + weapon.primaryStat)} |{' '}
-            {t('weaponStats.' + weapon.elementalDamage)} |{' '}
-            {t('weaponStats.' + weapon.specialAbility)}
+            {weaponStatLabel(weapon.primaryStat, t)} |{' '}
+            {weaponStatLabel(weapon.elementalDamage, t)} |{' '}
+            {weaponStatLabel(weapon.specialAbility, t)}
           </span>
           {(showOwnership || onNoteChange || (note && !onNoteChange)) && (
             <div className="flex items-center gap-1 flex-shrink-0">
@@ -326,9 +277,9 @@ const WeaponRow = memo(function WeaponRow({
       {fallbackLevel === 1 && (
         <>
           <span className="text-xs text-muted-foreground min-w-0 truncate">
-            {t('weaponStats.' + weapon.primaryStat)} |{' '}
-            {t('weaponStats.' + weapon.elementalDamage)} |{' '}
-            {t('weaponStats.' + weapon.specialAbility)}
+            {weaponStatLabel(weapon.primaryStat, t)} |{' '}
+            {weaponStatLabel(weapon.elementalDamage, t)} |{' '}
+            {weaponStatLabel(weapon.specialAbility, t)}
           </span>
           <div className="basis-full flex-shrink-0 flex items-center gap-x-3">
             {(showOwnership || onNoteChange || (note && !onNoteChange)) && (
@@ -383,9 +334,9 @@ const WeaponRow = memo(function WeaponRow({
       {fallbackLevel === 2 && (
         <div className="basis-full flex-shrink-0 flex flex-col gap-y-1">
           <span className="text-xs text-muted-foreground min-w-0 truncate">
-            {t('weaponStats.' + weapon.primaryStat)} |{' '}
-            {t('weaponStats.' + weapon.elementalDamage)} |{' '}
-            {t('weaponStats.' + weapon.specialAbility)}
+            {weaponStatLabel(weapon.primaryStat, t)} |{' '}
+            {weaponStatLabel(weapon.elementalDamage, t)} |{' '}
+            {weaponStatLabel(weapon.specialAbility, t)}
           </span>
           <div className="flex items-center gap-x-3">
             {(showOwnership || onNoteChange || (note && !onNoteChange)) && (
@@ -459,9 +410,10 @@ export const DungeonCard = memo(function DungeonCard({
 
   // Plan-side settings
   const hideFourStar = useEssenceSettingsStore((s) => s.hideFourStarWeaponsPlans)
+  const hideThreeStar = useEssenceSettingsStore((s) => s.hideThreeStarWeaponsPlans)
   const hideUnowned = useEssenceSettingsStore((s) => s.hideUnownedWeaponsPlans)
   const hideEssenceOwned = useEssenceSettingsStore((s) => s.hideEssenceOwnedWeaponsPlans)
-  const onlyBothOwned = useEssenceSettingsStore((s) => s.onlyHideWhenBothOwned)
+  const onlyBothOwned = useEssenceSettingsStore((s) => s.onlyHideWhenBothOwnedPlans)
   const showOwnership = useEssenceSettingsStore((s) => s.enableOwnershipEditPlans)
   const showNotes = useEssenceSettingsStore((s) => s.enableNotesPlans)
   const weaponOwnership = useEssenceSettingsStore((s) => s.weaponOwnership)
@@ -482,7 +434,7 @@ export const DungeonCard = memo(function DungeonCard({
   const visibleMatched = useMemo(() => {
     return plan.matchedWeapons.filter(({ weapon }) => {
       if (keepUpVisible && (weapon.chars.some((c) => upCharSet.has(c)) || weapon.source === 'preview')) return true
-      if (hideFourStar && weapon.rarity === 4) return false
+      if ((hideFourStar && weapon.rarity === 4) || (hideThreeStar && weapon.rarity === 3)) return false
       if (hideUnowned && weaponOwnership[weapon.id] !== true) return false
       if (hideEssenceOwned) {
         const eOwned = essenceStatus[weapon.id] === true
@@ -498,7 +450,7 @@ export const DungeonCard = memo(function DungeonCard({
   }, [
     plan.matchedWeapons,
     keepUpVisible, upCharSet,
-    hideFourStar, hideUnowned, hideEssenceOwned, onlyBothOwned,
+    hideFourStar, hideThreeStar, hideUnowned, hideEssenceOwned, onlyBothOwned,
     weaponOwnership, essenceStatus,
   ])
 
@@ -508,7 +460,7 @@ export const DungeonCard = memo(function DungeonCard({
   const visibleS1Counts = useMemo(() => {
     const counts: Record<string, number> = {}
     for (const { weapon } of visibleMatched) {
-      counts[weapon.primaryStat] = (counts[weapon.primaryStat] || 0) + 1
+      if (weapon.primaryStat !== null) counts[weapon.primaryStat] = (counts[weapon.primaryStat] || 0) + 1
     }
     return counts
   }, [visibleMatched])
@@ -535,11 +487,11 @@ export const DungeonCard = memo(function DungeonCard({
   // Count selected weapons that are both visible and in S1 range
   const visibleSelected = useMemo(() => {
     return visibleMatched.filter(
-      (m) => m.isSelected && effectiveS1.includes(m.weapon.primaryStat),
+      (match) => match.isSelected && weaponMatchesS1(match.weapon, effectiveS1),
     ).length
   }, [visibleMatched, effectiveS1])
 
-  const lockLabel = plan.lockType === 's2' ? t('essence.lockS2') : t('essence.lockS3')
+  const lockLabel = plan.lockType === 's2' ? t('essence.lockS2') : plan.lockType === 's3' ? t('essence.lockS3') : t('essence.lockAny')
 
   // ── Column alignment measurement ──────────────────────────────────────
   // Renders a hidden mirror of each WeaponRow to measure actual pixel
@@ -648,7 +600,7 @@ export const DungeonCard = memo(function DungeonCard({
         <span className="text-muted-foreground/50">|</span>
         <span>
           {lockLabel}:{' '}
-          <strong className="text-foreground">{t('gemStats.' + plan.lockValue)}</strong>
+          <strong className="text-foreground">{plan.lockType === 'none' ? t('essence.anyAttribute') : t('gemStats.' + plan.lockValue)}</strong>
         </span>
       </div>
 
@@ -708,7 +660,7 @@ export const DungeonCard = memo(function DungeonCard({
               <WeaponThumbnail
                 weapon={weapon}
                 isSelected={isSelected}
-                inRange={effectiveS1.includes(weapon.primaryStat)}
+                inRange={weaponMatchesS1(weapon, effectiveS1)}
               />
               {showOwnership && (
                 <div className="flex items-center gap-0.5">
@@ -757,9 +709,9 @@ export const DungeonCard = memo(function DungeonCard({
                   <span className="font-medium min-w-0 truncate w-28 flex-shrink-0">{weaponName}</span>
                 </div>
                 <span className="text-xs text-muted-foreground min-w-0">
-                  {t('weaponStats.' + weapon.primaryStat)} |{' '}
-                  {t('weaponStats.' + weapon.elementalDamage)} |{' '}
-                  {t('weaponStats.' + weapon.specialAbility)}
+                  {weaponStatLabel(weapon.primaryStat, t)} |{' '}
+                  {weaponStatLabel(weapon.elementalDamage, t)} |{' '}
+                  {weaponStatLabel(weapon.specialAbility, t)}
                 </span>
                 {(showOwnership || showNotes) && (
                   <div className="flex items-center gap-1 flex-shrink-0">
@@ -791,7 +743,7 @@ export const DungeonCard = memo(function DungeonCard({
                 key={weapon.id}
                 weapon={weapon}
                 isSelected={isSelected}
-                inRange={effectiveS1.includes(weapon.primaryStat)}
+                inRange={weaponMatchesS1(weapon, effectiveS1)}
                 selectedLabel={t('essence.weaponSelected')}
                 notAvailableLabel={t('essence.weaponNotAvailable')}
                 weaponOwnershipLabel={t('essence.weaponOwnershipLabel')}

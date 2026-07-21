@@ -68,16 +68,17 @@ export function useMobileLongPressTooltip(
   }, [mobileEnabled])
 
   const handlePointerDown = useCallback((e: PointerEvent) => {
-    if (!mobileEnabled) return
+    if (!mobileEnabled || e.pointerType !== 'touch' || !e.isPrimary) return
     isPointerDownRef.current = true
     longPressTriggeredRef.current = false
     pointerStartRef.current = { x: e.clientX, y: e.clientY }
     clearLongPress()
     longPressTimerRef.current = setTimeout(() => {
+      if (triggerRef.current?.hasPointerCapture(e.pointerId)) triggerRef.current.releasePointerCapture(e.pointerId)
       longPressTriggeredRef.current = true
       setOpen(true)
     }, LONG_PRESS_DELAY)
-  }, [mobileEnabled, clearLongPress])
+  }, [mobileEnabled, clearLongPress, triggerRef])
 
   const handlePointerMove = useCallback((e: PointerEvent) => {
     if (!pointerStartRef.current) return
@@ -86,6 +87,8 @@ export function useMobileLongPressTooltip(
     if (Math.abs(dx) > MOVE_THRESHOLD || Math.abs(dy) > MOVE_THRESHOLD) {
       clearLongPress()
       pointerStartRef.current = null
+      isPointerDownRef.current = false
+      setOpen(false)
     }
   }, [clearLongPress])
 
@@ -93,9 +96,6 @@ export function useMobileLongPressTooltip(
     isPointerDownRef.current = false
     clearLongPress()
     pointerStartRef.current = null
-    // If long press was triggered, keep tooltip open and keep longPressTriggeredRef
-    // set so the subsequent click event can be swallowed by swallowLongPressClick
-    if (longPressTriggeredRef.current) return
   }, [clearLongPress])
 
   const handleContextMenu = useCallback((e: MouseEvent) => {

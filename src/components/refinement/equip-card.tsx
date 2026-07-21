@@ -159,7 +159,7 @@ export const EquipCard = memo(function EquipCard({
             className={cn(
               'group relative flex items-center justify-center aspect-square w-full rounded-lg border-0 overflow-hidden transition-all',
               'bg-[url(/images/item-frame-bg.png)] bg-cover bg-center',
-              isMobile && 'touch-manipulation select-none [-webkit-touch-callout:none]',
+              isMobile && 'touch-manipulation select-none [-webkit-touch-callout:none] [-webkit-user-select:none] [&_img]:pointer-events-none [&_img]:select-none',
               readOnly ? 'cursor-default' : 'cursor-pointer',
               isSelected
                 ? 'shadow-[0px_0px_0px_1px_#fbbf24,0_25px_50px_-12px_rgba(0,0,0,0.25)] ring-2 ring-amber-400/50 ring-offset-2 ring-offset-background'
@@ -230,9 +230,9 @@ export const EquipCard = memo(function EquipCard({
           </div>
         )}
       </TooltipTrigger>
-      <TooltipContent side="top" sideOffset={8} collisionPadding={24} className={cn(
-        'max-h-[var(--available-height)] max-w-[calc(100vw-3rem)] overflow-y-auto overscroll-contain bg-popover p-3 text-popover-foreground shadow-[var(--shadow-card)]',
-        isMobile ? 'max-w-[calc(100vw-3rem)]' : 'max-w-none',
+      <TooltipContent side={isMobile ? "bottom" : "top"} sideOffset={8} collisionPadding={16} className={cn(
+        'max-h-[min(var(--available-height),calc(100svh-2rem))] max-w-[calc(100vw-2rem)] overflow-y-auto overscroll-contain bg-popover p-3 text-popover-foreground shadow-[var(--shadow-card)]',
+        isMobile ? 'max-w-[calc(100vw-2rem)] data-closed:animate-none' : 'max-w-none',
       )}>
         <PlannerWikiPreview
           title={displayName}
@@ -247,7 +247,7 @@ export const EquipCard = memo(function EquipCard({
           ]}
           footer={recipeGroups.featured.length > 0 ? (
             <div className="space-y-2 pt-1">
-              <div className="max-h-56 space-y-2 overflow-y-auto pr-1">
+              <div className={cn('space-y-2', !isMobile && 'max-h-56 overflow-y-auto pr-1')}>
                 {[...recipeGroups.featured, ...(showOtherRecipes ? recipeGroups.other : [])].map((recipe) => (
                   <div key={recipe.chainId} className="space-y-2 rounded-md bg-muted/35 p-2.5">
                     <div className="flex flex-wrap items-center gap-1.5">

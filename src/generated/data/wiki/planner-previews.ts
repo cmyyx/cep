@@ -471,6 +471,42 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       }
     ]
   },
+  "wpn_claym_0010": {
+    "stats": [
+      {
+        "levelOne": {
+          "zh-CN": "主能力值<@ba.vup>+10</>",
+          "en": "Main attribute <@ba.vup>+10</>",
+          "ja": "メイン能力値<@ba.vup>+10</>",
+          "zh-TW": "主能力值<@ba.vup>+10</>"
+        },
+        "maxLevel": {
+          "zh-CN": "主能力值<@ba.vup>+79</>",
+          "en": "Main attribute <@ba.vup>+79</>",
+          "ja": "メイン能力値<@ba.vup>+79</>",
+          "zh-TW": "主能力值<@ba.vup>+79</>"
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "zh-CN": "攻击力<@ba.vup>+12</>。",
+          "en": "ATK <@ba.vup>+12</>.",
+          "ja": "攻撃力<@ba.vup>+12</>",
+          "zh-TW": "攻擊力<@ba.vup>+12</>。"
+        },
+        "maxLevel": {
+          "zh-CN": "攻击力<@ba.vup>+34</>。",
+          "en": "ATK <@ba.vup>+34</>.",
+          "ja": "攻撃力<@ba.vup>+34</>",
+          "zh-TW": "攻擊力<@ba.vup>+34</>。"
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
   "wpn_claym_0011": {
     "stats": [
       {
@@ -1193,6 +1229,42 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
           "en": "Arts DMG Dealt <@ba.vup>+33.6%</>.\nWhen the wielder casts a battle skill, the wielder gains Arts DMG Dealt <@ba.vup>+33.6%</> for 15s. When the wielder casts a combo skill, Arts DMG Dealt <@ba.vup>+33.6%</> for 15s.\n<@ba.info>The two effects apply separately and do not stack with themselves.</>",
           "ja": "アーツダメージ<@ba.vup>+33.6%</>\n装備中、自身の戦技を発動するとき、15秒間アーツダメージ<@ba.vup>+33.6%</>\n連携技を発動するとき、15秒間アーツダメージ<@ba.vup>+33.6%</>\n<@ba.info>2つの効果はそれぞれ存在し、重ね掛け不可</>",
           "zh-TW": "法術傷害<@ba.vup>+33.6%</>。\n裝備者施放戰技時，獲得法術傷害<@ba.vup>+33.6%</>，持續15秒；裝備者施放連攜技時，獲得法術傷害<@ba.vup>+33.6%</>，持續15秒。\n<@ba.info>兩種效果獨立生效，且均無法疊加。</>"
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
+  "wpn_funnel_0002": {
+    "stats": [
+      {
+        "levelOne": {
+          "zh-CN": "主能力值<@ba.vup>+10</>",
+          "en": "Main attribute <@ba.vup>+10</>",
+          "ja": "メイン能力値<@ba.vup>+10</>",
+          "zh-TW": "主能力值<@ba.vup>+10</>"
+        },
+        "maxLevel": {
+          "zh-CN": "主能力值<@ba.vup>+79</>",
+          "en": "Main attribute <@ba.vup>+79</>",
+          "ja": "メイン能力値<@ba.vup>+79</>",
+          "zh-TW": "主能力值<@ba.vup>+79</>"
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "zh-CN": "攻击力<@ba.vup>+12</>。",
+          "en": "ATK <@ba.vup>+12</>.",
+          "ja": "攻撃力<@ba.vup>+12</>",
+          "zh-TW": "攻擊力<@ba.vup>+12</>。"
+        },
+        "maxLevel": {
+          "zh-CN": "攻击力<@ba.vup>+34</>。",
+          "en": "ATK <@ba.vup>+34</>.",
+          "ja": "攻撃力<@ba.vup>+34</>",
+          "zh-TW": "攻擊力<@ba.vup>+34</>。"
         },
         "levelOneLabel": "Lv.1",
         "maxLevelLabel": "Lv.9"
@@ -2343,6 +2415,42 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       }
     ]
   },
+  "wpn_pistol_0001": {
+    "stats": [
+      {
+        "levelOne": {
+          "zh-CN": "主能力值<@ba.vup>+10</>",
+          "en": "Main attribute <@ba.vup>+10</>",
+          "ja": "メイン能力値<@ba.vup>+10</>",
+          "zh-TW": "主能力值<@ba.vup>+10</>"
+        },
+        "maxLevel": {
+          "zh-CN": "主能力值<@ba.vup>+79</>",
+          "en": "Main attribute <@ba.vup>+79</>",
+          "ja": "メイン能力値<@ba.vup>+79</>",
+          "zh-TW": "主能力值<@ba.vup>+79</>"
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "zh-CN": "攻击力<@ba.vup>+12</>。",
+          "en": "ATK <@ba.vup>+12</>.",
+          "ja": "攻撃力<@ba.vup>+12</>",
+          "zh-TW": "攻擊力<@ba.vup>+12</>。"
+        },
+        "maxLevel": {
+          "zh-CN": "攻击力<@ba.vup>+34</>。",
+          "en": "ATK <@ba.vup>+34</>.",
+          "ja": "攻撃力<@ba.vup>+34</>",
+          "zh-TW": "攻擊力<@ba.vup>+34</>。"
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
   "wpn_funnel_0017": {
     "stats": [
       {
@@ -2649,6 +2757,42 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
           "en": "Combo Skill DMG Dealt <@ba.vup>+28.0%</>.\nWhen the wielder casts a combo skill, during the next battle skill cast within 30s, the wielder gains Electric DMG Dealt <@ba.vup>+28.0%</>.\n<@ba.info>Max stacks for effects of the same name: 3. Duration of each stack is counted separately.</>",
           "ja": "連携技ダメージ<@ba.vup>+28.0%</>\n装備中、自身が連携技を発動するとき、30秒間次の戦技発動中に与える電磁ダメージ<@ba.vup>+28.0%</>\n<@ba.info>同名効果は3回まで重ね掛け可能\n効果の持続時間は個別にカウントされる</>",
           "zh-TW": "連攜技傷害<@ba.vup>+28.0%</>。\n裝備者施放連攜技時，30秒內的下次戰技期間造成的電磁傷害<@ba.vup>+28.0%</>。\n<@ba.info>同名效果最多疊加3層，每層單獨計算持續時間。</>"
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
+  "wpn_lance_0009": {
+    "stats": [
+      {
+        "levelOne": {
+          "zh-CN": "主能力值<@ba.vup>+10</>",
+          "en": "Main attribute <@ba.vup>+10</>",
+          "ja": "メイン能力値<@ba.vup>+10</>",
+          "zh-TW": "主能力值<@ba.vup>+10</>"
+        },
+        "maxLevel": {
+          "zh-CN": "主能力值<@ba.vup>+79</>",
+          "en": "Main attribute <@ba.vup>+79</>",
+          "ja": "メイン能力値<@ba.vup>+79</>",
+          "zh-TW": "主能力值<@ba.vup>+79</>"
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "zh-CN": "攻击力<@ba.vup>+12</>。",
+          "en": "ATK <@ba.vup>+12</>.",
+          "ja": "攻撃力<@ba.vup>+12</>",
+          "zh-TW": "攻擊力<@ba.vup>+12</>。"
+        },
+        "maxLevel": {
+          "zh-CN": "攻击力<@ba.vup>+34</>。",
+          "en": "ATK <@ba.vup>+34</>.",
+          "ja": "攻撃力<@ba.vup>+34</>",
+          "zh-TW": "攻擊力<@ba.vup>+34</>。"
         },
         "levelOneLabel": "Lv.1",
         "maxLevelLabel": "Lv.9"
@@ -3013,6 +3157,42 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
           "en": "Arts DMG <@ba.vup>+33.6%</>.\nAfter the wielder <#ba.consume>consumes</> an <#ba.spellstatus>Arts Reaction</>, target enemy suffers Arts DMG Taken <@ba.vup>+28.0%</> (for the specified element) for 15s.\n<@ba.info>Each effect applies separately and does not stack with itself. Effect only triggers once every 25s.</>",
           "ja": "アーツダメージ<@ba.vup>+33.6%</>\n装備中、自身が<#ba.spellstatus>アーツ異常</>状態を<#ba.consume>消費</>すると、15秒間目標の敵が受けるその属性のダメージ<@ba.vup>+28.0%</>\n<@ba.info>効果はそれぞれ存在し、重ね掛け不可\nこの効果は25秒に1回まで発動可能</>",
           "zh-TW": "法術傷害<@ba.vup>+33.6%</>。\n裝備者<#ba.consume>消耗</><#ba.spellstatus>法術異常</>後，使目標敵人受到對應屬性的傷害<@ba.vup>+28.0%</>，持續15秒。\n<@ba.info>每種效果獨立生效，且均無法疊加，每25秒最多觸發一次。</>"
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
+  "wpn_sword_0003": {
+    "stats": [
+      {
+        "levelOne": {
+          "zh-CN": "主能力值<@ba.vup>+10</>",
+          "en": "Main attribute <@ba.vup>+10</>",
+          "ja": "メイン能力値<@ba.vup>+10</>",
+          "zh-TW": "主能力值<@ba.vup>+10</>"
+        },
+        "maxLevel": {
+          "zh-CN": "主能力值<@ba.vup>+79</>",
+          "en": "Main attribute <@ba.vup>+79</>",
+          "ja": "メイン能力値<@ba.vup>+79</>",
+          "zh-TW": "主能力值<@ba.vup>+79</>"
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "zh-CN": "攻击力<@ba.vup>+12</>。",
+          "en": "ATK <@ba.vup>+12</>.",
+          "ja": "攻撃力<@ba.vup>+12</>",
+          "zh-TW": "攻擊力<@ba.vup>+12</>。"
+        },
+        "maxLevel": {
+          "zh-CN": "攻击力<@ba.vup>+34</>。",
+          "en": "ATK <@ba.vup>+34</>.",
+          "ja": "攻撃力<@ba.vup>+34</>",
+          "zh-TW": "攻擊力<@ba.vup>+34</>。"
         },
         "levelOneLabel": "Lv.1",
         "maxLevelLabel": "Lv.9"

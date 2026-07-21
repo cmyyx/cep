@@ -88,9 +88,10 @@ export const WeaponGrid = memo(function WeaponGrid({ onViewAll }: WeaponGridProp
 
   // Settings
   const hideFourStar = useEssenceSettingsStore((s) => s.hideFourStarWeaponsList)
+  const hideThreeStar = useEssenceSettingsStore((s) => s.hideThreeStarWeaponsList)
   const hideUnowned = useEssenceSettingsStore((s) => s.hideUnownedWeaponsList)
   const hideEssenceOwned = useEssenceSettingsStore((s) => s.hideEssenceOwnedWeaponsList)
-  const onlyBothOwned = useEssenceSettingsStore((s) => s.onlyHideWhenBothOwned)
+  const onlyBothOwned = useEssenceSettingsStore((s) => s.onlyHideWhenBothOwnedList)
   const keepUpVisibleList = useEssenceSettingsStore((s) => s.keepUpVisibleList)
   const enableOwnershipEdit = useEssenceSettingsStore((s) => s.enableOwnershipEditList)
   const enableNotes = useEssenceSettingsStore((s) => s.enableNotesList)
@@ -161,7 +162,7 @@ export const WeaponGrid = memo(function WeaponGrid({ onViewAll }: WeaponGridProp
   const matchesBaseFilters = useCallback((w: Weapon) => {
     if (query && !w.name.includes(query) && !w.type.includes(query)) return false
     if (keepUpVisibleList && (isWeaponUp(w) || w.source === 'preview')) return true
-    if (hideFourStar && w.rarity === 4) return false
+    if ((hideFourStar && w.rarity === 4) || (hideThreeStar && w.rarity === 3)) return false
     if (hideUnowned && weaponOwnership[w.id] !== true) return false
     if (hideEssenceOwned) {
       const eOwned = essenceStatus[w.id] === true
@@ -173,7 +174,7 @@ export const WeaponGrid = memo(function WeaponGrid({ onViewAll }: WeaponGridProp
       }
     }
     return true
-  }, [query, keepUpVisibleList, isWeaponUp, hideFourStar, hideUnowned, hideEssenceOwned, onlyBothOwned, weaponOwnership, essenceStatus])
+  }, [query, keepUpVisibleList, isWeaponUp, hideFourStar, hideThreeStar, hideUnowned, hideEssenceOwned, onlyBothOwned, weaponOwnership, essenceStatus])
 
   const validOptions = useMemo(() => {
     const eligibleWeapons = allWeapons.filter(matchesBaseFilters)

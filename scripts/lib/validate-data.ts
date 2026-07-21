@@ -46,11 +46,16 @@ export function validateWeapons(
   if (!existsSync(projectWeaponsTsPath)) return issues
   const projectContent = readFileSync(projectWeaponsTsPath, 'utf-8')
 
-  const weaponRegex = /\{\s*id:\s*'([^']+)'(?:,\s*iconId:\s*'[^']*')?,\s*name:\s*'[^']*',\s*rarity:\s*\d+,\s*type:\s*'([^']*)',\s*primaryStat:\s*'([^']*)',\s*elementalDamage:\s*'([^']*)',\s*specialAbility:\s*'([^']*)'/g
-  const projectWeapons = new Map<string, { type: string; primaryStat: string; elementalDamage: string; specialAbility: string }>()
+  const weaponRegex = /\{\s*id:\s*'([^']+)'(?:,\s*iconId:\s*'[^']*')?,\s*name:\s*'[^']*',\s*rarity:\s*\d+,\s*type:\s*'([^']*)',\s*primaryStat:\s*(?:'([^']*)'|(null)),\s*elementalDamage:\s*(?:'([^']*)'|(null)),\s*specialAbility:\s*(?:'([^']*)'|(null))/g
+  const projectWeapons = new Map<string, { type: string; primaryStat: string | null; elementalDamage: string | null; specialAbility: string | null }>()
   let m: RegExpExecArray | null
   while ((m = weaponRegex.exec(projectContent)) !== null) {
-    projectWeapons.set(m[1], { type: m[2], primaryStat: m[3], elementalDamage: m[4], specialAbility: m[5] })
+    projectWeapons.set(m[1], {
+      type: m[2],
+      primaryStat: m[4] ? null : m[3],
+      elementalDamage: m[6] ? null : m[5],
+      specialAbility: m[8] ? null : m[7],
+    })
   }
 
   // Load WeaponBasicTable (all weapon metadata)

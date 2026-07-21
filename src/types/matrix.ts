@@ -7,11 +7,12 @@ export interface Weapon {
    */
   iconId?: string
   name: string
-  rarity: 4 | 5 | 6
+  rarity: 3 | 4 | 5 | 6
   type: string
-  primaryStat: string
-  elementalDamage: string
-  specialAbility: string
+  /** null means this slot places no constraint on a dungeon roll. */
+  primaryStat: string | null
+  elementalDamage: string | null
+  specialAbility: string | null
   chars: string[]
   /** 'game' = from game client asset unpacking; 'preview' = from official pre-release announcements. */
   source?: 'game' | 'preview'

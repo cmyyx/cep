@@ -402,6 +402,8 @@
     "weaponNotAvailable": "Unavailable",
     "lockS2": "Sub Stat",
     "lockS3": "Skill",
+    "lockAny": "Attribute Lock",
+    "anyAttribute": "Any",
     "selected": "Selected",
     "total": "Total",
     "primaryStatLabel": "Primary Stat",
@@ -461,6 +463,7 @@
     "hideEssenceOwned": "Hide essence-owned weapons",
     "hideUnowned": "Hide unowned weapons",
     "hideFourStar": "Hide 4-star weapons",
+    "hideThreeStar": "Hide 3-star weapons",
     "enableOwnershipEdit": "Enable ownership editing",
     "enableNotes": "Enable notes",
     "enableTooltip": "Hover or hold to show stats",
@@ -824,6 +827,8 @@
       "equipment": "Equipment stats, suit sets, and manufacturing recipes."
     },
     "overview": "Overview",
+    "tableOfContents": "Table of contents",
+    "contentsRail": "Contents",
     "weaponType": "Weapon Type",
     "department": "Faction",
     "element": "Element",
@@ -832,6 +837,12 @@
     "subAttribute": "Secondary Attribute",
     "cv": "Voice Actors",
     "baseStats": "Base Stats",
+    "statGroups": {
+      "base": "Base stats",
+      "reduction": "Damage reduction",
+      "bonus": "Damage bonuses",
+      "combat": "Combat parameters"
+    },
     "stats": "Stats",
     "skills": "Skills",
     "skillLevels": "Skill Levels",

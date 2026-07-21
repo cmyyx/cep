@@ -47,7 +47,12 @@ export default async function WikiWeaponDetailPage({ params }: { params: Promise
           {t('wiki.backTo', { category: t('wiki.categories.weapons') })}
         </NavLink>
       </header>
-      <WikiDetailShell>
+      <WikiDetailShell tocItems={[
+        { id: 'overview', label: t('wiki.overview') },
+        { id: 'level-data', label: t('wiki.levelData') },
+        { id: 'skills', label: t('wiki.skills') },
+        { id: 'breakthroughs', label: t('wiki.breakthroughs') },
+      ]}>
         <WeaponDetailContent
           detail={detail}
           name={name}

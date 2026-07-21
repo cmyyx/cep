@@ -8,6 +8,8 @@ const allWeapons: Weapon[] = [
   { id: 'w3', name: '武器C', rarity: 6, type: '手铳', primaryStat: '力量提升', elementalDamage: '寒冷伤害提升', specialAbility: '压制', chars: [] },
   { id: 'w4', name: '武器D', rarity: 4, type: '双手剑', primaryStat: '智识提升', elementalDamage: '攻击提升', specialAbility: '压制', chars: [] },
   { id: 'w5', name: '武器E', rarity: 6, type: '长柄武器', primaryStat: '意志提升', elementalDamage: '灼热伤害提升', specialAbility: '迸发', chars: [] },
+  { id: 'wildcard-s3', name: '三星', rarity: 3, type: '双手剑', primaryStat: '主能力提升', elementalDamage: '攻击提升', specialAbility: null, chars: [] },
+  { id: 'wildcard-all', name: '自定义通配', rarity: 3, type: '双手剑', primaryStat: null, elementalDamage: null, specialAbility: null, chars: [] },
 ]
 
 const mockDungeons: Dungeon[] = [
@@ -54,5 +56,17 @@ describe('essence-solver', () => {
     // But getPlansForSelection in store handles empty by returning []
     expect(result.dungeonPlans.length).toBeGreaterThan(0)
     expect(result.dungeonPlans.every((p) => p.selectedCount === 0)).toBe(true)
+  })
+
+  it('uses the concrete S2 slot as the only anchor for a three-star weapon', () => {
+    const plans = solve(new Set(['wildcard-s3']), allWeapons, mockDungeons).dungeonPlans
+    expect(plans.map((plan) => [plan.lockType, plan.lockValue])).toEqual([['s2', '攻击提升']])
+    expect(plans[0].matchedWeapons.some(({ weapon }) => weapon.id === 'wildcard-s3')).toBe(true)
+  })
+
+  it('emits one unconstrained plan instead of expanding every wildcard lock', () => {
+    const plans = solve(new Set(['wildcard-all']), allWeapons, mockDungeons).dungeonPlans
+    expect(plans).toHaveLength(1)
+    expect(plans[0]).toMatchObject({ lockType: 'none', lockValue: 'any', selectedCount: 1 })
   })
 })

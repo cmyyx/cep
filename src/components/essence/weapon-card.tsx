@@ -14,6 +14,7 @@ import { withImageCacheVersion } from '@/lib/image-url'
 import { getCharacterAvatarPath } from '@/lib/character-images'
 import { PlannerWikiPreview } from '@/components/shared/planner-wiki-preview'
 import { getWeaponWikiPreview } from '@/lib/weapon-wiki-preview'
+import { weaponStatLabel } from '@/lib/weapon-stats'
 
 import type { Weapon } from '@/types/matrix'
 import type { WikiLocale } from '@/types/wiki'
@@ -84,7 +85,7 @@ export const WeaponCard = memo(function WeaponCard({
       className={cn(
         'group relative flex items-center justify-center aspect-square w-full rounded-lg border cursor-pointer overflow-hidden transition-all',
         'bg-[url(/images/item-frame-bg.png)] bg-cover bg-center',
-        isMobile && enableTooltip && 'touch-manipulation select-none [-webkit-touch-callout:none]',
+        isMobile && enableTooltip && 'touch-manipulation select-none [-webkit-touch-callout:none] [-webkit-user-select:none] [&_img]:pointer-events-none [&_img]:select-none',
         disabled && 'opacity-30 cursor-not-allowed pointer-events-none',
         !disabled && [
           isSelected
@@ -194,10 +195,13 @@ export const WeaponCard = memo(function WeaponCard({
     <Tooltip open={open} onOpenChange={handleOpenChange}>
       <TooltipTrigger render={trigger} />
       <TooltipContent
-        side="top"
+        side={isMobile ? 'bottom' : 'top'}
         sideOffset={8}
-        collisionPadding={24}
-        className="max-h-[var(--available-height)] max-w-[calc(100vw-3rem)] overflow-y-auto overscroll-contain bg-popover p-3 text-popover-foreground shadow-[var(--shadow-card)]"
+        collisionPadding={16}
+        className={cn(
+          'max-h-[min(var(--available-height),calc(100svh-2rem))] max-w-[calc(100vw-2rem)] overflow-y-auto overscroll-contain bg-popover p-3 text-popover-foreground shadow-[var(--shadow-card)]',
+          isMobile && 'data-closed:animate-none',
+        )}
       >
         <PlannerWikiPreview
           title={displayName}
@@ -206,10 +210,10 @@ export const WeaponCard = memo(function WeaponCard({
           levelOneLabel={preview.levelOneLabel}
           maxLevelLabel={preview.maxLevelLabel}
           rows={[
-            { label: t('weaponStats.' + weapon.primaryStat), ...preview.values[0] },
-            { label: t('weaponStats.' + weapon.elementalDamage), ...preview.values[1] },
-            { label: t('weaponStats.' + weapon.specialAbility), ...preview.values[2], truncate: true },
-          ]}
+            { label: weaponStatLabel(weapon.primaryStat, t), ...preview.values[0] },
+            { label: weaponStatLabel(weapon.elementalDamage, t), ...preview.values[1] },
+            { label: weaponStatLabel(weapon.specialAbility, t), ...preview.values[2], truncate: true },
+          ].filter((_, index) => [weapon.primaryStat, weapon.elementalDamage, weapon.specialAbility][index] !== null)}
           wikiHref={!isCustom && !isPreview ? preview.wikiHref : undefined}
         />
       </TooltipContent>

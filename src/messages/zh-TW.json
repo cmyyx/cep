@@ -402,6 +402,8 @@
     "weaponNotAvailable": "不可刷",
     "lockS2": "附加屬性",
     "lockS3": "技能屬性",
+    "lockAny": "詞條鎖定",
+    "anyAttribute": "任意",
     "selected": "已選",
     "total": "總計",
     "primaryStatLabel": "基礎屬性",
@@ -461,6 +463,7 @@
     "hideEssenceOwned": "隱藏基質已擁有的武器",
     "hideUnowned": "隱藏未擁有的武器",
     "hideFourStar": "隱藏四星武器",
+    "hideThreeStar": "隱藏三星武器",
     "enableOwnershipEdit": "編輯擁有狀態",
     "enableNotes": "備註功能",
     "enableTooltip": "懸停或長按顯示武器屬性",
@@ -824,6 +827,8 @@
       "equipment": "裝備屬性、套裝效果和製造配方。"
     },
     "overview": "概覽",
+    "tableOfContents": "目錄",
+    "contentsRail": "目錄",
     "weaponType": "武器類型",
     "department": "陣營",
     "element": "元素",
@@ -832,6 +837,12 @@
     "subAttribute": "副屬性",
     "cv": "聲優",
     "baseStats": "基礎屬性",
+    "statGroups": {
+      "base": "基礎屬性",
+      "reduction": "傷害減免",
+      "bonus": "傷害加成",
+      "combat": "戰鬥參數"
+    },
     "stats": "屬性",
     "skills": "技能",
     "skillLevels": "技能等級",

@@ -24,9 +24,15 @@ import type { Weapon } from '@/types/matrix'
 import { cn } from '@/lib/utils'
 
 import { ALL_PRIMARY_STATS, ALL_ELEMENTAL_DAMAGE, ALL_SPECIAL_ABILITIES } from '@/lib/essence-utils'
+import {
+  WILDCARD_SELECT_VALUE,
+  weaponStatFromSelect,
+  weaponStatLabel,
+  weaponStatSelectValue,
+} from '@/lib/weapon-stats'
 
 const TYPES = [...new Set(staticWeapons.map((w) => w.type))].sort()
-const RARITIES = [4, 5, 6] as const
+const RARITIES = [3, 4, 5, 6] as const
 
 export type WeaponFormDialogProps = {
   open: boolean
@@ -43,11 +49,11 @@ export function WeaponFormDialog({
 }: WeaponFormDialogProps) {
   const t = useTranslations()
   const [name, setName] = useState(initial?.name ?? '')
-  const [rarity, setRarity] = useState<4 | 5 | 6>(initial?.rarity ?? 5)
+  const [rarity, setRarity] = useState<Weapon['rarity']>(initial?.rarity ?? 5)
   const [type, setType] = useState(initial?.type ?? TYPES[0])
-  const [primaryStat, setPrimaryStat] = useState(initial?.primaryStat ?? ALL_PRIMARY_STATS[0])
-  const [elementalDamage, setElemental] = useState(initial?.elementalDamage ?? ALL_ELEMENTAL_DAMAGE[0])
-  const [specialAbility, setAbility] = useState(initial?.specialAbility ?? ALL_SPECIAL_ABILITIES[0])
+  const [primaryStat, setPrimaryStat] = useState<string | null>(initial ? initial.primaryStat : ALL_PRIMARY_STATS[0])
+  const [elementalDamage, setElemental] = useState<string | null>(initial ? initial.elementalDamage : ALL_ELEMENTAL_DAMAGE[0])
+  const [specialAbility, setAbility] = useState<string | null>(initial ? initial.specialAbility : ALL_SPECIAL_ABILITIES[0])
 
   const handleSave = () => {
     if (!name.trim()) return
@@ -138,11 +144,12 @@ export function WeaponFormDialog({
           </div>
           <div className="flex flex-col gap-1">
             <span className="text-[10px] text-muted-foreground">{t('essence.attrPrimary')}</span>
-            <Select value={primaryStat} onValueChange={(v) => v && setPrimaryStat(v)}>
+            <Select value={weaponStatSelectValue(primaryStat)} onValueChange={(value) => value && setPrimaryStat(weaponStatFromSelect(value))}>
               <SelectTrigger className="h-8 text-xs w-full">
-                <SelectValue>{(v: string) => t('weaponStats.' + v) ?? ''}</SelectValue>
+                <SelectValue>{(value: string) => weaponStatLabel(weaponStatFromSelect(value), t)}</SelectValue>
               </SelectTrigger>
               <SelectContent>
+                <SelectItem value={WILDCARD_SELECT_VALUE}>{t('essence.anyAttribute')}</SelectItem>
                 {ALL_PRIMARY_STATS.map((opt) => (
                   <SelectItem key={opt} value={opt}>{t('weaponStats.' + opt)}</SelectItem>
                 ))}
@@ -151,11 +158,12 @@ export function WeaponFormDialog({
           </div>
           <div className="flex flex-col gap-1">
             <span className="text-[10px] text-muted-foreground">{t('essence.attrElemental')}</span>
-            <Select value={elementalDamage} onValueChange={(v) => v && setElemental(v)}>
+            <Select value={weaponStatSelectValue(elementalDamage)} onValueChange={(value) => value && setElemental(weaponStatFromSelect(value))}>
               <SelectTrigger className="h-8 text-xs w-full">
-                <SelectValue>{(v: string) => t('weaponStats.' + v) ?? ''}</SelectValue>
+                <SelectValue>{(value: string) => weaponStatLabel(weaponStatFromSelect(value), t)}</SelectValue>
               </SelectTrigger>
               <SelectContent>
+                <SelectItem value={WILDCARD_SELECT_VALUE}>{t('essence.anyAttribute')}</SelectItem>
                 {ALL_ELEMENTAL_DAMAGE.map((opt) => (
                   <SelectItem key={opt} value={opt}>{t('weaponStats.' + opt)}</SelectItem>
                 ))}
@@ -164,11 +172,12 @@ export function WeaponFormDialog({
           </div>
           <div className="flex flex-col gap-1">
             <span className="text-[10px] text-muted-foreground">{t('essence.attrSpecial')}</span>
-            <Select value={specialAbility} onValueChange={(v) => v && setAbility(v)}>
+            <Select value={weaponStatSelectValue(specialAbility)} onValueChange={(value) => value && setAbility(weaponStatFromSelect(value))}>
               <SelectTrigger className="h-8 text-xs w-full">
-                <SelectValue>{(v: string) => t('weaponStats.' + v) ?? ''}</SelectValue>
+                <SelectValue>{(value: string) => weaponStatLabel(weaponStatFromSelect(value), t)}</SelectValue>
               </SelectTrigger>
               <SelectContent>
+                <SelectItem value={WILDCARD_SELECT_VALUE}>{t('essence.anyAttribute')}</SelectItem>
                 {ALL_SPECIAL_ABILITIES.map((opt) => (
                   <SelectItem key={opt} value={opt}>{t('weaponStats.' + opt)}</SelectItem>
                 ))}

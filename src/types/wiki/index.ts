@@ -198,6 +198,7 @@ export interface WikiCharacterDetail {
   category: 'characters'
   maxLevel: number
   levels: WikiCharacterLevel[]
+  fixedStats: WikiStatValue[]
   skills: WikiCharacterSkill[]
   talents: WikiCharacterTalent[]
   attributeNodes: WikiCharacterAttributeNode[]

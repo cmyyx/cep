@@ -1,6 +1,6 @@
 // Generates weapon i18n from AKEData/TableCfg (WeaponBasicTable + ItemTable + I18nTextTable).
 // CN uses I18nTextTable_CN via ItemTable.name.id; other locales use the same path.
-// Filters to 4-star and above weapons.
+// Filters to 3-star and above weapons.
 // ================================================================================
 
 import { existsSync, readFileSync, mkdirSync, writeFileSync } from 'node:fs'
@@ -33,9 +33,9 @@ export function generateWeaponI18n(
 
   // Iterate WeaponBasicTable entries (all 76 weapons)
   for (const [weaponId, wpnData] of Object.entries(wpnBasic)) {
-    // Filter: 4-star and above only
+    // Filter: 3-star and above only
     const rarity = wpnData.rarity ?? 1
-    if (rarity < 4) continue
+    if (rarity < 3) continue
 
     const nameTextId = nameTextIdMap[weaponId]
 

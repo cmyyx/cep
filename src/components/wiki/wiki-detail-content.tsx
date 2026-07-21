@@ -1,6 +1,6 @@
 'use client'
 
-import { useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import Image from 'next/image'
 import { useLocale, useTranslations } from 'next-intl'
 import { ChevronDown, ChevronUp, ImageOff } from 'lucide-react'
@@ -20,8 +20,9 @@ import { Switch } from '@/components/ui/switch'
 import { TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
 import { WikiRichText } from '@/components/wiki/wiki-rich-text'
-import { WikiTable } from '@/components/wiki/wiki-table'
+import { WikiTable, WikiTableFrame } from '@/components/wiki/wiki-table'
 import { WikiMaterialList } from '@/components/shared/wiki-material-list'
+import { WikiDetailToc, type WikiTocItem } from '@/components/wiki/wiki-detail-toc'
 import { useIsMobile } from '@/hooks/use-mobile'
 import wikiEnums from '@/generated/data/wiki/enums.json'
 import { withImageCacheVersion } from '@/lib/image-url'
@@ -42,14 +43,93 @@ import type {
   WikiSkillMetric,
 } from '@/types/wiki'
 
+
 interface WikiDetailShellProps {
   children: React.ReactNode
+  tocItems: WikiTocItem[]
 }
 
-export function WikiDetailShell({ children }: WikiDetailShellProps) {
+
+const WIKI_SCROLL_DURATION_MS = 420
+
+export function easeWikiScroll(progress: number): number {
+  return 1 - (1 - progress) ** 3
+}
+
+export function WikiDetailShell({ children, tocItems }: WikiDetailShellProps) {
+  const [tocExpanded, setTocExpanded] = useState(false)
+  const [activeTocId, setActiveTocId] = useState(tocItems[0]?.id ?? '')
+  const scrollRef = useRef<HTMLDivElement>(null)
+  const scrollTimerRef = useRef<number | null>(null)
+
+  const updateActiveSection = useCallback(() => {
+    setTocExpanded(false)
+    const scrollRoot = scrollRef.current
+    if (!scrollRoot) return
+    const rootTop = scrollRoot.getBoundingClientRect().top
+    let active = tocItems[0]?.id ?? ''
+    for (const item of tocItems) {
+      const section = document.getElementById(item.id)
+      if (section && section.getBoundingClientRect().top <= rootTop + 120) active = item.id
+    }
+    setActiveTocId(active)
+  }, [tocItems])
+
+  const initializeActiveSection = useCallback(() => {
+    const scrollRoot = scrollRef.current
+    if (!scrollRoot) return
+    const rootTop = scrollRoot.getBoundingClientRect().top
+    let active = tocItems[0]?.id ?? ''
+    for (const item of tocItems) {
+      const section = document.getElementById(item.id)
+      if (section && section.getBoundingClientRect().top <= rootTop + 120) active = item.id
+    }
+    setActiveTocId(active)
+  }, [tocItems])
+
+  useEffect(() => {
+    const frame = window.requestAnimationFrame(initializeActiveSection)
+    return () => window.cancelAnimationFrame(frame)
+  }, [initializeActiveSection])
+
+  useEffect(() => () => {
+    if (scrollTimerRef.current !== null) window.clearInterval(scrollTimerRef.current)
+  }, [])
+
   return (
-    <div className="min-h-0 min-w-0 flex-1 overflow-y-auto">
+    <div
+      ref={scrollRef}
+      className="relative min-h-0 min-w-0 flex-1 overflow-y-auto"
+      onScroll={updateActiveSection}
+    >
       <div className="w-full min-w-0 px-3 py-4 sm:px-5 sm:py-5 lg:px-6">{children}</div>
+      <WikiDetailToc
+        items={tocItems}
+        activeId={activeTocId}
+        expanded={tocExpanded}
+        onExpandedChange={setTocExpanded}
+        onNavigate={(id) => {
+          const scrollRoot = scrollRef.current
+          const section = document.getElementById(id)
+          if (!scrollRoot || !section) return
+          setActiveTocId(id)
+          const startTop = scrollRoot.scrollTop
+          const targetTop = startTop + section.getBoundingClientRect().top - scrollRoot.getBoundingClientRect().top - 16
+          const distance = targetTop - startTop
+          const startedAt = performance.now()
+          if (scrollTimerRef.current !== null) window.clearInterval(scrollTimerRef.current)
+          scrollTimerRef.current = window.setInterval(() => {
+            const progress = Math.min((performance.now() - startedAt) / WIKI_SCROLL_DURATION_MS, 1)
+            scrollRoot.scrollTop = startTop + distance * easeWikiScroll(progress)
+            if (progress >= 1 && scrollTimerRef.current !== null) {
+              window.clearInterval(scrollTimerRef.current)
+              scrollTimerRef.current = null
+            }
+          }, 16)
+          window.history.replaceState(null, '', `#${id}`)
+          setTocExpanded(false)
+        }}
+      />
     </div>
   )
 }
@@ -66,7 +146,7 @@ interface WikiDetailHeroProps {
 export function WikiDetailHero({ name, rarity, imagePath, meta, imageClassName, actions }: WikiDetailHeroProps) {
   const [failed, setFailed] = useState(false)
   return (
-    <section className="grid min-w-0 gap-5 pb-6 shadow-[0_1px_0_0_rgba(0,0,0,0.08)] lg:grid-cols-[minmax(240px,340px)_minmax(0,1fr)] lg:items-end">
+    <section id="overview" className="grid min-w-0 scroll-mt-4 gap-5 pb-6 shadow-[0_1px_0_0_rgba(0,0,0,0.08)] lg:grid-cols-[minmax(240px,340px)_minmax(0,1fr)] lg:items-end">
       <div className="relative aspect-[4/3] overflow-hidden rounded-lg bg-muted/50 shadow-[var(--shadow-border)]">
         {!failed ? (
           <Image
@@ -93,7 +173,7 @@ export function WikiDetailHero({ name, rarity, imagePath, meta, imageClassName, 
           </div>
           {actions}
         </div>
-        <div className="flex min-w-0 flex-1 flex-wrap gap-x-5 gap-y-2 text-sm text-muted-foreground">{meta}</div>
+        <div className="min-w-0 text-sm text-muted-foreground">{meta}</div>
       </div>
     </section>
   )
@@ -131,44 +211,52 @@ function MaterialList({ materials }: { materials: WikiMaterial[] }) {
 function MaterialDisclosure({ materials }: { materials?: WikiMaterial[] }) {
   const t = useTranslations()
   const isMobile = useIsMobile()
+  const [open, setOpen] = useState(false)
   if (!materials?.length) return <span className="text-muted-foreground">—</span>
-  const trigger = (
-    <Button type="button" variant="outline" size="xs">
-      {t('wiki.materialCount', { count: materials.length })}
-    </Button>
-  )
-  if (isMobile) {
-    return (
-      <Dialog>
-        <DialogTrigger render={trigger} />
-        <DialogContent showCloseButton={false} className="max-h-[90svh] max-w-[calc(100%-2rem)] overflow-y-auto sm:max-w-lg">
-          <DialogTitle>{t('wiki.materials')}</DialogTitle>
-          <DialogDescription>{t('wiki.materialCount', { count: materials.length })}</DialogDescription>
-          <MaterialList materials={materials} />
-          <DialogClose render={<Button type="button" variant="outline" />}>{t('wiki.closePreview')}</DialogClose>
-        </DialogContent>
-      </Dialog>
-    )
-  }
+
   return (
-    <Tooltip>
-      <TooltipTrigger render={trigger} />
-      <TooltipContent className="w-80 max-w-[calc(100vw-2rem)] bg-popover p-3 text-popover-foreground shadow-[var(--shadow-card)]">
+    <Tooltip
+      open={open}
+      onOpenChange={(nextOpen) => {
+        if (!isMobile || !nextOpen) setOpen(nextOpen)
+      }}
+    >
+      <TooltipTrigger
+        render={
+          <Button
+            type="button"
+            variant="outline"
+            size="xs"
+            onClick={isMobile ? () => {
+              const nextOpen = !open
+              setTimeout(() => setOpen(nextOpen), 0)
+            } : undefined}
+          />
+        }
+      >
+        {t('wiki.materialCount', { count: materials.length })}
+      </TooltipTrigger>
+      <TooltipContent
+        collisionPadding={16}
+        className="max-h-[min(var(--available-height),70svh)] w-80 max-w-[calc(100vw-2rem)] overflow-y-auto overscroll-contain bg-popover p-3 text-popover-foreground shadow-[var(--shadow-card)]"
+      >
         <MaterialList materials={materials} />
       </TooltipContent>
     </Tooltip>
   )
 }
 
-function Section({ title, actions, children }: { title: string; actions?: React.ReactNode; children: React.ReactNode }) {
+function Section({ id, title, actions, children }: { id: string; title: string; actions?: React.ReactNode; children: React.ReactNode }) {
   return (
-    <Card size="sm" className="min-w-0 gap-3">
-      <CardHeader className="flex flex-row items-center justify-between gap-3">
-        <CardTitle>{title}</CardTitle>
-        {actions}
-      </CardHeader>
-      <CardContent className="min-w-0">{children}</CardContent>
-    </Card>
+    <section id={id} className="scroll-mt-4">
+      <Card size="sm" className="min-w-0 gap-3">
+        <CardHeader className="flex flex-row items-center justify-between gap-3">
+          <CardTitle>{title}</CardTitle>
+          {actions}
+        </CardHeader>
+        <CardContent className="min-w-0">{children}</CardContent>
+      </Card>
+    </section>
   )
 }
 
@@ -208,6 +296,14 @@ export function getAdjacentSpans<T>(values: readonly T[]): number[] {
   return spans
 }
 
+function MergedValue({ value, span }: { value: React.ReactNode; span: number }) {
+  return (
+    <span className={cn('inline-flex min-h-10 items-center px-2 py-2', span > 1 && 'sticky top-10')}>
+      {value}
+    </span>
+  )
+}
+
 export function getSkillDisplayVariants(skill: WikiCharacterSkill): WikiCharacterSkillVariant[] {
   return skill.variants ?? []
 }
@@ -228,7 +324,7 @@ function LevelToggle({
 }) {
   const t = useTranslations()
   return (
-    <Button type="button" variant="outline" size="sm" onClick={onToggle}>
+    <Button type="button" variant="ghost" size="sm" onClick={onToggle}>
       {showAll ? <ChevronUp data-icon="inline-start" /> : <ChevronDown data-icon="inline-start" />}
       {showAll ? collapseLabel ?? t('wiki.collapseLevels') : expandLabel ?? t('wiki.showAllLevels')}
     </Button>
@@ -239,10 +335,14 @@ function CharacterSkillLevelTable({
   metrics,
   levels,
   sizingLevels,
+  showAll,
+  onToggle,
 }: {
   metrics: WikiSkillMetric[]
   levels: WikiCharacterSkillLevel[]
   sizingLevels: WikiCharacterSkillLevel[]
+  showAll: boolean
+  onToggle: () => void
 }) {
   const t = useTranslations()
   const locale = useLocale() as WikiLocale
@@ -252,17 +352,24 @@ function CharacterSkillLevelTable({
     coolDown: getWidestTableValue(sizingLevels.map((level) => level.coolDown)),
     costValue: getWidestTableValue(sizingLevels.map((level) => level.costValue)),
   }), [metrics, sizingLevels])
+  const metricSpans = metrics.map((_, index) => getAdjacentSpans(levels.map((level) => level.values[index] || '—')))
+  const coolDownSpans = getAdjacentSpans(levels.map((level) => level.coolDown ?? '—'))
+  const costValueSpans = getAdjacentSpans(levels.map((level) => level.costValue ?? '—'))
 
   return (
-    <div className="max-h-[min(60svh,32rem)] min-w-0 overflow-auto rounded-md shadow-[var(--shadow-border)] [scrollbar-gutter:stable] [&>[data-slot=table-container]]:overflow-visible">
-      <WikiTable className="min-w-[48rem]">
+    <WikiTableFrame
+      scrollClassName="overflow-x-auto"
+      className="min-w-[36rem]"
+      footer={<LevelToggle showAll={showAll} onToggle={onToggle} collapseLabel={t('wiki.collapseSkillLevels')} expandLabel={t('wiki.showAllSkillLevels')} />}
+    >
+      <WikiTable className="min-w-full">
         <TableHeader className="sticky top-0 z-20 bg-card shadow-[0_1px_0_0_rgba(0,0,0,0.08)]">
           <TableRow className="hover:bg-transparent">
             <TableHead>{t('wiki.level')}</TableHead>
-            {metrics.map((metric) => <TableHead key={metric.id} className="text-center">{localized(metric.label, locale)}</TableHead>)}
-            <TableHead className="text-center">{t('wiki.coolDown')}</TableHead>
-            <TableHead className="text-center">{t('wiki.skillCost')}</TableHead>
-            <TableHead className="text-center">{t('wiki.materials')}</TableHead>
+            {metrics.map((metric) => <TableHead key={metric.id} className="max-w-28 whitespace-normal text-center leading-tight">{localized(metric.label, locale)}</TableHead>)}
+            <TableHead className="whitespace-normal text-center leading-tight">{t('wiki.coolDown')}</TableHead>
+            <TableHead className="whitespace-normal text-center leading-tight">{t('wiki.skillCost')}</TableHead>
+            <TableHead className="whitespace-normal text-center leading-tight">{t('wiki.materials')}</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -273,19 +380,37 @@ function CharacterSkillLevelTable({
             <TableCell className="text-center font-mono tabular-nums">{sizingValues.costValue}</TableCell>
             <TableCell>—</TableCell>
           </TableRow>
-          {levels.map((level) => (
+          {levels.map((level, rowIndex) => (
             <TableRow key={level.level}>
               <TableCell className="font-mono font-medium tabular-nums">{level.label}</TableCell>
-              {metrics.map((metric, index) => <TableCell key={metric.id} className="text-center font-mono tabular-nums">{level.values[index] || '—'}</TableCell>)}
-              <TableCell className="text-center font-mono tabular-nums">{level.coolDown ?? '—'}</TableCell>
-              <TableCell className="text-center font-mono tabular-nums">{level.costValue ?? '—'}</TableCell>
+              {metrics.map((metric, index) => metricSpans[index][rowIndex] > 0 ? (
+                <TableCell key={metric.id} rowSpan={metricSpans[index][rowIndex]} className="relative p-0 text-center align-top font-mono tabular-nums">
+                  <MergedValue value={level.values[index] || '—'} span={metricSpans[index][rowIndex]} />
+                </TableCell>
+              ) : null)}
+              {coolDownSpans[rowIndex] > 0 ? (
+                <TableCell rowSpan={coolDownSpans[rowIndex]} className="relative p-0 text-center align-top font-mono tabular-nums">
+                  <MergedValue value={level.coolDown ?? '—'} span={coolDownSpans[rowIndex]} />
+                </TableCell>
+              ) : null}
+              {costValueSpans[rowIndex] > 0 ? (
+                <TableCell rowSpan={costValueSpans[rowIndex]} className="relative p-0 text-center align-top font-mono tabular-nums">
+                  <MergedValue value={level.costValue ?? '—'} span={costValueSpans[rowIndex]} />
+                </TableCell>
+              ) : null}
               <TableCell className="text-center"><MaterialDisclosure materials={level.materials} /></TableCell>
             </TableRow>
           ))}
         </TableBody>
       </WikiTable>
-    </div>
+    </WikiTableFrame>
   )
+}
+
+const CHARACTER_LEVEL_STAT_IDS = new Set(['39', '40', '41', '42', '1', '2', '49', '25'])
+
+export function isCharacterLevelStat(attributeId: string): boolean {
+  return CHARACTER_LEVEL_STAT_IDS.has(attributeId)
 }
 
 function CharacterLevelTable({ detail }: { detail: WikiCharacterDetail }) {
@@ -293,7 +418,10 @@ function CharacterLevelTable({ detail }: { detail: WikiCharacterDetail }) {
   const locale = useLocale() as WikiLocale
   const [showAll, setShowAll] = useState(false)
   const visibleLevels = useMemo(() => getVisibleCharacterLevels(detail.levels, showAll), [detail.levels, showAll])
-  const attributeIds = useMemo(() => detail.levels[0]?.stats.map((stat) => stat.attributeId) ?? [], [detail.levels])
+  const attributeIds = useMemo(
+    () => (detail.levels[0]?.stats.map((stat) => stat.attributeId) ?? []).filter(isCharacterLevelStat),
+    [detail.levels],
+  )
   const attributes = (wikiEnums as { attributes: Record<string, LocalizedText> }).attributes
   const levelSizingValue = useMemo(() => getWidestTableValue(detail.levels.map((level) => level.level)), [detail.levels])
   const breakStageSizingValue = useMemo(() => getWidestTableValue(detail.levels.map((level) => level.breakStage)), [detail.levels])
@@ -307,17 +435,22 @@ function CharacterLevelTable({ detail }: { detail: WikiCharacterDetail }) {
   ]))
 
   return (
-    <Section
-      title={t('wiki.levelData')}
-      actions={<LevelToggle showAll={showAll} onToggle={() => setShowAll((value) => !value)} />}
-    >
-      <div className="max-h-[min(60svh,36rem)] min-w-0 overflow-auto rounded-md shadow-[var(--shadow-border)] [scrollbar-gutter:stable] [&>[data-slot=table-container]]:overflow-visible">
-        <WikiTable className="min-w-[48rem]">
+    <Section id="level-data" title={t('wiki.levelData')}>
+      <WikiTableFrame
+        scrollClassName="max-h-[min(60svh,36rem)]"
+        className="min-w-[32rem]"
+        footer={<LevelToggle showAll={showAll} onToggle={() => setShowAll((value) => !value)} />}
+      >
+        <WikiTable className="min-w-full">
           <TableHeader className="sticky top-0 z-20 bg-card shadow-[0_1px_0_0_rgba(0,0,0,0.08)]">
             <TableRow className="hover:bg-transparent">
-              <TableHead>{t('wiki.level')}</TableHead>
-              <TableHead className="text-center">{t('wiki.breakStage')}</TableHead>
-              {attributeIds.map((id) => <TableHead key={id} className="text-center">{localized(attributes[id] ?? { 'zh-CN': id, en: id, ja: id, 'zh-TW': id }, locale)}</TableHead>)}
+              <TableHead className="sticky left-0 z-30 bg-card">{t('wiki.level')}</TableHead>
+              <TableHead className="whitespace-normal text-center leading-tight">{t('wiki.breakStage')}</TableHead>
+              {attributeIds.map((id) => (
+                <TableHead key={id} className="max-w-32 whitespace-normal text-center leading-tight">
+                  {localized(attributes[id] ?? { 'zh-CN': id, en: id, ja: id, 'zh-TW': id }, locale)}
+                </TableHead>
+              ))}
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -328,24 +461,22 @@ function CharacterLevelTable({ detail }: { detail: WikiCharacterDetail }) {
             </TableRow>
             {visibleLevels.map((level, rowIndex) => (
               <TableRow key={`${level.level}-${level.breakStage}`}>
-                <TableCell className="font-mono tabular-nums">{level.level}</TableCell>
+                <TableCell className="sticky left-0 z-10 bg-card font-mono tabular-nums">{level.level}</TableCell>
                 {breakStageSpans[rowIndex] > 0 && (
                   <TableCell rowSpan={breakStageSpans[rowIndex]} className="relative p-0 text-center align-top font-mono tabular-nums">
-                    <span className="sticky top-10 z-10 inline-flex min-h-10 items-center px-2 py-2">{level.breakStage}</span>
+                    <MergedValue value={level.breakStage} span={breakStageSpans[rowIndex]} />
                   </TableCell>
                 )}
                 {attributeIds.map((id) => attributeSpans[id][rowIndex] > 0 ? (
                   <TableCell key={id} rowSpan={attributeSpans[id][rowIndex]} className="relative p-0 text-center align-top font-mono tabular-nums">
-                    <span className="sticky top-10 z-10 inline-flex min-h-10 items-center px-2 py-2">
-                      {level.stats.find((stat) => stat.attributeId === id)?.value ?? '—'}
-                    </span>
+                    <MergedValue value={level.stats.find((stat) => stat.attributeId === id)?.value ?? '—'} span={attributeSpans[id][rowIndex]} />
                   </TableCell>
                 ) : null)}
               </TableRow>
             ))}
           </TableBody>
         </WikiTable>
-      </div>
+      </WikiTableFrame>
     </Section>
   )
 }
@@ -362,7 +493,7 @@ function CharacterSkills({ detail }: { detail: WikiCharacterDetail }) {
     return next
   })
   return (
-    <Section title={t('wiki.skills')}>
+    <Section id="skills" title={t('wiki.skills')}>
       <div className="space-y-5">
         {detail.skills.map((skill) => {
           const variants = getSkillDisplayVariants(skill)
@@ -382,16 +513,6 @@ function CharacterSkills({ detail }: { detail: WikiCharacterDetail }) {
                   ) : null}
                 </div>
               </div>
-              {variants.length === 0 ? (
-                <div className="mt-4 flex justify-end">
-                  <LevelToggle
-                    showAll={showAll}
-                    onToggle={() => toggleSkillLevels(skill.id)}
-                    collapseLabel={t('wiki.collapseSkillLevels')}
-                    expandLabel={t('wiki.showAllSkillLevels')}
-                  />
-                </div>
-              ) : null}
               {variants.length > 0 ? (
                 <div className="mt-3 min-w-0 space-y-3">
                   {variants.map((variant) => {
@@ -399,24 +520,16 @@ function CharacterSkills({ detail }: { detail: WikiCharacterDetail }) {
                     const variantLevels = getVisibleSkillLevels(variant.levels, variantShowAll)
                     return (
                       <div key={variant.id} className="min-w-0 rounded-md bg-background p-3 shadow-[var(--shadow-border)]">
-                        <div className="flex min-w-0 items-start justify-between gap-3">
-                          <div className="flex min-w-0 items-start gap-3">
-                            <AssetIcon path={`/images/wiki/skills/${variant.iconId}.avif`} alt={localized(variant.name, locale)} />
-                            <div className="min-w-0 flex-1">
-                              <h4 className="text-sm font-medium">{localized(variant.name, locale)}</h4>
-                              <WikiRichText value={localized(variant.condition, locale)} className="mt-1 block text-xs leading-relaxed text-muted-foreground" />
-                              <WikiRichText value={localized(variant.description, locale)} className="mt-2 block text-sm leading-relaxed" />
-                            </div>
+                        <div className="flex min-w-0 items-start gap-3">
+                          <AssetIcon path={`/images/wiki/skills/${variant.iconId}.avif`} alt={localized(variant.name, locale)} />
+                          <div className="min-w-0 flex-1">
+                            <h4 className="text-sm font-medium">{localized(variant.name, locale)}</h4>
+                            <WikiRichText value={localized(variant.condition, locale)} className="mt-1 block text-xs leading-relaxed text-muted-foreground" />
+                            <WikiRichText value={localized(variant.description, locale)} className="mt-2 block text-sm leading-relaxed" />
                           </div>
-                          <LevelToggle
-                            showAll={variantShowAll}
-                            onToggle={() => toggleSkillLevels(variant.id)}
-                            collapseLabel={t('wiki.collapseSkillLevels')}
-                            expandLabel={t('wiki.showAllSkillLevels')}
-                          />
                         </div>
                         <div className="mt-3 min-w-0">
-                          <CharacterSkillLevelTable metrics={variant.metrics} levels={variantLevels} sizingLevels={variant.levels} />
+                          <CharacterSkillLevelTable metrics={variant.metrics} levels={variantLevels} sizingLevels={variant.levels} showAll={variantShowAll} onToggle={() => toggleSkillLevels(variant.id)} />
                         </div>
                       </div>
                     )
@@ -424,7 +537,7 @@ function CharacterSkills({ detail }: { detail: WikiCharacterDetail }) {
                 </div>
               ) : (
                 <div className="mt-3 min-w-0">
-                  <CharacterSkillLevelTable metrics={skill.metrics} levels={visibleLevels} sizingLevels={skill.levels} />
+                  <CharacterSkillLevelTable metrics={skill.metrics} levels={visibleLevels} sizingLevels={skill.levels} showAll={showAll} onToggle={() => toggleSkillLevels(skill.id)} />
                 </div>
               )}
             </article>
@@ -439,7 +552,7 @@ function CharacterTalents({ detail }: { detail: WikiCharacterDetail }) {
   const t = useTranslations()
   const locale = useLocale() as WikiLocale
   return (
-    <Section title={t('wiki.talents')}>
+    <Section id="talents" title={t('wiki.talents')}>
       <div className="space-y-4">
         {detail.talents.map((talent) => (
           <article key={talent.id} className="flex min-w-0 gap-3">
@@ -466,7 +579,7 @@ function CharacterAttributeNodes({ detail }: { detail: WikiCharacterDetail }) {
   const locale = useLocale() as WikiLocale
   const attributes = (wikiEnums as { attributes: Record<string, LocalizedText> }).attributes
   return (
-    <Section title={t('wiki.attributeNodes')}>
+    <Section id="attribute-nodes" title={t('wiki.attributeNodes')}>
       <div className="grid min-w-0 gap-3 md:grid-cols-2">
         {detail.attributeNodes.map((node) => (
           <article key={node.id} className="relative min-w-0 rounded-md bg-muted/35 p-3">
@@ -500,7 +613,7 @@ function CharacterPotentials({ detail }: { detail: WikiCharacterDetail }) {
   const t = useTranslations()
   const locale = useLocale() as WikiLocale
   return (
-    <Section title={t('wiki.potentials')}>
+    <Section id="potentials" title={t('wiki.potentials')}>
       <div className="space-y-4">
         {detail.potentials.map((potential) => (
           <article key={potential.id} className="flex min-w-0 gap-3">
@@ -562,7 +675,7 @@ function CharacterLogistics({ detail }: { detail: WikiCharacterDetail }) {
       .map(([index, skills]) => [index, [...skills].sort((left, right) => left.level - right.level)] as const)
   }, [detail.logisticsSkills])
   return (
-    <Section title={t('wiki.logisticsSkills')}>
+    <Section id="logistics-skills" title={t('wiki.logisticsSkills')}>
       <div className="grid min-w-0 gap-4 md:grid-cols-2">
         {skillGroups.map(([index, skills]) => (
           <article key={index} className="min-w-0 space-y-4 rounded-md bg-muted/25 p-3 shadow-[var(--shadow-border)]">
@@ -599,7 +712,7 @@ function CharacterLogistics({ detail }: { detail: WikiCharacterDetail }) {
 function CharacterPromotions({ detail }: { detail: WikiCharacterDetail }) {
   const t = useTranslations()
   return (
-    <Section title={t('wiki.promotions')}>
+    <Section id="promotions" title={t('wiki.promotions')}>
       <div className="grid min-w-0 gap-3 lg:grid-cols-2">
         {detail.promotions.map((promotion) => (
           <article key={promotion.breakStage} className="min-w-0 rounded-md bg-muted/35 p-3">
@@ -624,32 +737,28 @@ function CharacterMetaTables({ rows, voices }: { rows: CharacterMetaRow[]; voice
   const t = useTranslations()
   const locale = useLocale() as WikiLocale
   return (
-    <div className="grid min-w-0 flex-1 gap-3 sm:grid-cols-2">
+    <div className="grid min-w-0 items-start gap-3 min-[1280px]:grid-cols-2">
       <div className="min-w-0 overflow-hidden rounded-md shadow-[var(--shadow-border)]">
         <h2 className="bg-muted/50 px-3 py-2 text-xs font-medium uppercase tracking-wide text-foreground">{t('wiki.baseInfo')}</h2>
-        <WikiTable>
-          <TableBody>
+        <dl className="grid grid-cols-[minmax(5rem,auto)_minmax(0,1fr)] sm:grid-cols-[minmax(5rem,auto)_minmax(0,1fr)_minmax(5rem,auto)_minmax(0,1fr)]">
           {rows.map((row) => (
-            <TableRow key={row.label}>
-              <TableCell className="w-28 text-muted-foreground">{row.label}</TableCell>
-              <TableCell className="font-medium text-foreground">{row.value || '—'}</TableCell>
-            </TableRow>
+            <div key={row.label} className="grid min-w-0 grid-cols-subgrid col-span-2 items-center shadow-[inset_0_-1px_0_0_rgba(0,0,0,0.08)]">
+              <dt className="px-2 py-2 text-muted-foreground">{row.label}</dt>
+              <dd className="min-w-0 break-words px-2 py-2 font-medium text-foreground shadow-[inset_1px_0_0_0_rgba(0,0,0,0.08)]">{row.value || '—'}</dd>
+            </div>
           ))}
-        </TableBody>
-        </WikiTable>
+        </dl>
       </div>
       <div className="min-w-0 overflow-hidden rounded-md shadow-[var(--shadow-border)]">
         <h2 className="bg-muted/50 px-3 py-2 text-xs font-medium uppercase tracking-wide text-foreground">{t('wiki.cv')}</h2>
-        <WikiTable>
-          <TableBody>
+        <dl className="grid grid-cols-[minmax(5rem,auto)_minmax(0,1fr)] sm:grid-cols-[minmax(5rem,auto)_minmax(0,1fr)_minmax(5rem,auto)_minmax(0,1fr)]">
           {voices.map((voice) => (
-            <TableRow key={voice.language}>
-              <TableCell className="w-28 text-muted-foreground">{t(`wiki.voiceLanguages.${voice.language}`)}</TableCell>
-              <TableCell className="font-medium text-foreground">{getVoiceActorDisplayName(voice, locale)}</TableCell>
-            </TableRow>
+            <div key={voice.language} className="grid min-w-0 grid-cols-subgrid col-span-2 items-center shadow-[inset_0_-1px_0_0_rgba(0,0,0,0.08)]">
+              <dt className="px-2 py-2 text-muted-foreground">{t(`wiki.voiceLanguages.${voice.language}`)}</dt>
+              <dd className="min-w-0 break-words px-2 py-2 font-medium text-foreground shadow-[inset_1px_0_0_0_rgba(0,0,0,0.08)]">{getVoiceActorDisplayName(voice, locale)}</dd>
+            </div>
           ))}
-        </TableBody>
-        </WikiTable>
+        </dl>
       </div>
     </div>
   )
@@ -669,6 +778,8 @@ export function CharacterDetailContent({
   metaRows: CharacterMetaRow[]
 }) {
   const t = useTranslations()
+  const locale = useLocale() as WikiLocale
+  const attributes = (wikiEnums as { attributes: Record<string, LocalizedText> }).attributes
   const [variant, setVariant] = useState<'female' | 'male'>('female')
   const fullBodyIds = imageIds.fullBodyIds
   const isAdministrator = Boolean(fullBodyIds.male && fullBodyIds.female)
@@ -680,7 +791,20 @@ export function CharacterDetailContent({
         rarity={rarity}
         imagePath={`/images/characters/full/${selectedImage}.avif`}
         imageClassName="object-contain object-bottom"
-        meta={<CharacterMetaTables rows={metaRows} voices={detail.cvNames} />}
+        meta={
+          <div className="min-w-0">
+            <CharacterMetaTables
+              rows={[
+                ...metaRows,
+                ...detail.fixedStats.map((stat) => ({
+                  label: localized(attributes[stat.attributeId] ?? { 'zh-CN': stat.attributeId, en: stat.attributeId, ja: stat.attributeId, 'zh-TW': stat.attributeId }, locale),
+                  value: String(stat.value),
+                })),
+              ]}
+              voices={detail.cvNames}
+            />
+          </div>
+        }
         actions={isAdministrator ? (
           <div className="flex items-center gap-2 text-xs">
             <span>{t(`wiki.${variant}`)}</span>
@@ -714,12 +838,13 @@ function WeaponLevelTable({ detail }: { detail: WikiWeaponDetail }) {
   const levels = useMemo(() => getVisibleWeaponLevels(detail.levels, showAll), [detail.levels, showAll])
   const attackSpans = getAdjacentSpans(levels.map((level) => level.baseAttack))
   return (
-    <Section
-      title={t('wiki.levelData')}
-      actions={<LevelToggle showAll={showAll} onToggle={() => setShowAll((value) => !value)} />}
-    >
-      <div className="max-h-[min(60svh,36rem)] min-w-0 overflow-auto rounded-md shadow-[var(--shadow-border)] [scrollbar-gutter:stable] [&>[data-slot=table-container]]:overflow-visible">
-        <WikiTable className="table-fixed">
+    <Section id="level-data" title={t('wiki.levelData')}>
+      <WikiTableFrame
+        scrollClassName="max-h-[min(60svh,36rem)]"
+        className="min-w-[18rem]"
+        footer={<LevelToggle showAll={showAll} onToggle={() => setShowAll((value) => !value)} />}
+      >
+        <WikiTable className="min-w-full table-fixed">
           <TableHeader className="sticky top-0 z-20 bg-card shadow-[0_1px_0_0_rgba(0,0,0,0.08)]">
           <TableRow className="hover:bg-transparent">
             <TableHead>{t('wiki.level')}</TableHead>
@@ -731,13 +856,13 @@ function WeaponLevelTable({ detail }: { detail: WikiWeaponDetail }) {
             <TableCell className="font-geist-mono">{level.level}</TableCell>
             {attackSpans[rowIndex] > 0 ? (
               <TableCell rowSpan={attackSpans[rowIndex]} className="relative p-0 text-center align-top font-geist-mono">
-                <span className="sticky top-10 z-10 inline-flex min-h-10 items-center px-2 py-2">{level.baseAttack}</span>
+                <MergedValue value={level.baseAttack} span={attackSpans[rowIndex]} />
               </TableCell>
             ) : null}
           </TableRow>
         ))}</TableBody>
         </WikiTable>
-      </div>
+      </WikiTableFrame>
     </Section>
   )
 }
@@ -751,17 +876,23 @@ export function WeaponDetailContent({ detail, name, rarity, imageId, meta }: { d
       <WikiDetailHero name={name} rarity={rarity} imagePath={`/images/weapon/${imageId}.avif`} meta={meta} />
       <div className="mt-5 min-w-0 space-y-4">
         <WeaponLevelTable detail={detail} />
-        <Section title={t('wiki.skills')}>
+        <Section id="skills" title={t('wiki.skills')}>
           <div className="space-y-5">
             {detail.skills.map((skill) => {
               const showAll = expandedSkillIds.has(skill.id)
               const visibleLevels = getVisibleSkillLevels(skill.levels, showAll)
               return (
                 <article key={skill.id} className="min-w-0 rounded-md bg-muted/25 p-3">
-                  <div className="flex flex-wrap items-start justify-between gap-2">
-                    <div className="min-w-0">
-                      <h3 className="font-medium">{localized(skill.name, locale)}</h3>
-                    </div>
+                  <h3 className="font-medium">{localized(skill.name, locale)}</h3>
+                  <div className="mt-3 space-y-2">
+                    {visibleLevels.map((level) => (
+                      <div key={level.level} className="min-w-0 rounded-md bg-background p-2.5 shadow-[var(--shadow-border)]">
+                        <span className="font-geist-mono text-xs text-muted-foreground">Lv.{level.level}</span>
+                        <WikiRichText value={localized(level.description, locale)} className="mt-1 block text-sm leading-relaxed" />
+                      </div>
+                    ))}
+                  </div>
+                  <div className="mt-2 flex justify-center pt-2">
                     <LevelToggle
                       showAll={showAll}
                       onToggle={() => setExpandedSkillIds((current) => {
@@ -774,20 +905,12 @@ export function WeaponDetailContent({ detail, name, rarity, imageId, meta }: { d
                       expandLabel={t('wiki.showAllSkillLevels')}
                     />
                   </div>
-                  <div className={cn('mt-3 space-y-2', showAll && 'max-h-[min(60svh,32rem)] overflow-y-auto pr-1')}>
-                    {visibleLevels.map((level) => (
-                      <div key={level.level} className="min-w-0 rounded-md bg-background p-2.5 shadow-[var(--shadow-border)]">
-                        <span className="font-geist-mono text-xs text-muted-foreground">Lv.{level.level}</span>
-                        <WikiRichText value={localized(level.description, locale)} className="mt-1 block text-sm leading-relaxed" />
-                      </div>
-                    ))}
-                  </div>
                 </article>
               )
             })}
           </div>
         </Section>
-        <Section title={t('wiki.breakthroughs')}>
+        <Section id="breakthroughs" title={t('wiki.breakthroughs')}>
           <div className="grid min-w-0 gap-3 lg:grid-cols-2">
             {detail.breakthroughs.map((breakthrough) => (
               <article key={breakthrough.stage} className="min-w-0 rounded-md bg-muted/35 p-3">
@@ -819,7 +942,7 @@ export function EquipmentDetailContent({ detail, name, rarity, imageId, meta }: 
     <>
       <WikiDetailHero name={name} rarity={rarity} imagePath={`/images/equip/${imageId}.avif`} meta={meta} />
       <div className="mt-5 min-w-0 space-y-4">
-        <Section title={t('wiki.stats')}>
+        <Section id="stats" title={t('wiki.stats')}>
           <div className="overflow-hidden rounded-md shadow-[var(--shadow-border)]">
             <WikiTable className="table-fixed">
               <TableHeader>
@@ -845,7 +968,7 @@ export function EquipmentDetailContent({ detail, name, rarity, imageId, meta }: 
             </WikiTable>
           </div>
         </Section>
-        <Section title={t('wiki.suitEffects')}>
+        <Section id="suit-effects" title={t('wiki.suitEffects')}>
           <div className="space-y-4">
             {detail.suitEffects.map((effect) => (
               <article key={effect.id} className="min-w-0">
@@ -858,7 +981,7 @@ export function EquipmentDetailContent({ detail, name, rarity, imageId, meta }: 
             ))}
           </div>
         </Section>
-        <Section title={t('wiki.craftingMaterials')}>
+        <Section id="crafting-materials" title={t('wiki.craftingMaterials')}>
           <div className="space-y-3">
             {detail.craftingRecipes.map((recipe) => (
               <article key={recipe.chainId} className="min-w-0 rounded-md bg-muted/35 p-3">

@@ -124,6 +124,8 @@ jobs:
           # 站点根放到 public/，配合托管平台 Root directory=public
           mkdir -p public
           cp -r $RUNNER_TEMP/out/* public/
+          # wrangler.jsonc 需在 deploy 分支根（与 public/ 同级），CF Workers 从该目录部署
+          cp public/wrangler.jsonc ./wrangler.jsonc
           git add -A
           COMMIT_MSG=$(git log -1 --pretty=%s $GITHUB_SHA)
           git commit -m "deploy: ${{ github.ref_name || inputs.version }} [${{ matrix.target }}] - $COMMIT_MSG"

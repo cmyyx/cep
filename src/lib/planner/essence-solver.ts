@@ -7,7 +7,7 @@ export interface WeaponMatch {
 
 export interface DungeonPlan {
   dungeon: Dungeon
-  lockType: 's2' | 's3'
+  lockType: 's2' | 's3' | 'none'
   lockValue: string
   matchedWeapons: WeaponMatch[]
   selectedCount: number
@@ -22,6 +22,18 @@ export interface PlanResult {
   dungeonPlans: DungeonPlan[]
 }
 
+function matchesPool(value: string | null, pool: readonly string[]): boolean {
+  return value === null || pool.includes(value)
+}
+
+function matchesLock(value: string | null, lock: string): boolean {
+  return value === null || value === lock
+}
+
+function addS1Count(counts: Record<string, number>, value: string | null): void {
+  if (value !== null) counts[value] = (counts[value] || 0) + 1
+}
+
 export function solve(
   selectedWeaponIds: Set<string>,
   allWeapons: Weapon[],
@@ -30,48 +42,60 @@ export function solve(
   const dungeonPlans: DungeonPlan[] = []
 
   for (const dungeon of dungeons) {
-    // Eligible: weapons whose s1 AND s2 AND s3 are ALL in this dungeon's pools
     const eligible = allWeapons.filter(
-      (w) =>
-        dungeon.s1Pool.includes(w.primaryStat) &&
-        dungeon.s2Pool.includes(w.elementalDamage) &&
-        dungeon.s3Pool.includes(w.specialAbility),
+      (weapon) =>
+        matchesPool(weapon.primaryStat, dungeon.s1Pool) &&
+        matchesPool(weapon.elementalDamage, dungeon.s2Pool) &&
+        matchesPool(weapon.specialAbility, dungeon.s3Pool),
     )
 
-    // --- s2-lock plans: lock on s2, any s3 in pool ---
-    const s2Options = [
-      ...new Set(eligible.map((w) => w.elementalDamage)),
-    ]
+    const s2Options = [...new Set(eligible.flatMap((weapon) =>
+      weapon.elementalDamage === null ? [] : [weapon.elementalDamage]
+    ))]
     for (const s2Lock of s2Options) {
       const matched: WeaponMatch[] = []
       const s1Counts: Record<string, number> = {}
 
-      for (const w of eligible) {
-        if (w.elementalDamage !== s2Lock) continue
-        matched.push({ weapon: w, isSelected: selectedWeaponIds.has(w.id) })
-        s1Counts[w.primaryStat] = (s1Counts[w.primaryStat] || 0) + 1
+      for (const weapon of eligible) {
+        if (!matchesLock(weapon.elementalDamage, s2Lock)) continue
+        matched.push({ weapon, isSelected: selectedWeaponIds.has(weapon.id) })
+        addS1Count(s1Counts, weapon.primaryStat)
       }
 
-      if (matched.length === 0) continue
+      const hasSelectedAnchor = matched.some(
+        ({ weapon, isSelected }) => isSelected && weapon.elementalDamage === s2Lock,
+      )
+      if (matched.length === 0 || (selectedWeaponIds.size > 0 && !hasSelectedAnchor)) continue
       dungeonPlans.push(buildPlan(dungeon, 's2', s2Lock, matched, s1Counts))
     }
 
-    // --- s3-lock plans: lock on s3, any s2 in pool ---
-    const s3Options = [
-      ...new Set(eligible.map((w) => w.specialAbility)),
-    ]
+    const s3Options = [...new Set(eligible.flatMap((weapon) =>
+      weapon.specialAbility === null ? [] : [weapon.specialAbility]
+    ))]
     for (const s3Lock of s3Options) {
       const matched: WeaponMatch[] = []
       const s1Counts: Record<string, number> = {}
 
-      for (const w of eligible) {
-        if (w.specialAbility !== s3Lock) continue
-        matched.push({ weapon: w, isSelected: selectedWeaponIds.has(w.id) })
-        s1Counts[w.primaryStat] = (s1Counts[w.primaryStat] || 0) + 1
+      for (const weapon of eligible) {
+        if (!matchesLock(weapon.specialAbility, s3Lock)) continue
+        matched.push({ weapon, isSelected: selectedWeaponIds.has(weapon.id) })
+        addS1Count(s1Counts, weapon.primaryStat)
       }
 
-      if (matched.length === 0) continue
+      const hasSelectedAnchor = matched.some(
+        ({ weapon, isSelected }) => isSelected && weapon.specialAbility === s3Lock,
+      )
+      if (matched.length === 0 || (selectedWeaponIds.size > 0 && !hasSelectedAnchor)) continue
       dungeonPlans.push(buildPlan(dungeon, 's3', s3Lock, matched, s1Counts))
+    }
+
+    const unconstrained = eligible
+      .filter((weapon) => weapon.elementalDamage === null && weapon.specialAbility === null)
+      .map((weapon) => ({ weapon, isSelected: selectedWeaponIds.has(weapon.id) }))
+    if (unconstrained.some(({ isSelected }) => isSelected)) {
+      const s1Counts: Record<string, number> = {}
+      for (const { weapon } of unconstrained) addS1Count(s1Counts, weapon.primaryStat)
+      dungeonPlans.push(buildPlan(dungeon, 'none', 'any', unconstrained, s1Counts))
     }
   }
 
@@ -83,7 +107,7 @@ export function solve(
 
 function buildPlan(
   dungeon: Dungeon,
-  lockType: 's2' | 's3',
+  lockType: DungeonPlan['lockType'],
   lockValue: string,
   matched: WeaponMatch[],
   s1Counts: Record<string, number>,
@@ -93,9 +117,10 @@ function buildPlan(
 
   // Count selected weapons per s1
   const selectedS1Counts: Record<string, number> = {}
-  for (const m of matched) {
-    if (m.isSelected) {
-      selectedS1Counts[m.weapon.primaryStat] = (selectedS1Counts[m.weapon.primaryStat] || 0) + 1
+  for (const match of matched) {
+    if (match.isSelected && match.weapon.primaryStat !== null) {
+      const stat = match.weapon.primaryStat
+      selectedS1Counts[stat] = (selectedS1Counts[stat] || 0) + 1
     }
   }
 

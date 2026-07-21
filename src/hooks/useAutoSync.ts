@@ -4,10 +4,11 @@ import { useEffect, useRef, useCallback } from 'react'
 import { useAuthStore } from '@/stores/useAuthStore'
 import { useMatrixStore } from '@/stores/useMatrixStore'
 import { useRefinementStore } from '@/stores/useRefinementStore'
-import { useEssenceSettingsStore } from '@/stores/useEssenceSettingsStore'
+import { normalizeEssenceSettingsFlags, useEssenceSettingsStore } from '@/stores/useEssenceSettingsStore'
 import { getSyncDataApi, postSyncDataApi, getTokens } from '@/lib/api'
 import { FEATURES } from '@/lib/features'
 import { resolveWeaponId, resolveWeaponIdKeys, resolveS1Selections } from '@/lib/resolve-weapon-id'
+import { sanitizeCustomWeapons } from '@/lib/persist-sanitizer'
 
 import { regionI18nKey } from '@/data/region-i18n'
 
@@ -65,8 +66,8 @@ function syncStoresFromCloudPayload(raw: Record<string, unknown>) {
       if (es.weaponOwnership) next.weaponOwnership = resolveWeaponIdKeys(es.weaponOwnership as Record<string, unknown>)
       if (es.essenceStatus) next.essenceStatus = resolveWeaponIdKeys(es.essenceStatus as Record<string, unknown>)
       if (es.weaponNotes) next.weaponNotes = resolveWeaponIdKeys(es.weaponNotes as Record<string, unknown>)
-      if (Array.isArray(es.customWeapons)) next.customWeapons = es.customWeapons
-      if (es.flags) Object.assign(next, es.flags)
+      if (Array.isArray(es.customWeapons)) next.customWeapons = sanitizeCustomWeapons(es.customWeapons)
+      Object.assign(next, normalizeEssenceSettingsFlags(es.flags))
       if (es.regionFirst !== undefined) next.regionFirst = es.regionFirst
       if (es.regionSecond !== undefined) next.regionSecond = es.regionSecond
       if (Object.keys(next).length > 0) {
@@ -163,15 +164,17 @@ const FLAG_TO_I18N: Record<string, string> = {
   hideUnownedWeaponsPlans: 'hideUnowned',
   hideFourStarWeaponsList: 'hideFourStar',
   hideFourStarWeaponsPlans: 'hideFourStar',
+  hideThreeStarWeaponsList: 'hideThreeStar',
+  hideThreeStarWeaponsPlans: 'hideThreeStar',
   enableOwnershipEditList: 'enableOwnershipEdit',
   enableOwnershipEditPlans: 'enableOwnershipEdit',
   enableNotesList: 'enableNotes',
   enableNotesPlans: 'enableNotes',
   keepUpVisibleList: 'keepUpVisible',
   keepUpVisiblePlans: 'keepUpVisible',
-  onlyHideWhenBothOwned: 'onlyHideWhenBothOwned',
+  onlyHideWhenBothOwnedList: 'onlyHideWhenBothOwned',
+  onlyHideWhenBothOwnedPlans: 'onlyHideWhenBothOwned',
 }
-
 /** Suffix for list vs plans context (i18n key) */
 function flagContextSuffix(k: string): string {
   return k.endsWith('List') ? 'account.weaponListSuffix' : k.endsWith('Plans') ? 'account.planRecommendationSuffix' : ''
@@ -198,10 +201,11 @@ function buildSettingsDiff(local: Record<string, unknown>, cloud: Record<string,
     'hideEssenceOwnedWeaponsList', 'hideEssenceOwnedWeaponsPlans',
     'hideUnownedWeaponsList', 'hideUnownedWeaponsPlans',
     'hideFourStarWeaponsList', 'hideFourStarWeaponsPlans',
+    'hideThreeStarWeaponsList', 'hideThreeStarWeaponsPlans',
     'enableOwnershipEditList', 'enableOwnershipEditPlans',
     'enableNotesList', 'enableNotesPlans',
     'keepUpVisibleList', 'keepUpVisiblePlans',
-    'onlyHideWhenBothOwned',
+    'onlyHideWhenBothOwnedList', 'onlyHideWhenBothOwnedPlans',
   ]
   const flagsL = (esL.flags ?? {}) as Record<string, unknown>
   const flagsC = (esC.flags ?? {}) as Record<string, unknown>
@@ -350,7 +354,7 @@ function collectSyncData(): Record<string, unknown> {
       data.essenceSettings = {
         weaponOwnership: s.weaponOwnership ?? {}, essenceStatus: s.essenceStatus ?? {},
         weaponNotes: s.weaponNotes ?? {}, customWeapons: s.customWeapons ?? [],
-        flags: Object.fromEntries(['hideEssenceOwnedWeaponsList', 'hideEssenceOwnedWeaponsPlans', 'hideUnownedWeaponsList', 'hideUnownedWeaponsPlans', 'hideFourStarWeaponsList', 'hideFourStarWeaponsPlans', 'enableOwnershipEditList', 'enableOwnershipEditPlans', 'enableNotesList', 'enableNotesPlans', 'keepUpVisibleList', 'keepUpVisiblePlans', 'onlyHideWhenBothOwned'].map(k => [k, s[k] ?? false])),
+        flags: normalizeEssenceSettingsFlags(s),
         regionFirst: s.regionFirst ?? null, regionSecond: s.regionSecond ?? null,
       }
     }
@@ -473,8 +477,8 @@ export function useAutoSync() {
         if (es.weaponOwnership) state.weaponOwnership = es.weaponOwnership
         if (es.essenceStatus) state.essenceStatus = es.essenceStatus
         if (es.weaponNotes) state.weaponNotes = es.weaponNotes
-        if (Array.isArray(es.customWeapons)) state.customWeapons = es.customWeapons
-        if (es.flags) Object.assign(state, es.flags)
+        if (Array.isArray(es.customWeapons)) state.customWeapons = sanitizeCustomWeapons(es.customWeapons)
+        Object.assign(state, normalizeEssenceSettingsFlags(es.flags))
         if (es.regionFirst !== undefined) state.regionFirst = es.regionFirst
         if (es.regionSecond !== undefined) state.regionSecond = es.regionSecond
         localStorage.setItem('essence-settings', JSON.stringify({ ...current, state }))
@@ -875,13 +879,16 @@ export function useAutoSync() {
           state.hideUnownedWeaponsPlans !== prevState.hideUnownedWeaponsPlans ||
           state.hideFourStarWeaponsList !== prevState.hideFourStarWeaponsList ||
           state.hideFourStarWeaponsPlans !== prevState.hideFourStarWeaponsPlans ||
+          state.hideThreeStarWeaponsList !== prevState.hideThreeStarWeaponsList ||
+          state.hideThreeStarWeaponsPlans !== prevState.hideThreeStarWeaponsPlans ||
           state.enableOwnershipEditList !== prevState.enableOwnershipEditList ||
           state.enableOwnershipEditPlans !== prevState.enableOwnershipEditPlans ||
           state.enableNotesList !== prevState.enableNotesList ||
           state.enableNotesPlans !== prevState.enableNotesPlans ||
           state.keepUpVisibleList !== prevState.keepUpVisibleList ||
           state.keepUpVisiblePlans !== prevState.keepUpVisiblePlans ||
-          state.onlyHideWhenBothOwned !== prevState.onlyHideWhenBothOwned
+          state.onlyHideWhenBothOwnedList !== prevState.onlyHideWhenBothOwnedList ||
+          state.onlyHideWhenBothOwnedPlans !== prevState.onlyHideWhenBothOwnedPlans
         ) {
           schedulePush()
         }

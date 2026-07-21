@@ -47,7 +47,16 @@ export default async function WikiCharacterDetailPage({ params }: { params: Prom
           {t('wiki.backTo', { category: t('wiki.categories.characters') })}
         </NavLink>
       </header>
-      <WikiDetailShell>
+      <WikiDetailShell tocItems={[
+        { id: 'overview', label: t('wiki.overview') },
+        { id: 'level-data', label: t('wiki.levelData') },
+        ...(detail.attributeNodes.length > 0 ? [{ id: 'attribute-nodes', label: t('wiki.attributeNodes') }] : []),
+        { id: 'skills', label: t('wiki.skills') },
+        { id: 'talents', label: t('wiki.talents') },
+        { id: 'potentials', label: t('wiki.potentials') },
+        { id: 'logistics-skills', label: t('wiki.logisticsSkills') },
+        { id: 'promotions', label: t('wiki.promotions') },
+      ]}>
         <CharacterDetailContent
           detail={detail}
           name={name}

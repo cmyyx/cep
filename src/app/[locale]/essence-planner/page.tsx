@@ -68,9 +68,10 @@ export default function EssencePlannerPage() {
   const customWeapons = useEssenceSettingsStore((s) => s.customWeapons)
   // Hide settings (for sorting by visible selected count)
   const hideFourStarPlans = useEssenceSettingsStore((s) => s.hideFourStarWeaponsPlans)
+  const hideThreeStarPlans = useEssenceSettingsStore((s) => s.hideThreeStarWeaponsPlans)
   const hideUnownedPlans = useEssenceSettingsStore((s) => s.hideUnownedWeaponsPlans)
   const hideEssenceOwnedPlans = useEssenceSettingsStore((s) => s.hideEssenceOwnedWeaponsPlans)
-  const onlyBothOwned = useEssenceSettingsStore((s) => s.onlyHideWhenBothOwned)
+  const onlyBothOwned = useEssenceSettingsStore((s) => s.onlyHideWhenBothOwnedPlans)
   const keepUpVisiblePlans = useEssenceSettingsStore((s) => s.keepUpVisiblePlans)
   const weaponOwnership = useEssenceSettingsStore((s) => s.weaponOwnership)
   const essenceStatus = useEssenceSettingsStore((s) => s.essenceStatus)
@@ -105,7 +106,7 @@ export default function EssencePlannerPage() {
     (weapon: import('@/types/matrix').Weapon): boolean => {
       // UP and preview weapons bypass hide filters when the setting is enabled
       if (keepUpVisiblePlans && (weapon.chars.some((c) => upCharSet.has(c)) || weapon.source === 'preview')) return true
-      if (hideFourStarPlans && weapon.rarity === 4) return false
+      if ((hideFourStarPlans && weapon.rarity === 4) || (hideThreeStarPlans && weapon.rarity === 3)) return false
       if (hideUnownedPlans && weaponOwnership[weapon.id] !== true) return false
       if (hideEssenceOwnedPlans) {
         const eOwned = essenceStatus[weapon.id] === true
@@ -118,7 +119,7 @@ export default function EssencePlannerPage() {
       }
       return true
     },
-    [keepUpVisiblePlans, upCharSet, hideFourStarPlans, hideUnownedPlans, hideEssenceOwnedPlans, onlyBothOwned, weaponOwnership, essenceStatus],
+    [keepUpVisiblePlans, upCharSet, hideFourStarPlans, hideThreeStarPlans, hideUnownedPlans, hideEssenceOwnedPlans, onlyBothOwned, weaponOwnership, essenceStatus],
   )
 
   // Count visible weapons in a plan (selected-only or all)

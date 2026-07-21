@@ -25,6 +25,7 @@ it('collects every image referenced by Wiki summaries and details', () => {
           category: 'characters',
           maxLevel: 90,
           levels: [],
+          fixedStats: [],
           skills: [{
             id: 'skill',
             typeId: '1',

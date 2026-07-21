@@ -6,6 +6,8 @@ export interface EssenceSettingsFlags {
   hideEssenceOwnedWeaponsList: boolean
   hideUnownedWeaponsList: boolean
   hideFourStarWeaponsList: boolean
+  hideThreeStarWeaponsList: boolean
+  onlyHideWhenBothOwnedList: boolean
   enableOwnershipEditList: boolean
   enableNotesList: boolean
 
@@ -13,6 +15,8 @@ export interface EssenceSettingsFlags {
   hideEssenceOwnedWeaponsPlans: boolean
   hideUnownedWeaponsPlans: boolean
   hideFourStarWeaponsPlans: boolean
+  hideThreeStarWeaponsPlans: boolean
+  onlyHideWhenBothOwnedPlans: boolean
   enableOwnershipEditPlans: boolean
   enableNotesPlans: boolean
 
@@ -24,8 +28,6 @@ export interface EssenceSettingsFlags {
   enableTooltipList: boolean
   enableTooltipPlans: boolean
 
-  // ── 子设置 ──
-  onlyHideWhenBothOwned: boolean
 }
 
 export type SettingKey = keyof EssenceSettingsFlags

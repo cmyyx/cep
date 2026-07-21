@@ -86,9 +86,9 @@ function extractStatsFromSkillIds(
   cnTextTable: Record<string, string>,
   cnToGem: Record<string, string>,
 ): {
-  primaryStat: string
-  elementalDamage: string
-  specialAbility: string
+  primaryStat: string | null
+  elementalDamage: string | null
+  specialAbility: string | null
 } {
   let primaryStat = ''
   let elementalDamage = ''
@@ -127,7 +127,7 @@ function extractStatsFromSkillIds(
     }
   }
 
-  return { primaryStat, elementalDamage, specialAbility }
+  return { primaryStat: primaryStat || null, elementalDamage: elementalDamage || null, specialAbility: specialAbility || null }
 }
 
 // ── Attribute name resolution ─────────────────────────────────────────────
@@ -246,6 +246,10 @@ function insertRawEquipsBySet(content: string, newEntries: { set: string; line: 
 
 // ── Update weapons.ts ─────────────────────────────────────────────────────
 
+function formatNullableStat(value: string | null): string {
+  return value === null ? 'null' : `'${value}'`
+}
+
 export function updateWeaponsFile(
   weaponsTsPath: string,
   newWeaponIds: string[],
@@ -276,7 +280,7 @@ export function updateWeaponsFile(
 
   // Load ItemTable name text IDs for display name resolution
   const weaponNameTextIds = extractItemNameIds(join(akedataPath, 'TableCfg', 'ItemTable.json'))
-  const newWeapons: string[] = []
+  const newWeapons: Array<{ rarity: number; line: string }> = []
   for (const weaponId of newWeaponIds) {
     const wpnEntry = wpnBasic[weaponId]
     if (!wpnEntry) continue
@@ -289,35 +293,33 @@ export function updateWeaponsFile(
     const nameTextId = weaponNameTextIds[weaponId] ?? ''
     const name = cnTextTable[nameTextId] || weaponId
 
-    const weaponEntry = `  { id: '${weaponId}', iconId: '${iconId}', name: '${name}', rarity: ${wpnEntry.rarity}, type: '${type}', primaryStat: '${primaryStat}', elementalDamage: '${elementalDamage}', specialAbility: '${specialAbility}', chars: [] }`
-    newWeapons.push(weaponEntry)
+    newWeapons.push({
+      rarity: wpnEntry.rarity,
+      line: `  { id: '${weaponId}', iconId: '${iconId}', name: '${name}', rarity: ${wpnEntry.rarity}, type: '${type}', primaryStat: ${formatNullableStat(primaryStat)}, elementalDamage: ${formatNullableStat(elementalDamage)}, specialAbility: ${formatNullableStat(specialAbility)}, chars: [] }`,
+    })
   }
 
   if (newWeapons.length === 0) return 0
 
-  // Insert new weapons after the // ===== 六星 ===== section header
-  const sectionMarker = '// ===== 六星 ====='
-  const sectionIdx = content.indexOf(sectionMarker)
-  if (sectionIdx !== -1) {
-    // Find end of the section marker line
-    let insertPos = sectionIdx + sectionMarker.length
-    while (insertPos < content.length && content[insertPos] !== '\n') insertPos++
-    insertPos++ // skip the newline
-    // Also skip the preview comment line if present
-    const nextLineEnd = content.indexOf('\n', insertPos)
-    if (nextLineEnd !== -1) {
-      const previewLine = content.slice(insertPos, nextLineEnd)
-      if (previewLine.includes('preview')) {
-        insertPos = nextLineEnd + 1
-      }
+  let updatedContent = content
+  for (const rarity of [6, 5, 4, 3]) {
+    const lines = newWeapons.filter((weapon) => weapon.rarity === rarity).map((weapon) => weapon.line)
+    if (lines.length === 0) continue
+    const sectionMarker = `// ===== ${rarity === 6 ? '六' : rarity === 5 ? '五' : rarity === 4 ? '四' : '三'}星`
+    const sectionIdx = updatedContent.indexOf(sectionMarker)
+    if (sectionIdx === -1) {
+      updatedContent = insertEntries(updatedContent, 'export const weapons: Weapon[] = [', lines)
+      continue
     }
-    const newBlock = newWeapons.join(',\n') + ',\n'
-    const updatedContent = content.slice(0, insertPos) + newBlock + content.slice(insertPos)
-    writeFileSync(weaponsTsPath, updatedContent, 'utf-8')
-    return newWeapons.length
+    let insertPos = updatedContent.indexOf('\n', sectionIdx)
+    if (insertPos === -1) continue
+    insertPos += 1
+    const nextLineEnd = updatedContent.indexOf('\n', insertPos)
+    if (nextLineEnd !== -1 && updatedContent.slice(insertPos, nextLineEnd).includes('preview')) {
+      insertPos = nextLineEnd + 1
+    }
+    updatedContent = updatedContent.slice(0, insertPos) + lines.join(',\n') + ',\n' + updatedContent.slice(insertPos)
   }
-  // Fallback: insert at the end
-  const updatedContent = insertEntries(content, 'export const weapons: Weapon[] = [', newWeapons)
   writeFileSync(weaponsTsPath, updatedContent, 'utf-8')
   return newWeapons.length
 }

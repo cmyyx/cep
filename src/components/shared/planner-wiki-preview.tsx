@@ -50,7 +50,7 @@ export function PlannerWikiPreview({
 
   return (
     <div className={compact ? 'w-64 max-w-[calc(100vw-4.5rem)] min-w-0 space-y-3 text-foreground' : 'w-80 min-w-0 space-y-3 text-foreground'}>
-      <div className="sticky top-0 z-10 flex min-w-0 items-start justify-between gap-3 bg-popover pb-2">
+      <div className={compact ? 'flex min-w-0 items-start justify-between gap-3 bg-popover pb-2' : 'sticky top-0 z-10 flex min-w-0 items-start justify-between gap-3 bg-popover pb-2'}>
         <h3 className={compact ? 'min-w-0 flex-1 line-clamp-2 text-sm font-semibold text-popover-foreground' : 'min-w-0 flex-1 truncate text-sm font-semibold text-popover-foreground'} title={title}>{title}</h3>
         <div className="shrink-0 pt-0.5"><RarityStars rarity={rarity} size="sm" /></div>
       </div>

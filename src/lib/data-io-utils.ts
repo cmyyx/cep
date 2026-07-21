@@ -34,7 +34,7 @@ export function countItems(moduleId: string, data: unknown): number {
       const es = Object.keys((d.essenceStatus as object) ?? {}).length
       const wn = Object.keys((d.weaponNotes as object) ?? {}).length
       const cw = Array.isArray(d.customWeapons) ? d.customWeapons.length : 0
-      const flagKeys = ['hideEssenceOwnedWeaponsList','hideUnownedWeaponsList','hideFourStarWeaponsList','enableOwnershipEditList','enableNotesList','hideEssenceOwnedWeaponsPlans','hideUnownedWeaponsPlans','hideFourStarWeaponsPlans','enableOwnershipEditPlans','enableNotesPlans','keepUpVisibleList','keepUpVisiblePlans','onlyHideWhenBothOwned']
+      const flagKeys = ['hideEssenceOwnedWeaponsList','hideUnownedWeaponsList','hideFourStarWeaponsList','hideThreeStarWeaponsList','onlyHideWhenBothOwnedList','enableOwnershipEditList','enableNotesList','hideEssenceOwnedWeaponsPlans','hideUnownedWeaponsPlans','hideFourStarWeaponsPlans','hideThreeStarWeaponsPlans','onlyHideWhenBothOwnedPlans','enableOwnershipEditPlans','enableNotesPlans','keepUpVisibleList','keepUpVisiblePlans']
       let flags = 0
       for (const k of flagKeys) { if (d[k] === true) flags++ }
       const regions = (d.regionFirst || d.regionSecond) ? 1 : 0

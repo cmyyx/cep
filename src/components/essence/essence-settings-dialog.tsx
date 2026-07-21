@@ -33,9 +33,10 @@ interface PairedRow {
   labelI18n: string
   listKey: SettingKey
   plansKey: SettingKey
-  /** Sub-row shown when either switch is ON */
+  /** Sub-row shown when either parent is ON. */
   subSetting?: {
-    subKey: SettingKey
+    listKey: SettingKey
+    plansKey: SettingKey
     labelI18n: string
   }
 }
@@ -46,7 +47,8 @@ const PAIRED_ROWS: PairedRow[] = [
     listKey: 'hideEssenceOwnedWeaponsList',
     plansKey: 'hideEssenceOwnedWeaponsPlans',
     subSetting: {
-      subKey: 'onlyHideWhenBothOwned',
+      listKey: 'onlyHideWhenBothOwnedList',
+      plansKey: 'onlyHideWhenBothOwnedPlans',
       labelI18n: 'essenceSettings.onlyHideWhenBothOwned',
     },
   },
@@ -59,6 +61,11 @@ const PAIRED_ROWS: PairedRow[] = [
     labelI18n: 'essenceSettings.hideFourStar',
     listKey: 'hideFourStarWeaponsList',
     plansKey: 'hideFourStarWeaponsPlans',
+  },
+  {
+    labelI18n: 'essenceSettings.hideThreeStar',
+    listKey: 'hideThreeStarWeaponsList',
+    plansKey: 'hideThreeStarWeaponsPlans',
   },
   {
     labelI18n: 'essenceSettings.enableOwnershipEdit',
@@ -99,18 +106,21 @@ export function EssenceSettingsDialog() {
     hideEssenceOwnedWeaponsList: useEssenceSettingsStore((s) => s.hideEssenceOwnedWeaponsList),
     hideUnownedWeaponsList: useEssenceSettingsStore((s) => s.hideUnownedWeaponsList),
     hideFourStarWeaponsList: useEssenceSettingsStore((s) => s.hideFourStarWeaponsList),
+    hideThreeStarWeaponsList: useEssenceSettingsStore((s) => s.hideThreeStarWeaponsList),
+    onlyHideWhenBothOwnedList: useEssenceSettingsStore((s) => s.onlyHideWhenBothOwnedList),
     enableOwnershipEditList: useEssenceSettingsStore((s) => s.enableOwnershipEditList),
     enableNotesList: useEssenceSettingsStore((s) => s.enableNotesList),
     enableTooltipList: useEssenceSettingsStore((s) => s.enableTooltipList),
     hideEssenceOwnedWeaponsPlans: useEssenceSettingsStore((s) => s.hideEssenceOwnedWeaponsPlans),
     hideUnownedWeaponsPlans: useEssenceSettingsStore((s) => s.hideUnownedWeaponsPlans),
     hideFourStarWeaponsPlans: useEssenceSettingsStore((s) => s.hideFourStarWeaponsPlans),
+    hideThreeStarWeaponsPlans: useEssenceSettingsStore((s) => s.hideThreeStarWeaponsPlans),
+    onlyHideWhenBothOwnedPlans: useEssenceSettingsStore((s) => s.onlyHideWhenBothOwnedPlans),
     enableOwnershipEditPlans: useEssenceSettingsStore((s) => s.enableOwnershipEditPlans),
     enableNotesPlans: useEssenceSettingsStore((s) => s.enableNotesPlans),
     enableTooltipPlans: useEssenceSettingsStore((s) => s.enableTooltipPlans),
     keepUpVisibleList: useEssenceSettingsStore((s) => s.keepUpVisibleList),
     keepUpVisiblePlans: useEssenceSettingsStore((s) => s.keepUpVisiblePlans),
-    onlyHideWhenBothOwned: useEssenceSettingsStore((s) => s.onlyHideWhenBothOwned),
   }
 
   return (
@@ -179,22 +189,29 @@ export function EssenceSettingsDialog() {
                 // Sub-setting row (indented, appears when either parent is ON)
                 if (subActive && row.subSetting) {
                   rows.push(
-                    <tr key={row.subSetting.subKey}>
+                    <tr key={row.subSetting.listKey}>
                       <td className="py-1.5 pr-3 pl-6">
                         <span className="text-[11px] text-muted-foreground leading-tight">
                           {t(row.subSetting.labelI18n)}
                         </span>
                       </td>
-                      <td colSpan={2} className="py-1.5 text-center">
+                      <td className="py-1.5 px-2 text-center">
                         <Switch
                           size="sm"
-                          checked={flags[row.subSetting.subKey]}
-                          onCheckedChange={() =>
-                            toggleFlag(row.subSetting!.subKey)
-                          }
+                          checked={flags[row.subSetting.listKey]}
+                          disabled={!listOn}
+                          onCheckedChange={() => toggleFlag(row.subSetting!.listKey)}
                         />
                       </td>
-                    </tr>,
+                      <td className="py-1.5 pl-2 text-center">
+                        <Switch
+                          size="sm"
+                          checked={flags[row.subSetting.plansKey]}
+                          disabled={!plansOn}
+                          onCheckedChange={() => toggleFlag(row.subSetting!.plansKey)}
+                        />
+                      </td>
+                    </tr>
                   )
                 }
 

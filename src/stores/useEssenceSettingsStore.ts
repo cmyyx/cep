@@ -14,12 +14,16 @@ const FLAG_DEFAULTS: Record<SettingKey, boolean> = {
   hideEssenceOwnedWeaponsList: false,
   hideUnownedWeaponsList: false,
   hideFourStarWeaponsList: true,
+  hideThreeStarWeaponsList: true,
+  onlyHideWhenBothOwnedList: false,
   enableOwnershipEditList: false,
   enableNotesList: false,
 
   hideEssenceOwnedWeaponsPlans: false,
   hideUnownedWeaponsPlans: false,
   hideFourStarWeaponsPlans: true,
+  hideThreeStarWeaponsPlans: true,
+  onlyHideWhenBothOwnedPlans: false,
   enableOwnershipEditPlans: false,
   enableNotesPlans: false,
 
@@ -29,7 +33,17 @@ const FLAG_DEFAULTS: Record<SettingKey, boolean> = {
   keepUpVisibleList: true,
   keepUpVisiblePlans: true,
 
-  onlyHideWhenBothOwned: false,
+}
+
+export function normalizeEssenceSettingsFlags(
+  flags: unknown,
+): Record<SettingKey, boolean> {
+  const source = isDefined(flags) ? flags : {}
+  const normalized = { ...FLAG_DEFAULTS }
+  for (const key of Object.keys(FLAG_DEFAULTS) as SettingKey[]) {
+    if (typeof source[key] === 'boolean') normalized[key] = source[key]
+  }
+  return normalized
 }
 
 // ─── Helpers ───────────────────────────────────────────────────────────────
@@ -46,20 +60,12 @@ function isDefined(v: unknown): v is Record<string, unknown> {
 function mergeWithDefaults(
   persisted: Record<string, unknown>,
 ): Omit<EssenceSettingsState, 'toggleFlag' | 'setWeaponOwnership' | 'setEssenceStatus' | 'setWeaponNote' | 'addCustomWeapon' | 'removeCustomWeapon' | 'updateCustomWeapon' | 'setRegionFirst' | 'setRegionSecond' | 'toggleWeaponFilterCollapsed' | 'setAutoSyncEnabled' | 'setNotifyOnSync' | 'setNotifyOnPull' | 'resetAllSettings'> {
-  const flags = { ...FLAG_DEFAULTS }
-  for (const key of Object.keys(FLAG_DEFAULTS) as SettingKey[]) {
-    const val = persisted[key]
-    if (typeof val === 'boolean') {
-      flags[key] = val
-    }
-  }
+  const flags = normalizeEssenceSettingsFlags(persisted)
 
   // Compute customWeapons first — we need the active set to filter
   // ownership / essenceStatus / weaponNotes keys (deleted custom weapons
   // still have "custom-" prefixed IDs that isValidWeaponId alone won't catch).
-  const customWeapons: Weapon[] = Array.isArray(persisted.customWeapons)
-    ? sanitizeCustomWeapons(persisted.customWeapons as Weapon[])
-    : []
+  const customWeapons = sanitizeCustomWeapons(persisted.customWeapons)
   const activeCustomIds = new Set(customWeapons.map(w => w.id))
 
   // Resolve preview: IDs in persisted records, then parse.

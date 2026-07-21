@@ -1,6 +1,7 @@
 import { expect, it } from 'vitest'
 import {
   getAdjacentSpans,
+  easeWikiScroll,
   getEquipmentStatValues,
   getSkillDisplayVariants,
   getVisibleCharacterLevels,
@@ -8,6 +9,7 @@ import {
   getVisibleWeaponLevels,
   getVoiceActorDisplayName,
   getWidestTableValue,
+  WikiDetailHero,
 } from './wiki-detail-content'
 import type {
   WikiCharacterLevel,
@@ -18,6 +20,7 @@ import type {
   WikiSkillLevel,
   WikiWeaponLevel,
 } from '@/types/wiki'
+import { renderToStaticMarkup } from 'react-dom/server'
 
 const levels: WikiCharacterLevel[] = [
   { level: 1, breakStage: 0, isBreakthrough: false, stats: [] },
@@ -75,6 +78,7 @@ it('uses the widest value from all levels for stable table sizing', () => {
 })
 
 
+
 it('prefers original voice actor spelling and falls back to the UI locale', () => {
   const original: WikiCharacterVoiceName = {
     language: 'ko',
@@ -123,4 +127,25 @@ it('shows only named upstream skill forms', () => {
     },
   ]
   expect(getSkillDisplayVariants({ ...base, variants })).toBe(variants)
+})
+
+it('renders a stable overview anchor for Wiki navigation', () => {
+  const html = renderToStaticMarkup(
+    <WikiDetailHero
+      name="Test"
+      rarity={6}
+      imagePath="/test.avif"
+      meta={<span>Meta</span>}
+    />,
+  )
+
+  expect(html).toContain('id="overview"')
+  expect(html).toContain('scroll-mt-4')
+})
+
+
+it('uses eased progress for animated Wiki section navigation', () => {
+  expect(easeWikiScroll(0)).toBe(0)
+  expect(easeWikiScroll(0.5)).toBeCloseTo(0.875)
+  expect(easeWikiScroll(1)).toBe(1)
 })

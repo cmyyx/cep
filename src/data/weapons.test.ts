@@ -11,21 +11,26 @@ describe('weapons data', () => {
     expect(new Set(ids).size).toBe(ids.length)
   })
 
-  it('every weapon has required string fields', () => {
-    for (const w of weapons) {
-      expect(w.id).toBeTruthy()
-      expect(w.name).toBeTruthy()
-      expect(w.type).toBeTruthy()
-      expect(w.primaryStat).toBeTruthy()
-      expect(w.elementalDamage).toBeTruthy()
-      expect(w.specialAbility).toBeTruthy()
+  it('every weapon has required fields and only three-star weapons omit S3', () => {
+    for (const weapon of weapons) {
+      expect(weapon.id).toBeTruthy()
+      expect(weapon.name).toBeTruthy()
+      expect(weapon.type).toBeTruthy()
+      expect(weapon.primaryStat).toBeTruthy()
+      expect(weapon.elementalDamage).toBeTruthy()
+      expect(weapon.rarity === 3 ? weapon.specialAbility : Boolean(weapon.specialAbility)).toBe(weapon.rarity === 3 ? null : true)
     }
   })
 
-  it('every weapon has valid rarity', () => {
-    for (const w of weapons) {
-      expect([4, 5, 6]).toContain(w.rarity)
-    }
+  it('contains the five upstream three-star weapons with valid rarities', () => {
+    expect(weapons.filter((weapon) => weapon.rarity === 3).map((weapon) => weapon.id).sort()).toEqual([
+      'wpn_claym_0010',
+      'wpn_funnel_0002',
+      'wpn_lance_0009',
+      'wpn_pistol_0001',
+      'wpn_sword_0003',
+    ])
+    for (const weapon of weapons) expect([3, 4, 5, 6]).toContain(weapon.rarity)
   })
 
   it('every weapon has a chars array', () => {

@@ -10,8 +10,16 @@ export const WEAPON_FILTER_KEYS: WeaponFilterKey[] = [
   'specialAbility',
 ]
 
+function filterValue(weapon: Weapon, key: WeaponFilterKey): string | null {
+  return key === 'weaponType' ? weapon.type : weapon[key]
+}
+
+function matchesFilter(value: string | null, selected: ReadonlySet<string>): boolean {
+  return selected.size === 0 || value === null || selected.has(value)
+}
+
 export function matchesWeaponFilters(weapon: Weapon, filters: WeaponFilterSets): boolean {
-  return WEAPON_FILTER_KEYS.every((key) => filters[key].size === 0 || filters[key].has(weapon[key === 'weaponType' ? 'type' : key]))
+  return WEAPON_FILTER_KEYS.every((key) => matchesFilter(filterValue(weapon, key), filters[key]))
 }
 
 export function getValidWeaponFilterOptions(
@@ -26,11 +34,11 @@ export function getValidWeaponFilterOptions(
   }
   for (const key of WEAPON_FILTER_KEYS) {
     for (const weapon of weapons) {
-      const matchesOtherFilters = WEAPON_FILTER_KEYS.every((otherKey) => {
-        if (otherKey === key || filters[otherKey].size === 0) return true
-        return filters[otherKey].has(weapon[otherKey === 'weaponType' ? 'type' : otherKey])
-      })
-      if (matchesOtherFilters) result[key].add(weapon[key === 'weaponType' ? 'type' : key])
+      const matchesOtherFilters = WEAPON_FILTER_KEYS.every((otherKey) =>
+        otherKey === key || matchesFilter(filterValue(weapon, otherKey), filters[otherKey])
+      )
+      const value = filterValue(weapon, key)
+      if (matchesOtherFilters && value !== null) result[key].add(value)
     }
   }
   return result

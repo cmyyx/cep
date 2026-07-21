@@ -8,6 +8,7 @@
 
 import { weapons } from '@/data/weapons'
 import { equips } from '@/data/equips'
+import type { Weapon } from '@/types/matrix'
 
 // ── Known ID sets ────────────────────────────────────────
 
@@ -70,9 +71,28 @@ export function sanitizeWeaponIdArray(
   })
 }
 
-/** Filter a Weapon[] to only include entries with valid IDs. */
-export function sanitizeCustomWeapons<T extends { id: string }>(arr: T[]): T[] {
-  return arr.filter(w => isValidWeaponId(w.id))
+function nullableString(value: unknown): value is string | null {
+  return value === null || typeof value === 'string'
+}
+
+function isCustomWeapon(value: unknown): value is Weapon {
+  if (value === null || typeof value !== 'object') return false
+  const weapon = value as Record<string, unknown>
+  return (
+    typeof weapon.id === 'string' && weapon.id.startsWith('custom-') &&
+    typeof weapon.name === 'string' && weapon.name.trim().length > 0 &&
+    typeof weapon.type === 'string' && weapon.type.length > 0 &&
+    (weapon.rarity === 3 || weapon.rarity === 4 || weapon.rarity === 5 || weapon.rarity === 6) &&
+    nullableString(weapon.primaryStat) &&
+    nullableString(weapon.elementalDamage) &&
+    nullableString(weapon.specialAbility) &&
+    Array.isArray(weapon.chars) && weapon.chars.every((character) => typeof character === 'string')
+  )
+}
+
+/** Validate custom weapons while preserving null wildcard slots. */
+export function sanitizeCustomWeapons(value: unknown): Weapon[] {
+  return Array.isArray(value) ? value.filter(isCustomWeapon) : []
 }
 
 /** Validate an equip ID; return null if unknown. */

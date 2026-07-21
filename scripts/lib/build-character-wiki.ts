@@ -14,6 +14,7 @@ import type {
   WikiCharacterVoiceName,
   WikiEnumLabels,
   WikiMaterial,
+  WikiStatValue,
 } from '../../src/types/wiki'
 import {
   collectWikiBlackboard as collectBlackboard,
@@ -271,6 +272,24 @@ function collectEffectValues(
   return values
 }
 
+const IGNORED_LEVEL_ATTRIBUTE_IDS = new Set([
+  '3', '4', '5', '6', '7', '8', '9', '11', '12', '15', '48', '50', '51', '52', '53', '54', '55', '60', '90',
+])
+
+const FIXED_CHARACTER_ATTRIBUTE_IDS = new Set(['12', '90'])
+
+function buildFixedStats(entry: CharacterTableEntry): WikiStatValue[] {
+  const firstLevel = entry.attributes?.find((row) =>
+    row.Attribute?.attrs?.some((attribute) => numberValue(attribute.attrType) === 0 && numberValue(attribute.attrValue) === 1)
+  )
+  return (firstLevel?.Attribute?.attrs ?? [])
+    .filter((attribute) => FIXED_CHARACTER_ATTRIBUTE_IDS.has(String(attribute.attrType)))
+    .map((attribute) => ({
+      attributeId: String(attribute.attrType),
+      value: Math.round(numberValue(attribute.attrValue) * 100_000) / 100_000,
+    }))
+}
+
 function buildLevels(entry: CharacterTableEntry, maxLevel: number): WikiCharacterLevel[] {
   const byLevel = new Map<number, { row: CharacterAttributeRow; duplicate: boolean }>()
   for (const row of entry.attributes ?? []) {
@@ -294,7 +313,10 @@ function buildLevels(entry: CharacterTableEntry, maxLevel: number): WikiCharacte
       breakStage: numberValue(row.breakStage),
       isBreakthrough: duplicate,
       stats: (row.Attribute?.attrs ?? [])
-        .filter((attribute) => numberValue(attribute.attrType) !== 0)
+        .filter((attribute) => {
+          const attributeId = String(attribute.attrType)
+          return numberValue(attribute.attrType) !== 0 && !IGNORED_LEVEL_ATTRIBUTE_IDS.has(attributeId)
+        })
         .map((attribute) => ({
           attributeId: String(attribute.attrType),
           value: Math.round(numberValue(attribute.attrValue) * 100_000) / 100_000,
@@ -730,6 +752,7 @@ export function buildCharacterWikiData(source: CharacterWikiSource): CharacterWi
       category: 'characters',
       maxLevel,
       levels: buildLevels(character, maxLevel),
+      fixedStats: buildFixedStats(character),
       skills: buildSkills(growth, source.skillPatchTable, source.itemTable, source.textTables),
       talents: buildTalents(
         growth,

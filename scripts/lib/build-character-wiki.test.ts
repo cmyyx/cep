@@ -80,6 +80,8 @@ function level(level: number, breakStage: number, attack: number) {
       attrs: [
         { attrType: 0, attrValue: level },
         { attrType: 2, attrValue: attack },
+        { attrType: 12, attrValue: 4 },
+        { attrType: 90, attrValue: 0.05 },
       ],
     },
   }
@@ -406,6 +408,11 @@ describe('character detail generation', () => {
       isBreakthrough: true,
       stats: [{ attributeId: '2', value: 999 }],
     })
+    expect(detail.fixedStats).toEqual([
+      { attributeId: '12', value: 4 },
+      { attributeId: '90', value: 0.05 },
+    ])
+    expect(detail.levels.every((row) => row.stats.every((stat) => stat.attributeId !== '12' && stat.attributeId !== '90'))).toBe(true)
   })
 
   it('generates skill metric tables with mastery labels', () => {

@@ -47,7 +47,12 @@ export default async function WikiEquipmentDetailPage({ params }: { params: Prom
           {t('wiki.backTo', { category: t('wiki.categories.equipment') })}
         </NavLink>
       </header>
-      <WikiDetailShell>
+      <WikiDetailShell tocItems={[
+        { id: 'overview', label: t('wiki.overview') },
+        { id: 'stats', label: t('wiki.stats') },
+        { id: 'suit-effects', label: t('wiki.suitEffects') },
+        { id: 'crafting-materials', label: t('wiki.craftingMaterials') },
+      ]}>
         <EquipmentDetailContent
           detail={detail}
           name={name}

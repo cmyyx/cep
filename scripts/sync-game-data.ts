@@ -151,9 +151,9 @@ async function main() {
     ? JSON.parse(readFileSync(charWpnRecPath, 'utf-8')) as Record<string, unknown>
     : {}
   const wpnResult = compareWeapons(paths.akedata, join(projectRoot, 'src', 'data', 'weapons.ts'), charWpnRec)
-  console.log(`  Total: ${wpnResult.entries.length} | New >=4star: ${wpnResult.entries.filter(w=>w.isNew&&w.rarity>=4).length}`)
+  console.log(`  Total: ${wpnResult.entries.length} | New >=3star: ${wpnResult.entries.filter(w=>w.isNew&&w.rarity>=3).length}`)
   for (const w of wpnResult.entries) {
-    if (w.isNew && w.rarity >= 4) console.log(`  NEW  ${w.weaponId}: ${w.title} (${w.rarity}star, ${w.typeName})`)
+    if (w.isNew && w.rarity >= 3) console.log(`  NEW  ${w.weaponId}: ${w.title} (${w.rarity}star, ${w.typeName})`)
   }
 
   // iconId consistency check (both check and update modes run this; check mode just reports)
@@ -188,7 +188,7 @@ async function main() {
   if (mode === 'update') {
     const promotedFormalIds = new Set(previewResult.updatable.map(p => p.formalId))
     const newWeaponIds = wpnResult.entries
-      .filter(w => w.isNew && w.rarity >= 4 && !promotedFormalIds.has(w.weaponId))
+      .filter(w => w.isNew && w.rarity >= 3 && !promotedFormalIds.has(w.weaponId))
       .map(w => w.weaponId)
     if (newWeaponIds.length > 0) {
       const updated = updateWeaponsFile(weaponsTsPath, newWeaponIds, paths.akedata)

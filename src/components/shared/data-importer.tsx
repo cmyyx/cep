@@ -12,7 +12,7 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog'
 import { Upload, AlertTriangle, CheckCircle2, X } from 'lucide-react'
-import { useEssenceSettingsStore } from '@/stores/useEssenceSettingsStore'
+import { normalizeEssenceSettingsFlags, useEssenceSettingsStore } from '@/stores/useEssenceSettingsStore'
 import { useMatrixStore } from '@/stores/useMatrixStore'
 import { useRefinementStore } from '@/stores/useRefinementStore'
 import { useSettingsStore } from '@/stores/useSettingsStore'
@@ -25,6 +25,7 @@ import {
   sanitizeObject,
   MAX_ITEMS_PER_MODULE,
 } from '@/lib/data-io-utils'
+import { sanitizeCustomWeapons } from '@/lib/persist-sanitizer'
 import PreviewToggle from '@/components/shared/preview-toggle'
 
 // ─── 类型 ─────────────────────────────────────────────────────
@@ -63,15 +64,19 @@ function importModule(moduleId: string, rawData: unknown) {
 
   switch (moduleId) {
     case 'essence-settings': {
-      const payload = { state: data, version: 0 }
-      localStorage.setItem('essence-settings', JSON.stringify(payload))
       const d = data as Record<string, unknown>
+      const customWeapons = sanitizeCustomWeapons(d.customWeapons)
+      const flags = normalizeEssenceSettingsFlags(d.flags && typeof d.flags === 'object' ? d.flags : d)
+      const state: Record<string, unknown> = { ...d, ...flags, customWeapons }
+      delete state.flags
+      const payload = { state, version: 0 }
+      localStorage.setItem('essence-settings', JSON.stringify(payload))
       useEssenceSettingsStore.setState({
         weaponOwnership: (d.weaponOwnership as Record<string, boolean>) ?? {},
         essenceStatus: (d.essenceStatus as Record<string, boolean>) ?? {},
         weaponNotes: (d.weaponNotes as Record<string, string>) ?? {},
-        customWeapons: Array.isArray(d.customWeapons) ? d.customWeapons : [],
-        ...(d.flags && typeof d.flags === 'object' ? d.flags : {}),
+        customWeapons,
+        ...flags,
         regionFirst: (d.regionFirst as string) ?? null,
         regionSecond: (d.regionSecond as string) ?? null,
       })

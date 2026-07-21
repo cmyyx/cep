@@ -402,6 +402,8 @@
     "weaponNotAvailable": "対象外",
     "lockS2": "サブステータス",
     "lockS3": "スキル",
+    "lockAny": "属性ロック",
+    "anyAttribute": "任意",
     "selected": "選択済",
     "total": "合計",
     "primaryStatLabel": "基礎ステータス",
@@ -461,6 +463,7 @@
     "hideEssenceOwned": "マトリクス所有の武器を非表示",
     "hideUnowned": "未所有の武器を非表示",
     "hideFourStar": "★4武器を非表示",
+    "hideThreeStar": "★3武器を非表示",
     "enableOwnershipEdit": "所有状態の編集を有効化",
     "enableNotes": "メモ機能を有効化",
     "enableTooltip": "ホバーまたは長押しで表示",
@@ -824,6 +827,8 @@
       "equipment": "装備のステータス、セット効果、製造レシピ。"
     },
     "overview": "概要",
+    "tableOfContents": "目次",
+    "contentsRail": "目次",
     "weaponType": "武器タイプ",
     "department": "陣営",
     "element": "元素",
@@ -832,6 +837,12 @@
     "subAttribute": "サブ能力",
     "cv": "声優",
     "baseStats": "基礎ステータス",
+    "statGroups": {
+      "base": "基礎ステータス",
+      "reduction": "ダメージ軽減",
+      "bonus": "ダメージボーナス",
+      "combat": "戦闘パラメータ"
+    },
     "stats": "ステータス",
     "skills": "スキル",
     "skillLevels": "スキルレベル",
