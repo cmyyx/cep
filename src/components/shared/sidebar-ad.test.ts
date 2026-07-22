@@ -13,7 +13,9 @@ vi.mock('@/lib/features', () => ({
 }))
 
 vi.mock('@/lib/ad-telemetry', () => ({
+  getAdOutcome: () => null,
   startAdAttempt: vi.fn(),
+  subscribeAdOutcome: () => () => {},
 }))
 
 vi.mock('@/stores/useAuthStore', () => ({

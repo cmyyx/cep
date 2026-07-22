@@ -1,10 +1,14 @@
 'use client'
 
-import { useEffect, useRef, useState, useSyncExternalStore } from 'react'
+import { useEffect, useState, useSyncExternalStore } from 'react'
 import { useTranslations } from 'next-intl'
 import { cn } from '@/lib/utils'
 import { FEATURES } from '@/lib/features'
-import { startAdAttempt } from '@/lib/ad-telemetry'
+import {
+  getAdOutcome,
+  startAdAttempt,
+  subscribeAdOutcome,
+} from '@/lib/ad-telemetry'
 import { useAuthStore } from '@/stores/useAuthStore'
 
 type AdStatus = 'loading' | 'loaded' | 'error'
@@ -22,18 +26,18 @@ export function shouldHideAdsForUser(
   )
 }
 
-function isAdSlotFilled(node: HTMLElement | null): boolean {
-  if (!node) return false
-  return node.classList.contains('adwork') && node.innerHTML.trim().length > 0
-}
-
 export function SidebarAd({ className }: { className?: string }) {
   const t = useTranslations()
   const mounted = useSyncExternalStore(() => () => {}, () => true, () => false)
   const premiumUntil = useAuthStore((s) => s.premiumUntil)
   const premiumPreGrantedUntil = useAuthStore((s) => s.premiumPreGrantedUntil)
-  const [status, setStatus] = useState<AdStatus>('loading')
-  const slotRef = useRef<HTMLDivElement>(null)
+  const [eventStatus, setEventStatus] = useState<AdStatus>('loading')
+  const outcome = useSyncExternalStore(
+    subscribeAdOutcome,
+    getAdOutcome,
+    () => null,
+  )
+  const status = outcome ?? eventStatus
   // eslint-disable-next-line react-hooks/purity -- membership expiry check
   const now = Date.now()
   const hideAds =
@@ -42,22 +46,18 @@ export function SidebarAd({ className }: { className?: string }) {
   useEffect(() => {
     if (!FEATURES.ads || hideAds) return
 
-    // Remount safety: SDK may have filled this slot before React reattached listeners.
-    if (isAdSlotFilled(slotRef.current)) {
-      setStatus('loaded')
-    }
-
-    const onLoaded = () => setStatus('loaded')
-    const onError = () => setStatus('error')
-
+    const onLoaded = () => setEventStatus('loaded')
+    const onError = () => setEventStatus('error')
     window.addEventListener('cep:adwork-loaded', onLoaded)
     window.addEventListener('cep:adwork-error', onError)
-    startAdAttempt()
+
+    if (!outcome) startAdAttempt()
+
     return () => {
       window.removeEventListener('cep:adwork-loaded', onLoaded)
       window.removeEventListener('cep:adwork-error', onError)
     }
-  }, [hideAds])
+  }, [hideAds, outcome])
 
   if (!FEATURES.ads || hideAds) return null
 
@@ -72,7 +72,6 @@ export function SidebarAd({ className }: { className?: string }) {
       )}
     >
       <div
-        ref={slotRef}
         className="adwork-net adwork-auto w-full"
         data-id="1110"
         data-placeholder="none"

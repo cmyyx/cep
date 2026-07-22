@@ -6,6 +6,7 @@ export type AdEventType =
   | 'sdk_load_error'
   | 'timeout'
 
+export type AdOutcome = 'loaded' | 'error'
 export interface AdAttempt {
   attemptId: string
   path: string
@@ -33,6 +34,8 @@ type Listener = () => void
 
 let currentAttempt: AdAttempt | null = null
 const listeners = new Set<Listener>()
+const outcomeListeners = new Set<Listener>()
+let currentOutcome: AdOutcome | null = null
 
 export function getAdAttempt(): AdAttempt | null {
   return currentAttempt
@@ -41,6 +44,21 @@ export function getAdAttempt(): AdAttempt | null {
 export function subscribeAdAttempt(listener: Listener): () => void {
   listeners.add(listener)
   return () => listeners.delete(listener)
+}
+
+export function getAdOutcome(): AdOutcome | null {
+  return currentOutcome
+}
+
+export function subscribeAdOutcome(listener: Listener): () => void {
+  outcomeListeners.add(listener)
+  return () => outcomeListeners.delete(listener)
+}
+
+export function completeAdAttempt(outcome: AdOutcome): void {
+  if (currentOutcome) return
+  currentOutcome = outcome
+  for (const listener of outcomeListeners) listener()
 }
 
 export function startAdAttempt(): AdAttempt {

@@ -5,6 +5,7 @@ import Script from 'next/script'
 import { FEATURES } from '@/lib/features'
 import { versionData } from '@/generated/version-data'
 import {
+  completeAdAttempt,
   createAdEventPayload,
   getAdAttempt,
   reportAdEvent,
@@ -47,12 +48,14 @@ export function AdworkTelemetry() {
       onLoaded(ad) {
         if (terminalRef.current) return
         terminalRef.current = true
+        completeAdAttempt('loaded')
         report('loaded')
         window.dispatchEvent(new CustomEvent('cep:adwork-loaded', { detail: ad }))
       },
       onError(error) {
         if (terminalRef.current) return
         terminalRef.current = true
+        completeAdAttempt('error')
         report('error', error?.code)
         window.dispatchEvent(new CustomEvent('cep:adwork-error', { detail: error }))
       },
@@ -62,6 +65,7 @@ export function AdworkTelemetry() {
     const timeout = window.setTimeout(() => {
       if (terminalRef.current) return
       terminalRef.current = true
+      completeAdAttempt('error')
       report('timeout')
       window.dispatchEvent(
         new CustomEvent('cep:adwork-error', { detail: { code: 'Timeout' } }),
@@ -93,6 +97,7 @@ export function AdworkTelemetry() {
       onError={() => {
         if (terminalRef.current) return
         terminalRef.current = true
+        completeAdAttempt('error')
         if (!reportedRef.current.has('sdk_load_error')) {
           reportedRef.current.add('sdk_load_error')
           reportAdEvent(
