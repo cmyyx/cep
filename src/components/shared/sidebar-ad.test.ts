@@ -1,5 +1,31 @@
-import { expect, it } from 'vitest'
-import { shouldHideAdsForUser } from './sidebar-ad'
+// @vitest-environment jsdom
+import { cleanup, fireEvent, render, screen } from '@testing-library/react'
+import { afterEach, expect, it, vi } from 'vitest'
+import { createElement } from 'react'
+import { SidebarAd, shouldHideAdsForUser } from './sidebar-ad'
+
+vi.mock('next-intl', () => ({
+  useTranslations: () => (key: string) => key,
+}))
+
+vi.mock('@/lib/features', () => ({
+  FEATURES: { ads: true },
+}))
+
+vi.mock('@/lib/ad-telemetry', () => ({
+  startAdAttempt: vi.fn(),
+}))
+
+vi.mock('@/stores/useAuthStore', () => ({
+  useAuthStore: (
+    selector: (state: {
+      premiumUntil: string | null
+      premiumPreGrantedUntil: string | null
+    }) => unknown,
+  ) => selector({ premiumUntil: null, premiumPreGrantedUntil: null }),
+}))
+
+afterEach(cleanup)
 
 const NOW = Date.parse('2026-07-21T12:00:00+08:00')
 
@@ -24,3 +50,20 @@ it('shows ads when premium timestamps are expired', () => {
     shouldHideAdsForUser('2026-07-01T00:00:00.000Z', '2026-07-01T00:00:00.000Z', NOW),
   ).toBe(false)
 })
+
+it.each(['NetworkError', 'SDKLoadError', 'Timeout', undefined])(
+  'shows the failure and support copy for error code %s',
+  (code) => {
+    render(createElement(SidebarAd))
+
+    fireEvent(
+      window,
+      new CustomEvent('cep:adwork-error', {
+        detail: { code },
+      }),
+    )
+
+    expect(screen.getByText('ads.loadFailed')).toBeTruthy()
+    expect(screen.getByText('ads.supportMessage')).toBeTruthy()
+  },
+)

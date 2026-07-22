@@ -7,7 +7,7 @@ import { FEATURES } from '@/lib/features'
 import { startAdAttempt } from '@/lib/ad-telemetry'
 import { useAuthStore } from '@/stores/useAuthStore'
 
-type AdStatus = 'loading' | 'loaded' | 'placeholder' | 'error'
+type AdStatus = 'loading' | 'loaded' | 'error'
 
 export function shouldHideAdsForUser(
   premiumUntil: string | null,
@@ -48,12 +48,7 @@ export function SidebarAd({ className }: { className?: string }) {
     }
 
     const onLoaded = () => setStatus('loaded')
-    const onError = (event: Event) => {
-      const detail = (event as CustomEvent<{ code?: string }>).detail
-      const code = detail?.code
-      // Temporary: show placeholder copy for NetworkError too; keep status for later restore.
-      setStatus(code === 'NetworkError' ? 'error' : 'placeholder')
-    }
+    const onError = () => setStatus('error')
 
     window.addEventListener('cep:adwork-loaded', onLoaded)
     window.addEventListener('cep:adwork-error', onError)
@@ -85,9 +80,13 @@ export function SidebarAd({ className }: { className?: string }) {
       {status !== 'loaded' && (
         <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center gap-1.5 bg-muted/40 px-3 py-4 text-center backdrop-blur-[1px]">
           <span className="text-xs font-medium text-muted-foreground">
-            {/* Temporary: error uses the same copy as placeholder. */}
-            {status === 'loading' ? t('ads.loading') : t('ads.placeholder')}
+            {status === 'loading' ? t('ads.loading') : t('ads.loadFailed')}
           </span>
+          {status === 'error' && (
+            <span className="max-w-[240px] text-[11px] leading-relaxed text-muted-foreground">
+              {t('ads.supportMessage')}
+            </span>
+          )}
         </div>
       )}
     </div>
