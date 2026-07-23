@@ -1,35 +1,52 @@
 'use client'
 
 import { useCallback } from 'react'
-import { useTranslations } from 'next-intl'
+import { useLocale } from 'next-intl'
+import { hasGameI18n, lookupGameI18n } from '@/lib/game-i18n-catalogs'
 import { wikiTextKey } from '@/lib/wiki-i18n'
-import type { WikiEntitySummary, WikiEnumGroup } from '@/types/wiki'
+import type { WikiEntitySummary, WikiEnumGroup, WikiLocale } from '@/types/wiki'
 
+function asWikiLocale(locale: string): WikiLocale {
+  if (locale === 'en' || locale === 'ja' || locale === 'zh-CN' || locale === 'zh-TW') {
+    return locale
+  }
+  return 'zh-CN'
+}
+
+/**
+ * Wiki / planner entity labels resolved from generated catalogs (shared JS chunks).
+ * Does not read wikiData from NextIntlClientProvider — that would re-embed ~0.9MB
+ * into every static page under the root layout.
+ */
 export function useWikiTranslations() {
-  const characters = useTranslations('characters')
-  const weapons = useTranslations('weapons')
-  const equipment = useTranslations('equips')
-  const wikiData = useTranslations('wikiData')
-  const equipStats = useTranslations('equipStats')
+  const locale = asWikiLocale(useLocale())
 
   const entityName = useCallback((entity: WikiEntitySummary): string => {
-    if (entity.category === 'characters') return characters.has(entity.id) ? characters(entity.id) : entity.id
-    if (entity.category === 'weapons') return weapons.has(entity.id) ? weapons(entity.id) : entity.id
-    return equipment.has(entity.id) ? equipment(entity.id) : entity.id
-  }, [characters, equipment, weapons])
+    if (entity.category === 'characters') {
+      return lookupGameI18n(locale, 'characters', entity.id) ?? entity.id
+    }
+    if (entity.category === 'weapons') {
+      return lookupGameI18n(locale, 'weapons', entity.id) ?? entity.id
+    }
+    return lookupGameI18n(locale, 'equips', entity.id) ?? entity.id
+  }, [locale])
 
   const text = useCallback((...segments: Array<string | number>): string => {
     const key = wikiTextKey(...segments)
-    if (!wikiData.has(key)) return String(segments.at(-1) ?? key)
-    const value = wikiData.raw(key)
-    return typeof value === 'string' ? value : String(segments.at(-1) ?? key)
-  }, [wikiData])
+    return lookupGameI18n(locale, 'wikiData', key) ?? String(segments.at(-1) ?? key)
+  }, [locale])
 
-  const enumLabel = useCallback((group: WikiEnumGroup, id: string) => text('enum', group, id), [text])
+  const enumLabel = useCallback(
+    (group: WikiEnumGroup, id: string) => text('enum', group, id),
+    [text],
+  )
+
   const equipmentStatLabel = useCallback((id: string): string => {
-    if (equipStats.has(id)) return equipStats(id)
+    if (hasGameI18n(locale, 'equipStats', id)) {
+      return lookupGameI18n(locale, 'equipStats', id) ?? id
+    }
     return enumLabel('attributes', id)
-  }, [enumLabel, equipStats])
+  }, [enumLabel, locale])
 
   return {
     entityName,

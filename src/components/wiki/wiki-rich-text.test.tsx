@@ -5,10 +5,16 @@ import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { WikiRichText } from './wiki-rich-text'
 
 vi.mock('next-intl', () => ({
-  useTranslations: () => Object.assign((key: string) => key, {
-    has: (key: string) => key.includes('ba%2Econsume'),
-    raw: (key: string) => key.endsWith('|name') ? 'Consume' : 'Consume description',
-  }),
+  useLocale: () => 'en',
+}))
+
+vi.mock('@/lib/game-i18n-catalogs', () => ({
+  hasGameI18n: (_locale: string, namespace: string, key: string) =>
+    namespace === 'wikiData' && key.includes('ba%2Econsume'),
+  lookupGameI18n: (_locale: string, namespace: string, key: string) => {
+    if (namespace !== 'wikiData' || !key.includes('ba%2Econsume')) return undefined
+    return key.endsWith('|name') ? 'Consume' : 'Consume description'
+  },
 }))
 
 describe('WikiRichText', () => {

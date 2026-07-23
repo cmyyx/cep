@@ -52,13 +52,104 @@ import wikiDataZhCN from '@/generated/i18n/wikiData/zh-CN.json'
 import wikiDataZhTW from '@/generated/i18n/wikiData/zh-TW.json'
 import type { WikiLocale } from '@/types/wiki'
 
-const messages = {
-  'zh-CN': { ...zhCN, characters: charactersZhCN, dungeons: dungeonsZhCN, equipStats: equipStatsZhCN, equipTypes: equipTypesZhCN, equips: equipsZhCN, gemStats: gemStatsZhCN, materials: materialsZhCN, region: regionsZhCN, suits: suitsZhCN, weapons: weaponsZhCN, weaponStats: weaponStatsZhCN, wikiData: wikiDataZhCN },
-  'zh-TW': { ...zhTW, characters: charactersZhTW, dungeons: dungeonsZhTW, equipStats: equipStatsZhTW, equipTypes: equipTypesZhTW, equips: equipsZhTW, gemStats: gemStatsZhTW, materials: materialsZhTW, region: regionsZhTW, suits: suitsZhTW, weapons: weaponsZhTW, weaponStats: weaponStatsZhTW, wikiData: wikiDataZhTW },
-  ja: { ...ja, characters: charactersJa, dungeons: dungeonsJa, equipStats: equipStatsJa, equipTypes: equipTypesJa, equips: equipsJa, gemStats: gemStatsJa, materials: materialsJa, region: regionsJa, suits: suitsJa, weapons: weaponsJa, weaponStats: weaponStatsJa, wikiData: wikiDataJa },
-  en: { ...en, characters: charactersEn, dungeons: dungeonsEn, equipStats: equipStatsEn, equipTypes: equipTypesEn, equips: equipsEn, gemStats: gemStatsEn, materials: materialsEn, region: regionsEn, suits: suitsEn, weapons: weaponsEn, weaponStats: weaponStatsEn, wikiData: wikiDataEn },
+/** Hand-written UI strings only. */
+const shellMessages = {
+  'zh-CN': zhCN,
+  'zh-TW': zhTW,
+  ja,
+  en,
 } satisfies Record<WikiLocale, object>
 
+/**
+ * Short generated name tables used by client planners via useTranslations.
+ * Intentionally excludes wikiData (~0.9MB) which is loaded via game-i18n-catalogs
+ * so static export does not embed it in every page's RSC payload.
+ */
+const plannerCatalogs = {
+  'zh-CN': {
+    characters: charactersZhCN,
+    dungeons: dungeonsZhCN,
+    equipStats: equipStatsZhCN,
+    equipTypes: equipTypesZhCN,
+    equips: equipsZhCN,
+    gemStats: gemStatsZhCN,
+    materials: materialsZhCN,
+    region: regionsZhCN,
+    suits: suitsZhCN,
+    weapons: weaponsZhCN,
+    weaponStats: weaponStatsZhCN,
+  },
+  'zh-TW': {
+    characters: charactersZhTW,
+    dungeons: dungeonsZhTW,
+    equipStats: equipStatsZhTW,
+    equipTypes: equipTypesZhTW,
+    equips: equipsZhTW,
+    gemStats: gemStatsZhTW,
+    materials: materialsZhTW,
+    region: regionsZhTW,
+    suits: suitsZhTW,
+    weapons: weaponsZhTW,
+    weaponStats: weaponStatsZhTW,
+  },
+  ja: {
+    characters: charactersJa,
+    dungeons: dungeonsJa,
+    equipStats: equipStatsJa,
+    equipTypes: equipTypesJa,
+    equips: equipsJa,
+    gemStats: gemStatsJa,
+    materials: materialsJa,
+    region: regionsJa,
+    suits: suitsJa,
+    weapons: weaponsJa,
+    weaponStats: weaponStatsJa,
+  },
+  en: {
+    characters: charactersEn,
+    dungeons: dungeonsEn,
+    equipStats: equipStatsEn,
+    equipTypes: equipTypesEn,
+    equips: equipsEn,
+    gemStats: gemStatsEn,
+    materials: materialsEn,
+    region: regionsEn,
+    suits: suitsEn,
+    weapons: weaponsEn,
+    weaponStats: weaponStatsEn,
+  },
+} satisfies Record<WikiLocale, object>
+
+const wikiDataCatalogs = {
+  'zh-CN': wikiDataZhCN,
+  'zh-TW': wikiDataZhTW,
+  ja: wikiDataJa,
+  en: wikiDataEn,
+} satisfies Record<WikiLocale, object>
+
+/**
+ * Messages for NextIntlClientProvider (client runtime / static HTML payload).
+ * Includes UI + short planner catalogs. Does NOT include wikiData.
+ */
+export function loadClientMessages(locale: WikiLocale) {
+  return {
+    ...shellMessages[locale],
+    ...plannerCatalogs[locale],
+  }
+}
+
+/**
+ * Full messages for server-side getTranslations / getRequestConfig during SSG.
+ * Includes wikiData so wiki pages can resolve long-form text at build time.
+ */
 export function loadMessages(locale: WikiLocale) {
-  return messages[locale]
+  return {
+    ...loadClientMessages(locale),
+    wikiData: wikiDataCatalogs[locale],
+  }
+}
+
+/** @deprecated Use loadClientMessages for ClientProvider, loadMessages for server. */
+export function loadShellMessages(locale: WikiLocale) {
+  return shellMessages[locale]
 }

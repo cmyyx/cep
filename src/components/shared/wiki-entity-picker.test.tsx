@@ -7,19 +7,40 @@ import type { WikiCharacterSummary } from '@/types/wiki'
 
 vi.mock('next-intl', () => ({
   useLocale: () => 'zh-CN',
-  useTranslations: (namespace?: string) => {
-    const values = namespace === 'characters'
-      ? { high: '高星', low: '低星', one: '佩丽卡', two: '陈千语' }
-      : namespace === 'wikiData'
-        ? { 'enum|elements|Physical': '物理', 'enum|elements|Natural': '自然' }
-        : {}
-    const translate = Object.assign((key: string) => values[key as keyof typeof values] ?? key, {
-      has: (key: string) => key in values,
-      raw: (key: string) => values[key as keyof typeof values] ?? key,
+  useTranslations: () => {
+    const translate = Object.assign((key: string) => key, {
+      has: () => false,
+      raw: (key: string) => key,
     })
     return translate
   },
 }))
+
+vi.mock('@/lib/game-i18n-catalogs', () => {
+  const characters: Record<string, string> = {
+    high: '高星',
+    low: '低星',
+    one: '佩丽卡',
+    two: '陈千语',
+  }
+  const wikiData: Record<string, string> = {
+    'enum|elements|Physical': '物理',
+    'enum|elements|Natural': '自然',
+  }
+
+  return {
+    hasGameI18n: (_locale: string, namespace: string, key: string) => {
+      if (namespace === 'characters') return key in characters
+      if (namespace === 'wikiData') return key in wikiData
+      return false
+    },
+    lookupGameI18n: (_locale: string, namespace: string, key: string) => {
+      if (namespace === 'characters') return characters[key]
+      if (namespace === 'wikiData') return wikiData[key]
+      return undefined
+    },
+  }
+})
 
 afterEach(cleanup)
 

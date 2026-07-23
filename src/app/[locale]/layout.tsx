@@ -3,7 +3,7 @@ import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
 import { routing } from '@/i18n/routing'
-import { loadMessages } from '@/i18n/load-messages'
+import { loadClientMessages } from '@/i18n/load-messages'
 import type { WikiLocale } from '@/types/wiki'
 import { SidebarProvider } from '@/components/ui/sidebar'
 import { AppSidebar } from '@/components/app-sidebar'
@@ -65,7 +65,7 @@ export default async function LocaleLayout({
   const siteUrl = DEFAULT_SITE_URL
   const t = await getTranslations({ locale })
 
-  const messages = loadMessages(locale as WikiLocale)
+  const messages = loadClientMessages(locale as WikiLocale)
 
   return (
     <>

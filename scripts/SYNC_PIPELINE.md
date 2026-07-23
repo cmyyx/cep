@@ -88,30 +88,25 @@ src/generated/i18n/
 
 ## 如何在前端使用
 
-### 1. Layout 自动合并
+### 1. 分层注入（Client vs Server）
 
-`src/app/[locale]/layout.tsx` 在服务端将游戏 i18n 合并到 `next-intl` 的 messages 中：
+同步产物仍是全量 generated JSON；**运行时不得把 wikiData 塞进根 layout 的 ClientProvider**（静态导出会把 messages 复制进每个页面 HTML）。
 
-```ts
-const messages = (await import(`../../messages/${locale}.json`)).default
-
-// 合并游戏内容翻译
-for (const category of ['weapons', 'equips', 'dungeons', 'stats', 'regions']) {
-  messages[category] = (await import(`../../generated/i18n/${category}/${locale}.json`)).default
-}
-```
-
-合并后，组件中可以直接使用 `t()` 访问：
+| API | 用途 | 是否含 wikiData |
+|-----|------|-----------------|
+| `loadClientMessages(locale)` | 根 layout `NextIntlClientProvider` | 否（UI + 规划器用短名表） |
+| `loadMessages(locale)` | `getRequestConfig` / 服务端 `getTranslations`（SSG） | 是 |
+| `@/lib/game-i18n-catalogs` | 客户端 wiki 长文案 / 实体名（共享 JS chunk） | wikiData 在此 |
 
 ```tsx
-// 武器名
-t('weapons.wpn_funnel_0017')   // → "雾中微光" (zh-CN) / "Flickers in the Mist" (en)
+// 规划器短名：仍走 next-intl（已在 ClientProvider）
+t('weapons.wpn_funnel_0017')
 
-// 地区名
-t('regions.fourthValley')      // → "四号谷地" / "Valley IV"
+// 地区名（namespace 为 region）
+t('region.fourthValley')
 
-// 淤积点名
-t('dungeons.hub')              // → "四号谷地·枢纽区" / "Valley IV·The Hub"
+// Wiki 长文案 / 技能描述：useWikiTranslations() 或 game-i18n-catalogs
+// 不要 useTranslations('wikiData')
 ```
 
 ### 2. 数据映射辅助

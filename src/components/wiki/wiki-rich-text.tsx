@@ -1,16 +1,24 @@
 'use client'
 
 import { Fragment, type ReactNode } from 'react'
-import { useTranslations } from 'next-intl'
+import { useLocale } from 'next-intl'
 import { Button } from '@/components/ui/button'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
 import glossaryData from '@/generated/data/wiki/rich-text.json'
+import { hasGameI18n, lookupGameI18n } from '@/lib/game-i18n-catalogs'
 import { parseWikiRichText, type WikiRichTextNode } from '@/lib/wiki-rich-text'
 import { cn } from '@/lib/utils'
 import { wikiTextKey } from '@/lib/wiki-i18n'
-import type { WikiRichTextTerm } from '@/types/wiki'
+import type { WikiLocale, WikiRichTextTerm } from '@/types/wiki'
 
 const glossary = glossaryData as Record<string, WikiRichTextTerm>
+
+function asWikiLocale(locale: string): WikiLocale {
+  if (locale === 'en' || locale === 'ja' || locale === 'zh-CN' || locale === 'zh-TW') {
+    return locale
+  }
+  return 'zh-CN'
+}
 
 function styleClass(styleId: string) {
   if (/fire|burn/i.test(styleId)) return 'text-ship-red'
@@ -73,11 +81,10 @@ export interface WikiRichTextProps {
   className?: string
 }
 export function WikiRichText({ value, className }: WikiRichTextProps) {
-  const t = useTranslations('wikiData')
+  const locale = asWikiLocale(useLocale())
   const translate = (key: string) => {
-    if (!t.has(key)) return key
-    const message = t.raw(key)
-    return typeof message === 'string' ? message : key
+    if (!hasGameI18n(locale, 'wikiData', key)) return key
+    return lookupGameI18n(locale, 'wikiData', key) ?? key
   }
   return <span className={cn('whitespace-pre-line', className)}>{renderNodes(parseWikiRichText(value), translate)}</span>
 }

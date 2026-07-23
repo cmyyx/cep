@@ -5,29 +5,33 @@ import { expect, it, vi } from 'vitest'
 import { useWikiTranslations } from './use-wiki-translations'
 import type { WikiCharacterSummary, WikiEquipmentSummary, WikiWeaponSummary } from '@/types/wiki'
 
-const translations: Record<string, Record<string, string>> = {
-  characters: { chr_test: '测试角色' },
-  weapons: { wpn_test: '测试武器' },
-  equips: { equip_test: '测试装备' },
-  equipStats: { AllSkillDamageIncrease: '所有技能伤害加成' },
-  wikiData: {
-    'enum|attributes|39': '力量',
-    'item|item_test': '测试材料',
-    'suit|suit_test': '测试套装',
-    'character|chr_test|skill|skill%2Etest|name': '带点号的技能',
-  },
-}
-
 vi.mock('next-intl', () => ({
-  useTranslations: (namespace: string) => {
-    const values = translations[namespace] ?? {}
-    const translate = Object.assign((key: string) => values[key] ?? key, {
-      has: (key: string) => key in values,
-      raw: (key: string) => values[key] ?? key,
-    })
-    return translate
-  },
+  useLocale: () => 'zh-CN',
 }))
+
+vi.mock('@/lib/game-i18n-catalogs', () => {
+  const catalogs = {
+    characters: { chr_test: '测试角色' },
+    weapons: { wpn_test: '测试武器' },
+    equips: { equip_test: '测试装备' },
+    equipStats: { AllSkillDamageIncrease: '所有技能伤害加成' },
+    wikiData: {
+      'enum|attributes|39': '力量',
+      'item|item_test': '测试材料',
+      'suit|suit_test': '测试套装',
+      'character|chr_test|skill|skill%2Etest|name': '带点号的技能',
+    },
+  } as const
+
+  type Namespace = keyof typeof catalogs
+
+  return {
+    hasGameI18n: (locale: string, namespace: Namespace, key: string) =>
+      locale === 'zh-CN' && key in catalogs[namespace],
+    lookupGameI18n: (locale: string, namespace: Namespace, key: string) =>
+      locale === 'zh-CN' ? catalogs[namespace][key as keyof (typeof catalogs)[Namespace]] : undefined,
+  }
+})
 
 const localized = (value: string) => ({ 'zh-CN': value, en: value, ja: value, 'zh-TW': value })
 
