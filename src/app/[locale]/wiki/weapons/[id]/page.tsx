@@ -5,12 +5,9 @@ import { SidebarTrigger } from '@/components/ui/sidebar'
 import { NavLink } from '@/components/shared/nav-link'
 import { WeaponDetailContent, WikiDetailShell } from '@/components/wiki/wiki-detail-content'
 import { wikiWeapons } from '@/generated/data/wiki/weapons'
-import wikiEnums from '@/generated/data/wiki/enums.json'
 import { getWeaponWikiDetail } from '@/lib/wiki-data'
-import type { WikiEnumLabels, WikiLocale } from '@/types/wiki'
 import { getAlternates } from '@/lib/metadata'
 
-const enums = wikiEnums as WikiEnumLabels
 
 export function generateStaticParams() {
   return wikiWeapons.map((weapon) => ({ id: weapon.id }))
@@ -22,8 +19,9 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const { locale, id } = await params
   const weapon = wikiWeapons.find((entry) => entry.id === id)
   if (!weapon) return { title: 'Not Found' }
+  const t = await getTranslations({ locale })
   return {
-    title: `${weapon.name[locale as WikiLocale] || weapon.name['zh-CN']} - WIKI`,
+    title: `${t(`weapons.${id}`)} - WIKI`,
     alternates: getAlternates(locale, `wiki/weapons/${id}`),
   }
 }
@@ -35,9 +33,8 @@ export default async function WikiWeaponDetailPage({ params }: { params: Promise
   const detail = getWeaponWikiDetail(id)
   if (!weapon || !detail) notFound()
   const t = await getTranslations({ locale })
-  const currentLocale = locale as WikiLocale
-  const name = weapon.name[currentLocale] || weapon.name['zh-CN']
-  const weaponType = enums.weaponTypes[weapon.weaponTypeId]?.[currentLocale] || enums.weaponTypes[weapon.weaponTypeId]?.['zh-CN'] || weapon.weaponTypeId
+  const name = t(`weapons.${id}`)
+  const weaponType = t(`wikiData.enum|weaponTypes|${weapon.weaponTypeId}`)
 
   return (
     <div className="flex min-h-0 flex-1 flex-col overflow-hidden">

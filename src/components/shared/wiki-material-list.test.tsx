@@ -17,7 +17,7 @@ it('formats material counts in thousands without changing smaller values', () =>
 
 it('keeps material text outside rarity-framed icons', () => {
   render(
-    <NextIntlClientProvider locale="zh-CN" messages={{}}>
+    <NextIntlClientProvider locale="zh-CN" messages={{ wikiData: { 'item|material-a': '测试材料' }, characters: {}, weapons: {}, equips: {} }}>
       <WikiMaterialList materials={[
         { itemId: 'material-a', name: localized('测试材料'), iconId: 'material-a', rarity: 4, count: 12 },
       ]} />
@@ -32,7 +32,7 @@ it('keeps material text outside rarity-framed icons', () => {
 
 it('supports compact icon and count only rendering', () => {
   render(
-    <NextIntlClientProvider locale="zh-CN" messages={{}}>
+    <NextIntlClientProvider locale="zh-CN" messages={{ wikiData: { 'item|material-a': '测试材料' }, characters: {}, weapons: {}, equips: {} }}>
       <WikiMaterialList iconOnly compact materials={[
         { itemId: 'material-a', name: localized('测试材料'), iconId: 'material-a', rarity: 4, count: 12 },
       ]} />

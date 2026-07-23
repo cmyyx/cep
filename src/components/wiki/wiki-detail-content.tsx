@@ -16,6 +16,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog'
+import { useWikiTranslations } from '@/hooks/use-wiki-translations'
 import { Switch } from '@/components/ui/switch'
 import { TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
@@ -574,31 +575,46 @@ function CharacterTalents({ detail }: { detail: WikiCharacterDetail }) {
   )
 }
 
+function CharacterEquipmentNodes({ detail }: { detail: WikiCharacterDetail }) {
+  const t = useTranslations()
+  const { text } = useWikiTranslations()
+  return (
+    <Section id="equipment-nodes" title={text('ui', 'equipmentAdaptation')}>
+      <div className="grid min-w-0 gap-3 md:grid-cols-3">
+        {detail.equipmentNodes.map((node) => (
+          <article key={node.id} className="min-w-0 rounded-md bg-muted/35 p-3">
+            <div className="flex items-start justify-between gap-2">
+              <h3 className="min-w-0 font-medium">{text('character', detail.id, 'equipment', node.id, 'name')}</h3>
+              <Badge variant="secondary" className="shrink-0">{t('wiki.breakStage')} {node.breakStage}</Badge>
+            </div>
+            <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{text('character', detail.id, 'equipment', node.id, 'description')}</p>
+            <div className="mt-3"><MaterialList materials={node.materials} /></div>
+          </article>
+        ))}
+      </div>
+    </Section>
+  )
+}
+
 function CharacterAttributeNodes({ detail }: { detail: WikiCharacterDetail }) {
   const t = useTranslations()
-  const locale = useLocale() as WikiLocale
-  const attributes = (wikiEnums as { attributes: Record<string, LocalizedText> }).attributes
+  const { enumLabel, text } = useWikiTranslations()
   return (
     <Section id="attribute-nodes" title={t('wiki.attributeNodes')}>
       <div className="grid min-w-0 gap-3 md:grid-cols-2">
         {detail.attributeNodes.map((node) => (
           <article key={node.id} className="relative min-w-0 rounded-md bg-muted/35 p-3">
             <div className="flex items-start justify-between gap-3">
-              <h3 className="min-w-0 font-medium">{localized(node.title, locale)}</h3>
+              <h3 className="min-w-0 font-medium">{text('character', detail.id, 'attribute', node.id, 'name')}</h3>
               <div className="shrink-0 text-right text-xs text-muted-foreground">
                 <span>{t('wiki.breakStage')} {node.breakStage}</span>
                 <span className="ml-2">{t('wiki.favorability')} {node.favorability}</span>
               </div>
             </div>
-            <WikiRichText value={localized(node.description, locale)} className="mt-2 block pr-24 text-sm leading-relaxed text-muted-foreground" />
+            <WikiRichText value={text('character', detail.id, 'attribute', node.id, 'description')} className="mt-2 block pr-24 text-sm leading-relaxed text-muted-foreground" />
             <div className="mt-2 flex min-w-0 items-end justify-between gap-3">
               <div className="flex min-w-0 flex-wrap gap-x-3 gap-y-1 text-sm">
-                {node.stats.map((stat) => (
-                  <span key={stat.attributeId}>
-                    <span className="text-muted-foreground">{localized(attributes[stat.attributeId] ?? { 'zh-CN': stat.attributeId, en: stat.attributeId, ja: stat.attributeId, 'zh-TW': stat.attributeId }, locale)}</span>{' '}
-                    <span className="font-geist-mono">+{stat.value}</span>
-                  </span>
-                ))}
+                {node.stats.map((stat) => <span key={stat.attributeId}><span className="text-muted-foreground">{enumLabel('attributes', stat.attributeId)}</span>{' '}<span className="font-geist-mono">+{stat.value}</span></span>)}
               </div>
               <div className="shrink-0"><MaterialDisclosure materials={node.materials} /></div>
             </div>
@@ -815,6 +831,7 @@ export function CharacterDetailContent({
       <div className="mt-5 min-w-0 space-y-4">
         <CharacterLevelTable detail={detail} />
         {detail.attributeNodes.length > 0 && <CharacterAttributeNodes detail={detail} />}
+        {detail.equipmentNodes.length > 0 && <CharacterEquipmentNodes detail={detail} />}
         <CharacterSkills detail={detail} />
         <CharacterTalents detail={detail} />
         <CharacterPotentials detail={detail} />

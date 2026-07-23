@@ -275,6 +275,7 @@ function buildSuitEffects(
       ),
       iconId: patch.iconId || undefined,
       requiredPieces: numberValue(effect.equipCnt),
+      values: collectWikiBlackboard(patch.blackboard),
     }]
   })
 }

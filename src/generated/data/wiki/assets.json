@@ -660,6 +660,8 @@
     "item_equip_script_4_1",
     "item_equip_script_4_2",
     "item_equip_script_4_3",
+    "item_expcard_2_3",
+    "item_expcard_stage2_high",
     "item_gold",
     "item_plant_crylplant_1_1",
     "item_plant_crylplant_1_2",
@@ -681,6 +683,7 @@
     "item_plant_spcstone_2_3",
     "item_plant_tundra_wood",
     "item_weapon_break_high",
-    "item_weapon_break_low"
+    "item_weapon_break_low",
+    "item_weapon_expcard_high"
   ]
 }

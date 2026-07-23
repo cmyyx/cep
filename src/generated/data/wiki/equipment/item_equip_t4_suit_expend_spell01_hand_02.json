@@ -78,7 +78,13 @@
         "ja": "3点セット効果：装備中、攻撃力<@ba.vup>+10%</>\n自身が<#ba.conduct>感電</>または<#ba.corrupt>腐食</>を<#ba.consume>消費</>するたびに、<#ba.statuslevel>異常段階</>に応じて同じ段階数の強化状態を獲得し、25秒間1段階ごとに<@ba.pulse>電磁ダメージ</>と<@ba.natur>自然ダメージ</><@ba.vup>+15%</>\n強化状態の段階数は最大3段階まで（持続時間は個別にカウントされる）",
         "zh-TW": "3件套裝效果：裝備者攻擊力<@ba.vup>+10%</>。\n裝備者每次<#ba.consume>消耗</><#ba.conduct>導電</>或<#ba.corrupt>腐蝕</>後，根據<#ba.statuslevel>異常等級</>獲得相同層數的強化狀態，每層使<@ba.pulse>電磁傷害</>和<@ba.natur>自然傷害</><@ba.vup>+15%</>，持續25秒。強化狀態最多存在3層，每層單獨計算持續時間。"
       },
-      "requiredPieces": 3
+      "requiredPieces": 3,
+      "values": {
+        "atk_up": 0.1,
+        "spell_dmg_up": 0.15,
+        "duration": 25,
+        "max_stack": 3
+      }
     }
   ],
   "craftingRecipes": [

@@ -78,7 +78,16 @@
         "ja": "3点セット効果：装備中、攻撃力<@ba.vup>+8%</>\n自身が<#ba.noguard>クラッシュ</>を付与すると、15秒間<@ba.pd>物理ダメージ</><@ba.vup>+8%</>\nこの効果は4回まで重ね掛け可能\n敵の<#ba.noguard>クラッシュ</>段階が4になった場合、10秒間追加で物理ダメージ<@ba.vup>+16%</>\nこの効果は重ね掛け不可",
         "zh-TW": "3件套裝效果：裝備者攻擊力<@ba.vup>+8%</>。\n裝備者施加<#ba.noguard>破防</>後，<@ba.pd>物理傷害</><@ba.vup>+8%</>，持續15秒，最多可疊加4層。若使目標達到4層<#ba.noguard>破防</>，物理傷害額外<@ba.vup>+16%</>，持續10秒，該效果無法疊加。"
       },
-      "requiredPieces": 3
+      "requiredPieces": 3,
+      "values": {
+        "atk_up": 0.08,
+        "phy_dmg_up": 0.08,
+        "duration": 15,
+        "max_stack": 4,
+        "stack_cond": 4,
+        "phy_dmg_up2": 0.16,
+        "duration2": 10
+      }
     }
   ],
   "craftingRecipes": [

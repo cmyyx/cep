@@ -34,6 +34,8 @@ import {
   LogIn,
   CircleUser,
   AlertTriangle,
+  ChartNoAxesCombined,
+  PanelsTopLeft,
 } from 'lucide-react'
 import { useAuthStore } from '@/stores/useAuthStore'
 import { FEATURES } from '@/lib/features'
@@ -46,6 +48,8 @@ import { SidebarAd } from '@/components/shared/sidebar-ad'
 const NAV_ITEMS = [
   { href: '/essence-planner', label: 'nav.essencePlanner', Icon: Disc },
   { href: '/refinement-planner', label: 'nav.refinementPlanner', Icon: Wrench },
+  { href: '/growth-planner', label: 'nav.growthPlanner', Icon: ChartNoAxesCombined },
+  { href: '/panel-preview', label: 'nav.panelPreview', Icon: PanelsTopLeft },
   { href: '/banner-calendar', label: 'nav.bannerCalendar', Icon: Calendar },
   { href: '/background-preview', label: 'nav.backgroundPreview', Icon: Eye },
 ]

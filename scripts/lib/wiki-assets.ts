@@ -40,6 +40,9 @@ export function collectWikiAssets(source: WikiAssetSource): WikiAssets {
   const skills = new Set<string>()
   const logisticsSkills = new Set<string>()
   const materials = new Set<string>()
+  for (const iconId of ['item_expcard_2_3', 'item_expcard_stage2_high', 'item_weapon_expcard_high', 'item_gold']) {
+    materials.add(iconId)
+  }
 
   for (const detail of Object.values(source.characters.details)) {
     for (const imageId of Object.values(detail.images.fullBodyIds)) {

@@ -26,6 +26,8 @@ export const ROUTES: {
   { path: '',                 priority: 0.7, changefreq: 'weekly'  }, // home
   { path: 'essence-planner',  priority: 1,   changefreq: 'weekly'  },
   { path: 'refinement-planner', priority: 1, changefreq: 'weekly'  },
+  { path: 'growth-planner',   priority: 0.9, changefreq: 'weekly'  },
+  { path: 'panel-preview',    priority: 0.9, changefreq: 'weekly'  },
   { path: 'banner-calendar',  priority: 0.9, changefreq: 'daily'   },
   { path: 'background-preview', priority: 0.6, changefreq: 'monthly' },
   { path: 'forum',            priority: 0.7, changefreq: 'weekly'  },

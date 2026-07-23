@@ -1,7 +1,7 @@
 'use client'
 
 import { useTranslations, useLocale } from 'next-intl'
-import { Swords, Wrench, Calendar } from 'lucide-react'
+import { Swords, Wrench, Calendar, ChartNoAxesCombined, PanelsTopLeft } from 'lucide-react'
 import { NavLink } from '@/components/shared/nav-link'
 import { Card, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
 import { cn } from '@/lib/utils'
@@ -34,6 +34,20 @@ const CARDS: OverviewCardData[] = [
     labelKey: 'nav.refinementPlanner',
     descKey: 'about.refinementPlannerDesc',
     Icon: Wrench,
+    accentClass: 'text-preview-pink',
+  },
+  {
+    href: '/growth-planner',
+    labelKey: 'nav.growthPlanner',
+    descKey: 'meta.growthPlannerDescription',
+    Icon: ChartNoAxesCombined,
+    accentClass: 'text-develop-blue',
+  },
+  {
+    href: '/panel-preview',
+    labelKey: 'nav.panelPreview',
+    descKey: 'meta.panelPreviewDescription',
+    Icon: PanelsTopLeft,
     accentClass: 'text-preview-pink',
   },
 ]

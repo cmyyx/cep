@@ -1,11 +1,9 @@
 
 import type { Metadata } from 'next'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
+import { wikiCharacters } from '@/generated/data/wiki/characters'
 import { SidebarTrigger } from '@/components/ui/sidebar'
 import { WikiEntityGrid } from '@/components/wiki/wiki-entity-grid'
-import { wikiCharacters } from '@/generated/data/wiki/characters'
-import wikiEnums from '@/generated/data/wiki/enums.json'
-import type { WikiEnumLabels } from '@/types/wiki'
 import { getAlternates } from '@/lib/metadata'
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
@@ -35,7 +33,6 @@ export default async function WikiCharactersPage({ params }: { params: Promise<{
       <WikiEntityGrid
         entities={wikiCharacters}
         imageBasePath="/images/characters"
-        enums={wikiEnums as WikiEnumLabels}
         filters={[
           { field: 'rarity', labelKey: 'wiki.filter.rarity' },
           { field: 'elementId', labelKey: 'wiki.filter.element', enumGroup: 'elements' },

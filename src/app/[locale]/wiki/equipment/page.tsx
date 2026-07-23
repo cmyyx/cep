@@ -4,8 +4,6 @@ import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { SidebarTrigger } from '@/components/ui/sidebar'
 import { WikiEntityGrid } from '@/components/wiki/wiki-entity-grid'
 import { wikiEquipment } from '@/generated/data/wiki/equipment'
-import wikiEnums from '@/generated/data/wiki/enums.json'
-import type { WikiEnumLabels } from '@/types/wiki'
 import { getAlternates } from '@/lib/metadata'
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
@@ -35,7 +33,6 @@ export default async function WikiEquipmentPage({ params }: { params: Promise<{ 
       <WikiEntityGrid
         entities={wikiEquipment}
         imageBasePath="/images/equip"
-        enums={wikiEnums as WikiEnumLabels}
         filters={[
           { field: 'rarity', labelKey: 'wiki.filter.rarity' },
           { field: 'partTypeId', labelKey: 'wiki.filter.partType', enumGroup: 'equipmentParts' },

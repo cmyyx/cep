@@ -78,7 +78,13 @@
         "ja": "3点セット効果：装備中、すべてのスキルダメージ<@ba.vup>+20%</>\n自身が敵の<#ba.spellinflict>アーツ付着</>段階を<@ba.key>2</>以上にすると、15秒間与える<@ba.key>アーツダメージ</><@ba.vup>+35%</>\nこの効果は重ね掛け不可",
         "zh-TW": "3件套裝效果：裝備者所有技能傷害<@ba.vup>+20%</>。\n裝備者使敵人達到<@ba.key>2</>層及以上<#ba.spellinflict>法術附著</>後，造成的<@ba.key>法術傷害</><@ba.vup>+35%</>，持續15秒，該效果無法疊加。"
       },
-      "requiredPieces": 3
+      "requiredPieces": 3,
+      "values": {
+        "skill_dmg_up": 0.2,
+        "stack_cond": 2,
+        "spell_dmg_up": 0.35,
+        "duration": 15
+      }
     }
   ],
   "craftingRecipes": [

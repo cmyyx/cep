@@ -1,10 +1,10 @@
 'use client'
 
-import { useLocale } from 'next-intl'
 import { cn } from '@/lib/utils'
 import { withImageCacheVersion } from '@/lib/image-url'
 import { RarityFrame } from '@/components/shared/rarity-frame'
-import type { WikiLocale, WikiMaterial } from '@/types/wiki'
+import { useWikiTranslations } from '@/hooks/use-wiki-translations'
+import type { WikiMaterial } from '@/types/wiki'
 
 export function formatMaterialCount(count: number): string {
   if (count < 1000) return String(count)
@@ -19,12 +19,12 @@ export interface WikiMaterialListProps {
 }
 
 export function WikiMaterialList({ materials, compact = false, iconOnly = false, className }: WikiMaterialListProps) {
-  const locale = useLocale() as WikiLocale
+  const { itemName } = useWikiTranslations()
 
   return (
     <div className={cn('flex min-w-0 flex-wrap gap-3', className)}>
       {materials.map((material) => {
-        const name = material.name[locale] || material.name['zh-CN'] || material.itemId
+        const name = itemName(material.itemId)
         return (
           <div key={`${material.itemId}-${material.count}`} className={cn('flex min-w-0', iconOnly ? 'flex-col items-center gap-0.5' : 'items-center gap-2')} title={iconOnly ? name : undefined}>
             <RarityFrame

@@ -4,7 +4,12 @@ import { render, screen } from '@testing-library/react'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { WikiRichText } from './wiki-rich-text'
 
-vi.mock('next-intl', () => ({ useLocale: () => 'en' }))
+vi.mock('next-intl', () => ({
+  useTranslations: () => Object.assign((key: string) => key, {
+    has: (key: string) => key.includes('ba%2Econsume'),
+    raw: (key: string) => key.endsWith('|name') ? 'Consume' : 'Consume description',
+  }),
+}))
 
 describe('WikiRichText', () => {
   beforeEach(() => document.body.replaceChildren())

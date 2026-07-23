@@ -13,9 +13,9 @@ import { RarityFrame } from '@/components/shared/rarity-frame'
 import { FilterChip } from '@/components/shared/filter-chip'
 import { NavLink } from '@/components/shared/nav-link'
 import { withImageCacheVersion } from '@/lib/image-url'
+import { useWikiTranslations } from '@/hooks/use-wiki-translations'
 import { useWikiStore } from '@/stores/useWikiStore'
 import type {
-  LocalizedText,
   WikiEntitySummary,
   WikiEnumGroup,
   WikiEnumLabels,
@@ -45,7 +45,6 @@ interface WikiEntityGroupConfig {
 interface WikiEntityGridProps {
   entities: WikiEntitySummary[]
   imageBasePath: string
-  enums: WikiEnumLabels
   filters?: WikiEntityFilter[]
   groupBy?: WikiEntityGroupConfig
 }
@@ -82,15 +81,14 @@ export function getWikiEquipmentModelKey(name: string): string | undefined {
 export function sortWikiEntities(
   entities: WikiEntitySummary[],
   locale: WikiLocale,
-  isUp: (entity: WikiEntitySummary) => boolean = () => false
+  isUp: (entity: WikiEntitySummary) => boolean = () => false,
+  nameFor: (entity: WikiEntitySummary) => string = (entity) => entity.id
 ) {
   return [...entities].sort((left, right) => {
     const upDifference = Number(isUp(right)) - Number(isUp(left))
     if (upDifference !== 0) return upDifference
     if (left.rarity !== right.rarity) return right.rarity - left.rarity
-    const leftName = left.name[locale] || left.name['zh-CN'] || left.id
-    const rightName = right.name[locale] || right.name['zh-CN'] || right.id
-    return leftName.localeCompare(rightName, locale)
+    return nameFor(left).localeCompare(nameFor(right), locale)
   })
 }
 
@@ -103,8 +101,9 @@ export interface WikiEntityGroup {
 export function groupWikiEntities(
   entities: WikiEntitySummary[],
   config: WikiEntityGroupConfig,
-  enums: WikiEnumLabels,
-  locale: WikiLocale
+  enums: WikiEnumLabels | undefined,
+  locale: WikiLocale,
+  labelFor?: (group: WikiEnumGroup, id: string) => string
 ): WikiEntityGroup[] {
   const groups = new Map<string, WikiEntitySummary[]>()
   for (const entity of entities) {
@@ -114,17 +113,16 @@ export function groupWikiEntities(
     group.push(entity)
     groups.set(key, group)
   }
-  const order = new Map(Object.keys(enums[config.enumGroup]).map((key, index) => [key, index]))
+  const order = new Map(Object.keys(enums?.[config.enumGroup] ?? {}).map((key, index) => [key, index]))
   return [...groups].map(([key, group]) => ({
     key,
-    label: enums[config.enumGroup][key]?.[locale] || enums[config.enumGroup][key]?.['zh-CN'] || key,
+    label: labelFor?.(config.enumGroup, key) ?? enums?.[config.enumGroup][key]?.[locale] ?? enums?.[config.enumGroup][key]?.['zh-CN'] ?? key,
     entities: group,
   })).sort((left, right) =>
     (order.get(left.key) ?? Number.MAX_SAFE_INTEGER) - (order.get(right.key) ?? Number.MAX_SAFE_INTEGER) ||
     left.label.localeCompare(right.label, locale)
   )
 }
-
 export interface WikiEquipmentGroup {
   key: string
   label: string
@@ -179,12 +177,12 @@ export function getWikiEntityUpStatus(
 export const WikiEntityGrid = memo(function WikiEntityGrid({
   entities,
   imageBasePath,
-  enums,
   filters = [],
   groupBy,
 }: WikiEntityGridProps) {
   const t = useTranslations()
   const locale = useLocale() as WikiLocale
+  const { entityName, enumLabel, suitName } = useWikiTranslations()
   const [search, setSearch] = useState('')
   const [activeFilters, setActiveFilters] = useState<Record<string, Set<string>>>({})
   const [filterPanelOpen, setFilterPanelOpen] = useState(false)
@@ -203,31 +201,26 @@ export const WikiEntityGrid = memo(function WikiEntityGrid({
   const filterValues = useMemo(() => {
     const result: Record<string, string[]> = {}
     for (const filter of filters) {
-      const values = new Set(
-        entities.map((entity) => filterValue(entity, filter.field)).filter(Boolean)
-      )
+      const values = new Set(entities.map((entity) => filterValue(entity, filter.field)).filter(Boolean))
       result[filter.field] = [...values].sort((left, right) => {
         if (filter.field === 'rarity') return Number(right) - Number(left)
-        const labels = filter.enumGroup ? enums[filter.enumGroup] : undefined
-        return (labels?.[left]?.[locale] ?? left).localeCompare(labels?.[right]?.[locale] ?? right)
+        const leftLabel = filter.enumGroup ? enumLabel(filter.enumGroup, left) : left
+        const rightLabel = filter.enumGroup ? enumLabel(filter.enumGroup, right) : right
+        return leftLabel.localeCompare(rightLabel, locale)
       })
     }
     return result
-  }, [entities, enums, filters, locale])
+  }, [entities, enumLabel, filters, locale])
 
   const filtered = useMemo(() => {
     const term = search.trim().toLocaleLowerCase(locale)
     const matches = entities.filter((entity) => {
-      const name = entity.name[locale] || entity.name['zh-CN'] || entity.id
-      if (term && !name.toLocaleLowerCase(locale).includes(term) && !entity.id.includes(term)) {
-        return false
-      }
-      return Object.entries(activeFilters).every(([field, selected]) => {
-        return selected.size === 0 || selected.has(filterValue(entity, field as WikiFilterField))
-      })
+      const name = entityName(entity)
+      if (term && !name.toLocaleLowerCase(locale).includes(term) && !entity.id.includes(term)) return false
+      return Object.entries(activeFilters).every(([field, selected]) => selected.size === 0 || selected.has(filterValue(entity, field as WikiFilterField)))
     })
-    return sortWikiEntities(matches, locale, (entity) => getWikiEntityUpStatus(entity, upNames))
-  }, [activeFilters, entities, locale, search, upNames])
+    return sortWikiEntities(matches, locale, (entity) => getWikiEntityUpStatus(entity, upNames), entityName)
+  }, [activeFilters, entities, entityName, locale, search, upNames])
 
   const toggleFilter = useCallback((field: string, value: string) => {
     setActiveFilters((current) => {
@@ -238,46 +231,36 @@ export const WikiEntityGrid = memo(function WikiEntityGrid({
     })
   }, [])
 
-
   const hasActiveFilters = Object.values(activeFilters).some((selected) => selected.size > 0)
   const activeFilterCount = Object.values(activeFilters).reduce((count, selected) => count + selected.size, 0)
-  const enumLabel = useCallback(
-    (group: WikiEnumGroup | undefined, value: string) => {
-      const label: LocalizedText | undefined = group ? enums[group][value] : undefined
-      return label?.[locale] || label?.['zh-CN'] || value
-    },
-    [enums, locale]
-  )
-
   const filteredEquipment = useMemo(
     () => filtered.filter((entity): entity is WikiEquipmentSummary => entity.category === 'equipment'),
     [filtered]
   )
   const equipmentGroups = useMemo(
-    () => filteredEquipment.length > 0 ? groupWikiEquipmentBySuit(filteredEquipment, locale, t('wiki.noSet')) : [],
-    [filteredEquipment, locale, t]
+    () => filteredEquipment.length > 0
+      ? groupWikiEquipmentBySuit(filteredEquipment, locale, t('wiki.noSet')).map((group) => ({
+        ...group,
+        label: group.key === '__no-set__' ? t('wiki.noSet') : suitName(group.key),
+      }))
+      : [],
+    [filteredEquipment, locale, suitName, t]
   )
   const entityGroups = useMemo(
-    () => groupBy && filteredEquipment.length === 0 ? groupWikiEntities(filtered, groupBy, enums, locale) : [],
-    [enums, filtered, filteredEquipment.length, groupBy, locale]
+    () => groupBy && filteredEquipment.length === 0 ? groupWikiEntities(filtered, groupBy, undefined, locale, enumLabel) : [],
+    [enumLabel, filtered, filteredEquipment.length, groupBy, locale]
   )
   const renderEntity = (entity: WikiEntitySummary) => {
     const imageSrc = withImageCacheVersion(`${imageBasePath}/${entity.imageId}.avif`)
-    const displayName = entity.name[locale] || entity.name['zh-CN'] || entity.id
+    const displayName = entityName(entity)
     const isUp = getWikiEntityUpStatus(entity, upNames)
-    const equipmentModelKey = entity.category === 'equipment'
-      ? getWikiEquipmentModelKey(entity.name['zh-CN'])
-      : undefined
+    const equipmentModelKey = entity.category === 'equipment' ? getWikiEquipmentModelKey(displayName) : undefined
     const badges = entity.category === 'equipment' ? (
       <span className="flex flex-col items-start gap-0.5">
         <span className="rounded bg-black/55 px-1.5 py-0.5 text-[9px] font-medium text-stone-100 shadow-[var(--shadow-border)]">
           {enumLabel('equipmentParts', entity.partTypeId)}
         </span>
-        {equipmentModelKey ? (
-          <span className="rounded bg-amber-500/85 px-1.5 py-0.5 text-[10px] font-semibold text-black">
-            {t(equipmentModelKey)}
-          </span>
-        ) : null}
+        {equipmentModelKey ? <span className="rounded bg-amber-500/85 px-1.5 py-0.5 text-[10px] font-semibold text-black">{t(equipmentModelKey)}</span> : null}
       </span>
     ) : isUp ? (
       <Image src="/up.png" alt="UP" width={132} height={60} className="h-auto w-11 object-contain drop-shadow-md" unoptimized />
@@ -341,7 +324,7 @@ export const WikiEntityGrid = memo(function WikiEntityGrid({
                         <FilterChip
                           key={value}
                           value={value}
-                          label={filter.field === 'rarity' ? `${value}★` : enumLabel(filter.enumGroup, value)}
+                          label={filter.field === 'rarity' ? `${value}★` : filter.enumGroup ? enumLabel(filter.enumGroup, value) : value}
                           isValid
                           isSelected={activeFilters[filter.field]?.has(value) ?? false}
                           onToggle={() => toggleFilter(filter.field, value)}

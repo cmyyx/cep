@@ -5,12 +5,10 @@ import { SidebarTrigger } from '@/components/ui/sidebar'
 import { NavLink } from '@/components/shared/nav-link'
 import { CharacterDetailContent, WikiDetailShell } from '@/components/wiki/wiki-detail-content'
 import { wikiCharacters } from '@/generated/data/wiki/characters'
-import wikiEnums from '@/generated/data/wiki/enums.json'
 import { getCharacterWikiDetail } from '@/lib/wiki-data'
-import type { WikiEnumLabels, WikiLocale } from '@/types/wiki'
+import type { WikiEnumGroup } from '@/types/wiki'
 import { getAlternates } from '@/lib/metadata'
 
-const enums = wikiEnums as WikiEnumLabels
 
 export function generateStaticParams() {
   return wikiCharacters.map((character) => ({ id: character.id }))
@@ -22,8 +20,9 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const { locale, id } = await params
   const character = wikiCharacters.find((entry) => entry.id === id)
   if (!character) return { title: 'Not Found' }
+  const t = await getTranslations({ locale })
   return {
-    title: `${character.name[locale as WikiLocale] || character.name['zh-CN']} - WIKI`,
+    title: `${t(`characters.${id}`)} - WIKI`,
     alternates: getAlternates(locale, `wiki/characters/${id}`),
   }
 }
@@ -35,9 +34,8 @@ export default async function WikiCharacterDetailPage({ params }: { params: Prom
   const detail = getCharacterWikiDetail(id)
   if (!character || !detail) notFound()
   const t = await getTranslations({ locale })
-  const currentLocale = locale as WikiLocale
-  const name = character.name[currentLocale] || character.name['zh-CN']
-  const label = (group: keyof WikiEnumLabels, value: string) => enums[group][value]?.[currentLocale] || enums[group][value]?.['zh-CN'] || value
+  const name = t(`characters.${id}`)
+  const label = (group: WikiEnumGroup, value: string) => t(`wikiData.enum|${group}|${value}`)
 
   return (
     <div className="flex min-h-0 flex-1 flex-col overflow-hidden">

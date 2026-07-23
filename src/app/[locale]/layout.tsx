@@ -3,6 +3,8 @@ import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
 import { routing } from '@/i18n/routing'
+import { loadMessages } from '@/i18n/load-messages'
+import type { WikiLocale } from '@/types/wiki'
 import { SidebarProvider } from '@/components/ui/sidebar'
 import { AppSidebar } from '@/components/app-sidebar'
 import { Background } from '@/components/background'
@@ -63,23 +65,7 @@ export default async function LocaleLayout({
   const siteUrl = DEFAULT_SITE_URL
   const t = await getTranslations({ locale })
 
-  const messages = (await import(`../../messages/${locale}.json`)).default
-  // Merge game content translations from auto-generated i18n files
-  const loadGameI18n = async (category: string) => {
-    try {
-      return (await import(`../../generated/i18n/${category}/${locale}.json`)).default
-    } catch { return {} }
-  }
-  messages.weapons = await loadGameI18n('weapons')
-  messages.equips = await loadGameI18n('equips')
-  messages.dungeons = await loadGameI18n('dungeons')
-  messages.weaponStats = await loadGameI18n('weaponStats')
-  messages.gemStats = await loadGameI18n('gemStats')
-  messages.equipStats = await loadGameI18n('equipStats')
-  messages.region = await loadGameI18n('regions')
-  messages.equipTypes = await loadGameI18n('equipTypes')
-  messages.materials = await loadGameI18n('materials')
-  messages.suits = await loadGameI18n('suits')
+  const messages = loadMessages(locale as WikiLocale)
 
   return (
     <>
