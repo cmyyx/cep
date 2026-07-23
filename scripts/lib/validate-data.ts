@@ -12,6 +12,8 @@ import { buildGemTableLookup, loadTextTable } from './stat-mapping'
 import { extractItemNameIds } from './extract-textid'
 import { WEAPON_TYPE_MAP } from './compare-weapons'
 import { buildAttrShowConfigs, resolveFormat, formatEquipStat } from './equip-stat-format'
+import { resolveWeaponStats } from './weapon-stats'
+import type { WeaponSkillPatchEntry } from './weapon-stats'
 import type { WikiAssets } from './wiki-assets'
 
 // ── Validation result ─────────────────────────────────────────────────────
@@ -26,16 +28,6 @@ export interface ValidationIssue {
 
 // ── Validate weapons ──────────────────────────────────────────────────────
 
-/** SkillPatchTable bundle type (lossless-json parsed). */
-interface SkillPatchBundle {
-  blackboard?: { key: string; value: number }[]
-  skillId: string
-  skillName: { id: string; text: string }
-}
-
-interface SkillPatchEntry {
-  SkillPatchDataBundle: SkillPatchBundle[]
-}
 
 export function validateWeapons(
   akedataPath: string,
@@ -43,122 +35,145 @@ export function validateWeapons(
 ): ValidationIssue[] {
   const issues: ValidationIssue[] = []
 
-  if (!existsSync(projectWeaponsTsPath)) return issues
+  if (!existsSync(projectWeaponsTsPath)) {
+    return [{
+      category: 'weapon',
+      id: projectWeaponsTsPath,
+      field: 'file',
+      expected: 'present',
+      actual: '<missing>',
+    }]
+  }
   const projectContent = readFileSync(projectWeaponsTsPath, 'utf-8')
 
-  const weaponRegex = /\{\s*id:\s*'([^']+)'(?:,\s*iconId:\s*'[^']*')?,\s*name:\s*'[^']*',\s*rarity:\s*\d+,\s*type:\s*'([^']*)',\s*primaryStat:\s*(?:'([^']*)'|(null)),\s*elementalDamage:\s*(?:'([^']*)'|(null)),\s*specialAbility:\s*(?:'([^']*)'|(null))/g
-  const projectWeapons = new Map<string, { type: string; primaryStat: string | null; elementalDamage: string | null; specialAbility: string | null }>()
+  const weaponRegex = /\{\s*id:\s*'([^']+)'(?:,\s*iconId:\s*'[^']*')?,\s*name:\s*'((?:\\.|[^'\\])*)',\s*rarity:\s*(\d+),\s*type:\s*'([^']*)',\s*primaryStat:\s*(?:'([^']*)'|(null)),\s*elementalDamage:\s*(?:'([^']*)'|(null)),\s*specialAbility:\s*(?:'([^']*)'|(null))/g
+  const projectWeapons = new Map<string, { name: string; rarity: number; type: string; primaryStat: string | null; elementalDamage: string | null; specialAbility: string | null }>()
   let m: RegExpExecArray | null
   while ((m = weaponRegex.exec(projectContent)) !== null) {
     projectWeapons.set(m[1], {
-      type: m[2],
-      primaryStat: m[4] ? null : m[3],
-      elementalDamage: m[6] ? null : m[5],
-      specialAbility: m[8] ? null : m[7],
+      name: m[2].replace(/\\(['\\])/g, '$1'),
+      rarity: Number(m[3]),
+      type: m[4],
+      primaryStat: m[6] ? null : m[5],
+      elementalDamage: m[8] ? null : m[7],
+      specialAbility: m[10] ? null : m[9],
     })
   }
 
   // Load WeaponBasicTable (all weapon metadata)
   const wpnBasicPath = join(akedataPath, 'TableCfg', 'WeaponBasicTable.json')
-  if (!existsSync(wpnBasicPath)) return issues
-  const wpnBasic = JSON.parse(readFileSync(wpnBasicPath, 'utf-8')) as Record<string, { weaponType?: number; weaponSkillList?: string[] }>
+  if (!existsSync(wpnBasicPath)) {
+    return [{
+      category: 'weapon',
+      id: 'WeaponBasicTable.json',
+      field: 'file',
+      expected: 'present',
+      actual: '<missing>',
+    }]
+  }
+  const wpnBasic = JSON.parse(readFileSync(wpnBasicPath, 'utf-8')) as Record<string, { rarity?: number; weaponType?: number; weaponSkillList?: string[] }>
 
   // Load SkillPatchTable (lossless-json for int64-safe skillName.id)
   const skillPatchPath = join(akedataPath, 'TableCfg', 'SkillPatchTable.json')
   const skillPatch = existsSync(skillPatchPath)
-    ? parseJsonSafe(skillPatchPath) as Record<string, SkillPatchEntry>
+    ? parseJsonSafe(skillPatchPath) as Record<string, WeaponSkillPatchEntry>
     : {}
 
-  // Blackboard key → gemTermId suffix (same as update-data-files.ts)
-  const BB_TO_SUFFIX: Record<string, string> = {
-    str: 'str', agi: 'agi', wisd: 'wisd', will: 'will', mainattr: 'main',
-    atk: 'atk', hp: 'hp', phydam: 'phydam',
-    firedam: 'firedam', electrondam: 'pulsedam', pulsedam: 'pulsedam',
-    icedam: 'icedam', crystdam: 'icedam',
-    naturaldam: 'naturaldam', crirate: 'crirate',
-    usp: 'usp', usgs: 'usp',
-    heal: 'heal', physpell: 'physpell', spelldam: 'magicdam',
-  }
-  const PRIMARY_KEYS = new Set(['str', 'agi', 'wisd', 'will', 'mainattr'])
-
-  // Build GemTable CN→gemTermId for special ability resolution
-  const { cnToGem } = buildGemTableLookup(akedataPath)
-
-  // Load CN TextTable for resolving skillName.id → CN text
+  const { cnToGem, tagToGem } = buildGemTableLookup(akedataPath)
   const cnTextTable = loadTextTable(akedataPath, 'zh-CN')
+  const weaponNameTextIds = extractItemNameIds(join(akedataPath, 'TableCfg', 'ItemTable.json'))
 
   // Iterate WeaponBasicTable entries (76 weapons)
   for (const [weaponId, wpnData] of Object.entries(wpnBasic)) {
+    const rarity = wpnData.rarity ?? 1
+    if (rarity < 3) continue
+
     const projectWeapon = projectWeapons.get(weaponId)
-    if (!projectWeapon) continue // Skip new weapons (handled elsewhere)
+    if (!projectWeapon) {
+      issues.push({ category: 'weapon', id: weaponId, field: 'record', expected: 'present', actual: '<missing>' })
+      continue
+    }
 
-    const skillIds = wpnData.weaponSkillList ?? []
+    const nameTextId = weaponNameTextIds[weaponId] ?? ''
+    const expectedName = nameTextId ? cnTextTable[nameTextId] : undefined
+    if (!expectedName) {
+      issues.push({
+        category: 'weapon',
+        id: weaponId,
+        field: 'upstreamName',
+        expected: 'localized name',
+        actual: '<missing>',
+      })
+    } else if (expectedName !== projectWeapon.name) {
+      issues.push({ category: 'weapon', id: weaponId, field: 'name', expected: expectedName, actual: projectWeapon.name })
+    }
+    if (rarity !== projectWeapon.rarity) {
+      issues.push({ category: 'weapon', id: weaponId, field: 'rarity', expected: String(rarity), actual: String(projectWeapon.rarity) })
+    }
 
-    // Validate weapon type (weaponType → project type name)
     const expectedType = wpnData.weaponType !== undefined ? WEAPON_TYPE_MAP[wpnData.weaponType] : undefined
-    if (expectedType && expectedType !== projectWeapon.type) {
+    if (!expectedType) {
+      issues.push({
+        category: 'weapon',
+        id: weaponId,
+        field: 'upstreamType',
+        expected: 'known weapon type',
+        actual: String(wpnData.weaponType ?? '<missing>'),
+      })
+    } else if (expectedType !== projectWeapon.type) {
       issues.push({ category: 'weapon', id: weaponId, field: 'type', expected: expectedType, actual: projectWeapon.type || '<empty>' })
     }
 
-    // Extract upstream stats (blackboard key → gemTermId)
-    let upstreamPrimaryStat = ''
-    let upstreamElementalDamage = ''
-    let upstreamSpecialAbility = ''
-    for (const skillId of skillIds) {
-      const entry = skillPatch[skillId]
-      if (!entry?.SkillPatchDataBundle?.[0]) continue
+    const upstream = resolveWeaponStats(
+      wpnData.weaponSkillList ?? [],
+      skillPatch,
+      tagToGem,
+      cnTextTable,
+      cnToGem,
+    )
+    if (upstream.unresolvedSkillIds.length > 0) {
+      issues.push({
+        category: 'weapon',
+        id: weaponId,
+        field: 'upstreamSkills',
+        expected: 'all weapon skills resolved',
+        actual: upstream.unresolvedSkillIds.join(', '),
+      })
+      continue
+    }
 
-      const bundle = entry.SkillPatchDataBundle[0]
-      const bbKey = bundle.blackboard?.[0]?.key
-
-      if (bbKey) {
-        const suffix = BB_TO_SUFFIX[bbKey]
-        if (suffix) {
-          const gemId = `gat_passive_attr_${suffix}`
-          if (PRIMARY_KEYS.has(bbKey)) {
-            if (!upstreamPrimaryStat) upstreamPrimaryStat = gemId
-          } else {
-            if (!upstreamElementalDamage) upstreamElementalDamage = gemId
-          }
-          continue
-        }
+    const compareField = (
+      field: 'primaryStat' | 'elementalDamage' | 'specialAbility',
+      expected: string | null,
+    ) => {
+      const actual = projectWeapon[field]
+      if (expected !== actual) {
+        issues.push({
+          category: 'weapon',
+          id: weaponId,
+          field,
+          expected: expected ?? '<empty>',
+          actual: actual ?? '<empty>',
+        })
       }
-
-      // Special ability: resolve skillName.id → CN text → cnToGem
-      const skillTextId = bundle.skillName?.id
-      if (skillTextId) {
-        const cnName = cnTextTable[skillTextId]
-        if (cnName) {
-          const idx = cnName.indexOf('·')
-          const baseName = idx === -1 ? cnName : cnName.slice(0, idx)
-          const gemId = cnToGem[baseName]
-          if (gemId && !upstreamSpecialAbility) upstreamSpecialAbility = gemId
-        }
-      }
-
     }
 
-    // Compare
-    if (upstreamPrimaryStat && upstreamPrimaryStat !== projectWeapon.primaryStat) {
-      issues.push({ category: 'weapon', id: weaponId, field: 'primaryStat', expected: upstreamPrimaryStat, actual: projectWeapon.primaryStat || '<empty>' })
-    } else if (!upstreamPrimaryStat && projectWeapon.primaryStat) {
-      issues.push({ category: 'weapon', id: weaponId, field: 'primaryStat', expected: '<empty>', actual: projectWeapon.primaryStat })
-    } else if (upstreamPrimaryStat && !projectWeapon.primaryStat) {
-      issues.push({ category: 'weapon', id: weaponId, field: 'primaryStat', expected: upstreamPrimaryStat, actual: '<empty>' })
-    }
-    if (upstreamElementalDamage && upstreamElementalDamage !== projectWeapon.elementalDamage) {
-      issues.push({ category: 'weapon', id: weaponId, field: 'elementalDamage', expected: upstreamElementalDamage, actual: projectWeapon.elementalDamage || '<empty>' })
-    } else if (!upstreamElementalDamage && projectWeapon.elementalDamage) {
-      issues.push({ category: 'weapon', id: weaponId, field: 'elementalDamage', expected: '<empty>', actual: projectWeapon.elementalDamage })
-    } else if (upstreamElementalDamage && !projectWeapon.elementalDamage) {
-      issues.push({ category: 'weapon', id: weaponId, field: 'elementalDamage', expected: upstreamElementalDamage, actual: '<empty>' })
-    }
-    if (upstreamSpecialAbility && upstreamSpecialAbility !== projectWeapon.specialAbility) {
-      issues.push({ category: 'weapon', id: weaponId, field: 'specialAbility', expected: upstreamSpecialAbility, actual: projectWeapon.specialAbility || '<empty>' })
-    } else if (!upstreamSpecialAbility && projectWeapon.specialAbility) {
-      issues.push({ category: 'weapon', id: weaponId, field: 'specialAbility', expected: '<empty>', actual: projectWeapon.specialAbility })
-    } else if (upstreamSpecialAbility && !projectWeapon.specialAbility) {
-      issues.push({ category: 'weapon', id: weaponId, field: 'specialAbility', expected: upstreamSpecialAbility, actual: '<empty>' })
+    compareField('primaryStat', upstream.primaryStat)
+    compareField('elementalDamage', upstream.elementalDamage)
+    compareField('specialAbility', upstream.specialAbility)
+  }
+
+  for (const weaponId of projectWeapons.keys()) {
+    if (weaponId.startsWith('preview:')) continue
+    const upstream = wpnBasic[weaponId]
+    if (!upstream || (upstream.rarity ?? 1) < 3) {
+      issues.push({
+        category: 'weapon',
+        id: weaponId,
+        field: 'record',
+        expected: '<absent>',
+        actual: 'present',
+      })
     }
   }
 

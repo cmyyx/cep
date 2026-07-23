@@ -114,6 +114,8 @@ async function main() {
     if (!local) { console.error('  Exiting.\n'); process.exit(1) }
   }
 
+  const projectRoot = resolve(join(import.meta.dirname ?? __dirname, '..'))
+
   // SHA check (skip for local mode or icons-only)
   if (!local && !iconsOnly) {
     const versions = readUpstreamVersions()
@@ -123,24 +125,42 @@ async function main() {
       akedata: currentAkedata,
       imagedb: currentImagedb,
     })) {
-      // SHA matches, but still verify image integrity — a previous sync may
-      // have committed data without generating the corresponding images
-      // (e.g. sparse-checkout was missing the image source directory).
-      const projectRoot = resolve(join(import.meta.dirname ?? __dirname, '..'))
+      // A matching upstream SHA is not sufficient: project data can still be
+      // stale or manually corrupted. Validate both data and generated images
+      // before taking the fast path.
+      const dataIssues = validateAllData(paths.akedata, projectRoot)
+      const iconIssues = reconcileWeaponsIconIds(
+        join(projectRoot, 'src', 'data', 'weapons.ts'),
+        paths.akedata,
+        true,
+      ).issues
       const missingImages = validateImages(projectRoot)
-      if (missingImages.length === 0) {
+      if (dataIssues.length === 0 && iconIssues.length === 0 && missingImages.length === 0) {
         console.log('\n  Up to date.\n')
         process.exit(0)
       }
-      console.log(`\n  SHA matches but ${missingImages.length} image(s) missing — re-sync needed:`)
-      for (const img of missingImages) console.log(`    ${img}`)
-      if (mode === 'check') { process.exit(2) }
-      // update mode: fall through to full sync
+      if (dataIssues.length > 0) {
+        console.log(`\n  SHA matches but ${dataIssues.length} data inconsistency found — re-sync needed:`)
+        for (const issue of dataIssues) {
+          console.log(`    [${issue.category}] ${issue.id}.${issue.field}: expected "${issue.expected}", got "${issue.actual}"`)
+        }
+      }
+      if (iconIssues.length > 0) {
+        console.log(`\n  SHA matches but ${iconIssues.length} weapon icon inconsistency found — re-sync needed:`)
+        for (const issue of iconIssues) {
+          console.log(`    [icon] ${issue.weaponId}: expected "${issue.expected}", got "${issue.actual || '<none>'}"`)
+        }
+      }
+      if (missingImages.length > 0) {
+        console.log(`\n  SHA matches but ${missingImages.length} image(s) missing — re-sync needed:`)
+        for (const img of missingImages) console.log(`    ${img}`)
+      }
+      if (mode === 'check') process.exit(2)
+      // update mode: fall through to full reconciliation
     }
-    if (mode === 'check') { process.exit(2) }
+    if (mode === 'check') process.exit(2)
   }
 
-  const projectRoot = resolve(join(import.meta.dirname ?? __dirname, '..'))
   const generatedRoot = join(projectRoot, 'src', 'generated', 'i18n')
   mkdirSync(generatedRoot, { recursive: true })
 
@@ -186,14 +206,10 @@ async function main() {
     }
   }
   if (mode === 'update') {
-    const promotedFormalIds = new Set(previewResult.updatable.map(p => p.formalId))
-    const newWeaponIds = wpnResult.entries
-      .filter(w => w.isNew && w.rarity >= 3 && !promotedFormalIds.has(w.weaponId))
-      .map(w => w.weaponId)
-    if (newWeaponIds.length > 0) {
-      const updated = updateWeaponsFile(weaponsTsPath, newWeaponIds, paths.akedata)
-      console.log(`  Updated: ${updated} weapons added to weapons.ts`)
-    }
+    const weaponSync = updateWeaponsFile(weaponsTsPath, paths.akedata)
+    console.log(
+      `  Reconciled weapons: ${weaponSync.added} added, ${weaponSync.updated} updated, ${weaponSync.unchanged} unchanged`,
+    )
     const iconIdFix = reconcileWeaponsIconIds(weaponsTsPath, paths.akedata, false)
     if (iconIdFix.added > 0 || iconIdFix.updated > 0) {
       console.log(`  iconId reconciled: ${iconIdFix.added} added, ${iconIdFix.updated} updated, ${iconIdFix.unchanged} unchanged`)
@@ -278,14 +294,25 @@ async function main() {
   console.log('\n-- Validation --')
   const validationIssues = validateAllData(paths.akedata, projectRoot)
   if (validationIssues.length > 0) {
-    console.log(`  Found ${validationIssues.length} data inconsistency:`)
+    console.error(`  Found ${validationIssues.length} data inconsistency:`)
     for (const issue of validationIssues) {
-      console.log(`  [${issue.category}] ${issue.id}.${issue.field}: expected "${issue.expected}", got "${issue.actual}"`)
+      console.error(`  [${issue.category}] ${issue.id}.${issue.field}: expected "${issue.expected}", got "${issue.actual}"`)
     }
+    console.error('\n  Data reconciliation incomplete. Refusing to mark this sync as successful.')
+    process.exit(mode === 'check' ? 2 : 1)
   } else {
     console.log(`  All data consistent with upstream`)
   }
 
+  const finalIconIssues = reconcileWeaponsIconIds(weaponsTsPath, paths.akedata, true).issues
+  if (finalIconIssues.length > 0) {
+    console.error(`  Found ${finalIconIssues.length} unresolved weapon icon inconsistency:`)
+    for (const issue of finalIconIssues) {
+      console.error(`  [weapon-icon] ${issue.weaponId}: expected "${issue.expected}", got "${issue.actual || '<none>'}"`)
+    }
+    console.error('\n  Weapon icon reconciliation incomplete. Refusing to mark this sync as successful.')
+    process.exit(mode === 'check' ? 2 : 1)
+  }
   // Generate every image declared by the Wiki asset manifest before validation.
   // Skland character scrape is best-effort: if it fails (browser missing,
   // network error, Skland layout change), keep the existing character images

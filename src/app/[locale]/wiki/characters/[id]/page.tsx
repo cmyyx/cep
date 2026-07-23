@@ -49,6 +49,7 @@ export default async function WikiCharacterDetailPage({ params }: { params: Prom
         { id: 'overview', label: t('wiki.overview') },
         { id: 'level-data', label: t('wiki.levelData') },
         ...(detail.attributeNodes.length > 0 ? [{ id: 'attribute-nodes', label: t('wiki.attributeNodes') }] : []),
+        ...(detail.equipmentNodes.length > 0 ? [{ id: 'equipment-nodes', label: t('wikiData.ui|equipmentAdaptation') }] : []),
         { id: 'skills', label: t('wiki.skills') },
         { id: 'talents', label: t('wiki.talents') },
         { id: 'potentials', label: t('wiki.potentials') },

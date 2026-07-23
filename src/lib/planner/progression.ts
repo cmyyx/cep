@@ -1,4 +1,5 @@
 import { plannerGameData } from '@/generated/data/planner'
+import { PLANNER_RESOURCE_IDS } from '@/lib/planner-resource-ids'
 import type {
   FarmingEstimate,
   GrowthCalculationResult,
@@ -14,10 +15,7 @@ import type {
   PlannerMaterialTuple,
 } from '@/types/planner'
 
-const GOLD_ID = 'item_gold'
-const STAGE_ONE_EXP_ID = 'item_expcard_stage1_high'
-const STAGE_TWO_EXP_ID = 'item_expcard_stage2_high'
-const WEAPON_EXP_ID = 'item_weapon_expcard_high'
+const { gold: GOLD_ID, stageOneExp: STAGE_ONE_EXP_ID, stageTwoExp: STAGE_TWO_EXP_ID, weaponExp: WEAPON_EXP_ID } = PLANNER_RESOURCE_IDS
 
 type CorePanelStatKey = keyof Pick<PanelStats, 'strength' | 'agility' | 'intellect' | 'will' | 'hp' | 'defense' | 'attack'>
 
@@ -373,20 +371,34 @@ function addDerivedAttributes(stats: PanelStats, contributions: PanelAttributeCo
   const damageReduction = 1 - 1 / (1 + derived.efficiencyOfDEF * stats.defense)
   if (damageReduction > 0) contributions.push({ source: 'defense', target: 'defenseDamageReduction', value: damageReduction * 100, isPercent: true })
 }
+function createEmptyPanelStats(): PanelStats {
+  return { strength: 0, agility: 0, intellect: 0, will: 0, hp: 0, defense: 0, attack: 0, modifiers: [], attributeContributions: [], setEffects: [] }
+}
 
 export function calculatePanelStats(config: PanelPreviewConfig): PanelStats {
   const character = characters[config.characterId]
-  const baseLevel = character?.levels.find((entry) => entry.level === config.level) ?? character?.levels.at(-1)
-  const stats: PanelStats = { strength: 0, agility: 0, intellect: 0, will: 0, hp: 0, defense: 0, attack: 0, modifiers: [], attributeContributions: [], setEffects: [] }
+  if (!character) return createEmptyPanelStats()
+  const baseLevel = character.levels.find((entry) => entry.level === config.level) ?? character.levels.at(-1)
+  const stats = createEmptyPanelStats()
   const percentages: Partial<Record<CorePanelStatKey, number>> = {}
   const modifiers = new Map<string, PanelStatModifier>()
   for (const stat of baseLevel?.stats ?? []) {
     const key = CORE_KEY_BY_ID[stat.attributeId]
     if (key) stats[key] = stat.value
   }
-  const attributeCount = clamp(config.attributeNodeCount, 0, character?.attributeNodes.length ?? 0)
-  for (const node of character?.attributeNodes.slice(0, attributeCount) ?? []) {
+  const attributeCount = clamp(config.attributeNodeCount, 0, character.attributeNodes.length)
+  for (const node of character.attributeNodes.slice(0, attributeCount)) {
     for (const stat of node.stats) applyCoreValue(stats, percentages, stat.attributeId, stat.value, false)
+  }
+  const potentialLevel = clamp(config.potentialLevel, 0, character.potentials.at(-1)?.level ?? 0)
+  for (const potential of character.potentials) {
+    if (potential.level > potentialLevel) continue
+    for (const stat of potential.stats) {
+      const value = stat.isPercent ? Math.abs(stat.value * 100) : stat.value
+      if (!applyCoreValue(stats, percentages, stat.attributeId, value, stat.isPercent)) {
+        addModifier(modifiers, stat.attributeId, value, stat.isPercent)
+      }
+    }
   }
   const selectedEquipment = [config.armor, config.gloves, config.accessoryOne, config.accessoryTwo]
   for (const item of selectedEquipment) addEquipmentStats(stats, percentages, modifiers, character, item.equipmentId, item.statLevels ?? [])
@@ -425,9 +437,4 @@ export function calculatePanelStats(config: PanelPreviewConfig): PanelStats {
   return stats
 }
 
-export const PLANNER_RESOURCE_IDS = {
-  gold: GOLD_ID,
-  stageOneExp: STAGE_ONE_EXP_ID,
-  stageTwoExp: STAGE_TWO_EXP_ID,
-  weaponExp: WEAPON_EXP_ID,
-} as const
+export { PLANNER_RESOURCE_IDS }

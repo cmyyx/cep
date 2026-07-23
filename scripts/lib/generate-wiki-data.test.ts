@@ -1,5 +1,11 @@
 import { expect, it } from 'vitest'
 import { buildPlannerWikiPreviews, buildWikiGlossary, mergeAttributeMapLabels } from './generate-wiki-data'
+import { wikiEquipmentPlannerPreviews } from '../../src/generated/data/wiki/planner-previews'
+import attributes from '../../src/generated/data/wiki/enums.json'
+import equipStatsEn from '../../src/generated/i18n/equipStats/en.json'
+import equipStatsJa from '../../src/generated/i18n/equipStats/ja.json'
+import equipStatsZhCN from '../../src/generated/i18n/equipStats/zh-CN.json'
+import equipStatsZhTW from '../../src/generated/i18n/equipStats/zh-TW.json'
 import type { ItemWikiData } from './build-item-wiki'
 
 it('merges complete four-locale attribute maps for attributes absent from display config', () => {
@@ -67,4 +73,14 @@ it('derives compact planner previews from Wiki detail data', () => {
     weapons: { wpn_test: { stats: [{ levelOne: localized('level one'), maxLevel: localized('max'), levelOneLabel: 'Lv.1', maxLevelLabel: 'Lv.9' }] } },
     equipment: { equip_test: { stats: [{ attributeId: '39', levelOne: '1', maxLevel: '2', levelOneLabel: '+0', maxLevelLabel: '+1' }] } },
   })
+})
+
+it('provides a localized label for every generated equipment preview stat', () => {
+  const ids = new Set(Object.values(wikiEquipmentPlannerPreviews).flatMap((preview) => preview.stats.map((stat) => stat.attributeId)))
+  const localeStats = { en: equipStatsEn, ja: equipStatsJa, 'zh-CN': equipStatsZhCN, 'zh-TW': equipStatsZhTW }
+  const attributeLabels = (attributes as { attributes: Record<string, unknown> }).attributes
+  for (const [locale, stats] of Object.entries(localeStats)) {
+    const missing = [...ids].filter((id) => !(id in stats) && !(id in attributeLabels))
+    expect(missing, `Missing equipment stat labels for ${locale}`).toEqual([])
+  }
 })

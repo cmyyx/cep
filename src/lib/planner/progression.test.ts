@@ -115,6 +115,7 @@ describe('panel preview', () => {
       level: 1,
       skillLevels: character.skills.map((skill) => skill.maxLevel),
       talentCount: character.talents.length,
+      potentialLevel: character.potentials.at(-1)?.level ?? 0,
       attributeNodeCount: character.attributeNodes.length,
       weaponId: null,
       weaponLevel: 90,
@@ -131,6 +132,47 @@ describe('panel preview', () => {
     expect(levelMax.hp).toBeGreaterThan(levelOne.hp)
     expect(levelMax.attack).toBeGreaterThan(levelOne.attack)
   })
+  it('applies fixed character potential stats to the panel', () => {
+    const characterId = 'chr_0018_dapan'
+    const character = plannerGameData.characters[characterId]
+    const base: PanelPreviewConfig = {
+      characterId,
+      level: 90,
+      skillLevels: character.skills.map((skill) => skill.maxLevel),
+      talentCount: character.talents.length,
+      potentialLevel: 0,
+      attributeNodeCount: character.attributeNodes.length,
+      weaponId: null,
+      weaponLevel: 90,
+      weaponSkillLevels: [1, 1, 1],
+      armor: emptyEquipment(),
+      gloves: emptyEquipment(),
+      accessoryOne: emptyEquipment(),
+      accessoryTwo: emptyEquipment(),
+    }
+    const withoutPotential = calculatePanelStats(base)
+    const withPotential = calculatePanelStats({ ...base, potentialLevel: 3 })
+    expect(withPotential.strength - withoutPotential.strength).toBe(15)
+    expect(withPotential.modifiers).toEqual(expect.arrayContaining([expect.objectContaining({ id: '50', value: 8, isPercent: true })]))
+  })
+  it('returns empty panel stats for an unknown character', () => {
+    const config: PanelPreviewConfig = {
+      characterId: 'missing',
+      level: 1,
+      skillLevels: [],
+      talentCount: 0,
+      potentialLevel: 0,
+      attributeNodeCount: 0,
+      weaponId: null,
+      weaponLevel: 1,
+      weaponSkillLevels: [],
+      armor: emptyEquipment(),
+      gloves: emptyEquipment(),
+      accessoryOne: emptyEquipment(),
+      accessoryTwo: emptyEquipment(),
+    }
+    expect(calculatePanelStats(config)).toEqual({ strength: 0, agility: 0, intellect: 0, will: 0, hp: 0, defense: 0, attack: 0, modifiers: [], attributeContributions: [], setEffects: [] })
+  })
 
   it('keeps attribute contributions separate from weapon and equipment modifiers', () => {
     const character = plannerGameData.characters[characterId]
@@ -142,6 +184,7 @@ describe('panel preview', () => {
       level: 90,
       skillLevels: character.skills.map((skill) => skill.maxLevel),
       talentCount: character.talents.length,
+      potentialLevel: character.potentials.at(-1)?.level ?? 0,
       attributeNodeCount: character.attributeNodes.length,
       weaponId: null,
       weaponLevel: 90,
@@ -170,6 +213,7 @@ describe('panel preview', () => {
       level: 90,
       skillLevels: character.skills.map((skill) => skill.maxLevel),
       talentCount: character.talents.length,
+      potentialLevel: character.potentials.at(-1)?.level ?? 0,
       attributeNodeCount: character.attributeNodes.length,
       weaponId: null,
       weaponLevel: 90,
@@ -194,6 +238,7 @@ describe('panel preview', () => {
       level: 90,
       skillLevels: character.skills.map((skill) => skill.maxLevel),
       talentCount: character.talents.length,
+      potentialLevel: character.potentials.at(-1)?.level ?? 0,
       attributeNodeCount: character.attributeNodes.length,
       weaponId: null,
       weaponLevel: 90,
@@ -218,6 +263,7 @@ describe('panel preview', () => {
       level: 90,
       skillLevels: character.skills.map((skill) => skill.maxLevel),
       talentCount: character.talents.length,
+      potentialLevel: character.potentials.at(-1)?.level ?? 0,
       attributeNodeCount: character.attributeNodes.length,
       weaponId: null,
       weaponLevel: 90,
@@ -244,6 +290,7 @@ describe('panel preview', () => {
       level: 90,
       skillLevels: character.skills.map((skill) => skill.maxLevel),
       talentCount: character.talents.length,
+      potentialLevel: character.potentials.at(-1)?.level ?? 0,
       attributeNodeCount: character.attributeNodes.length,
       weaponId: null,
       weaponLevel: 90,

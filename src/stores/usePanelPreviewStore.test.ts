@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it } from 'vitest'
 import { plannerGameData } from '@/generated/data/planner'
-import { createDefaultPanelPreviewConfig, createPanelEquipmentSelection, usePanelPreviewStore } from './usePanelPreviewStore'
+import { createDefaultPanelPreviewConfig, createPanelEquipmentSelection, normalizePersistedPanelConfig, usePanelPreviewStore } from './usePanelPreviewStore'
 
 const characterIds = Object.keys(plannerGameData.characters)
 
@@ -15,7 +15,7 @@ describe('usePanelPreviewStore', () => {
     expect(config.level).toBe(character.levels.at(-1)?.level)
     expect(config.skillLevels).toEqual(character.skills.map((skill) => skill.maxLevel))
     expect(config.attributeNodeCount).toBe(character.attributeNodes.length)
-    expect(config.armor.statLevels).toEqual([])
+    expect(config.potentialLevel).toBe(character.potentials.at(-1)?.level ?? 0)
   })
 
   it('defaults every selected equipment affix to its maximum level', () => {
@@ -35,9 +35,22 @@ describe('usePanelPreviewStore', () => {
   it('resets the active character to full progress', () => {
     const characterId = characterIds[0]
     usePanelPreviewStore.getState().setCharacter(characterId)
-    usePanelPreviewStore.getState().updateConfig({ level: 1, attributeNodeCount: 0 })
+    usePanelPreviewStore.getState().updateConfig({ level: 1, attributeNodeCount: 0, potentialLevel: 0 })
     usePanelPreviewStore.getState().reset()
 
     expect(usePanelPreviewStore.getState().config).toEqual(createDefaultPanelPreviewConfig(characterId))
+  })
+
+  it('drops an invalid persisted character and clears invalid equipment IDs', () => {
+    expect(normalizePersistedPanelConfig({ characterId: 'missing' })).toBeNull()
+    const characterId = characterIds[0]
+    const config = normalizePersistedPanelConfig({
+      ...createDefaultPanelPreviewConfig(characterId),
+      potentialLevel: 99,
+      armor: { equipmentId: 'missing', statLevels: [9] },
+    })
+
+    expect(config?.potentialLevel).toBe(plannerGameData.characters[characterId].potentials.at(-1)?.level ?? 0)
+    expect(config?.armor).toEqual(createPanelEquipmentSelection(null))
   })
 })

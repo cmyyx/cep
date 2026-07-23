@@ -11,14 +11,19 @@ describe('weapons data', () => {
     expect(new Set(ids).size).toBe(ids.length)
   })
 
-  it('every weapon has required fields and only three-star weapons omit S3', () => {
+  it('every weapon has required fields and only three-star weapons omit their elemental slot', () => {
     for (const weapon of weapons) {
       expect(weapon.id).toBeTruthy()
       expect(weapon.name).toBeTruthy()
       expect(weapon.type).toBeTruthy()
       expect(weapon.primaryStat).toBeTruthy()
-      expect(weapon.elementalDamage).toBeTruthy()
-      expect(weapon.rarity === 3 ? weapon.specialAbility : Boolean(weapon.specialAbility)).toBe(weapon.rarity === 3 ? null : true)
+      if (weapon.rarity === 3) {
+        expect(weapon.elementalDamage).toBeNull()
+        expect(weapon.specialAbility).toBeTruthy()
+      } else {
+        expect(weapon.elementalDamage).toBeTruthy()
+        expect(weapon.specialAbility).toBeTruthy()
+      }
     }
   })
 

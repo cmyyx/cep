@@ -11,6 +11,7 @@ import { RarityFrame } from '@/components/shared/rarity-frame'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
 import { sortWikiEntities } from '@/components/wiki/wiki-entity-grid'
 import { useWikiTranslations } from '@/hooks/use-wiki-translations'
+import { PLANNER_SELECTED_BADGE_CLASS, PLANNER_SELECTED_RING_CLASS } from '@/lib/planner-selection-styles'
 import { cn } from '@/lib/utils'
 import type { WikiEntitySummary, WikiEnumGroup, WikiLocale } from '@/types/wiki'
 
@@ -52,15 +53,20 @@ export function WikiEntityPicker({ title, entities, imageBasePath, selectedIds, 
   const selected = useMemo(() => new Set(selectedIds), [selectedIds])
   const filterValues = useMemo(() => Object.fromEntries(filters.map((filter) => {
     const values = [...new Set(entities.map((entity) => filterValue(entity, filter.field)).filter(Boolean))]
-    values.sort((left, right) => filter.field === 'rarity' ? Number(right) - Number(left) : left.localeCompare(right))
+    values.sort((left, right) => {
+      if (filter.field === 'rarity') return Number(right) - Number(left)
+      const leftLabel = filter.enumGroup ? generatedEnumLabel(filter.enumGroup, left) : left
+      const rightLabel = filter.enumGroup ? generatedEnumLabel(filter.enumGroup, right) : right
+      return leftLabel.localeCompare(rightLabel, locale)
+    })
     return [filter.field, values]
-  })), [entities, filters])
+  })), [entities, filters, generatedEnumLabel, locale])
   const filtered = useMemo(() => {
     const term = search.trim().toLocaleLowerCase(locale)
     return sortWikiEntities(
       entities.filter((entity) => {
         const name = entityName(entity)
-        if (term && !name.toLocaleLowerCase(locale).includes(term) && !entity.id.toLocaleLowerCase().includes(term)) return false
+        if (term && !name.toLocaleLowerCase(locale).includes(term) && !entity.id.toLocaleLowerCase(locale).includes(term)) return false
         return Object.entries(activeFilters).every(([field, values]) => values.length === 0 || values.includes(filterValue(entity, field as EntityPickerFilterField)))
       }),
       locale,
@@ -70,8 +76,8 @@ export function WikiEntityPicker({ title, entities, imageBasePath, selectedIds, 
   }, [activeFilters, entities, entityName, locale, search])
   const activeCount = Object.values(activeFilters).reduce((count, values) => count + values.length, 0)
   const enumLabel = (group: WikiEnumGroup | undefined, value: string) => group ? generatedEnumLabel(group, value) : value
-  const selectedRingClass = selectionTone === 'amber' ? 'ring-2 ring-amber-400' : selectionTone === 'preview' ? 'ring-2 ring-preview-pink' : 'ring-2 ring-develop-blue'
-  const selectedBadgeClass = selectionTone === 'amber' ? 'bg-amber-400 text-black' : selectionTone === 'preview' ? 'bg-preview-pink text-white' : 'bg-develop-blue text-white'
+  const selectedRingClass = selectionTone === 'amber' ? PLANNER_SELECTED_RING_CLASS : selectionTone === 'preview' ? 'ring-2 ring-preview-pink' : 'ring-2 ring-develop-blue'
+  const selectedBadgeClass = selectionTone === 'amber' ? PLANNER_SELECTED_BADGE_CLASS : selectionTone === 'preview' ? 'bg-preview-pink text-white' : 'bg-develop-blue text-white'
 
   return (
     <section className={cn('flex min-h-0 flex-col gap-3', className)}>
@@ -108,11 +114,11 @@ export function WikiEntityPicker({ title, entities, imageBasePath, selectedIds, 
           )}
         </div>
       )}
-      <div className={cn('grid grid-cols-[repeat(auto-fill,minmax(6.5rem,1fr))] gap-2', gridClassName)}>
+      <div className={cn('grid content-start items-start grid-cols-[repeat(auto-fill,minmax(6.5rem,1fr))] gap-2', gridClassName)}>
         {filtered.map((entity) => {
           const name = entityName(entity)
           const isSelected = selected.has(entity.id)
-          const card = <Button key={entity.id} type="button" variant="ghost" size="card" aria-pressed={isSelected} aria-label={name} onClick={() => onSelect(entity)} className={cn('relative h-auto min-w-0 rounded-lg p-0 shadow-[var(--shadow-border)]', isSelected && selectedRingClass)}>
+          const card = <Button key={entity.id} type="button" variant="ghost" size="card" aria-pressed={isSelected} aria-label={name} onClick={() => onSelect(entity)} className={cn('relative h-auto min-w-0 self-start rounded-lg p-0 shadow-[var(--shadow-border)]', isSelected && selectedRingClass)}>
             <RarityFrame imageSrc={`${imageBasePath}/${entity.imageId}.avif`} backgroundSrc={entity.category === 'characters' ? '/images/character-frame-bg.png' : undefined} title={name} rarity={entity.rarity} imageClassName={entity.category === 'weapons' ? 'object-contain p-3' : 'object-cover'} className={cn('w-full rounded-lg shadow-none', entity.category === 'characters' && 'aspect-[38/47]')} badges={isSelected ? <span className={cn('flex size-5 items-center justify-center rounded-full', selectedBadgeClass)}><Check className="size-3" /></span> : undefined} badgeClassName="left-auto right-1.5 top-1.5" />
           </Button>
           const tooltip = renderTooltip?.(entity)

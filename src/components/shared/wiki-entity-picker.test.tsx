@@ -8,10 +8,15 @@ import type { WikiCharacterSummary } from '@/types/wiki'
 vi.mock('next-intl', () => ({
   useLocale: () => 'zh-CN',
   useTranslations: (namespace?: string) => {
-    const translate = (key: string) => namespace === 'characters'
-      ? ({ high: '高星', low: '低星', one: '佩丽卡', two: '陈千语' }[key] ?? key)
-      : key
-    translate.has = () => true
+    const values = namespace === 'characters'
+      ? { high: '高星', low: '低星', one: '佩丽卡', two: '陈千语' }
+      : namespace === 'wikiData'
+        ? { 'enum|elements|Physical': '物理', 'enum|elements|Natural': '自然' }
+        : {}
+    const translate = Object.assign((key: string) => values[key as keyof typeof values] ?? key, {
+      has: (key: string) => key in values,
+      raw: (key: string) => values[key as keyof typeof values] ?? key,
+    })
     return translate
   },
 }))
@@ -40,6 +45,9 @@ it('uses Wiki rarity sorting and graphical entity cards', () => {
   expect(high.compareDocumentPosition(low) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy()
   expect(high.getAttribute('aria-pressed')).toBe('true')
   expect(screen.getAllByTestId('rarity-frame')).toHaveLength(2)
+  expect(high.className).toContain('self-start')
+  expect(high.parentElement?.className).toContain('content-start')
+  expect(high.parentElement?.className).toContain('items-start')
 })
 
 it('filters the graphical list by localized name', () => {
@@ -47,6 +55,15 @@ it('filters the graphical list by localized name', () => {
   fireEvent.change(screen.getByRole('textbox', { name: 'wiki.searchPlaceholder' }), { target: { value: '佩丽卡' } })
   expect(screen.getByRole('button', { name: '佩丽卡' })).toBeTruthy()
   expect(screen.queryByRole('button', { name: '陈千语' })).toBeNull()
+})
+
+it('sorts enum filter chips by their localized labels', () => {
+  const entities = [character('physical', '物理', 5), { ...character('natural', '自然', 5), elementId: 'Natural' }]
+  render(<WikiEntityPicker title="干员" entities={entities} imageBasePath="/images/characters" selectedIds={[]} onSelect={() => undefined} filters={[{ field: 'elementId', labelKey: 'wiki.filter.element', enumGroup: 'elements' }]} />)
+  fireEvent.click(screen.getByRole('button', { name: 'wiki.filterToggle' }))
+  const natural = screen.getByRole('button', { name: '自然' })
+  const physical = screen.getByRole('button', { name: '物理' })
+  expect(physical.compareDocumentPosition(natural) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy()
 })
 
 it('applies the requested selection tone and enables tooltip interaction', () => {

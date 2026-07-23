@@ -842,12 +842,6 @@ export function CharacterDetailContent({
   )
 }
 
-function attributeLabel(attributeId: string, locale: WikiLocale, translate: (key: string) => string, hasTranslation: (key: string) => boolean) {
-  if (attributeId === 'baseAttack') return translate('wiki.baseAttack')
-  if (hasTranslation(`equipStats.${attributeId}`)) return translate(`equipStats.${attributeId}`)
-  const attributes = (wikiEnums as { attributes: Record<string, LocalizedText> }).attributes
-  return localized(attributes[attributeId] ?? { 'zh-CN': attributeId, en: attributeId, ja: attributeId, 'zh-TW': attributeId }, locale)
-}
 
 function WeaponLevelTable({ detail }: { detail: WikiWeaponDetail }) {
   const t = useTranslations()
@@ -955,6 +949,7 @@ function statValues(values: Array<string | number>) {
 export function EquipmentDetailContent({ detail, name, rarity, imageId, meta }: { detail: WikiEquipmentDetail; name: string; rarity: number; imageId: string; meta: React.ReactNode }) {
   const t = useTranslations()
   const locale = useLocale() as WikiLocale
+  const { equipmentStatLabel } = useWikiTranslations()
   return (
     <>
       <WikiDetailHero name={name} rarity={rarity} imagePath={`/images/equip/${imageId}.avif`} meta={meta} />
@@ -974,7 +969,7 @@ export function EquipmentDetailContent({ detail, name, rarity, imageId, meta }: 
                 const spans = getAdjacentSpans(values)
                 return (
                   <TableRow key={stat.attributeId}>
-                    <TableCell>{attributeLabel(stat.attributeId, locale, t, t.has)}</TableCell>
+                    <TableCell>{stat.attributeId === 'baseAttack' ? t('wiki.baseAttack') : equipmentStatLabel(stat.attributeId)}</TableCell>
                     {values.map((value, level) => spans[level] > 0 ? (
                       <TableCell key={level} colSpan={spans[level]} className="text-center align-middle font-geist-mono">{value}</TableCell>
                     ) : null)}

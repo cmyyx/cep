@@ -16,6 +16,13 @@ export interface NumberFieldProps {
 
 export function NumberField({ value, minimum, maximum, ariaLabel, onValueChange, className, disabled }: NumberFieldProps) {
   const [draft, setDraft] = useState<string | null>(null)
+  const commitDraft = () => {
+    const numeric = Number(draft)
+    if (draft !== null && draft !== '' && Number.isFinite(numeric)) {
+      onValueChange(Math.min(maximum, Math.max(minimum, numeric)))
+    }
+    setDraft(null)
+  }
 
   return (
     <Input
@@ -27,14 +34,13 @@ export function NumberField({ value, minimum, maximum, ariaLabel, onValueChange,
       disabled={disabled}
       aria-label={ariaLabel}
       className={cn('font-mono tabular-nums', className)}
-      onChange={(event) => {
-        const next = event.target.value
-        setDraft(next)
-        if (next === '') return
-        const numeric = Number(next)
-        if (Number.isFinite(numeric)) onValueChange(Math.min(maximum, Math.max(minimum, numeric)))
+      onChange={(event) => setDraft(event.target.value)}
+      onBlur={commitDraft}
+      onKeyDown={(event) => {
+        if (event.key !== 'Enter') return
+        event.preventDefault()
+        commitDraft()
       }}
-      onBlur={() => setDraft(null)}
     />
   )
 }

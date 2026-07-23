@@ -4,7 +4,9 @@ import type { CharacterWikiData } from './build-character-wiki'
 import type { ItemWikiData } from './build-item-wiki'
 import { localizeWikiText, type TextRef } from './wiki-builder-utils'
 import { loadAllTextTables } from './stat-mapping'
+import { buildAttrShowConfigs } from './equip-stat-format'
 import { parseJsonSafe } from './json-utils'
+import { PLANNER_RESOURCE_IDS } from '../../src/lib/planner-resource-ids'
 import type { PlannerGameData, PlannerMaterialTuple, PlannerMaterialData } from '../../src/types/planner'
 
 interface CharacterLevelUpRow { exp?: number | string; gold?: number | string }
@@ -26,17 +28,34 @@ interface DungeonSource {
   hunterModeCostStamina?: number | string
   dungeonName?: TextRef
 }
-const STAGE_ONE_EXP_ID = 'item_expcard_stage1_high'
-const STAGE_TWO_EXP_ID = 'item_expcard_stage2_high'
-const WEAPON_EXP_ID = 'item_weapon_expcard_high'
-const DERIVED_ATTRIBUTE_KEYS = ['atkRateOfMain', 'atkRateOfSub', 'efficiencyOfAGI', 'efficiencyOfDEF', 'efficiencyOfSTR', 'efficiencyOfWISD', 'recoverEfficiencyOfWILL'] as const
-const GOLD_ID = 'item_gold'
+interface PotentialEffectSource {
+  dataList?: Array<{ attrModifier?: { attrType?: number | string; attrValue?: number | string; modifierType?: number | string } }>
+}
+const STAGE_ONE_EXP_ID = PLANNER_RESOURCE_IDS.stageOneExp
+const STAGE_TWO_EXP_ID = PLANNER_RESOURCE_IDS.stageTwoExp
+const WEAPON_EXP_ID = PLANNER_RESOURCE_IDS.weaponExp
+const GOLD_ID = PLANNER_RESOURCE_IDS.gold
 
 
 
 function numeric(value: number | string | undefined): number {
   const result = Number(value ?? 0)
   return Number.isFinite(result) ? result : 0
+}
+
+export function buildPotentialStats(effect: PotentialEffectSource | undefined, attrShowConfigs: ReturnType<typeof buildAttrShowConfigs>) {
+  return (effect?.dataList ?? []).flatMap((item) => {
+    const modifier = item.attrModifier
+    if (modifier?.attrType === undefined || modifier.attrValue === undefined) return []
+    const attributeId = String(modifier.attrType)
+    const value = numeric(modifier.attrValue)
+    if (attributeId === '0' || value === 0) return []
+    const modifierType = numeric(modifier.modifierType ?? 5)
+    const config = attrShowConfigs.attrTypeMap.get(Number(attributeId))
+    const format = config?.entries.find((entry) => entry.attributeModifier === modifierType)?.valueFormat
+    const isPercent = format?.includes('%') ?? (config?.entries.length ? config.entries.every((entry) => entry.valueFormat.includes('%')) : false)
+    return [{ attributeId, value, isPercent }]
+  })
 }
 
 function materials(values: Array<{ itemId: string; count: number }>): PlannerMaterialTuple[] {
@@ -77,7 +96,9 @@ export function buildPlannerGameData(
   items: ItemWikiData
 ): PlannerGameData {
   const textTables = loadAllTextTables(akedataPath)
+  const attrShowConfigs = buildAttrShowConfigs(akedataPath)
   const table = (name: string) => parseJsonSafe(join(akedataPath, 'TableCfg', `${name}.json`)) as Record<string, unknown>
+  const potentialEffects = table('PotentialTalentEffectTable') as Record<string, PotentialEffectSource>
   const battleConst = table('BattleConst') as Record<string, unknown>
   const derivedAttributes: PlannerGameData['derivedAttributes'] = {
     atkRateOfMain: numeric(battleConst.atkRateOfMain as number | string | undefined),
@@ -151,6 +172,12 @@ export function buildPlannerGameData(
           materialsByLevel: skill.levels.map((level) => ({ level: level.level, materials: materials(level.materials ?? []) })),
         })),
         talents: detail.talents.map((talent) => ({ id: talent.id, name: talent.name, breakStage: talent.breakStage, materials: materials(talent.materials) })),
+        potentials: detail.potentials.map((potential) => ({
+          id: potential.id,
+          level: potential.level,
+          name: potential.name,
+          stats: buildPotentialStats(potentialEffects[potential.id], attrShowConfigs),
+        })),
         attributeNodes: detail.attributeNodes.map((node) => ({ id: node.id, name: node.title, breakStage: node.breakStage, favorability: node.favorability, stats: node.stats, materials: materials(node.materials) })),
         equipmentNodes: detail.equipmentNodes.map((node) => ({ id: node.id, name: node.name, breakStage: node.breakStage, equipmentTierLimit: node.equipmentTierLimit, materials: materials(node.materials) })),
         logisticsNodes: detail.logisticsNodes.map((node) => ({

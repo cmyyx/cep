@@ -41,7 +41,7 @@ export function CharacterPanelConfig() {
         </DialogTrigger>
         <DialogContent className="h-[min(90svh,58rem)] sm:max-w-[min(94vw,90rem)] grid-rows-[auto_minmax(0,1fr)]">
           <div><DialogTitle>{t('chooseOperator')}</DialogTitle><DialogDescription className="sr-only">{t('chooseOperatorDescription')}</DialogDescription></div>
-          <WikiEntityPicker title={t('operators')} entities={wikiCharacters} imageBasePath="/images/characters" selectedIds={config ? [config.characterId] : []} onSelect={(entity) => { setCharacter(entity.id); setPickerOpen(false) }} className="overflow-hidden" gridClassName="min-h-0 flex-1 overflow-y-auto pr-1" selectionTone="preview" filters={[
+          <WikiEntityPicker title={t('operators')} entities={wikiCharacters} imageBasePath="/images/characters" selectedIds={config ? [config.characterId] : []} onSelect={(entity) => { setCharacter(entity.id); setPickerOpen(false) }} className="overflow-hidden" gridClassName="min-h-0 flex-1 overflow-y-auto px-1" selectionTone="amber" filters={[
             { field: 'rarity', labelKey: 'wiki.filter.rarity' },
             { field: 'elementId', labelKey: 'wiki.filter.element', enumGroup: 'elements' },
             { field: 'professionId', labelKey: 'wiki.filter.profession', enumGroup: 'professions' },
@@ -58,6 +58,7 @@ export function CharacterPanelConfig() {
           return <div key={skill.id} className="grid grid-cols-[minmax(0,1fr)_6rem] items-center gap-3"><div className="min-w-0"><p className="truncate text-sm">{skillName}</p><p className="text-[11px] text-muted-foreground">{typeName}</p></div><NumberField value={config.skillLevels[index] ?? skill.maxLevel} minimum={1} maximum={skill.maxLevel} ariaLabel={`${typeName} ${skillName}`} onValueChange={(value) => { const skillLevels = [...config.skillLevels]; skillLevels[index] = value; updateConfig({ skillLevels }) }} /></div>
         })}
         <div className="grid grid-cols-[minmax(0,1fr)_6rem] items-center gap-3"><Label>{text('ui', 'talent')}</Label><NumberField value={config.talentCount} minimum={0} maximum={data.talents.length} ariaLabel={text('ui', 'talent')} onValueChange={(value) => updateConfig({ talentCount: value })} /></div>
+        <div className="grid grid-cols-[minmax(0,1fr)_6rem] items-center gap-3"><Label>{t('potentialLevel')}</Label><NumberField value={config.potentialLevel} minimum={0} maximum={data.potentials.at(-1)?.level ?? 0} ariaLabel={t('potentialLevel')} onValueChange={(value) => updateConfig({ potentialLevel: value })} /></div>
         <div className="grid grid-cols-[minmax(0,1fr)_6rem] items-center gap-3"><Label>{text('ui', 'attributeIncrease')}</Label><NumberField value={config.attributeNodeCount} minimum={0} maximum={data.attributeNodes.length} ariaLabel={text('ui', 'attributeIncrease')} onValueChange={(value) => updateConfig({ attributeNodeCount: value })} /></div>
       </div>}
     </section>

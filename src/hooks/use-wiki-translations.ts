@@ -10,6 +10,7 @@ export function useWikiTranslations() {
   const weapons = useTranslations('weapons')
   const equipment = useTranslations('equips')
   const wikiData = useTranslations('wikiData')
+  const equipStats = useTranslations('equipStats')
 
   const entityName = useCallback((entity: WikiEntitySummary): string => {
     if (entity.category === 'characters') return characters.has(entity.id) ? characters(entity.id) : entity.id
@@ -24,9 +25,16 @@ export function useWikiTranslations() {
     return typeof value === 'string' ? value : String(segments.at(-1) ?? key)
   }, [wikiData])
 
+  const enumLabel = useCallback((group: WikiEnumGroup, id: string) => text('enum', group, id), [text])
+  const equipmentStatLabel = useCallback((id: string): string => {
+    if (equipStats.has(id)) return equipStats(id)
+    return enumLabel('attributes', id)
+  }, [enumLabel, equipStats])
+
   return {
     entityName,
-    enumLabel: (group: WikiEnumGroup, id: string) => text('enum', group, id),
+    enumLabel,
+    equipmentStatLabel,
     itemName: (itemId: string) => text('item', itemId),
     suitName: (suitId: string) => text('suit', suitId),
     text,

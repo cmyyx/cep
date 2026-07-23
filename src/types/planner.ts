@@ -22,6 +22,13 @@ export interface PlannerCharacterNodeData {
   name: LocalizedText
 }
 
+export interface PlannerCharacterPotentialData {
+  id: string
+  level: number
+  name: LocalizedText
+  stats: Array<WikiStatValue & { isPercent: boolean }>
+}
+
 export interface PlannerCharacterAttributeNodeData extends PlannerCharacterNodeData {
   favorability: number
   stats: WikiStatValue[]
@@ -49,6 +56,7 @@ export interface PlannerCharacterData {
   }>
   skills: PlannerCharacterSkillData[]
   talents: PlannerCharacterNodeData[]
+  potentials: PlannerCharacterPotentialData[]
   attributeNodes: PlannerCharacterAttributeNodeData[]
   equipmentNodes: PlannerCharacterEquipmentNodeData[]
   logisticsNodes: PlannerCharacterLogisticsNodeData[]
@@ -199,6 +207,7 @@ export interface PanelPreviewConfig {
   level: number
   skillLevels: number[]
   talentCount: number
+  potentialLevel: number
   attributeNodeCount: number
   weaponId: string | null
   weaponLevel: number

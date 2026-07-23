@@ -31,7 +31,8 @@ export function EquipmentWeaponConfig() {
   const t = useTranslations('panelPreview')
   const allT = useTranslations()
   const locale = useLocale() as WikiLocale
-  const { entityName, enumLabel, text } = useWikiTranslations()
+  const { entityName, equipmentStatLabel, text } = useWikiTranslations()
+  const number = new Intl.NumberFormat(locale, { maximumFractionDigits: 2 })
   const [picker, setPicker] = useState<PickerTarget>(null)
   const config = usePanelPreviewStore((state) => state.config)
   const updateConfig = usePanelPreviewStore((state) => state.updateConfig)
@@ -94,9 +95,10 @@ export function EquipmentWeaponConfig() {
               {summary ? <Button type="button" variant="ghost" size="icon-sm" aria-label={t('removeEquipment', { slot: equipmentLabels[field] })} onClick={() => setEquipment(field, createPanelEquipmentSelection(null))}><X /></Button> : null}
             </div>
             {summary ? <div className="space-y-2 bg-muted/20 p-3 shadow-[0_-1px_0_0_rgba(0,0,0,0.08)]">{stats.map((stat, index) => {
-              if (stat.attributeId === '3' && stat.values.every((value) => value === stat.values[0])) return null
+              const fixedDefense = stat.attributeId === '3' && stat.values.every((value) => value === stat.values[0])
               const level = selection.statLevels[index] ?? stat.values.length - 1
-              const label = stat.attributeId === 'Main' ? t('mainAbility') : stat.attributeId === 'Sub' ? t('subAbility') : enumLabel('attributes', stat.attributeId)
+              const label = stat.attributeId === 'Main' ? t('mainAbility') : stat.attributeId === 'Sub' ? t('subAbility') : equipmentStatLabel(stat.attributeId)
+              if (fixedDefense) return <div key={`${stat.attributeId}-${index}`} className="flex items-center justify-between gap-2 rounded-lg bg-background/70 p-2.5"><p className="min-w-0 truncate text-xs">{label}</p><span className="shrink-0 font-mono text-sm font-medium tabular-nums">+{number.format(stat.values[0] ?? 0)}</span></div>
               return <div key={`${stat.attributeId}-${index}`} className="grid grid-cols-[minmax(0,1fr)_5rem] items-center gap-2 rounded-lg bg-background/70 p-2.5"><p className="min-w-0 truncate text-xs">{label}</p><NumberField value={level} minimum={0} maximum={Math.max(0, stat.values.length - 1)} ariaLabel={`${label} ${t('statLevel')}`} onValueChange={(value) => { const statLevels = [...selection.statLevels]; statLevels[index] = value; setEquipment(field, { ...selection, statLevels }) }} /></div>
             })}</div> : null}
           </section>
@@ -106,7 +108,7 @@ export function EquipmentWeaponConfig() {
       <Dialog open={picker !== null} onOpenChange={(open) => { if (!open) setPicker(null) }}>
         <DialogContent className="h-[min(90svh,58rem)] sm:max-w-[min(94vw,90rem)] grid-rows-[auto_minmax(0,1fr)]">
           <div><DialogTitle>{picker === 'weapon' ? t('chooseWeapon') : picker ? equipmentLabels[picker] : t('equipment')}</DialogTitle><DialogDescription className="sr-only">{picker === 'weapon' ? t('chooseWeaponDescription') : t('chooseEquipmentDescription')}</DialogDescription></div>
-          {picker === 'weapon' ? <WikiEntityPicker title={t('weaponLibrary')} entities={wikiWeapons} imageBasePath="/images/weapon" selectedIds={config.weaponId ? [config.weaponId] : []} onSelect={selectWeapon} renderTooltip={renderWeaponTooltip} selectionTone="preview" className="overflow-hidden" gridClassName="min-h-0 flex-1 overflow-y-auto pr-1" filters={[{ field: 'rarity', labelKey: 'wiki.filter.rarity' }, { field: 'weaponTypeId', labelKey: 'wiki.filter.weaponType', enumGroup: 'weaponTypes' }]} /> : picker ? <EquipmentSuitPicker partTypeId={partTypeByField[picker]} selectedId={config[picker].equipmentId} onSelect={(equipment) => { setEquipment(picker, createPanelEquipmentSelection(equipment.id)); setPicker(null) }} /> : null}
+          {picker === 'weapon' ? <WikiEntityPicker title={t('weaponLibrary')} entities={wikiWeapons} imageBasePath="/images/weapon" selectedIds={config.weaponId ? [config.weaponId] : []} onSelect={selectWeapon} renderTooltip={renderWeaponTooltip} selectionTone="amber" className="overflow-hidden" gridClassName="min-h-0 flex-1 overflow-y-auto px-1" filters={[{ field: 'rarity', labelKey: 'wiki.filter.rarity' }, { field: 'weaponTypeId', labelKey: 'wiki.filter.weaponType', enumGroup: 'weaponTypes' }]} /> : picker ? <EquipmentSuitPicker partTypeId={partTypeByField[picker]} selectedId={config[picker].equipmentId} onSelect={(equipment) => { setEquipment(picker, createPanelEquipmentSelection(equipment.id)); setPicker(null) }} /> : null}
         </DialogContent>
       </Dialog>
     </div>

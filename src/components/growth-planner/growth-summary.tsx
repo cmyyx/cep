@@ -1,6 +1,6 @@
 'use client'
 
-import { useTranslations } from 'next-intl'
+import { useLocale, useTranslations } from 'next-intl'
 import { Calculator, Clock3, Zap } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
@@ -10,14 +10,16 @@ import { calculateGrowthRequirements, estimateFarming, PLANNER_RESOURCE_IDS } fr
 import { plannerGameData } from '@/generated/data/planner'
 import { useWikiTranslations } from '@/hooks/use-wiki-translations'
 import type { MaterialRequirement } from '@/types/planner'
+import type { WikiLocale } from '@/types/wiki'
 
 export function GrowthSummary() {
   const t = useTranslations('growthPlanner')
+  const locale = useLocale() as WikiLocale
   const configs = useGrowthPlannerStore((state) => state.configs)
   const result = calculateGrowthRequirements(configs)
   const farming = estimateFarming(result)
   const { itemName, text } = useWikiTranslations()
-  const number = new Intl.NumberFormat()
+  const number = new Intl.NumberFormat(locale)
   const resources: MaterialRequirement[] = [
     { itemId: PLANNER_RESOURCE_IDS.stageOneExp, count: result.stageOneExp },
     { itemId: PLANNER_RESOURCE_IDS.stageTwoExp, count: result.stageTwoExp },
@@ -59,9 +61,9 @@ export function GrowthSummary() {
                 const expValue = plannerGameData.materials[resource.itemId]?.expValue
                 const convertedCount = expValue ? Math.ceil(resource.count / expValue) : undefined
                 return <TableRow key={resource.itemId}>
-                  <TableCell><div className="flex items-center gap-2"><RarityFrame imageSrc={`/images/items/${plannerGameData.materials[resource.itemId]?.iconId ?? resource.itemId}.avif`} title={displayName} rarity={plannerGameData.materials[resource.itemId]?.rarity ?? 1} showTitle={false} imageClassName="object-contain p-1" className="size-10 rounded-md" /><span className="min-w-0 truncate font-medium">{displayName}</span></div></TableCell>
+                  <TableCell className="min-w-0"><div className="flex min-w-0 items-center gap-2"><RarityFrame imageSrc={`/images/items/${plannerGameData.materials[resource.itemId]?.iconId ?? resource.itemId}.avif`} title={displayName} rarity={plannerGameData.materials[resource.itemId]?.rarity ?? 1} showTitle={false} imageClassName="object-contain p-1" className="size-10 shrink-0 rounded-md" /><span className="min-w-0 truncate font-medium">{displayName}</span></div></TableCell>
                   <TableCell className="font-mono font-semibold tabular-nums"><span className="block">{number.format(resource.count)}{expValue ? <span className="ml-1 text-xs font-normal text-muted-foreground">EXP</span> : null}</span>{convertedCount ? <span className="mt-0.5 block text-xs font-normal text-muted-foreground">{t('equivalentItems', { count: number.format(convertedCount) })}</span> : null}</TableCell>
-                  <TableCell>{stage ? <div><span className="font-medium">{text('dungeon', stage.dungeon.seriesId)}</span><div className="mt-0.5 text-xs text-muted-foreground">{text('dungeon', stage.dungeon.id)}</div>{expValue && rewardCards.length > 0 && <div className="mt-1 text-xs text-muted-foreground">{t('rewardCards')}: {rewardCards.map(([itemId, count]) => `${itemName(itemId)} ×${number.format(count)}`).join('、')}</div>}</div> : <span className="text-muted-foreground">{t('noFarmableStages')}</span>}</TableCell>
+                  <TableCell className="whitespace-normal">{stage ? <div><span className="font-medium">{text('dungeon', stage.dungeon.seriesId)}</span><div className="mt-0.5 text-xs text-muted-foreground">{text('dungeon', stage.dungeon.id)}</div>{expValue && rewardCards.length > 0 && <div className="mt-1 text-xs text-muted-foreground">{t('rewardCards')}: {rewardCards.map(([itemId, count]) => `${itemName(itemId)} ×${number.format(count)}`).join('、')}</div>}</div> : <span className="text-muted-foreground">{t('noFarmableStages')}</span>}</TableCell>
                   <TableCell className="font-mono tabular-nums">{output ? number.format(output) : '—'}</TableCell>
                   <TableCell className="font-mono font-semibold tabular-nums">{stage ? number.format(stage.runs) : '—'}</TableCell>
                   <TableCell className="font-mono font-semibold tabular-nums">{stage ? number.format(stage.stamina) : '—'}</TableCell>
@@ -70,7 +72,6 @@ export function GrowthSummary() {
             </TableBody>
           </Table>
         </div>
-        <p className="text-xs leading-relaxed text-muted-foreground">{t('farmingNote')}</p>
       </section>
     </div>
   )

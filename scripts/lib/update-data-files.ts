@@ -11,20 +11,9 @@ import { buildGemTableLookup, loadTextTable } from './stat-mapping'
 import { extractItemNameIds } from './extract-textid'
 import { WEAPON_TYPE_MAP } from './compare-weapons'
 import { buildAttrShowConfigs, resolveFormat, formatEquipStat } from './equip-stat-format'
-
+import { resolveWeaponStats } from './weapon-stats'
+import type { WeaponSkillPatchEntry } from './weapon-stats'
 // ── Types ─────────────────────────────────────────────────────────────────
-
-// ── SkillPatchTable types ─────────────────────────────────────────────────
-
-interface SkillPatchBundle {
-  blackboard?: { key: string; value: number }[]
-  skillId: string
-  skillName: { id: string; text: string }
-}
-
-interface SkillPatchEntry {
-  SkillPatchDataBundle: SkillPatchBundle[]
-}
 
 interface WeaponBasicEntry {
   weaponId: string
@@ -50,85 +39,6 @@ const PART_TYPE_MAP: Record<number, string> = {
   2: '配件',
 }
 
-// ── Blackboard key → gemTermId suffix mapping ────────────────────────────
-
-const BLACKBOARD_TO_GEM_SUFFIX: Record<string, string> = {
-  str: 'str', agi: 'agi', wisd: 'wisd', will: 'will',
-  mainattr: 'main',
-  atk: 'atk', hp: 'hp', phydam: 'phydam',
-  firedam: 'firedam', electrondam: 'pulsedam', pulsedam: 'pulsedam',
-  icedam: 'icedam', crystdam: 'icedam',
-  naturaldam: 'naturaldam', crirate: 'crirate',
-  usp: 'usp', usgs: 'usp',
-  heal: 'heal', physpell: 'physpell',
-  spelldam: 'magicdam',
-}
-
-const PRIMARY_KEYS = new Set(['str', 'agi', 'wisd', 'will', 'mainattr'])
-
-// ── Helper functions ──────────────────────────────────────────────────────
-
-/** Extract base stat name from skillName (before '·') */
-function extractBaseStatName(skillName: string): string {
-  const idx = skillName.indexOf('·')
-  return idx === -1 ? skillName : skillName.slice(0, idx)
-}
-
-/**
- * Extract weapon stats from weaponSkillList IDs + SkillPatchTable,
- * returning gemTermId directly.
- * Primary/elemental: resolved via blackboard[0].key → gemTermId suffix.
- * Special abilities: resolved via SkillPatchTable skillName.id → CN TextTable → GemTable CN name lookup.
- */
-function extractStatsFromSkillIds(
-  skillIds: string[],
-  skillPatch: Record<string, SkillPatchEntry>,
-  cnTextTable: Record<string, string>,
-  cnToGem: Record<string, string>,
-): {
-  primaryStat: string | null
-  elementalDamage: string | null
-  specialAbility: string | null
-} {
-  let primaryStat = ''
-  let elementalDamage = ''
-  let specialAbility = ''
-
-  for (const skillId of skillIds) {
-    const entry = skillPatch[skillId]
-    if (!entry?.SkillPatchDataBundle?.[0]) continue
-
-    const bundle = entry.SkillPatchDataBundle[0]
-    const bbKey = bundle.blackboard?.[0]?.key
-
-    if (bbKey) {
-      const suffix = BLACKBOARD_TO_GEM_SUFFIX[bbKey]
-      if (suffix) {
-        const gemId = `gat_passive_attr_${suffix}`
-        if (PRIMARY_KEYS.has(bbKey)) {
-          if (!primaryStat) primaryStat = gemId
-        } else {
-          if (!elementalDamage) elementalDamage = gemId
-        }
-        continue
-      }
-    }
-
-    // No blackboard-mapped stat (missing bbKey or unknown suffix) —
-    // try special ability via CN name
-    const skillTextId = bundle.skillName?.id
-    if (skillTextId) {
-      const cnName = cnTextTable[skillTextId]
-      if (cnName) {
-        const baseName = extractBaseStatName(cnName)
-        const gemId = cnToGem[baseName]
-        if (gemId && !specialAbility) specialAbility = gemId
-      }
-    }
-  }
-
-  return { primaryStat: primaryStat || null, elementalDamage: elementalDamage || null, specialAbility: specialAbility || null }
-}
 
 // ── Attribute name resolution ─────────────────────────────────────────────
 // (移除 buildAttrTypeMap 和 formatEquipStat —— 已统一到 ./equip-stat-format 共享模块)
@@ -246,62 +156,164 @@ function insertRawEquipsBySet(content: string, newEntries: { set: string; line: 
 
 // ── Update weapons.ts ─────────────────────────────────────────────────────
 
-function formatNullableStat(value: string | null): string {
-  return value === null ? 'null' : `'${value}'`
+function formatTsString(value: string): string {
+  return `'${value.replace(/\\/g, '\\\\').replace(/'/g, "\\'")}'`
 }
 
+function formatNullableStat(value: string | null): string {
+  return value === null ? 'null' : formatTsString(value)
+}
+
+function upsertWeaponField(
+  line: string,
+  field: string,
+  value: string,
+  afterField: string,
+): string {
+  const valuePattern = String.raw`(?:'(?:\\.|[^'\\])*'|null|\d+)`
+  const fieldPattern = new RegExp(String.raw`\b${field}:\s*${valuePattern}`)
+  if (fieldPattern.test(line)) {
+    return line.replace(fieldPattern, () => `${field}: ${value}`)
+  }
+
+  const anchorPattern = new RegExp(
+    String.raw`(\b${afterField}:\s*${valuePattern})(?:\s*,\s*)?`,
+  )
+  return line.replace(
+    anchorPattern,
+    (_match: string, anchor: string) => `${anchor}, ${field}: ${value}, `,
+  )
+}
+
+export interface WeaponDataReconcileResult {
+  added: number
+  updated: number
+  unchanged: number
+}
+
+/**
+ * Reconcile every official three-star-or-higher weapon against upstream
+ * metadata. Only upstream-owned fields are patched; recommendations (`chars`)
+ * and preview annotations remain untouched.
+ */
 export function updateWeaponsFile(
   weaponsTsPath: string,
-  newWeaponIds: string[],
   akedataPath: string,
-): number {
-  if (newWeaponIds.length === 0) return 0
-
+): WeaponDataReconcileResult {
   const content = readFileSync(weaponsTsPath, 'utf-8')
 
-  // Load WeaponBasicTable for weapon metadata
   const wpnBasicPath = join(akedataPath, 'TableCfg', 'WeaponBasicTable.json')
-  if (!existsSync(wpnBasicPath)) return 0
+  if (!existsSync(wpnBasicPath)) {
+    throw new Error(`WeaponBasicTable.json not found at ${wpnBasicPath}`)
+  }
   const wpnBasic = JSON.parse(readFileSync(wpnBasicPath, 'utf-8')) as Record<string, WeaponBasicEntry>
 
-  // Load SkillPatchTable (lossless-json for int64-safe skillName.id)
   const skillPatchPath = join(akedataPath, 'TableCfg', 'SkillPatchTable.json')
-  const skillPatch = existsSync(skillPatchPath)
-    ? parseJsonSafe(skillPatchPath) as Record<string, SkillPatchEntry>
-    : {}
-
-  // Build GemTable CN→gemTermId for special ability resolution
-  const { cnToGem } = buildGemTableLookup(akedataPath)
-
-  // Load CN TextTable for resolving skillName.id → CN text
+  if (!existsSync(skillPatchPath)) {
+    throw new Error(`SkillPatchTable.json not found at ${skillPatchPath}`)
+  }
+  const skillPatch = parseJsonSafe(skillPatchPath) as Record<string, WeaponSkillPatchEntry>
+  const { cnToGem, tagToGem } = buildGemTableLookup(akedataPath)
   const cnTextTable = loadTextTable(akedataPath, 'zh-CN')
-  // Load ItemTable for iconId resolution (game-side icon resource mapping)
   const itemTable = loadItemTable(akedataPath)
-
-  // Load ItemTable name text IDs for display name resolution
   const weaponNameTextIds = extractItemNameIds(join(akedataPath, 'TableCfg', 'ItemTable.json'))
-  const newWeapons: Array<{ rarity: number; line: string }> = []
-  for (const weaponId of newWeaponIds) {
-    const wpnEntry = wpnBasic[weaponId]
-    if (!wpnEntry) continue
 
-    const skillIds = wpnEntry.weaponSkillList ?? []
-    const { primaryStat, elementalDamage, specialAbility } = extractStatsFromSkillIds(skillIds, skillPatch, cnTextTable, cnToGem)
-    const type = WEAPON_TYPE_MAP[wpnEntry.weaponType] ?? '未知'
-    const iconId = resolveWeaponIconId(itemTable, weaponId) ?? weaponId
+  const existingIds = new Set<string>()
+  const existingIdRe = /\bid:\s*'(wpn_[^']+)'/g
+  let idMatch: RegExpExecArray | null
+  while ((idMatch = existingIdRe.exec(content)) !== null) existingIds.add(idMatch[1])
+
+  const upstreamWeaponIds = Object.entries(wpnBasic)
+    .filter(([, entry]) => entry.rarity >= 3)
+    .map(([weaponId]) => weaponId)
+  const targetIds = new Set(upstreamWeaponIds)
+  const resolved = new Map<string, { entry: WeaponBasicEntry; name: string; type: string; primaryStat: string | null; elementalDamage: string | null; specialAbility: string | null }>()
+  const unresolved: string[] = []
+
+  for (const weaponId of targetIds) {
+    const entry = wpnBasic[weaponId]
+    if (!entry) continue
+
+    const stats = resolveWeaponStats(
+      entry.weaponSkillList ?? [],
+      skillPatch,
+      tagToGem,
+      cnTextTable,
+      cnToGem,
+    )
+    if (stats.unresolvedSkillIds.length > 0) {
+      unresolved.push(`${weaponId}: ${stats.unresolvedSkillIds.join(', ')}`)
+      continue
+    }
 
     const nameTextId = weaponNameTextIds[weaponId] ?? ''
-    const name = cnTextTable[nameTextId] || weaponId
+    const name = nameTextId ? cnTextTable[nameTextId] : undefined
+    const type = WEAPON_TYPE_MAP[entry.weaponType]
+    if (!name || !type) {
+      const missing = [!name ? 'localized name' : '', !type ? `weaponType ${entry.weaponType}` : '']
+        .filter(Boolean)
+        .join(', ')
+      unresolved.push(`${weaponId}: ${missing}`)
+      continue
+    }
 
-    newWeapons.push({
-      rarity: wpnEntry.rarity,
-      line: `  { id: '${weaponId}', iconId: '${iconId}', name: '${name}', rarity: ${wpnEntry.rarity}, type: '${type}', primaryStat: ${formatNullableStat(primaryStat)}, elementalDamage: ${formatNullableStat(elementalDamage)}, specialAbility: ${formatNullableStat(specialAbility)}, chars: [] }`,
+    resolved.set(weaponId, {
+      entry,
+      name,
+      type,
+      primaryStat: stats.primaryStat,
+      elementalDamage: stats.elementalDamage,
+      specialAbility: stats.specialAbility,
     })
   }
 
-  if (newWeapons.length === 0) return 0
+  if (unresolved.length > 0) {
+    throw new Error(`Unable to reconcile upstream weapons:\n${unresolved.join('\n')}`)
+  }
 
   let updatedContent = content
+  let updated = 0
+  let unchanged = 0
+
+  for (const weaponId of existingIds) {
+    const upstream = resolved.get(weaponId)
+    if (!upstream) continue
+
+    const escapedId = weaponId.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+    const lineRe = new RegExp(`^[ \\t]*\\{[^\\n]*\\bid:\\s*'${escapedId}'[^\\n]*\\},?[ \\t]*$`, 'm')
+    const currentLine = updatedContent.match(lineRe)?.[0]
+    if (!currentLine) continue
+
+    let nextLine = currentLine
+    const nameAnchor = /\biconId:/.test(nextLine) ? 'iconId' : 'id'
+    nextLine = upsertWeaponField(nextLine, 'name', formatTsString(upstream.name), nameAnchor)
+    nextLine = upsertWeaponField(nextLine, 'rarity', String(upstream.entry.rarity), 'name')
+    nextLine = upsertWeaponField(nextLine, 'type', formatTsString(upstream.type), 'rarity')
+    nextLine = upsertWeaponField(nextLine, 'primaryStat', formatNullableStat(upstream.primaryStat), 'type')
+    nextLine = upsertWeaponField(nextLine, 'elementalDamage', formatNullableStat(upstream.elementalDamage), 'primaryStat')
+    nextLine = upsertWeaponField(nextLine, 'specialAbility', formatNullableStat(upstream.specialAbility), 'elementalDamage')
+
+    if (nextLine === currentLine) {
+      unchanged++
+    } else {
+      updatedContent = updatedContent.replace(currentLine, nextLine)
+      updated++
+    }
+  }
+
+  const newWeapons: Array<{ rarity: number; line: string }> = []
+  for (const weaponId of upstreamWeaponIds) {
+    if (existingIds.has(weaponId)) continue
+    const upstream = resolved.get(weaponId)
+    if (!upstream || upstream.entry.rarity < 3) continue
+
+    const iconId = resolveWeaponIconId(itemTable, weaponId) ?? weaponId
+    newWeapons.push({
+      rarity: upstream.entry.rarity,
+      line: `  { id: '${weaponId}', iconId: '${iconId}', name: ${formatTsString(upstream.name)}, rarity: ${upstream.entry.rarity}, type: '${upstream.type}', primaryStat: ${formatNullableStat(upstream.primaryStat)}, elementalDamage: ${formatNullableStat(upstream.elementalDamage)}, specialAbility: ${formatNullableStat(upstream.specialAbility)}, chars: [] }`,
+    })
+  }
+
   for (const rarity of [6, 5, 4, 3]) {
     const lines = newWeapons.filter((weapon) => weapon.rarity === rarity).map((weapon) => weapon.line)
     if (lines.length === 0) continue
@@ -320,8 +332,9 @@ export function updateWeaponsFile(
     }
     updatedContent = updatedContent.slice(0, insertPos) + lines.join(',\n') + ',\n' + updatedContent.slice(insertPos)
   }
-  writeFileSync(weaponsTsPath, updatedContent, 'utf-8')
-  return newWeapons.length
+
+  if (updatedContent !== content) writeFileSync(weaponsTsPath, updatedContent, 'utf-8')
+  return { added: newWeapons.length, updated, unchanged }
 }
 
 
