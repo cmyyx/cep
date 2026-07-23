@@ -46,10 +46,27 @@ vi.mock('@/components/shared/planner-wiki-preview', () => ({
   PlannerWikiPreview: ({ rows }: { rows: Array<{ label: string }> }) => <div>{rows.map((row) => <span key={row.label}>{row.label}</span>)}</div>,
 }))
 
+vi.mock('@/hooks/use-mobile-long-press-tooltip', () => ({
+  useMobileLongPressTooltip: () => ({
+    open: true,
+    setOpen: vi.fn(),
+    triggerRef: { current: null },
+    longPressTriggered: { current: false },
+    handleOpenChange: vi.fn(),
+    handlePointerDown: vi.fn(),
+    handlePointerMove: vi.fn(),
+    handlePointerEnd: vi.fn(),
+    handleContextMenu: vi.fn(),
+    swallowLongPressClick: () => false,
+    isMobile: false,
+  }),
+}))
+
 vi.mock('@/components/ui/tooltip', () => ({
   Tooltip: ({ children }: { children: React.ReactNode }) => <div>{children}</div>,
   TooltipTrigger: ({ render: trigger }: { render: React.ReactNode }) => <>{trigger}</>,
   TooltipContent: ({ children }: { children: React.ReactNode }) => <div>{children}</div>,
+  TOOLTIP_OPEN_DELAY_MS: 400,
 }))
 
 it('uses localized equipment stat labels in selection tooltips', () => {

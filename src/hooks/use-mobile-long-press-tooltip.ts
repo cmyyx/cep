@@ -1,5 +1,11 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import type { Dispatch, MouseEvent, MutableRefObject, PointerEvent, RefObject, SetStateAction } from 'react'
+import {
+  ensureTooltipScrollLockInstalled,
+  isTooltipScrollLocked,
+  lockTooltipsForScroll,
+  subscribeTooltipScrollClose,
+} from '@/lib/tooltip-scroll-lock'
 import { useIsMobile } from './use-mobile'
 import { useCloseOnScroll } from './use-close-on-scroll'
 
@@ -20,6 +26,15 @@ interface UseMobileLongPressTooltipReturn {
   isMobile: boolean
 }
 
+function isPointerOverTrigger(trigger: HTMLButtonElement | null): boolean {
+  if (!trigger) return false
+  try {
+    return trigger.matches(':hover') || document.activeElement === trigger
+  } catch {
+    return document.activeElement === trigger
+  }
+}
+
 /**
  * Shared hook for mobile long-press tooltip behavior.
  *
@@ -27,21 +42,44 @@ interface UseMobileLongPressTooltipReturn {
  * the user scrolls, taps elsewhere, or clicks the trigger again.
  * On desktop: standard hover/focus behavior via Base UI Tooltip.
  *
- * @param enabled - Whether the long-press tooltip is active (default: true).
- *                  When false on mobile, no pointer handlers are bound and
- *                  Base UI's default hover/focus behavior is restored.
+ * Scroll handling (desktop):
+ * - Capture-phase global lock blocks open on any card during/just after scroll
+ * - Open tooltips subscribe to force-close when the lock engages
+ * - Same-trigger suppress while pointer remains on a scroll-closed card
  */
 export function useMobileLongPressTooltip(
   enabled = true,
 ): UseMobileLongPressTooltipReturn {
   const isMobile = useIsMobile()
   const [open, setOpen] = useState(false)
-  const triggerRef = useCloseOnScroll(open, setOpen)
+  const suppressOpenRef = useRef(false)
+  const openRef = useRef(open)
+  openRef.current = open
+
+  useEffect(() => {
+    ensureTooltipScrollLockInstalled()
+  }, [])
+
+  // Force-close when any scroll/wheel is detected globally (capture phase).
+  useEffect(() => {
+    return subscribeTooltipScrollClose(() => {
+      if (!openRef.current) return
+      suppressOpenRef.current = true
+      setOpen(false)
+    })
+  }, [])
+
+  const closeFromScroll = useCallback(() => {
+    suppressOpenRef.current = true
+    lockTooltipsForScroll()
+    setOpen(false)
+  }, [])
+
+  const triggerRef = useCloseOnScroll(open, closeFromScroll)
 
   const longPressTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const longPressTriggeredRef = useRef(false)
   const pointerStartRef = useRef<{ x: number; y: number } | null>(null)
-  // True from pointerdown until pointerup/cancel — blocks Base UI close while finger is down
   const isPointerDownRef = useRef(false)
 
   const clearLongPress = useCallback(() => {
@@ -51,21 +89,40 @@ export function useMobileLongPressTooltip(
     }
   }, [])
 
-  // Clear long-press timer on unmount to prevent state updates on unmounted component
   useEffect(() => clearLongPress, [clearLongPress])
 
   const mobileEnabled = isMobile && enabled
 
-  // On mobile, prevent Base UI from auto-opening the tooltip (focus/hover),
-  // and block close requests while the user's finger is still down.
   const handleOpenChange = useCallback((nextOpen: boolean) => {
     if (mobileEnabled) {
       if (!nextOpen && isPointerDownRef.current) return
       if (!nextOpen) setOpen(false)
       return
     }
-    setOpen(nextOpen)
-  }, [mobileEnabled])
+
+    if (nextOpen) {
+      if (isTooltipScrollLocked()) return
+      if (suppressOpenRef.current) {
+        if (isPointerOverTrigger(triggerRef.current)) return
+        suppressOpenRef.current = false
+      }
+      setOpen(true)
+      // Same-tick race: hover retarget may open B before/while scroll lock engages.
+      // Microtask re-check collapses any one-frame flash before paint when possible.
+      queueMicrotask(() => {
+        if (isTooltipScrollLocked()) {
+          suppressOpenRef.current = true
+          setOpen(false)
+        }
+      })
+      return
+    }
+
+    if (!isPointerOverTrigger(triggerRef.current)) {
+      suppressOpenRef.current = false
+    }
+    setOpen(false)
+  }, [mobileEnabled, triggerRef])
 
   const handlePointerDown = useCallback((e: PointerEvent) => {
     if (!mobileEnabled || e.pointerType !== 'touch' || !e.isPrimary) return
@@ -102,11 +159,6 @@ export function useMobileLongPressTooltip(
     e.preventDefault()
   }, [])
 
-  /**
-   * Call at the start of a click/toggle handler.
-   * Returns true if the click was a long-press release and should be swallowed.
-   * Also clears the longPressTriggered flag.
-   */
   const swallowLongPressClick = useCallback(() => {
     if (longPressTriggeredRef.current) {
       longPressTriggeredRef.current = false

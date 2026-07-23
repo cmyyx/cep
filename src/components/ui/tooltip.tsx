@@ -4,8 +4,11 @@ import { Tooltip as TooltipPrimitive } from "@base-ui/react/tooltip"
 
 import { cn } from "@/lib/utils"
 
+/** Default open delay (ms). Filters accidental flyovers on dense grids. */
+export const TOOLTIP_OPEN_DELAY_MS = 400
+
 function TooltipProvider({
-  delay = 0,
+  delay = TOOLTIP_OPEN_DELAY_MS,
   ...props
 }: TooltipPrimitive.Provider.Props) {
   return (

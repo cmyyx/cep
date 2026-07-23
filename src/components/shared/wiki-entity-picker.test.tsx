@@ -1,5 +1,6 @@
 // @vitest-environment jsdom
 
+import { cloneElement, isValidElement, type ReactElement, type ReactNode } from 'react'
 import { cleanup, fireEvent, render, screen } from '@testing-library/react'
 import { afterEach, expect, it, vi } from 'vitest'
 import { WikiEntityPicker } from './wiki-entity-picker'
@@ -41,6 +42,41 @@ vi.mock('@/lib/game-i18n-catalogs', () => {
     },
   }
 })
+
+vi.mock('@/hooks/use-mobile-long-press-tooltip', () => ({
+  useMobileLongPressTooltip: () => ({
+    open: false,
+    setOpen: vi.fn(),
+    triggerRef: { current: null },
+    longPressTriggered: { current: false },
+    handleOpenChange: vi.fn(),
+    handlePointerDown: vi.fn(),
+    handlePointerMove: vi.fn(),
+    handlePointerEnd: vi.fn(),
+    handleContextMenu: vi.fn(),
+    swallowLongPressClick: () => false,
+    isMobile: false,
+  }),
+}))
+
+vi.mock('@/components/ui/tooltip', () => ({
+  Tooltip: ({ children }: { children: ReactNode }) => <div>{children}</div>,
+  TooltipTrigger: ({
+    render: trigger,
+    children,
+  }: {
+    render: ReactElement
+    children?: ReactNode
+  }) => {
+    if (!isValidElement(trigger)) return null
+    return cloneElement(trigger, {
+      'data-slot': 'tooltip-trigger',
+      children: children ?? (trigger.props as { children?: ReactNode }).children,
+    } as never)
+  },
+  TooltipContent: ({ children }: { children: ReactNode }) => <div data-testid="tooltip-content">{children}</div>,
+  TOOLTIP_OPEN_DELAY_MS: 400,
+}))
 
 afterEach(cleanup)
 

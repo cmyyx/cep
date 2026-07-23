@@ -6,12 +6,17 @@ import { useEffect, useRef } from 'react'
  * the container without moving the mouse — which would otherwise cause
  * the portal-rendered popup to drift outside the viewport and trigger
  * unwanted horizontal scrollbars.
+ *
+ * Callers should treat scroll-close as "suppress reopen until pointer leaves"
+ * so Base UI hover does not instantly flash the tooltip back open.
  */
 export function useCloseOnScroll(
   open: boolean,
-  setOpen: (open: boolean) => void,
+  onScrollClose: () => void,
 ) {
   const ref = useRef<HTMLButtonElement>(null)
+  const onScrollCloseRef = useRef(onScrollClose)
+  onScrollCloseRef.current = onScrollClose
 
   useEffect(() => {
     if (!open || !ref.current) return
@@ -28,28 +33,29 @@ export function useCloseOnScroll(
 
     const handler = (event: Event) => {
       const target = event.target
+      // Allow scrolling inside the tooltip popup itself (long previews).
       if (target instanceof Element && target.closest('[data-slot="tooltip-content"]')) return
-      setOpen(false)
+      onScrollCloseRef.current()
     }
-    scrollables.forEach((el) => {
-      el.addEventListener('scroll', handler, { passive: true })
-      el.addEventListener('wheel', handler, { passive: true })
+    scrollables.forEach((node) => {
+      node.addEventListener('scroll', handler, { passive: true })
+      node.addEventListener('wheel', handler, { passive: true })
     })
     window.addEventListener('scroll', handler, { passive: true })
     window.addEventListener('wheel', handler, { passive: true })
     document.scrollingElement?.addEventListener('scroll', handler, { passive: true })
     document.scrollingElement?.addEventListener('wheel', handler, { passive: true })
     return () => {
-      scrollables.forEach((el) => {
-        el.removeEventListener('scroll', handler)
-        el.removeEventListener('wheel', handler)
+      scrollables.forEach((node) => {
+        node.removeEventListener('scroll', handler)
+        node.removeEventListener('wheel', handler)
       })
       window.removeEventListener('scroll', handler)
       window.removeEventListener('wheel', handler)
       document.scrollingElement?.removeEventListener('scroll', handler)
       document.scrollingElement?.removeEventListener('wheel', handler)
     }
-  }, [open, setOpen])
+  }, [open])
 
   return ref
 }
