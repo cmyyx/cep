@@ -6803,6 +6803,101 @@
       ]
     }
   ],
+  "equipmentNodes": [
+    {
+      "id": "equipBreakT2",
+      "name": {
+        "zh-CN": "装备适配·一",
+        "en": "Outfitting I",
+        "ja": "装備適正・Ⅰ",
+        "zh-TW": "裝備適用I"
+      },
+      "description": {
+        "zh-CN": "激活后，允许干员穿戴蓝色品质装备",
+        "en": "Activate this to let the operator equip blue quality gear",
+        "ja": "解放後、青品質の装備を着用できる",
+        "zh-TW": "解鎖後，允許幹員穿戴藍色品質裝備"
+      },
+      "breakStage": 1,
+      "equipmentTierLimit": 3,
+      "materials": [
+        {
+          "itemId": "item_gold",
+          "name": {
+            "zh-CN": "折金票",
+            "en": "T-Creds",
+            "ja": "折金券",
+            "zh-TW": "折金票"
+          },
+          "iconId": "item_gold",
+          "rarity": 4,
+          "count": 1600
+        }
+      ]
+    },
+    {
+      "id": "equipBreakT3",
+      "name": {
+        "zh-CN": "装备适配·二",
+        "en": "Outfitting II",
+        "ja": "装備適正・Ⅱ",
+        "zh-TW": "裝備適用II"
+      },
+      "description": {
+        "zh-CN": "激活后，允许干员穿戴紫色品质装备",
+        "en": "Activate this to let the operator equip purple quality gear",
+        "ja": "解放後、紫品質の装備を着用できる",
+        "zh-TW": "解鎖後，允許幹員穿戴紫色品質裝備"
+      },
+      "breakStage": 2,
+      "equipmentTierLimit": 4,
+      "materials": [
+        {
+          "itemId": "item_gold",
+          "name": {
+            "zh-CN": "折金票",
+            "en": "T-Creds",
+            "ja": "折金券",
+            "zh-TW": "折金票"
+          },
+          "iconId": "item_gold",
+          "rarity": 4,
+          "count": 6500
+        }
+      ]
+    },
+    {
+      "id": "equipBreakT4",
+      "name": {
+        "zh-CN": "装备适配·三",
+        "en": "Outfitting III",
+        "ja": "装備適正・Ⅲ",
+        "zh-TW": "裝備適用III"
+      },
+      "description": {
+        "zh-CN": "激活后，允许干员穿戴金色品质装备",
+        "en": "Activate this to let the operator equip gold quality gear",
+        "ja": "解放後、金品質の装備を着用できる",
+        "zh-TW": "解鎖後，允許幹員穿戴金色品質裝備"
+      },
+      "breakStage": 3,
+      "equipmentTierLimit": 5,
+      "materials": [
+        {
+          "itemId": "item_gold",
+          "name": {
+            "zh-CN": "折金票",
+            "en": "T-Creds",
+            "ja": "折金券",
+            "zh-TW": "折金票"
+          },
+          "iconId": "item_gold",
+          "rarity": 4,
+          "count": 18000
+        }
+      ]
+    }
+  ],
   "logisticsNodes": [
     {
       "id": "fac_chr_0028_wulfa_0_1",

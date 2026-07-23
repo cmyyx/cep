@@ -6,6 +6,7 @@ import type {
   WikiWeaponDetailMap,
   WikiWeaponSummary,
 } from '../../src/types/wiki'
+import { PLANNER_RESOURCE_ICON_IDS } from '../../src/lib/planner-resource-ids'
 
 export interface WikiAssets {
   characters: string[]
@@ -40,6 +41,9 @@ export function collectWikiAssets(source: WikiAssetSource): WikiAssets {
   const skills = new Set<string>()
   const logisticsSkills = new Set<string>()
   const materials = new Set<string>()
+  for (const iconId of PLANNER_RESOURCE_ICON_IDS) {
+    materials.add(iconId)
+  }
 
   for (const detail of Object.values(source.characters.details)) {
     for (const imageId of Object.values(detail.images.fullBodyIds)) {

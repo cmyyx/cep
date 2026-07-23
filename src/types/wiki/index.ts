@@ -129,6 +129,15 @@ export interface WikiCharacterAttributeNode {
   materials: WikiMaterial[]
 }
 
+export interface WikiCharacterEquipmentNode {
+  id: string
+  name: LocalizedText
+  description: LocalizedText
+  breakStage: number
+  equipmentTierLimit: number
+  materials: WikiMaterial[]
+}
+
 export interface WikiCharacterLogisticsNode {
   id: string
   breakStage: number
@@ -144,6 +153,7 @@ export interface WikiCharacterLogisticsSkill extends WikiNamedDescription {
 }
 export interface WikiEquipmentSuitEffect extends WikiNamedDescription {
   requiredPieces: number
+  values: Record<string, number>
 }
 
 export type WikiVoiceLanguage = 'zh-CN' | 'en' | 'ja' | 'ko'
@@ -202,6 +212,7 @@ export interface WikiCharacterDetail {
   skills: WikiCharacterSkill[]
   talents: WikiCharacterTalent[]
   attributeNodes: WikiCharacterAttributeNode[]
+  equipmentNodes: WikiCharacterEquipmentNode[]
   logisticsNodes: WikiCharacterLogisticsNode[]
   potentials: WikiCharacterPotential[]
   logisticsSkills: WikiCharacterLogisticsSkill[]

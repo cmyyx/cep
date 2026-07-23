@@ -15,6 +15,7 @@ import { PlannerWikiPreview } from '@/components/shared/planner-wiki-preview'
 import { WikiMaterialList } from '@/components/shared/wiki-material-list'
 import { plainWikiPreviewText } from '@/components/shared/planner-wiki-preview'
 import { wikiEquipmentPlannerPreviews } from '@/generated/data/wiki/planner-previews'
+import { PLANNER_SELECTED_BADGE_CLASS, PLANNER_SELECTED_RING_CLASS } from '@/lib/planner-selection-styles'
 import type { Equip } from '@/types/refinement'
 import type { WikiCraftingRecipe } from '@/types/wiki'
 import type { TooltipRootChangeEventDetails } from '@base-ui/react/tooltip'
@@ -162,7 +163,7 @@ export const EquipCard = memo(function EquipCard({
               isMobile && 'touch-manipulation select-none [-webkit-touch-callout:none] [-webkit-user-select:none] [&_img]:pointer-events-none [&_img]:select-none',
               readOnly ? 'cursor-default' : 'cursor-pointer',
               isSelected
-                ? 'shadow-[0px_0px_0px_1px_#fbbf24,0_25px_50px_-12px_rgba(0,0,0,0.25)] ring-2 ring-amber-400/50 ring-offset-2 ring-offset-background'
+                ? cn('shadow-[0px_0px_0px_1px_#fbbf24,0_25px_50px_-12px_rgba(0,0,0,0.25)]', PLANNER_SELECTED_RING_CLASS)
                 : 'shadow-[0px_0px_0px_1px_rgba(0,0,0,0.08)] hover:ring-2 hover:ring-white/40',
             )}
           />
@@ -225,8 +226,8 @@ export const EquipCard = memo(function EquipCard({
 
         {/* Selected checkmark */}
         {isSelected && (
-          <div className="absolute top-1.5 right-1.5 size-5 rounded-full bg-amber-400 flex items-center justify-center z-30 shadow-md">
-            <Check className="size-3 text-black" strokeWidth={3} />
+          <div className={cn('absolute top-1.5 right-1.5 size-5 rounded-full flex items-center justify-center z-30 shadow-md', PLANNER_SELECTED_BADGE_CLASS)}>
+            <Check className="size-3" strokeWidth={3} />
           </div>
         )}
       </TooltipTrigger>

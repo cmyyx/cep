@@ -15,6 +15,7 @@ import { getCharacterAvatarPath } from '@/lib/character-images'
 import { PlannerWikiPreview } from '@/components/shared/planner-wiki-preview'
 import { getWeaponWikiPreview } from '@/lib/weapon-wiki-preview'
 import { weaponStatLabel } from '@/lib/weapon-stats'
+import { PLANNER_SELECTED_BADGE_CLASS, PLANNER_SELECTED_RING_CLASS } from '@/lib/planner-selection-styles'
 
 import type { Weapon } from '@/types/matrix'
 import type { WikiLocale } from '@/types/wiki'
@@ -89,7 +90,7 @@ export const WeaponCard = memo(function WeaponCard({
         disabled && 'opacity-30 cursor-not-allowed pointer-events-none',
         !disabled && [
           isSelected
-            ? 'border-amber-400 ring-2 ring-amber-400/50 ring-offset-2 ring-offset-background shadow-2xl'
+            ? cn('border-amber-400 shadow-2xl', PLANNER_SELECTED_RING_CLASS)
             : 'border-border hover:ring-2 hover:ring-white/40',
         ]
       )}
@@ -182,8 +183,8 @@ export const WeaponCard = memo(function WeaponCard({
 
       {/* Selected checkmark */}
       {isSelected && (
-        <div className="absolute top-2 right-2 size-6 rounded-full bg-amber-400 flex items-center justify-center z-30 shadow-md">
-          <Check className="size-3 text-black" strokeWidth={3} />
+        <div className={cn('absolute top-2 right-2 size-6 rounded-full flex items-center justify-center z-30 shadow-md', PLANNER_SELECTED_BADGE_CLASS)}>
+          <Check className="size-3" strokeWidth={3} />
         </div>
       )}
     </Button>

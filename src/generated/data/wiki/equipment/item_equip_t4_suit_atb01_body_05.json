@@ -78,7 +78,12 @@
         "ja": "3点セット効果：装備中、連携技CD短縮<@ba.vup>+15%</>\n自身がスキルでSPを回復すると、15秒間チーム全員の与えるダメージ<@ba.vup>+16%</>\nこの効果は重ね掛け不可",
         "zh-TW": "3件套裝效果：裝備者連攜技冷卻縮減<@ba.vup>+15%</>。\n裝備者透過技能回復技力後，全隊造成的傷害<@ba.vup>+16%</>，持續15秒，該效果無法疊加。"
       },
-      "requiredPieces": 3
+      "requiredPieces": 3,
+      "values": {
+        "comboskill_cooldown": 0.85,
+        "dmg_up": 0.16,
+        "duration": 15
+      }
     }
   ],
   "craftingRecipes": [

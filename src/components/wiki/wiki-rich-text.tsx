@@ -1,13 +1,14 @@
 'use client'
 
 import { Fragment, type ReactNode } from 'react'
-import { useLocale } from 'next-intl'
+import { useTranslations } from 'next-intl'
 import { Button } from '@/components/ui/button'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
 import glossaryData from '@/generated/data/wiki/rich-text.json'
 import { parseWikiRichText, type WikiRichTextNode } from '@/lib/wiki-rich-text'
 import { cn } from '@/lib/utils'
-import type { WikiLocale, WikiRichTextTerm } from '@/types/wiki'
+import { wikiTextKey } from '@/lib/wiki-i18n'
+import type { WikiRichTextTerm } from '@/types/wiki'
 
 const glossary = glossaryData as Record<string, WikiRichTextTerm>
 
@@ -28,19 +29,19 @@ function nodeText(node: WikiRichTextNode): string {
   return node.children.map(nodeText).join('')
 }
 
-function renderNodes(nodes: WikiRichTextNode[], locale: WikiLocale): ReactNode {
+function renderNodes(nodes: WikiRichTextNode[], translate: (key: string) => string): ReactNode {
   return nodes.map((node, index) => {
     const key = `${node.type}-${index}`
     if (node.type === 'text') return <Fragment key={key}>{node.text}</Fragment>
     if (node.type === 'image') return null
-    const children = renderNodes(node.children, locale)
+    const children = renderNodes(node.children, translate)
     if (node.type === 'style') {
       return <span key={key} className={styleClass(node.id)}>{children}</span>
     }
     const term = glossary[node.id]
     if (!term) return <span key={key}>{children}</span>
-    const name = term.name[locale] || term.name['zh-CN']
-    const description = plainText(term.description[locale] || term.description['zh-CN'])
+    const name = translate(wikiTextKey('glossary', node.id, 'name'))
+    const description = plainText(translate(wikiTextKey('glossary', node.id, 'description')))
     return (
       <Tooltip key={key}>
         <TooltipTrigger
@@ -71,8 +72,12 @@ export interface WikiRichTextProps {
   value: string
   className?: string
 }
-
 export function WikiRichText({ value, className }: WikiRichTextProps) {
-  const locale = useLocale() as WikiLocale
-  return <span className={cn('whitespace-pre-line', className)}>{renderNodes(parseWikiRichText(value), locale)}</span>
+  const t = useTranslations('wikiData')
+  const translate = (key: string) => {
+    if (!t.has(key)) return key
+    const message = t.raw(key)
+    return typeof message === 'string' ? message : key
+  }
+  return <span className={cn('whitespace-pre-line', className)}>{renderNodes(parseWikiRichText(value), translate)}</span>
 }

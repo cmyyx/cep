@@ -6,6 +6,7 @@
 
 import { existsSync, readFileSync } from 'node:fs'
 import { join } from 'node:path'
+import { parseJsonSafe } from './json-utils'
 
 /** Locales supported by the project. */
 export const SUPPORTED_LOCALES = ['zh-CN', 'en', 'ja', 'zh-TW'] as const
@@ -40,11 +41,11 @@ export function loadAllTextTables(akedataPath: string): Record<string, Record<st
 }
 
 /**
- * Build raw mappings from GemTable (int64-safe regex):
+ * Build mappings from GemTable using the lossless JSON parser:
  *   - cnToGem:  CN stat name → gemTermId  (for special-ability lookup by base skillName)
  *   - gemToCn:  gemTermId → CN stat name
  *   - gemToTextId: gemTermId → tagName.id (the TextTable key for the BASE stat name)
- *
+ *   - tagToGem: upstream tagId → gemTermId (for weapon passive skills)
  * `gemToTextId` lets callers resolve translations directly from a gemTermId without
  * the fragile full-skillName reverse-lookup against the TextTable (which fails for
  * gst_passive_* abilities whose weapon skillName carries a suffix the TextTable
@@ -52,33 +53,41 @@ export function loadAllTextTables(akedataPath: string): Record<string, Record<st
  */
 export function buildGemTableLookup(
   akedataPath: string,
-): { cnToGem: Record<string, string>; gemToCn: Record<string, string>; gemToTextId: Record<string, string> } {
+): {
+  cnToGem: Record<string, string>
+  gemToCn: Record<string, string>
+  gemToTextId: Record<string, string>
+  tagToGem: Record<string, string>
+} {
   const cnToGem: Record<string, string> = {}
   const gemToCn: Record<string, string> = {}
   const gemToTextId: Record<string, string> = {}
-
+  const tagToGem: Record<string, string> = {}
   const gemTablePath = join(akedataPath, 'TableCfg', 'GemTable.json')
-  if (!existsSync(gemTablePath)) return { cnToGem, gemToCn, gemToTextId }
+  if (!existsSync(gemTablePath)) return { cnToGem, gemToCn, gemToTextId, tagToGem }
 
   const textTables = loadTextTable(akedataPath, 'zh-CN')
-  const raw = readFileSync(gemTablePath, 'utf-8')
-  const re = /"(g[as]t_\w+)"\s*:\s*\{/g
-  let m: RegExpExecArray | null
+  const gemTable = parseJsonSafe(gemTablePath) as Record<string, {
+    gemTermId?: string
+    tagId?: string
+    tagName?: { id?: string }
+  }>
 
-  while ((m = re.exec(raw)) !== null) {
-    const gemId = m[1]
-    const window = raw.substring(m.index, m.index + 2000)
-    const tagMatch = window.match(/"tagName"\s*:\s*\{[^}]*?"id"\s*:\s*(-?\d+)/)
-    if (tagMatch?.[1]) {
-      const textId = tagMatch[1]
-      gemToTextId[gemId] = textId
-      const cn = textTables[textId]
-      if (cn) {
-        cnToGem[cn] = gemId
-        gemToCn[gemId] = cn
-      }
+  for (const [entryId, entry] of Object.entries(gemTable)) {
+    const gemId = entry.gemTermId ?? entryId
+    if (!/^g[as]t_/.test(gemId)) continue
+
+    if (entry.tagId) tagToGem[entry.tagId] = gemId
+    const textId = entry.tagName?.id
+    if (!textId || textId === '0') continue
+
+    gemToTextId[gemId] = textId
+    const cn = textTables[textId]
+    if (cn) {
+      cnToGem[cn] = gemId
+      gemToCn[gemId] = cn
     }
   }
 
-  return { cnToGem, gemToCn, gemToTextId }
+  return { cnToGem, gemToCn, gemToTextId, tagToGem }
 }

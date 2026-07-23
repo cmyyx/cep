@@ -63,7 +63,14 @@
         "ja": "3点セット効果：装備中、アーツ強度<@ba.vup>+30</>\n自身が敵を<#ba.conduct>感電</>状態にすると、10秒間<@ba.pulse>電磁ダメージ</><@ba.vup>+50%</>\nこの効果は重ね掛け不可\n自身が敵を<#ba.frozen>凍結</>状態にすると、10秒間<@ba.cryst>寒冷ダメージ</><@ba.vup>+50%</>\nこの効果は重ね掛け不可",
         "zh-TW": "3件套裝效果：裝備者源石技藝強度<@ba.vup>+30</>。\n當裝備者施加<#ba.conduct>導電</>後，<@ba.pulse>電磁傷害</><@ba.vup>+50%</>，持續10秒，該效果無法疊加；當裝備者施加<#ba.frozen>凍結</>後，<@ba.cryst>寒冷傷害</><@ba.vup>+50%</>，持續10秒，該效果無法疊加。"
       },
-      "requiredPieces": 3
+      "requiredPieces": 3,
+      "values": {
+        "phy_spell_up": 30,
+        "pulse_dmg_up": 0.5,
+        "duration": 10,
+        "cryst_dmg_up": 0.5,
+        "duration2": 10
+      }
     }
   ],
   "craftingRecipes": [

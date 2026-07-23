@@ -78,7 +78,12 @@
         "ja": "3点セット効果：装備中、HP<@ba.vup>+500</>\n自身が敵を倒すと、<@ba.vup>5</>秒間攻撃力<@ba.vup>+20</>",
         "zh-TW": "3件套裝效果：裝備者生命值<@ba.vup>+500</>。\n當裝備者擊敗敵人後，攻擊力<@ba.vup>+20</>，持續<@ba.vup>5</>秒。"
       },
-      "requiredPieces": 3
+      "requiredPieces": 3,
+      "values": {
+        "hp_up": 500,
+        "atk_up": 20,
+        "duration": 5
+      }
     }
   ],
   "craftingRecipes": [

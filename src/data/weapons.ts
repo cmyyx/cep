@@ -80,10 +80,10 @@ export const weapons: Weapon[] = [
   { id: 'wpn_funnel_0001', iconId: 'wpn_funnel_0001', name: '全自动骇新星', rarity: 4, type: '施术单元', primaryStat: 'gat_passive_attr_wisd', elementalDamage: 'gat_passive_attr_magicdam', specialAbility: 'gst_passive_spirit', chars: [] },
   { id: 'wpn_funnel_0003', iconId: 'wpn_funnel_0003', name: '荧光雷羽', rarity: 4, type: '施术单元', primaryStat: 'gat_passive_attr_will', elementalDamage: 'gat_passive_attr_atk', specialAbility: 'gst_passive_tactic', chars: [] },
 
-  // ===== 三星（无第三词条；null 表示该槽位不限制） =====
-  { id: 'wpn_claym_0010', iconId: 'wpn_claym_0010', name: '达尔霍夫7', rarity: 3, type: '双手剑', primaryStat: 'gat_passive_attr_main', elementalDamage: 'gat_passive_attr_atk', specialAbility: null, chars: [] },
-  { id: 'wpn_funnel_0002', iconId: 'wpn_funnel_0002', name: '吉米尼12', rarity: 3, type: '施术单元', primaryStat: 'gat_passive_attr_main', elementalDamage: 'gat_passive_attr_atk', specialAbility: null, chars: [] },
-  { id: 'wpn_pistol_0001', iconId: 'wpn_pistol_0001', name: '佩科5', rarity: 3, type: '手铳', primaryStat: 'gat_passive_attr_main', elementalDamage: 'gat_passive_attr_atk', specialAbility: null, chars: [] },
-  { id: 'wpn_lance_0009', iconId: 'wpn_lance_0009', name: '奥佩罗77', rarity: 3, type: '长柄武器', primaryStat: 'gat_passive_attr_main', elementalDamage: 'gat_passive_attr_atk', specialAbility: null, chars: [] },
-  { id: 'wpn_sword_0003', iconId: 'wpn_sword_0003', name: '塔尔11', rarity: 3, type: '单手剑', primaryStat: 'gat_passive_attr_main', elementalDamage: 'gat_passive_attr_atk', specialAbility: null, chars: [] },
+  // ===== 三星（无附加属性；null 表示该槽位不限制） =====
+  { id: 'wpn_claym_0010', iconId: 'wpn_claym_0010', name: '达尔霍夫7', rarity: 3, type: '双手剑', primaryStat: 'gat_passive_attr_main', elementalDamage: null, specialAbility: 'gst_passive_force', chars: [] },
+  { id: 'wpn_funnel_0002', iconId: 'wpn_funnel_0002', name: '吉米尼12', rarity: 3, type: '施术单元', primaryStat: 'gat_passive_attr_main', elementalDamage: null, specialAbility: 'gst_passive_force', chars: [] },
+  { id: 'wpn_pistol_0001', iconId: 'wpn_pistol_0001', name: '佩科5', rarity: 3, type: '手铳', primaryStat: 'gat_passive_attr_main', elementalDamage: null, specialAbility: 'gst_passive_force', chars: [] },
+  { id: 'wpn_lance_0009', iconId: 'wpn_lance_0009', name: '奥佩罗77', rarity: 3, type: '长柄武器', primaryStat: 'gat_passive_attr_main', elementalDamage: null, specialAbility: 'gst_passive_force', chars: [] },
+  { id: 'wpn_sword_0003', iconId: 'wpn_sword_0003', name: '塔尔11', rarity: 3, type: '单手剑', primaryStat: 'gat_passive_attr_main', elementalDamage: null, specialAbility: 'gst_passive_force', chars: [] }
 ]

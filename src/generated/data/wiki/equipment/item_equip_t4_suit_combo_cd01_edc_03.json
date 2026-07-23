@@ -78,7 +78,13 @@
         "ja": "3点セット効果：装備中、連携技CD短縮<@ba.vup>+15%</>\n自身が連携技を発動するとき、15秒間すべてのスキルダメージ<@ba.vup>+20%</>\nこの効果は最大2段階まで重ね掛け可能（持続時間は個別にカウントされる）",
         "zh-TW": "3件套裝效果：裝備者連攜技冷卻縮減<@ba.vup>+15%</>。\n當裝備者施放連攜技時，所有技能傷害<@ba.vup>+20%</>，持續15秒。該效果最多疊加2層，每層單獨計算持續時間。"
       },
-      "requiredPieces": 3
+      "requiredPieces": 3,
+      "values": {
+        "comboskill_cooldown": 0.85,
+        "spell_up": 0.2,
+        "duration": 15,
+        "max_stack": 2
+      }
     }
   ],
   "craftingRecipes": [

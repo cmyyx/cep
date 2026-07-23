@@ -159,6 +159,9 @@ interface CharacterBreakCost {
   nodeType?: Numeric
   breakStage?: Numeric
   requiredItem?: RequiredItem[]
+  equipTierLimit?: Numeric
+  name?: TextRef
+  description?: TextRef
 }
 
 interface CharacterGrowthEntry {
@@ -167,6 +170,7 @@ interface CharacterGrowthEntry {
   talentNodeMap?: Record<string, TalentNode>
   charBreakCostMap?: Record<string, CharacterBreakCost>
 }
+
 
 interface PotentialUnlock {
   level?: Numeric
@@ -676,6 +680,26 @@ function material(
   }
 }
 
+function buildEquipmentNodes(
+  growth: CharacterGrowthEntry | undefined,
+  itemTable: CharacterWikiSource['itemTable'],
+  textTables: CharacterWikiSource['textTables']
+) {
+  return Object.entries(growth?.charBreakCostMap ?? {})
+    .filter(([, cost]) => numberValue(cost.nodeType) === 2)
+    .map(([id, cost]) => ({
+      id,
+      name: localize(cost.name, textTables),
+      description: localize(cost.description, textTables),
+      breakStage: numberValue(cost.breakStage),
+      equipmentTierLimit: numberValue(cost.equipTierLimit),
+      materials: (cost.requiredItem ?? [])
+        .map((required) => material(required, itemTable, textTables))
+        .filter((value): value is WikiMaterial => value !== null),
+    }))
+    .sort((left, right) => left.breakStage - right.breakStage || left.id.localeCompare(right.id))
+}
+
 function buildPromotions(
   growth: CharacterGrowthEntry | undefined,
   itemTable: CharacterWikiSource['itemTable'],
@@ -767,6 +791,7 @@ export function buildCharacterWikiData(source: CharacterWikiSource): CharacterWi
         source.textTables,
         source.attributeVariableNames ?? {}
       ),
+      equipmentNodes: buildEquipmentNodes(growth, source.itemTable, source.textTables),
       logisticsNodes: buildLogisticsNodes(growth, source.itemTable, source.textTables),
       potentials: buildPotentials(
         source.characterPotentialTable[id],

@@ -605,12 +605,6 @@
       "en": "Combo Skill Cooldown Reduction",
       "ja": "連携技CT短縮",
       "zh-TW": "連攜技冷卻減免"
-    },
-    "baseAttack": {
-      "zh-CN": "攻击力",
-      "en": "Attack",
-      "ja": "攻撃力",
-      "zh-TW": "攻擊力"
     }
   },
   "elements": {
@@ -683,14 +677,7 @@
       "zh-TW": "突擊"
     }
   },
-  "factions": {
-    "ENDFIELD INDUSTRIES": {
-      "zh-CN": "终末地工业",
-      "en": "Endfield Industries",
-      "ja": "エンドフィールド工業",
-      "zh-TW": "終末地工業"
-    }
-  },
+  "factions": {},
   "weaponTypes": {
     "1": {
       "zh-CN": "单手剑",

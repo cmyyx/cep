@@ -12,11 +12,14 @@ import type { CharacterWikiData } from './build-character-wiki'
 import { buildItemWikiData, type ItemWikiData, type ItemWikiSource } from './build-item-wiki'
 import { buildAttrShowConfigs } from './equip-stat-format'
 import { parseJsonSafe } from './json-utils'
-import { loadAllTextTables } from './stat-mapping'
+import { loadAllTextTables, SUPPORTED_LOCALES } from './stat-mapping'
 import { localizeWikiText, type TextRef, type WikiTextTables } from './wiki-builder-utils'
 import { weapons } from '../../src/data/weapons'
 import { equips } from '../../src/data/equips'
 import { collectWikiAssets, type WikiAssets } from './wiki-assets'
+import { buildPlannerGameData, writePlannerGameData } from './generate-planner-data'
+import { wikiTextKey } from '../../src/lib/wiki-i18n'
+import type { PlannerGameData } from '../../src/types/planner'
 
 interface AttributeShowEntry {
   list?: Array<{ name?: TextRef }>
@@ -36,6 +39,129 @@ export function buildWikiGlossary(
     description: localizeWikiText(entry.desc, textTables),
     styleId: entry.richTextId ?? '',
   }]))
+}
+
+interface GameTextEntry {
+  id?: string | number
+}
+
+const GAME_UI_TEXT_KEYS = {
+  operatorLevel: 'LUA_ACTIVITY_CULTIVATION_REFUND_SERIES_1',
+  equipmentAdaptation: 'ui_char_info_talent_equip_suit',
+  talent: 'ui_char_info_talent_char_talent',
+  attributeIncrease: 'ui_char_info_talent_attr_enhanced',
+  logisticsSkill: 'ui_char_info_talent_fac_skill',
+  promotion: 'ui_char_info_talent_eliterize',
+  normalAttack: 'LUA_CHAR_INFO_NORMAL_ATTACK_NAME',
+  battleSkill: 'LUA_CHAR_INFO_NORMAL_SKILL_NAME',
+  ultimate: 'LUA_CHAR_INFO_ULTIMATE_SKILL_NAME',
+  comboSkill: 'LUA_CHAR_INFO_COMBO_SKILL_NAME',
+} as const
+
+export type WikiI18nCatalogs = Record<keyof LocalizedText, Record<string, string>>
+
+export function buildWikiI18nCatalogs(
+  characters: CharacterWikiData,
+  items: ItemWikiData,
+  enums: WikiEnumLabels,
+  glossary: Record<string, WikiRichTextTerm>,
+  planner: PlannerGameData,
+  gameTextTable: Record<string, GameTextEntry>,
+  textTables: WikiTextTables
+): WikiI18nCatalogs {
+  const catalogs = Object.fromEntries(
+    SUPPORTED_LOCALES.map((locale) => [locale, {}])
+  ) as WikiI18nCatalogs
+  const add = (key: string, value: LocalizedText) => {
+    for (const locale of SUPPORTED_LOCALES) {
+      catalogs[locale][key] = value[locale] || value['zh-CN'] || key
+    }
+  }
+  const addRef = (key: string, ref: TextRef | undefined) => add(key, localizeWikiText(ref, textTables))
+
+  for (const [group, values] of Object.entries(enums)) {
+    for (const [id, value] of Object.entries(values)) add(wikiTextKey('enum', group, id), value)
+  }
+  for (const [semanticKey, sourceKey] of Object.entries(GAME_UI_TEXT_KEYS)) {
+    addRef(wikiTextKey('ui', semanticKey), gameTextTable[sourceKey])
+  }
+  for (const detail of Object.values(characters.details)) {
+    for (const skill of detail.skills) {
+      const prefix = ['character', detail.id, 'skill', skill.id] as const
+      add(wikiTextKey(...prefix, 'name'), skill.name)
+      add(wikiTextKey(...prefix, 'description'), skill.description)
+      for (const metric of skill.metrics) add(wikiTextKey(...prefix, 'metric', metric.id), metric.label)
+      for (const variant of skill.variants ?? []) {
+        const variantPrefix = ['character', detail.id, 'variant', variant.id] as const
+        add(wikiTextKey(...variantPrefix, 'name'), variant.name)
+        add(wikiTextKey(...variantPrefix, 'condition'), variant.condition)
+        add(wikiTextKey(...variantPrefix, 'description'), variant.description)
+        for (const metric of variant.metrics) add(wikiTextKey(...variantPrefix, 'metric', metric.id), metric.label)
+      }
+    }
+    for (const talent of detail.talents) {
+      add(wikiTextKey('character', detail.id, 'talent', talent.id, 'name'), talent.name)
+      add(wikiTextKey('character', detail.id, 'talent', talent.id, 'description'), talent.description)
+    }
+    for (const node of detail.attributeNodes) {
+      add(wikiTextKey('character', detail.id, 'attribute', node.id, 'name'), node.title)
+      add(wikiTextKey('character', detail.id, 'attribute', node.id, 'description'), node.description)
+    }
+    for (const node of detail.equipmentNodes) {
+      add(wikiTextKey('character', detail.id, 'equipment', node.id, 'name'), node.name)
+      add(wikiTextKey('character', detail.id, 'equipment', node.id, 'description'), node.description)
+    }
+    for (const potential of detail.potentials) {
+      add(wikiTextKey('character', detail.id, 'potential', potential.id, 'name'), potential.name)
+      add(wikiTextKey('character', detail.id, 'potential', potential.id, 'description'), potential.description)
+    }
+    for (const skill of detail.logisticsSkills) {
+      add(wikiTextKey('character', detail.id, 'logistics', skill.id, 'name'), skill.name)
+      add(wikiTextKey('character', detail.id, 'logistics', skill.id, 'description'), skill.description)
+      add(wikiTextKey('character', detail.id, 'logistics', skill.id, 'unlockHint'), skill.unlockHint)
+    }
+  }
+  for (const detail of Object.values(items.weaponDetails)) {
+    for (const skill of detail.skills) {
+      add(wikiTextKey('weapon', detail.id, 'skill', skill.id, 'name'), skill.name)
+      add(wikiTextKey('weapon', detail.id, 'skill', skill.id, 'description'), skill.description)
+      for (const level of skill.levels) add(wikiTextKey('weapon', detail.id, 'skill', skill.id, 'level', level.level), level.description)
+    }
+  }
+  for (const equipment of items.equipmentSummaries) {
+    if (equipment.suitId && equipment.suitName) add(wikiTextKey('suit', equipment.suitId), equipment.suitName)
+  }
+  for (const detail of Object.values(items.equipmentDetails)) {
+    for (const effect of detail.suitEffects) {
+      add(wikiTextKey('equipment', detail.id, 'effect', effect.id, 'name'), effect.name)
+      add(wikiTextKey('equipment', detail.id, 'effect', effect.id, 'description'), effect.description)
+    }
+  }
+  for (const [id, term] of Object.entries(glossary)) {
+    add(wikiTextKey('glossary', id, 'name'), term.name)
+    add(wikiTextKey('glossary', id, 'description'), term.description)
+  }
+  for (const [itemId, material] of Object.entries(planner.materials)) add(wikiTextKey('item', itemId), material.name)
+  for (const dungeon of planner.dungeons) {
+    add(wikiTextKey('dungeon', dungeon.id), dungeon.name)
+    add(wikiTextKey('dungeon', dungeon.seriesId), dungeon.seriesName)
+  }
+  for (const [characterId, character] of Object.entries(planner.characters)) {
+    for (const node of [...character.talents, ...character.attributeNodes, ...character.equipmentNodes, ...character.logisticsNodes]) {
+      add(wikiTextKey('character', characterId, 'plannerNode', node.id, 'name'), node.name)
+    }
+  }
+  return catalogs
+}
+
+function writeWikiI18nFiles(outputDir: string, catalogs: WikiI18nCatalogs): string[] {
+  const dir = join(outputDir, 'wikiData')
+  mkdirSync(dir, { recursive: true })
+  return SUPPORTED_LOCALES.map((locale) => {
+    const path = join(dir, `${locale}.json`)
+    writeFileSync(path, `${JSON.stringify(catalogs[locale], null, 2)}\n`, 'utf8')
+    return path
+  })
 }
 type AttributeMapLabels = Record<keyof LocalizedText, Record<string, string>>
 
@@ -174,56 +300,37 @@ function writeDetailFiles(
   })
 }
 
-function localizedExact(
-  cn: string,
-  textTables: WikiTextTables,
-  fallback?: Partial<LocalizedText>
-): LocalizedText {
-  const textId = Object.entries(textTables['zh-CN'] ?? {}).find(([, value]) => value === cn)?.[0]
-  if (textId) return localizeWikiText({ id: textId }, textTables)
-  return {
-    'zh-CN': fallback?.['zh-CN'] ?? cn,
-    en: fallback?.en ?? cn,
-    ja: fallback?.ja ?? cn,
-    'zh-TW': fallback?.['zh-TW'] ?? cn,
-  }
-}
 
 function buildEnums(
   akedataPath: string,
   imagedbPath: string,
   dataOutputDir: string,
-  textTables: WikiTextTables
-): string {
+  textTables: WikiTextTables,
+  gameTextTable: Record<string, GameTextEntry>
+): { path: string; enums: WikiEnumLabels } {
   const characterEnumPath = join(dataOutputDir, 'wiki', 'character-enums.json')
   const characterEnums = JSON.parse(readFileSync(characterEnumPath, 'utf8')) as WikiEnumLabels
+  const fromGameText = (key: string) => localizeWikiText(gameTextTable[key], textTables)
   const enums: WikiEnumLabels = {
     ...characterEnums,
     attributes: loadAttributeMapLabels(imagedbPath),
-    factions: {
-      'ENDFIELD INDUSTRIES': localizedExact('终末地工业', textTables, {
-        en: 'Endfield Industries',
-        ja: 'エンドフィールド工業',
-        'zh-TW': '終末地工業',
-      }),
-    },
     weaponTypes: {
-      '1': localizedExact('单手剑', textTables),
-      '2': localizedExact('施术单元', textTables),
-      '3': localizedExact('双手剑', textTables),
-      '5': localizedExact('长柄武器', textTables),
-      '6': localizedExact('手铳', textTables),
+      '1': fromGameText('LUA_WEAPON_TYPE_1'),
+      '2': fromGameText('LUA_WEAPON_TYPE_2'),
+      '3': fromGameText('LUA_WEAPON_TYPE_3'),
+      '5': fromGameText('LUA_WEAPON_TYPE_5'),
+      '6': fromGameText('LUA_WEAPON_TYPE_6'),
     },
     equipmentParts: {
-      '0': localizedExact('护甲', textTables),
-      '1': localizedExact('护手', textTables),
-      '2': localizedExact('配件', textTables),
+      '0': fromGameText('LUA_WIKI_FILTER_NAME_EQUIP_PART_BODY'),
+      '1': fromGameText('LUA_WIKI_FILTER_NAME_EQUIP_PART_HAND'),
+      '2': fromGameText('LUA_WIKI_FILTER_NAME_EQUIP_PART_EDC'),
     },
     skillTypes: {
-      '0': localizedExact('普通攻击', textTables),
-      '1': localizedExact('战技', textTables),
-      '2': localizedExact('终结技', textTables),
-      '3': localizedExact('连携技', textTables),
+      '0': fromGameText('LUA_CHAR_INFO_NORMAL_ATTACK_NAME'),
+      '1': fromGameText('LUA_CHAR_INFO_NORMAL_SKILL_NAME'),
+      '2': fromGameText('LUA_CHAR_INFO_ULTIMATE_SKILL_NAME'),
+      '3': fromGameText('LUA_CHAR_INFO_COMBO_SKILL_NAME'),
     },
   }
   const attributeTable = loadTable(
@@ -234,11 +341,30 @@ function buildEnums(
     const ref = entry.list?.[0]?.name
     if (ref) enums.attributes[id] = localizeWikiText(ref, textTables)
   }
-  enums.attributes.baseAttack = localizedExact('攻击力', textTables)
 
   const path = join(dataOutputDir, 'wiki', 'enums.json')
   writeFileSync(path, `${JSON.stringify(enums, null, 2)}\n`, 'utf8')
-  return path
+  return { path, enums }
+}
+
+function writeEquipmentNameFiles(
+  outputDir: string,
+  summaries: ItemWikiData['equipmentSummaries']
+): string[] {
+  const dir = join(outputDir, 'equips')
+  mkdirSync(dir, { recursive: true })
+  return SUPPORTED_LOCALES.map((locale) => {
+    const path = join(dir, `${locale}.json`)
+    let existing: Record<string, string> = {}
+    try {
+      existing = JSON.parse(readFileSync(path, 'utf8')) as Record<string, string>
+    } catch {}
+    for (const equipment of summaries) {
+      existing[equipment.id] ??= equipment.name[locale] || equipment.name['zh-CN'] || equipment.id
+    }
+    writeFileSync(path, `${JSON.stringify(existing, null, 2)}\n`, 'utf8')
+    return path
+  })
 }
 
 export interface WikiDataResult {
@@ -251,11 +377,12 @@ export interface WikiDataResult {
 export function generateWikiData(
   akedataPath: string,
   imagedbPath: string,
-  _generatedI18nDir: string,
+  generatedI18nDir: string,
   dataOutputDir: string,
   characters: CharacterWikiData
 ): WikiDataResult {
   const textTables = loadAllTextTables(akedataPath)
+  const gameTextTable = loadTable(akedataPath, 'TextTable') as Record<string, GameTextEntry>
   const source: ItemWikiSource = {
     itemTable: loadTable(akedataPath, 'ItemTable') as ItemWikiSource['itemTable'],
     weaponBasicTable: loadTable(akedataPath, 'WeaponBasicTable') as ItemWikiSource['weaponBasicTable'],
@@ -279,13 +406,19 @@ export function generateWikiData(
     textTables
   )
   writeFileSync(glossaryPath, `${JSON.stringify(glossary, null, 2)}\n`, 'utf8')
+  const enumOutput = buildEnums(akedataPath, imagedbPath, dataOutputDir, textTables, gameTextTable)
+  const planner = buildPlannerGameData(akedataPath, characters, generated)
+  const catalogs = buildWikiI18nCatalogs(characters, generated, enumOutput.enums, glossary, planner, gameTextTable, textTables)
   const files = [
     writeSummaryFile(dataOutputDir, 'weapons', generated.weaponSummaries),
     writeSummaryFile(dataOutputDir, 'equipment', generated.equipmentSummaries),
     ...writeDetailFiles(dataOutputDir, 'weapons', generated.weaponDetails),
     ...writeDetailFiles(dataOutputDir, 'equipment', generated.equipmentDetails),
     writePlannerPreviewFile(dataOutputDir, generated),
-    buildEnums(akedataPath, imagedbPath, dataOutputDir, textTables),
+    writePlannerGameData(dataOutputDir, planner),
+    enumOutput.path,
+    ...writeWikiI18nFiles(generatedI18nDir, catalogs),
+    ...writeEquipmentNameFiles(generatedI18nDir, generated.equipmentSummaries),
     assetPath,
     glossaryPath,
   ]

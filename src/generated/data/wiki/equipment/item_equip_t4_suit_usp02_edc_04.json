@@ -63,7 +63,12 @@
         "ja": "3点セット効果：装備中、HP<@ba.vup>+1000</>\n自身が<#ba.enhance>増幅</>、<#ba.guard>加護</>、<#ba.vulnerable>脆弱</>、<#ba.weak>弱体化</>を付与すると、15秒間編成中の他の味方の与えるダメージ<@ba.vup>+16%</>\nこの効果は重ね掛け不可",
         "zh-TW": "3件套裝效果：裝備者生命值<@ba.vup>+1000</>。\n裝備者施加<#ba.enhance>增幅</>、<#ba.guard>庇護</>、<#ba.vulnerable>脆弱</>、<#ba.weak>虛弱</>後，使其他隊友造成的傷害<@ba.vup>+16%</>，持續15秒。該效果無法疊加。"
       },
-      "requiredPieces": 3
+      "requiredPieces": 3,
+      "values": {
+        "hp_up": 1000,
+        "dmg_up": 0.16,
+        "duration": 15
+      }
     }
   ],
   "craftingRecipes": [

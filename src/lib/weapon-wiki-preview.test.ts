@@ -12,6 +12,15 @@ it('formats numeric and descriptive weapon preview values with locale fallback',
   expect(result.wikiHref).toBe(`/en/wiki/weapons/${weaponId}`)
 })
 
+it('aligns compact three-star previews with their non-empty semantic slots', () => {
+  const result = getWeaponWikiPreview('wpn_claym_0010', 'zh-CN')
+
+  expect(result.values[0]).toEqual({ levelOne: '+10', maxLevel: '+79' })
+  expect(result.values[1]).toEqual({ levelOne: '—', maxLevel: '—' })
+  expect(result.values[2].levelOne).toContain('+12')
+  expect(result.values[2].maxLevel).toContain('+34')
+})
+
 it('returns placeholders and no link for non-Wiki weapon IDs', () => {
   expect(getWeaponWikiPreview('custom-test', 'zh-CN')).toEqual({
     levelOneLabel: undefined,

@@ -1,5 +1,7 @@
 import { getRequestConfig } from 'next-intl/server'
 import { routing } from './routing'
+import { loadMessages } from './load-messages'
+import type { WikiLocale } from '@/types/wiki'
 
 export default getRequestConfig(async ({ requestLocale }) => {
   let locale = await requestLocale
@@ -8,6 +10,6 @@ export default getRequestConfig(async ({ requestLocale }) => {
   }
   return {
     locale,
-    messages: (await import(`../messages/${locale}.json`)).default,
+    messages: loadMessages(locale as WikiLocale),
   }
 })

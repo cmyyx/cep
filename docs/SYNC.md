@@ -62,14 +62,15 @@ pnpm sync:check
    └─ validatePaths() — 检查 AKEData/Translation 目录及必要子目录
 
 2. SHA 检查（非 --local 模式）
-   └─ 对比 scripts/.cache/upstream-versions.json 中的 SHA（akedata）与上游当前 HEAD
-   └─ 匹配 → 跳过
-   └─ 不匹配 + --check 模式 → exit code 2（CI 触发 sync job）
-   └─ 不匹配 + --update 模式 → 继续执行后续同步步骤
+   ├─ 对比 scripts/.cache/upstream-versions.json 中的 SHA（akedata）与上游当前 HEAD
+   ├─ 匹配 → 继续校验项目数据、武器 iconId 与生成图片；全部一致才跳过
+   ├─ 存在差异 + --check 模式 → exit code 2（CI 触发 sync job）
+   └─ 存在差异 + --update 模式 → 继续执行后续同步步骤
 
 3. 武器数据（Weapons）
-   ├─ compareWeapons()       — 对比项目数据与上游，列出新增武器
-   ├─ updateWeaponsFile()    — 新武器写入 src/data/weapons.ts
+   ├─ compareWeapons()       — 对比项目数据与上游，报告新增武器
+   ├─ updateWeaponsFile()    — 全量对账三星及以上武器的上游字段并补齐缺失记录
+   ├─ reconcileWeaponsIconIds() — 对账 ItemTable.iconId
    ├─ generateWeaponI18n()   — 生成 src/generated/i18n/weapons/*.json
    └─ generateWeaponStatsI18n() — 生成 src/generated/i18n/weaponStats/*.json
 

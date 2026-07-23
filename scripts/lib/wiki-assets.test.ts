@@ -37,6 +37,7 @@ it('collects every image referenced by Wiki summaries and details', () => {
           }],
           talents: [{ id: 'talent', name, description: name, iconId: 'talent_icon', breakStage: 2, materials: [] }],
           attributeNodes: [],
+          equipmentNodes: [],
           logisticsNodes: [],
           potentials: [{ id: 'potential', level: 1, name, description: name, imageIds: ['potential_image'] }],
           logisticsSkills: [{ id: 'logistics', name, description: name, iconId: 'logistics_icon', unlockHint: name, index: 0, level: 1 }],
@@ -112,6 +113,6 @@ it('collects every image referenced by Wiki summaries and details', () => {
     equipment: ['equip_icon'],
     skills: ['skill_icon', 'talent_icon'],
     logisticsSkills: ['logistics_icon'],
-    materials: ['equip_material_icon', 'material_icon', 'weapon_material_icon'],
+    materials: ['equip_material_icon', 'item_expcard_2_3', 'item_expcard_stage2_high', 'item_gold', 'item_weapon_expcard_high', 'material_icon', 'weapon_material_icon'],
   })
 })

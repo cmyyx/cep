@@ -57,7 +57,12 @@
         "ja": "3点セット効果：装備中、HP<@ba.vup>+500</>\n自身が敵を倒すと、HPを<@ba.heal>100</>回復する\nこの効果は5秒に1回まで発動可能",
         "zh-TW": "3件套裝效果：裝備者生命值<@ba.vup>+500</>。\n當裝備者擊敗敵人後，回復<@ba.heal>100</>點生命值。該效果每5秒最多觸發一次。"
       },
-      "requiredPieces": 3
+      "requiredPieces": 3,
+      "values": {
+        "hp_up": 500,
+        "hp_add": 100,
+        "cd": 5
+      }
     }
   ],
   "craftingRecipes": [

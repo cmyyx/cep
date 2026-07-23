@@ -4,8 +4,6 @@ import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { SidebarTrigger } from '@/components/ui/sidebar'
 import { WikiEntityGrid } from '@/components/wiki/wiki-entity-grid'
 import { wikiWeapons } from '@/generated/data/wiki/weapons'
-import wikiEnums from '@/generated/data/wiki/enums.json'
-import type { WikiEnumLabels } from '@/types/wiki'
 import { getAlternates } from '@/lib/metadata'
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
@@ -35,7 +33,6 @@ export default async function WikiWeaponsPage({ params }: { params: Promise<{ lo
       <WikiEntityGrid
         entities={wikiWeapons}
         imageBasePath="/images/weapon"
-        enums={wikiEnums as WikiEnumLabels}
         groupBy={{ field: 'weaponTypeId', enumGroup: 'weaponTypes' }}
         filters={[
           { field: 'rarity', labelKey: 'wiki.filter.rarity' },
