@@ -75,6 +75,7 @@ export const usePanelPreviewStore = create<PanelPreviewState>()(
     {
       name: 'panelPreview',
       version: 3,
+      migrate: (persisted) => persisted,
       partialize: (state) => ({ config: state.config }),
       merge: (persisted, current) => {
         const raw = persisted as { config?: unknown } | null

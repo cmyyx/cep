@@ -34,7 +34,7 @@ export function generateWeaponStatsI18n(
   const wpnBasicPath = join(akedataPath, 'TableCfg', 'WeaponBasicTable.json')
   if (!existsSync(wpnBasicPath)) return { written: [], count: 0, missing: 0 }
 
-  const wpnBasic = JSON.parse(readFileSync(wpnBasicPath, 'utf-8')) as Record<string, { weaponSkillList?: string[] }>
+  const wpnBasic = JSON.parse(readFileSync(wpnBasicPath, 'utf-8')) as Record<string, { rarity?: number; weaponSkillList?: string[] }>
 
   // Load SkillPatchTable (lossless-json for int64-safe skillName.id)
   const skillPatchPath = join(akedataPath, 'TableCfg', 'SkillPatchTable.json')
@@ -56,6 +56,7 @@ export function generateWeaponStatsI18n(
   // Iterate through the shared resolver so generation, reconciliation, and
   // validation always agree about which upstream skill belongs to each slot.
   for (const [weaponId, wpnData] of Object.entries(wpnBasic)) {
+    if ((wpnData.rarity ?? 1) < 3) continue
     const stats = resolveWeaponStats(
       wpnData.weaponSkillList ?? [],
       skillPatch,

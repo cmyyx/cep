@@ -1,3 +1,5 @@
+// @vitest-environment jsdom
+
 import { beforeEach, describe, expect, it } from 'vitest'
 import { plannerGameData } from '@/generated/data/planner'
 import { createDefaultPanelPreviewConfig, createPanelEquipmentSelection, normalizePersistedPanelConfig, usePanelPreviewStore } from './usePanelPreviewStore'
@@ -5,7 +7,10 @@ import { createDefaultPanelPreviewConfig, createPanelEquipmentSelection, normali
 const characterIds = Object.keys(plannerGameData.characters)
 
 describe('usePanelPreviewStore', () => {
-  beforeEach(() => usePanelPreviewStore.setState({ config: null }))
+  beforeEach(() => {
+    localStorage.clear()
+    usePanelPreviewStore.setState({ config: null })
+  })
 
   it('creates a fully upgraded default character configuration', () => {
     const characterId = characterIds[0]
@@ -53,4 +58,39 @@ describe('usePanelPreviewStore', () => {
     expect(config?.potentialLevel).toBe(plannerGameData.characters[characterId].potentials.at(-1)?.level ?? 0)
     expect(config?.armor).toEqual(createPanelEquipmentSelection(null))
   })
+
+
+  it('migrates v2 persisted panel preview config through normalize', async () => {
+    const characterId = characterIds[0]
+    const defaults = createDefaultPanelPreviewConfig(characterId)
+    localStorage.setItem('panelPreview', JSON.stringify({
+      state: {
+        config: {
+          characterId,
+          level: 12,
+          skillLevels: defaults.skillLevels,
+          talentCount: defaults.talentCount,
+          attributeNodeCount: 1,
+          weaponId: null,
+          weaponLevel: 90,
+          weaponSkillLevels: [9, 9, 9],
+          armor: { equipmentId: 'missing', statLevels: [9] },
+          gloves: createPanelEquipmentSelection(null),
+          accessoryOne: createPanelEquipmentSelection(null),
+          accessoryTwo: createPanelEquipmentSelection(null),
+        },
+      },
+      version: 2,
+    }))
+
+    await usePanelPreviewStore.persist.rehydrate()
+    const config = usePanelPreviewStore.getState().config
+
+    expect(config?.characterId).toBe(characterId)
+    expect(config?.level).toBe(12)
+    expect(config?.attributeNodeCount).toBe(1)
+    expect(config?.potentialLevel).toBe(plannerGameData.characters[characterId].potentials.at(-1)?.level ?? 0)
+    expect(config?.armor).toEqual(createPanelEquipmentSelection(null))
+  })
+
 })
