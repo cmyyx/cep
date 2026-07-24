@@ -1,0 +1,5 @@
+:HL["/_next/static/chunks/0vwov12p0xux_.css","style"]
+:HL["/_next/static/chunks/0-8vsqtcdi5la.css","style"]
+:HL["/_next/static/media/797e433ab948586e-s.p.08e28id.o-okb.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/_next/static/media/caa3a2e1cccd8315-s.p.09~u27dqhyhd6.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+0:{"tree":{"name":"","param":null,"prefetchHints":16,"slots":{"children":{"name":"locale","param":{"type":"d","key":"zh-TW","siblings":null},"prefetchHints":0,"slots":{"children":{"name":"wiki","param":null,"prefetchHints":0,"slots":{"children":{"name":"equipment","param":null,"prefetchHints":0,"slots":{"children":{"name":"id","param":{"type":"d","key":"item_equip_t4_parts_wuling00_edc_03","siblings":null},"prefetchHints":0,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":0,"slots":null}}}}}}}}}}},"staleTime":300,"buildId":"7_FDncIG2IGp9SPAr8vIJ"}
