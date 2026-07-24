@@ -7,8 +7,8 @@ import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { FilterChip } from '@/components/shared/filter-chip'
+import { PlannerPreviewTooltip } from '@/components/shared/planner-preview-tooltip'
 import { RarityFrame } from '@/components/shared/rarity-frame'
-import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
 import { sortWikiEntities } from '@/components/wiki/wiki-entity-grid'
 import { useWikiTranslations } from '@/hooks/use-wiki-translations'
 import { PLANNER_SELECTED_BADGE_CLASS, PLANNER_SELECTED_RING_CLASS } from '@/lib/planner-selection-styles'
@@ -118,11 +118,28 @@ export function WikiEntityPicker({ title, entities, imageBasePath, selectedIds, 
         {filtered.map((entity) => {
           const name = entityName(entity)
           const isSelected = selected.has(entity.id)
-          const card = <Button key={entity.id} type="button" variant="ghost" size="card" aria-pressed={isSelected} aria-label={name} onClick={() => onSelect(entity)} className={cn('relative h-auto min-w-0 self-start rounded-lg p-0 shadow-[var(--shadow-border)]', isSelected && selectedRingClass)}>
-            <RarityFrame imageSrc={`${imageBasePath}/${entity.imageId}.avif`} backgroundSrc={entity.category === 'characters' ? '/images/character-frame-bg.png' : undefined} title={name} rarity={entity.rarity} imageClassName={entity.category === 'weapons' ? 'object-contain p-3' : 'object-cover'} className={cn('w-full rounded-lg shadow-none', entity.category === 'characters' && 'aspect-[38/47]')} badges={isSelected ? <span className={cn('flex size-5 items-center justify-center rounded-full', selectedBadgeClass)}><Check className="size-3" /></span> : undefined} badgeClassName="left-auto right-1.5 top-1.5" />
-          </Button>
           const tooltip = renderTooltip?.(entity)
-          return tooltip ? <Tooltip key={entity.id}><TooltipTrigger render={card} /><TooltipContent side="top" sideOffset={8} collisionPadding={16} className="max-h-[min(var(--available-height),calc(100svh-2rem))] max-w-[calc(100vw-2rem)] overflow-y-auto overscroll-contain bg-popover p-3 text-popover-foreground shadow-[var(--shadow-card)]">{tooltip}</TooltipContent></Tooltip> : card
+          return (
+            <PlannerPreviewTooltip
+              key={entity.id}
+              content={tooltip}
+              onClick={() => onSelect(entity)}
+              aria-label={name}
+              aria-pressed={isSelected}
+              className={cn('relative h-auto min-w-0 self-start rounded-lg p-0 shadow-[var(--shadow-border)]', isSelected && selectedRingClass)}
+            >
+              <RarityFrame
+                imageSrc={`${imageBasePath}/${entity.imageId}.avif`}
+                backgroundSrc={entity.category === 'characters' ? '/images/character-frame-bg.png' : undefined}
+                title={name}
+                rarity={entity.rarity}
+                imageClassName={entity.category === 'weapons' ? 'object-contain p-3' : 'object-cover'}
+                className={cn('w-full rounded-lg shadow-none', entity.category === 'characters' && 'aspect-[38/47]')}
+                badges={isSelected ? <span className={cn('flex size-5 items-center justify-center rounded-full', selectedBadgeClass)}><Check className="size-3" /></span> : undefined}
+                badgeClassName="left-auto right-1.5 top-1.5"
+              />
+            </PlannerPreviewTooltip>
+          )
         })}
       </div>
       {filtered.length === 0 && <p className="py-8 text-center text-sm text-muted-foreground">{t('wiki.noMatch')}</p>}

@@ -1,12 +1,14 @@
 'use client'
 
 import { Fragment, type ReactNode } from 'react'
-import { useTranslations } from 'next-intl'
+import { useLocale } from 'next-intl'
 import { Button } from '@/components/ui/button'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
 import glossaryData from '@/generated/data/wiki/rich-text.json'
+import { useGameI18nLocale } from '@/hooks/use-game-i18n-catalogs'
 import { parseWikiRichText, type WikiRichTextNode } from '@/lib/wiki-rich-text'
 import { cn } from '@/lib/utils'
+import { asWikiLocale } from '@/lib/wiki-locale'
 import { wikiTextKey } from '@/lib/wiki-i18n'
 import type { WikiRichTextTerm } from '@/types/wiki'
 
@@ -73,10 +75,10 @@ export interface WikiRichTextProps {
   className?: string
 }
 export function WikiRichText({ value, className }: WikiRichTextProps) {
-  const t = useTranslations('wikiData')
+  const locale = asWikiLocale(useLocale())
+  const catalogs = useGameI18nLocale(locale)
   const translate = (key: string) => {
-    if (!t.has(key)) return key
-    const message = t.raw(key)
+    const message = catalogs?.wikiData[key]
     return typeof message === 'string' ? message : key
   }
   return <span className={cn('whitespace-pre-line', className)}>{renderNodes(parseWikiRichText(value), translate)}</span>

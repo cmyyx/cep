@@ -3,7 +3,7 @@ import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
 import { routing } from '@/i18n/routing'
-import { loadMessages } from '@/i18n/load-messages'
+import { loadClientMessages } from '@/i18n/load-messages'
 import type { WikiLocale } from '@/types/wiki'
 import { SidebarProvider } from '@/components/ui/sidebar'
 import { AppSidebar } from '@/components/app-sidebar'
@@ -26,6 +26,7 @@ import { VersionProvider } from '@/hooks/use-version'
 import { SiteUrlProvider } from '@/hooks/use-site-url'
 import { versionData } from '@/generated/version-data'
 import { DEFAULT_SITE_URL } from '@/lib/constants'
+import { GameI18nCatalogPreloader } from '@/components/shared/game-i18n-catalog-preloader'
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }))
@@ -65,11 +66,12 @@ export default async function LocaleLayout({
   const siteUrl = DEFAULT_SITE_URL
   const t = await getTranslations({ locale })
 
-  const messages = loadMessages(locale as WikiLocale)
+  const messages = loadClientMessages(locale as WikiLocale)
 
   return (
     <>
       <NextIntlClientProvider messages={messages} locale={locale}>
+      <GameI18nCatalogPreloader locale={locale} />
       <LocaleGuard />
       <DebugLabel />
       <SiteUrlProvider url={siteUrl}>

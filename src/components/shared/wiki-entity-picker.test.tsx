@@ -1,5 +1,6 @@
 // @vitest-environment jsdom
 
+import { cloneElement, isValidElement, type ReactElement, type ReactNode } from 'react'
 import { cleanup, fireEvent, render, screen } from '@testing-library/react'
 import { afterEach, expect, it, vi } from 'vitest'
 import { WikiEntityPicker } from './wiki-entity-picker'
@@ -7,18 +8,66 @@ import type { WikiCharacterSummary } from '@/types/wiki'
 
 vi.mock('next-intl', () => ({
   useLocale: () => 'zh-CN',
-  useTranslations: (namespace?: string) => {
-    const values = namespace === 'characters'
-      ? { high: '高星', low: '低星', one: '佩丽卡', two: '陈千语' }
-      : namespace === 'wikiData'
-        ? { 'enum|elements|Physical': '物理', 'enum|elements|Natural': '自然' }
-        : {}
-    const translate = Object.assign((key: string) => values[key as keyof typeof values] ?? key, {
-      has: (key: string) => key in values,
-      raw: (key: string) => values[key as keyof typeof values] ?? key,
+  useTranslations: () => {
+    const translate = Object.assign((key: string) => key, {
+      has: () => false,
+      raw: (key: string) => key,
     })
     return translate
   },
+}))
+
+vi.mock('@/hooks/use-game-i18n-catalogs', () => ({
+  useGameI18nLocale: () => ({
+    characters: {
+      high: '高星',
+      low: '低星',
+      one: '佩丽卡',
+      two: '陈千语',
+    },
+    weapons: {},
+    equips: {},
+    equipStats: {},
+    wikiData: {
+      'enum|elements|Physical': '物理',
+      'enum|elements|Natural': '自然',
+    },
+  }),
+}))
+
+vi.mock('@/hooks/use-mobile-long-press-tooltip', () => ({
+  useMobileLongPressTooltip: () => ({
+    open: false,
+    setOpen: vi.fn(),
+    triggerRef: { current: null },
+    longPressTriggered: { current: false },
+    handleOpenChange: vi.fn(),
+    handlePointerDown: vi.fn(),
+    handlePointerMove: vi.fn(),
+    handlePointerEnd: vi.fn(),
+    handleContextMenu: vi.fn(),
+    swallowLongPressClick: () => false,
+    isMobile: false,
+  }),
+}))
+
+vi.mock('@/components/ui/tooltip', () => ({
+  Tooltip: ({ children }: { children: ReactNode }) => <div>{children}</div>,
+  TooltipTrigger: ({
+    render: trigger,
+    children,
+  }: {
+    render: ReactElement
+    children?: ReactNode
+  }) => {
+    if (!isValidElement(trigger)) return null
+    return cloneElement(trigger, {
+      'data-slot': 'tooltip-trigger',
+      children: children ?? (trigger.props as { children?: ReactNode }).children,
+    } as never)
+  },
+  TooltipContent: ({ children }: { children: ReactNode }) => <div data-testid="tooltip-content">{children}</div>,
+  TOOLTIP_OPEN_DELAY_MS: 400,
 }))
 
 afterEach(cleanup)

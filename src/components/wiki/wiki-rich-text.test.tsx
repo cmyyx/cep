@@ -5,9 +5,19 @@ import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { WikiRichText } from './wiki-rich-text'
 
 vi.mock('next-intl', () => ({
-  useTranslations: () => Object.assign((key: string) => key, {
-    has: (key: string) => key.includes('ba%2Econsume'),
-    raw: (key: string) => key.endsWith('|name') ? 'Consume' : 'Consume description',
+  useLocale: () => 'en',
+}))
+
+vi.mock('@/hooks/use-game-i18n-catalogs', () => ({
+  useGameI18nLocale: () => ({
+    characters: {},
+    weapons: {},
+    equips: {},
+    equipStats: {},
+    wikiData: {
+      'glossary|ba%2Econsume|name': 'Consume',
+      'glossary|ba%2Econsume|description': 'Consume description',
+    },
   }),
 }))
 

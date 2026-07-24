@@ -5,28 +5,23 @@ import { expect, it, vi } from 'vitest'
 import { useWikiTranslations } from './use-wiki-translations'
 import type { WikiCharacterSummary, WikiEquipmentSummary, WikiWeaponSummary } from '@/types/wiki'
 
-const translations: Record<string, Record<string, string>> = {
-  characters: { chr_test: '测试角色' },
-  weapons: { wpn_test: '测试武器' },
-  equips: { equip_test: '测试装备' },
-  equipStats: { AllSkillDamageIncrease: '所有技能伤害加成' },
-  wikiData: {
-    'enum|attributes|39': '力量',
-    'item|item_test': '测试材料',
-    'suit|suit_test': '测试套装',
-    'character|chr_test|skill|skill%2Etest|name': '带点号的技能',
-  },
-}
-
 vi.mock('next-intl', () => ({
-  useTranslations: (namespace: string) => {
-    const values = translations[namespace] ?? {}
-    const translate = Object.assign((key: string) => values[key] ?? key, {
-      has: (key: string) => key in values,
-      raw: (key: string) => values[key] ?? key,
-    })
-    return translate
-  },
+  useLocale: () => 'zh-CN',
+}))
+
+vi.mock('@/hooks/use-game-i18n-catalogs', () => ({
+  useGameI18nLocale: () => ({
+    characters: { chr_test: '测试角色' },
+    weapons: { wpn_test: '测试武器' },
+    equips: { equip_test: '测试装备' },
+    equipStats: { AllSkillDamageIncrease: '所有技能伤害加成' },
+    wikiData: {
+      'enum|attributes|39': '力量',
+      'item|item_test': '测试材料',
+      'suit|suit_test': '测试套装',
+      'character|chr_test|skill|skill%2Etest|name': '带点号的技能',
+    },
+  }),
 }))
 
 const localized = (value: string) => ({ 'zh-CN': value, en: value, ja: value, 'zh-TW': value })
@@ -68,6 +63,7 @@ const equipment: WikiEquipmentSummary = {
 it('translates all wiki entity categories and falls back to missing IDs', () => {
   const { result } = renderHook(() => useWikiTranslations())
 
+  expect(result.current.ready).toBe(true)
   expect(result.current.entityName(character)).toBe('测试角色')
   expect(result.current.entityName(weapon)).toBe('测试武器')
   expect(result.current.entityName(equipment)).toBe('测试装备')

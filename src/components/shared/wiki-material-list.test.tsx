@@ -2,12 +2,23 @@
 
 import { cleanup, render, screen } from '@testing-library/react'
 import { NextIntlClientProvider } from 'next-intl'
-import { afterEach, expect, it } from 'vitest'
+import { afterEach, expect, it, vi } from 'vitest'
 import { formatMaterialCount, WikiMaterialList } from './wiki-material-list'
+
+vi.mock('@/hooks/use-game-i18n-catalogs', () => ({
+  useGameI18nLocale: () => ({
+    characters: {},
+    weapons: {},
+    equips: {},
+    equipStats: {},
+    wikiData: { 'item|material-a': '测试材料' },
+  }),
+}))
 
 const localized = (value: string) => ({ 'zh-CN': value, en: value, ja: value, 'zh-TW': value })
 
 afterEach(cleanup)
+
 it('formats material counts in thousands without changing smaller values', () => {
   expect(formatMaterialCount(999)).toBe('999')
   expect(formatMaterialCount(1000)).toBe('1k')
@@ -17,11 +28,11 @@ it('formats material counts in thousands without changing smaller values', () =>
 
 it('keeps material text outside rarity-framed icons', () => {
   render(
-    <NextIntlClientProvider locale="zh-CN" messages={{ wikiData: { 'item|material-a': '测试材料' }, characters: {}, weapons: {}, equips: {} }}>
+    <NextIntlClientProvider locale="zh-CN" messages={{}} timeZone="UTC">
       <WikiMaterialList materials={[
         { itemId: 'material-a', name: localized('测试材料'), iconId: 'material-a', rarity: 4, count: 12 },
       ]} />
-    </NextIntlClientProvider>
+    </NextIntlClientProvider>,
   )
 
   expect(screen.getByText('测试材料')).toBeTruthy()
@@ -32,11 +43,11 @@ it('keeps material text outside rarity-framed icons', () => {
 
 it('supports compact icon and count only rendering', () => {
   render(
-    <NextIntlClientProvider locale="zh-CN" messages={{ wikiData: { 'item|material-a': '测试材料' }, characters: {}, weapons: {}, equips: {} }}>
+    <NextIntlClientProvider locale="zh-CN" messages={{}} timeZone="UTC">
       <WikiMaterialList iconOnly compact materials={[
         { itemId: 'material-a', name: localized('测试材料'), iconId: 'material-a', rarity: 4, count: 12 },
       ]} />
-    </NextIntlClientProvider>
+    </NextIntlClientProvider>,
   )
 
   expect(screen.queryByText('测试材料')).toBeNull()
