@@ -8,6 +8,7 @@ import { generateMetadataI18n } from './lib/generate-metadata'
 import { generateStatI18n } from './lib/generate-stat-i18n'
 import { generateCharacterI18n } from './lib/generate-characters'
 import { generateWikiData } from './lib/generate-wiki-data'
+import { exportGameI18nTables } from './lib/export-game-i18n'
 import { compareWeapons } from './lib/compare-weapons'
 import { compareEquips } from './lib/compare-equips'
 import { compareDungeons } from './lib/compare-dungeons'
@@ -288,6 +289,18 @@ async function main() {
       for (const u of r.equipUnmatched) console.log(`    ${u}`)
     }
     console.log(`  Missing translations: ${r.missing}`)
+  }
+
+  // Full client I18nTextTable export (chunked) for the in-app lookup tool
+  if (mode === 'update') {
+    console.log('\n-- Game I18nTextTable export --')
+    const gameI18nDir = join(projectRoot, 'public', 'game-i18n')
+    const exported = exportGameI18nTables(paths.akedata, gameI18nDir)
+    for (const locale of Object.keys(exported.manifest.locales)) {
+      const meta = exported.manifest.locales[locale as keyof typeof exported.manifest.locales]
+      const maxBytes = Math.max(...meta.chunks.map((chunk) => chunk.bytes))
+      console.log(`  ${locale}: ${meta.entryCount} entries / ${meta.chunks.length} chunks (max ${maxBytes} bytes)`)
+    }
   }
 
   // Validate existing data against upstream

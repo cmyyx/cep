@@ -30,10 +30,9 @@
     "settings": "设置",
     "update": "版本",
     "about": "关于",
-    "privacy": "隐私政策",
-    "terms": "服务条款",
     "growthPlanner": "养成规划",
-    "panelPreview": "面板预览"
+    "panelPreview": "面板预览",
+    "gameI18nLookup": "游戏文案查询"
   },
   "app": {
     "name": "CEP 终末地规划器（原终末地基质规划器）"
@@ -489,21 +488,7 @@
     "disclaimer": "背景图片来源于网络，版权归原作者所有。如认为存在侵权内容，请联系我们进行删除处理。"
   },
   "common": {
-    "collapse": "收起",
-    "expand": "展开",
-    "or": "或",
     "close": "关闭"
-  },
-  "equip": {
-    "slot": {
-      "armor": "护甲",
-      "gloves": "手套",
-      "accessory": "配件",
-      "accessory2": "配件"
-    }
-  },
-  "team": {
-    "slot": "{number}号位"
   },
   "account": {
     "title": "我的",
@@ -732,7 +717,9 @@
     "growthPlannerDescription": "终末地干员与武器养成规划工具，计算等级、技能、精英化、突破与节点所需资源及最高级副本次数。",
     "growthPlannerKeywords": "终末地养成规划,干员养成,武器养成,升级材料,副本次数,理智计算",
     "panelPreviewDescription": "终末地干员面板预览工具，自由配置干员、装备与武器并计算完整面板属性。",
-    "panelPreviewKeywords": "终末地面板预览,干员面板,装备计算,武器计算,属性计算"
+    "panelPreviewKeywords": "终末地面板预览,干员面板,装备计算,武器计算,属性计算",
+    "gameI18nLookupTitle": "游戏文案查询",
+    "gameI18nLookupDescription": "查询终末地客户端 I18n 文本表（textId 与四语对照）。"
   },
   "legal": {
     "privacyTitle": "隐私政策",
@@ -750,7 +737,6 @@
   },
   "sidebar": {
     "toggle": "切换侧边栏",
-    "community": "Community",
     "communityDesc": "反馈 · 建议 · 交流"
   },
   "notFound": {
@@ -783,7 +769,6 @@
   },
   "ads": {
     "loading": "广告加载中",
-    "placeholder": "广告占位",
     "loadFailed": "广告加载失败",
     "supportMessage": "我们依靠广告收入维持服务运营，如果可以的话，可以取消屏蔽本站广告嘛~，感谢您的理解与支持。"
   },
@@ -804,7 +789,6 @@
   },
   "wiki": {
     "title": "游戏数据维基",
-    "subtitle": "浏览 Arknights: Endfield 的全部游戏数据，数据来源于 AKEData。",
     "searchPlaceholder": "搜索...",
     "resultCount": "{count} 个条目",
     "clearFilters": "清除筛选",
@@ -812,53 +796,29 @@
     "viewWiki": "查看 Wiki",
     "noMatch": "未找到匹配条目",
     "noData": "暂无数据——请等待数据同步后查看",
-    "selectEntity": "选择一个条目以查看详情",
     "attributes": "属性",
     "filter": {
       "rarity": "稀有度",
       "element": "元素",
       "profession": "职业",
       "weaponType": "武器类型",
-      "partType": "部位",
-      "type": "类型"
+      "partType": "部位"
     },
     "categories": {
       "characters": "干员",
       "weapons": "武器",
       "equipment": "装备"
     },
-    "descriptions": {
-      "characters": "干员属性、技能、潜能和成长曲线。",
-      "weapons": "武器属性、突破路径、升级模板和天赋。",
-      "equipment": "装备属性、套装效果和制造配方。"
-    },
     "overview": "概览",
     "tableOfContents": "目录",
     "contentsRail": "目录",
     "weaponType": "武器类型",
-    "department": "阵营",
     "element": "元素",
     "profession": "职业",
-    "mainAttribute": "主属性",
-    "subAttribute": "副属性",
     "cv": "声优",
-    "baseStats": "基础属性",
-    "statGroups": {
-      "base": "基础属性",
-      "reduction": "伤害减免",
-      "bonus": "伤害加成",
-      "combat": "战斗参数"
-    },
     "stats": "属性",
     "skills": "技能",
-    "skillLevels": "技能等级",
-    "talents": "天赋",
-    "potentials": "潜能",
-    "logisticsSkills": "后勤技能",
-    "promotions": "精英化",
     "materials": "所需材料",
-    "requiredLevel": "所需等级",
-    "maxLevel": "最高等级",
     "level": "等级",
     "breakStage": "突破阶段",
     "levelData": "等级数据",
@@ -866,7 +826,6 @@
     "collapseLevels": "仅显示 90 级",
     "showAllSkillLevels": "展开全部技能等级",
     "collapseSkillLevels": "仅显示最高技能等级",
-    "skillCount": "技能数量",
     "partType": "部位类型",
     "suitId": "套装",
     "suitEffects": "套装效果",
@@ -878,7 +837,6 @@
     "coolDown": "冷却时间",
     "skillCost": "技力消耗",
     "noSet": "独立装备",
-    "values": "数值",
     "recipe": "配方",
     "defaultRecipe": "默认配方",
     "showOtherRecipes": "展开其他配方（{count}）",
@@ -886,14 +844,9 @@
     "female": "女",
     "male": "男",
     "backTo": "返回{category}",
-    "entityId": "数据 ID",
     "baseInfo": "基础信息",
-    "attributeNodes": "属性节点",
-    "favorability": "信赖",
-    "viewMaterials": "材料 {count}",
     "materialCount": "共 {count} 种材料",
     "defaultUnlocked": "默认解锁",
-    "skillForm": "形态 {number}",
     "potentialPreview": "潜能图片预览",
     "openPotentialPreview": "预览{name}",
     "closePreview": "关闭预览",
@@ -919,9 +872,7 @@
     "to": "至",
     "removeTarget": "移除目标",
     "level": "等级",
-    "promotionStage": "精英化阶段",
     "breakthroughStage": "突破阶段",
-    "combatSkills": "战斗技能",
     "save": "保存",
     "selectionTab": "选择目标",
     "summaryTab": "资源汇总",
@@ -957,9 +908,6 @@
     "reset": "恢复全满",
     "selectCharacterHint": "请先选择干员。",
     "operators": "干员",
-    "operator": "干员",
-    "level": "等级",
-    "potentialLevel": "潜能等级",
     "equipment": "装备",
     "armor": "护甲",
     "gloves": "护手",
@@ -970,37 +918,9 @@
     "weaponLibrary": "武器库",
     "weaponLevel": "武器等级",
     "resultTitle": "干员面板",
-    "strength": "力量",
-    "agility": "敏捷",
-    "intellect": "智识",
-    "will": "意志",
-    "hp": "生命值",
-    "attack": "攻击力",
     "additionalAttributes": "潜能、武器与装备提供的额外属性",
     "attributeContributions": "属性提供的加成",
     "attributeProvides": "{attribute}提供{effect}",
-    "defense": "防御力",
-    "critRate": "暴击率",
-    "normalAttackDamage": "普攻伤害加成",
-    "ultimateDamage": "终结技伤害加成",
-    "healingEfficiency": "治疗效率",
-    "skillDamage": "战技伤害加成",
-    "comboDamage": "连携技伤害加成",
-    "ultimateCharge": "终结技充能效率",
-    "physicalDamage": "物理伤害加成",
-    "damageToStaggered": "对失衡目标伤害加成",
-    "artsStrength": "源石技艺强度",
-    "mainAbility": "主能力提升",
-    "subAbility": "副能力提升",
-    "artsDamage": "法术伤害加成",
-    "crystDamage": "寒冷伤害加成",
-    "pulseDamage": "电磁伤害加成",
-    "naturalDamage": "自然伤害加成",
-    "fireDamage": "灼热伤害加成",
-    "damageReduction": "全伤害减免",
-    "allSkillDamage": "所有技能伤害加成",
-    "fireNaturalDamage": "灼热和自然伤害加成",
-    "crystPulseDamage": "寒冷和电磁伤害加成",
     "chooseOperator": "选择干员",
     "changeOperator": "更换干员",
     "chooseOperatorDescription": "选择一个干员作为面板计算对象。",
@@ -1010,13 +930,32 @@
     "chooseEquipment": "选择装备",
     "chooseEquipmentDescription": "按装备部位选择；套装分组默认收起。",
     "removeWeapon": "移除武器",
-    "physicalDamageReduction": "物理伤害减免",
-    "defenseDamageReduction": "防御伤害减免",
-    "fireDamageReduction": "灼热伤害减免",
-    "healingReceived": "受治疗提升",
     "removeEquipment": "移除{slot}",
     "activeSetEffects": "已激活套装效果",
     "setPieceProgress": "{current}/{required} 件",
     "noSetEquipment": "无套装"
+  },
+  "gameI18nLookup": {
+    "title": "游戏文案查询",
+    "searchLocale": "搜索语言",
+    "query": "关键词 / textId",
+    "queryPlaceholder": "输入文本关键词，或粘贴 textId",
+    "localeZhCN": "简体中文",
+    "localeEn": "English",
+    "localeJa": "日本語",
+    "localeZhTW": "繁體中文",
+    "entryCount": "词条约 {count} 条/语言",
+    "searching": "正在加载并搜索…",
+    "searchProgress": "已扫描 {loaded}/{total} 段，命中 {hits}",
+    "resultCount": "显示 {count} 条结果",
+    "noResults": "无匹配结果",
+    "searchFailed": "搜索失败",
+    "manifestMissing": "未找到游戏文案数据。请先运行 pnpm game-i18n:export 或完整 sync:update。",
+    "textId": "textId",
+    "matchedText": "匹配文本",
+    "copyId": "复制 ID",
+    "copied": "已复制",
+    "missingTranslation": "（无）",
+    "detailEmpty": "选择左侧结果查看四语对照"
   }
 }

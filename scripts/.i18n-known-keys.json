@@ -1,6 +1,5 @@
 {
   "description": "Known runtime-resolved i18n keys that cannot be detected by static analysis. Each key is used in production but only at runtime through dynamic patterns (template literals like t(`auth.${serverError}`), state variables like t(syncError), or computed property access like t(item.key)). These keys are EXEMPT from P2 (dead key) warnings — the checker will not flag them as 'defined but NEVER used'. If a key listed here is ever removed from all locale JSONs, the P0 (missing key) check will still catch it.",
-
   "runtimeKeys": {
     "auth": {
       "comment": "Server error codes returned by the API (passed via t(`auth.${serverError}`)). Also includes react-hook-form validation messages, zod schema error keys, and password strength labels accessed via computed template literals. 'unavailable' is the i18n value of getErrorI18nKey('auth_unavailable') → resolved at runtime via t(getErrorI18nKey(serverError)).",
@@ -38,7 +37,6 @@
         "networkError"
       ]
     },
-
     "auth.benefits": {
       "comment": "Login/register page benefit list. Accessed via t(item.key) in a .map() over an inline object array.",
       "keys": [
@@ -48,7 +46,6 @@
         "benefitSync"
       ]
     },
-
     "oauth": {
       "comment": "OAuth authorize page. authorizeDescription uses t.rich(). Server error codes (invalidClient, invalidState, etc.) are resolved via t(getErrorI18nKey(serverError)).",
       "keys": [
@@ -60,7 +57,6 @@
         "unsupportedGrantType"
       ]
     },
-
     "account": {
       "comment": "Sync settings, conflict dialog values, and server error codes. Accessed via t(syncError), t(entry.localVal), t(entry.cloudVal), t(getErrorI18nKey(code)), or computed string expressions.",
       "keys": [
@@ -132,7 +128,6 @@
         "versionConflict"
       ]
     },
-
     "bannerCalendar": {
       "comment": "Banner off-rate notes accessed via t(ch.offRateNote) from banner-data.ts. Static checker cannot trace the dynamic property access pattern.",
       "keys": [
@@ -140,14 +135,52 @@
         "offRateNote.luoxi"
       ]
     },
-
     "holiday": {
       "comment": "Holiday banner keys accessed via t(`${config.i18nKey}.banner`) in holiday-banner.tsx. The i18nKey comes from HOLIDAYS config at runtime.",
       "keys": [
         "childrensDay.banner",
         "gameAnniversary.banner",
         "newYear.banner",
-        "toolAnniversary.banner"
+        "toolAnniversary.banner",
+        "day0721.banner"
+      ]
+    },
+    "nav": {
+      "comment": "Sidebar NAV_ITEMS labels accessed via t(label) where label is a full key string like nav.gameI18nLookup.",
+      "keys": [
+        "gameI18nLookup"
+      ]
+    },
+    "meta": {
+      "comment": "SEO metadata via getTranslations({ namespace: \"meta\" }) then t(\"gameI18nLookupTitle\") etc. Static checker does not expand namespace prefix.",
+      "keys": [
+        "gameI18nLookupTitle",
+        "gameI18nLookupDescription"
+      ]
+    },
+    "wiki.filter": {
+      "comment": "Filter chip labels via filter.labelKey (e.g. wiki.filter.rarity) in wiki grids and entity pickers.",
+      "keys": [
+        "rarity",
+        "element",
+        "profession",
+        "weaponType",
+        "partType"
+      ]
+    },
+    "wiki.voiceLanguages": {
+      "comment": "CV language labels via t(`wiki.voiceLanguages.${voice.language}`).",
+      "keys": [
+        "zh-CN",
+        "en",
+        "ja",
+        "ko"
+      ]
+    },
+    "wiki": {
+      "comment": "Administrator gender toggle uses t(`wiki.${variant}`) where variant is female|male. male is also referenced as t(\"wiki.male\").",
+      "keys": [
+        "female"
       ]
     }
   }

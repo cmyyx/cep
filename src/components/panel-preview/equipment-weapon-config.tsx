@@ -97,7 +97,7 @@ export function EquipmentWeaponConfig() {
             {summary ? <div className="space-y-2 bg-muted/20 p-3 shadow-[0_-1px_0_0_rgba(0,0,0,0.08)]">{stats.map((stat, index) => {
               const fixedDefense = stat.attributeId === '3' && stat.values.every((value) => value === stat.values[0])
               const level = selection.statLevels[index] ?? stat.values.length - 1
-              const label = stat.attributeId === 'Main' ? t('mainAbility') : stat.attributeId === 'Sub' ? t('subAbility') : equipmentStatLabel(stat.attributeId)
+              const label = stat.attributeId === 'Main' ? text('ui', 'mainAttribute') : stat.attributeId === 'Sub' ? text('ui', 'subAttribute') : equipmentStatLabel(stat.attributeId)
               if (fixedDefense) return <div key={`${stat.attributeId}-${index}`} className="flex items-center justify-between gap-2 rounded-lg bg-background/70 p-2.5"><p className="min-w-0 truncate text-xs">{label}</p><span className="shrink-0 font-mono text-sm font-medium tabular-nums">+{number.format(stat.values[0] ?? 0)}</span></div>
               return <div key={`${stat.attributeId}-${index}`} className="grid grid-cols-[minmax(0,1fr)_5rem] items-center gap-2 rounded-lg bg-background/70 p-2.5"><p className="min-w-0 truncate text-xs">{label}</p><NumberField value={level} minimum={0} maximum={Math.max(0, stat.values.length - 1)} ariaLabel={`${label} ${t('statLevel')}`} onValueChange={(value) => { const statLevels = [...selection.statLevels]; statLevels[index] = value; setEquipment(field, { ...selection, statLevels }) }} /></div>
             })}</div> : null}

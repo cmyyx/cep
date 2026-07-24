@@ -56,6 +56,16 @@ const GAME_UI_TEXT_KEYS = {
   battleSkill: 'LUA_CHAR_INFO_NORMAL_SKILL_NAME',
   ultimate: 'LUA_CHAR_INFO_ULTIMATE_SKILL_NAME',
   comboSkill: 'LUA_CHAR_INFO_COMBO_SKILL_NAME',
+  /** Character skill panel title (干员技能). */
+  operatorSkill: 'ui_char_info_talent_skill_name',
+  /** Combat skill list heading (战斗技能). */
+  battleSkills: 'ui_char_info_talent_skill_list',
+  potential: 'ui_char_info_potential_pot',
+  potentialLevel: 'LUA_POTENTIAL_LEVEL',
+  mainAttribute: 'ui_char_info_full_attribute_main_attr',
+  subAttribute: 'ui_char_info_full_attribute_sub_attr',
+  friendship: 'ui_char_info_controller_friendship',
+  abilityMatrix: 'ui_char_info_talent_title',
 } as const
 
 export type WikiI18nCatalogs = Record<keyof LocalizedText, Record<string, string>>

@@ -15,8 +15,6 @@ vi.mock('next-intl', () => ({
     accessoryTwo: 'Accessory two',
     chooseWeapon: 'Choose weapon',
     chooseEquipment: 'Choose equipment',
-    mainAbility: 'Main ability',
-    subAbility: 'Sub ability',
     statLevel: 'Stat level',
   })[key] ?? key,
 }))

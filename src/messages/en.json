@@ -30,10 +30,9 @@
     "settings": "Settings",
     "update": "Version",
     "about": "About",
-    "privacy": "Privacy Policy",
-    "terms": "Terms of Service",
     "growthPlanner": "Growth Planner",
-    "panelPreview": "Stats Preview"
+    "panelPreview": "Stats Preview",
+    "gameI18nLookup": "Game text lookup"
   },
   "app": {
     "name": "CEP Endfield Planner (formerly Endfield Essence Planner)"
@@ -686,21 +685,7 @@
     "disclaimer": "Background images are sourced from the internet. All rights belong to their respective copyright holders. If you believe any content infringes your rights, please contact us for removal."
   },
   "common": {
-    "collapse": "Collapse",
-    "expand": "Expand",
-    "or": "or",
     "close": "Close"
-  },
-  "equip": {
-    "slot": {
-      "armor": "Armor",
-      "gloves": "Gloves",
-      "accessory": "Accessory",
-      "accessory2": "Accessory"
-    }
-  },
-  "team": {
-    "slot": "Slot {number}"
   },
   "meta": {
     "homeDescription": "Arknights: Endfield planning toolkit — essence planning & calculator, refinement planning & calculator, character guides, banner calendar and more.",
@@ -732,7 +717,9 @@
     "growthPlannerDescription": "Endfield operator and weapon growth planner for levels, skills, promotions, breakthroughs, resources, max-stage runs, and stamina.",
     "growthPlannerKeywords": "Endfield growth planner,operator leveling,weapon leveling,upgrade materials,stage runs,stamina calculator",
     "panelPreviewDescription": "Endfield operator stats preview with configurable operators, equipment, weapons, and complete panel attributes.",
-    "panelPreviewKeywords": "Endfield stats preview,operator stats,equipment calculator,weapon calculator,attribute calculator"
+    "panelPreviewKeywords": "Endfield stats preview,operator stats,equipment calculator,weapon calculator,attribute calculator",
+    "gameI18nLookupTitle": "Game text lookup",
+    "gameI18nLookupDescription": "Search Endfield client I18n tables by textId and keyword."
   },
   "legal": {
     "privacyTitle": "Privacy Policy",
@@ -750,7 +737,6 @@
   },
   "sidebar": {
     "toggle": "Toggle Sidebar",
-    "community": "Community",
     "communityDesc": "Feedback · Suggestions · Chat"
   },
   "notFound": {
@@ -783,7 +769,6 @@
   },
   "ads": {
     "loading": "Loading ad",
-    "placeholder": "Ad placeholder",
     "loadFailed": "Failed to load ad",
     "supportMessage": "We rely on ad revenue to keep this service running. If possible, please allow ads on this site. Thank you for your understanding and support."
   },
@@ -804,7 +789,6 @@
   },
   "wiki": {
     "title": "Game Data Wiki",
-    "subtitle": "Browse all Arknights: Endfield game data sourced from AKEData.",
     "searchPlaceholder": "Search...",
     "resultCount": "{count} entries",
     "clearFilters": "Clear filters",
@@ -812,53 +796,29 @@
     "viewWiki": "View Wiki",
     "noMatch": "No matching entities",
     "noData": "No data available — check back after a data sync",
-    "selectEntity": "Select an entity to view details",
     "attributes": "Attributes",
     "filter": {
       "rarity": "Rarity",
       "element": "Element",
       "profession": "Profession",
       "weaponType": "Weapon Type",
-      "partType": "Part",
-      "type": "Type"
+      "partType": "Part"
     },
     "categories": {
       "characters": "Characters",
       "weapons": "Weapons",
       "equipment": "Equipment"
     },
-    "descriptions": {
-      "characters": "Character attributes, skills, potentials, and growth curves.",
-      "weapons": "Weapon stats, breakthrough paths, upgrade templates, and talents.",
-      "equipment": "Equipment stats, suit sets, and manufacturing recipes."
-    },
     "overview": "Overview",
     "tableOfContents": "Table of contents",
     "contentsRail": "Contents",
     "weaponType": "Weapon Type",
-    "department": "Faction",
     "element": "Element",
     "profession": "Profession",
-    "mainAttribute": "Main Attribute",
-    "subAttribute": "Secondary Attribute",
     "cv": "Voice Actors",
-    "baseStats": "Base Stats",
-    "statGroups": {
-      "base": "Base stats",
-      "reduction": "Damage reduction",
-      "bonus": "Damage bonuses",
-      "combat": "Combat parameters"
-    },
     "stats": "Stats",
     "skills": "Skills",
-    "skillLevels": "Skill Levels",
-    "talents": "Talents",
-    "potentials": "Potentials",
-    "logisticsSkills": "Logistics Skills",
-    "promotions": "Promotions",
     "materials": "Materials",
-    "requiredLevel": "Required Level",
-    "maxLevel": "Max Level",
     "level": "Level",
     "breakStage": "Breakthrough Stage",
     "levelData": "Level Data",
@@ -866,7 +826,6 @@
     "collapseLevels": "Show level 90 only",
     "showAllSkillLevels": "Show all skill levels",
     "collapseSkillLevels": "Show highest skill level only",
-    "skillCount": "Skill Count",
     "partType": "Part Type",
     "suitId": "Set",
     "suitEffects": "Set Effects",
@@ -878,7 +837,6 @@
     "coolDown": "Cooldown",
     "skillCost": "SP Cost",
     "noSet": "Independent equipment",
-    "values": "Values",
     "recipe": "Recipe",
     "defaultRecipe": "Default Recipe",
     "showOtherRecipes": "Show other recipes ({count})",
@@ -886,14 +844,9 @@
     "female": "Female",
     "male": "Male",
     "backTo": "Back to {category}",
-    "entityId": "Data ID",
     "baseInfo": "Basic Information",
-    "attributeNodes": "Attribute Nodes",
-    "favorability": "Trust",
-    "viewMaterials": "Materials {count}",
     "materialCount": "{count} material types",
     "defaultUnlocked": "Unlocked by default",
-    "skillForm": "Form {number}",
     "potentialPreview": "Potential image preview",
     "openPotentialPreview": "Preview {name}",
     "closePreview": "Close preview",
@@ -919,9 +872,7 @@
     "to": "to",
     "removeTarget": "Remove target",
     "level": "Level",
-    "promotionStage": "Promotion stage",
     "breakthroughStage": "Breakthrough stage",
-    "combatSkills": "Combat skills",
     "save": "Save",
     "selectionTab": "Select targets",
     "summaryTab": "Resource summary",
@@ -957,9 +908,6 @@
     "reset": "Reset to max",
     "selectCharacterHint": "Please select an operator.",
     "operators": "Operators",
-    "operator": "Operator",
-    "level": "Level",
-    "potentialLevel": "Potential level",
     "equipment": "Equipment",
     "armor": "Armor",
     "gloves": "Gloves",
@@ -970,37 +918,9 @@
     "weaponLibrary": "Weapon library",
     "weaponLevel": "Weapon level",
     "resultTitle": "Operator stats",
-    "strength": "Strength",
-    "agility": "Agility",
-    "intellect": "Intellect",
-    "will": "Will",
-    "hp": "HP",
-    "attack": "Attack",
     "additionalAttributes": "Additional potential, weapon, and equipment attributes",
     "attributeContributions": "Attribute contributions",
     "attributeProvides": "{attribute} provides {effect}",
-    "defense": "Defense",
-    "critRate": "Crit rate",
-    "normalAttackDamage": "Normal attack damage",
-    "ultimateDamage": "Ultimate damage",
-    "healingEfficiency": "Healing efficiency",
-    "skillDamage": "Battle skill damage",
-    "comboDamage": "Combo skill damage",
-    "ultimateCharge": "Ultimate charge efficiency",
-    "physicalDamage": "Physical damage",
-    "damageToStaggered": "Damage to staggered",
-    "artsStrength": "Arts strength",
-    "mainAbility": "Main ability",
-    "subAbility": "Sub ability",
-    "artsDamage": "Arts damage",
-    "crystDamage": "Cryo damage",
-    "pulseDamage": "Electric damage",
-    "naturalDamage": "Nature damage",
-    "fireDamage": "Heat damage",
-    "damageReduction": "Damage reduction",
-    "allSkillDamage": "All skill damage",
-    "fireNaturalDamage": "Heat and Nature damage",
-    "crystPulseDamage": "Cryo and Electric damage",
     "chooseOperator": "Choose operator",
     "changeOperator": "Change operator",
     "chooseOperatorDescription": "Choose the operator whose stats you want to calculate.",
@@ -1010,13 +930,32 @@
     "chooseEquipment": "Choose equipment",
     "chooseEquipmentDescription": "Choose equipment for this slot. Set groups start collapsed.",
     "removeWeapon": "Remove weapon",
-    "physicalDamageReduction": "Physical damage reduction",
-    "defenseDamageReduction": "Defense damage reduction",
-    "fireDamageReduction": "Heat damage reduction",
-    "healingReceived": "Healing received",
     "removeEquipment": "Remove {slot}",
     "activeSetEffects": "Active set effects",
     "setPieceProgress": "{current}/{required} pieces",
     "noSetEquipment": "No set"
+  },
+  "gameI18nLookup": {
+    "title": "Game text lookup",
+    "searchLocale": "Search language",
+    "query": "Keyword / textId",
+    "queryPlaceholder": "Type a keyword or paste a textId",
+    "localeZhCN": "Simplified Chinese",
+    "localeEn": "English",
+    "localeJa": "Japanese",
+    "localeZhTW": "Traditional Chinese",
+    "entryCount": "~{count} entries per language",
+    "searching": "Loading and searching…",
+    "searchProgress": "Scanned {loaded}/{total} chunks, {hits} hits",
+    "resultCount": "Showing {count} results",
+    "noResults": "No matches",
+    "searchFailed": "Search failed",
+    "manifestMissing": "Game text data missing. Run pnpm game-i18n:export or sync:update first.",
+    "textId": "textId",
+    "matchedText": "Matched text",
+    "copyId": "Copy ID",
+    "copied": "Copied",
+    "missingTranslation": "(missing)",
+    "detailEmpty": "Select a result to view all locales"
   }
 }

@@ -105,6 +105,23 @@ describe('growth progression', () => {
     expect(estimate.stages[0].runs).toBe(2)
     expect(estimate.totalStamina).toBe(160)
   })
+
+  it('maps skill specialize materials to SS stages at 6 per run and ignores bossrush', () => {
+    const estimate = estimateFarming({
+      materials: [{ itemId: 'item_char_skill_specialize_2', count: 13 }],
+      stageOneExp: 0,
+      stageTwoExp: 0,
+      weaponExp: 0,
+      gold: 0,
+    })
+    expect(estimate.stages).toHaveLength(1)
+    expect(estimate.stages[0].dungeon.id).toBe('dung_ss02')
+    expect(estimate.stages[0].dungeon.seriesId).toBe('dung_group_ss02')
+    expect(estimate.stages[0].dungeon.yields.find(([itemId]) => itemId === 'item_char_skill_specialize_2')?.[1]).toBe(6)
+    expect(estimate.stages[0].runs).toBe(3)
+    expect(estimate.stages[0].stamina).toBe(240)
+    expect(plannerGameData.dungeons.some((dungeon) => dungeon.id.includes('bossrush'))).toBe(false)
+  })
 })
 
 describe('panel preview', () => {

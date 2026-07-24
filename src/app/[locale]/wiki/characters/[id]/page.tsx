@@ -48,13 +48,13 @@ export default async function WikiCharacterDetailPage({ params }: { params: Prom
       <WikiDetailShell tocItems={[
         { id: 'overview', label: t('wiki.overview') },
         { id: 'level-data', label: t('wiki.levelData') },
-        ...(detail.attributeNodes.length > 0 ? [{ id: 'attribute-nodes', label: t('wiki.attributeNodes') }] : []),
+        ...(detail.attributeNodes.length > 0 ? [{ id: 'attribute-nodes', label: t('wikiData.ui|attributeIncrease') }] : []),
         ...(detail.equipmentNodes.length > 0 ? [{ id: 'equipment-nodes', label: t('wikiData.ui|equipmentAdaptation') }] : []),
-        { id: 'skills', label: t('wiki.skills') },
-        { id: 'talents', label: t('wiki.talents') },
-        { id: 'potentials', label: t('wiki.potentials') },
-        { id: 'logistics-skills', label: t('wiki.logisticsSkills') },
-        { id: 'promotions', label: t('wiki.promotions') },
+        { id: 'skills', label: t('wikiData.ui|operatorSkill') },
+        { id: 'talents', label: t('wikiData.ui|talent') },
+        { id: 'potentials', label: t('wikiData.ui|potential') },
+        { id: 'logistics-skills', label: t('wikiData.ui|logisticsSkill') },
+        { id: 'promotions', label: t('wikiData.ui|promotion') },
       ]}>
         <CharacterDetailContent
           detail={detail}
@@ -65,8 +65,8 @@ export default async function WikiCharacterDetailPage({ params }: { params: Prom
             { label: t('wiki.element'), value: label('elements', character.elementId) },
             { label: t('wiki.profession'), value: label('professions', character.professionId) },
             { label: t('wiki.weaponType'), value: label('weaponTypes', character.weaponTypeId) },
-            { label: t('wiki.mainAttribute'), value: label('attributes', character.mainAttributeId) },
-            { label: t('wiki.subAttribute'), value: label('attributes', character.subAttributeId) },
+            { label: t('wikiData.ui|mainAttribute'), value: label('attributes', character.mainAttributeId) },
+            { label: t('wikiData.ui|subAttribute'), value: label('attributes', character.subAttributeId) },
           ]}
         />
       </WikiDetailShell>

@@ -483,8 +483,8 @@ function CharacterLevelTable({ detail }: { detail: WikiCharacterDetail }) {
 }
 
 function CharacterSkills({ detail }: { detail: WikiCharacterDetail }) {
-  const t = useTranslations()
   const locale = useLocale() as WikiLocale
+  const { text } = useWikiTranslations()
   const skillTypes = (wikiEnums as { skillTypes: Record<string, LocalizedText> }).skillTypes
   const [expandedSkillIds, setExpandedSkillIds] = useState<Set<string>>(new Set())
   const toggleSkillLevels = (id: string) => setExpandedSkillIds((current) => {
@@ -494,7 +494,7 @@ function CharacterSkills({ detail }: { detail: WikiCharacterDetail }) {
     return next
   })
   return (
-    <Section id="skills" title={t('wiki.skills')}>
+    <Section id="skills" title={text('ui', 'operatorSkill')}>
       <div className="space-y-5">
         {detail.skills.map((skill) => {
           const variants = getSkillDisplayVariants(skill)
@@ -552,8 +552,9 @@ function CharacterSkills({ detail }: { detail: WikiCharacterDetail }) {
 function CharacterTalents({ detail }: { detail: WikiCharacterDetail }) {
   const t = useTranslations()
   const locale = useLocale() as WikiLocale
+  const { text } = useWikiTranslations()
   return (
-    <Section id="talents" title={t('wiki.talents')}>
+    <Section id="talents" title={text('ui', 'talent')}>
       <div className="space-y-4">
         {detail.talents.map((talent) => (
           <article key={talent.id} className="flex min-w-0 gap-3">
@@ -600,7 +601,7 @@ function CharacterAttributeNodes({ detail }: { detail: WikiCharacterDetail }) {
   const t = useTranslations()
   const { enumLabel, text } = useWikiTranslations()
   return (
-    <Section id="attribute-nodes" title={t('wiki.attributeNodes')}>
+    <Section id="attribute-nodes" title={text('ui', 'attributeIncrease')}>
       <div className="grid min-w-0 gap-3 md:grid-cols-2">
         {detail.attributeNodes.map((node) => (
           <article key={node.id} className="relative min-w-0 rounded-md bg-muted/35 p-3">
@@ -608,7 +609,7 @@ function CharacterAttributeNodes({ detail }: { detail: WikiCharacterDetail }) {
               <h3 className="min-w-0 font-medium">{text('character', detail.id, 'attribute', node.id, 'name')}</h3>
               <div className="shrink-0 text-right text-xs text-muted-foreground">
                 <span>{t('wiki.breakStage')} {node.breakStage}</span>
-                <span className="ml-2">{t('wiki.favorability')} {node.favorability}</span>
+                <span className="ml-2">{text('ui', 'friendship')} {node.favorability}</span>
               </div>
             </div>
             <WikiRichText value={text('character', detail.id, 'attribute', node.id, 'description')} className="mt-2 block pr-24 text-sm leading-relaxed text-muted-foreground" />
@@ -628,8 +629,9 @@ function CharacterAttributeNodes({ detail }: { detail: WikiCharacterDetail }) {
 function CharacterPotentials({ detail }: { detail: WikiCharacterDetail }) {
   const t = useTranslations()
   const locale = useLocale() as WikiLocale
+  const { text } = useWikiTranslations()
   return (
-    <Section id="potentials" title={t('wiki.potentials')}>
+    <Section id="potentials" title={text('ui', 'potential')}>
       <div className="space-y-4">
         {detail.potentials.map((potential) => (
           <article key={potential.id} className="flex min-w-0 gap-3">
@@ -677,8 +679,8 @@ function CharacterPotentials({ detail }: { detail: WikiCharacterDetail }) {
 }
 
 function CharacterLogistics({ detail }: { detail: WikiCharacterDetail }) {
-  const t = useTranslations()
   const locale = useLocale() as WikiLocale
+  const { text } = useWikiTranslations()
   const skillGroups = useMemo(() => {
     const groups = new Map<number, WikiCharacterDetail['logisticsSkills']>()
     for (const skill of detail.logisticsSkills) {
@@ -691,7 +693,7 @@ function CharacterLogistics({ detail }: { detail: WikiCharacterDetail }) {
       .map(([index, skills]) => [index, [...skills].sort((left, right) => left.level - right.level)] as const)
   }, [detail.logisticsSkills])
   return (
-    <Section id="logistics-skills" title={t('wiki.logisticsSkills')}>
+    <Section id="logistics-skills" title={text('ui', 'logisticsSkill')}>
       <div className="grid min-w-0 gap-4 md:grid-cols-2">
         {skillGroups.map(([index, skills]) => (
           <article key={index} className="min-w-0 space-y-4 rounded-md bg-muted/25 p-3 shadow-[var(--shadow-border)]">
@@ -727,8 +729,9 @@ function CharacterLogistics({ detail }: { detail: WikiCharacterDetail }) {
 
 function CharacterPromotions({ detail }: { detail: WikiCharacterDetail }) {
   const t = useTranslations()
+  const { text } = useWikiTranslations()
   return (
-    <Section id="promotions" title={t('wiki.promotions')}>
+    <Section id="promotions" title={text('ui', 'promotion')}>
       <div className="grid min-w-0 gap-3 lg:grid-cols-2">
         {detail.promotions.map((promotion) => (
           <article key={promotion.breakStage} className="min-w-0 rounded-md bg-muted/35 p-3">
