@@ -30,10 +30,9 @@
     "settings": "設定",
     "update": "バージョン",
     "about": "について",
-    "privacy": "プライバシーポリシー",
-    "terms": "利用規約",
     "growthPlanner": "育成計画",
-    "panelPreview": "ステータスプレビュー"
+    "panelPreview": "ステータスプレビュー",
+    "gameI18nLookup": "ゲームテキスト検索"
   },
   "app": {
     "name": "CEP エンドフィールドプランナー（旧終末地基質プランナー）"
@@ -686,21 +685,7 @@
     "disclaimer": "背景画像はインターネットから収集されたものです。著作権はそれぞれの権利者に帰属します。権利を侵害するコンテンツがある場合は、削除のためご連絡ください。"
   },
   "common": {
-    "collapse": "折りたたむ",
-    "expand": "展開",
-    "or": "または",
     "close": "閉じる"
-  },
-  "equip": {
-    "slot": {
-      "armor": "防具",
-      "gloves": "手袋",
-      "accessory": "装飾品",
-      "accessory2": "装飾品"
-    }
-  },
-  "team": {
-    "slot": "{number}番枠"
   },
   "meta": {
     "homeDescription": "アークナイツ：エンドフィールドの計画ツールキット——基質計画と計算、精鍛計画と計算、キャラ攻略、ガチャカレンダーなどを一括サポート。",
@@ -732,7 +717,9 @@
     "growthPlannerDescription": "エンドフィールドのオペレーター・武器育成計画。レベル、スキル、昇進、突破、素材、最高級ステージ周回数を計算。",
     "growthPlannerKeywords": "エンドフィールド育成計画,オペレーター育成,武器育成,強化素材,周回数,スタミナ計算",
     "panelPreviewDescription": "オペレーター、装備、武器を設定して完全な能力値を計算するエンドフィールドステータスプレビュー。",
-    "panelPreviewKeywords": "エンドフィールドステータス,オペレーター能力,装備計算,武器計算"
+    "panelPreviewKeywords": "エンドフィールドステータス,オペレーター能力,装備計算,武器計算",
+    "gameI18nLookupTitle": "ゲームテキスト検索",
+    "gameI18nLookupDescription": "クライアント I18nTextTable を textId / キーワードで検索します。"
   },
   "legal": {
     "privacyTitle": "プライバシーポリシー",
@@ -750,7 +737,6 @@
   },
   "sidebar": {
     "toggle": "サイドバーを切り替え",
-    "community": "Community",
     "communityDesc": "フィードバック · 提案 · 交流"
   },
   "notFound": {
@@ -783,7 +769,6 @@
   },
   "ads": {
     "loading": "広告を読み込み中",
-    "placeholder": "広告プレースホルダー",
     "loadFailed": "広告の読み込みに失敗しました",
     "supportMessage": "当サービスは広告収入で運営しています。可能であれば、当サイトの広告ブロックを解除していただけると助かります。ご理解とご支援に感謝します。"
   },
@@ -804,7 +789,6 @@
   },
   "wiki": {
     "title": "ゲームデータウィキ",
-    "subtitle": "Arknights: Endfieldの全ゲームデータを閲覧。データはAKEDataから提供。",
     "searchPlaceholder": "検索...",
     "resultCount": "{count}件",
     "clearFilters": "フィルターをクリア",
@@ -812,53 +796,29 @@
     "viewWiki": "Wiki で見る",
     "noMatch": "一致するエントリがありません",
     "noData": "データがありません——データ同期後にお試しください",
-    "selectEntity": "エントリを選択して詳細を表示",
     "attributes": "属性",
     "filter": {
       "rarity": "レア度",
       "element": "元素",
       "profession": "職業",
       "weaponType": "武器タイプ",
-      "partType": "部位",
-      "type": "タイプ"
+      "partType": "部位"
     },
     "categories": {
       "characters": "キャラクター",
       "weapons": "武器",
       "equipment": "装備"
     },
-    "descriptions": {
-      "characters": "キャラクターのステータス、スキル、潜在能力、成長曲線。",
-      "weapons": "武器のステータス、突破パス、強化テンプレート、タレント。",
-      "equipment": "装備のステータス、セット効果、製造レシピ。"
-    },
     "overview": "概要",
     "tableOfContents": "目次",
     "contentsRail": "目次",
     "weaponType": "武器タイプ",
-    "department": "陣営",
     "element": "元素",
     "profession": "職業",
-    "mainAttribute": "メイン能力",
-    "subAttribute": "サブ能力",
     "cv": "声優",
-    "baseStats": "基礎ステータス",
-    "statGroups": {
-      "base": "基礎ステータス",
-      "reduction": "ダメージ軽減",
-      "bonus": "ダメージボーナス",
-      "combat": "戦闘パラメータ"
-    },
     "stats": "ステータス",
     "skills": "スキル",
-    "skillLevels": "スキルレベル",
-    "talents": "素質",
-    "potentials": "潜在能力",
-    "logisticsSkills": "後方勤務スキル",
-    "promotions": "昇進",
     "materials": "必要素材",
-    "requiredLevel": "必要レベル",
-    "maxLevel": "最大レベル",
     "level": "レベル",
     "breakStage": "突破段階",
     "levelData": "レベルデータ",
@@ -866,7 +826,6 @@
     "collapseLevels": "レベル90のみ表示",
     "showAllSkillLevels": "全スキルレベルを表示",
     "collapseSkillLevels": "最高スキルレベルのみ表示",
-    "skillCount": "スキル数",
     "partType": "部位タイプ",
     "suitId": "セット",
     "suitEffects": "セット効果",
@@ -878,7 +837,6 @@
     "coolDown": "クールタイム",
     "skillCost": "SP消費",
     "noSet": "単独装備",
-    "values": "数値",
     "recipe": "レシピ",
     "defaultRecipe": "デフォルトレシピ",
     "showOtherRecipes": "他のレシピを表示（{count}）",
@@ -886,14 +844,9 @@
     "female": "女性",
     "male": "男性",
     "backTo": "{category}に戻る",
-    "entityId": "データ ID",
     "baseInfo": "基本情報",
-    "attributeNodes": "属性ノード",
-    "favorability": "信頼度",
-    "viewMaterials": "素材 {count}",
     "materialCount": "素材 {count} 種",
     "defaultUnlocked": "初期解放",
-    "skillForm": "形態 {number}",
     "potentialPreview": "潜在能力画像プレビュー",
     "openPotentialPreview": "{name}をプレビュー",
     "closePreview": "プレビューを閉じる",
@@ -919,9 +872,7 @@
     "to": "→",
     "removeTarget": "目標を削除",
     "level": "レベル",
-    "promotionStage": "昇進段階",
     "breakthroughStage": "突破段階",
-    "combatSkills": "戦闘スキル",
     "save": "保存",
     "selectionTab": "目標選択",
     "summaryTab": "素材集計",
@@ -957,9 +908,6 @@
     "reset": "最大状態に戻す",
     "selectCharacterHint": "オペレーターを選択してください。",
     "operators": "オペレーター",
-    "operator": "オペレーター",
-    "level": "レベル",
-    "potentialLevel": "潜在レベル",
     "equipment": "装備",
     "armor": "防具",
     "gloves": "腕装備",
@@ -970,37 +918,9 @@
     "weaponLibrary": "武器一覧",
     "weaponLevel": "武器レベル",
     "resultTitle": "オペレーターステータス",
-    "strength": "筋力",
-    "agility": "敏捷",
-    "intellect": "知性",
-    "will": "意志",
-    "hp": "HP",
-    "attack": "攻撃力",
     "additionalAttributes": "潜在・武器・装備の追加能力",
     "attributeContributions": "能力値による補正",
     "attributeProvides": "{attribute}による{effect}",
-    "defense": "防御力",
-    "critRate": "会心率",
-    "normalAttackDamage": "通常攻撃ダメージ",
-    "ultimateDamage": "必殺技ダメージ",
-    "healingEfficiency": "治療効率",
-    "skillDamage": "戦技ダメージ",
-    "comboDamage": "連携技ダメージ",
-    "ultimateCharge": "必殺技チャージ効率",
-    "physicalDamage": "物理ダメージ",
-    "damageToStaggered": "失衡対象へのダメージ",
-    "artsStrength": "源石技術強度",
-    "mainAbility": "主能力上昇",
-    "subAbility": "副能力上昇",
-    "artsDamage": "アーツダメージ",
-    "crystDamage": "寒冷ダメージ",
-    "pulseDamage": "電磁ダメージ",
-    "naturalDamage": "自然ダメージ",
-    "fireDamage": "灼熱ダメージ",
-    "damageReduction": "全ダメージ軽減",
-    "allSkillDamage": "全スキルダメージ",
-    "fireNaturalDamage": "灼熱・自然ダメージ",
-    "crystPulseDamage": "寒冷・電磁ダメージ",
     "chooseOperator": "オペレーターを選択",
     "changeOperator": "オペレーターを変更",
     "chooseOperatorDescription": "ステータスを計算するオペレーターを選択します。",
@@ -1010,13 +930,32 @@
     "chooseEquipment": "装備を選択",
     "chooseEquipmentDescription": "このスロットの装備を選択します。セット一覧は初期状態で閉じています。",
     "removeWeapon": "武器を外す",
-    "physicalDamageReduction": "物理ダメージ軽減",
-    "defenseDamageReduction": "防御によるダメージ軽減",
-    "fireDamageReduction": "灼熱ダメージ軽減",
-    "healingReceived": "被回復量上昇",
     "removeEquipment": "{slot}を外す",
     "activeSetEffects": "発動中のセット効果",
     "setPieceProgress": "{current}/{required}個",
     "noSetEquipment": "セットなし"
+  },
+  "gameI18nLookup": {
+    "title": "ゲームテキスト検索",
+    "searchLocale": "検索言語",
+    "query": "キーワード / textId",
+    "queryPlaceholder": "キーワードまたは textId を入力",
+    "localeZhCN": "簡体字中国語",
+    "localeEn": "英語",
+    "localeJa": "日本語",
+    "localeZhTW": "繁体字中国語",
+    "entryCount": "言語あたり約 {count} 件",
+    "searching": "読み込み・検索中…",
+    "searchProgress": "{loaded}/{total} チャンク走査、{hits} 件",
+    "resultCount": "{count} 件を表示",
+    "noResults": "一致なし",
+    "searchFailed": "検索に失敗しました",
+    "manifestMissing": "データがありません。pnpm game-i18n:export または sync:update を実行してください。",
+    "textId": "textId",
+    "matchedText": "一致テキスト",
+    "copyId": "ID をコピー",
+    "copied": "コピー済み",
+    "missingTranslation": "（なし）",
+    "detailEmpty": "左の結果を選ぶと四言語を表示します"
   }
 }

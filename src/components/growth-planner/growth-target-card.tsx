@@ -88,7 +88,6 @@ function GrowthNodes({
 }
 
 function CharacterOptions({ config }: { config: CharacterGrowthConfig }) {
-  const t = useTranslations('growthPlanner')
   const { text } = useWikiTranslations()
   const updateConfig = useGrowthPlannerStore((state) => state.updateConfig)
   const data = plannerGameData.characters[config.id]
@@ -101,7 +100,7 @@ function CharacterOptions({ config }: { config: CharacterGrowthConfig }) {
   const changeNodes = (currentKey: 'currentTalentIds' | 'currentAttributeNodeIds' | 'currentEquipmentNodeIds' | 'currentLogisticsNodeIds', targetKey: 'targetTalentIds' | 'targetAttributeNodeIds' | 'targetEquipmentNodeIds' | 'targetLogisticsNodeIds') => (current: string[], target: string[]) => updateConfig(config.id, { [currentKey]: current, [targetKey]: target })
   return (
     <div className="grid gap-6 xl:grid-cols-2">
-      <section className="space-y-2"><h4 className="text-xs font-semibold text-muted-foreground">{t('combatSkills')}</h4>{data.skills.map((skill, index) => {
+      <section className="space-y-2"><h4 className="text-xs font-semibold text-muted-foreground">{text('ui', 'battleSkills')}</h4>{data.skills.map((skill, index) => {
         const skillName = text('character', config.id, 'skill', skill.id, 'name')
         const typeName = text('ui', SKILL_TYPE_KEYS[skill.typeId] ?? 'battleSkill')
         return <NumberRange key={skill.id} label={<><span className="block truncate text-sm">{skillName}</span><span className="block text-[11px] text-muted-foreground">{typeName}</span></>} ariaLabel={`${typeName} ${skillName}`} current={config.currentSkillLevels[index] ?? 1} target={config.targetSkillLevels[index] ?? skill.maxLevel} minimum={1} maximum={skill.maxLevel} onCurrentChange={(value) => updateArray('currentSkillLevels', index, value)} onTargetChange={(value) => updateArray('targetSkillLevels', index, value)} />
@@ -118,7 +117,7 @@ function CharacterOptions({ config }: { config: CharacterGrowthConfig }) {
 
 export function GrowthTargetCard({ config, onRemove }: { config: GrowthConfig; onRemove?: () => void }) {
   const t = useTranslations('growthPlanner')
-  const { entityName } = useWikiTranslations()
+  const { entityName, text } = useWikiTranslations()
   const updateConfig = useGrowthPlannerStore((state) => state.updateConfig)
   const removeEntity = useGrowthPlannerStore((state) => state.removeEntity)
   const summary = config.kind === 'character' ? wikiCharacters.find((entry) => entry.id === config.id) : wikiWeapons.find((entry) => entry.id === config.id)
@@ -138,8 +137,8 @@ export function GrowthTargetCard({ config, onRemove }: { config: GrowthConfig; o
         <Button variant="ghost" size="icon-sm" onClick={() => { removeEntity(config.id); onRemove?.() }} aria-label={t('removeTarget')}><Trash2 /></Button>
       </div>
       <div className="grid gap-2 xl:grid-cols-2">
-        <NumberRange label={t('level')} current={config.currentLevel} target={config.targetLevel} minimum={1} maximum={maxLevel} onCurrentChange={(value) => updateConfig(config.id, { currentLevel: value })} onTargetChange={(value) => updateConfig(config.id, { targetLevel: value })} />
-        <NumberRange label={config.kind === 'character' ? t('promotionStage') : t('breakthroughStage')} current={config.currentBreakStage} target={config.targetBreakStage} minimum={0} maximum={maxBreak} onCurrentChange={(value) => updateConfig(config.id, { currentBreakStage: value })} onTargetChange={(value) => updateConfig(config.id, { targetBreakStage: value })} />
+        <NumberRange label={config.kind === 'character' ? text('ui', 'operatorLevel') : t('level')} current={config.currentLevel} target={config.targetLevel} minimum={1} maximum={maxLevel} onCurrentChange={(value) => updateConfig(config.id, { currentLevel: value })} onTargetChange={(value) => updateConfig(config.id, { targetLevel: value })} />
+        <NumberRange label={config.kind === 'character' ? text('ui', 'promotion') : t('breakthroughStage')} current={config.currentBreakStage} target={config.targetBreakStage} minimum={0} maximum={maxBreak} onCurrentChange={(value) => updateConfig(config.id, { currentBreakStage: value })} onTargetChange={(value) => updateConfig(config.id, { targetBreakStage: value })} />
       </div>
       {config.kind === 'character' && <CharacterOptions config={config} />}
     </div>

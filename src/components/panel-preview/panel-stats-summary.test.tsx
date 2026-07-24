@@ -35,7 +35,8 @@ vi.mock('@/lib/planner/progression', () => ({
 vi.mock('@/hooks/use-wiki-translations', () => ({
   useWikiTranslations: () => ({
     text: (...segments: Array<string | number>) => String(segments.at(-1)),
-    enumLabel: (_group: string, id: string) => id,
+    enumLabel: (_group: string, id: string) => `attr-${id}`,
+    equipmentStatLabel: (id: string) => `stat-${id}`,
   }),
 }))
 

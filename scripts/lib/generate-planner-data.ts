@@ -7,7 +7,29 @@ import { loadAllTextTables } from './stat-mapping'
 import { buildAttrShowConfigs } from './equip-stat-format'
 import { parseJsonSafe } from './json-utils'
 import { PLANNER_RESOURCE_IDS } from '../../src/lib/planner-resource-ids'
-import type { PlannerGameData, PlannerMaterialTuple, PlannerMaterialData } from '../../src/types/planner'
+import type { PlannerGameData, PlannerMaterialTuple, PlannerMaterialData, PlannerDungeonData } from '../../src/types/planner'
+
+/**
+ * Advanced Progression protocol stages (`dungeon_ss`) have server-authored yields.
+ * Client RewardTable only lists the item with count 0 (UI shows icon without quantity).
+ * Bossrush is intentionally excluded from planner farming stages.
+ */
+export const PLANNER_SS_SERVER_YIELD_PER_RUN = 6
+
+/** Dungeon categories included in growth-planner farm mapping. */
+export const PLANNER_FARMABLE_DUNGEON_CATEGORIES = new Set(['dungeon_resource', 'dungeon_ss'])
+
+/**
+ * Resolve a fixed-bundle count into a farm yield.
+ * - count > 0: client fixed yield
+ * - count === 0 + zeroCountYield: server-side yield override (SS stages)
+ * - otherwise: not farmable from this bundle
+ */
+export function resolveFarmYieldCount(count: number, zeroCountYield?: number): number | null {
+  if (count > 0) return count
+  if (count === 0 && zeroCountYield !== undefined && zeroCountYield > 0) return zeroCountYield
+  return null
+}
 
 interface CharacterLevelUpRow { exp?: number | string; gold?: number | string }
 interface WeaponLevelSource { weaponLv?: number | string; lvUpExp?: number | string; lvUpGold?: number | string }
@@ -222,13 +244,14 @@ export function buildPlannerGameData(
     }])
   )
 
-  const rewardYields = (rewardId: string | undefined): PlannerMaterialTuple[] => {
+  const rewardYields = (rewardId: string | undefined, zeroCountYield?: number): PlannerMaterialTuple[] => {
     if (!rewardId) return []
     const totals = new Map<string, number>()
     for (const bundle of rewardTable[rewardId]?.itemBundles ?? []) {
       const itemId = bundle.id
-      const count = numeric(bundle.count)
-      if (!itemId || count <= 0 || itemId === 'item_adventureexp') continue
+      if (!itemId || itemId === 'item_adventureexp') continue
+      const count = resolveFarmYieldCount(numeric(bundle.count), zeroCountYield)
+      if (count === null) continue
       const exp = expItemMap[itemId]
       if (exp) {
         const target = numeric(exp.expType) === 2 ? STAGE_TWO_EXP_ID : STAGE_ONE_EXP_ID
@@ -264,15 +287,18 @@ export function buildPlannerGameData(
 
   const highestBySeries = new Map<string, DungeonSource>()
   for (const dungeon of Object.values(dungeonTable)) {
-    if (dungeon.dungeonCategory !== 'dungeon_resource' || !dungeon.dungeonId || !dungeon.dungeonSeriesId) continue
+    const category = dungeon.dungeonCategory
+    if (!category || !PLANNER_FARMABLE_DUNGEON_CATEGORIES.has(category) || !dungeon.dungeonId || !dungeon.dungeonSeriesId) continue
     const current = highestBySeries.get(dungeon.dungeonSeriesId)
     if (!current || numeric(dungeon.recommendLv) > numeric(current.recommendLv)) highestBySeries.set(dungeon.dungeonSeriesId, dungeon)
   }
-  const dungeons = [...highestBySeries.values()].flatMap((dungeon) => {
+  const dungeons: PlannerDungeonData[] = [...highestBySeries.values()].flatMap((dungeon) => {
     const id = dungeon.dungeonId as string
     const name = localizeWikiText(dungeon.dungeonName, textTables)
     const seriesId = dungeon.dungeonSeriesId as string
     const seriesName = localizeWikiText(dungeonSeriesTable[seriesId]?.name, textTables)
+    // SS stages only expose hunter-mode rewards; resource stages use reward/custom/hunter variants.
+    const zeroCountYield = dungeon.dungeonCategory === 'dungeon_ss' ? PLANNER_SS_SERVER_YIELD_PER_RUN : undefined
     const variants = [
       { rewardId: dungeon.rewardId, stamina: numeric(dungeon.costStamina) },
       { rewardId: dungeon.customRewardId, stamina: numeric(dungeon.costStamina) },
@@ -285,7 +311,7 @@ export function buildPlannerGameData(
       seriesName,
       rewardId: variant.rewardId as string,
       stamina: variant.stamina,
-      yields: rewardYields(variant.rewardId),
+      yields: rewardYields(variant.rewardId, zeroCountYield),
       rewardItems: rewardItems(variant.rewardId),
     })).filter((entry) => entry.yields.length > 0)
   })

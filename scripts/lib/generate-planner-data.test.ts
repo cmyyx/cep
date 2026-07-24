@@ -1,5 +1,10 @@
 import { expect, it } from 'vitest'
-import { buildPotentialStats } from './generate-planner-data'
+import {
+  buildPotentialStats,
+  PLANNER_FARMABLE_DUNGEON_CATEGORIES,
+  PLANNER_SS_SERVER_YIELD_PER_RUN,
+  resolveFarmYieldCount,
+} from './generate-planner-data'
 import type { AttrShowConfig } from './equip-stat-format'
 
 it('preserves fixed potential stats and normalizes percentage metadata', () => {
@@ -22,4 +27,18 @@ it('preserves fixed potential stats and normalizes percentage metadata', () => {
     { attributeId: '50', value: 0.08, isPercent: true },
     { attributeId: '60', value: -0.1, isPercent: true },
   ])
+})
+
+it('maps farmable dungeon categories to resource + SS only', () => {
+  expect(PLANNER_FARMABLE_DUNGEON_CATEGORIES.has('dungeon_resource')).toBe(true)
+  expect(PLANNER_FARMABLE_DUNGEON_CATEGORIES.has('dungeon_ss')).toBe(true)
+  expect(PLANNER_FARMABLE_DUNGEON_CATEGORIES.has('dungeon_bossrush')).toBe(false)
+})
+
+it('uses fixed client counts and SS server override of 6 for zero-count bundles', () => {
+  expect(PLANNER_SS_SERVER_YIELD_PER_RUN).toBe(6)
+  expect(resolveFarmYieldCount(17)).toBe(17)
+  expect(resolveFarmYieldCount(0)).toBeNull()
+  expect(resolveFarmYieldCount(0, PLANNER_SS_SERVER_YIELD_PER_RUN)).toBe(6)
+  expect(resolveFarmYieldCount(-1, PLANNER_SS_SERVER_YIELD_PER_RUN)).toBeNull()
 })

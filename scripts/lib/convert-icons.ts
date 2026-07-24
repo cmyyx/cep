@@ -8,9 +8,17 @@ const AVIF_OPTIONS = { quality: 50, chromaSubsampling: '4:2:0', effort: 4 } as c
 const FETCH_TIMEOUT_MS = 20_000
 export const AKE_DATA_CDN = 'https://data.akedata.wiki'
 
+/**
+ * CDN layout after path change:
+ *   /public/images/assets/beyond/dynamicassets/gameplay/ui/{sprites|textures}/...
+ */
+const CDN_GAME_UI_PREFIX = ['public', 'images', 'assets', 'beyond', 'dynamicassets', 'gameplay', 'ui'] as const
+
 interface AssetCategory {
   ids: string[]
-  source: string[]
+  /** Path under CDN_GAME_UI_PREFIX (e.g. sprites/itemiconbig). */
+  gameUiPath: string[]
+  /** Local public/ output directory segments. */
   output: string[]
   sourceId?: (id: string) => string
 }
@@ -34,28 +42,51 @@ async function defaultFetchPng(url: string): Promise<Buffer> {
   })
 }
 
+/** Build CDN URL for one asset file under the new game-ui tree. */
+export function buildIconCdnUrl(cdnBase: string, gameUiPath: string[], fileName: string): string {
+  const base = cdnBase.replace(/\/$/, '')
+  return `${base}/${[...CDN_GAME_UI_PREFIX, ...gameUiPath, fileName].join('/')}`
+}
+
 export async function convertWikiAssets(
   projectPublicDir: string,
   assets: WikiAssets,
-  options: ConvertWikiAssetsOptions = {}
+  options: ConvertWikiAssetsOptions = {},
 ): Promise<IconConversionResult> {
   const result: IconConversionResult = { converted: [], skipped: [], missingSource: [] }
   const cdnBase = (options.cdnBase ?? AKE_DATA_CDN).replace(/\/$/, '')
   const fetchPng = options.fetchPng ?? defaultFetchPng
+
   const categories: AssetCategory[] = [
-    { ids: assets.weapons, source: ['weapon', 'iconbig'], output: ['images', 'weapon'] },
-    { ids: assets.equipment, source: ['equip', 'iconbig'], output: ['images', 'equip'] },
-    { ids: assets.materials, source: ['item', 'itemiconbig'], output: ['images', 'items'] },
-    { ids: assets.skills, source: ['character', 'skillicon'], output: ['images', 'wiki', 'skills'] },
+    {
+      ids: assets.weapons,
+      gameUiPath: ['sprites', 'itemiconbig'],
+      output: ['images', 'weapon'],
+    },
+    {
+      ids: assets.equipment,
+      gameUiPath: ['sprites', 'itemiconbig'],
+      output: ['images', 'equip'],
+    },
+    {
+      ids: assets.materials,
+      gameUiPath: ['sprites', 'itemiconbig'],
+      output: ['images', 'items'],
+    },
+    {
+      ids: assets.skills,
+      gameUiPath: ['sprites', 'skillicon'],
+      output: ['images', 'wiki', 'skills'],
+    },
     {
       ids: assets.characterPotential,
-      source: ['character', 'imagepoaster', 'largesize'],
+      gameUiPath: ['textures', 'spaceship', 'imageposter', 'largesize'],
       output: ['images', 'wiki', 'character-potential'],
       sourceId: (id) => id.replace(/^item_/, ''),
     },
     {
       ids: assets.logisticsSkills,
-      source: ['character', 'spaceshipskillicon'],
+      gameUiPath: ['sprites', 'spaceship', 'spaceshipskillicon'],
       output: ['images', 'wiki', 'logistics'],
     },
   ]
@@ -64,9 +95,9 @@ export async function convertWikiAssets(
     const outputDir = join(projectPublicDir, ...category.output)
     mkdirSync(outputDir, { recursive: true })
 
-    const categoryResults: Array<
-      { bucket: keyof IconConversionResult; label: string } | undefined
-    > = new Array(category.ids.length)
+    const categoryResults: Array<{ bucket: keyof IconConversionResult; label: string } | undefined> = new Array(
+      category.ids.length,
+    )
     await runPool(category.ids, 6, async (id, index) => {
       const sourceName = `${category.sourceId?.(id) ?? id}.png`
       const outputPath = join(outputDir, `${id}.avif`)
@@ -76,7 +107,7 @@ export async function convertWikiAssets(
         return
       }
 
-      const url = `${cdnBase}/public/images/${category.source.join('/')}/${sourceName}`
+      const url = buildIconCdnUrl(cdnBase, category.gameUiPath, sourceName)
       try {
         const buffer = await fetchPng(url)
         await sharp(buffer).avif(AVIF_OPTIONS).toFile(outputPath)

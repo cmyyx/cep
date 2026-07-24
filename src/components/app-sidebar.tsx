@@ -36,6 +36,7 @@ import {
   AlertTriangle,
   ChartNoAxesCombined,
   PanelsTopLeft,
+  Languages,
 } from 'lucide-react'
 import { useAuthStore } from '@/stores/useAuthStore'
 import { FEATURES } from '@/lib/features'
@@ -52,6 +53,7 @@ const NAV_ITEMS = [
   { href: '/panel-preview', label: 'nav.panelPreview', Icon: PanelsTopLeft },
   { href: '/banner-calendar', label: 'nav.bannerCalendar', Icon: Calendar },
   { href: '/background-preview', label: 'nav.backgroundPreview', Icon: Eye },
+  { href: '/tools/game-i18n', label: 'nav.gameI18nLookup', Icon: Languages },
 ]
 const WIKI_ITEMS = [
   { href: '/wiki/characters', label: 'wiki.categories.characters', Icon: UsersRound },

@@ -30,10 +30,9 @@
     "settings": "設定",
     "update": "版本",
     "about": "關於",
-    "privacy": "隱私政策",
-    "terms": "服務條款",
     "growthPlanner": "養成規劃",
-    "panelPreview": "面板預覽"
+    "panelPreview": "面板預覽",
+    "gameI18nLookup": "遊戲文案查詢"
   },
   "app": {
     "name": "CEP 終末地規劃器（原終末地基質規劃器）"
@@ -686,21 +685,7 @@
     "disclaimer": "背景圖片來源於網路，版權歸原作者所有。如認為存在侵權內容，請聯絡我們進行刪除處理。"
   },
   "common": {
-    "collapse": "收起",
-    "expand": "展開",
-    "or": "或",
     "close": "關閉"
-  },
-  "equip": {
-    "slot": {
-      "armor": "護甲",
-      "gloves": "手套",
-      "accessory": "配件",
-      "accessory2": "配件"
-    }
-  },
-  "team": {
-    "slot": "{number}號位"
   },
   "meta": {
     "homeDescription": "《明日方舟：終末地》規劃工具集——基質規劃與計算、精鍛規劃與計算、幹員攻略、卡池日曆等一站式解決方案。",
@@ -732,7 +717,9 @@
     "growthPlannerDescription": "終末地幹員與武器養成規劃工具，計算等級、技能、精英化、突破與節點所需資源及最高級副本次數。",
     "growthPlannerKeywords": "終末地養成規劃,幹員養成,武器養成,升級材料,副本次數,理智計算",
     "panelPreviewDescription": "終末地幹員面板預覽工具，自由設定幹員、裝備與武器並計算完整面板屬性。",
-    "panelPreviewKeywords": "終末地面板預覽,幹員面板,裝備計算,武器計算,屬性計算"
+    "panelPreviewKeywords": "終末地面板預覽,幹員面板,裝備計算,武器計算,屬性計算",
+    "gameI18nLookupTitle": "遊戲文案查詢",
+    "gameI18nLookupDescription": "查詢終末地用戶端 I18n 文字表（textId 與四語對照）。"
   },
   "legal": {
     "privacyTitle": "隱私政策",
@@ -750,7 +737,6 @@
   },
   "sidebar": {
     "toggle": "切換側邊欄",
-    "community": "Community",
     "communityDesc": "回饋 · 建議 · 交流"
   },
   "notFound": {
@@ -783,7 +769,6 @@
   },
   "ads": {
     "loading": "廣告載入中",
-    "placeholder": "廣告佔位",
     "loadFailed": "廣告載入失敗",
     "supportMessage": "我們依靠廣告收入維持服務營運，如果可以的話，可以取消封鎖本站廣告嘛～，感謝您的理解與支持。"
   },
@@ -804,7 +789,6 @@
   },
   "wiki": {
     "title": "遊戲資料維基",
-    "subtitle": "瀏覽 Arknights: Endfield 的全部遊戲資料，資料來源於 AKEData。",
     "searchPlaceholder": "搜尋...",
     "resultCount": "{count} 個項目",
     "clearFilters": "清除篩選",
@@ -812,53 +796,29 @@
     "viewWiki": "查看 Wiki",
     "noMatch": "未找到符合項目",
     "noData": "暫無資料——請等待資料同步後查看",
-    "selectEntity": "選擇一個項目以查看詳情",
     "attributes": "屬性",
     "filter": {
       "rarity": "稀有度",
       "element": "元素",
       "profession": "職業",
       "weaponType": "武器類型",
-      "partType": "部位",
-      "type": "類型"
+      "partType": "部位"
     },
     "categories": {
       "characters": "幹員",
       "weapons": "武器",
       "equipment": "裝備"
     },
-    "descriptions": {
-      "characters": "幹員屬性、技能、潛能和成長曲線。",
-      "weapons": "武器屬性、突破路徑、升級模板和天賦。",
-      "equipment": "裝備屬性、套裝效果和製造配方。"
-    },
     "overview": "概覽",
     "tableOfContents": "目錄",
     "contentsRail": "目錄",
     "weaponType": "武器類型",
-    "department": "陣營",
     "element": "元素",
     "profession": "職業",
-    "mainAttribute": "主屬性",
-    "subAttribute": "副屬性",
     "cv": "聲優",
-    "baseStats": "基礎屬性",
-    "statGroups": {
-      "base": "基礎屬性",
-      "reduction": "傷害減免",
-      "bonus": "傷害加成",
-      "combat": "戰鬥參數"
-    },
     "stats": "屬性",
     "skills": "技能",
-    "skillLevels": "技能等級",
-    "talents": "天賦",
-    "potentials": "潛能",
-    "logisticsSkills": "後勤技能",
-    "promotions": "精英化",
     "materials": "所需材料",
-    "requiredLevel": "所需等級",
-    "maxLevel": "最高等級",
     "level": "等級",
     "breakStage": "突破階段",
     "levelData": "等級資料",
@@ -866,7 +826,6 @@
     "collapseLevels": "僅顯示 90 級",
     "showAllSkillLevels": "展開全部技能等級",
     "collapseSkillLevels": "僅顯示最高技能等級",
-    "skillCount": "技能數量",
     "partType": "部位類型",
     "suitId": "套裝",
     "suitEffects": "套裝效果",
@@ -878,7 +837,6 @@
     "coolDown": "冷卻時間",
     "skillCost": "技力消耗",
     "noSet": "獨立裝備",
-    "values": "數值",
     "recipe": "配方",
     "defaultRecipe": "預設配方",
     "showOtherRecipes": "展開其他配方（{count}）",
@@ -886,14 +844,9 @@
     "female": "女",
     "male": "男",
     "backTo": "返回{category}",
-    "entityId": "資料 ID",
     "baseInfo": "基礎資訊",
-    "attributeNodes": "屬性節點",
-    "favorability": "信賴",
-    "viewMaterials": "材料 {count}",
     "materialCount": "共 {count} 種材料",
     "defaultUnlocked": "預設解鎖",
-    "skillForm": "形態 {number}",
     "potentialPreview": "潛能圖片預覽",
     "openPotentialPreview": "預覽{name}",
     "closePreview": "關閉預覽",
@@ -919,9 +872,7 @@
     "to": "至",
     "removeTarget": "移除目標",
     "level": "等級",
-    "promotionStage": "精英化階段",
     "breakthroughStage": "突破階段",
-    "combatSkills": "戰鬥技能",
     "save": "儲存",
     "selectionTab": "選擇目標",
     "summaryTab": "資源彙總",
@@ -957,9 +908,6 @@
     "reset": "恢復全滿",
     "selectCharacterHint": "請先選擇幹員。",
     "operators": "幹員",
-    "operator": "幹員",
-    "level": "等級",
-    "potentialLevel": "潛能等級",
     "equipment": "裝備",
     "armor": "護甲",
     "gloves": "護手",
@@ -970,37 +918,9 @@
     "weaponLibrary": "武器庫",
     "weaponLevel": "武器等級",
     "resultTitle": "幹員面板",
-    "strength": "力量",
-    "agility": "敏捷",
-    "intellect": "智識",
-    "will": "意志",
-    "hp": "生命值",
-    "attack": "攻擊力",
     "additionalAttributes": "潛能、武器與裝備提供的額外屬性",
     "attributeContributions": "屬性提供的加成",
     "attributeProvides": "{attribute}提供{effect}",
-    "defense": "防禦力",
-    "critRate": "暴擊率",
-    "normalAttackDamage": "普攻傷害加成",
-    "ultimateDamage": "終結技傷害加成",
-    "healingEfficiency": "治療效率",
-    "skillDamage": "戰技傷害加成",
-    "comboDamage": "連攜技傷害加成",
-    "ultimateCharge": "終結技充能效率",
-    "physicalDamage": "物理傷害加成",
-    "damageToStaggered": "對失衡目標傷害加成",
-    "artsStrength": "源石技藝強度",
-    "mainAbility": "主能力提升",
-    "subAbility": "副能力提升",
-    "artsDamage": "法術傷害加成",
-    "crystDamage": "寒冷傷害加成",
-    "pulseDamage": "電磁傷害加成",
-    "naturalDamage": "自然傷害加成",
-    "fireDamage": "灼熱傷害加成",
-    "damageReduction": "全傷害減免",
-    "allSkillDamage": "所有技能傷害加成",
-    "fireNaturalDamage": "灼熱與自然傷害加成",
-    "crystPulseDamage": "寒冷與電磁傷害加成",
     "chooseOperator": "選擇幹員",
     "changeOperator": "更換幹員",
     "chooseOperatorDescription": "選擇一名幹員作為面板計算對象。",
@@ -1010,13 +930,32 @@
     "chooseEquipment": "選擇裝備",
     "chooseEquipmentDescription": "依裝備部位選擇；套裝分組預設收合。",
     "removeWeapon": "移除武器",
-    "physicalDamageReduction": "物理傷害減免",
-    "defenseDamageReduction": "防禦傷害減免",
-    "fireDamageReduction": "灼熱傷害減免",
-    "healingReceived": "受治療提升",
     "removeEquipment": "移除{slot}",
     "activeSetEffects": "已啟用套裝效果",
     "setPieceProgress": "{current}/{required} 件",
     "noSetEquipment": "無套裝"
+  },
+  "gameI18nLookup": {
+    "title": "遊戲文案查詢",
+    "searchLocale": "搜尋語言",
+    "query": "關鍵詞 / textId",
+    "queryPlaceholder": "輸入文字關鍵詞，或貼上 textId",
+    "localeZhCN": "簡體中文",
+    "localeEn": "English",
+    "localeJa": "日本語",
+    "localeZhTW": "繁體中文",
+    "entryCount": "詞條約 {count} 條/語言",
+    "searching": "正在載入並搜尋…",
+    "searchProgress": "已掃描 {loaded}/{total} 段，命中 {hits}",
+    "resultCount": "顯示 {count} 條結果",
+    "noResults": "無匹配結果",
+    "searchFailed": "搜尋失敗",
+    "manifestMissing": "找不到遊戲文案資料。請先執行 pnpm game-i18n:export 或完整 sync:update。",
+    "textId": "textId",
+    "matchedText": "匹配文字",
+    "copyId": "複製 ID",
+    "copied": "已複製",
+    "missingTranslation": "（無）",
+    "detailEmpty": "選擇左側結果查看四語對照"
   }
 }

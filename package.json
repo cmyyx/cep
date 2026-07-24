@@ -16,6 +16,7 @@
     "check:i18n": "node scripts/check-i18n.mjs",
     "sync:check": "tsx scripts/sync-game-data.ts --check",
     "sync:update": "tsx scripts/sync-game-data.ts --update",
+    "game-i18n:export": "tsx scripts/export-game-i18n.ts",
     "note": "node scripts/new-announcement.mjs"
   },
   "dependencies": {
