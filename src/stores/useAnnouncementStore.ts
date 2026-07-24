@@ -75,6 +75,36 @@ interface AnnouncementIndexItem {
 /** Module-level fetch lock so initial isLoading:true (skeleton) doesn't block the first call */
 let fetching = false
 
+/**
+ * Wait until zustand/persist has restored `readIds` from localStorage.
+ * Any `set()` before hydration would re-persist the default empty array and wipe history.
+ */
+function waitForPersistHydration(): Promise<void> {
+  if (useAnnouncementStore.persist.hasHydrated()) {
+    return Promise.resolve()
+  }
+  return new Promise((resolve) => {
+    const unsub = useAnnouncementStore.persist.onFinishHydration(() => {
+      unsub()
+      resolve()
+    })
+    // Race: hydration may finish between hasHydrated() check and subscribe
+    if (useAnnouncementStore.persist.hasHydrated()) {
+      unsub()
+      resolve()
+    }
+  })
+}
+
+/**
+ * Drop read markers only for announcements confirmed removed from the catalog index.
+ * Must NOT use the successfully-loaded content list — failed .md fetches on a slow
+ * network would otherwise wipe read history for those IDs.
+ */
+export function pruneReadIds(readIds: string[], indexIds: ReadonlySet<string>): string[] {
+  return readIds.filter((id) => indexIds.has(id))
+}
+
 export const useAnnouncementStore = create<AnnouncementState>()(
   persist(
     (set, get) => ({
@@ -89,15 +119,19 @@ export const useAnnouncementStore = create<AnnouncementState>()(
         fetching = true
 
         const startedAt = Date.now()
-        set({ isLoading: true, loadError: false })
-
-        // Register task with init store for progress tracking
-        const initStore = useAppInitStore.getState()
-        initStore.registerTask(TASK_ID)
-
         let didError = false
+        let registered = false
 
         try {
+          // Ensure persisted readIds are restored before any set() that would re-write storage
+          await waitForPersistHydration()
+
+          set({ isLoading: true, loadError: false })
+
+          // Register task with init store for progress tracking
+          useAppInitStore.getState().registerTask(TASK_ID)
+          registered = true
+
           // Phase 1: fetch index.json (40% of progress)
           const indexItems = await fetchJSONWithProgress<AnnouncementIndexItem[]>(
             '/announcements/index.generated.json',
@@ -118,13 +152,19 @@ export const useAnnouncementStore = create<AnnouncementState>()(
               typeof item.publishTime === 'string'
           )
 
+          // Catalog IDs from the index — authoritative for pruning read markers.
+          // Content may fail to load on slow networks; that must not erase read history.
+          const indexIds = new Set(validatedIndex.map((item) => item.id))
+
           // Phase 2: load .md content in parallel for items that use file references
           const totalItems = validatedIndex.length
           let completedCount = 0
 
           function updateProgress() {
             completedCount++
-            const overall = 40 + (completedCount / totalItems) * 45
+            // Avoid divide-by-zero when the index is empty
+            const overall =
+              totalItems === 0 ? 85 : 40 + (completedCount / totalItems) * 45
             useAppInitStore.getState().setProgress(overall)
           }
 
@@ -189,11 +229,16 @@ export const useAnnouncementStore = create<AnnouncementState>()(
             }
           )
 
-          const currentIds = new Set(announcements.map((a) => a.id))
           const { readIds } = get()
-          const pruned = readIds.filter((id) => currentIds.has(id))
+          const pruned = pruneReadIds(readIds, indexIds)
 
-          set({ announcements, readIds: pruned })
+          // Only touch readIds when something was actually removed (deleted announcements).
+          // Avoids unnecessary persist writes and accidental empty-array clobbering.
+          if (pruned.length !== readIds.length) {
+            set({ announcements, readIds: pruned })
+          } else {
+            set({ announcements })
+          }
         } catch {
           didError = true
         } finally {
@@ -205,11 +250,13 @@ export const useAnnouncementStore = create<AnnouncementState>()(
           set({
             isLoading: false,
             loadError: didError,
-            ...(didError ? { announcements: [] } : {})
+            ...(didError ? { announcements: [] } : {}),
           })
           fetching = false
-          // Signal task completion to init store
-          useAppInitStore.getState().completeTask(TASK_ID)
+          // Signal task completion to init store (only if we registered)
+          if (registered) {
+            useAppInitStore.getState().completeTask(TASK_ID)
+          }
         }
       },
 
