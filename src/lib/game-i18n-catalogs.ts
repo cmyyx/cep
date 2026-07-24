@@ -3,33 +3,15 @@
  *
  * Long-form wiki text (wikiData) must NOT go through NextIntlClientProvider:
  * static export serializes provider messages into every page HTML/RSC payload.
- * These imports land in shared JS chunks instead (one copy site-wide).
+ *
+ * Catalogs are loaded per locale via dynamic import() so unused locales stay out
+ * of the initial client bundle. Results are cached and frozen (read-only).
  *
  * Full catalogs remain available to the server via loadMessages() for SSG.
  */
-import charactersEn from '@/generated/i18n/characters/en.json'
-import charactersJa from '@/generated/i18n/characters/ja.json'
-import charactersZhCN from '@/generated/i18n/characters/zh-CN.json'
-import charactersZhTW from '@/generated/i18n/characters/zh-TW.json'
-import equipsEn from '@/generated/i18n/equips/en.json'
-import equipsJa from '@/generated/i18n/equips/ja.json'
-import equipsZhCN from '@/generated/i18n/equips/zh-CN.json'
-import equipsZhTW from '@/generated/i18n/equips/zh-TW.json'
-import equipStatsEn from '@/generated/i18n/equipStats/en.json'
-import equipStatsJa from '@/generated/i18n/equipStats/ja.json'
-import equipStatsZhCN from '@/generated/i18n/equipStats/zh-CN.json'
-import equipStatsZhTW from '@/generated/i18n/equipStats/zh-TW.json'
-import weaponsEn from '@/generated/i18n/weapons/en.json'
-import weaponsJa from '@/generated/i18n/weapons/ja.json'
-import weaponsZhCN from '@/generated/i18n/weapons/zh-CN.json'
-import weaponsZhTW from '@/generated/i18n/weapons/zh-TW.json'
-import wikiDataEn from '@/generated/i18n/wikiData/en.json'
-import wikiDataJa from '@/generated/i18n/wikiData/ja.json'
-import wikiDataZhCN from '@/generated/i18n/wikiData/zh-CN.json'
-import wikiDataZhTW from '@/generated/i18n/wikiData/zh-TW.json'
 import type { WikiLocale } from '@/types/wiki'
 
-type StringCatalog = Record<string, string>
+export type StringCatalog = Record<string, string>
 
 export type GameI18nNamespace =
   | 'characters'
@@ -38,44 +20,135 @@ export type GameI18nNamespace =
   | 'equipStats'
   | 'wikiData'
 
-const catalogs: Record<GameI18nNamespace, Record<WikiLocale, StringCatalog>> = {
-  characters: {
-    en: charactersEn,
-    ja: charactersJa,
-    'zh-CN': charactersZhCN,
-    'zh-TW': charactersZhTW,
-  },
-  weapons: {
-    en: weaponsEn,
-    ja: weaponsJa,
-    'zh-CN': weaponsZhCN,
-    'zh-TW': weaponsZhTW,
-  },
-  equips: {
-    en: equipsEn,
-    ja: equipsJa,
-    'zh-CN': equipsZhCN,
-    'zh-TW': equipsZhTW,
-  },
-  equipStats: {
-    en: equipStatsEn,
-    ja: equipStatsJa,
-    'zh-CN': equipStatsZhCN,
-    'zh-TW': equipStatsZhTW,
-  },
-  wikiData: {
-    en: wikiDataEn,
-    ja: wikiDataJa,
-    'zh-CN': wikiDataZhCN,
-    'zh-TW': wikiDataZhTW,
-  },
+export type GameI18nLocaleBundle = Record<GameI18nNamespace, StringCatalog>
+
+const cache = new Map<WikiLocale, GameI18nLocaleBundle>()
+const inflight = new Map<WikiLocale, Promise<GameI18nLocaleBundle>>()
+
+function freezeBundle(bundle: GameI18nLocaleBundle): GameI18nLocaleBundle {
+  for (const key of Object.keys(bundle) as GameI18nNamespace[]) {
+    Object.freeze(bundle[key])
+  }
+  return Object.freeze(bundle)
 }
 
+function unwrapJsonModule(mod: { default: StringCatalog } | StringCatalog): StringCatalog {
+  if (mod && typeof mod === 'object' && 'default' in mod) {
+    return (mod as { default: StringCatalog }).default
+  }
+  return mod as StringCatalog
+}
+
+/**
+ * Explicit switch so the bundler emits one async chunk group per locale
+ * (not a single mega-chunk with all languages).
+ */
+async function importLocaleBundle(locale: WikiLocale): Promise<GameI18nLocaleBundle> {
+  switch (locale) {
+    case 'en': {
+      const [characters, weapons, equips, equipStats, wikiData] = await Promise.all([
+        import('@/generated/i18n/characters/en.json'),
+        import('@/generated/i18n/weapons/en.json'),
+        import('@/generated/i18n/equips/en.json'),
+        import('@/generated/i18n/equipStats/en.json'),
+        import('@/generated/i18n/wikiData/en.json'),
+      ])
+      return freezeBundle({
+        characters: unwrapJsonModule(characters),
+        weapons: unwrapJsonModule(weapons),
+        equips: unwrapJsonModule(equips),
+        equipStats: unwrapJsonModule(equipStats),
+        wikiData: unwrapJsonModule(wikiData),
+      })
+    }
+    case 'ja': {
+      const [characters, weapons, equips, equipStats, wikiData] = await Promise.all([
+        import('@/generated/i18n/characters/ja.json'),
+        import('@/generated/i18n/weapons/ja.json'),
+        import('@/generated/i18n/equips/ja.json'),
+        import('@/generated/i18n/equipStats/ja.json'),
+        import('@/generated/i18n/wikiData/ja.json'),
+      ])
+      return freezeBundle({
+        characters: unwrapJsonModule(characters),
+        weapons: unwrapJsonModule(weapons),
+        equips: unwrapJsonModule(equips),
+        equipStats: unwrapJsonModule(equipStats),
+        wikiData: unwrapJsonModule(wikiData),
+      })
+    }
+    case 'zh-TW': {
+      const [characters, weapons, equips, equipStats, wikiData] = await Promise.all([
+        import('@/generated/i18n/characters/zh-TW.json'),
+        import('@/generated/i18n/weapons/zh-TW.json'),
+        import('@/generated/i18n/equips/zh-TW.json'),
+        import('@/generated/i18n/equipStats/zh-TW.json'),
+        import('@/generated/i18n/wikiData/zh-TW.json'),
+      ])
+      return freezeBundle({
+        characters: unwrapJsonModule(characters),
+        weapons: unwrapJsonModule(weapons),
+        equips: unwrapJsonModule(equips),
+        equipStats: unwrapJsonModule(equipStats),
+        wikiData: unwrapJsonModule(wikiData),
+      })
+    }
+    case 'zh-CN':
+    default: {
+      const [characters, weapons, equips, equipStats, wikiData] = await Promise.all([
+        import('@/generated/i18n/characters/zh-CN.json'),
+        import('@/generated/i18n/weapons/zh-CN.json'),
+        import('@/generated/i18n/equips/zh-CN.json'),
+        import('@/generated/i18n/equipStats/zh-CN.json'),
+        import('@/generated/i18n/wikiData/zh-CN.json'),
+      ])
+      return freezeBundle({
+        characters: unwrapJsonModule(characters),
+        weapons: unwrapJsonModule(weapons),
+        equips: unwrapJsonModule(equips),
+        equipStats: unwrapJsonModule(equipStats),
+        wikiData: unwrapJsonModule(wikiData),
+      })
+    }
+  }
+}
+
+/** Sync read of an already-loaded locale bundle (undefined until loaded). */
+export function getCachedGameI18nLocale(locale: WikiLocale): GameI18nLocaleBundle | undefined {
+  return cache.get(locale)
+}
+
+/** Load (or return cached) catalogs for one locale. Safe to call repeatedly. */
+export function loadGameI18nLocale(locale: WikiLocale): Promise<GameI18nLocaleBundle> {
+  const cached = cache.get(locale)
+  if (cached) return Promise.resolve(cached)
+
+  let pending = inflight.get(locale)
+  if (!pending) {
+    pending = importLocaleBundle(locale)
+      .then((bundle) => {
+        cache.set(locale, bundle)
+        inflight.delete(locale)
+        return bundle
+      })
+      .catch((error: unknown) => {
+        inflight.delete(locale)
+        throw error
+      })
+    inflight.set(locale, pending)
+  }
+  return pending
+}
+
+/**
+ * Shared frozen catalog for locale/namespace when already loaded.
+ * Returns empty object if locale not yet loaded (callers should prefer the hook).
+ */
 export function getGameI18nCatalog(
   locale: WikiLocale,
   namespace: GameI18nNamespace,
 ): StringCatalog {
-  return catalogs[namespace][locale]
+  return cache.get(locale)?.[namespace] ?? Object.freeze({})
 }
 
 export function lookupGameI18n(
@@ -83,7 +156,7 @@ export function lookupGameI18n(
   namespace: GameI18nNamespace,
   key: string,
 ): string | undefined {
-  const value = catalogs[namespace][locale][key]
+  const value = cache.get(locale)?.[namespace]?.[key]
   return typeof value === 'string' ? value : undefined
 }
 
@@ -92,5 +165,11 @@ export function hasGameI18n(
   namespace: GameI18nNamespace,
   key: string,
 ): boolean {
-  return typeof catalogs[namespace][locale][key] === 'string'
+  return typeof cache.get(locale)?.[namespace]?.[key] === 'string'
+}
+
+/** Test helper */
+export function resetGameI18nCatalogCacheForTests(): void {
+  cache.clear()
+  inflight.clear()
 }

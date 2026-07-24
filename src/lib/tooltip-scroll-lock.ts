@@ -67,7 +67,12 @@ export function subscribeTooltipScrollClose(onClose: () => void): () => void {
 export function ensureTooltipScrollLockInstalled(): void {
   if (installed || typeof window === 'undefined') return
   installed = true
-  const onScrollIntent = () => {
+  const onScrollIntent = (event: Event) => {
+    const target = event.target
+    // Long planner previews scroll inside the popup; do not lock/close for that.
+    if (target instanceof Element && target.closest('[data-slot="tooltip-content"]')) return
+    // Some browsers target Document/Text for wheel; walk to parent Element when needed.
+    if (target instanceof Text && target.parentElement?.closest('[data-slot="tooltip-content"]')) return
     lockTooltipsForScroll()
   }
   window.addEventListener('wheel', onScrollIntent, { capture: true, passive: true })

@@ -9,8 +9,8 @@ vi.mock('next-intl', () => ({
   useLocale: () => 'zh-CN',
 }))
 
-vi.mock('@/lib/game-i18n-catalogs', () => {
-  const catalogs = {
+vi.mock('@/hooks/use-game-i18n-catalogs', () => ({
+  useGameI18nLocale: () => ({
     characters: { chr_test: '测试角色' },
     weapons: { wpn_test: '测试武器' },
     equips: { equip_test: '测试装备' },
@@ -21,17 +21,8 @@ vi.mock('@/lib/game-i18n-catalogs', () => {
       'suit|suit_test': '测试套装',
       'character|chr_test|skill|skill%2Etest|name': '带点号的技能',
     },
-  } as const
-
-  type Namespace = keyof typeof catalogs
-
-  return {
-    hasGameI18n: (locale: string, namespace: Namespace, key: string) =>
-      locale === 'zh-CN' && key in catalogs[namespace],
-    lookupGameI18n: (locale: string, namespace: Namespace, key: string) =>
-      locale === 'zh-CN' ? catalogs[namespace][key as keyof (typeof catalogs)[Namespace]] : undefined,
-  }
-})
+  }),
+}))
 
 const localized = (value: string) => ({ 'zh-CN': value, en: value, ja: value, 'zh-TW': value })
 
@@ -72,6 +63,7 @@ const equipment: WikiEquipmentSummary = {
 it('translates all wiki entity categories and falls back to missing IDs', () => {
   const { result } = renderHook(() => useWikiTranslations())
 
+  expect(result.current.ready).toBe(true)
   expect(result.current.entityName(character)).toBe('测试角色')
   expect(result.current.entityName(weapon)).toBe('测试武器')
   expect(result.current.entityName(equipment)).toBe('测试装备')

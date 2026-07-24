@@ -26,6 +26,7 @@ import { VersionProvider } from '@/hooks/use-version'
 import { SiteUrlProvider } from '@/hooks/use-site-url'
 import { versionData } from '@/generated/version-data'
 import { DEFAULT_SITE_URL } from '@/lib/constants'
+import { GameI18nCatalogPreloader } from '@/components/shared/game-i18n-catalog-preloader'
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }))
@@ -70,6 +71,7 @@ export default async function LocaleLayout({
   return (
     <>
       <NextIntlClientProvider messages={messages} locale={locale}>
+      <GameI18nCatalogPreloader locale={locale} />
       <LocaleGuard />
       <DebugLabel />
       <SiteUrlProvider url={siteUrl}>

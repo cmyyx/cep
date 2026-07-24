@@ -62,7 +62,7 @@ const shellMessages = {
 
 /**
  * Short generated name tables used by client planners via useTranslations.
- * Intentionally excludes wikiData (~0.9MB) which is loaded via game-i18n-catalogs
+ * Intentionally excludes wikiData (~0.9MB) which is loaded per-locale via game-i18n-catalogs dynamic import
  * so static export does not embed it in every page's RSC payload.
  */
 const plannerCatalogs = {

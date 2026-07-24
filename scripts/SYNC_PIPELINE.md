@@ -96,7 +96,7 @@ src/generated/i18n/
 |-----|------|-----------------|
 | `loadClientMessages(locale)` | 根 layout `NextIntlClientProvider` | 否（UI + 规划器用短名表） |
 | `loadMessages(locale)` | `getRequestConfig` / 服务端 `getTranslations`（SSG） | 是 |
-| `@/lib/game-i18n-catalogs` | 客户端 wiki 长文案 / 实体名（共享 JS chunk） | wikiData 在此 |
+| `@/lib/game-i18n-catalogs` | 客户端 wiki 长文案 / 实体名（`import()` **按 locale 动态分包** + 缓存；layout 预加载当前语言） | wikiData 在此 |
 
 ```tsx
 // 规划器短名：仍走 next-intl（已在 ClientProvider）

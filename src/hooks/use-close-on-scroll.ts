@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useEffectEvent, useRef } from 'react'
 
 /**
  * Dismiss a controlled tooltip when any scrollable ancestor scrolls.
@@ -15,8 +15,7 @@ export function useCloseOnScroll(
   onScrollClose: () => void,
 ) {
   const ref = useRef<HTMLButtonElement>(null)
-  const onScrollCloseRef = useRef(onScrollClose)
-  onScrollCloseRef.current = onScrollClose
+  const onScrollCloseEvent = useEffectEvent(onScrollClose)
 
   useEffect(() => {
     if (!open || !ref.current) return
@@ -35,7 +34,7 @@ export function useCloseOnScroll(
       const target = event.target
       // Allow scrolling inside the tooltip popup itself (long previews).
       if (target instanceof Element && target.closest('[data-slot="tooltip-content"]')) return
-      onScrollCloseRef.current()
+      onScrollCloseEvent()
     }
     scrollables.forEach((node) => {
       node.addEventListener('scroll', handler, { passive: true })

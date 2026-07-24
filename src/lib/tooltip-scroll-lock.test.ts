@@ -1,5 +1,8 @@
+// @vitest-environment jsdom
+
 import { afterEach, expect, it, vi } from 'vitest'
 import {
+  ensureTooltipScrollLockInstalled,
   isTooltipScrollLocked,
   lockTooltipsForScroll,
   resetTooltipScrollLockForTests,
@@ -42,4 +45,27 @@ it('notifies close subscribers on every lock engagement', () => {
   unsubscribe()
   lockTooltipsForScroll(200)
   expect(onClose).toHaveBeenCalledTimes(2)
+})
+
+it('does not global-lock when wheel targets tooltip content after install', () => {
+  ensureTooltipScrollLockInstalled()
+  const tip = document.createElement('div')
+  tip.setAttribute('data-slot', 'tooltip-content')
+  tip.textContent = 'preview'
+  document.body.appendChild(tip)
+
+  const inside = new WheelEvent('wheel', { bubbles: true, cancelable: true })
+  Object.defineProperty(inside, 'target', { value: tip })
+  window.dispatchEvent(inside)
+  expect(isTooltipScrollLocked()).toBe(false)
+
+  const outside = document.createElement('div')
+  document.body.appendChild(outside)
+  const outsideEvent = new WheelEvent('wheel', { bubbles: true, cancelable: true })
+  Object.defineProperty(outsideEvent, 'target', { value: outside })
+  window.dispatchEvent(outsideEvent)
+  expect(isTooltipScrollLocked()).toBe(true)
+
+  tip.remove()
+  outside.remove()
 })

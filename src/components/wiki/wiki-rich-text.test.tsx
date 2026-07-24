@@ -8,13 +8,17 @@ vi.mock('next-intl', () => ({
   useLocale: () => 'en',
 }))
 
-vi.mock('@/lib/game-i18n-catalogs', () => ({
-  hasGameI18n: (_locale: string, namespace: string, key: string) =>
-    namespace === 'wikiData' && key.includes('ba%2Econsume'),
-  lookupGameI18n: (_locale: string, namespace: string, key: string) => {
-    if (namespace !== 'wikiData' || !key.includes('ba%2Econsume')) return undefined
-    return key.endsWith('|name') ? 'Consume' : 'Consume description'
-  },
+vi.mock('@/hooks/use-game-i18n-catalogs', () => ({
+  useGameI18nLocale: () => ({
+    characters: {},
+    weapons: {},
+    equips: {},
+    equipStats: {},
+    wikiData: {
+      'glossary|ba%2Econsume|name': 'Consume',
+      'glossary|ba%2Econsume|description': 'Consume description',
+    },
+  }),
 }))
 
 describe('WikiRichText', () => {

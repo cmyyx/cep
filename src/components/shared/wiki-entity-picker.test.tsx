@@ -17,31 +17,23 @@ vi.mock('next-intl', () => ({
   },
 }))
 
-vi.mock('@/lib/game-i18n-catalogs', () => {
-  const characters: Record<string, string> = {
-    high: '高星',
-    low: '低星',
-    one: '佩丽卡',
-    two: '陈千语',
-  }
-  const wikiData: Record<string, string> = {
-    'enum|elements|Physical': '物理',
-    'enum|elements|Natural': '自然',
-  }
-
-  return {
-    hasGameI18n: (_locale: string, namespace: string, key: string) => {
-      if (namespace === 'characters') return key in characters
-      if (namespace === 'wikiData') return key in wikiData
-      return false
+vi.mock('@/hooks/use-game-i18n-catalogs', () => ({
+  useGameI18nLocale: () => ({
+    characters: {
+      high: '高星',
+      low: '低星',
+      one: '佩丽卡',
+      two: '陈千语',
     },
-    lookupGameI18n: (_locale: string, namespace: string, key: string) => {
-      if (namespace === 'characters') return characters[key]
-      if (namespace === 'wikiData') return wikiData[key]
-      return undefined
+    weapons: {},
+    equips: {},
+    equipStats: {},
+    wikiData: {
+      'enum|elements|Physical': '物理',
+      'enum|elements|Natural': '自然',
     },
-  }
-})
+  }),
+}))
 
 vi.mock('@/hooks/use-mobile-long-press-tooltip', () => ({
   useMobileLongPressTooltip: () => ({

@@ -5,11 +5,14 @@ import { NextIntlClientProvider } from 'next-intl'
 import { afterEach, expect, it, vi } from 'vitest'
 import { formatMaterialCount, WikiMaterialList } from './wiki-material-list'
 
-vi.mock('@/lib/game-i18n-catalogs', () => ({
-  hasGameI18n: (_locale: string, namespace: string, key: string) =>
-    namespace === 'wikiData' && key === 'item|material-a',
-  lookupGameI18n: (_locale: string, namespace: string, key: string) =>
-    namespace === 'wikiData' && key === 'item|material-a' ? '测试材料' : undefined,
+vi.mock('@/hooks/use-game-i18n-catalogs', () => ({
+  useGameI18nLocale: () => ({
+    characters: {},
+    weapons: {},
+    equips: {},
+    equipStats: {},
+    wikiData: { 'item|material-a': '测试材料' },
+  }),
 }))
 
 const localized = (value: string) => ({ 'zh-CN': value, en: value, ja: value, 'zh-TW': value })

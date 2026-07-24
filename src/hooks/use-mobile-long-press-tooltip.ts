@@ -54,7 +54,10 @@ export function useMobileLongPressTooltip(
   const [open, setOpen] = useState(false)
   const suppressOpenRef = useRef(false)
   const openRef = useRef(open)
-  openRef.current = open
+
+  useEffect(() => {
+    openRef.current = open
+  }, [open])
 
   useEffect(() => {
     ensureTooltipScrollLockInstalled()

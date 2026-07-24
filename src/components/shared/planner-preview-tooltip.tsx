@@ -15,8 +15,15 @@ export function plannerPreviewTooltipContentClassName(isMobile: boolean) {
 }
 
 export interface PlannerPreviewTooltipProps {
-  /** When false or content is empty, renders the card without tooltip chrome. */
+  /**
+   * Master switch. Tooltip chrome and scroll-lock subscription only activate when
+   * `enabled && content != null` (see `active` inside the component).
+   */
   enabled?: boolean
+  /**
+   * Preview body. When null/undefined/false, renders a plain card with no tooltip
+   * (and does not enable long-press / scroll-lock behavior).
+   */
   content?: ReactNode | null
   onClick: () => void
   className?: string
@@ -28,6 +35,9 @@ export interface PlannerPreviewTooltipProps {
 /**
  * Dense-grid entity card with desktop hover delay (via TooltipProvider)
  * and mobile long-press preview. Long-press release does not fire onClick.
+ *
+ * Activation = enabled (default true) AND content present. That flag is passed to
+ * useMobileLongPressTooltip so inactive cards skip long-press and scroll-close wiring.
  */
 export function PlannerPreviewTooltip({
   enabled = true,
