@@ -719,7 +719,7 @@
     "panelPreviewDescription": "终末地干员面板预览工具，自由配置干员、装备与武器并计算完整面板属性。",
     "panelPreviewKeywords": "终末地面板预览,干员面板,装备计算,武器计算,属性计算",
     "gameI18nLookupTitle": "游戏文案查询",
-    "gameI18nLookupDescription": "查询终末地客户端 I18n 文本表（textId 与四语对照）。"
+    "gameI18nLookupDescription": "查询终末地客户端 I18n 文本表（textId 与多语言对照）。"
   },
   "legal": {
     "privacyTitle": "隐私政策",
@@ -944,9 +944,29 @@
     "localeEn": "English",
     "localeJa": "日本語",
     "localeZhTW": "繁體中文",
+    "localeKo": "한국어",
+    "localeDe": "Deutsch",
+    "localeFr": "Français",
+    "localeIt": "Italiano",
+    "localeRu": "Русский",
+    "localePtBR": "Português (BR)",
+    "localeEsMX": "Español (MX)",
+    "localeId": "Bahasa Indonesia",
+    "localeTh": "ไทย",
+    "localeVi": "Tiếng Việt",
     "entryCount": "词条约 {count} 条/语言",
-    "searching": "正在加载并搜索…",
-    "searchProgress": "已扫描 {loaded}/{total} 段，命中 {hits}",
+    "searching": "正在搜索…",
+    "searchProgress": "已扫描 {loaded}/{total} 条（{percent}%），命中 {hits}",
+    "loadingTranslations": "正在加载{locale}翻译 {loaded}/{total}（{percent}%）",
+    "loadingTranslationsHint": "正在加载{locale}翻译文件（{percent}%），完成后可搜索",
+    "loadingAllTranslations": "正在加载全部翻译 {loaded}/{total}（{percent}%）· {locale}",
+    "loadingAllTranslationsHint": "正在加载全部语言翻译文件 {loaded}/{total}（{percent}%）",
+    "localeReady": "{locale}翻译已就绪",
+    "allLocalesReady": "全部语言翻译已就绪",
+    "localeGeneric": "翻译文件",
+    "localeLoading": "加载中…",
+    "resolving": "正在补全多语言对照…",
+    "resolvingProgress": "已找到结果，正在补全多语言对照 {done}/{total}",
     "resultCount": "显示 {count} 条结果",
     "noResults": "无匹配结果",
     "searchFailed": "搜索失败",
@@ -956,6 +976,6 @@
     "copyId": "复制 ID",
     "copied": "已复制",
     "missingTranslation": "（无）",
-    "detailEmpty": "选择左侧结果查看四语对照"
+    "detailEmpty": "选择搜索结果查看其他语言文案"
   }
 }

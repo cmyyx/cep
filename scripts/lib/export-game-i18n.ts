@@ -7,11 +7,12 @@
  * Chunking keeps each file under maxChunkBytes so hosts with per-file limits
  * (often ~10–25MB) do not reject deploy artifacts as tables grow.
  */
-import { existsSync, mkdirSync, readFileSync, renameSync, rmSync, writeFileSync } from 'node:fs'
+import { cpSync, existsSync, mkdirSync, readFileSync, renameSync, rmSync, writeFileSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import {
   compareTextId,
   GAME_I18N_LOCALES,
+  GAME_I18N_UPSTREAM_SUFFIX,
   type GameI18nChunkMeta,
   type GameI18nLocale,
   type GameI18nLocaleMeta,
@@ -22,19 +23,12 @@ export {
   compareTextId,
   findChunkIndexForTextId,
   GAME_I18N_LOCALES,
+  GAME_I18N_UPSTREAM_SUFFIX,
   type GameI18nChunkMeta,
   type GameI18nLocale,
   type GameI18nLocaleMeta,
   type GameI18nManifest,
 } from '../../src/lib/game-i18n-shared'
-
-/** Upstream TableCfg filename suffix per project locale. */
-const UPSTREAM_SUFFIX: Record<GameI18nLocale, string> = {
-  'zh-CN': 'CN',
-  en: 'EN',
-  ja: 'JP',
-  'zh-TW': 'TC',
-}
 
 /** Default max serialized JSON size per chunk (~8MiB, under common 10–20MB host limits). */
 export const DEFAULT_MAX_CHUNK_BYTES = 8 * 1024 * 1024
@@ -146,7 +140,7 @@ export function packGameI18nChunks(
 }
 
 export function loadUpstreamI18nTable(akedataPath: string, locale: GameI18nLocale): Record<string, string> {
-  const path = join(akedataPath, 'TableCfg', `I18nTextTable_${UPSTREAM_SUFFIX[locale]}.json`)
+  const path = join(akedataPath, 'TableCfg', `I18nTextTable_${GAME_I18N_UPSTREAM_SUFFIX[locale]}.json`)
   if (!existsSync(path)) throw new Error(`Missing upstream table: ${path}`)
   const raw = JSON.parse(readFileSync(path, 'utf8')) as Record<string, unknown>
   const table: Record<string, string> = {}
@@ -227,10 +221,17 @@ export function exportGameI18nTables(
     writeFileSync(manifestPath, `${JSON.stringify(manifest, null, 2)}\n`, 'utf8')
     files.push(join(outputDir, 'manifest.json'))
 
+    // Windows can fail renameSync when the destination exists or is briefly locked.
+    // Prefer atomic rename into place; fall back to wipe + copy.
     if (existsSync(outputDir)) {
       rmSync(outputDir, { recursive: true, force: true })
     }
-    renameSync(tempDir, outputDir)
+    try {
+      renameSync(tempDir, outputDir)
+    } catch {
+      cpSync(tempDir, outputDir, { recursive: true })
+      rmSync(tempDir, { recursive: true, force: true })
+    }
 
     return { outputDir, manifest, files }
   } catch (error) {
