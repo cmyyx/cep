@@ -7,8 +7,8 @@
  * Chunking keeps each file under maxChunkBytes so hosts with per-file limits
  * (often ~10–25MB) do not reject deploy artifacts as tables grow.
  */
-import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
-import { join } from 'node:path'
+import { existsSync, mkdirSync, readFileSync, renameSync, rmSync, writeFileSync } from 'node:fs'
+import { dirname, join } from 'node:path'
 import {
   compareTextId,
   GAME_I18N_LOCALES,
@@ -39,28 +39,77 @@ const UPSTREAM_SUFFIX: Record<GameI18nLocale, string> = {
 /** Default max serialized JSON size per chunk (~8MiB, under common 10–20MB host limits). */
 export const DEFAULT_MAX_CHUNK_BYTES = 8 * 1024 * 1024
 
+export function assertSafeMaxChunkBytes(maxChunkBytes: number): number {
+  if (!Number.isSafeInteger(maxChunkBytes) || maxChunkBytes < 1024) {
+    throw new Error(`maxChunkBytes must be a safe integer >= 1024 (got ${String(maxChunkBytes)})`)
+  }
+  return maxChunkBytes
+}
+
+/** Parse CLI --max-chunk-bytes; empty/undefined uses fallback. */
+export function parseMaxChunkBytesArg(raw: string | undefined, fallback: number): number {
+  if (raw === undefined || raw === '') return assertSafeMaxChunkBytes(fallback)
+  const value = Number(raw)
+  return assertSafeMaxChunkBytes(value)
+}
+
+export function argValue(args: string[], flag: string): string | undefined {
+  const index = args.indexOf(flag)
+  if (index < 0) return undefined
+  return args[index + 1]
+}
+
+export function resolveAkedataPath(options: {
+  args: string[]
+  projectRoot: string
+  existsSync?: typeof existsSync
+  readFileSync?: typeof readFileSync
+}): string {
+  const exists = options.existsSync ?? existsSync
+  const read = options.readFileSync ?? readFileSync
+  const fromCli = argValue(options.args, '--akedata')
+  if (fromCli) return fromCli
+  const configPath = join(options.projectRoot, 'sync-game-data.config.json')
+  if (exists(configPath)) {
+    const config = JSON.parse(read(configPath, 'utf8')) as { akedataPath?: string }
+    if (config.akedataPath) return config.akedataPath
+  }
+  throw new Error('akedataPath required (sync-game-data.config.json or --akedata)')
+}
+
+/** UTF-8 size of one JSON object entry: "id":"text" plus optional leading comma. */
+export function entrySerializedBytes(id: string, text: string, withLeadingComma: boolean): number {
+  return (
+    Buffer.byteLength(JSON.stringify(id), 'utf8') +
+    1 + // :
+    Buffer.byteLength(JSON.stringify(text), 'utf8') +
+    (withLeadingComma ? 1 : 0)
+  )
+}
+
 /** Pack sorted [id, text] pairs into size-capped objects. */
 export function packGameI18nChunks(
   entries: Array<readonly [string, string]>,
   maxChunkBytes: number,
 ): Array<{ map: Record<string, string>; bytes: number; startId: string; endId: string; count: number }> {
-  if (maxChunkBytes < 1024) throw new Error('maxChunkBytes too small')
+  assertSafeMaxChunkBytes(maxChunkBytes)
   const chunks: Array<{ map: Record<string, string>; bytes: number; startId: string; endId: string; count: number }> = []
   let current: Record<string, string> = {}
   let currentCount = 0
-  let currentBytes = 2
+  let currentBytes = 2 // {}
   let startId = ''
   let endId = ''
-
-  const entryBytes = (id: string, text: string) =>
-    Buffer.byteLength(id, 'utf8') + Buffer.byteLength(text, 'utf8') + 6
 
   const flush = () => {
     if (currentCount === 0) return
     const serialized = JSON.stringify(current)
+    const bytes = Buffer.byteLength(serialized, 'utf8')
+    if (bytes > maxChunkBytes) {
+      throw new Error(`chunk exceeded maxChunkBytes (${bytes} > ${maxChunkBytes})`)
+    }
     chunks.push({
       map: current,
-      bytes: Buffer.byteLength(serialized, 'utf8'),
+      bytes,
       startId,
       endId,
       count: currentCount,
@@ -73,14 +122,24 @@ export function packGameI18nChunks(
   }
 
   for (const [id, text] of entries) {
-    const cost = entryBytes(id, text)
-    const nextBytes = currentBytes + cost + (currentCount > 0 ? 1 : 0)
-    if (currentCount > 0 && nextBytes > maxChunkBytes) flush()
+    const soleBytes = 2 + entrySerializedBytes(id, text, false)
+    if (soleBytes > maxChunkBytes) {
+      throw new Error(
+        `single entry exceeds maxChunkBytes (${soleBytes} > ${maxChunkBytes}) for textId ${id}`,
+      )
+    }
+    let leadingComma = currentCount > 0
+    let cost = entrySerializedBytes(id, text, leadingComma)
+    if (currentCount > 0 && currentBytes + cost > maxChunkBytes) {
+      flush()
+      leadingComma = false
+      cost = entrySerializedBytes(id, text, false)
+    }
     if (currentCount === 0) startId = id
     current[id] = text
     endId = id
     currentCount += 1
-    currentBytes += cost + (currentCount > 1 ? 1 : 0)
+    currentBytes += cost
   }
   flush()
   return chunks
@@ -108,50 +167,74 @@ export function exportGameI18nTables(
   outputDir: string,
   maxChunkBytes = DEFAULT_MAX_CHUNK_BYTES,
 ): ExportGameI18nResult {
-  if (existsSync(outputDir)) {
-    rmSync(outputDir, { recursive: true, force: true })
+  const budget = assertSafeMaxChunkBytes(maxChunkBytes)
+
+  // Load + pack all locales first so missing upstream never wipes the previous export.
+  const packedByLocale = {} as Record<
+    GameI18nLocale,
+    {
+      entryCount: number
+      packed: ReturnType<typeof packGameI18nChunks>
+    }
+  >
+  for (const locale of GAME_I18N_LOCALES) {
+    const table = loadUpstreamI18nTable(akedataPath, locale)
+    const sorted = Object.entries(table).sort(([a], [b]) => compareTextId(a, b))
+    packedByLocale[locale] = {
+      entryCount: sorted.length,
+      packed: packGameI18nChunks(sorted, budget),
+    }
   }
-  mkdirSync(outputDir, { recursive: true })
+
+  const parent = dirname(outputDir)
+  mkdirSync(parent, { recursive: true })
+  const tempDir = join(parent, `.game-i18n-tmp-${process.pid}-${Date.now()}`)
+  mkdirSync(tempDir, { recursive: true })
 
   const locales = {} as Record<GameI18nLocale, GameI18nLocaleMeta>
   const files: string[] = []
 
-  for (const locale of GAME_I18N_LOCALES) {
-    const table = loadUpstreamI18nTable(akedataPath, locale)
-    const sorted = Object.entries(table).sort(([a], [b]) => compareTextId(a, b))
-    const packed = packGameI18nChunks(sorted, maxChunkBytes)
-    const localeDir = join(outputDir, locale)
-    mkdirSync(localeDir, { recursive: true })
+  try {
+    for (const locale of GAME_I18N_LOCALES) {
+      const { entryCount, packed } = packedByLocale[locale]
+      const localeDir = join(tempDir, locale)
+      mkdirSync(localeDir, { recursive: true })
 
-    const chunks: GameI18nChunkMeta[] = packed.map((chunk, index) => {
-      const file = `${locale}/${String(index).padStart(3, '0')}.json`
-      const abs = join(outputDir, file)
-      writeFileSync(abs, JSON.stringify(chunk.map), 'utf8')
-      files.push(abs)
-      return {
-        file,
-        count: chunk.count,
-        startId: chunk.startId,
-        endId: chunk.endId,
-        bytes: chunk.bytes,
-      }
-    })
+      const chunks: GameI18nChunkMeta[] = packed.map((chunk, index) => {
+        const file = `${locale}/${String(index).padStart(3, '0')}.json`
+        const abs = join(tempDir, file)
+        writeFileSync(abs, JSON.stringify(chunk.map), 'utf8')
+        files.push(join(outputDir, file))
+        return {
+          file,
+          count: chunk.count,
+          startId: chunk.startId,
+          endId: chunk.endId,
+          bytes: chunk.bytes,
+        }
+      })
 
-    locales[locale] = {
-      entryCount: sorted.length,
-      chunks,
+      locales[locale] = { entryCount, chunks }
     }
-  }
 
-  const manifest: GameI18nManifest = {
-    version: 1,
-    generatedAt: new Date().toISOString(),
-    maxChunkBytes,
-    locales,
-  }
-  const manifestPath = join(outputDir, 'manifest.json')
-  writeFileSync(manifestPath, `${JSON.stringify(manifest, null, 2)}\n`, 'utf8')
-  files.push(manifestPath)
+    const manifest: GameI18nManifest = {
+      version: 1,
+      generatedAt: new Date().toISOString(),
+      maxChunkBytes: budget,
+      locales,
+    }
+    const manifestPath = join(tempDir, 'manifest.json')
+    writeFileSync(manifestPath, `${JSON.stringify(manifest, null, 2)}\n`, 'utf8')
+    files.push(join(outputDir, 'manifest.json'))
 
-  return { outputDir, manifest, files }
+    if (existsSync(outputDir)) {
+      rmSync(outputDir, { recursive: true, force: true })
+    }
+    renameSync(tempDir, outputDir)
+
+    return { outputDir, manifest, files }
+  } catch (error) {
+    rmSync(tempDir, { recursive: true, force: true })
+    throw error
+  }
 }

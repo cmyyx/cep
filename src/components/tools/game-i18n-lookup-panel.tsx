@@ -136,11 +136,11 @@ export function GameI18nLookupPanel() {
   return (
     <div className="flex min-h-0 flex-1 flex-col gap-4 overflow-hidden p-4 sm:p-6">
       <div className="shrink-0 space-y-3 rounded-xl bg-card p-4 shadow-[var(--shadow-border)]">
-        <div className="flex flex-wrap items-end gap-3">
-          <div className="grid min-w-[10rem] gap-1.5">
-            <Label htmlFor="game-i18n-locale">{t('searchLocale')}</Label>
+        <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-end">
+          <div className="grid w-full gap-1.5 sm:w-auto sm:min-w-[10rem]">
+            <Label htmlFor="game-i18n-locale" className="whitespace-normal leading-snug">{t('searchLocale')}</Label>
             <Select value={searchLocale} onValueChange={(value) => value && setSearchLocale(value as GameI18nLocale)}>
-              <SelectTrigger id="game-i18n-locale" className="w-[12rem]">
+              <SelectTrigger id="game-i18n-locale" className="w-full sm:w-[12rem]">
                 <SelectValue>{(value: string) => localeLabel((value as GameI18nLocale) || searchLocale)}</SelectValue>
               </SelectTrigger>
               <SelectContent>
@@ -152,16 +152,16 @@ export function GameI18nLookupPanel() {
               </SelectContent>
             </Select>
           </div>
-          <div className="grid min-w-0 flex-1 gap-1.5">
-            <Label htmlFor="game-i18n-query">{t('query')}</Label>
-            <div className="relative">
+          <div className="grid min-w-0 w-full flex-1 gap-1.5">
+            <Label htmlFor="game-i18n-query" className="whitespace-normal leading-snug">{t('query')}</Label>
+            <div className="relative min-w-0">
               <Search className="pointer-events-none absolute top-1/2 left-2.5 size-4 -translate-y-1/2 text-muted-foreground" />
               <Input
                 id="game-i18n-query"
                 value={query}
                 onChange={(event) => setQuery(event.target.value)}
                 placeholder={t('queryPlaceholder')}
-                className="pl-9"
+                className="min-w-0 pl-9"
                 autoComplete="off"
                 spellCheck={false}
               />

@@ -4,34 +4,28 @@
  *
  *   pnpm game-i18n:export
  *   pnpm game-i18n:export --akedata D:/GitHub/AKEData
+ *   pnpm game-i18n:export --max-chunk-bytes 10485760
  */
-import { readFileSync, existsSync } from 'node:fs'
 import { join } from 'node:path'
-import { exportGameI18nTables, DEFAULT_MAX_CHUNK_BYTES } from './lib/export-game-i18n'
+import {
+  DEFAULT_MAX_CHUNK_BYTES,
+  exportGameI18nTables,
+  parseMaxChunkBytesArg,
+  resolveAkedataPath,
+} from './lib/export-game-i18n'
 
 const projectRoot = process.cwd()
 const args = process.argv.slice(2)
 
-function argValue(flag: string): string | undefined {
-  const index = args.indexOf(flag)
-  if (index < 0) return undefined
-  return args[index + 1]
-}
-
-function resolveAkedataPath(): string {
-  const fromCli = argValue('--akedata')
-  if (fromCli) return fromCli
-  const configPath = join(projectRoot, 'sync-game-data.config.json')
-  if (existsSync(configPath)) {
-    const config = JSON.parse(readFileSync(configPath, 'utf8')) as { akedataPath?: string }
-    if (config.akedataPath) return config.akedataPath
-  }
-  throw new Error('akedataPath required (sync-game-data.config.json or --akedata)')
-}
-
-const akedataPath = resolveAkedataPath()
+const akedataPath = resolveAkedataPath({ args, projectRoot })
 const outputDir = join(projectRoot, 'public', 'game-i18n')
-const maxChunk = Number(argValue('--max-chunk-bytes') ?? DEFAULT_MAX_CHUNK_BYTES)
+const maxChunk = parseMaxChunkBytesArg(
+  (() => {
+    const index = args.indexOf('--max-chunk-bytes')
+    return index < 0 ? undefined : args[index + 1]
+  })(),
+  DEFAULT_MAX_CHUNK_BYTES,
+)
 
 console.log(`Exporting game I18nTextTable from ${akedataPath}`)
 console.log(`Output: ${outputDir}`)
