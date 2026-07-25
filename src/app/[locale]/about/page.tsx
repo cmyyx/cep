@@ -9,7 +9,6 @@ import {
   Swords,
   Wrench,
   Calendar,
-  Eye,
   ExternalLink,
 } from 'lucide-react'
 
@@ -17,7 +16,6 @@ const FEATURE_KEYS = [
   { key: 'essencePlanner', icon: Swords },
   { key: 'refinementPlanner', icon: Wrench },
   { key: 'bannerCalendar', icon: Calendar },
-  { key: 'backgroundPreview', icon: Eye },
 ] as const
 
 const TECH_KEYS = [

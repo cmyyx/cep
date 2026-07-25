@@ -18,6 +18,7 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from '@/components/ui/sidebar'
+import { TooltipProvider } from '@/components/ui/tooltip'
 import {
   Swords,
   Disc,
@@ -25,7 +26,7 @@ import {
   Shirt,
   Wrench,
   Calendar,
-  Eye,
+  ImageDown,
   MessageCircle,
   Settings,
   Download,
@@ -52,7 +53,6 @@ const NAV_ITEMS = [
   { href: '/growth-planner', label: 'nav.growthPlanner', Icon: ChartNoAxesCombined },
   { href: '/panel-preview', label: 'nav.panelPreview', Icon: PanelsTopLeft },
   { href: '/banner-calendar', label: 'nav.bannerCalendar', Icon: Calendar },
-  { href: '/background-preview', label: 'nav.backgroundPreview', Icon: Eye },
   { href: '/tools/game-i18n', label: 'nav.gameI18nLookup', Icon: Languages },
 ]
 const WIKI_ITEMS = [
@@ -119,7 +119,8 @@ export function AppSidebar() {
   const versionBuildTimeText = mounted && versionBuildTime ? formatTime(versionBuildTime) : '--:--'
 
   return (
-    <Sidebar collapsible="icon">
+    <TooltipProvider delay={0}>
+      <Sidebar collapsible="icon">
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
@@ -164,7 +165,7 @@ export function AppSidebar() {
       </SidebarHeader>
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel>Modules</SidebarGroupLabel>
+          <SidebarGroupLabel className="group-data-[collapsible=icon]:pointer-events-none">Modules</SidebarGroupLabel>
           {isMobile || state !== 'collapsed' ? (
             <SidebarMenu className="grid grid-cols-2 gap-1 px-2">
               {NAV_ITEMS.map(({ href, Icon, label }) => {
@@ -214,9 +215,32 @@ export function AppSidebar() {
             </SidebarMenu>
           )}
         </SidebarGroup>
+        <SidebarGroup className="pt-0 group-data-[collapsible=icon]:px-2">
+          <SidebarMenu className="px-2 group-data-[collapsible=icon]:px-0">
+            <SidebarMenuItem>
+              <SidebarMenuButton
+                size="lg"
+                variant="outline"
+                isActive={pathname.startsWith(`/${locale}/background-preview`)}
+                tooltip={t('nav.backgroundPreviewTooltip', { badge: t('backgroundPreview.dailyUpdatedBadge') })}
+                render={<NavLink href={`/${locale}/background-preview`} loadingLabel={t('nav.backgroundPreview')} />}
+                onClick={() => {
+                  if (isMobile) setOpenMobile(false)
+                }}
+                className="bg-preview-pink/7 hover:bg-preview-pink/12 group-data-[collapsible=icon]:bg-transparent! group-data-[collapsible=icon]:p-2! group-data-[collapsible=icon]:shadow-none! group-data-[collapsible=icon]:hover:bg-sidebar-accent!"
+              >
+                <ImageDown className="size-4" />
+                <span className="min-w-0 flex-1 truncate font-medium group-data-[collapsible=icon]:hidden">{t('nav.backgroundPreview')}</span>
+                <span className="rounded-full bg-preview-pink px-1.5 py-0.5 text-[9px] font-semibold leading-none text-white group-data-[collapsible=icon]:hidden">
+                  {t('backgroundPreview.dailyUpdatedBadge')}
+                </span>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+          </SidebarMenu>
+        </SidebarGroup>
         {/* Wiki */}
         <SidebarGroup>
-          <SidebarGroupLabel>WIKI</SidebarGroupLabel>
+          <SidebarGroupLabel className="group-data-[collapsible=icon]:pointer-events-none">WIKI</SidebarGroupLabel>
           {isMobile || state !== 'collapsed' ? (
             <SidebarMenu className="grid grid-cols-3 gap-1 px-2">
               {WIKI_ITEMS.map(({ href, label, Icon }) => {
@@ -422,6 +446,7 @@ export function AppSidebar() {
         </SidebarMenu>
       </SidebarFooter>
         {forceUpgrade && <ForceUpgradeDialog />}
-    </Sidebar>
+      </Sidebar>
+    </TooltipProvider>
   )
 }

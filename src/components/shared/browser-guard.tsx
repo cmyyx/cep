@@ -1,6 +1,11 @@
 import { HeadScript } from '@/components/shared/head-script'
 import { BROWSER_DETECT_CODE, AVIF_PROBE_DATA } from '@/lib/browser-detect'
-import { GUARD_OVERLAY_OPEN, GUARD_OVERLAY_CLOSE, GUARD_FEEDBACK_HTML } from '@/components/shared/guard-layout'
+import {
+  GUARD_ENVIRONMENT_HTML_CODE,
+  GUARD_FEEDBACK_HTML,
+  GUARD_OVERLAY_CLOSE,
+  GUARD_OVERLAY_OPEN,
+} from '@/components/shared/guard-layout'
 
 /**
  * Inline browser capability guard — injected into <head>.
@@ -48,6 +53,7 @@ function showOverlay(missing){
       '<br>Missing critical features: <code style="font-family:monospace;background:#f5f5f5;padding:2px 6px;border-radius:3px;">'+missing.join(', ')+'</code>'+
       '</p>'
     :'')+
+    ${GUARD_ENVIRONMENT_HTML_CODE}+
     ${JSON.stringify(GUARD_FEEDBACK_HTML)}+
     ${JSON.stringify(GUARD_OVERLAY_CLOSE)};
   (document.body||document.documentElement).appendChild(d);

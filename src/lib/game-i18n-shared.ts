@@ -1,7 +1,44 @@
 /** Shared types / pure helpers for chunked game I18nTextTable assets. */
 
-export const GAME_I18N_LOCALES = ['zh-CN', 'en', 'ja', 'zh-TW'] as const
+/**
+ * All client I18nTextTable locales exported from AKEData.
+ * Order: site primary four first, then remaining by upstream code.
+ */
+export const GAME_I18N_LOCALES = [
+  'zh-CN',
+  'en',
+  'ja',
+  'zh-TW',
+  'ko',
+  'de',
+  'fr',
+  'it',
+  'ru',
+  'pt-BR',
+  'es-MX',
+  'id',
+  'th',
+  'vi',
+] as const
 export type GameI18nLocale = (typeof GAME_I18N_LOCALES)[number]
+
+/** Upstream TableCfg filename suffix per project locale (I18nTextTable_<SUFFIX>.json). */
+export const GAME_I18N_UPSTREAM_SUFFIX: Record<GameI18nLocale, string> = {
+  'zh-CN': 'CN',
+  en: 'EN',
+  ja: 'JP',
+  'zh-TW': 'TC',
+  ko: 'KR',
+  de: 'DE',
+  fr: 'FR',
+  it: 'IT',
+  ru: 'RU',
+  'pt-BR': 'BR',
+  'es-MX': 'MX',
+  id: 'ID',
+  th: 'TH',
+  vi: 'VN',
+}
 
 export interface GameI18nChunkMeta {
   file: string

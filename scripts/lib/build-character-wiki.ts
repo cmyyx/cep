@@ -31,6 +31,13 @@ const DEPRECATED_CHARACTER_IDS: Record<string, true> = {
   chr_0003_endminf: true,
 }
 const ADMINISTRATOR_ID = 'chr_9000_endmin'
+/** Display order: normal → battle → combo → ultimate (game typeIds are 0,1,2,3 with ultimate/combo swapped). */
+const SKILL_DISPLAY_ORDER: Record<number, number> = {
+  0: 0,
+  1: 1,
+  3: 2,
+  2: 3,
+}
 const SKILL_PARAMETER_NAMES: Record<number, string> = {
   1: 'CostValue',
   2: 'CoolDown',
@@ -444,7 +451,11 @@ function buildSkills(
   textTables: CharacterWikiSource['textTables']
 ): WikiCharacterSkill[] {
   return Object.values(growth?.skillGroupMap ?? {})
-    .sort((left, right) => numberValue(left.skillGroupType) - numberValue(right.skillGroupType))
+    .sort((left, right) => {
+      const leftType = numberValue(left.skillGroupType)
+      const rightType = numberValue(right.skillGroupType)
+      return (SKILL_DISPLAY_ORDER[leftType] ?? leftType + 10) - (SKILL_DISPLAY_ORDER[rightType] ?? rightType + 10)
+    })
     .map((group, index) => {
       const seenPatchSources = new Set<string>()
       const patchSources = (group.skillIdList ?? [])

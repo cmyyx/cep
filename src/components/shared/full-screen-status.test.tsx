@@ -12,6 +12,7 @@ it('renders shared status content and action slots', () => {
       heading="Access blocked"
       description="Use an official site."
       actions={<a href="https://example.com">example.com</a>}
+      metadata={<span>Environment</span>}
       footer={<span>Feedback</span>}
     />,
   )
@@ -20,6 +21,7 @@ it('renders shared status content and action slots', () => {
   expect(screen.getByRole('heading', { name: 'Access blocked' })).toBeTruthy()
   expect(screen.getByText('Use an official site.')).toBeTruthy()
   expect(screen.getByRole('link', { name: 'example.com' })).toBeTruthy()
+  expect(screen.getByText('Environment')).toBeTruthy()
   expect(screen.getByText('Feedback')).toBeTruthy()
 })
 
@@ -28,4 +30,10 @@ it('applies the destructive visual treatment without removing content', () => {
 
   expect(screen.getByRole('heading', { name: 'Blocked' }).className).toContain('text-ship-red')
   expect(screen.getByText('Reason')).toBeTruthy()
+})
+
+it('supports a status-specific primary title', () => {
+  render(<FullScreenStatus title="404" heading="Not found" />)
+
+  expect(screen.getByRole('heading', { name: '404' })).toBeTruthy()
 })

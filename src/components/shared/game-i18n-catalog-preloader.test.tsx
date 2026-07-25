@@ -4,7 +4,10 @@ import { cleanup, render } from '@testing-library/react'
 import { afterEach, expect, it, vi } from 'vitest'
 import { GameI18nCatalogPreloader } from './game-i18n-catalog-preloader'
 
-const loadGameI18nLocale = vi.fn((_locale: string) => Promise.resolve({} as never))
+const loadGameI18nLocale = vi.fn((locale: string) => {
+  void locale
+  return Promise.resolve({} as never)
+})
 
 vi.mock('@/lib/game-i18n-catalogs', () => ({
   loadGameI18nLocale: (locale: string) => loadGameI18nLocale(locale),

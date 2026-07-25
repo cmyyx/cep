@@ -415,6 +415,25 @@ describe('character detail generation', () => {
     expect(detail.levels.every((row) => row.stats.every((stat) => stat.attributeId !== '12' && stat.attributeId !== '90'))).toBe(true)
   })
 
+  it('orders skills as normal attack, battle skill, combo skill, then ultimate', () => {
+    const scoped = structuredClone(input) as Parameters<typeof buildCharacterWikiData>[0]
+    const growth = scoped.characterGrowthTable.chr_9000_endmin
+    growth.skillGroupMap = {
+      ...growth.skillGroupMap,
+      combo: {
+        skillGroupId: 'combo',
+        skillGroupType: 3,
+        name: { id: 'skill_name' },
+        desc: { id: 'skill_desc' },
+        skillIdList: [],
+      },
+    }
+
+    const detail = buildCharacterWikiData(scoped).details.chr_9000_endmin
+    expect(detail.skills.map((skill) => skill.typeId)).toEqual(['0', '1', '3', '2'])
+    expect(detail.skills.map((skill) => skill.id)).toEqual(['normal', 'group', 'combo', 'ultimate'])
+  })
+
   it('generates skill metric tables with mastery labels', () => {
     const skill = buildCharacterWikiData(input).details.chr_9000_endmin.skills.find((entry) => entry.id === 'group')!
 
