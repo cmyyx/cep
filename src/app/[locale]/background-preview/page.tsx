@@ -1,9 +1,10 @@
 'use client'
 
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useState } from 'react'
 import Image from 'next/image'
 import { useTranslations } from 'next-intl'
 import { Images, X } from 'lucide-react'
+import { Dialog, DialogClose, DialogContent, DialogTitle } from '@/components/ui/dialog'
 import { DailyWallpaperSection } from '@/components/background-preview/daily-wallpaper-section'
 import { Button } from '@/components/ui/button'
 import { SidebarTrigger } from '@/components/ui/sidebar'
@@ -17,42 +18,7 @@ export default function BackgroundPreviewPage() {
   const t = useTranslations()
   const { backgroundUrl } = useSettingsStore()
   const [isFullscreen, setIsFullscreen] = useState(false)
-  const overlayRef = useRef<HTMLDivElement>(null)
 
-  const handleExitFullscreen = useCallback(() => setIsFullscreen(false), [])
-
-  useEffect(() => {
-    if (!isFullscreen) return
-    const previousOverflow = document.body.style.overflow
-    document.body.style.overflow = 'hidden'
-    overlayRef.current?.focus()
-    return () => {
-      document.body.style.overflow = previousOverflow
-    }
-  }, [isFullscreen])
-
-  if (isFullscreen) {
-    return (
-      <div
-        ref={overlayRef}
-        className="fixed inset-0 z-50 bg-black outline-none"
-        tabIndex={-1}
-        onClick={handleExitFullscreen}
-        onKeyDown={(event) => {
-          if (event.key === 'Escape') handleExitFullscreen()
-        }}
-        role="dialog"
-        aria-label={t('nav.backgroundPreview')}
-      >
-        <Image src={backgroundUrl} alt="" fill className="object-cover" unoptimized priority />
-        <div className="absolute top-4 right-4" onClick={(event) => event.stopPropagation()}>
-          <Button variant="secondary" size="icon" onClick={handleExitFullscreen} aria-label={t('backgroundPreview.close')}>
-            <X className="size-4" />
-          </Button>
-        </div>
-      </div>
-    )
-  }
 
   return (
     <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
@@ -102,6 +68,28 @@ export default function BackgroundPreviewPage() {
       <footer className="shrink-0 px-4 py-2 shadow-[0px_-1px_0px_0px_rgba(0,0,0,0.08)]">
         <p className="text-center text-[11px] text-muted-foreground/60">{t('backgroundPreview.disclaimer')}</p>
       </footer>
+      <Dialog open={isFullscreen} onOpenChange={setIsFullscreen}>
+        <DialogContent
+          showCloseButton={false}
+          onClick={() => setIsFullscreen(false)}
+          className="inset-0! size-full max-w-none! translate-x-0! translate-y-0! gap-0 rounded-none bg-black p-0 ring-0 sm:max-w-none"
+        >
+          <DialogTitle className="sr-only">{t('nav.backgroundPreview')}</DialogTitle>
+          <Image src={backgroundUrl} alt="" fill className="object-cover" unoptimized priority />
+          <DialogClose
+            render={
+              <Button
+                variant="secondary"
+                size="icon"
+                className="absolute top-4 right-4"
+                aria-label={t('backgroundPreview.close')}
+              />
+            }
+          >
+            <X className="size-4" />
+          </DialogClose>
+        </DialogContent>
+      </Dialog>
     </div>
   )
 }

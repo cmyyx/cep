@@ -1,7 +1,7 @@
 import { z } from 'zod'
 import type { DailyWallpaperFeed, DailyWallpaperItem } from '@/types/daily-wallpaper'
 
-const dateSchema = z.string().regex(/^\d{4}-\d{2}-\d{2}$/)
+const dateSchema = z.string().refine((value) => parseCalendarDate(value) !== null)
 const itemSchema = z.object({
   contentDate: dateSchema,
   isToday: z.boolean(),
@@ -38,7 +38,8 @@ export async function fetchDailyWallpapers(endpoint: string, signal?: AbortSigna
   let payload: unknown
   try {
     payload = await response.json()
-  } catch {
+  } catch (error) {
+    if (error instanceof Error && error.name === 'AbortError') throw error
     throw new DailyWallpaperError('invalidResponse')
   }
   const parsed = feedSchema.safeParse(payload)
@@ -55,9 +56,8 @@ export async function fetchDailyWallpapers(endpoint: string, signal?: AbortSigna
 }
 
 export function formatWallpaperDate(value: string, locale: string): string {
-  const [year, month, day] = value.split('-').map(Number)
-  const date = new Date(Date.UTC(year, month - 1, day))
-  if (Number.isNaN(date.getTime())) return value
+  const date = parseCalendarDate(value)
+  if (!date) return value
   return new Intl.DateTimeFormat(locale, {
     year: 'numeric',
     month: 'long',
@@ -80,6 +80,25 @@ function normalizeEndpoint(endpoint: string): string {
   } catch {
     throw new DailyWallpaperError('notConfigured')
   }
+}
+
+function parseCalendarDate(value: string): Date | null {
+  const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(value)
+  if (!match) return null
+  const year = Number(match[1])
+  const month = Number(match[2])
+  const day = Number(match[3])
+  const date = new Date(0)
+  date.setUTCHours(0, 0, 0, 0)
+  date.setUTCFullYear(year, month - 1, day)
+  if (
+    date.getUTCFullYear() !== year ||
+    date.getUTCMonth() !== month - 1 ||
+    date.getUTCDate() !== day
+  ) {
+    return null
+  }
+  return date
 }
 
 function resolveItemURLs(item: DailyWallpaperItem, endpoint: string): DailyWallpaperItem {

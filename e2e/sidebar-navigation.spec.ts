@@ -29,6 +29,7 @@ test.describe('Sidebar Navigation', () => {
 
     // Click to expand — assert data-state changes to "expanded"
     await trigger.click()
+    await expect(page.locator('[data-slot="sidebar"][data-state="expanded"]')).toBeVisible({ timeout: 5000 })
   })
 
   test('collapsed wallpaper entry keeps its tooltip visible while hovered', async ({ page }) => {

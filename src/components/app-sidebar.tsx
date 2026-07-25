@@ -222,7 +222,7 @@ export function AppSidebar() {
                 size="lg"
                 variant="outline"
                 isActive={pathname.startsWith(`/${locale}/background-preview`)}
-                tooltip={`${t('nav.backgroundPreview')} · ${t('backgroundPreview.dailyUpdatedBadge')}`}
+                tooltip={t('nav.backgroundPreviewTooltip', { badge: t('backgroundPreview.dailyUpdatedBadge') })}
                 render={<NavLink href={`/${locale}/background-preview`} loadingLabel={t('nav.backgroundPreview')} />}
                 onClick={() => {
                   if (isMobile) setOpenMobile(false)

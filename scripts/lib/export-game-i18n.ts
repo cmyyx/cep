@@ -160,6 +160,7 @@ export function exportGameI18nTables(
   akedataPath: string,
   outputDir: string,
   maxChunkBytes = DEFAULT_MAX_CHUNK_BYTES,
+  operations?: ExportDirectoryOperations,
 ): ExportGameI18nResult {
   const budget = assertSafeMaxChunkBytes(maxChunkBytes)
 
@@ -221,21 +222,63 @@ export function exportGameI18nTables(
     writeFileSync(manifestPath, `${JSON.stringify(manifest, null, 2)}\n`, 'utf8')
     files.push(join(outputDir, 'manifest.json'))
 
-    // Windows can fail renameSync when the destination exists or is briefly locked.
-    // Prefer atomic rename into place; fall back to wipe + copy.
-    if (existsSync(outputDir)) {
-      rmSync(outputDir, { recursive: true, force: true })
-    }
-    try {
-      renameSync(tempDir, outputDir)
-    } catch {
-      cpSync(tempDir, outputDir, { recursive: true })
-      rmSync(tempDir, { recursive: true, force: true })
-    }
+    installExportDirectory(tempDir, outputDir, operations)
 
     return { outputDir, manifest, files }
   } catch (error) {
     rmSync(tempDir, { recursive: true, force: true })
     throw error
   }
+}
+
+type ExportDirectoryOperations = {
+  cpSync: typeof cpSync
+  existsSync: typeof existsSync
+  renameSync: typeof renameSync
+  rmSync: typeof rmSync
+}
+
+const DEFAULT_EXPORT_DIRECTORY_OPERATIONS: ExportDirectoryOperations = {
+  cpSync,
+  existsSync,
+  renameSync,
+  rmSync,
+}
+
+export function installExportDirectory(
+  tempDir: string,
+  outputDir: string,
+  operations: ExportDirectoryOperations = DEFAULT_EXPORT_DIRECTORY_OPERATIONS,
+): void {
+  const parent = dirname(outputDir)
+  const backupDir = join(parent, `.game-i18n-backup-${process.pid}-${Date.now()}`)
+  const hadOutput = operations.existsSync(outputDir)
+  if (hadOutput) operations.renameSync(outputDir, backupDir)
+
+  try {
+    try {
+      operations.renameSync(tempDir, outputDir)
+    } catch (renameError) {
+      try {
+        operations.rmSync(outputDir, { recursive: true, force: true })
+        operations.cpSync(tempDir, outputDir, { recursive: true })
+      } catch (copyError) {
+        operations.rmSync(outputDir, { recursive: true, force: true })
+        throw new AggregateError([renameError, copyError], 'Failed to install game-i18n export')
+      }
+    }
+  } catch (error) {
+    if (hadOutput && operations.existsSync(backupDir)) {
+      try {
+        operations.renameSync(backupDir, outputDir)
+      } catch {
+        operations.cpSync(backupDir, outputDir, { recursive: true })
+        operations.rmSync(backupDir, { recursive: true, force: true })
+      }
+    }
+    throw error
+  }
+
+  operations.rmSync(tempDir, { recursive: true, force: true })
+  if (hadOutput) operations.rmSync(backupDir, { recursive: true, force: true })
 }

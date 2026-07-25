@@ -239,16 +239,13 @@ export async function prefetchGameI18nLocale(
 
     await Promise.all(
       meta.chunks.map(async (chunk) => {
-        assertNotAborted(options?.signal)
         const data = await loadChunk(chunk.file)
-        assertNotAborted(options?.signal)
         for (const [id, text] of Object.entries(data)) map.set(id, text)
         completed.add(chunk.file)
         report()
       }),
     )
 
-    assertNotAborted(options?.signal)
     localeFullyLoaded.add(locale)
   })()
 
@@ -259,6 +256,7 @@ export async function prefetchGameI18nLocale(
   localePrefetchPromises.set(locale, tracked)
 
   await tracked
+  assertNotAborted(options?.signal)
 }
 
 /**

@@ -234,6 +234,48 @@ it('supports textId lookup and aborts cleanly', async () => {
   ).rejects.toMatchObject({ name: 'AbortError' })
 })
 
+it('isolates a shared locale prefetch from the initiating caller abort', async () => {
+  let releaseChunks: (() => void) | undefined
+  const chunksReleased = new Promise<void>((resolve) => {
+    releaseChunks = resolve
+  })
+  let markZhCNStarted: (() => void) | undefined
+  const zhCNStarted = new Promise<void>((resolve) => {
+    markZhCNStarted = resolve
+  })
+
+  vi.stubGlobal(
+    'fetch',
+    vi.fn(async (input: RequestInfo | URL) => {
+      const url = String(input)
+      if (url.endsWith('/game-i18n/manifest.json')) return jsonResponse(manifest)
+      const marker = '/game-i18n/'
+      const index = url.indexOf(marker)
+      const file = index >= 0 ? url.slice(index + marker.length) : url
+      const body = chunks[file]
+      if (!body) return { ok: false, status: 404, json: async () => ({}) } as Response
+      if (file.startsWith('zh-CN/')) markZhCNStarted?.()
+      await chunksReleased
+      return jsonResponse(body)
+    }),
+  )
+
+  const controllerA = new AbortController()
+  const prefetchResult = prefetchAllGameI18nLocales({ signal: controllerA.signal }).catch((error: unknown) => error)
+  await zhCNStarted
+  controllerA.abort()
+
+  const search = searchGameI18n({
+    searchLocale: 'zh-CN',
+    query: '基质',
+    signal: new AbortController().signal,
+  })
+  releaseChunks?.()
+
+  await expect(prefetchResult).resolves.toMatchObject({ name: 'AbortError' })
+  await expect(search).resolves.toHaveLength(2)
+})
+
 it('exposes all upstream locales in GAME_I18N_LOCALES', () => {
   expect(GAME_I18N_LOCALES).toEqual([
     'zh-CN',

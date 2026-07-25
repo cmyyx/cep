@@ -1,7 +1,7 @@
 'use client'
 
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { useTranslations } from 'next-intl'
+import { useFormatter, useTranslations } from 'next-intl'
 import { Copy, LoaderCircle, Search } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -37,6 +37,8 @@ const LOCALE_LABEL_KEYS: Record<GameI18nLocale, string> = {
   vi: 'localeVi',
 }
 
+type GameI18nErrorKey = 'manifestMissing' | 'prefetchFailed' | 'searchFailed'
+
 /** Exit animation duration for result list/detail when the query changes. */
 const RESULT_EXIT_MS = 200
 
@@ -71,6 +73,7 @@ function resultsKey(query: string, locale: GameI18nLocale): string {
 
 export function GameI18nLookupPanel() {
   const t = useTranslations('gameI18nLookup')
+  const format = useFormatter()
   const [searchLocale, setSearchLocale] = useState<GameI18nLocale>('zh-CN')
   const [query, setQuery] = useState('')
   const [debouncedQuery, setDebouncedQuery] = useState('')
@@ -79,7 +82,7 @@ export function GameI18nLookupPanel() {
   const [resolving, setResolving] = useState(false)
   /** Query string for which the latest search has settled (success or empty). */
   const [settledQuery, setSettledQuery] = useState<string | null>(null)
-  const [error, setError] = useState<string | null>(null)
+  const [error, setError] = useState<GameI18nErrorKey | null>(null)
   const [searchProgress, setSearchProgress] = useState<{ loaded: number; total: number; hits: number } | null>(null)
   const [resolveProgress, setResolveProgress] = useState<{ done: number; total: number } | null>(null)
   const [manifestReady, setManifestReady] = useState(false)
@@ -227,15 +230,16 @@ export function GameI18nLookupPanel() {
         setEntryCount(manifest.locales['zh-CN']?.entryCount ?? 0)
         setError(null)
       })
-      .catch(() => {
+      .catch((err: unknown) => {
         if (cancelled) return
+        console.error('[game-i18n] manifest load failed', err)
         setManifestReady(false)
-        setError(t('manifestMissing'))
+        setError('manifestMissing')
       })
     return () => {
       cancelled = true
     }
-  }, [t])
+  }, [])
 
   // Entering the tool page: warm ALL locale chunks (limited concurrency).
   useEffect(() => {
@@ -314,13 +318,14 @@ export function GameI18nLookupPanel() {
         })
         .catch((err: unknown) => {
           if (controller.signal.aborted || prefetchId !== prefetchIdRef.current) return
-          setError(err instanceof Error ? err.message : t('searchFailed'))
+          console.error('[game-i18n] prefetch failed', err)
+          setError('prefetchFailed')
           setPrefetch((current) => (current ? { ...current, ready: false } : current))
         })
     })
 
     return () => controller.abort()
-  }, [manifestReady, t])
+  }, [manifestReady])
 
   // Search only after all locale files are ready. Input is allowed earlier (plan A).
   useEffect(() => {
@@ -425,16 +430,17 @@ export function GameI18nLookupPanel() {
       })
       .catch((err: unknown) => {
         if (controller.signal.aborted || requestId !== requestIdRef.current) return
+        console.error('[game-i18n] search failed', err)
         setSearching(false)
         setResolving(false)
         setSettledQuery(queryForRequest)
         setHits([])
         beginExitDisplayed()
-        setError(err instanceof Error ? err.message : t('searchFailed'))
+        setError('searchFailed')
       })
 
     return () => controller.abort()
-  }, [debouncedQuery, searchLocale, manifestReady, allLocalesReady, t, beginExitDisplayed, showOrUpdateDisplayed])
+  }, [debouncedQuery, searchLocale, manifestReady, allLocalesReady, beginExitDisplayed, showOrUpdateDisplayed])
 
   const busySearching = searching || searchPendingForQuery
   const renderingHits = displayed?.hits ?? []
@@ -478,8 +484,8 @@ export function GameI18nLookupPanel() {
           <LoaderCircle className="size-3.5 animate-spin" />
           {searchProgress
             ? t('searchProgress', {
-                loaded: searchProgress.loaded.toLocaleString(),
-                total: searchProgress.total.toLocaleString(),
+                loaded: format.number(searchProgress.loaded),
+                total: format.number(searchProgress.total),
                 hits: searchProgress.hits,
                 percent: percentOf(searchProgress.loaded, searchProgress.total),
               })
@@ -508,6 +514,14 @@ export function GameI18nLookupPanel() {
     }
     return null
   })()
+  const errorMessage =
+    error === 'manifestMissing'
+      ? t('manifestMissing')
+      : error === 'prefetchFailed'
+        ? t('prefetchFailed')
+        : error === 'searchFailed'
+          ? t('searchFailed')
+          : null
 
   return (
     <div className="flex min-h-0 flex-1 flex-col gap-4 overflow-hidden p-4 sm:p-6">
@@ -549,15 +563,15 @@ export function GameI18nLookupPanel() {
           </div>
         </div>
         <div className="flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
-          {manifestReady ? <span>{t('entryCount', { count: entryCount.toLocaleString() })}</span> : null}
+          {manifestReady ? <span>{t('entryCount', { count: format.number(entryCount) })}</span> : null}
           {statusLine}
         </div>
-        {error ? <p className="text-sm text-destructive">{error}</p> : null}
+        {errorMessage ? <p className="text-sm text-destructive">{errorMessage}</p> : null}
       </div>
 
       <div className="grid min-h-0 flex-1 gap-4 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)]">
         <div className="min-h-0 overflow-auto rounded-xl bg-card shadow-[var(--shadow-border)]">
-          <Table className="table-fixed">
+          <Table className="table-fixed" role="grid">
             <TableHeader>
               <TableRow>
                 <TableHead className="w-[12rem]">{t('textId')}</TableHead>
@@ -594,6 +608,10 @@ export function GameI18nLookupPanel() {
                   return (
                     <TableRow
                       key={`${displayed?.key ?? 'hit'}:${hit.textId}`}
+                      role="row"
+                      tabIndex={0}
+                      aria-selected={active}
+                      data-state={active ? 'selected' : undefined}
                       className={cn(
                         'cursor-pointer',
                         active && 'bg-muted/50',
@@ -607,6 +625,14 @@ export function GameI18nLookupPanel() {
                           : { animationDelay: `${Math.min(index, 10) * 16}ms` }
                       }
                       onClick={() => {
+                        if (listAnimatingOut) return
+                        setDisplayed((current) =>
+                          current ? { ...current, selectedId: hit.textId } : current,
+                        )
+                      }}
+                      onKeyDown={(event) => {
+                        if (event.key !== 'Enter' && event.key !== ' ') return
+                        if (event.key === ' ') event.preventDefault()
                         if (listAnimatingOut) return
                         setDisplayed((current) =>
                           current ? { ...current, selectedId: hit.textId } : current,
