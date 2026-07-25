@@ -1,61 +1,36 @@
 'use client'
 
-import { useState, useCallback, useEffect, useRef } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
 import { useTranslations } from 'next-intl'
-import { SidebarTrigger } from '@/components/ui/sidebar'
+import { Images, X } from 'lucide-react'
+import { DailyWallpaperSection } from '@/components/background-preview/daily-wallpaper-section'
 import { Button } from '@/components/ui/button'
-import { ExternalLink, X } from 'lucide-react'
+import { SidebarTrigger } from '@/components/ui/sidebar'
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
+import { FEATURES } from '@/lib/features'
 import { useSettingsStore } from '@/stores/useSettingsStore'
 
-const QUARK_PAN_URL = 'https://pan.quark.cn/s/27540d6f3706#/list/share'
+const WEBSITE_BACKGROUND_COLLECTION_URL = 'https://pan.quark.cn/s/27540d6f3706#/list/share'
 
 export default function BackgroundPreviewPage() {
   const t = useTranslations()
   const { backgroundUrl } = useSettingsStore()
   const [isFullscreen, setIsFullscreen] = useState(false)
   const overlayRef = useRef<HTMLDivElement>(null)
-  const contentRef = useRef<HTMLDivElement>(null)
 
-  const handleEnterFullscreen = useCallback(() => {
-    setIsFullscreen(true)
-  }, [])
+  const handleExitFullscreen = useCallback(() => setIsFullscreen(false), [])
 
-  const handleExitFullscreen = useCallback(() => {
-    setIsFullscreen(false)
-  }, [])
-
-  // Lock body scroll when fullscreen, auto-focus overlay for keyboard support
   useEffect(() => {
     if (!isFullscreen) return
-    const prevOverflow = document.body.style.overflow
+    const previousOverflow = document.body.style.overflow
     document.body.style.overflow = 'hidden'
     overlayRef.current?.focus()
     return () => {
-      document.body.style.overflow = prevOverflow
+      document.body.style.overflow = previousOverflow
     }
   }, [isFullscreen])
 
-  const handleOverlayKeyDown = useCallback(
-    (e: React.KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        handleExitFullscreen()
-      }
-    },
-    [handleExitFullscreen]
-  )
-
-  const handleContentKeyDown = useCallback(
-    (e: React.KeyboardEvent) => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault()
-        handleEnterFullscreen()
-      }
-    },
-    [handleEnterFullscreen]
-  )
-
-  // Fullscreen overlay
   if (isFullscreen) {
     return (
       <div
@@ -63,76 +38,70 @@ export default function BackgroundPreviewPage() {
         className="fixed inset-0 z-50 bg-black outline-none"
         tabIndex={-1}
         onClick={handleExitFullscreen}
-        onKeyDown={handleOverlayKeyDown}
+        onKeyDown={(event) => {
+          if (event.key === 'Escape') handleExitFullscreen()
+        }}
         role="dialog"
         aria-label={t('nav.backgroundPreview')}
       >
-        <Image
-          src={backgroundUrl}
-          alt=""
-          fill
-          className="object-cover"
-          unoptimized
-          priority
-        />
-        <div
-          className="absolute top-4 right-4"
-          onClick={(e) => e.stopPropagation()}
-        >
-          <Button
-            variant="secondary"
-            size="icon"
-            onClick={handleExitFullscreen}
-            aria-label={t('backgroundPreview.close')}
-          >
-            <X className="h-4 w-4" />
+        <Image src={backgroundUrl} alt="" fill className="object-cover" unoptimized priority />
+        <div className="absolute top-4 right-4" onClick={(event) => event.stopPropagation()}>
+          <Button variant="secondary" size="icon" onClick={handleExitFullscreen} aria-label={t('backgroundPreview.close')}>
+            <X className="size-4" />
           </Button>
         </div>
       </div>
     )
   }
 
-  // Normal view
   return (
-    <div className="flex flex-col flex-1 min-h-0 overflow-hidden">
-      {/* Top bar */}
-      <div className="flex items-center gap-3 px-4 py-2 border-b border-border">
+    <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
+      <header className="flex shrink-0 items-center gap-3 px-4 py-2 shadow-[0px_1px_0px_0px_rgba(0,0,0,0.08)]">
         <SidebarTrigger />
-        <h1 className="text-base font-semibold tracking-tight">
-          {t('nav.backgroundPreview')}
-        </h1>
-        <a
-          href={QUARK_PAN_URL}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="ml-auto inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-lg border border-border bg-background text-sm font-medium h-8 px-2.5 transition-all hover:bg-muted hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+        <h1 className="min-w-0 flex-1 truncate text-base font-semibold tracking-tight">{t('nav.backgroundPreview')}</h1>
+        <Tooltip>
+          <TooltipTrigger
+            render={
+              <Button
+                nativeButton={false}
+                size="sm"
+                variant="outline"
+                aria-label={t('backgroundPreview.websiteBackgroundCollection')}
+                render={
+                  <a
+                    href={WEBSITE_BACKGROUND_COLLECTION_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  />
+                }
+              />
+            }
+          >
+            <Images />
+            <span className="hidden sm:inline">{t('backgroundPreview.websiteBackgroundCollection')}</span>
+          </TooltipTrigger>
+          <TooltipContent>{t('backgroundPreview.websiteBackgroundCollectionHint')}</TooltipContent>
+        </Tooltip>
+      </header>
+
+      <main className="relative min-h-0 flex-1 overflow-hidden">
+        <Button
+          type="button"
+          variant="ghost"
+          className="absolute inset-0 size-full cursor-pointer select-none rounded-none text-sm text-muted-foreground hover:bg-transparent hover:text-muted-foreground focus-visible:ring-2 focus-visible:ring-inset"
+          onClick={() => setIsFullscreen(true)}
+          aria-label={t('backgroundPreview.clickHint')}
         >
-          <ExternalLink className="h-4 w-4" />
-          {t('backgroundPreview.downloadAll')}
-        </a>
-      </div>
-
-      {/* Main content — click anywhere to enter fullscreen */}
-      <div
-        ref={contentRef}
-        className="flex flex-1 items-center justify-center p-4 cursor-pointer select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring"
-        onClick={handleEnterFullscreen}
-        onKeyDown={handleContentKeyDown}
-        tabIndex={0}
-        role="button"
-        aria-label={t('backgroundPreview.clickHint')}
-      >
-        <p className="text-muted-foreground text-sm">
           {t('backgroundPreview.clickHint')}
-        </p>
-      </div>
+        </Button>
+        <div className="absolute right-3 bottom-0 z-10 w-[min(23rem,calc(100%-1.5rem))] sm:right-4 sm:bottom-0">
+          <DailyWallpaperSection apiUrl={FEATURES.wallpaperApiUrl} />
+        </div>
+      </main>
 
-      {/* Disclaimer */}
-      <div className="px-4 py-2 border-t border-border shrink-0">
-        <p className="text-[11px] text-muted-foreground/60 text-center">
-          {t('backgroundPreview.disclaimer')}
-        </p>
-      </div>
+      <footer className="shrink-0 px-4 py-2 shadow-[0px_-1px_0px_0px_rgba(0,0,0,0.08)]">
+        <p className="text-center text-[11px] text-muted-foreground/60">{t('backgroundPreview.disclaimer')}</p>
+      </footer>
     </div>
   )
 }

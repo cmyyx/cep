@@ -1,5 +1,5 @@
 import { expect, it } from 'vitest'
-import { mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
+import { mkdtempSync, rmSync, writeFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { compareTextId, findChunkIndexForTextId, type GameI18nChunkMeta } from '../../src/lib/game-i18n-shared'

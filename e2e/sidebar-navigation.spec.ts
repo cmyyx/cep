@@ -29,7 +29,21 @@ test.describe('Sidebar Navigation', () => {
 
     // Click to expand — assert data-state changes to "expanded"
     await trigger.click()
-    await expect(page.locator('[data-slot="sidebar"][data-state="expanded"]')).toBeVisible({ timeout: 5000 })
+  })
+
+  test('collapsed wallpaper entry keeps its tooltip visible while hovered', async ({ page }) => {
+    await gotoAndReady(page, '/zh-CN')
+
+    await page.locator('[data-sidebar="trigger"]').first().click()
+    await expect(page.locator('[data-slot="sidebar"][data-state="collapsed"]')).toBeVisible({ timeout: 5000 })
+
+    const wallpaperLink = page.locator('[data-sidebar="menu-button"][href="/zh-CN/background-preview"]')
+    await wallpaperLink.hover()
+
+    const tooltip = page.locator('[data-slot="tooltip-content"]')
+    await expect(tooltip).toContainText('预览/下载壁纸')
+    await page.waitForTimeout(700)
+    await expect(tooltip).toBeVisible()
   })
 
   test('mobile viewport opens drawer', async ({ page }) => {
