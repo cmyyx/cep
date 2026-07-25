@@ -17,6 +17,12 @@ export const dynamic = 'force-static'
  *
  * To add a new page to the sitemap, add an entry here.
  * To remove a page, delete its entry. No XML editing needed.
+ *
+ * Keep in sync with `ROUTE_META` in `scripts/generate-llms-txt.mjs`:
+ * - Adding a path: also add a ROUTE_META entry (section/title/description).
+ * - Removing a path: also delete its ROUTE_META entry.
+ * - Missing/orphan meta fails `node scripts/generate-llms-txt.mjs` (prebuild).
+ * - section `skip` omits auth chrome (account/login/settings) from llms files.
  */
 export const ROUTES: {
   path: string
