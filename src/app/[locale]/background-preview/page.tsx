@@ -44,7 +44,7 @@ export default function BackgroundPreviewPage() {
             }
           >
             <Images />
-            <span className="hidden sm:inline">{t('backgroundPreview.websiteBackgroundCollection')}</span>
+            <span>{t('backgroundPreview.websiteBackgroundCollection')}</span>
           </TooltipTrigger>
           <TooltipContent>{t('backgroundPreview.websiteBackgroundCollectionHint')}</TooltipContent>
         </Tooltip>
@@ -54,13 +54,15 @@ export default function BackgroundPreviewPage() {
         <Button
           type="button"
           variant="ghost"
-          className="absolute inset-0 size-full cursor-pointer select-none rounded-none text-sm text-muted-foreground hover:bg-transparent hover:text-muted-foreground focus-visible:ring-2 focus-visible:ring-inset"
+          className="absolute inset-0 size-full cursor-pointer select-none rounded-none whitespace-normal text-sm text-muted-foreground hover:bg-transparent hover:text-muted-foreground focus-visible:ring-2 focus-visible:ring-inset"
           onClick={() => setIsFullscreen(true)}
           aria-label={t('backgroundPreview.clickHint')}
         >
-          {t('backgroundPreview.clickHint')}
+          <span className="pointer-events-none absolute top-3 right-0 left-0 px-4 text-center leading-5 sm:top-4">
+            {t('backgroundPreview.clickHint')}
+          </span>
         </Button>
-        <div className="absolute right-3 bottom-0 z-10 w-[min(23rem,calc(100%-1.5rem))] sm:right-4 sm:bottom-0">
+        <div className="absolute right-3 bottom-0 z-10 max-h-[calc(100%-2.75rem)] w-[min(23rem,calc(100%-1.5rem))] overflow-y-auto overscroll-contain sm:right-4 sm:bottom-0 sm:max-h-[calc(100%-3.25rem)]">
           <DailyWallpaperSection apiUrl={FEATURES.wallpaperApiUrl} />
         </div>
       </main>

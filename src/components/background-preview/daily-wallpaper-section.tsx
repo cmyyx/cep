@@ -77,7 +77,7 @@ export function DailyWallpaperSection({ apiUrl }: DailyWallpaperSectionProps) {
     return (
       <Card aria-label={t('dailyTitle')} size="sm" className="gap-0! overflow-hidden bg-background py-0! shadow-[var(--shadow-card)]">
         <Skeleton
-          className="w-full max-h-[min(32svh,11rem)] rounded-none sm:max-h-[min(25svh,14rem)]"
+          className="w-full max-h-[min(42svh,16rem)] rounded-none sm:max-h-[min(48svh,28rem)]"
           style={{ aspectRatio: String(DEFAULT_WALLPAPER_ASPECT_RATIO) }}
         />
         <CardContent className="space-y-3 py-3">
@@ -271,8 +271,8 @@ function WallpaperMediaFrame({
       className={cn(
         'relative w-full overflow-hidden bg-muted',
         tone === 'hero'
-          ? 'max-h-[min(32svh,11rem)] sm:max-h-[min(25svh,14rem)]'
-          : 'max-h-[min(28svh,12rem)] sm:max-h-[min(22svh,13rem)]',
+          ? 'max-h-[min(42svh,16rem)] sm:max-h-[min(48svh,28rem)]'
+          : 'max-h-[min(36svh,14rem)] sm:max-h-[min(32svh,16rem)]',
       )}
       style={{ aspectRatio: String(aspectRatio) }}
       data-aspect-ratio={aspectRatio.toFixed(4)}

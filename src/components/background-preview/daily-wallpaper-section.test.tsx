@@ -123,8 +123,8 @@ it('adapts the preview frame to measured image proportions while keeping a heigh
   if (!preview) throw new Error('missing preview frame')
 
   await waitFor(() => expect(preview.getAttribute('data-aspect-ratio')).toBe('0.7500'))
-  expect(preview.className).toContain('max-h-[min(32svh,11rem)]')
-  expect(preview.className).toContain('sm:max-h-[min(25svh,14rem)]')
+  expect(preview.className).toContain('max-h-[min(42svh,16rem)]')
+  expect(preview.className).toContain('sm:max-h-[min(48svh,28rem)]')
   expect(preview.getAttribute('style') ?? '').toContain('aspect-ratio')
 
   screen.getByRole('button', { name: 'viewHistory' }).click()
@@ -138,5 +138,5 @@ it('adapts the preview frame to measured image proportions while keeping a heigh
   if (!historyFrame) throw new Error('missing history frame')
 
   await waitFor(() => expect(historyFrame.getAttribute('data-aspect-ratio')).toBe('0.7500'))
-  expect(historyFrame.className).toContain('max-h-[min(28svh,12rem)]')
+  expect(historyFrame.className).toContain('max-h-[min(36svh,14rem)]')
 })
