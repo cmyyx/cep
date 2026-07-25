@@ -279,6 +279,16 @@ export function installExportDirectory(
     throw error
   }
 
-  operations.rmSync(tempDir, { recursive: true, force: true })
-  if (hadOutput) operations.rmSync(backupDir, { recursive: true, force: true })
+  try {
+    operations.rmSync(tempDir, { recursive: true, force: true })
+  } catch {
+    // Best-effort cleanup after a successful install.
+  }
+  if (hadOutput) {
+    try {
+      operations.rmSync(backupDir, { recursive: true, force: true })
+    } catch {
+      // Best-effort cleanup after a successful install.
+    }
+  }
 }

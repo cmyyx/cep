@@ -56,8 +56,7 @@ it('formats counts and supports keyboard selection for result rows', async () =>
   expect(secondRow?.getAttribute('role')).toBe('row')
   expect(secondRow?.getAttribute('aria-selected')).toBe('false')
 
-  const spaceEvent = new KeyboardEvent('keydown', { key: ' ', bubbles: true, cancelable: true })
-  secondRow?.dispatchEvent(spaceEvent)
-  expect(spaceEvent.defaultPrevented).toBe(true)
+  const notCanceled = fireEvent.keyDown(secondRow!, { key: ' ', bubbles: true, cancelable: true })
+  expect(notCanceled).toBe(false)
   await waitFor(() => expect(secondRow?.getAttribute('aria-selected')).toBe('true'))
 })

@@ -11,6 +11,7 @@ import {
   GAME_I18N_UPSTREAM_SUFFIX,
   packGameI18nChunks,
   parseMaxChunkBytesArg,
+  installExportDirectory,
   resolveAkedataPath,
 } from './export-game-i18n'
 
@@ -26,6 +27,26 @@ it('rejects unsafe maxChunkBytes values', () => {
   expect(() => assertSafeMaxChunkBytes(1023)).toThrow(/safe integer/)
   expect(() => assertSafeMaxChunkBytes(1.5)).toThrow(/safe integer/)
   expect(assertSafeMaxChunkBytes(1024)).toBe(1024)
+})
+
+it('ignores successful-install cleanup failures', () => {
+  const cleanupPaths: string[] = []
+  const removeWithFileLock: typeof rmSync = (path) => {
+    cleanupPaths.push(String(path))
+    throw new Error('simulated Windows file lock')
+  }
+
+  expect(() =>
+    installExportDirectory('temp', 'output', {
+      cpSync,
+      existsSync: () => true,
+      renameSync: () => {},
+      rmSync: removeWithFileLock,
+    }),
+  ).not.toThrow()
+  expect(cleanupPaths).toHaveLength(2)
+  expect(cleanupPaths[0]).toBe('temp')
+  expect(cleanupPaths[1]).toContain('.game-i18n-backup-')
 })
 
 it('parses CLI max-chunk-bytes with fallback', () => {

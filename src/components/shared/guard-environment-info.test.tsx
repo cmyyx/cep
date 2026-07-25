@@ -33,3 +33,19 @@ it('renders browser, engine, and loaded site version details', () => {
   expect(screen.getByText('0.1.0-abc123')).toBeTruthy()
   expect(screen.getByText('42')).toBeTruthy()
 })
+
+it('renders browser details without site version rows while version info is loading', () => {
+  Object.defineProperty(window.navigator, 'userAgent', {
+    configurable: true,
+    value: 'Mozilla/5.0 AppleWebKit/537.36 Chrome/126.0.0.0 Safari/537.36',
+  })
+
+  render(<GuardEnvironmentInfo versionInfo={null} />)
+
+  expect(screen.getByText('Chrome 126.0.0.0')).toBeTruthy()
+  expect(screen.getByText('Chromium 126.0.0.0')).toBeTruthy()
+  expect(screen.queryByText('version.version')).toBeNull()
+  expect(screen.queryByText('version.commitCount')).toBeNull()
+  expect(screen.queryByText('version.commitTime')).toBeNull()
+  expect(screen.queryByText('version.buildTime')).toBeNull()
+})
