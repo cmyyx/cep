@@ -3,15 +3,18 @@
 import { ExternalLink } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { FullScreenStatus } from '@/components/shared/full-screen-status'
+import { GuardEnvironmentInfo } from '@/components/shared/guard-environment-info'
 import { FEEDBACK_CHANNELS, GuardFeedback } from '@/components/shared/guard-layout'
 import { Button } from '@/components/ui/button'
 import { FEATURES } from '@/lib/features'
 import { DEFAULT_SITE_URL } from '@/lib/constants'
 import { useBlockedPageGuard } from '@/hooks/use-blocked-page-guard'
+import { useVersion } from '@/hooks/use-version'
 
 export default function BlockedPage() {
   const t = useTranslations()
   useBlockedPageGuard()
+  const { info, localInfo } = useVersion()
   const domains = FEATURES.allowedDomains.length > 0
     ? FEATURES.allowedDomains
     : [new URL(DEFAULT_SITE_URL).hostname]
@@ -48,6 +51,7 @@ export default function BlockedPage() {
           <ExternalLink data-icon="inline-end" />
         </Button>
       ))}
+      metadata={<GuardEnvironmentInfo versionInfo={localInfo ?? info} />}
       footer={<GuardFeedback title={t('feedback.title')} links={feedbackLinks} />}
     />
   )

@@ -809,6 +809,10 @@
   "versionWatermark": {
     "externalCssDetected": "检测到外部CSS注入"
   },
+  "environment": {
+    "browser": "浏览器",
+    "engine": "内核"
+  },
   "blocked": {
     "title": "访问被阻止",
     "description": "当前域名或嵌入来源未被授权，页面已停止加载。",

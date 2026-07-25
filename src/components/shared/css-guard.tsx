@@ -1,5 +1,10 @@
 import { HeadScript } from '@/components/shared/head-script'
-import { GUARD_OVERLAY_OPEN, GUARD_OVERLAY_CLOSE, GUARD_FEEDBACK_HTML } from '@/components/shared/guard-layout'
+import {
+  GUARD_ENVIRONMENT_HTML_CODE,
+  GUARD_FEEDBACK_HTML,
+  GUARD_OVERLAY_CLOSE,
+  GUARD_OVERLAY_OPEN,
+} from '@/components/shared/guard-layout'
 
 /**
  * Inline CSS load failure guard — injected into <head>.
@@ -33,8 +38,7 @@ const CSS_CONTENT =
   'background:#171717;color:#fff;font-size:15px;cursor:pointer;'+
   'font-family:system-ui,sans-serif;">'+
   '\u5237\u65B0\u9875\u9762 Refresh'+
-  '</button>'+
-  GUARD_FEEDBACK_HTML
+  '</button>'
 
 const CSS_GUARD_CODE = `(function(){
 var F=[],_loadDone=false,_pending=0,_audited=false,_auditQueued=false;
@@ -124,7 +128,9 @@ function show(){
   if(document.getElementById('cep-css-fatal'))return;
   var d=document.createElement('div');
   d.id='cep-css-fatal';
-  d.innerHTML=${JSON.stringify(GUARD_OVERLAY_OPEN + CSS_CONTENT + GUARD_OVERLAY_CLOSE)};
+  d.innerHTML=${JSON.stringify(GUARD_OVERLAY_OPEN + CSS_CONTENT)}+
+    ${GUARD_ENVIRONMENT_HTML_CODE}+
+    ${JSON.stringify(GUARD_FEEDBACK_HTML + GUARD_OVERLAY_CLOSE)};
   (document.body||document.documentElement).appendChild(d);
 }
 })()`.replace(/\n\s*/g, '')

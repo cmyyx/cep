@@ -93,4 +93,29 @@ describe('usePanelPreviewStore', () => {
     expect(config?.armor).toEqual(createPanelEquipmentSelection(null))
   })
 
+  it('migrates v3 skill level order when rehydrating panel preview storage', async () => {
+    const characterId = characterIds[0]
+    const character = plannerGameData.characters[characterId]
+    if (character.skills.length < 4) throw new Error('Expected at least 4 character skills for migration test')
+    const skillLevels = character.skills.map((skill) => skill.maxLevel)
+    skillLevels[2] = 8
+    skillLevels[3] = 2
+
+    localStorage.setItem('panelPreview', JSON.stringify({
+      state: {
+        config: {
+          ...createDefaultPanelPreviewConfig(characterId),
+          skillLevels,
+        },
+      },
+      version: 3,
+    }))
+
+    await usePanelPreviewStore.persist.rehydrate()
+    const config = usePanelPreviewStore.getState().config
+
+    expect(config?.skillLevels[2]).toBe(2)
+    expect(config?.skillLevels[3]).toBe(8)
+  })
+
 })

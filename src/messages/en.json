@@ -809,6 +809,10 @@
   "versionWatermark": {
     "externalCssDetected": "External CSS injection detected"
   },
+  "environment": {
+    "browser": "Browser",
+    "engine": "Engine"
+  },
   "blocked": {
     "title": "Access blocked",
     "description": "The current domain or embedder is not authorized, so the page stopped loading.",

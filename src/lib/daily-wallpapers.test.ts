@@ -1,5 +1,13 @@
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import { addWallpaperLocale, fetchDailyWallpapers, formatWallpaperDate } from '@/lib/daily-wallpapers'
+import {
+  addWallpaperLocale,
+  DEFAULT_WALLPAPER_ASPECT_RATIO,
+  fetchDailyWallpapers,
+  formatWallpaperDate,
+  MAX_WALLPAPER_ASPECT_RATIO,
+  MIN_WALLPAPER_ASPECT_RATIO,
+  resolveWallpaperAspectRatio,
+} from '@/lib/daily-wallpapers'
 
 afterEach(() => vi.restoreAllMocks())
 
@@ -63,5 +71,12 @@ describe('wallpaper helpers', () => {
 
   it('adds the locale to redirect URLs', () => {
     expect(addWallpaperLocale('https://end-a.canmoe.com/go/wallpaper/2026-07-23', 'zh-CN')).toContain('locale=zh-CN')
+  })
+
+  it('clamps measured wallpaper aspect ratios', () => {
+    expect(resolveWallpaperAspectRatio(1920, 1080)).toBeCloseTo(16 / 9)
+    expect(resolveWallpaperAspectRatio(1080, 1920)).toBeCloseTo(MIN_WALLPAPER_ASPECT_RATIO)
+    expect(resolveWallpaperAspectRatio(3200, 900)).toBeCloseTo(MAX_WALLPAPER_ASPECT_RATIO)
+    expect(resolveWallpaperAspectRatio(0, 1080)).toBe(DEFAULT_WALLPAPER_ASPECT_RATIO)
   })
 })

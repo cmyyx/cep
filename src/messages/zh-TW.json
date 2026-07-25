@@ -809,6 +809,10 @@
   "versionWatermark": {
     "externalCssDetected": "偵測到外部CSS注入"
   },
+  "environment": {
+    "browser": "瀏覽器",
+    "engine": "核心"
+  },
   "blocked": {
     "title": "存取已被阻止",
     "description": "目前的網域或嵌入來源未經授權，頁面已停止載入。",

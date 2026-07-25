@@ -5,6 +5,7 @@ import {
   calculatePanelStats,
   createDefaultGrowthConfig,
   estimateFarming,
+  migrateLegacySkillLevelOrder,
   normalizeGrowthConfig,
 } from './progression'
 import type { PanelPreviewConfig } from '@/types/planner'
@@ -37,6 +38,18 @@ describe('planner generated data', () => {
     expect(goldStage?.name['zh-CN']).toBe('金币之祝')
   })
 })
+
+describe('migrateLegacySkillLevelOrder', () => {
+  it('swaps ultimate and combo slots for length-4 skill arrays', () => {
+    expect(migrateLegacySkillLevelOrder([1, 2, 3, 4])).toEqual([1, 2, 4, 3])
+  })
+
+  it('leaves shorter arrays and non-arrays alone', () => {
+    expect(migrateLegacySkillLevelOrder([1, 2, 3])).toEqual([1, 2, 3])
+    expect(migrateLegacySkillLevelOrder(undefined)).toBeUndefined()
+  })
+})
+
 describe('growth progression', () => {
   it('defaults characters and weapons from minimum progress to maximum targets', () => {
     const character = createDefaultGrowthConfig('character', characterId)

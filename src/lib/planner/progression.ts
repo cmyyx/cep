@@ -113,6 +113,21 @@ export function createDefaultGrowthConfig(kind: 'character' | 'weapon', id: stri
   }
 }
 
+/**
+ * Pre-fix skill arrays used game typeId order 0,1,2,3 (ultimate before combo).
+ * Display/data order is now 0,1,3,2. Swap indices 2↔3 once when hydrating old saves.
+ */
+export function migrateLegacySkillLevelOrder(levels: unknown): number[] | undefined {
+  if (!Array.isArray(levels)) return undefined
+  const next = levels.map((level) => (typeof level === 'number' && Number.isFinite(level) ? level : 1))
+  if (next.length >= 4) {
+    const temporary = next[2]
+    next[2] = next[3]
+    next[3] = temporary
+  }
+  return next
+}
+
 export function normalizeGrowthConfig(config: GrowthConfig): GrowthConfig {
   if (config.kind === 'weapon') {
     const data = weapons[config.id]

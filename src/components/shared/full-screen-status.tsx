@@ -3,20 +3,24 @@ import Image from 'next/image'
 import { cn } from '@/lib/utils'
 
 export interface FullScreenStatusProps extends Omit<ComponentProps<'div'>, 'title'> {
+  title?: ReactNode
   heading: ReactNode
   description?: ReactNode
   indicator?: ReactNode
   actions?: ReactNode
+  metadata?: ReactNode
   footer?: ReactNode
   tone?: 'default' | 'destructive'
   animateIcon?: boolean
 }
 
 export function FullScreenStatus({
+  title = 'CEP',
   heading,
   description,
   indicator,
   actions,
+  metadata,
   footer,
   tone = 'default',
   animateIcon = false,
@@ -49,7 +53,7 @@ export function FullScreenStatus({
         </div>
 
         <div className="space-y-1">
-          <h1 className="select-none font-mono text-[48px] font-semibold tracking-[-2.88px]">CEP</h1>
+          <h1 className="select-none font-mono text-[48px] font-semibold tracking-[-2.88px]">{title}</h1>
           <h2 className={cn('text-sm font-medium tracking-[-0.32px]', destructive ? 'text-ship-red' : 'text-muted-foreground')}>
             {heading}
           </h2>
@@ -58,6 +62,7 @@ export function FullScreenStatus({
         {description ? <div className="max-w-md text-sm leading-relaxed text-muted-foreground">{description}</div> : null}
         {indicator}
         {actions ? <div className="flex w-full max-w-sm flex-col gap-2">{actions}</div> : null}
+        {metadata ? <div className="max-w-full">{metadata}</div> : null}
         {footer}
       </div>
     </div>

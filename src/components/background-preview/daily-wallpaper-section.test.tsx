@@ -10,7 +10,27 @@ vi.mock('next-intl', () => ({
 }))
 
 vi.mock('next/image', () => ({
-  default: ({ alt = '', src, ...props }: React.ImgHTMLAttributes<HTMLImageElement>) => <span role="img" aria-label={alt} data-src={String(src)} data-loading={props.loading} />,
+  default: ({
+    alt = '',
+    src,
+    onLoad,
+    ...props
+  }: React.ImgHTMLAttributes<HTMLImageElement>) => (
+    <span
+      role="img"
+      aria-label={alt}
+      data-src={String(src)}
+      data-loading={props.loading}
+      data-testid="wallpaper-image"
+      onClick={() => {
+        const target = {
+          naturalWidth: 1080,
+          naturalHeight: 1920,
+        } as HTMLImageElement
+        onLoad?.({ currentTarget: target } as React.SyntheticEvent<HTMLImageElement>)
+      }}
+    />
+  ),
 }))
 
 beforeEach(() => vi.restoreAllMocks())
@@ -70,4 +90,53 @@ it('shows a clear request failure and retries without cached data', async () => 
   screen.getByRole('button', { name: 'retry' }).click()
   await waitFor(() => expect(screen.getByText('dailyEmpty')).toBeTruthy())
   expect(fetchMock).toHaveBeenCalledTimes(2)
+})
+
+it('adapts the preview frame to measured image proportions while keeping a height cap', async () => {
+  vi.stubGlobal('fetch', vi.fn().mockResolvedValue({
+    ok: true,
+    json: async () => ({
+      serverDate: '2026-07-23',
+      current: {
+        contentDate: '2026-07-23',
+        isToday: true,
+        imageUrl: 'https://end-a.canmoe.com/media/wallpapers/2026-07-23',
+        actionUrl: 'https://end-a.canmoe.com/go/wallpaper/2026-07-23',
+      },
+      history: [{
+        contentDate: '2026-07-22',
+        isToday: false,
+        imageUrl: 'https://end-a.canmoe.com/media/wallpapers/2026-07-22',
+        actionUrl: 'https://end-a.canmoe.com/go/wallpaper/2026-07-22',
+      }],
+    }),
+  }))
+
+  const { container } = render(<DailyWallpaperSection apiUrl="https://end-a.canmoe.com/api/v1/wallpapers" />)
+  const previewImage = await waitFor(() => {
+    const image = container.querySelector('[data-testid="wallpaper-image"]')
+    if (!image) throw new Error('missing preview image')
+    return image as HTMLElement
+  })
+  previewImage.click()
+  const preview = previewImage.parentElement
+  if (!preview) throw new Error('missing preview frame')
+
+  await waitFor(() => expect(preview.getAttribute('data-aspect-ratio')).toBe('0.7500'))
+  expect(preview.className).toContain('max-h-[min(32svh,11rem)]')
+  expect(preview.className).toContain('sm:max-h-[min(25svh,14rem)]')
+  expect(preview.getAttribute('style') ?? '').toContain('aspect-ratio')
+
+  screen.getByRole('button', { name: 'viewHistory' }).click()
+  const historyImage = await waitFor(() => {
+    const images = document.querySelectorAll('[data-testid="wallpaper-image"]')
+    if (images.length < 2) throw new Error('missing history image')
+    return images[1] as HTMLElement
+  })
+  historyImage.click()
+  const historyFrame = historyImage.parentElement
+  if (!historyFrame) throw new Error('missing history frame')
+
+  await waitFor(() => expect(historyFrame.getAttribute('data-aspect-ratio')).toBe('0.7500'))
+  expect(historyFrame.className).toContain('max-h-[min(28svh,12rem)]')
 })

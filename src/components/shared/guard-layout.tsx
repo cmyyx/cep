@@ -20,7 +20,9 @@
  * Legitimate exception to the "no inline style" rule (same class as HeadScript).
  */
 
-import { cn } from '@/lib/utils'
+import { BROWSER_INFO_INLINE_CODE } from '@/lib/browser-info'
+import { versionData } from '@/generated/version-data'
+import { cn, formatTime } from '@/lib/utils'
 
 // ═══════════════════════════════════════════════════════════════
 // Feedback channels — single source of truth for all overlays
@@ -51,6 +53,22 @@ const FEEDBACK_TITLE_EN = 'Having issues? Contact us:'
 export const GUARD_HEADER_HTML =
   '<img src="/icon.svg" alt="" width="48" height="48" style="display:block">'+
   '<h1 style="font-size:22px;font-weight:600;margin:0;">CEP \u7EC8\u672B\u5730\u89C4\u5212\u5668</h1>'
+
+/** Environment details for early guards. Values are escaped before insertion. */
+export const GUARD_ENVIRONMENT_HTML_CODE = `(function(){
+var i=${BROWSER_INFO_INLINE_CODE},v=${JSON.stringify({
+  version: versionData.version,
+  count: String(versionData.count),
+  commitTime: formatTime(versionData.commitTime),
+  buildTime: formatTime(versionData.buildTime),
+})};
+function h(x){return String(x).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
+function r(k,x){return'<div style="display:grid;grid-template-columns:max-content minmax(0,1fr);gap:12px;text-align:left;"><dt style="color:#999;">'+k+'</dt><dd style="min-width:0;margin:0;color:#666;overflow-wrap:anywhere;">'+h(x)+'</dd></div>'}
+return'<dl style="display:flex;flex-direction:column;gap:4px;max-width:100%;margin:0;font:11px/1.45 ui-monospace,SFMono-Regular,Menlo,monospace;">'+
+r('\\u6D4F\\u89C8\\u5668 / Browser',i.browser)+r('\\u5185\\u6838 / Engine',i.engine)+
+r('\\u7248\\u672C / Version',v.version)+r('\\u63D0\\u4EA4\\u6B21\\u6570 / Commits',v.count)+
+r('\\u63D0\\u4EA4\\u65F6\\u95F4 / Commit Time',v.commitTime)+r('\\u6784\\u5EFA\\u65F6\\u95F4 / Build Time',v.buildTime)+'</dl>'
+})()`
 
 /** Feedback links as inline HTML — for IIFE guards (CssGuard / BrowserGuard). */
 export const GUARD_FEEDBACK_HTML =

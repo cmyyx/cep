@@ -809,6 +809,10 @@
   "versionWatermark": {
     "externalCssDetected": "外部CSS注入を検出しました"
   },
+  "environment": {
+    "browser": "ブラウザ",
+    "engine": "エンジン"
+  },
   "blocked": {
     "title": "アクセスがブロックされました",
     "description": "現在のドメインまたは埋め込み元は許可されていないため、ページの読み込みを停止しました。",

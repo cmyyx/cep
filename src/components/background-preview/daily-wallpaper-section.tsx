@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState, type ReactNode, type SyntheticEvent } from 'react'
 import Image from 'next/image'
 import { useLocale, useTranslations } from 'next-intl'
 import { AlertCircle, ExternalLink, History, ImageOff, Info, RefreshCw } from 'lucide-react'
@@ -9,7 +9,15 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog'
 import { Skeleton } from '@/components/ui/skeleton'
-import { addWallpaperLocale, DailyWallpaperError, fetchDailyWallpapers, formatWallpaperDate } from '@/lib/daily-wallpapers'
+import {
+  addWallpaperLocale,
+  DailyWallpaperError,
+  DEFAULT_WALLPAPER_ASPECT_RATIO,
+  fetchDailyWallpapers,
+  formatWallpaperDate,
+  resolveWallpaperAspectRatio,
+} from '@/lib/daily-wallpapers'
+import { cn } from '@/lib/utils'
 import type { DailyWallpaperFeed } from '@/types/daily-wallpaper'
 
 interface DailyWallpaperSectionProps {
@@ -21,6 +29,8 @@ type LoadState =
   | { status: 'ready'; feed: DailyWallpaperFeed }
   | { status: 'error'; code: DailyWallpaperError['code'] }
 
+type WallpaperFrameTone = 'hero' | 'history'
+
 export function DailyWallpaperSection({ apiUrl }: DailyWallpaperSectionProps) {
   const t = useTranslations('backgroundPreview')
   const rootT = useTranslations()
@@ -28,12 +38,14 @@ export function DailyWallpaperSection({ apiUrl }: DailyWallpaperSectionProps) {
   const [state, setState] = useState<LoadState>({ status: 'loading' })
   const [retryKey, setRetryKey] = useState(0)
   const [failedImages, setFailedImages] = useState<Set<string>>(() => new Set())
+  const [aspectRatios, setAspectRatios] = useState<Record<string, number>>({})
   const [historyOpen, setHistoryOpen] = useState(false)
   const [supportOpen, setSupportOpen] = useState(false)
 
   const handleRetry = () => {
     setState({ status: 'loading' })
     setFailedImages(new Set())
+    setAspectRatios({})
     setRetryKey((value) => value + 1)
   }
 
@@ -49,10 +61,25 @@ export function DailyWallpaperSection({ apiUrl }: DailyWallpaperSectionProps) {
     return () => controller.abort()
   }, [apiUrl, retryKey])
 
+  const markImageFailed = (contentDate: string) => {
+    setFailedImages((previous) => new Set(previous).add(contentDate))
+  }
+
+  const rememberAspectRatio = (contentDate: string, width: number, height: number) => {
+    const nextRatio = resolveWallpaperAspectRatio(width, height)
+    setAspectRatios((previous) => {
+      if (previous[contentDate] === nextRatio) return previous
+      return { ...previous, [contentDate]: nextRatio }
+    })
+  }
+
   if (state.status === 'loading') {
     return (
       <Card aria-label={t('dailyTitle')} size="sm" className="gap-0! overflow-hidden bg-background py-0! shadow-[var(--shadow-card)]">
-        <Skeleton className="aspect-[16/6] w-full rounded-none" />
+        <Skeleton
+          className="w-full max-h-[min(32svh,11rem)] rounded-none sm:max-h-[min(25svh,14rem)]"
+          style={{ aspectRatio: String(DEFAULT_WALLPAPER_ASPECT_RATIO) }}
+        />
         <CardContent className="space-y-3 py-3">
           <Skeleton className="h-4 w-24" />
           <Skeleton className="h-6 w-44" />
@@ -99,28 +126,21 @@ export function DailyWallpaperSection({ apiUrl }: DailyWallpaperSectionProps) {
   return (
     <>
       <Card aria-labelledby="daily-wallpaper-title" size="sm" className="gap-0! overflow-hidden bg-background py-0! shadow-[var(--shadow-card)]">
-        <div className="relative aspect-[16/6] overflow-hidden bg-muted">
-          {currentImageFailed ? (
-            <div className="flex size-full flex-col items-center justify-center gap-1 text-muted-foreground">
-              <ImageOff className="size-5" />
-              <span className="text-xs">{t('imageUnavailable')}</span>
-            </div>
-          ) : (
-            <Image
-              src={current.imageUrl!}
-              alt=""
-              fill
-              unoptimized
-              loading="eager"
-              sizes="(max-width: 640px) calc(100vw - 1.5rem), 23rem"
-              className="object-cover"
-              onError={() => setFailedImages((previous) => new Set(previous).add(current.contentDate))}
-            />
-          )}
-          <div className="absolute top-2 left-2">
-            <Badge>{t('dailyUpdatedBadge')}</Badge>
-          </div>
-        </div>
+        <WallpaperMediaFrame
+          tone="hero"
+          aspectRatio={aspectRatios[current.contentDate] ?? DEFAULT_WALLPAPER_ASPECT_RATIO}
+          failed={currentImageFailed}
+          imageUrl={current.imageUrl}
+          sizes="(max-width: 640px) calc(100vw - 1.5rem), 23rem"
+          loading="eager"
+          unavailableLabel={t('imageUnavailable')}
+          badge={<Badge>{t('dailyUpdatedBadge')}</Badge>}
+          onLoad={(event) => {
+            const image = event.currentTarget
+            rememberAspectRatio(current.contentDate, image.naturalWidth, image.naturalHeight)
+          }}
+          onError={() => markImageFailed(current.contentDate)}
+        />
         <CardContent className="space-y-3 py-3">
           <div>
             <div className="flex items-center justify-between gap-3">
@@ -169,24 +189,19 @@ export function DailyWallpaperSection({ apiUrl }: DailyWallpaperSectionProps) {
               const imageFailed = !item.imageUrl || failedImages.has(item.contentDate)
               return (
                 <Card key={item.contentDate} size="sm" className="gap-0! overflow-hidden py-0!">
-                  <div className="relative aspect-video overflow-hidden bg-muted">
-                    {imageFailed ? (
-                      <div className="flex size-full flex-col items-center justify-center gap-1 text-muted-foreground">
-                        <ImageOff className="size-5" />
-                        <span className="text-xs">{t('imageUnavailable')}</span>
-                      </div>
-                    ) : (
-                      <Image
-                        src={item.imageUrl!}
-                        alt=""
-                        fill
-                        unoptimized
-                        sizes="(max-width: 640px) 100vw, 24rem"
-                        className="object-cover"
-                        onError={() => setFailedImages((previous) => new Set(previous).add(item.contentDate))}
-                      />
-                    )}
-                  </div>
+                  <WallpaperMediaFrame
+                    tone="history"
+                    aspectRatio={aspectRatios[item.contentDate] ?? DEFAULT_WALLPAPER_ASPECT_RATIO}
+                    failed={imageFailed}
+                    imageUrl={item.imageUrl}
+                    sizes="(max-width: 640px) 100vw, 24rem"
+                    unavailableLabel={t('imageUnavailable')}
+                    onLoad={(event) => {
+                      const image = event.currentTarget
+                      rememberAspectRatio(item.contentDate, image.naturalWidth, image.naturalHeight)
+                    }}
+                    onError={() => markImageFailed(item.contentDate)}
+                  />
                   <CardContent className="flex items-center justify-between gap-3 py-3">
                     <time className="font-mono text-xs text-muted-foreground" dateTime={item.contentDate}>{dateLabel}</time>
                     {item.actionUrl ? (
@@ -223,6 +238,65 @@ export function DailyWallpaperSection({ apiUrl }: DailyWallpaperSectionProps) {
         </DialogContent>
       </Dialog>
     </>
+  )
+}
+
+interface WallpaperMediaFrameProps {
+  tone: WallpaperFrameTone
+  aspectRatio: number
+  failed: boolean
+  imageUrl: string | null
+  sizes: string
+  unavailableLabel: string
+  badge?: ReactNode
+  loading?: 'eager' | 'lazy'
+  onLoad: (event: SyntheticEvent<HTMLImageElement>) => void
+  onError: () => void
+}
+
+function WallpaperMediaFrame({
+  tone,
+  aspectRatio,
+  failed,
+  imageUrl,
+  sizes,
+  unavailableLabel,
+  badge,
+  loading,
+  onLoad,
+  onError,
+}: WallpaperMediaFrameProps) {
+  return (
+    <div
+      className={cn(
+        'relative w-full overflow-hidden bg-muted',
+        tone === 'hero'
+          ? 'max-h-[min(32svh,11rem)] sm:max-h-[min(25svh,14rem)]'
+          : 'max-h-[min(28svh,12rem)] sm:max-h-[min(22svh,13rem)]',
+      )}
+      style={{ aspectRatio: String(aspectRatio) }}
+      data-aspect-ratio={aspectRatio.toFixed(4)}
+    >
+      {failed || !imageUrl ? (
+        <div className="flex size-full min-h-24 flex-col items-center justify-center gap-1 text-muted-foreground">
+          <ImageOff className="size-5" />
+          <span className="text-xs">{unavailableLabel}</span>
+        </div>
+      ) : (
+        <Image
+          src={imageUrl}
+          alt=""
+          fill
+          unoptimized
+          loading={loading}
+          sizes={sizes}
+          className="object-cover"
+          onLoad={onLoad}
+          onError={onError}
+        />
+      )}
+      {badge ? <div className="absolute top-2 left-2">{badge}</div> : null}
+    </div>
   )
 }
 

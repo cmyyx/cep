@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
-import { createDefaultGrowthConfig, normalizeGrowthConfig } from '@/lib/planner/progression'
+import { createDefaultGrowthConfig, migrateLegacySkillLevelOrder, normalizeGrowthConfig } from '@/lib/planner/progression'
 import { plannerGameData } from '@/generated/data/planner'
 import type { GrowthConfig, PlannerEntityKind } from '@/types/planner'
 
@@ -50,8 +50,27 @@ export const useGrowthPlannerStore = create<GrowthPlannerState>()(
     }),
     {
       name: 'growthPlanner',
-      version: 1,
-      migrate: (persisted) => persisted,
+      version: 2,
+      migrate: (persisted, version) => {
+        if (!persisted || typeof persisted !== 'object' || version >= 2) return persisted
+        const state = persisted as { configs?: unknown }
+        if (!Array.isArray(state.configs)) return persisted
+        return {
+          ...state,
+          configs: state.configs.map((entry) => {
+            if (!entry || typeof entry !== 'object') return entry
+            const config = entry as Record<string, unknown>
+            if (config.kind !== 'character') return entry
+            const currentSkillLevels = migrateLegacySkillLevelOrder(config.currentSkillLevels)
+            const targetSkillLevels = migrateLegacySkillLevelOrder(config.targetSkillLevels)
+            return {
+              ...config,
+              ...(currentSkillLevels ? { currentSkillLevels } : {}),
+              ...(targetSkillLevels ? { targetSkillLevels } : {}),
+            }
+          }),
+        }
+      },
       partialize: (state) => ({ configs: state.configs }),
       merge: (persisted, current) => {
         const raw = persisted as { configs?: unknown } | null

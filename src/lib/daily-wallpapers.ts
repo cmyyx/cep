@@ -72,6 +72,21 @@ export function addWallpaperLocale(actionUrl: string, locale: string): string {
   return url.toString()
 }
 
+/** Default frame before natural dimensions are known. */
+export const DEFAULT_WALLPAPER_ASPECT_RATIO = 16 / 9
+
+/** Clamp tall wallpapers so the frame does not try to grow endlessly. */
+export const MIN_WALLPAPER_ASPECT_RATIO = 3 / 4
+
+/** Clamp ultra-wide wallpapers so the frame does not collapse too flat. */
+export const MAX_WALLPAPER_ASPECT_RATIO = 21 / 9
+
+export function resolveWallpaperAspectRatio(width: number, height: number): number {
+  if (!(width > 0 && height > 0)) return DEFAULT_WALLPAPER_ASPECT_RATIO
+  const ratio = width / height
+  return Math.min(MAX_WALLPAPER_ASPECT_RATIO, Math.max(MIN_WALLPAPER_ASPECT_RATIO, ratio))
+}
+
 function normalizeEndpoint(endpoint: string): string {
   const trimmed = endpoint.trim()
   if (!trimmed) throw new DailyWallpaperError('notConfigured')

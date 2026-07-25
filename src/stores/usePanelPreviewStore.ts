@@ -1,6 +1,7 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 import { plannerGameData } from '@/generated/data/planner'
+import { migrateLegacySkillLevelOrder } from '@/lib/planner/progression'
 import type { PanelEquipmentSelection, PanelPreviewConfig } from '@/types/planner'
 
 export function createPanelEquipmentSelection(equipmentId: string | null): PanelEquipmentSelection {
@@ -30,6 +31,13 @@ export function normalizePersistedPanelConfig(value: unknown): PanelPreviewConfi
   config.potentialLevel = typeof value.potentialLevel === 'number' && Number.isFinite(value.potentialLevel)
     ? Math.min(defaults.potentialLevel, Math.max(0, Math.round(value.potentialLevel)))
     : defaults.potentialLevel
+  const character = plannerGameData.characters[value.characterId]
+  const sourceSkillLevels = Array.isArray(value.skillLevels) ? value.skillLevels : defaults.skillLevels
+  config.skillLevels = character.skills.map((skill, index) => {
+    const level = sourceSkillLevels[index]
+    const raw = typeof level === 'number' && Number.isFinite(level) ? Math.round(level) : skill.maxLevel
+    return Math.min(skill.maxLevel, Math.max(1, raw))
+  })
   config.weaponId = typeof value.weaponId === 'string' && plannerGameData.weapons[value.weaponId] !== undefined ? value.weaponId : null
   config.armor = normalizeEquipmentSelection(value.armor)
   config.gloves = normalizeEquipmentSelection(value.gloves)
@@ -74,8 +82,18 @@ export const usePanelPreviewStore = create<PanelPreviewState>()(
     }),
     {
       name: 'panelPreview',
-      version: 3,
-      migrate: (persisted) => persisted,
+      version: 4,
+      migrate: (persisted, version) => {
+        if (!persisted || typeof persisted !== 'object' || version >= 4) return persisted
+        const state = persisted as { config?: unknown }
+        if (!isRecord(state.config)) return persisted
+        const skillLevels = migrateLegacySkillLevelOrder(state.config.skillLevels)
+        if (!skillLevels) return persisted
+        return {
+          ...state,
+          config: { ...state.config, skillLevels },
+        }
+      },
       partialize: (state) => ({ config: state.config }),
       merge: (persisted, current) => {
         const raw = persisted as { config?: unknown } | null
