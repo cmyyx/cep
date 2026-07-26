@@ -4,8 +4,9 @@ import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { SidebarTrigger } from '@/components/ui/sidebar'
 import { NavLink } from '@/components/shared/nav-link'
 import { WeaponDetailContent, WikiDetailShell } from '@/components/wiki/wiki-detail-content'
+import { WikiMaterialCatalogProvider } from '@/components/wiki/wiki-material-catalog'
 import { wikiWeapons } from '@/generated/data/wiki/weapons'
-import { getWeaponWikiDetail } from '@/lib/wiki-data'
+import { getLocalizedWeaponWikiDetail } from '@/lib/wiki-data'
 import { getAlternates } from '@/lib/metadata'
 
 
@@ -21,7 +22,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   if (!weapon) return { title: 'Not Found' }
   const t = await getTranslations({ locale })
   return {
-    title: `${t(`weapons.${id}`)} - WIKI`,
+    title: t(`weapons.${id}`),
     alternates: getAlternates(locale, `wiki/weapons/${id}`),
   }
 }
@@ -30,8 +31,9 @@ export default async function WikiWeaponDetailPage({ params }: { params: Promise
   const { locale, id } = await params
   setRequestLocale(locale)
   const weapon = wikiWeapons.find((entry) => entry.id === id)
-  const detail = getWeaponWikiDetail(id)
-  if (!weapon || !detail) notFound()
+  const pageData = getLocalizedWeaponWikiDetail(id, locale)
+  if (!weapon || !pageData) notFound()
+  const { detail, catalog } = pageData
   const t = await getTranslations({ locale })
   const name = t(`weapons.${id}`)
   const weaponType = t(`wikiData.enum|weaponTypes|${weapon.weaponTypeId}`)
@@ -44,20 +46,22 @@ export default async function WikiWeaponDetailPage({ params }: { params: Promise
           {t('wiki.backTo', { category: t('wiki.categories.weapons') })}
         </NavLink>
       </header>
-      <WikiDetailShell tocItems={[
-        { id: 'overview', label: t('wiki.overview') },
-        { id: 'level-data', label: t('wiki.levelData') },
-        { id: 'skills', label: t('wiki.skills') },
-        { id: 'breakthroughs', label: t('wiki.breakthroughs') },
-      ]}>
-        <WeaponDetailContent
-          detail={detail}
-          name={name}
-          rarity={weapon.rarity}
-          imageId={weapon.imageId}
-          meta={<span>{t('wiki.weaponType')}: {weaponType}</span>}
-        />
-      </WikiDetailShell>
+      <WikiMaterialCatalogProvider catalog={catalog}>
+        <WikiDetailShell tocItems={[
+          { id: 'overview', label: t('wiki.overview') },
+          { id: 'level-data', label: t('wiki.levelData') },
+          { id: 'skills', label: t('wiki.skills') },
+          { id: 'breakthroughs', label: t('wiki.breakthroughs') },
+        ]}>
+          <WeaponDetailContent
+            detail={detail}
+            name={name}
+            rarity={weapon.rarity}
+            imageId={weapon.imageId}
+            meta={<span>{t('wiki.weaponType')}: {weaponType}</span>}
+          />
+        </WikiDetailShell>
+      </WikiMaterialCatalogProvider>
     </div>
   )
 }

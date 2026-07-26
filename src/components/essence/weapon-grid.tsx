@@ -41,12 +41,36 @@ const ATTR_LABEL_KEYS: Record<WeaponFilterKey, string> = {
   specialAbility: 'essence.attrSpecial',
 }
 
-const WEAPON_TYPE_LABEL_KEYS: Record<string, string> = {
+/** Weapon type ids in the source data are zh-CN literals; map them to i18n keys. */
+export const WEAPON_TYPE_LABEL_KEYS: Record<string, string> = {
   '单手剑': 'essence.weaponTypes.oneHandedSword',
   '施术单元': 'essence.weaponTypes.casterUnit',
   '双手剑': 'essence.weaponTypes.greatsword',
   '长柄武器': 'essence.weaponTypes.polearm',
   '手铳': 'essence.weaponTypes.pistol',
+}
+
+/** Localized weapon type label; unknown (future) types fall back to the raw value. */
+export function weaponTypeLabel(type: string, t: (key: string) => string): string {
+  return type in WEAPON_TYPE_LABEL_KEYS ? t(WEAPON_TYPE_LABEL_KEYS[type]) : type
+}
+
+/**
+ * Search haystack for one weapon: raw zh-CN data (name/type) plus the localized
+ * strings actually shown on the card, so non-zh-CN users can search what they see.
+ */
+export function weaponSearchHaystack(
+  weapon: Pick<Weapon, 'name' | 'type'>,
+  localizedName: string,
+  localizedType: string,
+): string[] {
+  return [weapon.name, weapon.type, localizedName, localizedType].filter(Boolean)
+}
+
+export function matchesWeaponQuery(haystack: readonly string[], query: string): boolean {
+  const term = query.trim().toLowerCase()
+  if (!term) return true
+  return haystack.some((value) => value.toLowerCase().includes(term))
 }
 
 
@@ -158,9 +182,17 @@ export const WeaponGrid = memo(function WeaponGrid({ onViewAll }: WeaponGridProp
     setStoreAttrFilters({ ...prev, [key]: Array.from(current) })
   }, [setStoreAttrFilters])
 
+  /** Card display name: generated catalog entry, or the raw name for custom/preview weapons. */
+  const localizedWeaponName = useCallback((weapon: Weapon) => {
+    const key = `weapons.${weapon.id}`
+    return t.has(key) ? t(key) : weapon.name
+  }, [t])
+
   // Base filter predicate: query + hide settings
   const matchesBaseFilters = useCallback((w: Weapon) => {
-    if (query && !w.name.includes(query) && !w.type.includes(query)) return false
+    if (query && !matchesWeaponQuery(weaponSearchHaystack(w, localizedWeaponName(w), weaponTypeLabel(w.type, t)), query)) {
+      return false
+    }
     if (keepUpVisibleList && (isWeaponUp(w) || w.source === 'preview')) return true
     if ((hideFourStar && w.rarity === 4) || (hideThreeStar && w.rarity === 3)) return false
     if (hideUnowned && weaponOwnership[w.id] !== true) return false
@@ -174,7 +206,7 @@ export const WeaponGrid = memo(function WeaponGrid({ onViewAll }: WeaponGridProp
       }
     }
     return true
-  }, [query, keepUpVisibleList, isWeaponUp, hideFourStar, hideThreeStar, hideUnowned, hideEssenceOwned, onlyBothOwned, weaponOwnership, essenceStatus])
+  }, [query, localizedWeaponName, t, keepUpVisibleList, isWeaponUp, hideFourStar, hideThreeStar, hideUnowned, hideEssenceOwned, onlyBothOwned, weaponOwnership, essenceStatus])
 
   const validOptions = useMemo(() => {
     const eligibleWeapons = allWeapons.filter(matchesBaseFilters)
@@ -248,7 +280,7 @@ export const WeaponGrid = memo(function WeaponGrid({ onViewAll }: WeaponGridProp
                         <FilterChip
                           key={value}
                           value={value}
-                          label={key === 'weaponType' ? t(WEAPON_TYPE_LABEL_KEYS[value] ?? value) : t(`weaponStats.${value}`)}
+                          label={key === 'weaponType' ? weaponTypeLabel(value, t) : t(`weaponStats.${value}`)}
                           isValid={valid.has(value)}
                           isSelected={selected.has(value)}
                           onToggle={() => toggleFilter(key, value)}

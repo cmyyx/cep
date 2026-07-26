@@ -1,6 +1,4 @@
-'use client'
-
-import { useTranslations } from 'next-intl'
+import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { SidebarTrigger } from '@/components/ui/sidebar'
 import ReactMarkdown from 'react-markdown'
 
@@ -36,8 +34,16 @@ const markdownComponents = {
   hr: () => <hr className="my-8 border-border" />,
 }
 
-export default function PrivacyPage() {
-  const t = useTranslations()
+// Server Component: legal 长文 markdown 在构建期渲染为静态 HTML,
+// legal 命名空间不进入任何客户端消息包。
+export default async function PrivacyPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>
+}) {
+  const { locale } = await params
+  setRequestLocale(locale)
+  const t = await getTranslations({ locale })
 
   return (
     <div className="flex flex-col flex-1 min-h-0 overflow-hidden">
@@ -51,9 +57,6 @@ export default function PrivacyPage() {
         <article className="max-w-3xl mx-auto px-4 py-8">
           <ReactMarkdown components={markdownComponents}>
             {t('legal.privacyContent')}
-          </ReactMarkdown>
-          <ReactMarkdown components={markdownComponents}>
-            {t('legal.adTelemetryContent')}
           </ReactMarkdown>
         </article>
       </div>

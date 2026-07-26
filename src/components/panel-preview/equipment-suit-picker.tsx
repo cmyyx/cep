@@ -24,6 +24,8 @@ export interface EquipmentSuitPickerProps {
 
 export function EquipmentSuitPicker({ partTypeId, selectedId, onSelect }: EquipmentSuitPickerProps) {
   const t = useTranslations('panelPreview')
+  // Reuses the existing shared wiki search string; adds no new i18n key.
+  const rootT = useTranslations()
   const locale = useLocale() as WikiLocale
   const { entityName, suitName, equipmentStatLabel } = useWikiTranslations()
   const [search, setSearch] = useState('')
@@ -50,7 +52,13 @@ export function EquipmentSuitPicker({ partTypeId, selectedId, onSelect }: Equipm
     <div className="flex min-h-0 flex-1 flex-col gap-3">
       <div className="relative shrink-0">
         <Search className="pointer-events-none absolute left-2.5 top-2 size-4 text-muted-foreground" />
-        <Input value={search} onChange={(event) => setSearch(event.target.value)} className="pl-8" />
+        <Input
+          value={search}
+          onChange={(event) => setSearch(event.target.value)}
+          className="pl-8"
+          placeholder={rootT('wiki.searchPlaceholder')}
+          aria-label={rootT('wiki.searchPlaceholder')}
+        />
       </div>
       <div className="min-h-0 flex-1 space-y-2 overflow-y-auto pr-1">
         {groups.map((group) => {

@@ -3,13 +3,9 @@ import { Geist, Geist_Mono } from "next/font/google";
 import Script from "next/script";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { HeadScript } from "@/components/shared/head-script";
-import { DEBUG_BOOTSTRAP_CODE } from "@/lib/debug/bootstrap"
-import { DomainGuard } from '@/components/shared/domain-guard';
-import { CssGuard } from '@/components/shared/css-guard';
-import { BrowserGuard } from '@/components/shared/browser-guard';
 import { LocaleGuardHead } from '@/components/shared/locale-guard-head';
-import { AdworkTelemetry } from '@/components/shared/adwork-telemetry'
-import { FEATURES } from '@/lib/features'
+import { versionData } from '@/generated/version-data';
+import { OPS_SERVICE_ORIGIN } from '@/lib/constants';
 import "./globals.css";
 
 const geistSans = Geist({
@@ -55,10 +51,6 @@ export default function RootLayout({
           id="theme-fouc"
           code={`(function(){try{var d=document.documentElement;var t="auto";var s=localStorage.getItem("cep-settings");if(s){var p=JSON.parse(s);t=p.theme||"auto"}if(t==="auto"){t=window.matchMedia("(prefers-color-scheme:dark)").matches?"dark":"light"}if(t&&t!=="auto"){d.classList.add(t);if(t==="flashbang"){d.style.colorScheme="dark";d.setAttribute("data-theme","flashbang")}}}catch(e){}})()`}
         />
-        {/* Debug capture — hooks console + global errors before any other script runs.
-            The 7-click gesture is available from the first frame; the visual label
-            is rendered by the DebugLabel React component after hydration. */}
-        <HeadScript id="debug-bootstrap" code={DEBUG_BOOTSTRAP_CODE} />
         {/* Remove no-js class ASAP — before any React content renders.
             When JS is disabled the class stays, and .no-js CSS rules
             hide JS-dependent overlays to reveal SSG content. */}
@@ -66,18 +58,35 @@ export default function RootLayout({
           id="no-js-remove"
           code="document.documentElement.classList.remove('no-js')"
         />
-        {/* CssGuard — detects CSS <link> load failures and shows a fallback.
-            Purely event-driven (no setTimeout): error capture + window.load audit. */}
-        <CssGuard />
-        {/* BrowserGuard — detects outdated browsers missing critical CSS/JS
-            features and shows an upgrade reminder. */}
-        <BrowserGuard />
+        {/* css-guard + domain-guard 仍内联在每页 <head> 执行, 但不经 React 树:
+            postbuild 将 /guard-inline.js 内容插入导出 html (scripts/prune-export.mjs),
+            避免代码字符串随 RSC flight 在每页载荷中重复序列化 3 份。
+            注意: next dev 下这两个守卫不生效 (仅构建产物有)。 */}
+        {/* 外置守卫 /guards.js: BrowserGuard (旧浏览器检测) + debug bootstrap。
+            此前内联导致每页 <head> 与 RSC flight 双份携带约 16KB;
+            外置后每访客缓存一次, ?v= 随部署失效。async 不阻塞解析。 */}
+        <script
+          id="cep-guards"
+          src={`/guards.js?v=${versionData.commit}`}
+          async
+          suppressHydrationWarning
+        />
+        {/* ops bootstrap /api/v1/bootstrap.js: 下发紧急公告 (+ 特定域名的自定义守卫)。
+            必须写成 OPS_SERVICE_ORIGIN 绝对地址 —— 恶意镜像站照搬静态产物时,
+            这个请求依然打到我们自己的运营服务上。async 不阻塞解析;
+            脚本执行后设置 window.__cepBootstrap 并派发 cep:bootstrap 事件,
+            由 EmergencyNoticeBanner 消费 (两条路径都兼容脚本先到/后到)。
+            后续刷新不重复执行本脚本 (自定义守卫会重复触发副作用), 改由
+            src/lib/notice-store.ts 轮询纯数据端点 /api/v1/notice.json。 */}
+        <script
+          id="cep-bootstrap"
+          src={`${OPS_SERVICE_ORIGIN}/api/v1/bootstrap.js`}
+          async
+          suppressHydrationWarning
+        />
         {/* LocaleGuardHead — synchronously redirects to explicit language
             preference before any page content renders, avoiding wrong-locale flash. */}
         <LocaleGuardHead />
-        {/* DomainGuard — injected into <head> so React hydration never sees the
-            <script> tag. Runs synchronously before any React code loads. */}
-        <DomainGuard />
         {/* Preload + execute the debug panel early, so the [DEBUG] button works
             without network delay. Uses afterInteractive so it doesn't block hydration. */}
         <Script src="/debug-panel.js" strategy="afterInteractive" />
@@ -106,7 +115,6 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-full flex flex-col" suppressHydrationWarning>
-        {FEATURES.ads && <AdworkTelemetry />}
         <TooltipProvider>{children}</TooltipProvider>
       </body>
     </html>

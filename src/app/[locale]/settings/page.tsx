@@ -1,8 +1,8 @@
 'use client'
 
-import { useState, useCallback } from 'react'
+import { useState } from 'react'
 import { useLocale, useTranslations } from 'next-intl'
-import { detectBrowserLocale, buildLocaleHref } from '@/lib/locale-utils'
+import { LANGUAGE_NATIVE_LABELS, useLanguageSwitch } from '@/hooks/use-language-switch'
 import { NavLink } from '@/components/shared/nav-link'
 import { Button, buttonVariants } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
@@ -15,6 +15,7 @@ import { DataCleaner } from '@/components/shared/data-cleaner'
 import { DataExporter } from '@/components/shared/data-exporter'
 import { DataImporter } from '@/components/shared/data-importer'
 import { openDebugConsole } from '@/components/shared/debug-console'
+import { isValidBackgroundUrl } from '@/lib/background-url'
 import {
   Select,
   SelectContent,
@@ -35,8 +36,7 @@ export default function SettingsPage() {
   const t = useTranslations()
 
   const locale = useLocale()
-  const language = useSettingsStore((s) => s.language)
-  const setLanguage = useSettingsStore((s) => s.setLanguage)
+  const { language, switchLanguage } = useLanguageSwitch()
   const {
     backgroundEnabled,
     backgroundBlur,
@@ -49,13 +49,18 @@ export default function SettingsPage() {
   } = useSettingsStore()
 
   const [apiUrl, setApiUrl] = useState('')
+  const [apiUrlInvalid, setApiUrlInvalid] = useState(false)
   const [showFlashbangWarning, setShowFlashbangWarning] = useState(false)
 
   const handleApiApply = () => {
-    if (apiUrl.trim()) {
-      setBackgroundUrl(apiUrl.trim())
-      setApiUrl('')
+    // The value is fed to <Image src>; reject anything but absolute http(s) URLs.
+    if (!isValidBackgroundUrl(apiUrl)) {
+      setApiUrlInvalid(true)
+      return
     }
+    setBackgroundUrl(apiUrl.trim())
+    setApiUrl('')
+    setApiUrlInvalid(false)
   }
 
   const handleThemeChange = (newTheme: string | null) => {
@@ -81,28 +86,8 @@ export default function SettingsPage() {
 
   const LANGUAGE_LABELS: Record<string, string> = {
     auto: t('settings.languageAuto'),
-    'zh-CN': t('settings.languageZhCN'),
-    'zh-TW': t('settings.languageZhTW'),
-    ja: t('settings.languageJa'),
-    en: t('settings.languageEn'),
+    ...LANGUAGE_NATIVE_LABELS,
   }
-
-  const handleLanguageChange = useCallback((value: string | null) => {
-    if (!value) return
-    if (value === 'auto') {
-      setLanguage('auto')
-      const detected = detectBrowserLocale()
-      if (detected !== locale) {
-        window.location.href = buildLocaleHref(detected)
-      }
-      return
-    }
-    const next = value as 'zh-CN' | 'zh-TW' | 'ja' | 'en'
-    setLanguage(next)
-    if (next !== locale) {
-      window.location.href = buildLocaleHref(next)
-    }
-  }, [locale, setLanguage])
 
   return (
     <div className="flex flex-col flex-1 min-h-0 overflow-hidden">
@@ -142,7 +127,7 @@ export default function SettingsPage() {
           <h2 className="text-sm font-medium text-muted-foreground">{t('settings.language')}</h2>
           <div className="flex items-center justify-between py-2">
             <Label className="text-sm">{t('settings.languageMode')}</Label>
-            <Select value={language} onValueChange={handleLanguageChange}>
+            <Select value={language} onValueChange={switchLanguage}>
               <SelectTrigger className="w-48">
                 <SelectValue>
                   {(v: string) => LANGUAGE_LABELS[v] ?? v}
@@ -175,9 +160,24 @@ export default function SettingsPage() {
             <div className="flex flex-col gap-2 py-2">
               <Label className="text-sm">{t('settings.apiUrl')}</Label>
               <div className="flex gap-2">
-                <Input value={apiUrl} onChange={(e) => setApiUrl(e.target.value)} placeholder="https://..." className="text-sm h-9" />
+                <Input
+                  value={apiUrl}
+                  onChange={(e) => {
+                    setApiUrl(e.target.value)
+                    setApiUrlInvalid(false)
+                  }}
+                  placeholder="https://..."
+                  aria-invalid={apiUrlInvalid}
+                  aria-describedby={apiUrlInvalid ? 'settings-api-url-error' : undefined}
+                  className="text-sm h-9"
+                />
                 <Button size="sm" variant="outline" onClick={handleApiApply} className="text-sm h-9">{t('settings.apply')}</Button>
               </div>
+              {apiUrlInvalid && (
+                <span id="settings-api-url-error" role="alert" className="text-xs text-destructive">
+                  {t('settings.apiUrlInvalid')}
+                </span>
+              )}
             </div>
             {/* TODO: Re-enable when blob URL + IndexedDB storage is implemented.
                 Currently blob URLs leak memory and are not persisted across sessions.
@@ -262,16 +262,14 @@ export default function SettingsPage() {
 
         {/* 调试控制台入口 */}
         <section className="flex flex-col gap-4">
-          <h2 className="text-sm font-medium text-muted-foreground">Debug</h2>
+          <h2 className="text-sm font-medium text-muted-foreground">{t('settings.debug')}</h2>
           <div className="flex items-center justify-between py-2">
             <div className="flex flex-col gap-1">
-              <span className="text-sm">Debug Console</span>
-              <span className="text-xs text-muted-foreground">
-                View captured console logs, errors, and environment info.
-              </span>
+              <Label className="text-sm">{t('settings.debugConsole')}</Label>
+              <span className="text-xs text-muted-foreground">{t('settings.debugConsoleDesc')}</span>
             </div>
             <Button variant="outline" size="sm" onClick={() => openDebugConsole()}>
-              Open
+              {t('settings.debugConsoleOpen')}
             </Button>
           </div>
         </section>

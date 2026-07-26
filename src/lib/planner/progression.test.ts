@@ -8,7 +8,13 @@ import {
   migrateLegacySkillLevelOrder,
   normalizeGrowthConfig,
 } from './progression'
+import { loadPlannerData } from './planner-data-loader'
 import type { PanelPreviewConfig } from '@/types/planner'
+
+// Progression reads planner data from the loader cache; prime it up front the
+// same way the gated pages do.
+await loadPlannerData()
+
 const characterId = Object.keys(plannerGameData.characters)[0]
 const weaponId = Object.keys(plannerGameData.weapons)[0]
 
@@ -19,23 +25,26 @@ function emptyEquipment() {
 
 
 describe('planner generated data', () => {
-  it('preserves int64 text IDs when resolving resource and dungeon names', () => {
-    const resourceIds = ['item_expcard_stage1_high', 'item_expcard_stage2_high', 'item_weapon_expcard_high', 'item_gold']
-    const names = [
-      ...resourceIds.map((id) => plannerGameData.materials[id]?.name['zh-CN']),
-      ...plannerGameData.dungeons.map((dungeon) => dungeon.name['zh-CN']),
-    ]
-
-    expect(names.every((name) => name !== undefined && !/^-?\d+$/.test(name))).toBe(true)
-  })
-
   it('includes EXP conversion values and parent stage metadata', () => {
     expect(plannerGameData.materials.item_expcard_stage1_high?.expValue).toBe(10_000)
     expect(plannerGameData.materials.item_expcard_stage2_high?.expValue).toBe(10_000)
 
     const goldStage = plannerGameData.dungeons.find((dungeon) => dungeon.seriesId === 'dung01_group_gold01')
-    expect(goldStage?.seriesName['zh-CN']).toBe('协议空间·钱币收集')
-    expect(goldStage?.name['zh-CN']).toBe('金币之祝')
+    expect(goldStage?.id).toBe('dung01_gold05')
+    expect(goldStage?.stamina).toBeGreaterThan(0)
+  })
+
+  it('stays slim: no localized name payloads, zh-CN-only weapon skill descriptions', () => {
+    // Display names come from the game-i18n catalogs, not planner data.
+    const material = Object.values(plannerGameData.materials)[0] as unknown as Record<string, unknown>
+    expect(material.name).toBeUndefined()
+    const dungeon = plannerGameData.dungeons[0] as unknown as Record<string, unknown>
+    expect(dungeon.name).toBeUndefined()
+    expect(dungeon.seriesName).toBeUndefined()
+
+    const weapon = Object.values(plannerGameData.weapons).find((entry) => entry.skills.some((skill) => skill.levels.length > 0))
+    const level = weapon?.skills[0]?.levels[0]
+    expect(typeof level?.description).toBe('string')
   })
 })
 

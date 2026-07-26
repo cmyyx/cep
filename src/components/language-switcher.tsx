@@ -1,10 +1,7 @@
 'use client'
 
-import { useCallback } from 'react'
-import { useLocale } from 'next-intl'
 import { Languages, Check } from 'lucide-react'
 import { SidebarMenuButton, useSidebar } from '@/components/ui/sidebar'
-import { useSettingsStore } from '@/stores/useSettingsStore'
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -12,45 +9,20 @@ import {
   DropdownMenuItem,
   DropdownMenuSeparator,
 } from '@/components/ui/dropdown-menu'
-import { detectBrowserLocale, buildLocaleHref } from '@/lib/locale-utils'
-
-const LOCALES = ['zh-CN', 'zh-TW', 'ja', 'en'] as const
-
-const LOCALE_LABELS: Record<string, string> = {
-  'zh-CN': '简体中文',
-  'zh-TW': '繁體中文',
-  ja: '日本語',
-  en: 'English',
-}
+import { detectBrowserLocale } from '@/lib/locale-utils'
+import {
+  LANGUAGE_OPTIONS,
+  LANGUAGE_NATIVE_LABELS,
+  getLanguageNativeLabel,
+  useLanguageSwitch,
+} from '@/hooks/use-language-switch'
 
 export function LanguageSwitcher() {
-  const urlLocale = useLocale()
-  const language = useSettingsStore((s) => s.language)
-  const setLanguage = useSettingsStore((s) => s.setLanguage)
-
-  const handleSwitch = useCallback(
-    (value: string) => {
-      if (value === 'auto') {
-        setLanguage('auto')
-        const detected = detectBrowserLocale()
-        if (detected !== urlLocale) {
-          window.location.href = buildLocaleHref(detected)
-        }
-      } else {
-        const lang = value as 'zh-CN' | 'zh-TW' | 'ja' | 'en'
-        setLanguage(lang)
-        if (lang !== urlLocale) {
-          window.location.href = buildLocaleHref(lang)
-        }
-      }
-    },
-    [urlLocale, setLanguage],
-  )
-
+  const { urlLocale, language, switchLanguage } = useLanguageSwitch()
   const { isMobile } = useSidebar()
 
   const detectedLocale = detectBrowserLocale()
-  const sidebarLabel = LOCALE_LABELS[urlLocale] ?? urlLocale
+  const sidebarLabel = getLanguageNativeLabel(urlLocale)
   const sidebarTooltip =
     language === 'auto'
       ? sidebarLabel + ' AUTO'
@@ -70,19 +42,19 @@ export function LanguageSwitcher() {
       >
         {/* AUTO option — follow browser */}
         <DropdownMenuItem
-          onClick={() => handleSwitch('auto')}
+          onClick={() => switchLanguage('auto')}
           className="flex items-center justify-between"
         >
-          <span>{LOCALE_LABELS[detectedLocale] + ' AUTO'}</span>
+          <span>{LANGUAGE_NATIVE_LABELS[detectedLocale] + ' AUTO'}</span>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
-        {LOCALES.map((loc) => (
+        {LANGUAGE_OPTIONS.map((loc) => (
           <DropdownMenuItem
             key={loc}
-            onClick={() => handleSwitch(loc)}
+            onClick={() => switchLanguage(loc)}
             className="flex items-center justify-between"
           >
-            <span>{LOCALE_LABELS[loc]}</span>
+            <span>{LANGUAGE_NATIVE_LABELS[loc]}</span>
             {loc === urlLocale && (
               <Check className="size-3.5 text-muted-foreground" />
             )}

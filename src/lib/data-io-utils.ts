@@ -17,6 +17,10 @@ export function getIoModules(t: ReturnType<typeof useTranslations>): IoModule[] 
     { id: 'essence-settings', key: 'essence-settings', label: t('dataCleaner.modules.essence-settings.label') },
     { id: 'matrix-session', key: 'matrix-session', label: t('dataCleaner.modules.matrix-session.label') },
     { id: 'refinement-session', key: 'refinement-session', label: t('dataCleaner.modules.refinement-session.label') },
+    // Growth planner / panel preview persist under camelCase names
+    // (see useGrowthPlannerStore.ts / usePanelPreviewStore.ts).
+    { id: 'growth-planner', key: 'growthPlanner', label: t('nav.growthPlanner') },
+    { id: 'panel-preview', key: 'panelPreview', label: t('nav.panelPreview') },
     { id: 'cep-settings', key: 'cep-settings', label: t('dataCleaner.modules.cep-settings.label') },
     { id: 'editor-drafts', key: 'cep-editor-drafts', label: t('dataCleaner.modules.editor-drafts.label') },
     { id: 'announcement-read', key: 'cep-announcement-read-ids', label: t('dataCleaner.modules.announcement-read.label') },
@@ -53,6 +57,20 @@ export function countItems(moduleId: string, data: unknown): number {
       const equip = d.selectedEquipId ? 1 : 0
       const sets = Object.keys((d.collapsedSets as object) ?? {}).length
       return equip + sets
+    }
+    case 'growth-planner': {
+      const d = data as Record<string, unknown>
+      const configs = Array.isArray(d.configs) ? d.configs.length : 0
+      // removedConfigs is a restorable cache (re-adding an entity revives its config),
+      // so it counts as real content worth exporting.
+      const removed = Array.isArray(d.removedConfigs) ? d.removedConfigs.length : 0
+      return configs + removed
+    }
+    case 'panel-preview': {
+      const d = data as Record<string, unknown>
+      const config = d.config
+      if (!config || typeof config !== 'object') return 0
+      return typeof (config as Record<string, unknown>).characterId === 'string' ? 1 : 0
     }
     case 'cep-settings': {
       const d = data as Record<string, unknown>
@@ -96,9 +114,28 @@ export const MAX_ITEMS_PER_MODULE: Record<string, number> = {
   'essence-settings': 10000,
   'matrix-session': 5000,
   'refinement-session': 500,
+  'growth-planner': 500,
+  'panel-preview': 5,
   'cep-settings': 100,
   'editor-drafts': 500,
   'announcement-read': 500,
+}
+
+/**
+ * Read markers have been persisted in several shapes over time:
+ * `{ readIds: [...] }` (current), `{ ids: [...] }` and a bare array (legacy exports).
+ * Mirrors what `countItems('announcement-read', …)` accepts.
+ */
+export function extractReadIds(data: unknown): string[] {
+  let source: unknown[] = []
+  if (Array.isArray(data)) {
+    source = data
+  } else if (data !== null && typeof data === 'object') {
+    const d = data as Record<string, unknown>
+    if (Array.isArray(d.readIds)) source = d.readIds
+    else if (Array.isArray(d.ids)) source = d.ids
+  }
+  return source.filter((v): v is string => typeof v === 'string')
 }
 
 /**

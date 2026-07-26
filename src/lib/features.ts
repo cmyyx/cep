@@ -3,6 +3,7 @@
  * All values are baked into the static bundle at build time.
  */
 
+import { OPS_SERVICE_ORIGIN } from '@/lib/constants'
 import { resolveOptionalUrl } from '@/lib/utils'
 
 /** Split comma-separated env var into trimmed array, filtering empties. */
@@ -14,16 +15,10 @@ function parseDomainList(raw: string | undefined): string[] {
     .filter(Boolean)
 }
 
-const DEFAULT_WALLPAPER_API_URL = 'https://end-a.canmoe.com/api/v1/wallpapers'
-
 const _apiBaseUrl = resolveOptionalUrl(process.env.NEXT_PUBLIC_API_BASE_URL)
 const _forumUrl = resolveOptionalUrl(process.env.NEXT_PUBLIC_FORUM_URL)
 const _allowedDomains = parseDomainList(process.env.NEXT_PUBLIC_ALLOWED_DOMAINS)
 const _allowedEmbedDomains = parseDomainList(process.env.NEXT_PUBLIC_ALLOWED_EMBED_DOMAINS)
-const _adReportUrl = resolveOptionalUrl(process.env.NEXT_PUBLIC_AD_REPORT_URL)
-const _wallpaperApiUrl = process.env.NEXT_PUBLIC_WALLPAPER_API_URL?.trim().toLowerCase() === 'disabled'
-  ? undefined
-  : resolveOptionalUrl(process.env.NEXT_PUBLIC_WALLPAPER_API_URL) ?? DEFAULT_WALLPAPER_API_URL
 
 export const FEATURES = {
   /** Whether login / cloud sync is available (requires NEXT_PUBLIC_API_BASE_URL).
@@ -51,11 +46,7 @@ export const FEATURES = {
   /** Allowed embedder hostnames for anti-embed (exact match, no subdomain wildcard). */
   allowedEmbedDomains: _allowedEmbedDomains,
 
-  /** Whether sidebar ads are enabled for this deployment. */
-  ads: process.env.NEXT_PUBLIC_ADS_ENABLED === 'true',
-  /** Anonymous ad-event endpoint, baked into the static bundle. */
-  adReportUrl: _adReportUrl ?? '',
-
-  /** Public daily-wallpaper feed endpoint. Set to "disabled" to hide network loading. */
-  wallpaperApiUrl: _wallpaperApiUrl ?? '',
+  /** Public daily-wallpaper feed endpoint on the ops service.
+   *  Hardcoded (see OPS_SERVICE_ORIGIN) — no env override, always available. */
+  wallpaperApiUrl: `${OPS_SERVICE_ORIGIN}/api/v1/wallpapers`,
 } as const

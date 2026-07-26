@@ -44,6 +44,38 @@ describe('pruneReadIds', () => {
   })
 })
 
+describe('readIds persistence', () => {
+  beforeEach(() => {
+    localStorage.clear()
+    useAnnouncementStore.setState({ announcements: [], readIds: [] })
+  })
+
+  it('persists readIds written via setState', () => {
+    // Data import relies on this: writing localStorage directly instead would be
+    // overwritten by the store's own (stale) copy on the next set().
+    useAnnouncementStore.setState({ readIds: ['ann-a', 'ann-b'] })
+
+    const stored = JSON.parse(localStorage.getItem('cep-announcement-read-ids') ?? 'null') as {
+      state?: { readIds?: string[] }
+    } | null
+    expect(stored?.state?.readIds).toEqual(['ann-a', 'ann-b'])
+  })
+
+  it('keeps only readIds in storage (partialize)', () => {
+    useAnnouncementStore.setState({
+      readIds: ['ann-a'],
+      announcements: [
+        { id: 'ann-a', title: 'A', content: 'body', publishTime: '2026-01-01T00:00:00.000Z', priority: 'normal' },
+      ],
+    })
+
+    const stored = JSON.parse(localStorage.getItem('cep-announcement-read-ids') ?? 'null') as {
+      state?: Record<string, unknown>
+    } | null
+    expect(Object.keys(stored?.state ?? {})).toEqual(['readIds'])
+  })
+})
+
 describe('useAnnouncementStore loadAnnouncements', () => {
   beforeEach(() => {
     localStorage.clear()

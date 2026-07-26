@@ -1,8 +1,10 @@
 // @vitest-environment jsdom
 
-import { fireEvent, render, screen } from '@testing-library/react'
-import { expect, it, vi } from 'vitest'
+import { cleanup, fireEvent, render, screen } from '@testing-library/react'
+import { afterEach, expect, it, vi } from 'vitest'
 import { EquipmentSuitPicker } from './equipment-suit-picker'
+
+afterEach(cleanup)
 
 vi.mock('next-intl', () => ({
   useLocale: () => 'zh-CN',
@@ -68,6 +70,16 @@ vi.mock('@/components/ui/tooltip', () => ({
   TooltipContent: ({ children }: { children: React.ReactNode }) => <div>{children}</div>,
   TOOLTIP_OPEN_DELAY_MS: 400,
 }))
+
+it('labels the search box and filters the suit groups', () => {
+  render(<EquipmentSuitPicker partTypeId="0" selectedId={null} onSelect={() => undefined} />)
+  const search = screen.getByRole('textbox', { name: 'wiki.searchPlaceholder' })
+  expect(search.getAttribute('placeholder')).toBe('wiki.searchPlaceholder')
+
+  expect(screen.getByRole('button', { name: /独立装备/ })).toBeTruthy()
+  fireEvent.change(search, { target: { value: '不存在的装备' } })
+  expect(screen.queryByRole('button', { name: /独立装备/ })).toBeNull()
+})
 
 it('uses localized equipment stat labels in selection tooltips', () => {
   render(<EquipmentSuitPicker partTypeId="0" selectedId="equipment-test" onSelect={() => undefined} />)

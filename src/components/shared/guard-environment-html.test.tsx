@@ -1,17 +1,12 @@
-// @vitest-environment jsdom
-
-import { cleanup, render } from '@testing-library/react'
-import { afterEach, expect, it } from 'vitest'
+import { expect, it } from 'vitest'
 import { parseBrowserInfo } from '@/lib/browser-info'
-import { BrowserGuard } from './browser-guard'
-import { CssGuard } from './css-guard'
+import { BROWSER_GUARD_CODE } from './browser-guard'
+import { CSS_GUARD_CODE } from './css-guard'
 import {
   GUARD_ENVIRONMENT_HTML_CODE,
   GUARD_ENVIRONMENT_LABELS,
   GUARD_ENVIRONMENT_VALUES,
 } from './guard-layout'
-
-afterEach(cleanup)
 
 it('inlines escaped browser and localized site version details for early guards', () => {
   const userAgent =
@@ -24,22 +19,24 @@ it('inlines escaped browser and localized site version details for early guards'
   expect(GUARD_ENVIRONMENT_HTML_CODE).toContain(JSON.stringify(GUARD_ENVIRONMENT_LABELS))
   expect(GUARD_ENVIRONMENT_HTML_CODE).toContain('<dl style="display:flex')
   expect(GUARD_ENVIRONMENT_HTML_CODE).toContain("window.location.pathname")
+  expect(GUARD_ENVIRONMENT_HTML_CODE).toContain('document.documentElement.lang')
   expect(GUARD_ENVIRONMENT_HTML_CODE).toContain("replace(/[&<>\"']/g")
+  // Path segment is preferred only when it matches a label key; otherwise lang, then en.
+  expect(GUARD_ENVIRONMENT_HTML_CODE).toMatch(/for\(var k in L\)/)
+  expect(GUARD_ENVIRONMENT_HTML_CODE).toMatch(/if\(!q\)\{for\(var k2 in L\)/)
+  expect(GUARD_ENVIRONMENT_HTML_CODE).toContain("if(!q)q='en'")
 })
 
 it('embeds the shared environment builder into browser and css guard scripts', () => {
-  const browser = render(<BrowserGuard />)
-  const browserCode = browser.container.querySelector('#browser-guard')?.innerHTML ?? ''
-  expect(browserCode).toContain(GUARD_ENVIRONMENT_VALUES.version)
-  expect(browserCode).toContain('navigator.userAgent')
-  expect(browserCode).toContain(GUARD_ENVIRONMENT_LABELS.en.version)
-  expect(browserCode).toContain(GUARD_ENVIRONMENT_LABELS.ja.version)
-  browser.unmount()
+  // BrowserGuard 已外置为 /guards.js (src/app/guards.js/route.ts), 直接校验代码字符串。
+  expect(BROWSER_GUARD_CODE).toContain(GUARD_ENVIRONMENT_VALUES.version)
+  expect(BROWSER_GUARD_CODE).toContain('navigator.userAgent')
+  expect(BROWSER_GUARD_CODE).toContain(GUARD_ENVIRONMENT_LABELS.en.version)
+  expect(BROWSER_GUARD_CODE).toContain(GUARD_ENVIRONMENT_LABELS.ja.version)
 
-  const css = render(<CssGuard />)
-  const cssCode = css.container.querySelector('#css-guard')?.innerHTML ?? ''
-  expect(cssCode).toContain(GUARD_ENVIRONMENT_VALUES.version)
-  expect(cssCode).toContain('navigator.userAgent')
-  expect(cssCode).toContain(GUARD_ENVIRONMENT_LABELS['zh-CN'].version)
-  expect(cssCode).toContain(GUARD_ENVIRONMENT_LABELS['zh-TW'].version)
+  // CSS_GUARD_CODE 经 /guard-inline.js 由 postbuild 注入 html <head>。
+  expect(CSS_GUARD_CODE).toContain(GUARD_ENVIRONMENT_VALUES.version)
+  expect(CSS_GUARD_CODE).toContain('navigator.userAgent')
+  expect(CSS_GUARD_CODE).toContain(GUARD_ENVIRONMENT_LABELS['zh-CN'].version)
+  expect(CSS_GUARD_CODE).toContain(GUARD_ENVIRONMENT_LABELS['zh-TW'].version)
 })

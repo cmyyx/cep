@@ -45,7 +45,7 @@ import { useVersion } from '@/hooks/use-version'
 import { useAnnouncementStore, useImportantUnreadCount } from '@/stores/useAnnouncementStore'
 import { cn, formatTime } from '@/lib/utils'
 import { ForceUpgradeDialog } from './shared/force-upgrade-dialog'
-import { SidebarAd } from '@/components/shared/sidebar-ad'
+import { LanguageSwitcher } from '@/components/language-switcher'
 
 const NAV_ITEMS = [
   { href: '/essence-planner', label: 'nav.essencePlanner', Icon: Disc },
@@ -53,6 +53,9 @@ const NAV_ITEMS = [
   { href: '/growth-planner', label: 'nav.growthPlanner', Icon: ChartNoAxesCombined },
   { href: '/panel-preview', label: 'nav.panelPreview', Icon: PanelsTopLeft },
   { href: '/banner-calendar', label: 'nav.bannerCalendar', Icon: Calendar },
+  ...(FEATURES.forum ? [{ href: '/forum', label: 'nav.forum', Icon: MessageCircle }] : []),
+]
+const TOOL_ITEMS = [
   { href: '/tools/game-i18n', label: 'nav.gameI18nLookup', Icon: Languages },
 ]
 const WIKI_ITEMS = [
@@ -227,7 +230,7 @@ export function AppSidebar() {
                 onClick={() => {
                   if (isMobile) setOpenMobile(false)
                 }}
-                className="bg-preview-pink/7 hover:bg-preview-pink/12 group-data-[collapsible=icon]:bg-transparent! group-data-[collapsible=icon]:p-2! group-data-[collapsible=icon]:shadow-none! group-data-[collapsible=icon]:hover:bg-sidebar-accent!"
+                className="bg-preview-pink/12 hover:bg-preview-pink/16 shadow-[0px_0px_0px_1px_var(--color-preview-pink)] hover:shadow-[0px_0px_0px_1px_var(--color-preview-pink)] group-data-[collapsible=icon]:bg-transparent! group-data-[collapsible=icon]:p-2! group-data-[collapsible=icon]:shadow-none! group-data-[collapsible=icon]:hover:bg-sidebar-accent!"
               >
                 <ImageDown className="size-4" />
                 <span className="min-w-0 flex-1 truncate font-medium group-data-[collapsible=icon]:hidden">{t('nav.backgroundPreview')}</span>
@@ -288,41 +291,31 @@ export function AppSidebar() {
             </SidebarMenu>
           )}
         </SidebarGroup>
-        {FEATURES.forum && (
-          <SidebarGroup>
-            <SidebarMenu>
-              <SidebarMenuItem>
-                <SidebarMenuButton
-                  isActive={pathname.startsWith(`/${locale}/forum`)}
-                  tooltip={t('sidebar.communityDesc')}
-                  render={<NavLink href={`/${locale}/forum`} loadingLabel={t('nav.forum')} />}
-                  onClick={() => {
-                    if (isMobile) setOpenMobile(false)
-                  }}
-                >
-                  <MessageCircle />
-                  <div className="flex min-w-0 flex-col">
-                    <span className="truncate">{t('nav.forum')}</span>
-                    <span className="truncate text-[10px] text-muted-foreground">
-                      {t('sidebar.communityDesc')}
-                    </span>
-                  </div>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
-            </SidebarMenu>
-          </SidebarGroup>
-        )}
-        {FEATURES.ads && (
-          <div
-            className={cn(
-              'mt-auto shrink-0 px-2 pb-2 pt-1',
-              // Keep the ad node mounted so adwork does not need a rescan.
-              !isMobile && state === 'collapsed' && 'hidden',
-            )}
-          >
-            <SidebarAd />
-          </div>
-        )}
+        {/* Tools */}
+        <SidebarGroup>
+          <SidebarGroupLabel className="group-data-[collapsible=icon]:pointer-events-none">More Tools</SidebarGroupLabel>
+          <SidebarMenu>
+            {TOOL_ITEMS.map(({ href, label, Icon }) => {
+              const fullHref = `/${locale}${href}`
+              const labelText = t(label)
+              return (
+                <SidebarMenuItem key={href}>
+                  <SidebarMenuButton
+                    isActive={pathname.startsWith(fullHref)}
+                    tooltip={labelText}
+                    render={<NavLink href={fullHref} loadingLabel={labelText} />}
+                    onClick={() => {
+                      if (isMobile) setOpenMobile(false)
+                    }}
+                  >
+                    <Icon />
+                    <span>{labelText}</span>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              )
+            })}
+          </SidebarMenu>
+        </SidebarGroup>
       </SidebarContent>
       <SidebarFooter>
         <SidebarMenu>
@@ -357,6 +350,9 @@ export function AppSidebar() {
               )}
             </SidebarMenuItem>
           )}
+          <SidebarMenuItem>
+            <LanguageSwitcher />
+          </SidebarMenuItem>
           <SidebarMenuItem>
             <SidebarMenuButton
               render={<NavLink href={`/${locale}/update`} loadingLabel={t('nav.update')} />}

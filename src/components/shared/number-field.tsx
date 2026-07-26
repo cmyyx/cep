@@ -19,7 +19,10 @@ export function NumberField({ value, minimum, maximum, ariaLabel, onValueChange,
   const commitDraft = () => {
     const numeric = Number(draft)
     if (draft !== null && draft !== '' && Number.isFinite(numeric)) {
-      onValueChange(Math.min(maximum, Math.max(minimum, numeric)))
+      // Round before clamping: every consumer indexes level tables by exact
+      // equality (progression.ts `levels.find(e => e.level === config.level)`),
+      // so a fractional draft like "59.5" would silently fall back to max level.
+      onValueChange(Math.min(maximum, Math.max(minimum, Math.round(numeric))))
     }
     setDraft(null)
   }

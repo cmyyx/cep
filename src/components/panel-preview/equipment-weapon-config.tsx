@@ -4,8 +4,7 @@ import { useState } from 'react'
 import { Plus, X } from 'lucide-react'
 import { useLocale, useTranslations } from 'next-intl'
 import { wikiEquipment } from '@/generated/data/wiki/equipment'
-import { wikiWeapons } from '@/generated/data/wiki/weapons'
-import { plannerGameData } from '@/generated/data/planner'
+import { getPlannerGameData, getWikiWeaponSummaries } from '@/lib/planner/planner-data-loader'
 import { weapons } from '@/data/weapons'
 import { Button } from '@/components/ui/button'
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from '@/components/ui/dialog'
@@ -38,6 +37,9 @@ export function EquipmentWeaponConfig() {
   const updateConfig = usePanelPreviewStore((state) => state.updateConfig)
   if (!config) return null
 
+  // Rendered behind the page's usePlannerData() gate, so the cache is populated.
+  const plannerGameData = getPlannerGameData()
+  const wikiWeapons = getWikiWeaponSummaries()
   const equipmentLabels: Record<EquipmentField, string> = { armor: t('armor'), gloves: t('gloves'), accessoryOne: t('accessoryOne'), accessoryTwo: t('accessoryTwo') }
   const partTypeByField: Record<EquipmentField, string> = { armor: '0', gloves: '1', accessoryOne: '2', accessoryTwo: '2' }
   const weapon = config.weaponId ? plannerGameData.weapons[config.weaponId] : undefined

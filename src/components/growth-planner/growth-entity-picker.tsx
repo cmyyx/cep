@@ -3,8 +3,7 @@
 import { useState } from 'react'
 import { useTranslations } from 'next-intl'
 import { UserRound, Zap } from 'lucide-react'
-import { wikiCharacters } from '@/generated/data/wiki/characters'
-import { wikiWeapons } from '@/generated/data/wiki/weapons'
+import { getWikiCharacterSummaries, getWikiWeaponSummaries } from '@/lib/planner/planner-data-loader'
 import { Button } from '@/components/ui/button'
 import { WikiEntityPicker } from '@/components/shared/wiki-entity-picker'
 import { useGrowthPlannerStore } from '@/stores/useGrowthPlannerStore'
@@ -18,6 +17,9 @@ interface GrowthEntityPickerProps {
 
 export function GrowthEntityPicker({ onEntityAdded }: GrowthEntityPickerProps) {
   const t = useTranslations('growthPlanner')
+  // Rendered behind the page's usePlannerData() gate, so the cache is populated.
+  const wikiCharacters = getWikiCharacterSummaries()
+  const wikiWeapons = getWikiWeaponSummaries()
   const [activeKind, setActiveKind] = useState<PickerKind>('characters')
   const configs = useGrowthPlannerStore((state) => state.configs)
   const addEntity = useGrowthPlannerStore((state) => state.addEntity)

@@ -29,33 +29,44 @@ jobs:
         with:
           fetch-depth: 0
 
+      # 所有 ${{ }} 值经 env 传入, 不直接插到 run 脚本里 (避免 tag/输入内容被当 shell 执行)
       - name: Validate version format
         if: github.event_name == 'workflow_dispatch'
+        env:
+          INPUT_VERSION: ${{ inputs.version }}
         run: |
-          VERSION="${{ inputs.version }}"
-          if ! echo "$VERSION" | grep -qE '^v[0-9]+\.[0-9]+\.[0-9]+$'; then
-            echo "Invalid version format: $VERSION (expected vX.Y.Z)"
+          if ! printf '%s' "$INPUT_VERSION" | grep -qE '^v[0-9]+\.[0-9]+\.[0-9]+$'; then
+            echo "Invalid version format: $INPUT_VERSION (expected vX.Y.Z)"
             exit 1
           fi
 
       - name: Prepare deploy tag and force marker
         id: tag-prep
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          REF_NAME: ${{ github.ref_name }}
+          INPUT_VERSION: ${{ inputs.version }}
+          INPUT_FORCE: ${{ inputs.force }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-          if [ "${{ github.event_name }}" = "push" ]; then
-            TAG_NAME="${{ github.ref_name }}"
-            if echo "$TAG_NAME" | grep -q '\-force$'; then
+          if [ "$EVENT_NAME" = "push" ]; then
+            TAG_NAME="$REF_NAME"
+            if ! printf '%s' "$TAG_NAME" | grep -qE '^v[0-9]+\.[0-9]+\.[0-9]+(-force)?$'; then
+              echo "Refusing to deploy unexpected tag: $TAG_NAME"
+              exit 1
+            fi
+            if printf '%s' "$TAG_NAME" | grep -q '\-force$'; then
               IS_FORCE=true
-              CLEAN_TAG=$(echo "$TAG_NAME" | sed 's/-force$//')
+              CLEAN_TAG=$(printf '%s' "$TAG_NAME" | sed 's/-force$//')
             else
               IS_FORCE=false
               CLEAN_TAG="$TAG_NAME"
             fi
           else
-            CLEAN_TAG="${{ inputs.version }}"
-            IS_FORCE="${{ inputs.force }}"
+            CLEAN_TAG="$INPUT_VERSION"
+            IS_FORCE="$INPUT_FORCE"
             git tag -a "$CLEAN_TAG" -m "$CLEAN_TAG"
             git push origin "$CLEAN_TAG"
           fi
@@ -105,15 +116,15 @@ jobs:
           NEXT_PUBLIC_ALLOWED_DOMAINS: ${{ vars.ALLOWED_DOMAINS }}
           NEXT_PUBLIC_ALLOWED_EMBED_DOMAINS: ${{ vars.ALLOWED_EMBED_DOMAINS }}
           NEXT_PUBLIC_FORUM_URL: ${{ vars.FORUM_URL }}
-          NEXT_PUBLIC_ADS_ENABLED: ${{ matrix.target == 'cn' && vars.ADS_ENABLED || '' }}
-          NEXT_PUBLIC_AD_REPORT_URL: ${{ matrix.target == 'cn' && vars.AD_REPORT_URL || '' }}
-          NEXT_PUBLIC_WALLPAPER_API_URL: ${{ vars.WALLPAPER_API_URL }}
           # ── 仅 intl 版本 ──
           NEXT_PUBLIC_API_BASE_URL: ${{ matrix.target == 'intl' && vars.API_BASE_URL || '' }}
           NEXT_PUBLIC_TURNSTILE_SITE_KEY: ${{ matrix.target == 'intl' && secrets.TURNSTILE_SITE_KEY || '' }}
           NEXT_PUBLIC_OAUTH_CLIENT_NAMES: ${{ matrix.target == 'intl' && vars.OAUTH_CLIENT_NAMES || '' }}
 
       - name: Deploy to deploy branch
+        env:
+          DEPLOY_LABEL: ${{ github.ref_name || inputs.version }}
+          TARGET: ${{ matrix.target }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
@@ -125,9 +136,10 @@ jobs:
           # 站点根放到 public/，配合托管平台 Root directory=public
           mkdir -p public
           cp -r $RUNNER_TEMP/out/* public/
-          # wrangler.jsonc 需在 deploy 分支根（与 public/ 同级），CF Workers 从该目录部署
-          cp public/wrangler.jsonc ./wrangler.jsonc
+          # wrangler.jsonc 需在 deploy 分支根（与 public/ 同级），CF Workers 从该目录部署；
+          # 移出站点根，避免部署配置随站点公开可读
+          mv public/wrangler.jsonc ./wrangler.jsonc
           git add -A
           COMMIT_MSG=$(git log -1 --pretty=%s $GITHUB_SHA)
-          git commit -m "deploy: ${{ github.ref_name || inputs.version }} [${{ matrix.target }}] - $COMMIT_MSG"
-          git push origin deploy-temp:deploy-${{ matrix.target }} --force
+          git commit -m "deploy: ${DEPLOY_LABEL} [${TARGET}] - ${COMMIT_MSG}"
+          git push origin "deploy-temp:deploy-${TARGET}" --force

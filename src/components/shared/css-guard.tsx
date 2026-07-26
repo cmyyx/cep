@@ -1,4 +1,3 @@
-import { HeadScript } from '@/components/shared/head-script'
 import {
   GUARD_ENVIRONMENT_HTML_CODE,
   GUARD_FEEDBACK_HTML,
@@ -40,7 +39,7 @@ const CSS_CONTENT =
   '\u5237\u65B0\u9875\u9762 Refresh'+
   '</button>'
 
-const CSS_GUARD_CODE = `(function(){
+export const CSS_GUARD_CODE = `(function(){
 var F=[],_loadDone=false,_pending=0,_audited=false,_auditQueued=false;
 
 /* Layer 1 — network errors on <link rel="stylesheet"> */
@@ -135,6 +134,7 @@ function show(){
 }
 })()`.replace(/\n\s*/g, '')
 
-export function CssGuard() {
-  return <HeadScript id="css-guard" code={CSS_GUARD_CODE} />
-}
+// 组件形式已移除: css-guard 不再进入 React 树 (避免代码字符串随 RSC flight
+// 在每页 html/txt/_index 段中重复序列化约 3 份), 改由 postbuild 将
+// /guard-inline.js (src/app/guard-inline.js/route.ts) 的内容直接插入每个
+// 导出 html 的 <head>, 内联执行语义不变。见 scripts/prune-export.mjs。

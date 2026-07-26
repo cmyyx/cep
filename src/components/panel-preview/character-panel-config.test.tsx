@@ -3,8 +3,13 @@
 import { cleanup, render, screen } from '@testing-library/react'
 import { afterEach, beforeEach, expect, it, vi } from 'vitest'
 import { plannerGameData } from '@/generated/data/planner'
+import { loadPlannerData } from '@/lib/planner/planner-data-loader'
 import { createDefaultPanelPreviewConfig, usePanelPreviewStore } from '@/stores/usePanelPreviewStore'
 import { CharacterPanelConfig } from './character-panel-config'
+
+// The component reads planner data synchronously from the loader cache; prime
+// it up front the same way the gated pages do.
+await loadPlannerData()
 
 vi.mock('next-intl', () => ({
   useTranslations: () => (key: string) => key,

@@ -15,11 +15,17 @@
   "50": "物理ダメージUP",
   "61": "ブレイク状態の敵へのダメージUP",
   "87": "アーツ強度",
-  "AllSkillDamageIncrease": "全スキルダメージUP",
-  "AllDamageTakenScalar": "全ダメージ軽減",
+  "AbnormalAndBurstIncrease": "アーツ異常と爆発",
   "Sub": "サブ能力",
-  "Main": "メイン能力",
+  "All": "すべての能力値",
+  "AllDamageTakenScalar": "全ダメージ軽減",
+  "AllSkillDamageIncrease": "全スキルダメージUP",
+  "FireAndNaturalDamageIncrease": "灼熱&自然ダメージUP",
   "CrystAndPulseDamageIncrease": "寒冷&電磁ダメージUP",
+  "Main": "メイン能力",
   "SpellDamageIncrease": "アーツダメージUP",
-  "FireAndNaturalDamageIncrease": "灼熱&自然ダメージUP"
+  "FireDamageIncrease": "灼熱ダメージUP",
+  "CrystDamageIncrease": "寒冷ダメージUP",
+  "PulseDamageIncrease": "電磁ダメージUP",
+  "NaturalDamageIncrease": "自然ダメージUP"
 }

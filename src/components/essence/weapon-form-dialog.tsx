@@ -20,6 +20,7 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { weapons as staticWeapons } from '@/data/weapons'
+import { weaponTypeLabel } from './weapon-grid'
 import type { Weapon } from '@/types/matrix'
 import { cn } from '@/lib/utils'
 
@@ -133,11 +134,11 @@ export function WeaponFormDialog({
             <span className="text-[10px] text-muted-foreground">{t('essence.weaponType')}</span>
             <Select value={type} onValueChange={(v) => v && setType(v)}>
               <SelectTrigger className="h-8 text-xs w-full">
-                <SelectValue>{(v: string) => v ?? ''}</SelectValue>
+                <SelectValue>{(v: string) => (v ? weaponTypeLabel(v, t) : '')}</SelectValue>
               </SelectTrigger>
               <SelectContent>
                 {TYPES.map((opt) => (
-                  <SelectItem key={opt} value={opt}>{opt}</SelectItem>
+                  <SelectItem key={opt} value={opt}>{weaponTypeLabel(opt, t)}</SelectItem>
                 ))}
               </SelectContent>
             </Select>

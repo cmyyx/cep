@@ -3,8 +3,7 @@
 import { useState } from 'react'
 import { Plus } from 'lucide-react'
 import { useTranslations } from 'next-intl'
-import { wikiCharacters } from '@/generated/data/wiki/characters'
-import { plannerGameData } from '@/generated/data/planner'
+import { getPlannerGameData, getWikiCharacterSummaries } from '@/lib/planner/planner-data-loader'
 import { Button } from '@/components/ui/button'
 import { Dialog, DialogContent, DialogDescription, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
 import { Label } from '@/components/ui/label'
@@ -28,8 +27,10 @@ export function CharacterPanelConfig() {
   const config = usePanelPreviewStore((state) => state.config)
   const setCharacter = usePanelPreviewStore((state) => state.setCharacter)
   const updateConfig = usePanelPreviewStore((state) => state.updateConfig)
+  // Rendered behind the page's usePlannerData() gate, so the cache is populated.
+  const wikiCharacters = getWikiCharacterSummaries()
   const summary = config ? wikiCharacters.find((entry) => entry.id === config.characterId) : undefined
-  const data = config ? plannerGameData.characters[config.characterId] : undefined
+  const data = config ? getPlannerGameData().characters[config.characterId] : undefined
   const name = summary ? entityName(summary) : t('chooseOperator')
 
   return (

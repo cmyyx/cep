@@ -1,6 +1,9 @@
 import { getTranslations } from 'next-intl/server'
 import type { Metadata } from 'next'
 import { getAlternates } from '@/lib/metadata'
+import { loadRouteShellMessages } from '@/i18n/load-messages'
+import { RouteMessages } from '@/components/shared/route-messages'
+import type { WikiLocale } from '@/types/wiki'
 
 export async function generateMetadata({
   params,
@@ -22,10 +25,14 @@ export async function generateMetadata({
   }
 }
 
-export default function UpdateLayout({
+export default async function UpdateLayout({
   children,
+  params,
 }: {
   children: React.ReactNode
+  params: Promise<{ locale: string }>
 }) {
-  return children
+  const { locale } = await params
+  const messages = loadRouteShellMessages(locale as WikiLocale, 'update')
+  return <RouteMessages messages={messages}>{children}</RouteMessages>
 }

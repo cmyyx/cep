@@ -50,6 +50,7 @@ import wikiDataEn from '@/generated/i18n/wikiData/en.json'
 import wikiDataJa from '@/generated/i18n/wikiData/ja.json'
 import wikiDataZhCN from '@/generated/i18n/wikiData/zh-CN.json'
 import wikiDataZhTW from '@/generated/i18n/wikiData/zh-TW.json'
+import routeShellMessages from './route-shell-messages.json'
 import type { WikiLocale } from '@/types/wiki'
 
 /** Hand-written UI strings only. */
@@ -59,6 +60,20 @@ const shellMessages = {
   ja,
   en,
 } satisfies Record<WikiLocale, object>
+
+type CatalogBag = {
+  characters: object
+  dungeons: object
+  equipStats: object
+  equipTypes: object
+  equips: object
+  gemStats: object
+  materials: object
+  region: object
+  suits: object
+  weapons: object
+  weaponStats: object
+}
 
 /**
  * Short generated name tables used by client planners via useTranslations.
@@ -118,7 +133,7 @@ const plannerCatalogs = {
     weapons: weaponsEn,
     weaponStats: weaponStatsEn,
   },
-} satisfies Record<WikiLocale, object>
+} satisfies Record<WikiLocale, CatalogBag>
 
 const wikiDataCatalogs = {
   'zh-CN': wikiDataZhCN,
@@ -127,14 +142,126 @@ const wikiDataCatalogs = {
   en: wikiDataEn,
 } satisfies Record<WikiLocale, object>
 
+/** Route-scoped catalog slices — only namespaces the route actually needs via useTranslations. */
+export type PlannerCatalogProfile =
+  | 'all'
+  | 'essence'
+  | 'refinement'
+  | 'account'
+
+const PLANNER_CATALOG_KEYS = {
+  all: [
+    'characters',
+    'dungeons',
+    'equipStats',
+    'equipTypes',
+    'equips',
+    'gemStats',
+    'materials',
+    'region',
+    'suits',
+    'weapons',
+    'weaponStats',
+  ],
+  /** Essence planner: weapons + dungeon/gem/stat labels + region filter chips. No equips. */
+  essence: ['weapons', 'dungeons', 'gemStats', 'weaponStats', 'region'],
+  /** Refinement planner: equipment tables only. */
+  refinement: ['equips', 'equipStats', 'equipTypes', 'suits', 'materials'],
+  /** Account sync conflict UI: equip display names + region labels (settings diff). */
+  account: ['equips', 'region'],
+} as const satisfies Record<PlannerCatalogProfile, readonly (keyof CatalogBag)[]>
+
+type MessageRecord = Record<string, unknown>
+
+/** Pick a top-level key subset from one namespace object; missing key = build-time error. */
+function pickMessageKeys(
+  namespace: string,
+  source: MessageRecord,
+  keys: readonly string[],
+): MessageRecord {
+  const out: MessageRecord = {}
+  for (const key of keys) {
+    if (!(key in source)) {
+      throw new Error(`route-shell-messages: key "${namespace}.${key}" 不存在于 messages JSON`)
+    }
+    out[key] = source[key]
+  }
+  return out
+}
+
+function shellNamespace(locale: WikiLocale, namespace: string): MessageRecord {
+  const shell = shellMessages[locale] as Record<string, MessageRecord>
+  const source = shell[namespace]
+  if (!source) {
+    throw new Error(`route-shell-messages: 命名空间 "${namespace}" 不存在于 messages JSON`)
+  }
+  return source
+}
+
 /**
- * Messages for NextIntlClientProvider (client runtime / static HTML payload).
- * Includes UI + short planner catalogs. Does NOT include wikiData.
+ * Global ClientProvider messages: CORE shell only — namespaces/keys consumed by
+ * client components mounted in the root [locale] layout tree on every page
+ * (sidebar, sync notifier, banners, dialogs, watermark...).
+ * Everything else is injected per-route via RouteMessages (see route-shell-messages.json)
+ * so each static page's HTML/RSC payload only carries what its route uses.
  */
-export function loadClientMessages(locale: WikiLocale) {
+export function loadClientMessages(locale: WikiLocale): MessageRecord {
+  const core: MessageRecord = {}
+  for (const namespace of routeShellMessages.coreNamespaces) {
+    core[namespace] = shellNamespace(locale, namespace)
+  }
+  for (const [namespace, keys] of Object.entries(routeShellMessages.corePicks)) {
+    core[namespace] = pickMessageKeys(namespace, shellNamespace(locale, namespace), keys)
+  }
+  return core
+}
+
+export type RouteMessagesKey = keyof typeof routeShellMessages.routes
+
+/**
+ * Route-scoped shell namespaces/subsets for a RouteMessages nested provider.
+ * Full namespaces replace the core's key-level subset wholesale (superset merge).
+ */
+export function loadRouteShellMessages(
+  locale: WikiLocale,
+  route: RouteMessagesKey,
+): MessageRecord {
+  const config = routeShellMessages.routes[route] as {
+    namespaces?: readonly string[]
+    picks?: Record<string, readonly string[]>
+  }
+  const out: MessageRecord = {}
+  for (const namespace of config.namespaces ?? []) {
+    out[namespace] = shellNamespace(locale, namespace)
+  }
+  for (const [namespace, keys] of Object.entries(config.picks ?? {})) {
+    out[namespace] = pickMessageKeys(namespace, shellNamespace(locale, namespace), keys)
+  }
+  return out
+}
+
+/** Planner catalog namespaces for a locale (no UI shell, no wikiData). */
+export function loadPlannerCatalogs(
+  locale: WikiLocale,
+  profile: PlannerCatalogProfile = 'all',
+): Record<string, object> {
+  const bag = plannerCatalogs[locale]
+  const keys = PLANNER_CATALOG_KEYS[profile]
+  const out: Record<string, object> = {}
+  for (const key of keys) {
+    out[key] = bag[key]
+  }
+  return out
+}
+
+/** Shell + planner catalogs — for routes that need t('equips.*') / t('weapons.*') on the client. */
+export function loadPlannerClientMessages(
+  locale: WikiLocale,
+  profile: PlannerCatalogProfile = 'all',
+) {
   return {
     ...shellMessages[locale],
-    ...plannerCatalogs[locale],
+    ...loadPlannerCatalogs(locale, profile),
   }
 }
 
@@ -144,12 +271,7 @@ export function loadClientMessages(locale: WikiLocale) {
  */
 export function loadMessages(locale: WikiLocale) {
   return {
-    ...loadClientMessages(locale),
+    ...loadPlannerClientMessages(locale, 'all'),
     wikiData: wikiDataCatalogs[locale],
   }
-}
-
-/** @deprecated Use loadClientMessages for ClientProvider, loadMessages for server. */
-export function loadShellMessages(locale: WikiLocale) {
-  return shellMessages[locale]
 }

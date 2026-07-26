@@ -17,9 +17,8 @@ import { localizeWikiText, type TextRef, type WikiTextTables } from './wiki-buil
 import { weapons } from '../../src/data/weapons'
 import { equips } from '../../src/data/equips'
 import { collectWikiAssets, type WikiAssets } from './wiki-assets'
-import { buildPlannerGameData, writePlannerGameData } from './generate-planner-data'
+import { buildPlannerGameData, writePlannerGameData, type PlannerI18nData } from './generate-planner-data'
 import { wikiTextKey } from '../../src/lib/wiki-i18n'
-import type { PlannerGameData } from '../../src/types/planner'
 
 interface AttributeShowEntry {
   list?: Array<{ name?: TextRef }>
@@ -75,7 +74,7 @@ export function buildWikiI18nCatalogs(
   items: ItemWikiData,
   enums: WikiEnumLabels,
   glossary: Record<string, WikiRichTextTerm>,
-  planner: PlannerGameData,
+  plannerI18n: PlannerI18nData,
   gameTextTable: Record<string, GameTextEntry>,
   textTables: WikiTextTables
 ): WikiI18nCatalogs {
@@ -151,14 +150,14 @@ export function buildWikiI18nCatalogs(
     add(wikiTextKey('glossary', id, 'name'), term.name)
     add(wikiTextKey('glossary', id, 'description'), term.description)
   }
-  for (const [itemId, material] of Object.entries(planner.materials)) add(wikiTextKey('item', itemId), material.name)
-  for (const dungeon of planner.dungeons) {
+  for (const [itemId, name] of Object.entries(plannerI18n.materialNames)) add(wikiTextKey('item', itemId), name)
+  for (const dungeon of plannerI18n.dungeonNames) {
     add(wikiTextKey('dungeon', dungeon.id), dungeon.name)
     add(wikiTextKey('dungeon', dungeon.seriesId), dungeon.seriesName)
   }
-  for (const [characterId, character] of Object.entries(planner.characters)) {
-    for (const node of [...character.talents, ...character.attributeNodes, ...character.equipmentNodes, ...character.logisticsNodes]) {
-      add(wikiTextKey('character', characterId, 'plannerNode', node.id, 'name'), node.name)
+  for (const [characterId, nodes] of Object.entries(plannerI18n.characterNodeNames)) {
+    for (const [nodeId, name] of Object.entries(nodes)) {
+      add(wikiTextKey('character', characterId, 'plannerNode', nodeId, 'name'), name)
     }
   }
   return catalogs
@@ -418,14 +417,14 @@ export function generateWikiData(
   writeFileSync(glossaryPath, `${JSON.stringify(glossary, null, 2)}\n`, 'utf8')
   const enumOutput = buildEnums(akedataPath, imagedbPath, dataOutputDir, textTables, gameTextTable)
   const planner = buildPlannerGameData(akedataPath, characters, generated)
-  const catalogs = buildWikiI18nCatalogs(characters, generated, enumOutput.enums, glossary, planner, gameTextTable, textTables)
+  const catalogs = buildWikiI18nCatalogs(characters, generated, enumOutput.enums, glossary, planner.i18n, gameTextTable, textTables)
   const files = [
     writeSummaryFile(dataOutputDir, 'weapons', generated.weaponSummaries),
     writeSummaryFile(dataOutputDir, 'equipment', generated.equipmentSummaries),
     ...writeDetailFiles(dataOutputDir, 'weapons', generated.weaponDetails),
     ...writeDetailFiles(dataOutputDir, 'equipment', generated.equipmentDetails),
     writePlannerPreviewFile(dataOutputDir, generated),
-    writePlannerGameData(dataOutputDir, planner),
+    writePlannerGameData(dataOutputDir, planner.data),
     enumOutput.path,
     ...writeWikiI18nFiles(generatedI18nDir, catalogs),
     ...writeEquipmentNameFiles(generatedI18nDir, generated.equipmentSummaries),

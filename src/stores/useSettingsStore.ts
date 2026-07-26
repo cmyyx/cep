@@ -1,4 +1,5 @@
 import { create } from 'zustand'
+import { isValidBackgroundUrl } from '@/lib/background-url'
 
 interface SettingsState {
   backgroundEnabled: boolean
@@ -39,6 +40,24 @@ function loadSettings() {
   return null
 }
 
+/**
+ * Last line of defence for `backgroundUrl` before it reaches `<Image src>`.
+ *
+ * The settings form validates on input, but persisted state predates that check and
+ * `cep-settings` is also written verbatim by the data importer, so an illegal value
+ * (relative path, `javascript:`, `data:`, non-string) can still arrive here. Fall
+ * back to the default background instead of throwing — a bad wallpaper must not take
+ * the whole app down.
+ *
+ * Deliberately read-path only: localStorage keeps whatever it had until the user
+ * changes a setting, so persistence semantics stay untouched.
+ */
+function sanitizeBackgroundUrl(value: unknown): string {
+  if (typeof value !== 'string') return DEFAULT_BG
+  const trimmed = value.trim()
+  return isValidBackgroundUrl(trimmed) ? trimmed : DEFAULT_BG
+}
+
 function saveSettings(state: SettingsState) {
   if (typeof window === 'undefined') return
   try {
@@ -77,7 +96,7 @@ export const useSettingsStore = create<SettingsState>((set) => ({
       set({
         backgroundEnabled: saved.backgroundEnabled ?? DEFAULTS.backgroundEnabled,
         backgroundBlur: saved.backgroundBlur ?? DEFAULTS.backgroundBlur,
-        backgroundUrl: saved.backgroundUrl || DEFAULTS.backgroundUrl,
+        backgroundUrl: sanitizeBackgroundUrl(saved.backgroundUrl),
         theme,
         language,
       })

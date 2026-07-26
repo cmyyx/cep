@@ -2,6 +2,8 @@
 import type { Metadata } from 'next'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { wikiCharacters } from '@/generated/data/wiki/characters'
+import { localizeWikiEntitySummaries } from '@/lib/wiki-summary-locale'
+import { buildWikiEnumCatalog } from '@/lib/wiki-enum-catalog'
 import { SidebarTrigger } from '@/components/ui/sidebar'
 import { WikiEntityGrid } from '@/components/wiki/wiki-entity-grid'
 import { getAlternates } from '@/lib/metadata'
@@ -10,7 +12,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const { locale } = await params
   const t = await getTranslations({ locale })
   return {
-    title: `${t('wiki.categories.characters')} - WIKI`,
+    title: t('wiki.categories.characters'),
     alternates: getAlternates(locale, 'wiki/characters'),
   }
 }
@@ -20,6 +22,10 @@ export default async function WikiCharactersPage({ params }: { params: Promise<{
   const { locale } = await params
   setRequestLocale(locale)
   const t = await getTranslations({ locale })
+  const { labels: enumLabels, order: enumOrder } = buildWikiEnumCatalog(
+    ['elements', 'professions', 'weaponTypes'],
+    (group, id) => t(`wikiData.enum|${group}|${id}`),
+  )
 
   return (
     <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
@@ -31,8 +37,10 @@ export default async function WikiCharactersPage({ params }: { params: Promise<{
       </header>
 
       <WikiEntityGrid
-        entities={wikiCharacters}
+        entities={localizeWikiEntitySummaries(wikiCharacters, locale)}
         imageBasePath="/images/characters"
+        enumLabels={enumLabels}
+        enumOrder={enumOrder}
         filters={[
           { field: 'rarity', labelKey: 'wiki.filter.rarity' },
           { field: 'elementId', labelKey: 'wiki.filter.element', enumGroup: 'elements' },
