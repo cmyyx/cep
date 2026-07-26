@@ -5,24 +5,12 @@ import { useTranslations } from 'next-intl'
 import { usePathname } from 'next/navigation'
 import { SidebarTrigger } from '@/components/ui/sidebar'
 import { Separator } from '@/components/ui/separator'
-import { GreetingSection } from '@/components/home/greeting-section'
+import { GreetingSection, PLACEHOLDER_GREETING, getGreetingKey } from '@/components/home/greeting-section'
 import { RealTimeClock } from '@/components/home/real-time-clock'
 import { OverviewCards } from '@/components/home/overview-cards'
 import { AnnouncementPanel } from '@/components/home/announcement-panel'
 import { StructuredData } from '@/components/shared/structured-data'
 import { useSiteUrl } from '@/hooks/use-site-url'
-
-function getGreetingKey(): string {
-  const hour = new Date().getHours()
-  if (hour >= 0 && hour < 5) return 'home.greetingNight'
-  if (hour >= 5 && hour < 9) return 'home.greetingMorning'
-  if (hour >= 11 && hour < 13) return 'home.greetingNoon'
-  if (hour >= 13 && hour < 18) return 'home.greetingAfternoon'
-  return 'home.greetingEvening'
-}
-
-/** Stable placeholder used during SSR/hydration to avoid mismatch. */
-const PLACEHOLDER_GREETING = 'home.greetingMorning'
 
 export default function HomePage() {
   const t = useTranslations()
@@ -38,7 +26,7 @@ export default function HomePage() {
       const id = setInterval(onStoreChange, 60_000)
       return () => clearInterval(id)
     },
-    () => getGreetingKey(),
+    () => getGreetingKey(new Date().getHours()),
     () => PLACEHOLDER_GREETING,
   )
 

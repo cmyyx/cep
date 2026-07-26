@@ -1,6 +1,9 @@
 import type { Metadata } from 'next'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { getAlternates } from '@/lib/metadata'
+import { loadRouteShellMessages } from '@/i18n/load-messages'
+import { RouteMessages } from '@/components/shared/route-messages'
+import type { WikiLocale } from '@/types/wiki'
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params
@@ -21,5 +24,6 @@ export default async function GameI18nLookupLayout({
 }) {
   const { locale } = await params
   setRequestLocale(locale)
-  return children
+  const messages = loadRouteShellMessages(locale as WikiLocale, 'tools/game-i18n')
+  return <RouteMessages messages={messages}>{children}</RouteMessages>
 }

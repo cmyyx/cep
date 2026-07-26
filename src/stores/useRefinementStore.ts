@@ -1,5 +1,6 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
+import { useTranslations } from 'next-intl'
 import { sanitizeEquipId } from '@/lib/persist-sanitizer'
 import type { Equip, SlotRecommendation } from '@/types/refinement'
 import {
@@ -8,6 +9,44 @@ import {
   setNames,
 } from '@/data/equips'
 import { buildRecommendations } from '@/lib/refinement/solver'
+
+// ─── Persist / search helpers ───────────────────────────────────────────────
+
+/** Drop corrupted persisted values; only boolean flags keyed by slotKey survive. */
+export function sanitizeExpandedRecommendations(value: unknown): Record<string, boolean> {
+  if (!value || typeof value !== 'object' || Array.isArray(value)) return {}
+  return Object.fromEntries(
+    Object.entries(value as Record<string, unknown>).filter(([, expanded]) => typeof expanded === 'boolean'),
+  ) as Record<string, boolean>
+}
+
+/** zh-CN equip type literals → i18n key suffix (mirrors equip-card display labels). */
+export const EQUIP_TYPE_KEYS: Record<string, string> = {
+  '配件': 'edc',
+  '护手': 'hand',
+  '护甲': 'body',
+}
+
+export interface EquipSearchLabels {
+  name?: string
+  type?: string
+  setName?: string
+}
+
+/**
+ * Match the raw zh-CN data AND the localized strings shown on the card, so users on
+ * en/ja/zh-TW can search for the names they actually see.
+ */
+export function matchesEquipQuery(
+  equip: Pick<Equip, 'name' | 'type' | 'setName'>,
+  query: string,
+  localized: EquipSearchLabels = {},
+): boolean {
+  const term = query.trim().toLowerCase()
+  if (!term) return true
+  return [equip.name, equip.type, equip.setName, localized.name, localized.type, localized.setName]
+    .some((value) => typeof value === 'string' && value.toLowerCase().includes(term))
+}
 
 // ─── State ──────────────────────────────────────────────────────────────────
 
@@ -46,6 +85,17 @@ interface RefinementState {
   clearFilters: () => void
   toggleFilterCollapsed: () => void
   toggleRecommendationExpand: (slotKey: string) => void
+}
+
+/** User choices written to localStorage (computed data stays out). */
+export function refinementPartialize(state: RefinementState) {
+  return {
+    selectedEquipId: state.selectedEquipId,
+    collapsedSets: state.collapsedSets,
+    filterCollapsed: state.filterCollapsed,
+    // AGENTS.md: plan card expand/collapse state must survive a reload.
+    expandedRecommendations: state.expandedRecommendations,
+  }
 }
 
 export const useRefinementStore = create<RefinementState>()(
@@ -121,11 +171,7 @@ export const useRefinementStore = create<RefinementState>()(
     }),
     {
       name: 'refinement-session',
-      partialize: (state) => ({
-        selectedEquipId: state.selectedEquipId,
-        collapsedSets: state.collapsedSets,
-        filterCollapsed: state.filterCollapsed,
-      }),
+      partialize: refinementPartialize,
       merge: (persisted, current) => {
         const p = persisted as Record<string, unknown> | null
         if (!p) return current
@@ -151,6 +197,7 @@ export const useRefinementStore = create<RefinementState>()(
         result.collapsedSets = mergedCollapsed
         result.filterCollapsed =
           typeof result.filterCollapsed === 'boolean' ? result.filterCollapsed : true
+        result.expandedRecommendations = sanitizeExpandedRecommendations(result.expandedRecommendations)
         return result
       },
     },
@@ -168,6 +215,7 @@ export function useSelectedEquip(): Equip | null {
 
 /** Get filtered and searched equip list */
 export function useFilteredEquips(): Equip[] {
+  const t = useTranslations()
   const query = useRefinementStore((s) => s.searchQuery)
   const sub1 = useRefinementStore((s) => s.filterSub1)
   const sub2 = useRefinementStore((s) => s.filterSub2)
@@ -177,17 +225,22 @@ export function useFilteredEquips(): Equip[] {
     return equips
   }
 
+  /** Localized labels as rendered by EquipCard / EquipSetGroup. */
+  const localizedLabels = (equip: Equip): EquipSearchLabels => {
+    const nameKey = `equips.${equip.id}`
+    const typeKey = `equipTypes.${EQUIP_TYPE_KEYS[equip.type] ?? equip.type}`
+    const setKey = `suits.${equip.setName.replace(/\./g, '')}`
+    return {
+      name: t.has(nameKey) ? t(nameKey) : undefined,
+      type: t.has(typeKey) ? t(typeKey) : undefined,
+      setName: t.has(setKey) ? t(setKey) : undefined,
+    }
+  }
+
   return equips.filter((e) => {
-    // Search: match name or type
-    if (query) {
-      const q = query.toLowerCase()
-      if (
-        !e.name.toLowerCase().includes(q) &&
-        !e.type.includes(q) &&
-        !e.setName.toLowerCase().includes(q)
-      ) {
-        return false
-      }
+    // Search: raw zh-CN data + localized display strings
+    if (query && !matchesEquipQuery(e, query, localizedLabels(e))) {
+      return false
     }
 
     // Sub1 stat filter

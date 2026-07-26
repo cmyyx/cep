@@ -107,7 +107,10 @@ it('filters the graphical list by localized name', () => {
 })
 
 it('sorts enum filter chips by their localized labels', () => {
-  const entities = [character('physical', '物理', 5), { ...character('natural', '自然', 5), elementId: 'Natural' }]
+  // Entity names must not collide with the element enum labels below:
+  // entityName() now resolves the summary's embedded localized name, so a
+  // card named '自然' would be indistinguishable from the '自然' filter chip.
+  const entities = [character('physical', '干员甲', 5), { ...character('natural', '干员乙', 5), elementId: 'Natural' }]
   render(<WikiEntityPicker title="干员" entities={entities} imageBasePath="/images/characters" selectedIds={[]} onSelect={() => undefined} filters={[{ field: 'elementId', labelKey: 'wiki.filter.element', enumGroup: 'elements' }]} />)
   fireEvent.click(screen.getByRole('button', { name: 'wiki.filterToggle' }))
   const natural = screen.getByRole('button', { name: '自然' })

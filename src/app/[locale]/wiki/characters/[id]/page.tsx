@@ -3,9 +3,10 @@ import type { Metadata } from 'next'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { SidebarTrigger } from '@/components/ui/sidebar'
 import { NavLink } from '@/components/shared/nav-link'
-import { CharacterDetailContent, WikiDetailShell } from '@/components/wiki/wiki-detail-content'
+import { CharacterDetailContent, WikiDetailShell, getCharacterDetailSectionIds } from '@/components/wiki/wiki-detail-content'
+import { WikiMaterialCatalogProvider } from '@/components/wiki/wiki-material-catalog'
 import { wikiCharacters } from '@/generated/data/wiki/characters'
-import { getCharacterWikiDetail } from '@/lib/wiki-data'
+import { getLocalizedCharacterWikiDetail } from '@/lib/wiki-data'
 import type { WikiEnumGroup } from '@/types/wiki'
 import { getAlternates } from '@/lib/metadata'
 
@@ -22,7 +23,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   if (!character) return { title: 'Not Found' }
   const t = await getTranslations({ locale })
   return {
-    title: `${t(`characters.${id}`)} - WIKI`,
+    title: t(`characters.${id}`),
     alternates: getAlternates(locale, `wiki/characters/${id}`),
   }
 }
@@ -31,11 +32,28 @@ export default async function WikiCharacterDetailPage({ params }: { params: Prom
   const { locale, id } = await params
   setRequestLocale(locale)
   const character = wikiCharacters.find((entry) => entry.id === id)
-  const detail = getCharacterWikiDetail(id)
-  if (!character || !detail) notFound()
+  const pageData = getLocalizedCharacterWikiDetail(id, locale)
+  if (!character || !pageData) notFound()
+  const { detail, catalog } = pageData
   const t = await getTranslations({ locale })
   const name = t(`characters.${id}`)
   const label = (group: WikiEnumGroup, value: string) => t(`wikiData.enum|${group}|${value}`)
+  // TOC entries must mirror the sections CharacterDetailContent actually renders.
+  const sectionLabels: Record<string, string> = {
+    overview: t('wiki.overview'),
+    'level-data': t('wiki.levelData'),
+    'attribute-nodes': t('wikiData.ui|attributeIncrease'),
+    'equipment-nodes': t('wikiData.ui|equipmentAdaptation'),
+    skills: t('wikiData.ui|operatorSkill'),
+    talents: t('wikiData.ui|talent'),
+    potentials: t('wikiData.ui|potential'),
+    'logistics-skills': t('wikiData.ui|logisticsSkill'),
+    promotions: t('wikiData.ui|promotion'),
+  }
+  const tocItems = getCharacterDetailSectionIds(detail).map((sectionId) => ({
+    id: sectionId,
+    label: sectionLabels[sectionId] ?? sectionId,
+  }))
 
   return (
     <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
@@ -45,31 +63,23 @@ export default async function WikiCharacterDetailPage({ params }: { params: Prom
           {t('wiki.backTo', { category: t('wiki.categories.characters') })}
         </NavLink>
       </header>
-      <WikiDetailShell tocItems={[
-        { id: 'overview', label: t('wiki.overview') },
-        { id: 'level-data', label: t('wiki.levelData') },
-        ...(detail.attributeNodes.length > 0 ? [{ id: 'attribute-nodes', label: t('wikiData.ui|attributeIncrease') }] : []),
-        ...(detail.equipmentNodes.length > 0 ? [{ id: 'equipment-nodes', label: t('wikiData.ui|equipmentAdaptation') }] : []),
-        { id: 'skills', label: t('wikiData.ui|operatorSkill') },
-        { id: 'talents', label: t('wikiData.ui|talent') },
-        { id: 'potentials', label: t('wikiData.ui|potential') },
-        { id: 'logistics-skills', label: t('wikiData.ui|logisticsSkill') },
-        { id: 'promotions', label: t('wikiData.ui|promotion') },
-      ]}>
-        <CharacterDetailContent
-          detail={detail}
-          name={name}
-          rarity={character.rarity}
-          imageIds={detail.images}
-          metaRows={[
-            { label: t('wiki.element'), value: label('elements', character.elementId) },
-            { label: t('wiki.profession'), value: label('professions', character.professionId) },
-            { label: t('wiki.weaponType'), value: label('weaponTypes', character.weaponTypeId) },
-            { label: t('wikiData.ui|mainAttribute'), value: label('attributes', character.mainAttributeId) },
-            { label: t('wikiData.ui|subAttribute'), value: label('attributes', character.subAttributeId) },
-          ]}
-        />
-      </WikiDetailShell>
+      <WikiMaterialCatalogProvider catalog={catalog}>
+        <WikiDetailShell tocItems={tocItems}>
+          <CharacterDetailContent
+            detail={detail}
+            name={name}
+            rarity={character.rarity}
+            imageIds={detail.images}
+            metaRows={[
+              { label: t('wiki.element'), value: label('elements', character.elementId) },
+              { label: t('wiki.profession'), value: label('professions', character.professionId) },
+              { label: t('wiki.weaponType'), value: label('weaponTypes', character.weaponTypeId) },
+              { label: t('wikiData.ui|mainAttribute'), value: label('attributes', character.mainAttributeId) },
+              { label: t('wikiData.ui|subAttribute'), value: label('attributes', character.subAttributeId) },
+            ]}
+          />
+        </WikiDetailShell>
+      </WikiMaterialCatalogProvider>
     </div>
   )
 }

@@ -7,19 +7,27 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { RarityFrame } from '@/components/shared/rarity-frame'
 import { useGrowthPlannerStore } from '@/stores/useGrowthPlannerStore'
 import { calculateGrowthRequirements, estimateFarming, PLANNER_RESOURCE_IDS } from '@/lib/planner/progression'
-import { plannerGameData } from '@/generated/data/planner'
+import { getPlannerGameData } from '@/lib/planner/planner-data-loader'
 import { useWikiTranslations } from '@/hooks/use-wiki-translations'
 import type { MaterialRequirement } from '@/types/planner'
 import type { WikiLocale } from '@/types/wiki'
 
+const TILE_CLASS = 'min-w-0 rounded-xl bg-develop-blue/8 p-3 shadow-[0_0_0_1px_color-mix(in_oklab,var(--color-develop-blue)_15%,transparent)] sm:p-4'
+const TILE_VALUE_CLASS = 'mt-3 truncate font-mono text-xl font-semibold tabular-nums tracking-[-0.4px] sm:mt-4 sm:text-2xl sm:tracking-[-0.8px] xl:text-3xl xl:tracking-[-1.2px]'
+const TILE_LABEL_CLASS = 'truncate text-xs text-muted-foreground'
+
 export function GrowthSummary() {
   const t = useTranslations('growthPlanner')
   const locale = useLocale() as WikiLocale
+  // Rendered behind the page's usePlannerData() gate, so the cache is populated.
+  const plannerGameData = getPlannerGameData()
   const configs = useGrowthPlannerStore((state) => state.configs)
   const result = calculateGrowthRequirements(configs)
   const farming = estimateFarming(result)
   const { itemName, text } = useWikiTranslations()
   const number = new Intl.NumberFormat(locale)
+  // Locale-aware enumeration separator: "、" is only correct for zh/ja.
+  const list = new Intl.ListFormat(locale, { style: 'narrow', type: 'conjunction' })
   const resources: MaterialRequirement[] = [
     { itemId: PLANNER_RESOURCE_IDS.stageOneExp, count: result.stageOneExp },
     { itemId: PLANNER_RESOURCE_IDS.stageTwoExp, count: result.stageTwoExp },
@@ -41,10 +49,12 @@ export function GrowthSummary() {
 
   return (
     <div className="space-y-6">
+      {/* min-w-0 + responsive type: three tiles must survive a 360px viewport
+          without the six-digit run counts being clipped by overflow-hidden. */}
       <section className="grid grid-cols-3 gap-2">
-        <div className="rounded-xl bg-develop-blue/8 p-4 shadow-[0_0_0_1px_color-mix(in_oklab,var(--color-develop-blue)_15%,transparent)]"><Clock3 className="size-4 text-develop-blue" /><div className="mt-4 font-mono text-3xl font-semibold tracking-[-1.2px]">{number.format(farming.totalRuns)}</div><div className="text-xs text-muted-foreground">{t('totalRuns')}</div></div>
-        <div className="rounded-xl bg-develop-blue/8 p-4 shadow-[0_0_0_1px_color-mix(in_oklab,var(--color-develop-blue)_15%,transparent)]"><Zap className="size-4 text-develop-blue" /><div className="mt-4 font-mono text-3xl font-semibold tracking-[-1.2px]">{number.format(farming.totalStamina)}</div><div className="text-xs text-muted-foreground">{t('totalStamina')}</div></div>
-        <div className="rounded-xl bg-develop-blue/8 p-4 shadow-[0_0_0_1px_color-mix(in_oklab,var(--color-develop-blue)_15%,transparent)]"><Calculator className="size-4 text-develop-blue" /><div className="mt-4 font-mono text-3xl font-semibold tracking-[-1.2px]">{configs.length}</div><div className="text-xs text-muted-foreground">{t('targetCount')}</div></div>
+        <div className={TILE_CLASS}><Clock3 className="size-4 text-develop-blue" /><div className={TILE_VALUE_CLASS}>{number.format(farming.totalRuns)}</div><div className={TILE_LABEL_CLASS}>{t('totalRuns')}</div></div>
+        <div className={TILE_CLASS}><Zap className="size-4 text-develop-blue" /><div className={TILE_VALUE_CLASS}>{number.format(farming.totalStamina)}</div><div className={TILE_LABEL_CLASS}>{t('totalStamina')}</div></div>
+        <div className={TILE_CLASS}><Calculator className="size-4 text-develop-blue" /><div className={TILE_VALUE_CLASS}>{number.format(configs.length)}</div><div className={TILE_LABEL_CLASS}>{t('targetCount')}</div></div>
       </section>
 
       <section className="space-y-3">
@@ -63,7 +73,7 @@ export function GrowthSummary() {
                 return <TableRow key={resource.itemId}>
                   <TableCell className="min-w-0"><div className="flex min-w-0 items-center gap-2"><RarityFrame imageSrc={`/images/items/${plannerGameData.materials[resource.itemId]?.iconId ?? resource.itemId}.avif`} title={displayName} rarity={plannerGameData.materials[resource.itemId]?.rarity ?? 1} showTitle={false} imageClassName="object-contain p-1" className="size-10 shrink-0 rounded-md" /><span className="min-w-0 truncate font-medium">{displayName}</span></div></TableCell>
                   <TableCell className="font-mono font-semibold tabular-nums"><span className="block">{number.format(resource.count)}{expValue ? <span className="ml-1 text-xs font-normal text-muted-foreground">EXP</span> : null}</span>{convertedCount ? <span className="mt-0.5 block text-xs font-normal text-muted-foreground">{t('equivalentItems', { count: number.format(convertedCount) })}</span> : null}</TableCell>
-                  <TableCell className="whitespace-normal">{stage ? <div><span className="font-medium">{text('dungeon', stage.dungeon.seriesId)}</span><div className="mt-0.5 text-xs text-muted-foreground">{text('dungeon', stage.dungeon.id)}</div>{expValue && rewardCards.length > 0 && <div className="mt-1 text-xs text-muted-foreground">{t('rewardCards')}: {rewardCards.map(([itemId, count]) => `${itemName(itemId)} ×${number.format(count)}`).join('、')}</div>}</div> : <span className="text-muted-foreground">{t('noFarmableStages')}</span>}</TableCell>
+                  <TableCell className="whitespace-normal">{stage ? <div><span className="font-medium">{text('dungeon', stage.dungeon.seriesId)}</span><div className="mt-0.5 text-xs text-muted-foreground">{text('dungeon', stage.dungeon.id)}</div>{expValue && rewardCards.length > 0 && <div className="mt-1 text-xs text-muted-foreground">{t('rewardCards')}: {list.format(rewardCards.map(([itemId, count]) => `${itemName(itemId)} ×${number.format(count)}`))}</div>}</div> : <span className="text-muted-foreground">{t('noFarmableStages')}</span>}</TableCell>
                   <TableCell className="font-mono tabular-nums">{output ? number.format(output) : '—'}</TableCell>
                   <TableCell className="font-mono font-semibold tabular-nums">{stage ? number.format(stage.runs) : '—'}</TableCell>
                   <TableCell className="font-mono font-semibold tabular-nums">{stage ? number.format(stage.stamina) : '—'}</TableCell>

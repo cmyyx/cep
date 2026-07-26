@@ -1,3 +1,6 @@
+import { readFileSync } from 'node:fs'
+import { dirname, resolve } from 'node:path'
+import { fileURLToPath } from 'node:url'
 import { describe, expect, it } from 'vitest'
 import {
   ROUTE_META,
@@ -175,5 +178,62 @@ describe('buildLlmsTxt', () => {
     expect(txt).not.toContain('/account')
     expect(txt).not.toContain('/login')
     expect(txt).not.toContain('/settings')
+  })
+
+  it('stays in sync with the real sitemap ROUTES', () => {
+    const sitemapPath = resolve(
+      dirname(fileURLToPath(import.meta.url)),
+      '../src/app/sitemap.ts',
+    )
+    const paths = parseSitemapRoutePaths(readFileSync(sitemapPath, 'utf8'))
+    expect(() => assertRouteMetaCoverage(paths)).not.toThrow()
+    expect(paths).toEqual(expect.arrayContaining(Object.keys(ROUTE_META)))
+    expect(Object.keys(ROUTE_META)).toEqual(expect.arrayContaining(paths))
+  })
+})
+
+describe('buildLlmsFullTxt', () => {
+  it('expands character details and empty weapons/equipment sections in order', () => {
+    const txt = buildLlmsFullTxt({
+      characters: [
+        {
+          id: 'chr_0004_pelica',
+          name: { en: 'Perlica', 'zh-CN': '佩丽卡' },
+          rarity: 5,
+        },
+      ],
+      weapons: [],
+      equipment: [],
+      sitemapPaths: Object.keys(ROUTE_META),
+      generatedAt: '2026-01-01T00:00:00.000Z',
+    })
+
+    expect(txt.startsWith('# CEP Endfield Planner — Full Context\n')).toBe(true)
+    expect(txt).toContain('## About the site')
+    expect(txt).not.toContain('Deployment model')
+    expect(txt).toContain('## Core tools')
+    expect(txt).toContain('## Wiki indexes')
+    expect(txt).toContain('## Characters (1)')
+    expect(txt).toContain(
+      'Perlica (5★) — https://end.canmoe.com/zh-CN/wiki/characters/chr_0004_pelica',
+    )
+    expect(txt).toContain('## Weapons (0)')
+    expect(txt).toContain('## Equipment (0)')
+    expect(txt).toContain('## Optional pages')
+    expect(txt).toContain('Generated at: 2026-01-01T00:00:00.000Z')
+    expect(txt).toContain('https://end.canmoe.com/llms.txt')
+
+    const sectionOrder = [
+      '## About the site',
+      '## Core tools',
+      '## Wiki indexes',
+      '## Characters (1)',
+      '## Weapons (0)',
+      '## Equipment (0)',
+      '## Optional pages',
+    ]
+    const indexes = sectionOrder.map((heading) => txt.indexOf(heading))
+    expect(indexes.every((index) => index >= 0)).toBe(true)
+    expect([...indexes].sort((a, b) => a - b)).toEqual(indexes)
   })
 })

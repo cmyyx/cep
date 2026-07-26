@@ -1,4 +1,3 @@
-import { HeadScript } from '@/components/shared/head-script'
 import { BROWSER_DETECT_CODE, AVIF_PROBE_DATA } from '@/lib/browser-detect'
 import {
   GUARD_ENVIRONMENT_HTML_CODE,
@@ -29,7 +28,7 @@ const BROWSER_LINKS =
   '<a href="https://www.apple.com/safari/" target="_blank" rel="noopener" style="color:#0a72ef;">Safari 16.5+</a> / '+
   '<a href="https://www.microsoft.com/edge" target="_blank" rel="noopener" style="color:#0a72ef;">Edge 112+</a>'
 
-const BROWSER_GUARD_CODE = `(function(){
+export const BROWSER_GUARD_CODE = `(function(){
 function showOverlay(missing){
   if(document.getElementById('cep-browser-warn'))return;
   var d=document.createElement('div');
@@ -81,7 +80,3 @@ img.onload=function(){ if(!(img.width>0&&img.height>0)) showOverlay(['AVIF']); }
 img.onerror=function(){ showOverlay(['AVIF']); };
 img.src=${JSON.stringify(AVIF_PROBE_DATA)};
 })();`.replace(/\n\s*/g, '')
-
-export function BrowserGuard() {
-  return <HeadScript id="browser-guard" code={BROWSER_GUARD_CODE} />
-}

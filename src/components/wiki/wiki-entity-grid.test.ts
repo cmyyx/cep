@@ -1,6 +1,14 @@
 import { expect, it } from 'vitest'
-import { getWikiEntityUpStatus, getWikiEquipmentModelKey, groupWikiEntities, groupWikiEquipmentBySuit, sortWikiEntities } from './wiki-entity-grid'
-import type { WikiCharacterSummary, WikiEquipmentSummary, WikiEnumLabels, WikiWeaponSummary } from '@/types/wiki'
+import {
+  getWikiEntityUpStatus,
+  getWikiEquipmentModelKey,
+  groupWikiEntities,
+  groupWikiEquipmentBySuit,
+  isWikiGroupExpanded,
+  sortWikiEntities,
+} from './wiki-entity-grid'
+import { localizeWikiEntitySummary } from '@/lib/wiki-summary-locale'
+import type { WikiCharacterSummary, WikiEquipmentSummary, WikiWeaponSummary } from '@/types/wiki'
 
 const localized = (zhCN: string, en = zhCN) => ({
   'zh-CN': zhCN,
@@ -31,7 +39,7 @@ it('sorts by rarity descending then localized name ascending', () => {
     character('six-a', 'D', 6),
   ]
 
-  expect(sortWikiEntities(entities, 'zh-CN', undefined, (entity) => entity.name['zh-CN']).map((entity) => entity.id)).toEqual([
+  expect(sortWikiEntities(entities, 'zh-CN', undefined, (entity) => typeof entity.name === 'string' ? entity.name : entity.name['zh-CN']).map((entity) => entity.id)).toEqual([
     'six-b',
     'six-a',
     'five',
@@ -95,23 +103,97 @@ it('puts independent equipment first and sorts sets and members by rarity', () =
   ])
 })
 
-it('groups characters by enum order and recognizes equipment model suffixes', () => {
+it('keeps the build-time localized suit label instead of the raw suit id', () => {
+  const suitEquipment: WikiEquipmentSummary = {
+    id: 'item_equip_suit_member',
+    category: 'equipment',
+    name: localized('套装甲护手', 'Suit A Gloves'),
+    rarity: 5,
+    imageId: 'item_equip_suit_member',
+    partTypeId: '1',
+    minimumLevel: 80,
+    suitId: 'suit_a',
+    suitName: localized('套装甲', 'Suit A'),
+  }
+  const localizedEntity = localizeWikiEntitySummary(suitEquipment, 'en')
+  if (localizedEntity.category !== 'equipment') throw new Error('expected equipment summary')
+
+  const [group] = groupWikiEquipmentBySuit([localizedEntity], 'en', 'No set')
+  expect(group.key).toBe('suit_a')
+  expect(group.label).toBe('Suit A')
+})
+
+it('force-expands suit groups while the list is narrowed by search or filters', () => {
+  expect(isWikiGroupExpanded('suit_a', [], false)).toBe(false)
+  expect(isWikiGroupExpanded('suit_a', ['suit_a'], false)).toBe(true)
+  expect(isWikiGroupExpanded('suit_a', [], true)).toBe(true)
+})
+
+const elementLabels: Record<string, string> = { Physical: '物理', Natural: '自然' }
+
+it('groups characters by the canonical enum order passed from the server', () => {
   const entities = [
     character('natural', '自然', 6),
     { ...character('physical', '物理', 5), elementId: 'Physical' },
   ]
   entities[0].elementId = 'Natural'
-  const enums = {
-    elements: {
-      Physical: localized('物理'),
-      Natural: localized('自然'),
-    },
-  } as unknown as WikiEnumLabels
+  const labelFor = (_group: 'elements' | string, id: string) => elementLabels[id] ?? id
 
-  expect(groupWikiEntities(entities, { field: 'elementId', enumGroup: 'elements' }, enums, 'zh-CN').map((group) => group.key)).toEqual([
-    'Physical',
-    'Natural',
+  expect(
+    groupWikiEntities(entities, { field: 'elementId', enumGroup: 'elements' }, 'zh-CN', labelFor, ['Physical', 'Natural'])
+      .map((group) => [group.key, group.label]),
+  ).toEqual([
+    ['Physical', '物理'],
+    ['Natural', '自然'],
   ])
-  expect(getWikiEquipmentModelKey('长息蓄电核·贰型')).toBe('refinement.modelTypeII')
-  expect(getWikiEquipmentModelKey('长息蓄电核')).toBeUndefined()
+})
+
+it('falls back to label collation when no enum order is provided', () => {
+  const entities = [
+    { ...character('natural', '自然', 6), elementId: 'Natural' },
+    { ...character('physical', '物理', 5), elementId: 'Physical' },
+  ]
+  // Labels chosen so collation order (Blaze < Zephyr) differs from insertion order.
+  const labelFor = (_group: string, id: string) => (id === 'Natural' ? 'Zephyr' : 'Blaze')
+
+  expect(
+    groupWikiEntities(entities, { field: 'elementId', enumGroup: 'elements' }, 'en', labelFor).map((group) => group.key),
+  ).toEqual(['Physical', 'Natural'])
+
+  // Ids outside the provided order sort after the known ones.
+  expect(
+    groupWikiEntities(entities, { field: 'elementId', enumGroup: 'elements' }, 'en', labelFor, ['Natural'])
+      .map((group) => group.key),
+  ).toEqual(['Natural', 'Physical'])
+})
+
+const modelEquipment: WikiEquipmentSummary = {
+  id: 'item_equip_model',
+  category: 'equipment',
+  name: {
+    'zh-CN': '长息蓄电核·贰型',
+    en: 'Longbreath Cell T2',
+    ja: '長息蓄電コアⅡ',
+    'zh-TW': '長息蓄電核·II',
+  },
+  rarity: 5,
+  imageId: 'item_equip_model',
+  partTypeId: '2',
+  minimumLevel: 80,
+}
+
+it('resolves the equipment model badge for every locale, not only zh-CN spellings', () => {
+  expect(getWikiEquipmentModelKey(modelEquipment)).toBe('refinement.modelTypeII')
+
+  for (const locale of ['zh-CN', 'zh-TW', 'ja', 'en'] as const) {
+    expect(getWikiEquipmentModelKey(localizeWikiEntitySummary(modelEquipment, locale))).toBe('refinement.modelTypeII')
+  }
+})
+
+it('leaves the model badge off items without a tier suffix and off non-equipment entities', () => {
+  const plain: WikiEquipmentSummary = { ...modelEquipment, name: localized('长息蓄电核') }
+
+  expect(getWikiEquipmentModelKey(plain)).toBeUndefined()
+  expect(getWikiEquipmentModelKey(localizeWikiEntitySummary(plain, 'en'))).toBeUndefined()
+  expect(getWikiEquipmentModelKey(character('chr', '干员', 6))).toBeUndefined()
 })

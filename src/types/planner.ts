@@ -1,13 +1,18 @@
-import type { LocalizedText, WikiStatValue } from '@/types/wiki'
+import type { WikiStatValue } from '@/types/wiki'
 
 export type PlannerEntityKind = 'character' | 'weapon'
 export type PlannerMaterialTuple = readonly [itemId: string, count: number]
 
+/**
+ * Planner data is intentionally slim: display names live in the generated
+ * game-i18n catalogs (loaded per locale), never in this dataset. The only
+ * embedded text is the zh-CN weapon-skill description, which progression.ts
+ * parses for numeric values.
+ */
 export interface PlannerCharacterSkillData {
   id: string
   typeId: string
   maxLevel: number
-  name: LocalizedText
   iconId: string
   materialsByLevel: Array<{
     level: number
@@ -19,13 +24,11 @@ export interface PlannerCharacterNodeData {
   id: string
   breakStage: number
   materials: PlannerMaterialTuple[]
-  name: LocalizedText
 }
 
 export interface PlannerCharacterPotentialData {
   id: string
   level: number
-  name: LocalizedText
   stats: Array<WikiStatValue & { isPercent: boolean }>
 }
 
@@ -81,7 +84,8 @@ export interface PlannerWeaponData {
   }>
   skills: Array<{
     id: string
-    levels: Array<{ level: number; description: LocalizedText }>
+    /** description is zh-CN only — progression.ts parses numbers out of it. */
+    levels: Array<{ level: number; description: string }>
   }>
 }
 
@@ -104,7 +108,6 @@ export interface PlannerEquipmentSuitData {
 }
 
 export interface PlannerMaterialData {
-  name: LocalizedText
   iconId: string
   rarity: number
   expValue?: number
@@ -112,9 +115,7 @@ export interface PlannerMaterialData {
 
 export interface PlannerDungeonData {
   id: string
-  name: LocalizedText
   seriesId: string
-  seriesName: LocalizedText
   rewardId: string
   stamina: number
   yields: PlannerMaterialTuple[]

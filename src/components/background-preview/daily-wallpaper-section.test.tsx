@@ -44,14 +44,14 @@ it('renders the latest fallback item and a working support action', async () => 
       current: {
         contentDate: '2026-07-22',
         isToday: false,
-        imageUrl: 'https://end-a.canmoe.com/media/wallpapers/2026-07-22',
-        actionUrl: 'https://end-a.canmoe.com/go/wallpaper/2026-07-22',
+        imageUrl: 'https://end-ops.canmoe.com/media/wallpapers/2026-07-22',
+        actionUrl: 'https://end-ops.canmoe.com/go/wallpaper/2026-07-22',
       },
       history: [],
     }),
   }))
 
-  render(<DailyWallpaperSection apiUrl="https://end-a.canmoe.com/api/v1/wallpapers" />)
+  render(<DailyWallpaperSection apiUrl="https://end-ops.canmoe.com/api/v1/wallpapers" />)
   await waitFor(() => expect(screen.getByText(/fallbackDescription/)).toBeTruthy())
   expect(screen.queryByText('promotionBadge')).toBeNull()
   const action = screen.getByRole('button', { name: 'getTodayWallpaper' })
@@ -68,13 +68,13 @@ it('keeps the action available when the preview image is missing', async () => {
         contentDate: '2026-07-23',
         isToday: true,
         imageUrl: null,
-        actionUrl: 'https://end-a.canmoe.com/go/wallpaper/2026-07-23',
+        actionUrl: 'https://end-ops.canmoe.com/go/wallpaper/2026-07-23',
       },
       history: [],
     }),
   }))
 
-  render(<DailyWallpaperSection apiUrl="https://end-a.canmoe.com/api/v1/wallpapers" />)
+  render(<DailyWallpaperSection apiUrl="https://end-ops.canmoe.com/api/v1/wallpapers" />)
   await waitFor(() => expect(screen.getByText('imageUnavailable')).toBeTruthy())
   expect(screen.getByRole('button', { name: 'getTodayWallpaper' }).getAttribute('href')).toContain('2026-07-23')
 })
@@ -85,7 +85,7 @@ it('shows a clear request failure and retries without cached data', async () => 
     .mockResolvedValueOnce({ ok: true, json: async () => ({ serverDate: '2026-07-23', current: null, history: [] }) })
   vi.stubGlobal('fetch', fetchMock)
 
-  render(<DailyWallpaperSection apiUrl="https://end-a.canmoe.com/api/v1/wallpapers" />)
+  render(<DailyWallpaperSection apiUrl="https://end-ops.canmoe.com/api/v1/wallpapers" />)
   await waitFor(() => expect(screen.getByText('dailyErrors.requestFailed')).toBeTruthy())
   screen.getByRole('button', { name: 'retry' }).click()
   await waitFor(() => expect(screen.getByText('dailyEmpty')).toBeTruthy())
@@ -100,19 +100,19 @@ it('adapts the preview frame to measured image proportions while keeping a heigh
       current: {
         contentDate: '2026-07-23',
         isToday: true,
-        imageUrl: 'https://end-a.canmoe.com/media/wallpapers/2026-07-23',
-        actionUrl: 'https://end-a.canmoe.com/go/wallpaper/2026-07-23',
+        imageUrl: 'https://end-ops.canmoe.com/media/wallpapers/2026-07-23',
+        actionUrl: 'https://end-ops.canmoe.com/go/wallpaper/2026-07-23',
       },
       history: [{
         contentDate: '2026-07-22',
         isToday: false,
-        imageUrl: 'https://end-a.canmoe.com/media/wallpapers/2026-07-22',
-        actionUrl: 'https://end-a.canmoe.com/go/wallpaper/2026-07-22',
+        imageUrl: 'https://end-ops.canmoe.com/media/wallpapers/2026-07-22',
+        actionUrl: 'https://end-ops.canmoe.com/go/wallpaper/2026-07-22',
       }],
     }),
   }))
 
-  const { container } = render(<DailyWallpaperSection apiUrl="https://end-a.canmoe.com/api/v1/wallpapers" />)
+  const { container } = render(<DailyWallpaperSection apiUrl="https://end-ops.canmoe.com/api/v1/wallpapers" />)
   const previewImage = await waitFor(() => {
     const image = container.querySelector('[data-testid="wallpaper-image"]')
     if (!image) throw new Error('missing preview image')

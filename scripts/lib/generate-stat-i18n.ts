@@ -184,20 +184,55 @@ export function generateStatI18n(
   }
 
   // B. Compound equip stats — key = compositeAttr (upstream canonical ID)
+  // 收录全部 CompositeAttributeShowConfigTable 条目, 而非仅装备表引用的:
+  // 武器特效映射 (src/lib/planner/progression.ts) 会产生 FireDamageIncrease 等
+  // 装备表未使用的 composite id, 面板预览/精锻 UI 依赖它们的译名。
   const compositeByKey = new Map(compositeEntries.map(e => [e.compositeAttr, e]))
 
-  for (const compositeAttr of usedCompositeAttrs) {
-    const entry = compositeByKey.get(compositeAttr)
-    if (!entry) {
-      result.equipUnmatched.push(`compositeAttr=${compositeAttr} (no config entry)`)
-      continue
-    }
+  for (const [compositeAttr, entry] of compositeByKey) {
     for (const loc of SUPPORTED_LOCALES) {
       let text = textTables[loc]?.[entry.textId] ?? ''
       if (!text) {
         const cnFallback = textTables['zh-CN']?.[entry.textId] ?? compositeAttr
         text = cnFallback
         if (!textTables[loc]?.[entry.textId]) result.missing++
+      }
+      equipData[loc][compositeAttr] = String(text).replace(/\n/g, ' ').trim()
+    }
+    result.equipCount++
+  }
+
+  // 装备表引用但配置表缺失的 composite id 仍然如实报告
+  for (const compositeAttr of usedCompositeAttrs) {
+    if (!compositeByKey.has(compositeAttr)) {
+      result.equipUnmatched.push(`compositeAttr=${compositeAttr} (no config entry)`)
+    }
+  }
+
+  // C. CEP 合成的单元素 composite id — src/lib/planner/progression.ts 将武器
+  // 特效前缀 (wpn_sp_attr_firedam_ 等) 映射为 FireDamageIncrease 等 id,
+  // 游戏 CompositeAttributeTable 不含它们; 译名取对应基质被动词条的
+  // 正规游戏文本 (灼热伤害提升 等), 供面板预览/精锻 UI 显示。
+  const SYNTHETIC_COMPOSITE_GEM_TERMS: Record<string, string> = {
+    FireDamageIncrease: 'gat_passive_attr_firedam',
+    CrystDamageIncrease: 'gat_passive_attr_icedam',
+    PulseDamageIncrease: 'gat_passive_attr_pulsedam',
+    NaturalDamageIncrease: 'gat_passive_attr_naturaldam',
+  }
+  const gemTextIdByTerm = new Map(gemEntries.map((e) => [e.gemTermId, e.textId]))
+  for (const [compositeAttr, gemTermId] of Object.entries(SYNTHETIC_COMPOSITE_GEM_TERMS)) {
+    if (compositeByKey.has(compositeAttr)) continue
+    const textId = gemTextIdByTerm.get(gemTermId)
+    if (!textId) {
+      result.equipUnmatched.push(`compositeAttr=${compositeAttr} (gem term ${gemTermId} missing)`)
+      continue
+    }
+    for (const loc of SUPPORTED_LOCALES) {
+      let text = textTables[loc]?.[textId] ?? ''
+      if (!text) {
+        const cnFallback = textTables['zh-CN']?.[textId] ?? compositeAttr
+        text = cnFallback
+        if (!textTables[loc]?.[textId]) result.missing++
       }
       equipData[loc][compositeAttr] = String(text).replace(/\n/g, ' ').trim()
     }

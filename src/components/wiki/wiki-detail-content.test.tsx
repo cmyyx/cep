@@ -2,6 +2,8 @@ import { expect, it } from 'vitest'
 import {
   getAdjacentSpans,
   easeWikiScroll,
+  getCharacterDetailSectionIds,
+  getEquipmentDetailSectionIds,
   getEquipmentStatValues,
   getSkillDisplayVariants,
   getVisibleCharacterLevels,
@@ -70,6 +72,62 @@ it('merges only adjacent equal equipment values', () => {
   expect(getAdjacentSpans([1, 1, 2, 1])).toEqual([2, 0, 1, 1])
   const stat: WikiEquipmentStat = { attributeId: 'Sub', values: [0.2, 0.25, 0.3, 0.35] }
   expect(getEquipmentStatValues(stat)).toEqual([0.2, 0.25, 0.3, 0.35])
+})
+
+it('repeats the last refinement value so single-value stats span every column', () => {
+  const flat: WikiEquipmentStat = { attributeId: '9', values: [6.6], displayValues: ['暴击率+6.6%'] }
+
+  expect(getEquipmentStatValues(flat)).toEqual(['暴击率+6.6%', '暴击率+6.6%', '暴击率+6.6%', '暴击率+6.6%'])
+  expect(getAdjacentSpans(getEquipmentStatValues(flat))).toEqual([4, 0, 0, 0])
+
+  const twoValues: WikiEquipmentStat = { attributeId: '2', values: [10, 20] }
+  expect(getEquipmentStatValues(twoValues)).toEqual([10, 20, 20, 20])
+  expect(getEquipmentStatValues({ attributeId: 'empty', values: [] })).toEqual([])
+})
+
+it('collapses level tables to the highest level present instead of a hardcoded 90', () => {
+  const shortLevels = [
+    { level: 1, breakStage: 0, isBreakthrough: false, stats: [] },
+    { level: 60, breakStage: 2, isBreakthrough: false, stats: [] },
+  ]
+
+  expect(getVisibleCharacterLevels(shortLevels, false).map((level) => level.level)).toEqual([60])
+  expect(getVisibleWeaponLevels([{ level: 1, baseAttack: 10 }, { level: 70, baseAttack: 90 }], false)).toEqual([
+    { level: 70, baseAttack: 90 },
+  ])
+  expect(getVisibleCharacterLevels([], false)).toEqual([])
+})
+
+it('drops empty detail sections from the table of contents', () => {
+  expect(getEquipmentDetailSectionIds({ suitEffects: [] })).toEqual(['overview', 'stats', 'crafting-materials'])
+  expect(getEquipmentDetailSectionIds({ suitEffects: [{ id: 'effect' }] })).toEqual([
+    'overview',
+    'stats',
+    'suit-effects',
+    'crafting-materials',
+  ])
+
+  expect(getCharacterDetailSectionIds({ attributeNodes: [], equipmentNodes: [], logisticsSkills: [] })).toEqual([
+    'overview',
+    'level-data',
+    'skills',
+    'talents',
+    'potentials',
+    'promotions',
+  ])
+  expect(
+    getCharacterDetailSectionIds({ attributeNodes: [{}], equipmentNodes: [{}], logisticsSkills: [{}] }),
+  ).toEqual([
+    'overview',
+    'level-data',
+    'attribute-nodes',
+    'equipment-nodes',
+    'skills',
+    'talents',
+    'potentials',
+    'logistics-skills',
+    'promotions',
+  ])
 })
 
 it('uses the widest value from all levels for stable table sizing', () => {

@@ -14,7 +14,8 @@ import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from '@
 import { Turnstile, type TurnstileHandle } from '@/components/shared/turnstile'
 import { SidebarTrigger } from '@/components/ui/sidebar'
 import { useAuthStore } from '@/stores/useAuthStore'
-import { api, ApiError, getErrorI18nKey } from '@/lib/api'
+import { api } from '@/lib/api'
+import { resolveErrorI18nKey } from '@/lib/error-i18n'
 import { getTurnstileSiteKey, isAuthAvailable, getDevOverrides, setDevOverrides, clearDevOverrides } from '@/lib/dev-api'
 import { cn } from '@/lib/utils'
 
@@ -74,6 +75,7 @@ function LoginPageContent() {
 
   const [isLogin, setIsLogin] = useState(true)
   const [resetMode, setResetMode] = useState(false)
+  // Holds a fully namespaced i18n key (never a bare error code) — rendered via t().
   const [serverError, setServerError] = useState<string | null>(null)
 
   const loginStore = useAuthStore((s) => s.login)
@@ -103,6 +105,7 @@ function LoginPageContent() {
   const [resetSending, setResetSending] = useState(false)
   const [resetSubmitting, setResetSubmitting] = useState(false)
   const [resetSent, setResetSent] = useState(false)
+  // Holds a fully namespaced i18n key (never a bare error code) — rendered via t().
   const [resetError, setResetError] = useState<string | null>(null)
 
   const handleSendResetCode = async () => {
@@ -116,14 +119,14 @@ function LoginPageContent() {
       })
       setResetStep('code')
     } catch (err) {
-      setResetError(err instanceof ApiError ? getErrorI18nKey(err.code) : 'sendResetFailed')
+      setResetError(resolveErrorI18nKey(err, 'auth.sendResetFailed'))
     } finally { setResetSending(false) }
   }
 
   const handleResetPassword = async () => {
     if (!resetCode || !resetNewPassword) return
-    if (resetNewPassword.length < 6) { setResetError('passwordTooShort'); return }
-    if (resetNewPassword !== resetConfirmPassword) { setResetError('passwordsNotMatch'); return }
+    if (resetNewPassword.length < 6) { setResetError('auth.passwordTooShort'); return }
+    if (resetNewPassword !== resetConfirmPassword) { setResetError('auth.passwordsNotMatch'); return }
     setResetSubmitting(true); setResetError(null)
     try {
       await api('/api/password/reset', {
@@ -133,7 +136,7 @@ function LoginPageContent() {
       })
       setResetSent(true)
     } catch (err) {
-      setResetError(err instanceof ApiError ? getErrorI18nKey(err.code) : 'resetFailed')
+      setResetError(resolveErrorI18nKey(err, 'auth.resetFailed'))
     } finally { setResetSubmitting(false) }
   }
 
@@ -171,7 +174,7 @@ function LoginPageContent() {
       await loginStore(data.login, data.password, turnstileToken)
       router.replace(`/${locale}/account`)
     } catch (err) {
-      setServerError(err instanceof Error ? err.message : 'loginFailed')
+      setServerError(resolveErrorI18nKey(err, 'auth.loginFailed'))
       setTurnstileToken(null)
       turnstileRef.current?.reset()
     }
@@ -183,7 +186,7 @@ function LoginPageContent() {
       await registerStore(data.username, data.email, data.password, turnstileToken)
       router.replace(`/${locale}/account`)
     } catch (err) {
-      setServerError(err instanceof Error ? err.message : 'registerFailed')
+      setServerError(resolveErrorI18nKey(err, 'auth.registerFailed'))
       setTurnstileToken(null)
       turnstileRef.current?.reset()
     }
@@ -249,7 +252,7 @@ function LoginPageContent() {
                       <Label htmlFor="reset-email">{t('auth.email')}</Label>
                       <Input id="reset-email" className="bg-card border-border" type="email" value={resetEmail} onChange={e=>setResetEmail(e.target.value)} />
                     </div>
-                    {resetError && <p className="text-sm text-destructive text-center">{t(getErrorI18nKey(resetError))}</p>}
+                    {resetError && <p className="text-sm text-destructive text-center">{t(resetError)}</p>}
                     <Button className="w-full" onClick={handleSendResetCode} disabled={!resetEmail||resetSending}>
                       {resetSending?<Loader2 className="size-4 mr-2 animate-spin"/>:null}
                       {t('auth.sendResetCode')}
@@ -269,7 +272,7 @@ function LoginPageContent() {
                       <Label htmlFor="reset-confirm">{t('auth.confirmPassword')}</Label>
                       <Input id="reset-confirm" className="bg-card border-border" type="password" value={resetConfirmPassword} onChange={e=>setResetConfirmPassword(e.target.value)} />
                     </div>
-                    {resetError && <p className="text-sm text-destructive text-center">{t(getErrorI18nKey(resetError))}</p>}
+                    {resetError && <p className="text-sm text-destructive text-center">{t(resetError)}</p>}
                     <Button className="w-full" onClick={handleResetPassword} disabled={!resetCode||!resetNewPassword||resetSubmitting}>
                       {resetSubmitting?<Loader2 className="size-4 mr-2 animate-spin"/>:null}
                       {t('auth.resetPassword')}
@@ -371,7 +374,7 @@ function LoginPageContent() {
 
             {serverError && (
               <p className="text-sm text-destructive text-center">
-                {t(getErrorI18nKey(serverError))}
+                {t(serverError)}
               </p>
             )}
 
@@ -504,7 +507,7 @@ function LoginPageContent() {
 
             {serverError && (
               <p className="text-sm text-destructive text-center">
-                {t(getErrorI18nKey(serverError))}
+                {t(serverError)}
               </p>
             )}
 

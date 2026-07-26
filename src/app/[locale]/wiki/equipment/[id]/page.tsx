@@ -3,9 +3,10 @@ import type { Metadata } from 'next'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { SidebarTrigger } from '@/components/ui/sidebar'
 import { NavLink } from '@/components/shared/nav-link'
-import { EquipmentDetailContent, WikiDetailShell } from '@/components/wiki/wiki-detail-content'
+import { EquipmentDetailContent, WikiDetailShell, getEquipmentDetailSectionIds } from '@/components/wiki/wiki-detail-content'
+import { WikiMaterialCatalogProvider } from '@/components/wiki/wiki-material-catalog'
 import { wikiEquipment } from '@/generated/data/wiki/equipment'
-import { getEquipmentWikiDetail } from '@/lib/wiki-data'
+import { getLocalizedEquipmentWikiDetail } from '@/lib/wiki-data'
 import { getAlternates } from '@/lib/metadata'
 
 
@@ -21,7 +22,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   if (!equipment) return { title: 'Not Found' }
   const t = await getTranslations({ locale })
   return {
-    title: `${t(`equips.${id}`)} - WIKI`,
+    title: t(`equips.${id}`),
     alternates: getAlternates(locale, `wiki/equipment/${id}`),
   }
 }
@@ -30,11 +31,23 @@ export default async function WikiEquipmentDetailPage({ params }: { params: Prom
   const { locale, id } = await params
   setRequestLocale(locale)
   const equipment = wikiEquipment.find((entry) => entry.id === id)
-  const detail = getEquipmentWikiDetail(id)
-  if (!equipment || !detail) notFound()
+  const pageData = getLocalizedEquipmentWikiDetail(id, locale)
+  if (!equipment || !pageData) notFound()
+  const { detail, catalog } = pageData
   const t = await getTranslations({ locale })
   const name = t(`equips.${id}`)
   const part = t(`wikiData.enum|equipmentParts|${equipment.partTypeId}`)
+  // TOC entries must mirror the sections EquipmentDetailContent actually renders.
+  const sectionLabels: Record<string, string> = {
+    overview: t('wiki.overview'),
+    stats: t('wiki.stats'),
+    'suit-effects': t('wiki.suitEffects'),
+    'crafting-materials': t('wiki.craftingMaterials'),
+  }
+  const tocItems = getEquipmentDetailSectionIds(detail).map((sectionId) => ({
+    id: sectionId,
+    label: sectionLabels[sectionId] ?? sectionId,
+  }))
 
   return (
     <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
@@ -44,20 +57,17 @@ export default async function WikiEquipmentDetailPage({ params }: { params: Prom
           {t('wiki.backTo', { category: t('wiki.categories.equipment') })}
         </NavLink>
       </header>
-      <WikiDetailShell tocItems={[
-        { id: 'overview', label: t('wiki.overview') },
-        { id: 'stats', label: t('wiki.stats') },
-        { id: 'suit-effects', label: t('wiki.suitEffects') },
-        { id: 'crafting-materials', label: t('wiki.craftingMaterials') },
-      ]}>
-        <EquipmentDetailContent
-          detail={detail}
-          name={name}
-          rarity={equipment.rarity}
-          imageId={equipment.imageId}
-          meta={<><span>{t('wiki.partType')}: {part}</span><span>{t('wiki.minWearLv')}: {equipment.minimumLevel}</span>{equipment.suitId && <span>{t('wiki.suitId')}: {t(`wikiData.suit|${equipment.suitId}`)}</span>}</>}
-        />
-      </WikiDetailShell>
+      <WikiMaterialCatalogProvider catalog={catalog}>
+        <WikiDetailShell tocItems={tocItems}>
+          <EquipmentDetailContent
+            detail={detail}
+            name={name}
+            rarity={equipment.rarity}
+            imageId={equipment.imageId}
+            meta={<><span>{t('wiki.partType')}: {part}</span><span>{t('wiki.minWearLv')}: {equipment.minimumLevel}</span>{equipment.suitId && <span>{t('wiki.suitId')}: {t(`wikiData.suit|${equipment.suitId}`)}</span>}</>}
+          />
+        </WikiDetailShell>
+      </WikiMaterialCatalogProvider>
     </div>
   )
 }

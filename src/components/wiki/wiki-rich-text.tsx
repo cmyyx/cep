@@ -10,7 +10,7 @@ import { parseWikiRichText, type WikiRichTextNode } from '@/lib/wiki-rich-text'
 import { cn } from '@/lib/utils'
 import { asWikiLocale } from '@/lib/wiki-locale'
 import { wikiTextKey } from '@/lib/wiki-i18n'
-import type { WikiRichTextTerm } from '@/types/wiki'
+import type { WikiLocale, WikiRichTextTerm } from '@/types/wiki'
 
 const glossary = glossaryData as Record<string, WikiRichTextTerm>
 
@@ -31,19 +31,37 @@ function nodeText(node: WikiRichTextNode): string {
   return node.children.map(nodeText).join('')
 }
 
-function renderNodes(nodes: WikiRichTextNode[], translate: (key: string) => string): ReactNode {
+export type TermField = 'name' | 'description'
+type TermResolver = (id: string, term: WikiRichTextTerm, field: TermField) => string
+
+/**
+ * The wikiData catalog chunk loads asynchronously; until then (or if a term is missing
+ * from it) fall back to the glossary entry's own localized text instead of showing the
+ * raw `glossary|...` lookup key.
+ */
+export function resolveGlossaryText(
+  term: WikiRichTextTerm,
+  field: TermField,
+  locale: WikiLocale,
+  catalogMessage: unknown,
+): string {
+  if (typeof catalogMessage === 'string' && catalogMessage) return catalogMessage
+  return term[field][locale] || term[field]['zh-CN'] || ''
+}
+
+function renderNodes(nodes: WikiRichTextNode[], resolveTerm: TermResolver): ReactNode {
   return nodes.map((node, index) => {
     const key = `${node.type}-${index}`
     if (node.type === 'text') return <Fragment key={key}>{node.text}</Fragment>
     if (node.type === 'image') return null
-    const children = renderNodes(node.children, translate)
+    const children = renderNodes(node.children, resolveTerm)
     if (node.type === 'style') {
       return <span key={key} className={styleClass(node.id)}>{children}</span>
     }
     const term = glossary[node.id]
     if (!term) return <span key={key}>{children}</span>
-    const name = translate(wikiTextKey('glossary', node.id, 'name'))
-    const description = plainText(translate(wikiTextKey('glossary', node.id, 'description')))
+    const name = resolveTerm(node.id, term, 'name')
+    const description = plainText(resolveTerm(node.id, term, 'description'))
     return (
       <Tooltip key={key}>
         <TooltipTrigger
@@ -77,9 +95,7 @@ export interface WikiRichTextProps {
 export function WikiRichText({ value, className }: WikiRichTextProps) {
   const locale = asWikiLocale(useLocale())
   const catalogs = useGameI18nLocale(locale)
-  const translate = (key: string) => {
-    const message = catalogs?.wikiData[key]
-    return typeof message === 'string' ? message : key
-  }
-  return <span className={cn('whitespace-pre-line', className)}>{renderNodes(parseWikiRichText(value), translate)}</span>
+  const resolveTerm = (id: string, term: WikiRichTextTerm, field: TermField): string =>
+    resolveGlossaryText(term, field, locale, catalogs?.wikiData[wikiTextKey('glossary', id, field)])
+  return <span className={cn('whitespace-pre-line', className)}>{renderNodes(parseWikiRichText(value), resolveTerm)}</span>
 }

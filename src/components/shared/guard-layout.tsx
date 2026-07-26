@@ -105,8 +105,10 @@ export const GUARD_ENVIRONMENT_VALUES = {
 /** Environment details for early guards. Values are escaped before insertion. */
 export const GUARD_ENVIRONMENT_HTML_CODE = `(function(){
 var i=${BROWSER_INFO_INLINE_CODE},v=${JSON.stringify(GUARD_ENVIRONMENT_VALUES)},L=${JSON.stringify(GUARD_ENVIRONMENT_LABELS)};
-var p=(window.location.pathname||'').split('/')[1]||document.documentElement.lang||'en',q='en';
+var p=(window.location.pathname||'').split('/')[1]||'',d=document.documentElement.lang||'',q=null;
 for(var k in L){if(k.toLowerCase()===String(p).toLowerCase()){q=k;break}}
+if(!q){for(var k2 in L){if(k2.toLowerCase()===String(d).toLowerCase()){q=k2;break}}}
+if(!q)q='en';
 var l=L[q]||L.en;
 function h(x){return String(x).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
 function r(k,x){return'<div style="display:grid;grid-template-columns:max-content minmax(0,1fr);gap:12px;text-align:left;"><dt style="color:#999;">'+h(k)+'</dt><dd style="min-width:0;margin:0;color:#666;overflow-wrap:anywhere;">'+h(x)+'</dd></div>'}

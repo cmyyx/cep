@@ -1,11 +1,11 @@
 'use client'
 
 import { useState } from 'react'
-import Image from 'next/image'
 import { useTranslations } from 'next-intl'
-import { Images, X } from 'lucide-react'
-import { Dialog, DialogClose, DialogContent, DialogTitle } from '@/components/ui/dialog'
+import { Images } from 'lucide-react'
+import { Dialog } from '@/components/ui/dialog'
 import { DailyWallpaperSection } from '@/components/background-preview/daily-wallpaper-section'
+import { FullscreenImageDialogContent } from '@/components/shared/fullscreen-image-dialog'
 import { Button } from '@/components/ui/button'
 import { SidebarTrigger } from '@/components/ui/sidebar'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
@@ -71,26 +71,14 @@ export default function BackgroundPreviewPage() {
         <p className="text-center text-[11px] text-muted-foreground/60">{t('backgroundPreview.disclaimer')}</p>
       </footer>
       <Dialog open={isFullscreen} onOpenChange={setIsFullscreen}>
-        <DialogContent
-          showCloseButton={false}
-          onClick={() => setIsFullscreen(false)}
-          className="inset-0! size-full max-w-none! translate-x-0! translate-y-0! gap-0 rounded-none bg-black p-0 ring-0 sm:max-w-none"
-        >
-          <DialogTitle className="sr-only">{t('nav.backgroundPreview')}</DialogTitle>
-          <Image src={backgroundUrl} alt="" fill className="object-cover" unoptimized priority />
-          <DialogClose
-            render={
-              <Button
-                variant="secondary"
-                size="icon"
-                className="absolute top-4 right-4"
-                aria-label={t('backgroundPreview.close')}
-              />
-            }
-          >
-            <X className="size-4" />
-          </DialogClose>
-        </DialogContent>
+        <FullscreenImageDialogContent
+          src={backgroundUrl}
+          alt=""
+          title={t('nav.backgroundPreview')}
+          closeLabel={t('backgroundPreview.close')}
+          imageClassName="object-cover"
+          priority
+        />
       </Dialog>
     </div>
   )

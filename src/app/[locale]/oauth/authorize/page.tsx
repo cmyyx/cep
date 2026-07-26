@@ -13,7 +13,9 @@ import { Label } from '@/components/ui/label'
 import { Turnstile, type TurnstileHandle } from '@/components/shared/turnstile'
 import { useAuthStore } from '@/stores/useAuthStore'
 import { getTurnstileSiteKey } from '@/lib/dev-api'
-import { getErrorI18nKey, api } from '@/lib/api'
+import { api } from '@/lib/api'
+import { resolveErrorI18nKey } from '@/lib/error-i18n'
+import { buildOAuthDenyRedirect, getAllowedRedirectHosts } from '@/lib/oauth-redirect'
 /**
  * OAuth2 Authorization Page.
  *
@@ -84,6 +86,7 @@ function OAuthAuthorizeContent() {
   const [authorizing, setAuthorizing] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [redirectUrl, setRedirectUrl] = useState<string | null>(null)
+  // Holds a fully namespaced i18n key (never a bare error code) — rendered via t().
   const [serverError, setServerError] = useState<string | null>(null)
   const [turnstileToken, setTurnstileToken] = useState<string | null>(null)
   const turnstileRef = useRef<TurnstileHandle>(null)
@@ -118,7 +121,7 @@ function OAuthAuthorizeContent() {
       // After successful login, the Zustand store updates accessToken.
       // needsLogin is derived, so it automatically becomes false on re-render.
     } catch (err) {
-      setServerError(err instanceof Error ? err.message : 'loginFailed')
+      setServerError(resolveErrorI18nKey(err, 'auth.loginFailed'))
       setTurnstileToken(null)
       turnstileRef.current?.reset()
     }
@@ -144,22 +147,24 @@ function OAuthAuthorizeContent() {
       // Redirect to the OAuth callback (NodeBB)
       setRedirectUrl(data.redirect_url)
     } catch (err) {
-      const code = err instanceof Error ? err.message : String(err ?? '')
-      setError(t(getErrorI18nKey(code)))
+      setError(t(resolveErrorI18nKey(err, 'auth.unknown_error')))
       setAuthorizing(false)
     }
   }
 
   // ── Handle cancel ───────────────────────────────────────
   const handleCancel = () => {
-    if (!redirectUri) return
-    const params = new URLSearchParams()
-    params.set('error', 'access_denied')
-    params.set('error_description', 'The user denied the authorization request')
-    if (state) {
-      params.set('state', state)
+    const target = buildOAuthDenyRedirect(
+      redirectUri,
+      state,
+      getAllowedRedirectHosts(typeof window !== 'undefined' ? window.location.host : undefined),
+    )
+    if (!target) {
+      // Unvetted redirect_uri — refuse to bounce the browser there (open redirect).
+      setError(t('oauth.invalidRequest'))
+      return
     }
-    setRedirectUrl(`${redirectUri}?${params.toString()}`)
+    setRedirectUrl(target)
   }
 
   // ── Missing parameters ──────────────────────────────────
@@ -244,7 +249,7 @@ function OAuthAuthorizeContent() {
 
                 {serverError && (
                   <p className="text-sm text-destructive text-center">
-                    {t(getErrorI18nKey(serverError))}
+                    {t(serverError)}
                   </p>
                 )}
 
@@ -272,6 +277,12 @@ function OAuthAuthorizeContent() {
                   </p>
                 )}
               </form>
+
+              {error && (
+                <div className="rounded-md bg-destructive/10 border border-destructive/20 px-4 py-3">
+                  <p className="text-sm text-destructive text-center">{error}</p>
+                </div>
+              )}
 
               <div className="text-center">
                 <Button

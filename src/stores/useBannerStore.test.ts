@@ -1,4 +1,6 @@
 import { describe, it, expect, beforeEach } from 'vitest'
+import { bannerSchedule } from '@/data/banner'
+import { isCharacterOnBanner } from '@/lib/banner-utils'
 import { useBannerStore } from './useBannerStore'
 
 const mockT = (key: string, params?: Record<string, number | string>): string => {
@@ -21,6 +23,7 @@ describe('useBannerStore', () => {
       sortMode: 'default',
       timelineData: null,
       needsFit: true,
+      upCharacterNames: [],
     })
   })
 
@@ -32,6 +35,30 @@ describe('useBannerStore', () => {
     expect(state.sortMode).toBe('default')
     expect(state.timelineData).toBeNull()
     expect(state.needsFit).toBe(true)
+  })
+
+  it('keeps upCharacterNames empty in the initial (server) snapshot', () => {
+    // Time-dependent initial state would mismatch the SSG HTML on hydration.
+    expect(useBannerStore.getInitialState().upCharacterNames).toEqual([])
+  })
+
+  it('refreshBannerStatus fills the UP set from the current time', () => {
+    useBannerStore.getState().refreshBannerStatus()
+    const expected = Object.keys(bannerSchedule).filter((name) => isCharacterOnBanner(name))
+    expect(useBannerStore.getState().upCharacterNames).toEqual(expected)
+  })
+
+  it('refreshBannerStatus keeps the same array reference when the UP set is unchanged', () => {
+    useBannerStore.getState().refreshBannerStatus()
+    const first = useBannerStore.getState().upCharacterNames
+    useBannerStore.getState().refreshBannerStatus()
+    expect(useBannerStore.getState().upCharacterNames).toBe(first)
+  })
+
+  it('refreshBannerStatus replaces the array when the UP set actually changes', () => {
+    useBannerStore.setState({ upCharacterNames: ['__stale__'] })
+    useBannerStore.getState().refreshBannerStatus()
+    expect(useBannerStore.getState().upCharacterNames).not.toEqual(['__stale__'])
   })
 
   it('setZoom clamps to MIN_ZOOM', () => {

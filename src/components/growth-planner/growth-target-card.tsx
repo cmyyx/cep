@@ -3,9 +3,7 @@
 import type { ReactNode } from 'react'
 import { useTranslations } from 'next-intl'
 import { Trash2 } from 'lucide-react'
-import { wikiCharacters } from '@/generated/data/wiki/characters'
-import { wikiWeapons } from '@/generated/data/wiki/weapons'
-import { plannerGameData } from '@/generated/data/planner'
+import { getPlannerGameData, getWikiCharacterSummaries, getWikiWeaponSummaries } from '@/lib/planner/planner-data-loader'
 import { Button } from '@/components/ui/button'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Label } from '@/components/ui/label'
@@ -90,7 +88,8 @@ function GrowthNodes({
 function CharacterOptions({ config }: { config: CharacterGrowthConfig }) {
   const { text } = useWikiTranslations()
   const updateConfig = useGrowthPlannerStore((state) => state.updateConfig)
-  const data = plannerGameData.characters[config.id]
+  // Rendered behind the page's usePlannerData() gate, so the cache is populated.
+  const data = getPlannerGameData().characters[config.id]
   if (!data) return null
   const updateArray = (field: 'currentSkillLevels' | 'targetSkillLevels', index: number, value: number) => {
     const next = [...config[field]]
@@ -120,7 +119,9 @@ export function GrowthTargetCard({ config, onRemove }: { config: GrowthConfig; o
   const { entityName, text } = useWikiTranslations()
   const updateConfig = useGrowthPlannerStore((state) => state.updateConfig)
   const removeEntity = useGrowthPlannerStore((state) => state.removeEntity)
-  const summary = config.kind === 'character' ? wikiCharacters.find((entry) => entry.id === config.id) : wikiWeapons.find((entry) => entry.id === config.id)
+  // Rendered behind the page's usePlannerData() gate, so the cache is populated.
+  const plannerGameData = getPlannerGameData()
+  const summary = config.kind === 'character' ? getWikiCharacterSummaries().find((entry) => entry.id === config.id) : getWikiWeaponSummaries().find((entry) => entry.id === config.id)
   if (!summary) return null
   const name = entityName(summary)
   const data = config.kind === 'character' ? plannerGameData.characters[config.id] : plannerGameData.weapons[config.id]

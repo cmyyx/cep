@@ -33,7 +33,7 @@ const ROUTES = [
   { route: 'banner-calendar', titleKey: 'nav.bannerCalendar' },
   { route: 'background-preview', titleKey: 'nav.backgroundPreview' },
   { route: 'about', titleKey: 'nav.about' },
-  { route: 'wiki', titleKey: 'nav.wiki' },
+  { route: 'wiki', titleKey: 'meta.wikiTitle' },
   { route: 'account', titleKey: 'account.title' },
   { route: 'login', titleKey: 'nav.login' },
   { route: 'settings', titleKey: 'settings.title' },

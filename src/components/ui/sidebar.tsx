@@ -206,7 +206,8 @@ function Sidebar({
             } as React.CSSProperties
           }
           side={side}
-          // Keep ad DOM alive: adwork SDK only fills .adwork-net once per URL.
+          // Keep the sidebar DOM mounted across open/close so menu state
+          // (e.g. scroll position) survives reopening on mobile.
           keepMounted
         >
           <SheetHeader className="sr-only">

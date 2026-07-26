@@ -8,6 +8,26 @@ import { buildAttrShowConfigs } from './equip-stat-format'
 import { parseJsonSafe } from './json-utils'
 import { PLANNER_RESOURCE_IDS } from '../../src/lib/planner-resource-ids'
 import type { PlannerGameData, PlannerMaterialTuple, PlannerMaterialData, PlannerDungeonData } from '../../src/types/planner'
+import type { LocalizedText } from '../../src/types/wiki'
+
+/**
+ * Localized planner strings kept OUT of the runtime dataset (planner.ts stays
+ * slim); consumed at build time by buildWikiI18nCatalogs so names still land in
+ * the per-locale wikiData catalogs.
+ */
+export interface PlannerI18nData {
+  /** itemId → localized material name */
+  materialNames: Record<string, LocalizedText>
+  /** one entry per dungeon id */
+  dungeonNames: Array<{ id: string; seriesId: string; name: LocalizedText; seriesName: LocalizedText }>
+  /** characterId → nodeId → localized node name (talent/attribute/equipment/logistics) */
+  characterNodeNames: Record<string, Record<string, LocalizedText>>
+}
+
+export interface PlannerBuildResult {
+  data: PlannerGameData
+  i18n: PlannerI18nData
+}
 
 /**
  * Advanced Progression protocol stages (`dungeon_ss`) have server-authored yields.
@@ -103,12 +123,19 @@ function staticSetValues(effect: ItemWikiData['equipmentDetails'][string]['suitE
   )
 }
 
+interface MaterialSource extends PlannerMaterialData {
+  itemId: string
+  name: LocalizedText
+}
+
 function addMaterialMetadata(
   target: Record<string, PlannerMaterialData>,
-  value: PlannerMaterialData & { itemId: string }
+  names: Record<string, LocalizedText>,
+  value: MaterialSource
 ): void {
   if (!target[value.itemId]) {
-    target[value.itemId] = { name: value.name, iconId: value.iconId, rarity: value.rarity, ...(value.expValue ? { expValue: value.expValue } : {}) }
+    target[value.itemId] = { iconId: value.iconId, rarity: value.rarity, ...(value.expValue ? { expValue: value.expValue } : {}) }
+    names[value.itemId] = value.name
   }
 }
 
@@ -116,7 +143,7 @@ export function buildPlannerGameData(
   akedataPath: string,
   characters: CharacterWikiData,
   items: ItemWikiData
-): PlannerGameData {
+): PlannerBuildResult {
   const textTables = loadAllTextTables(akedataPath)
   const attrShowConfigs = buildAttrShowConfigs(akedataPath)
   const table = (name: string) => parseJsonSafe(join(akedataPath, 'TableCfg', `${name}.json`)) as Record<string, unknown>
@@ -142,9 +169,10 @@ export function buildPlannerGameData(
   const weaponExpItemTable = table('WeaponExpItemTable') as Record<string, { expItemId?: string; itemExp?: number }>
   const summaries = new Map(characters.summaries.map((summary) => [summary.id, summary]))
   const metadata: Record<string, PlannerMaterialData> = {}
+  const materialNames: Record<string, LocalizedText> = {}
 
-  const collectMaterials = (values: Array<{ itemId: string } & PlannerMaterialData>) => {
-    for (const material of values) addMaterialMetadata(metadata, material)
+  const collectMaterials = (values: MaterialSource[]) => {
+    for (const material of values) addMaterialMetadata(metadata, materialNames, material)
   }
   for (const detail of Object.values(characters.details)) {
     for (const skill of detail.skills) for (const level of skill.levels) collectMaterials(level.materials ?? [])
@@ -164,7 +192,7 @@ export function buildPlannerGameData(
   for (const itemId of resourceIds) {
     const source = itemTable[itemId]
     if (source) {
-      addMaterialMetadata(metadata, {
+      addMaterialMetadata(metadata, materialNames, {
         itemId,
         name: localizeWikiText(source.name, textTables),
         iconId: source.iconId ?? itemId,
@@ -174,9 +202,19 @@ export function buildPlannerGameData(
     }
   }
 
+  const characterNodeNames: Record<string, Record<string, LocalizedText>> = {}
   const characterMap = Object.fromEntries(
     Object.entries(characters.details).map(([id, detail]) => {
       const summary = summaries.get(id)
+      const nodeNames: Record<string, LocalizedText> = {}
+      for (const talent of detail.talents) nodeNames[talent.id] = talent.name
+      for (const node of detail.attributeNodes) nodeNames[node.id] = node.title
+      for (const node of detail.equipmentNodes) nodeNames[node.id] = node.name
+      for (const node of detail.logisticsNodes) {
+        nodeNames[node.id] = detail.logisticsSkills.find((skill) => skill.index === node.index && skill.level === node.level)?.name
+          ?? { 'zh-CN': node.id, en: node.id, ja: node.id, 'zh-TW': node.id }
+      }
+      characterNodeNames[id] = nodeNames
       return [id, {
         mainAttributeId: summary?.mainAttributeId ?? '39',
         subAttributeId: summary?.subAttributeId ?? '40',
@@ -189,22 +227,19 @@ export function buildPlannerGameData(
           id: skill.id,
           typeId: skill.typeId,
           maxLevel: skill.levels.at(-1)?.level ?? 1,
-          name: skill.name,
           iconId: skill.iconId,
           materialsByLevel: skill.levels.map((level) => ({ level: level.level, materials: materials(level.materials ?? []) })),
         })),
-        talents: detail.talents.map((talent) => ({ id: talent.id, name: talent.name, breakStage: talent.breakStage, materials: materials(talent.materials) })),
+        talents: detail.talents.map((talent) => ({ id: talent.id, breakStage: talent.breakStage, materials: materials(talent.materials) })),
         potentials: detail.potentials.map((potential) => ({
           id: potential.id,
           level: potential.level,
-          name: potential.name,
           stats: buildPotentialStats(potentialEffects[potential.id], attrShowConfigs),
         })),
-        attributeNodes: detail.attributeNodes.map((node) => ({ id: node.id, name: node.title, breakStage: node.breakStage, favorability: node.favorability, stats: node.stats, materials: materials(node.materials) })),
-        equipmentNodes: detail.equipmentNodes.map((node) => ({ id: node.id, name: node.name, breakStage: node.breakStage, equipmentTierLimit: node.equipmentTierLimit, materials: materials(node.materials) })),
+        attributeNodes: detail.attributeNodes.map((node) => ({ id: node.id, breakStage: node.breakStage, favorability: node.favorability, stats: node.stats, materials: materials(node.materials) })),
+        equipmentNodes: detail.equipmentNodes.map((node) => ({ id: node.id, breakStage: node.breakStage, equipmentTierLimit: node.equipmentTierLimit, materials: materials(node.materials) })),
         logisticsNodes: detail.logisticsNodes.map((node) => ({
           id: node.id,
-          name: detail.logisticsSkills.find((skill) => skill.index === node.index && skill.level === node.level)?.name ?? { 'zh-CN': node.id, en: node.id, ja: node.id, 'zh-TW': node.id },
           breakStage: node.breakStage,
           index: node.index,
           level: node.level,
@@ -223,7 +258,8 @@ export function buildPlannerGameData(
       return [id, {
         levels: detail.levels.map((level) => ({ ...level, levelUpExp: numeric(levelCosts.get(level.level)?.lvUpExp), levelUpGold: numeric(levelCosts.get(level.level)?.lvUpGold) })),
         breakthroughs: detail.breakthroughs.map((breakthrough) => ({ stage: breakthrough.stage, requiredLevel: breakthrough.requiredLevel, materials: materials(breakthrough.materials) })),
-        skills: detail.skills.map((skill) => ({ id: skill.id, levels: skill.levels })),
+        // zh-CN only: progression.ts parses numeric values out of the text.
+        skills: detail.skills.map((skill) => ({ id: skill.id, levels: skill.levels.map((level) => ({ level: level.level, description: level.description['zh-CN'] ?? '' })) })),
       }]
     })
   )
@@ -275,7 +311,7 @@ export function buildPlannerGameData(
       const count = numeric(bundle.count)
       if (!itemId || count <= 0 || itemId === 'item_adventureexp') return []
       const source = itemTable[itemId]
-      if (source) addMaterialMetadata(metadata, {
+      if (source) addMaterialMetadata(metadata, materialNames, {
         itemId,
         name: localizeWikiText(source.name, textTables),
         iconId: source.iconId ?? itemId,
@@ -292,11 +328,10 @@ export function buildPlannerGameData(
     const current = highestBySeries.get(dungeon.dungeonSeriesId)
     if (!current || numeric(dungeon.recommendLv) > numeric(current.recommendLv)) highestBySeries.set(dungeon.dungeonSeriesId, dungeon)
   }
+  const dungeonNames: PlannerI18nData['dungeonNames'] = []
   const dungeons: PlannerDungeonData[] = [...highestBySeries.values()].flatMap((dungeon) => {
     const id = dungeon.dungeonId as string
-    const name = localizeWikiText(dungeon.dungeonName, textTables)
     const seriesId = dungeon.dungeonSeriesId as string
-    const seriesName = localizeWikiText(dungeonSeriesTable[seriesId]?.name, textTables)
     // SS stages only expose hunter-mode rewards; resource stages use reward/custom/hunter variants.
     const zeroCountYield = dungeon.dungeonCategory === 'dungeon_ss' ? PLANNER_SS_SERVER_YIELD_PER_RUN : undefined
     const variants = [
@@ -304,26 +339,40 @@ export function buildPlannerGameData(
       { rewardId: dungeon.customRewardId, stamina: numeric(dungeon.costStamina) },
       { rewardId: dungeon.hunterModeRewardId, stamina: numeric(dungeon.hunterModeCostStamina) },
     ]
-    return variants.filter((variant) => variant.rewardId && variant.stamina > 0).map((variant) => ({
+    const entries = variants.filter((variant) => variant.rewardId && variant.stamina > 0).map((variant) => ({
       id,
-      name,
       seriesId,
-      seriesName,
       rewardId: variant.rewardId as string,
       stamina: variant.stamina,
       yields: rewardYields(variant.rewardId, zeroCountYield),
       rewardItems: rewardItems(variant.rewardId),
     })).filter((entry) => entry.yields.length > 0)
+    if (entries.length > 0) {
+      dungeonNames.push({
+        id,
+        seriesId,
+        name: localizeWikiText(dungeon.dungeonName, textTables),
+        seriesName: localizeWikiText(dungeonSeriesTable[seriesId]?.name, textTables),
+      })
+    }
+    return entries
   })
 
   return {
-    characters: characterMap,
-    weapons: weaponMap,
-    equipment: equipmentMap,
-    materials: metadata,
-    equipmentSuits,
-    dungeons,
-    derivedAttributes,
+    data: {
+      characters: characterMap,
+      weapons: weaponMap,
+      equipment: equipmentMap,
+      materials: metadata,
+      equipmentSuits,
+      dungeons,
+      derivedAttributes,
+    },
+    i18n: {
+      materialNames,
+      dungeonNames,
+      characterNodeNames,
+    },
   }
 }
 export function writePlannerGameData(dataOutputDir: string, data: PlannerGameData): string {

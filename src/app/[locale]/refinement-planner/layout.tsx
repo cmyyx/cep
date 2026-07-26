@@ -2,6 +2,9 @@ import { getTranslations } from 'next-intl/server'
 import type { Metadata } from 'next'
 import { routing } from '@/i18n/routing'
 import { getAlternates } from '@/lib/metadata'
+import { loadPlannerCatalogs, loadRouteShellMessages } from '@/i18n/load-messages'
+import { RouteMessages } from '@/components/shared/route-messages'
+import type { WikiLocale } from '@/types/wiki'
 
 export async function generateMetadata({
   params,
@@ -40,10 +43,17 @@ export async function generateMetadata({
   }
 }
 
-export default function RefinementPlannerLayout({
+export default async function RefinementPlannerLayout({
   children,
+  params,
 }: {
   children: React.ReactNode
+  params: Promise<{ locale: string }>
 }) {
-  return children
+  const { locale } = await params
+  const messages = {
+    ...loadRouteShellMessages(locale as WikiLocale, 'refinement-planner'),
+    ...loadPlannerCatalogs(locale as WikiLocale, 'refinement'),
+  }
+  return <RouteMessages messages={messages}>{children}</RouteMessages>
 }

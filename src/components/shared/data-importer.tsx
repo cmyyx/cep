@@ -16,6 +16,7 @@ import { normalizeEssenceSettingsFlags, useEssenceSettingsStore } from '@/stores
 import { useMatrixStore } from '@/stores/useMatrixStore'
 import { useRefinementStore } from '@/stores/useRefinementStore'
 import { useSettingsStore } from '@/stores/useSettingsStore'
+import { useAnnouncementStore } from '@/stores/useAnnouncementStore'
 import { cn } from '@/lib/utils'
 import {
   getIoModules,
@@ -23,8 +24,10 @@ import {
   countItems,
   buildSummary,
   sanitizeObject,
+  extractReadIds,
   MAX_ITEMS_PER_MODULE,
 } from '@/lib/data-io-utils'
+import type { GrowthConfig, PanelPreviewConfig } from '@/types/planner'
 import { sanitizeCustomWeapons } from '@/lib/persist-sanitizer'
 import PreviewToggle from '@/components/shared/preview-toggle'
 
@@ -58,7 +61,18 @@ function validateImportFile(json: unknown): ImportFile | null {
 
 // ─── 写入模块 ─────────────────────────────────────────────────
 
-function importModule(moduleId: string, rawData: unknown) {
+/**
+ * Applies one module of an import file.
+ *
+ * Every branch MUST also push the value into the live Zustand store, not just
+ * localStorage: a store that is already mounted keeps its own (now stale) copy
+ * and re-persists it on the next `set()`, silently reverting the import.
+ *
+ * The growth-planner / panel-preview stores are loaded lazily because their
+ * modules kick off `loadPlannerData()` (a multi-MB dynamic import) at module
+ * scope — a static import would pull that onto the settings route.
+ */
+export async function importModule(moduleId: string, rawData: unknown): Promise<void> {
   const data = sanitizeObject(rawData)
   if (data === null || data === undefined || typeof data !== 'object') return
 
@@ -113,6 +127,27 @@ function importModule(moduleId: string, rawData: unknown) {
       })
       break
     }
+    case 'growth-planner': {
+      const d = data as Record<string, unknown>
+      const configs = (Array.isArray(d.configs) ? d.configs : []) as GrowthConfig[]
+      const removedConfigs = (Array.isArray(d.removedConfigs) ? d.removedConfigs : []) as GrowthConfig[]
+      const { useGrowthPlannerStore } = await import('@/stores/useGrowthPlannerStore')
+      // persist writes storage itself (correct name + schema version) on set().
+      useGrowthPlannerStore.setState({ configs, removedConfigs })
+      // Drops entries for unknown entities; no-op until planner data has loaded.
+      useGrowthPlannerStore.getState().pruneInvalid()
+      break
+    }
+    case 'panel-preview': {
+      const d = data as Record<string, unknown>
+      const config = d.config && typeof d.config === 'object'
+        ? (d.config as PanelPreviewConfig)
+        : null
+      const { usePanelPreviewStore } = await import('@/stores/usePanelPreviewStore')
+      usePanelPreviewStore.setState({ config })
+      usePanelPreviewStore.getState().pruneInvalid()
+      break
+    }
     case 'cep-settings': {
       localStorage.setItem('cep-settings', JSON.stringify(data))
       useSettingsStore.getState().hydrateFromStorage()
@@ -124,8 +159,9 @@ function importModule(moduleId: string, rawData: unknown) {
       break
     }
     case 'announcement-read': {
-      const payload = { state: data, version: 0 }
-      localStorage.setItem('cep-announcement-read-ids', JSON.stringify(payload))
+      // localStorage-only writes lose to the store's in-memory readIds on the
+      // next set() — go through the store so persist rewrites the key for us.
+      useAnnouncementStore.setState({ readIds: extractReadIds(data) })
       break
     }
   }
@@ -229,7 +265,7 @@ export function DataImporter() {
     [t, modules, knownIds],
   )
 
-  const handleImport = useCallback(() => {
+  const handleImport = useCallback(async () => {
     if (!file) return
     for (const mod of modules) {
       if (!checked.has(mod.id)) continue
@@ -238,7 +274,9 @@ export function DataImporter() {
       if (rawData === null || rawData === undefined) continue
       const max = MAX_ITEMS_PER_MODULE[mod.id] ?? 10000
       if (countItems(mod.id, rawData) > max) continue
-      importModule(mod.id, rawData)
+      // Sequential: modules are independent but lazily-loaded stores must settle
+      // before the dialog closes.
+      await importModule(mod.id, rawData)
     }
     setImported(true)
     setDialogOpen(false)
@@ -358,7 +396,7 @@ export function DataImporter() {
             <Button variant="outline" size="sm" onClick={handleClose}>
               {t('settings.cancel')}
             </Button>
-            <Button size="sm" onClick={handleImport} disabled={!hasAnyChecked}>
+            <Button size="sm" onClick={() => void handleImport()} disabled={!hasAnyChecked}>
               {t('settings.importConfirm')}
             </Button>
           </div>

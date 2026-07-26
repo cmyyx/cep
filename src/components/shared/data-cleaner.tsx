@@ -18,17 +18,19 @@ import { useMatrixStore } from '@/stores/useMatrixStore'
 import { useRefinementStore } from '@/stores/useRefinementStore'
 import { useAuthStore } from '@/stores/useAuthStore'
 import { useHolidayStore } from '@/stores/useHolidayStore'
+import { useAnnouncementStore } from '@/stores/useAnnouncementStore'
+import { useWikiStore } from '@/stores/useWikiStore'
 
 // ─── 数据模块定义 ──────────────────────────────────────────────
 
-interface DataModule {
+export interface DataModule {
   id: string
   label: string
   description: string
   keys: string[]
 }
 
-function buildModules(t: ReturnType<typeof useTranslations>): DataModule[] {
+export function buildModules(t: ReturnType<typeof useTranslations>): DataModule[] {
   return [
     {
       id: 'essence-settings',
@@ -47,6 +49,25 @@ function buildModules(t: ReturnType<typeof useTranslations>): DataModule[] {
       label: t('dataCleaner.modules.refinement-session.label'),
       description: t('dataCleaner.modules.refinement-session.desc'),
       keys: ['refinement-session'],
+    },
+    {
+      // Persist names are camelCase here (useGrowthPlannerStore / usePanelPreviewStore).
+      id: 'growth-planner',
+      label: t('dataCleaner.modules.growth-planner.label'),
+      description: t('dataCleaner.modules.growth-planner.desc'),
+      keys: ['growthPlanner'],
+    },
+    {
+      id: 'panel-preview',
+      label: t('dataCleaner.modules.panel-preview.label'),
+      description: t('dataCleaner.modules.panel-preview.desc'),
+      keys: ['panelPreview'],
+    },
+    {
+      id: 'wiki-session',
+      label: t('dataCleaner.modules.wiki-session.label'),
+      description: t('dataCleaner.modules.wiki-session.desc'),
+      keys: ['wiki-session'],
     },
     {
       id: 'user-data',
@@ -129,6 +150,83 @@ function getModuleSize(keys: string[]): number {
   return total
 }
 
+/**
+ * Reset the live store behind a module before its localStorage keys are removed.
+ *
+ * A mounted store keeps its own copy of the state and re-persists it on the next
+ * `set()`, so deleting the key alone looks like "the data came back".
+ *
+ * growth-planner / panel-preview are imported lazily: their store modules kick
+ * off `loadPlannerData()` (a multi-MB dynamic import) at module scope, which must
+ * not land on the settings route just because this dialog exists.
+ */
+export async function resetStoreForModule(moduleId: string): Promise<void> {
+  switch (moduleId) {
+    case 'essence-settings':
+      useEssenceSettingsStore.getState().resetAllSettings()
+      break
+    case 'matrix-session':
+      useMatrixStore.getState().clearWeapons()
+      break
+    case 'refinement-session':
+      useRefinementStore.getState().selectEquip(null)
+      break
+    case 'growth-planner': {
+      const { useGrowthPlannerStore } = await import('@/stores/useGrowthPlannerStore')
+      // Not clear(): that action parks the configs in the removedConfigs cache,
+      // which persist writes straight back to localStorage.
+      useGrowthPlannerStore.setState({ configs: [], removedConfigs: [] })
+      break
+    }
+    case 'panel-preview': {
+      const { usePanelPreviewStore } = await import('@/stores/usePanelPreviewStore')
+      usePanelPreviewStore.setState({ config: null })
+      break
+    }
+    case 'wiki-session':
+      useWikiStore.setState({ expandedEquipmentGroups: [] })
+      break
+    case 'user-data':
+      // Revokes the server session too; falls back to a local-only clear offline.
+      try {
+        await useAuthStore.getState().logout()
+      } catch {
+        useAuthStore.getState().clearLocalSession()
+      }
+      break
+    case 'announcement-read':
+      useAnnouncementStore.setState({ readIds: [] })
+      break
+    case 'holiday-state':
+      useHolidayStore.setState({ dismissedHolidays: {}, holidayEffectsEnabled: true })
+      break
+  }
+}
+
+/**
+ * Reset every persisted store so that none of them re-writes its key after
+ * `localStorage.clear()`. Order matters only in that this must run first.
+ *
+ * `cep-settings` is intentionally absent: useSettingsStore is not a persist store
+ * and only writes on an explicit user action, so it cannot resurrect its key on
+ * its own (the in-memory theme/background stays applied until reload).
+ */
+export async function resetAllPersistedStores(): Promise<void> {
+  for (const id of [
+    'essence-settings',
+    'matrix-session',
+    'refinement-session',
+    'growth-planner',
+    'panel-preview',
+    'wiki-session',
+    'announcement-read',
+    'holiday-state',
+    'user-data',
+  ]) {
+    await resetStoreForModule(id)
+  }
+}
+
 function formatSize(bytes: number): string {
   if (bytes === 0) return '0 B'
   if (bytes < 1024) return `${bytes} B`
@@ -208,44 +306,23 @@ export function DataCleaner() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open, tick, modules, unknownEntries])
 
-  const resetStoreForModule = useCallback((moduleId: string) => {
-    switch (moduleId) {
-      case 'essence-settings':
-        useEssenceSettingsStore.getState().resetAllSettings()
-        break
-      case 'matrix-session':
-        useMatrixStore.getState().clearWeapons()
-        break
-      case 'refinement-session':
-        useRefinementStore.getState().selectEquip(null)
-        break
-      case 'user-data':
-        // logout clears auth tokens and redirects — call only when explicitly clearing auth
-        useAuthStore.getState().logout()
-        break
-      case 'holiday-state':
-        useHolidayStore.setState({ dismissedHolidays: {}, holidayEffectsEnabled: true })
-        break
-    }
-  }, [])
-
   const clearModule = useCallback((keys: string[]) => {
     for (const key of keys) {
       try { localStorage.removeItem(key) } catch { /* ignore */ }
     }
   }, [])
 
-  const handleClearModule = useCallback((mod: DataModule) => {
+  const handleClearModule = useCallback(async (mod: DataModule) => {
     setLoading(true)
     try {
-      resetStoreForModule(mod.id)
+      await resetStoreForModule(mod.id)
       clearModule(mod.keys)
       setLastCleared(mod.label)
       bump()
     } finally {
       setLoading(false)
     }
-  }, [clearModule, bump, resetStoreForModule])
+  }, [clearModule, bump])
 
   const handleClearUnknownKey = useCallback((key: string) => {
     setLoading(true)
@@ -258,11 +335,12 @@ export function DataCleaner() {
     }
   }, [bump, t])
 
-  const handleClearAll = useCallback(() => {
+  const handleClearAll = useCallback(async () => {
     try {
-      useEssenceSettingsStore.getState().resetAllSettings()
-      useMatrixStore.getState().clearWeapons()
-      useRefinementStore.getState().selectEquip(null)
+      // Sign out and reset every persisted store BEFORE wiping storage, otherwise
+      // the live stores (auth tokens, planners, wiki, announcements, holiday…)
+      // immediately re-persist their keys and the wipe looks like it failed.
+      await resetAllPersistedStores()
       localStorage.clear()
       setLastCleared(t('dataCleaner.clearedAll'))
       setConfirmClearAll(false)
@@ -306,7 +384,7 @@ export function DataCleaner() {
                       label={mod.label}
                       description={mod.description}
                       size={getModuleSize(mod.keys)}
-                      onClear={() => handleClearModule(mod)}
+                      onClear={() => void handleClearModule(mod)}
                       loading={loading}
                     />
                   ))}
@@ -370,7 +448,7 @@ export function DataCleaner() {
             <Button variant="outline" size="sm" onClick={() => setConfirmClearAll(false)}>
               {t('dataCleaner.cancel')}
             </Button>
-            <Button variant="destructive" size="sm" onClick={handleClearAll}>
+            <Button variant="destructive" size="sm" onClick={() => void handleClearAll()}>
               {t('dataCleaner.confirm')}
             </Button>
           </div>

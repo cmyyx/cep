@@ -1,0 +1,91 @@
+{
+  "$comment": "shell 消息包拆分的单一数据源: load-messages.ts (核心包 + 按路由注入) 与 scripts/check-i18n.mjs (Phase 2d 交叉校验) 共同读取。coreNamespaces = 全局客户端组件(根布局树)使用的完整命名空间; corePicks = 仅少数 key 全局使用的命名空间的 key 级子集; routes = 各路由 layout 注入的命名空间/子集; catalogs 仅供校验脚本对照 PLANNER_CATALOG_KEYS。",
+  "coreNamespaces": [
+    "app",
+    "nav",
+    "common",
+    "sidebar",
+    "feedback",
+    "holiday",
+    "extensionCss",
+    "versionWatermark",
+    "legacyMigration"
+  ],
+  "corePicks": {
+    "account": [
+      "title",
+      "sessionExpired",
+      "sessionExpiredToast",
+      "syncConflictToast",
+      "syncErrorToast",
+      "syncDownloaded",
+      "syncAlreadyUpToDate",
+      "syncUploaded",
+      "goToAccount"
+    ],
+    "version": [
+      "updatePrompt",
+      "compatibleVersion",
+      "forceUpgradeTitle",
+      "forceUpgradeMessage",
+      "forceUpgradeButton",
+      "updateAvailableToast",
+      "updateAvailable"
+    ],
+    "home": ["title", "importantBanner", "clickToView"],
+    "backgroundPreview": ["dailyUpdatedBadge"],
+    "wiki": ["categories"]
+  },
+  "routes": {
+    "(home)": {
+      "namespaces": ["home"],
+      "picks": {
+        "about": ["essencePlannerDesc", "bannerCalendarDesc", "refinementPlannerDesc"],
+        "meta": ["homeDescription", "growthPlannerDescription", "panelPreviewDescription"]
+      }
+    },
+    "404": { "namespaces": ["notFound", "environment", "version"] },
+    "about": { "namespaces": ["about"] },
+    "account": {
+      "namespaces": ["account", "auth", "essenceSettings"],
+      "catalogs": ["equips", "region"]
+    },
+    "background-preview": { "namespaces": ["backgroundPreview"] },
+    "banner-calendar": { "namespaces": ["bannerCalendar"] },
+    "blocked": { "namespaces": ["blocked", "environment", "version"] },
+    "essence-planner": {
+      "namespaces": ["essence", "essenceSettings", "wiki"],
+      "picks": { "meta": ["essencePlannerDescription"] },
+      "catalogs": ["weapons", "dungeons", "gemStats", "weaponStats", "region"]
+    },
+    "forum": { "namespaces": ["forum"] },
+    "growth-planner": { "namespaces": ["growthPlanner", "wiki"] },
+    "login": { "namespaces": ["auth", "account"] },
+    "oauth": {
+      "namespaces": ["oauth", "auth"],
+      "picks": {
+        "account": [
+          "serverError",
+          "maintenanceMode",
+          "rateLimitExceeded",
+          "invalidResponse",
+          "notFound",
+          "userNotFound"
+        ]
+      }
+    },
+    "panel-preview": { "namespaces": ["panelPreview", "wiki"] },
+    "refinement-planner": {
+      "namespaces": ["refinement", "wiki"],
+      "picks": { "meta": ["refinementPlannerDescription"] },
+      "catalogs": ["equips", "equipStats", "equipTypes", "suits", "materials"]
+    },
+    "settings": { "namespaces": ["settings", "dataCleaner"] },
+    "tools/game-i18n": { "namespaces": ["gameI18nLookup"] },
+    "update": { "namespaces": ["version"] },
+    "wiki": {
+      "namespaces": ["wiki"],
+      "picks": { "refinement": ["modelTypeI", "modelTypeII", "modelTypeIII"] }
+    }
+  }
+}

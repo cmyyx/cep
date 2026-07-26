@@ -5,6 +5,7 @@ import { useLocale } from 'next-intl'
 import { useGameI18nLocale } from '@/hooks/use-game-i18n-catalogs'
 import { asWikiLocale } from '@/lib/wiki-locale'
 import { wikiTextKey } from '@/lib/wiki-i18n'
+import { entityDisplayName } from '@/lib/wiki-summary-locale'
 import type { WikiEntitySummary, WikiEnumGroup } from '@/types/wiki'
 
 /**
@@ -16,7 +17,15 @@ export function useWikiTranslations() {
   const locale = asWikiLocale(useLocale())
   const catalogs = useGameI18nLocale(locale)
 
-  const entityName = useCallback((entity: WikiEntitySummary): string => {
+  const entityName = useCallback((entity: WikiEntitySummary | { id: string; category: string; name?: string | Record<string, string> }): string => {
+    // Prefer the name embedded in the summary — either already localized
+    // (static export slim payloads) or a full LocalizedText record indexed by
+    // the current locale. This keeps labels independent of the async catalog
+    // chunk, so pickers never flash raw ids like `chr_9000_endmin`.
+    if (entity.name) {
+      const embedded = entityDisplayName({ name: entity.name, id: entity.id }, locale)
+      if (embedded && embedded !== entity.id) return embedded
+    }
     if (entity.category === 'characters') {
       return catalogs?.characters[entity.id] ?? entity.id
     }
@@ -24,7 +33,7 @@ export function useWikiTranslations() {
       return catalogs?.weapons[entity.id] ?? entity.id
     }
     return catalogs?.equips[entity.id] ?? entity.id
-  }, [catalogs])
+  }, [catalogs, locale])
 
   const text = useCallback((...segments: Array<string | number>): string => {
     const key = wikiTextKey(...segments)

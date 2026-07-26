@@ -1,7 +1,7 @@
 'use client'
 
 import { useMemo, useState, useCallback, useEffect } from 'react'
-import { useTranslations } from 'next-intl'
+import { useLocale, useTranslations } from 'next-intl'
 import { usePathname } from 'next/navigation'
 import { useIsMobile } from '@/hooks/use-mobile'
 import { SidebarTrigger } from '@/components/ui/sidebar'
@@ -21,6 +21,7 @@ import { dungeons } from '@/data/dungeons'
 import { weapons as staticWeapons } from '@/data/weapons'
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@/components/ui/sheet'
 import { cn } from '@/lib/utils'
+import { formatNameList, isDungeonInRegionFilter } from '@/lib/essence-plan-filter'
 import { Plus } from 'lucide-react'
 import { StructuredData } from '@/components/shared/structured-data'
 import { useSiteUrl } from '@/hooks/use-site-url'
@@ -28,6 +29,7 @@ type MobileView = 'weapons' | 'plans'
 
 export default function EssencePlannerPage() {
   const t = useTranslations()
+  const locale = useLocale()
   const pathname = usePathname()
   const siteUrl = useSiteUrl()
   const [customWeaponOpen, setCustomWeaponOpen] = useState(false)
@@ -177,11 +179,13 @@ export default function EssencePlannerPage() {
     return sortedPlanOrder.filter((key) => {
       const plan = plansMap[key]
       if (!plan) return false
-      if (selectedRegions.size > 0 && !selectedRegions.has(getRegion(plan.dungeon))) return false
-      if (selectedSubRegions.size > 0 && !selectedSubRegions.has(getSubRegion(plan.dungeon))) return false
-      return true
+      return isDungeonInRegionFilter(getRegion(plan.dungeon), getSubRegion(plan.dungeon), {
+        selectedRegions,
+        selectedSubRegions,
+        subRegionsByRegion,
+      })
     })
-  }, [sortedPlanOrder, plansMap, selectedRegions, selectedSubRegions])
+  }, [sortedPlanOrder, plansMap, selectedRegions, selectedSubRegions, subRegionsByRegion])
 
   // Weapons in current selection that have NO coverage under active region filter
   const weaponsNotCovered = useMemo(() => {
@@ -198,13 +202,17 @@ export default function EssencePlannerPage() {
     return selectedWeaponIds.filter((id) => !covered.has(id))
   }, [filteredPlanOrder, selectedWeaponIds, plansMap, selectedRegions, selectedSubRegions])
 
-  // Map weapon IDs to names for warning display
-  const weaponNameMap = useMemo(() => {
-    const map = new Map<string, string>()
-    for (const w of staticWeapons) map.set(w.id, w.name)
-    for (const w of customWeapons) map.set(w.id, w.name)
-    return map
-  }, [customWeapons])
+  // Localized names for the "not covered" warning. Custom / preview weapons have no
+  // i18n entry, so they fall back to the name stored with the weapon.
+  const notCoveredNames = useMemo(
+    () =>
+      weaponsNotCovered.map((id) => {
+        const weapon = allWeaponsMap.get(id)
+        if (id.startsWith('custom-') || id.startsWith('preview:')) return weapon?.name ?? id
+        return t(`weapons.${id}`) || weapon?.name || id
+      }),
+    [weaponsNotCovered, allWeaponsMap, t],
+  )
 
   // ── Region chip handlers ──
 
@@ -396,7 +404,7 @@ export default function EssencePlannerPage() {
             {weaponsNotCovered.length > 0 && (
           <div className="rounded-md border border-amber-500/20 bg-amber-500/5 px-3 py-2 text-xs text-amber-600">
             {t('essence.weaponNotCoveredByRegion', {
-              weapons: weaponsNotCovered.map((id) => weaponNameMap.get(id) ?? id).join('、'),
+              weapons: formatNameList(notCoveredNames, locale),
             })}
           </div>
         )}

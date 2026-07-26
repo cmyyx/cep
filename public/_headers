@@ -1,0 +1,17 @@
+# 静态托管响应头 (Cloudflare Workers 静态资源 / Pages 语法)。
+# output:"export" 无服务端运行时, 无法用 next.config 的 headers(), 因此在此声明。
+#
+# 未设置 Content-Security-Policy 的 script-src: 站点在 <head> 内联主题防闪烁与
+# 守卫脚本, 并加载 umami / 百度统计 / Clarity / Cloudflare Insights 等第三方脚本,
+# 收紧 script-src 需要先为全部内联脚本引入 nonce 或 hash 机制 (静态导出下需要
+# 构建期生成), 属独立改造。此处先落地无兼容风险的头, frame-ancestors 单独用
+# CSP 声明以阻止点击劫持。
+
+/*
+  X-Frame-Options: DENY
+  Content-Security-Policy: frame-ancestors 'none'
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Strict-Transport-Security: max-age=31536000; includeSubDomains
+  Cross-Origin-Opener-Policy: same-origin
+  Permissions-Policy: geolocation=(), microphone=(), camera=()

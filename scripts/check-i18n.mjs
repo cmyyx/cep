@@ -618,6 +618,146 @@ function checkErrorCodes(allFiles, locales) {
   return { errors, warnings }
 }
 
+// ─── Phase 2d: Client bag coverage (core shell + per-route injection) ───────
+//
+// The root NextIntlClientProvider only carries the CORE bag defined in
+// src/i18n/route-shell-messages.json; everything else is injected per-route
+// via RouteMessages. A client component using a key outside its route's bag
+// fails at runtime with MISSING_MESSAGE — this phase makes that a P0 instead.
+
+const ROUTE_SHELL_CONFIG_PATH = join(ROOT, 'src', 'i18n', 'route-shell-messages.json')
+
+/** Generated planner catalog namespaces (not in src/messages/, injected via catalogs). */
+const CATALOG_NAMESPACES = new Set([
+  'characters', 'dungeons', 'equipStats', 'equipTypes', 'equips', 'gemStats',
+  'materials', 'region', 'suits', 'weapons', 'weaponStats', 'wikiData',
+])
+
+/** src/components/<dir> → routes whose bag those components rely on ('global' = core only). */
+const COMPONENT_DIR_ROUTES = {
+  'about': ['about'],
+  'background-preview': ['background-preview'],
+  'banner-calendar': ['banner-calendar'],
+  'essence': ['essence-planner'],
+  'forum': ['forum'],
+  'growth-planner': ['growth-planner'],
+  'home': ['(home)'],
+  'panel-preview': ['panel-preview'],
+  'refinement': ['refinement-planner'],
+  'tools': ['tools/game-i18n'],
+  'wiki': ['wiki', 'essence-planner', 'refinement-planner', 'growth-planner', 'panel-preview'],
+  'ui': 'global',
+}
+
+/** shared/ 组件默认按全局(核心包)校验; 路由专属的在此登记。 */
+const SHARED_COMPONENT_ROUTES = {
+  'sync-conflict-dialog.tsx': ['account'],
+  'data-exporter.tsx': ['settings'],
+  'data-importer.tsx': ['settings'],
+  'data-cleaner.tsx': ['settings'],
+  'wiki-entity-picker.tsx': ['growth-planner', 'panel-preview'],
+  'planner-wiki-preview.tsx': ['essence-planner', 'refinement-planner', 'panel-preview'],
+  'wiki-material-list.tsx': ['wiki', 'essence-planner', 'refinement-planner', 'growth-planner', 'panel-preview'],
+  'guard-environment-info.tsx': ['404', 'blocked'],
+  'embed-warning-banner.tsx': ['forum'],
+}
+
+function isClientFile(content) {
+  return /^\s*['"]use client['"]/.test(content.slice(0, 400))
+}
+
+/** Attribute a source file to the route bags available where it mounts. */
+function attributeFileRoutes(relPath) {
+  const posix = relPath.replaceAll('\\', '/')
+  const appMatch = posix.match(/^src\/app\/\[locale\]\/([^/]+)(?:\/([^/]+))?/)
+  if (appMatch) {
+    const seg = appMatch[1]
+    if (seg === 'tools') return ['tools/game-i18n']
+    if (seg === '(legal)') return []
+    if (seg.endsWith('.tsx') || seg.endsWith('.ts')) return 'global' // [locale]/layout.tsx itself
+    return [seg]
+  }
+  if (posix.startsWith('src/components/')) {
+    const rest = posix.slice('src/components/'.length)
+    const dir = rest.includes('/') ? rest.slice(0, rest.indexOf('/')) : null
+    if (dir === 'shared') {
+      const base = rest.slice(rest.lastIndexOf('/') + 1)
+      return SHARED_COMPONENT_ROUTES[base] ?? 'global'
+    }
+    if (dir === null) return 'global' // app-sidebar.tsx 等根级组件
+    return COMPONENT_DIR_ROUTES[dir] ?? 'global'
+  }
+  return null // hooks/stores/lib/data: key 字符串生产者, 由消费组件覆盖
+}
+
+function checkClientBagCoverage(allFiles, globalConstants) {
+  const errors = []
+  const warnings = []
+
+  if (!existsSync(ROUTE_SHELL_CONFIG_PATH)) {
+    return { errors: ['[P0] src/i18n/route-shell-messages.json not found'], warnings }
+  }
+  const config = JSON.parse(readFileSync(ROUTE_SHELL_CONFIG_PATH, 'utf-8'))
+  const coreNamespaces = new Set(config.coreNamespaces)
+  const corePicks = config.corePicks ?? {}
+  const routes = config.routes ?? {}
+
+  const coveredByCore = (ns, sub) => {
+    if (coreNamespaces.has(ns)) return true
+    const pick = corePicks[ns]
+    return Boolean(pick && sub && pick.includes(sub))
+  }
+  const coveredByRoute = (routeKey, ns, sub) => {
+    const route = routes[routeKey]
+    if (!route) return false
+    if (route.namespaces?.includes(ns)) return true
+    if (route.catalogs?.includes(ns)) return true
+    const pick = route.picks?.[ns]
+    return Boolean(pick && sub && pick.includes(sub))
+  }
+
+  for (const file of allFiles) {
+    const relPath = file.replace(ROOT + '/', '').replace(ROOT + '\\', '')
+    const posix = relPath.replaceAll('\\', '/')
+    if (!posix.startsWith('src/app/') && !posix.startsWith('src/components/')) continue
+
+    const content = readFileSync(file, 'utf-8')
+    if (!isClientFile(content)) continue
+
+    const routesForFile = attributeFileRoutes(relPath)
+    if (routesForFile === null) continue
+
+    const { keys } = extractKeys(file, globalConstants)
+    for (const key of keys) {
+      if (key.includes('${') || !key.includes('.')) continue
+      const [ns, sub] = key.split('.')
+      const isCatalog = CATALOG_NAMESPACES.has(ns)
+      if (!isCatalog && !(ns in corePicks) && !coreNamespaces.has(ns) && !SHELL_NAMESPACES.has(ns)) continue
+
+      if (coveredByCore(ns, sub)) continue
+
+      if (routesForFile === 'global') {
+        errors.push(
+          `[P0] 全局客户端文件 ${posix} 使用 "${key}", 但核心包未覆盖 (route-shell-messages.json coreNamespaces/corePicks)`
+        )
+        continue
+      }
+      for (const routeKey of routesForFile) {
+        if (!coveredByRoute(routeKey, ns, sub)) {
+          errors.push(
+            `[P0] ${posix} 使用 "${key}", 但路由 "${routeKey}" 的注入包未覆盖 (route-shell-messages.json routes)`
+          )
+        }
+      }
+    }
+  }
+
+  return { errors, warnings }
+}
+
+// Shell namespaces = top-level keys of the messages JSONs (filled in main()).
+const SHELL_NAMESPACES = new Set()
+
 // ─── Phase 3: Cross-reference ───────────────────────────────────────────────
 
 function check(locales, usedKeys, unresolved) {
@@ -686,6 +826,11 @@ function main() {
   for (const [name, keys] of locales) console.log(`  ${name}: ${keys.size} keys`)
   console.log()
 
+  // Shell namespace registry for Phase 2d (top-level key prefix per locale JSON)
+  for (const [, keys] of locales) {
+    for (const k of keys.keys()) SHELL_NAMESPACES.add(k.split('.')[0])
+  }
+
   // Phase 2a: Pool constants from ALL i18n AND data files
   const globalConstants = new Map()
   const allFiles = walkSourceFiles()
@@ -723,8 +868,11 @@ function main() {
   // Phase 2c: Error code cross-reference
   const ecResult = checkErrorCodes(allFiles, locales)
 
-  const errors = [...phase3.errors, ...ecResult.errors]
-  const warnings = [...phase3.warnings, ...ecResult.warnings]
+  // Phase 2d: Client bag coverage (core shell + per-route injection)
+  const bagResult = checkClientBagCoverage(allFiles, globalConstants)
+
+  const errors = [...phase3.errors, ...ecResult.errors, ...bagResult.errors]
+  const warnings = [...phase3.warnings, ...ecResult.warnings, ...bagResult.warnings]
   const info = phase3.info
   const exitCode = errors.length > 0 ? 1 : phase3.exitCode
 

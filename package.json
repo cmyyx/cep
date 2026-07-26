@@ -9,6 +9,7 @@
     "prebuild": "node scripts/generate-og.mjs && node scripts/generate-version.mjs && node scripts/generate-announcement-meta.mjs && node scripts/validate-announcements.mjs && node scripts/check-i18n.mjs && node scripts/check-images.mjs && node scripts/generate-llms-txt.mjs",
     "dev": "next dev",
     "build": "next build",
+    "postbuild": "node scripts/prune-export.mjs",
     "start": "next start",
     "lint": "eslint",
     "test": "vitest run",

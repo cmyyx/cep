@@ -396,7 +396,11 @@ export const useBannerStore = create<BannerState>((set, get) => ({
   sortMode: 'default',
   timelineData: null,
   needsFit: true,
-  upCharacterNames: computeUpCharacters(),
+  // Must stay empty at module-evaluation time: zustand v5 serves
+  // getInitialState() as the server snapshot, so a Date.now()-derived value
+  // would bake the build-time UP set into the static HTML and mismatch on
+  // hydration. Consumers call refreshBannerStatus() on mount (+ every 60s).
+  upCharacterNames: [],
 
   setZoom: (value: number) => {
     const z = Math.max(MIN_ZOOM, Math.min(MAX_ZOOM, value))
@@ -437,5 +441,12 @@ export const useBannerStore = create<BannerState>((set, get) => ({
     set({ timelineData: data, zoom: z, fullOverview: true, needsFit: false })
   },
 
-  refreshBannerStatus: () => set({ upCharacterNames: computeUpCharacters() }),
+  refreshBannerStatus: () => {
+    const next = computeUpCharacters()
+    const current = get().upCharacterNames
+    // Called on a 60s interval by every consumer; a fresh array reference on
+    // each tick would re-render the whole wiki/essence grid for nothing.
+    if (current.length === next.length && current.every((name, index) => name === next[index])) return
+    set({ upCharacterNames: next })
+  },
 }))

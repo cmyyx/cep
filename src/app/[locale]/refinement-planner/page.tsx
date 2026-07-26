@@ -60,24 +60,26 @@ export default function RefinementPlannerPage() {
       <div className="flex md:hidden flex-col flex-1 overflow-hidden">
         {/* Segmented control */}
         <div className="flex mx-4 mt-3 rounded-lg bg-muted p-0.5">
-          <button
+          <Button
             type="button"
+            variant="ghost"
             onClick={() => setMobileView('equips')}
             className={cn(
-              'flex-1 px-4 py-1.5 rounded-md text-sm font-medium transition-colors',
+              'flex-1 px-4 py-1.5 h-auto rounded-md text-sm font-medium transition-colors',
               mobileView === 'equips'
                 ? 'bg-background text-foreground shadow-[0px_0px_0px_1px_rgba(0,0,0,0.04),0px_1px_2px_rgba(0,0,0,0.06)]'
                 : 'text-muted-foreground',
             )}
           >
             {t('refinement.equipsTab')}
-          </button>
-          <button
+          </Button>
+          <Button
             type="button"
+            variant="ghost"
             onClick={() => setMobileView('recommend')}
             disabled={!hasSelection}
             className={cn(
-              'flex-1 px-4 py-1.5 rounded-md text-sm font-medium transition-colors',
+              'flex-1 px-4 py-1.5 h-auto rounded-md text-sm font-medium transition-colors',
               mobileView === 'recommend'
                 ? 'bg-background text-foreground shadow-[0px_0px_0px_1px_rgba(0,0,0,0.04),0px_1px_2px_rgba(0,0,0,0.06)]'
                 : 'text-muted-foreground',
@@ -85,7 +87,7 @@ export default function RefinementPlannerPage() {
             )}
           >
             {t('refinement.recommendTab')}
-          </button>
+          </Button>
         </div>
 
         {/* Content area — min-h-0 prevents flex overflow if layout chain breaks */}
@@ -98,13 +100,15 @@ export default function RefinementPlannerPage() {
             <div className="p-4 pb-16">
               {/* Selected equip context header */}
               {hasSelection && (
-                <button
+                <Button
                   type="button"
+                  variant="ghost"
+                  size="sm"
                   onClick={() => setViewEquipOpen(true)}
-                  className="flex items-center gap-2 mb-3 text-sm text-muted-foreground hover:text-foreground transition-colors"
+                  className="mb-3 h-auto gap-2 px-0 text-sm text-muted-foreground transition-colors hover:text-foreground"
                 >
                   <span>{t('refinement.viewSelectedEquip')}</span>
-                </button>
+                </Button>
               )}
               <RefinementPanel />
             </div>

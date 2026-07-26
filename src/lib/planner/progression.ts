@@ -1,4 +1,4 @@
-import { plannerGameData } from '@/generated/data/planner'
+import { getCachedPlannerGameData } from '@/lib/planner/planner-data-loader'
 import { PLANNER_RESOURCE_IDS } from '@/lib/planner-resource-ids'
 import type {
   FarmingEstimate,
@@ -51,10 +51,19 @@ const WEAPON_MODIFIER_IDS: Array<[string, string]> = [
 ]
 type PlannerCharacter = PlannerGameData['characters'][string]
 type PlannerWeapon = PlannerGameData['weapons'][string]
-const characters = plannerGameData.characters as Record<string, PlannerCharacter>
-const weapons = plannerGameData.weapons as Record<string, PlannerWeapon>
-const equipment = plannerGameData.equipment as Record<string, PlannerEquipmentStatData[]>
-const equipmentSuits = plannerGameData.equipmentSuits
+
+/**
+ * Planner data is loaded via the shared async chunk (planner-data-loader);
+ * read it lazily inside each call instead of at module scope so this module
+ * never drags the multi-MB dataset into a route chunk.
+ */
+function characterData(id: string): PlannerCharacter | undefined {
+  return getCachedPlannerGameData()?.characters[id]
+}
+
+function weaponData(id: string): PlannerWeapon | undefined {
+  return getCachedPlannerGameData()?.weapons[id]
+}
 
 function clamp(value: number, minimum: number, maximum: number): number {
   const numericValue = Number.isFinite(value) ? value : minimum
@@ -82,7 +91,7 @@ function addCharacterLevelCosts(data: PlannerCharacterData, currentLevel: number
 
 export function createDefaultGrowthConfig(kind: 'character' | 'weapon', id: string): GrowthConfig {
   if (kind === 'weapon') {
-    const data = weapons[id]
+    const data = weaponData(id)
     return {
       kind,
       id,
@@ -92,7 +101,7 @@ export function createDefaultGrowthConfig(kind: 'character' | 'weapon', id: stri
       targetBreakStage: data?.breakthroughs.at(-1)?.stage ?? 4,
     }
   }
-  const data = characters[id]
+  const data = characterData(id)
   return {
     kind,
     id,
@@ -130,7 +139,7 @@ export function migrateLegacySkillLevelOrder(levels: unknown): number[] | undefi
 
 export function normalizeGrowthConfig(config: GrowthConfig): GrowthConfig {
   if (config.kind === 'weapon') {
-    const data = weapons[config.id]
+    const data = weaponData(config.id)
     const maxLevel = data?.levels.at(-1)?.level ?? 90
     const maxBreakStage = data?.breakthroughs.at(-1)?.stage ?? 4
     const currentLevel = clamp(config.currentLevel, 1, maxLevel)
@@ -143,7 +152,7 @@ export function normalizeGrowthConfig(config: GrowthConfig): GrowthConfig {
       targetBreakStage: clamp(config.targetBreakStage, currentBreakStage, maxBreakStage),
     }
   }
-  const data = characters[config.id]
+  const data = characterData(config.id)
   const maxLevel = data?.levels.at(-1)?.level ?? 90
   const maxBreakStage = data?.promotions.at(-1)?.breakStage ?? 4
   const currentLevel = clamp(config.currentLevel, 1, maxLevel)
@@ -185,7 +194,7 @@ export function calculateGrowthRequirements(configs: GrowthConfig[]): GrowthCalc
   for (const rawConfig of configs) {
     const config = normalizeGrowthConfig(rawConfig)
     if (config.kind === 'weapon') {
-      const data = weapons[config.id]
+      const data = weaponData(config.id)
       if (!data) continue
       for (let level = config.currentLevel; level < config.targetLevel; level += 1) {
         const row = data.levels.find((entry) => entry.level === level)
@@ -198,7 +207,7 @@ export function calculateGrowthRequirements(configs: GrowthConfig[]): GrowthCalc
       }
       continue
     }
-    const data = characters[config.id]
+    const data = characterData(config.id)
     if (!data) continue
     addCharacterLevelCosts(data, config.currentLevel, config.targetLevel, result)
     for (const promotion of data.promotions) {
@@ -237,9 +246,10 @@ export function estimateFarming(result: GrowthCalculationResult): FarmingEstimat
     { itemId: GOLD_ID, count: result.gold },
     ...result.materials,
   ].filter((entry) => entry.count > 0)
+  const dungeons = getCachedPlannerGameData()?.dungeons ?? []
   const stageRequirements = new Map<string, MaterialRequirement[]>()
   for (const requirement of requirements) {
-    const candidates = plannerGameData.dungeons.filter((dungeon) => dungeon.yields.some(([itemId]) => itemId === requirement.itemId))
+    const candidates = dungeons.filter((dungeon) => dungeon.yields.some(([itemId]) => itemId === requirement.itemId))
     const dungeon = candidates.sort((left, right) => {
       const leftYield = left.yields.find(([itemId]) => itemId === requirement.itemId)?.[1] ?? 0
       const rightYield = right.yields.find(([itemId]) => itemId === requirement.itemId)?.[1] ?? 0
@@ -249,7 +259,7 @@ export function estimateFarming(result: GrowthCalculationResult): FarmingEstimat
     stageRequirements.set(dungeon.rewardId, [...(stageRequirements.get(dungeon.rewardId) ?? []), requirement])
   }
   const stages = [...stageRequirements.entries()].map(([rewardId, assigned]) => {
-    const dungeon = plannerGameData.dungeons.find((entry) => entry.rewardId === rewardId)
+    const dungeon = dungeons.find((entry) => entry.rewardId === rewardId)
     if (!dungeon) throw new Error(`Missing planner dungeon ${rewardId}`)
     const runs = Math.max(...assigned.map((requirement) => {
       const output = dungeon.yields.find(([itemId]) => itemId === requirement.itemId)?.[1] ?? 1
@@ -290,6 +300,7 @@ function applyCoreValue(
 }
 
 function addEquipmentStats(
+  gameData: PlannerGameData,
   stats: PanelStats,
   percentages: Partial<Record<CorePanelStatKey, number>>,
   modifiers: Map<string, PanelStatModifier>,
@@ -298,7 +309,7 @@ function addEquipmentStats(
   statLevels: number[]
 ): void {
   if (!equipmentId) return
-  const data = equipment[equipmentId]
+  const data: PlannerEquipmentStatData[] | undefined = gameData.equipment[equipmentId]
   if (!data) return
   data.forEach((stat, statIndex) => {
     const level = clamp(statLevels[statIndex] ?? stat.values.length - 1, 0, Math.max(0, stat.values.length - 1))
@@ -363,8 +374,8 @@ function attributeSource(attributeId: string): PanelAttributeContribution['sourc
   return 'strength'
 }
 
-function addDerivedAttributes(stats: PanelStats, contributions: PanelAttributeContribution[], character: PlannerCharacter): void {
-  const derived = plannerGameData.derivedAttributes
+function addDerivedAttributes(gameData: PlannerGameData, stats: PanelStats, contributions: PanelAttributeContribution[], character: PlannerCharacter): void {
+  const derived = gameData.derivedAttributes
   const hpIncrease = stats.strength * derived.efficiencyOfSTR
   stats.hp += hpIncrease
   if (hpIncrease > 0) contributions.push({ source: 'strength', target: 'hp', value: hpIncrease, isPercent: false })
@@ -391,8 +402,9 @@ function createEmptyPanelStats(): PanelStats {
 }
 
 export function calculatePanelStats(config: PanelPreviewConfig): PanelStats {
-  const character = characters[config.characterId]
-  if (!character) return createEmptyPanelStats()
+  const gameData = getCachedPlannerGameData()
+  const character = gameData?.characters[config.characterId]
+  if (!gameData || !character) return createEmptyPanelStats()
   const baseLevel = character.levels.find((entry) => entry.level === config.level) ?? character.levels.at(-1)
   const stats = createEmptyPanelStats()
   const percentages: Partial<Record<CorePanelStatKey, number>> = {}
@@ -416,36 +428,36 @@ export function calculatePanelStats(config: PanelPreviewConfig): PanelStats {
     }
   }
   const selectedEquipment = [config.armor, config.gloves, config.accessoryOne, config.accessoryTwo]
-  for (const item of selectedEquipment) addEquipmentStats(stats, percentages, modifiers, character, item.equipmentId, item.statLevels ?? [])
+  for (const item of selectedEquipment) addEquipmentStats(gameData, stats, percentages, modifiers, character, item.equipmentId, item.statLevels ?? [])
   const suitCounts = new Map<string, { count: number; equipmentId: string }>()
   for (const item of selectedEquipment) {
     if (!item.equipmentId) continue
-    const suitId = equipmentSuits[item.equipmentId]?.suitId
+    const suitId = gameData.equipmentSuits[item.equipmentId]?.suitId
     if (!suitId) continue
     const current = suitCounts.get(suitId)
     suitCounts.set(suitId, { count: (current?.count ?? 0) + 1, equipmentId: current?.equipmentId ?? item.equipmentId })
   }
   for (const { count, equipmentId } of suitCounts.values()) {
-    for (const effect of equipmentSuits[equipmentId]?.effects ?? []) {
+    for (const effect of gameData.equipmentSuits[equipmentId]?.effects ?? []) {
       if (count < effect.requiredPieces) continue
       applyEquipmentSetValues(stats, percentages, effect.staticValues)
       stats.setEffects.push({ id: effect.id, requiredPieces: effect.requiredPieces, pieceCount: count, equipmentId })
     }
   }
   if (config.weaponId) {
-    const weapon = weapons[config.weaponId]
+    const weapon = gameData.weapons[config.weaponId]
     const weaponLevel = weapon?.levels.find((entry) => entry.level === config.weaponLevel) ?? weapon?.levels.at(-1)
     stats.attack += weaponLevel?.baseAttack ?? 0
     weapon?.skills.slice(0, 2).forEach((skill, index) => {
       const selectedLevel = clamp(config.weaponSkillLevels[index] ?? 1, 1, skill.levels.at(-1)?.level ?? 1)
-      const description = skill.levels.find((entry) => entry.level === selectedLevel)?.description['zh-CN'] ?? ''
+      const description = skill.levels.find((entry) => entry.level === selectedLevel)?.description ?? ''
       applyWeaponSkill(stats, percentages, modifiers, character, skill.id, description)
     })
   }
   for (const key of ['strength', 'agility', 'intellect', 'will', 'hp', 'defense', 'attack'] as const) {
     stats[key] *= 1 + (percentages[key] ?? 0)
   }
-  addDerivedAttributes(stats, stats.attributeContributions, character)
+  addDerivedAttributes(gameData, stats, stats.attributeContributions, character)
   for (const key of ['strength', 'agility', 'intellect', 'will', 'hp', 'defense', 'attack'] as const) stats[key] = Math.round(stats[key] * 100) / 100
   stats.modifiers = [...modifiers.values()].map((modifier) => ({ ...modifier, value: Math.round(modifier.value * 100) / 100 }))
   stats.attributeContributions = stats.attributeContributions.map((contribution) => ({ ...contribution, value: Math.round(contribution.value * 100) / 100 }))

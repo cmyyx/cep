@@ -47,15 +47,23 @@ export function DailyWallpaperSection({ apiUrl }: DailyWallpaperSectionProps) {
   }
 
   useEffect(() => {
+    let active = true
     const controller = new AbortController()
     void fetchDailyWallpapers(apiUrl, controller.signal)
-      .then((feed) => setState({ status: 'ready', feed }))
+      .then((feed) => {
+        if (!active) return
+        setState({ status: 'ready', feed })
+      })
       .catch((error: unknown) => {
         if (error instanceof Error && error.name === 'AbortError') return
+        if (!active) return
         const code = error instanceof DailyWallpaperError ? error.code : 'requestFailed'
         setState({ status: 'error', code })
       })
-    return () => controller.abort()
+    return () => {
+      active = false
+      controller.abort()
+    }
   }, [apiUrl, retryKey])
 
   const markImageFailed = (contentDate: string) => {

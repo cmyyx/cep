@@ -31,6 +31,31 @@ it('keeps clear, replacement, and out-of-range drafts local until blur', () => {
   expect(input.value).toBe('90')
 })
 
+it('rounds fractional drafts to an integer level before clamping', () => {
+  const onChange = vi.fn()
+  render(<ControlledNumberField onChange={onChange} />)
+  const input = screen.getByRole('spinbutton', { name: 'level' }) as HTMLInputElement
+
+  fireEvent.change(input, { target: { value: '59.5' } })
+  fireEvent.blur(input)
+  expect(onChange).toHaveBeenLastCalledWith(60)
+  expect(input.value).toBe('60')
+
+  fireEvent.change(input, { target: { value: '12.4' } })
+  fireEvent.keyDown(input, { key: 'Enter' })
+  expect(onChange).toHaveBeenLastCalledWith(12)
+  expect(input.value).toBe('12')
+
+  // Rounding happens before clamping, so out-of-range fractions stay in range.
+  fireEvent.change(input, { target: { value: '0.4' } })
+  fireEvent.blur(input)
+  expect(onChange).toHaveBeenLastCalledWith(1)
+
+  fireEvent.change(input, { target: { value: '120.6' } })
+  fireEvent.blur(input)
+  expect(onChange).toHaveBeenLastCalledWith(90)
+})
+
 it('submits the final bounded draft when Enter blurs the field', () => {
   const onChange = vi.fn()
   render(<ControlledNumberField onChange={onChange} />)

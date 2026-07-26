@@ -16,7 +16,8 @@ import { Loader2, Cloud, HardDrive, AlertTriangle, CheckCircle2, Mail, Shield, R
 import { Switch } from '@/components/ui/switch'
 import { useAuthStore } from '@/stores/useAuthStore'
 import { normalizeEssenceSettingsFlags, useEssenceSettingsStore } from '@/stores/useEssenceSettingsStore'
-import { getSyncDataApi, postSyncDataApi, api, ApiError, getErrorI18nKey, type SyncDataResponse } from '@/lib/api'
+import { getSyncDataApi, postSyncDataApi, api, ApiError, type SyncDataResponse } from '@/lib/api'
+import { resolveErrorI18nKey } from '@/lib/error-i18n'
 import { getSyncTimestamps, subscribeSyncTimestamps, setAutoSyncConflictCallback, syncStoresFromCloudPayload, hasExistingLocalData, syncDataDiffers, buildSummaryRows, buildSettingsDiff, updateLastPull, getCloudVersion, updateCloudVersion, setSkipNextPush, computeSyncSignature, getLastSyncSignature, setLastSyncSignature, getPendingConflict, clearPendingConflict, dismissConflictToast, notifySync, setConflictPending, getLastPullResult, type SyncConflictInfo } from '@/hooks/useAutoSync'
 import { cn, maskEmail, isValidEmail, formatTime } from '@/lib/utils'
 import { SyncConflictDialog } from '@/components/shared/sync-conflict-dialog'
@@ -60,10 +61,10 @@ function resolveCloudWeaponIds(raw: Record<string, unknown>): void {
 let _cachedLocalData: { data: Record<string, unknown>; ts: number } | null = null
 const LOCAL_DATA_CACHE_TTL_MS = 100
 
-/** Map a caught error to the appropriate i18n key. */
+/** Map a caught error to the appropriate i18n key (unmapped codes fall back). */
 function getSyncErrorKey(err: unknown): string {
   if (err instanceof ApiError) {
-    return getErrorI18nKey(err.message) ?? 'account.fetchSyncFailed'
+    return resolveErrorI18nKey(err, 'account.fetchSyncFailed')
   }
   return 'account.syncFailed'
 }
@@ -562,12 +563,12 @@ export default function AccountPage() {
       }
     }
   }
-  const handleVerifyEmail = async () => { setVerifySending(true); setVerifyError(null); try { await api('/api/email/send-verification',{method:'POST'}); setVerifySent(true) } catch (err) { setVerifyError(err instanceof Error ? err.message : 'send_failed') } finally { setVerifySending(false) } }
-  const handleSubmitVerificationCode = async () => { if(!verifyCode)return; setVerifySubmitting(true); setVerifyError(null); try { await api('/api/email/verify',{method:'POST',body:{code:verifyCode}}); await fetchMeGlobal(); setVerifySent(false); setVerifyCode('') } catch (err) { setVerifyError(err instanceof Error ? err.message : 'invalid_code') } finally { setVerifySubmitting(false) } }
-  const handleChangeEmail = async () => { if(!newEmail)return; if(!isValidEmail(newEmail)){setChangeEmailError('invalidEmail');return}; setEmailChanging(true); setChangeEmailError(null); try { await api('/api/email/request-change',{method:'POST',body:{newEmail}}); await fetchMeGlobal(); setChangeEmailSent(true) } catch (err) { setChangeEmailError(err instanceof Error ? err.message : 'send_failed') } finally { setEmailChanging(false) } }
-  const handleSubmitChangeEmailCode = async () => { if(!changeEmailCode)return; setChangeEmailCodeSubmitting(true); setChangeEmailError(null); try { await api('/api/email/verify',{method:'POST',body:{code:changeEmailCode}}); await fetchMeGlobal(); setShowChangeEmail(false); setChangeEmailSent(false); setChangeEmailCode(''); setNewEmail('') } catch (err) { setChangeEmailError(err instanceof Error ? err.message : 'invalid_code') } finally { setChangeEmailCodeSubmitting(false) } }
-  const handleChangePassword = async () => { setPwdError(null); if(!currentPwd||!newPwd||newPwd.length<6){setPwdError(t('auth.passwordTooShort'));return}; if(newPwd!==confirmPwd){setPwdError(t('auth.passwordsNotMatch'));return}; setPasswordChanging(true); try{await api('/api/password/change',{method:'POST',body:{currentPassword:currentPwd,newPassword:newPwd}});setShowChangePwd(false);setCurrentPwd('');setNewPwd('');setConfirmPwd('')}catch(err){setPwdError(err instanceof Error?err.message:'')}finally{setPasswordChanging(false)} }
-  const handleSubmitClaim = async () => { if(!claimRef)return; setClaimSubmitting(true);setClaimError(null);setClaimSuccess(false); try{const res=await api<{success:boolean;claimId:number;preGranted:boolean}>('/api/payment/submit-claim',{method:'POST',body:{channel:claimChannel,externalReference:claimRef,merchantOrderNo:claimChannel==='alipay'?claimMerchant:null,paidTime:claimPaidTime||null,planType:claimPlanType,quantity:claimQuantity}});setShowClaimForm(false);setClaimRef('');setClaimMerchant('');setClaimPaidTime('');setClaimPlanType('monthly');setClaimQuantity(1);setClaimSuccess(true);setClaimPreGranted(res.preGranted===true);fetchMeGlobal()}catch(err){setClaimError(err instanceof Error?err.message:'')}finally{setClaimSubmitting(false)} }
+  const handleVerifyEmail = async () => { setVerifySending(true); setVerifyError(null); try { await api('/api/email/send-verification',{method:'POST'}); setVerifySent(true) } catch (err) { setVerifyError(resolveErrorI18nKey(err, 'account.sendFailed')) } finally { setVerifySending(false) } }
+  const handleSubmitVerificationCode = async () => { if(!verifyCode)return; setVerifySubmitting(true); setVerifyError(null); try { await api('/api/email/verify',{method:'POST',body:{code:verifyCode}}); await fetchMeGlobal(); setVerifySent(false); setVerifyCode('') } catch (err) { setVerifyError(resolveErrorI18nKey(err, 'account.invalidCode')) } finally { setVerifySubmitting(false) } }
+  const handleChangeEmail = async () => { if(!newEmail)return; if(!isValidEmail(newEmail)){setChangeEmailError('auth.invalidEmail');return}; setEmailChanging(true); setChangeEmailError(null); try { await api('/api/email/request-change',{method:'POST',body:{newEmail}}); await fetchMeGlobal(); setChangeEmailSent(true) } catch (err) { setChangeEmailError(resolveErrorI18nKey(err, 'account.sendFailed')) } finally { setEmailChanging(false) } }
+  const handleSubmitChangeEmailCode = async () => { if(!changeEmailCode)return; setChangeEmailCodeSubmitting(true); setChangeEmailError(null); try { await api('/api/email/verify',{method:'POST',body:{code:changeEmailCode}}); await fetchMeGlobal(); setShowChangeEmail(false); setChangeEmailSent(false); setChangeEmailCode(''); setNewEmail('') } catch (err) { setChangeEmailError(resolveErrorI18nKey(err, 'account.invalidCode')) } finally { setChangeEmailCodeSubmitting(false) } }
+  const handleChangePassword = async () => { setPwdError(null); if(!currentPwd||!newPwd||newPwd.length<6){setPwdError('auth.passwordTooShort');return}; if(newPwd!==confirmPwd){setPwdError('auth.passwordsNotMatch');return}; setPasswordChanging(true); try{await api('/api/password/change',{method:'POST',body:{currentPassword:currentPwd,newPassword:newPwd}});setShowChangePwd(false);setCurrentPwd('');setNewPwd('');setConfirmPwd('')}catch(err){setPwdError(resolveErrorI18nKey(err, 'account.serverError'))}finally{setPasswordChanging(false)} }
+  const handleSubmitClaim = async () => { if(!claimRef)return; setClaimSubmitting(true);setClaimError(null);setClaimSuccess(false); try{const res=await api<{success:boolean;claimId:number;preGranted:boolean}>('/api/payment/submit-claim',{method:'POST',body:{channel:claimChannel,externalReference:claimRef,merchantOrderNo:claimChannel==='alipay'?claimMerchant:null,paidTime:claimPaidTime||null,planType:claimPlanType,quantity:claimQuantity}});setShowClaimForm(false);setClaimRef('');setClaimMerchant('');setClaimPaidTime('');setClaimPlanType('monthly');setClaimQuantity(1);setClaimSuccess(true);setClaimPreGranted(res.preGranted===true);fetchMeGlobal()}catch(err){setClaimError(resolveErrorI18nKey(err, 'account.serverError'))}finally{setClaimSubmitting(false)} }
   const handleRevokeSession = async (sessionId: number) => { setRevokingIds(prev => new Set(prev).add(sessionId)); try { await revokeSession(sessionId) } catch { /* error handled by store */ } finally { setRevokingIds(prev => { const next = new Set(prev); next.delete(sessionId); return next }) } }
   const handleLogout = async () => { setLogoutLoading(true); await logout(); router.replace(`/${locale}`) }
 
@@ -581,7 +582,7 @@ export default function AccountPage() {
       setRedeemCode('')
       fetchMeGlobal()
     } catch (err) {
-      setRedeemError(err instanceof ApiError ? err.code : 'unknown_error')
+      setRedeemError(resolveErrorI18nKey(err, 'account.serverError'))
     } finally {
       setRedeeming(false)
     }
@@ -816,13 +817,13 @@ export default function AccountPage() {
                   </Button>
                 </div>
               </div>
-              {verifyError&&<p className="text-xs text-destructive">{t(getErrorI18nKey(verifyError))}</p>}
+              {verifyError&&<p className="text-xs text-destructive">{t(verifyError)}</p>}
             </>}
             {!showChangeEmail?<Button variant="ghost" size="sm" className="w-full justify-start" onClick={()=>setShowChangeEmail(true)}><Mail className="size-4 mr-2"/>{t('account.changeEmail')}</Button>:<div className="space-y-2 rounded-lg border border-border p-3">
             {!changeEmailSent ? <>
               <Label className="text-xs">{t('account.newEmail')}</Label>
               <Input className="h-8 text-xs bg-card border-border" value={newEmail} onChange={e=>setNewEmail(e.target.value)} type="email"/>
-              {changeEmailError&&<p className="text-xs text-destructive">{t(getErrorI18nKey(changeEmailError))}</p>}
+              {changeEmailError&&<p className="text-xs text-destructive">{t(changeEmailError)}</p>}
               <div className="flex gap-2"><Button variant="ghost" size="sm" onClick={()=>{setShowChangeEmail(false);setChangeEmailError(null)}} disabled={emailChanging}>{t('account.cancel')}</Button><Button size="sm" onClick={handleChangeEmail} disabled={!newEmail||emailChanging}>{emailChanging?<Loader2 className="size-4 mr-1 animate-spin"/>:null}{t('account.submit')}</Button></div>
             </> : <>
               <p className="text-xs text-muted-foreground">{t('account.changeEmailSent')}</p>
@@ -833,11 +834,11 @@ export default function AccountPage() {
                   {t('account.submit')}
                 </Button>
               </div>
-              {changeEmailError&&<p className="text-xs text-destructive">{t(getErrorI18nKey(changeEmailError))}</p>}
+              {changeEmailError&&<p className="text-xs text-destructive">{t(changeEmailError)}</p>}
               <div className="flex gap-2"><Button variant="ghost" size="sm" onClick={()=>{setShowChangeEmail(false);setChangeEmailSent(false);setChangeEmailError(null);setChangeEmailCode('');setNewEmail('')}}>{t('account.cancel')}</Button></div>
             </>}
           </div>}
-            {!showChangePwd?<Button variant="ghost" size="sm" className="w-full justify-start" onClick={()=>setShowChangePwd(true)}><Key className="size-4 mr-2"/>{t('account.changePassword')}</Button>:<div className="space-y-2 rounded-lg border border-border p-3"><Label className="text-xs">{t('account.currentPassword')}</Label><Input className="h-8 text-xs bg-card border-border" type="password" value={currentPwd} onChange={e=>setCurrentPwd(e.target.value)}/><Label className="text-xs">{t('account.newPassword')}</Label><Input className="h-8 text-xs bg-card border-border" type="password" value={newPwd} onChange={e=>setNewPwd(e.target.value)}/><Label className="text-xs">{t('auth.confirmPassword')}</Label><Input className="h-8 text-xs bg-card border-border" type="password" value={confirmPwd} onChange={e=>setConfirmPwd(e.target.value)}/>{pwdError&&<p className="text-xs text-destructive">{t(getErrorI18nKey(pwdError))}</p>}<p className="text-xs text-muted-foreground">{t('auth.passwordChangeHint')}</p><div className="flex gap-2"><Button variant="ghost" size="sm" onClick={()=>{setShowChangePwd(false);setPwdError(null)}} disabled={passwordChanging}>{t('account.cancel')}</Button><Button size="sm" onClick={handleChangePassword} disabled={passwordChanging}>{passwordChanging?<Loader2 className="size-4 mr-1 animate-spin"/>:null}{t('account.submit')}</Button></div></div>}
+            {!showChangePwd?<Button variant="ghost" size="sm" className="w-full justify-start" onClick={()=>setShowChangePwd(true)}><Key className="size-4 mr-2"/>{t('account.changePassword')}</Button>:<div className="space-y-2 rounded-lg border border-border p-3"><Label className="text-xs">{t('account.currentPassword')}</Label><Input className="h-8 text-xs bg-card border-border" type="password" value={currentPwd} onChange={e=>setCurrentPwd(e.target.value)}/><Label className="text-xs">{t('account.newPassword')}</Label><Input className="h-8 text-xs bg-card border-border" type="password" value={newPwd} onChange={e=>setNewPwd(e.target.value)}/><Label className="text-xs">{t('auth.confirmPassword')}</Label><Input className="h-8 text-xs bg-card border-border" type="password" value={confirmPwd} onChange={e=>setConfirmPwd(e.target.value)}/>{pwdError&&<p className="text-xs text-destructive">{t(pwdError)}</p>}<p className="text-xs text-muted-foreground">{t('auth.passwordChangeHint')}</p><div className="flex gap-2"><Button variant="ghost" size="sm" onClick={()=>{setShowChangePwd(false);setPwdError(null)}} disabled={passwordChanging}>{t('account.cancel')}</Button><Button size="sm" onClick={handleChangePassword} disabled={passwordChanging}>{passwordChanging?<Loader2 className="size-4 mr-1 animate-spin"/>:null}{t('account.submit')}</Button></div></div>}
             <Button variant="ghost" size="sm" className="w-full justify-start text-muted-foreground" onClick={handleLogout} disabled={logoutLoading}>{logoutLoading?<Loader2 className="size-4 mr-2 animate-spin"/>:<LogOut className="size-4 mr-2"/>}{t('nav.logout')}</Button>
           </CardContent>
         </Card>
@@ -1028,7 +1029,7 @@ export default function AccountPage() {
               {claimChannel==='alipay'&&<div className="flex flex-col gap-1"><Label className="text-xs">{t('account.merchantOrderNo')}</Label><Input className="h-8 text-xs bg-card border-border" value={claimMerchant} onChange={e=>setClaimMerchant(e.target.value)} placeholder={t('account.merchantOrderNoPlaceholder')}/></div>}
               <div className="flex flex-col gap-1"><Label className="text-xs">{t('account.paymentTime')}</Label><Input className="h-8 text-xs bg-card border-border" type="datetime-local" value={claimPaidTime} onChange={e=>setClaimPaidTime(e.target.value)} /></div>
               {claimSuccess&&<div className="rounded-md bg-green-50 border border-green-200 px-3 py-2 space-y-1"><p className="text-xs text-green-700 font-medium">{t('account.claimSubmitted')}</p>{claimPreGranted&&<p className="text-xs text-green-600">{t('account.claimSubmittedPreGranted')}</p>}</div>}
-              {claimError&&<p className="text-xs text-destructive">{t(getErrorI18nKey(claimError))}</p>}
+              {claimError&&<p className="text-xs text-destructive">{t(claimError)}</p>}
               <div className="flex gap-2"><Button variant="ghost" size="sm" onClick={()=>{setShowClaimForm(false);setClaimError(null);setClaimSuccess(false);setClaimPreGranted(false)}}>{t('account.cancel')}</Button><Button size="sm" className="flex-1" onClick={handleSubmitClaim} disabled={!claimRef||claimSubmitting}>{claimSubmitting?<Loader2 className="size-4 mr-2 animate-spin"/>:null}{t('account.submit')}</Button></div>
             </div>}
             {paymentClaims.length>0&&<div className="space-y-2"><h4 className="text-xs font-medium text-muted-foreground">{t('account.paymentHistory')}</h4>{paymentClaims.map(c=><div key={c.id} className="rounded-md border border-border px-3 py-2 text-xs"><div className="flex justify-between items-center"><span className="text-muted-foreground">#{c.id} {c.channel==='alipay'?t('account.channelAlipay'):t('account.channelWechat')}</span><Badge className={cn(c.status==='approved'&&'bg-green-100 text-green-700',c.status==='rejected'&&'bg-red-100 text-red-700',c.status==='pending'&&'bg-amber-100 text-amber-700')}>{c.status==='approved'?t('account.claimApproved'):c.status==='rejected'?t('account.claimRejected'):t('account.claimPending')}</Badge></div><div className="text-muted-foreground mt-1">{c.external_reference}</div>{c.admin_note&&<div className="text-muted-foreground italic mt-0.5">{c.admin_note}</div>}</div>)}</div>}
@@ -1059,7 +1060,7 @@ export default function AccountPage() {
               </div>
             )}
             {redeemError && (
-              <p className="text-xs text-destructive">{t(getErrorI18nKey(redeemError))}</p>
+              <p className="text-xs text-destructive">{t(redeemError)}</p>
             )}
             <div className="rounded-md bg-muted/50 px-3 py-2 text-xs text-muted-foreground">
               <span className="font-medium">{t('account.redeemHowToGet')}</span>

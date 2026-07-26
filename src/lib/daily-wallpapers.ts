@@ -1,18 +1,47 @@
-import { z } from 'zod'
 import type { DailyWallpaperFeed, DailyWallpaperItem } from '@/types/daily-wallpaper'
 
-const dateSchema = z.string().refine((value) => parseCalendarDate(value) !== null)
-const itemSchema = z.object({
-  contentDate: dateSchema,
-  isToday: z.boolean(),
-  imageUrl: z.string().min(1).nullable(),
-  actionUrl: z.string().min(1).nullable(),
-})
-const feedSchema = z.object({
-  serverDate: dateSchema,
-  current: itemSchema.nullable(),
-  history: z.array(itemSchema).max(14),
-})
+const MAX_HISTORY_ITEMS = 14
+
+function isCalendarDateString(value: unknown): value is string {
+  return typeof value === 'string' && parseCalendarDate(value) !== null
+}
+
+function isNullableNonEmptyString(value: unknown): value is string | null {
+  return value === null || (typeof value === 'string' && value.length > 0)
+}
+
+/** Field-by-field validation of one feed item; strips unknown fields. */
+function parseWallpaperItem(value: unknown): DailyWallpaperItem | null {
+  if (typeof value !== 'object' || value === null) return null
+  const item = value as Record<string, unknown>
+  if (!isCalendarDateString(item.contentDate)) return null
+  if (typeof item.isToday !== 'boolean') return null
+  if (!isNullableNonEmptyString(item.imageUrl)) return null
+  if (!isNullableNonEmptyString(item.actionUrl)) return null
+  return {
+    contentDate: item.contentDate,
+    isToday: item.isToday,
+    imageUrl: item.imageUrl,
+    actionUrl: item.actionUrl,
+  }
+}
+
+/** Hand-written replacement for the previous zod schema (keeps zod out of this route's chunk). */
+function parseWallpaperFeed(value: unknown): DailyWallpaperFeed | null {
+  if (typeof value !== 'object' || value === null) return null
+  const feed = value as Record<string, unknown>
+  if (!isCalendarDateString(feed.serverDate)) return null
+  const current = feed.current === null ? null : parseWallpaperItem(feed.current)
+  if (feed.current !== null && current === null) return null
+  if (!Array.isArray(feed.history) || feed.history.length > MAX_HISTORY_ITEMS) return null
+  const history: DailyWallpaperItem[] = []
+  for (const entry of feed.history) {
+    const item = parseWallpaperItem(entry)
+    if (!item) return null
+    history.push(item)
+  }
+  return { serverDate: feed.serverDate, current, history }
+}
 
 export class DailyWallpaperError extends Error {
   constructor(public readonly code: 'notConfigured' | 'requestFailed' | 'invalidResponse') {
@@ -42,13 +71,13 @@ export async function fetchDailyWallpapers(endpoint: string, signal?: AbortSigna
     if (error instanceof Error && error.name === 'AbortError') throw error
     throw new DailyWallpaperError('invalidResponse')
   }
-  const parsed = feedSchema.safeParse(payload)
-  if (!parsed.success) throw new DailyWallpaperError('invalidResponse')
+  const parsed = parseWallpaperFeed(payload)
+  if (!parsed) throw new DailyWallpaperError('invalidResponse')
   try {
     return {
-      serverDate: parsed.data.serverDate,
-      current: parsed.data.current ? resolveItemURLs(parsed.data.current, normalizedEndpoint) : null,
-      history: parsed.data.history.map((item) => resolveItemURLs(item, normalizedEndpoint)),
+      serverDate: parsed.serverDate,
+      current: parsed.current ? resolveItemURLs(parsed.current, normalizedEndpoint) : null,
+      history: parsed.history.map((item) => resolveItemURLs(item, normalizedEndpoint)),
     }
   } catch {
     throw new DailyWallpaperError('invalidResponse')
