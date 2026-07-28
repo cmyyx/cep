@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { useTranslations } from 'next-intl'
-import { RotateCcw } from 'lucide-react'
+import { RotateCcw, Settings2 } from 'lucide-react'
 import { usePlannerData } from '@/lib/planner/planner-data-loader'
 import { SidebarTrigger } from '@/components/ui/sidebar'
 import { Button } from '@/components/ui/button'
@@ -101,9 +101,24 @@ export default function GrowthPlannerPage() {
             if (!summary) return null
             const name = entityName(summary)
             return (
-              <Button key={config.id} data-growth-target-id={config.id} type="button" variant="ghost" size="card" onClick={() => { setActiveId(config.id); setConfigOpen(true) }} className="flex h-16 items-center gap-2 rounded-lg px-2 pr-3">
+              <Button
+                key={config.id}
+                data-growth-target-id={config.id}
+                type="button"
+                variant="ghost"
+                size="card"
+                aria-label={t('configureTargetLabel', { name })}
+                onClick={() => { setActiveId(config.id); setConfigOpen(true) }}
+                className="flex h-16 items-center gap-2 rounded-lg px-2 pr-3 shadow-[var(--shadow-border)] hover:shadow-[var(--shadow-raised)]"
+              >
                 <RarityFrame imageSrc={`${config.kind === 'character' ? '/images/characters' : '/images/weapon'}/${summary.imageId}.avif`} backgroundSrc={config.kind === 'character' ? '/images/character-frame-bg.png' : undefined} title={name} imageAlt="" rarity={summary.rarity} showTitle={false} imageClassName={config.kind === 'weapon' ? 'object-contain p-1' : 'object-cover'} className="size-12 rounded-md shadow-none" />
-                <span className="max-w-28 truncate text-xs">{name}</span>
+                <span className="flex min-w-0 max-w-28 flex-col items-start gap-0.5">
+                  <span className="w-full truncate text-xs">{name}</span>
+                  <span className="inline-flex items-center gap-1 text-[11px] text-muted-foreground group-hover/button:text-foreground">
+                    <Settings2 className="size-3" />
+                    {t('configureTarget')}
+                  </span>
+                </span>
               </Button>
             )
           })}

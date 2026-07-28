@@ -103,6 +103,7 @@ beforeEach(() => {
 })
 
 afterEach(() => {
+  vi.useRealTimers()
   clearGameI18nLookupCache()
   vi.unstubAllGlobals()
   vi.restoreAllMocks()
@@ -143,6 +144,71 @@ it('prefetches all locales with aggregate progress', async () => {
   expect(areAllGameI18nLocalesLoaded()).toBe(true)
   expect(ticks.at(-1)).toEqual({ loadedLocales: GAME_I18N_LOCALES.length, totalLocales: GAME_I18N_LOCALES.length })
   expect(ticks.some((t) => t.loadedLocales > 0 && t.loadedLocales < GAME_I18N_LOCALES.length)).toBe(true)
+})
+
+it('recovers automatically when the final retry succeeds', async () => {
+  vi.useFakeTimers()
+  let resourceCalls = 0
+  const fetchMock = vi.mocked(fetch)
+  fetchMock.mockImplementation(async (input: RequestInfo | URL) => {
+    const url = String(input)
+    if (url.endsWith('/game-i18n/manifest.json')) return jsonResponse(manifest)
+    const marker = '/game-i18n/'
+    const index = url.indexOf(marker)
+    const file = index >= 0 ? url.slice(index + marker.length) : url
+    if (file === 'en/000.json') {
+      resourceCalls += 1
+      if (resourceCalls <= 3) {
+        return { ok: false, status: 503, json: async () => ({}) } as Response
+      }
+    }
+    const body = chunks[file]
+    if (!body) return { ok: false, status: 404, json: async () => ({}) } as Response
+    return jsonResponse(body)
+  })
+
+  const pending = prefetchGameI18nLocale('en')
+  await vi.runAllTimersAsync()
+  await pending
+
+  expect(resourceCalls).toBe(4)
+  expect(isGameI18nLocaleLoaded('en')).toBe(true)
+})
+
+it('retries a failed resource three times and continues loading the remaining locales', async () => {
+  vi.useFakeTimers()
+  let failedResourceCalls = 0
+  const progress: Array<{ loaded: number; failed: GameI18nLocale[] }> = []
+  const fetchMock = vi.mocked(fetch)
+  fetchMock.mockImplementation(async (input: RequestInfo | URL) => {
+    const url = String(input)
+    if (url.endsWith('/game-i18n/manifest.json')) return jsonResponse(manifest)
+    const marker = '/game-i18n/'
+    const index = url.indexOf(marker)
+    const file = index >= 0 ? url.slice(index + marker.length) : url
+    if (file === 'en/000.json') {
+      failedResourceCalls += 1
+      return { ok: false, status: 503, json: async () => ({}) } as Response
+    }
+    const body = chunks[file]
+    if (!body) return { ok: false, status: 404, json: async () => ({}) } as Response
+    return jsonResponse(body)
+  })
+
+  const pending = prefetchAllGameI18nLocales({
+    concurrency: 4,
+    onProgress: (value) => {
+      progress.push({ loaded: value.loadedLocales, failed: value.failedLocales })
+    },
+  })
+  await vi.runAllTimersAsync()
+  const result = await pending
+
+  expect(failedResourceCalls).toBe(4)
+  expect(result.failedLocales).toEqual(['en'])
+  expect(result.readyLocales).toHaveLength(GAME_I18N_LOCALES.length - 1)
+  expect(progress.at(-1)).toEqual({ loaded: GAME_I18N_LOCALES.length - 1, failed: ['en'] })
+  expect(fetchMock.mock.calls.some(([input]) => String(input).includes('/vi/001.json'))).toBe(true)
 })
 
 it('streams partial hits with pending locales before multilingual resolve finishes', async () => {

@@ -14,6 +14,27 @@ export type { GameI18nLocale, GameI18nManifest }
 const BASE = '/game-i18n'
 const RESOLVE_CONCURRENCY = 6
 const PREFETCH_LOCALE_CONCURRENCY = 3
+const RESOURCE_AUTO_RETRY_LIMIT = 3
+const RESOURCE_RETRY_BASE_DELAY_MS = 250
+
+function waitForResourceRetry(retryIndex: number): Promise<void> {
+  return new Promise((resolve) => {
+    globalThis.setTimeout(resolve, RESOURCE_RETRY_BASE_DELAY_MS * 2 ** retryIndex)
+  })
+}
+
+async function fetchJsonResource<T>(url: string, label: string): Promise<T> {
+  for (let attempt = 0; ; attempt += 1) {
+    try {
+      const response = await fetch(url)
+      if (!response.ok) throw new Error(`Failed to load ${label} (${response.status})`)
+      return (await response.json()) as T
+    } catch (error: unknown) {
+      if (attempt >= RESOURCE_AUTO_RETRY_LIMIT) throw error
+      await waitForResourceRetry(attempt)
+    }
+  }
+}
 
 let manifestPromise: Promise<GameI18nManifest> | null = null
 const chunkCache = new Map<string, Promise<Record<string, string>>>()
@@ -31,15 +52,12 @@ export function clearGameI18nLookupCache(): void {
 
 export async function loadGameI18nManifest(): Promise<GameI18nManifest> {
   if (!manifestPromise) {
-    manifestPromise = fetch(`${BASE}/manifest.json`)
-      .then(async (response) => {
-        if (!response.ok) throw new Error(`Failed to load game-i18n manifest (${response.status})`)
-        return (await response.json()) as GameI18nManifest
-      })
-      .catch((error: unknown) => {
+    manifestPromise = fetchJsonResource<GameI18nManifest>(`${BASE}/manifest.json`, 'game-i18n manifest').catch(
+      (error: unknown) => {
         manifestPromise = null
         throw error
-      })
+      },
+    )
   }
   return manifestPromise
 }
@@ -47,15 +65,10 @@ export async function loadGameI18nManifest(): Promise<GameI18nManifest> {
 async function loadChunk(file: string): Promise<Record<string, string>> {
   let pending = chunkCache.get(file)
   if (!pending) {
-    pending = fetch(`${BASE}/${file}`)
-      .then(async (response) => {
-        if (!response.ok) throw new Error(`Failed to load ${file} (${response.status})`)
-        return (await response.json()) as Record<string, string>
-      })
-      .catch((error: unknown) => {
-        chunkCache.delete(file)
-        throw error
-      })
+    pending = fetchJsonResource<Record<string, string>>(`${BASE}/${file}`, file).catch((error: unknown) => {
+      chunkCache.delete(file)
+      throw error
+    })
     chunkCache.set(file, pending)
   }
   return pending
@@ -93,8 +106,15 @@ export interface GameI18nAllLoadProgress {
   totalBytes: number
   /** Locales that finished loading so far. */
   readyLocales: GameI18nLocale[]
+  /** Locales whose resource retries have been exhausted. */
+  failedLocales: GameI18nLocale[]
   /** Locale that most recently reported chunk progress (for status text). */
   activeLocale: GameI18nLocale | null
+}
+
+export interface GameI18nAllLoadResult {
+  readyLocales: GameI18nLocale[]
+  failedLocales: GameI18nLocale[]
 }
 
 export interface GameI18nSearchHit {
@@ -266,7 +286,7 @@ export async function prefetchAllGameI18nLocales(options?: {
   signal?: AbortSignal
   concurrency?: number
   onProgress?: (progress: GameI18nAllLoadProgress) => void
-}): Promise<void> {
+}): Promise<GameI18nAllLoadResult> {
   const manifest = await loadGameI18nManifest()
   const concurrency = options?.concurrency ?? PREFETCH_LOCALE_CONCURRENCY
   const totalLocales = GAME_I18N_LOCALES.length
@@ -277,6 +297,7 @@ export async function prefetchAllGameI18nLocales(options?: {
   }, 0)
 
   const localeBytes = new Map<GameI18nLocale, { loaded: number; total: number; ready: boolean }>()
+  const failedLocales = new Set<GameI18nLocale>()
   for (const locale of GAME_I18N_LOCALES) {
     const meta = manifest.locales[locale]
     const total = meta?.chunks.reduce((sum, chunk) => sum + chunk.bytes, 0) ?? 0
@@ -290,31 +311,31 @@ export async function prefetchAllGameI18nLocales(options?: {
 
   let activeLocale: GameI18nLocale | null = null
 
+  const snapshot = (): GameI18nAllLoadResult => ({
+    readyLocales: GAME_I18N_LOCALES.filter((locale) => localeBytes.get(locale)?.ready),
+    failedLocales: GAME_I18N_LOCALES.filter((locale) => failedLocales.has(locale)),
+  })
+
   const report = () => {
     let loadedBytes = 0
-    let loadedLocales = 0
-    const readyLocales: GameI18nLocale[] = []
     for (const locale of GAME_I18N_LOCALES) {
       const state = localeBytes.get(locale)
-      if (!state) continue
-      loadedBytes += state.loaded
-      if (state.ready) {
-        loadedLocales += 1
-        readyLocales.push(locale)
-      }
+      if (state) loadedBytes += state.loaded
     }
+    const current = snapshot()
     options?.onProgress?.({
-      loadedLocales,
+      loadedLocales: current.readyLocales.length,
       totalLocales,
       loadedBytes,
       totalBytes,
-      readyLocales,
+      readyLocales: current.readyLocales,
+      failedLocales: current.failedLocales,
       activeLocale,
     })
   }
 
   report()
-  if (areAllGameI18nLocalesLoaded()) return
+  if (areAllGameI18nLocalesLoaded()) return snapshot()
 
   await mapPool(
     GAME_I18N_LOCALES,
@@ -322,22 +343,29 @@ export async function prefetchAllGameI18nLocales(options?: {
     async (locale) => {
       assertNotAborted(options?.signal)
       activeLocale = locale
-      await prefetchGameI18nLocale(locale, {
-        signal: options?.signal,
-        onProgress: (progress) => {
-          const state = localeBytes.get(locale)
-          if (!state) return
-          state.loaded = progress.loadedBytes
-          state.total = progress.totalBytes
-          state.ready = progress.loadedChunks >= progress.totalChunks && progress.totalChunks > 0
-          activeLocale = locale
-          report()
-        },
-      })
-      const state = localeBytes.get(locale)
-      if (state) {
-        state.loaded = state.total
-        state.ready = true
+      try {
+        await prefetchGameI18nLocale(locale, {
+          signal: options?.signal,
+          onProgress: (progress) => {
+            const state = localeBytes.get(locale)
+            if (!state) return
+            state.loaded = progress.loadedBytes
+            state.total = progress.totalBytes
+            state.ready = progress.loadedChunks >= progress.totalChunks && progress.totalChunks > 0
+            activeLocale = locale
+            report()
+          },
+        })
+        const state = localeBytes.get(locale)
+        if (state) {
+          state.loaded = state.total
+          state.ready = true
+        }
+      } catch {
+        // A caller abort still stops this aggregate operation. Resource failures
+        // are isolated so the remaining locale queue can continue.
+        assertNotAborted(options?.signal)
+        failedLocales.add(locale)
       }
       report()
     },
@@ -347,6 +375,7 @@ export async function prefetchAllGameI18nLocales(options?: {
   assertNotAborted(options?.signal)
   activeLocale = null
   report()
+  return snapshot()
 }
 
 /**
@@ -378,6 +407,7 @@ export async function searchGameI18n(options: GameI18nSearchOptions): Promise<Ga
       loadedBytes: 1,
       totalBytes: 1,
       readyLocales: [...GAME_I18N_LOCALES],
+      failedLocales: [],
       activeLocale: null,
     })
   }

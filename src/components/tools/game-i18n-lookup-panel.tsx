@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { useFormatter, useTranslations } from 'next-intl'
-import { Copy, LoaderCircle, Search } from 'lucide-react'
+import { Copy, LoaderCircle, RefreshCw, Search, TriangleAlert } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -48,7 +48,9 @@ type PrefetchState = {
   loadedBytes: number
   totalBytes: number
   readyLocales: GameI18nLocale[]
+  failedLocales: GameI18nLocale[]
   activeLocale: GameI18nLocale | null
+  loading: boolean
   ready: boolean
 }
 
@@ -86,8 +88,11 @@ export function GameI18nLookupPanel() {
   const [searchProgress, setSearchProgress] = useState<{ loaded: number; total: number; hits: number } | null>(null)
   const [resolveProgress, setResolveProgress] = useState<{ done: number; total: number } | null>(null)
   const [manifestReady, setManifestReady] = useState(false)
+  const [manifestLoading, setManifestLoading] = useState(true)
+  const [manifestAttempt, setManifestAttempt] = useState(0)
   const [entryCount, setEntryCount] = useState(0)
   const [prefetch, setPrefetch] = useState<PrefetchState | null>(null)
+  const [prefetchAttempt, setPrefetchAttempt] = useState(0)
   const [copied, setCopied] = useState(false)
   /** What the result panels currently render (supports exit animation across query changes). */
   const [displayed, setDisplayed] = useState<DisplayedResults | null>(null)
@@ -111,7 +116,8 @@ export function GameI18nLookupPanel() {
   }, [])
 
   const allLocalesReady = Boolean(prefetch?.ready) || areAllGameI18nLocalesLoaded()
-  const allLocalesLoading = manifestReady && !allLocalesReady
+  const allLocalesLoading = manifestReady && Boolean(prefetch?.loading)
+  const resourceLoading = manifestLoading || allLocalesLoading
   const loadPercent = prefetch ? percentOf(prefetch.loadedBytes, prefetch.totalBytes) : 0
 
   // Derived: query changed / not yet settled for this query → do not show "no results".
@@ -227,6 +233,7 @@ export function GameI18nLookupPanel() {
       .then((manifest) => {
         if (cancelled) return
         setManifestReady(true)
+        setManifestLoading(false)
         setEntryCount(manifest.locales['zh-CN']?.entryCount ?? 0)
         setError(null)
       })
@@ -234,14 +241,16 @@ export function GameI18nLookupPanel() {
         if (cancelled) return
         console.error('[game-i18n] manifest load failed', err)
         setManifestReady(false)
+        setManifestLoading(false)
         setError('manifestMissing')
       })
     return () => {
       cancelled = true
     }
-  }, [])
+  }, [manifestAttempt])
 
-  // Entering the tool page: warm ALL locale chunks (limited concurrency).
+  // Entering the tool page: warm all locale chunks. Individual resource
+  // failures exhaust their own retries, then the remaining locale queue continues.
   useEffect(() => {
     if (!manifestReady) return
 
@@ -257,6 +266,7 @@ export function GameI18nLookupPanel() {
 
     queueMicrotask(() => {
       if (prefetchId !== prefetchIdRef.current) return
+      setError((current) => (current === 'prefetchFailed' ? null : current))
       if (areAllGameI18nLocalesLoaded()) {
         applyPrefetch({
           loadedLocales: GAME_I18N_LOCALES.length,
@@ -264,7 +274,9 @@ export function GameI18nLookupPanel() {
           loadedBytes: 1,
           totalBytes: 1,
           readyLocales: [...GAME_I18N_LOCALES],
+          failedLocales: [],
           activeLocale: null,
+          loading: false,
           ready: true,
         })
         return
@@ -276,7 +288,9 @@ export function GameI18nLookupPanel() {
         loadedBytes: 0,
         totalBytes: 1,
         readyLocales: [],
+        failedLocales: [],
         activeLocale: null,
+        loading: true,
         ready: false,
       })
 
@@ -289,44 +303,41 @@ export function GameI18nLookupPanel() {
             loadedBytes: progress.loadedBytes,
             totalBytes: progress.totalBytes,
             readyLocales: progress.readyLocales,
+            failedLocales: progress.failedLocales,
             activeLocale: progress.activeLocale,
-            ready: progress.loadedLocales >= progress.totalLocales && progress.totalLocales > 0,
+            loading: true,
+            ready: false,
           })
         },
       })
-        .then(() => {
+        .then((result) => {
           if (controller.signal.aborted || prefetchId !== prefetchIdRef.current) return
-          setPrefetch((current) =>
-            current
-              ? {
-                  ...current,
-                  ready: true,
-                  loadedLocales: current.totalLocales,
-                  loadedBytes: current.totalBytes,
-                  activeLocale: null,
-                }
-              : {
-                  loadedLocales: GAME_I18N_LOCALES.length,
-                  totalLocales: GAME_I18N_LOCALES.length,
-                  loadedBytes: 1,
-                  totalBytes: 1,
-                  readyLocales: [...GAME_I18N_LOCALES],
-                  activeLocale: null,
-                  ready: true,
-                },
-          )
+          const ready = result.failedLocales.length === 0 && result.readyLocales.length === GAME_I18N_LOCALES.length
+          setPrefetch((current) => ({
+            loadedLocales: result.readyLocales.length,
+            totalLocales: GAME_I18N_LOCALES.length,
+            loadedBytes: ready ? (current?.totalBytes ?? 1) : (current?.loadedBytes ?? 0),
+            totalBytes: current?.totalBytes ?? 1,
+            readyLocales: result.readyLocales,
+            failedLocales: result.failedLocales,
+            activeLocale: null,
+            loading: false,
+            ready,
+          }))
+          setError(ready ? null : 'prefetchFailed')
         })
         .catch((err: unknown) => {
           if (controller.signal.aborted || prefetchId !== prefetchIdRef.current) return
           console.error('[game-i18n] prefetch failed', err)
           setError('prefetchFailed')
-          setPrefetch((current) => (current ? { ...current, ready: false } : current))
+          setPrefetch((current) =>
+            current ? { ...current, activeLocale: null, loading: false, ready: false } : current,
+          )
         })
     })
 
     return () => controller.abort()
-  }, [manifestReady])
-
+  }, [manifestReady, prefetchAttempt])
   // Search only after all locale files are ready. Input is allowed earlier (plan A).
   useEffect(() => {
     abortRef.current?.abort()
@@ -461,6 +472,21 @@ export function GameI18nLookupPanel() {
     }
   }, [selected])
 
+  const handleResourceRetry = () => {
+    setError(null)
+    if (manifestReady) {
+      setPrefetch((current) =>
+        current
+          ? { ...current, failedLocales: [], activeLocale: null, loading: true, ready: false }
+          : current,
+      )
+      setPrefetchAttempt((value) => value + 1)
+      return
+    }
+    setManifestLoading(true)
+    setManifestAttempt((value) => value + 1)
+  }
+
   const localeLabel = (locale: GameI18nLocale) => t(LOCALE_LABEL_KEYS[locale])
 
   const statusLine = (() => {
@@ -522,6 +548,8 @@ export function GameI18nLookupPanel() {
         : error === 'searchFailed'
           ? t('searchFailed')
           : null
+  const failedLocaleNames = prefetch?.failedLocales.map(localeLabel).join('、') ?? ''
+  const canReloadResources = error === 'manifestMissing' || error === 'prefetchFailed'
 
   return (
     <div className="flex min-h-0 flex-1 flex-col gap-4 overflow-hidden p-4 sm:p-6">
@@ -566,7 +594,34 @@ export function GameI18nLookupPanel() {
           {manifestReady ? <span>{t('entryCount', { count: format.number(entryCount) })}</span> : null}
           {statusLine}
         </div>
-        {errorMessage ? <p className="text-sm text-destructive">{errorMessage}</p> : null}
+        {errorMessage ? (
+          <div role="alert" className="flex flex-col gap-3 rounded-lg bg-destructive/5 p-3 sm:flex-row sm:items-center sm:justify-between">
+            <div className="flex min-w-0 items-start gap-2">
+              <TriangleAlert className="mt-0.5 size-4 shrink-0 text-destructive" />
+              <div className="min-w-0">
+                <p className="text-sm text-destructive">{errorMessage}</p>
+                {failedLocaleNames ? (
+                  <p className="mt-1 text-xs text-muted-foreground">
+                    {t('failedLocales', { locales: failedLocaleNames })}
+                  </p>
+                ) : null}
+              </div>
+            </div>
+            {canReloadResources ? (
+              <Button
+                type="button"
+                size="sm"
+                variant="outline"
+                className="self-start sm:self-auto"
+                disabled={resourceLoading}
+                onClick={handleResourceRetry}
+              >
+                <RefreshCw data-icon="inline-start" className={cn(resourceLoading && 'animate-spin')} />
+                {t('reloadResources')}
+              </Button>
+            ) : null}
+          </div>
+        ) : null}
       </div>
 
       <div className="grid min-h-0 flex-1 gap-4 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)]">
