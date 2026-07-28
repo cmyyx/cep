@@ -15,7 +15,9 @@ export interface WikiTableFrameProps {
 
 export function WikiTableFrame({ children, className, scrollClassName, footer }: WikiTableFrameProps) {
   return (
-    <div className="min-w-0 overflow-hidden rounded-md shadow-[var(--shadow-border)]">
+    // 表面必须不透明: sticky 首列/表头用 bg-card 遮挡滚过它们的单元格,
+    // 若外框透明, 深色模式下 sticky 列 (#171717) 会与所在容器 (#0a0a0a) 明显错色。
+    <div className="min-w-0 overflow-hidden rounded-md bg-card text-card-foreground shadow-[var(--shadow-border)]">
       <div className={cn(
         'min-w-0 overflow-auto [scrollbar-gutter:stable] [&_[data-slot=table-container]]:overflow-visible',
         scrollClassName,

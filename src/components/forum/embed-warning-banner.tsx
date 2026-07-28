@@ -35,7 +35,7 @@ export function EmbedWarningBanner() {
   return (
     <div
       className={cn(
-        'flex items-start gap-2.5 px-4 py-2.5 shadow-[0px_1px_0px_0px_rgba(0,0,0,0.06)] shrink-0',
+        'flex items-start gap-2.5 px-4 py-2.5 shadow-[var(--shadow-border-b)] shrink-0',
         'bg-blue-50/60 text-sm text-blue-800'
       )}
     >

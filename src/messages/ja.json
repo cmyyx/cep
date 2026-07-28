@@ -33,7 +33,10 @@
     "about": "について",
     "growthPlanner": "育成計画",
     "panelPreview": "ステータスプレビュー",
-    "gameI18nLookup": "ゲームテキスト検索"
+    "gameI18nLookup": "ゲームテキスト検索",
+    "groupModules": "モジュール",
+    "groupWiki": "図鑑",
+    "groupTools": "その他ツール"
   },
   "app": {
     "name": "CEP エンドフィールドプランナー（旧終末地基質プランナー）"
@@ -833,7 +836,14 @@
     "title": "ゲームデータウィキ",
     "searchPlaceholder": "検索...",
     "resultCount": "{count}件",
+    "resultCountFiltered": "{count} / {total}件",
+    "groupCount": "{count}セット",
     "clearFilters": "フィルターをクリア",
+    "clearSearch": "検索をクリア",
+    "resetAll": "検索とフィルターをクリア",
+    "searchCondition": "検索：{term}",
+    "expandAll": "すべて展開",
+    "collapseAll": "すべて折りたたむ",
     "filterToggle": "フィルター",
     "viewWiki": "Wiki で見る",
     "noMatch": "一致するエントリがありません",
@@ -908,6 +918,7 @@
     "operators": "オペレーター",
     "weapons": "武器",
     "weapon": "武器",
+    "pickerRail": "目標を追加",
     "targetConfiguration": "目標設定",
     "targetConfigurationDescription": "現在の育成状況と目標を設定します。",
     "targetStripEmpty": "選択した目標はここに表示されます",

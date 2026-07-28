@@ -34,10 +34,24 @@ const CONTRIBUTION_TARGET_LABEL_ID: Record<string, string> = {
   defenseDamageReduction: 'AllDamageTakenScalar',
 }
 
+/**
+ * 数值按有效位全量展示 (不做四舍五入): 面板要与游戏内逐位对照。
+ * 因此字符串可能很长, 这里按长度分档缩字号并允许折行, 窄屏也不截断;
+ * `break-all` 是必要的 —— 纯数字没有可断行点, 否则会溢出瓷砖。
+ */
 export function panelStatValueClass(value: string): string {
   return cn(
-    'mt-1 max-w-full font-mono font-semibold leading-tight tabular-nums sm:text-base',
-    value.length >= 10 ? 'text-[9px]' : value.length >= 8 ? 'text-[10px]' : 'text-xs'
+    'mt-1 max-w-full font-mono font-semibold tabular-nums break-all',
+    value.length >= 14
+      ? 'text-[8px] sm:text-[10px]'
+      : value.length >= 10
+        ? 'text-[9px] sm:text-xs'
+        : value.length >= 8
+          ? 'text-[10px] sm:text-sm'
+          : 'text-xs sm:text-base',
+    // 必须排在字号之后: tailwind-merge 把任意值 text-[9px] 视作
+    // "字号(可带行高)", 放前面会被它当成冲突项丢掉。
+    'leading-tight'
   )
 }
 
@@ -78,7 +92,9 @@ export function PanelStatsSummary() {
     )
   }
   const stats = calculatePanelStats(config)
-  const number = new Intl.NumberFormat(locale, { maximumFractionDigits: 2 })
+  // 不限制小数位: 面板数值要与游戏内逐位对照 (progression 已用 stripFloatNoise
+  // 削掉浮点误差尾巴, 这里保留全部有效位)。20 是 Intl 允许的上限。
+  const number = new Intl.NumberFormat(locale, { maximumFractionDigits: 20 })
 
   return (
     <Card className="overflow-visible">
@@ -105,20 +121,22 @@ export function PanelStatsSummary() {
             })}
           </div>
           <div className="grid grid-cols-3 gap-1.5 sm:gap-2">
-            {combatStats.map(([key, label, icon]) => (
-              <div
-                key={key}
-                className="flex min-w-0 flex-col items-center rounded-lg bg-muted/35 px-1.5 py-2.5 text-center shadow-[var(--shadow-border)] sm:px-2 sm:py-3"
-              >
-                <span className="flex size-8 items-center justify-center rounded-md bg-foreground sm:size-9">
-                  <Image src={icon} alt="" width={68} height={68} className="size-6 object-contain sm:size-7" />
-                </span>
-                <p className="mt-1.5 max-w-full truncate text-[11px] text-muted-foreground sm:mt-2 sm:text-xs">{label}</p>
-                <p className="mt-1 max-w-full font-mono text-sm font-semibold leading-tight tabular-nums sm:text-base">
-                  {number.format(stats[key])}
-                </p>
-              </div>
-            ))}
+            {combatStats.map(([key, label, icon]) => {
+              const value = number.format(stats[key])
+              return (
+                <div
+                  key={key}
+                  className="flex min-w-0 flex-col items-center rounded-lg bg-muted/35 px-1.5 py-2.5 text-center shadow-[var(--shadow-border)] sm:px-2 sm:py-3"
+                >
+                  <span className="flex size-8 items-center justify-center rounded-md bg-foreground sm:size-9">
+                    <Image src={icon} alt="" width={68} height={68} className="size-6 object-contain sm:size-7" />
+                  </span>
+                  <p className="mt-1.5 max-w-full truncate text-[11px] text-muted-foreground sm:mt-2 sm:text-xs">{label}</p>
+                  {/* 与四维一致走同一套长度分档: 生命值这类数值位数最多 */}
+                  <p className={panelStatValueClass(value)}>{value}</p>
+                </div>
+              )
+            })}
           </div>
         </div>
 
@@ -129,7 +147,7 @@ export function PanelStatsSummary() {
               {stats.attributeContributions.map((contribution) => (
                 <div
                   key={`${contribution.source}-${contribution.target}`}
-                  className="flex items-center justify-between gap-3 rounded-lg bg-muted/35 px-3 py-2 text-sm"
+                  className="flex flex-wrap items-center justify-between gap-x-3 gap-y-0.5 rounded-lg bg-muted/35 px-3 py-2 text-sm"
                 >
                   <span className="min-w-0 truncate">
                     {t('attributeProvides', {
@@ -137,7 +155,7 @@ export function PanelStatsSummary() {
                       effect: contributionLabel(contribution.target),
                     })}
                   </span>
-                  <span className="shrink-0 font-mono font-medium">
+                  <span className="ml-auto font-mono font-medium tabular-nums break-all">
                     +{number.format(contribution.value)}
                     {contribution.isPercent ? '%' : ''}
                   </span>
@@ -154,12 +172,12 @@ export function PanelStatsSummary() {
               {stats.modifiers.map((modifier) => (
                 <div
                   key={`${modifier.id}-${modifier.isPercent ? 'percent' : 'flat'}`}
-                  className="flex items-center justify-between gap-3 rounded-lg bg-muted/35 px-3 py-2 text-sm"
+                  className="flex flex-wrap items-center justify-between gap-x-3 gap-y-0.5 rounded-lg bg-muted/35 px-3 py-2 text-sm"
                 >
                   <span className="min-w-0 truncate">
                     {equipmentStatLabel(modifier.id) || enumLabel('attributes', modifier.id)}
                   </span>
-                  <span className="shrink-0 font-mono font-medium">
+                  <span className="ml-auto font-mono font-medium tabular-nums break-all">
                     +{number.format(modifier.value)}
                     {modifier.isPercent ? '%' : ''}
                   </span>

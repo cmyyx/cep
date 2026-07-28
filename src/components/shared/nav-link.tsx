@@ -35,8 +35,16 @@ function resolvePathname(
  * the current page, the in-flight Next.js transition is cancelled but
  * pathname never changes — so we proactively flush the navigation
  * store to prevent a stuck spinner.
+ *
+ * Prefetch defaults to `false`: this is a fully static export, so Next 16's
+ * default `prefetch="auto"` would fetch the whole route payload for every
+ * link that enters the viewport — wiki lists render 29~243 of them at once,
+ * which competes with first-paint JS and character art for bandwidth.
+ * Perceived latency is already covered by NavigationProgressBar (0ms) and
+ * NavigationLoadingOverlay (200ms debounce). Callers can still opt in by
+ * passing `prefetch` explicitly.
  */
-export function NavLink({ loadingLabel, onClick, href, ref, ...props }: NavLinkProps) {
+export function NavLink({ loadingLabel, onClick, href, ref, prefetch = false, ...props }: NavLinkProps) {
   const pathname = usePathname()
   const startNavigation = useNavigationStore((s) => s.startNavigation)
   const navigateStartTime = useNavigationStore((s) => s.navigateStartTime)
@@ -78,5 +86,5 @@ export function NavLink({ loadingLabel, onClick, href, ref, ...props }: NavLinkP
     [onClick, loadingLabel, startNavigation, pathname, href, navigateStartTime, finishNavigation]
   )
 
-  return <Link ref={ref} href={href} onClick={handleClick} {...props} />
+  return <Link ref={ref} href={href} prefetch={prefetch} onClick={handleClick} {...props} />
 }

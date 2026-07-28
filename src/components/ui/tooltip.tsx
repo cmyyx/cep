@@ -4,17 +4,32 @@ import { Tooltip as TooltipPrimitive } from "@base-ui/react/tooltip"
 
 import { cn } from "@/lib/utils"
 
-/** Default open delay (ms). Filters accidental flyovers on dense grids. */
-export const TOOLTIP_OPEN_DELAY_MS = 400
+/** Default open delay (ms). 0 = show on hover, no dwell time. */
+export const TOOLTIP_OPEN_DELAY_MS = 0
+
+/** Route-level open delay for the dense essence and refinement planner grids. */
+export const PLANNER_GRID_TOOLTIP_OPEN_DELAY_MS = 400
+
+/**
+ * Default close delay (ms). Kept slightly above 0 so the tooltip does not
+ * strobe when the pointer briefly leaves the trigger (crossing an icon gap,
+ * or moving onto the popup itself). It does NOT stack up on dense grids:
+ * Base UI's provider wraps FloatingDelayGroup, which closes the previous
+ * tooltip immediately when another trigger in the group takes over — the
+ * close delay only applies when leaving the group entirely.
+ */
+export const TOOLTIP_CLOSE_DELAY_MS = 150
 
 function TooltipProvider({
   delay = TOOLTIP_OPEN_DELAY_MS,
+  closeDelay = TOOLTIP_CLOSE_DELAY_MS,
   ...props
 }: TooltipPrimitive.Provider.Props) {
   return (
     <TooltipPrimitive.Provider
       data-slot="tooltip-provider"
       delay={delay}
+      closeDelay={closeDelay}
       {...props}
     />
   )

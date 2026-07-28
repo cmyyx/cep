@@ -31,6 +31,27 @@ export function getVoiceActorDisplayName(voice: { original: string; localized: L
   return voice.original || localizeText(voice.localized, locale) || '—'
 }
 
+/**
+ * 展示层数值精度收敛: 整数原样输出, 其余保留两位小数并去掉尾随零。
+ * 上游数据带 5-8 位小数 (91.85567 / 46.32737219), 直接渲染会撑宽表格且无法与游戏内面板核对。
+ * 完整精度由调用方放进 `title` 属性保留。
+ */
+export function formatWikiNumber(value: number): string {
+  if (!Number.isFinite(value)) return String(value)
+  if (Number.isInteger(value)) return String(value)
+  return String(Number(value.toFixed(2)))
+}
+
+/**
+ * 装备属性值是剥掉前缀后的字符串, 可能带 `%` 等后缀 (`6.6%`), 仅格式化开头的数值部分。
+ * 非数值开头的文本原样返回。
+ */
+export function formatWikiStatText(text: string): string {
+  const match = /^(-?\d+(?:\.\d+)?)(.*)$/.exec(text)
+  if (!match) return text
+  return `${formatWikiNumber(Number(match[1]))}${match[2]}`
+}
+
 export function getWidestTableValue(values: readonly unknown[]): string {
   return values.reduce<string>((widest, value) => {
     const text = value === null || value === undefined || value === '' ? '—' : String(value)
@@ -88,6 +109,51 @@ export function getCharacterDetailSectionIds(detail: {
   ]
 }
 
+// ── 后勤技能档位 ─────────────────────────────────────────────────────────────
+
+export interface WikiLogisticsTier<Skill, Node> {
+  skill: Skill
+  /** 该档位的升级材料节点; 数据缺档时为 undefined。 */
+  node?: Node
+}
+
+export interface WikiLogisticsGroup<Skill, Node> {
+  /** 后勤位序号 (upstream `index`)。 */
+  index: number
+  iconId?: string
+  /** 同一后勤位的升级档位 (β/γ), 按 level 升序。 */
+  tiers: Array<WikiLogisticsTier<Skill, Node>>
+}
+
+/**
+ * 后勤技能按后勤位 (index) 分组, 位内按档位 (level) 升序。
+ *
+ * 上游每个干员是 2 位 x 2 档 = 4 条 (`摘山煮海·β/·γ`, `多识草木·β/·γ`), 全 29 个干员
+ * 结构一致 (管理员 chr_9000 为 0 条)。早期实现只渲染每组的 skills[0], `·γ` 档的名称、
+ * 解锁提示与描述被整条丢弃。
+ *
+ * 升级材料在 logisticsNodes 里同样按 (index, level) 一一对应 —— 只按 index 查找会把两个
+ * 档位都指向 level 1 的材料 (6 协议棱柱 vs 12 协议棱柱组), 因此两个键都必须匹配。
+ */
+export function groupCharacterLogisticsSkills<
+  Skill extends { index: number; level: number; iconId?: string },
+  Node extends { index: number; level: number },
+>(skills: readonly Skill[], nodes: readonly Node[]): Array<WikiLogisticsGroup<Skill, Node>> {
+  const groups = new Map<number, Array<WikiLogisticsTier<Skill, Node>>>()
+  const ordered = [...skills].sort((left, right) => left.index - right.index || left.level - right.level)
+  for (const skill of ordered) {
+    const tiers = groups.get(skill.index) ?? []
+    tiers.push({
+      skill,
+      node: nodes.find((node) => node.index === skill.index && node.level === skill.level),
+    })
+    groups.set(skill.index, tiers)
+  }
+  return [...groups.entries()]
+    .sort(([left], [right]) => left - right)
+    .map(([index, tiers]) => ({ index, iconId: tiers.find((tier) => tier.skill.iconId)?.skill.iconId, tiers }))
+}
+
 /** Refinement columns rendered by the equipment stat table (+0 … +3). */
 export const EQUIPMENT_STAT_LEVELS = [0, 1, 2, 3] as const
 
@@ -115,7 +181,9 @@ export function isCharacterLevelStat(attributeId: string): boolean {
 // ── 孤岛 props 列式打包 ──────────────────────────────────────────────────────
 // 等级/技能表以行对象数组传给客户端孤岛时, 每行重复全部 JSON key 名
 // (90 级 x 8 属性 x 3 份载荷拷贝)。构建期打包为列式结构, 孤岛内解包还原,
-// 渲染结果逐字节不变(不做数值取整)。
+// 传输链路逐字节不变(不做数值取整)。
+// 注意: 这里说的"不取整"只约束打包/解包本身 —— 数据不得在序列化环节失真;
+// 渲染时由 formatWikiNumber 收敛显示精度, 两者不冲突。
 
 /** rows 每行 = [level, breakStage, ...values 按 statKeys 对齐, 缺失为 null] */
 export interface CharacterLevelsPacked {

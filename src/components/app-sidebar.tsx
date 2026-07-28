@@ -137,7 +137,7 @@ export function AppSidebar() {
               }}
             >
               <span className="relative inline-flex shrink-0 overflow-visible">
-                <Image src="/icon.svg" alt={t('app.name')} width={32} height={32} className="size-8 rounded-lg" unoptimized />
+                <Image src="/icon.png" alt={t('app.name')} width={32} height={32} className="size-8 rounded-lg" unoptimized />
                 {announcementTotalUnread > 0 && (
                   <span
                     className={cn(
@@ -147,28 +147,29 @@ export function AppSidebar() {
                   />
                 )}
               </span>
-              <span className="font-semibold inline-flex items-center gap-2">
-                {t('app.name')}
-                {announcementTotalUnread > 0 && (
-                  <span
-                    className={cn(
-                      'inline-flex items-center justify-center h-4 min-w-4 px-1 rounded-full text-[10px] font-semibold leading-none',
-                      hasImportantUnread
-                        ? 'bg-amber-500 text-white'
-                        : 'bg-develop-blue text-white'
-                    )}
-                  >
-                    {announcementTotalUnread > 99 ? '99+' : announcementTotalUnread}
-                  </span>
-                )}
-              </span>
+              {/* 应用名与未读徽章必须是兄弟节点: 放在同一个 span 里时,
+                  span 没有 min-w-0/truncate 而按钮又是 overflow-visible,
+                  长名字(zh-CN)会把徽章一起顶出可视区域。 */}
+              <span className="min-w-0 flex-1 truncate font-semibold">{t('app.name')}</span>
+              {announcementTotalUnread > 0 && (
+                <span
+                  className={cn(
+                    'shrink-0 inline-flex items-center justify-center h-4 min-w-4 px-1 rounded-full text-[10px] font-semibold leading-none group-data-[collapsible=icon]:hidden',
+                    hasImportantUnread
+                      ? 'bg-amber-500 text-white'
+                      : 'bg-develop-blue text-white'
+                  )}
+                >
+                  {announcementTotalUnread > 99 ? '99+' : announcementTotalUnread}
+                </span>
+              )}
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarHeader>
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel className="group-data-[collapsible=icon]:pointer-events-none">Modules</SidebarGroupLabel>
+          <SidebarGroupLabel className="group-data-[collapsible=icon]:pointer-events-none">{t('nav.groupModules')}</SidebarGroupLabel>
           {isMobile || state !== 'collapsed' ? (
             <SidebarMenu className="grid grid-cols-2 gap-1 px-2">
               {NAV_ITEMS.map(({ href, Icon, label }) => {
@@ -243,7 +244,7 @@ export function AppSidebar() {
         </SidebarGroup>
         {/* Wiki */}
         <SidebarGroup>
-          <SidebarGroupLabel className="group-data-[collapsible=icon]:pointer-events-none">WIKI</SidebarGroupLabel>
+          <SidebarGroupLabel className="group-data-[collapsible=icon]:pointer-events-none">{t('nav.groupWiki')}</SidebarGroupLabel>
           {isMobile || state !== 'collapsed' ? (
             <SidebarMenu className="grid grid-cols-3 gap-1 px-2">
               {WIKI_ITEMS.map(({ href, label, Icon }) => {
@@ -293,7 +294,7 @@ export function AppSidebar() {
         </SidebarGroup>
         {/* Tools */}
         <SidebarGroup>
-          <SidebarGroupLabel className="group-data-[collapsible=icon]:pointer-events-none">More Tools</SidebarGroupLabel>
+          <SidebarGroupLabel className="group-data-[collapsible=icon]:pointer-events-none">{t('nav.groupTools')}</SidebarGroupLabel>
           <SidebarMenu>
             {TOOL_ITEMS.map(({ href, label, Icon }) => {
               const fullHref = `/${locale}${href}`

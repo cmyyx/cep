@@ -1,7 +1,7 @@
 'use client'
 
-import { memo, useCallback, useEffect, useMemo, useState } from 'react'
-import { ChevronDown } from 'lucide-react'
+import { memo, useCallback, useDeferredValue, useEffect, useMemo, useState } from 'react'
+import { ChevronDown, Search, SearchX, X } from 'lucide-react'
 import Image from 'next/image'
 import { useLocale, useTranslations } from 'next-intl'
 import { useBannerStore } from '@/stores/useBannerStore'
@@ -10,8 +10,10 @@ import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { RarityFrame } from '@/components/shared/rarity-frame'
+import { getRarityColorClass, normalizeRarity } from '@/components/shared/rarity-stars'
 import { FilterChip } from '@/components/shared/filter-chip'
 import { NavLink } from '@/components/shared/nav-link'
+import { cn } from '@/lib/utils'
 import { withImageCacheVersion } from '@/lib/image-url'
 import { useWikiTranslations } from '@/hooks/use-wiki-translations'
 import { useWikiStore } from '@/stores/useWikiStore'
@@ -49,6 +51,8 @@ interface WikiEntityGroupConfig {
 
 type GridEntity = WikiEntitySummary | LocalizedWikiEntitySummary
 
+type EnumLabelResolver = (group: WikiEnumGroup, id: string) => string
+
 interface WikiEntityGridProps {
   entities: GridEntity[]
   imageBasePath: string
@@ -62,6 +66,38 @@ interface WikiEntityGridProps {
   /** Canonical enum id order per group (generated enums.json key order). */
   enumOrder?: Partial<Record<WikiEnumGroup, readonly string[]>>
 }
+
+/** Key used by equipment that belongs to no suit; always sorted last. */
+export const WIKI_NO_SET_KEY = '__no-set__'
+
+/**
+ * Below this length an id substring match is worthless: equipment ids look like
+ * `item_equip_t0_parts_tundra01_body_01`, so a single `t`/`e`/`0` matches all 243
+ * entries, flips the list into "narrowed" mode and force-mounts every card. Latin
+ * typists and pinyin IMEs hit that on literally every keystroke.
+ */
+export const WIKI_ID_SEARCH_MIN_LENGTH = 3
+
+/** How many suit groups open themselves on a first visit (no persisted choice yet). */
+export const WIKI_DEFAULT_EXPANDED_GROUPS = 2
+
+const CARD_GRID_CLASS =
+  'grid grid-cols-[repeat(auto-fill,minmax(8.5rem,1fr))] gap-2 sm:grid-cols-[repeat(auto-fill,minmax(9rem,1fr))] xl:grid-cols-[repeat(auto-fill,minmax(10rem,1fr))]'
+
+/**
+ * 分类分组的 sticky 标题条。
+ *
+ * 历史: 早期是满幅不透明白条 → 浅色主题下与画布同色、读不出层级;
+ * 后改为负边距满幅 + 半透明毛玻璃。但满幅负边距让标题溢出滚动容器、
+ * 在中等屏宽变成一条神秘长白条, 且 z-20 与卡片内的稀有度 z-20 色带
+ * 持平, 色带会冒到标题之上。
+ *
+ * 现在: 取消负边距, 标题限在滚动容器的 px 内 (不再溢出成超长白条);
+ * 背景改用不透明 bg-card (在浅色画布上仍可读, 不再隐身);
+ * z-30 压过卡片内的稀有度色带 (z-20)。
+ */
+export const WIKI_GROUP_HEADER_CLASS =
+  'sticky top-0 z-30 flex min-w-0 items-center gap-2 bg-card px-1 py-1 shadow-[0_1px_0_0_var(--border)]'
 
 function filterValue(entity: GridEntity, field: WikiFilterField): string {
   if (field === 'rarity') return String(entity.rarity)
@@ -88,6 +124,46 @@ export function getWikiEquipmentModelKey(entity: GridEntity): string | undefined
   if (entity.category !== 'equipment') return undefined
   if ('modelKey' in entity && entity.modelKey) return entity.modelKey
   return typeof entity.name === 'string' ? undefined : equipmentModelKeyFromZhCN(entity.name['zh-CN'])
+}
+
+/**
+ * Name match first; the id is only a fallback for long, deliberate queries.
+ * `term` is expected pre-trimmed and lower-cased by the caller.
+ */
+export function matchesWikiSearchTerm(
+  entity: Pick<GridEntity, 'id'>,
+  displayName: string,
+  term: string,
+  locale: string,
+): boolean {
+  if (!term) return true
+  if (displayName.toLocaleLowerCase(locale).includes(term)) return true
+  return term.length >= WIKI_ID_SEARCH_MIN_LENGTH && entity.id.toLowerCase().includes(term)
+}
+
+/** Numeric enum ids ("0", "12") mean the catalog has not resolved a real label yet. */
+function isUnresolvedEnumLabel(label: string): boolean {
+  return label.length === 0 || /^\d+$/.test(label)
+}
+
+/**
+ * The one secondary attribute a card shows under its name: profession + element for
+ * operators, type for weapons, part for equipment. Without it a wiki list is 29..243
+ * unlabelled thumbnails.
+ */
+export function wikiEntityMetaLabel(entity: GridEntity, labelFor: EnumLabelResolver): string {
+  const resolve = (group: WikiEnumGroup, id: string): string => {
+    if (!id) return ''
+    const label = labelFor(group, id)
+    return isUnresolvedEnumLabel(label) ? '' : label
+  }
+  if (entity.category === 'characters') {
+    return [resolve('professions', entity.professionId), resolve('elements', entity.elementId)]
+      .filter(Boolean)
+      .join(' · ')
+  }
+  if (entity.category === 'weapons') return resolve('weaponTypes', entity.weaponTypeId)
+  return resolve('equipmentParts', entity.partTypeId)
 }
 
 export function sortWikiEntities<T extends GridEntity>(
@@ -149,7 +225,7 @@ export function groupWikiEquipmentBySuit(
 ): WikiEquipmentGroup[] {
   const groups = new Map<string, typeof entities>()
   for (const entity of entities) {
-    const key = entity.suitId ?? '__no-set__'
+    const key = entity.suitId ?? WIKI_NO_SET_KEY
     const group = groups.get(key) ?? []
     group.push(entity)
     groups.set(key, group)
@@ -157,7 +233,7 @@ export function groupWikiEquipmentBySuit(
   return [...groups.entries()]
     .map(([key, group]) => ({
       key,
-      label: key === '__no-set__'
+      label: key === WIKI_NO_SET_KEY
         ? noSetLabel
         : (typeof group[0]?.suitName === 'string'
           ? group[0].suitName
@@ -168,9 +244,11 @@ export function groupWikiEquipmentBySuit(
         entityDisplayName(left, locale).localeCompare(entityDisplayName(right, locale), locale)
       ),
     }))
+    // "Independent equipment" is a 43-item grab bag with no shared identity — it is a
+    // footer, not a headline. Real suits lead, ordered by their best piece.
     .sort((left, right) =>
-      left.key === '__no-set__' ? -1 :
-        right.key === '__no-set__' ? 1 :
+      left.key === WIKI_NO_SET_KEY ? 1 :
+        right.key === WIKI_NO_SET_KEY ? -1 :
           (right.entities[0]?.rarity ?? 0) - (left.entities[0]?.rarity ?? 0) || left.label.localeCompare(right.label, locale)
     )
 }
@@ -185,6 +263,25 @@ export function isWikiGroupExpanded(
   narrowed: boolean,
 ): boolean {
   return narrowed || expandedKeys.includes(groupKey)
+}
+
+/**
+ * First-visit expansion: open the leading real suits so the landing screen shows
+ * actual cards instead of a wall of collapsed rows.
+ */
+export function defaultExpandedWikiGroups(
+  groups: readonly { key: string }[],
+  count: number = WIKI_DEFAULT_EXPANDED_GROUPS,
+): string[] {
+  return groups
+    .filter((group) => group.key !== WIKI_NO_SET_KEY)
+    .slice(0, count)
+    .map((group) => group.key)
+}
+
+/** Toggles against the *effective* key list, so first-visit defaults are not wiped. */
+export function toggleWikiGroupKey(keys: readonly string[], key: string): string[] {
+  return keys.includes(key) ? keys.filter((value) => value !== key) : [...keys, key]
 }
 
 export function getWikiEntityUpStatus(
@@ -218,13 +315,21 @@ export const WikiEntityGrid = memo(function WikiEntityGrid({
     [enumLabel, enumLabels],
   )
   const [search, setSearch] = useState('')
+  // The input stays instant; only the 243-card filter/render pass lags behind.
+  const deferredSearch = useDeferredValue(search)
   const [activeFilters, setActiveFilters] = useState<Record<string, Set<string>>>({})
   const [filterPanelOpen, setFilterPanelOpen] = useState(false)
-  const expandedSuitKeys = useWikiStore((state) => state.expandedEquipmentGroups)
-  const toggleSuitExpanded = useWikiStore((state) => state.toggleEquipmentGroup)
+  // Persisted expansion must not reach the first client render: the static HTML was
+  // built without localStorage, so reading it eagerly would be a hydration mismatch.
+  const [hydrated, setHydrated] = useState(false)
+  const storedSuitKeys = useWikiStore((state) => state.expandedEquipmentGroups)
+  const hasStoredExpansion = useWikiStore((state) => state.hasStoredExpansion)
+  const setExpandedSuitKeys = useWikiStore((state) => state.setExpandedEquipmentGroups)
   const upCharacterNames = useBannerStore((state) => state.upCharacterNames)
   const refreshBannerStatus = useBannerStore((state) => state.refreshBannerStatus)
   const upNames = useMemo(() => new Set(upCharacterNames), [upCharacterNames])
+
+  useEffect(() => setHydrated(true), [])
 
   useEffect(() => {
     refreshBannerStatus()
@@ -254,15 +359,16 @@ export const WikiEntityGrid = memo(function WikiEntityGrid({
     return result
   }, [entities, enumOrder, filters, labelFor, locale])
 
+  const searchTerm = deferredSearch.trim()
+
   const filtered = useMemo(() => {
-    const term = search.trim().toLocaleLowerCase(locale)
+    const term = searchTerm.toLocaleLowerCase(locale)
     const matches = entities.filter((entity) => {
-      const name = entityName(entity)
-      if (term && !name.toLocaleLowerCase(locale).includes(term) && !entity.id.includes(term)) return false
+      if (!matchesWikiSearchTerm(entity, entityName(entity), term, locale)) return false
       return Object.entries(activeFilters).every(([field, selected]) => selected.size === 0 || selected.has(filterValue(entity, field as WikiFilterField)))
     })
     return sortWikiEntities(matches, locale, (entity) => getWikiEntityUpStatus(entity, upNames), entityName)
-  }, [activeFilters, entities, entityName, locale, search, upNames])
+  }, [activeFilters, entities, entityName, locale, searchTerm, upNames])
 
   const toggleFilter = useCallback((field: string, value: string) => {
     setActiveFilters((current) => {
@@ -273,9 +379,27 @@ export const WikiEntityGrid = memo(function WikiEntityGrid({
     })
   }, [])
 
+  const resetAll = useCallback(() => {
+    setSearch('')
+    setActiveFilters({})
+  }, [])
+
   const hasActiveFilters = Object.values(activeFilters).some((selected) => selected.size > 0)
-  const isNarrowed = search.trim().length > 0 || hasActiveFilters
+  const isNarrowed = searchTerm.length > 0 || hasActiveFilters
   const activeFilterCount = Object.values(activeFilters).reduce((count, selected) => count + selected.size, 0)
+  /** Human-readable "why is my list empty" list for the empty state. */
+  const activeConditions = useMemo(() => {
+    const conditions: string[] = []
+    if (searchTerm) conditions.push(t('wiki.searchCondition', { term: searchTerm }))
+    for (const filter of filters) {
+      const selected = activeFilters[filter.field]
+      if (!selected || selected.size === 0) continue
+      const values = [...selected].map((value) =>
+        filter.field === 'rarity' ? `${value}★` : filter.enumGroup ? labelFor(filter.enumGroup, value) : value)
+      conditions.push(`${t(filter.labelKey)}: ${values.join(' / ')}`)
+    }
+    return conditions
+  }, [activeFilters, filters, labelFor, searchTerm, t])
   const filteredEquipment = useMemo(
     () => filtered.filter((entity): entity is GridEntity & { category: 'equipment'; partTypeId: string } => entity.category === 'equipment'),
     [filtered]
@@ -297,18 +421,26 @@ export const WikiEntityGrid = memo(function WikiEntityGrid({
       : [],
     [enumOrder, filtered, filteredEquipment.length, groupBy, labelFor, locale]
   )
+  const defaultSuitKeys = useMemo(() => defaultExpandedWikiGroups(equipmentGroups), [equipmentGroups])
+  const expandedSuitKeys = hydrated && hasStoredExpansion ? storedSuitKeys : defaultSuitKeys
+  const toggleSuitExpanded = useCallback(
+    (key: string) => setExpandedSuitKeys(toggleWikiGroupKey(expandedSuitKeys, key)),
+    [expandedSuitKeys, setExpandedSuitKeys],
+  )
+
   const renderEntity = (entity: GridEntity) => {
     const imageSrc = withImageCacheVersion(`${imageBasePath}/${entity.imageId}.avif`)
     const displayName = entityName(entity)
     const isUp = getWikiEntityUpStatus(entity, upNames)
     const equipmentModelKey = getWikiEquipmentModelKey(entity)
+    const rarity = normalizeRarity(entity.rarity)
+    const metaLabel = wikiEntityMetaLabel(entity, labelFor)
     const badges = entity.category === 'equipment' ? (
-      <span className="flex flex-col items-start gap-0.5">
-        <span className="rounded bg-black/55 px-1.5 py-0.5 text-[9px] font-medium text-stone-100 shadow-[var(--shadow-border)]">
-          {labelFor('equipmentParts', entity.partTypeId)}
+      equipmentModelKey ? (
+        <span className="rounded bg-black/65 px-1.5 py-0.5 font-geist-mono text-[10px] font-medium uppercase leading-none text-stone-100 shadow-[var(--shadow-border)]">
+          {t(equipmentModelKey)}
         </span>
-        {equipmentModelKey ? <span className="rounded bg-amber-500/85 px-1.5 py-0.5 text-[10px] font-semibold text-black">{t(equipmentModelKey)}</span> : null}
-      </span>
+      ) : undefined
     ) : isUp ? (
       <Image src="/up.png" alt="UP" width={132} height={60} className="h-auto w-11 object-contain drop-shadow-md" unoptimized />
     ) : undefined
@@ -317,36 +449,99 @@ export const WikiEntityGrid = memo(function WikiEntityGrid({
         key={entity.id}
         href={`/${locale}/wiki/${entity.category}/${entity.id}`}
         loadingLabel={displayName}
-        className="min-w-0 overflow-hidden rounded-lg bg-card shadow-[var(--shadow-border)] outline-none focus-visible:ring-3 focus-visible:ring-ring/40"
+        className="flex min-w-0 flex-col overflow-hidden rounded-lg bg-card shadow-[var(--shadow-border)] outline-none transition-shadow hover:shadow-[var(--shadow-card)] focus-visible:ring-3 focus-visible:ring-ring/40"
       >
         <RarityFrame
           imageSrc={imageSrc}
           backgroundSrc={entity.category === 'characters' ? '/images/character-frame-bg.png' : undefined}
           title={displayName}
+          imageAlt=""
+          showTitle={false}
           rarity={entity.rarity}
           imageClassName={entity.category === 'characters' || entity.category === 'equipment' ? 'object-cover' : 'object-contain p-3'}
           badges={badges}
-          badgeClassName={entity.category === 'equipment' ? 'left-1 top-1' : 'left-auto right-0 top-2'}
+          badgeClassName={entity.category === 'equipment' ? 'left-1 top-1' : 'left-auto right-1 top-1'}
           className={entity.category === 'characters' ? 'aspect-[38/47] rounded-none shadow-none' : 'rounded-none shadow-none'}
         />
+        {/* Label plate: the name lives on a solid surface, so it can wrap to two lines
+            instead of truncating every member of a suit to the same shared prefix. */}
+        <div className="flex min-w-0 flex-1 flex-col gap-1 px-2 pb-1.5 pt-1.5">
+          <h3 className="line-clamp-2 text-xs font-medium leading-snug tracking-tight text-foreground">
+            {displayName}
+          </h3>
+          <p className="mt-auto flex min-w-0 items-center gap-1.5 text-[11px] leading-none">
+            <span
+              role="img"
+              aria-label={`${rarity}★`}
+              className={cn('shrink-0 font-geist-mono font-medium tabular-nums', getRarityColorClass(rarity))}
+            >
+              ★{rarity}
+            </span>
+            {metaLabel ? <span className="min-w-0 truncate text-muted-foreground">{metaLabel}</span> : null}
+          </p>
+        </div>
       </NavLink>
     )
   }
+
+  const showGroupCount = equipmentGroups.length > 0
+  const resultCountText = isNarrowed
+    ? t('wiki.resultCountFiltered', { count: filtered.length, total: entities.length })
+    : t('wiki.resultCount', { count: filtered.length })
 
   return (
     <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
       <div className="shrink-0 space-y-3 px-4 py-4 sm:px-6 lg:px-8">
         <div className="flex flex-col gap-2">
-          <Input
-            aria-label={t('wiki.searchPlaceholder')}
-            placeholder={t('wiki.searchPlaceholder')}
-            value={search}
-            onChange={(event) => setSearch(event.target.value)}
-            className="w-full"
-          />
-          <span className="font-geist-mono text-xs text-muted-foreground">
-            {t('wiki.resultCount', { count: filtered.length })}
-          </span>
+          <div className="relative flex items-center">
+            <Search aria-hidden="true" className="pointer-events-none absolute left-2.5 size-4 text-muted-foreground" />
+            <Input
+              type="search"
+              aria-label={t('wiki.searchPlaceholder')}
+              placeholder={t('wiki.searchPlaceholder')}
+              value={search}
+              onChange={(event) => setSearch(event.target.value)}
+              className="w-full pl-8 pr-9 [&::-webkit-search-cancel-button]:appearance-none"
+            />
+            {search.length > 0 && (
+              <Button
+                type="button"
+                variant="ghost"
+                size="icon-xs"
+                aria-label={t('wiki.clearSearch')}
+                onClick={() => setSearch('')}
+                className="absolute right-1.5"
+              >
+                <X />
+              </Button>
+            )}
+          </div>
+          <div className="flex min-w-0 flex-wrap items-center gap-x-3 gap-y-1">
+            <span aria-live="polite" className="font-geist-mono text-xs text-muted-foreground">
+              {resultCountText}
+              {showGroupCount ? ` · ${t('wiki.groupCount', { count: equipmentGroups.length })}` : null}
+            </span>
+            {showGroupCount && !isNarrowed && (
+              <span className="ml-auto flex shrink-0 items-center gap-1">
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="xs"
+                  onClick={() => setExpandedSuitKeys(equipmentGroups.map((group) => group.key))}
+                >
+                  {t('wiki.expandAll')}
+                </Button>
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="xs"
+                  onClick={() => setExpandedSuitKeys([])}
+                >
+                  {t('wiki.collapseAll')}
+                </Button>
+              </span>
+            )}
+          </div>
         </div>
         {filters.length > 0 && (
           <div className="flex flex-col gap-2">
@@ -393,28 +588,50 @@ export const WikiEntityGrid = memo(function WikiEntityGrid({
 
       <div className="flex-1 overflow-y-auto px-4 pb-6 sm:px-6 lg:px-8">
         {filtered.length === 0 ? (
-          <p className="py-16 text-center text-sm text-muted-foreground">
-            {isNarrowed ? t('wiki.noMatch') : t('wiki.noData')}
-          </p>
+          <div className="mx-auto mt-10 flex max-w-sm flex-col items-center gap-3 rounded-lg bg-card p-6 text-center shadow-[var(--shadow-card)]">
+            <SearchX aria-hidden="true" className="size-8 text-muted-foreground" />
+            <p className="text-sm font-medium">{isNarrowed ? t('wiki.noMatch') : t('wiki.noData')}</p>
+            {isNarrowed && (
+              <>
+                <span className="flex flex-wrap justify-center gap-1.5">
+                  {activeConditions.map((condition) => (
+                    <Badge key={condition} variant="secondary" className="max-w-full truncate">{condition}</Badge>
+                  ))}
+                </span>
+                <Button type="button" size="sm" onClick={resetAll}>{t('wiki.resetAll')}</Button>
+              </>
+            )}
+          </div>
         ) : equipmentGroups.length > 0 ? (
           <div className="space-y-2">
             {equipmentGroups.map((group) => {
               const expanded = isWikiGroupExpanded(group.key, expandedSuitKeys, isNarrowed)
               return (
                 <section key={group.key} className="overflow-hidden rounded-lg bg-card shadow-[var(--shadow-border)]">
-                  <Button
-                    type="button"
-                    variant="ghost"
-                    aria-expanded={expanded}
-                    onClick={() => toggleSuitExpanded(group.key)}
-                    className="min-h-10 w-full justify-start gap-2 px-3"
-                  >
-                    <ChevronDown className={expanded ? 'transition-transform' : '-rotate-90 transition-transform'} />
-                    <span className="min-w-0 flex-1 truncate text-left font-medium">{group.label}</span>
-                    <Badge variant="secondary">{group.entities.length}</Badge>
-                  </Button>
+                  {/* While narrowed every group is force-expanded, so a toggle would do
+                      nothing visible yet still rewrite the persisted expansion state. */}
+                  {isNarrowed ? (
+                    <div className="flex min-h-10 w-full items-center gap-2 px-3">
+                      <h2 className="min-w-0 flex-1 truncate text-left text-sm font-medium">{group.label}</h2>
+                      <Badge variant="secondary">{group.entities.length}</Badge>
+                    </div>
+                  ) : (
+                    <h2>
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        aria-expanded={expanded}
+                        onClick={() => toggleSuitExpanded(group.key)}
+                        className="min-h-10 w-full justify-start gap-2 px-3"
+                      >
+                        <ChevronDown className={expanded ? 'transition-transform' : '-rotate-90 transition-transform'} />
+                        <span className="min-w-0 flex-1 truncate text-left font-medium">{group.label}</span>
+                        <Badge variant="secondary">{group.entities.length}</Badge>
+                      </Button>
+                    </h2>
+                  )}
                   {expanded && (
-                    <div className="grid grid-cols-[repeat(auto-fill,minmax(7rem,1fr))] gap-2 p-3 pt-1 sm:grid-cols-[repeat(auto-fill,minmax(8rem,1fr))]">
+                    <div className={cn(CARD_GRID_CLASS, 'p-3 pt-1')}>
                       {group.entities.map(renderEntity)}
                     </div>
                   )}
@@ -426,18 +643,18 @@ export const WikiEntityGrid = memo(function WikiEntityGrid({
           <div className="space-y-5">
             {entityGroups.map((group) => (
               <section key={group.key} className="min-w-0 space-y-2">
-                <div className="flex items-center gap-2">
-                  <h2 className="text-sm font-semibold">{group.label}</h2>
-                  <Badge variant="secondary">{group.entities.length}</Badge>
+                <div className={WIKI_GROUP_HEADER_CLASS}>
+                  <h2 className="min-w-0 truncate text-sm font-semibold tracking-tight">{group.label}</h2>
+                  <Badge variant="secondary" className="shrink-0">{group.entities.length}</Badge>
                 </div>
-                <div className="grid grid-cols-[repeat(auto-fill,minmax(7rem,1fr))] gap-2 sm:grid-cols-[repeat(auto-fill,minmax(8rem,1fr))] xl:grid-cols-[repeat(auto-fill,minmax(9rem,1fr))]">
+                <div className={CARD_GRID_CLASS}>
                   {group.entities.map(renderEntity)}
                 </div>
               </section>
             ))}
           </div>
         ) : (
-          <div className="grid grid-cols-[repeat(auto-fill,minmax(7rem,1fr))] gap-2 sm:grid-cols-[repeat(auto-fill,minmax(8rem,1fr))] xl:grid-cols-[repeat(auto-fill,minmax(9rem,1fr))]">
+          <div className={CARD_GRID_CLASS}>
             {filtered.map(renderEntity)}
           </div>
         )}

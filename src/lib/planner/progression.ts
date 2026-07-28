@@ -70,6 +70,19 @@ function clamp(value: number, minimum: number, maximum: number): number {
   return Math.min(maximum, Math.max(minimum, Math.round(numericValue)))
 }
 
+/**
+ * 去掉二进制浮点运算残留的尾数, 但**不做展示用取整**。
+ *
+ * 面板预览要与游戏内数值逐位对照, 所以真实有效位必须全部保留 (源数据本身
+ * 就有 5 位小数, 相乘后位数更多)。问题只在于 IEEE754 的表示误差会产出
+ * `105.63402049999999` 这类尾巴。`toPrecision(12)` 远高于任何真实有效位数,
+ * 足以只削掉误差; 再经 Number() 归一化即可去掉尾随零。
+ */
+function stripFloatNoise(value: number): number {
+  if (!Number.isFinite(value)) return 0
+  return Number(value.toPrecision(12))
+}
+
 function addMaterial(target: Map<string, number>, itemId: string, count: number): void {
   if (count <= 0) return
   target.set(itemId, (target.get(itemId) ?? 0) + count)
@@ -458,9 +471,12 @@ export function calculatePanelStats(config: PanelPreviewConfig): PanelStats {
     stats[key] *= 1 + (percentages[key] ?? 0)
   }
   addDerivedAttributes(gameData, stats, stats.attributeContributions, character)
-  for (const key of ['strength', 'agility', 'intellect', 'will', 'hp', 'defense', 'attack'] as const) stats[key] = Math.round(stats[key] * 100) / 100
-  stats.modifiers = [...modifiers.values()].map((modifier) => ({ ...modifier, value: Math.round(modifier.value * 100) / 100 }))
-  stats.attributeContributions = stats.attributeContributions.map((contribution) => ({ ...contribution, value: Math.round(contribution.value * 100) / 100 }))
+  // 不做展示用的取整: 面板要与游戏内数值逐位对照, 有多少位就保留多少位。
+  // 这里只用 stripFloatNoise 消掉二进制浮点运算的尾巴 (例如 0.1+0.2 的
+  // ...0000000004), 真实有效位一律保留; 显示层负责在窄屏上排版。
+  for (const key of ['strength', 'agility', 'intellect', 'will', 'hp', 'defense', 'attack'] as const) stats[key] = stripFloatNoise(stats[key])
+  stats.modifiers = [...modifiers.values()].map((modifier) => ({ ...modifier, value: stripFloatNoise(modifier.value) }))
+  stats.attributeContributions = stats.attributeContributions.map((contribution) => ({ ...contribution, value: stripFloatNoise(contribution.value) }))
   return stats
 }
 

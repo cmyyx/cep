@@ -304,7 +304,7 @@ function LoginPageContent() {
             className={cn(
               'flex-1 rounded-md py-2 h-auto text-sm font-medium transition-colors',
               isLogin
-                ? 'bg-background text-foreground shadow-[0px_0px_0px_1px_rgba(0,0,0,0.04),0px_1px_2px_rgba(0,0,0,0.06)]'
+                ? 'bg-background text-foreground shadow-[var(--shadow-raised)]'
                 : 'text-muted-foreground hover:text-foreground',
             )}
           >
@@ -318,7 +318,7 @@ function LoginPageContent() {
             className={cn(
               'flex-1 rounded-md py-2 h-auto text-sm font-medium transition-colors',
               !isLogin
-                ? 'bg-background text-foreground shadow-[0px_0px_0px_1px_rgba(0,0,0,0.04),0px_1px_2px_rgba(0,0,0,0.06)]'
+                ? 'bg-background text-foreground shadow-[var(--shadow-raised)]'
                 : 'text-muted-foreground hover:text-foreground',
             )}
           >

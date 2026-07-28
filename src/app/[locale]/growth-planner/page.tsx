@@ -11,6 +11,7 @@ import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, D
 import { DataLoadError } from '@/components/shared/data-load-error'
 import { RarityFrame } from '@/components/shared/rarity-frame'
 import { GrowthEntityPicker } from '@/components/growth-planner/growth-entity-picker'
+import { GrowthFloatingPicker } from '@/components/growth-planner/growth-floating-picker'
 import { GrowthTargetCard } from '@/components/growth-planner/growth-target-card'
 import { GrowthSummary } from '@/components/growth-planner/growth-summary'
 import { useGrowthPlannerStore } from '@/stores/useGrowthPlannerStore'
@@ -32,12 +33,14 @@ export default function GrowthPlannerPage() {
   const resolvedActiveId = activeId && configs.some((config) => config.id === activeId) ? activeId : configs[0]?.id ?? null
   const activeConfig = configs.find((config) => config.id === resolvedActiveId)
   const handleEntityAdded = (id: string) => {
+    // New selection becomes the active target only; the config dialog
+    // intentionally stays closed so bulk-adding operators/weapons isn't
+    // interrupted. The dialog opens on demand from the top-strip cards.
     setActiveId(id)
-    setConfigOpen(true)
   }
 
   const renderHeader = (clearDisabled: boolean) => (
-    <header className="flex shrink-0 items-center gap-3 px-4 py-2 shadow-[0px_1px_0px_0px_rgba(0,0,0,0.08)]">
+    <header className="flex shrink-0 items-center gap-3 px-4 py-2 shadow-[var(--shadow-border-b)]">
       <SidebarTrigger />
       <h1 className="min-w-0 truncate text-base font-semibold tracking-tight">{t('title')}</h1>
       <div className="flex-1" />
@@ -66,7 +69,7 @@ export default function GrowthPlannerPage() {
     return (
       <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
         {renderHeader(true)}
-        <div className="h-[5.5rem] shrink-0 px-4 py-3 shadow-[0px_1px_0px_0px_rgba(0,0,0,0.08)]">
+        <div className="h-[5.5rem] shrink-0 px-4 py-3 shadow-[var(--shadow-border-b)]">
           <div className="flex h-16 items-center gap-2">
             <Skeleton className="size-12 rounded-md" />
             <Skeleton className="size-12 rounded-md" />
@@ -91,36 +94,37 @@ export default function GrowthPlannerPage() {
   return (
     <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
       {renderHeader(configs.length === 0)}
-      <div className="h-[5.5rem] shrink-0 overflow-x-auto px-4 py-3 shadow-[0px_1px_0px_0px_rgba(0,0,0,0.08)]">
+      <div data-growth-target-strip className="h-[5.5rem] shrink-0 overflow-x-auto px-4 py-3 shadow-[var(--shadow-border-b)]">
         <div className="flex h-16 min-w-max items-center gap-2">
           {configs.length === 0 ? <span className="text-sm text-muted-foreground">{t('targetStripEmpty')}</span> : configs.map((config) => {
             const summary = config.kind === 'character' ? wikiCharacters.find((entry) => entry.id === config.id) : wikiWeapons.find((entry) => entry.id === config.id)
             if (!summary) return null
             const name = entityName(summary)
             return (
-              <Button key={config.id} type="button" variant={config.id === resolvedActiveId ? 'secondary' : 'ghost'} size="card" onClick={() => { setActiveId(config.id); setConfigOpen(true) }} className="flex h-16 items-center gap-2 rounded-lg px-2 pr-3">
-                <RarityFrame imageSrc={`${config.kind === 'character' ? '/images/characters' : '/images/weapon'}/${summary.imageId}.avif`} backgroundSrc={config.kind === 'character' ? '/images/character-frame-bg.png' : undefined} title={name} rarity={summary.rarity} showTitle={false} imageClassName={config.kind === 'weapon' ? 'object-contain p-1' : 'object-cover'} className="size-12 rounded-md shadow-none" />
+              <Button key={config.id} data-growth-target-id={config.id} type="button" variant="ghost" size="card" onClick={() => { setActiveId(config.id); setConfigOpen(true) }} className="flex h-16 items-center gap-2 rounded-lg px-2 pr-3">
+                <RarityFrame imageSrc={`${config.kind === 'character' ? '/images/characters' : '/images/weapon'}/${summary.imageId}.avif`} backgroundSrc={config.kind === 'character' ? '/images/character-frame-bg.png' : undefined} title={name} imageAlt="" rarity={summary.rarity} showTitle={false} imageClassName={config.kind === 'weapon' ? 'object-contain p-1' : 'object-cover'} className="size-12 rounded-md shadow-none" />
                 <span className="max-w-28 truncate text-xs">{name}</span>
               </Button>
             )
           })}
         </div>
       </div>
-      <div className="hidden min-h-0 flex-1 overflow-hidden lg:grid lg:grid-cols-[minmax(0,1fr)_minmax(360px,0.48fr)]">
-        <main className="min-h-0 overflow-y-scroll p-4 pb-16 shadow-[1px_0px_0px_0px_rgba(0,0,0,0.08)]">
-          <GrowthSummary />
-        </main>
-        <aside className="flex min-h-0 min-w-0 flex-col p-4"><GrowthEntityPicker onEntityAdded={handleEntityAdded} /></aside>
-      </div>
+      {/* Desktop (≥lg): summary goes full-width; the target picker is a
+          floating edge-docked rail (GrowthFloatingPicker) so it costs zero
+          layout space when not hovered. Mobile keeps its inline tab picker. */}
+      <main className="hidden min-h-0 flex-1 overflow-y-scroll p-4 pb-16 lg:block">
+        <GrowthSummary />
+      </main>
+      <GrowthFloatingPicker />
       <div className="flex min-h-0 flex-1 flex-col overflow-hidden lg:hidden">
         <div className="mx-4 mt-3 flex shrink-0 rounded-lg bg-muted p-0.5">
-          <Button type="button" variant="ghost" aria-pressed={mobileView === 'selection'} onClick={() => setMobileView('selection')} className={cn('h-auto flex-1 rounded-md px-4 py-1.5 text-sm font-medium transition-colors', mobileView === 'selection' ? 'bg-background text-foreground shadow-[0px_0px_0px_1px_rgba(0,0,0,0.04),0px_1px_2px_rgba(0,0,0,0.06)]' : 'text-muted-foreground')}>{t('selectionTab')}</Button>
-          <Button type="button" variant="ghost" aria-pressed={mobileView === 'summary'} onClick={() => setMobileView('summary')} className={cn('h-auto flex-1 rounded-md px-4 py-1.5 text-sm font-medium transition-colors', mobileView === 'summary' ? 'bg-background text-foreground shadow-[0px_0px_0px_1px_rgba(0,0,0,0.04),0px_1px_2px_rgba(0,0,0,0.06)]' : 'text-muted-foreground')}>{t('summaryTab')}</Button>
+          <Button type="button" variant="ghost" aria-pressed={mobileView === 'selection'} onClick={() => setMobileView('selection')} className={cn('h-auto flex-1 rounded-md px-4 py-1.5 text-sm font-medium transition-colors', mobileView === 'selection' ? 'bg-background text-foreground shadow-[var(--shadow-raised)]' : 'text-muted-foreground')}>{t('selectionTab')}</Button>
+          <Button type="button" variant="ghost" aria-pressed={mobileView === 'summary'} onClick={() => setMobileView('summary')} className={cn('h-auto flex-1 rounded-md px-4 py-1.5 text-sm font-medium transition-colors', mobileView === 'summary' ? 'bg-background text-foreground shadow-[var(--shadow-raised)]' : 'text-muted-foreground')}>{t('summaryTab')}</Button>
         </div>
         <div className="min-h-0 flex-1 overflow-hidden">
           {mobileView === 'selection' ? <div className="flex h-full min-h-0 flex-col p-3"><GrowthEntityPicker onEntityAdded={handleEntityAdded} /></div> : <div className="h-full overflow-y-auto p-4"><GrowthSummary /></div>}
         </div>
-        <div className="safe-area-mb relative z-40 flex shrink-0 items-center justify-between bg-background px-4 py-2.5 shadow-[inset_0px_1px_0px_0px_rgba(0,0,0,0.08)]">
+        <div className="safe-area-mb relative z-40 flex shrink-0 items-center justify-between bg-background px-4 py-2.5 shadow-[var(--shadow-border-inset-t)]">
           <span className="text-sm text-muted-foreground">{t('selectedCount', { count: configs.length })}</span>
           <Button type="button" variant={mobileView === 'selection' ? 'default' : 'outline'} size="sm" onClick={() => setMobileView(mobileView === 'selection' ? 'summary' : 'selection')} disabled={mobileView === 'selection' && configs.length === 0}>{mobileView === 'selection' ? t('viewSummary') : t('manageTargets')}</Button>
         </div>

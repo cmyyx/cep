@@ -44,7 +44,7 @@ export function FullScreenStatus({
 
       <div className="relative z-10 flex w-full max-w-xl flex-col items-center gap-6 text-center">
         <div className={cn('relative flex size-14 items-center justify-center', animateIcon && 'animate-[icon-pulse_2s_ease-in-out_infinite]')}>
-          <Image src="/icon.svg" alt="" width={56} height={56} className="size-14" unoptimized priority />
+          <Image src="/icon.png" alt="" width={56} height={56} className="size-14" unoptimized priority />
           <div className={cn(
             'absolute inset-0 -z-10 scale-125 rounded-full blur-xl',
             destructive ? 'bg-ship-red/20' : 'bg-develop-blue/10',

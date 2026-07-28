@@ -103,7 +103,7 @@ export function HolidayBanner() {
       aria-live="polite"
       className={cn(
         'flex items-center justify-center gap-2.5 px-4 py-2.5 text-sm font-medium',
-        'shadow-[inset_0_-1px_0_rgba(0,0,0,0.06)] transition-all duration-200 dark:shadow-[inset_0_-1px_0_rgba(255,255,255,0.08)]',
+        'shadow-[var(--shadow-border-inset-b)] transition-all duration-200',
         TONE_CLASSES[config.tone],
         exiting && 'animate-toast-out opacity-0'
       )}

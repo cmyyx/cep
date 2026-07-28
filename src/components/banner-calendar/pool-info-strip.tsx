@@ -78,9 +78,9 @@ export function PoolInfoStrip() {
   return (
     <>
       <div className="shrink-0 px-4 pb-4 pt-3">
-        <div className="rounded-lg shadow-[0px_0px_0px_1px_rgba(0,0,0,0.08)] overflow-hidden">
+        <div className="rounded-lg shadow-[var(--shadow-border)] overflow-hidden">
           {/* Header */}
-          <div className="flex items-center gap-2 px-3 py-2 bg-muted/30 shadow-[0px_1px_0px_0px_rgba(0,0,0,0.08)]">
+          <div className="flex items-center gap-2 px-3 py-2 bg-muted/30 shadow-[var(--shadow-border-b)]">
             <span className="size-2 rounded-full bg-primary" />
             <span className="text-xs font-medium text-muted-foreground">
               {t('bannerCalendar.poolInfo')}
@@ -100,7 +100,7 @@ export function PoolInfoStrip() {
                 onClick={() => setSelectedVisual(visual)}
                 className={cn(
                   'relative flex-shrink-0 w-[280px] h-[160px] md:w-[320px] md:h-[180px] rounded-lg overflow-hidden',
-                  'shadow-[0px_0px_0px_1px_rgba(0,0,0,0.08)] cursor-pointer p-0',
+                  'shadow-[var(--shadow-border)] cursor-pointer p-0',
                   'transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0px_2px_8px_rgba(0,0,0,0.12)] hover:bg-transparent',
                   'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2'
                 )}

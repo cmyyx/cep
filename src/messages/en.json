@@ -33,7 +33,10 @@
     "about": "About",
     "growthPlanner": "Growth Planner",
     "panelPreview": "Stats Preview",
-    "gameI18nLookup": "Game text lookup"
+    "gameI18nLookup": "Game text lookup",
+    "groupModules": "Modules",
+    "groupWiki": "Wiki",
+    "groupTools": "More Tools"
   },
   "app": {
     "name": "CEP Endfield Planner (formerly Endfield Essence Planner)"
@@ -833,7 +836,14 @@
     "title": "Game Data Wiki",
     "searchPlaceholder": "Search...",
     "resultCount": "{count} entries",
+    "resultCountFiltered": "{count} of {total} entries",
+    "groupCount": "{count} sets",
     "clearFilters": "Clear filters",
+    "clearSearch": "Clear search",
+    "resetAll": "Clear search and filters",
+    "searchCondition": "Search: {term}",
+    "expandAll": "Expand all",
+    "collapseAll": "Collapse all",
     "filterToggle": "Filters",
     "viewWiki": "View Wiki",
     "noMatch": "No matching entities",
@@ -908,6 +918,7 @@
     "operators": "Operators",
     "weapons": "Weapons",
     "weapon": "Weapon",
+    "pickerRail": "Add targets",
     "targetConfiguration": "Target configuration",
     "targetConfigurationDescription": "Configure current and target growth progress.",
     "targetStripEmpty": "Selected targets will appear here",

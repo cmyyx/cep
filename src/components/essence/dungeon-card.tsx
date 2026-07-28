@@ -105,9 +105,9 @@ const WeaponThumbnail = memo(function WeaponThumbnail({
         'bg-[url(/images/item-frame-bg.png)] bg-cover bg-center',
         isMobile && enableTooltip && 'touch-manipulation [-webkit-touch-callout:none] [&_img]:pointer-events-none [&_img]:select-none',
         inRange && isSelected && 'shadow-[0_0_0_1px_rgba(251,191,36,0.5)]',
-        inRange && !isSelected && 'shadow-[0_0_0_1px_rgba(0,0,0,0.08)]',
+        inRange && !isSelected && 'shadow-[var(--shadow-border)]',
         !inRange && isSelected && 'shadow-[0_0_0_1px_rgba(251,191,36,0.2)] opacity-40',
-        !inRange && !isSelected && 'shadow-[0_0_0_1px_rgba(0,0,0,0.04)] opacity-30',
+        !inRange && !isSelected && 'shadow-[var(--shadow-border)] opacity-30',
       )}
     >
       {(() => { const s = weaponImageSrc(weapon.id, weapon.iconId); if (!s) return <span className="absolute inset-0 flex items-center justify-center text-lg font-semibold text-white/40">{weapon.name?.charAt(0) ?? '?'}</span>; return <Image src={s} alt={weaponName} fill className="object-cover z-10" unoptimized /> })()}
@@ -194,7 +194,7 @@ const WeaponRow = memo(function WeaponRow({
           variant="ghost"
           size="icon"
           onClick={() => toggleWeapon(weapon.id)}
-          className="relative size-10 rounded shadow-[0_0_0_1px_rgba(0,0,0,0.08)] bg-muted/30 flex-shrink-0 overflow-hidden bg-[url(/images/item-frame-bg.png)] bg-cover bg-center cursor-pointer">
+          className="relative size-10 rounded shadow-[var(--shadow-border)] bg-muted/30 flex-shrink-0 overflow-hidden bg-[url(/images/item-frame-bg.png)] bg-cover bg-center cursor-pointer">
           {(() => { const s = weaponImageSrc(weapon.id, weapon.iconId); if (!s) return <span className="absolute inset-0 flex items-center justify-center text-lg font-semibold text-white/40">{weapon.name?.charAt(0) ?? '?'}</span>; return <Image src={s} alt={weaponName} fill className="object-cover z-10" unoptimized /> })()}
           <Image
             src={withImageCacheVersion(`/images/item-band-${weapon.rarity}.png`)}

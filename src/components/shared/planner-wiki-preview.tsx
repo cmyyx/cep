@@ -65,7 +65,7 @@ export function PlannerWikiPreview({
       ) : null}
       {rows.length > 0 ? (
         <div className="overflow-hidden rounded-md shadow-[var(--shadow-border)]">
-          <Table className="table-fixed [&_th+th]:shadow-[-1px_0_0_0_rgba(0,0,0,0.08)] [&_td+td]:shadow-[-1px_0_0_0_rgba(0,0,0,0.08)]">
+          <Table className="table-fixed [&_th+th]:shadow-[var(--shadow-border-l)] [&_td+td]:shadow-[var(--shadow-border-l)]">
             <TableHeader>
               <TableRow className="bg-muted/45 hover:bg-muted/45">
                 <TableHead className="w-[38%] text-xs">{t('wiki.attributes')}</TableHead>

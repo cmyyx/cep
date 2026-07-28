@@ -67,12 +67,14 @@ export const FilterChip = memo(function FilterChip({
             onClick={onToggle}
             aria-pressed={isSelected}
             className={cn(
-              'w-full px-1 py-0.5 rounded text-[11px] text-center transition-colors bg-muted/60 h-auto min-h-0 min-w-0 shadow-[0_0_0_1px_rgba(0,0,0,0.08)]',
+              // min-h-6 keeps the tap target at the WCAG 2.5.8 minimum (24x24 CSS px);
+              // `size="xs"` alone collapses to ~18px once h-auto overrides its h-6.
+              'w-full px-1 py-1 rounded text-[11px] text-center transition-colors bg-muted/60 h-auto min-h-6 min-w-0 shadow-[var(--shadow-border)]',
               isSelected && 'bg-primary text-primary-foreground shadow-[0_0_0_1px_var(--color-primary)]',
-              !isSelected && isValid && 'hover:shadow-[0_0_0_1px_rgba(23,23,23,0.4)] hover:bg-muted/80',
+              !isSelected && isValid && 'hover:shadow-[var(--shadow-border-strong)] hover:bg-muted/80',
               !isValid &&
                 !isSelected &&
-                'shadow-[0_0_0_1px_rgba(0,0,0,0.05)] text-muted-foreground/40 line-through cursor-not-allowed',
+                'shadow-[var(--shadow-border)] text-muted-foreground/70 line-through cursor-not-allowed',
             )}
           />
         }

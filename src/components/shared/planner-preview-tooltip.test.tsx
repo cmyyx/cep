@@ -3,7 +3,7 @@
 import { cleanup, fireEvent, render, screen } from '@testing-library/react'
 import { afterEach, expect, it, vi } from 'vitest'
 import { PlannerPreviewTooltip } from './planner-preview-tooltip'
-import { TOOLTIP_OPEN_DELAY_MS } from '@/components/ui/tooltip'
+import { TOOLTIP_CLOSE_DELAY_MS, TOOLTIP_OPEN_DELAY_MS } from '@/components/ui/tooltip'
 
 vi.mock('@/hooks/use-mobile-long-press-tooltip', () => ({
   useMobileLongPressTooltip: (enabled = true) => ({
@@ -24,8 +24,12 @@ vi.mock('@/hooks/use-mobile-long-press-tooltip', () => ({
 
 afterEach(cleanup)
 
-it('exports a 400ms open delay for the shared provider default', () => {
-  expect(TOOLTIP_OPEN_DELAY_MS).toBe(400)
+it('exports a 0ms open delay for the shared provider default', () => {
+  expect(TOOLTIP_OPEN_DELAY_MS).toBe(0)
+})
+
+it('keeps a small close delay so tooltips do not strobe on pointer jitter', () => {
+  expect(TOOLTIP_CLOSE_DELAY_MS).toBeGreaterThan(0)
 })
 
 it('invokes onClick for cards without preview content', () => {

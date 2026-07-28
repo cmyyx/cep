@@ -1,11 +1,18 @@
 import { expect, it } from 'vitest'
 import {
+  defaultExpandedWikiGroups,
   getWikiEntityUpStatus,
   getWikiEquipmentModelKey,
   groupWikiEntities,
   groupWikiEquipmentBySuit,
   isWikiGroupExpanded,
+  matchesWikiSearchTerm,
   sortWikiEntities,
+  toggleWikiGroupKey,
+  wikiEntityMetaLabel,
+  WIKI_GROUP_HEADER_CLASS,
+  WIKI_ID_SEARCH_MIN_LENGTH,
+  WIKI_NO_SET_KEY,
 } from './wiki-entity-grid'
 import { localizeWikiEntitySummary } from '@/lib/wiki-summary-locale'
 import type { WikiCharacterSummary, WikiEquipmentSummary, WikiWeaponSummary } from '@/types/wiki'
@@ -88,7 +95,7 @@ it('marks current characters and their associated weapons as UP', () => {
   expect(getWikiEntityUpStatus(equipment, upNames, weaponCharacters)).toBe(false)
 })
 
-it('puts independent equipment first and sorts sets and members by rarity', () => {
+it('puts independent equipment last and sorts sets and members by rarity', () => {
   const entities: WikiEquipmentSummary[] = [
     { ...({} as WikiEquipmentSummary), id: 'a-low', category: 'equipment', name: localized('A Low'), rarity: 3, imageId: 'a-low', partTypeId: '0', minimumLevel: 20, suitId: 'suit-a', suitName: localized('套装甲') },
     { ...({} as WikiEquipmentSummary), id: 'a-high', category: 'equipment', name: localized('A High'), rarity: 5, imageId: 'a-high', partTypeId: '2', minimumLevel: 20, suitId: 'suit-a', suitName: localized('套装甲') },
@@ -97,10 +104,27 @@ it('puts independent equipment first and sorts sets and members by rarity', () =
   ]
 
   expect(groupWikiEquipmentBySuit(entities, 'zh-CN', '独立装备')).toEqual([
-    { key: '__no-set__', label: '独立装备', entities: [entities[3]] },
     { key: 'suit-b', label: '套装乙', entities: [entities[2]] },
     { key: 'suit-a', label: '套装甲', entities: [entities[1], entities[0]] },
+    { key: WIKI_NO_SET_KEY, label: '独立装备', entities: [entities[3]] },
   ])
+})
+
+it('opens the leading real suits on a first visit and never the no-set bucket', () => {
+  const groups = [{ key: 'suit-b' }, { key: 'suit-a' }, { key: 'suit-c' }, { key: WIKI_NO_SET_KEY }]
+
+  expect(defaultExpandedWikiGroups(groups)).toEqual(['suit-b', 'suit-a'])
+  expect(defaultExpandedWikiGroups(groups, 1)).toEqual(['suit-b'])
+  expect(defaultExpandedWikiGroups([{ key: WIKI_NO_SET_KEY }])).toEqual([])
+  expect(defaultExpandedWikiGroups([])).toEqual([])
+})
+
+it('toggles a group key against the effective list without mutating it', () => {
+  const keys = ['suit-a', 'suit-b']
+
+  expect(toggleWikiGroupKey(keys, 'suit-c')).toEqual(['suit-a', 'suit-b', 'suit-c'])
+  expect(toggleWikiGroupKey(keys, 'suit-a')).toEqual(['suit-b'])
+  expect(keys).toEqual(['suit-a', 'suit-b'])
 })
 
 it('keeps the build-time localized suit label instead of the raw suit id', () => {
@@ -196,4 +220,77 @@ it('leaves the model badge off items without a tier suffix and off non-equipment
   expect(getWikiEquipmentModelKey(plain)).toBeUndefined()
   expect(getWikiEquipmentModelKey(localizeWikiEntitySummary(plain, 'en'))).toBeUndefined()
   expect(getWikiEquipmentModelKey(character('chr', '干员', 6))).toBeUndefined()
+})
+
+const idSearchEquipment: WikiEquipmentSummary = {
+  id: 'item_equip_t0_parts_tundra01_body_01',
+  category: 'equipment',
+  name: localized('苔原护甲', 'Tundra Armor'),
+  rarity: 4,
+  imageId: 'item_equip_t0_parts_tundra01_body_01',
+  partTypeId: '0',
+  minimumLevel: 40,
+}
+
+it('ignores the id fallback for short terms so one keystroke cannot match every entry', () => {
+  expect(WIKI_ID_SEARCH_MIN_LENGTH).toBe(3)
+
+  // Fragments that appear in every generated equipment id but not in the display name.
+  for (const term of ['p', 'e', '0', 'it']) {
+    expect(matchesWikiSearchTerm(idSearchEquipment, 'Tundra Armor', term, 'en')).toBe(false)
+  }
+  // Three characters or more is a deliberate id query.
+  expect(matchesWikiSearchTerm(idSearchEquipment, 'Tundra Armor', 'tundra01', 'en')).toBe(true)
+  expect(matchesWikiSearchTerm(idSearchEquipment, 'Tundra Armor', 'equip', 'en')).toBe(true)
+})
+
+it('always matches on the display name, case-insensitively, and on an empty term', () => {
+  expect(matchesWikiSearchTerm(idSearchEquipment, 'Tundra Armor', '', 'en')).toBe(true)
+  expect(matchesWikiSearchTerm(idSearchEquipment, 'Tundra Armor', 'tu', 'en')).toBe(true)
+  expect(matchesWikiSearchTerm(idSearchEquipment, '苔原护甲', '护甲', 'zh-CN')).toBe(true)
+  expect(matchesWikiSearchTerm(idSearchEquipment, 'Tundra Armor', 'zzz', 'en')).toBe(false)
+})
+
+it('builds a secondary attribute line per category and drops unresolved numeric ids', () => {
+  const labels: Record<string, Record<string, string>> = {
+    professions: { '0': '术师' },
+    elements: { Physical: '物理' },
+    weaponTypes: { '1': '单手剑' },
+    equipmentParts: { '0': '护甲' },
+  }
+  const labelFor = (group: string, id: string) => labels[group]?.[id] ?? id
+
+  expect(wikiEntityMetaLabel(character('chr', '干员', 6), labelFor)).toBe('术师 · 物理')
+  expect(wikiEntityMetaLabel({ ...idSearchEquipment }, labelFor)).toBe('护甲')
+  expect(
+    wikiEntityMetaLabel(
+      { id: 'wpn', category: 'weapons', name: localized('剑'), rarity: 6, imageId: 'wpn', weaponTypeId: '1', maxLevel: 90 },
+      labelFor,
+    ),
+  ).toBe('单手剑')
+
+  // Catalog miss: labelFor echoes the raw numeric id, which must never be shown.
+  const rawLabelFor = (_group: string, id: string) => id
+  expect(wikiEntityMetaLabel(character('chr', '干员', 6), rawLabelFor)).toBe('Physical')
+  expect(wikiEntityMetaLabel({ ...idSearchEquipment }, rawLabelFor)).toBe('')
+})
+
+it('renders the sticky group header inside the scroll container, opaque and above the rarity band', () => {
+  // Header stays within the scroll container's padding (no full-bleed negative
+  // margins): negative margins made the strip overflow into a long mystery
+  // bar on mid-width viewports. It must NOT contain the bleed classes.
+  for (const token of ['-mx-4', 'sm:-mx-6', 'lg:-mx-8']) {
+    expect(WIKI_GROUP_HEADER_CLASS.split(' ')).not.toContain(token)
+  }
+  expect(WIKI_GROUP_HEADER_CLASS).toContain('sticky')
+  expect(WIKI_GROUP_HEADER_CLASS).toContain('top-0')
+  // Opaque bg-card so the header reads as a layer on the light canvas (the old
+  // bg-background/80 was the canvas itself and disappeared in light mode).
+  expect(WIKI_GROUP_HEADER_CLASS).toContain('bg-card')
+  expect(WIKI_GROUP_HEADER_CLASS).not.toContain('bg-background/80')
+  // z-30 strictly above the in-card rarity band (z-20) so the band never
+  // shows through the header when cards scroll under it.
+  expect(WIKI_GROUP_HEADER_CLASS).toContain('z-30')
+  // var(--border) flips with .dark so the hairline survives in dark mode.
+  expect(WIKI_GROUP_HEADER_CLASS).toContain('shadow-[0_1px_0_0_var(--border)]')
 })

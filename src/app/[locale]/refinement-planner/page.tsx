@@ -67,7 +67,7 @@ export default function RefinementPlannerPage() {
             className={cn(
               'flex-1 px-4 py-1.5 h-auto rounded-md text-sm font-medium transition-colors',
               mobileView === 'equips'
-                ? 'bg-background text-foreground shadow-[0px_0px_0px_1px_rgba(0,0,0,0.04),0px_1px_2px_rgba(0,0,0,0.06)]'
+                ? 'bg-background text-foreground shadow-[var(--shadow-raised)]'
                 : 'text-muted-foreground',
             )}
           >
@@ -81,7 +81,7 @@ export default function RefinementPlannerPage() {
             className={cn(
               'flex-1 px-4 py-1.5 h-auto rounded-md text-sm font-medium transition-colors',
               mobileView === 'recommend'
-                ? 'bg-background text-foreground shadow-[0px_0px_0px_1px_rgba(0,0,0,0.04),0px_1px_2px_rgba(0,0,0,0.06)]'
+                ? 'bg-background text-foreground shadow-[var(--shadow-raised)]'
                 : 'text-muted-foreground',
               !hasSelection && 'opacity-50',
             )}
@@ -117,7 +117,7 @@ export default function RefinementPlannerPage() {
 
         {/* Bottom bar — relative with margin-bottom for watermark clearance.
             safe-area-inset handled via safe-area-mb utility. */}
-        <div className="relative safe-area-mb z-40 flex items-center justify-between px-4 py-2.5 shadow-[inset_0px_1px_0px_0px_rgba(0,0,0,0.08)] bg-background">
+        <div className="relative safe-area-mb z-40 flex items-center justify-between px-4 py-2.5 shadow-[var(--shadow-border-inset-t)] bg-background">
           <span className="text-sm text-muted-foreground">
             {hasSelection
               ? t('refinement.hasSelection')

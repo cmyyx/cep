@@ -184,7 +184,7 @@ export async function resetStoreForModule(moduleId: string): Promise<void> {
       break
     }
     case 'wiki-session':
-      useWikiStore.setState({ expandedEquipmentGroups: [] })
+      useWikiStore.getState().resetEquipmentGroups()
       break
     case 'user-data':
       // Revokes the server session too; falls back to a local-only clear offline.
