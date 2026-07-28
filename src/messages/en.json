@@ -992,6 +992,14 @@
     "setPieceProgress": "{current}/{required} pieces",
     "noSetEquipment": "No set"
   },
+  "chunkError": {
+    "title": "Resource load failed",
+    "description": "A required page chunk failed to load. This usually happens right after an update or when the network is unstable.",
+    "resource": "Resource",
+    "detail": "Detail",
+    "retry": "Retry",
+    "goHome": "Go home"
+  },
   "gameI18nLookup": {
     "title": "Game text lookup",
     "searchLocale": "Search language",

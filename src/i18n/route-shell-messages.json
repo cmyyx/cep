@@ -9,7 +9,8 @@
     "holiday",
     "extensionCss",
     "versionWatermark",
-    "legacyMigration"
+    "legacyMigration",
+    "chunkError"
   ],
   "corePicks": {
     "account": [
@@ -74,7 +75,7 @@
         ]
       }
     },
-    "panel-preview": { "namespaces": ["panelPreview", "wiki"] },
+    "panel-preview": { "namespaces": ["panelPreview", "wiki"], "catalogs": ["weaponStats"] },
     "refinement-planner": {
       "namespaces": ["refinement", "wiki"],
       "picks": { "meta": ["refinementPlannerDescription"] },

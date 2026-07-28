@@ -992,6 +992,14 @@
     "setPieceProgress": "{current}/{required} 件",
     "noSetEquipment": "無套裝"
   },
+  "chunkError": {
+    "title": "資源載入失敗",
+    "description": "頁面所需的部分程式碼載入失敗。這通常發生在版本更新後或網路不穩定時。",
+    "resource": "資源",
+    "detail": "詳情",
+    "retry": "重試",
+    "goHome": "返回首頁"
+  },
   "gameI18nLookup": {
     "title": "遊戲文案查詢",
     "searchLocale": "搜尋語言",

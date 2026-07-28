@@ -992,6 +992,14 @@
     "setPieceProgress": "{current}/{required} 件",
     "noSetEquipment": "无套装"
   },
+  "chunkError": {
+    "title": "资源加载失败",
+    "description": "页面所需的部分代码加载失败。这通常发生在版本更新后或网络不稳定时。",
+    "resource": "资源",
+    "detail": "详情",
+    "retry": "重试",
+    "goHome": "返回首页"
+  },
   "gameI18nLookup": {
     "title": "游戏文案查询",
     "searchLocale": "搜索语言",

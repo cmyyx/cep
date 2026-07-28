@@ -147,6 +147,7 @@ export type PlannerCatalogProfile =
   | 'all'
   | 'essence'
   | 'refinement'
+  | 'panel-preview'
   | 'account'
 
 const PLANNER_CATALOG_KEYS = {
@@ -167,6 +168,8 @@ const PLANNER_CATALOG_KEYS = {
   essence: ['weapons', 'dungeons', 'gemStats', 'weaponStats', 'region'],
   /** Refinement planner: equipment tables only. */
   refinement: ['equips', 'equipStats', 'equipTypes', 'suits', 'materials'],
+  /** Panel preview: weapon stat labels (weaponStats) for the weapon tooltip config. */
+  'panel-preview': ['weaponStats'],
   /** Account sync conflict UI: equip display names + region labels (settings diff). */
   account: ['equips', 'region'],
 } as const satisfies Record<PlannerCatalogProfile, readonly (keyof CatalogBag)[]>

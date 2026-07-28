@@ -12,6 +12,10 @@ interface NavigationState {
   finishNavigation: () => void
   /** Called by the progress bar after its completion animation ends. */
   resetProgress: () => void
+  /** Force-reset every navigation flag. Used when a navigation aborts abnormally
+      (e.g. chunk load failure) so the loading UI does not spin while the page
+      is about to reload or show an error page. */
+  resetNavigation: () => void
 }
 
 /**
@@ -62,6 +66,16 @@ export const useNavigationStore = create<NavigationState>((set) => ({
 
   resetProgress: () => {
     set({
+      isCompleting: false,
+      navigateStartTime: null,
+      targetLabel: null,
+    })
+  },
+
+  resetNavigation: () => {
+    set({
+      isNavigating: false,
+      isProgressing: false,
       isCompleting: false,
       navigateStartTime: null,
       targetLabel: null,

@@ -992,6 +992,14 @@
     "setPieceProgress": "{current}/{required}個",
     "noSetEquipment": "セットなし"
   },
+  "chunkError": {
+    "title": "リソースの読み込みに失敗しました",
+    "description": "ページの一部コードの読み込みに失敗しました。更新直後やネットワーク不安定時に発生しやすいです。",
+    "resource": "リソース",
+    "detail": "詳細",
+    "retry": "再試行",
+    "goHome": "ホームに戻る"
+  },
   "gameI18nLookup": {
     "title": "ゲームテキスト検索",
     "searchLocale": "検索言語",

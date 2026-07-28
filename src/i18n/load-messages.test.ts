@@ -66,6 +66,9 @@ it('route catalogs listed in route-shell-messages.json stay in sync with planner
   expect(routes['account'].catalogs?.slice().sort()).toEqual(
     Object.keys(loadPlannerCatalogs('zh-CN', 'account')).sort(),
   )
+  expect(routes['panel-preview'].catalogs?.slice().sort()).toEqual(
+    Object.keys(loadPlannerCatalogs('zh-CN', 'panel-preview')).sort(),
+  )
 })
 
 it('planner catalogs can be sliced per route profile', () => {
@@ -87,6 +90,11 @@ it('planner catalogs can be sliced per route profile', () => {
 
   const account = loadPlannerCatalogs('en', 'account') as Record<string, unknown>
   expect(Object.keys(account).sort()).toEqual(['equips', 'region'])
+
+  // Panel preview needs weaponStats so weaponStatLabel() can resolve
+  // weapon attribute ids (gat_passive_attr_*, gst_passive_*) via t('weaponStats.<id>').
+  const panelPreview = loadPlannerCatalogs('zh-CN', 'panel-preview') as Record<string, unknown>
+  expect(Object.keys(panelPreview).sort()).toEqual(['weaponStats'])
 })
 
 it('planner client messages include shell + selected catalogs but not wikiData', () => {

@@ -10,6 +10,7 @@ import { AppSidebar } from '@/components/app-sidebar'
 import { Background } from '@/components/background'
 import { ThemeProvider } from '@/components/theme-provider'
 import { NavigationListener } from '@/components/shared/navigation-listener'
+import { ChunkLoadErrorGuard } from '@/components/shared/chunk-load-error-guard'
 import { NavigationLoadingOverlay } from '@/components/shared/navigation-loading-overlay'
 import { NavigationProgressBar } from '@/components/shared/navigation-progress-bar'
 import { AppInitOverlay } from '@/components/shared/app-init-overlay'
@@ -24,6 +25,7 @@ import { LocaleGuard } from '@/components/shared/locale-guard'
 import { VersionWatermark } from '@/components/shared/version-watermark'
 import { ExtensionCssDetector } from '@/components/shared/extension-css-detector'
 import { VersionProvider } from '@/hooks/use-version'
+import { SentryProvider } from '@/components/shared/sentry-provider'
 import { SiteUrlProvider } from '@/hooks/use-site-url'
 import { versionData } from '@/generated/version-data'
 import { DEFAULT_SITE_URL } from '@/lib/constants'
@@ -77,8 +79,12 @@ export default async function LocaleLayout({
       <DebugLabel />
       <SiteUrlProvider url={siteUrl}>
       <VersionProvider initialInfo={versionData}>
+        <SentryProvider version={versionData}>
         <SidebarProvider className="h-svh">
           <ThemeProvider>
+            {/* Catches failed dynamic chunk imports (stale deploy, CDN blip).
+                Auto-reloads once, then shows a full-screen error page. */}
+            <ChunkLoadErrorGuard />
             {/* Curtain — covers everything during init, fades out when ready */}
             <AppInitOverlay />
 
@@ -112,6 +118,7 @@ export default async function LocaleLayout({
             <NavigationListener />
           </ThemeProvider>
         </SidebarProvider>
+        </SentryProvider>
       </VersionProvider>
       </SiteUrlProvider>
     </NextIntlClientProvider>

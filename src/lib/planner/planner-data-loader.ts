@@ -131,7 +131,15 @@ export function usePlannerData(): PlannerDataLoadState {
       },
       (reason: unknown) => {
         if (cancelled) return
-        setError(toError(reason))
+        const err = toError(reason)
+        // Report the failed planner data import to Sentry (client only).
+        // Dynamic import keeps @sentry/react out of the SSG build-time graph.
+        if (typeof window !== 'undefined') {
+          import('@sentry/react').then((Sentry) => {
+            Sentry.captureException(err, { tags: { planner_data_load: true } })
+          }).catch(() => { /* Sentry unavailable — swallow */ })
+        }
+        setError(err)
       },
     )
     return () => {

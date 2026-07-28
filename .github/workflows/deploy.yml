@@ -116,6 +116,11 @@ jobs:
           NEXT_PUBLIC_ALLOWED_DOMAINS: ${{ vars.ALLOWED_DOMAINS }}
           NEXT_PUBLIC_ALLOWED_EMBED_DOMAINS: ${{ vars.ALLOWED_EMBED_DOMAINS }}
           NEXT_PUBLIC_FORUM_URL: ${{ vars.FORUM_URL }}
+          # ── Sentry (browser-only SDK; DSN is public, inlined at build time) ──
+          NEXT_PUBLIC_SENTRY_DSN: https://30b0e7412127b8c00b66f7b9ee2bc217@o4511814100844544.ingest.us.sentry.io/4511814110543872
+          # postbuild uploads source maps via sentry-cli; only the auth token
+          # is secret. org/project are hard-coded in scripts/upload-sourcemaps.mjs.
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
           # ── 仅 intl 版本 ──
           NEXT_PUBLIC_API_BASE_URL: ${{ matrix.target == 'intl' && vars.API_BASE_URL || '' }}
           NEXT_PUBLIC_TURNSTILE_SITE_KEY: ${{ matrix.target == 'intl' && secrets.TURNSTILE_SITE_KEY || '' }}
