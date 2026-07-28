@@ -616,17 +616,19 @@ export const WikiEntityGrid = memo(function WikiEntityGrid({
                       <Badge variant="secondary">{group.entities.length}</Badge>
                     </div>
                   ) : (
-                    <Button
-                      type="button"
-                      variant="ghost"
-                      aria-expanded={expanded}
-                      onClick={() => toggleSuitExpanded(group.key)}
-                      className="min-h-10 w-full justify-start gap-2 px-3"
-                    >
-                      <ChevronDown className={expanded ? 'transition-transform' : '-rotate-90 transition-transform'} />
-                      <span className="min-w-0 flex-1 truncate text-left font-medium">{group.label}</span>
-                      <Badge variant="secondary">{group.entities.length}</Badge>
-                    </Button>
+                    <h2>
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        aria-expanded={expanded}
+                        onClick={() => toggleSuitExpanded(group.key)}
+                        className="min-h-10 w-full justify-start gap-2 px-3"
+                      >
+                        <ChevronDown className={expanded ? 'transition-transform' : '-rotate-90 transition-transform'} />
+                        <span className="min-w-0 flex-1 truncate text-left font-medium">{group.label}</span>
+                        <Badge variant="secondary">{group.entities.length}</Badge>
+                      </Button>
+                    </h2>
                   )}
                   {expanded && (
                     <div className={cn(CARD_GRID_CLASS, 'p-3 pt-1')}>

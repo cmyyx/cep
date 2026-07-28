@@ -130,6 +130,8 @@ interface WikiDetailHeroProps {
   actions?: React.ReactNode
 }
 
+export const WIKI_DETAIL_HERO_META_CLASS = 'flex min-w-0 flex-wrap items-center gap-x-3 gap-y-1 text-sm text-muted-foreground'
+
 export function WikiDetailHero({ name, rarity, imagePath, meta, imageClassName, actions }: WikiDetailHeroProps) {
   const [failed, setFailed] = useState(false)
   return (
@@ -163,7 +165,7 @@ export function WikiDetailHero({ name, rarity, imagePath, meta, imageClassName, 
         </div>
         {/* 元信息由多个并列 <span> 组成 (装备: 部位/最低等级/套装), 必须显式分隔,
             否则 en/ja 下会渲染成 "ArmorMinimum Level: 70" 这样粘连的一串。 */}
-        <div className="flex min-w-0 flex-wrap items-center gap-x-3 gap-y-1 text-sm text-muted-foreground">{meta}</div>
+        <div className={WIKI_DETAIL_HERO_META_CLASS}>{meta}</div>
       </div>
     </section>
   )
@@ -478,7 +480,8 @@ export function WeaponLevelTableIsland({ levels: packedLevels }: { levels: Weapo
   const [showAll, setShowAll] = useState(false)
   const levels = useMemo(() => unpackWeaponLevels(packedLevels), [packedLevels])
   const visible = useMemo(() => getVisibleWeaponLevels(levels, showAll), [levels, showAll])
-  const attackSpans = getAdjacentSpans(visible.map((level) => formatWikiNumber(level.baseAttack)))
+  const formattedAttacks = useMemo(() => visible.map((level) => formatWikiNumber(level.baseAttack)), [visible])
+  const attackSpans = getAdjacentSpans(formattedAttacks)
   return (
     <WikiTableFrame
       scrollClassName="max-h-[min(60svh,36rem)]"
@@ -493,20 +496,24 @@ export function WeaponLevelTableIsland({ levels: packedLevels }: { levels: Weapo
           </TableRow>
         </TableHeader>
         <TableBody>
-          {visible.map((level, rowIndex) => (
-            <TableRow key={level.level}>
-              <TableCell className="sticky left-0 z-10 bg-card font-geist-mono">{level.level}</TableCell>
-              {attackSpans[rowIndex] > 0 ? (
-                <TableCell
-                  rowSpan={attackSpans[rowIndex]}
-                  title={String(level.baseAttack) === formatWikiNumber(level.baseAttack) ? undefined : String(level.baseAttack)}
-                  className="relative p-0 text-center align-top font-geist-mono"
-                >
-                  <MergedValue value={formatWikiNumber(level.baseAttack)} span={attackSpans[rowIndex]} />
-                </TableCell>
-              ) : null}
-            </TableRow>
-          ))}
+          {visible.map((level, rowIndex) => {
+            const formattedAttack = formattedAttacks[rowIndex] ?? '—'
+            const exactAttack = String(level.baseAttack)
+            return (
+              <TableRow key={level.level}>
+                <TableCell className="sticky left-0 z-10 bg-card font-geist-mono">{level.level}</TableCell>
+                {attackSpans[rowIndex] > 0 ? (
+                  <TableCell
+                    rowSpan={attackSpans[rowIndex]}
+                    title={exactAttack === formattedAttack ? undefined : exactAttack}
+                    className="relative p-0 text-center align-top font-geist-mono"
+                  >
+                    <MergedValue value={formattedAttack} span={attackSpans[rowIndex]} />
+                  </TableCell>
+                ) : null}
+              </TableRow>
+            )
+          })}
         </TableBody>
       </WikiTable>
     </WikiTableFrame>

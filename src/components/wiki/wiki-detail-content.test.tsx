@@ -12,6 +12,7 @@ import {
   getVoiceActorDisplayName,
   getWidestTableValue,
   WikiDetailHero,
+  WIKI_DETAIL_HERO_META_CLASS,
 } from './wiki-detail-content'
 import type {
   WikiCharacterLevel,
@@ -219,10 +220,11 @@ it('separates the hero meta chips so adjacent spans never run together', () => {
     />,
   )
 
-  expect(html).toMatch(/class="[^"]*flex-wrap[^"]*"[^>]*><span>Part Type/)
-  expect(html).toContain('gap-x-3')
+  expect(WIKI_DETAIL_HERO_META_CLASS.split(' ')).toContain('flex-wrap')
+  expect(WIKI_DETAIL_HERO_META_CLASS.split(' ')).toContain('gap-x-3')
+  expect(html).toContain('Part Type: Armor')
+  expect(html).toContain('Minimum Level: 70')
 })
-
 
 it('uses eased progress for animated Wiki section navigation', () => {
   expect(easeWikiScroll(0)).toBe(0)

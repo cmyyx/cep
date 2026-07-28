@@ -101,6 +101,17 @@ it('weapon level table shows only the top level until expanded', () => {
   expect(screen.getByText('51')).toBeTruthy()
 })
 
+it('weapon level table reuses the formatted attack and keeps full precision in the title', () => {
+  wrap(
+    <WeaponLevelTableIsland
+      levels={packWeaponLevels([{ level: 90, baseAttack: 91.85567 }])}
+    />,
+  )
+
+  const cell = screen.getByText('91.86').closest('td')
+  expect(cell?.getAttribute('title')).toBe('91.85567')
+})
+
 it('material disclosure renders a placeholder for empty materials', () => {
   wrap(<MaterialDisclosureClient materials={[]} />)
 

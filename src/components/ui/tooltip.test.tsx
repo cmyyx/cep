@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { act, cleanup, fireEvent, render, screen } from '@testing-library/react'
 import { afterEach, expect, it, vi } from 'vitest'
+import { Button } from '@/components/ui/button'
 import {
   PLANNER_GRID_TOOLTIP_OPEN_DELAY_MS,
   Tooltip,
@@ -17,7 +18,7 @@ function ControlledTooltip() {
   return (
     <TooltipProvider delay={PLANNER_GRID_TOOLTIP_OPEN_DELAY_MS}>
       <Tooltip open={open} onOpenChange={setOpen}>
-        <TooltipTrigger render={<button type="button">{open ? 'open' : 'closed'}</button>} />
+        <TooltipTrigger render={<Button type="button">{open ? 'open' : 'closed'}</Button>} />
         <TooltipContent>preview</TooltipContent>
       </Tooltip>
     </TooltipProvider>

@@ -62,7 +62,7 @@ export {
   isCharacterLevelStat,
 } from '@/components/wiki/wiki-detail-utils'
 
-export { WikiDetailShell, WikiDetailHero } from '@/components/wiki/wiki-detail-interactive'
+export { WikiDetailShell, WikiDetailHero, WIKI_DETAIL_HERO_META_CLASS } from '@/components/wiki/wiki-detail-interactive'
 
 /**
  * 装备属性/特效名优先查 equipStats 目录 (含 AllSkillDamageIncrease 等字符串 id),

@@ -145,9 +145,7 @@ const oversizedKnown = []
 // public/**: 站点静态资源; src/app/*: Next metadata 图标文件约定 (icon/apple-icon/favicon)
 const sizeTargets = [
   ...walkImages(PUBLIC_DIR),
-  ...readdirSync(APP_DIR, { withFileTypes: true })
-    .filter((e) => e.isFile() && IMAGE_EXT_RE.test(e.name))
-    .map((e) => join(APP_DIR, e.name)),
+  ...walkImages(APP_DIR),
 ]
 for (const filePath of sizeTargets) {
   if (isSizeExempt(filePath)) continue

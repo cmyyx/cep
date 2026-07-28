@@ -4,14 +4,17 @@ import { cleanup, fireEvent, render, screen } from '@testing-library/react'
 import { afterEach, expect, it, vi } from 'vitest'
 import { GrowthFloatingPicker } from './growth-floating-picker'
 
-const viewport = vi.hoisted(() => ({ isMobile: false }))
+const viewport = vi.hoisted(() => ({ isLargeScreen: true, query: '' }))
 
 vi.mock('next-intl', () => ({
   useTranslations: () => (key: string) => key,
 }))
 
-vi.mock('@/hooks/use-mobile', () => ({
-  useIsMobile: () => viewport.isMobile,
+vi.mock('@/hooks/use-media-query', () => ({
+  useMediaQuery: (query: string) => {
+    viewport.query = query
+    return viewport.isLargeScreen
+  },
 }))
 
 vi.mock('@/components/growth-planner/growth-entity-picker', () => ({
@@ -20,7 +23,8 @@ vi.mock('@/components/growth-planner/growth-entity-picker', () => ({
 
 afterEach(() => {
   cleanup()
-  viewport.isMobile = false
+  viewport.isLargeScreen = true
+  viewport.query = ''
 })
 
 it('leaves only the left handle in the viewport until hovered', () => {
@@ -57,9 +61,10 @@ it('keeps the picker expanded after the handle pins it', () => {
   expect(rail?.dataset.expanded).toBe('false')
 })
 
-it('does not render the floating picker on mobile', () => {
-  viewport.isMobile = true
+it('does not render the floating picker below the lg breakpoint', () => {
+  viewport.isLargeScreen = false
   const { container } = render(<GrowthFloatingPicker />)
 
+  expect(viewport.query).toBe('(min-width: 1024px)')
   expect(container.childElementCount).toBe(0)
 })

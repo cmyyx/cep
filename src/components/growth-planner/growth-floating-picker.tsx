@@ -4,13 +4,13 @@ import { useEffect, useState } from 'react'
 import { UserRound } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { Button } from '@/components/ui/button'
-import { useIsMobile } from '@/hooks/use-mobile'
+import { useMediaQuery } from '@/hooks/use-media-query'
 import { cn } from '@/lib/utils'
 import { GrowthEntityPicker } from '@/components/growth-planner/growth-entity-picker'
 
 export function GrowthFloatingPicker() {
   const t = useTranslations('growthPlanner')
-  const isMobile = useIsMobile()
+  const isLargeScreen = useMediaQuery('(min-width: 1024px)')
   const [hovered, setHovered] = useState(false)
   const [pinned, setPinned] = useState(false)
   const expanded = hovered || pinned
@@ -27,7 +27,7 @@ export function GrowthFloatingPicker() {
     return () => window.removeEventListener('keydown', onKeyDown)
   }, [expanded])
 
-  if (isMobile) return null
+  if (!isLargeScreen) return null
 
   return (
     <div
