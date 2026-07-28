@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 import { getAlternates } from '@/lib/metadata'
 import { loadPlannerCatalogs, loadRouteShellMessages } from '@/i18n/load-messages'
 import { RouteMessages } from '@/components/shared/route-messages'
+import { PLANNER_GRID_TOOLTIP_OPEN_DELAY_MS, TooltipProvider } from '@/components/ui/tooltip'
 import type { WikiLocale } from '@/types/wiki'
 
 export async function generateMetadata({
@@ -37,5 +38,11 @@ export default async function EssencePlannerLayout({
     ...loadRouteShellMessages(locale as WikiLocale, 'essence-planner'),
     ...loadPlannerCatalogs(locale as WikiLocale, 'essence'),
   }
-  return <RouteMessages messages={messages}>{children}</RouteMessages>
+  return (
+    <RouteMessages messages={messages}>
+      <TooltipProvider delay={PLANNER_GRID_TOOLTIP_OPEN_DELAY_MS}>
+        {children}
+      </TooltipProvider>
+    </RouteMessages>
+  )
 }

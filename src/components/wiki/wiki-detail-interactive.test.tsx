@@ -3,16 +3,23 @@
 import { cleanup, fireEvent, render, screen } from '@testing-library/react'
 import { NextIntlClientProvider } from 'next-intl'
 import { afterEach, expect, it, vi } from 'vitest'
+import { renderToStaticMarkup } from 'react-dom/server'
 import {
   AdministratorHero,
   CharacterLevelTableIsland,
   MaterialDisclosureClient,
+  MATERIAL_ICON_ROW_CLASS,
   PotentialImageDialog,
   WeaponLevelTableIsland,
 } from './wiki-detail-interactive'
 import { packCharacterLevels, packWeaponLevels } from './wiki-detail-utils'
 
-vi.mock('@/hooks/use-mobile', () => ({ useIsMobile: () => false }))
+const viewport = vi.hoisted(() => ({ isMobile: false }))
+vi.mock('@/hooks/use-mobile', () => ({ useIsMobile: () => viewport.isMobile }))
+
+afterEach(() => {
+  viewport.isMobile = false
+})
 
 const messages = {
   wiki: {
@@ -52,7 +59,6 @@ it('character level table shows only the top level until expanded', () => {
       levels={packCharacterLevels(characterLevels)}
       attributeIds={['hp']}
       attributeLabels={{ hp: '生命值' }}
-      title="等级数据"
     />,
   )
 
@@ -62,6 +68,23 @@ it('character level table shows only the top level until expanded', () => {
   expect(screen.getByRole('button', { name: /收起等级/ })).toBeTruthy()
 })
 
+it('rounds level stats for display and keeps full precision in the title', () => {
+  wrap(
+    <CharacterLevelTableIsland
+      levels={packCharacterLevels([
+        { level: 89, breakStage: 3, stats: [{ attributeId: 'crit', value: 91.85567 }] },
+        { level: 90, breakStage: 3, stats: [{ attributeId: 'crit', value: 1.45408 }] },
+      ])}
+      attributeIds={['crit']}
+      attributeLabels={{ crit: '暴击' }}
+    />,
+  )
+
+  expect(screen.queryByText('1.45408')).toBeNull()
+  const cell = screen.getByText('1.45').closest('td')
+  expect(cell?.getAttribute('title')).toBe('1.45408')
+})
+
 it('weapon level table shows only the top level until expanded', () => {
   wrap(
     <WeaponLevelTableIsland
@@ -69,7 +92,6 @@ it('weapon level table shows only the top level until expanded', () => {
         { level: 1, baseAttack: 51 },
         { level: 90, baseAttack: 640 },
       ])}
-      title="等级数据"
     />,
   )
 
@@ -96,6 +118,45 @@ it('material disclosure shows the localized material count', () => {
   )
 
   expect(screen.getByRole('button', { name: '2 项材料' })).toBeTruthy()
+})
+
+const threeMaterials = [
+  { itemId: 'mat-a', count: 1 },
+  { itemId: 'mat-b', count: 2 },
+  { itemId: 'mat-c', count: 3 },
+]
+
+it('keeps the desktop material icon row on a single line so table rows never grow', () => {
+  wrap(<MaterialDisclosureClient materials={threeMaterials} />)
+
+  const trigger = screen.getByRole('button', { name: '3 项材料' })
+  const iconRow = trigger.firstElementChild
+  // flex-nowrap: 窄列里换行会把技能表整行拉长几倍, 列宽不足时改由表格横向滚动承接。
+  expect(MATERIAL_ICON_ROW_CLASS).toContain('flex-nowrap')
+  expect(iconRow?.className).toContain('flex-nowrap')
+  expect(iconRow?.className).not.toMatch(/\bflex-wrap\b/)
+  expect(trigger.querySelectorAll('[data-testid="rarity-frame"]')).toHaveLength(3)
+  expect(trigger.textContent).not.toContain('3 项材料')
+})
+
+it('falls back to the text trigger on mobile widths instead of a stacked icon column', () => {
+  viewport.isMobile = true
+  wrap(<MaterialDisclosureClient materials={threeMaterials} />)
+
+  const trigger = screen.getByRole('button', { name: '3 项材料' })
+  expect(trigger.textContent).toBe('3 项材料')
+  expect(trigger.querySelectorAll('[data-testid="rarity-frame"]')).toHaveLength(0)
+})
+
+it('prerenders the text trigger so the static HTML carries no icon row', () => {
+  const html = renderToStaticMarkup(
+    <NextIntlClientProvider locale="zh-CN" messages={messages} timeZone="UTC">
+      <MaterialDisclosureClient materials={threeMaterials} />
+    </NextIntlClientProvider>,
+  )
+
+  expect(html).toContain('3 项材料')
+  expect(html).not.toContain('rarity-frame')
 })
 
 it('administrator hero switches between female and male variants', () => {

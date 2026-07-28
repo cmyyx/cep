@@ -1,10 +1,10 @@
 import { getLocale, getTranslations } from 'next-intl/server'
 import { Badge } from '@/components/ui/badge'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import { TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { WikiMaterialList } from '@/components/shared/wiki-material-list'
 import { WikiRichText } from '@/components/wiki/wiki-rich-text'
-import { WikiTable } from '@/components/wiki/wiki-table'
+import { WikiTable, WikiTableFrame } from '@/components/wiki/wiki-table'
 import {
   AdministratorHero,
   CharacterLevelTableIsland,
@@ -21,9 +21,11 @@ import {
   getAdjacentSpans,
   getCharacterDetailSectionIds,
   getEquipmentDetailSectionIds,
+  formatWikiStatText,
   getEquipmentStatValues,
   getSkillDisplayVariants,
   getVoiceActorDisplayName,
+  groupCharacterLogisticsSkills,
   isCharacterLevelStat,
   packCharacterLevels,
   packSkillLevels,
@@ -100,7 +102,10 @@ function Section({
     <section id={id} className="scroll-mt-4">
       <Card size="sm" className="min-w-0 gap-3">
         <CardHeader className="flex flex-row items-center justify-between gap-3">
-          <CardTitle>{title}</CardTitle>
+          {/* CardTitle 渲染的是 <div>, 区块标题必须是真 heading, 否则"技能/天赋/潜能"
+              这一层在文档大纲里整层缺失 (读屏按 H 会从"声优"直接跳到某个技能名)。
+              类名与 CardTitle 保持一致 (size=sm 由 group-data 变体降到 text-sm)。 */}
+          <h2 className="font-heading text-base font-medium leading-snug group-data-[size=sm]/card:text-sm">{title}</h2>
           {actions}
         </CardHeader>
         <CardContent className="min-w-0">{children}</CardContent>
@@ -135,7 +140,7 @@ async function CharacterMetaTables({
   return (
     <div className={cn('grid min-w-0 items-start gap-3', voices.length > 0 && 'min-[1280px]:grid-cols-2')}>
       <div className="min-w-0 overflow-hidden rounded-md shadow-[var(--shadow-border)]">
-        <h2 className="bg-muted/50 px-3 py-2 text-xs font-medium uppercase tracking-wide text-foreground">{t('wiki.baseInfo')}</h2>
+        <h3 className="bg-muted/50 px-3 py-2 text-xs font-medium uppercase tracking-wide text-foreground">{t('wiki.baseInfo')}</h3>
         <dl className="grid grid-cols-[minmax(5rem,auto)_minmax(0,1fr)] sm:grid-cols-[minmax(5rem,auto)_minmax(0,1fr)_minmax(5rem,auto)_minmax(0,1fr)]">
           {rows.map((row) => (
             <div key={row.label} className="grid min-w-0 grid-cols-subgrid col-span-2 items-center shadow-[inset_0_-1px_0_0_rgba(0,0,0,0.08)]">
@@ -147,7 +152,7 @@ async function CharacterMetaTables({
       </div>
       {voices.length > 0 && (
         <div className="min-w-0 overflow-hidden rounded-md shadow-[var(--shadow-border)]">
-          <h2 className="bg-muted/50 px-3 py-2 text-xs font-medium uppercase tracking-wide text-foreground">{t('wiki.cv')}</h2>
+          <h3 className="bg-muted/50 px-3 py-2 text-xs font-medium uppercase tracking-wide text-foreground">{t('wiki.cv')}</h3>
           <dl className="grid grid-cols-[minmax(5rem,auto)_minmax(0,1fr)] sm:grid-cols-[minmax(5rem,auto)_minmax(0,1fr)_minmax(5rem,auto)_minmax(0,1fr)]">
             {voices.map((voice) => (
               <div key={voice.language} className="grid min-w-0 grid-cols-subgrid col-span-2 items-center shadow-[inset_0_-1px_0_0_rgba(0,0,0,0.08)]">
@@ -189,7 +194,8 @@ export async function CharacterDetailContent({
     attributeIds.map((id) => [id, textOf(attributes[id] ?? { 'zh-CN': id, en: id, ja: id, 'zh-TW': id }, locale)]),
   )
   const meta = (
-    <div className="min-w-0">
+    // hero 的 meta 容器是 flex-wrap; 干员这块是整宽的表格网格, 需显式占满行宽。
+    <div className="w-full min-w-0">
       <CharacterMetaTables
         rows={[
           ...metaRows,
@@ -227,12 +233,15 @@ export async function CharacterDetailContent({
         />
       )}
       <div className="mt-5 min-w-0 space-y-4">
-        <CharacterLevelTableIsland
-          levels={packCharacterLevels(detail.levels)}
-          attributeIds={attributeIds}
-          attributeLabels={attributeLabels}
-          title={t('wiki.levelData')}
-        />
+        {/* 等级表容器留在服务端用 Section 包裹, 孤岛只负责表格与展开按钮,
+            这样全页只有一套卡片规格 (Card size="sm")。 */}
+        <Section id="level-data" title={t('wiki.levelData')}>
+          <CharacterLevelTableIsland
+            levels={packCharacterLevels(detail.levels)}
+            attributeIds={attributeIds}
+            attributeLabels={attributeLabels}
+          />
+        </Section>
         {sections.has('attribute-nodes') && (
           <Section id="attribute-nodes" title={t('wikiData.ui|attributeIncrease')}>
             <div className="grid min-w-0 gap-3 md:grid-cols-2">
@@ -242,6 +251,10 @@ export async function CharacterDetailContent({
                     <div className="flex flex-wrap items-center gap-2">
                       <h3 className="font-medium">{textOf(node.title, locale)}</h3>
                       <Badge variant="secondary">{t('wiki.breakStage')} {node.breakStage}</Badge>
+                      {/* 真正的解锁门槛是信赖度 (0/60/150/300), 只显示突破阶段会漏掉一半条件。 */}
+                      {node.favorability > 0 && (
+                        <Badge variant="secondary">{t('wikiData.ui|friendship')} {node.favorability}</Badge>
+                      )}
                     </div>
                     <WikiRichText value={textOf(node.description, locale)} className="mt-1 block text-sm leading-relaxed text-muted-foreground" />
                     {node.stats.length > 0 && (
@@ -252,7 +265,8 @@ export async function CharacterDetailContent({
                       </p>
                     )}
                   </div>
-                  <div className="shrink-0">
+                  {/* 桌面下触发器是单行图标行 (这里恒为 2 种材料), 窄屏退回文字, 两种形态都不换行。 */}
+                  <div className="min-w-0">
                     <MaterialDisclosure materials={node.materials} />
                   </div>
                 </article>
@@ -365,7 +379,10 @@ export async function CharacterDetailContent({
               const potentialName = textOf(potential.name, locale)
               return (
                 <article key={potential.id} className="min-w-0">
-                  <h3 className="font-medium">{potentialName}</h3>
+                  <div className="flex flex-wrap items-center gap-2">
+                    <h3 className="font-medium">{potentialName}</h3>
+                    <Badge variant="secondary">{t('wikiData.ui|potentialLevel')} {potential.level}</Badge>
+                  </div>
                   <WikiRichText value={textOf(potential.description, locale)} className="mt-1 block text-sm leading-relaxed text-muted-foreground" />
                   {potential.imageIds.length > 0 && (
                     <div className="mt-3 flex flex-wrap gap-3">
@@ -386,38 +403,37 @@ export async function CharacterDetailContent({
         </Section>
         {sections.has('logistics-skills') && (
           <Section id="logistics-skills" title={t('wikiData.ui|logisticsSkill')}>
-            <div className="space-y-4">
-              {(() => {
-                const groups = new Map<number, CharacterDetailView['logisticsSkills']>()
-                for (const skill of detail.logisticsSkills) {
-                  const list = groups.get(skill.index) ?? []
-                  list.push(skill)
-                  groups.set(skill.index, list)
-                }
-                return [...groups.entries()].map(([index, skills]) => {
-                  const base = skills[0]
-                  const upgrade = detail.logisticsNodes.find((node) => node.index === index)
-                  return (
-                    <article key={index} className="min-w-0 rounded-md bg-muted/25 p-3">
-                      <div className="flex min-w-0 items-start gap-3">
-                        {base.iconId && <WikiAssetIcon path={`/images/wiki/logistics/${base.iconId}.avif`} alt={textOf(base.name, locale)} />}
-                        <div className="min-w-0 flex-1">
-                          <div className="flex flex-wrap items-center justify-between gap-2">
-                            <h3 className="font-medium">{textOf(base.name, locale)}</h3>
-                            <Badge variant="secondary" className="shrink-0">{textOf(base.unlockHint, locale)}</Badge>
+            {/* 一个后勤位 = 一张卡片, 卡内按档位 (β/γ) 逐条列出。
+                只渲染首档会丢掉 ·γ 的名称/解锁提示/描述, 且材料会错指到首档。 */}
+            <div className="grid min-w-0 gap-3 md:grid-cols-2">
+              {groupCharacterLogisticsSkills(detail.logisticsSkills, detail.logisticsNodes).map((group) => (
+                <article key={group.index} className="min-w-0 rounded-md bg-muted/25 p-3">
+                  <div className="flex min-w-0 items-start gap-3">
+                    {group.iconId && (
+                      <WikiAssetIcon
+                        path={`/images/wiki/logistics/${group.iconId}.avif`}
+                        alt={textOf(group.tiers[0]?.skill.name, locale)}
+                      />
+                    )}
+                    <div className="min-w-0 flex-1 space-y-2">
+                      {group.tiers.map(({ skill, node }) => (
+                        <div key={skill.id} className="min-w-0 rounded-md bg-background p-2.5 shadow-[var(--shadow-border)]">
+                          <div className="flex flex-wrap items-start justify-between gap-2">
+                            <h3 className="text-sm font-medium">{textOf(skill.name, locale)}</h3>
+                            <Badge variant="secondary" className="shrink-0">{textOf(skill.unlockHint, locale)}</Badge>
                           </div>
-                          <WikiRichText value={textOf(base.description, locale)} className="mt-1 block text-sm leading-relaxed text-muted-foreground" />
-                          {upgrade && (
+                          <WikiRichText value={textOf(skill.description, locale)} className="mt-1 block text-sm leading-relaxed text-muted-foreground" />
+                          {node && node.materials.length > 0 && (
                             <div className="mt-2">
-                              <MaterialDisclosure materials={upgrade.materials} />
+                              <MaterialDisclosure materials={node.materials} />
                             </div>
                           )}
                         </div>
-                      </div>
-                    </article>
-                  )
-                })
-              })()}
+                      ))}
+                    </div>
+                  </div>
+                </article>
+              ))}
             </div>
           </Section>
         )}
@@ -458,7 +474,9 @@ export async function WeaponDetailContent({
     <>
       <WikiDetailHero name={name} rarity={rarity} imagePath={`/images/weapon/${imageId}.avif`} meta={meta} />
       <div className="mt-5 min-w-0 space-y-4">
-        <WeaponLevelTableIsland levels={packWeaponLevels(detail.levels)} title={t('wiki.levelData')} />
+        <Section id="level-data" title={t('wiki.levelData')}>
+          <WeaponLevelTableIsland levels={packWeaponLevels(detail.levels)} />
+        </Section>
         <Section id="skills" title={t('wiki.skills')}>
           <div className="space-y-5">
             {detail.skills.map((skill) => (
@@ -522,7 +540,9 @@ export async function EquipmentDetailContent({
       <WikiDetailHero name={name} rarity={rarity} imagePath={`/images/equip/${imageId}.avif`} meta={meta} />
       <div className="mt-5 min-w-0 space-y-4">
         <Section id="stats" title={t('wiki.stats')}>
-          <div className="overflow-hidden rounded-md shadow-[var(--shadow-border)]">
+          {/* TableCell 默认 whitespace-nowrap: 390px + ja 下 "全スキルダメージUP" 会压住 +0 列的数值。
+              走 WikiTableFrame 的横向滚动 + 首列可换行, 而不是让两列互相挤压。 */}
+          <WikiTableFrame className="min-w-[30rem]">
             <WikiTable className="table-fixed">
               <TableHeader>
                 <TableRow className="bg-muted/35 hover:bg-muted/35">
@@ -534,7 +554,9 @@ export async function EquipmentDetailContent({
               </TableHeader>
               <TableBody>
                 {detail.stats.map((stat) => {
-                  const values = statValues(getEquipmentStatValues(stat))
+                  const exactValues = statValues(getEquipmentStatValues(stat))
+                  // 先格式化再算合并: 上游 46.32737219 这类值收敛到 46.33 后相邻列才判等。
+                  const values = exactValues.map(formatWikiStatText)
                   const spans = getAdjacentSpans(values)
                   const label =
                     stat.attributeId === 'baseAttack'
@@ -543,10 +565,15 @@ export async function EquipmentDetailContent({
                         textOf(attributes[stat.attributeId] ?? { 'zh-CN': stat.attributeId, en: stat.attributeId, ja: stat.attributeId, 'zh-TW': stat.attributeId }, locale)
                   return (
                     <TableRow key={stat.attributeId}>
-                      <TableCell>{label}</TableCell>
+                      <TableCell className="whitespace-normal break-words leading-tight">{label}</TableCell>
                       {values.map((value, level) =>
                         spans[level] > 0 ? (
-                          <TableCell key={level} colSpan={spans[level]} className="text-center align-middle font-geist-mono">
+                          <TableCell
+                            key={level}
+                            colSpan={spans[level]}
+                            title={exactValues[level] === value ? undefined : exactValues[level]}
+                            className="text-center align-middle font-geist-mono"
+                          >
                             {value}
                           </TableCell>
                         ) : null,
@@ -556,7 +583,7 @@ export async function EquipmentDetailContent({
                 })}
               </TableBody>
             </WikiTable>
-          </div>
+          </WikiTableFrame>
         </Section>
         {sections.has('suit-effects') && (
           <Section id="suit-effects" title={t('wiki.suitEffects')}>

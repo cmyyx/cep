@@ -33,7 +33,10 @@
     "about": "關於",
     "growthPlanner": "養成規劃",
     "panelPreview": "面板預覽",
-    "gameI18nLookup": "遊戲文案查詢"
+    "gameI18nLookup": "遊戲文案查詢",
+    "groupModules": "模組",
+    "groupWiki": "圖鑑",
+    "groupTools": "更多工具"
   },
   "app": {
     "name": "CEP 終末地規劃器（原終末地基質規劃器）"
@@ -833,7 +836,14 @@
     "title": "遊戲資料維基",
     "searchPlaceholder": "搜尋...",
     "resultCount": "{count} 個項目",
+    "resultCountFiltered": "{count} / {total} 個項目",
+    "groupCount": "{count} 個套裝",
     "clearFilters": "清除篩選",
+    "clearSearch": "清除搜尋",
+    "resetAll": "清除搜尋與篩選",
+    "searchCondition": "搜尋：{term}",
+    "expandAll": "全部展開",
+    "collapseAll": "全部收合",
     "filterToggle": "篩選",
     "viewWiki": "查看 Wiki",
     "noMatch": "未找到符合項目",
@@ -908,6 +918,7 @@
     "operators": "幹員",
     "weapons": "武器",
     "weapon": "武器",
+    "pickerRail": "新增目標",
     "targetConfiguration": "目標設定",
     "targetConfigurationDescription": "設定目前養成進度與目標進度。",
     "targetStripEmpty": "已選目標會顯示在這裡",

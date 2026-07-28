@@ -199,6 +199,28 @@ it('renders a stable overview anchor for Wiki navigation', () => {
 
   expect(html).toContain('id="overview"')
   expect(html).toContain('scroll-mt-4')
+  // 页面唯一的 <h1> 是顶栏里的条目名; hero 标题必须是 h2。
+  expect(html).toContain('<h2')
+  expect(html).not.toContain('<h1')
+})
+
+it('separates the hero meta chips so adjacent spans never run together', () => {
+  const html = renderToStaticMarkup(
+    <WikiDetailHero
+      name="Test"
+      rarity={4}
+      imagePath="/test.avif"
+      meta={
+        <>
+          <span>Part Type: Armor</span>
+          <span>Minimum Level: 70</span>
+        </>
+      }
+    />,
+  )
+
+  expect(html).toMatch(/class="[^"]*flex-wrap[^"]*"[^>]*><span>Part Type/)
+  expect(html).toContain('gap-x-3')
 })
 
 

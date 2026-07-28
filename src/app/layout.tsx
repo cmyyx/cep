@@ -22,8 +22,9 @@ export const metadata: Metadata = {
   title: "CEP 终末地规划器（原终末地基质规划器）",
   description: "终末地规划器 — 基质规划 · 精锻规划 · 卡池日历",
   icons: {
+    // 不要再加回 /icon.svg: 它是 base64 位图外包一层 <svg> 的伪矢量图 (2.4MB),
+    // 作为 favicon 相比 21KB 的 icon.png 没有任何优势, 只会让每个访客多下 2.4MB。
     icon: [
-      { url: "/icon.svg", type: "image/svg+xml", sizes: "any" },
       { url: "/icon.png", type: "image/png", sizes: "96x96" },
       { url: "/favicon.ico", type: "image/x-icon" },
     ],

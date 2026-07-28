@@ -64,3 +64,8 @@ sync-game-data.config.json
 .workbuddy/
 docs/superpowers/
 artifacts
+
+# playwright / 截图产物
+/.playwright-mcp/
+/*-desktop.png
+/*-mobile.png

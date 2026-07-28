@@ -94,9 +94,9 @@ export function BannerCalendar() {
   const hasStandard = timelineData && timelineData.standardChars.length > 0
 
   return (
-    <div className="flex flex-col flex-1 min-h-0">
+    <div className="flex flex-col flex-1 min-h-0 overflow-hidden">
       {/* Top bar: title + controls inline */}
-      <div className="flex items-center gap-2 px-4 py-2 shadow-[0px_1px_0px_0px_rgba(0,0,0,0.08)] shrink-0">
+      <div className="flex items-center gap-2 px-4 py-2 shadow-[var(--shadow-border-b)] shrink-0">
         <SidebarTrigger />
         <h1 className="text-base font-semibold tracking-tight shrink-0">
           {t('nav.bannerCalendar')}
@@ -147,8 +147,8 @@ export function BannerCalendar() {
       {/* Standard characters table - follows page margins */}
       {hasStandard && (
         <div className="shrink-0 px-4 pb-4 pt-3">
-          <div className="rounded-lg shadow-[0px_0px_0px_1px_rgba(0,0,0,0.08)] overflow-hidden">
-            <div className="flex items-center gap-2 px-3 py-2 bg-muted/30 shadow-[0px_1px_0px_0px_rgba(0,0,0,0.08)]">
+          <div className="rounded-lg shadow-[var(--shadow-border)] overflow-hidden">
+            <div className="flex items-center gap-2 px-3 py-2 bg-muted/30 shadow-[var(--shadow-border-b)]">
               <span className="size-2 rounded-full bg-secondary" />
               <span className="text-xs font-medium text-muted-foreground">
                 {t('bannerCalendar.badgeStandard')}

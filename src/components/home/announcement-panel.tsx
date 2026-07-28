@@ -377,7 +377,7 @@ export function AnnouncementPanel() {
           ) : (
             /* Success — appears with fade-in after skeleton exits */
             <div className="animate-in fade-in duration-200">
-              <div className="[&>*+*]:shadow-[0_-1px_0_0_rgba(0,0,0,0.06)]">
+              <div className="[&>*+*]:shadow-[var(--shadow-border-t)]">
                 {announcements.map((a) => (
                   <AnnouncementItem
                     key={a.id}

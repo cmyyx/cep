@@ -196,7 +196,19 @@ window.__cep_debug__.togglePanel=togglePanel;
 var C=0,F=0,_loadCbs=null;document.addEventListener('click',function(e){
   /* Label click — check ancestors for data-debug="label" */
   var t=e.target;while(t){if(t.getAttribute&&t.getAttribute('data-debug')==='label'){e.stopPropagation();openPanel();return}t=t.parentElement}
-  /* Multi-click gesture (not on label): 1-second fixed window from first click */
+  /* Multi-click gesture (not on label): 1-second fixed window from first click.
+     Skip interactive elements so rapid UI tapping (number-stepper buttons,
+     form inputs, segmented toggles) never summons the debug console. Only a
+     deliberate 7-tap on inert chrome/whitespace counts. */
+  var tg=e.target;
+  var isInteractive=false;
+  while(tg){
+    if(tg.tagName==='BUTTON'||tg.tagName==='INPUT'||tg.tagName==='SELECT'||tg.tagName==='TEXTAREA'||tg.tagName==='A'||tg.isContentEditable){isInteractive=true;break}
+    var r=tg.getAttribute&&tg.getAttribute('role');
+    if(r==='button'||r==='link'||r==='checkbox'||r==='radio'||r==='switch'||r==='tab'||r==='option'||r==='menuitem'||r==='slider'||r==='spinbutton'){isInteractive=true;break}
+    tg=tg.parentElement;
+  }
+  if(isInteractive)return;
   var n=Date.now();if(n-F>1000)C=0;if(C===0)F=n;C++;if(C>=${DEBUG_CLICK_THRESHOLD}){C=0;togglePanel()}
 },true);
 })();`.replace(/\n\s*/g, '')

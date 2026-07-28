@@ -68,7 +68,7 @@ vi.mock('@/components/ui/tooltip', () => ({
   Tooltip: ({ children }: { children: React.ReactNode }) => <div>{children}</div>,
   TooltipTrigger: ({ render: trigger }: { render: React.ReactNode }) => <>{trigger}</>,
   TooltipContent: ({ children }: { children: React.ReactNode }) => <div>{children}</div>,
-  TOOLTIP_OPEN_DELAY_MS: 400,
+  TOOLTIP_OPEN_DELAY_MS: 0,
 }))
 
 it('labels the search box and filters the suit groups', () => {

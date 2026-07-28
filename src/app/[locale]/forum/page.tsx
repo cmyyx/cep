@@ -23,7 +23,7 @@ export default function ForumPage() {
   return (
     <div className="flex flex-col flex-1 min-h-0 overflow-hidden">
       {/* Top bar */}
-      <div className="flex items-center gap-3 px-4 py-2 shadow-[0px_1px_0px_0px_rgba(0,0,0,0.08)] shrink-0">
+      <div className="flex items-center gap-3 px-4 py-2 shadow-[var(--shadow-border-b)] shrink-0">
         <SidebarTrigger />
         <h1 className="text-base font-semibold tracking-tight shrink-0">
           {t('nav.forum')}

@@ -69,7 +69,7 @@ export function EmergencyNoticeBanner() {
       aria-live={isCritical ? 'assertive' : 'polite'}
       className={cn(
         'flex shrink-0 items-start gap-2.5 px-4 py-2.5 text-sm',
-        'shadow-[inset_0_-1px_0_rgba(0,0,0,0.06)] dark:shadow-[inset_0_-1px_0_rgba(255,255,255,0.08)]',
+        'shadow-[var(--shadow-border-inset-b)]',
         LEVEL_CLASSES[notice.level]
       )}
     >

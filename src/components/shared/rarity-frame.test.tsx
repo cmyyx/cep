@@ -21,7 +21,7 @@ describe('RarityFrame', () => {
     expect(screen.getByTestId('rarity-frame-background').getAttribute('src')).toBe(
       '/images/item-frame-bg.png'
     )
-    expect(screen.getByRole('img', { name: 'Test item' }).getAttribute('src')).toMatch(
+    expect(screen.getByTestId('rarity-frame-image').getAttribute('src')).toMatch(
       /\/images\/test-item\.png$/
     )
     expect(screen.getByTestId('rarity-frame-band').getAttribute('src')).toBe(
@@ -29,6 +29,39 @@ describe('RarityFrame', () => {
     )
     expect(screen.getByText('Test item')).toBeTruthy()
     expect(screen.getByText('UP')).toBeTruthy()
+  })
+
+  it('keeps the artwork decorative while a visible title names the frame', () => {
+    render(<RarityFrame imageSrc="/images/test-item.png" title="Test item" rarity={4} />)
+
+    // A screen reader must announce "Test item" once (the <h3>), not twice.
+    expect(screen.getByTestId('rarity-frame-image').getAttribute('alt')).toBe('')
+    expect(screen.queryAllByRole('img', { name: 'Test item' })).toHaveLength(0)
+    expect(screen.getByRole('heading', { name: 'Test item' })).toBeTruthy()
+  })
+
+  it('names the artwork when no visible title is rendered', () => {
+    render(
+      <RarityFrame imageSrc="/images/test-item.png" title="Test item" rarity={4} showTitle={false} />
+    )
+
+    expect(screen.getByRole('img', { name: 'Test item' })).toBeTruthy()
+    expect(screen.queryByRole('heading', { name: 'Test item' })).toBeNull()
+  })
+
+  it('lets the caller force an empty alt when it renders the name itself', () => {
+    render(
+      <RarityFrame
+        imageSrc="/images/test-item.png"
+        title="Test item"
+        rarity={4}
+        showTitle={false}
+        imageAlt=""
+      />
+    )
+
+    expect(screen.getByTestId('rarity-frame-image').getAttribute('alt')).toBe('')
+    expect(screen.queryAllByRole('img', { name: 'Test item' })).toHaveLength(0)
   })
 
   it('supports a category-specific background', () => {
@@ -70,9 +103,9 @@ describe('RarityFrame', () => {
       />
     )
 
-    fireEvent.error(screen.getByRole('img', { name: 'Missing item' }))
+    fireEvent.error(screen.getByTestId('rarity-frame-image'))
 
-    expect(screen.queryByRole('img', { name: 'Missing item' })).toBeNull()
+    expect(screen.queryByTestId('rarity-frame-image')).toBeNull()
     expect(screen.getByTestId('rarity-frame-background')).toBeTruthy()
     expect(screen.getByTestId('rarity-frame-band').getAttribute('src')).toBe(
       '/images/item-band-6.png'
@@ -80,16 +113,17 @@ describe('RarityFrame', () => {
     expect(screen.getByText('Missing item')).toBeTruthy()
     expect(screen.getByTestId('rarity-frame-fallback').textContent).toBe('M')
   })
+
   it('restores the entity image when its source changes after an error', () => {
     const { rerender } = render(
       <RarityFrame imageSrc="/images/missing-item.png" title="Test item" rarity={4} />
     )
 
-    fireEvent.error(screen.getByRole('img', { name: 'Test item' }))
-    expect(screen.queryByRole('img', { name: 'Test item' })).toBeNull()
+    fireEvent.error(screen.getByTestId('rarity-frame-image'))
+    expect(screen.queryByTestId('rarity-frame-image')).toBeNull()
 
     rerender(<RarityFrame imageSrc="/images/other-item.png" title="Test item" rarity={4} />)
-    expect(screen.getByRole('img', { name: 'Test item' }).getAttribute('src')).toMatch(
+    expect(screen.getByTestId('rarity-frame-image').getAttribute('src')).toMatch(
       /\/images\/other-item\.png$/
     )
   })

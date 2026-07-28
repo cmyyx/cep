@@ -310,7 +310,7 @@ export function DataImporter() {
       </Button>
 
       {error && (
-        <div className="fixed bottom-6 right-6 z-[60] max-w-sm rounded-lg bg-background px-4 py-3 text-sm shadow-[0px_0px_0px_1px_rgba(0,0,0,0.08),0px_2px_2px_rgba(0,0,0,0.04),0px_8px_8px_-8px_rgba(0,0,0,0.04)]">
+        <div className="fixed bottom-6 right-6 z-[60] max-w-sm rounded-lg bg-background px-4 py-3 text-sm shadow-[var(--shadow-card)]">
           <div className="flex items-start gap-2.5">
             <AlertTriangle className="size-4 shrink-0 mt-0.5 text-red-500" />
             <span className="flex-1 text-sm">{error}</span>
@@ -322,7 +322,7 @@ export function DataImporter() {
       )}
 
       {imported && (
-        <div className="fixed bottom-6 right-6 z-[60] max-w-sm rounded-lg bg-background px-4 py-3 text-sm shadow-[0px_0px_0px_1px_rgba(0,0,0,0.08),0px_2px_2px_rgba(0,0,0,0.04),0px_8px_8px_-8px_rgba(0,0,0,0.04)] animate-toast-in">
+        <div className="fixed bottom-6 right-6 z-[60] max-w-sm rounded-lg bg-background px-4 py-3 text-sm shadow-[var(--shadow-card)] animate-toast-in">
           <div className="flex items-start gap-2.5">
             <CheckCircle2 className="size-4 shrink-0 mt-0.5 text-green-500" />
             <span className="flex-1 text-sm">{t('settings.importSuccess')}</span>

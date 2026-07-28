@@ -11,7 +11,7 @@
  *
  * Every overlay follows the same visual skeleton:
  *
- *   [icon.svg 48x48]
+ *   [icon.png 48x48]
  *   CEP 终末地规划器
  *   [caller-provided content — subtitle, description, action]
  *   [feedback links — GitHub / Forum / QQ Group]
@@ -56,7 +56,7 @@ const FEEDBACK_TITLE_EN = 'Having issues? Contact us:'
 
 /** Icon + app name — prepended to every guard overlay innerHTML. */
 export const GUARD_HEADER_HTML =
-  '<img src="/icon.svg" alt="" width="48" height="48" style="display:block">'+
+  '<img src="/icon.png" alt="" width="48" height="48" style="display:block">'+
   '<h1 style="font-size:22px;font-weight:600;margin:0;">CEP \u7EC8\u672B\u5730\u89C4\u5212\u5668</h1>'
 
 /** Environment labels sourced from the same locale messages as next-intl. */

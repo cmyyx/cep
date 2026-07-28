@@ -1,7 +1,9 @@
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
+import { ChevronLeft } from 'lucide-react'
 import { SidebarTrigger } from '@/components/ui/sidebar'
+import { Button } from '@/components/ui/button'
 import { NavLink } from '@/components/shared/nav-link'
 import { CharacterDetailContent, WikiDetailShell, getCharacterDetailSectionIds } from '@/components/wiki/wiki-detail-content'
 import { WikiMaterialCatalogProvider } from '@/components/wiki/wiki-material-catalog'
@@ -59,9 +61,18 @@ export default async function WikiCharacterDetailPage({ params }: { params: Prom
     <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
       <header className="flex shrink-0 items-center gap-3 px-4 py-2 shadow-[var(--shadow-border)] sm:px-6 lg:px-8">
         <SidebarTrigger />
-        <NavLink href={`/${locale}/wiki/characters`} loadingLabel={t('wiki.categories.characters')} className="text-sm text-muted-foreground hover:text-foreground">
+        <Button
+          variant="ghost"
+          size="sm"
+          nativeButton={false}
+          className="text-muted-foreground"
+          render={<NavLink href={`/${locale}/wiki/characters`} loadingLabel={t('wiki.categories.characters')} />}
+        >
+          <ChevronLeft data-icon="inline-start" />
           {t('wiki.backTo', { category: t('wiki.categories.characters') })}
-        </NavLink>
+        </Button>
+        {/* 详情页有 5000px+ 内容, 顶栏是唯一常驻的"当前是谁"。 */}
+        <h1 className="min-w-0 truncate text-base font-semibold tracking-tight">{name}</h1>
       </header>
       <WikiMaterialCatalogProvider catalog={catalog}>
         <WikiDetailShell tocItems={tocItems}>

@@ -67,7 +67,7 @@ vi.mock('@/components/ui/tooltip', () => ({
     } as never)
   },
   TooltipContent: ({ children }: { children: ReactNode }) => <div data-testid="tooltip-content">{children}</div>,
-  TOOLTIP_OPEN_DELAY_MS: 400,
+  TOOLTIP_OPEN_DELAY_MS: 0,
 }))
 
 afterEach(cleanup)

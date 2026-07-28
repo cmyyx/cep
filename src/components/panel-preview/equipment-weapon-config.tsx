@@ -31,7 +31,8 @@ export function EquipmentWeaponConfig() {
   const allT = useTranslations()
   const locale = useLocale() as WikiLocale
   const { entityName, equipmentStatLabel, text } = useWikiTranslations()
-  const number = new Intl.NumberFormat(locale, { maximumFractionDigits: 2 })
+  // 与面板一致: 不限制小数位, 保留全部有效位供逐位对照。
+  const number = new Intl.NumberFormat(locale, { maximumFractionDigits: 20 })
   const [picker, setPicker] = useState<PickerTarget>(null)
   const config = usePanelPreviewStore((state) => state.config)
   const updateConfig = usePanelPreviewStore((state) => state.updateConfig)

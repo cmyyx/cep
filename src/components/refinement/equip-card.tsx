@@ -164,7 +164,7 @@ export const EquipCard = memo(function EquipCard({
               readOnly ? 'cursor-default' : 'cursor-pointer',
               isSelected
                 ? cn('shadow-[0px_0px_0px_1px_#fbbf24,0_25px_50px_-12px_rgba(0,0,0,0.25)]', PLANNER_SELECTED_RING_CLASS)
-                : 'shadow-[0px_0px_0px_1px_rgba(0,0,0,0.08)] hover:ring-2 hover:ring-white/40',
+                : 'shadow-[var(--shadow-border)] hover:ring-2 hover:ring-white/40',
             )}
           />
         }

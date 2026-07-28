@@ -24,7 +24,7 @@ function VersionCard({ label, info }: { label: string; info: VersionInfo }) {
   const buildTimeText = mounted ? formatTime(info.buildTime) : '--:--'
 
   return (
-    <div className="flex-1 rounded-lg shadow-[0px_0px_0px_1px_rgba(0,0,0,0.08)] p-4">
+    <div className="flex-1 rounded-lg shadow-[var(--shadow-border)] p-4">
       <h3 className="text-xs font-medium text-muted-foreground mb-3 uppercase tracking-wide text-center">{label}</h3>
       <div className="space-y-2">
         <div className="flex items-center justify-between">
@@ -239,7 +239,7 @@ export default function UpdatePage() {
           )}
 
           {/* Changelog */}
-          <div className="rounded-lg shadow-[0px_0px_0px_1px_rgba(0,0,0,0.08)] p-4">
+          <div className="rounded-lg shadow-[var(--shadow-border)] p-4">
             <h3 className="text-sm font-semibold mb-3">{t('version.commitMessage')}</h3>
             {animPhase !== 'content' ? (
               /* Skeleton — fades out via animate-out before content mounts */

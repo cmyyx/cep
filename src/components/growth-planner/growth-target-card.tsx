@@ -98,13 +98,13 @@ function CharacterOptions({ config }: { config: CharacterGrowthConfig }) {
   }
   const changeNodes = (currentKey: 'currentTalentIds' | 'currentAttributeNodeIds' | 'currentEquipmentNodeIds' | 'currentLogisticsNodeIds', targetKey: 'targetTalentIds' | 'targetAttributeNodeIds' | 'targetEquipmentNodeIds' | 'targetLogisticsNodeIds') => (current: string[], target: string[]) => updateConfig(config.id, { [currentKey]: current, [targetKey]: target })
   return (
-    <div className="grid gap-6 xl:grid-cols-2">
+    <div className="grid gap-4 lg:grid-cols-2">
       <section className="space-y-2"><h4 className="text-xs font-semibold text-muted-foreground">{text('ui', 'battleSkills')}</h4>{data.skills.map((skill, index) => {
         const skillName = text('character', config.id, 'skill', skill.id, 'name')
         const typeName = text('ui', SKILL_TYPE_KEYS[skill.typeId] ?? 'battleSkill')
         return <NumberRange key={skill.id} label={<><span className="block truncate text-sm">{skillName}</span><span className="block text-[11px] text-muted-foreground">{typeName}</span></>} ariaLabel={`${typeName} ${skillName}`} current={config.currentSkillLevels[index] ?? 1} target={config.targetSkillLevels[index] ?? skill.maxLevel} minimum={1} maximum={skill.maxLevel} onCurrentChange={(value) => updateArray('currentSkillLevels', index, value)} onTargetChange={(value) => updateArray('targetSkillLevels', index, value)} />
       })}</section>
-      <div className="space-y-4">
+      <div className="space-y-3">
         <GrowthNodes characterId={config.id} title={text('ui', 'talent')} nodes={data.talents} currentIds={config.currentTalentIds} targetIds={config.targetTalentIds} onChange={changeNodes('currentTalentIds', 'targetTalentIds')} showIndex />
         <GrowthNodes characterId={config.id} title={text('ui', 'attributeIncrease')} nodes={data.attributeNodes} currentIds={config.currentAttributeNodeIds} targetIds={config.targetAttributeNodeIds} onChange={changeNodes('currentAttributeNodeIds', 'targetAttributeNodeIds')} showIndex />
         <GrowthNodes characterId={config.id} title={text('ui', 'equipmentAdaptation')} nodes={data.equipmentNodes} currentIds={config.currentEquipmentNodeIds} targetIds={config.targetEquipmentNodeIds} onChange={changeNodes('currentEquipmentNodeIds', 'targetEquipmentNodeIds')} />
@@ -128,7 +128,7 @@ export function GrowthTargetCard({ config, onRemove }: { config: GrowthConfig; o
   const maxLevel = data?.levels.at(-1)?.level ?? 90
   const maxBreak = config.kind === 'character' ? plannerGameData.characters[config.id]?.promotions.at(-1)?.breakStage ?? 4 : plannerGameData.weapons[config.id]?.breakthroughs.at(-1)?.stage ?? 4
   return (
-    <div className="space-y-6">
+    <div className="space-y-4">
       <div className="grid grid-cols-[4.5rem_minmax(0,1fr)_auto] items-center gap-4 rounded-lg bg-muted/35 p-3">
         <RarityFrame imageSrc={`${config.kind === 'character' ? '/images/characters' : '/images/weapon'}/${summary.imageId}.avif`} backgroundSrc={config.kind === 'character' ? '/images/character-frame-bg.png' : undefined} title={name} rarity={summary.rarity} showTitle={false} imageClassName={config.kind === 'weapon' ? 'object-contain p-2' : 'object-cover'} className="size-[4.5rem] rounded-lg" />
         <div className="min-w-0">
@@ -137,7 +137,7 @@ export function GrowthTargetCard({ config, onRemove }: { config: GrowthConfig; o
         </div>
         <Button variant="ghost" size="icon-sm" onClick={() => { removeEntity(config.id); onRemove?.() }} aria-label={t('removeTarget')}><Trash2 /></Button>
       </div>
-      <div className="grid gap-2 xl:grid-cols-2">
+      <div className="grid gap-2 lg:grid-cols-2">
         <NumberRange label={config.kind === 'character' ? text('ui', 'operatorLevel') : t('level')} current={config.currentLevel} target={config.targetLevel} minimum={1} maximum={maxLevel} onCurrentChange={(value) => updateConfig(config.id, { currentLevel: value })} onTargetChange={(value) => updateConfig(config.id, { targetLevel: value })} />
         <NumberRange label={config.kind === 'character' ? text('ui', 'promotion') : t('breakthroughStage')} current={config.currentBreakStage} target={config.targetBreakStage} minimum={0} maximum={maxBreak} onCurrentChange={(value) => updateConfig(config.id, { currentBreakStage: value })} onTargetChange={(value) => updateConfig(config.id, { targetBreakStage: value })} />
       </div>

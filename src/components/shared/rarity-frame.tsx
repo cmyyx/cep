@@ -15,6 +15,11 @@ export interface RarityFrameProps {
   imageClassName?: string
   badgeClassName?: string
   showTitle?: boolean
+  /**
+   * Overrides the artwork alt text. Pass `""` when the caller already renders the
+   * name next to the frame — otherwise a screen reader announces it twice.
+   */
+  imageAlt?: string
 }
 
 export function RarityFrame({
@@ -27,10 +32,13 @@ export function RarityFrame({
   imageClassName,
   badgeClassName,
   showTitle = true,
+  imageAlt,
 }: RarityFrameProps) {
   const [failedImageSrc, setFailedImageSrc] = useState<string | StaticImageData | null | undefined>(null)
   const imageFailed = failedImageSrc === imageSrc
   const fallbackLabel = title.trim().charAt(0) || '?'
+  // A visible <h3> already names the frame, so the artwork must stay decorative.
+  const resolvedAlt = imageAlt ?? (showTitle ? '' : title)
 
   return (
     <article
@@ -50,8 +58,9 @@ export function RarityFrame({
       />
       {imageSrc && !imageFailed ? (
         <Image
+          data-testid="rarity-frame-image"
           src={imageSrc}
-          alt={title}
+          alt={resolvedAlt}
           fill
           className={cn('z-10 object-cover', imageClassName)}
           unoptimized

@@ -120,13 +120,13 @@ export function TimelineChart({ data, t }: TimelineChartProps) {
 
   return (
     <div
-      className="flex flex-1 overflow-hidden rounded-lg shadow-[0px_0px_0px_1px_rgba(0,0,0,0.08)]"
+      className="flex flex-1 overflow-hidden rounded-lg shadow-[var(--shadow-border)]"
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
     >
       {/* Left: Character column — narrow on mobile, full on lg+ */}
-      <div className="w-14 lg:w-52 shrink-0 shadow-[1px_0px_0px_0px_rgba(0,0,0,0.08)] bg-muted/30 transition-[width]">
-        <div className="h-8 flex items-center px-2 lg:px-3 shadow-[0px_1px_0px_0px_rgba(0,0,0,0.08)] text-xs font-medium text-muted-foreground">
+      <div className="w-14 lg:w-52 shrink-0 shadow-[var(--shadow-border-r)] bg-muted/30 transition-[width]">
+        <div className="h-8 flex items-center px-2 lg:px-3 shadow-[var(--shadow-border-b)] text-xs font-medium text-muted-foreground">
           <span className="hidden lg:inline">{t('bannerCalendar.characterHeader')}</span>
         </div>
         {data.charRows.map((ch) => (
@@ -242,10 +242,14 @@ export function TimelineChart({ data, t }: TimelineChartProps) {
         </div>
       </div>
 
-      {/* Bar tooltip */}
+      {/* Bar tooltip — one shadow utility only: `shadow-md` and an arbitrary
+          `shadow-[…]` both write --tw-shadow, so keeping both made the winner
+          depend on Tailwind's emit order. --shadow-card is the popover
+          elevation token the other planner tooltips use, and it has a dark
+          counterpart. */}
       <div
         ref={tooltipRef}
-        className="fixed z-50 pointer-events-none rounded-md shadow-[0px_0px_0px_1px_rgba(0,0,0,0.08)] bg-popover px-3 py-2 text-popover-foreground shadow-md"
+        className="fixed z-50 pointer-events-none rounded-md bg-popover px-3 py-2 text-popover-foreground shadow-[var(--shadow-card)]"
         style={{ display: 'none' }}
       >
         <div ref={tooltipNameRef} className="text-sm font-medium" />
