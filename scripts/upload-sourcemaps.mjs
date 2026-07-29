@@ -8,11 +8,12 @@
  * during `next build`.
  *
  * Release tag MUST match the `release` set in SentryProvider init
- * (versionData.commit) so Sentry can correlate events → source maps.
+ * (versionData.version) so Sentry can correlate events -> source maps.
  */
 import { execFileSync } from 'node:child_process'
 import { existsSync, readFileSync } from 'node:fs'
 import path from 'node:path'
+import { pathToFileURL } from 'node:url'
 
 const OUT_DIR = path.resolve('out')
 const STATIC_DIR = path.join(OUT_DIR, '_next', 'static')
@@ -23,14 +24,17 @@ const VERSION_DATA_PATH = path.resolve('src', 'generated', 'version-data.ts')
 const SENTRY_ORG = 'canmoe'
 const SENTRY_PROJECT = 'javascript-nextjs'
 
+export function extractRelease(src) {
+  const match = src.match(/"version":\s*"([^"]+)"/)
+  if (!match) throw new Error('could not extract version from version-data.ts')
+  return match[1]
+}
+
 function getRelease() {
   if (!existsSync(VERSION_DATA_PATH)) {
-    throw new Error('src/generated/version-data.ts not found — run prebuild first')
+    throw new Error('src/generated/version-data.ts not found - run prebuild first')
   }
-  const src = readFileSync(VERSION_DATA_PATH, 'utf-8')
-  const match = src.match(/"commit":\s*"([^"]+)"/)
-  if (!match) throw new Error('could not extract commit from version-data.ts')
-  return match[1]
+  return extractRelease(readFileSync(VERSION_DATA_PATH, 'utf-8'))
 }
 
 function main() {
@@ -61,4 +65,8 @@ function main() {
   console.log(`[sentry-sourcemaps] uploaded for release ${release}`)
 }
 
-main()
+const isCli = process.argv[1]
+  ? import.meta.url === pathToFileURL(path.resolve(process.argv[1])).href
+  : false
+
+if (isCli) main()

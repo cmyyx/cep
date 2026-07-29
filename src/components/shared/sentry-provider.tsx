@@ -3,6 +3,7 @@
 import { useEffect } from 'react'
 import * as Sentry from '@sentry/react'
 import type { VersionInfo } from '@/types/version'
+import { shouldDropSentryEvent } from '@/lib/sentry-event-filter'
 
 export interface SentryProviderProps {
   /** Build-time version info, used as the Sentry release + environment tags. */
@@ -29,8 +30,8 @@ let initialized = false
  * without a DSN stays clean.
  *
  * release / environment are derived from the prebuild-generated versionData so
- * every event is tied to a commit — unlocks regression detection and
- * resolve-in-next-release without extra wiring.
+ * every event is tied to an exact application version for regression detection,
+ * source map lookup, and resolve-in-next-release workflows.
  *
  * The module-level guard (not React) owns the "once per session" invariant:
  * useEffect's StrictMode double-invoke and HMR both re-render the component,
@@ -45,7 +46,7 @@ export function SentryProvider({ version, children }: SentryProviderProps) {
 
     Sentry.init({
       dsn,
-      release: version.commit,
+      release: version.version,
       environment: process.env.NODE_ENV === 'production' ? 'production' : 'development',
       // SDK recommended default: 100% in dev for full repro, 10% in prod to control volume.
       tracesSampleRate: process.env.NODE_ENV === 'production' ? 0.1 : 1.0,
@@ -53,10 +54,13 @@ export function SentryProvider({ version, children }: SentryProviderProps) {
       replaysSessionSampleRate: 0,
       replaysOnErrorSampleRate: 1.0,
       integrations: [Sentry.browserTracingIntegration(), Sentry.replayIntegration()],
+      beforeSend(event, hint) {
+        return shouldDropSentryEvent(event, hint) ? null : event
+      },
       // Don't send default PII (IP, cookies) — opt in later per category if needed.
       sendDefaultPii: false,
     })
-  }, [version.commit])
+  }, [version.version])
 
   return <>{children}</>
 }
