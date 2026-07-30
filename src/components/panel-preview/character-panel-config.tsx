@@ -69,10 +69,10 @@ export function CharacterPanelConfig() {
                 {active.map((p) => {
                   const statTexts = p.stats.map((s) => {
                     const label = equipmentStatLabel(s.attributeId) || enumLabel('attributes', s.attributeId)
-                    const val = s.isPercent ? `${(s.value * 100).toFixed(1)}%` : String(s.value)
-                    return `${label}+${val}`
+                    const val = s.isPercent ? `${+(s.value * 100).toFixed(1)}%` : String(s.value)
+                    return `${label} +${val}`
                   })
-                  return <span key={p.id} className="mr-2 inline-block">{text('ui', 'potentialLevel')} {p.level}: {statTexts.join('，')}</span>
+                  return <span key={p.id} className="mr-2 inline-block">{text('ui', 'potentialLevel')} {p.level}: {statTexts.join(', ')}</span>
                 })}
               </p>
             )
@@ -92,9 +92,9 @@ export function CharacterPanelConfig() {
             if (totals.size === 0) return null
             const parts = [...totals.entries()].map(([attrId, val]) => {
               const label = equipmentStatLabel(attrId) || enumLabel('attributes', attrId)
-              return `${label}+${val}`
+              return `${label} +${val}`
             })
-            return <p className="text-[10px] leading-relaxed text-muted-foreground/80">{parts.join('，')}</p>
+            return <p className="text-[10px] leading-relaxed text-muted-foreground/80">{parts.join(', ')}</p>
           })()}
         </div>
       </div>}
