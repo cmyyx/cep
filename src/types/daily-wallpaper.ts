@@ -1,12 +1,14 @@
-export interface DailyWallpaperItem {
-  contentDate: string
-  isToday: boolean
+export interface WeeklyWallpaperItem {
+  id: string
   imageUrl: string | null
-  actionUrl: string | null
 }
 
-export interface DailyWallpaperFeed {
+export interface WeeklyWallpaperFeed {
   serverDate: string
-  current: DailyWallpaperItem | null
-  history: DailyWallpaperItem[]
+  weekStart: string
+  displayUntil: string
+  isActive: boolean
+  weekItems: WeeklyWallpaperItem[]
+  actionUrl: string | null
+  history: WeeklyWallpaperItem[]
 }

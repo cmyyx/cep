@@ -26,7 +26,7 @@ it('client messages are the core shell only: global namespaces + key-level picks
       [...routeShellMessages.corePicks.home].sort(),
     )
     expect(Object.keys(messages.wiki)).toEqual(['categories'])
-    expect(messages.backgroundPreview).toHaveProperty('dailyUpdatedBadge')
+    expect(messages.backgroundPreview).toHaveProperty('weeklyUpdatedBadge')
     expect(Object.keys(messages.backgroundPreview)).toHaveLength(1)
   }
 })

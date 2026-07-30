@@ -2,7 +2,7 @@ import { afterEach, describe, expect, it, vi } from 'vitest'
 import {
   addWallpaperLocale,
   DEFAULT_WALLPAPER_ASPECT_RATIO,
-  fetchDailyWallpapers,
+  fetchWeeklyWallpapers,
   formatWallpaperDate,
   MAX_WALLPAPER_ASPECT_RATIO,
   MIN_WALLPAPER_ASPECT_RATIO,
@@ -11,25 +11,28 @@ import {
 
 afterEach(() => vi.restoreAllMocks())
 
-describe('fetchDailyWallpapers', () => {
+describe('fetchWeeklyWallpapers', () => {
   it('validates and resolves feed URLs', async () => {
     vi.stubGlobal('fetch', vi.fn().mockResolvedValue({
       ok: true,
       json: async () => ({
-        serverDate: '2026-07-23',
-        current: {
-          contentDate: '2026-07-22',
-          isToday: false,
-          imageUrl: '/media/wallpapers/2026-07-22',
-          actionUrl: '/go/wallpaper/2026-07-22',
-        },
+        serverDate: '2026-07-29',
+        weekStart: '2026-07-26',
+        displayUntil: '2026-08-01',
+        isActive: true,
+        weekItems: [
+          { id: '2026-07-26', imageUrl: '/media/wallpapers/2026-07-26' },
+          { id: '2026-07-27', imageUrl: '/media/wallpapers/2026-07-27' },
+        ],
+        actionUrl: 'https://pan.quark.cn/s/abc',
         history: [],
       }),
     }))
 
-    const result = await fetchDailyWallpapers('https://end-ops.canmoe.com/api/v1/wallpapers')
-    expect(result.current?.imageUrl).toBe('https://end-ops.canmoe.com/media/wallpapers/2026-07-22')
-    expect(result.current?.actionUrl).toBe('https://end-ops.canmoe.com/go/wallpaper/2026-07-22')
+    const result = await fetchWeeklyWallpapers('https://end-ops.canmoe.com/api/v1/wallpapers')
+    expect(result.weekItems[0].imageUrl).toBe('https://end-ops.canmoe.com/media/wallpapers/2026-07-26')
+    expect(result.actionUrl).toBe('https://pan.quark.cn/s/abc')
+    expect(result.isActive).toBe(true)
     expect(fetch).toHaveBeenCalledWith(
       'https://end-ops.canmoe.com/api/v1/wallpapers',
       expect.objectContaining({ cache: 'no-store' }),
@@ -37,21 +40,21 @@ describe('fetchDailyWallpapers', () => {
   })
 
   it('rejects malformed responses', async () => {
-    vi.stubGlobal('fetch', vi.fn().mockResolvedValue({ ok: true, json: async () => ({ current: null }) }))
-    await expect(fetchDailyWallpapers('https://end-ops.canmoe.com/api/v1/wallpapers')).rejects.toMatchObject({ code: 'invalidResponse' })
+    vi.stubGlobal('fetch', vi.fn().mockResolvedValue({ ok: true, json: async () => ({}) }))
+    await expect(fetchWeeklyWallpapers('https://end-ops.canmoe.com/api/v1/wallpapers')).rejects.toMatchObject({ code: 'invalidResponse' })
   })
 
   it('rejects malformed items, empty URL strings, and oversized history', async () => {
-    const validItem = { contentDate: '2026-07-22', isToday: false, imageUrl: null, actionUrl: null }
+    const validItem = { id: '2026-07-26', imageUrl: null }
     const feeds = [
-      { serverDate: '2026-07-23', current: { ...validItem, isToday: 'yes' }, history: [] },
-      { serverDate: '2026-07-23', current: { ...validItem, imageUrl: '' }, history: [] },
-      { serverDate: '2026-07-23', current: null, history: [{ ...validItem, contentDate: 'not-a-date' }] },
-      { serverDate: '2026-07-23', current: null, history: Array.from({ length: 15 }, () => validItem) },
+      { serverDate: '2026-07-29', weekStart: '2026-07-26', displayUntil: '2026-08-01', isActive: true, weekItems: [{ ...validItem, id: '' }], actionUrl: null, history: [] },
+      { serverDate: '2026-07-29', weekStart: '2026-07-26', displayUntil: '2026-08-01', isActive: true, weekItems: [{ ...validItem, imageUrl: '' }], actionUrl: null, history: [] },
+      { serverDate: '2026-07-29', weekStart: '2026-07-26', displayUntil: '2026-08-01', isActive: true, weekItems: [], actionUrl: null, history: [{ ...validItem, id: '' }] },
+      { serverDate: '2026-07-29', weekStart: '2026-07-26', displayUntil: '2026-08-01', isActive: true, weekItems: [], actionUrl: null, history: Array.from({ length: 15 }, () => validItem) },
     ]
     for (const feed of feeds) {
       vi.stubGlobal('fetch', vi.fn().mockResolvedValue({ ok: true, json: async () => feed }))
-      await expect(fetchDailyWallpapers('https://end-ops.canmoe.com/api/v1/wallpapers')).rejects.toMatchObject({ code: 'invalidResponse' })
+      await expect(fetchWeeklyWallpapers('https://end-ops.canmoe.com/api/v1/wallpapers')).rejects.toMatchObject({ code: 'invalidResponse' })
     }
   })
 
@@ -59,14 +62,18 @@ describe('fetchDailyWallpapers', () => {
     vi.stubGlobal('fetch', vi.fn().mockResolvedValue({
       ok: true,
       json: async () => ({
-        serverDate: '2026-07-23',
-        current: { contentDate: '2026-07-22', isToday: true, imageUrl: null, actionUrl: null, extra: 'field' },
+        serverDate: '2026-07-29',
+        weekStart: '2026-07-26',
+        displayUntil: '2026-08-01',
+        isActive: true,
+        weekItems: [{ id: '2026-07-26', imageUrl: null, extra: 'field' }],
+        actionUrl: null,
         history: [],
       }),
     }))
 
-    const result = await fetchDailyWallpapers('https://end-ops.canmoe.com/api/v1/wallpapers')
-    expect(result.current).toEqual({ contentDate: '2026-07-22', isToday: true, imageUrl: null, actionUrl: null })
+    const result = await fetchWeeklyWallpapers('https://end-ops.canmoe.com/api/v1/wallpapers')
+    expect(result.weekItems[0]).toEqual({ id: '2026-07-26', imageUrl: null })
   })
 
   it('preserves AbortError thrown while decoding JSON', async () => {
@@ -75,15 +82,15 @@ describe('fetchDailyWallpapers', () => {
       ok: true,
       json: async () => { throw abortError },
     }))
-    await expect(fetchDailyWallpapers('https://end-ops.canmoe.com/api/v1/wallpapers')).rejects.toBe(abortError)
+    await expect(fetchWeeklyWallpapers('https://end-ops.canmoe.com/api/v1/wallpapers')).rejects.toBe(abortError)
   })
 
   it('rejects calendar-invalid dates in a feed', async () => {
     vi.stubGlobal('fetch', vi.fn().mockResolvedValue({
       ok: true,
-      json: async () => ({ serverDate: '2026-02-30', current: null, history: [] }),
+      json: async () => ({ serverDate: '2026-02-30', weekStart: '2026-07-26', displayUntil: '2026-08-01', isActive: true, weekItems: [], actionUrl: null, history: [] }),
     }))
-    await expect(fetchDailyWallpapers('https://end-ops.canmoe.com/api/v1/wallpapers')).rejects.toMatchObject({ code: 'invalidResponse' })
+    await expect(fetchWeeklyWallpapers('https://end-ops.canmoe.com/api/v1/wallpapers')).rejects.toMatchObject({ code: 'invalidResponse' })
   })
 })
 

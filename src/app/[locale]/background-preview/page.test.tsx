@@ -10,8 +10,8 @@ vi.mock('next/image', () => ({
 vi.mock('@/components/ui/sidebar', () => ({ SidebarTrigger: () => <span>sidebar-trigger</span> }))
 vi.mock('@/stores/useSettingsStore', () => ({ useSettingsStore: () => ({ backgroundUrl: '/background.jpg' }) }))
 vi.mock('@/components/background-preview/daily-wallpaper-section', () => ({
-  DailyWallpaperSection: ({ apiUrl }: { apiUrl: string }) => <span data-testid="daily" data-api-url={apiUrl} />,
-}))
+  WeeklyWallpaperSection: ({ apiUrl }: { apiUrl: string }) => <span data-testid="daily" data-api-url={apiUrl} />,
+}));
 
 import { OPS_SERVICE_ORIGIN } from '@/lib/constants'
 import BackgroundPreviewPage from './page'
