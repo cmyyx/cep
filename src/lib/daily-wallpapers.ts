@@ -1,4 +1,4 @@
-import type { DailyWallpaperFeed, DailyWallpaperItem } from '@/types/daily-wallpaper'
+import type { WeeklyWallpaperFeed, WeeklyWallpaperItem } from '@/types/daily-wallpaper'
 
 const MAX_HISTORY_ITEMS = 14
 
@@ -10,46 +10,61 @@ function isNullableNonEmptyString(value: unknown): value is string | null {
   return value === null || (typeof value === 'string' && value.length > 0)
 }
 
-/** Field-by-field validation of one feed item; strips unknown fields. */
-function parseWallpaperItem(value: unknown): DailyWallpaperItem | null {
+function parseWallpaperItem(value: unknown): WeeklyWallpaperItem | null {
   if (typeof value !== 'object' || value === null) return null
   const item = value as Record<string, unknown>
-  if (!isCalendarDateString(item.contentDate)) return null
-  if (typeof item.isToday !== 'boolean') return null
+  if (typeof item.id !== 'string' || item.id === '') return null
   if (!isNullableNonEmptyString(item.imageUrl)) return null
-  if (!isNullableNonEmptyString(item.actionUrl)) return null
   return {
-    contentDate: item.contentDate,
-    isToday: item.isToday,
+    id: item.id,
     imageUrl: item.imageUrl,
-    actionUrl: item.actionUrl,
   }
 }
 
-/** Hand-written replacement for the previous zod schema (keeps zod out of this route's chunk). */
-function parseWallpaperFeed(value: unknown): DailyWallpaperFeed | null {
+function parseWeeklyWallpaperFeed(value: unknown): WeeklyWallpaperFeed | null {
   if (typeof value !== 'object' || value === null) return null
   const feed = value as Record<string, unknown>
   if (!isCalendarDateString(feed.serverDate)) return null
-  const current = feed.current === null ? null : parseWallpaperItem(feed.current)
-  if (feed.current !== null && current === null) return null
+  if (!isCalendarDateString(feed.weekStart)) return null
+  if (!isCalendarDateString(feed.displayUntil)) return null
+  if (typeof feed.isActive !== 'boolean') return null
+
+  if (!Array.isArray(feed.weekItems)) return null
+  const weekItems: WeeklyWallpaperItem[] = []
+  for (const entry of feed.weekItems) {
+    const item = parseWallpaperItem(entry)
+    if (!item) return null
+    weekItems.push(item)
+  }
+
   if (!Array.isArray(feed.history) || feed.history.length > MAX_HISTORY_ITEMS) return null
-  const history: DailyWallpaperItem[] = []
+  const history: WeeklyWallpaperItem[] = []
   for (const entry of feed.history) {
     const item = parseWallpaperItem(entry)
     if (!item) return null
     history.push(item)
   }
-  return { serverDate: feed.serverDate, current, history }
+
+  const actionUrl = feed.actionUrl === null || typeof feed.actionUrl === 'string' ? feed.actionUrl : null
+
+  return {
+    serverDate: feed.serverDate,
+    weekStart: feed.weekStart,
+    displayUntil: feed.displayUntil,
+    isActive: feed.isActive,
+    weekItems,
+    actionUrl: actionUrl as string | null,
+    history,
+  }
 }
 
-export class DailyWallpaperError extends Error {
+export class WeeklyWallpaperError extends Error {
   constructor(public readonly code: 'notConfigured' | 'requestFailed' | 'invalidResponse') {
     super(code)
   }
 }
 
-export async function fetchDailyWallpapers(endpoint: string, signal?: AbortSignal): Promise<DailyWallpaperFeed> {
+export async function fetchWeeklyWallpapers(endpoint: string, signal?: AbortSignal): Promise<WeeklyWallpaperFeed> {
   const normalizedEndpoint = normalizeEndpoint(endpoint)
   let response: Response
   try {
@@ -60,39 +75,52 @@ export async function fetchDailyWallpapers(endpoint: string, signal?: AbortSigna
     })
   } catch (error) {
     if (error instanceof Error && error.name === 'AbortError') throw error
-    throw new DailyWallpaperError('requestFailed')
+    throw new WeeklyWallpaperError('requestFailed')
   }
-  if (!response.ok) throw new DailyWallpaperError('requestFailed')
+  if (!response.ok) throw new WeeklyWallpaperError('requestFailed')
 
   let payload: unknown
   try {
     payload = await response.json()
   } catch (error) {
     if (error instanceof Error && error.name === 'AbortError') throw error
-    throw new DailyWallpaperError('invalidResponse')
+    throw new WeeklyWallpaperError('invalidResponse')
   }
-  const parsed = parseWallpaperFeed(payload)
-  if (!parsed) throw new DailyWallpaperError('invalidResponse')
+  const parsed = parseWeeklyWallpaperFeed(payload)
+  if (!parsed) throw new WeeklyWallpaperError('invalidResponse')
   try {
     return {
       serverDate: parsed.serverDate,
-      current: parsed.current ? resolveItemURLs(parsed.current, normalizedEndpoint) : null,
+      weekStart: parsed.weekStart,
+      displayUntil: parsed.displayUntil,
+      isActive: parsed.isActive,
+      weekItems: parsed.weekItems.map((item) => resolveItemURLs(item, normalizedEndpoint)),
+      actionUrl: parsed.actionUrl,
       history: parsed.history.map((item) => resolveItemURLs(item, normalizedEndpoint)),
     }
   } catch {
-    throw new DailyWallpaperError('invalidResponse')
+    throw new WeeklyWallpaperError('invalidResponse')
   }
 }
 
 export function formatWallpaperDate(value: string, locale: string): string {
-  const date = parseCalendarDate(value)
-  if (!date) return value
-  return new Intl.DateTimeFormat(locale, {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-    timeZone: 'UTC',
-  }).format(date)
+	const date = parseCalendarDate(value)
+	if (!date) return value
+	return new Intl.DateTimeFormat(locale, {
+		year: 'numeric',
+		month: 'long',
+		day: 'numeric',
+		timeZone: 'UTC',
+	}).format(date)
+}
+
+export function formatWallpaperDateRange(start: string, end: string, locale: string): string {
+	const startDate = parseCalendarDate(start)
+	const endDate = parseCalendarDate(end)
+	if (!startDate || !endDate) return start
+	const startFmt = new Intl.DateTimeFormat(locale, { month: 'long', day: 'numeric', timeZone: 'UTC' }).format(startDate)
+	const endFmt = new Intl.DateTimeFormat(locale, { month: 'long', day: 'numeric', timeZone: 'UTC' }).format(endDate)
+	return `${startFmt}  –  ${endFmt}`
 }
 
 export function addWallpaperLocale(actionUrl: string, locale: string): string {
@@ -101,13 +129,8 @@ export function addWallpaperLocale(actionUrl: string, locale: string): string {
   return url.toString()
 }
 
-/** Default frame before natural dimensions are known. */
 export const DEFAULT_WALLPAPER_ASPECT_RATIO = 16 / 9
-
-/** Clamp tall wallpapers so the frame does not try to grow endlessly. */
 export const MIN_WALLPAPER_ASPECT_RATIO = 3 / 4
-
-/** Clamp ultra-wide wallpapers so the frame does not collapse too flat. */
 export const MAX_WALLPAPER_ASPECT_RATIO = 21 / 9
 
 export function resolveWallpaperAspectRatio(width: number, height: number): number {
@@ -118,11 +141,11 @@ export function resolveWallpaperAspectRatio(width: number, height: number): numb
 
 function normalizeEndpoint(endpoint: string): string {
   const trimmed = endpoint.trim()
-  if (!trimmed) throw new DailyWallpaperError('notConfigured')
+  if (!trimmed) throw new WeeklyWallpaperError('notConfigured')
   try {
     return new URL(trimmed).toString()
   } catch {
-    throw new DailyWallpaperError('notConfigured')
+    throw new WeeklyWallpaperError('notConfigured')
   }
 }
 
@@ -145,10 +168,9 @@ function parseCalendarDate(value: string): Date | null {
   return date
 }
 
-function resolveItemURLs(item: DailyWallpaperItem, endpoint: string): DailyWallpaperItem {
+function resolveItemURLs(item: WeeklyWallpaperItem, endpoint: string): WeeklyWallpaperItem {
   return {
     ...item,
     imageUrl: item.imageUrl ? new URL(item.imageUrl, endpoint).toString() : null,
-    actionUrl: item.actionUrl ? new URL(item.actionUrl, endpoint).toString() : null,
   }
 }

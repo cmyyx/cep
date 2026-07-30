@@ -34,7 +34,7 @@
       "updateAvailable"
     ],
     "home": ["title", "importantBanner", "clickToView"],
-    "backgroundPreview": ["dailyUpdatedBadge"],
+    "backgroundPreview": ["weeklyUpdatedBadge"],
     "wiki": ["categories"]
   },
   "routes": {

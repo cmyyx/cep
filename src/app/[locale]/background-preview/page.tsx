@@ -4,14 +4,13 @@ import { useState } from 'react'
 import { useTranslations } from 'next-intl'
 import { Images } from 'lucide-react'
 import { Dialog } from '@/components/ui/dialog'
-import { DailyWallpaperSection } from '@/components/background-preview/daily-wallpaper-section'
+import { WeeklyWallpaperSection } from '@/components/background-preview/weekly-wallpaper-section'
 import { FullscreenImageDialogContent } from '@/components/shared/fullscreen-image-dialog'
 import { Button } from '@/components/ui/button'
 import { SidebarTrigger } from '@/components/ui/sidebar'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
 import { FEATURES } from '@/lib/features'
 import { useSettingsStore } from '@/stores/useSettingsStore'
-
 const WEBSITE_BACKGROUND_COLLECTION_URL = 'https://pan.quark.cn/s/27540d6f3706#/list/share'
 
 export default function BackgroundPreviewPage() {
@@ -51,19 +50,18 @@ export default function BackgroundPreviewPage() {
       </header>
 
       <main className="relative min-h-0 flex-1 overflow-hidden">
-        <Button
+        <button
           type="button"
-          variant="ghost"
-          className="absolute inset-0 size-full cursor-pointer select-none rounded-none whitespace-normal text-sm text-muted-foreground hover:bg-transparent hover:text-muted-foreground focus-visible:ring-2 focus-visible:ring-inset"
+          className="absolute inset-0 size-full cursor-pointer select-none rounded-none bg-transparent text-sm text-muted-foreground transition-colors hover:bg-transparent hover:text-muted-foreground focus-visible:ring-2 focus-visible:ring-inset focus-visible:outline-none"
           onClick={() => setIsFullscreen(true)}
           aria-label={t('backgroundPreview.clickHint')}
         >
           <span className="pointer-events-none absolute top-3 right-0 left-0 px-4 text-center leading-5 sm:top-4">
             {t('backgroundPreview.clickHint')}
           </span>
-        </Button>
+        </button>
         <div className="absolute right-3 bottom-0 z-10 max-h-[calc(100%-2.75rem)] w-[min(23rem,calc(100%-1.5rem))] overflow-y-auto overscroll-contain sm:right-4 sm:bottom-0 sm:max-h-[calc(100%-3.25rem)]">
-          <DailyWallpaperSection apiUrl={FEATURES.wallpaperApiUrl} />
+          <WeeklyWallpaperSection apiUrl={FEATURES.wallpaperApiUrl} />
         </div>
       </main>
 

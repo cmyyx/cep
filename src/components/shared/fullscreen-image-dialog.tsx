@@ -38,24 +38,22 @@ export function FullscreenImageDialogContent({
       className="inset-0! size-full max-w-none! translate-x-0! translate-y-0! gap-0 rounded-none bg-black p-0 ring-0 sm:max-w-none"
     >
       <DialogTitle className="sr-only">{title}</DialogTitle>
+      <Image src={src} alt={alt} fill sizes="100vw" className={imageClassName} unoptimized priority={priority} />
       <DialogClose
         render={
-          <Button
+          <button
             type="button"
-            variant="ghost"
             aria-label={closeLabel}
-            className="absolute inset-0 size-full cursor-zoom-out rounded-none p-0 hover:bg-transparent"
+            className="absolute inset-0 size-full cursor-zoom-out bg-transparent"
           />
         }
-      >
-        <Image src={src} alt={alt} fill className={imageClassName} unoptimized priority={priority} />
-      </DialogClose>
+      />
       <DialogClose
         render={
           <Button
             variant="secondary"
             size="icon"
-            className="absolute top-4 right-4"
+            className="absolute top-4 right-4 active:translate-y-0!"
             aria-label={closeLabel}
           />
         }

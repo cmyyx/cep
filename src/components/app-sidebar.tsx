@@ -228,7 +228,7 @@ export function AppSidebar() {
                 size="lg"
                 variant="outline"
                 isActive={pathname.startsWith(`/${locale}/background-preview`)}
-                tooltip={t('nav.backgroundPreviewTooltip', { badge: t('backgroundPreview.dailyUpdatedBadge') })}
+                tooltip={t('nav.backgroundPreviewTooltip', { badge: t('backgroundPreview.weeklyUpdatedBadge') })}
                 render={<NavLink href={`/${locale}/background-preview`} loadingLabel={t('nav.backgroundPreview')} />}
                 onClick={() => {
                   if (isMobile) setOpenMobile(false)
@@ -238,7 +238,7 @@ export function AppSidebar() {
                 <ImageDown className="size-4" />
                 <span className="min-w-0 flex-1 truncate font-medium group-data-[collapsible=icon]:hidden">{t('nav.backgroundPreview')}</span>
                 <span className="rounded-full bg-preview-pink px-1.5 py-0.5 text-[9px] font-semibold leading-none text-white group-data-[collapsible=icon]:hidden">
-                  {t('backgroundPreview.dailyUpdatedBadge')}
+                  {t('backgroundPreview.weeklyUpdatedBadge')}
                 </span>
               </SidebarMenuButton>
             </SidebarMenuItem>
