@@ -9,7 +9,7 @@ vi.mock('next/image', () => ({
 }))
 vi.mock('@/components/ui/sidebar', () => ({ SidebarTrigger: () => <span>sidebar-trigger</span> }))
 vi.mock('@/stores/useSettingsStore', () => ({ useSettingsStore: () => ({ backgroundUrl: '/background.jpg' }) }))
-vi.mock('@/components/background-preview/daily-wallpaper-section', () => ({
+vi.mock('@/components/background-preview/weekly-wallpaper-section', () => ({
   WeeklyWallpaperSection: ({ apiUrl }: { apiUrl: string }) => <span data-testid="daily" data-api-url={apiUrl} />,
 }));
 

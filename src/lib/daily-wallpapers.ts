@@ -118,14 +118,9 @@ export function formatWallpaperDateRange(start: string, end: string, locale: str
 	const startDate = parseCalendarDate(start)
 	const endDate = parseCalendarDate(end)
 	if (!startDate || !endDate) return start
-	const sameMonth = startDate.getUTCMonth() === endDate.getUTCMonth() && startDate.getUTCFullYear() === endDate.getUTCFullYear()
-	if (sameMonth) {
-		const monthDay = new Intl.DateTimeFormat(locale, { month: 'long', timeZone: 'UTC' }).format(startDate)
-		return `${monthDay} ${startDate.getUTCDate()}-${endDate.getUTCDate()} 号`
-	}
 	const startFmt = new Intl.DateTimeFormat(locale, { month: 'long', day: 'numeric', timeZone: 'UTC' }).format(startDate)
 	const endFmt = new Intl.DateTimeFormat(locale, { month: 'long', day: 'numeric', timeZone: 'UTC' }).format(endDate)
-	return `${startFmt} - ${endFmt}`
+	return `${startFmt}  –  ${endFmt}`
 }
 
 export function addWallpaperLocale(actionUrl: string, locale: string): string {

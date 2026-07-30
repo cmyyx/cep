@@ -2,7 +2,7 @@
 
 import { cleanup, render, screen, waitFor } from '@testing-library/react'
 import { afterEach, beforeEach, expect, it, vi } from 'vitest'
-import { WeeklyWallpaperSection } from '@/components/background-preview/daily-wallpaper-section'
+import { WeeklyWallpaperSection } from '@/components/background-preview/weekly-wallpaper-section'
 
 vi.mock('next-intl', () => ({
   useLocale: () => 'en',

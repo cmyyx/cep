@@ -98,9 +98,9 @@ export function JustifiedWallpaperGallery({
   if (items.length === 0) return null
 
   return (
-    <div ref={containerRef} className="flex flex-col overflow-y-auto overflow-x-hidden bg-muted" style={{ gap: `${GAP}px`, maxHeight: 'min(40svh, 15rem)' }}>
+    <div ref={containerRef} className="flex flex-col overflow-y-auto overflow-x-hidden bg-muted gap-1 max-h-[min(42svh,16rem)] sm:max-h-[min(48svh,28rem)]">
       {rows.map((row, rowIndex) => (
-        <div key={rowIndex} className="flex" style={{ gap: `${GAP}px`, height: `${row.height}px` }}>
+        <div key={rowIndex} className="flex gap-1" style={{ height: `${row.height}px` }}>
           {row.items.map(({ item, width }) => {
             const failed = !item.imageUrl || failedImages.has(item.id)
             return (
