@@ -3,8 +3,8 @@ import type { Metadata } from 'next'
 import { getAlternates } from '@/lib/metadata'
 import { loadPlannerCatalogs, loadRouteShellMessages } from '@/i18n/load-messages'
 import { RouteMessages } from '@/components/shared/route-messages'
+import { PLANNER_GRID_TOOLTIP_OPEN_DELAY_MS, TooltipProvider } from '@/components/ui/tooltip'
 import type { WikiLocale } from '@/types/wiki'
-
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params
   const t = await getTranslations({ locale })
@@ -31,5 +31,11 @@ export default async function PanelPreviewLayout({
     ...loadRouteShellMessages(locale as WikiLocale, 'panel-preview'),
     ...loadPlannerCatalogs(locale as WikiLocale, 'panel-preview'),
   }
-  return <RouteMessages messages={messages}>{children}</RouteMessages>
+  return (
+    <RouteMessages messages={messages}>
+      <TooltipProvider delay={PLANNER_GRID_TOOLTIP_OPEN_DELAY_MS}>
+        {children}
+      </TooltipProvider>
+    </RouteMessages>
+  )
 }

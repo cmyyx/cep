@@ -38,6 +38,7 @@ import {
   ChartNoAxesCombined,
   PanelsTopLeft,
   Languages,
+  ExternalLink,
 } from 'lucide-react'
 import { useAuthStore } from '@/stores/useAuthStore'
 import { FEATURES } from '@/lib/features'
@@ -57,6 +58,7 @@ const NAV_ITEMS = [
 ]
 const TOOL_ITEMS = [
   { href: '/tools/game-i18n', label: 'nav.gameI18nLookup', Icon: Languages },
+  { href: 'https://status.canmoe.com/', label: 'nav.siteStatus', Icon: ExternalLink, external: true },
 ]
 const WIKI_ITEMS = [
   { href: '/wiki/characters', label: 'wiki.categories.characters', Icon: UsersRound },
@@ -296,15 +298,18 @@ export function AppSidebar() {
         <SidebarGroup>
           <SidebarGroupLabel className="group-data-[collapsible=icon]:pointer-events-none">{t('nav.groupTools')}</SidebarGroupLabel>
           <SidebarMenu>
-            {TOOL_ITEMS.map(({ href, label, Icon }) => {
-              const fullHref = `/${locale}${href}`
+            {TOOL_ITEMS.map(({ href, label, Icon, external }) => {
+              const fullHref = external ? href : `/${locale}${href}`
               const labelText = t(label)
               return (
                 <SidebarMenuItem key={href}>
                   <SidebarMenuButton
-                    isActive={pathname.startsWith(fullHref)}
+                    isActive={!external && pathname.startsWith(fullHref)}
                     tooltip={labelText}
-                    render={<NavLink href={fullHref} loadingLabel={labelText} />}
+                    render={external
+                      ? <a href={href} target="_blank" rel="noopener noreferrer" />
+                      : <NavLink href={fullHref} loadingLabel={labelText} />
+                    }
                     onClick={() => {
                       if (isMobile) setOpenMobile(false)
                     }}

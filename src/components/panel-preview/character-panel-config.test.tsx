@@ -19,6 +19,8 @@ vi.mock('@/hooks/use-wiki-translations', () => ({
   useWikiTranslations: () => ({
     entityName: (entity: { id: string }) => entity.id,
     text: (...segments: Array<string | number>) => String(segments.at(-1)),
+    equipmentStatLabel: (id: string) => id,
+    enumLabel: (_group: string, id: string) => id,
   }),
 }))
 

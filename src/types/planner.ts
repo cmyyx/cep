@@ -224,8 +224,7 @@ export interface PanelStatModifier {
   value: number
   isPercent: boolean
 }
-
-export type PanelAttributeContributionTarget = 'hp' | 'attack' | 'physicalDamageReduction' | 'fireDamageReduction' | 'healingReceived' | 'defenseDamageReduction'
+export type PanelAttributeContributionTarget = 'hp' | 'attack' | 'physicalDamageReduction' | 'fireDamageReduction' | 'pulseDamageReduction' | 'crystDamageReduction' | 'naturalDamageReduction' | 'healingReceived' | 'defenseDamageReduction'
 
 export interface PanelAttributeContribution {
   source: 'strength' | 'agility' | 'intellect' | 'will' | 'defense'
