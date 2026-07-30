@@ -22,7 +22,7 @@ const SKILL_TYPE_KEYS: Record<string, string> = {
 
 export function CharacterPanelConfig() {
   const t = useTranslations('panelPreview')
-  const { entityName, text } = useWikiTranslations()
+  const { entityName, text, equipmentStatLabel, enumLabel } = useWikiTranslations()
   const [pickerOpen, setPickerOpen] = useState(false)
   const config = usePanelPreviewStore((state) => state.config)
   const setCharacter = usePanelPreviewStore((state) => state.setCharacter)
@@ -59,8 +59,44 @@ export function CharacterPanelConfig() {
           return <div key={skill.id} className="grid grid-cols-[minmax(0,1fr)_6rem] items-center gap-3"><div className="min-w-0"><p className="truncate text-sm">{skillName}</p><p className="text-[11px] text-muted-foreground">{typeName}</p></div><NumberField value={config.skillLevels[index] ?? skill.maxLevel} minimum={1} maximum={skill.maxLevel} ariaLabel={`${typeName} ${skillName}`} onValueChange={(value) => { const skillLevels = [...config.skillLevels]; skillLevels[index] = value; updateConfig({ skillLevels }) }} /></div>
         })}
         <div className="grid grid-cols-[minmax(0,1fr)_6rem] items-center gap-3"><Label>{text('ui', 'talent')}</Label><NumberField value={config.talentCount} minimum={0} maximum={data.talents.length} ariaLabel={text('ui', 'talent')} onValueChange={(value) => updateConfig({ talentCount: value })} /></div>
-        <div className="grid grid-cols-[minmax(0,1fr)_6rem] items-center gap-3"><Label>{text('ui', 'potentialLevel')}</Label><NumberField value={config.potentialLevel} minimum={0} maximum={data.potentials.at(-1)?.level ?? 0} ariaLabel={text('ui', 'potentialLevel')} onValueChange={(value) => updateConfig({ potentialLevel: value })} /></div>
-        <div className="grid grid-cols-[minmax(0,1fr)_6rem] items-center gap-3"><Label>{text('ui', 'attributeIncrease')}</Label><NumberField value={config.attributeNodeCount} minimum={0} maximum={data.attributeNodes.length} ariaLabel={text('ui', 'attributeIncrease')} onValueChange={(value) => updateConfig({ attributeNodeCount: value })} /></div>
+        <div className="space-y-1.5">
+          <div className="grid grid-cols-[minmax(0,1fr)_6rem] items-center gap-3"><Label>{text('ui', 'potentialLevel')}</Label><NumberField value={config.potentialLevel} minimum={0} maximum={data.potentials.at(-1)?.level ?? 0} ariaLabel={text('ui', 'potentialLevel')} onValueChange={(value) => updateConfig({ potentialLevel: value })} /></div>
+          {config.potentialLevel > 0 && (() => {
+            const active = data.potentials.filter((p) => p.level <= config.potentialLevel)
+            if (active.length === 0) return null
+            return (
+              <p className="text-[10px] leading-relaxed text-muted-foreground/80">
+                {active.map((p) => {
+                  const statTexts = p.stats.map((s) => {
+                    const label = equipmentStatLabel(s.attributeId) || enumLabel('attributes', s.attributeId)
+                    const val = s.isPercent ? `${(s.value * 100).toFixed(1)}%` : String(s.value)
+                    return `${label}+${val}`
+                  })
+                  return <span key={p.id} className="mr-2 inline-block">{text('ui', 'potentialLevel')} {p.level}: {statTexts.join('，')}</span>
+                })}
+              </p>
+            )
+          })()}
+        </div>
+        <div className="space-y-1.5">
+          <div className="grid grid-cols-[minmax(0,1fr)_6rem] items-center gap-3"><Label>{text('ui', 'attributeIncrease')}</Label><NumberField value={config.attributeNodeCount} minimum={0} maximum={data.attributeNodes.length} ariaLabel={text('ui', 'attributeIncrease')} onValueChange={(value) => updateConfig({ attributeNodeCount: value })} /></div>
+          {config.attributeNodeCount > 0 && (() => {
+            const active = data.attributeNodes.slice(0, config.attributeNodeCount)
+            // Aggregate stats by attributeId
+            const totals = new Map<string, number>()
+            for (const node of active) {
+              for (const stat of node.stats) {
+                totals.set(stat.attributeId, (totals.get(stat.attributeId) ?? 0) + stat.value)
+              }
+            }
+            if (totals.size === 0) return null
+            const parts = [...totals.entries()].map(([attrId, val]) => {
+              const label = equipmentStatLabel(attrId) || enumLabel('attributes', attrId)
+              return `${label}+${val}`
+            })
+            return <p className="text-[10px] leading-relaxed text-muted-foreground/80">{parts.join('，')}</p>
+          })()}
+        </div>
       </div>}
     </section>
   )

@@ -355,13 +355,86 @@ function applyEquipmentSetValues(
   }
 }
 
+const SK_WPN_PERMANENT_PATTERNS: Array<{ pattern: RegExp; handler: 'core' | 'mainAttr' | 'subAttr' | 'modifier'; attributeId?: string }> = [
+  { pattern: /^攻击力/, handler: 'core', attributeId: CORE_ATTRIBUTE_IDS.attack },
+  { pattern: /^主能力/, handler: 'mainAttr' },
+  { pattern: /^副能力/, handler: 'subAttr' },
+  { pattern: /^最大生命值/, handler: 'core', attributeId: CORE_ATTRIBUTE_IDS.hp },
+  { pattern: /^防御力/, handler: 'core', attributeId: CORE_ATTRIBUTE_IDS.defense },
+  { pattern: /^物理伤害/, handler: 'modifier', attributeId: '50' },
+  { pattern: /^法术伤害/, handler: 'modifier', attributeId: 'SpellDamageIncrease' },
+  { pattern: /^灼热伤害/, handler: 'modifier', attributeId: 'FireDamageIncrease' },
+  { pattern: /^电磁伤害/, handler: 'modifier', attributeId: 'PulseDamageIncrease' },
+  { pattern: /^寒冷伤害/, handler: 'modifier', attributeId: 'CrystDamageIncrease' },
+  { pattern: /^自然伤害/, handler: 'modifier', attributeId: 'NaturalDamageIncrease' },
+  { pattern: /^源石技艺强度/, handler: 'modifier', attributeId: '87' },
+  { pattern: /^暴击率/, handler: 'modifier', attributeId: '9' },
+  { pattern: /^治疗效率/, handler: 'modifier', attributeId: '29' },
+  { pattern: /^所有技能伤害/, handler: 'modifier', attributeId: 'AllSkillDamageIncrease' },
+  { pattern: /^战技伤害/, handler: 'modifier', attributeId: 'NormalSkillDamageIncrease' },
+  { pattern: /^终结技伤害/, handler: 'modifier', attributeId: 'UltimateSkillDamageIncrease' },
+  { pattern: /^连携技伤害/, handler: 'modifier', attributeId: 'ComboSkillDamageIncrease' },
+]
+
+/** Extract the first sentence (before \n or first 。) from a weapon skill description. */
+function firstSentence(description: string): string {
+  const newlineIdx = description.indexOf('\n')
+  const periodIdx = description.indexOf('。')
+  const end = Math.min(
+    newlineIdx >= 0 ? newlineIdx : Infinity,
+    periodIdx >= 0 ? periodIdx + 1 : Infinity,
+  )
+  return end < Infinity ? description.slice(0, end) : description
+}
+
+/**
+ * Parse and apply a sk_wpn_* (third weapon skill) permanent bonus.
+ * Only the first sentence is considered; if it matches a known stat
+ * pattern it is treated as unconditional, otherwise the skill is skipped.
+ */
+function applySkWpnSkill(
+  stats: PanelStats,
+  percentages: Partial<Record<CorePanelStatKey, number>>,
+  modifiers: Map<string, PanelStatModifier>,
+  character: PlannerCharacter,
+  description: string,
+): void {
+  const sentence = firstSentence(description)
+  if (!sentence) return
+  const isPercent = sentence.includes('%')
+  const value = Math.abs(parseFirstNumber(sentence))
+  if (value === 0) return
+
+  for (const { pattern, handler, attributeId } of SK_WPN_PERMANENT_PATTERNS) {
+    if (!pattern.test(sentence)) continue
+    switch (handler) {
+      case 'core':
+        if (attributeId) applyCoreValue(stats, percentages, attributeId, value, isPercent)
+        return
+      case 'mainAttr':
+        applyCoreValue(stats, percentages, character.mainAttributeId, value, isPercent)
+        addModifier(modifiers, 'Main', value, isPercent)
+        return
+      case 'subAttr':
+        applyCoreValue(stats, percentages, character.subAttributeId, value, isPercent)
+        addModifier(modifiers, 'Sub', value, isPercent)
+        return
+      case 'modifier':
+        if (attributeId) addModifier(modifiers, attributeId, value, isPercent)
+        return
+    }
+  }
+  // Sentence didn't match any known permanent pattern → likely conditional (e.g.
+  // "装备者的战技命中敌人时…").  Skip silently.
+}
+
 function applyWeaponSkill(
   stats: PanelStats,
   percentages: Partial<Record<CorePanelStatKey, number>>,
   modifiers: Map<string, PanelStatModifier>,
   character: PlannerCharacter,
   skillId: string,
-  description: string
+  description: string,
 ): void {
   const value = Math.abs(parseFirstNumber(description))
   if (skillId.startsWith('wpn_attr_str_')) stats.strength += value
@@ -374,7 +447,7 @@ function applyWeaponSkill(
   }
   else if (skillId.startsWith('wpn_sp_attr_atk_')) applyCoreValue(stats, percentages, CORE_ATTRIBUTE_IDS.attack, value, true)
   else if (skillId.startsWith('wpn_sp_attr_hp_')) applyCoreValue(stats, percentages, CORE_ATTRIBUTE_IDS.hp, value, true)
-  else if (skillId.startsWith('sk_wpn_') && !description.includes('%')) stats.attack += value
+  else if (skillId.startsWith('sk_wpn_')) applySkWpnSkill(stats, percentages, modifiers, character, description)
   else {
     const modifierId = WEAPON_MODIFIER_IDS.find(([prefix]) => skillId.startsWith(prefix))?.[1]
     if (modifierId) addModifier(modifiers, modifierId, value, description.includes('%'))
@@ -402,11 +475,19 @@ function addDerivedAttributes(gameData: PlannerGameData, stats: PanelStats, cont
   if (subAttackIncrease > 0) contributions.push({ source: attributeSource(character.subAttributeId), target: 'attack', value: subAttackIncrease * 100, isPercent: true })
 
   const physicalResistance = stats.agility * derived.efficiencyOfAGI * 100
-  const fireResistance = stats.intellect * derived.efficiencyOfWISD * 100
-  const healingIncrease = stats.will * derived.recoverEfficiencyOfWILL * 100
   if (physicalResistance > 0) contributions.push({ source: 'agility', target: 'physicalDamageReduction', value: physicalResistance, isPercent: true })
-  if (fireResistance > 0) contributions.push({ source: 'intellect', target: 'fireDamageReduction', value: fireResistance, isPercent: true })
+
+  // Intellect (WISD) provides spell resistance, which reduces elemental spell damage.
+  const spellResistance = stats.intellect * derived.efficiencyOfWISD * 100
+  if (spellResistance > 0) {
+    for (const target of ['fireDamageReduction', 'pulseDamageReduction', 'crystDamageReduction', 'naturalDamageReduction'] as const) {
+      contributions.push({ source: 'intellect', target, value: spellResistance, isPercent: true })
+    }
+  }
+
+  const healingIncrease = stats.will * derived.recoverEfficiencyOfWILL * 100
   if (healingIncrease > 0) contributions.push({ source: 'will', target: 'healingReceived', value: healingIncrease, isPercent: true })
+
   const damageReduction = 1 - 1 / (1 + derived.efficiencyOfDEF * stats.defense)
   if (damageReduction > 0) contributions.push({ source: 'defense', target: 'defenseDamageReduction', value: damageReduction * 100, isPercent: true })
 }
@@ -461,7 +542,7 @@ export function calculatePanelStats(config: PanelPreviewConfig): PanelStats {
     const weapon = gameData.weapons[config.weaponId]
     const weaponLevel = weapon?.levels.find((entry) => entry.level === config.weaponLevel) ?? weapon?.levels.at(-1)
     stats.attack += weaponLevel?.baseAttack ?? 0
-    weapon?.skills.slice(0, 2).forEach((skill, index) => {
+    weapon?.skills.forEach((skill, index) => {
       const selectedLevel = clamp(config.weaponSkillLevels[index] ?? 1, 1, skill.levels.at(-1)?.level ?? 1)
       const description = skill.levels.find((entry) => entry.level === selectedLevel)?.description ?? ''
       applyWeaponSkill(stats, percentages, modifiers, character, skill.id, description)

@@ -27,8 +27,11 @@ type CoreStatKey = keyof typeof CORE_STAT_ATTR_ID
 const CONTRIBUTION_TARGET_LABEL_ID: Record<string, string> = {
   hp: '1',
   attack: '2',
-  physicalDamageReduction: '4',
-  fireDamageReduction: '5',
+  physicalDamageReduction: '80',
+  fireDamageReduction: '84',
+  pulseDamageReduction: '83',
+  crystDamageReduction: '82',
+  naturalDamageReduction: '81',
   healingReceived: '30',
   /** Defense-derived damage reduction; closest game composite label. */
   defenseDamageReduction: 'AllDamageTakenScalar',
