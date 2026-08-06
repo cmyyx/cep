@@ -717,6 +717,7 @@
     "getWallpaper": "壁紙を取得",
     "linkUnavailable": "取得リンクは未設定です",
     "linkUnavailableShort": "リンクなし",
+    "mobileOnlyHint": "壁紙の取得はスマートフォンまたはタブレットで行ってください。",
     "promotionDisclosure": "ストレージリンクから有効な保存が行われると、CEP の作者とメンテナーにごく少額のプラットフォーム収益が発生する場合があります。",
     "viewHistory": "過去の壁紙",
     "historyTitle": "過去の壁紙",

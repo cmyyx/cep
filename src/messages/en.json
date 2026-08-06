@@ -717,6 +717,7 @@
     "getWallpaper": "Get Wallpaper",
     "linkUnavailable": "The download link is not configured",
     "linkUnavailableShort": "No link",
+    "mobileOnlyHint": "Get wallpapers on your phone or tablet.",
     "promotionDisclosure": "After an eligible save through the cloud-storage link, CEP's author and maintainers may receive a very small amount of platform revenue.",
     "viewHistory": "Previous",
     "historyTitle": "Previous Wallpapers",

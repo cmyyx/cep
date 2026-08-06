@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 import { useLocale, useTranslations } from 'next-intl'
 import { AlertCircle, ExternalLink, History, ImageOff, Info, RefreshCw } from 'lucide-react'
+import { useIsMobileOrTablet } from '@/hooks/use-mobile-or-tablet'
 import { JustifiedWallpaperGallery } from '@/components/background-preview/justified-wallpaper-gallery'
 import { WallpaperMediaFrame } from '@/components/background-preview/wallpaper-media-frame'
 import { Badge } from '@/components/ui/badge'
@@ -34,6 +35,7 @@ export function WeeklyWallpaperSection({ apiUrl }: WeeklyWallpaperSectionProps) 
   const t = useTranslations('backgroundPreview')
   const rootT = useTranslations()
   const locale = useLocale()
+  const isMobileOrTablet = useIsMobileOrTablet()
   const [state, setState] = useState<LoadState>({ status: 'loading' })
   const [retryKey, setRetryKey] = useState(0)
   const [failedImages, setFailedImages] = useState<Set<string>>(() => new Set())
@@ -160,14 +162,18 @@ export function WeeklyWallpaperSection({ apiUrl }: WeeklyWallpaperSectionProps) 
           </div>
 
           {actionUrl ? (
-            <Button
-              nativeButton={false}
-              className="w-full"
-              render={<a href={addWallpaperLocale(actionUrl, locale)} target="_blank" rel="noopener noreferrer" />}
-            >
-              <ExternalLink data-icon="inline-start" />
-              {t('getWeeklyWallpaper')}
-            </Button>
+            isMobileOrTablet ? (
+              <Button
+                nativeButton={false}
+                className="w-full"
+                render={<a href={addWallpaperLocale(actionUrl, locale)} target="_blank" rel="noopener noreferrer" />}
+              >
+                <ExternalLink data-icon="inline-start" />
+                {t('getWeeklyWallpaper')}
+              </Button>
+            ) : (
+              <Button className="w-full h-auto min-h-8 whitespace-normal py-1.5 leading-tight" disabled>{t('mobileOnlyHint')}</Button>
+            )
           ) : (
             <Button className="w-full" disabled>{t('linkUnavailable')}</Button>
           )}

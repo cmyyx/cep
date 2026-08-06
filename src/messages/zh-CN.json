@@ -520,6 +520,7 @@
     "getWallpaper": "获取壁纸",
     "linkUnavailable": "获取链接尚未配置",
     "linkUnavailableShort": "暂无链接",
+    "mobileOnlyHint": "请在手机或平板上获取壁纸",
     "promotionDisclosure": "通过网盘链接完成有效转存后，CEP 项目的作者与维护者可能获得极少量的平台推广收益。",
     "viewHistory": "查看往期",
     "historyTitle": "往期壁纸",

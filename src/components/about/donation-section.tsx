@@ -9,7 +9,7 @@ import { donors } from '@/lib/donors'
 
 export function DonationSection() {
   const t = useTranslations()
-  const [listExpanded, setListExpanded] = useState(false)
+  const [listExpanded, setListExpanded] = useState(true)
 
   const sortedDonors = useMemo(
     () => [...donors].sort((a, b) => b.amount - a.amount),
@@ -130,9 +130,16 @@ export function DonationSection() {
                           </p>
                         )}
                       </div>
-                      <span className="text-sm font-mono font-medium shrink-0 ml-3">
-                        ¥{donor.amount.toFixed(2)}
-                      </span>
+                      <div className="shrink-0 ml-3 text-right">
+                        <span className="block text-sm font-mono font-medium">
+                          ¥{donor.amount.toFixed(2)}
+                        </span>
+                        {donor.date && (
+                          <span className="block text-[10px] text-muted-foreground/60 mt-0.5">
+                            {donor.date}
+                          </span>
+                        )}
+                      </div>
                     </div>
                   ))}
                 </div>
