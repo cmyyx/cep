@@ -37,9 +37,9 @@ export function useBirthday(): UseBirthdayResult {
     return () => clearInterval(timer)
   }, [enabled, mounted])
 
-  const characterIds = useMemo(() => getBirthdayCharacterIds(now, characterBirthdays), [now])
+  const computedIds = useMemo(() => getBirthdayCharacterIds(now, characterBirthdays), [now])
   const year = now.getFullYear()
-  const dismissKey = characterIds.length > 0 ? getBirthdayDismissKey(now) : null
+  const dismissKey = computedIds.length > 0 ? getBirthdayDismissKey(now) : null
   const isDismissed = dismissKey ? dismissedHolidays[dismissKey] === year : true
 
   const dismiss = useCallback(() => {
@@ -47,7 +47,10 @@ export function useBirthday(): UseBirthdayResult {
   }, [dismissKey, year, dismissHoliday])
 
   return {
-    characterIds: enabled && !isDismissed ? characterIds : [],
+    // Empty until mounted: server-rendered markup must not depend on the
+    // (build-time) date, or the banner would be baked into static HTML and
+    // mismatch hydration once the client date differs.
+    characterIds: mounted && enabled && !isDismissed ? computedIds : [],
     dismiss,
     now,
   }

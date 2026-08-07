@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, type ReactNode } from 'react'
+import { useEffect, useRef, useState, type ReactNode } from 'react'
 import { useLocale, useTranslations } from 'next-intl'
 import { Cake, X } from 'lucide-react'
 import { cn } from '@/lib/utils'
@@ -20,12 +20,21 @@ export function BirthdayBanner() {
   const t = useTranslations()
   const locale = useLocale()
   const [exiting, setExiting] = useState(false)
+  const exitTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+
+  useEffect(() => {
+    // Clear a pending exit timeout if the banner unmounts mid-animation
+    // (e.g. navigation) so the store is not touched afterwards.
+    return () => {
+      if (exitTimerRef.current) clearTimeout(exitTimerRef.current)
+    }
+  }, [])
 
   if (characterIds.length === 0) return null
 
   const handleDismiss = () => {
     setExiting(true)
-    setTimeout(dismiss, 200)
+    exitTimerRef.current = setTimeout(dismiss, 200)
   }
 
   const separator = getBirthdayNameSeparator(locale)
@@ -78,3 +87,5 @@ export function BirthdayBanner() {
     </div>
   )
 }
+
+export default BirthdayBanner

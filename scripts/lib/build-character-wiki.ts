@@ -42,7 +42,10 @@ export function parseBirthdayFromProfile(profileText: string): { month: number; 
   if (!match) return undefined
   const month = Number(match[1])
   const day = Number(match[2])
-  if (month < 1 || month > 12 || day < 1 || day > 31) return undefined
+  // Round-trip through a fixed leap year rejects impossible dates (2月30日,
+  // 4月31日) while keeping 2月29日 valid.
+  const probe = new Date(2000, month - 1, day)
+  if (probe.getMonth() !== month - 1 || probe.getDate() !== day) return undefined
   return { month, day }
 }
 

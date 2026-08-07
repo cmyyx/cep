@@ -600,6 +600,15 @@ describe('parseBirthdayFromProfile', () => {
     expect(parseBirthdayFromProfile('【生日】13月1日')).toBeUndefined()
     expect(parseBirthdayFromProfile('【生日】2月32日')).toBeUndefined()
   })
+
+  it('rejects impossible calendar dates like 2月30日 and 4月31日', () => {
+    expect(parseBirthdayFromProfile('【生日】2月30日')).toBeUndefined()
+    expect(parseBirthdayFromProfile('【生日】4月31日')).toBeUndefined()
+  })
+
+  it('keeps the leap-day birthday 2月29日', () => {
+    expect(parseBirthdayFromProfile('【生日】2月29日')).toEqual({ month: 2, day: 29 })
+  })
 })
 
 describe('character birthday extraction', () => {
