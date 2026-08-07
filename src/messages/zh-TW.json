@@ -1052,6 +1052,7 @@
   },
   "birthday": {
     "prefix": "今天是",
+    "nameSeparator": "、",
     "suffix": "的生日哦～"
   }
 }

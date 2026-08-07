@@ -1052,6 +1052,7 @@
   },
   "birthday": {
     "prefix": "Today is ",
+    "nameSeparator": ", ",
     "suffix": "'s birthday~"
   }
 }

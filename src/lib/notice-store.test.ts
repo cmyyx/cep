@@ -91,7 +91,7 @@ describe('notice store', () => {
     }
 
     ingestNoticePayload({ notice: 'boom' })
-    expect(getNoticeSnapshot()).toBeNull()
+    expect(getNoticeSnapshot()?.id).toBe(42)
   })
 
   it('allows notice:null to retire the current notice', () => {

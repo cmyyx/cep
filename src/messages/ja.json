@@ -1052,6 +1052,7 @@
   },
   "birthday": {
     "prefix": "今日は",
+    "nameSeparator": "、",
     "suffix": "の誕生日だよ～"
   }
 }

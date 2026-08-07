@@ -7,7 +7,6 @@ import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import { NavLink } from '@/components/shared/nav-link'
 import { useBirthday } from '@/hooks/use-birthday'
-import { getBirthdayNameSeparator } from '@/lib/operator-birthdays'
 
 /**
  * Operator birthday banner — rides the same store and visual language as the
@@ -26,18 +25,25 @@ export function BirthdayBanner() {
     // Clear a pending exit timeout if the banner unmounts mid-animation
     // (e.g. navigation) so the store is not touched afterwards.
     return () => {
-      if (exitTimerRef.current) clearTimeout(exitTimerRef.current)
+      if (exitTimerRef.current !== null) {
+        clearTimeout(exitTimerRef.current)
+        exitTimerRef.current = null
+      }
     }
   }, [])
 
   if (characterIds.length === 0) return null
 
   const handleDismiss = () => {
+    if (exitTimerRef.current !== null) return
     setExiting(true)
-    exitTimerRef.current = setTimeout(dismiss, 200)
+    exitTimerRef.current = setTimeout(() => {
+      exitTimerRef.current = null
+      dismiss()
+    }, 200)
   }
 
-  const separator = getBirthdayNameSeparator(locale)
+  const separator = t('birthday.nameSeparator')
   const nameNodes: ReactNode[] = []
   characterIds.forEach((id, index) => {
     if (index > 0) {

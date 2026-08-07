@@ -17,6 +17,7 @@ vi.mock('@/hooks/use-birthday', () => ({
 
 const mockT = (key: string) => {
   if (key === 'birthday.prefix') return '今天是'
+  if (key === 'birthday.nameSeparator') return mockLocale === 'en' ? ', ' : '、'
   if (key === 'birthday.suffix') return '的生日哦～'
   if (key === 'common.close') return '关闭'
   if (key === 'characters.chr_0009_azrila') return '余烬'
@@ -83,12 +84,30 @@ describe('BirthdayBanner', () => {
     expect(container.textContent).toContain(', ')
   })
 
-  it('dismisses with the shared per-year mechanism after the exit animation', () => {
+  it('dismisses once per exit animation and ignores repeated clicks', () => {
     mockCharacterIds = ['chr_0009_azrila']
     render(<BirthdayBanner />)
-    fireEvent.click(screen.getByRole('button'))
+    const closeButton = screen.getByRole('button')
+
+    fireEvent.click(closeButton)
+    fireEvent.click(closeButton)
     expect(mockDismiss).not.toHaveBeenCalled()
     act(() => vi.advanceTimersByTime(200))
     expect(mockDismiss).toHaveBeenCalledTimes(1)
+
+    // The timer ref is cleared after completion, so a later dismissal can schedule again.
+    fireEvent.click(closeButton)
+    act(() => vi.advanceTimersByTime(200))
+    expect(mockDismiss).toHaveBeenCalledTimes(2)
+  })
+
+  it('cancels a pending dismissal when unmounted during the exit delay', () => {
+    mockCharacterIds = ['chr_0009_azrila']
+    const { unmount } = render(<BirthdayBanner />)
+    fireEvent.click(screen.getByRole('button'))
+    unmount()
+
+    act(() => vi.advanceTimersByTime(200))
+    expect(mockDismiss).not.toHaveBeenCalled()
   })
 })

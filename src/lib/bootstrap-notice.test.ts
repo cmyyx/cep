@@ -43,14 +43,14 @@ describe('parseBootstrapPayload', () => {
     expect(parseBootstrapPayload(null)).toBeNull()
   })
 
-  it('drops malformed notices but still yields a payload', () => {
+  it('accepts explicit null but rejects malformed notices', () => {
     expect(parseBootstrapPayload({ notice: null }))
       .toEqual({ notice: null, serverTime: undefined })
-    expect(parseBootstrapPayload({ notice: {} })?.notice).toBeNull()
-    expect(parseBootstrapPayload({ notice: { id: '12', title: { en: 'x' } } })?.notice).toBeNull()
-    expect(parseBootstrapPayload({ notice: { id: 1, title: 'x' } })?.notice).toBeNull()
-    expect(parseBootstrapPayload({ notice: { id: 1, title: { fr: 'x' } } })?.notice).toBeNull()
-    expect(parseBootstrapPayload({ notice: { id: Number.NaN, title: { en: 'x' } } })?.notice).toBeNull()
+    expect(parseBootstrapPayload({ notice: {} })).toBeNull()
+    expect(parseBootstrapPayload({ notice: { id: '12', title: { en: 'x' } } })).toBeNull()
+    expect(parseBootstrapPayload({ notice: { id: 1, title: 'x' } })).toBeNull()
+    expect(parseBootstrapPayload({ notice: { id: 1, title: { fr: 'x' } } })).toBeNull()
+    expect(parseBootstrapPayload({ notice: { id: Number.NaN, title: { en: 'x' } } })).toBeNull()
   })
 
   it('ignores non-string serverTime', () => {

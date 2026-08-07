@@ -112,11 +112,19 @@ export function parseBootstrapNotice(value: unknown): BootstrapNotice | null {
   }
 }
 
-/** 校验公告接口载荷; 非对象返回 null, 公告畸形则 notice 为 null。 */
+/** 校验公告接口载荷; 非对象或畸形公告返回 null, 只有明确的 notice:null 表示撤下公告。 */
 export function parseBootstrapPayload(value: unknown): BootstrapPayload | null {
   if (!isRecord(value)) return null
+  let notice: BootstrapNotice | null
+  if (value.notice === null) {
+    notice = null
+  } else {
+    const parsedNotice = parseBootstrapNotice(value.notice)
+    if (!parsedNotice) return null
+    notice = parsedNotice
+  }
   return {
-    notice: parseBootstrapNotice(value.notice),
+    notice,
     serverTime: typeof value.serverTime === 'string' ? value.serverTime : undefined,
   }
 }
