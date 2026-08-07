@@ -36,6 +36,9 @@ export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }))
 }
 
+/** Only the four generated locale segments are valid route prefixes. */
+export const dynamicParams = false
+
 export async function generateMetadata({
   params,
 }: {

@@ -5,6 +5,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { HeadScript } from "@/components/shared/head-script";
 import { LocaleGuardHead } from '@/components/shared/locale-guard-head';
 import { versionData } from '@/generated/version-data';
+import { buildNotFoundLocaleScript } from '@/lib/not-found-copy';
 import { OPS_SERVICE_ORIGIN } from '@/lib/constants';
 import "./globals.css";
 
@@ -58,6 +59,15 @@ export default function RootLayout({
         <HeadScript
           id="no-js-remove"
           code="document.documentElement.classList.remove('no-js')"
+        />
+        {/* 404 locale: static hosts return one out/404.html for every unmatched
+            path, so the locale must be resolved at parse time — this script
+            sets <html data-notfound-lang> before the body exists, and CSS shows
+            only that locale's panel (see [data-notfound-lang] rules in globals.css).
+            Runs on every page; harmless where no [data-notfound-lang] nodes exist. */}
+        <HeadScript
+          id="not-found-locale"
+          code={buildNotFoundLocaleScript()}
         />
         {/* css-guard + domain-guard 仍内联在每页 <head> 执行, 但不经 React 树:
             postbuild 将 /guard-inline.js 内容插入导出 html (scripts/prune-export.mjs),

@@ -13,7 +13,7 @@ import { buildDomainGuardCode } from '@/components/shared/domain-guard'
 export const dynamic = 'force-static'
 
 export function GET() {
-  const code = `${CSS_GUARD_CODE}\n${buildDomainGuardCode()}`
+  const code = `${CSS_GUARD_CODE};\n${buildDomainGuardCode()}`
   return new Response(code, {
     headers: { 'content-type': 'text/javascript; charset=utf-8' },
   })

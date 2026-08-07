@@ -577,3 +577,18 @@
 .no-js [data-app-init] {
   display: none !important;
 }
+
+/* ── Root 404 locale panels. out/404.html carries all four languages; the
+   #not-found-locale head script sets <html data-notfound-lang> from the URL
+   before the body is parsed, and only the matching panel is displayed.
+   The no-JS case has no locale marker and falls back to zh-CN. ── */
+[data-notfound-panel] {
+  display: none;
+}
+html:not([data-notfound-lang]) [data-notfound-panel='zh-CN'],
+html[data-notfound-lang='zh-CN'] [data-notfound-panel='zh-CN'],
+html[data-notfound-lang='zh-TW'] [data-notfound-panel='zh-TW'],
+html[data-notfound-lang='ja'] [data-notfound-panel='ja'],
+html[data-notfound-lang='en'] [data-notfound-panel='en'] {
+  display: flex;
+}
