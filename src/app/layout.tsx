@@ -82,13 +82,8 @@ export default function RootLayout({
           async
           suppressHydrationWarning
         />
-        {/* ops bootstrap /api/v1/bootstrap.js: 下发紧急公告 (+ 特定域名的自定义守卫)。
-            必须写成 OPS_SERVICE_ORIGIN 绝对地址 —— 恶意镜像站照搬静态产物时,
-            这个请求依然打到我们自己的运营服务上。async 不阻塞解析;
-            脚本执行后设置 window.__cepBootstrap 并派发 cep:bootstrap 事件,
-            由 EmergencyNoticeBanner 消费 (两条路径都兼容脚本先到/后到)。
-            后续刷新不重复执行本脚本 (自定义守卫会重复触发副作用), 改由
-            src/lib/notice-store.ts 轮询纯数据端点 /api/v1/notice.json。 */}
+        {/* 运营引导脚本：用于初始化页面并提供必要的访问保护。
+            公告由独立的数据接口获取和更新，页面运行期间由前端统一管理。 */}
         <script
           id="cep-bootstrap"
           src={`${OPS_SERVICE_ORIGIN}/api/v1/bootstrap.js`}

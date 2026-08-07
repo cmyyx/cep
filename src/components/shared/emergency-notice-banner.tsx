@@ -39,8 +39,7 @@ const LEVEL_TITLE_CLASSES: Record<BootstrapNoticeLevel, string> = {
 export function EmergencyNoticeBanner() {
   const t = useTranslations()
   const locale = useLocale()
-  // 两个来源 (bootstrap.js 注入值/事件 + notice.json 轮询) 都收敛到 notice-store,
-  // "最后到达者生效"; 这里只消费解析好的公告。
+  // 公告状态由 notice-store 统一管理；页面初始化和运行期间均从这里消费。
   const notice = useSyncExternalStore(
     subscribeNotice,
     getNoticeSnapshot,

@@ -27,20 +27,9 @@ export interface BootstrapNotice {
   locales?: readonly string[]
 }
 
-/**
- * 运营服务下发的公告载荷。两个端点共用同一份结构:
- * - `GET {OPS_SERVICE_ORIGIN}/api/v1/bootstrap.js` 执行后写入 window (整页加载一次)
- * - `GET {OPS_SERVICE_ORIGIN}/api/v1/notice.json` 纯数据端点 (长驻标签页轮询)
- */
+/** 运营公告接口返回的载荷，供页面初始化和运行期间的公告同步使用。 */
 export interface BootstrapPayload {
   notice: BootstrapNotice | null
   /** RFC3339 服务器时间; 字段缺失或类型不对时为 undefined。 */
   serverTime?: string
-}
-
-declare global {
-  interface Window {
-    /** 由 ops bootstrap 脚本设置。未校验的原始载荷, 必须经 parseBootstrapPayload 消费。 */
-    __cepBootstrap?: unknown
-  }
 }
