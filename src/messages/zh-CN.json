@@ -870,6 +870,7 @@
     "weaponType": "武器类型",
     "element": "元素",
     "profession": "职业",
+    "birthday": "生日",
     "cv": "声优",
     "stats": "属性",
     "skills": "技能",
@@ -1048,5 +1049,10 @@
     "copied": "已复制",
     "missingTranslation": "（无）",
     "detailEmpty": "选择搜索结果查看其他语言文案"
+  },
+  "birthday": {
+    "prefix": "今天是",
+    "nameSeparator": "、",
+    "suffix": "的生日哦～"
   }
 }

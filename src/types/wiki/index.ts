@@ -33,6 +33,14 @@ export interface WikiCharacterSummary extends WikiEntitySummaryBase {
   weaponTypeId: string
   mainAttributeId: string
   subAttributeId: string
+  birthday?: { month: number; day: number }
+}
+
+/** Compact birthday table entry consumed by client banners. */
+export interface CharacterBirthday {
+  id: string
+  month: number
+  day: number
 }
 
 export interface WikiWeaponSummary extends WikiEntitySummaryBase {

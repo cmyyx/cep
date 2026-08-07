@@ -31,6 +31,33 @@ const DEPRECATED_CHARACTER_IDS: Record<string, true> = {
   chr_0003_endminf: true,
 }
 const ADMINISTRATOR_ID = 'chr_9000_endmin'
+
+/**
+ * Extract a structured birthday from a CN profile record text
+ * (e.g. `【生日】4月10日`). Returns undefined for placeholders such as
+ * `■■` or `和管理员的一样` — those carry no fixed date.
+ */
+export function parseBirthdayFromProfile(profileText: string): { month: number; day: number } | undefined {
+  const match = /【生日】(\d{1,2})月(\d{1,2})日/.exec(profileText)
+  if (!match) return undefined
+  const month = Number(match[1])
+  const day = Number(match[2])
+  // Round-trip through a fixed leap year rejects impossible dates (2月30日,
+  // 4月31日) while keeping 2月29日 valid.
+  const probe = new Date(2000, month - 1, day)
+  if (probe.getMonth() !== month - 1 || probe.getDate() !== day) return undefined
+  return { month, day }
+}
+
+/** Pick the base profile record (CN_01) and extract its birthday, if any. */
+function extractCharacterBirthday(character: CharacterTableEntry, textTables: CharacterWikiSource['textTables']): { month: number; day: number } | undefined {
+  const baseRecord = (character.profileRecord ?? []).find((record) => numberValue(record.recordIndex) === 1)
+  const recordDescId = baseRecord?.recordDesc?.id
+  if (recordDescId === undefined) return undefined
+  const profileText = textTables['zh-CN']?.[String(recordDescId)]
+  if (!profileText) return undefined
+  return parseBirthdayFromProfile(profileText)
+}
 /** Display order: normal → battle → combo → ultimate (game typeIds are 0,1,2,3 with ultimate/combo swapped). */
 const SKILL_DISPLAY_ORDER: Record<number, number> = {
   0: 0,
@@ -73,6 +100,12 @@ interface CharacterTableEntry {
   sortOrder?: Numeric
   name?: TextRef
   cvName?: CharacterCvName
+  profileRecord?: CharacterProfileRecord[]
+}
+
+interface CharacterProfileRecord {
+  recordIndex?: Numeric
+  recordDesc?: TextRef
 }
 
 
@@ -756,6 +789,7 @@ export function buildCharacterWikiData(source: CharacterWikiSource): CharacterWi
   for (const [id, character] of Object.entries(source.characterTable)) {
     if (!id.startsWith('chr_') || DEPRECATED_CHARACTER_IDS[id]) continue
     const item = source.itemTable[id]
+    const birthday = extractCharacterBirthday(character, source.textTables)
     const summary: WikiCharacterSummary = {
       id,
       category: 'characters',
@@ -768,6 +802,7 @@ export function buildCharacterWikiData(source: CharacterWikiSource): CharacterWi
       weaponTypeId: String(character.weaponType ?? ''),
       mainAttributeId: String(character.mainAttrType ?? ''),
       subAttributeId: String(character.subAttrType ?? ''),
+      ...(birthday ? { birthday } : {}),
     }
     summaries.push(summary)
 

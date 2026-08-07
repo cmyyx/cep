@@ -9,7 +9,8 @@ import { CharacterDetailContent, WikiDetailShell, getCharacterDetailSectionIds }
 import { WikiMaterialCatalogProvider } from '@/components/wiki/wiki-material-catalog'
 import { wikiCharacters } from '@/generated/data/wiki/characters'
 import { getLocalizedCharacterWikiDetail } from '@/lib/wiki-data'
-import type { WikiEnumGroup } from '@/types/wiki'
+import { formatBirthday } from '@/lib/wiki-birthday'
+import type { WikiEnumGroup, WikiLocale } from '@/types/wiki'
 import { getAlternates } from '@/lib/metadata'
 import { cn } from '@/lib/utils'
 
@@ -86,6 +87,9 @@ export default async function WikiCharacterDetailPage({ params }: { params: Prom
               { label: t('wiki.weaponType'), value: label('weaponTypes', character.weaponTypeId) },
               { label: t('wikiData.ui|mainAttribute'), value: label('attributes', character.mainAttributeId) },
               { label: t('wikiData.ui|subAttribute'), value: label('attributes', character.subAttributeId) },
+              ...(character.birthday
+                ? [{ label: t('wiki.birthday'), value: formatBirthday(character.birthday, locale as WikiLocale) }]
+                : []),
             ]}
           />
         </WikiDetailShell>

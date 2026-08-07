@@ -5,6 +5,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { HeadScript } from "@/components/shared/head-script";
 import { LocaleGuardHead } from '@/components/shared/locale-guard-head';
 import { versionData } from '@/generated/version-data';
+import { buildNotFoundLocaleScript } from '@/lib/not-found-copy';
 import { OPS_SERVICE_ORIGIN } from '@/lib/constants';
 import "./globals.css";
 
@@ -59,6 +60,15 @@ export default function RootLayout({
           id="no-js-remove"
           code="document.documentElement.classList.remove('no-js')"
         />
+        {/* 404 locale: static hosts return one out/404.html for every unmatched
+            path, so the locale must be resolved at parse time — this script
+            sets <html data-notfound-lang> before the body exists, and CSS shows
+            only that locale's panel (see [data-notfound-lang] rules in globals.css).
+            Runs on every page; harmless where no [data-notfound-lang] nodes exist. */}
+        <HeadScript
+          id="not-found-locale"
+          code={buildNotFoundLocaleScript()}
+        />
         {/* css-guard + domain-guard 仍内联在每页 <head> 执行, 但不经 React 树:
             postbuild 将 /guard-inline.js 内容插入导出 html (scripts/prune-export.mjs),
             避免代码字符串随 RSC flight 在每页载荷中重复序列化 3 份。
@@ -72,13 +82,8 @@ export default function RootLayout({
           async
           suppressHydrationWarning
         />
-        {/* ops bootstrap /api/v1/bootstrap.js: 下发紧急公告 (+ 特定域名的自定义守卫)。
-            必须写成 OPS_SERVICE_ORIGIN 绝对地址 —— 恶意镜像站照搬静态产物时,
-            这个请求依然打到我们自己的运营服务上。async 不阻塞解析;
-            脚本执行后设置 window.__cepBootstrap 并派发 cep:bootstrap 事件,
-            由 EmergencyNoticeBanner 消费 (两条路径都兼容脚本先到/后到)。
-            后续刷新不重复执行本脚本 (自定义守卫会重复触发副作用), 改由
-            src/lib/notice-store.ts 轮询纯数据端点 /api/v1/notice.json。 */}
+        {/* 运营引导脚本：用于初始化页面并提供必要的访问保护。
+            公告由独立的数据接口获取和更新，页面运行期间由前端统一管理。 */}
         <script
           id="cep-bootstrap"
           src={`${OPS_SERVICE_ORIGIN}/api/v1/bootstrap.js`}
