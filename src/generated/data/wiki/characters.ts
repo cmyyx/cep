@@ -37,7 +37,11 @@ export const wikiCharacters = [
     "factionId": "ENDFIELD INDUSTRIES",
     "weaponTypeId": "2",
     "mainAttributeId": "41",
-    "subAttributeId": "42"
+    "subAttributeId": "42",
+    "birthday": {
+      "month": 3,
+      "day": 16
+    }
   },
   {
     "id": "chr_0005_chen",
@@ -55,7 +59,11 @@ export const wikiCharacters = [
     "factionId": "ENDFIELD INDUSTRIES",
     "weaponTypeId": "1",
     "mainAttributeId": "40",
-    "subAttributeId": "39"
+    "subAttributeId": "39",
+    "birthday": {
+      "month": 8,
+      "day": 18
+    }
   },
   {
     "id": "chr_0006_wolfgd",
@@ -73,7 +81,11 @@ export const wikiCharacters = [
     "factionId": "ENDFIELD INDUSTRIES",
     "weaponTypeId": "6",
     "mainAttributeId": "39",
-    "subAttributeId": "40"
+    "subAttributeId": "40",
+    "birthday": {
+      "month": 11,
+      "day": 16
+    }
   },
   {
     "id": "chr_0007_ikut",
@@ -91,7 +103,11 @@ export const wikiCharacters = [
     "factionId": "ENDFIELD INDUSTRIES",
     "weaponTypeId": "1",
     "mainAttributeId": "40",
-    "subAttributeId": "41"
+    "subAttributeId": "41",
+    "birthday": {
+      "month": 1,
+      "day": 3
+    }
   },
   {
     "id": "chr_0009_azrila",
@@ -109,7 +125,11 @@ export const wikiCharacters = [
     "factionId": "ENDFIELD INDUSTRIES",
     "weaponTypeId": "3",
     "mainAttributeId": "39",
-    "subAttributeId": "42"
+    "subAttributeId": "42",
+    "birthday": {
+      "month": 4,
+      "day": 10
+    }
   },
   {
     "id": "chr_0011_seraph",
@@ -127,7 +147,11 @@ export const wikiCharacters = [
     "factionId": "ENDFIELD INDUSTRIES",
     "weaponTypeId": "2",
     "mainAttributeId": "42",
-    "subAttributeId": "41"
+    "subAttributeId": "41",
+    "birthday": {
+      "month": 5,
+      "day": 16
+    }
   },
   {
     "id": "chr_0012_avywen",
@@ -145,7 +169,11 @@ export const wikiCharacters = [
     "factionId": "ENDFIELD INDUSTRIES",
     "weaponTypeId": "5",
     "mainAttributeId": "42",
-    "subAttributeId": "40"
+    "subAttributeId": "40",
+    "birthday": {
+      "month": 10,
+      "day": 25
+    }
   },
   {
     "id": "chr_0013_aglina",
@@ -163,7 +191,11 @@ export const wikiCharacters = [
     "factionId": "ENDFIELD INDUSTRIES",
     "weaponTypeId": "2",
     "mainAttributeId": "42",
-    "subAttributeId": "41"
+    "subAttributeId": "41",
+    "birthday": {
+      "month": 11,
+      "day": 28
+    }
   },
   {
     "id": "chr_0014_aurora",
@@ -181,7 +213,11 @@ export const wikiCharacters = [
     "factionId": "ENDFIELD INDUSTRIES",
     "weaponTypeId": "3",
     "mainAttributeId": "39",
-    "subAttributeId": "42"
+    "subAttributeId": "42",
+    "birthday": {
+      "month": 12,
+      "day": 19
+    }
   },
   {
     "id": "chr_0015_lifeng",
@@ -199,7 +235,11 @@ export const wikiCharacters = [
     "factionId": "ENDFIELD INDUSTRIES",
     "weaponTypeId": "5",
     "mainAttributeId": "40",
-    "subAttributeId": "39"
+    "subAttributeId": "39",
+    "birthday": {
+      "month": 7,
+      "day": 16
+    }
   },
   {
     "id": "chr_0016_laevat",
@@ -235,7 +275,11 @@ export const wikiCharacters = [
     "factionId": "ENDFIELD INDUSTRIES",
     "weaponTypeId": "6",
     "mainAttributeId": "41",
-    "subAttributeId": "40"
+    "subAttributeId": "40",
+    "birthday": {
+      "month": 5,
+      "day": 9
+    }
   },
   {
     "id": "chr_0018_dapan",
@@ -253,7 +297,11 @@ export const wikiCharacters = [
     "factionId": "ENDFIELD INDUSTRIES",
     "weaponTypeId": "3",
     "mainAttributeId": "39",
-    "subAttributeId": "42"
+    "subAttributeId": "42",
+    "birthday": {
+      "month": 5,
+      "day": 19
+    }
   },
   {
     "id": "chr_0019_karin",
@@ -271,7 +319,11 @@ export const wikiCharacters = [
     "factionId": "ENDFIELD INDUSTRIES",
     "weaponTypeId": "1",
     "mainAttributeId": "40",
-    "subAttributeId": "41"
+    "subAttributeId": "41",
+    "birthday": {
+      "month": 3,
+      "day": 31
+    }
   },
   {
     "id": "chr_0020_meurs",
@@ -289,7 +341,11 @@ export const wikiCharacters = [
     "factionId": "ENDFIELD INDUSTRIES",
     "weaponTypeId": "3",
     "mainAttributeId": "39",
-    "subAttributeId": "42"
+    "subAttributeId": "42",
+    "birthday": {
+      "month": 8,
+      "day": 16
+    }
   },
   {
     "id": "chr_0021_whiten",
@@ -307,7 +363,11 @@ export const wikiCharacters = [
     "factionId": "ENDFIELD INDUSTRIES",
     "weaponTypeId": "5",
     "mainAttributeId": "42",
-    "subAttributeId": "39"
+    "subAttributeId": "39",
+    "birthday": {
+      "month": 4,
+      "day": 9
+    }
   },
   {
     "id": "chr_0022_bounda",
@@ -325,7 +385,11 @@ export const wikiCharacters = [
     "factionId": "ENDFIELD INDUSTRIES",
     "weaponTypeId": "6",
     "mainAttributeId": "40",
-    "subAttributeId": "41"
+    "subAttributeId": "41",
+    "birthday": {
+      "month": 6,
+      "day": 21
+    }
   },
   {
     "id": "chr_0023_antal",
@@ -343,7 +407,11 @@ export const wikiCharacters = [
     "factionId": "ENDFIELD INDUSTRIES",
     "weaponTypeId": "2",
     "mainAttributeId": "41",
-    "subAttributeId": "39"
+    "subAttributeId": "39",
+    "birthday": {
+      "month": 4,
+      "day": 10
+    }
   },
   {
     "id": "chr_0024_deepfin",
@@ -361,7 +429,11 @@ export const wikiCharacters = [
     "factionId": "ENDFIELD INDUSTRIES",
     "weaponTypeId": "1",
     "mainAttributeId": "39",
-    "subAttributeId": "41"
+    "subAttributeId": "41",
+    "birthday": {
+      "month": 9,
+      "day": 1
+    }
   },
   {
     "id": "chr_0025_ardelia",
@@ -379,7 +451,11 @@ export const wikiCharacters = [
     "factionId": "ENDFIELD INDUSTRIES",
     "weaponTypeId": "2",
     "mainAttributeId": "41",
-    "subAttributeId": "42"
+    "subAttributeId": "42",
+    "birthday": {
+      "month": 10,
+      "day": 18
+    }
   },
   {
     "id": "chr_0026_lastrite",
@@ -397,7 +473,11 @@ export const wikiCharacters = [
     "factionId": "ENDFIELD INDUSTRIES",
     "weaponTypeId": "3",
     "mainAttributeId": "39",
-    "subAttributeId": "42"
+    "subAttributeId": "42",
+    "birthday": {
+      "month": 11,
+      "day": 12
+    }
   },
   {
     "id": "chr_0029_pograni",
@@ -415,7 +495,11 @@ export const wikiCharacters = [
     "factionId": "ENDFIELD INDUSTRIES",
     "weaponTypeId": "1",
     "mainAttributeId": "42",
-    "subAttributeId": "40"
+    "subAttributeId": "40",
+    "birthday": {
+      "month": 7,
+      "day": 23
+    }
   },
   {
     "id": "chr_0027_tangtang",
@@ -433,7 +517,11 @@ export const wikiCharacters = [
     "factionId": "ENDFIELD INDUSTRIES",
     "weaponTypeId": "6",
     "mainAttributeId": "40",
-    "subAttributeId": "39"
+    "subAttributeId": "39",
+    "birthday": {
+      "month": 11,
+      "day": 29
+    }
   },
   {
     "id": "chr_0028_wulfa",
@@ -451,7 +539,11 @@ export const wikiCharacters = [
     "factionId": "ENDFIELD INDUSTRIES",
     "weaponTypeId": "1",
     "mainAttributeId": "40",
-    "subAttributeId": "41"
+    "subAttributeId": "41",
+    "birthday": {
+      "month": 3,
+      "day": 10
+    }
   },
   {
     "id": "chr_0030_zhuangfy",
@@ -469,7 +561,11 @@ export const wikiCharacters = [
     "factionId": "ENDFIELD INDUSTRIES",
     "weaponTypeId": "2",
     "mainAttributeId": "42",
-    "subAttributeId": "41"
+    "subAttributeId": "41",
+    "birthday": {
+      "month": 8,
+      "day": 7
+    }
   },
   {
     "id": "chr_0031_mifu",
@@ -487,7 +583,11 @@ export const wikiCharacters = [
     "factionId": "ENDFIELD INDUSTRIES",
     "weaponTypeId": "3",
     "mainAttributeId": "39",
-    "subAttributeId": "42"
+    "subAttributeId": "42",
+    "birthday": {
+      "month": 7,
+      "day": 9
+    }
   },
   {
     "id": "chr_0032_lizhiyan",
@@ -505,7 +605,11 @@ export const wikiCharacters = [
     "factionId": "ENDFIELD INDUSTRIES",
     "weaponTypeId": "2",
     "mainAttributeId": "41",
-    "subAttributeId": "42"
+    "subAttributeId": "42",
+    "birthday": {
+      "month": 7,
+      "day": 7
+    }
   },
   {
     "id": "chr_0033_camille",
@@ -523,6 +627,10 @@ export const wikiCharacters = [
     "factionId": "ENDFIELD INDUSTRIES",
     "weaponTypeId": "5",
     "mainAttributeId": "40",
-    "subAttributeId": "41"
+    "subAttributeId": "41",
+    "birthday": {
+      "month": 11,
+      "day": 20
+    }
   }
 ] satisfies WikiCharacterSummary[]

@@ -216,6 +216,9 @@ export function loadClientMessages(locale: WikiLocale): MessageRecord {
   for (const [namespace, keys] of Object.entries(routeShellMessages.corePicks)) {
     core[namespace] = pickMessageKeys(namespace, shellNamespace(locale, namespace), keys)
   }
+  // Operator display names for the root-layout birthday banner
+  // (t(`characters.${id}`)). 31 short names per locale — negligible payload.
+  core.characters = plannerCatalogs[locale].characters
   return core
 }
 

@@ -870,6 +870,7 @@
     "weaponType": "武器類型",
     "element": "元素",
     "profession": "職業",
+    "birthday": "生日",
     "cv": "聲優",
     "stats": "屬性",
     "skills": "技能",
@@ -1048,5 +1049,9 @@
     "copied": "已複製",
     "missingTranslation": "（無）",
     "detailEmpty": "選擇搜尋結果查看其他語言文案"
+  },
+  "birthday": {
+    "prefix": "今天是",
+    "suffix": "的生日哦～"
   }
 }

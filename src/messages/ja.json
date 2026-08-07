@@ -870,6 +870,7 @@
     "weaponType": "武器タイプ",
     "element": "元素",
     "profession": "職業",
+    "birthday": "誕生日",
     "cv": "声優",
     "stats": "ステータス",
     "skills": "スキル",
@@ -1048,5 +1049,9 @@
     "copied": "コピー済み",
     "missingTranslation": "（なし）",
     "detailEmpty": "検索結果を選ぶと他言語の文案を表示します"
+  },
+  "birthday": {
+    "prefix": "今日は",
+    "suffix": "の誕生日だよ～"
   }
 }

@@ -16,6 +16,7 @@ import { NavigationProgressBar } from '@/components/shared/navigation-progress-b
 import { AppInitOverlay } from '@/components/shared/app-init-overlay'
 import { ImportantAnnouncementBanner } from '@/components/home/important-announcement-banner'
 import { HolidayBanner } from '@/components/shared/holiday-banner'
+import { BirthdayBanner } from '@/components/shared/birthday-banner'
 import { EmergencyNoticeBanner } from '@/components/shared/emergency-notice-banner'
 import { AnnouncementLoader } from '@/components/home/announcement-loader'
 import { SyncManager } from '@/components/shared/sync-manager'
@@ -109,6 +110,7 @@ export default async function LocaleLayout({
               {/* 紧急公告置于所有横幅最上方 —— 运营下发的最高优先级信息 */}
               <EmergencyNoticeBanner />
               <HolidayBanner />
+              <BirthdayBanner />
               <ImportantAnnouncementBanner />
               <ExtensionCssDetector />
               {children}

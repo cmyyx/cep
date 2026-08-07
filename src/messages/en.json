@@ -870,6 +870,7 @@
     "weaponType": "Weapon Type",
     "element": "Element",
     "profession": "Profession",
+    "birthday": "Birthday",
     "cv": "Voice Actors",
     "stats": "Stats",
     "skills": "Skills",
@@ -1048,5 +1049,9 @@
     "copied": "Copied",
     "missingTranslation": "(missing)",
     "detailEmpty": "Select a search result to view other languages"
+  },
+  "birthday": {
+    "prefix": "Today is ",
+    "suffix": "'s birthday~"
   }
 }

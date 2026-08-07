@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { buildCharacterWikiData } from './build-character-wiki'
+import { buildCharacterWikiData, parseBirthdayFromProfile } from './build-character-wiki'
 
 const textTables = {
   'zh-CN': {
@@ -575,5 +575,55 @@ describe('character detail generation', () => {
       stats: [{ attributeId: '2', value: 999 }],
     })
     expect(detail.promotions[0]).toMatchObject({ breakStage: 1, materials: [{ count: 3 }] })
+  })
+})
+
+describe('parseBirthdayFromProfile', () => {
+  it('parses a CN profile birthday line', () => {
+    expect(parseBirthdayFromProfile('<@profile.key>【代号】安塔尔\n【生日】4月10日\n【种族】萨弗拉</>')).toEqual({ month: 4, day: 10 })
+  })
+
+  it('parses single-digit month and day', () => {
+    expect(parseBirthdayFromProfile('【生日】3月5日')).toEqual({ month: 3, day: 5 })
+  })
+
+  it('returns undefined for placeholder birthdays', () => {
+    expect(parseBirthdayFromProfile('<@profile.key>【生日】■■</>')).toBeUndefined()
+    expect(parseBirthdayFromProfile('【生日】和管理员的一样')).toBeUndefined()
+  })
+
+  it('returns undefined when no birthday line exists', () => {
+    expect(parseBirthdayFromProfile('<@profile.key>【代号】某人\n【种族】鲁珀</>')).toBeUndefined()
+  })
+
+  it('rejects out-of-range month or day', () => {
+    expect(parseBirthdayFromProfile('【生日】13月1日')).toBeUndefined()
+    expect(parseBirthdayFromProfile('【生日】2月32日')).toBeUndefined()
+  })
+})
+
+describe('character birthday extraction', () => {
+  it('attaches birthday to the summary from the base profile record', () => {
+    const scoped = structuredClone(input) as unknown as Parameters<typeof buildCharacterWikiData>[0]
+    scoped.characterTable.chr_9000_endmin.profileRecord = [
+      { recordIndex: 1, recordDesc: { id: -123456789 } },
+      { recordIndex: 2, recordDesc: { id: 987654321 } },
+    ]
+    scoped.textTables['zh-CN']['-123456789'] = '<@profile.key>【代号】管理员\n【性别】■■\n【生日】3月16日\n【种族】■■</>'
+    const summary = buildCharacterWikiData(scoped).summaries.find((entry) => entry.id === 'chr_9000_endmin')!
+    expect(summary.birthday).toEqual({ month: 3, day: 16 })
+  })
+
+  it('skips birthday when the base record has no fixed date', () => {
+    const scoped = structuredClone(input) as unknown as Parameters<typeof buildCharacterWikiData>[0]
+    scoped.characterTable.chr_9000_endmin.profileRecord = [{ recordIndex: 1, recordDesc: { id: -1 } }]
+    scoped.textTables['zh-CN']['-1'] = '<@profile.key>【代号】管理员\n【生日】■■</>'
+    const summary = buildCharacterWikiData(scoped).summaries.find((entry) => entry.id === 'chr_9000_endmin')!
+    expect(summary.birthday).toBeUndefined()
+  })
+
+  it('omits birthday when the character has no profile records', () => {
+    const summary = buildCharacterWikiData(input).summaries.find((entry) => entry.id === 'chr_9000_endmin')!
+    expect(summary.birthday).toBeUndefined()
   })
 })
