@@ -1,0 +1,37 @@
+# CEP Endfield Planner
+
+> Free planner suite for Arknights: Endfield — essence farming, equipment refinement, growth planning, banner calendar, stats preview, and game-data wiki.
+
+CEP (Cep Endfield Planner). Default locale is `zh-CN`; also available in `zh-TW`, `ja`, and `en`.
+Official site: https://end.canmoe.com
+This project is unofficial fan work and is not affiliated with Hypergryph / Mountain Contour.
+Frontend source: https://github.com/cmyyx/cep (AGPL-3.0).
+Generated at: 2026-08-08T16:17:12.957Z
+
+## Core tools
+
+- [Home](https://end.canmoe.com/zh-CN): CEP Endfield Planner landing page and module overview
+- [Essence Planner](https://end.canmoe.com/zh-CN/essence-planner): Multi-weapon essence farming optimization with lock constraints, attribute conflict resolution, and ranked plans
+- [Refinement Planner](https://end.canmoe.com/zh-CN/refinement-planner): Equipment refinement planning — materials and substat optimization
+- [Growth Planner](https://end.canmoe.com/zh-CN/growth-planner): Operator and weapon growth planner for levels, skills, promotions, breakthroughs, and stamina
+- [Stats Preview](https://end.canmoe.com/zh-CN/panel-preview): Operator stats preview with configurable operators, equipment, weapons, and full panel attributes
+- [Banner Calendar](https://end.canmoe.com/zh-CN/banner-calendar): Gacha banner schedule, rerun timeline, and pull planning
+- [Background Preview](https://end.canmoe.com/zh-CN/background-preview): Preview and select website background artwork
+
+## Wiki
+
+- [Characters Wiki](https://end.canmoe.com/zh-CN/wiki/characters): Operator list with filters; detail pages for every character
+- [Weapons Wiki](https://end.canmoe.com/zh-CN/wiki/weapons): Weapon list with filters; detail pages for every weapon
+- [Equipment Wiki](https://end.canmoe.com/zh-CN/wiki/equipment): Equipment list with filters; detail pages for every gear piece
+
+Wiki detail pages for every character, weapon, and equipment are listed in [llms-full.txt](https://end.canmoe.com/llms-full.txt).
+
+## Optional
+
+- [Forum](https://end.canmoe.com/zh-CN/forum): Community discussion entry
+- [About](https://end.canmoe.com/zh-CN/about): Project overview, tech stack, features, and open-source information
+- [Changelog / Updates](https://end.canmoe.com/zh-CN/update): Release notes and forced-update history
+- [Privacy Policy](https://end.canmoe.com/zh-CN/privacy): How CEP handles account, planning, and analytics data
+- [Terms of Service](https://end.canmoe.com/zh-CN/terms): Terms of use and AGPL-3.0 open-source notice
+- [Sitemap](https://end.canmoe.com/sitemap.xml): Full indexable URL list including locale alternates
+- [llms-full.txt](https://end.canmoe.com/llms-full.txt): Expanded context with every character, weapon, and equipment detail URL
