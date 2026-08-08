@@ -18,7 +18,7 @@ it('shows a persistent warning and links to the official site', () => {
   expect(screen.getByRole('alert')).toBeTruthy()
   expect(screen.getByText('Development / preview version')).toBeTruthy()
   expect(screen.getByText('Official site: end.canmoe.com')).toBeTruthy()
-  const officialLink = screen.getByRole('button', { name: 'Open official site' })
+  const officialLink = screen.getByRole('link', { name: 'Open official site' })
   expect(officialLink.getAttribute('href')).toBe('https://end.canmoe.com')
   expect(officialLink.getAttribute('target')).toBe('_blank')
 })

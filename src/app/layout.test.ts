@@ -34,6 +34,11 @@ describe('root layout SEO metadata', () => {
     expect(metadata.robots).toEqual({ index: false, follow: false })
   })
 
+  it('defaults to noindex and nofollow when SEO_INDEXABLE is unset', async () => {
+    const metadata = await loadMetadata(undefined)
+    expect(metadata.robots).toEqual({ index: false, follow: false })
+  })
+
   it('omits robots restrictions for the explicit indexable build', async () => {
     const metadata = await loadMetadata('true')
     expect(metadata.robots).toBeUndefined()

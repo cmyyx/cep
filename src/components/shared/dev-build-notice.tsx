@@ -2,7 +2,7 @@
 
 import { useTranslations } from 'next-intl'
 import { ExternalLink, TriangleAlert } from 'lucide-react'
-import { Button } from '@/components/ui/button'
+import { buttonVariants } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 
 export interface DevBuildNoticeProps {
@@ -36,16 +36,15 @@ export function DevBuildNotice({ siteUrl }: DevBuildNoticeProps) {
         <p className="font-medium leading-relaxed">{t('title')}</p>
         <p className="text-[13px] leading-relaxed opacity-80">{t('description', { site: siteHost(siteUrl) })}</p>
       </div>
-      <Button
-        nativeButton={false}
-        size="sm"
-        variant="outline"
-        className="shrink-0 bg-transparent"
-        render={<a href={siteUrl} target="_blank" rel="noopener noreferrer" />}
+      <a
+        href={siteUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={cn(buttonVariants({ variant: 'outline', size: 'sm' }), 'shrink-0 bg-transparent')}
       >
         <ExternalLink data-icon="inline-start" />
         {t('openOfficial')}
-      </Button>
+      </a>
     </div>
   )
 }
