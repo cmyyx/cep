@@ -826,6 +826,11 @@
   "versionWatermark": {
     "externalCssDetected": "外部CSS注入を検出しました"
   },
+  "devBuildNotice": {
+    "title": "開発／プレビュー版",
+    "description": "現在は開発版です。内容や機能が不安定な場合があります。正式サイト：{site}",
+    "openOfficial": "正式サイトを開く"
+  },
   "environment": {
     "browser": "ブラウザ",
     "engine": "エンジン"

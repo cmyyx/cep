@@ -2,6 +2,8 @@
  * Client-side loader / search for chunked game I18nTextTable exports
  * under /game-i18n/ (public). Only used by the game-i18n tool page.
  */
+import { gameI18nHashManifest } from '@/generated/game-i18n-hash-manifest'
+import { withCacheVersion } from '@/lib/cache-url'
 import {
   findChunkIndexForTextId,
   GAME_I18N_LOCALES,
@@ -17,6 +19,9 @@ const PREFETCH_LOCALE_CONCURRENCY = 3
 const RESOURCE_AUTO_RETRY_LIMIT = 3
 const RESOURCE_RETRY_BASE_DELAY_MS = 250
 
+function gameI18nResourceUrl(path: string): string {
+  return withCacheVersion(path, gameI18nHashManifest)
+}
 function waitForResourceRetry(retryIndex: number): Promise<void> {
   return new Promise((resolve) => {
     globalThis.setTimeout(resolve, RESOURCE_RETRY_BASE_DELAY_MS * 2 ** retryIndex)
@@ -52,7 +57,7 @@ export function clearGameI18nLookupCache(): void {
 
 export async function loadGameI18nManifest(): Promise<GameI18nManifest> {
   if (!manifestPromise) {
-    manifestPromise = fetchJsonResource<GameI18nManifest>(`${BASE}/manifest.json`, 'game-i18n manifest').catch(
+    manifestPromise = fetchJsonResource<GameI18nManifest>(gameI18nResourceUrl(`${BASE}/manifest.json`), 'game-i18n manifest').catch(
       (error: unknown) => {
         manifestPromise = null
         throw error
@@ -65,7 +70,7 @@ export async function loadGameI18nManifest(): Promise<GameI18nManifest> {
 async function loadChunk(file: string): Promise<Record<string, string>> {
   let pending = chunkCache.get(file)
   if (!pending) {
-    pending = fetchJsonResource<Record<string, string>>(`${BASE}/${file}`, file).catch((error: unknown) => {
+    pending = fetchJsonResource<Record<string, string>>(gameI18nResourceUrl(`${BASE}/${file}`), file).catch((error: unknown) => {
       chunkCache.delete(file)
       throw error
     })

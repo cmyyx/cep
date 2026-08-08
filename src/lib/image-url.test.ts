@@ -52,6 +52,13 @@ describe('withImageCacheVersion', () => {
     ).toBe('/images/weapon/%E4%B8%AD%E6%96%87.avif?v=abc12345')
   })
 
+  it('decodes URL-encoded paths while preserving existing query parameters', () => {
+    mockManifest['/images/weapon/中文.avif'] = 'abc12345'
+    expect(
+      withImageCacheVersion('/images/weapon/%E4%B8%AD%E6%96%87.avif?size=small')
+    ).toBe('/images/weapon/%E4%B8%AD%E6%96%87.avif?size=small&v=abc12345')
+  })
+
   it('falls back to raw path when decodeURIComponent fails', () => {
     mockManifest['/images/weapon/%E.avif'] = 'abc12345'
     expect(withImageCacheVersion('/images/weapon/%E.avif')).toBe(

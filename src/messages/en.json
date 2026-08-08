@@ -826,6 +826,11 @@
   "versionWatermark": {
     "externalCssDetected": "External CSS injection detected"
   },
+  "devBuildNotice": {
+    "title": "Development / preview version",
+    "description": "You are viewing a development version. Content and features may be unstable. Official site: {site}",
+    "openOfficial": "Open official site"
+  },
   "environment": {
     "browser": "Browser",
     "engine": "Engine"

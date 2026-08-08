@@ -10,6 +10,7 @@
     "birthday",
     "extensionCss",
     "versionWatermark",
+    "devBuildNotice",
     "legacyMigration",
     "chunkError"
   ],

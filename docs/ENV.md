@@ -7,6 +7,8 @@
 | 变量 | 类型 | 用途 | 必填 |
 |------|------|------|------|
 | `SITE_URL` | 非 `NEXT_PUBLIC_` | `generateMetadata` 的 `metadataBase`，SEO 规范化 URL | 是 |
+| `SEO_INDEXABLE` | 构建时变量 | 是否允许当前构建被搜索引擎索引；未设置时默认禁止 | 否 |
+| `NEXT_PUBLIC_DEV_BUILD` | `NEXT_PUBLIC_` | 是否显示开发版顶部提醒；仅 dev 部署设置为 `true` | 否 |
 | `NEXT_PUBLIC_API_BASE_URL` | `NEXT_PUBLIC_` | 后端 API 服务器地址，控制登录/云同步功能是否可用 | 否 |
 | `NEXT_PUBLIC_TURNSTILE_SITE_KEY` | `NEXT_PUBLIC_` | Cloudflare Turnstile 站点密钥，控制人机验证是否可用 | 否 |
 | `NEXT_PUBLIC_ALLOWED_DOMAINS` | `NEXT_PUBLIC_` | 逗号分隔的允许域名列表，用于反镜像域名校验 | 否 |
@@ -23,6 +25,20 @@
 ```
 SITE_URL=https://end.canmoe.com
 ```
+
+### `SEO_INDEXABLE`
+
+仅在正式生产构建中设置为 `true`，允许页面被搜索引擎索引。未设置或设置为其他值时，所有页面默认输出 `noindex, nofollow`，适合本地和 dev/preview 构建。
+
+```bash
+SEO_INDEXABLE=true
+```
+
+正式部署由 `.github/workflows/deploy.yml` 自动注入；dev 构建不需要设置该变量。
+
+### `NEXT_PUBLIC_DEV_BUILD`
+
+仅在 dev 部署项目中设置为 `true`，显示不可关闭的开发版顶部提醒，并链接到正式站。正式部署不要设置。
 
 ### `NEXT_PUBLIC_API_BASE_URL`
 

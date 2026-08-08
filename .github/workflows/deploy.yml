@@ -112,6 +112,7 @@ jobs:
         run: pnpm run build
         env:
           DEPLOY_TAG: ${{ needs.prepare.outputs.clean-tag }}
+          SEO_INDEXABLE: 'true'
           # ── 双版本共享 ──
           NEXT_PUBLIC_ALLOWED_DOMAINS: ${{ vars.ALLOWED_DOMAINS }}
           NEXT_PUBLIC_ALLOWED_EMBED_DOMAINS: ${{ vars.ALLOWED_EMBED_DOMAINS }}

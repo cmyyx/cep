@@ -7,6 +7,7 @@ import { usePanelPreviewStore } from '@/stores/usePanelPreviewStore'
 import { calculatePanelStats } from '@/lib/planner/progression'
 import { useWikiTranslations } from '@/hooks/use-wiki-translations'
 import { cn } from '@/lib/utils'
+import { withImageCacheVersion } from '@/lib/image-url'
 import { WikiRichText } from '@/components/wiki/wiki-rich-text'
 import type { WikiLocale } from '@/types/wiki'
 
@@ -115,7 +116,7 @@ export function PanelStatsSummary() {
                   className="flex min-w-0 flex-col items-center rounded-lg bg-preview-pink/7 px-1 py-2.5 text-center shadow-[0_0_0_1px_color-mix(in_oklab,var(--color-preview-pink)_12%,transparent)] sm:px-1.5 sm:py-3"
                 >
                   <span className="flex size-8 items-center justify-center rounded-md bg-foreground sm:size-9">
-                    <Image src={icon} alt="" width={68} height={68} className="size-6 object-contain sm:size-7" />
+                    <Image src={withImageCacheVersion(icon)} alt="" width={68} height={68} className="size-6 object-contain sm:size-7" />
                   </span>
                   <p className="mt-1.5 max-w-full truncate text-[11px] text-muted-foreground sm:mt-2 sm:text-xs">{label}</p>
                   <p className={panelStatValueClass(value)}>{value}</p>
@@ -132,7 +133,7 @@ export function PanelStatsSummary() {
                   className="flex min-w-0 flex-col items-center rounded-lg bg-muted/35 px-1.5 py-2.5 text-center shadow-[var(--shadow-border)] sm:px-2 sm:py-3"
                 >
                   <span className="flex size-8 items-center justify-center rounded-md bg-foreground sm:size-9">
-                    <Image src={icon} alt="" width={68} height={68} className="size-6 object-contain sm:size-7" />
+                    <Image src={withImageCacheVersion(icon)} alt="" width={68} height={68} className="size-6 object-contain sm:size-7" />
                   </span>
                   <p className="mt-1.5 max-w-full truncate text-[11px] text-muted-foreground sm:mt-2 sm:text-xs">{label}</p>
                   {/* 与四维一致走同一套长度分档: 生命值这类数值位数最多 */}

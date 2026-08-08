@@ -2,6 +2,7 @@
 
 import { memo } from 'react'
 import { cn } from '@/lib/utils'
+import { withImageCacheVersion } from '@/lib/image-url'
 
 export type Rarity = 1 | 2 | 3 | 4 | 5 | 6
 
@@ -25,7 +26,7 @@ export function getRarityColorClass(rarity: number | null | undefined): string {
 }
 
 export function getRarityBandSrc(rarity: number | null | undefined): string {
-  return `/images/item-band-${normalizeRarity(rarity)}.png`
+  return withImageCacheVersion(`/images/item-band-${normalizeRarity(rarity)}.png`)
 }
 
 export interface RarityStarsProps {

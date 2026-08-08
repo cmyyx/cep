@@ -20,6 +20,7 @@ import { getSyncDataApi, postSyncDataApi, api, ApiError, type SyncDataResponse }
 import { resolveErrorI18nKey } from '@/lib/error-i18n'
 import { getSyncTimestamps, subscribeSyncTimestamps, setAutoSyncConflictCallback, syncStoresFromCloudPayload, hasExistingLocalData, syncDataDiffers, buildSummaryRows, buildSettingsDiff, updateLastPull, getCloudVersion, updateCloudVersion, setSkipNextPush, computeSyncSignature, getLastSyncSignature, setLastSyncSignature, getPendingConflict, clearPendingConflict, dismissConflictToast, notifySync, setConflictPending, getLastPullResult, type SyncConflictInfo } from '@/hooks/useAutoSync'
 import { cn, maskEmail, isValidEmail, formatTime } from '@/lib/utils'
+import { withImageCacheVersion } from '@/lib/image-url'
 import { SyncConflictDialog } from '@/components/shared/sync-conflict-dialog'
 import { equipById } from '@/data/equips'
 import { redeemCodeApi } from '@/lib/api'
@@ -1011,11 +1012,11 @@ export default function AccountPage() {
               <p className="text-xs text-muted-foreground">{t('account.scanToPay')}</p>
               <div className="flex gap-3">
                 <div className="flex-1 text-center">
-                  <Image src="/images/payment/alipay.jpg" alt="Alipay" width={160} height={160} unoptimized className="w-full max-w-[160px] mx-auto rounded-lg border border-border" />
+                  <Image src={withImageCacheVersion('/images/payment/alipay.jpg')} alt="Alipay" width={160} height={160} unoptimized className="w-full max-w-[160px] mx-auto rounded-lg border border-border" />
                   <span className="text-[10px] text-muted-foreground mt-1 block">{t('account.channelAlipay')}</span>
                 </div>
                 <div className="flex-1 text-center">
-                  <Image src="/images/payment/wechat.png" alt="WeChat" width={160} height={160} unoptimized className="w-full max-w-[160px] mx-auto rounded-lg border border-border" />
+                  <Image src={withImageCacheVersion('/images/payment/wechat.png')} alt="WeChat" width={160} height={160} unoptimized className="w-full max-w-[160px] mx-auto rounded-lg border border-border" />
                   <span className="text-[10px] text-muted-foreground mt-1 block">{t('account.channelWechat')}</span>
                 </div>
               </div>

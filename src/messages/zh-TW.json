@@ -826,6 +826,11 @@
   "versionWatermark": {
     "externalCssDetected": "偵測到外部CSS注入"
   },
+  "devBuildNotice": {
+    "title": "開發／預覽版本",
+    "description": "目前是開發版本，內容與功能可能不穩定。正式站：{site}",
+    "openOfficial": "開啟正式站"
+  },
   "environment": {
     "browser": "瀏覽器",
     "engine": "核心"

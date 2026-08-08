@@ -1,9 +1,33 @@
 import { describe, expect, it } from 'vitest'
-import { parseChangelog, parseForceUpgradeSerial } from './generate-version.mjs'
+import { mkdirSync, mkdtempSync, rmSync, writeFileSync } from 'node:fs'
+import { tmpdir } from 'node:os'
+import { join } from 'node:path'
+import { generateHashManifest, parseChangelog, parseForceUpgradeSerial } from './generate-version.mjs'
 
 const FIELD = '\x1f'
 const RECORD = '\x1e'
 
+describe('generateHashManifest', () => {
+  it('hashes recursive files and changes only the modified resource hash', () => {
+    const root = mkdtempSync(join(tmpdir(), 'cep-resource-manifest-'))
+    try {
+      mkdirSync(join(root, 'nested'), { recursive: true })
+      writeFileSync(join(root, 'keep.json'), '{"value":"one"}', 'utf8')
+      writeFileSync(join(root, 'nested', 'skip.txt'), 'skip', 'utf8')
+      writeFileSync(join(root, 'nested', 'change.json'), '{"value":"one"}', 'utf8')
+      const first = generateHashManifest(root, '/assets', (file) => file.endsWith('.json'))
+      expect(Object.keys(first)).toEqual(['/assets/keep.json', '/assets/nested/change.json'])
+      expect(first['/assets/keep.json']).toMatch(/^[0-9a-f]{8}$/)
+      expect(first['/assets/nested/change.json']).toBe(first['/assets/keep.json'])
+      writeFileSync(join(root, 'nested', 'change.json'), '{"value":"two"}', 'utf8')
+      const second = generateHashManifest(root, '/assets', (file) => file.endsWith('.json'))
+      expect(second['/assets/keep.json']).toBe(first['/assets/keep.json'])
+      expect(second['/assets/nested/change.json']).not.toBe(first['/assets/nested/change.json'])
+    } finally {
+      rmSync(root, { recursive: true, force: true })
+    }
+  })
+})
 describe('parseChangelog', () => {
   it('adds normalized release tags and preserves forced release history', () => {
     const raw = [

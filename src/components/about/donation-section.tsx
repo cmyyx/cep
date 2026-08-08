@@ -6,6 +6,7 @@ import Image from 'next/image'
 import { Heart, ChevronDown, ChevronUp, Coffee } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { donors } from '@/lib/donors'
+import { withImageCacheVersion } from '@/lib/image-url'
 
 export function DonationSection() {
   const t = useTranslations()
@@ -43,7 +44,7 @@ export function DonationSection() {
           <div className="flex flex-col items-center gap-2">
             <div className="relative w-36 h-36 rounded-lg overflow-hidden shadow-[var(--shadow-border)]">
               <Image
-                src="/images/payment/alipay.jpg"
+                src={withImageCacheVersion('/images/payment/alipay.jpg')}
                 alt={t('about.donationAlipay')}
                 fill
                 className="object-contain"
@@ -59,7 +60,7 @@ export function DonationSection() {
           <div className="flex flex-col items-center gap-2">
             <div className="relative w-36 h-36 rounded-lg overflow-hidden shadow-[var(--shadow-border)]">
               <Image
-                src="/images/payment/wechatzs.png"
+                src={withImageCacheVersion('/images/payment/wechatzs.png')}
                 alt={t('about.donationWechat')}
                 fill
                 className="object-contain"

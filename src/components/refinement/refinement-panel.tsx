@@ -13,6 +13,7 @@ import { materialOptions } from '@/data/equips'
 import { useIsMobile } from '@/hooks/use-mobile'
 import { withImageCacheVersion } from '@/lib/image-url'
 import { WikiMaterialList } from '@/components/shared/wiki-material-list'
+import { ItemFrameBackground } from '@/components/shared/item-frame-background'
 import { wikiEquipmentPlannerPreviews } from '@/generated/data/wiki/planner-previews'
 import { splitPlannerRecipes } from './equip-card'
 
@@ -88,7 +89,8 @@ export const RefinementPanel = memo(function RefinementPanel() {
           <div className="rounded-lg border border-border bg-card p-4">
             <div className="flex items-start gap-4">
               {/* Equip thumbnail */}
-              <div className={cn('relative shrink-0 rounded-lg border border-border overflow-hidden bg-[url(/images/item-frame-bg.png)] bg-cover bg-center', isMobile ? 'w-20 h-20' : 'w-24 h-24')}>
+              <div className={cn('relative shrink-0 rounded-lg border border-border overflow-hidden', isMobile ? 'w-20 h-20' : 'w-24 h-24')}>
+                <ItemFrameBackground />
                 {selected.imageId && (
                   <Image
                     src={withImageCacheVersion(`/images/equip/${selected.imageId}.avif`)}
