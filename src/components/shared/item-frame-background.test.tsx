@@ -10,5 +10,5 @@ vi.mock('@/generated/image-hash-manifest', () => ({
 
 it('uses the content version for the local frame artwork', () => {
   render(<ItemFrameBackground />)
-  expect(screen.getByRole('presentation').getAttribute('src')).toBe('/images/item-frame-bg.png?v=abc12345')
+  expect(screen.getByRole('presentation', { hidden: true }).getAttribute('src')).toBe('/images/item-frame-bg.png?v=abc12345')
 })

@@ -22,6 +22,7 @@ import { AnnouncementLoader } from '@/components/home/announcement-loader'
 import { SyncManager } from '@/components/shared/sync-manager'
 import { LegacyMigrationDialog } from '@/components/shared/legacy-migration-dialog'
 import { DebugLabel } from '@/components/shared/debug-label'
+import { DevBuildNotice } from '@/components/shared/dev-build-notice'
 import { LocaleGuard } from '@/components/shared/locale-guard'
 import { VersionWatermark } from '@/components/shared/version-watermark'
 import { ExtensionCssDetector } from '@/components/shared/extension-css-detector'
@@ -30,6 +31,7 @@ import { SentryProvider } from '@/components/shared/sentry-provider'
 import { SiteUrlProvider } from '@/hooks/use-site-url'
 import { versionData } from '@/generated/version-data'
 import { DEFAULT_SITE_URL } from '@/lib/constants'
+import { IS_DEV_BUILD } from '@/lib/build-flags'
 import { GameI18nCatalogPreloader } from '@/components/shared/game-i18n-catalog-preloader'
 
 export function generateStaticParams() {
@@ -110,6 +112,7 @@ export default async function LocaleLayout({
               </noscript>
               {/* Navigation progress bar — immediate feedback on every nav */}
               <NavigationProgressBar />
+              {IS_DEV_BUILD ? <DevBuildNotice siteUrl={siteUrl} /> : null}
               {/* 紧急公告置于所有横幅最上方 —— 运营下发的最高优先级信息 */}
               <EmergencyNoticeBanner />
               <HolidayBanner />

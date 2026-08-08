@@ -9,6 +9,7 @@ export function ItemFrameBackground() {
     <Image
       src={withImageCacheVersion('/images/item-frame-bg.png')}
       alt=""
+      aria-hidden="true"
       fill
       unoptimized
       className="pointer-events-none absolute inset-0 z-0 object-cover"

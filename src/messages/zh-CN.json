@@ -826,6 +826,11 @@
   "versionWatermark": {
     "externalCssDetected": "检测到外部CSS注入"
   },
+  "devBuildNotice": {
+    "title": "开发/预览版本",
+    "description": "当前为开发版本，内容和功能可能不稳定。正式站：{site}",
+    "openOfficial": "打开正式站"
+  },
   "environment": {
     "browser": "浏览器",
     "engine": "内核"
