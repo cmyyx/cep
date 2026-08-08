@@ -3,6 +3,7 @@
 import { useState, type ReactNode } from 'react'
 import Image, { type StaticImageData } from 'next/image'
 import { cn } from '@/lib/utils'
+import { withImageCacheVersion } from '@/lib/image-url'
 import { getRarityBandSrc } from './rarity-stars'
 
 export interface RarityFrameProps {
@@ -39,6 +40,9 @@ export function RarityFrame({
   const fallbackLabel = title.trim().charAt(0) || '?'
   // A visible <h3> already names the frame, so the artwork must stay decorative.
   const resolvedAlt = imageAlt ?? (showTitle ? '' : title)
+  const resolvedBackgroundSrc = typeof backgroundSrc === 'string' ? withImageCacheVersion(backgroundSrc) : backgroundSrc
+  const resolvedImageSrc = typeof imageSrc === 'string' ? withImageCacheVersion(imageSrc) : imageSrc
+  const resolvedBandSrc = getRarityBandSrc(rarity)
 
   return (
     <article
@@ -50,16 +54,16 @@ export function RarityFrame({
     >
       <Image
         data-testid="rarity-frame-background"
-        src={backgroundSrc}
+        src={resolvedBackgroundSrc}
         alt=""
         fill
         className="object-cover"
         unoptimized
       />
-      {imageSrc && !imageFailed ? (
+      {resolvedImageSrc && !imageFailed ? (
         <Image
           data-testid="rarity-frame-image"
-          src={imageSrc}
+          src={resolvedImageSrc}
           alt={resolvedAlt}
           fill
           className={cn('z-10 object-cover', imageClassName)}
@@ -77,7 +81,7 @@ export function RarityFrame({
       )}
       <Image
         data-testid="rarity-frame-band"
-        src={getRarityBandSrc(rarity)}
+        src={resolvedBandSrc}
         alt=""
         width={200}
         height={40}

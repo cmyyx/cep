@@ -14,7 +14,7 @@
       "headers": [
         {
           "key": "Cache-Control",
-          "value": "public, max-age=86400"
+          "value": "public, max-age=15768000, immutable"
         }
       ]
     },
@@ -32,21 +32,12 @@
       "headers": [
         {
           "key": "Cache-Control",
-          "value": "no-cache"
+          "value": "public, max-age=15768000, immutable"
         }
       ]
     },
     {
       "source": "/*.html",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "no-cache"
-        }
-      ]
-    },
-    {
-      "source": "/*",
       "headers": [
         {
           "key": "Cache-Control",

@@ -8,6 +8,7 @@ import {
   searchGameI18n,
 } from './game-i18n-lookup'
 import { GAME_I18N_LOCALES, type GameI18nLocale, type GameI18nManifest } from './game-i18n-shared'
+import { gameI18nHashManifest } from '@/generated/game-i18n-hash-manifest'
 
 const PRIMARY_LOCALES = ['zh-CN', 'en', 'ja', 'zh-TW'] as const satisfies readonly GameI18nLocale[]
 
@@ -83,16 +84,19 @@ function jsonResponse(data: unknown): Response {
   } as Response
 }
 
+function resourceFile(input: RequestInfo | URL): string {
+  const pathname = new URL(String(input), 'https://test.local').pathname
+  const marker = '/game-i18n/'
+  const index = pathname.indexOf(marker)
+  return index >= 0 ? pathname.slice(index + marker.length) : pathname
+}
 beforeEach(() => {
   clearGameI18nLookupCache()
   vi.stubGlobal(
     'fetch',
     vi.fn(async (input: RequestInfo | URL) => {
-      const url = String(input)
-      if (url.endsWith('/game-i18n/manifest.json')) return jsonResponse(manifest)
-      const marker = '/game-i18n/'
-      const index = url.indexOf(marker)
-      const file = index >= 0 ? url.slice(index + marker.length) : url
+      const file = resourceFile(input)
+      if (file === 'manifest.json') return jsonResponse(manifest)
       const body = chunks[file]
       if (!body) {
         return { ok: false, status: 404, json: async () => ({}) } as Response
@@ -130,6 +134,12 @@ it('prefetches search-locale chunks in parallel and reports byte progress', asyn
     .map(([input]) => String(input))
     .filter((url) => url.includes('/zh-CN/'))
   expect(chunkCalls).toHaveLength(2)
+  for (const [input] of fetchMock.mock.calls) {
+    const url = new URL(String(input), 'https://test.local')
+    const expectedHash = gameI18nHashManifest[url.pathname]
+    expect(expectedHash).toBeDefined()
+    expect(url.searchParams.get('v')).toBe(expectedHash)
+  }
 })
 
 it('prefetches all locales with aggregate progress', async () => {
@@ -151,11 +161,8 @@ it('recovers automatically when the final retry succeeds', async () => {
   let resourceCalls = 0
   const fetchMock = vi.mocked(fetch)
   fetchMock.mockImplementation(async (input: RequestInfo | URL) => {
-    const url = String(input)
-    if (url.endsWith('/game-i18n/manifest.json')) return jsonResponse(manifest)
-    const marker = '/game-i18n/'
-    const index = url.indexOf(marker)
-    const file = index >= 0 ? url.slice(index + marker.length) : url
+    const file = resourceFile(input)
+    if (file === 'manifest.json') return jsonResponse(manifest)
     if (file === 'en/000.json') {
       resourceCalls += 1
       if (resourceCalls <= 3) {
@@ -181,11 +188,8 @@ it('retries a failed resource three times and continues loading the remaining lo
   const progress: Array<{ loaded: number; failed: GameI18nLocale[] }> = []
   const fetchMock = vi.mocked(fetch)
   fetchMock.mockImplementation(async (input: RequestInfo | URL) => {
-    const url = String(input)
-    if (url.endsWith('/game-i18n/manifest.json')) return jsonResponse(manifest)
-    const marker = '/game-i18n/'
-    const index = url.indexOf(marker)
-    const file = index >= 0 ? url.slice(index + marker.length) : url
+    const file = resourceFile(input)
+    if (file === 'manifest.json') return jsonResponse(manifest)
     if (file === 'en/000.json') {
       failedResourceCalls += 1
       return { ok: false, status: 503, json: async () => ({}) } as Response
@@ -313,11 +317,8 @@ it('isolates a shared locale prefetch from the initiating caller abort', async (
   vi.stubGlobal(
     'fetch',
     vi.fn(async (input: RequestInfo | URL) => {
-      const url = String(input)
-      if (url.endsWith('/game-i18n/manifest.json')) return jsonResponse(manifest)
-      const marker = '/game-i18n/'
-      const index = url.indexOf(marker)
-      const file = index >= 0 ? url.slice(index + marker.length) : url
+      const file = resourceFile(input)
+      if (file === 'manifest.json') return jsonResponse(manifest)
       const body = chunks[file]
       if (!body) return { ok: false, status: 404, json: async () => ({}) } as Response
       if (file.startsWith('zh-CN/')) markZhCNStarted?.()

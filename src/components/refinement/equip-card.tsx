@@ -12,6 +12,7 @@ import { Badge } from '@/components/ui/badge'
 import { useMobileLongPressTooltip } from '@/hooks/use-mobile-long-press-tooltip'
 import { withImageCacheVersion } from '@/lib/image-url'
 import { PlannerWikiPreview } from '@/components/shared/planner-wiki-preview'
+import { ItemFrameBackground } from '@/components/shared/item-frame-background'
 import { WikiMaterialList } from '@/components/shared/wiki-material-list'
 import { plainWikiPreviewText } from '@/components/shared/planner-wiki-preview'
 import { wikiEquipmentPlannerPreviews } from '@/generated/data/wiki/planner-previews'
@@ -159,7 +160,6 @@ export const EquipCard = memo(function EquipCard({
             onContextMenu={isMobile ? handleContextMenu : undefined}
             className={cn(
               'group relative flex items-center justify-center aspect-square w-full rounded-lg border-0 overflow-hidden transition-all',
-              'bg-[url(/images/item-frame-bg.png)] bg-cover bg-center',
               isMobile && 'touch-manipulation select-none [-webkit-touch-callout:none] [-webkit-user-select:none] [&_img]:pointer-events-none [&_img]:select-none',
               readOnly ? 'cursor-default' : 'cursor-pointer',
               isSelected
@@ -169,6 +169,7 @@ export const EquipCard = memo(function EquipCard({
           />
         }
       >
+        <ItemFrameBackground />
         {/* Equip image */}
         {imageSrc && (
           <div className="absolute inset-0 z-10 flex items-center justify-center">

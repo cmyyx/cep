@@ -6,6 +6,7 @@ import Image from 'next/image'
 import { ChevronRight } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { withImageCacheVersion } from '@/lib/image-url'
+import { ItemFrameBackground } from '@/components/shared/item-frame-background'
 
 import type { Weapon } from '@/types/matrix'
 
@@ -47,7 +48,8 @@ export const SelectedWeaponsStrip = memo(function SelectedWeaponsStrip({
               onClick={() => onToggleWeapon(id)}
               className="shrink-0 flex items-center gap-1 h-9 pr-1.5 pl-1 rounded-md border border-amber-400/30 bg-amber-400/[0.04] hover:bg-amber-400/10"
             >
-              <div className="relative size-7 shrink-0 rounded overflow-hidden bg-[url(/images/item-frame-bg.png)] bg-cover bg-center">
+              <div className="relative size-7 shrink-0 rounded overflow-hidden">
+                <ItemFrameBackground />
                 {imgSrc ? (
                   <Image
                     src={imgSrc}

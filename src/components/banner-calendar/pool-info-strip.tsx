@@ -12,6 +12,7 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog'
 import { cn } from '@/lib/utils'
+import { withImageCacheVersion } from '@/lib/image-url'
 import { bannerEntries } from '@/data/banner'
 import type { BannerEntry } from '@/data/banner'
 
@@ -107,7 +108,7 @@ export function PoolInfoStrip() {
               >
                 {/* Background image */}
                 <Image
-                  src={visual.imageUrl}
+                  src={withImageCacheVersion(visual.imageUrl)}
                   alt={visual.title}
                   fill
                   className="object-cover"
@@ -152,7 +153,7 @@ export function PoolInfoStrip() {
             <div className="relative aspect-video w-full overflow-hidden rounded-[inherit]">
               {/* Banner image */}
               <Image
-                src={selectedVisual.imageUrl}
+                src={withImageCacheVersion(selectedVisual.imageUrl)}
                 alt={selectedVisual.title}
                 fill
                 className="object-cover"

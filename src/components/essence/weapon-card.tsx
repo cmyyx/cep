@@ -13,6 +13,7 @@ import { useMobileLongPressTooltip } from '@/hooks/use-mobile-long-press-tooltip
 import { withImageCacheVersion } from '@/lib/image-url'
 import { getCharacterAvatarPath } from '@/lib/character-images'
 import { PlannerWikiPreview } from '@/components/shared/planner-wiki-preview'
+import { ItemFrameBackground } from '@/components/shared/item-frame-background'
 import { getWeaponWikiPreview } from '@/lib/weapon-wiki-preview'
 import { weaponStatLabel } from '@/lib/weapon-stats'
 import { PLANNER_SELECTED_BADGE_CLASS, PLANNER_SELECTED_RING_CLASS } from '@/lib/planner-selection-styles'
@@ -85,7 +86,6 @@ export const WeaponCard = memo(function WeaponCard({
       onContextMenu={isMobile && enableTooltip ? handleContextMenu : undefined}
       className={cn(
         'group relative flex items-center justify-center aspect-square w-full rounded-lg border cursor-pointer overflow-hidden transition-all',
-        'bg-[url(/images/item-frame-bg.png)] bg-cover bg-center',
         isMobile && enableTooltip && 'touch-manipulation select-none [-webkit-touch-callout:none] [-webkit-user-select:none] [&_img]:pointer-events-none [&_img]:select-none',
         disabled && 'opacity-30 cursor-not-allowed pointer-events-none',
         !disabled && [
@@ -95,6 +95,7 @@ export const WeaponCard = memo(function WeaponCard({
         ]
       )}
     >
+      <ItemFrameBackground />
       {/* Weapon art */}
       <div className="absolute inset-0 z-10 flex items-center justify-center">
         {isCustom || isPreview ? (
