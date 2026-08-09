@@ -1,4 +1,5 @@
 import {
+  existsSync,
   mkdirSync,
   readFileSync,
   renameSync,
@@ -7,12 +8,13 @@ import {
 } from 'node:fs'
 import { dirname, join, resolve } from 'node:path'
 import { pathToFileURL } from 'node:url'
-import { chromium, type Browser, type BrowserContext, type Page } from '@playwright/test'
+import { chromium, type Browser, type Page } from '@playwright/test'
 import sharp from 'sharp'
 import {
   buildCharacterImageTargets,
   collectIllustrationUrls,
   getCatalogItems,
+  getIllustrationUrl,
   type CharacterImageTarget,
 } from './skland-character-images'
 import { fetchRemoteWithRetry, runPool } from './wiki-builder-utils'
@@ -41,11 +43,18 @@ export interface CharacterImageDownloadResult {
   avatars: number
   fullBody: number
   /**
+   * Number of preview characters (not yet in game data) whose avatar was
+   * downloaded under a `preview-<itemId>` asset ID. Their name -> asset ID
+   * mapping is written to src/generated/data/wiki/preview-character-avatars.json
+   * so the frontend can resolve avatars without hardcoding.
+   */
+  previews: number
+  /**
    * Scrape was skipped — browser unavailable, network failed, or Skland response
    * lacked expected image URLs. Existing `images/characters` is left untouched so
    * prior sync output remains valid; callers should mark the PR accordingly.
-   * ponytail: a partial scrape is never committed — on the first failure we bail
-   * out of the whole step rather than ship an incomplete character set.
+   * A partial scrape is never committed — on the first failure we bail out of
+   * the whole step rather than ship an incomplete character set.
    */
   skipped: boolean
   skipReason?: string
@@ -70,7 +79,6 @@ function loadReleasedNameMap(projectRoot: string): Record<string, string> {
 
 async function collectSklandTargets(
   page: Page,
-  context: BrowserContext,
   releasedNameToId: Readonly<Record<string, string>>
 ): Promise<{ targets: CharacterImageTarget[]; illustrations: Record<string, string> }> {
   let catalogPayload: unknown
@@ -92,18 +100,34 @@ async function collectSklandTargets(
     { timeout: 30_000 }
   )
   await page.goto(CATALOG_URL, { waitUntil: 'domcontentloaded', timeout: 30_000 })
-  const catalogResponse = await responsePromise
+  await responsePromise
   const targets = buildCharacterImageTargets(
     getCatalogItems(catalogPayload),
     releasedNameToId
   )
-  const apiOrigin = new URL(catalogResponse.url()).origin
   const illustrations = await collectIllustrationUrls(targets, async (itemId) => {
-    const response = await context.request.get(
-      `${apiOrigin}/web/v1/wiki/item/info?id=${encodeURIComponent(itemId)}`,
-      { timeout: 20_000, failOnStatusCode: true }
+    // Skland's wiki API now requires a per-request `timestamp` + `sign` header
+    // that only the page's own JS can produce. Navigate to the detail route and
+    // capture the page's own signed item/info response instead of calling the
+    // API directly (which returns HTTP 401).
+    const detailUrl = `https://wiki.skland.com/endfield/detail?mainTypeId=1&subTypeId=1&gameEntryId=${encodeURIComponent(itemId)}&header=0`
+    const infoPromise = page.waitForResponse(
+      async (response) => {
+        if (
+          response.request().method() !== 'GET' ||
+          !response.url().includes(`/web/v1/wiki/item/info?id=${itemId}`)
+        ) return false
+        try {
+          getIllustrationUrl(await response.json())
+          return true
+        } catch {
+          return false
+        }
+      },
+      { timeout: 30_000 }
     )
-    return response.json()
+    await page.goto(detailUrl, { waitUntil: 'domcontentloaded', timeout: 30_000 })
+    return (await infoPromise).json()
   })
   return { targets, illustrations }
 }
@@ -144,7 +168,7 @@ export async function downloadCharacterAvatars(
     browser = await launchBrowser()
     const context = await browser.newContext({ viewport: { width: 1280, height: 800 } })
     const page = await context.newPage()
-    const scraped = await collectSklandTargets(page, context, releasedNameToId)
+    const scraped = await collectSklandTargets(page, releasedNameToId)
     scrapedTargets = scraped.targets
     illustrations = scraped.illustrations
   } catch (error) {
@@ -159,6 +183,9 @@ export async function downloadCharacterAvatars(
   for (const target of scrapedTargets) {
     if (target.avatarId) {
       if (!target.avatarUrl) {
+        // Preview entries missing an avatar URL are dropped individually so a
+        // half-finished Skland wiki page cannot abort the whole scrape.
+        if (target.isPreview) continue
         rmSync(tempDir, { recursive: true, force: true })
         return skippedResult(`Missing Skland image URL for avatar/${target.avatarId}`)
       }
@@ -171,6 +198,8 @@ export async function downloadCharacterAvatars(
     if (target.fullBodyId) {
       const remoteUrl = illustrations[target.fullBodyId]
       if (!remoteUrl) {
+        // Same leniency for preview entries: avatar-only is still useful.
+        if (target.isPreview) continue
         rmSync(tempDir, { recursive: true, force: true })
         return skippedResult(`Missing Skland image URL for fullBody/${target.fullBodyId}`)
       }
@@ -204,15 +233,40 @@ export async function downloadCharacterAvatars(
 
   rmSync(avatarDir, { recursive: true, force: true })
   renameSync(tempDir, avatarDir)
+
+  // Emit name -> asset ID for preview characters (not yet in game data) so
+  // the frontend can resolve their avatars without hardcoding. Once a
+  // character ships, the released mapping wins and the entry disappears.
+  const previewAvatars: Record<string, string> = {}
+  for (const target of scrapedTargets) {
+    if (
+      target.isPreview &&
+      target.avatarId &&
+      existsSync(join(avatarDir, `${target.avatarId}.avif`))
+    ) {
+      previewAvatars[target.name] = target.avatarId
+    }
+  }
+  const previewManifestPath = join(
+    projectRoot,
+    'src',
+    'generated',
+    'data',
+    'wiki',
+    'preview-character-avatars.json'
+  )
+  mkdirSync(dirname(previewManifestPath), { recursive: true })
+  writeFileSync(previewManifestPath, `${JSON.stringify(previewAvatars, null, 2)}\n`, 'utf8')
   return {
     avatars: jobs.filter((job) => job.kind === 'avatar').length,
     fullBody: jobs.filter((job) => job.kind === 'fullBody').length,
+    previews: Object.keys(previewAvatars).length,
     skipped: false,
   }
 }
 
 function skippedResult(skipReason: string): CharacterImageDownloadResult {
-  return { avatars: 0, fullBody: 0, skipped: true, skipReason }
+  return { avatars: 0, fullBody: 0, previews: 0, skipped: true, skipReason }
 }
 
 const isCli = process.argv[1]

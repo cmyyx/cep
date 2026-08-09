@@ -10,6 +10,7 @@ export interface CharacterImageTarget {
   avatarUrl: string
   avatarId?: string
   fullBodyId?: string
+  isPreview?: boolean
 }
 
 type JsonRecord = Record<string, unknown>
@@ -106,14 +107,20 @@ export function buildCharacterImageTargets(
       continue
     }
 
-    if (item.itemId === '1683' && item.name === '梨诺') {
-      targets.push({
-        itemId: item.itemId,
-        name: item.name,
-        avatarUrl: item.brief.cover,
-        avatarId: 'skland-1683',
-      })
-    }
+    // Preview characters: not yet in game data, so no official chr_ ID
+    // exists. Use a stable `preview-<itemId>` asset ID (the Skland itemId is
+    // stable and unique) so the UI can still show real images; the mapping
+    // name -> preview ID is emitted into a generated file for the frontend,
+    // and once the character ships the released mapping takes over
+    // automatically.
+    targets.push({
+      itemId: item.itemId,
+      name: item.name,
+      avatarUrl: item.brief.cover,
+      avatarId: `preview-${item.itemId}`,
+      fullBodyId: `preview-${item.itemId}`,
+      isPreview: true,
+    })
   }
 
   return targets
@@ -123,20 +130,19 @@ export async function collectIllustrationUrls(
   targets: CharacterImageTarget[],
   loadDetail: (itemId: string) => Promise<unknown>
 ): Promise<Record<string, string>> {
-  const fullBodyTargets = targets.filter(
-    (target): target is CharacterImageTarget & { fullBodyId: string } => Boolean(target.fullBodyId)
-  )
-  const results = await Promise.allSettled(
-    fullBodyTargets.map(async (target) => ({
-      id: target.fullBodyId,
-      url: getIllustrationUrl(await loadDetail(target.itemId)),
-    }))
-  )
-  return Object.fromEntries(
-    results.flatMap((result) => result.status === 'fulfilled' ? [[result.value.id, result.value.url]] : [])
-  )
+  // Page navigation cannot run concurrently — each detail page visit issues
+  // its own signed API request, so walk targets sequentially and skip failures.
+  const results: [string, string][] = []
+  for (const target of targets) {
+    if (!target.fullBodyId) continue
+    try {
+      results.push([target.fullBodyId, getIllustrationUrl(await loadDetail(target.itemId))])
+    } catch {
+      // per-target failures are isolated; the caller decides what to do
+    }
+  }
+  return Object.fromEntries(results)
 }
-
 export function getIllustrationUrl(payload: unknown): string {
   const data = asRecord(asRecord(payload)?.data)
   const item = asRecord(data?.item)

@@ -362,8 +362,24 @@ export function validateImages(
         ...assets.characters.map((id) => `/images/characters/${id}.avif`),
         ...assets.characterFullBody.map((id) => `/images/characters/full/${id}.avif`),
       ]
+  // Preview characters (not yet in game data) resolve through their own
+  // generated manifest; validate those avatars too.
+  const previewManifestPath = join(
+    projectRoot,
+    'src',
+    'generated',
+    'data',
+    'wiki',
+    'preview-character-avatars.json'
+  )
+  const previewPaths = options.skipCharacterImages || !existsSync(previewManifestPath)
+    ? []
+    : Object.values(
+        JSON.parse(readFileSync(previewManifestPath, 'utf8')) as Record<string, string>
+      ).map((id) => `/images/characters/${id}.avif`)
   const paths = [
     ...characterPaths,
+    ...previewPaths,
     ...assets.characterPotential.map((id) => `/images/wiki/character-potential/${id}.avif`),
     ...assets.weapons.map((id) => `/images/weapon/${id}.avif`),
     ...assets.equipment.map((id) => `/images/equip/${id}.avif`),

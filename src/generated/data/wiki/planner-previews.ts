@@ -2903,6 +2903,58 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       }
     ]
   },
+  "wpn_lance_0014": {
+    "stats": [
+      {
+        "levelOne": {
+          "zh-CN": "意志<@ba.vup>+20</>",
+          "en": "Will <@ba.vup>+20</>",
+          "ja": "意志<@ba.vup>+20</>",
+          "zh-TW": "意志<@ba.vup>+20</>"
+        },
+        "maxLevel": {
+          "zh-CN": "意志<@ba.vup>+156</>",
+          "en": "Will <@ba.vup>+156</>",
+          "ja": "意志<@ba.vup>+156</>",
+          "zh-TW": "意志<@ba.vup>+156</>"
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "zh-CN": "治疗效率<@ba.vup>+6.0%</>",
+          "en": "Treatment Efficiency <@ba.vup>+6.0%</>.",
+          "ja": "回復効率<@ba.vup>+6.0%</>",
+          "zh-TW": "治療效率<@ba.vup>+6.0%</>"
+        },
+        "maxLevel": {
+          "zh-CN": "治疗效率<@ba.vup>+46.4%</>",
+          "en": "Treatment Efficiency <@ba.vup>+46.4%</>.",
+          "ja": "回復効率<@ba.vup>+46.4%</>",
+          "zh-TW": "治療效率<@ba.vup>+46.4%</>"
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "zh-CN": "主能力<@ba.vup>+16.0%</>。\n装备者通过自身技能治疗小队内其他干员时，受到装备者治疗的干员攻击力<@ba.vup>+3.5%</>，持续20秒。\n<@ba.info>同名效果最多叠加4层，每层单独计算持续时间，每名干员每0.1秒最多获得一次该效果。</>",
+          "en": "Main attribute <@ba.vup>+16.0%</>.\nWhen the wielder's skill grants HP Treatment to other operators in the team, the operator receiving the wielder's treatment also gains ATK <@ba.vup>+3.5%</> for 20s.\n<@ba.info>Max stacks for effects of the same name: 4. Duration of each stack is counted separately. Each operator can gain this effect at most once every 0.1s. </>",
+          "ja": "メイン能力値<@ba.vup>+16.0%</>\n装備中、自身のスキルでチーム内の他のオペレーターを治療したとき、20秒間その治療を受けたオペレーターの攻撃力<@ba.vup>+3.5%</>\n<@ba.info>同名効果は4回まで重ね掛け可能\n効果の持続時間は個別にカウントされ、各オペレーターは0.1秒に1回までこの効果を獲得できる</>",
+          "zh-TW": "主能力<@ba.vup>+16.0%</>。\n裝備者透過自身技能治療小隊內其他幹員時，受到裝備者治療的幹員攻擊力<@ba.vup>+3.5%</>，持續20秒。\n<@ba.info>同名效果最多疊加4層，每層單獨計算持續時間，每名幹員每0.1秒最多獲得一次該效果。</>"
+        },
+        "maxLevel": {
+          "zh-CN": "主能力<@ba.vup>+44.8%</>。\n装备者通过自身技能治疗小队内其他干员时，受到装备者治疗的干员攻击力<@ba.vup>+9.8%</>，持续20秒。\n<@ba.info>同名效果最多叠加4层，每层单独计算持续时间，每名干员每0.1秒最多获得一次该效果。</>",
+          "en": "Main attribute <@ba.vup>+44.8%</>.\nWhen the wielder's skill grants HP Treatment to other operators in the team, the operator receiving the wielder's treatment also gains ATK <@ba.vup>+9.8%</> for 20s.\n<@ba.info>Max stacks for effects of the same name: 4. Duration of each stack is counted separately. Each operator can gain this effect at most once every 0.1s. </>",
+          "ja": "メイン能力値<@ba.vup>+44.8%</>\n装備中、自身のスキルでチーム内の他のオペレーターを治療したとき、20秒間その治療を受けたオペレーターの攻撃力<@ba.vup>+9.8%</>\n<@ba.info>同名効果は4回まで重ね掛け可能\n効果の持続時間は個別にカウントされ、各オペレーターは0.1秒に1回までこの効果を獲得できる</>",
+          "zh-TW": "主能力<@ba.vup>+44.8%</>。\n裝備者透過自身技能治療小隊內其他幹員時，受到裝備者治療的幹員攻擊力<@ba.vup>+9.8%</>，持續20秒。\n<@ba.info>同名效果最多疊加4層，每層單獨計算持續時間，每名幹員每0.1秒最多獲得一次該效果。</>"
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
   "wpn_lance_0008": {
     "stats": [
       {
