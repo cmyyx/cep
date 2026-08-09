@@ -632,5 +632,27 @@ export const wikiCharacters = [
       "month": 11,
       "day": 20
     }
+  },
+  {
+    "id": "chr_0035_liino",
+    "category": "characters",
+    "name": {
+      "zh-CN": "梨诺",
+      "en": "Liino",
+      "ja": "リーノ",
+      "zh-TW": "梨諾"
+    },
+    "rarity": 6,
+    "imageId": "chr_0035_liino",
+    "elementId": "Pulse",
+    "professionId": "4",
+    "factionId": "ENDFIELD INDUSTRIES",
+    "weaponTypeId": "5",
+    "mainAttributeId": "42",
+    "subAttributeId": "40",
+    "birthday": {
+      "month": 7,
+      "day": 27
+    }
   }
 ] satisfies WikiCharacterSummary[]
