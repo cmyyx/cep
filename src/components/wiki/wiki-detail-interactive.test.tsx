@@ -7,12 +7,13 @@ import { renderToStaticMarkup } from 'react-dom/server'
 import {
   AdministratorHero,
   CharacterLevelTableIsland,
+  CharacterSkillLevelsIsland,
   MaterialDisclosureClient,
   MATERIAL_ICON_ROW_CLASS,
   PotentialImageDialog,
   WeaponLevelTableIsland,
 } from './wiki-detail-interactive'
-import { packCharacterLevels, packWeaponLevels } from './wiki-detail-utils'
+import { packCharacterLevels, packSkillLevels, packWeaponLevels } from './wiki-detail-utils'
 
 const viewport = vi.hoisted(() => ({ isMobile: false }))
 vi.mock('@/hooks/use-mobile', () => ({ useIsMobile: () => viewport.isMobile }))
@@ -95,10 +96,11 @@ it('weapon level table shows only the top level until expanded', () => {
     />,
   )
 
-  expect(screen.getByText('640')).toBeTruthy()
+  // 标定行 + 顶层数据行都渲染 640, 低等级值只出现在展开后。
+  expect(screen.getAllByText('640').length).toBeGreaterThanOrEqual(1)
   expect(screen.queryByText('51')).toBeNull()
   fireEvent.click(screen.getByRole('button', { name: /展开全部等级/ }))
-  expect(screen.getByText('51')).toBeTruthy()
+  expect(screen.getAllByText('51').length).toBeGreaterThanOrEqual(1)
 })
 
 it('weapon level table reuses the formatted attack and keeps full precision in the title', () => {
@@ -108,8 +110,10 @@ it('weapon level table reuses the formatted attack and keeps full precision in t
     />,
   )
 
-  const cell = screen.getByText('91.86').closest('td')
-  expect(cell?.getAttribute('title')).toBe('91.85567')
+  // 数据行的合并格带完整精度 title, 标定行不带。
+  const cells = screen.getAllByText('91.86').map((el) => el.closest('td'))
+  const withTitle = cells.find((cell) => cell?.getAttribute('title'))
+  expect(withTitle?.getAttribute('title')).toBe('91.85567')
 })
 
 it('material disclosure renders a placeholder for empty materials', () => {
@@ -218,4 +222,128 @@ it('potential preview falls back to a labelled placeholder when the artwork fail
 
   expect(screen.queryByRole('button', { name: '预览潜能一' })).toBeNull()
   expect(screen.getByRole('img', { name: '潜能一' })).toBeTruthy()
+})
+
+const mergedLevels = [
+  { level: 1, breakStage: 0, stats: [{ attributeId: 'hp', value: 100 }] },
+  { level: 2, breakStage: 0, stats: [{ attributeId: 'hp', value: 100 }] },
+]
+
+it('merged cells pin below the sticky header via the --table-header-h variable', () => {
+  wrap(
+    <CharacterLevelTableIsland
+      levels={packCharacterLevels(mergedLevels)}
+      attributeIds={['hp']}
+      attributeLabels={{ hp: '生命值' }}
+    />,
+  )
+  fireEvent.click(screen.getByRole('button', { name: /展开全部等级/ }))
+
+  const spans = [...document.querySelectorAll('tbody span.sticky')]
+  // 突破阶段 + 生命值两列各有一个跨 2 行的合并值。
+  expect(spans.length).toBe(2)
+  for (const span of spans) {
+    expect(span.className).toContain('top-[var(--table-header-h,2.5rem)]')
+  }
+})
+
+it('writes the measured sticky header height to --table-header-h so pinned values clear a tall header', () => {
+  const callbacks: Array<() => void> = []
+  vi.stubGlobal('ResizeObserver', class {
+    constructor(callback: () => void) {
+      callbacks.push(callback)
+    }
+    observe() {}
+    disconnect() {}
+    unobserve() {}
+  })
+  try {
+    wrap(
+      <CharacterLevelTableIsland
+        levels={packCharacterLevels(mergedLevels)}
+        attributeIds={['hp']}
+        attributeLabels={{ hp: '生命值' }}
+      />,
+    )
+    const table = document.querySelector('table')
+    const header = table?.querySelector('thead')
+    if (!table || !header) throw new Error('expected the level table to render')
+
+    // jsdom 不做布局 (offsetHeight 恒为 0), 覆盖实例属性模拟 17 列窄表头的多行高度。
+    Object.defineProperty(header, 'offsetHeight', { value: 176, configurable: true })
+    for (const callback of callbacks) callback()
+
+    expect(table.style.getPropertyValue('--table-header-h')).toBe('176px')
+  } finally {
+    vi.unstubAllGlobals()
+  }
+})
+
+it('skill table merged cells use the header-height variable too', () => {
+  wrap(
+    <CharacterSkillLevelsIsland
+      skillId="skill-a"
+      metrics={[{ id: 'm1', label: '伤害' }]}
+      levels={packSkillLevels([
+        { level: 1, label: 'Lv.1', values: ['100%'], coolDown: 20, costValue: 160 },
+        { level: 2, label: 'Lv.2', values: ['100%'], coolDown: 20, costValue: 160 },
+        { level: 3, label: 'Lv.3', values: ['100%'], coolDown: 20, costValue: 160 },
+      ])}
+    />,
+  )
+  fireEvent.click(screen.getByRole('button', { name: /展开技能等级/ }))
+
+  const spans = [...document.querySelectorAll('tbody span.sticky')]
+  // 倍率 + 冷却 + 技力消耗三列各有一个跨 3 行的合并值。
+  expect(spans.length).toBe(3)
+  for (const span of spans) {
+    expect(span.className).toContain('top-[var(--table-header-h,2.5rem)]')
+  }
+})
+
+it('skill table renders a hidden sizing row so column widths (and header height) stay stable on expand', () => {
+  wrap(
+    <CharacterSkillLevelsIsland
+      skillId="skill-a"
+      metrics={[{ id: 'm1', label: '伤害' }]}
+      levels={packSkillLevels([
+        { level: 1, label: 'Lv.1', values: ['100%'], coolDown: 20, costValue: 160 },
+        { level: 2, label: 'Lv.2', values: ['100%'], coolDown: 20, costValue: 160 },
+      ])}
+    />,
+  )
+
+  const sizingRow = document.querySelector('tbody tr[aria-hidden="true"]')
+  expect(sizingRow).toBeTruthy()
+  expect(sizingRow?.className).toContain('collapse')
+  // 标定行携带每列的最宽展示值, 与等级表的做法一致。
+  expect(sizingRow?.textContent).toContain('Lv.2')
+  expect(sizingRow?.textContent).toContain('100%')
+  expect(sizingRow?.textContent).toContain('160')
+})
+
+it('locks skill table column widths on the sizing row so they do not drift when rows expand', () => {
+  wrap(
+    <CharacterSkillLevelsIsland
+      skillId="skill-a"
+      metrics={[{ id: 'm1', label: '伤害' }]}
+      levels={packSkillLevels([
+        { level: 1, label: 'Lv.1', values: ['100%'], coolDown: 20, costValue: 160 },
+        { level: 2, label: 'Lv.2', values: ['100%'], coolDown: 20, costValue: 160 },
+      ])}
+    />,
+  )
+
+  const sizingCells = [...document.querySelectorAll<HTMLElement>('tbody tr[aria-hidden="true"] td')]
+  // 锁定在标定行单元格上 (等宽字体, ch 单位准确): 恰好内容宽, 无余量。
+  expect(sizingCells[1].style.minWidth).toBe('calc(4ch + 16px)') // '100%' = 4 字符
+  expect(sizingCells[1].style.maxWidth).toBe('calc(4ch + 16px)')
+  expect(sizingCells[2].style.minWidth).toBe('calc(2ch + 16px)') // 冷却 '20'
+  expect(sizingCells[3].style.minWidth).toBe('calc(3ch + 16px)') // 费用 '160'
+  // 材料列不锁定 (宽度由图标行内容决定)。
+  expect(sizingCells[4].style.minWidth).toBe('')
+  // 表头不带锁定样式, 但允许单词内断行, 长英文表头不会溢出窄列。
+  const ths = [...document.querySelectorAll<HTMLElement>('thead th')]
+  expect(ths[1].style.width).toBe('')
+  expect(ths[1].className).toContain('break-words')
 })

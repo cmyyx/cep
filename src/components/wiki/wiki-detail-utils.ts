@@ -55,7 +55,8 @@ export function formatWikiStatText(text: string): string {
 export function getWidestTableValue(values: readonly unknown[]): string {
   return values.reduce<string>((widest, value) => {
     const text = value === null || value === undefined || value === '' ? '—' : String(value)
-    return text.length > widest.length ? text : widest
+    // >= 而非 >: 初始 '—' (长度 1) 必须能被单字符值 (如等级 '9') 替换。
+    return text.length >= widest.length ? text : widest
   }, '—')
 }
 

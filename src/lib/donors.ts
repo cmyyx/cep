@@ -15,4 +15,5 @@ export const donors: Donor[] = [
   { name: '匿名', amount: 5.00, date: '2026-08-04', message: '' },
   { name: '匿名', amount: 5.00, date: '2026-08-06', message: '' },
   { name: '染墨', amount: 10.00, date: '2026-08-07', message: '做得好👍' },
+  { name: '往事随风', amount: 1.00, date: '2026-08-07', message: '你做的好呀' },
 ]
