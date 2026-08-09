@@ -64,11 +64,57 @@ describe('Skland character image metadata', () => {
         itemId: '1683',
         name: '梨诺',
         avatarUrl: 'liino-avatar',
-        avatarId: 'skland-1683',
+        avatarId: 'preview-1683',
+        fullBodyId: 'preview-1683',
+        isPreview: true,
+      },
+      {
+        itemId: '9999',
+        name: '未知角色',
+        avatarUrl: 'unknown-avatar',
+        avatarId: 'preview-9999',
+        fullBodyId: 'preview-9999',
+        isPreview: true,
       },
     ])
     expect(JSON.stringify(targets)).not.toContain('chr_0002_endminm')
     expect(JSON.stringify(targets)).not.toContain('chr_0003_endminf')
+  })
+
+  it('assigns stable preview IDs to catalog items without a released mapping', () => {
+    const targets = buildCharacterImageTargets(getCatalogItems(catalogPayload), {
+      佩丽卡: 'chr_0004_pelica',
+    })
+    expect(targets).toContainEqual({
+      itemId: '1683',
+      name: '梨诺',
+      avatarUrl: 'liino-avatar',
+      avatarId: 'preview-1683',
+      fullBodyId: 'preview-1683',
+      isPreview: true,
+    })
+    expect(targets).toContainEqual({
+      itemId: '9999',
+      name: '未知角色',
+      avatarUrl: 'unknown-avatar',
+      avatarId: 'preview-9999',
+      fullBodyId: 'preview-9999',
+      isPreview: true,
+    })
+    expect(JSON.stringify(targets)).not.toContain('skland-1683')
+  })
+
+  it('maps released names to official IDs regardless of Skland itemId', () => {
+    const targets = buildCharacterImageTargets(getCatalogItems(catalogPayload), {
+      梨诺: 'chr_0035_liino',
+    })
+    expect(targets).toContainEqual({
+      itemId: '1683',
+      name: '梨诺',
+      avatarUrl: 'liino-avatar',
+      avatarId: 'chr_0035_liino',
+      fullBodyId: 'chr_0035_liino',
+    })
   })
 
   it('reads the full-body illustration URL from detail payloads', () => {
@@ -78,24 +124,20 @@ describe('Skland character image metadata', () => {
       })
     ).toBe('full-body')
   })
-
-  it('loads all full-body illustrations concurrently and isolates failures', async () => {
+  it('loads all full-body illustrations sequentially and isolates failures', async () => {
     const started: string[] = []
-    const pending = new Map<string, (payload: unknown) => void>()
     const targets = buildCharacterImageTargets(getCatalogItems(catalogPayload), {
       佩丽卡: 'chr_0004_pelica',
     })
     const resultPromise = collectIllustrationUrls(targets, (itemId) => {
       started.push(itemId)
-      const { promise, resolve } = Promise.withResolvers<unknown>()
-      pending.set(itemId, resolve)
-      return promise
+      const details: Record<string, unknown> = {
+        '5': { data: { item: { document: { extraInfo: { illustration: 'pelica-full' } } } } },
+        '89': { data: {} },
+        '156': { data: { item: { document: { extraInfo: { illustration: 'female-full' } } } } },
+      }
+      return Promise.resolve(details[itemId])
     })
-
-    expect(started).toEqual(['5', '89', '156'])
-    pending.get('5')?.({ data: { item: { document: { extraInfo: { illustration: 'pelica-full' } } } } })
-    pending.get('89')?.({ data: {} })
-    pending.get('156')?.({ data: { item: { document: { extraInfo: { illustration: 'female-full' } } } } })
 
     await expect(resultPromise).resolves.toEqual({
       chr_0004_pelica: 'pelica-full',

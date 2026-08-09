@@ -111,132 +111,136 @@
     "source": "skland",
     "url": "https://bbs.hycdn.cn/image/common/20260626/5246026/6a3dfcd1690f9d18da26a0cd_3eac6ad0.png"
   },
+  "avatar/chr_0035_liino": {
+    "source": "skland",
+    "url": "https://bbs.hycdn.cn/image/common/20260809/4826366/6a77c4b6a87c0071fa15da57_3eac6ad0.png"
+  },
   "avatar/chr_9000_endmin": {
     "source": "skland",
     "url": "https://bbs.hycdn.cn/image/2026/01/12/2641152/837428a7e2fdc13972d45599675f53a4.png"
   },
-  "avatar/skland-1683": {
-    "source": "skland",
-    "url": "https://bbs.hycdn.cn/image/common/20260712/4826366/6a538dff8e326c8c8730a849_3eac6ad0.png"
-  },
   "fullBody/chr_0004_pelica": {
-    "source": "akedatabase",
-    "fallbackId": "chr_0004_pelica"
+    "source": "skland",
+    "url": "https://bbs.hycdn.cn/image/common/20260128/5246026/6979acea74509b5561051577_f1525633.png"
   },
   "fullBody/chr_0005_chen": {
-    "source": "akedatabase",
-    "fallbackId": "chr_0005_chen"
+    "source": "skland",
+    "url": "https://bbs.hycdn.cn/image/common/20260129/4826366/697b0156e9b28fa88d006975_f1525633.png"
   },
   "fullBody/chr_0006_wolfgd": {
-    "source": "akedatabase",
-    "fallbackId": "chr_0006_wolfgd"
+    "source": "skland",
+    "url": "https://bbs.hycdn.cn/image/common/20260203/5246026/6981d875fb917c18a2f90ed7_db193eac.png"
   },
   "fullBody/chr_0007_ikut": {
-    "source": "akedatabase",
-    "fallbackId": "chr_0007_ikut"
+    "source": "skland",
+    "url": "https://bbs.hycdn.cn/image/common/20260203/101423/6981b8639642368b1491957b_f1525633.png"
   },
   "fullBody/chr_0009_azrila": {
-    "source": "akedatabase",
-    "fallbackId": "chr_0009_azrila"
+    "source": "skland",
+    "url": "https://bbs.hycdn.cn/image/common/20260202/4850358/6980a1ec4973d8a11340bf0d_56331367.png"
   },
   "fullBody/chr_0011_seraph": {
-    "source": "akedatabase",
-    "fallbackId": "chr_0011_seraph"
+    "source": "skland",
+    "url": "https://bbs.hycdn.cn/image/common/20260204/101406/69832cfef139cae54d73458b_f1525633.png"
   },
   "fullBody/chr_0012_avywen": {
-    "source": "akedatabase",
-    "fallbackId": "chr_0012_avywen"
+    "source": "skland",
+    "url": "https://bbs.hycdn.cn/image/common/20260203/101406/6981e5749642368b149199e4_56331367.png"
   },
   "fullBody/chr_0013_aglina": {
-    "source": "akedatabase",
-    "fallbackId": "chr_0013_aglina"
+    "source": "skland",
+    "url": "https://bbs.hycdn.cn/image/common/20260203/101423/6980d4bf51a1ffd966c081ef_13673ac9.png"
   },
   "fullBody/chr_0014_aurora": {
-    "source": "akedatabase",
-    "fallbackId": "chr_0014_aurora"
+    "source": "skland",
+    "url": "https://bbs.hycdn.cn/image/common/20260202/4826366/6980bf504973d8a11340c283_3eac6ad0.png"
   },
   "fullBody/chr_0015_lifeng": {
-    "source": "akedatabase",
-    "fallbackId": "chr_0015_lifeng"
+    "source": "skland",
+    "url": "https://bbs.hycdn.cn/image/common/20260204/2274383/69822618fb917c18a2f91783_f1525633.png"
   },
   "fullBody/chr_0016_laevat": {
-    "source": "akedatabase",
-    "fallbackId": "chr_0016_laevat"
+    "source": "skland",
+    "url": "https://bbs.hycdn.cn/image/2025/12/29/2054140/def7baaa8bd59d659956e3b30709e776.png"
   },
   "fullBody/chr_0017_yvonne": {
-    "source": "akedatabase",
-    "fallbackId": "chr_0017_yvonne"
+    "source": "skland",
+    "url": "https://bbs.hycdn.cn/image/common/20260202/4850358/69807e91b2a055d757270a10_56331367.png"
   },
   "fullBody/chr_0018_dapan": {
-    "source": "akedatabase",
-    "fallbackId": "chr_0018_dapan"
+    "source": "skland",
+    "url": "https://bbs.hycdn.cn/image/common/20260204/101406/6982b4d320eb10d0fb106fff_6ad0f152.png"
   },
   "fullBody/chr_0019_karin": {
-    "source": "akedatabase",
-    "fallbackId": "chr_0019_karin"
+    "source": "skland",
+    "url": "https://bbs.hycdn.cn/image/2025/12/19/2641152/c6313823f37f7927cc17a97a2816df95.png"
   },
   "fullBody/chr_0020_meurs": {
-    "source": "akedatabase",
-    "fallbackId": "chr_0020_meurs"
+    "source": "skland",
+    "url": "https://bbs.hycdn.cn/image/common/20260202/5246026/6980afa14973d8a11340c0a2_13673ac9.png"
   },
   "fullBody/chr_0021_whiten": {
-    "source": "akedatabase",
-    "fallbackId": "chr_0021_whiten"
+    "source": "skland",
+    "url": "https://bbs.hycdn.cn/image/common/20260204/2274383/6982b357f139cae54d7333a3_2f76db19.png"
   },
   "fullBody/chr_0022_bounda": {
-    "source": "akedatabase",
-    "fallbackId": "chr_0022_bounda"
+    "source": "skland",
+    "url": "https://bbs.hycdn.cn/image/2025/12/19/2641152/bfea0cf6bf62d479fa1e1692f1668b2b.png"
   },
   "fullBody/chr_0023_antal": {
-    "source": "akedatabase",
-    "fallbackId": "chr_0023_antal"
+    "source": "skland",
+    "url": "https://bbs.hycdn.cn/image/common/20260204/4850358/69835efbf139cae54d7351c5_3eac6ad0.png"
   },
   "fullBody/chr_0024_deepfin": {
-    "source": "akedatabase",
-    "fallbackId": "chr_0024_deepfin"
+    "source": "skland",
+    "url": "https://bbs.hycdn.cn/image/common/20260202/101406/6980a5dfdeae33c4ae1301b2_56331367.png"
   },
   "fullBody/chr_0025_ardelia": {
-    "source": "akedatabase",
-    "fallbackId": "chr_0025_ardelia"
+    "source": "skland",
+    "url": "https://bbs.hycdn.cn/image/2026/01/26/4826366/5a4f32c6a98a4698cb0a27790e7ecc61.png"
   },
   "fullBody/chr_0026_lastrite": {
-    "source": "akedatabase",
-    "fallbackId": "chr_0026_lastrite"
+    "source": "skland",
+    "url": "https://bbs.hycdn.cn/image/common/20260203/101423/6981a46b358e5ea8375338ba_13673ac9.png"
   },
   "fullBody/chr_0027_tangtang": {
-    "source": "akedatabase",
-    "fallbackId": "chr_0027_tangtang"
+    "source": "skland",
+    "url": "https://bbs.hycdn.cn/image/common/20260312/2274383/69b211604298be0edf042ceb_f1525633.png"
   },
   "fullBody/chr_0028_wulfa": {
-    "source": "akedatabase",
-    "fallbackId": "chr_0028_wulfa"
+    "source": "skland",
+    "url": "https://bbs.hycdn.cn/image/common/20260329/4826366/69c899910b797bd73812133e_13673ac9.png"
   },
   "fullBody/chr_0029_pograni": {
-    "source": "akedatabase",
-    "fallbackId": "chr_0029_pograni"
+    "source": "skland",
+    "url": "https://bbs.hycdn.cn/image/common/20260204/2054140/6983544c94e337a3813baeab_13673ac9.png"
   },
   "fullBody/chr_0030_zhuangfy": {
-    "source": "akedatabase",
-    "fallbackId": "chr_0030_zhuangfy"
+    "source": "skland",
+    "url": "https://bbs.hycdn.cn/image/common/20260417/2641152/69e12fde74b009e98f20a8af_f1525633.png"
   },
   "fullBody/chr_0031_mifu": {
-    "source": "akedatabase",
-    "fallbackId": "chr_0031_mifu"
+    "source": "skland",
+    "url": "https://bbs.hycdn.cn/image/common/20260605/4826366/6a22112ee3004c345d6a33b0_56331367.png"
   },
   "fullBody/chr_0032_lizhiyan": {
-    "source": "akedatabase",
-    "fallbackId": "chr_0032_lizhiyan"
+    "source": "skland",
+    "url": "https://bbs.hycdn.cn/image/common/20260714/4634516/6a55d389860beb756f1b0f63_6ad0f152.png"
   },
   "fullBody/chr_0033_camille": {
-    "source": "akedatabase",
-    "fallbackId": "chr_0033_camille"
+    "source": "skland",
+    "url": "https://bbs.hycdn.cn/image/common/20260626/5246026/6a3dfcd64a781ce0249a49a2_56331367.png"
+  },
+  "fullBody/chr_0035_liino": {
+    "source": "skland",
+    "url": "https://bbs.hycdn.cn/image/common/20260809/4826366/6a77c4bfc0785229734ab7c9_13673ac9.png"
   },
   "fullBody/chr_9000_endmin-female": {
-    "source": "akedatabase",
-    "fallbackId": "chr_0003_endminf"
+    "source": "skland",
+    "url": "https://bbs.hycdn.cn/image/2025/12/12/2641152/070ac04f99948c2408a4e5ca83c30775.png"
   },
   "fullBody/chr_9000_endmin-male": {
-    "source": "akedatabase",
-    "fallbackId": "chr_0002_endminm"
+    "source": "skland",
+    "url": "https://bbs.hycdn.cn/image/2026/01/03/2641152/81c42622f55c1a54102b999f81f4eab3.png"
   }
 }

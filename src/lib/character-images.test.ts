@@ -15,8 +15,8 @@ describe('getCharacterAvatarPath', () => {
     }
   )
 
-  it('uses a source-scoped asset ID for preview characters', () => {
-    expect(getCharacterAvatarPath('梨诺')).toBe('/images/characters/skland-1683.avif')
+  it('resolves the newest released character via the i18n name map', () => {
+    expect(getCharacterAvatarPath('梨诺')).toBe('/images/characters/chr_0035_liino.avif')
   })
 
   it('does not invent paths for unknown characters', () => {
