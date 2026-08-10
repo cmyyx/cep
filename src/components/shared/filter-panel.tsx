@@ -45,7 +45,7 @@ export function FilterPanel({
         <span className="flex-1 text-left">{title}</span>
         {activeCount > 0 && <span className="font-geist-mono text-xs">{activeCount}</span>}
       </Button>
-      {activeCount > 0 && onClear && (
+      {activeCount > 0 && onClear && clearLabel && (
         <Button
           type="button"
           variant="ghost"
@@ -62,7 +62,8 @@ export function FilterPanel({
           collapsed ? 'grid-rows-[0fr] opacity-0' : 'grid-rows-[1fr] opacity-100',
         )}
       >
-        <div className="overflow-hidden">
+        {/* inert: 折叠时整个筛选子树不可交互/不可聚焦, 替代 aria-hidden (内容仍需被读屏读取)。 */}
+        <div className="overflow-hidden" inert={collapsed || undefined}>
           <div className="mt-1.5 flex flex-col gap-2">{children}</div>
         </div>
       </div>

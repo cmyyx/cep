@@ -110,6 +110,7 @@ export const WIKI_GROUP_HEADER_CLASS =
   'sticky top-0 z-30 flex min-w-0 items-center gap-2 bg-card px-1 py-1 shadow-[0_1px_0_0_var(--border)]'
 
 export function filterValue(entity: GridEntity, field: WikiFilterField): string {
+  if (field === 'rarity') return String(entity.rarity)
   if (field === 'elementId') return entity.category === 'characters' ? entity.elementId : ''
   if (field === 'professionId') return entity.category === 'characters' ? entity.professionId : ''
   if (field === 'weaponTypeId') {

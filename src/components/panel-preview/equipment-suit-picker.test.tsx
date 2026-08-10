@@ -131,3 +131,15 @@ it('filters equipment by refinement sub-attributes', () => {
   fireEvent.click(screen.getByRole('button', { name: 'refinement.clearFilters' }))
   expect(screen.queryByText('1', { selector: '.font-geist-mono' })).toBeNull()
 })
+
+it('clears refinement filters when partTypeId changes', () => {
+  const { rerender } = render(<EquipmentSuitPicker partTypeId="0" selectedId={null} onSelect={() => undefined} />)
+  fireEvent.click(screen.getByRole('button', { name: 'refinement.attributeFilters' }))
+  fireEvent.click(screen.getByRole('button', { name: 'equipStats.41' }))
+  expect(screen.getByText('1', { selector: '.font-geist-mono' })).toBeTruthy()
+
+  // 切换部位: 旧部位的筛选值必须清空, 避免污染新部位列表。
+  rerender(<EquipmentSuitPicker partTypeId="1" selectedId={null} onSelect={() => undefined} />)
+  expect(screen.queryByText('1', { selector: '.font-geist-mono' })).toBeNull()
+  expect(screen.queryByRole('button', { name: 'refinement.clearFilters' })).toBeNull()
+})

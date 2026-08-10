@@ -44,17 +44,26 @@ export function EquipmentSuitPicker({ partTypeId, selectedId, onSelect }: Equipm
   const [filterSub2, setFilterSub2] = useState<string[]>([])
   const [filterSpecial, setFilterSpecial] = useState<string[]>([])
 
-  const filterState: Record<EquipSubSlot, string[]> = { sub1: filterSub1, sub2: filterSub2, special: filterSpecial }
-  const setFilterState: Record<EquipSubSlot, (value: string[]) => void> = {
-    sub1: setFilterSub1,
-    sub2: setFilterSub2,
-    special: setFilterSpecial,
+  // partTypeId 变化 (切换装备部位) 时清除筛选: 旧部位的属性值不匹配新部位的选项, 保留会筛空列表。
+  // 用 render 阶段修正 (derive state from props), 避免 effect 内同步 setState 的级联渲染。
+  const [prevPartTypeId, setPrevPartTypeId] = useState(partTypeId)
+  if (prevPartTypeId !== partTypeId) {
+    setPrevPartTypeId(partTypeId)
+    setFilterSub1([])
+    setFilterSub2([])
+    setFilterSpecial([])
   }
+
+  const filterState = useMemo(
+    () => ({ sub1: filterSub1, sub2: filterSub2, special: filterSpecial }),
+    [filterSub1, filterSub2, filterSpecial],
+  )
   const activeFilterCount = filterSub1.length + filterSub2.length + filterSpecial.length
 
   const toggleFilter = (slot: EquipSubSlot, value: string) => {
     const current = filterState[slot]
-    setFilterState[slot](current.includes(value) ? current.filter((v) => v !== value) : [...current, value])
+    const setter = slot === 'sub1' ? setFilterSub1 : slot === 'sub2' ? setFilterSub2 : setFilterSpecial
+    setter(current.includes(value) ? current.filter((v) => v !== value) : [...current, value])
   }
   const clearFilters = () => {
     setFilterSub1([])
@@ -82,9 +91,9 @@ export function EquipmentSuitPicker({ partTypeId, selectedId, onSelect }: Equipm
       if (equipment.partTypeId !== partTypeId) continue
       if (term && !entityName(equipment).toLocaleLowerCase(locale).includes(term) && !equipment.id.toLocaleLowerCase(locale).includes(term)) continue
       // 精锻属性筛选: 选中集合为空或该槽位命中。
-      if (filterSub1.length > 0 && !filterSub1.includes(equipSubAttrKey(equipment.id, 'sub1'))) continue
-      if (filterSub2.length > 0 && !filterSub2.includes(equipSubAttrKey(equipment.id, 'sub2'))) continue
-      if (filterSpecial.length > 0 && !filterSpecial.includes(equipSubAttrKey(equipment.id, 'special'))) continue
+      for (const { slot } of FILTER_GROUPS) {
+        if (filterState[slot].length > 0 && !filterState[slot].includes(equipSubAttrKey(equipment.id, slot))) continue
+      }
       const key = equipment.suitId ?? '__no-set__'
       grouped.set(key, [...(grouped.get(key) ?? []), equipment])
     }
@@ -95,7 +104,7 @@ export function EquipmentSuitPicker({ partTypeId, selectedId, onSelect }: Equipm
         equipment: equipment.sort((left, right) => right.rarity - left.rarity || entityName(left).localeCompare(entityName(right))),
       }))
       .sort((left, right) => left.key === '__no-set__' ? -1 : right.key === '__no-set__' ? 1 : (right.equipment[0]?.rarity ?? 0) - (left.equipment[0]?.rarity ?? 0) || left.label.localeCompare(right.label))
-  }, [entityName, filterSpecial, filterSub1, filterSub2, locale, partTypeId, search, suitName, t])
+  }, [entityName, filterState, locale, partTypeId, search, suitName, t])
 
   return (
     <div className="flex min-h-0 flex-1 flex-col gap-3">

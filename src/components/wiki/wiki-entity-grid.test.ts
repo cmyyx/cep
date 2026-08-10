@@ -317,3 +317,11 @@ it('resolves refinement sub-attribute filters for equipment only', () => {
   const weapon = { id: 'wpn', category: 'weapons' as const, name: localized('剑', 'Sword'), rarity: 6, imageId: 'wpn', weaponTypeId: '1', maxLevel: 90 }
   expect(filterValue(weapon, 'sub1')).toBe('')
 })
+
+it('resolves the rarity filter from the entity rarity for every category', () => {
+  expect(filterValue({ ...idSearchEquipment, rarity: 4 }, 'rarity')).toBe('4')
+  const weapon = { id: 'wpn', category: 'weapons' as const, name: localized('剑', 'Sword'), rarity: 6, imageId: 'wpn', weaponTypeId: '1', maxLevel: 90 }
+  expect(filterValue(weapon, 'rarity')).toBe('6')
+  const char = { ...character('chr', '干员', 6) }
+  expect(filterValue(char, 'rarity')).toBe('6')
+})
