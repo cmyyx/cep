@@ -3,30 +3,28 @@
 import { useCallback, useEffect, useMemo, useRef, useState, useSyncExternalStore } from 'react'
 import Image from 'next/image'
 import { useTranslations } from 'next-intl'
-import { ChevronDown, ChevronUp, ImageOff } from 'lucide-react'
+import { ImageOff } from 'lucide-react'
 import { RarityStars } from '@/components/shared/rarity-stars'
 import { Button } from '@/components/ui/button'
 import { Switch } from '@/components/ui/switch'
 import { Dialog, DialogTrigger } from '@/components/ui/dialog'
 import { FullscreenImageDialogContent } from '@/components/shared/fullscreen-image-dialog'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
-import { TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
+import { LevelToggle } from '@/components/wiki/level-toggle'
 import { WikiDetailToc, type WikiTocItem } from '@/components/wiki/wiki-detail-toc'
 import { WikiMaterialList } from '@/components/shared/wiki-material-list'
 import { useExpandedWikiMaterials } from '@/components/wiki/wiki-material-catalog'
 import { WikiRichText } from '@/components/wiki/wiki-rich-text'
-import { WikiTable, WikiTableFrame } from '@/components/wiki/wiki-table'
+import { MergedLevelTable, type MergedLevelColumn } from '@/components/wiki/merged-level-table'
 import { useIsMobile } from '@/hooks/use-mobile'
 import { withImageCacheVersion } from '@/lib/image-url'
-import { cn } from '@/lib/utils'
+import type { WikiWeaponLevel } from '@/types/wiki'
 import {
   easeWikiScroll,
   formatWikiNumber,
-  getAdjacentSpans,
   getVisibleCharacterLevels,
   getVisibleSkillLevels,
   getVisibleWeaponLevels,
-  getWidestTableValue,
   unpackCharacterLevels,
   unpackSkillLevels,
   unpackWeaponLevels,
@@ -35,7 +33,6 @@ import {
   type SkillLevelsPacked,
   type WeaponLevelsPacked,
 } from '@/components/wiki/wiki-detail-utils'
-
 export type { WikiTocItem }
 
 export interface WikiDetailShellProps {
@@ -264,37 +261,24 @@ export function MaterialDisclosureClient({ materials }: { materials: MaterialRef
   )
 }
 
-function LevelToggle({
-  showAll,
-  onToggle,
-  collapseLabel,
-  expandLabel,
-}: {
-  showAll: boolean
-  onToggle: () => void
-  collapseLabel?: string
-  expandLabel?: string
-}) {
-  const t = useTranslations()
-  return (
-    <Button type="button" variant="ghost" size="sm" onClick={onToggle}>
-      {showAll ? <ChevronUp data-icon="inline-start" /> : <ChevronDown data-icon="inline-start" />}
-      {showAll ? collapseLabel ?? t('wiki.collapseLevels') : expandLabel ?? t('wiki.showAllLevels')}
-    </Button>
-  )
+type CharacterLevel = {
+  level: number
+  breakStage: number
+  stats: Array<{ attributeId: string; value: number }>
 }
 
-function MergedValue({ value, span }: { value: React.ReactNode; span: number }) {
-  return (
-    <span className={cn('inline-flex min-h-10 items-center px-2 py-2', span > 1 && 'sticky top-10')}>
-      {value}
-    </span>
-  )
+type SkillLevel = {
+  level: number
+  label: string
+  values: string[]
+  coolDown?: number
+  costValue?: number
+  materials: Array<{ itemId: string; count: number }>
 }
 
 /** 展示值 + 完整精度 title (仅在被格式化收敛时才挂 title, 避免整数格全是冗余 tooltip)。 */
 function statCell(
-  level: { stats: Array<{ attributeId: string; value: number }> },
+  level: CharacterLevel,
   attributeId: string,
 ): { text: string; title?: string } {
   const value = level.stats.find((stat) => stat.attributeId === attributeId)?.value
@@ -314,74 +298,41 @@ export function CharacterLevelTableIsland({
   attributeLabels: Record<string, string>
 }) {
   const t = useTranslations()
-  const [showAll, setShowAll] = useState(false)
   const levels = useMemo(() => unpackCharacterLevels(packedLevels), [packedLevels])
-  const visibleLevels = useMemo(() => getVisibleCharacterLevels(levels, showAll), [levels, showAll])
-  const levelSizingValue = useMemo(() => getWidestTableValue(levels.map((level) => level.level)), [levels])
-  const breakStageSizingValue = useMemo(() => getWidestTableValue(levels.map((level) => level.breakStage)), [levels])
-  const attributeSizingValues = useMemo(
-    () => attributeIds.map((id) => getWidestTableValue(levels.map((level) => statCell(level, id).text))),
-    [attributeIds, levels],
-  )
-  const breakStageSpans = getAdjacentSpans(visibleLevels.map((level) => level.breakStage))
-  // 合并按格式化后的文本判定: 1.0051/1.0102 都显示为 1.01, 不合并会渲染成两个字面相同的相邻格。
-  const attributeSpans = Object.fromEntries(
-    attributeIds.map((id) => [id, getAdjacentSpans(visibleLevels.map((level) => statCell(level, id).text))]),
-  )
+  const columns = useMemo<MergedLevelColumn<CharacterLevel>[]>(() => [
+    {
+      key: 'level',
+      header: t('wiki.level'),
+      value: (level) => String(level.level),
+      sticky: true,
+      cellClassName: 'font-mono tabular-nums',
+    },
+    {
+      key: 'breakStage',
+      header: t('wiki.breakStage'),
+      value: (level) => String(level.breakStage),
+      cellClassName: 'text-center font-mono tabular-nums',
+    },
+    ...attributeIds.map((id) => ({
+      key: id,
+      header: attributeLabels[id] ?? id,
+      value: (level: CharacterLevel) => statCell(level, id).text,
+      title: (level: CharacterLevel) => statCell(level, id).title,
+      cellClassName: 'text-center font-mono tabular-nums',
+    })),
+  ], [attributeIds, attributeLabels, t])
 
   return (
-    <WikiTableFrame
+    <MergedLevelTable
+      columns={columns}
+      rows={levels}
+      rowKey={(level) => `${level.level}-${level.breakStage}`}
+      collapsedRows={(all) => getVisibleCharacterLevels(all, false)}
       scrollClassName="max-h-[min(60svh,36rem)]"
-      className="min-w-[32rem]"
-      footer={<LevelToggle showAll={showAll} onToggle={() => setShowAll((value) => !value)} />}
-    >
-      <WikiTable className="min-w-full">
-        <TableHeader className="sticky top-0 z-20 bg-card shadow-[0_1px_0_0_rgba(0,0,0,0.08)]">
-          <TableRow className="hover:bg-transparent">
-            <TableHead className="sticky left-0 z-30 bg-card">{t('wiki.level')}</TableHead>
-            <TableHead className="whitespace-normal text-center leading-tight">{t('wiki.breakStage')}</TableHead>
-            {attributeIds.map((id) => (
-              <TableHead key={id} className="max-w-32 whitespace-normal text-center leading-tight">
-                {attributeLabels[id] ?? id}
-              </TableHead>
-            ))}
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          <TableRow aria-hidden className="collapse">
-            <TableCell className="font-mono tabular-nums">{levelSizingValue}</TableCell>
-            <TableCell className="text-center font-mono tabular-nums">{breakStageSizingValue}</TableCell>
-            {attributeIds.map((id, index) => (
-              <TableCell key={id} className="text-center font-mono tabular-nums">{attributeSizingValues[index]}</TableCell>
-            ))}
-          </TableRow>
-          {visibleLevels.map((level, rowIndex) => (
-            <TableRow key={`${level.level}-${level.breakStage}`}>
-              <TableCell className="sticky left-0 z-10 bg-card font-mono tabular-nums">{level.level}</TableCell>
-              {breakStageSpans[rowIndex] > 0 && (
-                <TableCell rowSpan={breakStageSpans[rowIndex]} className="relative p-0 text-center align-top font-mono tabular-nums">
-                  <MergedValue value={level.breakStage} span={breakStageSpans[rowIndex]} />
-                </TableCell>
-              )}
-              {attributeIds.map((id) => {
-                if (attributeSpans[id][rowIndex] === 0) return null
-                const cell = statCell(level, id)
-                return (
-                  <TableCell
-                    key={id}
-                    rowSpan={attributeSpans[id][rowIndex]}
-                    title={cell.title}
-                    className="relative p-0 text-center align-top font-mono tabular-nums"
-                  >
-                    <MergedValue value={cell.text} span={attributeSpans[id][rowIndex]} />
-                  </TableCell>
-                )
-              })}
-            </TableRow>
-          ))}
-        </TableBody>
-      </WikiTable>
-    </WikiTableFrame>
+      frameClassName="min-w-[32rem]"
+      collapseLabel={t('wiki.collapseLevels')}
+      expandLabel={t('wiki.showAllLevels')}
+    />
   )
 }
 
@@ -395,128 +346,93 @@ export function CharacterSkillLevelsIsland({
   levels: SkillLevelsPacked
 }) {
   const t = useTranslations()
-  const [showAll, setShowAll] = useState(false)
   const levels = useMemo(() => unpackSkillLevels(packedLevels), [packedLevels])
-  const visibleLevels = getVisibleSkillLevels(levels, showAll)
-  const sizingValues = useMemo(() => ({
-    label: getWidestTableValue(levels.map((level) => level.label)),
-    metrics: metrics.map((_, index) => getWidestTableValue(levels.map((level) => level.values[index] || '—'))),
-    coolDown: getWidestTableValue(levels.map((level) => level.coolDown)),
-    costValue: getWidestTableValue(levels.map((level) => level.costValue)),
-  }), [metrics, levels])
-  const metricSpans = metrics.map((_, index) => getAdjacentSpans(visibleLevels.map((level) => level.values[index] || '—')))
-  const coolDownSpans = getAdjacentSpans(visibleLevels.map((level) => level.coolDown ?? '—'))
-  const costValueSpans = getAdjacentSpans(visibleLevels.map((level) => level.costValue ?? '—'))
+  const columns = useMemo<MergedLevelColumn<SkillLevel>[]>(() => [
+    {
+      key: 'label',
+      header: t('wiki.level'),
+      value: (level) => level.label,
+      sticky: true,
+      cellClassName: 'font-geist-mono',
+    },
+    ...metrics.map((metric, index) => ({
+      key: metric.id,
+      header: metric.label,
+      value: (level: SkillLevel) => level.values[index] || '—',
+      cellClassName: 'text-center font-geist-mono',
+    })),
+    {
+      key: 'coolDown',
+      header: t('wiki.coolDown'),
+      value: (level) => String(level.coolDown ?? '—'),
+      cellClassName: 'text-center font-geist-mono',
+    },
+    {
+      key: 'costValue',
+      header: t('wiki.skillCost'),
+      value: (level) => String(level.costValue ?? '—'),
+    },
+    {
+      key: 'materials',
+      header: t('wiki.materials'),
+      headerClassName: 'text-center',
+      value: () => '—',
+      render: (level) => <MaterialDisclosureClient materials={level.materials} />,
+      cellClassName: 'text-center',
+      lock: false,
+      merge: false,
+    },
+  ], [metrics, t])
 
   return (
-    <WikiTableFrame
-      // 没有 max-h 时容器高度 == 内容高度, sticky 表头永远没有滚动参照 (展开 12 级后列头直接滚出视口)。
-      // svh 不依赖父级高度, 不影响页面高度链。
+    <MergedLevelTable
+      columns={columns}
+      rows={levels}
+      rowKey={(level) => `${skillId}-${level.level}`}
+      collapsedRows={(all) => getVisibleSkillLevels(all, false)}
       scrollClassName="max-h-[min(60svh,32rem)]"
-      className="min-w-[36rem]"
-      footer={
-        <LevelToggle
-          showAll={showAll}
-          onToggle={() => setShowAll((value) => !value)}
-          collapseLabel={t('wiki.collapseSkillLevels')}
-          expandLabel={t('wiki.showAllSkillLevels')}
-        />
-      }
-    >
-      <WikiTable className="min-w-full">
-        <TableHeader className="sticky top-0 z-20 bg-card shadow-[0_1px_0_0_rgba(0,0,0,0.08)]">
-          <TableRow className="hover:bg-transparent">
-            <TableHead className="sticky left-0 z-30 bg-card">{t('wiki.level')}</TableHead>
-            {metrics.map((metric) => (
-              <TableHead key={metric.id} className="max-w-28 whitespace-normal text-center leading-tight">
-                {metric.label}
-              </TableHead>
-            ))}
-            <TableHead className="whitespace-normal text-center leading-tight">{t('wiki.coolDown')}</TableHead>
-            <TableHead className="whitespace-normal text-center leading-tight">{t('wiki.skillCost')}</TableHead>
-            <TableHead className="text-center">{t('wiki.materials')}</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {visibleLevels.map((level, rowIndex) => (
-            <TableRow key={`${skillId}-${level.level}`}>
-              {/* 横向滚到第 4 列后仍要看得见 M1/M2/M3 标签。 */}
-              <TableCell
-                className="sticky left-0 z-10 bg-card font-geist-mono"
-                style={{ minWidth: `${sizingValues.label.length + 1}ch` }}
-              >
-                {level.label}
-              </TableCell>
-              {metrics.map((metric, metricIndex) =>
-                metricSpans[metricIndex]?.[rowIndex] > 0 ? (
-                  <TableCell key={metric.id} rowSpan={metricSpans[metricIndex][rowIndex]} className="relative p-0 text-center align-top font-geist-mono">
-                    <MergedValue value={level.values[metricIndex] || '—'} span={metricSpans[metricIndex][rowIndex]} />
-                  </TableCell>
-                ) : null,
-              )}
-              {coolDownSpans[rowIndex] > 0 ? (
-                <TableCell rowSpan={coolDownSpans[rowIndex]} className="relative p-0 text-center align-top font-geist-mono">
-                  <MergedValue value={level.coolDown ?? '—'} span={coolDownSpans[rowIndex]} />
-                </TableCell>
-              ) : null}
-              {costValueSpans[rowIndex] > 0 ? (
-                <TableCell rowSpan={costValueSpans[rowIndex]} className="relative p-0 text-center align-top font-geist-mono">
-                  <MergedValue value={level.costValue ?? '—'} span={costValueSpans[rowIndex]} />
-                </TableCell>
-              ) : null}
-              <TableCell className="text-center">
-                <MaterialDisclosureClient materials={level.materials} />
-              </TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </WikiTable>
-    </WikiTableFrame>
+      frameClassName="min-w-[36rem]"
+      collapseLabel={t('wiki.collapseSkillLevels')}
+      expandLabel={t('wiki.showAllSkillLevels')}
+    />
   )
 }
 
 export function WeaponLevelTableIsland({ levels: packedLevels }: { levels: WeaponLevelsPacked }) {
   const t = useTranslations()
-  const [showAll, setShowAll] = useState(false)
   const levels = useMemo(() => unpackWeaponLevels(packedLevels), [packedLevels])
-  const visible = useMemo(() => getVisibleWeaponLevels(levels, showAll), [levels, showAll])
-  const formattedAttacks = useMemo(() => visible.map((level) => formatWikiNumber(level.baseAttack)), [visible])
-  const attackSpans = getAdjacentSpans(formattedAttacks)
+  const columns = useMemo<MergedLevelColumn<WikiWeaponLevel>[]>(() => [
+    {
+      key: 'level',
+      header: t('wiki.level'),
+      value: (level) => String(level.level),
+      sticky: true,
+      cellClassName: 'font-geist-mono',
+    },
+    {
+      key: 'attack',
+      header: t('wiki.baseAttack'),
+      value: (level) => formatWikiNumber(level.baseAttack),
+      title: (level) => {
+        const formatted = formatWikiNumber(level.baseAttack)
+        const exact = String(level.baseAttack)
+        return exact === formatted ? undefined : exact
+      },
+      cellClassName: 'text-center font-geist-mono',
+    },
+  ], [t])
+
   return (
-    <WikiTableFrame
+    <MergedLevelTable
+      columns={columns}
+      rows={levels}
+      rowKey={(level) => String(level.level)}
+      collapsedRows={(all) => getVisibleWeaponLevels(all, false)}
       scrollClassName="max-h-[min(60svh,36rem)]"
-      className="min-w-[18rem]"
-      footer={<LevelToggle showAll={showAll} onToggle={() => setShowAll((value) => !value)} />}
-    >
-      <WikiTable className="min-w-full table-fixed">
-        <TableHeader className="sticky top-0 z-20 bg-card shadow-[0_1px_0_0_rgba(0,0,0,0.08)]">
-          <TableRow className="hover:bg-transparent">
-            <TableHead className="sticky left-0 z-30 bg-card">{t('wiki.level')}</TableHead>
-            <TableHead className="text-center">{t('wiki.baseAttack')}</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {visible.map((level, rowIndex) => {
-            const formattedAttack = formattedAttacks[rowIndex] ?? '—'
-            const exactAttack = String(level.baseAttack)
-            return (
-              <TableRow key={level.level}>
-                <TableCell className="sticky left-0 z-10 bg-card font-geist-mono">{level.level}</TableCell>
-                {attackSpans[rowIndex] > 0 ? (
-                  <TableCell
-                    rowSpan={attackSpans[rowIndex]}
-                    title={exactAttack === formattedAttack ? undefined : exactAttack}
-                    className="relative p-0 text-center align-top font-geist-mono"
-                  >
-                    <MergedValue value={formattedAttack} span={attackSpans[rowIndex]} />
-                  </TableCell>
-                ) : null}
-              </TableRow>
-            )
-          })}
-        </TableBody>
-      </WikiTable>
-    </WikiTableFrame>
+      frameClassName="min-w-[18rem]"
+      collapseLabel={t('wiki.collapseLevels')}
+      expandLabel={t('wiki.showAllLevels')}
+    />
   )
 }
 

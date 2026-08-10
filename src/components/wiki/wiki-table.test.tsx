@@ -18,6 +18,9 @@ it('applies shared inset column dividers while preserving table classes', () => 
   const table = screen.getByRole('table')
   expect(table.className).toContain('[&_th+th]:shadow-[inset_1px_0_0_0_rgba(0,0,0,0.08)]')
   expect(table.className).toContain('[&_td+td]:shadow-[inset_1px_0_0_0_rgba(0,0,0,0.08)]')
+  // tbody 建立独立堆叠上下文: 阻止滚动行内的合成层图片绘制到 sticky 表头之上。
+  expect(table.className).toContain('[&_tbody]:relative')
+  expect(table.className).toContain('[&_tbody]:z-0')
   expect(table.className).toContain('table-fixed')
 })
 

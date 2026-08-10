@@ -37,7 +37,9 @@ export function WikiTable({ className, ...props }: WikiTableProps) {
   return (
     <Table
       className={cn(
-        '[&_th+th]:shadow-[inset_1px_0_0_0_rgba(0,0,0,0.08)] [&_td+td]:shadow-[inset_1px_0_0_0_rgba(0,0,0,0.08)]',
+        // tbody 建立独立堆叠上下文 (relative z-0): 阻止滚动行内的合成层图片
+        // (材料图标等) 在 Chrome 下绘制到 sticky 表头 (z-20) 之上, 造成"表头穿透"。
+        '[&_th+th]:shadow-[inset_1px_0_0_0_rgba(0,0,0,0.08)] [&_td+td]:shadow-[inset_1px_0_0_0_rgba(0,0,0,0.08)] [&_tbody]:relative [&_tbody]:z-0',
         className,
       )}
       {...props}
