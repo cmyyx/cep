@@ -1,13 +1,15 @@
 'use client'
 
 import { useEffect, useMemo, useRef, useState, type CSSProperties, type ReactNode } from 'react'
-import { ChevronDown, ChevronUp } from 'lucide-react'
-import { Button } from '@/components/ui/button'
 import { TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { WikiTable, WikiTableFrame } from '@/components/wiki/wiki-table'
 import { getAdjacentSpans, getWidestTableValue } from '@/components/wiki/wiki-detail-utils'
+import { LevelToggle } from '@/components/wiki/level-toggle'
+import { MergedValue } from '@/components/wiki/merged-value'
 import { cn } from '@/lib/utils'
 
+/** WikiTable 的 style prop: CSS 变量 --table-header-h 是运行时测量值, 不属于静态类名。 */
+type TableStyle = CSSProperties & { '--table-header-h'?: string }
 /**
  * 测量 sticky 表头的实际高度, 写入 <table> 的 --table-header-h CSS 变量。
  * 合并值 span 用 top-[var(--table-header-h,2.5rem)] 钉在表头正下方: 表头高度随列宽
@@ -18,14 +20,15 @@ import { cn } from '@/lib/utils'
 function useStickyTableHeaderHeight() {
   const tableRef = useRef<HTMLTableElement>(null)
   const headerRef = useRef<HTMLTableSectionElement>(null)
+  const [headerHeight, setHeaderHeight] = useState(0)
 
   useEffect(() => {
-    const table = tableRef.current
     const header = headerRef.current
-    if (!table || !header) return
+    if (!header) return
     const update = () => {
       const height = header.offsetHeight
-      if (height > 0) table.style.setProperty('--table-header-h', `${height}px`)
+      // 测量值通过 React state 声明式写入 style prop (见 TableStyle), 不做命令式 DOM 操作。
+      if (height > 0) setHeaderHeight(height)
     }
     update()
     if (typeof ResizeObserver === 'undefined') return
@@ -34,7 +37,7 @@ function useStickyTableHeaderHeight() {
     return () => observer.disconnect()
   }, [])
 
-  return { tableRef, headerRef }
+  return { tableRef, headerRef, headerHeight }
 }
 
 /**
@@ -43,38 +46,13 @@ function useStickyTableHeaderHeight() {
  * 会让分配漂移 ±1-4px; max-width 锁死可增长性后列宽只由内容下限决定, 折叠/展开
  * 恒定。锁定值 ≤ 内容下限的列由下限接管 (列宽不变); 表头/内容更宽的列同样由
  * 内容决定, 锁定只负责消除分配漂移。
+ *
+ * 例外说明 (AGENTS.md 内联 style 规则): 列宽由标定文本长度动态计算, 属于
+ * "动态计算的数值", 无法用静态类名表达, 因此使用 React style prop。
  */
 function lockColumnWidth(text: string): CSSProperties {
   const width = `calc(${text.length}ch + 16px)`
   return { minWidth: width, maxWidth: width }
-}
-
-/** 合并值在 sticky 表头下方钉住 (配合 useStickyTableHeaderHeight 的 --table-header-h)。 */
-function MergedValue({ value, span }: { value: ReactNode; span: number }) {
-  return (
-    <span className={cn('inline-flex min-h-10 items-center px-2 py-2', span > 1 && 'sticky top-[var(--table-header-h,2.5rem)]')}>
-      {value}
-    </span>
-  )
-}
-
-function LevelToggle({
-  showAll,
-  onToggle,
-  collapseLabel,
-  expandLabel,
-}: {
-  showAll: boolean
-  onToggle: () => void
-  collapseLabel: string
-  expandLabel: string
-}) {
-  return (
-    <Button type="button" variant="ghost" size="sm" onClick={onToggle}>
-      {showAll ? <ChevronUp data-icon="inline-start" /> : <ChevronDown data-icon="inline-start" />}
-      {showAll ? collapseLabel : expandLabel}
-    </Button>
-  )
 }
 
 const DEFAULT_HEADER_CLASS = 'whitespace-normal break-words text-center leading-tight'
@@ -133,9 +111,9 @@ export function MergedLevelTable<Row>({
   expandLabel,
 }: MergedLevelTableProps<Row>) {
   const [showAll, setShowAll] = useState(false)
-  const { tableRef, headerRef } = useStickyTableHeaderHeight()
+  const { tableRef, headerRef, headerHeight } = useStickyTableHeaderHeight()
+  const tableStyle: TableStyle | undefined = headerHeight > 0 ? { '--table-header-h': `${headerHeight}px` } : undefined
   const visibleRows = showAll ? rows : collapsedRows(rows)
-
   const sizingValues = useMemo(
     () => columns.map((column) => getWidestTableValue(rows.map(column.value))),
     [columns, rows],
@@ -148,7 +126,11 @@ export function MergedLevelTable<Row>({
       className={frameClassName}
       footer={<LevelToggle showAll={showAll} onToggle={() => setShowAll((value) => !value)} collapseLabel={collapseLabel} expandLabel={expandLabel} />}
     >
-      <WikiTable ref={tableRef} className="min-w-full">
+      <WikiTable
+        ref={tableRef}
+        className="min-w-full"
+        style={tableStyle}
+      >
         <TableHeader ref={headerRef} className="sticky top-0 z-20 bg-card shadow-[0_1px_0_0_rgba(0,0,0,0.08)]">
           <TableRow className="hover:bg-transparent">
             {columns.map((column) => (
@@ -192,7 +174,10 @@ export function MergedLevelTable<Row>({
                   return (
                     <TableCell
                       key={column.key}
+                      rowSpan={span}
                       className={cn(STICKY_CELL_CLASS, column.cellClassName)}
+                      // 例外说明 (AGENTS.md 内联 style 规则): 首列最小宽度由标定文本长度
+                      // 动态计算 (ch 单位), 属于"动态计算的数值", 无法用静态类名表达。
                       style={{ minWidth: `${sizingValues[columnIndex].length + 1}ch` }}
                     >
                       {value}

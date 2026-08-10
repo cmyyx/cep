@@ -1,6 +1,6 @@
 // @vitest-environment jsdom
 
-import { cleanup, fireEvent, render, screen } from '@testing-library/react'
+import { act, cleanup, fireEvent, render, screen } from '@testing-library/react'
 import { NextIntlClientProvider } from 'next-intl'
 import { afterEach, expect, it, vi } from 'vitest'
 import { renderToStaticMarkup } from 'react-dom/server'
@@ -271,7 +271,7 @@ it('writes the measured sticky header height to --table-header-h so pinned value
 
     // jsdom 不做布局 (offsetHeight 恒为 0), 覆盖实例属性模拟 17 列窄表头的多行高度。
     Object.defineProperty(header, 'offsetHeight', { value: 176, configurable: true })
-    for (const callback of callbacks) callback()
+    for (const callback of callbacks) act(callback)
 
     expect(table.style.getPropertyValue('--table-header-h')).toBe('176px')
   } finally {

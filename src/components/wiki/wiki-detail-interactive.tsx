@@ -3,13 +3,14 @@
 import { useCallback, useEffect, useMemo, useRef, useState, useSyncExternalStore } from 'react'
 import Image from 'next/image'
 import { useTranslations } from 'next-intl'
-import { ChevronDown, ChevronUp, ImageOff } from 'lucide-react'
+import { ImageOff } from 'lucide-react'
 import { RarityStars } from '@/components/shared/rarity-stars'
 import { Button } from '@/components/ui/button'
 import { Switch } from '@/components/ui/switch'
 import { Dialog, DialogTrigger } from '@/components/ui/dialog'
 import { FullscreenImageDialogContent } from '@/components/shared/fullscreen-image-dialog'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
+import { LevelToggle } from '@/components/wiki/level-toggle'
 import { WikiDetailToc, type WikiTocItem } from '@/components/wiki/wiki-detail-toc'
 import { WikiMaterialList } from '@/components/shared/wiki-material-list'
 import { useExpandedWikiMaterials } from '@/components/wiki/wiki-material-catalog'
@@ -257,26 +258,6 @@ export function MaterialDisclosureClient({ materials }: { materials: MaterialRef
         <WikiMaterialList materials={expanded} />
       </TooltipContent>
     </Tooltip>
-  )
-}
-
-function LevelToggle({
-  showAll,
-  onToggle,
-  collapseLabel,
-  expandLabel,
-}: {
-  showAll: boolean
-  onToggle: () => void
-  collapseLabel?: string
-  expandLabel?: string
-}) {
-  const t = useTranslations()
-  return (
-    <Button type="button" variant="ghost" size="sm" onClick={onToggle}>
-      {showAll ? <ChevronUp data-icon="inline-start" /> : <ChevronDown data-icon="inline-start" />}
-      {showAll ? collapseLabel ?? t('wiki.collapseLevels') : expandLabel ?? t('wiki.showAllLevels')}
-    </Button>
   )
 }
 

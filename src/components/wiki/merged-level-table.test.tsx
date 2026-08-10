@@ -79,6 +79,30 @@ it('merges adjacent equal values with rowSpan and skips non-merge columns', () =
   // 材料列不合并: 每行都有独立的渲染内容。
   expect(screen.getAllByText(/材料[A-C]/)).toHaveLength(3)
 })
+it('merges the sticky first column when adjacent values match', () => {
+  const mergeRows: TestRow[] = [
+    { level: 1, value: '10%', material: 'A' },
+    { level: 1, value: '20%', material: 'B' },
+    { level: 2, value: '30%', material: 'C' },
+  ]
+  wrap(
+    <MergedLevelTable
+      columns={columns}
+      rows={mergeRows}
+      rowKey={(row) => `${row.level}-${row.value}`}
+      collapsedRows={(all) => all.slice(-1)}
+      collapseLabel="收起"
+      expandLabel="展开"
+    />,
+  )
+  fireEvent.click(screen.getByRole('button', { name: '展开' }))
+
+  // 首列相邻相同值 (1, 1) 合并: 第一行的 sticky 单元格 rowSpan=2, 第二行不渲染首列。
+  const stickyCells = [...document.querySelectorAll<HTMLElement>('tbody tr:not([aria-hidden]) td.sticky')]
+  expect(stickyCells).toHaveLength(2)
+  expect(stickyCells[0].getAttribute('rowspan')).toBe('2')
+  expect(stickyCells[1].getAttribute('rowspan')).toBe('1')
+})
 
 it('sizing row carries the widest value per column and locks non-sticky column widths', () => {
   wrap(
@@ -104,7 +128,6 @@ it('sizing row carries the widest value per column and locks non-sticky column w
   expect(sizingCells[1].style.minWidth).toBe('calc(3ch + 16px)')
   expect(sizingCells[2].style.minWidth).toBe('')
 })
-
 it('collapsed state shows only the rows returned by collapsedRows', () => {
   wrap(
     <MergedLevelTable
