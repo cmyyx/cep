@@ -148,6 +148,7 @@ export type PlannerCatalogProfile =
   | 'essence'
   | 'refinement'
   | 'panel-preview'
+  | 'wiki'
   | 'account'
 
 const PLANNER_CATALOG_KEYS = {
@@ -168,8 +169,10 @@ const PLANNER_CATALOG_KEYS = {
   essence: ['weapons', 'dungeons', 'gemStats', 'weaponStats', 'region'],
   /** Refinement planner: equipment tables only. */
   refinement: ['equips', 'equipStats', 'equipTypes', 'suits', 'materials'],
-  /** Panel preview: weapon stat labels (weaponStats) for the weapon tooltip config. */
-  'panel-preview': ['weaponStats'],
+  /** Panel preview: weapon stat labels (weaponStats) + equipment sub-attribute chips (equipStats). */
+  'panel-preview': ['weaponStats', 'equipStats'],
+  /** Wiki: 装备页精锻属性筛选 chips 的属性名 (equipStats.41 → 智识)。 */
+  wiki: ['equipStats'],
   /** Account sync conflict UI: equip display names + region labels (settings diff). */
   account: ['equips', 'region'],
 } as const satisfies Record<PlannerCatalogProfile, readonly (keyof CatalogBag)[]>

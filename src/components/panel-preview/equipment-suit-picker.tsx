@@ -6,16 +6,25 @@ import { useLocale, useTranslations } from 'next-intl'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
+import { FilterGroup } from '@/components/shared/filter-group'
+import { FilterPanel } from '@/components/shared/filter-panel'
 import { PlannerPreviewTooltip } from '@/components/shared/planner-preview-tooltip'
 import { PlannerWikiPreview } from '@/components/shared/planner-wiki-preview'
 import { RarityFrame } from '@/components/shared/rarity-frame'
 import { wikiEquipment } from '@/generated/data/wiki/equipment'
 import { wikiEquipmentPlannerPreviews } from '@/generated/data/wiki/planner-previews'
 import { useWikiTranslations } from '@/hooks/use-wiki-translations'
+import { equipSubAttrKey, type EquipSubSlot } from '@/lib/equip-substats'
 import { PLANNER_SELECTED_BADGE_CLASS, PLANNER_SELECTED_RING_CLASS } from '@/lib/planner-selection-styles'
 import { cn } from '@/lib/utils'
 import type { WikiEquipmentSummary, WikiLocale } from '@/types/wiki'
 
+/** 精锻属性筛选组: 与精锻规划一致, 标签复用 refinement 命名空间。 */
+const FILTER_GROUPS: Array<{ slot: EquipSubSlot; labelKey: string }> = [
+  { slot: 'sub1', labelKey: 'refinement.subAttr1' },
+  { slot: 'sub2', labelKey: 'refinement.subAttr2' },
+  { slot: 'special', labelKey: 'refinement.specialEffect' },
+]
 export interface EquipmentSuitPickerProps {
   partTypeId: string
   selectedId: string | null
@@ -30,12 +39,61 @@ export function EquipmentSuitPicker({ partTypeId, selectedId, onSelect }: Equipm
   const { entityName, suitName, equipmentStatLabel } = useWikiTranslations()
   const [search, setSearch] = useState('')
   const [expanded, setExpanded] = useState<Set<string>>(new Set())
+  const [filterCollapsed, setFilterCollapsed] = useState(true)
+  const [filterSub1, setFilterSub1] = useState<string[]>([])
+  const [filterSub2, setFilterSub2] = useState<string[]>([])
+  const [filterSpecial, setFilterSpecial] = useState<string[]>([])
+
+  // partTypeId 变化 (切换装备部位) 时清除筛选: 旧部位的属性值不匹配新部位的选项, 保留会筛空列表。
+  // 用 render 阶段修正 (derive state from props), 避免 effect 内同步 setState 的级联渲染。
+  const [prevPartTypeId, setPrevPartTypeId] = useState(partTypeId)
+  if (prevPartTypeId !== partTypeId) {
+    setPrevPartTypeId(partTypeId)
+    setFilterSub1([])
+    setFilterSub2([])
+    setFilterSpecial([])
+  }
+
+  const filterState = useMemo(
+    () => ({ sub1: filterSub1, sub2: filterSub2, special: filterSpecial }),
+    [filterSub1, filterSub2, filterSpecial],
+  )
+  const activeFilterCount = filterSub1.length + filterSub2.length + filterSpecial.length
+
+  const toggleFilter = (slot: EquipSubSlot, value: string) => {
+    const current = filterState[slot]
+    const setter = slot === 'sub1' ? setFilterSub1 : slot === 'sub2' ? setFilterSub2 : setFilterSpecial
+    setter(current.includes(value) ? current.filter((v) => v !== value) : [...current, value])
+  }
+  const clearFilters = () => {
+    setFilterSub1([])
+    setFilterSub2([])
+    setFilterSpecial([])
+  }
+
+  /** 该部位实际存在的精锻属性 (5★ 装备才有数据), 不存在的属性不显示。 */
+  const filterOptions = useMemo(() => {
+    const options: Record<EquipSubSlot, string[]> = { sub1: [], sub2: [], special: [] }
+    for (const equipment of wikiEquipment) {
+      if (equipment.partTypeId !== partTypeId) continue
+      for (const slot of FILTER_GROUPS.map((group) => group.slot)) {
+        const key = equipSubAttrKey(equipment.id, slot)
+        if (key && !options[slot].includes(key)) options[slot].push(key)
+      }
+    }
+    return options
+  }, [partTypeId])
+
   const groups = useMemo(() => {
     const term = search.trim().toLocaleLowerCase(locale)
     const grouped = new Map<string, WikiEquipmentSummary[]>()
     for (const equipment of wikiEquipment) {
       if (equipment.partTypeId !== partTypeId) continue
       if (term && !entityName(equipment).toLocaleLowerCase(locale).includes(term) && !equipment.id.toLocaleLowerCase(locale).includes(term)) continue
+      // 精锻属性筛选: 选中集合为空或该槽位命中。
+      for (const { slot } of FILTER_GROUPS) {
+        if (filterState[slot].length > 0 && !filterState[slot].includes(equipSubAttrKey(equipment.id, slot))) continue
+      }
       const key = equipment.suitId ?? '__no-set__'
       grouped.set(key, [...(grouped.get(key) ?? []), equipment])
     }
@@ -46,7 +104,7 @@ export function EquipmentSuitPicker({ partTypeId, selectedId, onSelect }: Equipm
         equipment: equipment.sort((left, right) => right.rarity - left.rarity || entityName(left).localeCompare(entityName(right))),
       }))
       .sort((left, right) => left.key === '__no-set__' ? -1 : right.key === '__no-set__' ? 1 : (right.equipment[0]?.rarity ?? 0) - (left.equipment[0]?.rarity ?? 0) || left.label.localeCompare(right.label))
-  }, [entityName, locale, partTypeId, search, suitName, t])
+  }, [entityName, filterState, locale, partTypeId, search, suitName, t])
 
   return (
     <div className="flex min-h-0 flex-1 flex-col gap-3">
@@ -59,6 +117,31 @@ export function EquipmentSuitPicker({ partTypeId, selectedId, onSelect }: Equipm
           placeholder={rootT('wiki.searchPlaceholder')}
           aria-label={rootT('wiki.searchPlaceholder')}
         />
+      </div>
+      {/* 精锻属性筛选: 共享 FilterPanel/FilterGroup, 与精锻规划交互一致。 */}
+      <div className="shrink-0">
+        <FilterPanel
+          title={rootT('refinement.attributeFilters')}
+          collapsed={filterCollapsed}
+          onToggle={() => setFilterCollapsed((value) => !value)}
+          activeCount={activeFilterCount}
+          onClear={clearFilters}
+          clearLabel={rootT('refinement.clearFilters')}
+        >
+          {FILTER_GROUPS.map(({ slot, labelKey }) => (
+            <FilterGroup
+              key={slot}
+              label={rootT(labelKey)}
+              chips={filterOptions[slot].map((value) => ({
+                key: value,
+                label: rootT(`equipStats.${value}`),
+                valid: true,
+                selected: filterState[slot].includes(value),
+                onToggle: () => toggleFilter(slot, value),
+              }))}
+            />
+          ))}
+        </FilterPanel>
       </div>
       <div className="min-h-0 flex-1 space-y-2 overflow-y-auto pr-1">
         {groups.map((group) => {

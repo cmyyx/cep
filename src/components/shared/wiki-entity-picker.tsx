@@ -1,12 +1,12 @@
 'use client'
 
 import { useMemo, useState, type ReactNode } from 'react'
-import { Check, ChevronDown, Search } from 'lucide-react'
+import { Check, Search } from 'lucide-react'
 import { useLocale, useTranslations } from 'next-intl'
 import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { FilterChip } from '@/components/shared/filter-chip'
+import { FilterGroup } from '@/components/shared/filter-group'
+import { FilterPanel } from '@/components/shared/filter-panel'
 import { PlannerPreviewTooltip } from '@/components/shared/planner-preview-tooltip'
 import { RarityFrame } from '@/components/shared/rarity-frame'
 import { sortWikiEntities } from '@/components/wiki/wiki-entity-grid'
@@ -90,29 +90,36 @@ export function WikiEntityPicker({ title, entities, imageBasePath, selectedIds, 
         <Input value={search} onChange={(event) => setSearch(event.target.value)} placeholder={t('wiki.searchPlaceholder')} aria-label={t('wiki.searchPlaceholder')} className="pl-8" />
       </div>
       {filters.length > 0 && (
-        <div className="space-y-2">
-          <Button type="button" variant="ghost" size="sm" className="w-full justify-start" aria-expanded={filtersOpen} onClick={() => setFiltersOpen((open) => !open)}>
-            <ChevronDown className={filtersOpen ? 'transition-transform' : '-rotate-90 transition-transform'} />
-            {t('wiki.filterToggle')}
-            {activeCount > 0 && <Badge variant="secondary" className="ml-auto">{activeCount}</Badge>}
-          </Button>
-          {filtersOpen && (
-            <div className="space-y-3 rounded-lg bg-muted/35 p-3 shadow-[var(--shadow-border)]">
-              {filters.map((filter) => (
-                <div key={filter.field} className="grid min-w-0 gap-2 sm:grid-cols-[7rem_minmax(0,1fr)] sm:items-start">
-                  <span className="pt-1 text-xs font-medium text-muted-foreground">{t(filter.labelKey)}</span>
-                  <div className="grid min-w-0 grid-cols-[repeat(auto-fill,minmax(6rem,1fr))] gap-1.5">
-                    {(filterValues[filter.field] ?? []).map((value) => {
-                      const values = activeFilters[filter.field] ?? []
-                      return <FilterChip key={value} value={value} label={filter.field === 'rarity' ? `${value}★` : enumLabel(filter.enumGroup, value)} isValid isSelected={values.includes(value)} onToggle={() => setActiveFilters((current) => ({ ...current, [filter.field]: values.includes(value) ? values.filter((entry) => entry !== value) : [...values, value] }))} />
-                    })}
-                  </div>
-                </div>
-              ))}
-              {activeCount > 0 && <Button type="button" variant="ghost" size="sm" onClick={() => setActiveFilters({})}>{t('wiki.clearFilters')}</Button>}
-            </div>
-          )}
-        </div>
+        <FilterPanel
+          title={t('wiki.filterToggle')}
+          collapsed={!filtersOpen}
+          onToggle={() => setFiltersOpen((open) => !open)}
+          activeCount={activeCount}
+          onClear={() => setActiveFilters({})}
+          clearLabel={t('wiki.clearFilters')}
+        >
+          {filters.map((filter) => {
+            const selectedValues = activeFilters[filter.field] ?? []
+            return (
+              <FilterGroup
+                key={filter.field}
+                label={t(filter.labelKey)}
+                chips={(filterValues[filter.field] ?? []).map((value) => ({
+                  key: value,
+                  label: filter.field === 'rarity' ? `${value}★` : enumLabel(filter.enumGroup, value),
+                  valid: true,
+                  selected: selectedValues.includes(value),
+                  onToggle: () => setActiveFilters((current) => ({
+                    ...current,
+                    [filter.field]: selectedValues.includes(value)
+                      ? selectedValues.filter((entry) => entry !== value)
+                      : [...selectedValues, value],
+                  })),
+                }))}
+              />
+            )
+          })}
+        </FilterPanel>
       )}
       <div className={cn('grid content-start items-start grid-cols-[repeat(auto-fill,minmax(6.5rem,1fr))] gap-2', gridClassName)}>
         {filtered.map((entity) => {

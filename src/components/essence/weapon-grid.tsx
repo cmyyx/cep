@@ -2,12 +2,9 @@
 
 import { memo, useMemo, useCallback, useEffect } from 'react'
 import { useTranslations } from 'next-intl'
-import { ChevronDown } from 'lucide-react'
-import { cn } from '@/lib/utils'
 import { Input } from '@/components/ui/input'
-import { Button } from '@/components/ui/button'
-
-import { FilterChip } from '@/components/shared/filter-chip'
+import { FilterGroup } from '@/components/shared/filter-group'
+import { FilterPanel } from '@/components/shared/filter-panel'
 import { WeaponCard } from './weapon-card'
 import { SelectedWeaponsStrip } from './selected-weapons-strip'
 import { weapons as staticWeapons } from '@/data/weapons'
@@ -246,54 +243,27 @@ export const WeaponGrid = memo(function WeaponGrid({ onViewAll }: WeaponGridProp
         onViewAll={onViewAll}
       />
 
-      {/* Attribute filter — collapsible */}
-      <div>
-        <Button
-          type="button"
-          variant="ghost"
-          onClick={toggleFilterCollapsed}
-          aria-expanded={!filterCollapsed}
-          className="flex min-h-10 w-full items-center gap-2 px-3 text-sm text-muted-foreground transition-colors hover:text-foreground"
-        >
-          <ChevronDown className={cn('size-4 transition-transform', filterCollapsed ? '-rotate-90' : 'rotate-0')} />
-          <span className="flex-1 text-left">{t('essence.attrFilterTitle')}</span>
-        </Button>
-        <div
-          id="weapon-attr-filter"
-          className={cn(
-            'grid transition-all duration-200 ease-out',
-            filterCollapsed ? 'grid-rows-[0fr] opacity-0' : 'grid-rows-[1fr] opacity-100',
-          )}
-        >
-          <div className="overflow-hidden">
-            <div className="mt-1.5 flex flex-col gap-2">
-              {ATTR_KEYS.map((key) => {
-                const values = attrValues[key]
-                const valid = validOptions[key]
-                const selected = filters[key]
-                const isSpecialAbility = key === 'specialAbility'
-                return (
-                  <div key={key} className="flex flex-col gap-1">
-                    <span className="text-[10px] text-muted-foreground">{t(ATTR_LABEL_KEYS[key])}</span>
-                    <div className={isSpecialAbility ? 'grid grid-cols-[repeat(auto-fill,minmax(3.5rem,1fr))] gap-1' : 'grid grid-cols-[repeat(auto-fill,minmax(5.5rem,1fr))] gap-1'}>
-                      {values.map((value) => (
-                        <FilterChip
-                          key={value}
-                          value={value}
-                          label={key === 'weaponType' ? weaponTypeLabel(value, t) : t(`weaponStats.${value}`)}
-                          isValid={valid.has(value)}
-                          isSelected={selected.has(value)}
-                          onToggle={() => toggleFilter(key, value)}
-                        />
-                      ))}
-                    </div>
-                  </div>
-                )
-              })}
-            </div>
-          </div>
-        </div>
-      </div>
+      {/* Attribute filter — collapsible (shared FilterPanel/FilterGroup) */}
+      <FilterPanel
+        title={t('essence.attrFilterTitle')}
+        collapsed={filterCollapsed}
+        onToggle={toggleFilterCollapsed}
+      >
+        {ATTR_KEYS.map((key) => (
+          <FilterGroup
+            key={key}
+            label={t(ATTR_LABEL_KEYS[key])}
+            chipColumnClass={key === 'specialAbility' ? 'grid-cols-[repeat(auto-fill,minmax(3.5rem,1fr))]' : undefined}
+            chips={attrValues[key].map((value) => ({
+              key: value,
+              label: key === 'weaponType' ? weaponTypeLabel(value, t) : t(`weaponStats.${value}`),
+              valid: validOptions[key].has(value),
+              selected: filters[key].has(value),
+              onToggle: () => toggleFilter(key, value),
+            }))}
+          />
+        ))}
+      </FilterPanel>
 
       <div className="grid grid-cols-[repeat(auto-fill,minmax(6.5rem,1fr))] gap-2">
         {filteredWeapons.map((weapon) => (

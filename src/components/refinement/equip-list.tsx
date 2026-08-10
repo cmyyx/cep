@@ -2,27 +2,24 @@
 
 import { memo, useMemo } from 'react'
 import { useTranslations } from 'next-intl'
-import { ChevronDown } from 'lucide-react'
-import { cn } from '@/lib/utils'
 import { Input } from '@/components/ui/input'
-import { Button } from '@/components/ui/button'
-import { FilterChip } from '@/components/shared/filter-chip'
 import { EquipSetGroup } from './equip-set-group'
 import { useRefinementStore, useGroupedSets } from '@/stores/useRefinementStore'
+import { FilterGroup } from '@/components/shared/filter-group'
+import { FilterPanel } from '@/components/shared/filter-panel'
 import {
   sub1StatOptions,
   sub2StatOptions,
   specialStatOptions,
 } from '@/data/equips'
 
-type FilterGroup = 'sub1' | 'sub2' | 'special'
+type FilterSlot = 'sub1' | 'sub2' | 'special'
 
-const REFINEMENT_FILTER_GROUPS: { filterKey: FilterGroup; labelKey: string; options: string[] }[] = [
+const REFINEMENT_FILTER_GROUPS: { filterKey: FilterSlot; labelKey: string; options: string[] }[] = [
   { filterKey: 'sub1', labelKey: 'refinement.subAttr1', options: sub1StatOptions },
   { filterKey: 'sub2', labelKey: 'refinement.subAttr2', options: sub2StatOptions },
   { filterKey: 'special', labelKey: 'refinement.specialEffect', options: specialStatOptions },
 ]
-
 export const EquipList = memo(function EquipList() {
   const t = useTranslations()
   const searchQuery = useRefinementStore((s) => s.searchQuery)
@@ -41,8 +38,7 @@ export const EquipList = memo(function EquipList() {
     [filterSub1, filterSub2, filterSpecial],
   )
 
-  const hasActiveFilters =
-    filterSub1.length > 0 || filterSub2.length > 0 || filterSpecial.length > 0
+  const activeFilterCount = filterSub1.length + filterSub2.length + filterSpecial.length
 
   return (
     <div className="flex flex-col gap-3">
@@ -54,71 +50,30 @@ export const EquipList = memo(function EquipList() {
         className="text-sm"
       />
 
-      {/* Attribute filter — collapsible */}
-      <div>
-        <Button
-          type="button"
-          variant="ghost"
-          onClick={toggleFilterCollapsed}
-          aria-expanded={!filterCollapsed}
-          className="flex min-h-10 w-full items-center gap-2 px-3 text-sm text-muted-foreground transition-colors hover:text-foreground"
-        >
-          <ChevronDown className={cn('size-4 transition-transform', filterCollapsed ? '-rotate-90' : 'rotate-0')} />
-          <span className="flex-1 text-left">{t('refinement.attributeFilters')}</span>
-          {hasActiveFilters && <span className="font-geist-mono text-xs">{filterSub1.length + filterSub2.length + filterSpecial.length}</span>}
-        </Button>
-        {hasActiveFilters && (
-          <Button
-            type="button"
-            variant="ghost"
-            size="xs"
-            onClick={clearFilters}
-            className="text-[10px] text-muted-foreground hover:text-foreground h-auto px-1 -mt-0.5"
-          >
-            {t('refinement.clearFilters')}
-          </Button>
-        )}
-        <div
-          className={cn(
-            'grid transition-all duration-200 ease-out',
-            filterCollapsed
-              ? 'grid-rows-[0fr] opacity-0'
-              : 'grid-rows-[1fr] opacity-100',
-          )}
-        >
-          <div className="overflow-hidden">
-            <div className="flex flex-col gap-2 mt-1.5">
-              {REFINEMENT_FILTER_GROUPS.map(({ filterKey, labelKey, options }) => {
-                const selected = filterState[filterKey]
-                const isSpecial = filterKey === 'special'
-                return (
-                  <div key={filterKey} className="flex flex-col gap-1">
-                    <span className="text-[10px] text-muted-foreground">
-                      {t(labelKey)}
-                    </span>
-                    <div className={isSpecial ? 'grid grid-cols-[repeat(auto-fill,minmax(7rem,1fr))] gap-1' : 'grid grid-cols-[repeat(auto-fill,minmax(5.5rem,1fr))] gap-1'}>
-                      {options.map((v) => {
-                        const isSelected = selected.includes(v)
-                        return (
-                          <FilterChip
-                            key={v}
-                            value={v}
-                            label={t('equipStats.' + v)}
-                            isValid={true}
-                            isSelected={isSelected}
-                            onToggle={() => toggleFilter(filterKey, v)}
-                          />
-                        )
-                      })}
-                    </div>
-                  </div>
-                )
-              })}
-            </div>
-          </div>
-        </div>
-      </div>
-
+      {/* Attribute filter — collapsible (shared FilterPanel/FilterGroup) */}
+      <FilterPanel
+        title={t('refinement.attributeFilters')}
+        collapsed={filterCollapsed}
+        onToggle={toggleFilterCollapsed}
+        activeCount={activeFilterCount}
+        onClear={clearFilters}
+        clearLabel={t('refinement.clearFilters')}
+      >
+        {REFINEMENT_FILTER_GROUPS.map(({ filterKey, labelKey, options }) => (
+          <FilterGroup
+            key={filterKey}
+            label={t(labelKey)}
+            chipColumnClass={filterKey === 'special' ? 'grid-cols-[repeat(auto-fill,minmax(7rem,1fr))]' : undefined}
+            chips={options.map((v) => ({
+              key: v,
+              label: t('equipStats.' + v),
+              valid: true,
+              selected: filterState[filterKey].includes(v),
+              onToggle: () => toggleFilter(filterKey, v),
+            }))}
+          />
+        ))}
+      </FilterPanel>
       {/* Grouped equip list */}
       {groupedSets.length > 0 ? (
         <div className="flex flex-col gap-2">

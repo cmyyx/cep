@@ -1,6 +1,6 @@
 import { getTranslations } from 'next-intl/server'
 import type { Metadata } from 'next'
-import { loadRouteShellMessages } from '@/i18n/load-messages'
+import { loadPlannerCatalogs, loadRouteShellMessages } from '@/i18n/load-messages'
 import { RouteMessages } from '@/components/shared/route-messages'
 import type { WikiLocale } from '@/types/wiki'
 
@@ -37,6 +37,10 @@ export default async function WikiLayout({
 }) {
   const { locale } = await params
   // wiki 客户端孤岛 (grid/detail islands) + 装备型号后缀 refinement.modelType*
-  const messages = loadRouteShellMessages(locale as WikiLocale, 'wiki')
+  // + equipStats (装备页精锻属性筛选 chips 的属性名, 如 equipStats.41 → 智识)。
+  const messages = {
+    ...loadRouteShellMessages(locale as WikiLocale, 'wiki'),
+    ...loadPlannerCatalogs(locale as WikiLocale, 'wiki'),
+  }
   return <RouteMessages messages={messages}>{children}</RouteMessages>
 }
