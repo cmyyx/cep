@@ -44,6 +44,10 @@ export default async function WikiEquipmentPage({ params }: { params: Promise<{ 
         filters={[
           { field: 'rarity', labelKey: 'wiki.filter.rarity' },
           { field: 'partTypeId', labelKey: 'wiki.filter.partType', enumGroup: 'equipmentParts' },
+          // 精锻属性筛选: 仅 5★ 装备有数据, 标签复用 refinement 命名空间 (equipStats 前缀解析属性名)。
+          { field: 'sub1', labelKey: 'refinement.subAttr1', labelPrefix: 'equipStats' },
+          { field: 'sub2', labelKey: 'refinement.subAttr2', labelPrefix: 'equipStats' },
+          { field: 'special', labelKey: 'refinement.specialEffect', labelPrefix: 'equipStats' },
         ]}
       />
     </div>

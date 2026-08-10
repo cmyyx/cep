@@ -11,11 +11,13 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { RarityFrame } from '@/components/shared/rarity-frame'
 import { getRarityColorClass, normalizeRarity } from '@/components/shared/rarity-stars'
-import { FilterChip } from '@/components/shared/filter-chip'
+import { FilterGroup } from '@/components/shared/filter-group'
+import { FilterPanel } from '@/components/shared/filter-panel'
 import { NavLink } from '@/components/shared/nav-link'
 import { cn } from '@/lib/utils'
 import { withImageCacheVersion } from '@/lib/image-url'
 import { useWikiTranslations } from '@/hooks/use-wiki-translations'
+import { equipSubAttrKey } from '@/lib/equip-substats'
 import { useWikiStore } from '@/stores/useWikiStore'
 import type {
   WikiEntitySummary,
@@ -35,6 +37,9 @@ type WikiFilterField =
   | 'professionId'
   | 'weaponTypeId'
   | 'partTypeId'
+  | 'sub1'
+  | 'sub2'
+  | 'special'
 
 type WikiGroupField = 'elementId' | 'weaponTypeId'
 
@@ -42,6 +47,11 @@ interface WikiEntityFilter {
   field: WikiFilterField
   labelKey: string
   enumGroup?: WikiEnumGroup
+  /**
+   * 筛选值标签的 i18n 前缀 (如 'equipStats'): chip 与空态条件用 t(`${prefix}.${value}`) 解析。
+   * RSC 边界不能传函数, 因此用命名空间字符串; 未提供时回退到 enumGroup / 原始值。
+   */
+  labelPrefix?: string
 }
 
 interface WikiEntityGroupConfig {
@@ -99,12 +109,15 @@ const CARD_GRID_CLASS =
 export const WIKI_GROUP_HEADER_CLASS =
   'sticky top-0 z-30 flex min-w-0 items-center gap-2 bg-card px-1 py-1 shadow-[0_1px_0_0_var(--border)]'
 
-function filterValue(entity: GridEntity, field: WikiFilterField): string {
-  if (field === 'rarity') return String(entity.rarity)
+export function filterValue(entity: GridEntity, field: WikiFilterField): string {
   if (field === 'elementId') return entity.category === 'characters' ? entity.elementId : ''
   if (field === 'professionId') return entity.category === 'characters' ? entity.professionId : ''
   if (field === 'weaponTypeId') {
     return entity.category === 'equipment' ? '' : entity.weaponTypeId
+  }
+  // 精锻属性筛选仅对装备生效: 5★ 装备在 equipSubAttrsById 有记录, 其余返回空串。
+  if (field === 'sub1' || field === 'sub2' || field === 'special') {
+    return entity.category === 'equipment' ? equipSubAttrKey(entity.id, field) : ''
   }
   return entity.category === 'equipment' ? entity.partTypeId : ''
 }
@@ -329,6 +342,18 @@ export const WikiEntityGrid = memo(function WikiEntityGrid({
   const refreshBannerStatus = useBannerStore((state) => state.refreshBannerStatus)
   const upNames = useMemo(() => new Set(upCharacterNames), [upCharacterNames])
 
+  /**
+   * 筛选值的展示标签: labelPrefix → i18n (如 equipStats.41 → 智识);
+   * 否则回退到稀有度 / enumGroup / 原始值。
+   */
+  const valueLabel = useCallback(
+    (filter: WikiEntityFilter, value: string) => {
+      if (filter.labelPrefix) return t(`${filter.labelPrefix}.${value}`)
+      if (filter.field === 'rarity') return `${value}★`
+      return filter.enumGroup ? labelFor(filter.enumGroup, value) : value
+    },
+    [labelFor, t],
+  )
   useEffect(() => setHydrated(true), [])
 
   useEffect(() => {
@@ -351,13 +376,13 @@ export const WikiEntityGrid = memo(function WikiEntityGrid({
             return (leftIndex < 0 ? Number.MAX_SAFE_INTEGER : leftIndex) - (rightIndex < 0 ? Number.MAX_SAFE_INTEGER : rightIndex)
           }
         }
-        const leftLabel = filter.enumGroup ? labelFor(filter.enumGroup, left) : left
-        const rightLabel = filter.enumGroup ? labelFor(filter.enumGroup, right) : right
+        const leftLabel = valueLabel(filter, left)
+        const rightLabel = valueLabel(filter, right)
         return leftLabel.localeCompare(rightLabel, locale)
       })
     }
     return result
-  }, [entities, enumOrder, filters, labelFor, locale])
+  }, [entities, enumOrder, filters, locale, valueLabel])
 
   const searchTerm = deferredSearch.trim()
 
@@ -394,12 +419,11 @@ export const WikiEntityGrid = memo(function WikiEntityGrid({
     for (const filter of filters) {
       const selected = activeFilters[filter.field]
       if (!selected || selected.size === 0) continue
-      const values = [...selected].map((value) =>
-        filter.field === 'rarity' ? `${value}★` : filter.enumGroup ? labelFor(filter.enumGroup, value) : value)
+      const values = [...selected].map((value) => valueLabel(filter, value))
       conditions.push(`${t(filter.labelKey)}: ${values.join(' / ')}`)
     }
     return conditions
-  }, [activeFilters, filters, labelFor, searchTerm, t])
+  }, [activeFilters, filters, searchTerm, t, valueLabel])
   const filteredEquipment = useMemo(
     () => filtered.filter((entity): entity is GridEntity & { category: 'equipment'; partTypeId: string } => entity.category === 'equipment'),
     [filtered]
@@ -544,45 +568,28 @@ export const WikiEntityGrid = memo(function WikiEntityGrid({
           </div>
         </div>
         {filters.length > 0 && (
-          <div className="flex flex-col gap-2">
-            <Button
-              type="button"
-              variant="ghost"
-              aria-expanded={filterPanelOpen}
-              onClick={() => setFilterPanelOpen((open) => !open)}
-              className="min-h-10 w-full justify-start gap-2 px-3 text-sm text-muted-foreground hover:text-foreground"
-            >
-              <ChevronDown className={filterPanelOpen ? 'transition-transform' : '-rotate-90 transition-transform'} />
-              <span>{t('wiki.filterToggle')}</span>
-              {activeFilterCount > 0 && <Badge variant="secondary" className="ml-auto">{activeFilterCount}</Badge>}
-            </Button>
-            {filterPanelOpen && (
-              <div className="space-y-3 rounded-lg bg-muted/30 p-3 shadow-[var(--shadow-border)]">
-                {filters.map((filter) => (
-                  <div key={filter.field} className="grid min-w-0 gap-2 sm:grid-cols-[7rem_minmax(0,1fr)] sm:items-start">
-                    <span className="pt-1 text-xs font-medium text-muted-foreground">{t(filter.labelKey)}</span>
-                    <div className="grid min-w-0 grid-cols-[repeat(auto-fill,minmax(6rem,1fr))] gap-1.5">
-                      {filterValues[filter.field]?.map((value) => (
-                        <FilterChip
-                          key={value}
-                          value={value}
-                          label={filter.field === 'rarity' ? `${value}★` : filter.enumGroup ? labelFor(filter.enumGroup, value) : value}
-                          isValid
-                          isSelected={activeFilters[filter.field]?.has(value) ?? false}
-                          onToggle={() => toggleFilter(filter.field, value)}
-                        />
-                      ))}
-                    </div>
-                  </div>
-                ))}
-                {hasActiveFilters && (
-                  <Button type="button" variant="ghost" size="sm" onClick={() => setActiveFilters({})}>
-                    {t('wiki.clearFilters')}
-                  </Button>
-                )}
-              </div>
-            )}
-          </div>
+          <FilterPanel
+            title={t('wiki.filterToggle')}
+            collapsed={!filterPanelOpen}
+            onToggle={() => setFilterPanelOpen((open) => !open)}
+            activeCount={activeFilterCount}
+            onClear={() => setActiveFilters({})}
+            clearLabel={t('wiki.clearFilters')}
+          >
+            {filters.map((filter) => (
+              <FilterGroup
+                key={filter.field}
+                label={t(filter.labelKey)}
+                chips={(filterValues[filter.field] ?? []).map((value) => ({
+                  key: value,
+                  label: valueLabel(filter, value),
+                  valid: true,
+                  selected: activeFilters[filter.field]?.has(value) ?? false,
+                  onToggle: () => toggleFilter(filter.field, value),
+                }))}
+              />
+            ))}
+          </FilterPanel>
         )}
       </div>
 

@@ -44,7 +44,7 @@ it('route shell messages resolve namespaces and picks per route', () => {
   const wiki = loadRouteShellMessages('ja', 'wiki') as Record<string, Record<string, unknown>>
   expect(wiki).toHaveProperty('wiki')
   expect(Object.keys(wiki.refinement).sort()).toEqual(
-    ['modelTypeI', 'modelTypeII', 'modelTypeIII'].sort(),
+    ['modelTypeI', 'modelTypeII', 'modelTypeIII', 'specialEffect', 'subAttr1', 'subAttr2'].sort(),
   )
 
   const login = loadRouteShellMessages('en', 'login') as Record<string, unknown>
@@ -92,9 +92,14 @@ it('planner catalogs can be sliced per route profile', () => {
   expect(Object.keys(account).sort()).toEqual(['equips', 'region'])
 
   // Panel preview needs weaponStats so weaponStatLabel() can resolve
-  // weapon attribute ids (gat_passive_attr_*, gst_passive_*) via t('weaponStats.<id>').
+  // weapon attribute ids (gat_passive_attr_*, gst_passive_*) via t('weaponStats.<id>'),
+  // plus equipStats for the equipment picker's refinement sub-attribute chips.
   const panelPreview = loadPlannerCatalogs('zh-CN', 'panel-preview') as Record<string, unknown>
-  expect(Object.keys(panelPreview).sort()).toEqual(['weaponStats'])
+  expect(Object.keys(panelPreview).sort()).toEqual(['equipStats', 'weaponStats'])
+
+  // Wiki: 装备页精锻属性筛选 chips 的属性名 (equipStats.41 → 智识)。
+  const wiki = loadPlannerCatalogs('zh-CN', 'wiki') as Record<string, unknown>
+  expect(Object.keys(wiki).sort()).toEqual(['equipStats'])
 })
 
 it('planner client messages include shell + selected catalogs but not wikiData', () => {

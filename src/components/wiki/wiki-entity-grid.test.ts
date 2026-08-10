@@ -1,6 +1,7 @@
 import { expect, it } from 'vitest'
 import {
   defaultExpandedWikiGroups,
+  filterValue,
   getWikiEntityUpStatus,
   getWikiEquipmentModelKey,
   groupWikiEntities,
@@ -293,4 +294,26 @@ it('renders the sticky group header inside the scroll container, opaque and abov
   expect(WIKI_GROUP_HEADER_CLASS).toContain('z-30')
   // var(--border) flips with .dark so the hairline survives in dark mode.
   expect(WIKI_GROUP_HEADER_CLASS).toContain('shadow-[0_1px_0_0_var(--border)]')
+})
+
+it('resolves refinement sub-attribute filters for equipment only', () => {
+  // 5★ 装备: 属性 key 来自 equipSubAttrsById。
+  const fiveStar: WikiEquipmentSummary = {
+    ...({} as WikiEquipmentSummary),
+    id: 'item_equip_t4_suit_atk02_edc_05',
+    category: 'equipment',
+    name: localized('50式应龙短刃·壹型', 'Type 50 Yinglung Knife T1'),
+    rarity: 5,
+    imageId: 'item_equip_t4_suit_atk02_edc_05',
+    partTypeId: '2',
+    minimumLevel: 70,
+  }
+  expect(filterValue(fiveStar, 'sub1')).toBe('41')
+  expect(filterValue(fiveStar, 'sub2')).toBe('39')
+  expect(filterValue(fiveStar, 'special')).toBe('AllSkillDamageIncrease')
+
+  // 非 5★ (无精锻数据) 与非装备实体返回空串, 不参与属性筛选。
+  expect(filterValue(idSearchEquipment, 'sub1')).toBe('')
+  const weapon = { id: 'wpn', category: 'weapons' as const, name: localized('剑', 'Sword'), rarity: 6, imageId: 'wpn', weaponTypeId: '1', maxLevel: 90 }
+  expect(filterValue(weapon, 'sub1')).toBe('')
 })
