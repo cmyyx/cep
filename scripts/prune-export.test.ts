@@ -4,9 +4,10 @@ import path from 'node:path'
 import { afterEach, describe, expect, it } from 'vitest'
 import {
   findFullPayloadFiles,
+  findSegmentEntries,
   injectInlineGuards,
   pruneDuplicateIconMedia,
-  pruneFullPayloads,
+  pruneSegmentPayloads,
   resolveSiblingPagePayload,
 } from './prune-export.mjs'
 
@@ -32,41 +33,47 @@ function writeTree(root: string, files: Record<string, string>) {
   }
 }
 
-describe('pruneFullPayloads', () => {
-  it('deletes byte-identical duplicates including the root index.txt case', () => {
+describe('pruneSegmentPayloads', () => {
+  it('deletes every __next.* payload while keeping page payloads', () => {
     const out = createFixture()
     writeTree(out, {
       'index.txt': 'root-payload',
       '__next._full.txt': 'root-payload',
-      '__next._index.txt': 'segment-keep',
+      '__next._index.txt': 'segment-index',
       'ja/wiki/characters/chr_a.txt': 'chr-a-payload',
       'ja/wiki/characters/chr_a/__next._full.txt': 'chr-a-payload',
-      'ja/wiki/characters/chr_a/__next._tree.txt': 'tree-keep',
+      'ja/wiki/characters/chr_a/__next._tree.txt': 'tree',
+      'ja/wiki/characters/chr_a/__next.$d$locale/wiki/characters/$d$id/__PAGE__.txt': 'seg',
+      'ja/wiki/characters/chr_a/__next.$d$locale.txt': 'seg-locale',
       'llms.txt': 'llms-keep',
+      'ja/about.html': '<html></html>',
     })
 
-    const result = pruneFullPayloads(out)
+    const result = pruneSegmentPayloads(out)
 
-    expect(result.deleted).toBe(2)
-    expect(result.bytes).toBe('root-payload'.length + 'chr-a-payload'.length)
+    expect(result.files).toBe(6)
     expect(existsSync(path.join(out, '__next._full.txt'))).toBe(false)
-    expect(existsSync(path.join(out, 'ja/wiki/characters/chr_a/__next._full.txt'))).toBe(false)
+    expect(existsSync(path.join(out, '__next._index.txt'))).toBe(false)
+    expect(existsSync(path.join(out, 'ja/wiki/characters/chr_a/__next._tree.txt'))).toBe(false)
+    expect(existsSync(path.join(out, 'ja/wiki/characters/chr_a/__next.$d$locale'))).toBe(false)
+    // 客户端真正请求的整页载荷与无关文件必须保留
     expect(existsSync(path.join(out, 'index.txt'))).toBe(true)
     expect(existsSync(path.join(out, 'ja/wiki/characters/chr_a.txt'))).toBe(true)
-    expect(existsSync(path.join(out, '__next._index.txt'))).toBe(true)
-    expect(existsSync(path.join(out, 'ja/wiki/characters/chr_a/__next._tree.txt'))).toBe(true)
     expect(existsSync(path.join(out, 'llms.txt'))).toBe(true)
+    expect(existsSync(path.join(out, 'ja/about.html'))).toBe(true)
   })
 
-  it('aborts without deleting anything when contents differ', () => {
+  it('aborts without deleting anything when _full diverges from the page payload', () => {
     const out = createFixture()
     writeTree(out, {
       'about.txt': 'expected-payload',
       'about/__next._full.txt': 'divergent-payload',
+      'about/__next._tree.txt': 'tree',
     })
 
-    expect(() => pruneFullPayloads(out)).toThrow(/字节不一致/)
+    expect(() => pruneSegmentPayloads(out)).toThrow(/字节不一致/)
     expect(existsSync(path.join(out, 'about/__next._full.txt'))).toBe(true)
+    expect(existsSync(path.join(out, 'about/__next._tree.txt'))).toBe(true)
   })
 
   it('aborts when the sibling page payload is missing', () => {
@@ -75,8 +82,24 @@ describe('pruneFullPayloads', () => {
       'orphan/__next._full.txt': 'payload-without-sibling',
     })
 
-    expect(() => pruneFullPayloads(out)).toThrow(/兄弟文件/)
+    expect(() => pruneSegmentPayloads(out)).toThrow(/兄弟文件/)
     expect(existsSync(path.join(out, 'orphan/__next._full.txt'))).toBe(true)
+  })
+})
+
+describe('findSegmentEntries', () => {
+  it('returns __next.* dirs without recursing into them', () => {
+    const out = createFixture()
+    writeTree(out, {
+      '__next._tree.txt': 'a',
+      'ja/__next.$d$locale/wiki.txt': 'b',
+      'ja/__next.$d$locale/wiki/characters.txt': 'c',
+      'ja/about.txt': 'keep',
+    })
+
+    const entries = findSegmentEntries(out).map((entry) => path.relative(out, entry))
+
+    expect(entries).toEqual(['__next._tree.txt', path.join('ja', '__next.$d$locale')])
   })
 })
 

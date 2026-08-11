@@ -1,21 +1,32 @@
 /**
- * postbuild: 删除静态导出中从未被客户端请求的 __next._full.txt 重复载荷。
+ * postbuild: 删除静态导出中从未被客户端请求的 __next.* 分段载荷。
  * (无 shebang: 始终经 `node scripts/prune-export.mjs` 调用;
  *  shebang 行被 git autocrlf 转成 CRLF 后会破坏 vitest 的模块转换。)
  *
- * Next.js 16 静态导出会为每个 App Router 页面同时生成:
- *   - <page>.txt            完整页面 RSC 载荷(客户端非预取导航时请求)
- *   - <page>/__next._full.txt  同一载荷的逐字节副本(collect-segment-data 无条件输出,
- *     本版本 next/dist/client 中没有任何对 /_full 的引用,浏览器永远不会请求它)
+ * Next.js 16 静态导出会为每个 App Router 页面生成两套数据:
+ *   - <page>.txt   完整页面 RSC 载荷(客户端导航实际请求的唯一文件)
+ *   - <page>/__next.*  逐层分段载荷(_full / _tree / _index / _head 及
+ *     $d$locale 参数化目录树), 由 collect-segment-data 无条件输出
  *
- * 删除前逐一与兄弟 <page>.txt 做字节比对, 不一致立即失败——
- * 未来 Next 升级若改变该契约, 构建会在此处大声报错而不是悄悄破坏行为。
+ * 分段载荷仅在 per-segment prefetching 生效时才会被请求, 而该能力由
+ * next.config 的 `cacheComponents` 开启(config-shared.d.ts 默认 false, 本项目未开)。
+ * 关闭时 client/components/segment-cache/scheduler.js 走 FetchStrategy.LoadingBoundary
+ * 分支, 只请求 <page>.txt。已用 Playwright 在 `serve out` 上实测确认:
+ * 从 /zh-CN/wiki/characters 软导航进角色详情页, 网络面板仅出现
+ * `chr_0004_pelica.txt?_rsc=...`, 零个 __next.* 请求。
+ *
+ * 删除前逐一将 __next._full.txt 与兄弟 <page>.txt 做字节比对, 不一致立即失败——
+ * 未来 Next 升级或开启 cacheComponents 若改变该契约,
+ * 构建会在此处大声报错而不是悄悄破坏导航行为。
  */
-import { readdirSync, readFileSync, unlinkSync, existsSync, statSync, writeFileSync } from 'node:fs'
+import { readdirSync, readFileSync, rmSync, unlinkSync, existsSync, statSync, writeFileSync } from 'node:fs'
 import path from 'node:path'
 import { pathToFileURL } from 'node:url'
 
 const FULL_PAYLOAD_NAME = '__next._full.txt'
+
+/** 分段载荷的目录/文件前缀: __next._full.txt / __next._tree.txt / __next.$d$locale/ 等。 */
+const SEGMENT_PREFIX = '__next.'
 
 /** 递归收集 outDir 下所有 __next._full.txt 的绝对路径。 */
 export function findFullPayloadFiles(outDir) {
@@ -36,6 +47,27 @@ export function findFullPayloadFiles(outDir) {
 }
 
 /**
+ * 递归收集 outDir 下所有分段载荷条目 (以 `__next.` 开头的文件或目录)。
+ * 命中目录后不再向下递归——整棵子树都会被删除。
+ */
+export function findSegmentEntries(outDir) {
+  const found = []
+  const stack = [outDir]
+  while (stack.length > 0) {
+    const dir = stack.pop()
+    for (const entry of readdirSync(dir, { withFileTypes: true })) {
+      const entryPath = path.join(dir, entry.name)
+      if (entry.name.startsWith(SEGMENT_PREFIX)) {
+        found.push(entryPath)
+      } else if (entry.isDirectory()) {
+        stack.push(entryPath)
+      }
+    }
+  }
+  return found.sort()
+}
+
+/**
  * __next._full.txt 对应的整页载荷文件:
  *   out/.../route/__next._full.txt -> out/.../route.txt
  *   out/__next._full.txt           -> out/index.txt (根路由)
@@ -49,14 +81,30 @@ export function resolveSiblingPagePayload(fullPath) {
   return candidates.find((candidate) => existsSync(candidate)) ?? null
 }
 
+/** 递归累加一个文件或目录的字节数与文件个数。 */
+function measure(entryPath) {
+  const stats = statSync(entryPath)
+  if (stats.isFile()) return { bytes: stats.size, files: 1 }
+  let bytes = 0
+  let files = 0
+  for (const entry of readdirSync(entryPath, { withFileTypes: true })) {
+    const child = measure(path.join(entryPath, entry.name))
+    bytes += child.bytes
+    files += child.files
+  }
+  return { bytes, files }
+}
+
 /**
- * 校验并删除 outDir 下所有 __next._full.txt。
- * 任何文件缺少兄弟载荷或字节不一致都会抛错(此时不删除任何后续文件)。
+ * 校验并删除 outDir 下所有 __next.* 分段载荷。
+ *
+ * 校验只针对 __next._full.txt: 它必须与兄弟 <page>.txt 逐字节一致。
+ * 该文件是整页载荷的副本, 因此是检验"导出契约未变"的最强信号——
+ * 一旦 Next 改变分段协议或 cacheComponents 被开启, 这里会先炸。
+ * 缺少兄弟载荷或字节不一致都会抛错, 且在删除任何文件之前抛出。
  */
-export function pruneFullPayloads(outDir) {
-  const fullFiles = findFullPayloadFiles(outDir)
-  const verified = []
-  for (const fullPath of fullFiles) {
+export function pruneSegmentPayloads(outDir) {
+  for (const fullPath of findFullPayloadFiles(outDir)) {
     const siblingPath = resolveSiblingPagePayload(fullPath)
     if (!siblingPath) {
       throw new Error(
@@ -68,15 +116,19 @@ export function pruneFullPayloads(outDir) {
         `prune-export: ${fullPath} 与 ${siblingPath} 字节不一致, Next 导出契约可能已变化, 中止删除`,
       )
     }
-    verified.push(fullPath)
   }
 
   let bytes = 0
-  for (const fullPath of verified) {
-    bytes += statSync(fullPath).size
-    unlinkSync(fullPath)
+  let files = 0
+  let entries = 0
+  for (const entryPath of findSegmentEntries(outDir)) {
+    const measured = measure(entryPath)
+    bytes += measured.bytes
+    files += measured.files
+    entries += 1
+    rmSync(entryPath, { recursive: true, force: true })
   }
-  return { deleted: verified.length, bytes }
+  return { deleted: entries, files, bytes }
 }
 
 const GUARD_INLINE_FILE = 'guard-inline.js'
@@ -176,9 +228,11 @@ function main() {
     console.log('prune-export: 未找到 out/ 目录, 跳过')
     return
   }
-  const { deleted, bytes } = pruneFullPayloads(outDir)
+  const { deleted, files, bytes } = pruneSegmentPayloads(outDir)
   const mb = (bytes / 1024 / 1024).toFixed(1)
-  console.log(`prune-export: 已删除 ${deleted} 个 ${FULL_PAYLOAD_NAME} 重复载荷, 释放 ${mb} MB`)
+  console.log(
+    `prune-export: 已删除 ${deleted} 个 ${SEGMENT_PREFIX}* 分段载荷条目 (${files} 个文件), 释放 ${mb} MB`,
+  )
 
   const guards = injectInlineGuards(outDir)
   console.log(
