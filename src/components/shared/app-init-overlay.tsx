@@ -38,6 +38,14 @@ export function AppInitOverlay() {
     beginTracking()
   }, [hasCompleted, beginTracking])
 
+  // Hydration sentinel for the inline JS-resource guard: set as soon as this
+  // component mounts, which proves React hydrated. If a critical chunk fails,
+  // this never runs and the guard shows its fallback instead of leaving the
+  // overlay stuck forever.
+  useEffect(() => {
+    document.documentElement.setAttribute('data-cep-hydrated', '1')
+  }, [])
+
   // When all registered tasks complete (or none were registered) → exit.
   const allTasksDone = tasks.size === 0 || [...tasks].every((t) => completedTasks.has(t))
   const ready = useAppInitStore((s) => s.phase === 'ready')

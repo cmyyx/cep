@@ -37,12 +37,34 @@ export interface FeedbackChannel {
   href: string
   labelZh: string
   labelEn: string
+  /** Locale-specific labels keyed by the four locale routes (used by buildGuardFeedbackHtml). */
+  labels: Record<string, string>
 }
 
 export const FEEDBACK_CHANNELS = {
-  github: { href: 'https://github.com/cmyyx/cep', labelZh: 'GitHub', labelEn: 'GitHub' },
-  forum: { href: 'https://end.302200.xyz', labelZh: '\u8BBA\u575B', labelEn: 'Forum' },
-  qqGroup: { href: 'https://qm.qq.com/q/Cjdo2aRikE', labelZh: 'QQ\u7FA4 1045523485', labelEn: 'QQ Group 1045523485' },
+  github: {
+    href: 'https://github.com/cmyyx/cep',
+    labelZh: 'GitHub',
+    labelEn: 'GitHub',
+    labels: { 'zh-CN': 'GitHub', 'zh-TW': 'GitHub', ja: 'GitHub', en: 'GitHub' },
+  },
+  forum: {
+    href: 'https://end.302200.xyz',
+    labelZh: '\u8BBA\u575B',
+    labelEn: 'Forum',
+    labels: { 'zh-CN': '\u8BBA\u575B', 'zh-TW': '\u8AD6\u58C7', ja: '\u30D5\u30A9\u30FC\u30E9\u30E0', en: 'Forum' },
+  },
+  qqGroup: {
+    href: 'https://qm.qq.com/q/Cjdo2aRikE',
+    labelZh: 'QQ\u7FA4 1045523485',
+    labelEn: 'QQ Group 1045523485',
+    labels: {
+      'zh-CN': 'QQ\u7FA4 1045523485',
+      'zh-TW': 'QQ\u7FA4 1045523485',
+      ja: 'QQ\u30B0\u30EB\u30FC\u30D7 1045523485',
+      en: 'QQ Group 1045523485',
+    },
+  },
 } as const satisfies Record<string, FeedbackChannel>
 
 const FEEDBACK_CHANNEL_LIST = Object.values(FEEDBACK_CHANNELS)
@@ -132,6 +154,28 @@ export const GUARD_FEEDBACK_HTML =
     'style="color:#0a72ef;margin-left:4px;">'+ch.labelEn+'</a>'
   ).join(' &middot; ')+
   '</p>'
+
+/** Feedback titles per locale (must match the four locale routes). */
+const FEEDBACK_TITLES: Record<string, string> = {
+  'zh-CN': '\u9047\u5230\u95EE\u9898\uFF1F\u53CD\u9988\u6E20\u9053\uFF1A',
+  'zh-TW': '\u9047\u5230\u554F\u984C\uFF1F\u56DE\u994B\u7BA1\u9053\uFF1A',
+  ja: '\u554F\u984C\u304C\u767A\u751F\u3057\u307E\u3057\u305F\u304B\uFF1F\u30D5\u30A3\u30FC\u30C9\u30D0\u30C3\u30AF\uFF1A',
+  en: 'Having issues? Contact us:',
+}
+/**
+ * Locale-specific feedback block for guards that know the current locale
+ * (JS resource guard). Unknown locales fall back to English.
+ */
+export function buildGuardFeedbackHtml(locale: string): string {
+  const lang = locale in FEEDBACK_TITLES ? locale : 'en'
+  const links = Object.values(FEEDBACK_CHANNELS).map((ch) => {
+    const label = (ch.labels as Record<string, string>)[lang] ?? ch.labelEn
+    return '<a href="'+ch.href+'" target="_blank" rel="noopener" '+
+      'style="color:#0a72ef;margin-left:4px;">'+label+'</a>'
+  }).join(' &middot; ')
+  return '<p style="font-size:12px;color:#999;margin:0;line-height:1.8;">'+
+    FEEDBACK_TITLES[lang]+'<br>'+links+'</p>'
+}
 
 /** Outer wrapper + header — used by IIFE guards as `d.innerHTML = GUARD_OVERLAY_OPEN + content + GUARD_OVERLAY_CLOSE`. */
 export const GUARD_OVERLAY_OPEN =

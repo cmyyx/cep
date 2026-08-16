@@ -339,6 +339,9 @@ export const WikiEntityGrid = memo(function WikiEntityGrid({
   const storedSuitKeys = useWikiStore((state) => state.expandedEquipmentGroups)
   const hasStoredExpansion = useWikiStore((state) => state.hasStoredExpansion)
   const setExpandedSuitKeys = useWikiStore((state) => state.setExpandedEquipmentGroups)
+  const storedTypeKeys = useWikiStore((state) => state.expandedTypeGroups)
+  const hasStoredTypeExpansion = useWikiStore((state) => state.hasStoredTypeExpansion)
+  const setExpandedTypeKeys = useWikiStore((state) => state.setExpandedTypeGroups)
   const upCharacterNames = useBannerStore((state) => state.upCharacterNames)
   const refreshBannerStatus = useBannerStore((state) => state.refreshBannerStatus)
   const upNames = useMemo(() => new Set(upCharacterNames), [upCharacterNames])
@@ -452,7 +455,13 @@ export const WikiEntityGrid = memo(function WikiEntityGrid({
     (key: string) => setExpandedSuitKeys(toggleWikiGroupKey(expandedSuitKeys, key)),
     [expandedSuitKeys, setExpandedSuitKeys],
   )
-
+  // Entity-type groups (wiki weapons page): collapsible like the suit groups.
+  const defaultTypeKeys = useMemo(() => defaultExpandedWikiGroups(entityGroups), [entityGroups])
+  const expandedTypeKeys = hydrated && hasStoredTypeExpansion ? storedTypeKeys : defaultTypeKeys
+  const toggleTypeExpanded = useCallback(
+    (key: string) => setExpandedTypeKeys(toggleWikiGroupKey(expandedTypeKeys, key)),
+    [expandedTypeKeys, setExpandedTypeKeys],
+  )
   const renderEntity = (entity: GridEntity) => {
     const imageSrc = withImageCacheVersion(`${imageBasePath}/${entity.imageId}.avif`)
     const displayName = entityName(entity)
@@ -510,10 +519,11 @@ export const WikiEntityGrid = memo(function WikiEntityGrid({
   }
 
   const showGroupCount = equipmentGroups.length > 0
+  const showTypeGroupCount = entityGroups.length > 0
+  const groupCountLabel = showGroupCount ? t('wiki.groupCount', { count: equipmentGroups.length }) : showTypeGroupCount ? t('wiki.groupCount', { count: entityGroups.length }) : ''
   const resultCountText = isNarrowed
     ? t('wiki.resultCountFiltered', { count: filtered.length, total: entities.length })
     : t('wiki.resultCount', { count: filtered.length })
-
   return (
     <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
       <div className="shrink-0 space-y-3 px-4 py-4 sm:px-6 lg:px-8">
@@ -544,15 +554,18 @@ export const WikiEntityGrid = memo(function WikiEntityGrid({
           <div className="flex min-w-0 flex-wrap items-center gap-x-3 gap-y-1">
             <span aria-live="polite" className="font-geist-mono text-xs text-muted-foreground">
               {resultCountText}
-              {showGroupCount ? ` · ${t('wiki.groupCount', { count: equipmentGroups.length })}` : null}
+              {groupCountLabel ? ` · ${groupCountLabel}` : null}
             </span>
-            {showGroupCount && !isNarrowed && (
+            {(showGroupCount || showTypeGroupCount) && !isNarrowed && (
               <span className="ml-auto flex shrink-0 items-center gap-1">
                 <Button
                   type="button"
                   variant="ghost"
                   size="xs"
-                  onClick={() => setExpandedSuitKeys(equipmentGroups.map((group) => group.key))}
+                  onClick={() => {
+                    if (showGroupCount) setExpandedSuitKeys(equipmentGroups.map((group) => group.key))
+                    else setExpandedTypeKeys(entityGroups.map((group) => group.key))
+                  }}
                 >
                   {t('wiki.expandAll')}
                 </Button>
@@ -560,7 +573,10 @@ export const WikiEntityGrid = memo(function WikiEntityGrid({
                   type="button"
                   variant="ghost"
                   size="xs"
-                  onClick={() => setExpandedSuitKeys([])}
+                  onClick={() => {
+                    if (showGroupCount) setExpandedSuitKeys([])
+                    else setExpandedTypeKeys([])
+                  }}
                 >
                   {t('wiki.collapseAll')}
                 </Button>
@@ -648,18 +664,41 @@ export const WikiEntityGrid = memo(function WikiEntityGrid({
             })}
           </div>
         ) : entityGroups.length > 0 ? (
-          <div className="space-y-5">
-            {entityGroups.map((group) => (
-              <section key={group.key} className="min-w-0 space-y-2">
-                <div className={WIKI_GROUP_HEADER_CLASS}>
-                  <h2 className="min-w-0 truncate text-sm font-semibold tracking-tight">{group.label}</h2>
-                  <Badge variant="secondary" className="shrink-0">{group.entities.length}</Badge>
-                </div>
-                <div className={CARD_GRID_CLASS}>
-                  {group.entities.map(renderEntity)}
-                </div>
-              </section>
-            ))}
+          <div className="space-y-2">
+            {entityGroups.map((group) => {
+              const expanded = isWikiGroupExpanded(group.key, expandedTypeKeys, isNarrowed)
+              return (
+                <section key={group.key} className="overflow-hidden rounded-lg bg-card shadow-[var(--shadow-border)]">
+                  {/* While narrowed every group is force-expanded, so a toggle would do
+                      nothing visible yet still rewrite the persisted expansion state. */}
+                  {isNarrowed ? (
+                    <div className="flex min-h-10 w-full items-center gap-2 px-3">
+                      <h2 className="min-w-0 flex-1 truncate text-left text-sm font-medium">{group.label}</h2>
+                      <Badge variant="secondary">{group.entities.length}</Badge>
+                    </div>
+                  ) : (
+                    <h2>
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        aria-expanded={expanded}
+                        onClick={() => toggleTypeExpanded(group.key)}
+                        className="min-h-10 w-full justify-start gap-2 px-3"
+                      >
+                        <ChevronDown className={expanded ? 'transition-transform' : '-rotate-90 transition-transform'} />
+                        <span className="min-w-0 flex-1 truncate text-left font-medium">{group.label}</span>
+                        <Badge variant="secondary">{group.entities.length}</Badge>
+                      </Button>
+                    </h2>
+                  )}
+                  {expanded && (
+                    <div className={cn(CARD_GRID_CLASS, 'p-3 pt-1')}>
+                      {group.entities.map(renderEntity)}
+                    </div>
+                  )}
+                </section>
+              )
+            })}
           </div>
         ) : (
           <div className={CARD_GRID_CLASS}>

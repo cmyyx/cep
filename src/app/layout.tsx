@@ -100,11 +100,12 @@ export default function RootLayout({
         <Script src="/debug-panel.js" strategy="afterInteractive" />
         {/* Analytics — all in <head> to avoid React hydration conflicts
             (React does not reconcile <head> children). */}
+        {/* Umami analytics disabled: umami.2x.nz service is no longer valid.
         <Script
           strategy="afterInteractive"
           src="https://umami.2x.nz/script.js"
           data-website-id="604899d8-6614-4230-9feb-974ba09fae4e"
-        />
+        /> */}
         <Script id="baidu-hmt" strategy="afterInteractive">
           {`var _hmt = _hmt || [];`}
         </Script>

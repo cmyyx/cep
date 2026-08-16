@@ -9,10 +9,16 @@ interface WikiState {
    * empty stored list, so the first screen is never 25 rows of collapsed text.
    */
   hasStoredExpansion: boolean
+  /** Collapsible entity-type groups (e.g. weapon types on the wiki weapons page). */
+  expandedTypeGroups: string[]
+  hasStoredTypeExpansion: boolean
   toggleEquipmentGroup: (key: string) => void
   setExpandedEquipmentGroups: (keys: readonly string[]) => void
   /** Back to first-visit behaviour (used by the local-data cleaner). */
   resetEquipmentGroups: () => void
+  toggleTypeGroup: (key: string) => void
+  setExpandedTypeGroups: (keys: readonly string[]) => void
+  resetTypeGroups: () => void
 }
 
 export const useWikiStore = create<WikiState>()(
@@ -20,6 +26,8 @@ export const useWikiStore = create<WikiState>()(
     (set) => ({
       expandedEquipmentGroups: [],
       hasStoredExpansion: false,
+      expandedTypeGroups: [],
+      hasStoredTypeExpansion: false,
       toggleEquipmentGroup: (key) =>
         set((state) => ({
           hasStoredExpansion: true,
@@ -31,12 +39,25 @@ export const useWikiStore = create<WikiState>()(
         set({ hasStoredExpansion: true, expandedEquipmentGroups: [...keys] }),
       resetEquipmentGroups: () =>
         set({ hasStoredExpansion: false, expandedEquipmentGroups: [] }),
+      toggleTypeGroup: (key) =>
+        set((state) => ({
+          hasStoredTypeExpansion: true,
+          expandedTypeGroups: state.expandedTypeGroups.includes(key)
+            ? state.expandedTypeGroups.filter((value) => value !== key)
+            : [...state.expandedTypeGroups, key],
+        })),
+      setExpandedTypeGroups: (keys) =>
+        set({ hasStoredTypeExpansion: true, expandedTypeGroups: [...keys] }),
+      resetTypeGroups: () =>
+        set({ hasStoredTypeExpansion: false, expandedTypeGroups: [] }),
     }),
     {
       name: 'wiki-session',
       partialize: (state) => ({
         expandedEquipmentGroups: state.expandedEquipmentGroups,
         hasStoredExpansion: state.hasStoredExpansion,
+        expandedTypeGroups: state.expandedTypeGroups,
+        hasStoredTypeExpansion: state.hasStoredTypeExpansion,
       }),
     }
   )

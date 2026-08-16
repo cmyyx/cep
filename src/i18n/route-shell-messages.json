@@ -33,7 +33,10 @@
       "forceUpgradeMessage",
       "forceUpgradeButton",
       "updateAvailableToast",
-      "updateAvailable"
+      "updateAvailable",
+      "updateChangelogTitle",
+      "viewFullChangelog",
+      "forcedRelease"
     ],
     "home": ["title", "importantBanner", "clickToView"],
     "backgroundPreview": ["weeklyUpdatedBadge"],

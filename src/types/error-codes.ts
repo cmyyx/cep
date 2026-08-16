@@ -82,6 +82,9 @@ export type ApiErrorCode =
   | 'custom_weapons_limit_exceeded'
   | 'invalid_custom_weapon_name'
   | 'invalid_custom_weapon_rarity'
+  | 'invalid_accounts_structure'
+  | 'accounts_limit_exceeded'
+  | 'account_name_too_long'
 
   // ── Global (backend) ──
   | 'maintenance_mode'

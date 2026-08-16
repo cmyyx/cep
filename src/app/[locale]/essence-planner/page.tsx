@@ -10,6 +10,7 @@ import { WeaponGrid } from '@/components/essence/weapon-grid'
 import { WeaponCard } from '@/components/essence/weapon-card'
 import { DungeonCard } from '@/components/essence/dungeon-card'
 import { EssenceSettingsDialog } from '@/components/essence/essence-settings-dialog'
+import { AccountSwitcher } from '@/components/essence/account-switcher'
 import { CustomWeaponDialog } from '@/components/essence/custom-weapon-dialog'
 import { useMatrixStore } from '@/stores/useMatrixStore'
 import { useEssenceSettingsStore } from '@/stores/useEssenceSettingsStore'
@@ -451,6 +452,7 @@ export default function EssencePlannerPage() {
           <span className="text-xs text-muted-foreground">
             {t('essence.selectedCount', { count: selectedCount })}
           </span>
+          <AccountSwitcher />
           <div className="flex-1" />
           <Button variant="outline" size="sm" onClick={() => selectAllWeapons(useMatrixStore.getState().visibleWeaponIds)}>
             {t('essence.selectAll')}
