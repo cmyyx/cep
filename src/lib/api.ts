@@ -455,6 +455,9 @@ export function getErrorI18nKey(code: string): string {
     custom_weapons_limit_exceeded: 'account.customWeaponsLimit',
     invalid_custom_weapon_name: 'account.invalidCustomWeaponName',
     invalid_custom_weapon_rarity: 'account.invalidCustomWeaponRarity',
+    invalid_accounts_structure: 'account.invalidAccountsStructure',
+    accounts_limit_exceeded: 'account.accountsLimitExceeded',
+    account_name_too_long: 'account.accountNameTooLong',
 
     // Global
     maintenance_mode: 'account.maintenanceMode',

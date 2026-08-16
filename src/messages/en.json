@@ -338,7 +338,11 @@
     "invalidCustomWeaponRarity": "Invalid custom weapon rarity",
     "maintenanceMode": "System under maintenance, please try again later",
     "notFound": "Resource not found",
-    "invalidResponse": "Invalid server response"
+    "invalidResponse": "Invalid server response",
+    "syncAccounts": "Game accounts",
+    "invalidAccountsStructure": "Invalid account data structure",
+    "accountsLimitExceeded": "Too many game accounts",
+    "accountNameTooLong": "Account name too long"
   },
   "version": {
     "version": "Version",
@@ -458,7 +462,20 @@
       "greatsword": "Greatsword",
       "polearm": "Polearm",
       "pistol": "Pistol"
-    }
+    },
+    "cancel": "Cancel",
+    "accountSwitcher": "Account switcher",
+    "accountNew": "New account",
+    "accountNewDescription": "Create a game account with its own weapon/essence marks and notes.",
+    "accountRename": "Rename",
+    "accountRenameDescription": "Set a remark name for the current account to tell accounts apart.",
+    "accountDelete": "Delete account",
+    "accountDeleteConfirm": "Delete account \"{name}\"? Its weapon/essence marks and notes will be permanently removed.",
+    "accountCannotDeleteLast": "At least one account must remain.",
+    "accountNameLabel": "Account name",
+    "accountNamePlaceholder": "Enter a remark for this account",
+    "accountDefaultName": "Account {n}",
+    "accountMaxReached": "Up to {count} accounts supported"
   },
   "essenceSettings": {
     "title": "Essence Planner Settings",
@@ -714,9 +731,7 @@
     "imageUnavailable": "No preview image is available",
     "weeklyFallbackDescription": "No new wallpapers this week. Showing content from {range}.",
     "getWeeklyWallpaper": "Get This Week's Wallpapers",
-    "getWallpaper": "Get Wallpaper",
     "linkUnavailable": "The download link is not configured",
-    "linkUnavailableShort": "No link",
     "mobileOnlyHint": "Get wallpapers on your phone or tablet.",
     "promotionDisclosure": "After an eligible save through the cloud-storage link, CEP's author and maintainers may receive a very small amount of platform revenue.",
     "viewHistory": "Previous",
@@ -909,7 +924,6 @@
     "baseInfo": "Basic Information",
     "materialCount": "{count} material types",
     "defaultUnlocked": "Unlocked by default",
-    "potentialPreview": "Potential image preview",
     "openPotentialPreview": "Preview {name}",
     "closePreview": "Close preview",
     "voiceLanguages": {
@@ -963,7 +977,14 @@
     "current": "Current",
     "target": "Target",
     "rewardCards": "EXP cards",
-    "equivalentItems": "Equivalent to {count}"
+    "equivalentItems": "Equivalent to {count}",
+    "materialsTab": "Materials",
+    "materialSearch": "Search materials",
+    "materialSelectHint": "Select a material above to see which operators/weapons need it and the max-level-up consumption.",
+    "maxConsumptionHint": "Max level-up consumption",
+    "consumers": "Consumers",
+    "consumersEmpty": "No targets need this material.",
+    "noMaterialMatch": "No matching materials"
   },
   "panelPreview": {
     "title": "Stats Preview",
@@ -1031,11 +1052,8 @@
     "entryCount": "~{count} entries per language",
     "searching": "Searching…",
     "searchProgress": "Scanned {loaded}/{total} entries ({percent}%), {hits} hits",
-    "loadingTranslations": "Loading {locale} translations {loaded}/{total} ({percent}%)",
-    "loadingTranslationsHint": "Loading {locale} translation files ({percent}%). Search becomes available when ready.",
     "loadingAllTranslations": "Loading all translations {loaded}/{total} ({percent}%) · {locale}",
     "loadingAllTranslationsHint": "Loading all language translation files {loaded}/{total} ({percent}%)",
-    "localeReady": "{locale} translations ready",
     "allLocalesReady": "All language translations ready",
     "localeGeneric": "translation files",
     "localeLoading": "Loading…",

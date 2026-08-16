@@ -32,14 +32,33 @@ export interface EssenceSettingsFlags {
 
 export type SettingKey = keyof EssenceSettingsFlags
 
-/** Persistent user data. */
+/**
+ * One game-account profile. Marks (ownership / essence / notes) are isolated
+ * per account; custom weapons and UI preferences are global.
+ */
+export interface EssenceAccount {
+  id: string
+  name: string
+  weaponOwnership: Record<string, boolean>
+  essenceStatus: Record<string, boolean>
+  weaponNotes: Record<string, string>
+}
+
+/**
+ * Persistent user data.
+ *
+ * `weaponOwnership` / `essenceStatus` / `weaponNotes` are the ACTIVE account's
+ * marks (mirrored from `accounts` for zero-churn component reads). `accounts`
+ * is the single source of truth for sync and persistence.
+ */
 export interface EssenceUserData {
+  accounts: EssenceAccount[]
+  activeAccountId: string
   weaponOwnership: Record<string, boolean>
   essenceStatus: Record<string, boolean>
   weaponNotes: Record<string, string>
   customWeapons: Weapon[]
 }
-
 export type EssenceSettingsState = EssenceSettingsFlags &
   EssenceUserData & {
     /** Region priority: two-level. null means none. */
@@ -60,6 +79,15 @@ export type EssenceSettingsState = EssenceSettingsFlags &
     addCustomWeapon: (weapon: Weapon) => void
     removeCustomWeapon: (weaponId: string) => void
     updateCustomWeapon: (weaponId: string, weapon: Weapon) => void
+    /** Create a new game-account profile with empty marks; returns its id. */
+    addAccount: (name?: string) => string
+    renameAccount: (accountId: string, name: string) => void
+    /** Delete a profile and its marks. The last account cannot be removed. */
+    removeAccount: (accountId: string) => void
+    /** Switch the active profile; marks mirror to the top-level fields. */
+    setActiveAccount: (accountId: string) => void
+    /** Replace all profiles from a cloud payload (keeps active id when possible). */
+    applyAccounts: (accounts: EssenceAccount[]) => void
     setRegionFirst: (region: string | null) => void
     setRegionSecond: (region: string | null) => void
     toggleWeaponFilterCollapsed: () => void

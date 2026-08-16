@@ -338,7 +338,11 @@
     "invalidCustomWeaponRarity": "カスタム武器のレアリティが無効です",
     "maintenanceMode": "メンテナンス中です。後でもう一度お試しください。",
     "notFound": "リソースが見つかりません",
-    "invalidResponse": "サーバー応答が異常です"
+    "invalidResponse": "サーバー応答が異常です",
+    "syncAccounts": "ゲームアカウント数",
+    "invalidAccountsStructure": "アカウントデータの構造が無効です",
+    "accountsLimitExceeded": "ゲームアカウント数の上限を超えました",
+    "accountNameTooLong": "アカウント名が長すぎます"
   },
   "version": {
     "version": "バージョン",
@@ -458,7 +462,20 @@
       "greatsword": "両手剣",
       "polearm": "長柄武器",
       "pistol": "銃"
-    }
+    },
+    "cancel": "キャンセル",
+    "accountSwitcher": "アカウント切替",
+    "accountNew": "新規アカウント",
+    "accountNewDescription": "武器・基質のマークとメモを独立して持つゲームアカウントを作成します。",
+    "accountRename": "名前を変更",
+    "accountRenameDescription": "現在のアカウントに備考名を設定して区別しやすくします。",
+    "accountDelete": "アカウントを削除",
+    "accountDeleteConfirm": "アカウント「{name}」を削除しますか？武器・基質のマークとメモも削除され、元に戻せません。",
+    "accountCannotDeleteLast": "アカウントは最低1つ必要です。",
+    "accountNameLabel": "アカウント名",
+    "accountNamePlaceholder": "アカウントの備考名を入力",
+    "accountDefaultName": "アカウント {n}",
+    "accountMaxReached": "最大 {count} アカウントまで対応しています"
   },
   "essenceSettings": {
     "title": "マトリクスプランナー設定",
@@ -714,9 +731,7 @@
     "imageUnavailable": "プレビュー画像はまだありません",
     "weeklyFallbackDescription": "今週の壁紙は未更新です。現在は {range} の内容を提供しています。",
     "getWeeklyWallpaper": "今週の壁紙を取得",
-    "getWallpaper": "壁紙を取得",
     "linkUnavailable": "取得リンクは未設定です",
-    "linkUnavailableShort": "リンクなし",
     "mobileOnlyHint": "壁紙の取得はスマートフォンまたはタブレットで行ってください。",
     "promotionDisclosure": "ストレージリンクから有効な保存が行われると、CEP の作者とメンテナーにごく少額のプラットフォーム収益が発生する場合があります。",
     "viewHistory": "過去の壁紙",
@@ -909,7 +924,6 @@
     "baseInfo": "基本情報",
     "materialCount": "素材 {count} 種",
     "defaultUnlocked": "初期解放",
-    "potentialPreview": "潜在能力画像プレビュー",
     "openPotentialPreview": "{name}をプレビュー",
     "closePreview": "プレビューを閉じる",
     "voiceLanguages": {
@@ -963,7 +977,14 @@
     "current": "現在",
     "target": "目標",
     "rewardCards": "EXPカード",
-    "equivalentItems": "{count}個相当"
+    "equivalentItems": "{count}個相当",
+    "materialsTab": "素材逆引き",
+    "materialSearch": "素材を検索",
+    "materialSelectHint": "上の素材を選択すると、それを必要とするオペレーター/武器と最大育成時の消費量が表示されます。",
+    "maxConsumptionHint": "最大育成時の消費で計算",
+    "consumers": "必要とする対象",
+    "consumersEmpty": "この素材を必要とする対象はいません。",
+    "noMaterialMatch": "一致する素材がありません"
   },
   "panelPreview": {
     "title": "ステータスプレビュー",
@@ -1031,11 +1052,8 @@
     "entryCount": "言語あたり約 {count} 件",
     "searching": "検索中…",
     "searchProgress": "{loaded}/{total} 件走査（{percent}%）、{hits} 件ヒット",
-    "loadingTranslations": "{locale} 翻訳を読み込み中 {loaded}/{total}（{percent}%）",
-    "loadingTranslationsHint": "{locale} 翻訳ファイルを読み込み中（{percent}%）。完了後に検索できます",
     "loadingAllTranslations": "全言語の翻訳を読み込み中 {loaded}/{total}（{percent}%）· {locale}",
     "loadingAllTranslationsHint": "全言語の翻訳ファイルを読み込み中 {loaded}/{total}（{percent}%）",
-    "localeReady": "{locale} 翻訳の準備完了",
     "allLocalesReady": "全言語の翻訳が準備完了",
     "localeGeneric": "翻訳ファイル",
     "localeLoading": "読み込み中…",

@@ -261,7 +261,20 @@
       "greatsword": "双手剑",
       "polearm": "长柄武器",
       "pistol": "手铳"
-    }
+    },
+    "cancel": "取消",
+    "accountSwitcher": "账号切换",
+    "accountNew": "新建账号",
+    "accountNewDescription": "新建一个游戏账号，拥有独立的武器/基质标记与备注。",
+    "accountRename": "重命名",
+    "accountRenameDescription": "为当前账号设置备注名称，方便区分。",
+    "accountDelete": "删除账号",
+    "accountDeleteConfirm": "确定删除账号「{name}」？其武器/基质标记与备注将一并删除，且无法恢复。",
+    "accountCannotDeleteLast": "至少需要保留一个账号。",
+    "accountNameLabel": "账号名称",
+    "accountNamePlaceholder": "输入账号备注名称",
+    "accountDefaultName": "账号 {n}",
+    "accountMaxReached": "最多支持 {count} 个账号"
   },
   "essenceSettings": {
     "title": "基质规划设置",
@@ -517,9 +530,7 @@
     "imageUnavailable": "该壁纸暂未提供预览图",
     "weeklyFallbackDescription": "本周暂无更新，当前提供 {range} 的内容。",
     "getWeeklyWallpaper": "获取本周壁纸",
-    "getWallpaper": "获取壁纸",
     "linkUnavailable": "获取链接尚未配置",
-    "linkUnavailableShort": "暂无链接",
     "mobileOnlyHint": "请在手机或平板上获取壁纸",
     "promotionDisclosure": "通过网盘链接完成有效转存后，CEP 项目的作者与维护者可能获得极少量的平台推广收益。",
     "viewHistory": "查看往期",
@@ -735,7 +746,11 @@
     "invalidCustomWeaponRarity": "自定义武器稀有度无效",
     "maintenanceMode": "系统维护中，请稍后再试",
     "notFound": "未找到请求的资源",
-    "invalidResponse": "服务器返回数据异常"
+    "invalidResponse": "服务器返回数据异常",
+    "syncAccounts": "游戏账号数",
+    "invalidAccountsStructure": "账号数据结构无效",
+    "accountsLimitExceeded": "游戏账号数量超出上限",
+    "accountNameTooLong": "账号名称过长"
   },
   "meta": {
     "homeDescription": "《明日方舟：终末地》规划工具集——基质规划与计算、精锻规划与计算、干员攻略、卡池日历等一站式解决方案。",
@@ -909,7 +924,6 @@
     "baseInfo": "基础信息",
     "materialCount": "共 {count} 种材料",
     "defaultUnlocked": "默认解锁",
-    "potentialPreview": "潜能图片预览",
     "openPotentialPreview": "预览{name}",
     "closePreview": "关闭预览",
     "voiceLanguages": {
@@ -963,7 +977,14 @@
     "current": "当前",
     "target": "目标",
     "rewardCards": "经验卡",
-    "equivalentItems": "折合 {count} 个"
+    "equivalentItems": "折合 {count} 个",
+    "materialsTab": "材料反查",
+    "materialSearch": "搜索材料",
+    "materialSelectHint": "选择上方材料，查看哪些干员/武器需要它及升满消耗量。",
+    "maxConsumptionHint": "按升满消耗计算",
+    "consumers": "需要它的目标",
+    "consumersEmpty": "没有目标需要该材料。",
+    "noMaterialMatch": "无匹配材料"
   },
   "panelPreview": {
     "title": "面板预览",
@@ -1031,11 +1052,8 @@
     "entryCount": "词条约 {count} 条/语言",
     "searching": "正在搜索…",
     "searchProgress": "已扫描 {loaded}/{total} 条（{percent}%），命中 {hits}",
-    "loadingTranslations": "正在加载{locale}翻译 {loaded}/{total}（{percent}%）",
-    "loadingTranslationsHint": "正在加载{locale}翻译文件（{percent}%），完成后可搜索",
     "loadingAllTranslations": "正在加载全部翻译 {loaded}/{total}（{percent}%）· {locale}",
     "loadingAllTranslationsHint": "正在加载全部语言翻译文件 {loaded}/{total}（{percent}%）",
-    "localeReady": "{locale}翻译已就绪",
     "allLocalesReady": "全部语言翻译已就绪",
     "localeGeneric": "翻译文件",
     "localeLoading": "加载中…",

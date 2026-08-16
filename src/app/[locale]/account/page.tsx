@@ -24,7 +24,8 @@ import { withImageCacheVersion } from '@/lib/image-url'
 import { SyncConflictDialog } from '@/components/shared/sync-conflict-dialog'
 import { equipById } from '@/data/equips'
 import { redeemCodeApi } from '@/lib/api'
-import { resolveWeaponId, resolveWeaponIdKeys, resolveS1Selections } from '@/lib/resolve-weapon-id'
+import { resolveWeaponId, resolveS1Selections } from '@/lib/resolve-weapon-id'
+import { sanitizeCloudAccounts } from '@/lib/essence-accounts'
 import { sanitizeCustomWeapons } from '@/lib/persist-sanitizer'
 
 // ─── Sync ────────────────────────────────────────────────────
@@ -47,9 +48,8 @@ function resolveCloudWeaponIds(raw: Record<string, unknown>): void {
   try {
     const es = raw.essenceSettings as Record<string, unknown> | undefined
     if (es) {
-      if (es.weaponOwnership) es.weaponOwnership = resolveWeaponIdKeys(es.weaponOwnership as Record<string, unknown>)
-      if (es.essenceStatus) es.essenceStatus = resolveWeaponIdKeys(es.essenceStatus as Record<string, unknown>)
-      if (es.weaponNotes) es.weaponNotes = resolveWeaponIdKeys(es.weaponNotes as Record<string, unknown>)
+      // Protocol v3: marks live inside accounts[]; custom weapons stay global.
+      if (Array.isArray(es.accounts)) es.accounts = sanitizeCloudAccounts(es.accounts)
       if (Array.isArray(es.customWeapons)) es.customWeapons = sanitizeCustomWeapons(es.customWeapons)
     }
   } catch { /* best-effort */ }
@@ -82,6 +82,16 @@ function formatSyncCellVal(key: string, val: string | number, t: ReturnType<type
   return String(val)
 }
 
+/** Sum a marks field across all game-account profiles in an essenceSettings payload. */
+function sumAccountMarks(es: Record<string, unknown> | null, field: string): number {
+  if (!es) return 0
+  const accounts = Array.isArray(es.accounts) ? es.accounts : []
+  return accounts.reduce((sum, account) => {
+    const raw = (account ?? {}) as Record<string, unknown>
+    return sum + Object.keys((raw[field] ?? {}) as object).length
+  }, 0)
+}
+
 function buildSyncRows(local: Record<string, unknown>, cloud: Record<string, unknown> | null) {
   const le = (local.essencePlanner ?? {}) as Record<string, unknown>
   const ls = (local.essenceSettings ?? {}) as Record<string, unknown>
@@ -92,10 +102,11 @@ function buildSyncRows(local: Record<string, unknown>, cloud: Record<string, unk
   return [
     { k: 'syncPlannedWeapons', label: 'account.syncPlannedWeapons', l: Array.isArray(le.selectedWeaponIds) ? le.selectedWeaponIds.length : 0, c: ce && Array.isArray(ce.selectedWeaponIds) ? ce.selectedWeaponIds.length : 0 },
     { k: 'syncRefinementSelection', label: 'account.syncRefinementSelection', l: (lr.selectedEquipId as string) || '0', c: (cr?.selectedEquipId as string) || '0' },
-    { k: 'syncWeaponOwnership', label: 'account.syncWeaponOwnership', l: Object.keys((ls.weaponOwnership ?? {}) as object).length, c: cs ? Object.keys((cs.weaponOwnership ?? {}) as object).length : 0 },
-    { k: 'syncEssenceStatus', label: 'account.syncEssenceStatus', l: Object.keys((ls.essenceStatus ?? {}) as object).length, c: cs ? Object.keys((cs.essenceStatus ?? {}) as object).length : 0 },
+    { k: 'syncAccounts', label: 'account.syncAccounts', l: Array.isArray(ls.accounts) ? ls.accounts.length : 0, c: cs ? (Array.isArray(cs.accounts) ? cs.accounts.length : 0) : 0 },
+    { k: 'syncWeaponOwnership', label: 'account.syncWeaponOwnership', l: sumAccountMarks(ls, 'weaponOwnership'), c: sumAccountMarks(cs, 'weaponOwnership') },
+    { k: 'syncEssenceStatus', label: 'account.syncEssenceStatus', l: sumAccountMarks(ls, 'essenceStatus'), c: sumAccountMarks(cs, 'essenceStatus') },
     { k: 'syncCustomWeapons', label: 'account.syncCustomWeapons', l: Array.isArray(ls.customWeapons) ? ls.customWeapons.length : 0, c: cs && Array.isArray(cs.customWeapons) ? cs.customWeapons.length : 0 },
-    { k: 'syncWeaponNotes', label: 'account.syncWeaponNotes', l: Object.keys((ls.weaponNotes ?? {}) as object).length, c: cs ? Object.keys((cs.weaponNotes ?? {}) as object).length : 0 },
+    { k: 'syncWeaponNotes', label: 'account.syncWeaponNotes', l: sumAccountMarks(ls, 'weaponNotes'), c: sumAccountMarks(cs, 'weaponNotes') },
   ]
 }
 
@@ -108,7 +119,7 @@ function collectLocalData(): Record<string, unknown> {
   }
   const data: Record<string, unknown> = {}
   try { const r = localStorage.getItem('matrix-session'); if (r) { const p = JSON.parse(r); const s = p?.state ?? p; const ids = (Array.isArray(s.selectedWeaponIds) ? s.selectedWeaponIds : []).filter((v: unknown): v is string => typeof v === 'string'); data.essencePlanner = { selectedWeaponIds: ids.map(resolveWeaponId), dungeonS1Selections: resolveS1Selections((s.dungeonS1Selections ?? {}) as Record<string, string[]>) } } } catch {}
-  try { const r = localStorage.getItem('essence-settings'); if (r) { const p = JSON.parse(r); const s = p?.state ?? p; data.essenceSettings = { weaponOwnership: resolveWeaponIdKeys((s.weaponOwnership ?? {}) as Record<string, unknown>), essenceStatus: resolveWeaponIdKeys((s.essenceStatus ?? {}) as Record<string, unknown>), weaponNotes: resolveWeaponIdKeys((s.weaponNotes ?? {}) as Record<string, unknown>), customWeapons: s.customWeapons ?? [], flags: normalizeEssenceSettingsFlags(s), regionFirst: s.regionFirst??null, regionSecond: s.regionSecond??null } } } catch {}
+  try { const r = localStorage.getItem('essence-settings'); if (r) { const p = JSON.parse(r); const s = p?.state ?? p; const rawAccounts = Array.isArray(s.accounts) && s.accounts.length > 0 ? s.accounts : [{ id: 'acc_legacy', name: '账号 1', weaponOwnership: s.weaponOwnership ?? {}, essenceStatus: s.essenceStatus ?? {}, weaponNotes: s.weaponNotes ?? {} }]; data.essenceSettings = { accounts: sanitizeCloudAccounts(rawAccounts), customWeapons: s.customWeapons ?? [], flags: normalizeEssenceSettingsFlags(s), regionFirst: s.regionFirst??null, regionSecond: s.regionSecond??null } } } catch {}
   try { const r = localStorage.getItem('refinement-session'); if (r) { const p = JSON.parse(r); const s = p?.state ?? p; data.refinementPlanner = { selectedEquipId: s.selectedEquipId ?? null } } } catch {}
   _cachedLocalData = { data, ts: Date.now() }
   return data
@@ -228,7 +239,7 @@ export default function AccountPage() {
             setSkipNextPush(true)
             const r = raw
             try { const ep = r.essencePlanner as Record<string, unknown> | undefined; if (ep) { const current = JSON.parse(localStorage.getItem('matrix-session') || '{}'); const s = current?.state ?? current; if (Array.isArray(ep.selectedWeaponIds)) s.selectedWeaponIds = ep.selectedWeaponIds; if (ep.dungeonS1Selections) s.dungeonS1Selections = ep.dungeonS1Selections; localStorage.setItem('matrix-session', JSON.stringify({ ...current, state: s })) } } catch {}
-            try { const es = r.essenceSettings as Record<string, unknown> | undefined; if (es) { const current = JSON.parse(localStorage.getItem('essence-settings') || '{}'); const s = current?.state ?? current; if (es.weaponOwnership) s.weaponOwnership = es.weaponOwnership; if (es.essenceStatus) s.essenceStatus = es.essenceStatus; if (es.weaponNotes) s.weaponNotes = es.weaponNotes; if (Array.isArray(es.customWeapons)) s.customWeapons = es.customWeapons; Object.assign(s, normalizeEssenceSettingsFlags(es.flags)); if (es.regionFirst !== undefined) s.regionFirst = es.regionFirst; if (es.regionSecond !== undefined) s.regionSecond = es.regionSecond; localStorage.setItem('essence-settings', JSON.stringify({ ...current, state: s })) } } catch {}
+            try { const es = r.essenceSettings as Record<string, unknown> | undefined; if (es) { const current = JSON.parse(localStorage.getItem('essence-settings') || '{}'); const s = current?.state ?? current; if (Array.isArray(es.accounts)) s.accounts = es.accounts; if (Array.isArray(es.customWeapons)) s.customWeapons = es.customWeapons; Object.assign(s, normalizeEssenceSettingsFlags(es.flags)); if (es.regionFirst !== undefined) s.regionFirst = es.regionFirst; if (es.regionSecond !== undefined) s.regionSecond = es.regionSecond; localStorage.setItem('essence-settings', JSON.stringify({ ...current, state: s })) } } catch {}
             try { const rp = r.refinementPlanner as Record<string, unknown> | undefined; if (rp) { const current = JSON.parse(localStorage.getItem('refinement-session') || '{}'); const s = current?.state ?? current; if (rp.selectedEquipId !== undefined) s.selectedEquipId = rp.selectedEquipId; localStorage.setItem('refinement-session', JSON.stringify({ ...current, state: s })) } } catch {}
             syncStoresFromCloudPayload(r)
             setSkipNextPush(false)
@@ -245,7 +256,7 @@ export default function AccountPage() {
             setSkipNextPush(true)
             const r = raw
             try { const ep = r.essencePlanner as Record<string, unknown> | undefined; if (ep) { const current = JSON.parse(localStorage.getItem('matrix-session') || '{}'); const s = current?.state ?? current; if (Array.isArray(ep.selectedWeaponIds)) s.selectedWeaponIds = ep.selectedWeaponIds; if (ep.dungeonS1Selections) s.dungeonS1Selections = ep.dungeonS1Selections; localStorage.setItem('matrix-session', JSON.stringify({ ...current, state: s })) } } catch {}
-            try { const es = r.essenceSettings as Record<string, unknown> | undefined; if (es) { const current = JSON.parse(localStorage.getItem('essence-settings') || '{}'); const s = current?.state ?? current; if (es.weaponOwnership) s.weaponOwnership = es.weaponOwnership; if (es.essenceStatus) s.essenceStatus = es.essenceStatus; if (es.weaponNotes) s.weaponNotes = es.weaponNotes; if (Array.isArray(es.customWeapons)) s.customWeapons = es.customWeapons; Object.assign(s, normalizeEssenceSettingsFlags(es.flags)); if (es.regionFirst !== undefined) s.regionFirst = es.regionFirst; if (es.regionSecond !== undefined) s.regionSecond = es.regionSecond; localStorage.setItem('essence-settings', JSON.stringify({ ...current, state: s })) } } catch {}
+            try { const es = r.essenceSettings as Record<string, unknown> | undefined; if (es) { const current = JSON.parse(localStorage.getItem('essence-settings') || '{}'); const s = current?.state ?? current; if (Array.isArray(es.accounts)) s.accounts = es.accounts; if (Array.isArray(es.customWeapons)) s.customWeapons = es.customWeapons; Object.assign(s, normalizeEssenceSettingsFlags(es.flags)); if (es.regionFirst !== undefined) s.regionFirst = es.regionFirst; if (es.regionSecond !== undefined) s.regionSecond = es.regionSecond; localStorage.setItem('essence-settings', JSON.stringify({ ...current, state: s })) } } catch {}
             try { const rp = r.refinementPlanner as Record<string, unknown> | undefined; if (rp) { const current = JSON.parse(localStorage.getItem('refinement-session') || '{}'); const s = current?.state ?? current; if (rp.selectedEquipId !== undefined) s.selectedEquipId = rp.selectedEquipId; localStorage.setItem('refinement-session', JSON.stringify({ ...current, state: s })) } } catch {}
             syncStoresFromCloudPayload(r)
             setSkipNextPush(false)
@@ -287,9 +298,7 @@ export default function AccountPage() {
                   if (es) {
                     const current = JSON.parse(localStorage.getItem('essence-settings') || '{}')
                     const s = current?.state ?? current
-                    if (es.weaponOwnership) s.weaponOwnership = es.weaponOwnership
-                    if (es.essenceStatus) s.essenceStatus = es.essenceStatus
-                    if (es.weaponNotes) s.weaponNotes = es.weaponNotes
+                    if (Array.isArray(es.accounts)) s.accounts = es.accounts
                     if (Array.isArray(es.customWeapons)) s.customWeapons = es.customWeapons
                     Object.assign(s, normalizeEssenceSettingsFlags(es.flags))
                     if (es.regionFirst !== undefined) s.regionFirst = es.regionFirst
@@ -362,9 +371,7 @@ export default function AccountPage() {
             if (es) {
               const current = JSON.parse(localStorage.getItem('essence-settings') || '{}')
               const s = current?.state ?? current
-              if (es.weaponOwnership) s.weaponOwnership = es.weaponOwnership
-              if (es.essenceStatus) s.essenceStatus = es.essenceStatus
-              if (es.weaponNotes) s.weaponNotes = es.weaponNotes
+              if (Array.isArray(es.accounts)) s.accounts = es.accounts
               if (Array.isArray(es.customWeapons)) s.customWeapons = es.customWeapons
               Object.assign(s, normalizeEssenceSettingsFlags(es.flags))
               if (es.regionFirst !== undefined) s.regionFirst = es.regionFirst
@@ -440,9 +447,7 @@ export default function AccountPage() {
       if (es) {
         const current = JSON.parse(localStorage.getItem('essence-settings') || '{}')
         const state = current?.state ?? current
-        if (es.weaponOwnership) state.weaponOwnership = es.weaponOwnership
-        if (es.essenceStatus) state.essenceStatus = es.essenceStatus
-        if (es.weaponNotes) state.weaponNotes = es.weaponNotes
+        if (Array.isArray(es.accounts)) state.accounts = es.accounts
         if (Array.isArray(es.customWeapons)) state.customWeapons = es.customWeapons
         Object.assign(state, normalizeEssenceSettingsFlags(es.flags))
         if (es.regionFirst !== undefined) state.regionFirst = es.regionFirst
@@ -470,7 +475,7 @@ export default function AccountPage() {
       const localRows = buildSummaryRows(localData)
       const cloudRows = cloudRaw
         ? buildSummaryRows(cloudRaw)
-        : { weapons: '0', equip: '', ownership: '0', essence: '0', customWeapons: '0', weaponNotes: '0' }
+        : { weapons: '0', equip: '', accounts: '0', ownership: '0', essence: '0', customWeapons: '0', weaponNotes: '0' }
       const settingsDiff = cloudRaw ? buildSettingsDiff(localData, cloudRaw) : []
 
       setSyncStatus('success')
@@ -648,7 +653,7 @@ export default function AccountPage() {
         setSkipNextPush(true)
         const r = cloudRaw
         try { const ep = r.essencePlanner as Record<string, unknown> | undefined; if (ep) { const current = JSON.parse(localStorage.getItem('matrix-session') || '{}'); const s = current?.state ?? current; if (Array.isArray(ep.selectedWeaponIds)) s.selectedWeaponIds = ep.selectedWeaponIds; if (ep.dungeonS1Selections) s.dungeonS1Selections = ep.dungeonS1Selections; localStorage.setItem('matrix-session', JSON.stringify({ ...current, state: s })) } } catch {}
-        try { const es = r.essenceSettings as Record<string, unknown> | undefined; if (es) { const current = JSON.parse(localStorage.getItem('essence-settings') || '{}'); const s = current?.state ?? current; if (es.weaponOwnership) s.weaponOwnership = es.weaponOwnership; if (es.essenceStatus) s.essenceStatus = es.essenceStatus; if (es.weaponNotes) s.weaponNotes = es.weaponNotes; if (Array.isArray(es.customWeapons)) s.customWeapons = es.customWeapons; Object.assign(s, normalizeEssenceSettingsFlags(es.flags)); if (es.regionFirst !== undefined) s.regionFirst = es.regionFirst; if (es.regionSecond !== undefined) s.regionSecond = es.regionSecond; localStorage.setItem('essence-settings', JSON.stringify({ ...current, state: s })) } } catch {}
+        try { const es = r.essenceSettings as Record<string, unknown> | undefined; if (es) { const current = JSON.parse(localStorage.getItem('essence-settings') || '{}'); const s = current?.state ?? current; if (Array.isArray(es.accounts)) s.accounts = es.accounts; if (Array.isArray(es.customWeapons)) s.customWeapons = es.customWeapons; Object.assign(s, normalizeEssenceSettingsFlags(es.flags)); if (es.regionFirst !== undefined) s.regionFirst = es.regionFirst; if (es.regionSecond !== undefined) s.regionSecond = es.regionSecond; localStorage.setItem('essence-settings', JSON.stringify({ ...current, state: s })) } } catch {}
         try { const rp = r.refinementPlanner as Record<string, unknown> | undefined; if (rp) { const current = JSON.parse(localStorage.getItem('refinement-session') || '{}'); const s = current?.state ?? current; if (rp.selectedEquipId !== undefined) s.selectedEquipId = rp.selectedEquipId; localStorage.setItem('refinement-session', JSON.stringify({ ...current, state: s })) } } catch {}
         syncStoresFromCloudPayload(r)
         setSkipNextPush(false)
@@ -693,9 +698,7 @@ export default function AccountPage() {
               if (es) {
                 const current = JSON.parse(localStorage.getItem('essence-settings') || '{}')
                 const s = current?.state ?? current
-                if (es.weaponOwnership) s.weaponOwnership = es.weaponOwnership
-                if (es.essenceStatus) s.essenceStatus = es.essenceStatus
-                if (es.weaponNotes) s.weaponNotes = es.weaponNotes
+                if (Array.isArray(es.accounts)) s.accounts = es.accounts
                 if (Array.isArray(es.customWeapons)) s.customWeapons = es.customWeapons
                 Object.assign(s, normalizeEssenceSettingsFlags(es.flags))
                 if (es.regionFirst !== undefined) s.regionFirst = es.regionFirst

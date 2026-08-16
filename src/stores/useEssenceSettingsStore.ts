@@ -1,12 +1,14 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 import type {
+  EssenceAccount,
   EssenceSettingsState,
   SettingKey,
 } from '@/types/essence-settings'
 import type { Weapon } from '@/types/matrix'
 import { isValidWeaponId, sanitizeCustomWeapons } from '@/lib/persist-sanitizer'
 import { resolveWeaponIdKeys } from '@/lib/resolve-weapon-id'
+import { createAccountId, MAX_ACCOUNTS, sanitizeCloudAccounts } from '@/lib/essence-accounts'
 
 // ─── Defaults ──────────────────────────────────────────────────────────────
 
@@ -59,7 +61,7 @@ function isDefined(v: unknown): v is Record<string, unknown> {
  */
 function mergeWithDefaults(
   persisted: Record<string, unknown>,
-): Omit<EssenceSettingsState, 'toggleFlag' | 'setWeaponOwnership' | 'setEssenceStatus' | 'setWeaponNote' | 'addCustomWeapon' | 'removeCustomWeapon' | 'updateCustomWeapon' | 'setRegionFirst' | 'setRegionSecond' | 'toggleWeaponFilterCollapsed' | 'setAutoSyncEnabled' | 'setNotifyOnSync' | 'setNotifyOnPull' | 'resetAllSettings'> {
+): Omit<EssenceSettingsState, 'toggleFlag' | 'setWeaponOwnership' | 'setEssenceStatus' | 'setWeaponNote' | 'addCustomWeapon' | 'removeCustomWeapon' | 'updateCustomWeapon' | 'addAccount' | 'renameAccount' | 'removeAccount' | 'setActiveAccount' | 'applyAccounts' | 'setRegionFirst' | 'setRegionSecond' | 'toggleWeaponFilterCollapsed' | 'setAutoSyncEnabled' | 'setNotifyOnSync' | 'setNotifyOnPull' | 'resetAllSettings'> {
   const flags = normalizeEssenceSettingsFlags(persisted)
 
   // Compute customWeapons first — we need the active set to filter
@@ -68,31 +70,48 @@ function mergeWithDefaults(
   const customWeapons = sanitizeCustomWeapons(persisted.customWeapons)
   const activeCustomIds = new Set(customWeapons.map(w => w.id))
 
-  // Resolve preview: IDs in persisted records, then parse.
-  // This runs BEFORE isValidWeaponId filtering so released preview weapons
-  // (whose old preview: key is no longer in knownWeaponIds) aren't lost.
-  const rawOwnership = resolveWeaponIdKeys(
-    isDefined(persisted.weaponOwnership) ? (persisted.weaponOwnership as Record<string, unknown>) : {},
-  )
-  const rawEssenceStatus = resolveWeaponIdKeys(
-    isDefined(persisted.essenceStatus) ? (persisted.essenceStatus as Record<string, unknown>) : {},
-  )
-  const rawWeaponNotes = resolveWeaponIdKeys(
-    isDefined(persisted.weaponNotes) ? (persisted.weaponNotes as Record<string, unknown>) : {},
-  )
+  // Filter a marks record: resolve preview ids, keep valid weapon ids that
+  // are either built-in or still-active custom weapons.
+  const filterMarks = <T extends boolean | string>(
+    raw: unknown,
+    isValueValid: (v: unknown) => v is T,
+  ): Record<string, T> => {
+    const resolved = resolveWeaponIdKeys(isDefined(raw) ? raw : {})
+    const out: Record<string, T> = {}
+    for (const [k, v] of Object.entries(resolved)) {
+      if (!isValueValid(v)) continue
+      if (!isValidWeaponId(k)) continue
+      if (activeCustomIds.has(k) || !k.startsWith('custom-')) out[k] = v
+    }
+    return out
+  }
 
-  const ownership: Record<string, boolean> = {}
-  for (const [k, v] of Object.entries(rawOwnership)) {
-    if (v === true && isValidWeaponId(k) && (activeCustomIds.has(k) || !k.startsWith('custom-'))) ownership[k] = true
-  }
-  const essenceStatus: Record<string, boolean> = {}
-  for (const [k, v] of Object.entries(rawEssenceStatus)) {
-    if (v === true && isValidWeaponId(k) && (activeCustomIds.has(k) || !k.startsWith('custom-'))) essenceStatus[k] = true
-  }
-  const weaponNotes: Record<string, string> = {}
-  for (const [k, v] of Object.entries(rawWeaponNotes)) {
-    if (typeof v === 'string' && isValidWeaponId(k) && (activeCustomIds.has(k) || !k.startsWith('custom-'))) weaponNotes[k] = v
-  }
+  // ── Game-account profiles ────────────────────────────────
+  // accounts is the source of truth; the flat marks below are the ACTIVE
+  // account's mirror. Legacy persisted data (flat marks, no accounts) is
+  // folded into a single default account ("账号 1").
+  const sanitizeAccountMarks = (raw: Record<string, unknown>) => ({
+    weaponOwnership: filterMarks(raw.weaponOwnership, (v): v is boolean => v === true),
+    essenceStatus: filterMarks(raw.essenceStatus, (v): v is boolean => v === true),
+    weaponNotes: filterMarks(raw.weaponNotes, (v): v is string => typeof v === 'string'),
+  })
+
+  const persistedAccounts = sanitizeCloudAccounts(persisted.accounts)
+  const accounts: EssenceAccount[] = persistedAccounts.length > 0
+    ? persistedAccounts.map((account) => ({
+        ...account,
+        ...sanitizeAccountMarks({ weaponOwnership: account.weaponOwnership, essenceStatus: account.essenceStatus, weaponNotes: account.weaponNotes }),
+      }))
+    : [{
+        id: createAccountId(),
+        name: DEFAULT_ACCOUNT_NAME,
+        ...sanitizeAccountMarks(persisted),
+      }]
+
+  const persistedActiveId = typeof persisted.activeAccountId === 'string' ? persisted.activeAccountId : ''
+  const activeAccountId = accounts.some((a) => a.id === persistedActiveId) ? persistedActiveId : accounts[0].id
+  const active = accounts.find((a) => a.id === activeAccountId) ?? accounts[0]
+
   const regionFirst: string | null =
     typeof persisted.regionFirst === 'string' ? persisted.regionFirst : null
   const regionSecond: string | null =
@@ -106,16 +125,58 @@ function mergeWithDefaults(
   const notifyOnPull: boolean =
     typeof persisted.notifyOnPull === 'boolean' ? persisted.notifyOnPull : false
 
-  return { ...flags, weaponOwnership: ownership, essenceStatus, weaponNotes, customWeapons, regionFirst, regionSecond, weaponFilterCollapsed, autoSyncEnabled, notifyOnSync, notifyOnPull }
+  return {
+    ...flags,
+    accounts,
+    activeAccountId,
+    weaponOwnership: active.weaponOwnership,
+    essenceStatus: active.essenceStatus,
+    weaponNotes: active.weaponNotes,
+    customWeapons,
+    regionFirst,
+    regionSecond,
+    weaponFilterCollapsed,
+    autoSyncEnabled,
+    notifyOnSync,
+    notifyOnPull,
+  }
 }
 
 // ─── Store ─────────────────────────────────────────────────────────────────
+
+/** Stable default account id used before hydration / after resets. */
+const DEFAULT_ACCOUNT_ID = createAccountId()
+/** Default remark for the first account (the UI passes a translated name for new accounts). */
+const DEFAULT_ACCOUNT_NAME = '账号 1'
+
+/**
+ * Apply a marks patch to the active account and mirror it to the top-level
+ * fields so existing components keep reading the flat shape.
+ */
+function patchActiveAccountMarks(
+  state: EssenceSettingsState,
+  patch: Partial<Pick<EssenceAccount, 'weaponOwnership' | 'essenceStatus' | 'weaponNotes'>>,
+): Partial<EssenceSettingsState> {
+  const accounts = state.accounts.map((account) =>
+    account.id === state.activeAccountId ? { ...account, ...patch } : account,
+  )
+  return { accounts, ...patch }
+}
+
 
 export const useEssenceSettingsStore = create<EssenceSettingsState>()(
   persist(
     (set) => ({
       ...FLAG_DEFAULTS,
 
+      accounts: [{
+        id: DEFAULT_ACCOUNT_ID,
+        name: DEFAULT_ACCOUNT_NAME,
+        weaponOwnership: {},
+        essenceStatus: {},
+        weaponNotes: {},
+      }],
+      activeAccountId: DEFAULT_ACCOUNT_ID,
       weaponOwnership: {},
       essenceStatus: {},
       weaponNotes: {},
@@ -126,7 +187,6 @@ export const useEssenceSettingsStore = create<EssenceSettingsState>()(
       autoSyncEnabled: true,
       notifyOnSync: false,
       notifyOnPull: false,
-
       toggleFlag: (key: SettingKey) =>
         set((s) => ({ [key]: !s[key] } as Partial<EssenceSettingsState>)),
 
@@ -138,7 +198,7 @@ export const useEssenceSettingsStore = create<EssenceSettingsState>()(
           } else {
             delete next[weaponId]
           }
-          return { weaponOwnership: next }
+          return patchActiveAccountMarks(s, { weaponOwnership: next })
         }),
 
       setEssenceStatus: (weaponId: string, status: boolean) =>
@@ -149,7 +209,7 @@ export const useEssenceSettingsStore = create<EssenceSettingsState>()(
           } else {
             delete next[weaponId]
           }
-          return { essenceStatus: next }
+          return patchActiveAccountMarks(s, { essenceStatus: next })
         }),
 
       setWeaponNote: (weaponId: string, note: string) =>
@@ -160,8 +220,81 @@ export const useEssenceSettingsStore = create<EssenceSettingsState>()(
           } else {
             next[weaponId] = note
           }
-          return { weaponNotes: next }
+          return patchActiveAccountMarks(s, { weaponNotes: next })
         }),
+
+      addAccount: (name?: string) => {
+        const id = createAccountId()
+        set((s) => {
+          if (s.accounts.length >= MAX_ACCOUNTS) return s
+          const account: EssenceAccount = {
+            id,
+            name: name ?? `账号 ${s.accounts.length + 1}`,
+            weaponOwnership: {},
+            essenceStatus: {},
+            weaponNotes: {},
+          }
+          return {
+            accounts: [...s.accounts, account],
+            activeAccountId: id,
+            weaponOwnership: account.weaponOwnership,
+            essenceStatus: account.essenceStatus,
+            weaponNotes: account.weaponNotes,
+          }
+        })
+        return id
+      },
+
+      renameAccount: (accountId: string, name: string) =>
+        set((s) => ({
+          accounts: s.accounts.map((account) =>
+            account.id === accountId ? { ...account, name } : account,
+          ),
+        })),
+
+      removeAccount: (accountId: string) =>
+        set((s) => {
+          if (s.accounts.length <= 1) return s
+          const accounts = s.accounts.filter((account) => account.id !== accountId)
+          if (accounts.length === s.accounts.length) return s
+          if (s.activeAccountId !== accountId) return { accounts }
+          const active = accounts[0]
+          return {
+            accounts,
+            activeAccountId: active.id,
+            weaponOwnership: active.weaponOwnership,
+            essenceStatus: active.essenceStatus,
+            weaponNotes: active.weaponNotes,
+          }
+        }),
+
+      setActiveAccount: (accountId: string) =>
+        set((s) => {
+          const account = s.accounts.find((a) => a.id === accountId)
+          if (!account) return s
+          return {
+            activeAccountId: account.id,
+            weaponOwnership: account.weaponOwnership,
+            essenceStatus: account.essenceStatus,
+            weaponNotes: account.weaponNotes,
+          }
+        }),
+
+      applyAccounts: (accounts: EssenceAccount[]) => {
+        if (accounts.length === 0) return
+        set((s) => {
+          const next = sanitizeCloudAccounts(accounts)
+          if (next.length === 0) return s
+          const active = next.find((a) => a.id === s.activeAccountId) ?? next[0]
+          return {
+            accounts: next,
+            activeAccountId: active.id,
+            weaponOwnership: active.weaponOwnership,
+            essenceStatus: active.essenceStatus,
+            weaponNotes: active.weaponNotes,
+          }
+        })
+      },
 
       addCustomWeapon: (weapon: Weapon) =>
         set((s) => ({
@@ -170,19 +303,25 @@ export const useEssenceSettingsStore = create<EssenceSettingsState>()(
 
       removeCustomWeapon: (weaponId: string) =>
         set((s) => {
-          // Also clean up any ownership / essence / notes entries for
-          // this weapon so stale data doesn't linger in the session.
-          const nextOwnership = { ...s.weaponOwnership }
-          delete nextOwnership[weaponId]
-          const nextEssence = { ...s.essenceStatus }
-          delete nextEssence[weaponId]
-          const nextNotes = { ...s.weaponNotes }
-          delete nextNotes[weaponId]
+          // Custom weapons are global definitions: removing one purges its
+          // marks from EVERY game-account profile so stale data can't linger.
+          const strip = <T extends Record<string, boolean | string>>(marks: T): T => {
+            const next = { ...marks }
+            delete (next as Record<string, unknown>)[weaponId]
+            return next
+          }
+          const accounts = s.accounts.map((account) => ({
+            ...account,
+            weaponOwnership: strip(account.weaponOwnership),
+            essenceStatus: strip(account.essenceStatus),
+            weaponNotes: strip(account.weaponNotes),
+          }))
           return {
             customWeapons: s.customWeapons.filter((w) => w.id !== weaponId),
-            weaponOwnership: nextOwnership,
-            essenceStatus: nextEssence,
-            weaponNotes: nextNotes,
+            accounts,
+            weaponOwnership: strip(s.weaponOwnership),
+            essenceStatus: strip(s.essenceStatus),
+            weaponNotes: strip(s.weaponNotes),
           }
         }),
 
@@ -194,18 +333,29 @@ export const useEssenceSettingsStore = create<EssenceSettingsState>()(
         })),
 
       resetAllSettings: () =>
-        set({
-          ...FLAG_DEFAULTS,
-          weaponOwnership: {},
-          essenceStatus: {},
-          weaponNotes: {},
-          customWeapons: [],
-          regionFirst: null,
-          regionSecond: null,
-          weaponFilterCollapsed: false,
-          autoSyncEnabled: true,
-          notifyOnSync: false,
-          notifyOnPull: false,
+        set(() => {
+          const account: EssenceAccount = {
+            id: DEFAULT_ACCOUNT_ID,
+            name: DEFAULT_ACCOUNT_NAME,
+            weaponOwnership: {},
+            essenceStatus: {},
+            weaponNotes: {},
+          }
+          return {
+            ...FLAG_DEFAULTS,
+            accounts: [account],
+            activeAccountId: account.id,
+            weaponOwnership: account.weaponOwnership,
+            essenceStatus: account.essenceStatus,
+            weaponNotes: account.weaponNotes,
+            customWeapons: [],
+            regionFirst: null,
+            regionSecond: null,
+            weaponFilterCollapsed: false,
+            autoSyncEnabled: true,
+            notifyOnSync: false,
+            notifyOnPull: false,
+          }
         }),
 
       setRegionFirst: (region: string | null) =>
@@ -243,6 +393,11 @@ export const useEssenceSettingsStore = create<EssenceSettingsState>()(
           setWeaponOwnership: current.setWeaponOwnership,
           setEssenceStatus: current.setEssenceStatus,
           setWeaponNote: current.setWeaponNote,
+          addAccount: current.addAccount,
+          renameAccount: current.renameAccount,
+          removeAccount: current.removeAccount,
+          setActiveAccount: current.setActiveAccount,
+          applyAccounts: current.applyAccounts,
           addCustomWeapon: current.addCustomWeapon,
           removeCustomWeapon: current.removeCustomWeapon,
           updateCustomWeapon: current.updateCustomWeapon,

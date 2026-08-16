@@ -7,8 +7,9 @@ import { useRefinementStore } from '@/stores/useRefinementStore'
 import { normalizeEssenceSettingsFlags, useEssenceSettingsStore } from '@/stores/useEssenceSettingsStore'
 import { getSyncDataApi, postSyncDataApi, getTokens } from '@/lib/api'
 import { FEATURES } from '@/lib/features'
-import { resolveWeaponId, resolveWeaponIdKeys, resolveS1Selections } from '@/lib/resolve-weapon-id'
+import { resolveWeaponId, resolveS1Selections } from '@/lib/resolve-weapon-id'
 import { sanitizeCustomWeapons } from '@/lib/persist-sanitizer'
+import { sanitizeCloudAccounts } from '@/lib/essence-accounts'
 
 import { regionI18nKey } from '@/data/region-i18n'
 
@@ -63,9 +64,10 @@ function syncStoresFromCloudPayload(raw: Record<string, unknown>) {
     const es = raw.essenceSettings as Record<string, unknown> | undefined
     if (es) {
       const next: Record<string, unknown> = {}
-      if (es.weaponOwnership) next.weaponOwnership = resolveWeaponIdKeys(es.weaponOwnership as Record<string, unknown>)
-      if (es.essenceStatus) next.essenceStatus = resolveWeaponIdKeys(es.essenceStatus as Record<string, unknown>)
-      if (es.weaponNotes) next.weaponNotes = resolveWeaponIdKeys(es.weaponNotes as Record<string, unknown>)
+      if (Array.isArray(es.accounts)) next.accounts = sanitizeCloudAccounts(es.accounts)
+      if (es.accounts !== undefined && !Array.isArray(es.accounts)) {
+        if (process.env.NODE_ENV !== 'production') console.warn('[syncStores] essenceSettings.accounts invalid shape')
+      }
       if (Array.isArray(es.customWeapons)) next.customWeapons = sanitizeCustomWeapons(es.customWeapons)
       Object.assign(next, normalizeEssenceSettingsFlags(es.flags))
       if (es.regionFirst !== undefined) next.regionFirst = es.regionFirst
@@ -97,14 +99,18 @@ function hasExistingLocalData(local: Record<string, unknown>): boolean {
   if (ep && Array.isArray(ep.selectedWeaponIds) && ep.selectedWeaponIds.length > 0) return true
   const es = local.essenceSettings as Record<string, unknown> | undefined
   if (es) {
-    const wo = es.weaponOwnership as Record<string, unknown> | undefined
-    if (wo && Object.keys(wo).length > 0) return true
-    const ess = es.essenceStatus as Record<string, unknown> | undefined
-    if (ess && Object.keys(ess).length > 0) return true
+    const accounts = Array.isArray(es.accounts) ? es.accounts : []
+    for (const account of accounts) {
+      const raw = account as Record<string, unknown>
+      const wo = raw.weaponOwnership as Record<string, unknown> | undefined
+      if (wo && Object.keys(wo).length > 0) return true
+      const ess = raw.essenceStatus as Record<string, unknown> | undefined
+      if (ess && Object.keys(ess).length > 0) return true
+      const wn = raw.weaponNotes as Record<string, unknown> | undefined
+      if (wn && Object.keys(wn).length > 0) return true
+    }
     const cw = es.customWeapons as unknown[] | undefined
     if (Array.isArray(cw) && cw.length > 0) return true
-    const wn = es.weaponNotes as Record<string, unknown> | undefined
-    if (wn && Object.keys(wn).length > 0) return true
   }
   const rp = local.refinementPlanner as Record<string, unknown> | undefined
   if (rp && rp.selectedEquipId) return true
@@ -146,13 +152,16 @@ function buildSummaryRows(data: Record<string, unknown>): Record<string, string>
   const ep = data.essencePlanner as Record<string, unknown> | undefined
   const es = data.essenceSettings as Record<string, unknown> | undefined
   const rp = data.refinementPlanner as Record<string, unknown> | undefined
+  const accounts = Array.isArray(es?.accounts) ? (es!.accounts as Record<string, unknown>[]) : []
+  const sumOf = (key: string): number => accounts.reduce((sum, account) => sum + Object.keys((account[key] ?? {}) as object).length, 0)
   return {
     weapons: String(Array.isArray(ep?.selectedWeaponIds) ? ep!.selectedWeaponIds.length : 0),
     equip: (rp?.selectedEquipId ?? '') as string,
-    ownership: String(Object.keys((es?.weaponOwnership ?? {}) as object).length),
-    essence: String(Object.keys((es?.essenceStatus ?? {}) as object).length),
+    accounts: String(accounts.length),
+    ownership: String(sumOf('weaponOwnership')),
+    essence: String(sumOf('essenceStatus')),
     customWeapons: String(Array.isArray(es?.customWeapons) ? es!.customWeapons.length : 0),
-    weaponNotes: String(Object.keys((es?.weaponNotes ?? {}) as object).length),
+    weaponNotes: String(sumOf('weaponNotes')),
   }
 }
 
@@ -351,9 +360,15 @@ function collectSyncData(): Record<string, unknown> {
     const r = localStorage.getItem('essence-settings')
     if (r) {
       const p = JSON.parse(r); const s = p?.state ?? p
+      // Protocol v3: marks live inside accounts[] (one entry per game account).
+      // Fall back to legacy flat marks only if accounts are missing entirely
+      // (e.g. a store write raced the migration) — folded into one account.
+      const rawAccounts = Array.isArray(s.accounts) && s.accounts.length > 0
+        ? s.accounts
+        : [{ id: 'acc_legacy', name: '账号 1', weaponOwnership: s.weaponOwnership ?? {}, essenceStatus: s.essenceStatus ?? {}, weaponNotes: s.weaponNotes ?? {} }]
       data.essenceSettings = {
-        weaponOwnership: s.weaponOwnership ?? {}, essenceStatus: s.essenceStatus ?? {},
-        weaponNotes: s.weaponNotes ?? {}, customWeapons: s.customWeapons ?? [],
+        accounts: sanitizeCloudAccounts(rawAccounts),
+        customWeapons: s.customWeapons ?? [],
         flags: normalizeEssenceSettingsFlags(s),
         regionFirst: s.regionFirst ?? null, regionSecond: s.regionSecond ?? null,
       }
@@ -474,9 +489,7 @@ export function useAutoSync() {
       if (es) {
         const current = JSON.parse(localStorage.getItem('essence-settings') || '{}')
         const state = current?.state ?? current
-        if (es.weaponOwnership) state.weaponOwnership = es.weaponOwnership
-        if (es.essenceStatus) state.essenceStatus = es.essenceStatus
-        if (es.weaponNotes) state.weaponNotes = es.weaponNotes
+        if (Array.isArray(es.accounts)) state.accounts = sanitizeCloudAccounts(es.accounts)
         if (Array.isArray(es.customWeapons)) state.customWeapons = sanitizeCustomWeapons(es.customWeapons)
         Object.assign(state, normalizeEssenceSettingsFlags(es.flags))
         if (es.regionFirst !== undefined) state.regionFirst = es.regionFirst
@@ -528,7 +541,7 @@ export function useAutoSync() {
       const res = await postSyncDataApi({
         base_version: _cloudVersion,
         data: {
-          schemaVersion: 2,
+          schemaVersion: 3,
           capturedAt: new Date().toISOString(),
           ...localData,
         },

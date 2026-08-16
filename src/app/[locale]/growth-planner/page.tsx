@@ -14,11 +14,12 @@ import { GrowthEntityPicker } from '@/components/growth-planner/growth-entity-pi
 import { GrowthFloatingPicker } from '@/components/growth-planner/growth-floating-picker'
 import { GrowthTargetCard } from '@/components/growth-planner/growth-target-card'
 import { GrowthSummary } from '@/components/growth-planner/growth-summary'
+import { MaterialReversePanel } from '@/components/growth-planner/material-reverse-panel'
 import { useGrowthPlannerStore } from '@/stores/useGrowthPlannerStore'
 import { useWikiTranslations } from '@/hooks/use-wiki-translations'
 import { cn } from '@/lib/utils'
 
-type MobileView = 'selection' | 'summary'
+type MobileView = 'selection' | 'summary' | 'materials'
 
 export default function GrowthPlannerPage() {
   const t = useTranslations('growthPlanner')
@@ -30,6 +31,7 @@ export default function GrowthPlannerPage() {
   const [configOpen, setConfigOpen] = useState(false)
   const [clearConfirmOpen, setClearConfirmOpen] = useState(false)
   const [mobileView, setMobileView] = useState<MobileView>('selection')
+  const [desktopView, setDesktopView] = useState<'summary' | 'materials'>('summary')
   const resolvedActiveId = activeId && configs.some((config) => config.id === activeId) ? activeId : configs[0]?.id ?? null
   const activeConfig = configs.find((config) => config.id === resolvedActiveId)
   const handleEntityAdded = (id: string) => {
@@ -128,16 +130,22 @@ export default function GrowthPlannerPage() {
           floating edge-docked rail (GrowthFloatingPicker) so it costs zero
           layout space when not hovered. Mobile keeps its inline tab picker. */}
       <main className="hidden min-h-0 flex-1 overflow-y-scroll p-4 pb-16 lg:block">
-        <GrowthSummary />
+        {/* View switcher: material summary vs reverse material lookup */}
+        <div className="mb-3 flex w-fit rounded-lg bg-muted p-0.5">
+          <Button type="button" variant="ghost" aria-pressed={desktopView === 'summary'} onClick={() => setDesktopView('summary')} className={cn('h-auto rounded-md px-4 py-1.5 text-sm font-medium transition-colors', desktopView === 'summary' ? 'bg-background text-foreground shadow-[var(--shadow-raised)]' : 'text-muted-foreground')}>{t('summaryTab')}</Button>
+          <Button type="button" variant="ghost" aria-pressed={desktopView === 'materials'} onClick={() => setDesktopView('materials')} className={cn('h-auto rounded-md px-4 py-1.5 text-sm font-medium transition-colors', desktopView === 'materials' ? 'bg-background text-foreground shadow-[var(--shadow-raised)]' : 'text-muted-foreground')}>{t('materialsTab')}</Button>
+        </div>
+        {desktopView === 'summary' ? <GrowthSummary /> : <MaterialReversePanel />}
       </main>
       <GrowthFloatingPicker />
       <div className="flex min-h-0 flex-1 flex-col overflow-hidden lg:hidden">
         <div className="mx-4 mt-3 flex shrink-0 rounded-lg bg-muted p-0.5">
           <Button type="button" variant="ghost" aria-pressed={mobileView === 'selection'} onClick={() => setMobileView('selection')} className={cn('h-auto flex-1 rounded-md px-4 py-1.5 text-sm font-medium transition-colors', mobileView === 'selection' ? 'bg-background text-foreground shadow-[var(--shadow-raised)]' : 'text-muted-foreground')}>{t('selectionTab')}</Button>
           <Button type="button" variant="ghost" aria-pressed={mobileView === 'summary'} onClick={() => setMobileView('summary')} className={cn('h-auto flex-1 rounded-md px-4 py-1.5 text-sm font-medium transition-colors', mobileView === 'summary' ? 'bg-background text-foreground shadow-[var(--shadow-raised)]' : 'text-muted-foreground')}>{t('summaryTab')}</Button>
+          <Button type="button" variant="ghost" aria-pressed={mobileView === 'materials'} onClick={() => setMobileView('materials')} className={cn('h-auto flex-1 rounded-md px-4 py-1.5 text-sm font-medium transition-colors', mobileView === 'materials' ? 'bg-background text-foreground shadow-[var(--shadow-raised)]' : 'text-muted-foreground')}>{t('materialsTab')}</Button>
         </div>
         <div className="min-h-0 flex-1 overflow-hidden">
-          {mobileView === 'selection' ? <div className="flex h-full min-h-0 flex-col p-3"><GrowthEntityPicker onEntityAdded={handleEntityAdded} /></div> : <div className="h-full overflow-y-auto p-4"><GrowthSummary /></div>}
+          {mobileView === 'selection' ? <div className="flex h-full min-h-0 flex-col p-3"><GrowthEntityPicker onEntityAdded={handleEntityAdded} /></div> : mobileView === 'materials' ? <div className="h-full overflow-y-auto p-4"><MaterialReversePanel /></div> : <div className="h-full overflow-y-auto p-4"><GrowthSummary /></div>}
         </div>
         <div className="safe-area-mb relative z-40 flex shrink-0 items-center justify-between bg-background px-4 py-2.5 shadow-[var(--shadow-border-inset-t)]">
           <span className="text-sm text-muted-foreground">{t('selectedCount', { count: configs.length })}</span>
