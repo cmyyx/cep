@@ -92,7 +92,7 @@ export function UpdateChangelogNotice() {
         </Button>
       </div>
 
-      <ul className="max-h-80 overflow-y-auto px-4 py-2.5 space-y-3">
+      <ul className="max-h-56 overflow-y-auto px-4 py-2.5 space-y-3">
         {shown.map((entry, index) => (
           <li key={entry.commit || index} className="text-sm">
             <div className="flex items-center gap-2 flex-wrap">
