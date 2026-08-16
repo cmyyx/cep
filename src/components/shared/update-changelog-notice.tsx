@@ -73,13 +73,9 @@ export function UpdateChangelogNotice() {
     <div
       data-testid="update-changelog-notice"
       className={cn(
-        'fixed right-6 z-[55] w-[340px] max-w-[calc(100vw-3rem)] rounded-lg bg-background overflow-hidden animate-in fade-in slide-in-from-bottom-2 duration-200 transition-[bottom] duration-200',
+        'fixed right-6 z-[55] w-[340px] max-w-[calc(100vw-3rem)] rounded-lg bg-background overflow-hidden shadow-[var(--shadow-card),var(--shadow-card-inner)] animate-in fade-in slide-in-from-bottom-2 duration-200 transition-[bottom] duration-200',
         toastVisible ? 'bottom-24' : 'bottom-6',
       )}
-      style={{
-        boxShadow:
-          '0px 0px 0px 1px rgba(0,0,0,0.08), 0px 2px 2px rgba(0,0,0,0.04), 0px 8px 8px -8px rgba(0,0,0,0.04), 0px 0px 0px 1px #fafafa',
-      }}
     >
       <div className="flex items-center gap-2 px-4 py-3 border-b border-border">
         <span className="flex-1 text-sm font-semibold tracking-tight">

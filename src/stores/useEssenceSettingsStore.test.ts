@@ -57,7 +57,7 @@ describe('useEssenceSettingsStore — game accounts', () => {
     const { setWeaponOwnership, addAccount, setActiveAccount } = useEssenceSettingsStore.getState()
     setWeaponOwnership('wpn_claym_0017', true)
 
-    const secondId = addAccount('小号')
+    const secondId = addAccount('小号')!
     const state = useEssenceSettingsStore.getState()
     expect(state.accounts.length).toBe(2)
     expect(state.activeAccountId).toBe(secondId)
@@ -101,7 +101,7 @@ describe('useEssenceSettingsStore — game accounts', () => {
     resetStore()
     const store = useEssenceSettingsStore.getState()
     const firstId = store.accounts[0].id
-    const secondId = store.addAccount('B')
+    const secondId = store.addAccount('B')!
     useEssenceSettingsStore.getState().setActiveAccount(firstId)
     useEssenceSettingsStore.getState().setWeaponOwnership('wpn_claym_0017', true)
     useEssenceSettingsStore.getState().setActiveAccount(secondId)
@@ -116,7 +116,7 @@ describe('useEssenceSettingsStore — game accounts', () => {
     resetStore()
     const store = useEssenceSettingsStore.getState()
     const firstId = store.accounts[0].id
-    const secondId = store.addAccount('B')
+    const secondId = store.addAccount('B')!
     store.addCustomWeapon({ id: 'custom-test', name: '测试武器', rarity: 5, type: 'claymore', primaryStat: 'attack', elementalDamage: 'physical', specialAbility: '', chars: [] })
     useEssenceSettingsStore.getState().setWeaponOwnership('custom-test', true)
     useEssenceSettingsStore.getState().setActiveAccount(secondId)

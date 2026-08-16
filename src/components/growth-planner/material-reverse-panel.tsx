@@ -10,12 +10,12 @@ import { Button } from '@/components/ui/button'
 import { ItemFrameBackground } from '@/components/shared/item-frame-background'
 import { PLANNER_SELECTED_BADGE_CLASS, PLANNER_SELECTED_RING_CLASS } from '@/lib/planner-selection-styles'
 import { withImageCacheVersion } from '@/lib/image-url'
+import { getRarityBandSrc, getRarityColorClass } from '@/components/shared/rarity-stars'
 import { getPlannerGameData, getWikiCharacterSummaries, getWikiWeaponSummaries } from '@/lib/planner/planner-data-loader'
 import { getMaterialIndex } from '@/lib/planner/material-index'
 import { useWikiTranslations } from '@/hooks/use-wiki-translations'
 import { cn } from '@/lib/utils'
 import type { WikiEntitySummary } from '@/types/wiki'
-
 /**
  * Reverse material lookup for the growth planner.
  *
@@ -34,7 +34,7 @@ export function MaterialReversePanel() {
   const wikiCharacters = getWikiCharacterSummaries()
   const wikiWeapons = getWikiWeaponSummaries()
   const index = useMemo(() => getMaterialIndex(), [])
-  const number = useMemo(() => new Intl.NumberFormat(), [])
+  const number = useMemo(() => new Intl.NumberFormat(locale), [locale])
 
   const [searchQuery, setSearchQuery] = useState('')
   const [selectedItemId, setSelectedItemId] = useState<string | null>(null)
@@ -128,14 +128,14 @@ export function MaterialReversePanel() {
                     loading="lazy"
                   />
                   <Image
-                    src={withImageCacheVersion(`/images/item-band-${material?.rarity ?? 1}.png`)}
+                    src={getRarityBandSrc(material?.rarity)}
                     alt=""
                     width={200}
                     height={40}
                     className="absolute -inset-x-px bottom-0 z-20 w-[calc(100%+2px)] max-w-none object-cover object-bottom pointer-events-none"
                     unoptimized
                   />
-                  <span className="absolute inset-x-1 bottom-1.5 z-30 truncate px-1 text-[11px] leading-tight font-semibold text-stone-100 drop-shadow-md">
+                  <span className={cn('absolute inset-x-1 bottom-1.5 z-30 truncate px-1 text-[11px] leading-tight font-semibold drop-shadow-md', getRarityColorClass(material?.rarity))}>
                     {itemName(itemId)}
                   </span>
                   {isSelected && (
@@ -181,14 +181,14 @@ export function MaterialReversePanel() {
                       loading="lazy"
                     />
                     <Image
-                      src={withImageCacheVersion(`/images/item-band-${summary.rarity}.png`)}
+                      src={getRarityBandSrc(summary.rarity)}
                       alt=""
                       width={200}
                       height={40}
                       className="absolute -inset-x-px bottom-0 z-20 w-[calc(100%+2px)] max-w-none object-cover object-bottom pointer-events-none"
                       unoptimized
                     />
-                    <span className="absolute inset-x-1 bottom-1.5 z-30 truncate px-1 text-[11px] leading-tight font-semibold text-stone-100 drop-shadow-md">
+                    <span className={cn('absolute inset-x-1 bottom-1.5 z-30 truncate px-1 text-[11px] leading-tight font-semibold drop-shadow-md', getRarityColorClass(summary.rarity))}>
                       {name}
                     </span>
                     {/* Quantity corner badge — amber like the essence-planner

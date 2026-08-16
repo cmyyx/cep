@@ -79,8 +79,8 @@ export type EssenceSettingsState = EssenceSettingsFlags &
     addCustomWeapon: (weapon: Weapon) => void
     removeCustomWeapon: (weaponId: string) => void
     updateCustomWeapon: (weaponId: string, weapon: Weapon) => void
-    /** Create a new game-account profile with empty marks; returns its id. */
-    addAccount: (name?: string) => string
+    /** Create a new game-account profile with empty marks; returns its id, or null when at MAX_ACCOUNTS. */
+    addAccount: (name?: string) => string | null
     renameAccount: (accountId: string, name: string) => void
     /** Delete a profile and its marks. The last account cannot be removed. */
     removeAccount: (accountId: string) => void

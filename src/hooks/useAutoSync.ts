@@ -4,12 +4,13 @@ import { useEffect, useRef, useCallback } from 'react'
 import { useAuthStore } from '@/stores/useAuthStore'
 import { useMatrixStore } from '@/stores/useMatrixStore'
 import { useRefinementStore } from '@/stores/useRefinementStore'
-import { normalizeEssenceSettingsFlags, useEssenceSettingsStore } from '@/stores/useEssenceSettingsStore'
+import { DEFAULT_ACCOUNT_NAME, normalizeEssenceSettingsFlags, useEssenceSettingsStore } from '@/stores/useEssenceSettingsStore'
 import { getSyncDataApi, postSyncDataApi, getTokens } from '@/lib/api'
 import { FEATURES } from '@/lib/features'
 import { resolveWeaponId, resolveS1Selections } from '@/lib/resolve-weapon-id'
 import { sanitizeCustomWeapons } from '@/lib/persist-sanitizer'
 import { sanitizeCloudAccounts } from '@/lib/essence-accounts'
+import type { EssenceAccount } from '@/types/essence-settings'
 
 import { regionI18nKey } from '@/data/region-i18n'
 
@@ -64,7 +65,11 @@ function syncStoresFromCloudPayload(raw: Record<string, unknown>) {
     const es = raw.essenceSettings as Record<string, unknown> | undefined
     if (es) {
       const next: Record<string, unknown> = {}
-      if (Array.isArray(es.accounts)) next.accounts = sanitizeCloudAccounts(es.accounts)
+      if (Array.isArray(es.accounts)) {
+        // 通过 applyAccounts 应用账户:同步校正 activeAccountId 并刷新
+        // weaponOwnership/essenceStatus/weaponNotes 镜像字段
+        useEssenceSettingsStore.getState().applyAccounts(es.accounts as EssenceAccount[])
+      }
       if (es.accounts !== undefined && !Array.isArray(es.accounts)) {
         if (process.env.NODE_ENV !== 'production') console.warn('[syncStores] essenceSettings.accounts invalid shape')
       }
@@ -100,6 +105,14 @@ function hasExistingLocalData(local: Record<string, unknown>): boolean {
   const es = local.essenceSettings as Record<string, unknown> | undefined
   if (es) {
     const accounts = Array.isArray(es.accounts) ? es.accounts : []
+    // 多个账户、或存在被用户新建/改名的账户,同样是本地数据——
+    // 否则新增/重命名的账户会被云端数据静默覆盖。仅排除已知的空迁移默认账户(名称未改动)。
+    const hasUserAccounts = accounts.length > 1 || accounts.some((account) => {
+      const raw = account as Record<string, unknown>
+      const name = typeof raw.name === 'string' ? raw.name : ''
+      return name !== '' && name !== DEFAULT_ACCOUNT_NAME
+    })
+    if (hasUserAccounts) return true
     for (const account of accounts) {
       const raw = account as Record<string, unknown>
       const wo = raw.weaponOwnership as Record<string, unknown> | undefined
@@ -880,6 +893,7 @@ export function useAutoSync() {
     unsubs.push(
       useEssenceSettingsStore.subscribe((state, prevState) => {
         if (
+          state.accounts !== prevState.accounts ||
           state.weaponOwnership !== prevState.weaponOwnership ||
           state.essenceStatus !== prevState.essenceStatus ||
           state.weaponNotes !== prevState.weaponNotes ||

@@ -98,15 +98,19 @@ export function isCriticalResourceUrl(url: string): boolean {
  * Resolve the guard locale from the URL's first path segment. Exported for
  * tests. NOTE: this body is embedded into the inline guard via toString(), so
  * it must be SELF-CONTAINED — no references to module-level constants.
+ * 整个函数体必须是单一 return 表达式:嵌入后整段守卫代码会经正则去除
+ * 换行与缩进折叠成一行,多语句源码在无显式分号时会粘连成语法错误。
  */
 export function resolveGuardLocale(pathname: string): GuardLocale | null {
-  const segment = (pathname ?? '').split('/')[1] ?? ''
-  const lowered = segment.toLowerCase()
-  if (lowered === 'zh-cn') return 'zh-CN'
-  if (lowered === 'zh-tw') return 'zh-TW'
-  if (lowered === 'ja') return 'ja'
-  if (lowered === 'en') return 'en'
-  return null
+  return ((pathname ?? '').split('/')[1] ?? '').toLowerCase() === 'zh-cn'
+    ? 'zh-CN'
+    : ((pathname ?? '').split('/')[1] ?? '').toLowerCase() === 'zh-tw'
+      ? 'zh-TW'
+      : ((pathname ?? '').split('/')[1] ?? '').toLowerCase() === 'ja'
+        ? 'ja'
+        : ((pathname ?? '').split('/')[1] ?? '').toLowerCase() === 'en'
+          ? 'en'
+          : null
 }
 
 export const JS_RESOURCE_GUARD_CODE = `(function(){
@@ -118,7 +122,7 @@ var resolveLocale=${resolveGuardLocale.toString()};
 var COPY=${JSON.stringify(GUARD_COPY)};
 var FEEDBACK=${JSON.stringify(GUARD_FEEDBACK)};
 
-document.addEventListener('error',function(e){
+var onErr=function(e){
   var t=e.target;
   if(!t||!t.tagName)return;
   var url=(t.src||t.href||'');
@@ -129,7 +133,8 @@ document.addEventListener('error',function(e){
   if(!isCritical(url))return;
   if(F.indexOf(url)>=0)return;
   F.push(url);
-},true);
+};
+document.addEventListener('error',onErr,true);
 
 window.addEventListener('load',function(){_loadDone=true;tryAudit();});
 setTimeout(function(){if(!_loadDone){_loadDone=true;tryAudit();}},15000);
@@ -169,7 +174,12 @@ function autoRetry(locale){
      stay. If the page hydrated, we are done. Otherwise surface the error
      page once the retry outcome is known. */
   setTimeout(function(){
-    if(hydrated())return;
+    /* 重试成功后页面完成 hydration:清除 RETRY_KEY,让同会话后续页面
+       加载仍能获得一次自动重试预算。 */
+    if(hydrated()){
+      try{sessionStorage.removeItem(RETRY_KEY);}catch(e){}
+      return;
+    }
     if(F.length>0){show(locale);return;}
     setTimeout(function(){
       if(!hydrated()&&F.length>0)show(locale);
@@ -227,26 +237,44 @@ function retry(){
   var urls=F.slice();
   for(var i=0;i<urls.length;i++){
     (function(u){
-      var s=document.createElement('script');
-      s.async=true;
-      s.src=u+(u.indexOf('?')>=0?'&':'?')+'_r='+Date.now();
+      /* CSS 资源用 <link rel="stylesheet"> 重试,JS 资源继续用 <script>。
+         link 元素没有 async/src,使用 href;onload/onerror 对两者都生效。 */
+      var isCss=u.split('?')[0].slice(-4)==='.css';
+      var el;
+      if(isCss){
+        el=document.createElement('link');
+        el.rel='stylesheet';
+        el.href=u+(u.indexOf('?')>=0?'&':'?')+'_r='+Date.now();
+      }else{
+        el=document.createElement('script');
+        el.async=true;
+        el.src=u+(u.indexOf('?')>=0?'&':'?')+'_r='+Date.now();
+      }
       /* Loaded resources leave F (they are no longer failing); failed ones
          (re-)enter F so the auto-retry outcome is accurate. */
-      s.onload=function(){
+      el.onload=function(){
         var idx=F.indexOf(u);
         if(idx>=0)F.splice(idx,1);
       };
-      s.onerror=function(){
+      el.onerror=function(){
         if(F.indexOf(u)<0)F.push(u);
       };
-      document.head.appendChild(s);
+      document.head.appendChild(el);
     })(urls[i]);
   }
 }
 
-setInterval(function(){
+var pollTimer=setInterval(function(){
   var el=document.getElementById('cep-js-fatal');
-  if(!el)return;
-  if(hydrated()&&el.parentNode)el.parentNode.removeChild(el);
+  /* hydration 完成后:移除覆盖层(若存在)并终止轮询,守卫正常收尾。 */
+  if(!hydrated())return;
+  if(el&&el.parentNode)el.parentNode.removeChild(el);
+  clearInterval(pollTimer);
 },1000);
+/* 返回清理函数(仅测试使用;生产环境返回值被丢弃):移除 error 监听并
+   停止轮询,避免跨测试泄漏监听器与定时器。 */
+return function(){
+  try{document.removeEventListener('error',onErr,true);}catch(e){}
+  try{clearInterval(pollTimer);}catch(e){}
+};
 })()`.replace(/\n\s*/g, '')

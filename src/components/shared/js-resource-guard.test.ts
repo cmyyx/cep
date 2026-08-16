@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest'
+import vm from 'node:vm'
 import { isCriticalResourceUrl, JS_RESOURCE_GUARD_CODE, resolveGuardLocale } from './js-resource-guard'
 
 describe('isCriticalResourceUrl', () => {
@@ -67,5 +68,19 @@ describe('JS_RESOURCE_GUARD_CODE', () => {
 
   it('escapes overlay HTML safely', () => {
     expect(JS_RESOURCE_GUARD_CODE).toContain('String(s).replace(/&/g')
+  })
+
+  it('generated inline guard code is valid JavaScript (vm.Script compile-only)', () => {
+    // 编译而不执行:任何语法错误(如嵌入函数经去换行折叠后粘连)都会在此失败。
+    // 守卫代码由 toString() 嵌入并经正则折叠成一行,必须始终可解析。
+    expect(() => new vm.Script(JS_RESOURCE_GUARD_CODE)).not.toThrow()
+  })
+
+  it('resolveGuardLocale survives newline-collapse as raw source', () => {
+    // 模拟 toString() 嵌入后整段守卫代码的折叠处理(不经打包器):
+    // 函数体是单一 return 表达式,折叠后不会出现相邻语句粘连。
+    const collapsed = resolveGuardLocale.toString().replace(/\n\s*/g, '')
+    expect(() => new vm.Script(`(${collapsed})`)).not.toThrow()
+    expect(collapsed).not.toMatch(/return[^;{}]*\b(?:const|if|return)\b/)
   })
 })

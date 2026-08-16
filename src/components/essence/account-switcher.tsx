@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useMemo, useState } from 'react'
+import { useMemo, useState } from 'react'
 import { useTranslations } from 'next-intl'
 import { Check, Pencil, Plus, Trash2, UserRound } from 'lucide-react'
 import { Button } from '@/components/ui/button'
@@ -24,7 +24,8 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { useEssenceSettingsStore } from '@/stores/useEssenceSettingsStore'
-import { clampAccountName, MAX_ACCOUNTS } from '@/lib/essence-accounts'
+import { clampAccountName, MAX_ACCOUNT_NAME_LENGTH, MAX_ACCOUNTS } from '@/lib/essence-accounts'
+import { DeleteConfirmButton } from './delete-confirm-button'
 
 type DialogKind = 'create' | 'rename' | 'delete' | 'limit' | null
 
@@ -142,9 +143,12 @@ export function AccountSwitcher() {
             <Input
               id="account-name-create"
               value={nameInput}
-              maxLength={50}
+              maxLength={MAX_ACCOUNT_NAME_LENGTH}
               onChange={(event) => setNameInput(event.target.value)}
-              onKeyDown={(event) => { if (event.key === 'Enter') confirmCreate() }}
+              onKeyDown={(event) => {
+                // 忽略 IME 组合中的 Enter(中文输入法选词),组合结束后才提交
+                if (event.key === 'Enter' && !event.nativeEvent.isComposing) confirmCreate()
+              }}
               placeholder={t('essence.accountNamePlaceholder')}
             />
           </div>
@@ -167,9 +171,12 @@ export function AccountSwitcher() {
             <Input
               id="account-name-rename"
               value={nameInput}
-              maxLength={50}
+              maxLength={MAX_ACCOUNT_NAME_LENGTH}
               onChange={(event) => setNameInput(event.target.value)}
-              onKeyDown={(event) => { if (event.key === 'Enter') confirmRename() }}
+              onKeyDown={(event) => {
+                // 忽略 IME 组合中的 Enter(中文输入法选词),组合结束后才提交
+                if (event.key === 'Enter' && !event.nativeEvent.isComposing) confirmRename()
+              }}
               placeholder={t('essence.accountNamePlaceholder')}
             />
           </div>
@@ -207,34 +214,10 @@ export function AccountSwitcher() {
             <DialogDescription>{t('essence.accountMaxReached', { count: MAX_ACCOUNTS })}</DialogDescription>
           </DialogHeader>
           <DialogFooter>
-            <Button type="button" size="sm" onClick={() => setDialogKind(null)}>{t('essence.save')}</Button>
+            <Button type="button" size="sm" onClick={() => setDialogKind(null)}>{t('essence.accountLimitAck')}</Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
     </>
-  )
-}
-
-/**
- * Delete-confirm button with a 3s cooldown: locked with a visible countdown
- * right after the dialog opens, so a double-click can never nuke an account.
- * The parent remounts this component (via key) whenever the dialog opens,
- * which resets the countdown.
- */
-function DeleteConfirmButton({ disabled, onConfirm }: { disabled: boolean; onConfirm: () => void }) {
-  const t = useTranslations()
-  const [seconds, setSeconds] = useState(3)
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setSeconds((value) => (value <= 1 ? 0 : value - 1))
-    }, 1000)
-    return () => clearInterval(timer)
-  }, [])
-
-  return (
-    <Button type="button" variant="destructive" size="sm" disabled={disabled || seconds > 0} onClick={onConfirm}>
-      {seconds > 0 ? `${t('essence.accountDelete')} (${seconds}s)` : t('essence.accountDelete')}
-    </Button>
   )
 }

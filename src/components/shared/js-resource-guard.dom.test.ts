@@ -1,28 +1,40 @@
 // @vitest-environment jsdom
 
-import { beforeEach, expect, it, vi } from 'vitest'
+import { afterEach, beforeEach, expect, it, vi } from 'vitest'
 import { JS_RESOURCE_GUARD_CODE } from './js-resource-guard'
 
 /**
  * Executes the inline guard code in jsdom and drives it through the
  * real event flow (element-level script error → window load → audit).
+ * The guard IIFE returns a cleanup function (removes the capture-phase
+ * error listener and stops the poll timer); tests call it in afterEach.
  */
+let guardCleanup: (() => void) | null = null
+
 function runGuard(): void {
-  // The guard is an IIFE; execute it as-is.
+  // The guard is an IIFE; execute it as-is. new Function is required here:
+  // the guard is served as an inline string and must be executable verbatim.
   const fn = new Function(JS_RESOURCE_GUARD_CODE)
-  fn()
+  guardCleanup = fn() as () => void
 }
 
 // jsdom shares one document across tests in this file; guard instances from
 // earlier tests keep their document/window listeners, so scrub everything the
 // current test can own: the overlay, the hydration sentinel and stale retry
-// script tags. (Old instances are inert after their audit ran once.)
+// script tags. The guard's own cleanup (error listener + poll timer) runs via
+// the cleanup function returned by runGuard.
 beforeEach(() => {
   document.getElementById('cep-js-fatal')?.remove()
   document.documentElement.removeAttribute('data-cep-hydrated')
   sessionStorage.clear()
   document.querySelectorAll('script[src*="_r="]').forEach((script) => script.remove())
 })
+
+afterEach(() => {
+  guardCleanup?.()
+  guardCleanup = null
+})
+
 
 function failScript(src: string): void {
   const el = document.createElement('script')
@@ -31,6 +43,16 @@ function failScript(src: string): void {
   // listener (real <script async> tags are always in the DOM).
   document.body.appendChild(el)
   // Dispatch on the element: capture-phase listener on document receives it.
+  el.dispatchEvent(new Event('error'))
+  el.remove()
+}
+
+function failLink(href: string): void {
+  const el = document.createElement('link')
+  el.rel = 'stylesheet'
+  el.href = href
+  document.body.appendChild(el)
+  // 与 failScript 相同的路径:元素级 error 事件进入守卫的 capture 监听
   el.dispatchEvent(new Event('error'))
   el.remove()
 }
@@ -52,7 +74,7 @@ function setPathname(pathname: string): void {
   })
 }
 
-it('auto-retries the failed chunk once; the error page appears only if it still fails', async () => {
+it('auto-retries the failed chunk once; the error page appears only if it still fails', () => {
   vi.useFakeTimers()
   try {
     setPathname('/zh-CN/essence-planner')
@@ -86,7 +108,7 @@ it('auto-retries the failed chunk once; the error page appears only if it still 
   }
 })
 
-it('auto-retry succeeds (script loads) → no error page', async () => {
+it('auto-retry succeeds (script loads) → no error page', () => {
   vi.useFakeTimers()
   try {
     setPathname('/zh-CN/essence-planner')
@@ -106,6 +128,8 @@ it('auto-retry succeeds (script loads) → no error page', async () => {
     vi.advanceTimersByTime(6000)
 
     expect(document.getElementById('cep-js-fatal')).toBeNull()
+    // 重试成功并完成 hydration 后,自动重试预算被回收,同会话后续加载可再次自动重试
+    expect(sessionStorage.getItem('cep-js-retried')).toBeNull()
   } finally {
     vi.useRealTimers()
   }
@@ -171,6 +195,28 @@ it('retry re-inserts the failed scripts with a cache-buster', async () => {
   const retryBtn = document.getElementById('cep-js-fatal-retry') as HTMLButtonElement
   retryBtn.click()
   expect(document.querySelectorAll('script[src*="_r="]').length).toBe(scriptsBefore + 1)
+})
+
+it('retries failed CSS resources as stylesheet links, JS as scripts', async () => {
+  setPathname('/zh-CN/essence-planner')
+  sessionStorage.setItem('cep-js-retried', '1')
+
+  runGuard()
+  failLink('/_next/static/css/fail-css456.css')
+  failScript('/_next/static/chunks/fail-jkl012.js')
+  fireLoad()
+  await flushAudit()
+
+  const retryBtn = document.getElementById('cep-js-fatal-retry') as HTMLButtonElement
+  expect(retryBtn).not.toBeNull()
+  retryBtn.click()
+
+  const links = document.querySelectorAll('link[rel="stylesheet"][href*="_r="]')
+  expect(links.length).toBe(1)
+  expect(links[0].getAttribute('href')).toContain('/_next/static/css/fail-css456.css?_r=')
+  const scripts = document.querySelectorAll('script[src*="_r="]')
+  expect(scripts.length).toBe(1)
+  expect(scripts[0].getAttribute('src')).toContain('/_next/static/chunks/fail-jkl012.js?_r=')
 })
 
 it('shows nothing outside a locale route (404 page owns its surface)', async () => {

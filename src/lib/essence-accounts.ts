@@ -60,12 +60,20 @@ export function clampAccountName(name: string): string {
 export function sanitizeCloudAccounts(value: unknown): EssenceAccount[] {
   if (!Array.isArray(value)) return []
   const accounts: EssenceAccount[] = []
+  const usedIds = new Set<string>()
   for (const raw of value) {
     if (accounts.length >= MAX_ACCOUNTS) break
     if (!isRecord(raw)) continue
-    const id = typeof raw.id === 'string' && raw.id.length > 0 && raw.id.length <= MAX_ACCOUNT_ID_LENGTH
+    let id = typeof raw.id === 'string' && raw.id.length > 0 && raw.id.length <= MAX_ACCOUNT_ID_LENGTH
       ? raw.id
-      : createAccountId()
+      : ''
+    // 无效或与已处理账户重复的 id 一律重新生成,且生成结果不与已有 id 冲突
+    if (id === '' || usedIds.has(id)) {
+      do {
+        id = createAccountId()
+      } while (usedIds.has(id))
+    }
+    usedIds.add(id)
     const name = typeof raw.name === 'string' ? raw.name.slice(0, MAX_ACCOUNT_NAME_LENGTH) : ''
     accounts.push({
       id,

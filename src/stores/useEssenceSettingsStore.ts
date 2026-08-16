@@ -147,26 +147,34 @@ function mergeWithDefaults(
 /** Stable default account id used before hydration / after resets. */
 const DEFAULT_ACCOUNT_ID = createAccountId()
 /** Default remark for the first account (the UI passes a translated name for new accounts). */
-const DEFAULT_ACCOUNT_NAME = '账号 1'
+export const DEFAULT_ACCOUNT_NAME = '账号 1'
 
 /**
  * Apply a marks patch to the active account and mirror it to the top-level
  * fields so existing components keep reading the flat shape.
+ * 当 activeAccountId 不匹配任何账户(如云端同步后)时回退到第一个账户,
+ * 并同步 activeAccountId,避免补丁落到空处。
  */
 function patchActiveAccountMarks(
   state: EssenceSettingsState,
   patch: Partial<Pick<EssenceAccount, 'weaponOwnership' | 'essenceStatus' | 'weaponNotes'>>,
 ): Partial<EssenceSettingsState> {
+  const target = state.accounts.find((account) => account.id === state.activeAccountId) ?? state.accounts[0]
+  if (!target) return { ...patch }
   const accounts = state.accounts.map((account) =>
-    account.id === state.activeAccountId ? { ...account, ...patch } : account,
+    account.id === target.id ? { ...account, ...patch } : account,
   )
-  return { accounts, ...patch }
+  return {
+    accounts,
+    ...(target.id !== state.activeAccountId ? { activeAccountId: target.id } : {}),
+    ...patch,
+  }
 }
 
 
 export const useEssenceSettingsStore = create<EssenceSettingsState>()(
   persist(
-    (set) => ({
+    (set, get) => ({
       ...FLAG_DEFAULTS,
 
       accounts: [{
@@ -224,9 +232,10 @@ export const useEssenceSettingsStore = create<EssenceSettingsState>()(
         }),
 
       addAccount: (name?: string) => {
+        // 容量满时返回 null(调用方不能拿到一个"看似成功"的 id)
+        if (get().accounts.length >= MAX_ACCOUNTS) return null
         const id = createAccountId()
         set((s) => {
-          if (s.accounts.length >= MAX_ACCOUNTS) return s
           const account: EssenceAccount = {
             id,
             name: name ?? `账号 ${s.accounts.length + 1}`,

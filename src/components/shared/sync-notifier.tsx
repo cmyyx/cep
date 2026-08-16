@@ -126,6 +126,7 @@ export function SyncNotifier() {
 
   useEffect(() => {
     useToastUiStore.getState().setSyncToastVisible(toast !== null)
+    return () => useToastUiStore.getState().setSyncToastVisible(false)
   }, [toast])
 
   // ── Register sync notification callback ────────────────

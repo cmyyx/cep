@@ -330,7 +330,7 @@ export default function AccountPage() {
                 setSyncStatus('pushing')
                 postSyncDataApi({
                   base_version: getCloudVersion() || res.version,
-                  data: { schemaVersion: 2, capturedAt: new Date().toISOString(), ...localData },
+                  data: { schemaVersion: 3, capturedAt: new Date().toISOString(), ...localData },
                 }, 'manual').then(pushRes => {
                   setCloudVersion(pushRes.version)
                   updateCloudVersion(pushRes.version)
@@ -509,7 +509,7 @@ export default function AccountPage() {
             setSyncStatus('pushing')
             const ld = collectLocalData()
             postSyncDataApi(
-              { base_version: latest.version, data: { schemaVersion: 2, capturedAt: new Date().toISOString(), ...ld } },
+              { base_version: latest.version, data: { schemaVersion: 3, capturedAt: new Date().toISOString(), ...ld } },
               'manual',
             )
               .then((pushRes) => {
@@ -546,7 +546,7 @@ export default function AccountPage() {
       const localData = collectLocalData()
       const res = await postSyncDataApi({
         base_version: getCloudVersion(),
-        data: { schemaVersion: 2, capturedAt: new Date().toISOString(), ...localData },
+        data: { schemaVersion: 3, capturedAt: new Date().toISOString(), ...localData },
       })
       setCloudVersion(res.version)
       updateCloudVersion(res.version)
@@ -729,7 +729,7 @@ export default function AccountPage() {
             const localData = collectLocalData()
             postSyncDataApi({
               base_version: getCloudVersion() || cloudVersion,
-              data: { schemaVersion: 2, capturedAt: new Date().toISOString(), ...localData },
+              data: { schemaVersion: 3, capturedAt: new Date().toISOString(), ...localData },
             }, 'manual').then(res => {
               setCloudVersion(res.version)
               updateCloudVersion(res.version)
