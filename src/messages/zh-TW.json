@@ -366,7 +366,9 @@
     "local": "本地",
     "remote": "雲端",
     "changelogError": "載入更新日誌失敗",
-    "forcedRelease": "強制更新"
+    "forcedRelease": "強制更新",
+    "updateChangelogTitle": "本次更新內容",
+    "viewFullChangelog": "查看完整更新日誌"
   },
   "about": {
     "description": "為《明日方舟：終末地》打造的基質規劃工具集",

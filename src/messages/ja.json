@@ -366,7 +366,9 @@
     "local": "ローカル",
     "remote": "リモート",
     "changelogError": "更新ログの読み込みに失敗しました",
-    "forcedRelease": "強制アップデート"
+    "forcedRelease": "強制アップデート",
+    "updateChangelogTitle": "今回の更新内容",
+    "viewFullChangelog": "完全な更新履歴を表示"
   },
   "about": {
     "description": "アークナイツ：エンドフィールドのために作られた計画ツールキット",

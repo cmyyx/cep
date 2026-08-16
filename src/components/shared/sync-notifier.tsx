@@ -8,6 +8,7 @@ import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import { setAutoSyncNotifyCallback, setDismissConflictToast } from '@/hooks/useAutoSync'
 import { useAuthStore } from '@/stores/useAuthStore'
+import { useToastUiStore } from '@/stores/useToastUiStore'
 import { useVersion } from '@/hooks/use-version'
 
 // ─── Types ─────────────────────────────────────────────────
@@ -120,6 +121,12 @@ export function SyncNotifier() {
     }
     prevUpdateAvailable.current = isUpdateAvailable
   }, [isUpdateAvailable, createToast])
+
+  // ── Publish toast visibility for corner floats (update changelog notice) ──
+
+  useEffect(() => {
+    useToastUiStore.getState().setSyncToastVisible(toast !== null)
+  }, [toast])
 
   // ── Register sync notification callback ────────────────
 

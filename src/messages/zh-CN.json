@@ -165,7 +165,9 @@
     "local": "本地",
     "remote": "云端",
     "changelogError": "加载更新日志失败",
-    "forcedRelease": "强制更新"
+    "forcedRelease": "强制更新",
+    "updateChangelogTitle": "本次更新内容",
+    "viewFullChangelog": "查看完整更新日志"
   },
   "about": {
     "description": "为《明日方舟：终末地》打造的工具集",

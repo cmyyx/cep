@@ -30,6 +30,7 @@ import { VersionProvider } from '@/hooks/use-version'
 import { SentryProvider } from '@/components/shared/sentry-provider'
 import { SiteUrlProvider } from '@/hooks/use-site-url'
 import { versionData } from '@/generated/version-data'
+import { UpdateChangelogNotice } from '@/components/shared/update-changelog-notice'
 import { DEFAULT_SITE_URL } from '@/lib/constants'
 import { IS_DEV_BUILD } from '@/lib/build-flags'
 import { GameI18nCatalogPreloader } from '@/components/shared/game-i18n-catalog-preloader'
@@ -96,6 +97,7 @@ export default async function LocaleLayout({
 
             <AnnouncementLoader />
             <SyncManager />
+            <UpdateChangelogNotice />
             <LegacyMigrationDialog />
             <Background />
             <AppSidebar />

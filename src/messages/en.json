@@ -366,7 +366,9 @@
     "local": "Local",
     "remote": "Remote",
     "changelogError": "Failed to load changelog",
-    "forcedRelease": "Forced update"
+    "forcedRelease": "Forced update",
+    "updateChangelogTitle": "What's new in this update",
+    "viewFullChangelog": "View full changelog"
   },
   "about": {
     "description": "A planning toolkit built for Arknights: Endfield",
