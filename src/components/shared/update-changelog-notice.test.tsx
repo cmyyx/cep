@@ -122,13 +122,47 @@ describe('UpdateChangelogNotice', () => {
     expect(localStorage.getItem('cep-last-seen-commit')).toBeNull()
   })
 
-  it('无记录且当前条目本身是 release tag(0 条新内容)时不展示,但写入已看标记', async () => {
+  it('无记录且最新条目本身是 release tag 时展示该 release 条目并写入已看标记', async () => {
     const taggedTop = [{ ...makeEntries(1)[0], version: 'v1.4.24' }]
     mockFetchImpl = () => okResponse(taggedTop)
     render(<Component />)
-    // 等待 promise 结算(写入已看标记)
-    await vi.waitFor(() => expect(localStorage.getItem('cep-last-seen-commit')).toBe('c5'))
+    const card = await screen.findByTestId('update-changelog-notice')
+    expect(card).toBeTruthy()
+    expect(screen.getByText('message-1')).toBeTruthy()
+    expect(screen.queryByRole('button', { name: '查看完整更新日志' })).toBeNull()
+    expect(localStorage.getItem('cep-last-seen-commit')).toBe('c5')
+  })
+
+  it('changelog 为空时既不展示也不写入已看标记', async () => {
+    mockFetchImpl = () => okResponse([])
+    render(<Component />)
+    await vi.waitFor(() => expect(fetch).toHaveBeenCalled())
+    // 等待 promise 链结算后再断言
+    await new Promise((r) => setTimeout(r, 0))
     expect(screen.queryByTestId('update-changelog-notice')).toBeNull()
+    expect(localStorage.getItem('cep-last-seen-commit')).toBeNull()
+  })
+
+  it('无记录且无 release tag 时兜底展示顶部 10 条,并提供完整日志入口', async () => {
+    // 12 条无 tag:回退 slice(0, 10) 恰好 10 条,但完整 changelog 更长
+    mockFetchImpl = () => okResponse(makeEntries(12))
+    render(<Component />)
+    const card = await screen.findByTestId('update-changelog-notice')
+    expect(card).toBeTruthy()
+    expect(screen.getByText('message-12')).toBeTruthy()
+    expect(screen.queryByText('message-2')).toBeNull()
+    expect(screen.getByRole('button', { name: '查看完整更新日志' })).toBeTruthy()
+  })
+
+  it('历史重写(找不到 seenCommit)兜底展示顶部 10 条,并提供完整日志入口', async () => {
+    localStorage.setItem('cep-last-seen-commit', 'ghost-commit')
+    mockFetchImpl = () => okResponse(makeEntries(12))
+    render(<Component />)
+    const card = await screen.findByTestId('update-changelog-notice')
+    expect(card).toBeTruthy()
+    expect(screen.getByText('message-12')).toBeTruthy()
+    expect(screen.queryByText('message-2')).toBeNull()
+    expect(screen.getByRole('button', { name: '查看完整更新日志' })).toBeTruthy()
   })
 
   it('无 sync toast 时贴底(bottom-6)对齐 toast 槽位', async () => {

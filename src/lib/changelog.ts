@@ -15,13 +15,15 @@ export function getEntriesSince(changelog: ChangelogEntry[], seenCommit: string)
 
 /**
  * 无本地记录（首次访问/首个支持该功能的版本）时的回退边界：
- * 返回最新一个带版本 tag 的条目之前的全部条目（不含该 tag 条目本身）。
+ * 返回最新一个带版本 tag 的条目之前的全部条目（不含该 tag 条目本身）；
+ * 当该 tag 条目本身就是最新条目（idx === 0）时返回它自身，保证非空 changelog
+ * 下回退结果不为空，避免"0 条内容却写入已看标记"导致的更新通知被静默吞掉。
  * 没有任何 tag 时回退为顶部 FALLBACK_LIMIT 条。
  */
 export function getEntriesSinceLastTag(changelog: ChangelogEntry[]): ChangelogEntry[] {
   const idx = changelog.findIndex((entry) => Boolean(entry.version))
   if (idx === -1) return changelog.slice(0, FALLBACK_LIMIT)
-  return changelog.slice(0, idx)
+  return changelog.slice(0, idx === 0 ? 1 : idx)
 }
 
 export function readLastSeenCommit(): string | null {

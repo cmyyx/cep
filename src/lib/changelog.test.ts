@@ -49,9 +49,9 @@ describe('getEntriesSinceLastTag', () => {
     expect(getEntriesSinceLastTag(changelog).map((e) => e.commit)).toEqual(['c5'])
   })
 
-  it('最新条目本身就是 tag 时返回空数组', () => {
+  it('最新条目本身就是 tag 时返回该 tag 条目本身(保证非空)', () => {
     const taggedTop = [makeEntry('c6', 'v1.4.26'), ...changelog]
-    expect(getEntriesSinceLastTag(taggedTop)).toEqual([])
+    expect(getEntriesSinceLastTag(taggedTop).map((e) => e.commit)).toEqual(['c6'])
   })
 
   it('没有任何 tag 时回退为顶部 10 条', () => {

@@ -69,3 +69,4 @@ artifacts
 /.playwright-mcp/
 /*-desktop.png
 /*-mobile.png
+.tmp-sentry

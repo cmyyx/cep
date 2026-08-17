@@ -35,6 +35,7 @@ export function UpdateChangelogNotice() {
   const toastVisible = useToastUiStore((s) => s.syncToastVisible)
   const [entries, setEntries] = useState<ChangelogEntry[] | null>(null)
   const [visible, setVisible] = useState(false)
+  const [hasMore, setHasMore] = useState(false)
   const handledRef = useRef(false)
   useEffect(() => {
     if (handledRef.current) return
@@ -50,10 +51,17 @@ export function UpdateChangelogNotice() {
         const newEntries = seen
           ? getEntriesSince(changelog, seen)
           : getEntriesSinceLastTag(changelog)
-        // 展示即标记已看:保证同一版本只展示一次
-        writeLastSeenCommit(current)
+        // 展示即标记已看:保证同一版本只展示一次。
+        // 无内容可展示时不写标记,避免"0 条内容却标记已看"导致通知被静默吞掉
         if (newEntries.length > 0) {
+          writeLastSeenCommit(current)
           setEntries(newEntries)
+          // 兜底路径只取顶部 10 条,仅凭 newEntries.length 无法判断是否还有更多。
+          // 只要完整 changelog 比展示列表长(无记录/历史重写兜底、tag 边界截断),
+          // 就提供"查看完整更新日志"入口
+          setHasMore(
+            newEntries.length > MAX_VISIBLE_ENTRIES || changelog.length > newEntries.length,
+          )
           setVisible(true)
         }
       })
@@ -67,13 +75,12 @@ export function UpdateChangelogNotice() {
   if (!visible || !entries) return null
 
   const shown = entries.slice(0, MAX_VISIBLE_ENTRIES)
-  const hasMore = entries.length > MAX_VISIBLE_ENTRIES
 
   return (
     <div
       data-testid="update-changelog-notice"
       className={cn(
-        'fixed right-6 z-[55] w-[340px] max-w-[calc(100vw-3rem)] rounded-lg bg-background overflow-hidden shadow-[var(--shadow-card),var(--shadow-card-inner)] animate-in fade-in slide-in-from-bottom-2 duration-200 transition-[bottom] duration-200',
+        'fixed right-6 z-[55] w-[340px] sm:w-[420px] lg:w-[460px] max-w-[calc(100vw-3rem)] rounded-lg bg-background overflow-hidden shadow-[var(--shadow-card),var(--shadow-card-inner)] animate-in fade-in slide-in-from-bottom-2 duration-200 transition-[bottom] duration-200',
         toastVisible ? 'bottom-24' : 'bottom-6',
       )}
     >
@@ -92,7 +99,7 @@ export function UpdateChangelogNotice() {
         </Button>
       </div>
 
-      <ul className="max-h-56 overflow-y-auto px-4 py-2.5 space-y-3">
+      <ul className="max-h-56 sm:max-h-80 lg:max-h-96 overflow-y-auto px-4 py-2.5 space-y-3">
         {shown.map((entry, index) => (
           <li key={entry.commit || index} className="text-sm">
             <div className="flex items-center gap-2 flex-wrap">
