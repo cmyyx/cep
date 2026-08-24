@@ -16,4 +16,7 @@ export const donors: Donor[] = [
   { name: '匿名', amount: 5.00, date: '2026-08-06', message: '' },
   { name: '染墨', amount: 10.00, date: '2026-08-07', message: '做得好👍' },
   { name: '往事随风', amount: 1.00, date: '2026-08-07', message: '你做的好呀' },
+  { name: '因支付宝限制看不到昵称', amount: 10.00, date: '2026-08-21', message: '' },
+  { name: ' ', amount: 10.00, date: '2026-08-13', message: '可不可以加一个干员适配武器的功能，求求了🙏🏻🙏🏻🙏' },
+  { name: 'Ken Arcane', amount: 20.00, date: '2026-08-23', message: '不错(#^.^#)👍🏻' },
 ]
