@@ -460,11 +460,11 @@
     "selectedList": "Selected List",
     "notePlaceholder": "Click to add note",
     "weaponTypes": {
-      "oneHandedSword": "One-handed Sword",
-      "casterUnit": "Caster Unit",
+      "sword": "Sword",
+      "artsUnit": "Arts Unit",
       "greatsword": "Greatsword",
       "polearm": "Polearm",
-      "pistol": "Pistol"
+      "handcannon": "Handcannon"
     },
     "cancel": "Cancel",
     "accountSwitcher": "Account switcher",

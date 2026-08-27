@@ -460,11 +460,11 @@
     "selectedList": "已選清單",
     "notePlaceholder": "點擊添加備註",
     "weaponTypes": {
-      "oneHandedSword": "單手劍",
-      "casterUnit": "施術單元",
+      "sword": "單手劍",
+      "artsUnit": "施術單元",
       "greatsword": "雙手劍",
       "polearm": "長柄武器",
-      "pistol": "手銃"
+      "handcannon": "手銃"
     },
     "cancel": "取消",
     "accountSwitcher": "帳號切換",

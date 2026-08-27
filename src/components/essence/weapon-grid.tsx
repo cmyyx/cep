@@ -40,11 +40,11 @@ const ATTR_LABEL_KEYS: Record<WeaponFilterKey, string> = {
 
 /** Weapon type ids in the source data are zh-CN literals; map them to i18n keys. */
 export const WEAPON_TYPE_LABEL_KEYS: Record<string, string> = {
-  '单手剑': 'essence.weaponTypes.oneHandedSword',
-  '施术单元': 'essence.weaponTypes.casterUnit',
+  '单手剑': 'essence.weaponTypes.sword',
+  '施术单元': 'essence.weaponTypes.artsUnit',
   '双手剑': 'essence.weaponTypes.greatsword',
   '长柄武器': 'essence.weaponTypes.polearm',
-  '手铳': 'essence.weaponTypes.pistol',
+  '手铳': 'essence.weaponTypes.handcannon',
 }
 
 /** Localized weapon type label; unknown (future) types fall back to the raw value. */

@@ -460,11 +460,11 @@
     "selectedList": "選択リスト",
     "notePlaceholder": "タップしてメモ追加",
     "weaponTypes": {
-      "oneHandedSword": "片手剣",
-      "casterUnit": "術式ユニット",
-      "greatsword": "両手剣",
+      "sword": "片手剣",
+      "artsUnit": "アーツユニット",
+      "greatsword": "大剣",
       "polearm": "長柄武器",
-      "pistol": "銃"
+      "handcannon": "拳銃"
     },
     "cancel": "キャンセル",
     "accountSwitcher": "アカウント切替",
