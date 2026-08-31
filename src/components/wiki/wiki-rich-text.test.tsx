@@ -86,4 +86,16 @@ describe('WikiRichText', () => {
 
     expect(document.querySelector('img')).toBeNull()
   })
+
+  it('rejects path traversal and nested BuffIcon paths', () => {
+    render(<WikiRichText value={'A <image="BuffIcon/../skills/foo" scale=1> B <image="BuffIcon/sub/icon" scale=1> icon'} />)
+
+    expect(document.querySelector('img')).toBeNull()
+  })
+
+  it('skips malformed image scales instead of crashing', () => {
+    render(<WikiRichText value={'A <image="BuffIcon/icon_energy_fusion_fire" scale=.> B <image="BuffIcon/icon_energy_fusion_fire" scale=0> icon'} />)
+
+    expect(document.querySelector('img')).toBeNull()
+  })
 })

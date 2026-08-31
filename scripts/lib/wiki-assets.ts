@@ -97,10 +97,12 @@ export function collectWikiAssets(source: WikiAssetSource): WikiAssets {
   // Rich-text inline images (e.g. <image="BuffIcon/icon_energy_fusion_fire" scale=1.25>)
   // embedded in glossary descriptions. Only the BuffIcon/ directory exists in the
   // game text today; the CDN path is sprites/bufficon/{basename}.png.
+  // 遍历所有 locale 的 name/description, 防止图标仅出现在非 zh-CN 翻译中时漏收;
+  // 只接受单段基本名 (无 /), 与渲染端/转换端的单文件资源约定保持一致。
   const buffIcons = new Set<string>()
   for (const term of Object.values(source.richText ?? {})) {
-    for (const text of [term.name['zh-CN'], term.description['zh-CN']]) {
-      for (const match of text.matchAll(/<image="BuffIcon\/([A-Za-z0-9_./-]+)"\s+scale=[0-9.]+>/g)) {
+    for (const text of [...Object.values(term.name), ...Object.values(term.description)]) {
+      for (const match of text.matchAll(/<image="BuffIcon\/([A-Za-z0-9_.-]+)"\s+scale=[0-9.]+>/g)) {
         buffIcons.add(match[1])
       }
     }

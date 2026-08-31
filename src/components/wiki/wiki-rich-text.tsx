@@ -38,14 +38,19 @@ function mapImagePath(path: string): string | null {
   const prefix = path.slice(0, slash)
   const name = path.slice(slash + 1)
   const dir = IMAGE_PATH_PREFIXES[prefix]
-  if (!dir || !name) return null
+  // 仅接受单段基本名: 拒绝嵌套路径与 . / .. 片段, 防止路径穿越到目录外
+  if (!dir || !/^[A-Za-z0-9_.-]+$/.test(name)) return null
   return withImageCacheVersion(`${dir}/${name}.avif`)
 }
 
 function renderImage(node: Extract<WikiRichTextNode, { type: 'image' }>): ReactNode {
   const src = mapImagePath(node.path)
   if (!src) return null
+  // 解析器对 scale 宽松匹配 ([0-9.]+), 可能产生 NaN / 0 / 负值;
+  // Next Image 要求 width/height 为有限正整数, 畸形输入直接放弃渲染
+  if (!Number.isFinite(node.scale) || node.scale <= 0) return null
   const size = Math.round(16 * node.scale)
+  if (!Number.isFinite(size) || size <= 0) return null
   return (
     <Image
       src={src}
@@ -57,6 +62,7 @@ function renderImage(node: Extract<WikiRichTextNode, { type: 'image' }>): ReactN
     />
   )
 }
+
 
 export type TermField = 'name' | 'description'
 type TermResolver = (id: string, term: WikiRichTextTerm, field: TermField) => string
