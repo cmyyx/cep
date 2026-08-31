@@ -2,6 +2,7 @@
 
 import { memo, useMemo, useCallback, useEffect } from 'react'
 import { useTranslations } from 'next-intl'
+import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { FilterGroup } from '@/components/shared/filter-group'
 import { FilterPanel } from '@/components/shared/filter-panel'
@@ -93,7 +94,8 @@ export const WeaponGrid = memo(function WeaponGrid({ onViewAll }: WeaponGridProp
   const toggleFilterCollapsed = useEssenceSettingsStore((s) => s.toggleWeaponFilterCollapsed)
   const selectedWeaponIds = useMatrixStore((s) => s.selectedWeaponIds)
   const toggleWeapon = useMatrixStore((s) => s.toggleWeapon)
-
+  const selectAllWeapons = useMatrixStore((s) => s.selectAllWeapons)
+  const clearWeapons = useMatrixStore((s) => s.clearWeapons)
   // Shared filter state (lifted to store so desktop/mobile instances stay in sync)
   const query = useMatrixStore((s) => s.weaponSearchQuery)
   const setQuery = useMatrixStore((s) => s.setWeaponSearchQuery)
@@ -179,6 +181,17 @@ export const WeaponGrid = memo(function WeaponGrid({ onViewAll }: WeaponGridProp
     setStoreAttrFilters({ ...prev, [key]: Array.from(current) })
   }, [setStoreAttrFilters])
 
+  // 已选属性总数: 驱动 FilterPanel 的 activeCount 与「清除已选」按钮
+  const activeFilterCount = useMemo(() => {
+    let count = 0
+    for (const key of WEAPON_FILTER_KEYS) count += (storeAttrFilters[key] ?? []).length
+    return count
+  }, [storeAttrFilters])
+
+  const clearAttrFilters = useCallback(() => {
+    setStoreAttrFilters({ weaponType: [], primaryStat: [], elementalDamage: [], specialAbility: [] })
+  }, [setStoreAttrFilters])
+
   /** Card display name: generated catalog entry, or the raw name for custom/preview weapons. */
   const localizedWeaponName = useCallback((weapon: Weapon) => {
     const key = `weapons.${weapon.id}`
@@ -233,7 +246,29 @@ export const WeaponGrid = memo(function WeaponGrid({ onViewAll }: WeaponGridProp
 
   return (
     <div className="flex flex-col gap-3">
-      <Input placeholder={t('essence.searchWeapon')} value={query} onChange={(e) => setQuery(e.target.value)} className="text-sm" />
+      {/* 搜索 + 全选/清空 (与武器列表同区域, 替代顶部栏的远程按钮) */}
+      <div className="flex items-center gap-1.5">
+        <Input placeholder={t('essence.searchWeapon')} value={query} onChange={(e) => setQuery(e.target.value)} className="text-sm flex-1 min-w-0" />
+        <Button
+          type="button"
+          variant="outline"
+          size="xs"
+          className="shrink-0"
+          onClick={() => selectAllWeapons(useMatrixStore.getState().visibleWeaponIds)}
+        >
+          {t('essence.selectAll')}
+        </Button>
+        <Button
+          type="button"
+          variant="ghost"
+          size="xs"
+          className="shrink-0"
+          onClick={clearWeapons}
+          disabled={selectedWeaponIds.length === 0}
+        >
+          {t('essence.clearAll')}
+        </Button>
+      </div>
 
       {/* Selected weapons strip */}
       <SelectedWeaponsStrip
@@ -248,6 +283,9 @@ export const WeaponGrid = memo(function WeaponGrid({ onViewAll }: WeaponGridProp
         title={t('essence.attrFilterTitle')}
         collapsed={filterCollapsed}
         onToggle={toggleFilterCollapsed}
+        activeCount={activeFilterCount}
+        onClear={clearAttrFilters}
+        clearLabel={t('common.clearFilters')}
       >
         {ATTR_KEYS.map((key) => (
           <FilterGroup

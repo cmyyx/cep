@@ -120,7 +120,7 @@ it('filters equipment by refinement sub-attributes', () => {
   fireEvent.click(chip)
   // 激活计数 + 清除按钮出现, 装备列表保留。
   expect(screen.getByText('1', { selector: '.font-geist-mono' })).toBeTruthy()
-  expect(screen.getByRole('button', { name: 'refinement.clearFilters' })).toBeTruthy()
+  expect(screen.getByRole('button', { name: 'common.clearFilters' })).toBeTruthy()
   expect(screen.getByRole('button', { name: /独立装备/ })).toBeTruthy()
 
   // 选中不匹配的属性 (sub2 = 39, 而装备 sub2 正是 39, 装备仍保留)。
@@ -128,7 +128,7 @@ it('filters equipment by refinement sub-attributes', () => {
   expect(screen.getByRole('button', { name: /独立装备/ })).toBeTruthy()
 
   // 清除筛选: 计数消失。
-  fireEvent.click(screen.getByRole('button', { name: 'refinement.clearFilters' }))
+  fireEvent.click(screen.getByRole('button', { name: 'common.clearFilters' }))
   expect(screen.queryByText('1', { selector: '.font-geist-mono' })).toBeNull()
 })
 
@@ -141,5 +141,5 @@ it('clears refinement filters when partTypeId changes', () => {
   // 切换部位: 旧部位的筛选值必须清空, 避免污染新部位列表。
   rerender(<EquipmentSuitPicker partTypeId="1" selectedId={null} onSelect={() => undefined} />)
   expect(screen.queryByText('1', { selector: '.font-geist-mono' })).toBeNull()
-  expect(screen.queryByRole('button', { name: 'refinement.clearFilters' })).toBeNull()
+  expect(screen.queryByRole('button', { name: 'common.clearFilters' })).toBeNull()
 })

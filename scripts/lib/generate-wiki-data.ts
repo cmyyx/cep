@@ -430,15 +430,15 @@ export function generateWikiData(
     textTables,
   }
   const generated = buildItemWikiData(source)
-  const assets = collectWikiAssets({ characters, items: generated })
-  const assetPath = join(dataOutputDir, 'wiki', 'assets.json')
-  writeFileSync(assetPath, `${JSON.stringify(assets, null, 2)}\n`, 'utf8')
   const glossaryPath = join(dataOutputDir, 'wiki', 'rich-text.json')
   const glossary = buildWikiGlossary(
     loadTable(akedataPath, 'HyperlinkTextTable') as Record<string, HyperlinkTextEntry>,
     textTables
   )
   writeFileSync(glossaryPath, `${JSON.stringify(glossary, null, 2)}\n`, 'utf8')
+  const assets = collectWikiAssets({ characters, items: generated, richText: glossary })
+  const assetPath = join(dataOutputDir, 'wiki', 'assets.json')
+  writeFileSync(assetPath, `${JSON.stringify(assets, null, 2)}\n`, 'utf8')
   const enumOutput = buildEnums(akedataPath, imagedbPath, dataOutputDir, textTables, gameTextTable)
   const planner = buildPlannerGameData(akedataPath, characters, generated)
   const catalogs = buildWikiI18nCatalogs(characters, generated, enumOutput.enums, glossary, planner.i18n, gameTextTable, textTables)

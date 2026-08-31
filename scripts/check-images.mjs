@@ -84,6 +84,7 @@ if (existsSync(WIKI_ASSETS)) {
     ...assets.skills.map((id) => `wiki/skills/${id}.avif`),
     ...assets.logisticsSkills.map((id) => `wiki/logistics/${id}.avif`),
     ...assets.materials.map((id) => `items/${id}.avif`),
+    ...assets.buffIcons.map((id) => `wiki/bufficon/${id}.avif`),
   ]
   for (const imagePath of wikiPaths) {
     if (!existsSync(join(PUBLIC_DIR, 'images', imagePath))) missing.push(imagePath)

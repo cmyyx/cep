@@ -71,4 +71,19 @@ describe('WikiRichText', () => {
     expect(screen.getByText('Unknown').tagName).toBe('SPAN')
     expect(screen.queryByRole('button', { name: 'Unknown' })).toBeNull()
   })
+
+  it('renders embedded BuffIcon images (other attachment icons in glossary explanations)', () => {
+    render(<WikiRichText value={'A <image="BuffIcon/icon_energy_fusion_fire" scale=1.25> icon'} />)
+
+    const img = document.querySelector('img')
+    expect(img).toBeTruthy()
+    expect(img?.getAttribute('src')).toContain('/images/wiki/bufficon/icon_energy_fusion_fire.avif')
+    expect(img?.getAttribute('width')).toBe('20')
+  })
+
+  it('drops image nodes with unknown path prefixes', () => {
+    render(<WikiRichText value={'A <image="UnknownDir/foo" scale=1> icon'} />)
+
+    expect(document.querySelector('img')).toBeNull()
+  })
 })

@@ -70,7 +70,8 @@ export const FilterChip = memo(function FilterChip({
               // min-h-6 keeps the tap target at the WCAG 2.5.8 minimum (24x24 CSS px);
               // `size="xs"` alone collapses to ~18px once h-auto overrides its h-6.
               'w-full px-1 py-1 rounded text-[11px] text-center transition-colors bg-muted/60 h-auto min-h-6 min-w-0 shadow-[var(--shadow-border)]',
-              isSelected && 'bg-primary text-primary-foreground shadow-[0_0_0_1px_var(--color-primary)]',
+              // hover:bg-primary! 覆盖 Button ghost 的 hover:bg-muted, 选中态 hover 不变色
+              isSelected && 'bg-primary text-primary-foreground shadow-[0_0_0_1px_var(--color-primary)] hover:bg-primary! hover:text-primary-foreground!',
               !isSelected && isValid && 'hover:shadow-[var(--shadow-border-strong)] hover:bg-muted/80',
               !isValid &&
                 !isSelected &&

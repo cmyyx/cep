@@ -96,7 +96,7 @@ export function WikiEntityPicker({ title, entities, imageBasePath, selectedIds, 
           onToggle={() => setFiltersOpen((open) => !open)}
           activeCount={activeCount}
           onClear={() => setActiveFilters({})}
-          clearLabel={t('wiki.clearFilters')}
+          clearLabel={t('common.clearFilters')}
         >
           {filters.map((filter) => {
             const selectedValues = activeFilters[filter.field] ?? []

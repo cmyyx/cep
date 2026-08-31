@@ -53,6 +53,7 @@ it('fetches missing Wiki icons from the new public/images/assets/... layout and 
       skills: ['skill'],
       logisticsSkills: ['logistics'],
       materials: ['material'],
+      buffIcons: ['icon_buff'],
     },
     {
       cdnBase: 'https://cdn.example',
@@ -69,6 +70,7 @@ it('fetches missing Wiki icons from the new public/images/assets/... layout and 
     [
       '/images/equip/equipment.avif',
       '/images/items/material.avif',
+      '/images/wiki/bufficon/icon_buff.avif',
       '/images/wiki/character-potential/item_pic_1_chr_test.avif',
       '/images/wiki/logistics/logistics.avif',
       '/images/wiki/skills/skill.avif',
@@ -76,6 +78,7 @@ it('fetches missing Wiki icons from the new public/images/assets/... layout and 
   )
   expect(requested.sort()).toEqual(
     [
+      'https://cdn.example/public/images/assets/beyond/dynamicassets/gameplay/ui/sprites/bufficon/icon_buff.png',
       'https://cdn.example/public/images/assets/beyond/dynamicassets/gameplay/ui/sprites/itemiconbig/equipment.png',
       'https://cdn.example/public/images/assets/beyond/dynamicassets/gameplay/ui/sprites/itemiconbig/material.png',
       'https://cdn.example/public/images/assets/beyond/dynamicassets/gameplay/ui/sprites/skillicon/skill.png',
@@ -115,6 +118,7 @@ it('retries the default fetch with a timeout signal', async () => {
       skills: ['skill_retry'],
       logisticsSkills: [],
       materials: [],
+      buffIcons: [],
     },
     { cdnBase: 'https://cdn.example' },
   )

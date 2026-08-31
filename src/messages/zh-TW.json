@@ -685,7 +685,6 @@
   "refinement": {
     "searchPlaceholder": "搜尋裝備...",
     "attributeFilters": "屬性篩選",
-    "clearFilters": "清除",
     "subAttr1": "副屬性1",
     "subAttr2": "副屬性2",
     "specialEffect": "特殊屬性",
@@ -750,6 +749,7 @@
   },
   "common": {
     "close": "關閉",
+    "clearFilters": "清除篩選",
     "retry": "重試",
     "dataLoadFailed": "資料載入失敗",
     "dataLoadFailedHint": "請檢查網路連線後重試",
@@ -864,7 +864,6 @@
     "resultCount": "{count} 個項目",
     "resultCountFiltered": "{count} / {total} 個項目",
     "groupCount": "{count} 個套裝",
-    "clearFilters": "清除篩選",
     "clearSearch": "清除搜尋",
     "resetAll": "清除搜尋與篩選",
     "searchCondition": "搜尋：{term}",

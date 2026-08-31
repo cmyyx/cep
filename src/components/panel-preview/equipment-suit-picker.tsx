@@ -126,7 +126,7 @@ export function EquipmentSuitPicker({ partTypeId, selectedId, onSelect }: Equipm
           onToggle={() => setFilterCollapsed((value) => !value)}
           activeCount={activeFilterCount}
           onClear={clearFilters}
-          clearLabel={rootT('refinement.clearFilters')}
+          clearLabel={rootT('common.clearFilters')}
         >
           {FILTER_GROUPS.map(({ slot, labelKey }) => (
             <FilterGroup

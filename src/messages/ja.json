@@ -685,7 +685,6 @@
   "refinement": {
     "searchPlaceholder": "装備を検索...",
     "attributeFilters": "属性フィルター",
-    "clearFilters": "クリア",
     "subAttr1": "サブ属性1",
     "subAttr2": "サブ属性2",
     "specialEffect": "特殊効果",
@@ -750,6 +749,7 @@
   },
   "common": {
     "close": "閉じる",
+    "clearFilters": "フィルターをクリア",
     "retry": "再試行",
     "dataLoadFailed": "データの読み込みに失敗しました",
     "dataLoadFailedHint": "ネットワーク接続を確認してから再試行してください",
@@ -864,7 +864,6 @@
     "resultCount": "{count}件",
     "resultCountFiltered": "{count} / {total}件",
     "groupCount": "{count}セット",
-    "clearFilters": "フィルターをクリア",
     "clearSearch": "検索をクリア",
     "resetAll": "検索とフィルターをクリア",
     "searchCondition": "検索：{term}",

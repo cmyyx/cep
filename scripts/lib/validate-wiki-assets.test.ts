@@ -23,6 +23,7 @@ it('validates every path declared by the generated Wiki asset manifest', () => {
     skills: ['skill'],
     logisticsSkills: ['logistics'],
     materials: ['material'],
+    buffIcons: [],
   }))
   const existing = join(root, 'public/images/weapon')
   mkdirSync(existing, { recursive: true })
@@ -53,6 +54,7 @@ it('skips character image paths when skipCharacterImages is set', () => {
     skills: ['skill'],
     logisticsSkills: ['logistics'],
     materials: ['material'],
+    buffIcons: [],
   }))
 
   expect(validateImages(root, { skipCharacterImages: true })).toEqual([

@@ -89,6 +89,11 @@ export async function convertWikiAssets(
       gameUiPath: ['sprites', 'spaceship', 'spaceshipskillicon'],
       output: ['images', 'wiki', 'logistics'],
     },
+    {
+      ids: assets.buffIcons,
+      gameUiPath: ['sprites', 'bufficon'],
+      output: ['images', 'wiki', 'bufficon'],
+    },
   ]
 
   for (const category of categories) {

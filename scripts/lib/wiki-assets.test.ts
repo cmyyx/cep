@@ -114,5 +114,6 @@ it('collects every image referenced by Wiki summaries and details', () => {
     skills: ['skill_icon', 'talent_icon'],
     logisticsSkills: ['logistics_icon'],
     materials: ['equip_material_icon', 'item_expcard_2_3', 'item_expcard_stage2_high', 'item_gold', 'item_weapon_expcard_high', 'material_icon', 'weapon_material_icon'],
+    buffIcons: [],
   })
 })
