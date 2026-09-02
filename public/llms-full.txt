@@ -1,0 +1,470 @@
+# CEP Endfield Planner — Full Context
+
+> Expanded companion to /llms.txt. Prefer this file when an agent needs a single self-contained document.
+
+## About the site
+
+CEP Endfield Planner is a free, open-source planning toolkit for the game Arknights: Endfield.
+It helps players optimize essence farming, equipment refinement, operator/weapon growth, and track banners.
+Canonical domain: https://end.canmoe.com
+Default locale path prefix: /zh-CN/
+Other locales: zh-TW, ja, en
+Unofficial fan project — game assets and names belong to their respective rights holders.
+Generated at: 2026-09-02T12:30:16.533Z
+
+## Core tools
+
+### Home
+
+CEP Endfield Planner landing page and module overview
+
+- URL: https://end.canmoe.com/zh-CN
+
+### Essence Planner
+
+Multi-weapon essence farming optimization with lock constraints, attribute conflict resolution, and ranked plans
+
+- URL: https://end.canmoe.com/zh-CN/essence-planner
+
+### Refinement Planner
+
+Equipment refinement planning — materials and substat optimization
+
+- URL: https://end.canmoe.com/zh-CN/refinement-planner
+
+### Growth Planner
+
+Operator and weapon growth planner for levels, skills, promotions, breakthroughs, and stamina
+
+- URL: https://end.canmoe.com/zh-CN/growth-planner
+
+### Stats Preview
+
+Operator stats preview with configurable operators, equipment, weapons, and full panel attributes
+
+- URL: https://end.canmoe.com/zh-CN/panel-preview
+
+### Banner Calendar
+
+Gacha banner schedule, rerun timeline, and pull planning
+
+- URL: https://end.canmoe.com/zh-CN/banner-calendar
+
+### Background Preview
+
+Preview and select website background artwork
+
+- URL: https://end.canmoe.com/zh-CN/background-preview
+
+## Wiki indexes
+
+### Characters Wiki
+
+Operator list with filters; detail pages for every character
+
+- URL: https://end.canmoe.com/zh-CN/wiki/characters
+
+### Weapons Wiki
+
+Weapon list with filters; detail pages for every weapon
+
+- URL: https://end.canmoe.com/zh-CN/wiki/weapons
+
+### Equipment Wiki
+
+Equipment list with filters; detail pages for every gear piece
+
+- URL: https://end.canmoe.com/zh-CN/wiki/equipment
+
+## Characters (31)
+
+Each character has a detail page under `/wiki/characters/{id}`.
+
+- Endministrator (6★) — https://end.canmoe.com/zh-CN/wiki/characters/chr_9000_endmin
+- Perlica (5★) — https://end.canmoe.com/zh-CN/wiki/characters/chr_0004_pelica
+- Chen Qianyu (5★) — https://end.canmoe.com/zh-CN/wiki/characters/chr_0005_chen
+- Wulfgard (5★) — https://end.canmoe.com/zh-CN/wiki/characters/chr_0006_wolfgd
+- Arclight (5★) — https://end.canmoe.com/zh-CN/wiki/characters/chr_0007_ikut
+- Ember (6★) — https://end.canmoe.com/zh-CN/wiki/characters/chr_0009_azrila
+- Xaihi (5★) — https://end.canmoe.com/zh-CN/wiki/characters/chr_0011_seraph
+- Avywenna (5★) — https://end.canmoe.com/zh-CN/wiki/characters/chr_0012_avywen
+- Gilberta (6★) — https://end.canmoe.com/zh-CN/wiki/characters/chr_0013_aglina
+- Snowshine (5★) — https://end.canmoe.com/zh-CN/wiki/characters/chr_0014_aurora
+- Lifeng (6★) — https://end.canmoe.com/zh-CN/wiki/characters/chr_0015_lifeng
+- Laevatain (6★) — https://end.canmoe.com/zh-CN/wiki/characters/chr_0016_laevat
+- Yvonne (6★) — https://end.canmoe.com/zh-CN/wiki/characters/chr_0017_yvonne
+- Da Pan (5★) — https://end.canmoe.com/zh-CN/wiki/characters/chr_0018_dapan
+- Akekuri (4★) — https://end.canmoe.com/zh-CN/wiki/characters/chr_0019_karin
+- Catcher (4★) — https://end.canmoe.com/zh-CN/wiki/characters/chr_0020_meurs
+- Estella (4★) — https://end.canmoe.com/zh-CN/wiki/characters/chr_0021_whiten
+- Fluorite (4★) — https://end.canmoe.com/zh-CN/wiki/characters/chr_0022_bounda
+- Antal (4★) — https://end.canmoe.com/zh-CN/wiki/characters/chr_0023_antal
+- Alesh (5★) — https://end.canmoe.com/zh-CN/wiki/characters/chr_0024_deepfin
+- Ardelia (6★) — https://end.canmoe.com/zh-CN/wiki/characters/chr_0025_ardelia
+- Last Rite (6★) — https://end.canmoe.com/zh-CN/wiki/characters/chr_0026_lastrite
+- Pogranichnik (6★) — https://end.canmoe.com/zh-CN/wiki/characters/chr_0029_pograni
+- Tangtang (6★) — https://end.canmoe.com/zh-CN/wiki/characters/chr_0027_tangtang
+- Rossi (6★) — https://end.canmoe.com/zh-CN/wiki/characters/chr_0028_wulfa
+- Zhuang Fangyi (6★) — https://end.canmoe.com/zh-CN/wiki/characters/chr_0030_zhuangfy
+- Mi Fu (6★) — https://end.canmoe.com/zh-CN/wiki/characters/chr_0031_mifu
+- Arcane (6★) — https://end.canmoe.com/zh-CN/wiki/characters/chr_0032_lizhiyan
+- Camille (6★) — https://end.canmoe.com/zh-CN/wiki/characters/chr_0033_camille
+- Typhoeus (6★) — https://end.canmoe.com/zh-CN/wiki/characters/chr_0034_typhoea
+- Liino (6★) — https://end.canmoe.com/zh-CN/wiki/characters/chr_0035_liino
+
+## Weapons (79)
+
+Each weapon has a detail page under `/wiki/weapons/{id}`.
+
+- Industry 0.1 (4★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_claym_0003
+- Cohesive Traction (5★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_lance_0006
+- Exemplar (6★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_claym_0004
+- Oblivion (6★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_funnel_0009
+- Former Finery (6★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_claym_0006
+- Pathfinder's Beacon (4★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_lance_0003
+- Thunderberge (6★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_claym_0007
+- Sundered Prince (6★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_claym_0008
+- Wedge (6★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_pistol_0008
+- Quencher (4★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_claym_0009
+- Darhoff 7 (3★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_claym_0010
+- Rational Farewell (5★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_pistol_0004
+- Seeker of Dark Lung (5★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_claym_0011
+- Beacon of Duty (6★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_lance_0007
+- Finishing Call (5★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_claym_0012
+- Khravengger (6★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_claym_0013
+- Golden Age (6★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_lance_0016
+- Ancient Canal (5★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_claym_0014
+- Detonation Unit (6★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_funnel_0008
+- Valiant (6★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_lance_0010
+- OBJ Heavy Burden (5★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_claym_0015
+- Bedazzling Night Debut (6★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_lance_0014
+- Clannibal (6★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_pistol_0009
+- Phantom Pain (6★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_claym_0016
+- Amaranthine Tassel (6★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_claym_0017
+- Mountain Bearer (6★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_lance_0012
+- OBJ Razorhorn (5★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_lance_0013
+- Hypernova Auto (4★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_funnel_0001
+- Never Rest (6★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_sword_0016
+- Jiminy 12 (3★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_funnel_0002
+- Fluorescent Roc (4★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_funnel_0003
+- Wild Wanderer (5★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_funnel_0004
+- Aggeloslayer (4★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_lance_0008
+- Stanza of Memorials (5★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_funnel_0005
+- Opus: Etch Figure (6★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_funnel_0006
+- Monaihe (5★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_funnel_0007
+- Chivalric Virtues (6★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_funnel_0010
+- Aspirant (5★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_sword_0015
+- Delivery Guaranteed (6★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_funnel_0011
+- Sundering Steel (5★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_sword_0005
+- Freedom to Proselytize (5★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_funnel_0012
+- Dreams of the Starry Beach (6★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_funnel_0013
+- Opero 77 (3★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_lance_0009
+- OBJ Arts Identifier (5★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_funnel_0014
+- Lone Barge (6★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_funnel_0015
+- Type 42: Solemn Phalanx (6★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_funnel_0016
+- Tarr 11 (3★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_sword_0003
+- Glorious Memory (6★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_sword_0017
+- Flickers in the Mist (6★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_funnel_0017
+- Fortmaker (5★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_sword_0007
+- Eminent Repute (6★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_sword_0013
+- Junction Point (6★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_funnel_0018
+- Umbra of Frigid Eventide (6★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_funnel_0019
+- Suffering's End (6★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_funnel_0020
+- Prominent Edge (4★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_sword_0008
+- Thermite Cutter (6★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_sword_0012
+- Chimeric Justice (5★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_lance_0004
+- JET (6★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_lance_0011
+- Blessing of Lustrous Carmine (6★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_lance_0015
+- Peco 5 (3★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_pistol_0001
+- Umbral Torch (6★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_sword_0010
+- Howling Guard (4★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_pistol_0002
+- Finchaser 3.0 (5★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_sword_0020
+- Long Road (4★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_pistol_0003
+- Navigator (6★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_pistol_0005
+- Opus: The Living (5★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_pistol_0006
+- Home Longing (6★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_pistol_0007
+- Artzy Tyrannical (6★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_pistol_0010
+- Brigand's Calling (6★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_pistol_0011
+- OBJ Velocitous (5★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_pistol_0012
+- Forgeborn Scathe (6★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_sword_0006
+- White Night Nova (6★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_sword_0014
+- Wave Tide (4★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_sword_0009
+- Rapid Ascent (6★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_sword_0011
+- Twelve Questions (5★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_sword_0018
+- OBJ Edge of Lightness (5★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_sword_0019
+- Grand Vision (6★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_sword_0021
+- Lupine Scarlet (6★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_sword_0022
+- Farsight (6★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_sword_0026
+
+## Equipment (258)
+
+Each equipment piece has a detail page under `/wiki/equipment/{id}`.
+
+- Basic Armor (1★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t0_parts_tundra01_body_01
+- Qingbo Gauntlets (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_combo_cd01_hand_01
+- Basic PPE (1★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t0_parts_tundra01_body_02
+- Bonekrusha Figurine (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_attri01_edc_03
+- Basic Gauntlets (1★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t0_parts_tundra01_hand_01
+- Pulser Labs Gloves (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_pulse_cryst01_hand_01
+- Basic Gloves (1★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t0_parts_tundra01_hand_02
+- Mordvolt Insulation Battery (3★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t2_suit_wisd01_edc_03
+- Miner Armor (2★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t1_parts_tundra01_body_01
+- Miner Overalls (2★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t1_parts_tundra01_body_02
+- Frontiers Comm (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_atb01_edc_01
+- Prototype Heavy Armor (2★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t1_parts_tundra01_body_03
+- Roving MSGR Jacket T1 (4★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t3_suit_agi01_body_01
+- Aburrey Auditory Chip (4★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t3_suit_atk01_edc_02
+- MI Security Armor T1 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_criti01_body_06
+- Prototype Heavy Armor T1 (2★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t1_parts_tundra01_body_04
+- Mordvolt Insulation Wrench (3★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t2_suit_wisd01_edc_01
+- Miner Vest (2★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t1_parts_tundra01_body_05
+- Type 50 Yinglung Heavy Armor T1 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_atk02_body_02
+- Miner Cleansuit (2★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t1_parts_tundra01_body_06
+- MI Security Overalls T1 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_criti01_body_03
+- Emergency Comm (2★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t1_parts_tundra01_edc_01
+- LYNX Heavy Armor (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_heal01_body_01
+- Swordmancer Heavy Armor (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_phy01_body_02
+- Emergency Compression Core (2★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t1_parts_tundra01_edc_02
+- Catastrophe Heavy Armor (4★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t3_suit_usp01_body_01
+- Miner Gauntlets (2★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t1_parts_tundra01_hand_01
+- AIC Fieldwork Assault Armor (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_parts_wuling00_body_04
+- Miner Wrists (2★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t1_parts_tundra01_hand_02
+- Frontiers Fiber Gloves T1 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_atb01_hand_03
+- Turbid Cutting Torch T1 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_burst01_edc_03
+- Miner Gloves (2★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t1_parts_tundra01_hand_03
+- Frontiers Fiber Gloves (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_atb01_hand_02
+- Miner Fists (2★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t1_parts_tundra01_hand_04
+- AIC Fieldwork Armor (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_parts_wuling00_body_01
+- AIC Heavy Armor (2★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t1_suit_stragi01_body_01
+- MI Security Armband (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_criti01_edc_01
+- AIC Heavy Plate (2★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t1_suit_stragi01_edc_01
+- Frontiers Analyzer (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_atb01_edc_03
+- AIC Alloy Plate (2★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t1_suit_stragi01_edc_02
+- AIC Gauntlets (2★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t1_suit_stragi01_hand_01
+- Frontiers Armor T3 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_atb01_body_04
+- Æthertech Plating (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_poise01_body_01
+- AIC Light Armor (2★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t1_suit_wisdwill01_body_01
+- Roving MSGR Gyro T1 (4★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t3_suit_agi01_edc_03
+- AIC Light Plate (2★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t1_suit_wisdwill01_edc_01
+- Bonekrusha Mask T1 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_attri01_edc_05
+- AIC Ceramic Plate (2★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t1_suit_wisdwill01_edc_02
+- AIC Fieldwork Gloves (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_parts_wuling00_hand_01
+- AIC Tactical Gloves (2★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t1_suit_wisdwill01_hand_01
+- Miner Turbine (3★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t2_parts_tundra01_edc_01
+- Armored MSGR Jacket (3★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t2_suit_str01_body_01
+- Miner Drive Wheel (3★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t2_parts_tundra01_edc_02
+- Mordvolt Insulation Wrench T2 (4★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t3_suit_wisd01_edc_01
+- Miner Compression Core (3★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t2_parts_tundra01_edc_03
+- Miner Comm (3★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t2_parts_tundra01_edc_04
+- Miner Gauntlets T1 (3★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t2_parts_tundra01_hand_01
+- Miner Gloves T1 (3★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t2_parts_tundra01_hand_02
+- Eternal Xiranite Auxiliary Arm (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_usp02_edc_03
+- Roving MSGR Jacket (3★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t2_suit_agi01_body_01
+- Qingbo Positioning Kit T1 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_combo_cd01_edc_04
+- Pulser Labs Disruptor Suit (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_pulse_cryst01_body_01
+- Roving MSGR Gyro (3★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t2_suit_agi01_edc_01
+- Roving MSGR Flashlight (3★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t2_suit_agi01_edc_02
+- Miner Fists T1 (4★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t3_parts_tundra01_hand_02
+- Roving MSGR Fists (3★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t2_suit_agi01_hand_01
+- Hot Work Power Bank (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_fire_natr01_edc_01
+- Armored MSGR Gyro (3★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t2_suit_str01_edc_01
+- Bonekrusha Wristband (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_attri01_hand_01
+- Armored MSGR Flashlight (3★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t2_suit_str01_edc_02
+- Armored MSGR Gyro T1 (4★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t3_suit_str01_edc_01
+- Eternal Xiranite Light Armor T1 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_usp02_body_04
+- Armored MSGR Gloves (3★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t2_suit_str01_hand_01
+- Deepsink Gloves (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_burst01_hand_02
+- Mordvolt Resistant Vest (3★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t2_suit_will01_body_01
+- Mordvolt Insulation Vest T1 (4★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t3_suit_wisd01_body_01
+- AIC Fieldwork Medic Armor (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_parts_wuling00_body_05
+- Eternal Xiranite Bracing Slab (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_usp02_edc_04
+- Mordvolt Resistant Wrench (3★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t2_suit_will01_edc_01
+- AIC Fieldwork Power Bank (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_parts_wuling00_edc_05
+- Mordvolt Resistant Battery (3★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t2_suit_will01_edc_02
+- Armored MSGR Gloves T1 (4★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t3_suit_str01_hand_01
+- Mordvolt Resistant Gloves (3★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t2_suit_will01_hand_01
+- Mordvolt Resistant Battery T1 (4★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t3_suit_will01_edc_01
+- Tide Surge Gauntlets (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_burst01_hand_01
+- Swordmancer Heavy Armor T1 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_phy01_body_03
+- Mordvolt Insulation Vest (3★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t2_suit_wisd01_body_01
+- Tide Fall Light Armor T1 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_burst01_body_02
+- Pulser Labs Probe (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_pulse_cryst01_edc_01
+- Mordvolt Insulation Wrench T1 (3★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t2_suit_wisd01_edc_02
+- Mordvolt Insulation Gloves (3★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t2_suit_wisd01_hand_01
+- LYNX Gauntlets (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_heal01_hand_02
+- Swordmancer TAC Gauntlets T1 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_phy01_hand_03
+- Miner Armor T1 (4★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t3_parts_tundra01_body_01
+- Swordmancer Dagger (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_phy01_edc_04
+- Miner Overalls T1 (4★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t3_parts_tundra01_body_02
+- Miner Turbine T1 (4★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t3_parts_tundra01_edc_01
+- Miner Drive Wheel T1 (4★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t3_parts_tundra01_edc_02
+- Miner Compression Core T1 (4★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t3_parts_tundra01_edc_03
+- Redeemer Tag T1 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_parts_wuling01_edc_02
+- Miner Comm T1 (4★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t3_parts_tundra01_edc_04
+- Redeemer Seal (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_parts_wuling01_edc_03
+- Miner Gloves T2 (4★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t3_parts_tundra01_hand_01
+- Roving MSGR Flashlight T1 (4★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t3_suit_agi01_edc_01
+- Type 50 Yinglung Light Armor (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_atk02_body_04
+- Roving MSGR Flashlight T2 (4★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t3_suit_agi01_edc_02
+- Hot Work Gloves (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_fire_natr01_hand_01
+- Roving MSGR Fists T1 (4★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t3_suit_agi01_hand_01
+- Pulser Labs Invasion Core (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_pulse_cryst01_edc_03
+- Aburrey Heavy Armor (4★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t3_suit_atk01_body_01
+- Swordmancer NAV Beacon (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_phy01_edc_01
+- Aburrey Heavy Armor T1 (4★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t3_suit_atk01_body_02
+- LYNX Connector (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_heal01_edc_01
+- Aburrey Light Armor (4★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t3_suit_atk01_body_03
+- AIC Fieldwork Assault Push Knife (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_parts_wuling00_edc_04
+- Aburrey Light Armor T1 (4★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t3_suit_atk01_body_04
+- Aburrey UV Lamp (4★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t3_suit_atk01_edc_01
+- Aburrey Auditory Chip T1 (4★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t3_suit_atk01_edc_03
+- Aburrey Flashlight (4★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t3_suit_atk01_edc_04
+- Aburrey Sensor Chip (4★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t3_suit_atk01_edc_05
+- Grizzled Edge Push Knife (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_crush_fracture_edc_01
+- Aburrey Sensor Chip T1 (4★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t3_suit_atk01_edc_06
+- Redeemer Armor (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_parts_wuling01_body_02
+- Aburrey Gauntlets (4★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t3_suit_atk01_hand_01
+- Armored MSGR Gloves T2 (4★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t3_suit_str01_hand_02
+- Catastrophe Gloves (4★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t3_suit_usp01_hand_01
+- Armored MSGR Jacket T1 (4★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t3_suit_str01_body_01
+- MI Security Scope T1 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_criti01_edc_06
+- Armored MSGR Flashlight T1 (4★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t3_suit_str01_edc_02
+- Hot Work Pyrometer (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_fire_natr01_edc_02
+- Catastrophe Heavy Armor T1 (4★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t3_suit_usp01_body_02
+- Rift Trekker Hands (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_parts_wuling02_hand_02
+- Eternal Xiranite Heavy Slab (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_usp02_edc_06
+- Catastrophe Gauze Cartridge (4★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t3_suit_usp01_edc_01
+- Bonekrusha Figurine T1 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_attri01_edc_06
+- Catastrophe Gauze Cartridge T1 (4★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t3_suit_usp01_edc_02
+- Catastrophe Filter (4★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t3_suit_usp01_edc_03
+- Mordvolt Resistant Vest T1 (4★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t3_suit_will01_body_01
+- Mordvolt Resistant Wrench T1 (4★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t3_suit_will01_edc_02
+- Frontiers Armor T1 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_atb01_body_02
+- Mordvolt Resistant Gloves T1 (4★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t3_suit_will01_hand_01
+- Hot Work Exoskeleton (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_fire_natr01_body_01
+- Mordvolt Insulation Vest T2 (4★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t3_suit_wisd01_body_02
+- Eternal Xiranite Power Core (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_usp02_edc_01
+- Mordvolt Insulation Battery T1 (4★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t3_suit_wisd01_edc_02
+- Mordvolt Insulation Gloves T1 (4★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t3_suit_wisd01_hand_01
+- AIC Fieldwork Plate (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_parts_wuling00_body_02
+- Redeemer Plates (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_parts_wuling01_body_01
+- AIC Fieldwork Vest (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_parts_wuling00_body_03
+- Grizzled Edge Gauntlets (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_crush_fracture_hand_01
+- AIC Fieldwork Machete (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_parts_wuling00_edc_01
+- AIC Fieldwork Ember (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_parts_wuling00_edc_02
+- AIC Fieldwork Flashlight (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_parts_wuling00_edc_03
+- AIC Fieldwork Hands (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_parts_wuling00_hand_02
+- Xiranflow Baton (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_expend_spell01_edc_02
+- AIC Fieldwork Wraps (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_parts_wuling00_hand_03
+- AIC Fieldwork Assault Gloves (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_parts_wuling00_hand_04
+- AIC Fieldwork Medic Gloves (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_parts_wuling00_hand_05
+- Redeemer Tag (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_parts_wuling01_edc_01
+- Redeemer Seal T1 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_parts_wuling01_edc_04
+- Redeemer Gloves (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_parts_wuling01_hand_01
+- Qingbo Heavy Armor (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_combo_cd01_body_01
+- Redeemer Hands (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_parts_wuling01_hand_02
+- Swordmancer TAC Gauntlets (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_phy01_hand_02
+- Rift Trekker Heavy Armor (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_parts_wuling02_body_01
+- Hot Work Hands PPE (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_fire_natr01_hand_04
+- Rift Trekker Light Armor (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_parts_wuling02_body_02
+- Hot Work Gauntlets T1 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_fire_natr01_hand_03
+- Eternal Xiranite Gloves T1 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_usp02_hand_02
+- Rift Trekker Armor Slab (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_parts_wuling02_edc_01
+- Rift Trekker Gloves (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_parts_wuling02_hand_01
+- Frontiers Armor (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_atb01_body_01
+- Frontiers Armor T2 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_atb01_body_03
+- Type 50 Yinglung Knife T1 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_atk02_edc_05
+- Swordmancer Light Armor (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_phy01_body_01
+- Frontiers Protection Suit (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_atb01_body_05
+- Hot Work Exo-Rig (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_fire_natr01_body_02
+- Frontiers Comm T1 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_atb01_edc_02
+- Frontiers Extra O2 Tube (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_atb01_edc_04
+- Frontiers O2 Tube (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_atb01_edc_05
+- Æthertech Watch (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_poise01_edc_04
+- Frontiers Extra O2 Tube T1 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_atb01_edc_06
+- Bonekrusha Poncho (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_attri01_body_03
+- Æthertech Stabilizer T1 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_poise01_edc_03
+- Frontiers Blight RES Gloves (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_atb01_hand_01
+- Type 50 Yinglung Radar T1 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_atk02_edc_02
+- Type 50 Yinglung Heavy Armor (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_atk02_body_01
+- Eternal Xiranite Light Armor (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_usp02_body_03
+- Type 50 Yinglung Heavy Armor T2 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_atk02_body_03
+- Type 50 Yinglung Radar (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_atk02_edc_01
+- Type 50 Yinglung Radar T2 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_atk02_edc_03
+- Type 50 Yinglung Knife (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_atk02_edc_04
+- Type 50 Yinglung Gloves (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_atk02_hand_01
+- Eternal Xiranite Power Core T1 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_usp02_edc_02
+- Type 50 Yinglung Gloves T1 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_atk02_hand_02
+- Bonekrusha Heavy Armor (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_attri01_body_01
+- MI Security Hands PPE T1 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_criti01_hand_03
+- Bonekrusha Heavy Armor T1 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_attri01_body_02
+- Bonekrusha Poncho T1 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_attri01_body_04
+- Bonekrusha Heavy Armor T2 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_attri01_body_05
+- Qingbo Gloves (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_combo_cd01_hand_02
+- Bonekrusha Figurine T2 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_attri01_edc_02
+- Bonekrusha Mask (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_attri01_edc_04
+- Æthertech Gloves (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_poise01_hand_01
+- Bonekrusha Mask T2 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_attri01_edc_07
+- Bonekrusha Wristband T1 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_attri01_hand_02
+- Hot Work Gauntlets (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_fire_natr01_hand_02
+- Bonekrusha Gloves (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_attri01_hand_03
+- Tide Fall Light Armor (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_burst01_body_01
+- Wave Swell Heavy Armor (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_burst01_body_03
+- Hanging River O2 Tube (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_burst01_edc_01
+- Turbid Cutting Torch (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_burst01_edc_02
+- Qingbo Light Armor (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_combo_cd01_body_02
+- Qingbo Positioning Kit (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_combo_cd01_edc_01
+- Qingbo Bamboo Cutter (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_combo_cd01_edc_02
+- Qingbo Cask (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_combo_cd01_edc_03
+- Pulser Labs Calibrator (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_pulse_cryst01_edc_02
+- MI Security Armor (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_criti01_body_01
+- MI Security Overalls (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_criti01_body_02
+- MI Security Overalls T2 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_criti01_body_04
+- MI Security Scope (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_criti01_edc_02
+- MI Security Toolkit (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_criti01_edc_03
+- MI Security Push Knife (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_criti01_edc_04
+- Swordmancer TAC Gloves (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_phy01_hand_01
+- MI Security Push Knife T1 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_criti01_edc_05
+- MI Security Gloves (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_criti01_hand_01
+- MI Security Hands PPE (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_criti01_hand_02
+- MI Security Gloves T1 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_criti01_hand_04
+- Grizzled Edge Armor (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_crush_fracture_body_01
+- Grizzled Edge Armor T1 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_crush_fracture_body_02
+- Grizzled Edge Push Knife T1 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_crush_fracture_edc_02
+- Grizzled Edge Gauntlets T1 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_crush_fracture_hand_02
+- Xiranflow Light Armor (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_expend_spell01_body_02
+- Xiranflow Gloves (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_expend_spell01_hand_02
+- Hot Work Power Cartridge (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_fire_natr01_edc_03
+- Hot Work Insulation Slab (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_fire_natr01_edc_04
+- LYNX Cuirass (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_heal01_body_02
+- LYNX Cuirass T1 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_heal01_body_03
+- LYNX Connector T2 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_heal01_edc_02
+- LYNX Slab (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_heal01_edc_03
+- Æthertech Light Gloves (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_poise01_hand_02
+- LYNX Aegis Injector (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_heal01_edc_04
+- LYNX Connector T1 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_heal01_edc_05
+- LYNX Gloves (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_heal01_hand_01
+- LYNX Gauntlets T1 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_heal01_hand_03
+- Swordmancer Fiber Armor (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_phy01_body_04
+- Swordmancer Micro Filter (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_phy01_edc_02
+- Swordmancer Flint (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_phy01_edc_03
+- Æthertech Analysis Band (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_poise01_edc_01
+- Æthertech Stabilizer (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_poise01_edc_02
+- Deep Rampart Armor (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_spellburst_body_01
+- Deep Rampart Comms (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_spellburst_edc_01
+- Deep Rampart Gauntlets (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_spellburst_hand_01
+- Eternal Xiranite Armor (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_usp02_body_01
+- Eternal Xiranite Bracing Slab T1 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_usp02_edc_05
+- Eternal Xiranite Gloves (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_usp02_hand_01
+- Eternal Xiranite Wraps (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_usp02_hand_03
+- Eternal Xiranite Hands (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_usp02_hand_04
+
+## Optional pages
+
+- [Forum](https://end.canmoe.com/zh-CN/forum): Community discussion entry
+- [About](https://end.canmoe.com/zh-CN/about): Project overview, tech stack, features, and open-source information
+- [Changelog / Updates](https://end.canmoe.com/zh-CN/update): Release notes and forced-update history
+- [Privacy Policy](https://end.canmoe.com/zh-CN/privacy): How CEP handles account, planning, and analytics data
+- [Terms of Service](https://end.canmoe.com/zh-CN/terms): Terms of use and AGPL-3.0 open-source notice
+- [Sitemap](https://end.canmoe.com/sitemap.xml)
+- [llms.txt](https://end.canmoe.com/llms.txt): Curated index (same links, shorter notes)
