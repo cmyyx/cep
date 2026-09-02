@@ -696,5 +696,11 @@
     "item_weapon_break_high",
     "item_weapon_break_low",
     "item_weapon_expcard_high"
+  ],
+  "buffIcons": [
+    "icon_energy_fusion_cryst",
+    "icon_energy_fusion_fire",
+    "icon_energy_fusion_pulse",
+    "icon_infliction_nature"
   ]
 }

@@ -57,7 +57,7 @@ export const EquipList = memo(function EquipList() {
         onToggle={toggleFilterCollapsed}
         activeCount={activeFilterCount}
         onClear={clearFilters}
-        clearLabel={t('refinement.clearFilters')}
+        clearLabel={t('common.clearFilters')}
       >
         {REFINEMENT_FILTER_GROUPS.map(({ filterKey, labelKey, options }) => (
           <FilterGroup

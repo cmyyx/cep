@@ -484,7 +484,6 @@
   "refinement": {
     "searchPlaceholder": "搜索装备...",
     "attributeFilters": "属性筛选",
-    "clearFilters": "清除",
     "subAttr1": "副属性1",
     "subAttr2": "副属性2",
     "specialEffect": "特殊属性",
@@ -549,6 +548,7 @@
   },
   "common": {
     "close": "关闭",
+    "clearFilters": "清除筛选",
     "retry": "重试",
     "dataLoadFailed": "数据加载失败",
     "dataLoadFailedHint": "请检查网络连接后重试",
@@ -864,7 +864,6 @@
     "resultCount": "{count} 个条目",
     "resultCountFiltered": "{count} / {total} 个条目",
     "groupCount": "{count} 个套装",
-    "clearFilters": "清除筛选",
     "clearSearch": "清除搜索",
     "resetAll": "清除搜索与筛选",
     "searchCondition": "搜索：{term}",

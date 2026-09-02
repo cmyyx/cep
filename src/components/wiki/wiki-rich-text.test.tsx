@@ -71,4 +71,31 @@ describe('WikiRichText', () => {
     expect(screen.getByText('Unknown').tagName).toBe('SPAN')
     expect(screen.queryByRole('button', { name: 'Unknown' })).toBeNull()
   })
+
+  it('renders embedded BuffIcon images (other attachment icons in glossary explanations)', () => {
+    render(<WikiRichText value={'A <image="BuffIcon/icon_energy_fusion_fire" scale=1.25> icon'} />)
+
+    const img = document.querySelector('img')
+    expect(img).toBeTruthy()
+    expect(img?.getAttribute('src')).toContain('/images/wiki/bufficon/icon_energy_fusion_fire.avif')
+    expect(img?.getAttribute('width')).toBe('20')
+  })
+
+  it('drops image nodes with unknown path prefixes', () => {
+    render(<WikiRichText value={'A <image="UnknownDir/foo" scale=1> icon'} />)
+
+    expect(document.querySelector('img')).toBeNull()
+  })
+
+  it('rejects path traversal and nested BuffIcon paths', () => {
+    render(<WikiRichText value={'A <image="BuffIcon/../skills/foo" scale=1> B <image="BuffIcon/sub/icon" scale=1> icon'} />)
+
+    expect(document.querySelector('img')).toBeNull()
+  })
+
+  it('skips malformed image scales instead of crashing', () => {
+    render(<WikiRichText value={'A <image="BuffIcon/icon_energy_fusion_fire" scale=.> B <image="BuffIcon/icon_energy_fusion_fire" scale=0> icon'} />)
+
+    expect(document.querySelector('img')).toBeNull()
+  })
 })

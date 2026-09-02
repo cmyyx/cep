@@ -454,12 +454,6 @@ export default function EssencePlannerPage() {
           </span>
           <AccountSwitcher />
           <div className="flex-1" />
-          <Button variant="outline" size="sm" onClick={() => selectAllWeapons(useMatrixStore.getState().visibleWeaponIds)}>
-            {t('essence.selectAll')}
-          </Button>
-          <Button variant="ghost" size="sm" onClick={clearWeapons}>
-            {t('essence.clearAll')}
-          </Button>
           <Button
             variant="ghost"
             size="icon-sm"

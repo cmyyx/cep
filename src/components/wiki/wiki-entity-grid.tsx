@@ -591,7 +591,7 @@ export const WikiEntityGrid = memo(function WikiEntityGrid({
             onToggle={() => setFilterPanelOpen((open) => !open)}
             activeCount={activeFilterCount}
             onClear={() => setActiveFilters({})}
-            clearLabel={t('wiki.clearFilters')}
+            clearLabel={t('common.clearFilters')}
           >
             {filters.map((filter) => (
               <FilterGroup

@@ -386,6 +386,7 @@ export function validateImages(
     ...assets.skills.map((id) => `/images/wiki/skills/${id}.avif`),
     ...assets.logisticsSkills.map((id) => `/images/wiki/logistics/${id}.avif`),
     ...assets.materials.map((id) => `/images/items/${id}.avif`),
+    ...(assets.buffIcons ?? []).map((id) => `/images/wiki/bufficon/${id}.avif`),
   ]
   return paths.filter((path) => !existsSync(join(projectRoot, 'public', path)))
 }

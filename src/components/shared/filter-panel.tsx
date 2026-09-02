@@ -34,28 +34,30 @@ export function FilterPanel({
 }: FilterPanelProps) {
   return (
     <div>
-      <Button
-        type="button"
-        variant="ghost"
-        onClick={onToggle}
-        aria-expanded={!collapsed}
-        className="flex min-h-10 w-full items-center gap-2 px-3 text-sm text-muted-foreground transition-colors hover:text-foreground"
-      >
-        <ChevronDown className={cn('size-4 transition-transform', collapsed ? '-rotate-90' : 'rotate-0')} />
-        <span className="flex-1 text-left">{title}</span>
-        {activeCount > 0 && <span className="font-geist-mono text-xs">{activeCount}</span>}
-      </Button>
-      {activeCount > 0 && onClear && clearLabel && (
+      <div className="flex items-center gap-1">
         <Button
           type="button"
           variant="ghost"
-          size="xs"
-          onClick={onClear}
-          className="-mt-0.5 h-auto px-1 text-[10px] text-muted-foreground hover:text-foreground"
+          onClick={onToggle}
+          aria-expanded={!collapsed}
+          className="flex min-h-10 flex-1 min-w-0 items-center gap-2 px-3 text-sm text-muted-foreground transition-colors hover:text-foreground"
         >
-          {clearLabel}
+          <ChevronDown className={cn('size-4 shrink-0 transition-transform', collapsed ? '-rotate-90' : 'rotate-0')} />
+          <span className="flex-1 truncate text-left">{title}</span>
+          {activeCount > 0 && <span className="shrink-0 font-geist-mono text-xs">{activeCount}</span>}
         </Button>
-      )}
+        {activeCount > 0 && onClear && clearLabel && (
+          <Button
+            type="button"
+            variant="ghost"
+            size="sm"
+            onClick={onClear}
+            className="shrink-0 text-muted-foreground hover:text-foreground"
+          >
+            {clearLabel}
+          </Button>
+        )}
+      </div>
       <div
         className={cn(
           'grid transition-all duration-200 ease-out',

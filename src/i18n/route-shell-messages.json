@@ -80,7 +80,7 @@
         ]
       }
     },
-    "panel-preview": { "namespaces": ["panelPreview", "wiki"], "catalogs": ["weaponStats", "equipStats"], "picks": { "refinement": ["attributeFilters", "clearFilters", "subAttr1", "subAttr2", "specialEffect"], "essence": ["anyAttribute"] } },
+    "panel-preview": { "namespaces": ["panelPreview", "wiki"], "catalogs": ["weaponStats", "equipStats"], "picks": { "refinement": ["attributeFilters", "subAttr1", "subAttr2", "specialEffect"], "essence": ["anyAttribute"] } },
     "refinement-planner": {
       "namespaces": ["refinement", "wiki"],
       "picks": { "meta": ["refinementPlannerDescription"] },

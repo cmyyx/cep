@@ -1,5 +1,6 @@
 import { expect, it } from 'vitest'
 import { collectWikiAssets } from './wiki-assets'
+import type { WikiRichTextTerm } from '../../src/types/wiki'
 
 const name = { 'zh-CN': '名称', en: 'Name', ja: '名称', 'zh-TW': '名稱' }
 
@@ -114,5 +115,39 @@ it('collects every image referenced by Wiki summaries and details', () => {
     skills: ['skill_icon', 'talent_icon'],
     logisticsSkills: ['logistics_icon'],
     materials: ['equip_material_icon', 'item_expcard_2_3', 'item_expcard_stage2_high', 'item_gold', 'item_weapon_expcard_high', 'material_icon', 'weapon_material_icon'],
+    buffIcons: [],
   })
+})
+
+it('collects BuffIcon references from any locale and only single-segment basenames', () => {
+  const term: Record<string, WikiRichTextTerm> = {
+    gloss_fire: {
+      name: { 'zh-CN': '火', en: 'Heat', ja: '熱', 'zh-TW': '火' },
+      styleId: 'fire',
+      description: {
+        // zh-CN 无 BuffIcon 引用: 图标只在 en 翻译中出现
+        'zh-CN': '纯文本',
+        en: 'A <image="BuffIcon/icon_energy_fusion_fire" scale=1.25> icon',
+        ja: '纯テキスト',
+        'zh-TW': '純文字',
+      },
+    },
+    gloss_traversal: {
+      name: { 'zh-CN': '恶意', en: 'Evil', ja: '悪', 'zh-TW': '悪' },
+      styleId: '',
+      description: {
+        // 嵌套/穿越路径必须被忽略, 不进入 manifest
+        'zh-CN': '<image="BuffIcon/../skills/foo" scale=1> <image="BuffIcon/sub/icon" scale=1>',
+        en: 'text',
+        ja: 'text',
+        'zh-TW': 'text',
+      },
+    },
+  }
+  const assets = collectWikiAssets({
+    characters: { summaries: [], details: {} },
+    items: { weaponSummaries: [], weaponDetails: {}, equipmentSummaries: [], equipmentDetails: {} },
+    richText: term,
+  })
+  expect(assets.buffIcons).toEqual(['icon_energy_fusion_fire'])
 })

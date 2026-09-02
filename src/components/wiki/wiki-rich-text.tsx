@@ -1,11 +1,13 @@
 'use client'
 
 import { Fragment, type ReactNode } from 'react'
+import Image from 'next/image'
 import { useLocale } from 'next-intl'
 import { Button } from '@/components/ui/button'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
 import glossaryData from '@/generated/data/wiki/rich-text.json'
 import { useGameI18nLocale } from '@/hooks/use-game-i18n-catalogs'
+import { withImageCacheVersion } from '@/lib/image-url'
 import { parseWikiRichText, type WikiRichTextNode } from '@/lib/wiki-rich-text'
 import { cn } from '@/lib/utils'
 import { asWikiLocale } from '@/lib/wiki-locale'
@@ -21,15 +23,46 @@ function styleClass(styleId: string) {
   return 'font-medium text-foreground'
 }
 
-function plainText(value: string) {
-  return parseWikiRichText(value).map((node) => nodeText(node)).join('')
+/**
+ * 游戏文案内嵌图标 (<image="BuffIcon/icon_xx" scale=1.25>) 到本地静态资源的映射。
+ * 前缀目录 -> public/images 下的产物目录 (同步管线 convert-icons.ts 的 bufficon 类别)。
+ * 未知前缀返回 null, 保持旧行为 (不渲染)。
+ */
+const IMAGE_PATH_PREFIXES: Record<string, string> = {
+  BuffIcon: '/images/wiki/bufficon',
 }
 
-function nodeText(node: WikiRichTextNode): string {
-  if (node.type === 'text') return node.text
-  if (node.type === 'image') return ''
-  return node.children.map(nodeText).join('')
+function mapImagePath(path: string): string | null {
+  const slash = path.indexOf('/')
+  if (slash === -1) return null
+  const prefix = path.slice(0, slash)
+  const name = path.slice(slash + 1)
+  const dir = IMAGE_PATH_PREFIXES[prefix]
+  // 仅接受单段基本名: 拒绝嵌套路径与 . / .. 片段, 防止路径穿越到目录外
+  if (!dir || !/^[A-Za-z0-9_.-]+$/.test(name)) return null
+  return withImageCacheVersion(`${dir}/${name}.avif`)
 }
+
+function renderImage(node: Extract<WikiRichTextNode, { type: 'image' }>): ReactNode {
+  const src = mapImagePath(node.path)
+  if (!src) return null
+  // 解析器对 scale 宽松匹配 ([0-9.]+), 可能产生 NaN / 0 / 负值;
+  // Next Image 要求 width/height 为有限正整数, 畸形输入直接放弃渲染
+  if (!Number.isFinite(node.scale) || node.scale <= 0) return null
+  const size = Math.round(16 * node.scale)
+  if (!Number.isFinite(size) || size <= 0) return null
+  return (
+    <Image
+      src={src}
+      alt=""
+      width={size}
+      height={size}
+      unoptimized
+      className="inline-block align-[-0.15em] mx-0.5"
+    />
+  )
+}
+
 
 export type TermField = 'name' | 'description'
 type TermResolver = (id: string, term: WikiRichTextTerm, field: TermField) => string
@@ -49,19 +82,23 @@ export function resolveGlossaryText(
   return term[field][locale] || term[field]['zh-CN'] || ''
 }
 
-function renderNodes(nodes: WikiRichTextNode[], resolveTerm: TermResolver): ReactNode {
+function renderNodes(nodes: WikiRichTextNode[], resolveTerm: TermResolver, interactive = true): ReactNode {
   return nodes.map((node, index) => {
     const key = `${node.type}-${index}`
     if (node.type === 'text') return <Fragment key={key}>{node.text}</Fragment>
-    if (node.type === 'image') return null
-    const children = renderNodes(node.children, resolveTerm)
+    if (node.type === 'image') return <Fragment key={key}>{renderImage(node)}</Fragment>
+    const children = renderNodes(node.children, resolveTerm, interactive)
     if (node.type === 'style') {
+      // tooltip 内部 (interactive=false): 不加 workflow 强调色 — Popup 底色是 bg-foreground,
+      // styleClass 的 fallback (text-foreground) 在两种主题下都会与底色相同而不可读。
+      if (!interactive) return <Fragment key={key}>{children}</Fragment>
       return <span key={key} className={styleClass(node.id)}>{children}</span>
     }
     const term = glossary[node.id]
-    if (!term) return <span key={key}>{children}</span>
+    // tooltip 内部: 术语只作纯样式文字展示 (粗体区分, 不嵌套 tooltip 也不上色), 避免移出触发区即关闭
+    if (!interactive || !term) return <span key={key} className={term && 'font-medium'}>{children}</span>
     const name = resolveTerm(node.id, term, 'name')
-    const description = plainText(resolveTerm(node.id, term, 'description'))
+    const descriptionNodes = parseWikiRichText(resolveTerm(node.id, term, 'description'))
     return (
       <Tooltip key={key}>
         <TooltipTrigger
@@ -81,7 +118,7 @@ function renderNodes(nodes: WikiRichTextNode[], resolveTerm: TermResolver): Reac
         />
         <TooltipContent className="block max-w-80 whitespace-pre-line py-2 leading-relaxed">
           <span className="block font-medium">{name}</span>
-          <span className="mt-0.5 block text-background/80">{description}</span>
+          <span className="mt-0.5 block text-background/80">{renderNodes(descriptionNodes, resolveTerm, false)}</span>
         </TooltipContent>
       </Tooltip>
     )
