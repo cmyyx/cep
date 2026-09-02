@@ -33,6 +33,30 @@ export const standardCharacters: readonly string[] = STANDARD_CHARS
 
 export const bannerEntries: BannerEntry[] = [
   {
+    id: '1.5-yifeng',
+    title: '「绚丽异彩」重构寻访',
+    subtitle: '伊冯',
+    description: '',
+    imageUrl: '',
+    officialUrl: '',
+    version: '1.5',
+    periodStart: '2026-09-24T12:00:00+08:00',
+    periodEnd: '2026-10-14T11:59:00+08:00',
+    featured: [{ name: '伊冯', period: 11 }],
+  },
+  {
+    id: '1.5-tifuluosi',
+    title: '「雪凇幽梦」特许寻访',
+    subtitle: '提弗洛斯',
+    description: '',
+    imageUrl: '',
+    officialUrl: '',
+    version: '1.5',
+    periodStart: '2026-09-02T12:00:00+08:00',
+    periodEnd: '2026-09-30T11:59:00+08:00',
+    featured: [{ name: '提弗洛斯', period: 10 }],
+  },
+  {
     id: '1.4-jue',
     title: '「临渊望北」特许寻访',
     subtitle: '诀',
