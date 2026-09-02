@@ -1,4 +1,5 @@
 import {
+  copyFileSync,
   existsSync,
   mkdirSync,
   readFileSync,
@@ -6,6 +7,7 @@ import {
   rmSync,
   writeFileSync,
 } from 'node:fs'
+import { createHash } from 'node:crypto'
 import { dirname, join, resolve } from 'node:path'
 import { pathToFileURL } from 'node:url'
 import { chromium, type Browser, type Page } from '@playwright/test'
@@ -37,6 +39,12 @@ interface ImageJob {
 interface ImageSourceRecord {
   source: 'skland'
   url: string
+  /**
+   * sha256 (hex) of the downloaded source PNG bytes. Lets a re-sync skip
+   * re-encoding when the source is unchanged, so re-running on a different
+   * encoder/platform does not churn the git diff for unchanged artwork.
+   */
+  hash?: string
 }
 
 export interface CharacterImageDownloadResult {
@@ -149,6 +157,25 @@ export function serializeImageSources(
   return `${JSON.stringify(sorted, null, 2)}\n`
 }
 
+function sourceSha256(buffer: Buffer): string {
+  return createHash('sha256').update(buffer).digest('hex')
+}
+
+/**
+ * Load the previously committed sources.json so a re-sync can tell which
+ * sources are unchanged and keep the existing avif bytes instead of re-encoding.
+ */
+function loadExistingSources(avatarDir: string): Record<string, ImageSourceRecord> {
+  const path = join(avatarDir, 'sources.json')
+  if (!existsSync(path)) return {}
+  try {
+    const parsed = JSON.parse(readFileSync(path, 'utf8')) as Record<string, ImageSourceRecord>
+    return parsed ?? {}
+  } catch {
+    return {}
+  }
+}
+
 export async function downloadCharacterAvatars(
   outputDir = 'public',
   launchBrowser: () => Promise<Browser> = () => chromium.launch({ headless: true })
@@ -211,18 +238,32 @@ export async function downloadCharacterAvatars(
     }
   }
 
+  const existingSources = loadExistingSources(avatarDir)
   try {
     await runPool(jobs, 6, async (job) => {
       if (!job.remoteUrl) {
         throw new Error(`Missing Skland image URL for ${job.kind}/${job.id}`)
       }
       const buffer = await fetchRemoteWithRetry(job.remoteUrl, fetchRemote)
-      sources[`${job.kind}/${job.id}`] = { source: 'skland', url: job.remoteUrl }
+      const key = `${job.kind}/${job.id}`
+      const hash = sourceSha256(buffer)
       const destination = join(
         job.kind === 'avatar' ? tempDir : tempFullDir,
         `${job.id}.avif`
       )
-      await sharp(buffer).avif(AVIF_OPTIONS).toFile(destination)
+      const committedFile = join(
+        job.kind === 'avatar' ? avatarDir : join(avatarDir, 'full'),
+        `${job.id}.avif`
+      )
+      if (existingSources[key]?.hash === hash && existsSync(committedFile)) {
+        // Source PNG is unchanged from the last sync: reuse the committed avif
+        // bytes instead of re-encoding, so a re-sync on a different
+        // encoder/platform does not churn the git diff for unchanged artwork.
+        copyFileSync(committedFile, destination)
+      } else {
+        await sharp(buffer).avif(AVIF_OPTIONS).toFile(destination)
+      }
+      sources[key] = { source: 'skland', url: job.remoteUrl, hash }
     })
 
     writeFileSync(join(tempDir, 'sources.json'), serializeImageSources(sources), 'utf8')
