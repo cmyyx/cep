@@ -5006,7 +5006,7 @@
           "id": "chr_0024_deepfin_combo_skill:1",
           "label": {
             "zh-CN": "钓起珍鳞概率",
-            "en": "Chance to Catch the Rare Fin",
+            "en": "Rare Fin Chance",
             "ja": "珍鱗釣上確率",
             "zh-TW": "釣起珍鱗機率"
           }
@@ -5033,7 +5033,7 @@
           "id": "chr_0024_deepfin_combo_skill:4",
           "label": {
             "zh-CN": "额外技力恢复",
-            "en": "Bonus SP Recovery",
+            "en": "Additional SP Recovery",
             "ja": "SP追加回復量",
             "zh-TW": "額外技力回復"
           }
@@ -5757,7 +5757,7 @@
           "id": "chr_0024_deepfin_ultimate_skill:2",
           "label": {
             "zh-CN": "击败目标时额外恢复技力",
-            "en": "Bonus SP Recovery per Target Defeated",
+            "en": "Additional SP Recovery per Target Defeated",
             "ja": "敵撃破時のSP追加回復量",
             "zh-TW": "擊敗目標時額外回復技力"
           }
@@ -5766,7 +5766,7 @@
           "id": "chr_0024_deepfin_ultimate_skill:3",
           "label": {
             "zh-CN": "技力恢复上限",
-            "en": "SP Recovery Limit",
+            "en": "MAX SP Recovery",
             "ja": "SP回復上限",
             "zh-TW": "技力回復上限"
           }

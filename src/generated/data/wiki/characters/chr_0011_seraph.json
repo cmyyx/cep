@@ -5624,7 +5624,7 @@
       },
       "description": {
         "zh-CN": "对全队施加一段时间的<#ba.crystenhance>寒冷增幅</>和<#ba.naturalenhance>自然增幅</>，智识可以额外提高该增幅效果。",
-        "en": "Applies temporary <#ba.crystenhance>Cryo Amp</> and <#ba.naturalenhance>Nature Amp</> to the entire team. The attribute of Intellect increases the Amp effect.",
+        "en": "Applies temporary <#ba.crystenhance>Cryo Amp</> and <#ba.naturalenhance>Nature Amp</> to the entire team. The attribute of Intellect (INT) increases the Amp effect.",
         "ja": "チーム全員に一定時間<#ba.crystenhance>寒冷増幅</>と<#ba.naturalenhance>自然増幅</>を付与する。増幅効果は知性の値に応じて追加でアップする。",
         "zh-TW": "對全隊施加一段時間的<#ba.crystenhance>寒冷增幅</>和<#ba.naturalenhance>自然增幅</>，智識可以額外提高該增幅效果。"
       },
@@ -5661,7 +5661,7 @@
           "id": "chr_0011_seraph_ultimate_skill:3",
           "label": {
             "zh-CN": "智识提升增幅上限",
-            "en": "Intellect raises Amp limit",
+            "en": "MAX Amp from INT",
             "ja": "知性による増幅UP上限",
             "zh-TW": "智識提升增幅上限"
           }

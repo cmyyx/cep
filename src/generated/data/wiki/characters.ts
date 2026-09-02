@@ -634,6 +634,28 @@ export const wikiCharacters = [
     }
   },
   {
+    "id": "chr_0034_typhoea",
+    "category": "characters",
+    "name": {
+      "zh-CN": "提弗洛斯",
+      "en": "Typhoeus",
+      "ja": "ティフォロス",
+      "zh-TW": "提弗洛斯"
+    },
+    "rarity": 6,
+    "imageId": "chr_0034_typhoea",
+    "elementId": "Natural",
+    "professionId": "8",
+    "factionId": "ENDFIELD INDUSTRIES",
+    "weaponTypeId": "2",
+    "mainAttributeId": "40",
+    "subAttributeId": "42",
+    "birthday": {
+      "month": 1,
+      "day": 13
+    }
+  },
+  {
     "id": "chr_0035_liino",
     "category": "characters",
     "name": {

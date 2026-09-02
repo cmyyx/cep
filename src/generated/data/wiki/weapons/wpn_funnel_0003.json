@@ -575,7 +575,7 @@
       "id": "wpn_attr_will_low",
       "name": {
         "zh-CN": "意志提升·小",
-        "en": "Will Boost [S]",
+        "en": "Will [S]",
         "ja": "意志UP・小",
         "zh-TW": "意志提升·小"
       },
@@ -673,13 +673,13 @@
       "id": "wpn_sp_attr_atk_low",
       "name": {
         "zh-CN": "攻击提升·小",
-        "en": "ATK Boost [S]",
+        "en": "ATK [S]",
         "ja": "攻撃力UP・小",
         "zh-TW": "攻擊提升·小"
       },
       "description": {
         "zh-CN": "攻击力<@ba.vup>+23.4%</>",
-        "en": "Attack <@ba.vup>+23.4%</>",
+        "en": "ATK <@ba.vup>+23.4%</>",
         "ja": "攻撃力<@ba.vup>+23.4%</>",
         "zh-TW": "攻擊力<@ba.vup>+23.4%</>"
       },
@@ -688,7 +688,7 @@
           "level": 1,
           "description": {
             "zh-CN": "攻击力<@ba.vup>+3.0%</>",
-            "en": "Attack <@ba.vup>+3.0%</>",
+            "en": "ATK <@ba.vup>+3.0%</>",
             "ja": "攻撃力<@ba.vup>+3.0%</>",
             "zh-TW": "攻擊力<@ba.vup>+3.0%</>"
           }
@@ -697,7 +697,7 @@
           "level": 2,
           "description": {
             "zh-CN": "攻击力<@ba.vup>+5.4%</>",
-            "en": "Attack <@ba.vup>+5.4%</>",
+            "en": "ATK <@ba.vup>+5.4%</>",
             "ja": "攻撃力<@ba.vup>+5.4%</>",
             "zh-TW": "攻擊力<@ba.vup>+5.4%</>"
           }
@@ -706,7 +706,7 @@
           "level": 3,
           "description": {
             "zh-CN": "攻击力<@ba.vup>+7.8%</>",
-            "en": "Attack <@ba.vup>+7.8%</>",
+            "en": "ATK <@ba.vup>+7.8%</>",
             "ja": "攻撃力<@ba.vup>+7.8%</>",
             "zh-TW": "攻擊力<@ba.vup>+7.8%</>"
           }
@@ -715,7 +715,7 @@
           "level": 4,
           "description": {
             "zh-CN": "攻击力<@ba.vup>+10.2%</>",
-            "en": "Attack <@ba.vup>+10.2%</>",
+            "en": "ATK <@ba.vup>+10.2%</>",
             "ja": "攻撃力<@ba.vup>+10.2%</>",
             "zh-TW": "攻擊力<@ba.vup>+10.2%</>"
           }
@@ -724,7 +724,7 @@
           "level": 5,
           "description": {
             "zh-CN": "攻击力<@ba.vup>+12.6%</>",
-            "en": "Attack <@ba.vup>+12.6%</>",
+            "en": "ATK <@ba.vup>+12.6%</>",
             "ja": "攻撃力<@ba.vup>+12.6%</>",
             "zh-TW": "攻擊力<@ba.vup>+12.6%</>"
           }
@@ -733,7 +733,7 @@
           "level": 6,
           "description": {
             "zh-CN": "攻击力<@ba.vup>+15.0%</>",
-            "en": "Attack <@ba.vup>+15.0%</>",
+            "en": "ATK <@ba.vup>+15.0%</>",
             "ja": "攻撃力<@ba.vup>+15.0%</>",
             "zh-TW": "攻擊力<@ba.vup>+15.0%</>"
           }
@@ -742,7 +742,7 @@
           "level": 7,
           "description": {
             "zh-CN": "攻击力<@ba.vup>+17.4%</>",
-            "en": "Attack <@ba.vup>+17.4%</>",
+            "en": "ATK <@ba.vup>+17.4%</>",
             "ja": "攻撃力<@ba.vup>+17.4%</>",
             "zh-TW": "攻擊力<@ba.vup>+17.4%</>"
           }
@@ -751,7 +751,7 @@
           "level": 8,
           "description": {
             "zh-CN": "攻击力<@ba.vup>+19.8%</>",
-            "en": "Attack <@ba.vup>+19.8%</>",
+            "en": "ATK <@ba.vup>+19.8%</>",
             "ja": "攻撃力<@ba.vup>+19.8%</>",
             "zh-TW": "攻擊力<@ba.vup>+19.8%</>"
           }
@@ -760,7 +760,7 @@
           "level": 9,
           "description": {
             "zh-CN": "攻击力<@ba.vup>+23.4%</>",
-            "en": "Attack <@ba.vup>+23.4%</>",
+            "en": "ATK <@ba.vup>+23.4%</>",
             "ja": "攻撃力<@ba.vup>+23.4%</>",
             "zh-TW": "攻擊力<@ba.vup>+23.4%</>"
           }

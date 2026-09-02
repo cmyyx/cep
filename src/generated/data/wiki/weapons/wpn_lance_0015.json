@@ -575,7 +575,7 @@
       "id": "wpn_attr_agi_high",
       "name": {
         "zh-CN": "敏捷提升·大",
-        "en": "Agility Boost [L]",
+        "en": "Agility [L]",
         "ja": "敏捷UP・大",
         "zh-TW": "敏捷提升·大"
       },
@@ -673,7 +673,7 @@
       "id": "wpn_sp_attr_firedam_high",
       "name": {
         "zh-CN": "灼热伤害提升·大",
-        "en": "Heat DMG Boost [L]",
+        "en": "Heat DMG [L]",
         "ja": "灼熱ダメージUP・大",
         "zh-TW": "灼熱傷害提升·大"
       },

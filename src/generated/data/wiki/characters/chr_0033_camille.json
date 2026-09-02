@@ -3517,11 +3517,11 @@
   "fixedStats": [
     {
       "attributeId": "90",
-      "value": 3
+      "value": 5
     },
     {
       "attributeId": "12",
-      "value": 3
+      "value": 5
     }
   ],
   "skills": [
@@ -4303,7 +4303,7 @@
           "id": "chr_0033_camille_normal_skill:3",
           "label": {
             "zh-CN": "虚弱效果",
-            "en": "Weakness Effect",
+            "en": "Weakness",
             "ja": "弱体化効果",
             "zh-TW": "虛弱效果"
           }

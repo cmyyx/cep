@@ -575,7 +575,7 @@
       "id": "wpn_attr_agi_mid",
       "name": {
         "zh-CN": "敏捷提升·中",
-        "en": "Agility Boost [M]",
+        "en": "Agility [M]",
         "ja": "敏捷UP・中",
         "zh-TW": "敏捷提升·中"
       },
@@ -673,7 +673,7 @@
       "id": "wpn_sp_attr_magicdam_mid",
       "name": {
         "zh-CN": "法术提升·中",
-        "en": "Arts Boost [M]",
+        "en": "Arts DMG [M]",
         "ja": "アーツダメージUP・中",
         "zh-TW": "法術提升·中"
       },

@@ -575,7 +575,7 @@
       "id": "wpn_attr_will_mid",
       "name": {
         "zh-CN": "意志提升·中",
-        "en": "Will Boost [M]",
+        "en": "Will [M]",
         "ja": "意志UP・中",
         "zh-TW": "意志提升·中"
       },
@@ -673,7 +673,7 @@
       "id": "wpn_sp_attr_usgs_mid",
       "name": {
         "zh-CN": "终结技充能效率提升·中",
-        "en": "Ultimate Gain Efficiency Boost [M]",
+        "en": "ULT Efficiency [M]",
         "ja": "必殺技効率UP・中",
         "zh-TW": "終結技蓄能效率提升·中"
       },

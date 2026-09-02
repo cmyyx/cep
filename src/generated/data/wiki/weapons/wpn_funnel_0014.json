@@ -575,7 +575,7 @@
       "id": "wpn_attr_wisd_mid",
       "name": {
         "zh-CN": "智识提升·中",
-        "en": "Intellect Boost [M]",
+        "en": "Intellect [M]",
         "ja": "知性UP・中",
         "zh-TW": "智識提升·中"
       },
@@ -673,7 +673,7 @@
       "id": "wpn_sp_attr_phy_spell_mid",
       "name": {
         "zh-CN": "源石技艺强度提升·中",
-        "en": "Arts Intensity Boost [M]",
+        "en": "Arts Intensity [M]",
         "ja": "アーツ強度UP・中",
         "zh-TW": "源石技藝強度提升·中"
       },

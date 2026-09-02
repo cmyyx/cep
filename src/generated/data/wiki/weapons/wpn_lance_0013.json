@@ -575,7 +575,7 @@
       "id": "wpn_attr_will_mid",
       "name": {
         "zh-CN": "意志提升·中",
-        "en": "Will Boost [M]",
+        "en": "Will [M]",
         "ja": "意志UP・中",
         "zh-TW": "意志提升·中"
       },
@@ -673,7 +673,7 @@
       "id": "wpn_sp_attr_phydam_mid",
       "name": {
         "zh-CN": "物理伤害提升·中",
-        "en": "Physical DMG Boost [M]",
+        "en": "Physical DMG [M]",
         "ja": "物理ダメージUP・中",
         "zh-TW": "物理傷害提升·中"
       },

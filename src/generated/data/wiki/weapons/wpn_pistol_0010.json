@@ -575,7 +575,7 @@
       "id": "wpn_attr_wisd_high",
       "name": {
         "zh-CN": "智识提升·大",
-        "en": "Intellect Boost [L]",
+        "en": "Intellect [L]",
         "ja": "知性UP・大",
         "zh-TW": "智識提升·大"
       },
@@ -673,7 +673,7 @@
       "id": "wpn_sp_attr_crirate_high",
       "name": {
         "zh-CN": "暴击率提升·大",
-        "en": "Critical Rate Boost [L]",
+        "en": "Critical Rate [L]",
         "ja": "会心率UP・大",
         "zh-TW": "暴擊率提升·大"
       },

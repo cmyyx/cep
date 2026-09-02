@@ -3,9 +3,9 @@ import type { Weapon } from '@/types/matrix'
 export const weapons: Weapon[] = [
   // ===== 六星 =====
   // --- 纯 preview（无正式 id / 图标 / 翻译）：id 用 preview:名称 前缀，实装后改为正式 id ---
-  { id: 'preview:寒夜幽影', name: '寒夜幽影', rarity: 6, type: '施术单元', primaryStat: 'gat_passive_attr_agi', elementalDamage: 'gat_passive_attr_atk', specialAbility: 'gst_passive_burst', chars: ['提弗洛斯'], source: 'preview' },
+  { id: 'wpn_funnel_0019', iconId: 'wpn_funnel_0019', name: '寒夜幽影', rarity: 6, type: '施术单元', primaryStat: 'gat_passive_attr_agi', elementalDamage: 'gat_passive_attr_atk', specialAbility: 'gst_passive_burst', chars: ['提弗洛斯'], },
   { id: 'preview:点心时刻', name: '点心时刻', rarity: 5, type: '单手剑', primaryStat: 'gat_passive_attr_str', elementalDamage: 'gat_passive_attr_heal', specialAbility: 'gst_passive_heal', chars: ['噗切娜'], source: 'preview' },
-  { id: 'preview:苦难的尽头', name: '苦难的尽头', rarity: 6, type: '施术单元', primaryStat: 'gat_passive_attr_agi', elementalDamage: 'gat_passive_attr_naturaldam', specialAbility: 'gst_passive_burst', chars: [], source: 'preview' },
+  { id: 'wpn_funnel_0020', iconId: 'wpn_funnel_0020', name: '苦难的尽头', rarity: 6, type: '施术单元', primaryStat: 'gat_passive_attr_agi', elementalDamage: 'gat_passive_attr_naturaldam', specialAbility: 'gst_passive_burst', chars: [], },
   { id: 'wpn_sword_0026', iconId: 'wpn_sword_0026', name: '遥望', rarity: 6, type: '单手剑', primaryStat: 'gat_passive_attr_main', elementalDamage: 'gat_passive_attr_physpell', specialAbility: 'gst_passive_force', chars: [] },
   { id: 'wpn_funnel_0018', iconId: 'wpn_funnel_0018', name: '联结点', rarity: 6, type: '施术单元', primaryStat: 'gat_passive_attr_wisd', elementalDamage: 'gat_passive_attr_usp', specialAbility: 'gst_passive_keyword', chars: [] },
   { id: 'wpn_lance_0016', iconId: 'wpn_lance_0016', name: '黄金时代', rarity: 6, type: '长柄武器', primaryStat: 'gat_passive_attr_will', elementalDamage: 'gat_passive_attr_heal', specialAbility: 'gst_passive_combo', chars: [] },

@@ -8,19 +8,19 @@
     },
     "1": {
       "zh-CN": "生命值",
-      "en": "HP",
+      "en": "Hit Points (HP)",
       "ja": "HP",
       "zh-TW": "生命值"
     },
     "2": {
       "zh-CN": "攻击力",
-      "en": "Attack",
+      "en": "Attack (ATK)",
       "ja": "攻撃力",
       "zh-TW": "攻擊力"
     },
     "3": {
       "zh-CN": "防御力",
-      "en": "Defense",
+      "en": "Defense (DEF)",
       "ja": "防御力",
       "zh-TW": "防禦力"
     },
@@ -368,7 +368,7 @@
     },
     "61": {
       "zh-CN": "对失衡目标伤害加成",
-      "en": "DMG Bonus vs. Staggered",
+      "en": "DMG vs. Staggered Bonus",
       "ja": "ブレイク状態の敵へのダメージUP",
       "zh-TW": "對失衡目標傷害加成"
     },

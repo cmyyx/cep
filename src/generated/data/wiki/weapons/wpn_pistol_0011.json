@@ -575,7 +575,7 @@
       "id": "wpn_attr_agi_high",
       "name": {
         "zh-CN": "敏捷提升·大",
-        "en": "Agility Boost [L]",
+        "en": "Agility [L]",
         "ja": "敏捷UP・大",
         "zh-TW": "敏捷提升·大"
       },
@@ -673,13 +673,13 @@
       "id": "wpn_sp_attr_atk_high",
       "name": {
         "zh-CN": "攻击提升·大",
-        "en": "Attack Boost [L]",
+        "en": "ATK [L]",
         "ja": "攻撃力UP・大",
         "zh-TW": "攻擊提升·大"
       },
       "description": {
         "zh-CN": "攻击力<@ba.vup>+39.0%</>",
-        "en": "Attack <@ba.vup>+39.0%</>",
+        "en": "ATK <@ba.vup>+39.0%</>",
         "ja": "攻撃力<@ba.vup>+39.0%</>",
         "zh-TW": "攻擊力<@ba.vup>+39.0%</>"
       },
@@ -688,7 +688,7 @@
           "level": 1,
           "description": {
             "zh-CN": "攻击力<@ba.vup>+5.0%</>",
-            "en": "Attack <@ba.vup>+5.0%</>",
+            "en": "ATK <@ba.vup>+5.0%</>",
             "ja": "攻撃力<@ba.vup>+5.0%</>",
             "zh-TW": "攻擊力<@ba.vup>+5.0%</>"
           }
@@ -697,7 +697,7 @@
           "level": 2,
           "description": {
             "zh-CN": "攻击力<@ba.vup>+9.0%</>",
-            "en": "Attack <@ba.vup>+9.0%</>",
+            "en": "ATK <@ba.vup>+9.0%</>",
             "ja": "攻撃力<@ba.vup>+9.0%</>",
             "zh-TW": "攻擊力<@ba.vup>+9.0%</>"
           }
@@ -706,7 +706,7 @@
           "level": 3,
           "description": {
             "zh-CN": "攻击力<@ba.vup>+13.0%</>",
-            "en": "Attack <@ba.vup>+13.0%</>",
+            "en": "ATK <@ba.vup>+13.0%</>",
             "ja": "攻撃力<@ba.vup>+13.0%</>",
             "zh-TW": "攻擊力<@ba.vup>+13.0%</>"
           }
@@ -715,7 +715,7 @@
           "level": 4,
           "description": {
             "zh-CN": "攻击力<@ba.vup>+17.0%</>",
-            "en": "Attack <@ba.vup>+17.0%</>",
+            "en": "ATK <@ba.vup>+17.0%</>",
             "ja": "攻撃力<@ba.vup>+17.0%</>",
             "zh-TW": "攻擊力<@ba.vup>+17.0%</>"
           }
@@ -724,7 +724,7 @@
           "level": 5,
           "description": {
             "zh-CN": "攻击力<@ba.vup>+21.0%</>",
-            "en": "Attack <@ba.vup>+21.0%</>",
+            "en": "ATK <@ba.vup>+21.0%</>",
             "ja": "攻撃力<@ba.vup>+21.0%</>",
             "zh-TW": "攻擊力<@ba.vup>+21.0%</>"
           }
@@ -733,7 +733,7 @@
           "level": 6,
           "description": {
             "zh-CN": "攻击力<@ba.vup>+25.0%</>",
-            "en": "Attack <@ba.vup>+25.0%</>",
+            "en": "ATK <@ba.vup>+25.0%</>",
             "ja": "攻撃力<@ba.vup>+25.0%</>",
             "zh-TW": "攻擊力<@ba.vup>+25.0%</>"
           }
@@ -742,7 +742,7 @@
           "level": 7,
           "description": {
             "zh-CN": "攻击力<@ba.vup>+29.0%</>",
-            "en": "Attack <@ba.vup>+29.0%</>",
+            "en": "ATK <@ba.vup>+29.0%</>",
             "ja": "攻撃力<@ba.vup>+29.0%</>",
             "zh-TW": "攻擊力<@ba.vup>+29.0%</>"
           }
@@ -751,7 +751,7 @@
           "level": 8,
           "description": {
             "zh-CN": "攻击力<@ba.vup>+33.0%</>",
-            "en": "Attack <@ba.vup>+33.0%</>",
+            "en": "ATK <@ba.vup>+33.0%</>",
             "ja": "攻撃力<@ba.vup>+33.0%</>",
             "zh-TW": "攻擊力<@ba.vup>+33.0%</>"
           }
@@ -760,7 +760,7 @@
           "level": 9,
           "description": {
             "zh-CN": "攻击力<@ba.vup>+39.0%</>",
-            "en": "Attack <@ba.vup>+39.0%</>",
+            "en": "ATK <@ba.vup>+39.0%</>",
             "ja": "攻撃力<@ba.vup>+39.0%</>",
             "zh-TW": "攻擊力<@ba.vup>+39.0%</>"
           }

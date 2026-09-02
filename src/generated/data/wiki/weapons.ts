@@ -18,45 +18,17 @@ export const wikiWeapons = [
     "maxLevel": 90
   },
   {
-    "id": "wpn_funnel_0009",
+    "id": "wpn_lance_0006",
     "category": "weapons",
     "name": {
-      "zh-CN": "遗忘",
-      "en": "Oblivion",
-      "ja": "遺忘",
-      "zh-TW": "遺忘"
+      "zh-CN": "向心之引",
+      "en": "Cohesive Traction",
+      "ja": "求心の槍",
+      "zh-TW": "向心之引"
     },
-    "rarity": 6,
-    "imageId": "wpn_funnel_0009",
-    "weaponTypeId": "2",
-    "maxLevel": 90
-  },
-  {
-    "id": "wpn_pistol_0007",
-    "category": "weapons",
-    "name": {
-      "zh-CN": "望乡",
-      "en": "Home Longing",
-      "ja": "望郷",
-      "zh-TW": "望鄉"
-    },
-    "rarity": 6,
-    "imageId": "wpn_pistol_0007",
-    "weaponTypeId": "6",
-    "maxLevel": 90
-  },
-  {
-    "id": "wpn_sword_0014",
-    "category": "weapons",
-    "name": {
-      "zh-CN": "白夜新星",
-      "en": "White Night Nova",
-      "ja": "白夜新星",
-      "zh-TW": "白夜新星"
-    },
-    "rarity": 6,
-    "imageId": "wpn_sword_0014",
-    "weaponTypeId": "1",
+    "rarity": 5,
+    "imageId": "wpn_lance_0006",
+    "weaponTypeId": "5",
     "maxLevel": 90
   },
   {
@@ -74,6 +46,20 @@ export const wikiWeapons = [
     "maxLevel": 90
   },
   {
+    "id": "wpn_funnel_0009",
+    "category": "weapons",
+    "name": {
+      "zh-CN": "遗忘",
+      "en": "Oblivion",
+      "ja": "遺忘",
+      "zh-TW": "遺忘"
+    },
+    "rarity": 6,
+    "imageId": "wpn_funnel_0009",
+    "weaponTypeId": "2",
+    "maxLevel": 90
+  },
+  {
     "id": "wpn_claym_0006",
     "category": "weapons",
     "name": {
@@ -88,31 +74,17 @@ export const wikiWeapons = [
     "maxLevel": 90
   },
   {
-    "id": "wpn_funnel_0010",
+    "id": "wpn_lance_0003",
     "category": "weapons",
     "name": {
-      "zh-CN": "骑士精神",
-      "en": "Chivalric Virtues",
-      "ja": "騎士精神",
-      "zh-TW": "騎士精神"
+      "zh-CN": "寻路者道标",
+      "en": "Pathfinder's Beacon",
+      "ja": "開拓者の道標",
+      "zh-TW": "尋路者道標"
     },
-    "rarity": 6,
-    "imageId": "wpn_funnel_0008",
-    "weaponTypeId": "2",
-    "maxLevel": 90
-  },
-  {
-    "id": "wpn_sword_0017",
-    "category": "weapons",
-    "name": {
-      "zh-CN": "光荣记忆",
-      "en": "Glorious Memory",
-      "ja": "栄光の記憶",
-      "zh-TW": "光榮記憶"
-    },
-    "rarity": 6,
-    "imageId": "wpn_sword_0017",
-    "weaponTypeId": "1",
+    "rarity": 4,
+    "imageId": "wpn_lance_0003",
+    "weaponTypeId": "5",
     "maxLevel": 90
   },
   {
@@ -130,20 +102,6 @@ export const wikiWeapons = [
     "maxLevel": 90
   },
   {
-    "id": "wpn_sword_0018",
-    "category": "weapons",
-    "name": {
-      "zh-CN": "十二问",
-      "en": "Twelve Questions",
-      "ja": "十二問",
-      "zh-TW": "十二問"
-    },
-    "rarity": 5,
-    "imageId": "wpn_sword_0018",
-    "weaponTypeId": "1",
-    "maxLevel": 90
-  },
-  {
     "id": "wpn_claym_0008",
     "category": "weapons",
     "name": {
@@ -155,6 +113,20 @@ export const wikiWeapons = [
     "rarity": 6,
     "imageId": "wpn_claym_0008",
     "weaponTypeId": "3",
+    "maxLevel": 90
+  },
+  {
+    "id": "wpn_pistol_0008",
+    "category": "weapons",
+    "name": {
+      "zh-CN": "楔子",
+      "en": "Wedge",
+      "ja": "楔",
+      "zh-TW": "楔子"
+    },
+    "rarity": 6,
+    "imageId": "wpn_pistol_0008",
+    "weaponTypeId": "6",
     "maxLevel": 90
   },
   {
@@ -172,20 +144,6 @@ export const wikiWeapons = [
     "maxLevel": 90
   },
   {
-    "id": "wpn_sword_0019",
-    "category": "weapons",
-    "name": {
-      "zh-CN": "O.B.J.轻芒",
-      "en": "OBJ Edge of Lightness",
-      "ja": "O.B.J.軽刃",
-      "zh-TW": "O.B.J.輕芒"
-    },
-    "rarity": 5,
-    "imageId": "wpn_sword_0019",
-    "weaponTypeId": "1",
-    "maxLevel": 90
-  },
-  {
     "id": "wpn_claym_0010",
     "category": "weapons",
     "name": {
@@ -200,16 +158,16 @@ export const wikiWeapons = [
     "maxLevel": 90
   },
   {
-    "id": "wpn_pistol_0011",
+    "id": "wpn_pistol_0004",
     "category": "weapons",
     "name": {
-      "zh-CN": "落草",
-      "en": "Brigand's Calling",
-      "ja": "落草",
-      "zh-TW": "落草"
+      "zh-CN": "理性告别",
+      "en": "Rational Farewell",
+      "ja": "合理的決別",
+      "zh-TW": "理性告別"
     },
-    "rarity": 6,
-    "imageId": "wpn_pistol_0011",
+    "rarity": 5,
+    "imageId": "wpn_pistol_0004",
     "weaponTypeId": "6",
     "maxLevel": 90
   },
@@ -228,17 +186,17 @@ export const wikiWeapons = [
     "maxLevel": 90
   },
   {
-    "id": "wpn_pistol_0001",
+    "id": "wpn_lance_0007",
     "category": "weapons",
     "name": {
-      "zh-CN": "佩科5",
-      "en": "Peco 5",
-      "ja": "ペッコ5",
-      "zh-TW": "佩科5"
+      "zh-CN": "灯火使命",
+      "en": "Beacon of Duty",
+      "ja": "灯火の使命",
+      "zh-TW": "燈火使命"
     },
-    "rarity": 3,
-    "imageId": "wpn_pistol_0001",
-    "weaponTypeId": "6",
+    "rarity": 6,
+    "imageId": "wpn_lance_0007",
+    "weaponTypeId": "5",
     "maxLevel": 90
   },
   {
@@ -256,20 +214,6 @@ export const wikiWeapons = [
     "maxLevel": 90
   },
   {
-    "id": "wpn_sword_0003",
-    "category": "weapons",
-    "name": {
-      "zh-CN": "塔尔11",
-      "en": "Tarr 11",
-      "ja": "タール11",
-      "zh-TW": "塔爾11"
-    },
-    "rarity": 3,
-    "imageId": "wpn_sword_0003",
-    "weaponTypeId": "1",
-    "maxLevel": 90
-  },
-  {
     "id": "wpn_claym_0013",
     "category": "weapons",
     "name": {
@@ -284,31 +228,17 @@ export const wikiWeapons = [
     "maxLevel": 90
   },
   {
-    "id": "wpn_funnel_0006",
+    "id": "wpn_lance_0016",
     "category": "weapons",
     "name": {
-      "zh-CN": "作品：蚀迹",
-      "en": "Opus: Etch Figure",
-      "ja": "作品：蝕跡",
-      "zh-TW": "作品：蝕跡"
+      "zh-CN": "黄金时代",
+      "en": "Golden Age",
+      "ja": "黄金時代",
+      "zh-TW": "黃金時代"
     },
     "rarity": 6,
-    "imageId": "wpn_funnel_0006",
-    "weaponTypeId": "2",
-    "maxLevel": 90
-  },
-  {
-    "id": "wpn_pistol_0008",
-    "category": "weapons",
-    "name": {
-      "zh-CN": "楔子",
-      "en": "Wedge",
-      "ja": "楔",
-      "zh-TW": "楔子"
-    },
-    "rarity": 6,
-    "imageId": "wpn_pistol_0008",
-    "weaponTypeId": "6",
+    "imageId": "wpn_lance_0016",
+    "weaponTypeId": "5",
     "maxLevel": 90
   },
   {
@@ -326,17 +256,17 @@ export const wikiWeapons = [
     "maxLevel": 90
   },
   {
-    "id": "wpn_lance_0007",
+    "id": "wpn_funnel_0008",
     "category": "weapons",
     "name": {
-      "zh-CN": "灯火使命",
-      "en": "Beacon of Duty",
-      "ja": "灯火の使命",
-      "zh-TW": "燈火使命"
+      "zh-CN": "爆破单元",
+      "en": "Detonation Unit",
+      "ja": "破壊ユニット",
+      "zh-TW": "爆破單元"
     },
     "rarity": 6,
-    "imageId": "wpn_lance_0007",
-    "weaponTypeId": "5",
+    "imageId": "wpn_funnel_0010",
+    "weaponTypeId": "2",
     "maxLevel": 90
   },
   {
@@ -368,17 +298,31 @@ export const wikiWeapons = [
     "maxLevel": 90
   },
   {
-    "id": "wpn_sword_0006",
+    "id": "wpn_lance_0014",
     "category": "weapons",
     "name": {
-      "zh-CN": "熔铸火焰",
-      "en": "Forgeborn Scathe",
-      "ja": "フレイムフォージ",
-      "zh-TW": "熔鑄火焰"
+      "zh-CN": "曜夜的首演",
+      "en": "Bedazzling Night Debut",
+      "ja": "プリズムナイトデビュー",
+      "zh-TW": "曜夜的首演"
     },
     "rarity": 6,
-    "imageId": "wpn_sword_0006",
-    "weaponTypeId": "1",
+    "imageId": "wpn_lance_0014",
+    "weaponTypeId": "5",
+    "maxLevel": 90
+  },
+  {
+    "id": "wpn_pistol_0009",
+    "category": "weapons",
+    "name": {
+      "zh-CN": "同类相食",
+      "en": "Clannibal",
+      "ja": "同類共食",
+      "zh-TW": "同類相食"
+    },
+    "rarity": 6,
+    "imageId": "wpn_pistol_0009",
+    "weaponTypeId": "6",
     "maxLevel": 90
   },
   {
@@ -396,48 +340,6 @@ export const wikiWeapons = [
     "maxLevel": 90
   },
   {
-    "id": "wpn_funnel_0011",
-    "category": "weapons",
-    "name": {
-      "zh-CN": "使命必达",
-      "en": "Delivery Guaranteed",
-      "ja": "使命必達",
-      "zh-TW": "使命必達"
-    },
-    "rarity": 6,
-    "imageId": "wpn_funnel_0011",
-    "weaponTypeId": "2",
-    "maxLevel": 90
-  },
-  {
-    "id": "wpn_lance_0012",
-    "category": "weapons",
-    "name": {
-      "zh-CN": "负山",
-      "en": "Mountain Bearer",
-      "ja": "負山",
-      "zh-TW": "負山"
-    },
-    "rarity": 6,
-    "imageId": "wpn_lance_0012",
-    "weaponTypeId": "5",
-    "maxLevel": 90
-  },
-  {
-    "id": "wpn_sword_0007",
-    "category": "weapons",
-    "name": {
-      "zh-CN": "坚城铸造者",
-      "en": "Fortmaker",
-      "ja": "堅城鋳造者",
-      "zh-TW": "堅城鑄造者"
-    },
-    "rarity": 5,
-    "imageId": "wpn_sword_0007",
-    "weaponTypeId": "1",
-    "maxLevel": 90
-  },
-  {
     "id": "wpn_claym_0017",
     "category": "weapons",
     "name": {
@@ -452,16 +354,16 @@ export const wikiWeapons = [
     "maxLevel": 90
   },
   {
-    "id": "wpn_lance_0004",
+    "id": "wpn_lance_0012",
     "category": "weapons",
     "name": {
-      "zh-CN": "嵌合正义",
-      "en": "Chimeric Justice",
-      "ja": "正義嵌合",
-      "zh-TW": "嵌合正義"
+      "zh-CN": "负山",
+      "en": "Mountain Bearer",
+      "ja": "負山",
+      "zh-TW": "負山"
     },
-    "rarity": 5,
-    "imageId": "wpn_lance_0004",
+    "rarity": 6,
+    "imageId": "wpn_lance_0012",
     "weaponTypeId": "5",
     "maxLevel": 90
   },
@@ -480,20 +382,6 @@ export const wikiWeapons = [
     "maxLevel": 90
   },
   {
-    "id": "wpn_sword_0008",
-    "category": "weapons",
-    "name": {
-      "zh-CN": "显锋",
-      "en": "Prominent Edge",
-      "ja": "顕鋒",
-      "zh-TW": "顯鋒"
-    },
-    "rarity": 4,
-    "imageId": "wpn_sword_0008",
-    "weaponTypeId": "1",
-    "maxLevel": 90
-  },
-  {
     "id": "wpn_funnel_0001",
     "category": "weapons",
     "name": {
@@ -508,31 +396,17 @@ export const wikiWeapons = [
     "maxLevel": 90
   },
   {
-    "id": "wpn_lance_0006",
+    "id": "wpn_sword_0016",
     "category": "weapons",
     "name": {
-      "zh-CN": "向心之引",
-      "en": "Cohesive Traction",
-      "ja": "求心の槍",
-      "zh-TW": "向心之引"
-    },
-    "rarity": 5,
-    "imageId": "wpn_lance_0006",
-    "weaponTypeId": "5",
-    "maxLevel": 90
-  },
-  {
-    "id": "wpn_lance_0011",
-    "category": "weapons",
-    "name": {
-      "zh-CN": "J.E.T.",
-      "en": "JET",
-      "ja": "J.E.T.",
-      "zh-TW": "J.E.T."
+      "zh-CN": "不知归",
+      "en": "Never Rest",
+      "ja": "不知帰",
+      "zh-TW": "不知歸"
     },
     "rarity": 6,
-    "imageId": "wpn_lance_0011",
-    "weaponTypeId": "5",
+    "imageId": "wpn_sword_0016",
+    "weaponTypeId": "1",
     "maxLevel": 90
   },
   {
@@ -547,20 +421,6 @@ export const wikiWeapons = [
     "rarity": 3,
     "imageId": "wpn_funnel_0002",
     "weaponTypeId": "2",
-    "maxLevel": 90
-  },
-  {
-    "id": "wpn_sword_0020",
-    "category": "weapons",
-    "name": {
-      "zh-CN": "逐鳞3.0",
-      "en": "Finchaser 3.0",
-      "ja": "フィンチェイサー3.0",
-      "zh-TW": "逐鱗3.0"
-    },
-    "rarity": 5,
-    "imageId": "wpn_sword_0020",
-    "weaponTypeId": "1",
     "maxLevel": 90
   },
   {
@@ -592,6 +452,20 @@ export const wikiWeapons = [
     "maxLevel": 90
   },
   {
+    "id": "wpn_lance_0008",
+    "category": "weapons",
+    "name": {
+      "zh-CN": "天使杀手",
+      "en": "Aggeloslayer",
+      "ja": "アンゲロス・スレイヤー",
+      "zh-TW": "天使殺手"
+    },
+    "rarity": 4,
+    "imageId": "wpn_lance_0008",
+    "weaponTypeId": "5",
+    "maxLevel": 90
+  },
+  {
     "id": "wpn_funnel_0005",
     "category": "weapons",
     "name": {
@@ -606,17 +480,17 @@ export const wikiWeapons = [
     "maxLevel": 90
   },
   {
-    "id": "wpn_sword_0010",
+    "id": "wpn_funnel_0006",
     "category": "weapons",
     "name": {
-      "zh-CN": "黯色火炬",
-      "en": "Umbral Torch",
-      "ja": "ダークトーチ",
-      "zh-TW": "黯色火炬"
+      "zh-CN": "作品：蚀迹",
+      "en": "Opus: Etch Figure",
+      "ja": "作品：蝕跡",
+      "zh-TW": "作品：蝕跡"
     },
     "rarity": 6,
-    "imageId": "wpn_sword_0010",
-    "weaponTypeId": "1",
+    "imageId": "wpn_funnel_0006",
+    "weaponTypeId": "2",
     "maxLevel": 90
   },
   {
@@ -634,45 +508,59 @@ export const wikiWeapons = [
     "maxLevel": 90
   },
   {
-    "id": "wpn_pistol_0009",
+    "id": "wpn_funnel_0010",
     "category": "weapons",
     "name": {
-      "zh-CN": "同类相食",
-      "en": "Clannibal",
-      "ja": "同類共食",
-      "zh-TW": "同類相食"
+      "zh-CN": "骑士精神",
+      "en": "Chivalric Virtues",
+      "ja": "騎士精神",
+      "zh-TW": "騎士精神"
     },
     "rarity": 6,
-    "imageId": "wpn_pistol_0009",
-    "weaponTypeId": "6",
-    "maxLevel": 90
-  },
-  {
-    "id": "wpn_funnel_0008",
-    "category": "weapons",
-    "name": {
-      "zh-CN": "爆破单元",
-      "en": "Detonation Unit",
-      "ja": "破壊ユニット",
-      "zh-TW": "爆破單元"
-    },
-    "rarity": 6,
-    "imageId": "wpn_funnel_0010",
+    "imageId": "wpn_funnel_0008",
     "weaponTypeId": "2",
     "maxLevel": 90
   },
   {
-    "id": "wpn_pistol_0006",
+    "id": "wpn_sword_0015",
     "category": "weapons",
     "name": {
-      "zh-CN": "作品：众生",
-      "en": "Opus: The Living",
-      "ja": "作品：衆生",
-      "zh-TW": "作品：眾生"
+      "zh-CN": "仰止",
+      "en": "Aspirant",
+      "ja": "仰止",
+      "zh-TW": "仰止"
     },
     "rarity": 5,
-    "imageId": "wpn_pistol_0006",
-    "weaponTypeId": "6",
+    "imageId": "wpn_sword_0015",
+    "weaponTypeId": "1",
+    "maxLevel": 90
+  },
+  {
+    "id": "wpn_funnel_0011",
+    "category": "weapons",
+    "name": {
+      "zh-CN": "使命必达",
+      "en": "Delivery Guaranteed",
+      "ja": "使命必達",
+      "zh-TW": "使命必達"
+    },
+    "rarity": 6,
+    "imageId": "wpn_funnel_0011",
+    "weaponTypeId": "2",
+    "maxLevel": 90
+  },
+  {
+    "id": "wpn_sword_0005",
+    "category": "weapons",
+    "name": {
+      "zh-CN": "钢铁余音",
+      "en": "Sundering Steel",
+      "ja": "鋼鉄余音",
+      "zh-TW": "鋼鐵餘音"
+    },
+    "rarity": 5,
+    "imageId": "wpn_sword_0005",
+    "weaponTypeId": "1",
     "maxLevel": 90
   },
   {
@@ -701,6 +589,20 @@ export const wikiWeapons = [
     "rarity": 6,
     "imageId": "wpn_funnel_0013",
     "weaponTypeId": "2",
+    "maxLevel": 90
+  },
+  {
+    "id": "wpn_lance_0009",
+    "category": "weapons",
+    "name": {
+      "zh-CN": "奥佩罗77",
+      "en": "Opero 77",
+      "ja": "オッペロ77",
+      "zh-TW": "奧佩羅77"
+    },
+    "rarity": 3,
+    "imageId": "wpn_lance_0009",
+    "weaponTypeId": "5",
     "maxLevel": 90
   },
   {
@@ -746,16 +648,30 @@ export const wikiWeapons = [
     "maxLevel": 90
   },
   {
-    "id": "wpn_sword_0005",
+    "id": "wpn_sword_0003",
     "category": "weapons",
     "name": {
-      "zh-CN": "钢铁余音",
-      "en": "Sundering Steel",
-      "ja": "鋼鉄余音",
-      "zh-TW": "鋼鐵餘音"
+      "zh-CN": "塔尔11",
+      "en": "Tarr 11",
+      "ja": "タール11",
+      "zh-TW": "塔爾11"
     },
-    "rarity": 5,
-    "imageId": "wpn_sword_0005",
+    "rarity": 3,
+    "imageId": "wpn_sword_0003",
+    "weaponTypeId": "1",
+    "maxLevel": 90
+  },
+  {
+    "id": "wpn_sword_0017",
+    "category": "weapons",
+    "name": {
+      "zh-CN": "光荣记忆",
+      "en": "Glorious Memory",
+      "ja": "栄光の記憶",
+      "zh-TW": "光榮記憶"
+    },
+    "rarity": 6,
+    "imageId": "wpn_sword_0017",
     "weaponTypeId": "1",
     "maxLevel": 90
   },
@@ -774,226 +690,16 @@ export const wikiWeapons = [
     "maxLevel": 90
   },
   {
-    "id": "wpn_funnel_0018",
+    "id": "wpn_sword_0007",
     "category": "weapons",
     "name": {
-      "zh-CN": "联结点",
-      "en": "Junction Point",
-      "ja": "連結点",
-      "zh-TW": "聯結點"
-    },
-    "rarity": 6,
-    "imageId": "wpn_funnel_0018",
-    "weaponTypeId": "2",
-    "maxLevel": 90
-  },
-  {
-    "id": "wpn_lance_0003",
-    "category": "weapons",
-    "name": {
-      "zh-CN": "寻路者道标",
-      "en": "Pathfinder's Beacon",
-      "ja": "開拓者の道標",
-      "zh-TW": "尋路者道標"
-    },
-    "rarity": 4,
-    "imageId": "wpn_lance_0003",
-    "weaponTypeId": "5",
-    "maxLevel": 90
-  },
-  {
-    "id": "wpn_lance_0014",
-    "category": "weapons",
-    "name": {
-      "zh-CN": "曜夜的首演",
-      "en": "Bedazzling Night Debut",
-      "ja": "プリズムナイトデビュー",
-      "zh-TW": "曜夜的首演"
-    },
-    "rarity": 6,
-    "imageId": "wpn_lance_0014",
-    "weaponTypeId": "5",
-    "maxLevel": 90
-  },
-  {
-    "id": "wpn_lance_0008",
-    "category": "weapons",
-    "name": {
-      "zh-CN": "天使杀手",
-      "en": "Aggeloslayer",
-      "ja": "アンゲロス・スレイヤー",
-      "zh-TW": "天使殺手"
-    },
-    "rarity": 4,
-    "imageId": "wpn_lance_0008",
-    "weaponTypeId": "5",
-    "maxLevel": 90
-  },
-  {
-    "id": "wpn_lance_0015",
-    "category": "weapons",
-    "name": {
-      "zh-CN": "镀红祝福",
-      "en": "Blessing of Lustrous Carmine",
-      "ja": "カーマインヴェール",
-      "zh-TW": "鍍紅祝福"
-    },
-    "rarity": 6,
-    "imageId": "wpn_lance_0015",
-    "weaponTypeId": "5",
-    "maxLevel": 90
-  },
-  {
-    "id": "wpn_lance_0009",
-    "category": "weapons",
-    "name": {
-      "zh-CN": "奥佩罗77",
-      "en": "Opero 77",
-      "ja": "オッペロ77",
-      "zh-TW": "奧佩羅77"
-    },
-    "rarity": 3,
-    "imageId": "wpn_lance_0009",
-    "weaponTypeId": "5",
-    "maxLevel": 90
-  },
-  {
-    "id": "wpn_lance_0016",
-    "category": "weapons",
-    "name": {
-      "zh-CN": "黄金时代",
-      "en": "Golden Age",
-      "ja": "黄金時代",
-      "zh-TW": "黃金時代"
-    },
-    "rarity": 6,
-    "imageId": "wpn_lance_0016",
-    "weaponTypeId": "5",
-    "maxLevel": 90
-  },
-  {
-    "id": "wpn_pistol_0002",
-    "category": "weapons",
-    "name": {
-      "zh-CN": "呼啸守卫",
-      "en": "Howling Guard",
-      "ja": "ロアーガード",
-      "zh-TW": "呼嘯守衛"
-    },
-    "rarity": 4,
-    "imageId": "wpn_pistol_0002",
-    "weaponTypeId": "6",
-    "maxLevel": 90
-  },
-  {
-    "id": "wpn_pistol_0003",
-    "category": "weapons",
-    "name": {
-      "zh-CN": "长路",
-      "en": "Long Road",
-      "ja": "長路",
-      "zh-TW": "長路"
-    },
-    "rarity": 4,
-    "imageId": "wpn_pistol_0003",
-    "weaponTypeId": "6",
-    "maxLevel": 90
-  },
-  {
-    "id": "wpn_pistol_0004",
-    "category": "weapons",
-    "name": {
-      "zh-CN": "理性告别",
-      "en": "Rational Farewell",
-      "ja": "合理的決別",
-      "zh-TW": "理性告別"
+      "zh-CN": "坚城铸造者",
+      "en": "Fortmaker",
+      "ja": "堅城鋳造者",
+      "zh-TW": "堅城鑄造者"
     },
     "rarity": 5,
-    "imageId": "wpn_pistol_0004",
-    "weaponTypeId": "6",
-    "maxLevel": 90
-  },
-  {
-    "id": "wpn_pistol_0005",
-    "category": "weapons",
-    "name": {
-      "zh-CN": "领航者",
-      "en": "Navigator",
-      "ja": "ナビゲーター",
-      "zh-TW": "領航者"
-    },
-    "rarity": 6,
-    "imageId": "wpn_pistol_0005",
-    "weaponTypeId": "6",
-    "maxLevel": 90
-  },
-  {
-    "id": "wpn_pistol_0010",
-    "category": "weapons",
-    "name": {
-      "zh-CN": "艺术暴君",
-      "en": "Artzy Tyrannical",
-      "ja": "芸術の独裁者",
-      "zh-TW": "藝術暴君"
-    },
-    "rarity": 6,
-    "imageId": "wpn_pistol_0010",
-    "weaponTypeId": "6",
-    "maxLevel": 90
-  },
-  {
-    "id": "wpn_sword_0011",
-    "category": "weapons",
-    "name": {
-      "zh-CN": "扶摇",
-      "en": "Rapid Ascent",
-      "ja": "フーヤオ",
-      "zh-TW": "扶搖"
-    },
-    "rarity": 6,
-    "imageId": "wpn_sword_0011",
-    "weaponTypeId": "1",
-    "maxLevel": 90
-  },
-  {
-    "id": "wpn_pistol_0012",
-    "category": "weapons",
-    "name": {
-      "zh-CN": "O.B.J.迅极",
-      "en": "OBJ Velocitous",
-      "ja": "O.B.J.迅速",
-      "zh-TW": "O.B.J.迅極"
-    },
-    "rarity": 5,
-    "imageId": "wpn_pistol_0012",
-    "weaponTypeId": "6",
-    "maxLevel": 90
-  },
-  {
-    "id": "wpn_sword_0009",
-    "category": "weapons",
-    "name": {
-      "zh-CN": "浪潮",
-      "en": "Wave Tide",
-      "ja": "潮流",
-      "zh-TW": "浪潮"
-    },
-    "rarity": 4,
-    "imageId": "wpn_sword_0009",
-    "weaponTypeId": "1",
-    "maxLevel": 90
-  },
-  {
-    "id": "wpn_sword_0012",
-    "category": "weapons",
-    "name": {
-      "zh-CN": "热熔切割器",
-      "en": "Thermite Cutter",
-      "ja": "テルミット・カッター",
-      "zh-TW": "熱熔切割器"
-    },
-    "rarity": 6,
-    "imageId": "wpn_sword_0012",
+    "imageId": "wpn_sword_0007",
     "weaponTypeId": "1",
     "maxLevel": 90
   },
@@ -1012,30 +718,352 @@ export const wikiWeapons = [
     "maxLevel": 90
   },
   {
-    "id": "wpn_sword_0015",
+    "id": "wpn_funnel_0018",
     "category": "weapons",
     "name": {
-      "zh-CN": "仰止",
-      "en": "Aspirant",
-      "ja": "仰止",
-      "zh-TW": "仰止"
+      "zh-CN": "联结点",
+      "en": "Junction Point",
+      "ja": "連結点",
+      "zh-TW": "聯結點"
     },
-    "rarity": 5,
-    "imageId": "wpn_sword_0015",
+    "rarity": 6,
+    "imageId": "wpn_funnel_0018",
+    "weaponTypeId": "2",
+    "maxLevel": 90
+  },
+  {
+    "id": "wpn_funnel_0019",
+    "category": "weapons",
+    "name": {
+      "zh-CN": "寒夜幽影",
+      "en": "Umbra of Frigid Eventide",
+      "ja": "寒夜の影",
+      "zh-TW": "寒夜幽影"
+    },
+    "rarity": 6,
+    "imageId": "wpn_funnel_0019",
+    "weaponTypeId": "2",
+    "maxLevel": 90
+  },
+  {
+    "id": "wpn_funnel_0020",
+    "category": "weapons",
+    "name": {
+      "zh-CN": "苦难的尽头",
+      "en": "Suffering's End",
+      "ja": "苦難の果",
+      "zh-TW": "苦難的盡頭"
+    },
+    "rarity": 6,
+    "imageId": "wpn_funnel_0020",
+    "weaponTypeId": "2",
+    "maxLevel": 90
+  },
+  {
+    "id": "wpn_sword_0008",
+    "category": "weapons",
+    "name": {
+      "zh-CN": "显锋",
+      "en": "Prominent Edge",
+      "ja": "顕鋒",
+      "zh-TW": "顯鋒"
+    },
+    "rarity": 4,
+    "imageId": "wpn_sword_0008",
     "weaponTypeId": "1",
     "maxLevel": 90
   },
   {
-    "id": "wpn_sword_0016",
+    "id": "wpn_sword_0012",
     "category": "weapons",
     "name": {
-      "zh-CN": "不知归",
-      "en": "Never Rest",
-      "ja": "不知帰",
-      "zh-TW": "不知歸"
+      "zh-CN": "热熔切割器",
+      "en": "Thermite Cutter",
+      "ja": "テルミット・カッター",
+      "zh-TW": "熱熔切割器"
     },
     "rarity": 6,
-    "imageId": "wpn_sword_0016",
+    "imageId": "wpn_sword_0012",
+    "weaponTypeId": "1",
+    "maxLevel": 90
+  },
+  {
+    "id": "wpn_lance_0004",
+    "category": "weapons",
+    "name": {
+      "zh-CN": "嵌合正义",
+      "en": "Chimeric Justice",
+      "ja": "正義嵌合",
+      "zh-TW": "嵌合正義"
+    },
+    "rarity": 5,
+    "imageId": "wpn_lance_0004",
+    "weaponTypeId": "5",
+    "maxLevel": 90
+  },
+  {
+    "id": "wpn_lance_0011",
+    "category": "weapons",
+    "name": {
+      "zh-CN": "J.E.T.",
+      "en": "JET",
+      "ja": "J.E.T.",
+      "zh-TW": "J.E.T."
+    },
+    "rarity": 6,
+    "imageId": "wpn_lance_0011",
+    "weaponTypeId": "5",
+    "maxLevel": 90
+  },
+  {
+    "id": "wpn_lance_0015",
+    "category": "weapons",
+    "name": {
+      "zh-CN": "镀红祝福",
+      "en": "Blessing of Lustrous Carmine",
+      "ja": "カーマインヴェール",
+      "zh-TW": "鍍紅祝福"
+    },
+    "rarity": 6,
+    "imageId": "wpn_lance_0015",
+    "weaponTypeId": "5",
+    "maxLevel": 90
+  },
+  {
+    "id": "wpn_pistol_0001",
+    "category": "weapons",
+    "name": {
+      "zh-CN": "佩科5",
+      "en": "Peco 5",
+      "ja": "ペッコ5",
+      "zh-TW": "佩科5"
+    },
+    "rarity": 3,
+    "imageId": "wpn_pistol_0001",
+    "weaponTypeId": "6",
+    "maxLevel": 90
+  },
+  {
+    "id": "wpn_sword_0010",
+    "category": "weapons",
+    "name": {
+      "zh-CN": "黯色火炬",
+      "en": "Umbral Torch",
+      "ja": "ダークトーチ",
+      "zh-TW": "黯色火炬"
+    },
+    "rarity": 6,
+    "imageId": "wpn_sword_0010",
+    "weaponTypeId": "1",
+    "maxLevel": 90
+  },
+  {
+    "id": "wpn_pistol_0002",
+    "category": "weapons",
+    "name": {
+      "zh-CN": "呼啸守卫",
+      "en": "Howling Guard",
+      "ja": "ロアーガード",
+      "zh-TW": "呼嘯守衛"
+    },
+    "rarity": 4,
+    "imageId": "wpn_pistol_0002",
+    "weaponTypeId": "6",
+    "maxLevel": 90
+  },
+  {
+    "id": "wpn_sword_0020",
+    "category": "weapons",
+    "name": {
+      "zh-CN": "逐鳞3.0",
+      "en": "Finchaser 3.0",
+      "ja": "フィンチェイサー3.0",
+      "zh-TW": "逐鱗3.0"
+    },
+    "rarity": 5,
+    "imageId": "wpn_sword_0020",
+    "weaponTypeId": "1",
+    "maxLevel": 90
+  },
+  {
+    "id": "wpn_pistol_0003",
+    "category": "weapons",
+    "name": {
+      "zh-CN": "长路",
+      "en": "Long Road",
+      "ja": "長路",
+      "zh-TW": "長路"
+    },
+    "rarity": 4,
+    "imageId": "wpn_pistol_0003",
+    "weaponTypeId": "6",
+    "maxLevel": 90
+  },
+  {
+    "id": "wpn_pistol_0005",
+    "category": "weapons",
+    "name": {
+      "zh-CN": "领航者",
+      "en": "Navigator",
+      "ja": "ナビゲーター",
+      "zh-TW": "領航者"
+    },
+    "rarity": 6,
+    "imageId": "wpn_pistol_0005",
+    "weaponTypeId": "6",
+    "maxLevel": 90
+  },
+  {
+    "id": "wpn_pistol_0006",
+    "category": "weapons",
+    "name": {
+      "zh-CN": "作品：众生",
+      "en": "Opus: The Living",
+      "ja": "作品：衆生",
+      "zh-TW": "作品：眾生"
+    },
+    "rarity": 5,
+    "imageId": "wpn_pistol_0006",
+    "weaponTypeId": "6",
+    "maxLevel": 90
+  },
+  {
+    "id": "wpn_pistol_0007",
+    "category": "weapons",
+    "name": {
+      "zh-CN": "望乡",
+      "en": "Home Longing",
+      "ja": "望郷",
+      "zh-TW": "望鄉"
+    },
+    "rarity": 6,
+    "imageId": "wpn_pistol_0007",
+    "weaponTypeId": "6",
+    "maxLevel": 90
+  },
+  {
+    "id": "wpn_pistol_0010",
+    "category": "weapons",
+    "name": {
+      "zh-CN": "艺术暴君",
+      "en": "Artzy Tyrannical",
+      "ja": "芸術の独裁者",
+      "zh-TW": "藝術暴君"
+    },
+    "rarity": 6,
+    "imageId": "wpn_pistol_0010",
+    "weaponTypeId": "6",
+    "maxLevel": 90
+  },
+  {
+    "id": "wpn_pistol_0011",
+    "category": "weapons",
+    "name": {
+      "zh-CN": "落草",
+      "en": "Brigand's Calling",
+      "ja": "落草",
+      "zh-TW": "落草"
+    },
+    "rarity": 6,
+    "imageId": "wpn_pistol_0011",
+    "weaponTypeId": "6",
+    "maxLevel": 90
+  },
+  {
+    "id": "wpn_pistol_0012",
+    "category": "weapons",
+    "name": {
+      "zh-CN": "O.B.J.迅极",
+      "en": "OBJ Velocitous",
+      "ja": "O.B.J.迅速",
+      "zh-TW": "O.B.J.迅極"
+    },
+    "rarity": 5,
+    "imageId": "wpn_pistol_0012",
+    "weaponTypeId": "6",
+    "maxLevel": 90
+  },
+  {
+    "id": "wpn_sword_0006",
+    "category": "weapons",
+    "name": {
+      "zh-CN": "熔铸火焰",
+      "en": "Forgeborn Scathe",
+      "ja": "フレイムフォージ",
+      "zh-TW": "熔鑄火焰"
+    },
+    "rarity": 6,
+    "imageId": "wpn_sword_0006",
+    "weaponTypeId": "1",
+    "maxLevel": 90
+  },
+  {
+    "id": "wpn_sword_0014",
+    "category": "weapons",
+    "name": {
+      "zh-CN": "白夜新星",
+      "en": "White Night Nova",
+      "ja": "白夜新星",
+      "zh-TW": "白夜新星"
+    },
+    "rarity": 6,
+    "imageId": "wpn_sword_0014",
+    "weaponTypeId": "1",
+    "maxLevel": 90
+  },
+  {
+    "id": "wpn_sword_0009",
+    "category": "weapons",
+    "name": {
+      "zh-CN": "浪潮",
+      "en": "Wave Tide",
+      "ja": "潮流",
+      "zh-TW": "浪潮"
+    },
+    "rarity": 4,
+    "imageId": "wpn_sword_0009",
+    "weaponTypeId": "1",
+    "maxLevel": 90
+  },
+  {
+    "id": "wpn_sword_0011",
+    "category": "weapons",
+    "name": {
+      "zh-CN": "扶摇",
+      "en": "Rapid Ascent",
+      "ja": "フーヤオ",
+      "zh-TW": "扶搖"
+    },
+    "rarity": 6,
+    "imageId": "wpn_sword_0011",
+    "weaponTypeId": "1",
+    "maxLevel": 90
+  },
+  {
+    "id": "wpn_sword_0018",
+    "category": "weapons",
+    "name": {
+      "zh-CN": "十二问",
+      "en": "Twelve Questions",
+      "ja": "十二問",
+      "zh-TW": "十二問"
+    },
+    "rarity": 5,
+    "imageId": "wpn_sword_0018",
+    "weaponTypeId": "1",
+    "maxLevel": 90
+  },
+  {
+    "id": "wpn_sword_0019",
+    "category": "weapons",
+    "name": {
+      "zh-CN": "O.B.J.轻芒",
+      "en": "OBJ Edge of Lightness",
+      "ja": "O.B.J.軽刃",
+      "zh-TW": "O.B.J.輕芒"
+    },
+    "rarity": 5,
+    "imageId": "wpn_sword_0019",
     "weaponTypeId": "1",
     "maxLevel": 90
   },

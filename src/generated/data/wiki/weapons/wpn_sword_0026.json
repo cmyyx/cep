@@ -575,7 +575,7 @@
       "id": "wpn_attr_main_high",
       "name": {
         "zh-CN": "主能力提升·大",
-        "en": "Main Attribute Boost [L]",
+        "en": "Main Attribute [L]",
         "ja": "メイン能力UP・大",
         "zh-TW": "主能力提升·大"
       },
@@ -673,7 +673,7 @@
       "id": "wpn_sp_attr_phy_spell_high",
       "name": {
         "zh-CN": "源石技艺强度提升·大",
-        "en": "Arts Intensity Boost [L]",
+        "en": "Arts Intensity [L]",
         "ja": "アーツ強度UP・大",
         "zh-TW": "源石技藝強度提升·大"
       },

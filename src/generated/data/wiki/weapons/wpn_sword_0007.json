@@ -575,7 +575,7 @@
       "id": "wpn_attr_wisd_mid",
       "name": {
         "zh-CN": "智识提升·中",
-        "en": "Intellect Boost [M]",
+        "en": "Intellect [M]",
         "ja": "知性UP・中",
         "zh-TW": "智識提升·中"
       },
@@ -673,7 +673,7 @@
       "id": "wpn_sp_attr_usgs_mid",
       "name": {
         "zh-CN": "终结技充能效率提升·中",
-        "en": "Ultimate Gain Efficiency Boost [M]",
+        "en": "ULT Efficiency [M]",
         "ja": "必殺技効率UP・中",
         "zh-TW": "終結技蓄能效率提升·中"
       },

@@ -575,7 +575,7 @@
       "id": "wpn_attr_will_low",
       "name": {
         "zh-CN": "意志提升·小",
-        "en": "Will Boost [S]",
+        "en": "Will [S]",
         "ja": "意志UP・小",
         "zh-TW": "意志提升·小"
       },
@@ -673,7 +673,7 @@
       "id": "wpn_sp_attr_hp_low",
       "name": {
         "zh-CN": "生命提升·小",
-        "en": "HP Boost [S]",
+        "en": "HP [S]",
         "ja": "HPアップ・小",
         "zh-TW": "生命提升·小"
       },
