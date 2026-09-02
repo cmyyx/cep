@@ -5598,7 +5598,7 @@
           "id": "chr_0013_aglina_ultimate_skill:3",
           "label": {
             "zh-CN": "缓速效果",
-            "en": "Slow Effect",
+            "en": "Slow",
             "ja": "スロー効果",
             "zh-TW": "緩速效果"
           }
@@ -5616,7 +5616,7 @@
           "id": "chr_0013_aglina_ultimate_skill:5",
           "label": {
             "zh-CN": "每层破防提升法术脆弱",
-            "en": "Arts Susceptibility Increase per Vulnerability Stack",
+            "en": "Arts Susceptibility Boost per Vulnerability",
             "ja": "クラッシュ1段階ごとのアーツ脆弱効果UP",
             "zh-TW": "每層破防提升法術脆弱"
           }

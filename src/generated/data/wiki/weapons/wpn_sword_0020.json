@@ -575,7 +575,7 @@
       "id": "wpn_attr_str_mid",
       "name": {
         "zh-CN": "力量提升·中",
-        "en": "Strength Boost [M]",
+        "en": "Strength [M]",
         "ja": "筋力UP・中",
         "zh-TW": "力量提升·中"
       },
@@ -673,7 +673,7 @@
       "id": "wpn_sp_attr_crystdam_mid",
       "name": {
         "zh-CN": "寒冷伤害提升·中",
-        "en": "Cryo DMG Boost [M]",
+        "en": "Cryo DMG [M]",
         "ja": "寒冷ダメージUP・中",
         "zh-TW": "寒冷傷害提升·中"
       },

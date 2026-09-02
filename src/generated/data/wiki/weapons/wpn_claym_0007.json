@@ -575,7 +575,7 @@
       "id": "wpn_attr_str_high",
       "name": {
         "zh-CN": "力量提升·大",
-        "en": "Strength Boost [L]",
+        "en": "Strength [L]",
         "ja": "筋力UP・大",
         "zh-TW": "力量提升·大"
       },
@@ -673,7 +673,7 @@
       "id": "wpn_sp_attr_hp_high",
       "name": {
         "zh-CN": "生命提升·大",
-        "en": "HP Boost [L]",
+        "en": "HP [L]",
         "ja": "HPアップ・大",
         "zh-TW": "生命提升·大"
       },

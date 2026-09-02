@@ -575,7 +575,7 @@
       "id": "wpn_attr_wisd_high",
       "name": {
         "zh-CN": "智识提升·大",
-        "en": "Intellect Boost [L]",
+        "en": "Intellect [L]",
         "ja": "知性UP・大",
         "zh-TW": "智識提升·大"
       },
@@ -673,7 +673,7 @@
       "id": "wpn_sp_attr_crystdam_high",
       "name": {
         "zh-CN": "寒冷伤害提升·大",
-        "en": "Cryo DMG Boost [L]",
+        "en": "Cryo DMG [L]",
         "ja": "寒冷ダメージUP・大",
         "zh-TW": "寒冷傷害提升·大"
       },

@@ -575,7 +575,7 @@
       "id": "wpn_attr_wisd_low",
       "name": {
         "zh-CN": "智识提升·小",
-        "en": "Intellect Boost [S]",
+        "en": "Intellect [S]",
         "ja": "知性UP・小",
         "zh-TW": "智識提升·小"
       },
@@ -673,7 +673,7 @@
       "id": "wpn_sp_attr_magicdam_low",
       "name": {
         "zh-CN": "法术提升·小",
-        "en": "Arts Boost [S]",
+        "en": "Arts DMG [S]",
         "ja": "アーツダメージUP・小",
         "zh-TW": "法術提升·小"
       },

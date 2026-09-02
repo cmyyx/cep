@@ -575,7 +575,7 @@
       "id": "wpn_attr_str_low",
       "name": {
         "zh-CN": "力量提升·小",
-        "en": "Strength Boost [S]",
+        "en": "Strength [S]",
         "ja": "筋力UP・小",
         "zh-TW": "力量提升·小"
       },
@@ -673,7 +673,7 @@
       "id": "wpn_sp_attr_magicdam_low",
       "name": {
         "zh-CN": "法术提升·小",
-        "en": "Arts Boost [S]",
+        "en": "Arts DMG [S]",
         "ja": "アーツダメージUP・小",
         "zh-TW": "法術提升·小"
       },

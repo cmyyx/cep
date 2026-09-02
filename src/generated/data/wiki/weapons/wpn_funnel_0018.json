@@ -575,7 +575,7 @@
       "id": "wpn_attr_wisd_high",
       "name": {
         "zh-CN": "智识提升·大",
-        "en": "Intellect Boost [L]",
+        "en": "Intellect [L]",
         "ja": "知性UP・大",
         "zh-TW": "智識提升·大"
       },
@@ -673,7 +673,7 @@
       "id": "wpn_sp_attr_usgs_high",
       "name": {
         "zh-CN": "终结技充能效率提升·大",
-        "en": "Ultimate Gain Efficiency Boost [L]",
+        "en": "ULT Efficiency [L]",
         "ja": "必殺技効率UP・大",
         "zh-TW": "終結技蓄能效率提升·大"
       },
@@ -778,7 +778,7 @@
       "description": {
         "zh-CN": "自然伤害<@ba.vup>+19.6%</>。\n装备者通过连携技施加<#ba.spellvul>法术脆弱</>或<#ba.spellinflict>法术附着</>时，攻击力<@ba.vup>+16.8%</>，小队内其他干员攻击力<@ba.vup>+4.2%</>，持续20秒。\n<@ba.info>同名效果最多叠加2层，每层单独计算持续时间。</>",
         "en": "Nature DMG Dealt <@ba.vup>+19.6%</>.\nWhen the wielder applies <#ba.spellvul>Arts Susceptibility</> or <#ba.spellinflict>Arts Infliction</> with a combo skill, the wielder gains ATK <@ba.vup>+16.8%</> while other operators in the team gain ATK <@ba.vup>+4.2%</>. Duration: 20s.\n<@ba.info>Max stacks for effects of the same name: 2. Duration of each stack is counted separately.</>",
-        "ja": "自然ダメージ<@ba.vup>+19.6%</>\n装備中、自身の連携技で<#ba.spellvul>アーツ脆弱</>または<#ba.spellinflict>アーツ付着</>を付与したとき、20秒間攻撃力<@ba.vup>+16.8%</>、チーム内の他のオペレーターの攻撃力<@ba.vup>+4.2%</>\n<@ba.info>同名効果は2回まで重ね掛け可能\n効果の持続時間は個別にカウントされる</>",
+        "ja": "自然ダメージ<@ba.vup>+19.6%</>\n装備中、自身の連携技で<#ba.spellvul>アーツ脆弱</>または<#ba.spellinflict>アーツ付着</>を付与するとき、20秒間攻撃力<@ba.vup>+16.8%</>、チーム内の他のオペレーターの攻撃力<@ba.vup>+4.2%</>\n<@ba.info>同名効果は2回まで重ね掛け可能\n効果の持続時間は個別にカウントされる</>",
         "zh-TW": "自然傷害<@ba.vup>+19.6%</>。\n裝備者透過連攜技施加<#ba.spellvul>法術脆弱</>或<#ba.spellinflict>法術附著</>時，攻擊力<@ba.vup>+16.8%</>，小隊內其他幹員攻擊力<@ba.vup>+4.2%</>，持續20秒。\n<@ba.info>同名效果最多疊加2層，每層單獨計算持續時間。</>"
       },
       "levels": [
@@ -787,7 +787,7 @@
           "description": {
             "zh-CN": "自然伤害<@ba.vup>+7.0%</>。\n装备者通过连携技施加<#ba.spellvul>法术脆弱</>或<#ba.spellinflict>法术附着</>时，攻击力<@ba.vup>+6.0%</>，小队内其他干员攻击力<@ba.vup>+1.5%</>，持续20秒。\n<@ba.info>同名效果最多叠加2层，每层单独计算持续时间。</>",
             "en": "Nature DMG Dealt <@ba.vup>+7.0%</>.\nWhen the wielder applies <#ba.spellvul>Arts Susceptibility</> or <#ba.spellinflict>Arts Infliction</> with a combo skill, the wielder gains ATK <@ba.vup>+6.0%</> while other operators in the team gain ATK <@ba.vup>+1.5%</>. Duration: 20s.\n<@ba.info>Max stacks for effects of the same name: 2. Duration of each stack is counted separately.</>",
-            "ja": "自然ダメージ<@ba.vup>+7.0%</>\n装備中、自身の連携技で<#ba.spellvul>アーツ脆弱</>または<#ba.spellinflict>アーツ付着</>を付与したとき、20秒間攻撃力<@ba.vup>+6.0%</>、チーム内の他のオペレーターの攻撃力<@ba.vup>+1.5%</>\n<@ba.info>同名効果は2回まで重ね掛け可能\n効果の持続時間は個別にカウントされる</>",
+            "ja": "自然ダメージ<@ba.vup>+7.0%</>\n装備中、自身の連携技で<#ba.spellvul>アーツ脆弱</>または<#ba.spellinflict>アーツ付着</>を付与するとき、20秒間攻撃力<@ba.vup>+6.0%</>、チーム内の他のオペレーターの攻撃力<@ba.vup>+1.5%</>\n<@ba.info>同名効果は2回まで重ね掛け可能\n効果の持続時間は個別にカウントされる</>",
             "zh-TW": "自然傷害<@ba.vup>+7.0%</>。\n裝備者透過連攜技施加<#ba.spellvul>法術脆弱</>或<#ba.spellinflict>法術附著</>時，攻擊力<@ba.vup>+6.0%</>，小隊內其他幹員攻擊力<@ba.vup>+1.5%</>，持續20秒。\n<@ba.info>同名效果最多疊加2層，每層單獨計算持續時間。</>"
           }
         },
@@ -796,7 +796,7 @@
           "description": {
             "zh-CN": "自然伤害<@ba.vup>+8.4%</>。\n装备者通过连携技施加<#ba.spellvul>法术脆弱</>或<#ba.spellinflict>法术附着</>时，攻击力<@ba.vup>+7.2%</>，小队内其他干员攻击力<@ba.vup>+1.8%</>，持续20秒。\n<@ba.info>同名效果最多叠加2层，每层单独计算持续时间。</>",
             "en": "Nature DMG Dealt <@ba.vup>+8.4%</>.\nWhen the wielder applies <#ba.spellvul>Arts Susceptibility</> or <#ba.spellinflict>Arts Infliction</> with a combo skill, the wielder gains ATK <@ba.vup>+7.2%</> while other operators in the team gain ATK <@ba.vup>+1.8%</>. Duration: 20s.\n<@ba.info>Max stacks for effects of the same name: 2. Duration of each stack is counted separately.</>",
-            "ja": "自然ダメージ<@ba.vup>+8.4%</>\n装備中、自身の連携技で<#ba.spellvul>アーツ脆弱</>または<#ba.spellinflict>アーツ付着</>を付与したとき、20秒間攻撃力<@ba.vup>+7.2%</>、チーム内の他のオペレーターの攻撃力<@ba.vup>+1.8%</>\n<@ba.info>同名効果は2回まで重ね掛け可能\n効果の持続時間は個別にカウントされる</>",
+            "ja": "自然ダメージ<@ba.vup>+8.4%</>\n装備中、自身の連携技で<#ba.spellvul>アーツ脆弱</>または<#ba.spellinflict>アーツ付着</>を付与するとき、20秒間攻撃力<@ba.vup>+7.2%</>、チーム内の他のオペレーターの攻撃力<@ba.vup>+1.8%</>\n<@ba.info>同名効果は2回まで重ね掛け可能\n効果の持続時間は個別にカウントされる</>",
             "zh-TW": "自然傷害<@ba.vup>+8.4%</>。\n裝備者透過連攜技施加<#ba.spellvul>法術脆弱</>或<#ba.spellinflict>法術附著</>時，攻擊力<@ba.vup>+7.2%</>，小隊內其他幹員攻擊力<@ba.vup>+1.8%</>，持續20秒。\n<@ba.info>同名效果最多疊加2層，每層單獨計算持續時間。</>"
           }
         },
@@ -805,7 +805,7 @@
           "description": {
             "zh-CN": "自然伤害<@ba.vup>+9.8%</>。\n装备者通过连携技施加<#ba.spellvul>法术脆弱</>或<#ba.spellinflict>法术附着</>时，攻击力<@ba.vup>+8.4%</>，小队内其他干员攻击力<@ba.vup>+2.1%</>，持续20秒。\n<@ba.info>同名效果最多叠加2层，每层单独计算持续时间。</>",
             "en": "Nature DMG Dealt <@ba.vup>+9.8%</>.\nWhen the wielder applies <#ba.spellvul>Arts Susceptibility</> or <#ba.spellinflict>Arts Infliction</> with a combo skill, the wielder gains ATK <@ba.vup>+8.4%</> while other operators in the team gain ATK <@ba.vup>+2.1%</>. Duration: 20s.\n<@ba.info>Max stacks for effects of the same name: 2. Duration of each stack is counted separately.</>",
-            "ja": "自然ダメージ<@ba.vup>+9.8%</>\n装備中、自身の連携技で<#ba.spellvul>アーツ脆弱</>または<#ba.spellinflict>アーツ付着</>を付与したとき、20秒間攻撃力<@ba.vup>+8.4%</>、チーム内の他のオペレーターの攻撃力<@ba.vup>+2.1%</>\n<@ba.info>同名効果は2回まで重ね掛け可能\n効果の持続時間は個別にカウントされる</>",
+            "ja": "自然ダメージ<@ba.vup>+9.8%</>\n装備中、自身の連携技で<#ba.spellvul>アーツ脆弱</>または<#ba.spellinflict>アーツ付着</>を付与するとき、20秒間攻撃力<@ba.vup>+8.4%</>、チーム内の他のオペレーターの攻撃力<@ba.vup>+2.1%</>\n<@ba.info>同名効果は2回まで重ね掛け可能\n効果の持続時間は個別にカウントされる</>",
             "zh-TW": "自然傷害<@ba.vup>+9.8%</>。\n裝備者透過連攜技施加<#ba.spellvul>法術脆弱</>或<#ba.spellinflict>法術附著</>時，攻擊力<@ba.vup>+8.4%</>，小隊內其他幹員攻擊力<@ba.vup>+2.1%</>，持續20秒。\n<@ba.info>同名效果最多疊加2層，每層單獨計算持續時間。</>"
           }
         },
@@ -814,7 +814,7 @@
           "description": {
             "zh-CN": "自然伤害<@ba.vup>+11.2%</>。\n装备者通过连携技施加<#ba.spellvul>法术脆弱</>或<#ba.spellinflict>法术附着</>时，攻击力<@ba.vup>+9.6%</>，小队内其他干员攻击力<@ba.vup>+2.4%</>，持续20秒。\n<@ba.info>同名效果最多叠加2层，每层单独计算持续时间。</>",
             "en": "Nature DMG Dealt <@ba.vup>+11.2%</>.\nWhen the wielder applies <#ba.spellvul>Arts Susceptibility</> or <#ba.spellinflict>Arts Infliction</> with a combo skill, the wielder gains ATK <@ba.vup>+9.6%</> while other operators in the team gain ATK <@ba.vup>+2.4%</>. Duration: 20s.\n<@ba.info>Max stacks for effects of the same name: 2. Duration of each stack is counted separately.</>",
-            "ja": "自然ダメージ<@ba.vup>+11.2%</>\n装備中、自身の連携技で<#ba.spellvul>アーツ脆弱</>または<#ba.spellinflict>アーツ付着</>を付与したとき、20秒間攻撃力<@ba.vup>+9.6%</>、チーム内の他のオペレーターの攻撃力<@ba.vup>+2.4%</>\n<@ba.info>同名効果は2回まで重ね掛け可能\n効果の持続時間は個別にカウントされる</>",
+            "ja": "自然ダメージ<@ba.vup>+11.2%</>\n装備中、自身の連携技で<#ba.spellvul>アーツ脆弱</>または<#ba.spellinflict>アーツ付着</>を付与するとき、20秒間攻撃力<@ba.vup>+9.6%</>、チーム内の他のオペレーターの攻撃力<@ba.vup>+2.4%</>\n<@ba.info>同名効果は2回まで重ね掛け可能\n効果の持続時間は個別にカウントされる</>",
             "zh-TW": "自然傷害<@ba.vup>+11.2%</>。\n裝備者透過連攜技施加<#ba.spellvul>法術脆弱</>或<#ba.spellinflict>法術附著</>時，攻擊力<@ba.vup>+9.6%</>，小隊內其他幹員攻擊力<@ba.vup>+2.4%</>，持續20秒。\n<@ba.info>同名效果最多疊加2層，每層單獨計算持續時間。</>"
           }
         },
@@ -823,7 +823,7 @@
           "description": {
             "zh-CN": "自然伤害<@ba.vup>+12.6%</>。\n装备者通过连携技施加<#ba.spellvul>法术脆弱</>或<#ba.spellinflict>法术附着</>时，攻击力<@ba.vup>+10.8%</>，小队内其他干员攻击力<@ba.vup>+2.7%</>，持续20秒。\n<@ba.info>同名效果最多叠加2层，每层单独计算持续时间。</>",
             "en": "Nature DMG Dealt <@ba.vup>+12.6%</>.\nWhen the wielder applies <#ba.spellvul>Arts Susceptibility</> or <#ba.spellinflict>Arts Infliction</> with a combo skill, the wielder gains ATK <@ba.vup>+10.8%</> while other operators in the team gain ATK <@ba.vup>+2.7%</>. Duration: 20s.\n<@ba.info>Max stacks for effects of the same name: 2. Duration of each stack is counted separately.</>",
-            "ja": "自然ダメージ<@ba.vup>+12.6%</>\n装備中、自身の連携技で<#ba.spellvul>アーツ脆弱</>または<#ba.spellinflict>アーツ付着</>を付与したとき、20秒間攻撃力<@ba.vup>+10.8%</>、チーム内の他のオペレーターの攻撃力<@ba.vup>+2.7%</>\n<@ba.info>同名効果は2回まで重ね掛け可能\n効果の持続時間は個別にカウントされる</>",
+            "ja": "自然ダメージ<@ba.vup>+12.6%</>\n装備中、自身の連携技で<#ba.spellvul>アーツ脆弱</>または<#ba.spellinflict>アーツ付着</>を付与するとき、20秒間攻撃力<@ba.vup>+10.8%</>、チーム内の他のオペレーターの攻撃力<@ba.vup>+2.7%</>\n<@ba.info>同名効果は2回まで重ね掛け可能\n効果の持続時間は個別にカウントされる</>",
             "zh-TW": "自然傷害<@ba.vup>+12.6%</>。\n裝備者透過連攜技施加<#ba.spellvul>法術脆弱</>或<#ba.spellinflict>法術附著</>時，攻擊力<@ba.vup>+10.8%</>，小隊內其他幹員攻擊力<@ba.vup>+2.7%</>，持續20秒。\n<@ba.info>同名效果最多疊加2層，每層單獨計算持續時間。</>"
           }
         },
@@ -832,7 +832,7 @@
           "description": {
             "zh-CN": "自然伤害<@ba.vup>+14.0%</>。\n装备者通过连携技施加<#ba.spellvul>法术脆弱</>或<#ba.spellinflict>法术附着</>时，攻击力<@ba.vup>+12.0%</>，小队内其他干员攻击力<@ba.vup>+3.0%</>，持续20秒。\n<@ba.info>同名效果最多叠加2层，每层单独计算持续时间。</>",
             "en": "Nature DMG Dealt <@ba.vup>+14.0%</>.\nWhen the wielder applies <#ba.spellvul>Arts Susceptibility</> or <#ba.spellinflict>Arts Infliction</> with a combo skill, the wielder gains ATK <@ba.vup>+12.0%</> while other operators in the team gain ATK <@ba.vup>+3.0%</>. Duration: 20s.\n<@ba.info>Max stacks for effects of the same name: 2. Duration of each stack is counted separately.</>",
-            "ja": "自然ダメージ<@ba.vup>+14.0%</>\n装備中、自身の連携技で<#ba.spellvul>アーツ脆弱</>または<#ba.spellinflict>アーツ付着</>を付与したとき、20秒間攻撃力<@ba.vup>+12.0%</>、チーム内の他のオペレーターの攻撃力<@ba.vup>+3.0%</>\n<@ba.info>同名効果は2回まで重ね掛け可能\n効果の持続時間は個別にカウントされる</>",
+            "ja": "自然ダメージ<@ba.vup>+14.0%</>\n装備中、自身の連携技で<#ba.spellvul>アーツ脆弱</>または<#ba.spellinflict>アーツ付着</>を付与するとき、20秒間攻撃力<@ba.vup>+12.0%</>、チーム内の他のオペレーターの攻撃力<@ba.vup>+3.0%</>\n<@ba.info>同名効果は2回まで重ね掛け可能\n効果の持続時間は個別にカウントされる</>",
             "zh-TW": "自然傷害<@ba.vup>+14.0%</>。\n裝備者透過連攜技施加<#ba.spellvul>法術脆弱</>或<#ba.spellinflict>法術附著</>時，攻擊力<@ba.vup>+12.0%</>，小隊內其他幹員攻擊力<@ba.vup>+3.0%</>，持續20秒。\n<@ba.info>同名效果最多疊加2層，每層單獨計算持續時間。</>"
           }
         },
@@ -841,7 +841,7 @@
           "description": {
             "zh-CN": "自然伤害<@ba.vup>+15.4%</>。\n装备者通过连携技施加<#ba.spellvul>法术脆弱</>或<#ba.spellinflict>法术附着</>时，攻击力<@ba.vup>+13.2%</>，小队内其他干员攻击力<@ba.vup>+3.3%</>，持续20秒。\n<@ba.info>同名效果最多叠加2层，每层单独计算持续时间。</>",
             "en": "Nature DMG Dealt <@ba.vup>+15.4%</>.\nWhen the wielder applies <#ba.spellvul>Arts Susceptibility</> or <#ba.spellinflict>Arts Infliction</> with a combo skill, the wielder gains ATK <@ba.vup>+13.2%</> while other operators in the team gain ATK <@ba.vup>+3.3%</>. Duration: 20s.\n<@ba.info>Max stacks for effects of the same name: 2. Duration of each stack is counted separately.</>",
-            "ja": "自然ダメージ<@ba.vup>+15.4%</>\n装備中、自身の連携技で<#ba.spellvul>アーツ脆弱</>または<#ba.spellinflict>アーツ付着</>を付与したとき、20秒間攻撃力<@ba.vup>+13.2%</>、チーム内の他のオペレーターの攻撃力<@ba.vup>+3.3%</>\n<@ba.info>同名効果は2回まで重ね掛け可能\n効果の持続時間は個別にカウントされる</>",
+            "ja": "自然ダメージ<@ba.vup>+15.4%</>\n装備中、自身の連携技で<#ba.spellvul>アーツ脆弱</>または<#ba.spellinflict>アーツ付着</>を付与するとき、20秒間攻撃力<@ba.vup>+13.2%</>、チーム内の他のオペレーターの攻撃力<@ba.vup>+3.3%</>\n<@ba.info>同名効果は2回まで重ね掛け可能\n効果の持続時間は個別にカウントされる</>",
             "zh-TW": "自然傷害<@ba.vup>+15.4%</>。\n裝備者透過連攜技施加<#ba.spellvul>法術脆弱</>或<#ba.spellinflict>法術附著</>時，攻擊力<@ba.vup>+13.2%</>，小隊內其他幹員攻擊力<@ba.vup>+3.3%</>，持續20秒。\n<@ba.info>同名效果最多疊加2層，每層單獨計算持續時間。</>"
           }
         },
@@ -850,7 +850,7 @@
           "description": {
             "zh-CN": "自然伤害<@ba.vup>+16.8%</>。\n装备者通过连携技施加<#ba.spellvul>法术脆弱</>或<#ba.spellinflict>法术附着</>时，攻击力<@ba.vup>+14.4%</>，小队内其他干员攻击力<@ba.vup>+3.6%</>，持续20秒。\n<@ba.info>同名效果最多叠加2层，每层单独计算持续时间。</>",
             "en": "Nature DMG Dealt <@ba.vup>+16.8%</>.\nWhen the wielder applies <#ba.spellvul>Arts Susceptibility</> or <#ba.spellinflict>Arts Infliction</> with a combo skill, the wielder gains ATK <@ba.vup>+14.4%</> while other operators in the team gain ATK <@ba.vup>+3.6%</>. Duration: 20s.\n<@ba.info>Max stacks for effects of the same name: 2. Duration of each stack is counted separately.</>",
-            "ja": "自然ダメージ<@ba.vup>+16.8%</>\n装備中、自身の連携技で<#ba.spellvul>アーツ脆弱</>または<#ba.spellinflict>アーツ付着</>を付与したとき、20秒間攻撃力<@ba.vup>+14.4%</>、チーム内の他のオペレーターの攻撃力<@ba.vup>+3.6%</>\n<@ba.info>同名効果は2回まで重ね掛け可能\n効果の持続時間は個別にカウントされる</>",
+            "ja": "自然ダメージ<@ba.vup>+16.8%</>\n装備中、自身の連携技で<#ba.spellvul>アーツ脆弱</>または<#ba.spellinflict>アーツ付着</>を付与するとき、20秒間攻撃力<@ba.vup>+14.4%</>、チーム内の他のオペレーターの攻撃力<@ba.vup>+3.6%</>\n<@ba.info>同名効果は2回まで重ね掛け可能\n効果の持続時間は個別にカウントされる</>",
             "zh-TW": "自然傷害<@ba.vup>+16.8%</>。\n裝備者透過連攜技施加<#ba.spellvul>法術脆弱</>或<#ba.spellinflict>法術附著</>時，攻擊力<@ba.vup>+14.4%</>，小隊內其他幹員攻擊力<@ba.vup>+3.6%</>，持續20秒。\n<@ba.info>同名效果最多疊加2層，每層單獨計算持續時間。</>"
           }
         },
@@ -859,7 +859,7 @@
           "description": {
             "zh-CN": "自然伤害<@ba.vup>+19.6%</>。\n装备者通过连携技施加<#ba.spellvul>法术脆弱</>或<#ba.spellinflict>法术附着</>时，攻击力<@ba.vup>+16.8%</>，小队内其他干员攻击力<@ba.vup>+4.2%</>，持续20秒。\n<@ba.info>同名效果最多叠加2层，每层单独计算持续时间。</>",
             "en": "Nature DMG Dealt <@ba.vup>+19.6%</>.\nWhen the wielder applies <#ba.spellvul>Arts Susceptibility</> or <#ba.spellinflict>Arts Infliction</> with a combo skill, the wielder gains ATK <@ba.vup>+16.8%</> while other operators in the team gain ATK <@ba.vup>+4.2%</>. Duration: 20s.\n<@ba.info>Max stacks for effects of the same name: 2. Duration of each stack is counted separately.</>",
-            "ja": "自然ダメージ<@ba.vup>+19.6%</>\n装備中、自身の連携技で<#ba.spellvul>アーツ脆弱</>または<#ba.spellinflict>アーツ付着</>を付与したとき、20秒間攻撃力<@ba.vup>+16.8%</>、チーム内の他のオペレーターの攻撃力<@ba.vup>+4.2%</>\n<@ba.info>同名効果は2回まで重ね掛け可能\n効果の持続時間は個別にカウントされる</>",
+            "ja": "自然ダメージ<@ba.vup>+19.6%</>\n装備中、自身の連携技で<#ba.spellvul>アーツ脆弱</>または<#ba.spellinflict>アーツ付着</>を付与するとき、20秒間攻撃力<@ba.vup>+16.8%</>、チーム内の他のオペレーターの攻撃力<@ba.vup>+4.2%</>\n<@ba.info>同名効果は2回まで重ね掛け可能\n効果の持続時間は個別にカウントされる</>",
             "zh-TW": "自然傷害<@ba.vup>+19.6%</>。\n裝備者透過連攜技施加<#ba.spellvul>法術脆弱</>或<#ba.spellinflict>法術附著</>時，攻擊力<@ba.vup>+16.8%</>，小隊內其他幹員攻擊力<@ba.vup>+4.2%</>，持續20秒。\n<@ba.info>同名效果最多疊加2層，每層單獨計算持續時間。</>"
           }
         }

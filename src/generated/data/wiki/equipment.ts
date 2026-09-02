@@ -18,6 +18,27 @@ export const wikiEquipment = [
     "minimumLevel": 10
   },
   {
+    "id": "item_equip_t4_suit_combo_cd01_hand_01",
+    "category": "equipment",
+    "name": {
+      "zh-CN": "清波手甲",
+      "en": "Qingbo Gauntlets",
+      "ja": "清波ガントレット",
+      "zh-TW": "清波手甲"
+    },
+    "rarity": 5,
+    "imageId": "item_equip_t4_suit_combo_cd01_hand_01",
+    "partTypeId": "1",
+    "suitId": "suit_combo_cd01",
+    "suitName": {
+      "zh-CN": "清波",
+      "en": "Qingbo",
+      "ja": "清波",
+      "zh-TW": "清波"
+    },
+    "minimumLevel": 70
+  },
+  {
     "id": "item_equip_t0_parts_tundra01_body_02",
     "category": "equipment",
     "name": {
@@ -30,6 +51,27 @@ export const wikiEquipment = [
     "imageId": "item_equip_t0_parts_tundra01_body_02",
     "partTypeId": "0",
     "minimumLevel": 10
+  },
+  {
+    "id": "item_equip_t4_suit_attri01_edc_03",
+    "category": "equipment",
+    "name": {
+      "zh-CN": "碾骨小雕像",
+      "en": "Bonekrusha Figurine",
+      "ja": "骨砕の小像",
+      "zh-TW": "碾骨小雕像"
+    },
+    "rarity": 5,
+    "imageId": "item_equip_t4_suit_attri01_edc_06",
+    "partTypeId": "2",
+    "suitId": "suit_attri01",
+    "suitName": {
+      "zh-CN": "碾骨",
+      "en": "Bonekrusha",
+      "ja": "骨砕",
+      "zh-TW": "碾骨"
+    },
+    "minimumLevel": 70
   },
   {
     "id": "item_equip_t0_parts_tundra01_hand_01",
@@ -46,6 +88,27 @@ export const wikiEquipment = [
     "minimumLevel": 10
   },
   {
+    "id": "item_equip_t4_suit_pulse_cryst01_hand_01",
+    "category": "equipment",
+    "name": {
+      "zh-CN": "脉冲式手套",
+      "en": "Pulser Labs Gloves",
+      "ja": "パルス式グローブ",
+      "zh-TW": "脈衝式手套"
+    },
+    "rarity": 5,
+    "imageId": "item_equip_t4_suit_pulse_cryst01_hand_01",
+    "partTypeId": "1",
+    "suitId": "suit_pulse_cryst01",
+    "suitName": {
+      "zh-CN": "脉冲式",
+      "en": "Pulser Labs",
+      "ja": "パルス式",
+      "zh-TW": "脈衝式"
+    },
+    "minimumLevel": 70
+  },
+  {
     "id": "item_equip_t0_parts_tundra01_hand_02",
     "category": "equipment",
     "name": {
@@ -60,25 +123,25 @@ export const wikiEquipment = [
     "minimumLevel": 10
   },
   {
-    "id": "item_equip_t4_suit_atb01_edc_01",
+    "id": "item_equip_t2_suit_wisd01_edc_03",
     "category": "equipment",
     "name": {
-      "zh-CN": "拓荒通信器",
-      "en": "Frontiers Comm",
-      "ja": "パイオニア通信機",
-      "zh-TW": "拓荒通訊器"
+      "zh-CN": "蚀电屏蔽电池",
+      "en": "Mordvolt Insulation Battery",
+      "ja": "蝕電遮断バッテリー",
+      "zh-TW": "蝕電絕緣電池"
     },
-    "rarity": 5,
-    "imageId": "item_equip_t4_suit_atb01_edc_01",
+    "rarity": 3,
+    "imageId": "item_equip_t2_suit_wisd01_edc_03",
     "partTypeId": "2",
-    "suitId": "suit_atb01",
+    "suitId": "suit_wisd01",
     "suitName": {
-      "zh-CN": "拓荒",
-      "en": "Frontiers",
-      "ja": "パイオニア",
-      "zh-TW": "拓荒"
+      "zh-CN": "蚀电屏蔽",
+      "en": "Mordvolt Insulation",
+      "ja": "蝕電遮断",
+      "zh-TW": "蝕電絕緣"
     },
-    "minimumLevel": 70
+    "minimumLevel": 36
   },
   {
     "id": "item_equip_t1_parts_tundra01_body_01",
@@ -109,23 +172,23 @@ export const wikiEquipment = [
     "minimumLevel": 20
   },
   {
-    "id": "item_equip_t4_suit_fire_natr01_edc_04",
+    "id": "item_equip_t4_suit_atb01_edc_01",
     "category": "equipment",
     "name": {
-      "zh-CN": "动火用隔温板",
-      "en": "Hot Work Insulation Slab",
-      "ja": "火山用遮熱板",
-      "zh-TW": "動火用隔溫板"
+      "zh-CN": "拓荒通信器",
+      "en": "Frontiers Comm",
+      "ja": "パイオニア通信機",
+      "zh-TW": "拓荒通訊器"
     },
     "rarity": 5,
-    "imageId": "item_equip_t4_suit_fire_natr01_edc_04",
+    "imageId": "item_equip_t4_suit_atb01_edc_01",
     "partTypeId": "2",
-    "suitId": "suit_fire_natr01",
+    "suitId": "suit_atb01",
     "suitName": {
-      "zh-CN": "动火用",
-      "en": "Hot Work",
-      "ja": "火山用",
-      "zh-TW": "動火用"
+      "zh-CN": "拓荒",
+      "en": "Frontiers",
+      "ja": "パイオニア",
+      "zh-TW": "拓荒"
     },
     "minimumLevel": 70
   },
@@ -144,6 +207,69 @@ export const wikiEquipment = [
     "minimumLevel": 28
   },
   {
+    "id": "item_equip_t3_suit_agi01_body_01",
+    "category": "equipment",
+    "name": {
+      "zh-CN": "巡行信使夹克·壹型",
+      "en": "Roving MSGR Jacket T1",
+      "ja": "遍歴トランスポータージャケットⅠ",
+      "zh-TW": "巡行信使夾克·I"
+    },
+    "rarity": 4,
+    "imageId": "item_equip_t3_suit_agi01_body_01",
+    "partTypeId": "0",
+    "suitId": "suit_agi01",
+    "suitName": {
+      "zh-CN": "巡行信使",
+      "en": "Roving MSGR",
+      "ja": "遍歴トランスポーター",
+      "zh-TW": "巡行信使"
+    },
+    "minimumLevel": 50
+  },
+  {
+    "id": "item_equip_t3_suit_atk01_edc_02",
+    "category": "equipment",
+    "name": {
+      "zh-CN": "阿伯莉侦听芯片",
+      "en": "Aburrey Auditory Chip",
+      "ja": "アブリー聴覚チップ",
+      "zh-TW": "阿伯莉偵聽晶片"
+    },
+    "rarity": 4,
+    "imageId": "item_equip_t3_suit_atk01_edc_02",
+    "partTypeId": "2",
+    "suitId": "suit_atk01",
+    "suitName": {
+      "zh-CN": "阿伯莉遗声",
+      "en": "Aburrey's Legacy",
+      "ja": "アブリー遺声",
+      "zh-TW": "阿伯莉遺聲"
+    },
+    "minimumLevel": 50
+  },
+  {
+    "id": "item_equip_t4_suit_criti01_body_06",
+    "category": "equipment",
+    "name": {
+      "zh-CN": "M.I.警用护甲·壹型",
+      "en": "MI Security Armor T1",
+      "ja": "M.I.警備防具Ⅰ",
+      "zh-TW": "M. I.警用護甲·I"
+    },
+    "rarity": 5,
+    "imageId": "item_equip_t4_suit_criti01_body_06",
+    "partTypeId": "0",
+    "suitId": "suit_criti01",
+    "suitName": {
+      "zh-CN": "M.I.警用",
+      "en": "MI Security",
+      "ja": "M.I.警備",
+      "zh-TW": "M. I.警用"
+    },
+    "minimumLevel": 70
+  },
+  {
     "id": "item_equip_t1_parts_tundra01_body_04",
     "category": "equipment",
     "name": {
@@ -156,6 +282,27 @@ export const wikiEquipment = [
     "imageId": "item_equip_t1_parts_tundra01_body_04",
     "partTypeId": "0",
     "minimumLevel": 28
+  },
+  {
+    "id": "item_equip_t2_suit_wisd01_edc_01",
+    "category": "equipment",
+    "name": {
+      "zh-CN": "蚀电屏蔽扳手",
+      "en": "Mordvolt Insulation Wrench",
+      "ja": "蝕電遮断スパナ",
+      "zh-TW": "蝕電絕緣扳手"
+    },
+    "rarity": 3,
+    "imageId": "item_equip_t2_suit_wisd01_edc_01",
+    "partTypeId": "2",
+    "suitId": "suit_wisd01",
+    "suitName": {
+      "zh-CN": "蚀电屏蔽",
+      "en": "Mordvolt Insulation",
+      "ja": "蝕電遮断",
+      "zh-TW": "蝕電絕緣"
+    },
+    "minimumLevel": 36
   },
   {
     "id": "item_equip_t1_parts_tundra01_body_05",
@@ -172,86 +319,23 @@ export const wikiEquipment = [
     "minimumLevel": 28
   },
   {
-    "id": "item_equip_t3_suit_agi01_edc_03",
+    "id": "item_equip_t4_suit_atk02_body_02",
     "category": "equipment",
     "name": {
-      "zh-CN": "巡行信使陀螺·壹型",
-      "en": "Roving MSGR Gyro T1",
-      "ja": "遍歴トランスポーターのスピナーⅠ",
-      "zh-TW": "巡行信使陀螺·I"
-    },
-    "rarity": 4,
-    "imageId": "item_equip_t3_suit_agi01_edc_03",
-    "partTypeId": "2",
-    "suitId": "suit_agi01",
-    "suitName": {
-      "zh-CN": "巡行信使",
-      "en": "Roving MSGR",
-      "ja": "遍歴トランスポーター",
-      "zh-TW": "巡行信使"
-    },
-    "minimumLevel": 50
-  },
-  {
-    "id": "item_equip_t3_suit_str01_hand_02",
-    "category": "equipment",
-    "name": {
-      "zh-CN": "重装信使手套·贰型",
-      "en": "Armored MSGR Gloves T2",
-      "ja": "重装トランスポーターグローブⅡ",
-      "zh-TW": "重裝信使手套·II"
-    },
-    "rarity": 4,
-    "imageId": "item_equip_t3_suit_str01_hand_02",
-    "partTypeId": "1",
-    "suitId": "suit_str01",
-    "suitName": {
-      "zh-CN": "重装信使",
-      "en": "Armored MSGR",
-      "ja": "重装トランスポーター",
-      "zh-TW": "重裝信使"
-    },
-    "minimumLevel": 50
-  },
-  {
-    "id": "item_equip_t4_suit_crush_fracture_edc_02",
-    "category": "equipment",
-    "name": {
-      "zh-CN": "旧锋刺刃·壹型",
-      "en": "Grizzled Edge Push Knife T1",
-      "ja": "旧鋒ナイフⅠ",
-      "zh-TW": "舊鋒刺刃·I"
+      "zh-CN": "50式应龙重甲·壹型",
+      "en": "Type 50 Yinglung Heavy Armor T1",
+      "ja": "50式応龍重防具Ⅰ",
+      "zh-TW": "50式應龍重甲·I"
     },
     "rarity": 5,
-    "imageId": "item_equip_t4_suit_crush_fracture_edc_02",
-    "partTypeId": "2",
-    "suitId": "suit_crush_fracture",
+    "imageId": "item_equip_t4_suit_atk02_body_02",
+    "partTypeId": "0",
+    "suitId": "suit_atk02",
     "suitName": {
-      "zh-CN": "旧锋",
-      "en": "Grizzled Edge",
-      "ja": "旧鋒",
-      "zh-TW": "舊鋒"
-    },
-    "minimumLevel": 70
-  },
-  {
-    "id": "item_equip_t4_suit_phy01_edc_03",
-    "category": "equipment",
-    "name": {
-      "zh-CN": "点剑火石",
-      "en": "Swordmancer Flint",
-      "ja": "宏山点剣火石",
-      "zh-TW": "點劍火石"
-    },
-    "rarity": 5,
-    "imageId": "item_equip_t4_suit_phy01_edc_03",
-    "partTypeId": "2",
-    "suitId": "suit_phy01",
-    "suitName": {
-      "zh-CN": "点剑",
-      "en": "Swordmancer",
-      "ja": "宏山点剣",
-      "zh-TW": "點劍"
+      "zh-CN": "50式应龙",
+      "en": "Type 50 Yinglung",
+      "ja": "50式応龍",
+      "zh-TW": "50式應龍"
     },
     "minimumLevel": 70
   },
@@ -270,6 +354,27 @@ export const wikiEquipment = [
     "minimumLevel": 28
   },
   {
+    "id": "item_equip_t4_suit_criti01_body_03",
+    "category": "equipment",
+    "name": {
+      "zh-CN": "M.I.警用罩衣·壹型",
+      "en": "MI Security Overalls T1",
+      "ja": "M.I.警備マントⅠ",
+      "zh-TW": "M. I.警用罩衣·I"
+    },
+    "rarity": 5,
+    "imageId": "item_equip_t4_suit_criti01_body_03",
+    "partTypeId": "0",
+    "suitId": "suit_criti01",
+    "suitName": {
+      "zh-CN": "M.I.警用",
+      "en": "MI Security",
+      "ja": "M.I.警備",
+      "zh-TW": "M. I.警用"
+    },
+    "minimumLevel": 70
+  },
+  {
     "id": "item_equip_t1_parts_tundra01_edc_01",
     "category": "equipment",
     "name": {
@@ -282,6 +387,48 @@ export const wikiEquipment = [
     "imageId": "item_equip_t1_parts_tundra01_edc_01",
     "partTypeId": "2",
     "minimumLevel": 20
+  },
+  {
+    "id": "item_equip_t4_suit_heal01_body_01",
+    "category": "equipment",
+    "name": {
+      "zh-CN": "生物辅助重甲",
+      "en": "LYNX Heavy Armor",
+      "ja": "生物補助重防具",
+      "zh-TW": "生物輔助重甲"
+    },
+    "rarity": 5,
+    "imageId": "item_equip_t4_suit_heal01_body_01",
+    "partTypeId": "0",
+    "suitId": "suit_heal01",
+    "suitName": {
+      "zh-CN": "生物辅助",
+      "en": "LYNX",
+      "ja": "生物補助",
+      "zh-TW": "生物輔助"
+    },
+    "minimumLevel": 70
+  },
+  {
+    "id": "item_equip_t4_suit_phy01_body_02",
+    "category": "equipment",
+    "name": {
+      "zh-CN": "点剑重装甲",
+      "en": "Swordmancer Heavy Armor",
+      "ja": "宏山点剣ヘビーアーマー",
+      "zh-TW": "點劍重裝甲"
+    },
+    "rarity": 5,
+    "imageId": "item_equip_t4_suit_phy01_body_02",
+    "partTypeId": "0",
+    "suitId": "suit_phy01",
+    "suitName": {
+      "zh-CN": "点剑",
+      "en": "Swordmancer",
+      "ja": "宏山点剣",
+      "zh-TW": "點劍"
+    },
+    "minimumLevel": 70
   },
   {
     "id": "item_equip_t1_parts_tundra01_edc_02",
@@ -298,6 +445,27 @@ export const wikiEquipment = [
     "minimumLevel": 20
   },
   {
+    "id": "item_equip_t3_suit_usp01_body_01",
+    "category": "equipment",
+    "name": {
+      "zh-CN": "天灾防护重甲",
+      "en": "Catastrophe Heavy Armor",
+      "ja": "天災防護重防具",
+      "zh-TW": "天災防護重甲"
+    },
+    "rarity": 4,
+    "imageId": "item_equip_t3_suit_usp01_body_01",
+    "partTypeId": "0",
+    "suitId": "suit_usp01",
+    "suitName": {
+      "zh-CN": "天灾防护",
+      "en": "Catastrophe",
+      "ja": "天災防護",
+      "zh-TW": "天災防護"
+    },
+    "minimumLevel": 50
+  },
+  {
     "id": "item_equip_t1_parts_tundra01_hand_01",
     "category": "equipment",
     "name": {
@@ -310,6 +478,27 @@ export const wikiEquipment = [
     "imageId": "item_equip_t1_parts_tundra01_hand_01",
     "partTypeId": "1",
     "minimumLevel": 20
+  },
+  {
+    "id": "item_equip_t4_parts_wuling00_body_04",
+    "category": "equipment",
+    "name": {
+      "zh-CN": "集成实训突袭护甲",
+      "en": "AIC Fieldwork Assault Armor",
+      "ja": "集成訓練強襲防具",
+      "zh-TW": "集成實訓突襲護甲"
+    },
+    "rarity": 5,
+    "imageId": "item_equip_t4_parts_wuling00_body_04",
+    "partTypeId": "0",
+    "suitId": "suit_generaltype",
+    "suitName": {
+      "zh-CN": "集成实训",
+      "en": "AIC Fieldwork",
+      "ja": "集成訓練",
+      "zh-TW": "集成實訓"
+    },
+    "minimumLevel": 60
   },
   {
     "id": "item_equip_t1_parts_tundra01_hand_02",
@@ -326,6 +515,48 @@ export const wikiEquipment = [
     "minimumLevel": 28
   },
   {
+    "id": "item_equip_t4_suit_atb01_hand_03",
+    "category": "equipment",
+    "name": {
+      "zh-CN": "拓荒纤维手套·壹型",
+      "en": "Frontiers Fiber Gloves T1",
+      "ja": "パイオニア繊維グローブⅠ",
+      "zh-TW": "拓荒纖維手套·I"
+    },
+    "rarity": 5,
+    "imageId": "item_equip_t4_suit_atb01_hand_03",
+    "partTypeId": "1",
+    "suitId": "suit_atb01",
+    "suitName": {
+      "zh-CN": "拓荒",
+      "en": "Frontiers",
+      "ja": "パイオニア",
+      "zh-TW": "拓荒"
+    },
+    "minimumLevel": 70
+  },
+  {
+    "id": "item_equip_t4_suit_burst01_edc_03",
+    "category": "equipment",
+    "name": {
+      "zh-CN": "浊流切割炬·壹型",
+      "en": "Turbid Cutting Torch T1",
+      "ja": "濁流ホットカッターⅠ",
+      "zh-TW": "濁流切割炬·I"
+    },
+    "rarity": 5,
+    "imageId": "item_equip_t4_suit_burst01_edc_03",
+    "partTypeId": "2",
+    "suitId": "suit_burst01",
+    "suitName": {
+      "zh-CN": "潮涌",
+      "en": "Tide Surge",
+      "ja": "満潮",
+      "zh-TW": "潮湧"
+    },
+    "minimumLevel": 70
+  },
+  {
     "id": "item_equip_t1_parts_tundra01_hand_03",
     "category": "equipment",
     "name": {
@@ -340,17 +571,17 @@ export const wikiEquipment = [
     "minimumLevel": 20
   },
   {
-    "id": "item_equip_t4_suit_atb01_edc_03",
+    "id": "item_equip_t4_suit_atb01_hand_02",
     "category": "equipment",
     "name": {
-      "zh-CN": "拓荒分析仪",
-      "en": "Frontiers Analyzer",
-      "ja": "パイオニア分析装置",
-      "zh-TW": "拓荒分析儀"
+      "zh-CN": "拓荒纤维手套",
+      "en": "Frontiers Fiber Gloves",
+      "ja": "パイオニア繊維グローブ",
+      "zh-TW": "拓荒纖維手套"
     },
     "rarity": 5,
-    "imageId": "item_equip_t4_suit_atb01_edc_03",
-    "partTypeId": "2",
+    "imageId": "item_equip_t4_suit_atb01_hand_02",
+    "partTypeId": "1",
     "suitId": "suit_atb01",
     "suitName": {
       "zh-CN": "拓荒",
@@ -375,6 +606,27 @@ export const wikiEquipment = [
     "minimumLevel": 28
   },
   {
+    "id": "item_equip_t4_parts_wuling00_body_01",
+    "category": "equipment",
+    "name": {
+      "zh-CN": "集成实训护甲",
+      "en": "AIC Fieldwork Armor",
+      "ja": "集成訓練防具",
+      "zh-TW": "集成實訓護甲"
+    },
+    "rarity": 5,
+    "imageId": "item_equip_t4_parts_wuling00_body_01",
+    "partTypeId": "0",
+    "suitId": "suit_generaltype",
+    "suitName": {
+      "zh-CN": "集成实训",
+      "en": "AIC Fieldwork",
+      "ja": "集成訓練",
+      "zh-TW": "集成實訓"
+    },
+    "minimumLevel": 60
+  },
+  {
     "id": "item_equip_t1_suit_stragi01_body_01",
     "category": "equipment",
     "name": {
@@ -396,38 +648,17 @@ export const wikiEquipment = [
     "minimumLevel": 28
   },
   {
-    "id": "item_equip_t3_suit_wisd01_edc_01",
+    "id": "item_equip_t4_suit_criti01_edc_01",
     "category": "equipment",
     "name": {
-      "zh-CN": "蚀电屏蔽扳手·贰型",
-      "en": "Mordvolt Insulation Wrench T2",
-      "ja": "蝕電遮断スパナⅡ",
-      "zh-TW": "蝕電絕緣扳手·II"
-    },
-    "rarity": 4,
-    "imageId": "item_equip_t3_suit_wisd01_edc_01",
-    "partTypeId": "2",
-    "suitId": "suit_wisd01",
-    "suitName": {
-      "zh-CN": "蚀电屏蔽",
-      "en": "Mordvolt Insulation",
-      "ja": "蝕電遮断",
-      "zh-TW": "蝕電絕緣"
-    },
-    "minimumLevel": 50
-  },
-  {
-    "id": "item_equip_t4_suit_criti01_body_04",
-    "category": "equipment",
-    "name": {
-      "zh-CN": "M.I.警用罩衣·贰型",
-      "en": "MI Security Overalls T2",
-      "ja": "M.I.警備マントⅡ",
-      "zh-TW": "M. I.警用罩衣·II"
+      "zh-CN": "M.I.警用臂环",
+      "en": "MI Security Armband",
+      "ja": "M.I.警備アームバンド",
+      "zh-TW": "M. I.警用臂環"
     },
     "rarity": 5,
-    "imageId": "item_equip_t4_suit_criti01_body_04",
-    "partTypeId": "0",
+    "imageId": "item_equip_t4_suit_criti01_edc_01",
+    "partTypeId": "2",
     "suitId": "suit_criti01",
     "suitName": {
       "zh-CN": "M.I.警用",
@@ -459,44 +690,23 @@ export const wikiEquipment = [
     "minimumLevel": 28
   },
   {
-    "id": "item_equip_t3_suit_atk01_edc_04",
+    "id": "item_equip_t4_suit_atb01_edc_03",
     "category": "equipment",
     "name": {
-      "zh-CN": "阿伯莉照明器",
-      "en": "Aburrey Flashlight",
-      "ja": "アブリーライト",
-      "zh-TW": "阿伯莉照明器"
-    },
-    "rarity": 4,
-    "imageId": "item_equip_t3_suit_atk01_edc_04",
-    "partTypeId": "2",
-    "suitId": "suit_atk01",
-    "suitName": {
-      "zh-CN": "阿伯莉遗声",
-      "en": "Aburrey's Legacy",
-      "ja": "アブリー遺声",
-      "zh-TW": "阿伯莉遺聲"
-    },
-    "minimumLevel": 50
-  },
-  {
-    "id": "item_equip_t4_suit_pulse_cryst01_edc_01",
-    "category": "equipment",
-    "name": {
-      "zh-CN": "脉冲式探针",
-      "en": "Pulser Labs Probe",
-      "ja": "パルス式探針",
-      "zh-TW": "脈衝式探針"
+      "zh-CN": "拓荒分析仪",
+      "en": "Frontiers Analyzer",
+      "ja": "パイオニア分析装置",
+      "zh-TW": "拓荒分析儀"
     },
     "rarity": 5,
-    "imageId": "item_equip_t4_suit_pulse_cryst01_edc_01",
+    "imageId": "item_equip_t4_suit_atb01_edc_03",
     "partTypeId": "2",
-    "suitId": "suit_pulse_cryst01",
+    "suitId": "suit_atb01",
     "suitName": {
-      "zh-CN": "脉冲式",
-      "en": "Pulser Labs",
-      "ja": "パルス式",
-      "zh-TW": "脈衝式"
+      "zh-CN": "拓荒",
+      "en": "Frontiers",
+      "ja": "パイオニア",
+      "zh-TW": "拓荒"
     },
     "minimumLevel": 70
   },
@@ -522,20 +732,6 @@ export const wikiEquipment = [
     "minimumLevel": 28
   },
   {
-    "id": "item_equip_t3_parts_tundra01_edc_04",
-    "category": "equipment",
-    "name": {
-      "zh-CN": "矿场联络仪·壹型",
-      "en": "Miner Comm T1",
-      "ja": "鉱山通信機Ⅰ",
-      "zh-TW": "礦場聯絡儀·I"
-    },
-    "rarity": 4,
-    "imageId": "item_equip_t3_parts_tundra01_edc_04",
-    "partTypeId": "2",
-    "minimumLevel": 50
-  },
-  {
     "id": "item_equip_t1_suit_stragi01_hand_01",
     "category": "equipment",
     "name": {
@@ -557,16 +753,16 @@ export const wikiEquipment = [
     "minimumLevel": 28
   },
   {
-    "id": "item_equip_t4_suit_atb01_body_02",
+    "id": "item_equip_t4_suit_atb01_body_04",
     "category": "equipment",
     "name": {
-      "zh-CN": "拓荒护甲·壹型",
-      "en": "Frontiers Armor T1",
-      "ja": "パイオニア防具Ⅰ",
-      "zh-TW": "拓荒護甲·I"
+      "zh-CN": "拓荒护甲·叁型",
+      "en": "Frontiers Armor T3",
+      "ja": "パイオニア防具Ⅲ",
+      "zh-TW": "拓荒護甲III"
     },
     "rarity": 5,
-    "imageId": "item_equip_t4_suit_atb01_body_03",
+    "imageId": "item_equip_t4_suit_atb01_body_02",
     "partTypeId": "0",
     "suitId": "suit_atb01",
     "suitName": {
@@ -574,6 +770,27 @@ export const wikiEquipment = [
       "en": "Frontiers",
       "ja": "パイオニア",
       "zh-TW": "拓荒"
+    },
+    "minimumLevel": 70
+  },
+  {
+    "id": "item_equip_t4_suit_poise01_body_01",
+    "category": "equipment",
+    "name": {
+      "zh-CN": "轻超域护板",
+      "en": "Æthertech Plating",
+      "ja": "軽量超域プレート",
+      "zh-TW": "輕超域護板"
+    },
+    "rarity": 5,
+    "imageId": "item_equip_t4_suit_poise01_body_01",
+    "partTypeId": "0",
+    "suitId": "suit_poise01",
+    "suitName": {
+      "zh-CN": "轻超域",
+      "en": "Æthertech",
+      "ja": "軽量超域",
+      "zh-TW": "輕超域"
     },
     "minimumLevel": 70
   },
@@ -599,25 +816,25 @@ export const wikiEquipment = [
     "minimumLevel": 28
   },
   {
-    "id": "item_equip_t4_suit_fire_natr01_edc_03",
+    "id": "item_equip_t3_suit_agi01_edc_03",
     "category": "equipment",
     "name": {
-      "zh-CN": "动火用电力匣",
-      "en": "Hot Work Power Cartridge",
-      "ja": "火山用モバイルバッテリー",
-      "zh-TW": "動火用電力匣"
+      "zh-CN": "巡行信使陀螺·壹型",
+      "en": "Roving MSGR Gyro T1",
+      "ja": "遍歴トランスポーターのスピナーⅠ",
+      "zh-TW": "巡行信使陀螺·I"
     },
-    "rarity": 5,
-    "imageId": "item_equip_t4_suit_fire_natr01_edc_03",
+    "rarity": 4,
+    "imageId": "item_equip_t3_suit_agi01_edc_03",
     "partTypeId": "2",
-    "suitId": "suit_fire_natr01",
+    "suitId": "suit_agi01",
     "suitName": {
-      "zh-CN": "动火用",
-      "en": "Hot Work",
-      "ja": "火山用",
-      "zh-TW": "動火用"
+      "zh-CN": "巡行信使",
+      "en": "Roving MSGR",
+      "ja": "遍歴トランスポーター",
+      "zh-TW": "巡行信使"
     },
-    "minimumLevel": 70
+    "minimumLevel": 50
   },
   {
     "id": "item_equip_t1_suit_wisdwill01_edc_01",
@@ -641,25 +858,25 @@ export const wikiEquipment = [
     "minimumLevel": 28
   },
   {
-    "id": "item_equip_t4_parts_wuling00_edc_03",
+    "id": "item_equip_t4_suit_attri01_edc_05",
     "category": "equipment",
     "name": {
-      "zh-CN": "集成实训照明器",
-      "en": "AIC Fieldwork Flashlight",
-      "ja": "集成訓練ライト",
-      "zh-TW": "集成實訓照明器"
+      "zh-CN": "碾骨面具·壹型",
+      "en": "Bonekrusha Mask T1",
+      "ja": "骨砕のマスクⅠ",
+      "zh-TW": "碾骨面具·I"
     },
     "rarity": 5,
-    "imageId": "item_equip_t4_parts_wuling00_edc_03",
+    "imageId": "item_equip_t4_suit_attri01_edc_05",
     "partTypeId": "2",
-    "suitId": "suit_generaltype",
+    "suitId": "suit_attri01",
     "suitName": {
-      "zh-CN": "集成实训",
-      "en": "AIC Fieldwork",
-      "ja": "集成訓練",
-      "zh-TW": "集成實訓"
+      "zh-CN": "碾骨",
+      "en": "Bonekrusha",
+      "ja": "骨砕",
+      "zh-TW": "碾骨"
     },
-    "minimumLevel": 60
+    "minimumLevel": 70
   },
   {
     "id": "item_equip_t1_suit_wisdwill01_edc_02",
@@ -683,46 +900,25 @@ export const wikiEquipment = [
     "minimumLevel": 28
   },
   {
-    "id": "item_equip_t3_suit_wisd01_hand_01",
+    "id": "item_equip_t4_parts_wuling00_hand_01",
     "category": "equipment",
     "name": {
-      "zh-CN": "蚀电屏蔽手套·壹型",
-      "en": "Mordvolt Insulation Gloves T1",
-      "ja": "蝕電遮断グローブⅠ",
-      "zh-TW": "蝕電絕緣手套·I"
-    },
-    "rarity": 4,
-    "imageId": "item_equip_t3_suit_wisd01_hand_01",
-    "partTypeId": "1",
-    "suitId": "suit_wisd01",
-    "suitName": {
-      "zh-CN": "蚀电屏蔽",
-      "en": "Mordvolt Insulation",
-      "ja": "蝕電遮断",
-      "zh-TW": "蝕電絕緣"
-    },
-    "minimumLevel": 50
-  },
-  {
-    "id": "item_equip_t4_suit_poise01_edc_04",
-    "category": "equipment",
-    "name": {
-      "zh-CN": "轻超域腕表",
-      "en": "Æthertech Watch",
-      "ja": "軽量超域腕時計",
-      "zh-TW": "輕超域腕錶"
+      "zh-CN": "集成实训手套",
+      "en": "AIC Fieldwork Gloves",
+      "ja": "集成訓練グローブ",
+      "zh-TW": "集成實訓手套"
     },
     "rarity": 5,
-    "imageId": "item_equip_t4_suit_poise01_edc_04",
-    "partTypeId": "2",
-    "suitId": "suit_poise01",
+    "imageId": "item_equip_t4_parts_wuling00_hand_01",
+    "partTypeId": "1",
+    "suitId": "suit_generaltype",
     "suitName": {
-      "zh-CN": "轻超域",
-      "en": "Æthertech",
-      "ja": "軽量超域",
-      "zh-TW": "輕超域"
+      "zh-CN": "集成实训",
+      "en": "AIC Fieldwork",
+      "ja": "集成訓練",
+      "zh-TW": "集成實訓"
     },
-    "minimumLevel": 70
+    "minimumLevel": 60
   },
   {
     "id": "item_equip_t1_suit_wisdwill01_hand_01",
@@ -746,20 +942,6 @@ export const wikiEquipment = [
     "minimumLevel": 28
   },
   {
-    "id": "item_equip_t4_parts_wuling02_edc_01",
-    "category": "equipment",
-    "name": {
-      "zh-CN": "涉渊护甲板",
-      "en": "Rift Trekker Armor Slab",
-      "ja": "渡淵装甲板",
-      "zh-TW": "涉淵護甲板"
-    },
-    "rarity": 5,
-    "imageId": "item_equip_t4_parts_wuling02_edc_01",
-    "partTypeId": "2",
-    "minimumLevel": 70
-  },
-  {
     "id": "item_equip_t2_parts_tundra01_edc_01",
     "category": "equipment",
     "name": {
@@ -771,6 +953,27 @@ export const wikiEquipment = [
     "rarity": 3,
     "imageId": "item_equip_t2_parts_tundra01_edc_01",
     "partTypeId": "2",
+    "minimumLevel": 36
+  },
+  {
+    "id": "item_equip_t2_suit_str01_body_01",
+    "category": "equipment",
+    "name": {
+      "zh-CN": "重装信使夹克",
+      "en": "Armored MSGR Jacket",
+      "ja": "重装トランスポータージャケット",
+      "zh-TW": "重裝信使夾克"
+    },
+    "rarity": 3,
+    "imageId": "item_equip_t2_suit_str01_body_01",
+    "partTypeId": "0",
+    "suitId": "suit_str01",
+    "suitName": {
+      "zh-CN": "重装信使",
+      "en": "Armored MSGR",
+      "ja": "重装トランスポーター",
+      "zh-TW": "重裝信使"
+    },
     "minimumLevel": 36
   },
   {
@@ -788,25 +991,25 @@ export const wikiEquipment = [
     "minimumLevel": 36
   },
   {
-    "id": "item_equip_t4_suit_attri01_edc_02",
+    "id": "item_equip_t3_suit_wisd01_edc_01",
     "category": "equipment",
     "name": {
-      "zh-CN": "碾骨小雕像·贰型",
-      "en": "Bonekrusha Figurine T2",
-      "ja": "骨砕の小像Ⅱ",
-      "zh-TW": "碾骨小雕像·II"
+      "zh-CN": "蚀电屏蔽扳手·贰型",
+      "en": "Mordvolt Insulation Wrench T2",
+      "ja": "蝕電遮断スパナⅡ",
+      "zh-TW": "蝕電絕緣扳手·II"
     },
-    "rarity": 5,
-    "imageId": "item_equip_t4_suit_attri01_edc_02",
+    "rarity": 4,
+    "imageId": "item_equip_t3_suit_wisd01_edc_01",
     "partTypeId": "2",
-    "suitId": "suit_attri01",
+    "suitId": "suit_wisd01",
     "suitName": {
-      "zh-CN": "碾骨",
-      "en": "Bonekrusha",
-      "ja": "骨砕",
-      "zh-TW": "碾骨"
+      "zh-CN": "蚀电屏蔽",
+      "en": "Mordvolt Insulation",
+      "ja": "蝕電遮断",
+      "zh-TW": "蝕電絕緣"
     },
-    "minimumLevel": 70
+    "minimumLevel": 50
   },
   {
     "id": "item_equip_t2_parts_tundra01_edc_03",
@@ -837,27 +1040,6 @@ export const wikiEquipment = [
     "minimumLevel": 36
   },
   {
-    "id": "item_equip_t3_suit_usp01_hand_01",
-    "category": "equipment",
-    "name": {
-      "zh-CN": "天灾防护手套",
-      "en": "Catastrophe Gloves",
-      "ja": "天災防護グローブ",
-      "zh-TW": "天災防護手套"
-    },
-    "rarity": 4,
-    "imageId": "item_equip_t3_suit_usp01_hand_01",
-    "partTypeId": "1",
-    "suitId": "suit_usp01",
-    "suitName": {
-      "zh-CN": "天灾防护",
-      "en": "Catastrophe",
-      "ja": "天災防護",
-      "zh-TW": "天災防護"
-    },
-    "minimumLevel": 50
-  },
-  {
     "id": "item_equip_t2_parts_tundra01_hand_01",
     "category": "equipment",
     "name": {
@@ -870,48 +1052,6 @@ export const wikiEquipment = [
     "imageId": "item_equip_t2_parts_tundra01_hand_01",
     "partTypeId": "1",
     "minimumLevel": 36
-  },
-  {
-    "id": "item_equip_t4_suit_expend_spell01_body_02",
-    "category": "equipment",
-    "name": {
-      "zh-CN": "壤流轻甲",
-      "en": "Xiranflow Light Armor",
-      "ja": "壌流軽防具",
-      "zh-TW": "壤流輕甲"
-    },
-    "rarity": 5,
-    "imageId": "item_equip_t4_suit_expend_spell01_body_02",
-    "partTypeId": "0",
-    "suitId": "suit_expend_spell01",
-    "suitName": {
-      "zh-CN": "壤流",
-      "en": "Xiranflow",
-      "ja": "壌流",
-      "zh-TW": "壤流"
-    },
-    "minimumLevel": 70
-  },
-  {
-    "id": "item_equip_t4_suit_expend_spell01_edc_02",
-    "category": "equipment",
-    "name": {
-      "zh-CN": "壤流短棍",
-      "en": "Xiranflow Baton",
-      "ja": "壌流棍棒",
-      "zh-TW": "壤流短棍"
-    },
-    "rarity": 5,
-    "imageId": "item_equip_t4_suit_expend_spell01_edc_02",
-    "partTypeId": "2",
-    "suitId": "suit_expend_spell01",
-    "suitName": {
-      "zh-CN": "壤流",
-      "en": "Xiranflow",
-      "ja": "壌流",
-      "zh-TW": "壤流"
-    },
-    "minimumLevel": 70
   },
   {
     "id": "item_equip_t2_parts_tundra01_hand_02",
@@ -928,25 +1068,25 @@ export const wikiEquipment = [
     "minimumLevel": 36
   },
   {
-    "id": "item_equip_t3_suit_atk01_hand_01",
+    "id": "item_equip_t4_suit_usp02_edc_03",
     "category": "equipment",
     "name": {
-      "zh-CN": "阿伯莉手甲",
-      "en": "Aburrey Gauntlets",
-      "ja": "アブリーガントレット",
-      "zh-TW": "阿伯莉手甲"
+      "zh-CN": "长息辅助臂",
+      "en": "Eternal Xiranite Auxiliary Arm",
+      "ja": "流転ロボットアーム",
+      "zh-TW": "長息輔助臂"
     },
-    "rarity": 4,
-    "imageId": "item_equip_t3_suit_atk01_hand_01",
-    "partTypeId": "1",
-    "suitId": "suit_atk01",
+    "rarity": 5,
+    "imageId": "item_equip_t4_suit_usp02_edc_03",
+    "partTypeId": "2",
+    "suitId": "suit_usp02",
     "suitName": {
-      "zh-CN": "阿伯莉遗声",
-      "en": "Aburrey's Legacy",
-      "ja": "アブリー遺声",
-      "zh-TW": "阿伯莉遺聲"
+      "zh-CN": "长息",
+      "en": "Eternal Xiranite",
+      "ja": "流転",
+      "zh-TW": "長息"
     },
-    "minimumLevel": 50
+    "minimumLevel": 70
   },
   {
     "id": "item_equip_t2_suit_agi01_body_01",
@@ -970,44 +1110,44 @@ export const wikiEquipment = [
     "minimumLevel": 36
   },
   {
-    "id": "item_equip_t2_suit_str01_hand_01",
+    "id": "item_equip_t4_suit_combo_cd01_edc_04",
     "category": "equipment",
     "name": {
-      "zh-CN": "重装信使手套",
-      "en": "Armored MSGR Gloves",
-      "ja": "重装トランスポーターグローブ",
-      "zh-TW": "重裝信使手套"
-    },
-    "rarity": 3,
-    "imageId": "item_equip_t2_suit_str01_hand_01",
-    "partTypeId": "1",
-    "suitId": "suit_str01",
-    "suitName": {
-      "zh-CN": "重装信使",
-      "en": "Armored MSGR",
-      "ja": "重装トランスポーター",
-      "zh-TW": "重裝信使"
-    },
-    "minimumLevel": 36
-  },
-  {
-    "id": "item_equip_t4_suit_phy01_hand_01",
-    "category": "equipment",
-    "name": {
-      "zh-CN": "点剑战术手套",
-      "en": "Swordmancer TAC Gloves",
-      "ja": "宏山点剣戦闘用グローブ",
-      "zh-TW": "點劍戰術手套"
+      "zh-CN": "清波定位仪·壹型",
+      "en": "Qingbo Positioning Kit T1",
+      "ja": "清波探知器具Ⅰ",
+      "zh-TW": "清波定位儀·I"
     },
     "rarity": 5,
-    "imageId": "item_equip_t4_suit_phy01_hand_01",
-    "partTypeId": "1",
-    "suitId": "suit_phy01",
+    "imageId": "item_equip_t4_suit_combo_cd01_edc_04",
+    "partTypeId": "2",
+    "suitId": "suit_combo_cd01",
     "suitName": {
-      "zh-CN": "点剑",
-      "en": "Swordmancer",
-      "ja": "宏山点剣",
-      "zh-TW": "點劍"
+      "zh-CN": "清波",
+      "en": "Qingbo",
+      "ja": "清波",
+      "zh-TW": "清波"
+    },
+    "minimumLevel": 70
+  },
+  {
+    "id": "item_equip_t4_suit_pulse_cryst01_body_01",
+    "category": "equipment",
+    "name": {
+      "zh-CN": "脉冲式干扰服",
+      "en": "Pulser Labs Disruptor Suit",
+      "ja": "パルス式妨害服",
+      "zh-TW": "脈衝式干擾服"
+    },
+    "rarity": 5,
+    "imageId": "item_equip_t4_suit_pulse_cryst01_body_01",
+    "partTypeId": "0",
+    "suitId": "suit_pulse_cryst01",
+    "suitName": {
+      "zh-CN": "脉冲式",
+      "en": "Pulser Labs",
+      "ja": "パルス式",
+      "zh-TW": "脈衝式"
     },
     "minimumLevel": 70
   },
@@ -1054,25 +1194,18 @@ export const wikiEquipment = [
     "minimumLevel": 36
   },
   {
-    "id": "item_equip_t2_suit_wisd01_hand_01",
+    "id": "item_equip_t3_parts_tundra01_hand_02",
     "category": "equipment",
     "name": {
-      "zh-CN": "蚀电屏蔽手套",
-      "en": "Mordvolt Insulation Gloves",
-      "ja": "蝕電遮断グローブ",
-      "zh-TW": "蝕電絕緣手套"
+      "zh-CN": "矿场护手·壹型",
+      "en": "Miner Fists T1",
+      "ja": "鉱山プロテクターⅠ",
+      "zh-TW": "礦場護手·I"
     },
-    "rarity": 3,
-    "imageId": "item_equip_t2_suit_wisd01_hand_01",
+    "rarity": 4,
+    "imageId": "item_equip_t3_parts_tundra01_hand_02",
     "partTypeId": "1",
-    "suitId": "suit_wisd01",
-    "suitName": {
-      "zh-CN": "蚀电屏蔽",
-      "en": "Mordvolt Insulation",
-      "ja": "蝕電遮断",
-      "zh-TW": "蝕電絕緣"
-    },
-    "minimumLevel": 36
+    "minimumLevel": 50
   },
   {
     "id": "item_equip_t2_suit_agi01_hand_01",
@@ -1096,25 +1229,25 @@ export const wikiEquipment = [
     "minimumLevel": 36
   },
   {
-    "id": "item_equip_t2_suit_str01_body_01",
+    "id": "item_equip_t4_suit_fire_natr01_edc_01",
     "category": "equipment",
     "name": {
-      "zh-CN": "重装信使夹克",
-      "en": "Armored MSGR Jacket",
-      "ja": "重装トランスポータージャケット",
-      "zh-TW": "重裝信使夾克"
+      "zh-CN": "动火用储能匣",
+      "en": "Hot Work Power Bank",
+      "ja": "火山用パワーバッテリー",
+      "zh-TW": "動火用儲能匣"
     },
-    "rarity": 3,
-    "imageId": "item_equip_t2_suit_str01_body_01",
-    "partTypeId": "0",
-    "suitId": "suit_str01",
+    "rarity": 5,
+    "imageId": "item_equip_t4_suit_fire_natr01_edc_01",
+    "partTypeId": "2",
+    "suitId": "suit_fire_natr01",
     "suitName": {
-      "zh-CN": "重装信使",
-      "en": "Armored MSGR",
-      "ja": "重装トランスポーター",
-      "zh-TW": "重裝信使"
+      "zh-CN": "动火用",
+      "en": "Hot Work",
+      "ja": "火山用",
+      "zh-TW": "動火用"
     },
-    "minimumLevel": 36
+    "minimumLevel": 70
   },
   {
     "id": "item_equip_t2_suit_str01_edc_01",
@@ -1138,6 +1271,27 @@ export const wikiEquipment = [
     "minimumLevel": 36
   },
   {
+    "id": "item_equip_t4_suit_attri01_hand_01",
+    "category": "equipment",
+    "name": {
+      "zh-CN": "碾骨腕带",
+      "en": "Bonekrusha Wristband",
+      "ja": "骨砕のグローブ",
+      "zh-TW": "碾骨腕帶"
+    },
+    "rarity": 5,
+    "imageId": "item_equip_t4_suit_attri01_hand_01",
+    "partTypeId": "1",
+    "suitId": "suit_attri01",
+    "suitName": {
+      "zh-CN": "碾骨",
+      "en": "Bonekrusha",
+      "ja": "骨砕",
+      "zh-TW": "碾骨"
+    },
+    "minimumLevel": 70
+  },
+  {
     "id": "item_equip_t2_suit_str01_edc_02",
     "category": "equipment",
     "name": {
@@ -1155,230 +1309,6 @@ export const wikiEquipment = [
       "en": "Armored MSGR",
       "ja": "重装トランスポーター",
       "zh-TW": "重裝信使"
-    },
-    "minimumLevel": 36
-  },
-  {
-    "id": "item_equip_t3_suit_agi01_edc_01",
-    "category": "equipment",
-    "name": {
-      "zh-CN": "巡行信使手电·壹型",
-      "en": "Roving MSGR Flashlight T1",
-      "ja": "遍歴トランスポーターライトⅠ",
-      "zh-TW": "巡行信使手電筒·I"
-    },
-    "rarity": 4,
-    "imageId": "item_equip_t3_suit_agi01_edc_01",
-    "partTypeId": "2",
-    "suitId": "suit_agi01",
-    "suitName": {
-      "zh-CN": "巡行信使",
-      "en": "Roving MSGR",
-      "ja": "遍歴トランスポーター",
-      "zh-TW": "巡行信使"
-    },
-    "minimumLevel": 50
-  },
-  {
-    "id": "item_equip_t2_suit_will01_body_01",
-    "category": "equipment",
-    "name": {
-      "zh-CN": "蚀电防护背心",
-      "en": "Mordvolt Resistant Vest",
-      "ja": "蝕電防護ベスト",
-      "zh-TW": "蝕電防護背心"
-    },
-    "rarity": 3,
-    "imageId": "item_equip_t2_suit_will01_body_01",
-    "partTypeId": "0",
-    "suitId": "suit_will01",
-    "suitName": {
-      "zh-CN": "蚀电防护",
-      "en": "Mordvolt Resistant",
-      "ja": "蝕電防護",
-      "zh-TW": "蝕電防護"
-    },
-    "minimumLevel": 36
-  },
-  {
-    "id": "item_equip_t4_parts_wuling00_body_01",
-    "category": "equipment",
-    "name": {
-      "zh-CN": "集成实训护甲",
-      "en": "AIC Fieldwork Armor",
-      "ja": "集成訓練防具",
-      "zh-TW": "集成實訓護甲"
-    },
-    "rarity": 5,
-    "imageId": "item_equip_t4_parts_wuling00_body_01",
-    "partTypeId": "0",
-    "suitId": "suit_generaltype",
-    "suitName": {
-      "zh-CN": "集成实训",
-      "en": "AIC Fieldwork",
-      "ja": "集成訓練",
-      "zh-TW": "集成實訓"
-    },
-    "minimumLevel": 60
-  },
-  {
-    "id": "item_equip_t2_suit_will01_edc_01",
-    "category": "equipment",
-    "name": {
-      "zh-CN": "蚀电防护扳手",
-      "en": "Mordvolt Resistant Wrench",
-      "ja": "蝕電防護スパナ",
-      "zh-TW": "蝕電防護扳手"
-    },
-    "rarity": 3,
-    "imageId": "item_equip_t2_suit_will01_edc_01",
-    "partTypeId": "2",
-    "suitId": "suit_will01",
-    "suitName": {
-      "zh-CN": "蚀电防护",
-      "en": "Mordvolt Resistant",
-      "ja": "蝕電防護",
-      "zh-TW": "蝕電防護"
-    },
-    "minimumLevel": 36
-  },
-  {
-    "id": "item_equip_t4_suit_atk02_edc_05",
-    "category": "equipment",
-    "name": {
-      "zh-CN": "50式应龙短刃·壹型",
-      "en": "Type 50 Yinglung Knife T1",
-      "ja": "50式応龍短剣Ⅰ",
-      "zh-TW": "50式應龍短刃·I"
-    },
-    "rarity": 5,
-    "imageId": "item_equip_t4_suit_atk02_edc_05",
-    "partTypeId": "2",
-    "suitId": "suit_atk02",
-    "suitName": {
-      "zh-CN": "50式应龙",
-      "en": "Type 50 Yinglung",
-      "ja": "50式応龍",
-      "zh-TW": "50式應龍"
-    },
-    "minimumLevel": 70
-  },
-  {
-    "id": "item_equip_t2_suit_will01_edc_02",
-    "category": "equipment",
-    "name": {
-      "zh-CN": "蚀电防护电池",
-      "en": "Mordvolt Resistant Battery",
-      "ja": "蝕電防護バッテリー",
-      "zh-TW": "蝕電防護電池"
-    },
-    "rarity": 3,
-    "imageId": "item_equip_t2_suit_will01_edc_02",
-    "partTypeId": "2",
-    "suitId": "suit_will01",
-    "suitName": {
-      "zh-CN": "蚀电防护",
-      "en": "Mordvolt Resistant",
-      "ja": "蝕電防護",
-      "zh-TW": "蝕電防護"
-    },
-    "minimumLevel": 36
-  },
-  {
-    "id": "item_equip_t3_parts_tundra01_edc_02",
-    "category": "equipment",
-    "name": {
-      "zh-CN": "矿场传动轮·壹型",
-      "en": "Miner Drive Wheel T1",
-      "ja": "鉱山伝動装置Ⅰ",
-      "zh-TW": "礦場傳動輪·I"
-    },
-    "rarity": 4,
-    "imageId": "item_equip_t3_parts_tundra01_edc_02",
-    "partTypeId": "2",
-    "minimumLevel": 50
-  },
-  {
-    "id": "item_equip_t2_suit_will01_hand_01",
-    "category": "equipment",
-    "name": {
-      "zh-CN": "蚀电防护手套",
-      "en": "Mordvolt Resistant Gloves",
-      "ja": "蝕電防護グローブ",
-      "zh-TW": "蝕電防護手套"
-    },
-    "rarity": 3,
-    "imageId": "item_equip_t2_suit_will01_hand_01",
-    "partTypeId": "1",
-    "suitId": "suit_will01",
-    "suitName": {
-      "zh-CN": "蚀电防护",
-      "en": "Mordvolt Resistant",
-      "ja": "蝕電防護",
-      "zh-TW": "蝕電防護"
-    },
-    "minimumLevel": 36
-  },
-  {
-    "id": "item_equip_t4_parts_wuling00_edc_02",
-    "category": "equipment",
-    "name": {
-      "zh-CN": "集成实训火种石",
-      "en": "AIC Fieldwork Ember",
-      "ja": "集成訓練火種石",
-      "zh-TW": "集成實訓火種石"
-    },
-    "rarity": 5,
-    "imageId": "item_equip_t4_parts_wuling00_edc_02",
-    "partTypeId": "2",
-    "suitId": "suit_generaltype",
-    "suitName": {
-      "zh-CN": "集成实训",
-      "en": "AIC Fieldwork",
-      "ja": "集成訓練",
-      "zh-TW": "集成實訓"
-    },
-    "minimumLevel": 60
-  },
-  {
-    "id": "item_equip_t4_suit_attri01_body_01",
-    "category": "equipment",
-    "name": {
-      "zh-CN": "碾骨重护甲",
-      "en": "Bonekrusha Heavy Armor",
-      "ja": "骨砕の重防具",
-      "zh-TW": "碾骨重護甲"
-    },
-    "rarity": 5,
-    "imageId": "item_equip_t4_suit_attri01_body_01",
-    "partTypeId": "0",
-    "suitId": "suit_attri01",
-    "suitName": {
-      "zh-CN": "碾骨",
-      "en": "Bonekrusha",
-      "ja": "骨砕",
-      "zh-TW": "碾骨"
-    },
-    "minimumLevel": 70
-  },
-  {
-    "id": "item_equip_t2_suit_wisd01_body_01",
-    "category": "equipment",
-    "name": {
-      "zh-CN": "蚀电屏蔽背心",
-      "en": "Mordvolt Insulation Vest",
-      "ja": "蝕電遮断ベスト",
-      "zh-TW": "蝕電絕緣背心"
-    },
-    "rarity": 3,
-    "imageId": "item_equip_t2_suit_wisd01_body_01",
-    "partTypeId": "0",
-    "suitId": "suit_wisd01",
-    "suitName": {
-      "zh-CN": "蚀电屏蔽",
-      "en": "Mordvolt Insulation",
-      "ja": "蝕電遮断",
-      "zh-TW": "蝕電絕緣"
     },
     "minimumLevel": 36
   },
@@ -1404,17 +1334,332 @@ export const wikiEquipment = [
     "minimumLevel": 50
   },
   {
-    "id": "item_equip_t2_suit_wisd01_edc_01",
+    "id": "item_equip_t4_suit_usp02_body_04",
     "category": "equipment",
     "name": {
-      "zh-CN": "蚀电屏蔽扳手",
-      "en": "Mordvolt Insulation Wrench",
-      "ja": "蝕電遮断スパナ",
-      "zh-TW": "蝕電絕緣扳手"
+      "zh-CN": "长息轻护甲·壹型",
+      "en": "Eternal Xiranite Light Armor T1",
+      "ja": "流転軽防具Ⅰ",
+      "zh-TW": "長息輕護甲·I"
+    },
+    "rarity": 5,
+    "imageId": "item_equip_t4_suit_usp02_body_04",
+    "partTypeId": "0",
+    "suitId": "suit_usp02",
+    "suitName": {
+      "zh-CN": "长息",
+      "en": "Eternal Xiranite",
+      "ja": "流転",
+      "zh-TW": "長息"
+    },
+    "minimumLevel": 70
+  },
+  {
+    "id": "item_equip_t2_suit_str01_hand_01",
+    "category": "equipment",
+    "name": {
+      "zh-CN": "重装信使手套",
+      "en": "Armored MSGR Gloves",
+      "ja": "重装トランスポーターグローブ",
+      "zh-TW": "重裝信使手套"
     },
     "rarity": 3,
-    "imageId": "item_equip_t2_suit_wisd01_edc_01",
+    "imageId": "item_equip_t2_suit_str01_hand_01",
+    "partTypeId": "1",
+    "suitId": "suit_str01",
+    "suitName": {
+      "zh-CN": "重装信使",
+      "en": "Armored MSGR",
+      "ja": "重装トランスポーター",
+      "zh-TW": "重裝信使"
+    },
+    "minimumLevel": 36
+  },
+  {
+    "id": "item_equip_t4_suit_burst01_hand_02",
+    "category": "equipment",
+    "name": {
+      "zh-CN": "沉水手套",
+      "en": "Deepsink Gloves",
+      "ja": "沈水グローブ",
+      "zh-TW": "沉水手套"
+    },
+    "rarity": 5,
+    "imageId": "item_equip_t4_suit_burst01_hand_02",
+    "partTypeId": "1",
+    "suitId": "suit_burst01",
+    "suitName": {
+      "zh-CN": "潮涌",
+      "en": "Tide Surge",
+      "ja": "満潮",
+      "zh-TW": "潮湧"
+    },
+    "minimumLevel": 70
+  },
+  {
+    "id": "item_equip_t2_suit_will01_body_01",
+    "category": "equipment",
+    "name": {
+      "zh-CN": "蚀电防护背心",
+      "en": "Mordvolt Resistant Vest",
+      "ja": "蝕電防護ベスト",
+      "zh-TW": "蝕電防護背心"
+    },
+    "rarity": 3,
+    "imageId": "item_equip_t2_suit_will01_body_01",
+    "partTypeId": "0",
+    "suitId": "suit_will01",
+    "suitName": {
+      "zh-CN": "蚀电防护",
+      "en": "Mordvolt Resistant",
+      "ja": "蝕電防護",
+      "zh-TW": "蝕電防護"
+    },
+    "minimumLevel": 36
+  },
+  {
+    "id": "item_equip_t3_suit_wisd01_body_01",
+    "category": "equipment",
+    "name": {
+      "zh-CN": "蚀电屏蔽背心·壹型",
+      "en": "Mordvolt Insulation Vest T1",
+      "ja": "蝕電遮断ベストⅠ",
+      "zh-TW": "蝕電絕緣背心·I"
+    },
+    "rarity": 4,
+    "imageId": "item_equip_t3_suit_wisd01_body_01",
+    "partTypeId": "0",
+    "suitId": "suit_wisd01",
+    "suitName": {
+      "zh-CN": "蚀电屏蔽",
+      "en": "Mordvolt Insulation",
+      "ja": "蝕電遮断",
+      "zh-TW": "蝕電絕緣"
+    },
+    "minimumLevel": 50
+  },
+  {
+    "id": "item_equip_t4_parts_wuling00_body_05",
+    "category": "equipment",
+    "name": {
+      "zh-CN": "集成实训医疗护甲",
+      "en": "AIC Fieldwork Medic Armor",
+      "ja": "集成訓練医療防具",
+      "zh-TW": "集成實訓醫療護甲"
+    },
+    "rarity": 5,
+    "imageId": "item_equip_t4_parts_wuling00_body_05",
+    "partTypeId": "0",
+    "suitId": "suit_generaltype",
+    "suitName": {
+      "zh-CN": "集成实训",
+      "en": "AIC Fieldwork",
+      "ja": "集成訓練",
+      "zh-TW": "集成實訓"
+    },
+    "minimumLevel": 60
+  },
+  {
+    "id": "item_equip_t4_suit_usp02_edc_04",
+    "category": "equipment",
+    "name": {
+      "zh-CN": "长息加固板",
+      "en": "Eternal Xiranite Bracing Slab",
+      "ja": "流転補強板",
+      "zh-TW": "長息加固板"
+    },
+    "rarity": 5,
+    "imageId": "item_equip_t4_suit_usp02_edc_04",
     "partTypeId": "2",
+    "suitId": "suit_usp02",
+    "suitName": {
+      "zh-CN": "长息",
+      "en": "Eternal Xiranite",
+      "ja": "流転",
+      "zh-TW": "長息"
+    },
+    "minimumLevel": 70
+  },
+  {
+    "id": "item_equip_t2_suit_will01_edc_01",
+    "category": "equipment",
+    "name": {
+      "zh-CN": "蚀电防护扳手",
+      "en": "Mordvolt Resistant Wrench",
+      "ja": "蝕電防護スパナ",
+      "zh-TW": "蝕電防護扳手"
+    },
+    "rarity": 3,
+    "imageId": "item_equip_t2_suit_will01_edc_01",
+    "partTypeId": "2",
+    "suitId": "suit_will01",
+    "suitName": {
+      "zh-CN": "蚀电防护",
+      "en": "Mordvolt Resistant",
+      "ja": "蝕電防護",
+      "zh-TW": "蝕電防護"
+    },
+    "minimumLevel": 36
+  },
+  {
+    "id": "item_equip_t4_parts_wuling00_edc_05",
+    "category": "equipment",
+    "name": {
+      "zh-CN": "集成实训供能栓",
+      "en": "AIC Fieldwork Power Bank",
+      "ja": "集成訓練電力プラグ",
+      "zh-TW": "集成實訓供能栓"
+    },
+    "rarity": 5,
+    "imageId": "item_equip_t4_parts_wuling00_edc_05",
+    "partTypeId": "2",
+    "suitId": "suit_generaltype",
+    "suitName": {
+      "zh-CN": "集成实训",
+      "en": "AIC Fieldwork",
+      "ja": "集成訓練",
+      "zh-TW": "集成實訓"
+    },
+    "minimumLevel": 60
+  },
+  {
+    "id": "item_equip_t2_suit_will01_edc_02",
+    "category": "equipment",
+    "name": {
+      "zh-CN": "蚀电防护电池",
+      "en": "Mordvolt Resistant Battery",
+      "ja": "蝕電防護バッテリー",
+      "zh-TW": "蝕電防護電池"
+    },
+    "rarity": 3,
+    "imageId": "item_equip_t2_suit_will01_edc_02",
+    "partTypeId": "2",
+    "suitId": "suit_will01",
+    "suitName": {
+      "zh-CN": "蚀电防护",
+      "en": "Mordvolt Resistant",
+      "ja": "蝕電防護",
+      "zh-TW": "蝕電防護"
+    },
+    "minimumLevel": 36
+  },
+  {
+    "id": "item_equip_t3_suit_str01_hand_01",
+    "category": "equipment",
+    "name": {
+      "zh-CN": "重装信使手套·壹型",
+      "en": "Armored MSGR Gloves T1",
+      "ja": "重装トランスポーターグローブⅠ",
+      "zh-TW": "重裝信使手套·I"
+    },
+    "rarity": 4,
+    "imageId": "item_equip_t3_suit_str01_hand_01",
+    "partTypeId": "1",
+    "suitId": "suit_str01",
+    "suitName": {
+      "zh-CN": "重装信使",
+      "en": "Armored MSGR",
+      "ja": "重装トランスポーター",
+      "zh-TW": "重裝信使"
+    },
+    "minimumLevel": 50
+  },
+  {
+    "id": "item_equip_t2_suit_will01_hand_01",
+    "category": "equipment",
+    "name": {
+      "zh-CN": "蚀电防护手套",
+      "en": "Mordvolt Resistant Gloves",
+      "ja": "蝕電防護グローブ",
+      "zh-TW": "蝕電防護手套"
+    },
+    "rarity": 3,
+    "imageId": "item_equip_t2_suit_will01_hand_01",
+    "partTypeId": "1",
+    "suitId": "suit_will01",
+    "suitName": {
+      "zh-CN": "蚀电防护",
+      "en": "Mordvolt Resistant",
+      "ja": "蝕電防護",
+      "zh-TW": "蝕電防護"
+    },
+    "minimumLevel": 36
+  },
+  {
+    "id": "item_equip_t3_suit_will01_edc_01",
+    "category": "equipment",
+    "name": {
+      "zh-CN": "蚀电防护电池·壹型",
+      "en": "Mordvolt Resistant Battery T1",
+      "ja": "蝕電防護バッテリーⅠ",
+      "zh-TW": "蝕電防護電池·I"
+    },
+    "rarity": 4,
+    "imageId": "item_equip_t3_suit_will01_edc_01",
+    "partTypeId": "2",
+    "suitId": "suit_will01",
+    "suitName": {
+      "zh-CN": "蚀电防护",
+      "en": "Mordvolt Resistant",
+      "ja": "蝕電防護",
+      "zh-TW": "蝕電防護"
+    },
+    "minimumLevel": 50
+  },
+  {
+    "id": "item_equip_t4_suit_burst01_hand_01",
+    "category": "equipment",
+    "name": {
+      "zh-CN": "潮涌手甲",
+      "en": "Tide Surge Gauntlets",
+      "ja": "満潮ガントレット",
+      "zh-TW": "潮湧手甲"
+    },
+    "rarity": 5,
+    "imageId": "item_equip_t4_suit_burst01_hand_01",
+    "partTypeId": "1",
+    "suitId": "suit_burst01",
+    "suitName": {
+      "zh-CN": "潮涌",
+      "en": "Tide Surge",
+      "ja": "満潮",
+      "zh-TW": "潮湧"
+    },
+    "minimumLevel": 70
+  },
+  {
+    "id": "item_equip_t4_suit_phy01_body_03",
+    "category": "equipment",
+    "name": {
+      "zh-CN": "点剑重装甲·壹型",
+      "en": "Swordmancer Heavy Armor T1",
+      "ja": "宏山点剣ヘビーアーマーⅠ",
+      "zh-TW": "點劍重裝甲·I"
+    },
+    "rarity": 5,
+    "imageId": "item_equip_t4_suit_phy01_body_03",
+    "partTypeId": "0",
+    "suitId": "suit_phy01",
+    "suitName": {
+      "zh-CN": "点剑",
+      "en": "Swordmancer",
+      "ja": "宏山点剣",
+      "zh-TW": "點劍"
+    },
+    "minimumLevel": 70
+  },
+  {
+    "id": "item_equip_t2_suit_wisd01_body_01",
+    "category": "equipment",
+    "name": {
+      "zh-CN": "蚀电屏蔽背心",
+      "en": "Mordvolt Insulation Vest",
+      "ja": "蝕電遮断ベスト",
+      "zh-TW": "蝕電絕緣背心"
+    },
+    "rarity": 3,
+    "imageId": "item_equip_t2_suit_wisd01_body_01",
+    "partTypeId": "0",
     "suitId": "suit_wisd01",
     "suitName": {
       "zh-CN": "蚀电屏蔽",
@@ -1425,17 +1670,45 @@ export const wikiEquipment = [
     "minimumLevel": 36
   },
   {
-    "id": "item_equip_t4_parts_wuling02_hand_01",
+    "id": "item_equip_t4_suit_burst01_body_02",
     "category": "equipment",
     "name": {
-      "zh-CN": "涉渊护手",
-      "en": "Rift Trekker Gloves",
-      "ja": "渡淵プロテクター",
-      "zh-TW": "涉淵護手"
+      "zh-CN": "落潮轻甲·壹型",
+      "en": "Tide Fall Light Armor T1",
+      "ja": "干潮軽防具Ⅰ",
+      "zh-TW": "落潮輕甲·I"
     },
     "rarity": 5,
-    "imageId": "item_equip_t4_parts_wuling02_hand_01",
-    "partTypeId": "1",
+    "imageId": "item_equip_t4_suit_burst01_body_02",
+    "partTypeId": "0",
+    "suitId": "suit_burst01",
+    "suitName": {
+      "zh-CN": "潮涌",
+      "en": "Tide Surge",
+      "ja": "満潮",
+      "zh-TW": "潮湧"
+    },
+    "minimumLevel": 70
+  },
+  {
+    "id": "item_equip_t4_suit_pulse_cryst01_edc_01",
+    "category": "equipment",
+    "name": {
+      "zh-CN": "脉冲式探针",
+      "en": "Pulser Labs Probe",
+      "ja": "パルス式探針",
+      "zh-TW": "脈衝式探針"
+    },
+    "rarity": 5,
+    "imageId": "item_equip_t4_suit_pulse_cryst01_edc_01",
+    "partTypeId": "2",
+    "suitId": "suit_pulse_cryst01",
+    "suitName": {
+      "zh-CN": "脉冲式",
+      "en": "Pulser Labs",
+      "ja": "パルス式",
+      "zh-TW": "脈衝式"
+    },
     "minimumLevel": 70
   },
   {
@@ -1460,38 +1733,17 @@ export const wikiEquipment = [
     "minimumLevel": 36
   },
   {
-    "id": "item_equip_t4_suit_phy01_hand_03",
+    "id": "item_equip_t2_suit_wisd01_hand_01",
     "category": "equipment",
     "name": {
-      "zh-CN": "点剑战术手甲·壹型",
-      "en": "Swordmancer TAC Gauntlets T1",
-      "ja": "宏山点剣ガントレットⅠ",
-      "zh-TW": "點劍戰術手甲·I"
-    },
-    "rarity": 5,
-    "imageId": "item_equip_t4_suit_phy01_hand_03",
-    "partTypeId": "1",
-    "suitId": "suit_phy01",
-    "suitName": {
-      "zh-CN": "点剑",
-      "en": "Swordmancer",
-      "ja": "宏山点剣",
-      "zh-TW": "點劍"
-    },
-    "minimumLevel": 70
-  },
-  {
-    "id": "item_equip_t2_suit_wisd01_edc_03",
-    "category": "equipment",
-    "name": {
-      "zh-CN": "蚀电屏蔽电池",
-      "en": "Mordvolt Insulation Battery",
-      "ja": "蝕電遮断バッテリー",
-      "zh-TW": "蝕電絕緣電池"
+      "zh-CN": "蚀电屏蔽手套",
+      "en": "Mordvolt Insulation Gloves",
+      "ja": "蝕電遮断グローブ",
+      "zh-TW": "蝕電絕緣手套"
     },
     "rarity": 3,
-    "imageId": "item_equip_t2_suit_wisd01_edc_03",
-    "partTypeId": "2",
+    "imageId": "item_equip_t2_suit_wisd01_hand_01",
+    "partTypeId": "1",
     "suitId": "suit_wisd01",
     "suitName": {
       "zh-CN": "蚀电屏蔽",
@@ -1502,16 +1754,37 @@ export const wikiEquipment = [
     "minimumLevel": 36
   },
   {
-    "id": "item_equip_t4_suit_phy01_hand_02",
+    "id": "item_equip_t4_suit_heal01_hand_02",
     "category": "equipment",
     "name": {
-      "zh-CN": "点剑战术手甲",
-      "en": "Swordmancer TAC Gauntlets",
-      "ja": "宏山点剣ガントレット",
-      "zh-TW": "點劍戰術手甲"
+      "zh-CN": "生物辅助手甲",
+      "en": "LYNX Gauntlets",
+      "ja": "生物補助手袋",
+      "zh-TW": "生物輔助手甲"
     },
     "rarity": 5,
-    "imageId": "item_equip_t4_suit_phy01_hand_02",
+    "imageId": "item_equip_t4_suit_heal01_hand_02",
+    "partTypeId": "1",
+    "suitId": "suit_heal01",
+    "suitName": {
+      "zh-CN": "生物辅助",
+      "en": "LYNX",
+      "ja": "生物補助",
+      "zh-TW": "生物輔助"
+    },
+    "minimumLevel": 70
+  },
+  {
+    "id": "item_equip_t4_suit_phy01_hand_03",
+    "category": "equipment",
+    "name": {
+      "zh-CN": "点剑战术手甲·壹型",
+      "en": "Swordmancer TAC Gauntlets T1",
+      "ja": "宏山点剣ガントレットⅠ",
+      "zh-TW": "點劍戰術手甲·I"
+    },
+    "rarity": 5,
+    "imageId": "item_equip_t4_suit_phy01_hand_03",
     "partTypeId": "1",
     "suitId": "suit_phy01",
     "suitName": {
@@ -1535,6 +1808,27 @@ export const wikiEquipment = [
     "imageId": "item_equip_t3_parts_tundra01_body_01",
     "partTypeId": "0",
     "minimumLevel": 50
+  },
+  {
+    "id": "item_equip_t4_suit_phy01_edc_04",
+    "category": "equipment",
+    "name": {
+      "zh-CN": "点剑短刃",
+      "en": "Swordmancer Dagger",
+      "ja": "宏山点剣短剣",
+      "zh-TW": "點劍短刃"
+    },
+    "rarity": 5,
+    "imageId": "item_equip_t4_suit_phy01_edc_04",
+    "partTypeId": "2",
+    "suitId": "suit_phy01",
+    "suitName": {
+      "zh-CN": "点剑",
+      "en": "Swordmancer",
+      "ja": "宏山点剣",
+      "zh-TW": "點劍"
+    },
+    "minimumLevel": 70
   },
   {
     "id": "item_equip_t3_parts_tundra01_body_02",
@@ -1565,25 +1859,18 @@ export const wikiEquipment = [
     "minimumLevel": 50
   },
   {
-    "id": "item_equip_t4_suit_crush_fracture_edc_01",
+    "id": "item_equip_t3_parts_tundra01_edc_02",
     "category": "equipment",
     "name": {
-      "zh-CN": "旧锋刺刃",
-      "en": "Grizzled Edge Push Knife",
-      "ja": "旧鋒ナイフ",
-      "zh-TW": "舊鋒刺刃"
+      "zh-CN": "矿场传动轮·壹型",
+      "en": "Miner Drive Wheel T1",
+      "ja": "鉱山伝動装置Ⅰ",
+      "zh-TW": "礦場傳動輪·I"
     },
-    "rarity": 5,
-    "imageId": "item_equip_t4_suit_crush_fracture_edc_01",
+    "rarity": 4,
+    "imageId": "item_equip_t3_parts_tundra01_edc_02",
     "partTypeId": "2",
-    "suitId": "suit_crush_fracture",
-    "suitName": {
-      "zh-CN": "旧锋",
-      "en": "Grizzled Edge",
-      "ja": "旧鋒",
-      "zh-TW": "舊鋒"
-    },
-    "minimumLevel": 70
+    "minimumLevel": 50
   },
   {
     "id": "item_equip_t3_parts_tundra01_edc_03",
@@ -1600,24 +1887,45 @@ export const wikiEquipment = [
     "minimumLevel": 50
   },
   {
-    "id": "item_equip_t4_suit_fire_natr01_hand_03",
+    "id": "item_equip_t4_parts_wuling01_edc_02",
     "category": "equipment",
     "name": {
-      "zh-CN": "动火用手甲·壹型",
-      "en": "Hot Work Gauntlets T1",
-      "ja": "火山用ガントレットⅠ",
-      "zh-TW": "動火用手甲·I"
+      "zh-CN": "纾难识别牌·壹型",
+      "en": "Redeemer Tag T1",
+      "ja": "救国識別札Ⅰ",
+      "zh-TW": "紓難識別證·I"
     },
     "rarity": 5,
-    "imageId": "item_equip_t4_suit_fire_natr01_hand_03",
-    "partTypeId": "1",
-    "suitId": "suit_fire_natr01",
-    "suitName": {
-      "zh-CN": "动火用",
-      "en": "Hot Work",
-      "ja": "火山用",
-      "zh-TW": "動火用"
+    "imageId": "item_equip_t4_parts_wuling01_edc_02",
+    "partTypeId": "2",
+    "minimumLevel": 70
+  },
+  {
+    "id": "item_equip_t3_parts_tundra01_edc_04",
+    "category": "equipment",
+    "name": {
+      "zh-CN": "矿场联络仪·壹型",
+      "en": "Miner Comm T1",
+      "ja": "鉱山通信機Ⅰ",
+      "zh-TW": "礦場聯絡儀·I"
     },
+    "rarity": 4,
+    "imageId": "item_equip_t3_parts_tundra01_edc_04",
+    "partTypeId": "2",
+    "minimumLevel": 50
+  },
+  {
+    "id": "item_equip_t4_parts_wuling01_edc_03",
+    "category": "equipment",
+    "name": {
+      "zh-CN": "纾难印章",
+      "en": "Redeemer Seal",
+      "ja": "救国印章",
+      "zh-TW": "紓難印章"
+    },
+    "rarity": 5,
+    "imageId": "item_equip_t4_parts_wuling01_edc_03",
+    "partTypeId": "2",
     "minimumLevel": 70
   },
   {
@@ -1635,31 +1943,17 @@ export const wikiEquipment = [
     "minimumLevel": 50
   },
   {
-    "id": "item_equip_t3_parts_tundra01_hand_02",
+    "id": "item_equip_t3_suit_agi01_edc_01",
     "category": "equipment",
     "name": {
-      "zh-CN": "矿场护手·壹型",
-      "en": "Miner Fists T1",
-      "ja": "鉱山プロテクターⅠ",
-      "zh-TW": "礦場護手·I"
+      "zh-CN": "巡行信使手电·壹型",
+      "en": "Roving MSGR Flashlight T1",
+      "ja": "遍歴トランスポーターライトⅠ",
+      "zh-TW": "巡行信使手電筒·I"
     },
     "rarity": 4,
-    "imageId": "item_equip_t3_parts_tundra01_hand_02",
-    "partTypeId": "1",
-    "minimumLevel": 50
-  },
-  {
-    "id": "item_equip_t3_suit_agi01_body_01",
-    "category": "equipment",
-    "name": {
-      "zh-CN": "巡行信使夹克·壹型",
-      "en": "Roving MSGR Jacket T1",
-      "ja": "遍歴トランスポータージャケットⅠ",
-      "zh-TW": "巡行信使夾克·I"
-    },
-    "rarity": 4,
-    "imageId": "item_equip_t3_suit_agi01_body_01",
-    "partTypeId": "0",
+    "imageId": "item_equip_t3_suit_agi01_edc_01",
+    "partTypeId": "2",
     "suitId": "suit_agi01",
     "suitName": {
       "zh-CN": "巡行信使",
@@ -1670,23 +1964,23 @@ export const wikiEquipment = [
     "minimumLevel": 50
   },
   {
-    "id": "item_equip_t4_suit_attri01_edc_06",
+    "id": "item_equip_t4_suit_atk02_body_04",
     "category": "equipment",
     "name": {
-      "zh-CN": "碾骨小雕像·壹型",
-      "en": "Bonekrusha Figurine T1",
-      "ja": "骨砕の小像Ⅰ",
-      "zh-TW": "碾骨小雕像·I"
+      "zh-CN": "50式应龙轻甲",
+      "en": "Type 50 Yinglung Light Armor",
+      "ja": "50式応龍軽防具",
+      "zh-TW": "50式應龍輕甲"
     },
     "rarity": 5,
-    "imageId": "item_equip_t4_suit_attri01_edc_06",
-    "partTypeId": "2",
-    "suitId": "suit_attri01",
+    "imageId": "item_equip_t4_suit_atk02_body_04",
+    "partTypeId": "0",
+    "suitId": "suit_atk02",
     "suitName": {
-      "zh-CN": "碾骨",
-      "en": "Bonekrusha",
-      "ja": "骨砕",
-      "zh-TW": "碾骨"
+      "zh-CN": "50式应龙",
+      "en": "Type 50 Yinglung",
+      "ja": "50式応龍",
+      "zh-TW": "50式應龍"
     },
     "minimumLevel": 70
   },
@@ -1712,23 +2006,23 @@ export const wikiEquipment = [
     "minimumLevel": 50
   },
   {
-    "id": "item_equip_t4_suit_atk02_body_01",
+    "id": "item_equip_t4_suit_fire_natr01_hand_01",
     "category": "equipment",
     "name": {
-      "zh-CN": "50式应龙重甲",
-      "en": "Type 50 Yinglung Heavy Armor",
-      "ja": "50式応龍重防具",
-      "zh-TW": "50式應龍重甲"
+      "zh-CN": "动火用手套",
+      "en": "Hot Work Gloves",
+      "ja": "火山用グローブ",
+      "zh-TW": "動火用手套"
     },
     "rarity": 5,
-    "imageId": "item_equip_t4_suit_atk02_body_01",
-    "partTypeId": "0",
-    "suitId": "suit_atk02",
+    "imageId": "item_equip_t4_suit_fire_natr01_hand_01",
+    "partTypeId": "1",
+    "suitId": "suit_fire_natr01",
     "suitName": {
-      "zh-CN": "50式应龙",
-      "en": "Type 50 Yinglung",
-      "ja": "50式応龍",
-      "zh-TW": "50式應龍"
+      "zh-CN": "动火用",
+      "en": "Hot Work",
+      "ja": "火山用",
+      "zh-TW": "動火用"
     },
     "minimumLevel": 70
   },
@@ -1754,38 +2048,24 @@ export const wikiEquipment = [
     "minimumLevel": 50
   },
   {
-    "id": "item_equip_t3_suit_atk01_body_03",
+    "id": "item_equip_t4_suit_pulse_cryst01_edc_03",
     "category": "equipment",
     "name": {
-      "zh-CN": "阿伯莉轻甲",
-      "en": "Aburrey Light Armor",
-      "ja": "アブリー軽防具",
-      "zh-TW": "阿伯莉輕甲"
-    },
-    "rarity": 4,
-    "imageId": "item_equip_t3_suit_atk01_body_03",
-    "partTypeId": "0",
-    "suitId": "suit_atk01",
-    "suitName": {
-      "zh-CN": "阿伯莉遗声",
-      "en": "Aburrey's Legacy",
-      "ja": "アブリー遺声",
-      "zh-TW": "阿伯莉遺聲"
-    },
-    "minimumLevel": 50
-  },
-  {
-    "id": "item_equip_t4_parts_wuling01_body_02",
-    "category": "equipment",
-    "name": {
-      "zh-CN": "纾难护甲",
-      "en": "Redeemer Armor",
-      "ja": "救国防具",
-      "zh-TW": "紓難護甲"
+      "zh-CN": "脉冲式侵入核",
+      "en": "Pulser Labs Invasion Core",
+      "ja": "パルス式侵入装置",
+      "zh-TW": "脈衝式侵入核"
     },
     "rarity": 5,
-    "imageId": "item_equip_t4_parts_wuling01_body_02",
-    "partTypeId": "0",
+    "imageId": "item_equip_t4_suit_pulse_cryst01_edc_03",
+    "partTypeId": "2",
+    "suitId": "suit_pulse_cryst01",
+    "suitName": {
+      "zh-CN": "脉冲式",
+      "en": "Pulser Labs",
+      "ja": "パルス式",
+      "zh-TW": "脈衝式"
+    },
     "minimumLevel": 70
   },
   {
@@ -1810,23 +2090,23 @@ export const wikiEquipment = [
     "minimumLevel": 50
   },
   {
-    "id": "item_equip_t4_suit_heal01_hand_03",
+    "id": "item_equip_t4_suit_phy01_edc_01",
     "category": "equipment",
     "name": {
-      "zh-CN": "生物辅助手甲·壹型",
-      "en": "LYNX Gauntlets T1",
-      "ja": "生物補助手袋Ⅰ",
-      "zh-TW": "生物輔助手甲·I"
+      "zh-CN": "点剑定位信标",
+      "en": "Swordmancer NAV Beacon",
+      "ja": "宏山点剣定位ビーコン",
+      "zh-TW": "點劍定位信標"
     },
     "rarity": 5,
-    "imageId": "item_equip_t4_suit_heal01_hand_03",
-    "partTypeId": "1",
-    "suitId": "suit_heal01",
+    "imageId": "item_equip_t4_suit_phy01_edc_01",
+    "partTypeId": "2",
+    "suitId": "suit_phy01",
     "suitName": {
-      "zh-CN": "生物辅助",
-      "en": "LYNX",
-      "ja": "生物補助",
-      "zh-TW": "生物輔助"
+      "zh-CN": "点剑",
+      "en": "Swordmancer",
+      "ja": "宏山点剣",
+      "zh-TW": "點劍"
     },
     "minimumLevel": 70
   },
@@ -1850,6 +2130,69 @@ export const wikiEquipment = [
       "zh-TW": "阿伯莉遺聲"
     },
     "minimumLevel": 50
+  },
+  {
+    "id": "item_equip_t4_suit_heal01_edc_01",
+    "category": "equipment",
+    "name": {
+      "zh-CN": "生物辅助接驳器",
+      "en": "LYNX Connector",
+      "ja": "生物補助コンタクタ",
+      "zh-TW": "生物輔助接駁器"
+    },
+    "rarity": 5,
+    "imageId": "item_equip_t4_suit_heal01_edc_01",
+    "partTypeId": "2",
+    "suitId": "suit_heal01",
+    "suitName": {
+      "zh-CN": "生物辅助",
+      "en": "LYNX",
+      "ja": "生物補助",
+      "zh-TW": "生物輔助"
+    },
+    "minimumLevel": 70
+  },
+  {
+    "id": "item_equip_t3_suit_atk01_body_03",
+    "category": "equipment",
+    "name": {
+      "zh-CN": "阿伯莉轻甲",
+      "en": "Aburrey Light Armor",
+      "ja": "アブリー軽防具",
+      "zh-TW": "阿伯莉輕甲"
+    },
+    "rarity": 4,
+    "imageId": "item_equip_t3_suit_atk01_body_03",
+    "partTypeId": "0",
+    "suitId": "suit_atk01",
+    "suitName": {
+      "zh-CN": "阿伯莉遗声",
+      "en": "Aburrey's Legacy",
+      "ja": "アブリー遺声",
+      "zh-TW": "阿伯莉遺聲"
+    },
+    "minimumLevel": 50
+  },
+  {
+    "id": "item_equip_t4_parts_wuling00_edc_04",
+    "category": "equipment",
+    "name": {
+      "zh-CN": "集成实训突袭刺刃",
+      "en": "AIC Fieldwork Assault Push Knife",
+      "ja": "集成訓練強襲ナイフ",
+      "zh-TW": "集成實訓突襲刺刃"
+    },
+    "rarity": 5,
+    "imageId": "item_equip_t4_parts_wuling00_edc_04",
+    "partTypeId": "2",
+    "suitId": "suit_generaltype",
+    "suitName": {
+      "zh-CN": "集成实训",
+      "en": "AIC Fieldwork",
+      "ja": "集成訓練",
+      "zh-TW": "集成實訓"
+    },
+    "minimumLevel": 60
   },
   {
     "id": "item_equip_t3_suit_atk01_body_04",
@@ -1894,48 +2237,6 @@ export const wikiEquipment = [
     "minimumLevel": 50
   },
   {
-    "id": "item_equip_t3_suit_atk01_edc_02",
-    "category": "equipment",
-    "name": {
-      "zh-CN": "阿伯莉侦听芯片",
-      "en": "Aburrey Auditory Chip",
-      "ja": "アブリー聴覚チップ",
-      "zh-TW": "阿伯莉偵聽晶片"
-    },
-    "rarity": 4,
-    "imageId": "item_equip_t3_suit_atk01_edc_02",
-    "partTypeId": "2",
-    "suitId": "suit_atk01",
-    "suitName": {
-      "zh-CN": "阿伯莉遗声",
-      "en": "Aburrey's Legacy",
-      "ja": "アブリー遺声",
-      "zh-TW": "阿伯莉遺聲"
-    },
-    "minimumLevel": 50
-  },
-  {
-    "id": "item_equip_t4_suit_burst01_body_01",
-    "category": "equipment",
-    "name": {
-      "zh-CN": "落潮轻甲",
-      "en": "Tide Fall Light Armor",
-      "ja": "干潮軽防具",
-      "zh-TW": "落潮輕甲"
-    },
-    "rarity": 5,
-    "imageId": "item_equip_t4_suit_burst01_body_01",
-    "partTypeId": "0",
-    "suitId": "suit_burst01",
-    "suitName": {
-      "zh-CN": "潮涌",
-      "en": "Tide Surge",
-      "ja": "満潮",
-      "zh-TW": "潮湧"
-    },
-    "minimumLevel": 70
-  },
-  {
     "id": "item_equip_t3_suit_atk01_edc_03",
     "category": "equipment",
     "name": {
@@ -1957,46 +2258,25 @@ export const wikiEquipment = [
     "minimumLevel": 50
   },
   {
-    "id": "item_equip_t4_suit_attri01_body_05",
+    "id": "item_equip_t3_suit_atk01_edc_04",
     "category": "equipment",
     "name": {
-      "zh-CN": "碾骨重护甲·贰型",
-      "en": "Bonekrusha Heavy Armor T2",
-      "ja": "骨砕の重防具Ⅱ",
-      "zh-TW": "碾骨重護甲·II"
+      "zh-CN": "阿伯莉照明器",
+      "en": "Aburrey Flashlight",
+      "ja": "アブリーライト",
+      "zh-TW": "阿伯莉照明器"
     },
-    "rarity": 5,
-    "imageId": "item_equip_t4_suit_attri01_body_05",
-    "partTypeId": "0",
-    "suitId": "suit_attri01",
+    "rarity": 4,
+    "imageId": "item_equip_t3_suit_atk01_edc_04",
+    "partTypeId": "2",
+    "suitId": "suit_atk01",
     "suitName": {
-      "zh-CN": "碾骨",
-      "en": "Bonekrusha",
-      "ja": "骨砕",
-      "zh-TW": "碾骨"
+      "zh-CN": "阿伯莉遗声",
+      "en": "Aburrey's Legacy",
+      "ja": "アブリー遺声",
+      "zh-TW": "阿伯莉遺聲"
     },
-    "minimumLevel": 70
-  },
-  {
-    "id": "item_equip_t4_suit_criti01_hand_03",
-    "category": "equipment",
-    "name": {
-      "zh-CN": "M.I.警用手环·壹型",
-      "en": "MI Security Hands PPE T1",
-      "ja": "M.I.警備ブレスレットⅠ",
-      "zh-TW": "M. I.警用手環·I"
-    },
-    "rarity": 5,
-    "imageId": "item_equip_t4_suit_criti01_hand_03",
-    "partTypeId": "1",
-    "suitId": "suit_criti01",
-    "suitName": {
-      "zh-CN": "M.I.警用",
-      "en": "MI Security",
-      "ja": "M.I.警備",
-      "zh-TW": "M. I.警用"
-    },
-    "minimumLevel": 70
+    "minimumLevel": 50
   },
   {
     "id": "item_equip_t3_suit_atk01_edc_05",
@@ -2020,44 +2300,23 @@ export const wikiEquipment = [
     "minimumLevel": 50
   },
   {
-    "id": "item_equip_t4_suit_poise01_hand_02",
+    "id": "item_equip_t4_suit_crush_fracture_edc_01",
     "category": "equipment",
     "name": {
-      "zh-CN": "轻超域轻护手",
-      "en": "Æthertech Light Gloves",
-      "ja": "軽量超域プロテクター",
-      "zh-TW": "輕超域輕護手"
+      "zh-CN": "旧锋刺刃",
+      "en": "Grizzled Edge Push Knife",
+      "ja": "旧鋒ナイフ",
+      "zh-TW": "舊鋒刺刃"
     },
     "rarity": 5,
-    "imageId": "item_equip_t4_suit_poise01_hand_02",
-    "partTypeId": "1",
-    "suitId": "suit_poise01",
-    "suitName": {
-      "zh-CN": "轻超域",
-      "en": "Æthertech",
-      "ja": "軽量超域",
-      "zh-TW": "輕超域"
-    },
-    "minimumLevel": 70
-  },
-  {
-    "id": "item_equip_t4_suit_pulse_cryst01_edc_02",
-    "category": "equipment",
-    "name": {
-      "zh-CN": "脉冲式校准器",
-      "en": "Pulser Labs Calibrator",
-      "ja": "パルス式校正器",
-      "zh-TW": "脈衝式校準器"
-    },
-    "rarity": 5,
-    "imageId": "item_equip_t4_suit_pulse_cryst01_edc_02",
+    "imageId": "item_equip_t4_suit_crush_fracture_edc_01",
     "partTypeId": "2",
-    "suitId": "suit_pulse_cryst01",
+    "suitId": "suit_crush_fracture",
     "suitName": {
-      "zh-CN": "脉冲式",
-      "en": "Pulser Labs",
-      "ja": "パルス式",
-      "zh-TW": "脈衝式"
+      "zh-CN": "旧锋",
+      "en": "Grizzled Edge",
+      "ja": "旧鋒",
+      "zh-TW": "舊鋒"
     },
     "minimumLevel": 70
   },
@@ -2083,46 +2342,81 @@ export const wikiEquipment = [
     "minimumLevel": 50
   },
   {
-    "id": "item_equip_t4_suit_crush_fracture_hand_02",
+    "id": "item_equip_t4_parts_wuling01_body_02",
     "category": "equipment",
     "name": {
-      "zh-CN": "旧锋手甲·壹型",
-      "en": "Grizzled Edge Gauntlets T1",
-      "ja": "旧鋒ガントレットⅠ",
-      "zh-TW": "舊鋒手甲·I"
+      "zh-CN": "纾难护甲",
+      "en": "Redeemer Armor",
+      "ja": "救国防具",
+      "zh-TW": "紓難護甲"
     },
     "rarity": 5,
-    "imageId": "item_equip_t4_suit_crush_fracture_hand_02",
-    "partTypeId": "1",
-    "suitId": "suit_crush_fracture",
-    "suitName": {
-      "zh-CN": "旧锋",
-      "en": "Grizzled Edge",
-      "ja": "旧鋒",
-      "zh-TW": "舊鋒"
-    },
+    "imageId": "item_equip_t4_parts_wuling01_body_02",
+    "partTypeId": "0",
     "minimumLevel": 70
   },
   {
-    "id": "item_equip_t4_suit_pulse_cryst01_edc_03",
+    "id": "item_equip_t3_suit_atk01_hand_01",
     "category": "equipment",
     "name": {
-      "zh-CN": "脉冲式侵入核",
-      "en": "Pulser Labs Invasion Core",
-      "ja": "パルス式侵入装置",
-      "zh-TW": "脈衝式侵入核"
+      "zh-CN": "阿伯莉手甲",
+      "en": "Aburrey Gauntlets",
+      "ja": "アブリーガントレット",
+      "zh-TW": "阿伯莉手甲"
     },
-    "rarity": 5,
-    "imageId": "item_equip_t4_suit_pulse_cryst01_edc_03",
-    "partTypeId": "2",
-    "suitId": "suit_pulse_cryst01",
+    "rarity": 4,
+    "imageId": "item_equip_t3_suit_atk01_hand_01",
+    "partTypeId": "1",
+    "suitId": "suit_atk01",
     "suitName": {
-      "zh-CN": "脉冲式",
-      "en": "Pulser Labs",
-      "ja": "パルス式",
-      "zh-TW": "脈衝式"
+      "zh-CN": "阿伯莉遗声",
+      "en": "Aburrey's Legacy",
+      "ja": "アブリー遺声",
+      "zh-TW": "阿伯莉遺聲"
     },
-    "minimumLevel": 70
+    "minimumLevel": 50
+  },
+  {
+    "id": "item_equip_t3_suit_str01_hand_02",
+    "category": "equipment",
+    "name": {
+      "zh-CN": "重装信使手套·贰型",
+      "en": "Armored MSGR Gloves T2",
+      "ja": "重装トランスポーターグローブⅡ",
+      "zh-TW": "重裝信使手套·II"
+    },
+    "rarity": 4,
+    "imageId": "item_equip_t3_suit_str01_hand_02",
+    "partTypeId": "1",
+    "suitId": "suit_str01",
+    "suitName": {
+      "zh-CN": "重装信使",
+      "en": "Armored MSGR",
+      "ja": "重装トランスポーター",
+      "zh-TW": "重裝信使"
+    },
+    "minimumLevel": 50
+  },
+  {
+    "id": "item_equip_t3_suit_usp01_hand_01",
+    "category": "equipment",
+    "name": {
+      "zh-CN": "天灾防护手套",
+      "en": "Catastrophe Gloves",
+      "ja": "天災防護グローブ",
+      "zh-TW": "天災防護手套"
+    },
+    "rarity": 4,
+    "imageId": "item_equip_t3_suit_usp01_hand_01",
+    "partTypeId": "1",
+    "suitId": "suit_usp01",
+    "suitName": {
+      "zh-CN": "天灾防护",
+      "en": "Catastrophe",
+      "ja": "天災防護",
+      "zh-TW": "天災防護"
+    },
+    "minimumLevel": 50
   },
   {
     "id": "item_equip_t3_suit_str01_body_01",
@@ -2146,6 +2440,27 @@ export const wikiEquipment = [
     "minimumLevel": 50
   },
   {
+    "id": "item_equip_t4_suit_criti01_edc_06",
+    "category": "equipment",
+    "name": {
+      "zh-CN": "M.I.警用瞄具·壹型",
+      "en": "MI Security Scope T1",
+      "ja": "M.I.警備照準器Ⅰ",
+      "zh-TW": "M. I.警用瞄具·I"
+    },
+    "rarity": 5,
+    "imageId": "item_equip_t4_suit_criti01_edc_06",
+    "partTypeId": "2",
+    "suitId": "suit_criti01",
+    "suitName": {
+      "zh-CN": "M.I.警用",
+      "en": "MI Security",
+      "ja": "M.I.警備",
+      "zh-TW": "M. I.警用"
+    },
+    "minimumLevel": 70
+  },
+  {
     "id": "item_equip_t3_suit_str01_edc_02",
     "category": "equipment",
     "name": {
@@ -2167,86 +2482,23 @@ export const wikiEquipment = [
     "minimumLevel": 50
   },
   {
-    "id": "item_equip_t3_suit_str01_hand_01",
+    "id": "item_equip_t4_suit_fire_natr01_edc_02",
     "category": "equipment",
     "name": {
-      "zh-CN": "重装信使手套·壹型",
-      "en": "Armored MSGR Gloves T1",
-      "ja": "重装トランスポーターグローブⅠ",
-      "zh-TW": "重裝信使手套·I"
-    },
-    "rarity": 4,
-    "imageId": "item_equip_t3_suit_str01_hand_01",
-    "partTypeId": "1",
-    "suitId": "suit_str01",
-    "suitName": {
-      "zh-CN": "重装信使",
-      "en": "Armored MSGR",
-      "ja": "重装トランスポーター",
-      "zh-TW": "重裝信使"
-    },
-    "minimumLevel": 50
-  },
-  {
-    "id": "item_equip_t4_suit_combo_cd01_hand_02",
-    "category": "equipment",
-    "name": {
-      "zh-CN": "清波护手",
-      "en": "Qingbo Gloves",
-      "ja": "清波プロテクター",
-      "zh-TW": "清波護手"
+      "zh-CN": "动火用测温镜",
+      "en": "Hot Work Pyrometer",
+      "ja": "火山用温度測定器",
+      "zh-TW": "動火用測溫鏡"
     },
     "rarity": 5,
-    "imageId": "item_equip_t4_suit_combo_cd01_hand_02",
-    "partTypeId": "1",
-    "suitId": "suit_combo_cd01",
-    "suitName": {
-      "zh-CN": "清波",
-      "en": "Qingbo",
-      "ja": "清波",
-      "zh-TW": "清波"
-    },
-    "minimumLevel": 70
-  },
-  {
-    "id": "item_equip_t3_suit_usp01_body_01",
-    "category": "equipment",
-    "name": {
-      "zh-CN": "天灾防护重甲",
-      "en": "Catastrophe Heavy Armor",
-      "ja": "天災防護重防具",
-      "zh-TW": "天災防護重甲"
-    },
-    "rarity": 4,
-    "imageId": "item_equip_t3_suit_usp01_body_01",
-    "partTypeId": "0",
-    "suitId": "suit_usp01",
-    "suitName": {
-      "zh-CN": "天灾防护",
-      "en": "Catastrophe",
-      "ja": "天災防護",
-      "zh-TW": "天災防護"
-    },
-    "minimumLevel": 50
-  },
-  {
-    "id": "item_equip_t4_suit_atk02_edc_04",
-    "category": "equipment",
-    "name": {
-      "zh-CN": "50式应龙短刃",
-      "en": "Type 50 Yinglung Knife",
-      "ja": "50式応龍短剣",
-      "zh-TW": "50式應龍短刃"
-    },
-    "rarity": 5,
-    "imageId": "item_equip_t4_suit_atk02_edc_04",
+    "imageId": "item_equip_t4_suit_fire_natr01_edc_02",
     "partTypeId": "2",
-    "suitId": "suit_atk02",
+    "suitId": "suit_fire_natr01",
     "suitName": {
-      "zh-CN": "50式应龙",
-      "en": "Type 50 Yinglung",
-      "ja": "50式応龍",
-      "zh-TW": "50式應龍"
+      "zh-CN": "动火用",
+      "en": "Hot Work",
+      "ja": "火山用",
+      "zh-TW": "動火用"
     },
     "minimumLevel": 70
   },
@@ -2272,6 +2524,41 @@ export const wikiEquipment = [
     "minimumLevel": 50
   },
   {
+    "id": "item_equip_t4_parts_wuling02_hand_02",
+    "category": "equipment",
+    "name": {
+      "zh-CN": "涉渊手套",
+      "en": "Rift Trekker Hands",
+      "ja": "渡淵グローブ",
+      "zh-TW": "涉淵手套"
+    },
+    "rarity": 5,
+    "imageId": "item_equip_t4_parts_wuling02_hand_02",
+    "partTypeId": "1",
+    "minimumLevel": 70
+  },
+  {
+    "id": "item_equip_t4_suit_usp02_edc_06",
+    "category": "equipment",
+    "name": {
+      "zh-CN": "长息重护板",
+      "en": "Eternal Xiranite Heavy Slab",
+      "ja": "流転重量プレート",
+      "zh-TW": "長息重護板"
+    },
+    "rarity": 5,
+    "imageId": "item_equip_t4_suit_usp02_edc_06",
+    "partTypeId": "2",
+    "suitId": "suit_usp02",
+    "suitName": {
+      "zh-CN": "长息",
+      "en": "Eternal Xiranite",
+      "ja": "流転",
+      "zh-TW": "長息"
+    },
+    "minimumLevel": 70
+  },
+  {
     "id": "item_equip_t3_suit_usp01_edc_01",
     "category": "equipment",
     "name": {
@@ -2293,16 +2580,16 @@ export const wikiEquipment = [
     "minimumLevel": 50
   },
   {
-    "id": "item_equip_t4_suit_attri01_edc_05",
+    "id": "item_equip_t4_suit_attri01_edc_06",
     "category": "equipment",
     "name": {
-      "zh-CN": "碾骨面具·壹型",
-      "en": "Bonekrusha Mask T1",
-      "ja": "骨砕のマスクⅠ",
-      "zh-TW": "碾骨面具·I"
+      "zh-CN": "碾骨小雕像·壹型",
+      "en": "Bonekrusha Figurine T1",
+      "ja": "骨砕の小像Ⅰ",
+      "zh-TW": "碾骨小雕像·I"
     },
     "rarity": 5,
-    "imageId": "item_equip_t4_suit_attri01_edc_05",
+    "imageId": "item_equip_t4_suit_attri01_edc_06",
     "partTypeId": "2",
     "suitId": "suit_attri01",
     "suitName": {
@@ -2310,48 +2597,6 @@ export const wikiEquipment = [
       "en": "Bonekrusha",
       "ja": "骨砕",
       "zh-TW": "碾骨"
-    },
-    "minimumLevel": 70
-  },
-  {
-    "id": "item_equip_t4_suit_combo_cd01_edc_03",
-    "category": "equipment",
-    "name": {
-      "zh-CN": "清波水罐",
-      "en": "Qingbo Cask",
-      "ja": "清波水筒",
-      "zh-TW": "清波水罐"
-    },
-    "rarity": 5,
-    "imageId": "item_equip_t4_suit_combo_cd01_edc_03",
-    "partTypeId": "2",
-    "suitId": "suit_combo_cd01",
-    "suitName": {
-      "zh-CN": "清波",
-      "en": "Qingbo",
-      "ja": "清波",
-      "zh-TW": "清波"
-    },
-    "minimumLevel": 70
-  },
-  {
-    "id": "item_equip_t4_suit_heal01_edc_03",
-    "category": "equipment",
-    "name": {
-      "zh-CN": "生物辅助护板",
-      "en": "LYNX Slab",
-      "ja": "生物補助プレート",
-      "zh-TW": "生物輔助護板"
-    },
-    "rarity": 5,
-    "imageId": "item_equip_t4_suit_heal01_edc_03",
-    "partTypeId": "2",
-    "suitId": "suit_heal01",
-    "suitName": {
-      "zh-CN": "生物辅助",
-      "en": "LYNX",
-      "ja": "生物補助",
-      "zh-TW": "生物輔助"
     },
     "minimumLevel": 70
   },
@@ -2377,27 +2622,6 @@ export const wikiEquipment = [
     "minimumLevel": 50
   },
   {
-    "id": "item_equip_t4_suit_attri01_edc_04",
-    "category": "equipment",
-    "name": {
-      "zh-CN": "碾骨面具",
-      "en": "Bonekrusha Mask",
-      "ja": "骨砕のマスク",
-      "zh-TW": "碾骨面具"
-    },
-    "rarity": 5,
-    "imageId": "item_equip_t4_suit_attri01_edc_04",
-    "partTypeId": "2",
-    "suitId": "suit_attri01",
-    "suitName": {
-      "zh-CN": "碾骨",
-      "en": "Bonekrusha",
-      "ja": "骨砕",
-      "zh-TW": "碾骨"
-    },
-    "minimumLevel": 70
-  },
-  {
     "id": "item_equip_t3_suit_usp01_edc_03",
     "category": "equipment",
     "name": {
@@ -2417,27 +2641,6 @@ export const wikiEquipment = [
       "zh-TW": "天災防護"
     },
     "minimumLevel": 50
-  },
-  {
-    "id": "item_equip_t4_suit_attri01_edc_07",
-    "category": "equipment",
-    "name": {
-      "zh-CN": "碾骨面具·贰型",
-      "en": "Bonekrusha Mask T2",
-      "ja": "骨砕のマスクⅡ",
-      "zh-TW": "碾骨面具·II"
-    },
-    "rarity": 5,
-    "imageId": "item_equip_t4_suit_attri01_edc_07",
-    "partTypeId": "2",
-    "suitId": "suit_attri01",
-    "suitName": {
-      "zh-CN": "碾骨",
-      "en": "Bonekrusha",
-      "ja": "骨砕",
-      "zh-TW": "碾骨"
-    },
-    "minimumLevel": 70
   },
   {
     "id": "item_equip_t3_suit_will01_body_01",
@@ -2461,37 +2664,16 @@ export const wikiEquipment = [
     "minimumLevel": 50
   },
   {
-    "id": "item_equip_t4_suit_burst01_hand_01",
+    "id": "item_equip_t3_suit_will01_edc_02",
     "category": "equipment",
     "name": {
-      "zh-CN": "潮涌手甲",
-      "en": "Tide Surge Gauntlets",
-      "ja": "満潮ガントレット",
-      "zh-TW": "潮湧手甲"
-    },
-    "rarity": 5,
-    "imageId": "item_equip_t4_suit_burst01_hand_01",
-    "partTypeId": "1",
-    "suitId": "suit_burst01",
-    "suitName": {
-      "zh-CN": "潮涌",
-      "en": "Tide Surge",
-      "ja": "満潮",
-      "zh-TW": "潮湧"
-    },
-    "minimumLevel": 70
-  },
-  {
-    "id": "item_equip_t3_suit_will01_edc_01",
-    "category": "equipment",
-    "name": {
-      "zh-CN": "蚀电防护电池·壹型",
-      "en": "Mordvolt Resistant Battery T1",
-      "ja": "蝕電防護バッテリーⅠ",
-      "zh-TW": "蝕電防護電池·I"
+      "zh-CN": "蚀电防护扳手·壹型",
+      "en": "Mordvolt Resistant Wrench T1",
+      "ja": "蝕電防護スパナⅠ",
+      "zh-TW": "蝕電防護扳手·I"
     },
     "rarity": 4,
-    "imageId": "item_equip_t3_suit_will01_edc_01",
+    "imageId": "item_equip_t3_suit_will01_edc_02",
     "partTypeId": "2",
     "suitId": "suit_will01",
     "suitName": {
@@ -2501,6 +2683,188 @@ export const wikiEquipment = [
       "zh-TW": "蝕電防護"
     },
     "minimumLevel": 50
+  },
+  {
+    "id": "item_equip_t4_suit_atb01_body_02",
+    "category": "equipment",
+    "name": {
+      "zh-CN": "拓荒护甲·壹型",
+      "en": "Frontiers Armor T1",
+      "ja": "パイオニア防具Ⅰ",
+      "zh-TW": "拓荒護甲·I"
+    },
+    "rarity": 5,
+    "imageId": "item_equip_t4_suit_atb01_body_03",
+    "partTypeId": "0",
+    "suitId": "suit_atb01",
+    "suitName": {
+      "zh-CN": "拓荒",
+      "en": "Frontiers",
+      "ja": "パイオニア",
+      "zh-TW": "拓荒"
+    },
+    "minimumLevel": 70
+  },
+  {
+    "id": "item_equip_t3_suit_will01_hand_01",
+    "category": "equipment",
+    "name": {
+      "zh-CN": "蚀电防护手套·壹型",
+      "en": "Mordvolt Resistant Gloves T1",
+      "ja": "蝕電防護グローブⅠ",
+      "zh-TW": "蝕電防護手套·I"
+    },
+    "rarity": 4,
+    "imageId": "item_equip_t3_suit_will01_hand_01",
+    "partTypeId": "1",
+    "suitId": "suit_will01",
+    "suitName": {
+      "zh-CN": "蚀电防护",
+      "en": "Mordvolt Resistant",
+      "ja": "蝕電防護",
+      "zh-TW": "蝕電防護"
+    },
+    "minimumLevel": 50
+  },
+  {
+    "id": "item_equip_t4_suit_fire_natr01_body_01",
+    "category": "equipment",
+    "name": {
+      "zh-CN": "动火用外骨骼",
+      "en": "Hot Work Exoskeleton",
+      "ja": "火山用パワードスーツ",
+      "zh-TW": "動火用外骨骼"
+    },
+    "rarity": 5,
+    "imageId": "item_equip_t4_suit_fire_natr01_body_01",
+    "partTypeId": "0",
+    "suitId": "suit_fire_natr01",
+    "suitName": {
+      "zh-CN": "动火用",
+      "en": "Hot Work",
+      "ja": "火山用",
+      "zh-TW": "動火用"
+    },
+    "minimumLevel": 70
+  },
+  {
+    "id": "item_equip_t3_suit_wisd01_body_02",
+    "category": "equipment",
+    "name": {
+      "zh-CN": "蚀电屏蔽背心·贰型",
+      "en": "Mordvolt Insulation Vest T2",
+      "ja": "蝕電遮断ベストⅡ",
+      "zh-TW": "蝕電絕緣背心·II"
+    },
+    "rarity": 4,
+    "imageId": "item_equip_t3_suit_wisd01_body_02",
+    "partTypeId": "0",
+    "suitId": "suit_wisd01",
+    "suitName": {
+      "zh-CN": "蚀电屏蔽",
+      "en": "Mordvolt Insulation",
+      "ja": "蝕電遮断",
+      "zh-TW": "蝕電絕緣"
+    },
+    "minimumLevel": 50
+  },
+  {
+    "id": "item_equip_t4_suit_usp02_edc_01",
+    "category": "equipment",
+    "name": {
+      "zh-CN": "长息蓄电核",
+      "en": "Eternal Xiranite Power Core",
+      "ja": "流転蓄電装置",
+      "zh-TW": "長息蓄電核"
+    },
+    "rarity": 5,
+    "imageId": "item_equip_t4_suit_usp02_edc_01",
+    "partTypeId": "2",
+    "suitId": "suit_usp02",
+    "suitName": {
+      "zh-CN": "长息",
+      "en": "Eternal Xiranite",
+      "ja": "流転",
+      "zh-TW": "長息"
+    },
+    "minimumLevel": 70
+  },
+  {
+    "id": "item_equip_t3_suit_wisd01_edc_02",
+    "category": "equipment",
+    "name": {
+      "zh-CN": "蚀电屏蔽电池·壹型",
+      "en": "Mordvolt Insulation Battery T1",
+      "ja": "蝕電遮断バッテリーⅠ",
+      "zh-TW": "蝕電絕緣電池·I"
+    },
+    "rarity": 4,
+    "imageId": "item_equip_t3_suit_wisd01_edc_02",
+    "partTypeId": "2",
+    "suitId": "suit_wisd01",
+    "suitName": {
+      "zh-CN": "蚀电屏蔽",
+      "en": "Mordvolt Insulation",
+      "ja": "蝕電遮断",
+      "zh-TW": "蝕電絕緣"
+    },
+    "minimumLevel": 50
+  },
+  {
+    "id": "item_equip_t3_suit_wisd01_hand_01",
+    "category": "equipment",
+    "name": {
+      "zh-CN": "蚀电屏蔽手套·壹型",
+      "en": "Mordvolt Insulation Gloves T1",
+      "ja": "蝕電遮断グローブⅠ",
+      "zh-TW": "蝕電絕緣手套·I"
+    },
+    "rarity": 4,
+    "imageId": "item_equip_t3_suit_wisd01_hand_01",
+    "partTypeId": "1",
+    "suitId": "suit_wisd01",
+    "suitName": {
+      "zh-CN": "蚀电屏蔽",
+      "en": "Mordvolt Insulation",
+      "ja": "蝕電遮断",
+      "zh-TW": "蝕電絕緣"
+    },
+    "minimumLevel": 50
+  },
+  {
+    "id": "item_equip_t4_parts_wuling00_body_02",
+    "category": "equipment",
+    "name": {
+      "zh-CN": "集成实训钢甲",
+      "en": "AIC Fieldwork Plate",
+      "ja": "集成訓練鋼製防具",
+      "zh-TW": "集成實訓鋼甲"
+    },
+    "rarity": 5,
+    "imageId": "item_equip_t4_parts_wuling00_body_02",
+    "partTypeId": "0",
+    "suitId": "suit_generaltype",
+    "suitName": {
+      "zh-CN": "集成实训",
+      "en": "AIC Fieldwork",
+      "ja": "集成訓練",
+      "zh-TW": "集成實訓"
+    },
+    "minimumLevel": 60
+  },
+  {
+    "id": "item_equip_t4_parts_wuling01_body_01",
+    "category": "equipment",
+    "name": {
+      "zh-CN": "纾难重甲",
+      "en": "Redeemer Plates",
+      "ja": "救国重防具",
+      "zh-TW": "紓難重甲"
+    },
+    "rarity": 5,
+    "imageId": "item_equip_t4_parts_wuling01_body_01",
+    "partTypeId": "0",
+    "minimumLevel": 70
   },
   {
     "id": "item_equip_t4_parts_wuling00_body_03",
@@ -2545,279 +2909,6 @@ export const wikiEquipment = [
     "minimumLevel": 70
   },
   {
-    "id": "item_equip_t3_suit_will01_edc_02",
-    "category": "equipment",
-    "name": {
-      "zh-CN": "蚀电防护扳手·壹型",
-      "en": "Mordvolt Resistant Wrench T1",
-      "ja": "蝕電防護スパナⅠ",
-      "zh-TW": "蝕電防護扳手·I"
-    },
-    "rarity": 4,
-    "imageId": "item_equip_t3_suit_will01_edc_02",
-    "partTypeId": "2",
-    "suitId": "suit_will01",
-    "suitName": {
-      "zh-CN": "蚀电防护",
-      "en": "Mordvolt Resistant",
-      "ja": "蝕電防護",
-      "zh-TW": "蝕電防護"
-    },
-    "minimumLevel": 50
-  },
-  {
-    "id": "item_equip_t4_suit_criti01_edc_03",
-    "category": "equipment",
-    "name": {
-      "zh-CN": "M.I.警用工具组",
-      "en": "MI Security Toolkit",
-      "ja": "M.I.警備マルチツール",
-      "zh-TW": "M. I.警用工具組"
-    },
-    "rarity": 5,
-    "imageId": "item_equip_t4_suit_criti01_edc_03",
-    "partTypeId": "2",
-    "suitId": "suit_criti01",
-    "suitName": {
-      "zh-CN": "M.I.警用",
-      "en": "MI Security",
-      "ja": "M.I.警備",
-      "zh-TW": "M. I.警用"
-    },
-    "minimumLevel": 70
-  },
-  {
-    "id": "item_equip_t3_suit_will01_hand_01",
-    "category": "equipment",
-    "name": {
-      "zh-CN": "蚀电防护手套·壹型",
-      "en": "Mordvolt Resistant Gloves T1",
-      "ja": "蝕電防護グローブⅠ",
-      "zh-TW": "蝕電防護手套·I"
-    },
-    "rarity": 4,
-    "imageId": "item_equip_t3_suit_will01_hand_01",
-    "partTypeId": "1",
-    "suitId": "suit_will01",
-    "suitName": {
-      "zh-CN": "蚀电防护",
-      "en": "Mordvolt Resistant",
-      "ja": "蝕電防護",
-      "zh-TW": "蝕電防護"
-    },
-    "minimumLevel": 50
-  },
-  {
-    "id": "item_equip_t4_suit_attri01_edc_03",
-    "category": "equipment",
-    "name": {
-      "zh-CN": "碾骨小雕像",
-      "en": "Bonekrusha Figurine",
-      "ja": "骨砕の小像",
-      "zh-TW": "碾骨小雕像"
-    },
-    "rarity": 5,
-    "imageId": "item_equip_t4_suit_attri01_edc_06",
-    "partTypeId": "2",
-    "suitId": "suit_attri01",
-    "suitName": {
-      "zh-CN": "碾骨",
-      "en": "Bonekrusha",
-      "ja": "骨砕",
-      "zh-TW": "碾骨"
-    },
-    "minimumLevel": 70
-  },
-  {
-    "id": "item_equip_t3_suit_wisd01_body_01",
-    "category": "equipment",
-    "name": {
-      "zh-CN": "蚀电屏蔽背心·壹型",
-      "en": "Mordvolt Insulation Vest T1",
-      "ja": "蝕電遮断ベストⅠ",
-      "zh-TW": "蝕電絕緣背心·I"
-    },
-    "rarity": 4,
-    "imageId": "item_equip_t3_suit_wisd01_body_01",
-    "partTypeId": "0",
-    "suitId": "suit_wisd01",
-    "suitName": {
-      "zh-CN": "蚀电屏蔽",
-      "en": "Mordvolt Insulation",
-      "ja": "蝕電遮断",
-      "zh-TW": "蝕電絕緣"
-    },
-    "minimumLevel": 50
-  },
-  {
-    "id": "item_equip_t4_suit_fire_natr01_edc_02",
-    "category": "equipment",
-    "name": {
-      "zh-CN": "动火用测温镜",
-      "en": "Hot Work Pyrometer",
-      "ja": "火山用温度測定器",
-      "zh-TW": "動火用測溫鏡"
-    },
-    "rarity": 5,
-    "imageId": "item_equip_t4_suit_fire_natr01_edc_02",
-    "partTypeId": "2",
-    "suitId": "suit_fire_natr01",
-    "suitName": {
-      "zh-CN": "动火用",
-      "en": "Hot Work",
-      "ja": "火山用",
-      "zh-TW": "動火用"
-    },
-    "minimumLevel": 70
-  },
-  {
-    "id": "item_equip_t3_suit_wisd01_body_02",
-    "category": "equipment",
-    "name": {
-      "zh-CN": "蚀电屏蔽背心·贰型",
-      "en": "Mordvolt Insulation Vest T2",
-      "ja": "蝕電遮断ベストⅡ",
-      "zh-TW": "蝕電絕緣背心·II"
-    },
-    "rarity": 4,
-    "imageId": "item_equip_t3_suit_wisd01_body_02",
-    "partTypeId": "0",
-    "suitId": "suit_wisd01",
-    "suitName": {
-      "zh-CN": "蚀电屏蔽",
-      "en": "Mordvolt Insulation",
-      "ja": "蝕電遮断",
-      "zh-TW": "蝕電絕緣"
-    },
-    "minimumLevel": 50
-  },
-  {
-    "id": "item_equip_t4_parts_wuling00_hand_03",
-    "category": "equipment",
-    "name": {
-      "zh-CN": "集成实训缠带",
-      "en": "AIC Fieldwork Wraps",
-      "ja": "集成訓練サポーター",
-      "zh-TW": "集成實訓纏帶"
-    },
-    "rarity": 5,
-    "imageId": "item_equip_t4_parts_wuling00_hand_03",
-    "partTypeId": "1",
-    "suitId": "suit_generaltype",
-    "suitName": {
-      "zh-CN": "集成实训",
-      "en": "AIC Fieldwork",
-      "ja": "集成訓練",
-      "zh-TW": "集成實訓"
-    },
-    "minimumLevel": 60
-  },
-  {
-    "id": "item_equip_t4_suit_fire_natr01_edc_01",
-    "category": "equipment",
-    "name": {
-      "zh-CN": "动火用储能匣",
-      "en": "Hot Work Power Bank",
-      "ja": "火山用パワーバッテリー",
-      "zh-TW": "動火用儲能匣"
-    },
-    "rarity": 5,
-    "imageId": "item_equip_t4_suit_fire_natr01_edc_01",
-    "partTypeId": "2",
-    "suitId": "suit_fire_natr01",
-    "suitName": {
-      "zh-CN": "动火用",
-      "en": "Hot Work",
-      "ja": "火山用",
-      "zh-TW": "動火用"
-    },
-    "minimumLevel": 70
-  },
-  {
-    "id": "item_equip_t3_suit_wisd01_edc_02",
-    "category": "equipment",
-    "name": {
-      "zh-CN": "蚀电屏蔽电池·壹型",
-      "en": "Mordvolt Insulation Battery T1",
-      "ja": "蝕電遮断バッテリーⅠ",
-      "zh-TW": "蝕電絕緣電池·I"
-    },
-    "rarity": 4,
-    "imageId": "item_equip_t3_suit_wisd01_edc_02",
-    "partTypeId": "2",
-    "suitId": "suit_wisd01",
-    "suitName": {
-      "zh-CN": "蚀电屏蔽",
-      "en": "Mordvolt Insulation",
-      "ja": "蝕電遮断",
-      "zh-TW": "蝕電絕緣"
-    },
-    "minimumLevel": 50
-  },
-  {
-    "id": "item_equip_t4_suit_criti01_body_02",
-    "category": "equipment",
-    "name": {
-      "zh-CN": "M.I.警用罩衣",
-      "en": "MI Security Overalls",
-      "ja": "M.I.警備マント",
-      "zh-TW": "M. I.警用罩衣"
-    },
-    "rarity": 5,
-    "imageId": "item_equip_t4_suit_criti01_body_02",
-    "partTypeId": "0",
-    "suitId": "suit_criti01",
-    "suitName": {
-      "zh-CN": "M.I.警用",
-      "en": "MI Security",
-      "ja": "M.I.警備",
-      "zh-TW": "M. I.警用"
-    },
-    "minimumLevel": 70
-  },
-  {
-    "id": "item_equip_t4_suit_usp02_edc_04",
-    "category": "equipment",
-    "name": {
-      "zh-CN": "长息加固板",
-      "en": "Eternal Xiranite Bracing Slab",
-      "ja": "流転補強板",
-      "zh-TW": "長息加固板"
-    },
-    "rarity": 5,
-    "imageId": "item_equip_t4_suit_usp02_edc_04",
-    "partTypeId": "2",
-    "suitId": "suit_usp02",
-    "suitName": {
-      "zh-CN": "长息",
-      "en": "Eternal Xiranite",
-      "ja": "流転",
-      "zh-TW": "長息"
-    },
-    "minimumLevel": 70
-  },
-  {
-    "id": "item_equip_t4_parts_wuling00_body_02",
-    "category": "equipment",
-    "name": {
-      "zh-CN": "集成实训钢甲",
-      "en": "AIC Fieldwork Plate",
-      "ja": "集成訓練鋼製防具",
-      "zh-TW": "集成實訓鋼甲"
-    },
-    "rarity": 5,
-    "imageId": "item_equip_t4_parts_wuling00_body_02",
-    "partTypeId": "0",
-    "suitId": "suit_generaltype",
-    "suitName": {
-      "zh-CN": "集成实训",
-      "en": "AIC Fieldwork",
-      "ja": "集成訓練",
-      "zh-TW": "集成實訓"
-    },
-    "minimumLevel": 60
-  },
-  {
     "id": "item_equip_t4_parts_wuling00_edc_01",
     "category": "equipment",
     "name": {
@@ -2839,17 +2930,38 @@ export const wikiEquipment = [
     "minimumLevel": 60
   },
   {
-    "id": "item_equip_t4_parts_wuling00_hand_01",
+    "id": "item_equip_t4_parts_wuling00_edc_02",
     "category": "equipment",
     "name": {
-      "zh-CN": "集成实训手套",
-      "en": "AIC Fieldwork Gloves",
-      "ja": "集成訓練グローブ",
-      "zh-TW": "集成實訓手套"
+      "zh-CN": "集成实训火种石",
+      "en": "AIC Fieldwork Ember",
+      "ja": "集成訓練火種石",
+      "zh-TW": "集成實訓火種石"
     },
     "rarity": 5,
-    "imageId": "item_equip_t4_parts_wuling00_hand_01",
-    "partTypeId": "1",
+    "imageId": "item_equip_t4_parts_wuling00_edc_02",
+    "partTypeId": "2",
+    "suitId": "suit_generaltype",
+    "suitName": {
+      "zh-CN": "集成实训",
+      "en": "AIC Fieldwork",
+      "ja": "集成訓練",
+      "zh-TW": "集成實訓"
+    },
+    "minimumLevel": 60
+  },
+  {
+    "id": "item_equip_t4_parts_wuling00_edc_03",
+    "category": "equipment",
+    "name": {
+      "zh-CN": "集成实训照明器",
+      "en": "AIC Fieldwork Flashlight",
+      "ja": "集成訓練ライト",
+      "zh-TW": "集成實訓照明器"
+    },
+    "rarity": 5,
+    "imageId": "item_equip_t4_parts_wuling00_edc_03",
+    "partTypeId": "2",
     "suitId": "suit_generaltype",
     "suitName": {
       "zh-CN": "集成实训",
@@ -2881,39 +2993,88 @@ export const wikiEquipment = [
     "minimumLevel": 60
   },
   {
-    "id": "item_equip_t4_parts_wuling01_body_01",
+    "id": "item_equip_t4_suit_expend_spell01_edc_02",
     "category": "equipment",
     "name": {
-      "zh-CN": "纾难重甲",
-      "en": "Redeemer Plates",
-      "ja": "救国重防具",
-      "zh-TW": "紓難重甲"
+      "zh-CN": "壤流短棍",
+      "en": "Xiranflow Baton",
+      "ja": "壌流棍棒",
+      "zh-TW": "壤流短棍"
     },
     "rarity": 5,
-    "imageId": "item_equip_t4_parts_wuling01_body_01",
-    "partTypeId": "0",
+    "imageId": "item_equip_t4_suit_expend_spell01_edc_02",
+    "partTypeId": "2",
+    "suitId": "suit_expend_spell01",
+    "suitName": {
+      "zh-CN": "壤流",
+      "en": "Xiranflow",
+      "ja": "壌流",
+      "zh-TW": "壤流"
+    },
     "minimumLevel": 70
   },
   {
-    "id": "item_equip_t4_suit_phy01_edc_02",
+    "id": "item_equip_t4_parts_wuling00_hand_03",
     "category": "equipment",
     "name": {
-      "zh-CN": "点剑微型滤芯",
-      "en": "Swordmancer Micro Filter",
-      "ja": "宏山点剣小型フィルター",
-      "zh-TW": "點劍微型濾芯"
+      "zh-CN": "集成实训缠带",
+      "en": "AIC Fieldwork Wraps",
+      "ja": "集成訓練サポーター",
+      "zh-TW": "集成實訓纏帶"
     },
     "rarity": 5,
-    "imageId": "item_equip_t4_suit_phy01_edc_02",
-    "partTypeId": "2",
-    "suitId": "suit_phy01",
+    "imageId": "item_equip_t4_parts_wuling00_hand_03",
+    "partTypeId": "1",
+    "suitId": "suit_generaltype",
     "suitName": {
-      "zh-CN": "点剑",
-      "en": "Swordmancer",
-      "ja": "宏山点剣",
-      "zh-TW": "點劍"
+      "zh-CN": "集成实训",
+      "en": "AIC Fieldwork",
+      "ja": "集成訓練",
+      "zh-TW": "集成實訓"
     },
-    "minimumLevel": 70
+    "minimumLevel": 60
+  },
+  {
+    "id": "item_equip_t4_parts_wuling00_hand_04",
+    "category": "equipment",
+    "name": {
+      "zh-CN": "集成实训突袭护手",
+      "en": "AIC Fieldwork Assault Gloves",
+      "ja": "集成訓練強襲プロテクター",
+      "zh-TW": "集成實訓突襲護手"
+    },
+    "rarity": 5,
+    "imageId": "item_equip_t4_parts_wuling00_hand_04",
+    "partTypeId": "1",
+    "suitId": "suit_generaltype",
+    "suitName": {
+      "zh-CN": "集成实训",
+      "en": "AIC Fieldwork",
+      "ja": "集成訓練",
+      "zh-TW": "集成實訓"
+    },
+    "minimumLevel": 60
+  },
+  {
+    "id": "item_equip_t4_parts_wuling00_hand_05",
+    "category": "equipment",
+    "name": {
+      "zh-CN": "集成实训医疗护手",
+      "en": "AIC Fieldwork Medic Gloves",
+      "ja": "集成訓練医療プロテクター",
+      "zh-TW": "集成實訓醫療護手"
+    },
+    "rarity": 5,
+    "imageId": "item_equip_t4_parts_wuling00_hand_05",
+    "partTypeId": "1",
+    "suitId": "suit_generaltype",
+    "suitName": {
+      "zh-CN": "集成实训",
+      "en": "AIC Fieldwork",
+      "ja": "集成訓練",
+      "zh-TW": "集成實訓"
+    },
+    "minimumLevel": 60
   },
   {
     "id": "item_equip_t4_parts_wuling01_edc_01",
@@ -2926,55 +3087,6 @@ export const wikiEquipment = [
     },
     "rarity": 5,
     "imageId": "item_equip_t4_parts_wuling01_edc_01",
-    "partTypeId": "2",
-    "minimumLevel": 70
-  },
-  {
-    "id": "item_equip_t4_parts_wuling01_edc_02",
-    "category": "equipment",
-    "name": {
-      "zh-CN": "纾难识别牌·壹型",
-      "en": "Redeemer Tag T1",
-      "ja": "救国識別札Ⅰ",
-      "zh-TW": "紓難識別證·I"
-    },
-    "rarity": 5,
-    "imageId": "item_equip_t4_parts_wuling01_edc_02",
-    "partTypeId": "2",
-    "minimumLevel": 70
-  },
-  {
-    "id": "item_equip_t4_suit_heal01_hand_01",
-    "category": "equipment",
-    "name": {
-      "zh-CN": "生物辅助臂甲",
-      "en": "LYNX Gloves",
-      "ja": "生物補助グローブ",
-      "zh-TW": "生物輔助臂甲"
-    },
-    "rarity": 5,
-    "imageId": "item_equip_t4_suit_heal01_hand_01",
-    "partTypeId": "1",
-    "suitId": "suit_heal01",
-    "suitName": {
-      "zh-CN": "生物辅助",
-      "en": "LYNX",
-      "ja": "生物補助",
-      "zh-TW": "生物輔助"
-    },
-    "minimumLevel": 70
-  },
-  {
-    "id": "item_equip_t4_parts_wuling01_edc_03",
-    "category": "equipment",
-    "name": {
-      "zh-CN": "纾难印章",
-      "en": "Redeemer Seal",
-      "ja": "救国印章",
-      "zh-TW": "紓難印章"
-    },
-    "rarity": 5,
-    "imageId": "item_equip_t4_parts_wuling01_edc_03",
     "partTypeId": "2",
     "minimumLevel": 70
   },
@@ -2993,69 +3105,6 @@ export const wikiEquipment = [
     "minimumLevel": 70
   },
   {
-    "id": "item_equip_t4_suit_attri01_body_03",
-    "category": "equipment",
-    "name": {
-      "zh-CN": "碾骨披巾",
-      "en": "Bonekrusha Poncho",
-      "ja": "骨砕のマント",
-      "zh-TW": "碾骨披巾"
-    },
-    "rarity": 5,
-    "imageId": "item_equip_t4_suit_attri01_body_04",
-    "partTypeId": "0",
-    "suitId": "suit_attri01",
-    "suitName": {
-      "zh-CN": "碾骨",
-      "en": "Bonekrusha",
-      "ja": "骨砕",
-      "zh-TW": "碾骨"
-    },
-    "minimumLevel": 70
-  },
-  {
-    "id": "item_equip_t4_suit_attri01_hand_01",
-    "category": "equipment",
-    "name": {
-      "zh-CN": "碾骨腕带",
-      "en": "Bonekrusha Wristband",
-      "ja": "骨砕のグローブ",
-      "zh-TW": "碾骨腕帶"
-    },
-    "rarity": 5,
-    "imageId": "item_equip_t4_suit_attri01_hand_01",
-    "partTypeId": "1",
-    "suitId": "suit_attri01",
-    "suitName": {
-      "zh-CN": "碾骨",
-      "en": "Bonekrusha",
-      "ja": "骨砕",
-      "zh-TW": "碾骨"
-    },
-    "minimumLevel": 70
-  },
-  {
-    "id": "item_equip_t4_suit_poise01_hand_01",
-    "category": "equipment",
-    "name": {
-      "zh-CN": "轻超域护手",
-      "en": "Æthertech Gloves",
-      "ja": "軽量超域ガントレット",
-      "zh-TW": "輕超域護手"
-    },
-    "rarity": 5,
-    "imageId": "item_equip_t4_suit_poise01_hand_01",
-    "partTypeId": "1",
-    "suitId": "suit_poise01",
-    "suitName": {
-      "zh-CN": "轻超域",
-      "en": "Æthertech",
-      "ja": "軽量超域",
-      "zh-TW": "輕超域"
-    },
-    "minimumLevel": 70
-  },
-  {
     "id": "item_equip_t4_parts_wuling01_hand_01",
     "category": "equipment",
     "name": {
@@ -3070,44 +3119,23 @@ export const wikiEquipment = [
     "minimumLevel": 70
   },
   {
-    "id": "item_equip_t4_suit_atb01_body_05",
+    "id": "item_equip_t4_suit_combo_cd01_body_01",
     "category": "equipment",
     "name": {
-      "zh-CN": "拓荒护服",
-      "en": "Frontiers Protection Suit",
-      "ja": "パイオニア防護服",
-      "zh-TW": "拓荒護服"
+      "zh-CN": "清波重甲",
+      "en": "Qingbo Heavy Armor",
+      "ja": "清波重防具",
+      "zh-TW": "清波重甲"
     },
     "rarity": 5,
-    "imageId": "item_equip_t4_suit_atb01_body_05",
+    "imageId": "item_equip_t4_suit_combo_cd01_body_01",
     "partTypeId": "0",
-    "suitId": "suit_atb01",
+    "suitId": "suit_combo_cd01",
     "suitName": {
-      "zh-CN": "拓荒",
-      "en": "Frontiers",
-      "ja": "パイオニア",
-      "zh-TW": "拓荒"
-    },
-    "minimumLevel": 70
-  },
-  {
-    "id": "item_equip_t4_suit_usp02_edc_02",
-    "category": "equipment",
-    "name": {
-      "zh-CN": "长息蓄电核·壹型",
-      "en": "Eternal Xiranite Power Core T1",
-      "ja": "流転蓄電装置Ⅰ",
-      "zh-TW": "長息蓄電核·I"
-    },
-    "rarity": 5,
-    "imageId": "item_equip_t4_suit_usp02_edc_02",
-    "partTypeId": "2",
-    "suitId": "suit_usp02",
-    "suitName": {
-      "zh-CN": "长息",
-      "en": "Eternal Xiranite",
-      "ja": "流転",
-      "zh-TW": "長息"
+      "zh-CN": "清波",
+      "en": "Qingbo",
+      "ja": "清波",
+      "zh-TW": "清波"
     },
     "minimumLevel": 70
   },
@@ -3126,6 +3154,27 @@ export const wikiEquipment = [
     "minimumLevel": 70
   },
   {
+    "id": "item_equip_t4_suit_phy01_hand_02",
+    "category": "equipment",
+    "name": {
+      "zh-CN": "点剑战术手甲",
+      "en": "Swordmancer TAC Gauntlets",
+      "ja": "宏山点剣ガントレット",
+      "zh-TW": "點劍戰術手甲"
+    },
+    "rarity": 5,
+    "imageId": "item_equip_t4_suit_phy01_hand_02",
+    "partTypeId": "1",
+    "suitId": "suit_phy01",
+    "suitName": {
+      "zh-CN": "点剑",
+      "en": "Swordmancer",
+      "ja": "宏山点剣",
+      "zh-TW": "點劍"
+    },
+    "minimumLevel": 70
+  },
+  {
     "id": "item_equip_t4_parts_wuling02_body_01",
     "category": "equipment",
     "name": {
@@ -3137,6 +3186,27 @@ export const wikiEquipment = [
     "rarity": 5,
     "imageId": "item_equip_t4_parts_wuling02_body_01",
     "partTypeId": "0",
+    "minimumLevel": 70
+  },
+  {
+    "id": "item_equip_t4_suit_fire_natr01_hand_04",
+    "category": "equipment",
+    "name": {
+      "zh-CN": "动火用护手",
+      "en": "Hot Work Hands PPE",
+      "ja": "火山用プロテクター",
+      "zh-TW": "動火用護手"
+    },
+    "rarity": 5,
+    "imageId": "item_equip_t4_suit_fire_natr01_hand_04",
+    "partTypeId": "1",
+    "suitId": "suit_fire_natr01",
+    "suitName": {
+      "zh-CN": "动火用",
+      "en": "Hot Work",
+      "ja": "火山用",
+      "zh-TW": "動火用"
+    },
     "minimumLevel": 70
   },
   {
@@ -3154,37 +3224,72 @@ export const wikiEquipment = [
     "minimumLevel": 70
   },
   {
-    "id": "item_equip_t4_suit_atb01_edc_06",
+    "id": "item_equip_t4_suit_fire_natr01_hand_03",
     "category": "equipment",
     "name": {
-      "zh-CN": "拓荒增量供氧栓·壹型",
-      "en": "Frontiers Extra O2 Tube T1",
-      "ja": "パイオニアガス供給強化装置Ⅰ",
-      "zh-TW": "拓荒增量供氧栓·I"
+      "zh-CN": "动火用手甲·壹型",
+      "en": "Hot Work Gauntlets T1",
+      "ja": "火山用ガントレットⅠ",
+      "zh-TW": "動火用手甲·I"
     },
     "rarity": 5,
-    "imageId": "item_equip_t4_suit_atb01_edc_06",
-    "partTypeId": "2",
-    "suitId": "suit_atb01",
+    "imageId": "item_equip_t4_suit_fire_natr01_hand_03",
+    "partTypeId": "1",
+    "suitId": "suit_fire_natr01",
     "suitName": {
-      "zh-CN": "拓荒",
-      "en": "Frontiers",
-      "ja": "パイオニア",
-      "zh-TW": "拓荒"
+      "zh-CN": "动火用",
+      "en": "Hot Work",
+      "ja": "火山用",
+      "zh-TW": "動火用"
     },
     "minimumLevel": 70
   },
   {
-    "id": "item_equip_t4_parts_wuling02_hand_02",
+    "id": "item_equip_t4_suit_usp02_hand_02",
     "category": "equipment",
     "name": {
-      "zh-CN": "涉渊手套",
-      "en": "Rift Trekker Hands",
-      "ja": "渡淵グローブ",
-      "zh-TW": "涉淵手套"
+      "zh-CN": "长息护手·壹型",
+      "en": "Eternal Xiranite Gloves T1",
+      "ja": "流転ガントレットⅠ",
+      "zh-TW": "長息護手·I"
     },
     "rarity": 5,
-    "imageId": "item_equip_t4_parts_wuling02_hand_02",
+    "imageId": "item_equip_t4_suit_usp02_hand_01",
+    "partTypeId": "1",
+    "suitId": "suit_usp02",
+    "suitName": {
+      "zh-CN": "长息",
+      "en": "Eternal Xiranite",
+      "ja": "流転",
+      "zh-TW": "長息"
+    },
+    "minimumLevel": 70
+  },
+  {
+    "id": "item_equip_t4_parts_wuling02_edc_01",
+    "category": "equipment",
+    "name": {
+      "zh-CN": "涉渊护甲板",
+      "en": "Rift Trekker Armor Slab",
+      "ja": "渡淵装甲板",
+      "zh-TW": "涉淵護甲板"
+    },
+    "rarity": 5,
+    "imageId": "item_equip_t4_parts_wuling02_edc_01",
+    "partTypeId": "2",
+    "minimumLevel": 70
+  },
+  {
+    "id": "item_equip_t4_parts_wuling02_hand_01",
+    "category": "equipment",
+    "name": {
+      "zh-CN": "涉渊护手",
+      "en": "Rift Trekker Gloves",
+      "ja": "渡淵プロテクター",
+      "zh-TW": "涉淵護手"
+    },
+    "rarity": 5,
+    "imageId": "item_equip_t4_parts_wuling02_hand_01",
     "partTypeId": "1",
     "minimumLevel": 70
   },
@@ -3200,27 +3305,6 @@ export const wikiEquipment = [
     "rarity": 5,
     "imageId": "item_equip_t4_suit_atb01_body_01",
     "partTypeId": "0",
-    "suitId": "suit_atb01",
-    "suitName": {
-      "zh-CN": "拓荒",
-      "en": "Frontiers",
-      "ja": "パイオニア",
-      "zh-TW": "拓荒"
-    },
-    "minimumLevel": 70
-  },
-  {
-    "id": "item_equip_t4_suit_atb01_edc_05",
-    "category": "equipment",
-    "name": {
-      "zh-CN": "拓荒供氧栓",
-      "en": "Frontiers O2 Tube",
-      "ja": "パイオニアガス供給装置",
-      "zh-TW": "拓荒供氧栓"
-    },
-    "rarity": 5,
-    "imageId": "item_equip_t4_suit_atb01_edc_05",
-    "partTypeId": "2",
     "suitId": "suit_atb01",
     "suitName": {
       "zh-CN": "拓荒",
@@ -3252,37 +3336,58 @@ export const wikiEquipment = [
     "minimumLevel": 70
   },
   {
-    "id": "item_equip_t4_suit_criti01_edc_05",
+    "id": "item_equip_t4_suit_atk02_edc_05",
     "category": "equipment",
     "name": {
-      "zh-CN": "M.I.警用刺刃·壹型",
-      "en": "MI Security Push Knife T1",
-      "ja": "M.I.警備ナイフⅠ",
-      "zh-TW": "M. I.警用刺刃·I"
+      "zh-CN": "50式应龙短刃·壹型",
+      "en": "Type 50 Yinglung Knife T1",
+      "ja": "50式応龍短剣Ⅰ",
+      "zh-TW": "50式應龍短刃·I"
     },
     "rarity": 5,
-    "imageId": "item_equip_t4_suit_criti01_edc_05",
+    "imageId": "item_equip_t4_suit_atk02_edc_05",
     "partTypeId": "2",
-    "suitId": "suit_criti01",
+    "suitId": "suit_atk02",
     "suitName": {
-      "zh-CN": "M.I.警用",
-      "en": "MI Security",
-      "ja": "M.I.警備",
-      "zh-TW": "M. I.警用"
+      "zh-CN": "50式应龙",
+      "en": "Type 50 Yinglung",
+      "ja": "50式応龍",
+      "zh-TW": "50式應龍"
     },
     "minimumLevel": 70
   },
   {
-    "id": "item_equip_t4_suit_atb01_body_04",
+    "id": "item_equip_t4_suit_phy01_body_01",
     "category": "equipment",
     "name": {
-      "zh-CN": "拓荒护甲·叁型",
-      "en": "Frontiers Armor T3",
-      "ja": "パイオニア防具Ⅲ",
-      "zh-TW": "拓荒護甲III"
+      "zh-CN": "点剑轻装甲",
+      "en": "Swordmancer Light Armor",
+      "ja": "宏山点剣ライトアーマー",
+      "zh-TW": "點劍輕裝甲"
     },
     "rarity": 5,
-    "imageId": "item_equip_t4_suit_atb01_body_02",
+    "imageId": "item_equip_t4_suit_phy01_body_01",
+    "partTypeId": "0",
+    "suitId": "suit_phy01",
+    "suitName": {
+      "zh-CN": "点剑",
+      "en": "Swordmancer",
+      "ja": "宏山点剣",
+      "zh-TW": "點劍"
+    },
+    "minimumLevel": 70
+  },
+  {
+    "id": "item_equip_t4_suit_atb01_body_05",
+    "category": "equipment",
+    "name": {
+      "zh-CN": "拓荒护服",
+      "en": "Frontiers Protection Suit",
+      "ja": "パイオニア防護服",
+      "zh-TW": "拓荒護服"
+    },
+    "rarity": 5,
+    "imageId": "item_equip_t4_suit_atb01_body_05",
     "partTypeId": "0",
     "suitId": "suit_atb01",
     "suitName": {
@@ -3290,6 +3395,27 @@ export const wikiEquipment = [
       "en": "Frontiers",
       "ja": "パイオニア",
       "zh-TW": "拓荒"
+    },
+    "minimumLevel": 70
+  },
+  {
+    "id": "item_equip_t4_suit_fire_natr01_body_02",
+    "category": "equipment",
+    "name": {
+      "zh-CN": "动火用辅助骨骼",
+      "en": "Hot Work Exo-Rig",
+      "ja": "火山用補助スーツ",
+      "zh-TW": "動火用輔助骨骼"
+    },
+    "rarity": 5,
+    "imageId": "item_equip_t4_suit_fire_natr01_body_02",
+    "partTypeId": "0",
+    "suitId": "suit_fire_natr01",
+    "suitName": {
+      "zh-CN": "动火用",
+      "en": "Hot Work",
+      "ja": "火山用",
+      "zh-TW": "動火用"
     },
     "minimumLevel": 70
   },
@@ -3336,38 +3462,17 @@ export const wikiEquipment = [
     "minimumLevel": 70
   },
   {
-    "id": "item_equip_t4_suit_usp02_body_03",
+    "id": "item_equip_t4_suit_atb01_edc_05",
     "category": "equipment",
     "name": {
-      "zh-CN": "长息轻护甲",
-      "en": "Eternal Xiranite Light Armor",
-      "ja": "流転軽防具",
-      "zh-TW": "長息輕護甲"
+      "zh-CN": "拓荒供氧栓",
+      "en": "Frontiers O2 Tube",
+      "ja": "パイオニアガス供給装置",
+      "zh-TW": "拓荒供氧栓"
     },
     "rarity": 5,
-    "imageId": "item_equip_t4_suit_usp02_body_03",
-    "partTypeId": "0",
-    "suitId": "suit_usp02",
-    "suitName": {
-      "zh-CN": "长息",
-      "en": "Eternal Xiranite",
-      "ja": "流転",
-      "zh-TW": "長息"
-    },
-    "minimumLevel": 70
-  },
-  {
-    "id": "item_equip_t4_suit_atb01_hand_01",
-    "category": "equipment",
-    "name": {
-      "zh-CN": "拓荒耐蚀手套",
-      "en": "Frontiers Blight RES Gloves",
-      "ja": "パイオニア耐蝕グローブ",
-      "zh-TW": "拓荒耐蝕手套"
-    },
-    "rarity": 5,
-    "imageId": "item_equip_t4_suit_atb01_hand_01",
-    "partTypeId": "1",
+    "imageId": "item_equip_t4_suit_atb01_edc_05",
+    "partTypeId": "2",
     "suitId": "suit_atb01",
     "suitName": {
       "zh-CN": "拓荒",
@@ -3378,59 +3483,38 @@ export const wikiEquipment = [
     "minimumLevel": 70
   },
   {
-    "id": "item_equip_t4_suit_heal01_edc_02",
+    "id": "item_equip_t4_suit_poise01_edc_04",
     "category": "equipment",
     "name": {
-      "zh-CN": "生物辅助接驳器·贰型",
-      "en": "LYNX Connector T2",
-      "ja": "生物補助コンタクタⅡ",
-      "zh-TW": "生物輔助接駁器·II"
+      "zh-CN": "轻超域腕表",
+      "en": "Æthertech Watch",
+      "ja": "軽量超域腕時計",
+      "zh-TW": "輕超域腕錶"
     },
     "rarity": 5,
-    "imageId": "item_equip_t4_suit_heal01_edc_02",
+    "imageId": "item_equip_t4_suit_poise01_edc_04",
     "partTypeId": "2",
-    "suitId": "suit_heal01",
+    "suitId": "suit_poise01",
     "suitName": {
-      "zh-CN": "生物辅助",
-      "en": "LYNX",
-      "ja": "生物補助",
-      "zh-TW": "生物輔助"
+      "zh-CN": "轻超域",
+      "en": "Æthertech",
+      "ja": "軽量超域",
+      "zh-TW": "輕超域"
     },
     "minimumLevel": 70
   },
   {
-    "id": "item_equip_t4_suit_usp02_edc_01",
+    "id": "item_equip_t4_suit_atb01_edc_06",
     "category": "equipment",
     "name": {
-      "zh-CN": "长息蓄电核",
-      "en": "Eternal Xiranite Power Core",
-      "ja": "流転蓄電装置",
-      "zh-TW": "長息蓄電核"
+      "zh-CN": "拓荒增量供氧栓·壹型",
+      "en": "Frontiers Extra O2 Tube T1",
+      "ja": "パイオニアガス供給強化装置Ⅰ",
+      "zh-TW": "拓荒增量供氧栓·I"
     },
     "rarity": 5,
-    "imageId": "item_equip_t4_suit_usp02_edc_01",
+    "imageId": "item_equip_t4_suit_atb01_edc_06",
     "partTypeId": "2",
-    "suitId": "suit_usp02",
-    "suitName": {
-      "zh-CN": "长息",
-      "en": "Eternal Xiranite",
-      "ja": "流転",
-      "zh-TW": "長息"
-    },
-    "minimumLevel": 70
-  },
-  {
-    "id": "item_equip_t4_suit_atb01_hand_02",
-    "category": "equipment",
-    "name": {
-      "zh-CN": "拓荒纤维手套",
-      "en": "Frontiers Fiber Gloves",
-      "ja": "パイオニア繊維グローブ",
-      "zh-TW": "拓荒纖維手套"
-    },
-    "rarity": 5,
-    "imageId": "item_equip_t4_suit_atb01_hand_02",
-    "partTypeId": "1",
     "suitId": "suit_atb01",
     "suitName": {
       "zh-CN": "拓荒",
@@ -3441,349 +3525,13 @@ export const wikiEquipment = [
     "minimumLevel": 70
   },
   {
-    "id": "item_equip_t4_suit_usp02_body_04",
+    "id": "item_equip_t4_suit_attri01_body_03",
     "category": "equipment",
     "name": {
-      "zh-CN": "长息轻护甲·壹型",
-      "en": "Eternal Xiranite Light Armor T1",
-      "ja": "流転軽防具Ⅰ",
-      "zh-TW": "長息輕護甲·I"
-    },
-    "rarity": 5,
-    "imageId": "item_equip_t4_suit_usp02_body_04",
-    "partTypeId": "0",
-    "suitId": "suit_usp02",
-    "suitName": {
-      "zh-CN": "长息",
-      "en": "Eternal Xiranite",
-      "ja": "流転",
-      "zh-TW": "長息"
-    },
-    "minimumLevel": 70
-  },
-  {
-    "id": "item_equip_t4_suit_atb01_hand_03",
-    "category": "equipment",
-    "name": {
-      "zh-CN": "拓荒纤维手套·壹型",
-      "en": "Frontiers Fiber Gloves T1",
-      "ja": "パイオニア繊維グローブⅠ",
-      "zh-TW": "拓荒纖維手套·I"
-    },
-    "rarity": 5,
-    "imageId": "item_equip_t4_suit_atb01_hand_03",
-    "partTypeId": "1",
-    "suitId": "suit_atb01",
-    "suitName": {
-      "zh-CN": "拓荒",
-      "en": "Frontiers",
-      "ja": "パイオニア",
-      "zh-TW": "拓荒"
-    },
-    "minimumLevel": 70
-  },
-  {
-    "id": "item_equip_t4_suit_atk02_body_02",
-    "category": "equipment",
-    "name": {
-      "zh-CN": "50式应龙重甲·壹型",
-      "en": "Type 50 Yinglung Heavy Armor T1",
-      "ja": "50式応龍重防具Ⅰ",
-      "zh-TW": "50式應龍重甲·I"
-    },
-    "rarity": 5,
-    "imageId": "item_equip_t4_suit_atk02_body_02",
-    "partTypeId": "0",
-    "suitId": "suit_atk02",
-    "suitName": {
-      "zh-CN": "50式应龙",
-      "en": "Type 50 Yinglung",
-      "ja": "50式応龍",
-      "zh-TW": "50式應龍"
-    },
-    "minimumLevel": 70
-  },
-  {
-    "id": "item_equip_t4_suit_atk02_body_03",
-    "category": "equipment",
-    "name": {
-      "zh-CN": "50式应龙重甲·贰型",
-      "en": "Type 50 Yinglung Heavy Armor T2",
-      "ja": "50式応龍重防具Ⅱ",
-      "zh-TW": "50式應龍重甲·II"
-    },
-    "rarity": 5,
-    "imageId": "item_equip_t4_suit_atk02_body_03",
-    "partTypeId": "0",
-    "suitId": "suit_atk02",
-    "suitName": {
-      "zh-CN": "50式应龙",
-      "en": "Type 50 Yinglung",
-      "ja": "50式応龍",
-      "zh-TW": "50式應龍"
-    },
-    "minimumLevel": 70
-  },
-  {
-    "id": "item_equip_t4_suit_atk02_body_04",
-    "category": "equipment",
-    "name": {
-      "zh-CN": "50式应龙轻甲",
-      "en": "Type 50 Yinglung Light Armor",
-      "ja": "50式応龍軽防具",
-      "zh-TW": "50式應龍輕甲"
-    },
-    "rarity": 5,
-    "imageId": "item_equip_t4_suit_atk02_body_04",
-    "partTypeId": "0",
-    "suitId": "suit_atk02",
-    "suitName": {
-      "zh-CN": "50式应龙",
-      "en": "Type 50 Yinglung",
-      "ja": "50式応龍",
-      "zh-TW": "50式應龍"
-    },
-    "minimumLevel": 70
-  },
-  {
-    "id": "item_equip_t4_suit_combo_cd01_body_02",
-    "category": "equipment",
-    "name": {
-      "zh-CN": "清波轻甲",
-      "en": "Qingbo Light Armor",
-      "ja": "清波軽防具",
-      "zh-TW": "清波輕甲"
-    },
-    "rarity": 5,
-    "imageId": "item_equip_t4_suit_combo_cd01_body_02",
-    "partTypeId": "0",
-    "suitId": "suit_combo_cd01",
-    "suitName": {
-      "zh-CN": "清波",
-      "en": "Qingbo",
-      "ja": "清波",
-      "zh-TW": "清波"
-    },
-    "minimumLevel": 70
-  },
-  {
-    "id": "item_equip_t4_suit_atk02_edc_01",
-    "category": "equipment",
-    "name": {
-      "zh-CN": "50式应龙雷达",
-      "en": "Type 50 Yinglung Radar",
-      "ja": "50式応龍レーダー",
-      "zh-TW": "50式應龍雷達"
-    },
-    "rarity": 5,
-    "imageId": "item_equip_t4_suit_atk02_edc_01",
-    "partTypeId": "2",
-    "suitId": "suit_atk02",
-    "suitName": {
-      "zh-CN": "50式应龙",
-      "en": "Type 50 Yinglung",
-      "ja": "50式応龍",
-      "zh-TW": "50式應龍"
-    },
-    "minimumLevel": 70
-  },
-  {
-    "id": "item_equip_t4_suit_fire_natr01_hand_02",
-    "category": "equipment",
-    "name": {
-      "zh-CN": "动火用手甲",
-      "en": "Hot Work Gauntlets",
-      "ja": "火山用ガントレット",
-      "zh-TW": "動火用手甲"
-    },
-    "rarity": 5,
-    "imageId": "item_equip_t4_suit_fire_natr01_hand_02",
-    "partTypeId": "1",
-    "suitId": "suit_fire_natr01",
-    "suitName": {
-      "zh-CN": "动火用",
-      "en": "Hot Work",
-      "ja": "火山用",
-      "zh-TW": "動火用"
-    },
-    "minimumLevel": 70
-  },
-  {
-    "id": "item_equip_t4_suit_atk02_edc_02",
-    "category": "equipment",
-    "name": {
-      "zh-CN": "50式应龙雷达·壹型",
-      "en": "Type 50 Yinglung Radar T1",
-      "ja": "50式応龍レーダーⅠ",
-      "zh-TW": "50式應龍雷達·I"
-    },
-    "rarity": 5,
-    "imageId": "item_equip_t4_suit_atk02_edc_02",
-    "partTypeId": "2",
-    "suitId": "suit_atk02",
-    "suitName": {
-      "zh-CN": "50式应龙",
-      "en": "Type 50 Yinglung",
-      "ja": "50式応龍",
-      "zh-TW": "50式應龍"
-    },
-    "minimumLevel": 70
-  },
-  {
-    "id": "item_equip_t4_suit_criti01_hand_01",
-    "category": "equipment",
-    "name": {
-      "zh-CN": "M.I.警用手套",
-      "en": "MI Security Gloves",
-      "ja": "M.I.警備グローブ",
-      "zh-TW": "M. I.警用手套"
-    },
-    "rarity": 5,
-    "imageId": "item_equip_t4_suit_criti01_hand_01",
-    "partTypeId": "1",
-    "suitId": "suit_criti01",
-    "suitName": {
-      "zh-CN": "M.I.警用",
-      "en": "MI Security",
-      "ja": "M.I.警備",
-      "zh-TW": "M. I.警用"
-    },
-    "minimumLevel": 70
-  },
-  {
-    "id": "item_equip_t4_suit_fire_natr01_body_01",
-    "category": "equipment",
-    "name": {
-      "zh-CN": "动火用外骨骼",
-      "en": "Hot Work Exoskeleton",
-      "ja": "火山用パワードスーツ",
-      "zh-TW": "動火用外骨骼"
-    },
-    "rarity": 5,
-    "imageId": "item_equip_t4_suit_fire_natr01_body_01",
-    "partTypeId": "0",
-    "suitId": "suit_fire_natr01",
-    "suitName": {
-      "zh-CN": "动火用",
-      "en": "Hot Work",
-      "ja": "火山用",
-      "zh-TW": "動火用"
-    },
-    "minimumLevel": 70
-  },
-  {
-    "id": "item_equip_t4_suit_atk02_edc_03",
-    "category": "equipment",
-    "name": {
-      "zh-CN": "50式应龙雷达·贰型",
-      "en": "Type 50 Yinglung Radar T2",
-      "ja": "50式応龍レーダーⅡ",
-      "zh-TW": "50式應龍雷達·II"
-    },
-    "rarity": 5,
-    "imageId": "item_equip_t4_suit_atk02_edc_03",
-    "partTypeId": "2",
-    "suitId": "suit_atk02",
-    "suitName": {
-      "zh-CN": "50式应龙",
-      "en": "Type 50 Yinglung",
-      "ja": "50式応龍",
-      "zh-TW": "50式應龍"
-    },
-    "minimumLevel": 70
-  },
-  {
-    "id": "item_equip_t4_suit_atk02_hand_01",
-    "category": "equipment",
-    "name": {
-      "zh-CN": "50式应龙护手",
-      "en": "Type 50 Yinglung Gloves",
-      "ja": "50式応龍プロテクター",
-      "zh-TW": "50式應龍護手"
-    },
-    "rarity": 5,
-    "imageId": "item_equip_t4_suit_atk02_hand_01",
-    "partTypeId": "1",
-    "suitId": "suit_atk02",
-    "suitName": {
-      "zh-CN": "50式应龙",
-      "en": "Type 50 Yinglung",
-      "ja": "50式応龍",
-      "zh-TW": "50式應龍"
-    },
-    "minimumLevel": 70
-  },
-  {
-    "id": "item_equip_t4_suit_atk02_hand_02",
-    "category": "equipment",
-    "name": {
-      "zh-CN": "50式应龙护手·壹型",
-      "en": "Type 50 Yinglung Gloves T1",
-      "ja": "50式応龍プロテクターⅠ",
-      "zh-TW": "50式應龍護手·I"
-    },
-    "rarity": 5,
-    "imageId": "item_equip_t4_suit_atk02_hand_01",
-    "partTypeId": "1",
-    "suitId": "suit_atk02",
-    "suitName": {
-      "zh-CN": "50式应龙",
-      "en": "Type 50 Yinglung",
-      "ja": "50式応龍",
-      "zh-TW": "50式應龍"
-    },
-    "minimumLevel": 70
-  },
-  {
-    "id": "item_equip_t4_suit_attri01_body_02",
-    "category": "equipment",
-    "name": {
-      "zh-CN": "碾骨重护甲·壹型",
-      "en": "Bonekrusha Heavy Armor T1",
-      "ja": "骨砕の重防具Ⅰ",
-      "zh-TW": "碾骨重護甲·I"
-    },
-    "rarity": 5,
-    "imageId": "item_equip_t4_suit_attri01_body_02",
-    "partTypeId": "0",
-    "suitId": "suit_attri01",
-    "suitName": {
-      "zh-CN": "碾骨",
-      "en": "Bonekrusha",
-      "ja": "骨砕",
-      "zh-TW": "碾骨"
-    },
-    "minimumLevel": 70
-  },
-  {
-    "id": "item_equip_t4_suit_fire_natr01_hand_04",
-    "category": "equipment",
-    "name": {
-      "zh-CN": "动火用护手",
-      "en": "Hot Work Hands PPE",
-      "ja": "火山用プロテクター",
-      "zh-TW": "動火用護手"
-    },
-    "rarity": 5,
-    "imageId": "item_equip_t4_suit_fire_natr01_hand_04",
-    "partTypeId": "1",
-    "suitId": "suit_fire_natr01",
-    "suitName": {
-      "zh-CN": "动火用",
-      "en": "Hot Work",
-      "ja": "火山用",
-      "zh-TW": "動火用"
-    },
-    "minimumLevel": 70
-  },
-  {
-    "id": "item_equip_t4_suit_attri01_body_04",
-    "category": "equipment",
-    "name": {
-      "zh-CN": "碾骨披巾·壹型",
-      "en": "Bonekrusha Poncho T1",
-      "ja": "骨砕のマントⅠ",
-      "zh-TW": "碾骨披巾·I"
+      "zh-CN": "碾骨披巾",
+      "en": "Bonekrusha Poncho",
+      "ja": "骨砕のマント",
+      "zh-TW": "碾骨披巾"
     },
     "rarity": 5,
     "imageId": "item_equip_t4_suit_attri01_body_04",
@@ -3819,6 +3567,447 @@ export const wikiEquipment = [
     "minimumLevel": 70
   },
   {
+    "id": "item_equip_t4_suit_atb01_hand_01",
+    "category": "equipment",
+    "name": {
+      "zh-CN": "拓荒耐蚀手套",
+      "en": "Frontiers Blight RES Gloves",
+      "ja": "パイオニア耐蝕グローブ",
+      "zh-TW": "拓荒耐蝕手套"
+    },
+    "rarity": 5,
+    "imageId": "item_equip_t4_suit_atb01_hand_01",
+    "partTypeId": "1",
+    "suitId": "suit_atb01",
+    "suitName": {
+      "zh-CN": "拓荒",
+      "en": "Frontiers",
+      "ja": "パイオニア",
+      "zh-TW": "拓荒"
+    },
+    "minimumLevel": 70
+  },
+  {
+    "id": "item_equip_t4_suit_atk02_edc_02",
+    "category": "equipment",
+    "name": {
+      "zh-CN": "50式应龙雷达·壹型",
+      "en": "Type 50 Yinglung Radar T1",
+      "ja": "50式応龍レーダーⅠ",
+      "zh-TW": "50式應龍雷達·I"
+    },
+    "rarity": 5,
+    "imageId": "item_equip_t4_suit_atk02_edc_02",
+    "partTypeId": "2",
+    "suitId": "suit_atk02",
+    "suitName": {
+      "zh-CN": "50式应龙",
+      "en": "Type 50 Yinglung",
+      "ja": "50式応龍",
+      "zh-TW": "50式應龍"
+    },
+    "minimumLevel": 70
+  },
+  {
+    "id": "item_equip_t4_suit_atk02_body_01",
+    "category": "equipment",
+    "name": {
+      "zh-CN": "50式应龙重甲",
+      "en": "Type 50 Yinglung Heavy Armor",
+      "ja": "50式応龍重防具",
+      "zh-TW": "50式應龍重甲"
+    },
+    "rarity": 5,
+    "imageId": "item_equip_t4_suit_atk02_body_01",
+    "partTypeId": "0",
+    "suitId": "suit_atk02",
+    "suitName": {
+      "zh-CN": "50式应龙",
+      "en": "Type 50 Yinglung",
+      "ja": "50式応龍",
+      "zh-TW": "50式應龍"
+    },
+    "minimumLevel": 70
+  },
+  {
+    "id": "item_equip_t4_suit_usp02_body_03",
+    "category": "equipment",
+    "name": {
+      "zh-CN": "长息轻护甲",
+      "en": "Eternal Xiranite Light Armor",
+      "ja": "流転軽防具",
+      "zh-TW": "長息輕護甲"
+    },
+    "rarity": 5,
+    "imageId": "item_equip_t4_suit_usp02_body_03",
+    "partTypeId": "0",
+    "suitId": "suit_usp02",
+    "suitName": {
+      "zh-CN": "长息",
+      "en": "Eternal Xiranite",
+      "ja": "流転",
+      "zh-TW": "長息"
+    },
+    "minimumLevel": 70
+  },
+  {
+    "id": "item_equip_t4_suit_atk02_body_03",
+    "category": "equipment",
+    "name": {
+      "zh-CN": "50式应龙重甲·贰型",
+      "en": "Type 50 Yinglung Heavy Armor T2",
+      "ja": "50式応龍重防具Ⅱ",
+      "zh-TW": "50式應龍重甲·II"
+    },
+    "rarity": 5,
+    "imageId": "item_equip_t4_suit_atk02_body_03",
+    "partTypeId": "0",
+    "suitId": "suit_atk02",
+    "suitName": {
+      "zh-CN": "50式应龙",
+      "en": "Type 50 Yinglung",
+      "ja": "50式応龍",
+      "zh-TW": "50式應龍"
+    },
+    "minimumLevel": 70
+  },
+  {
+    "id": "item_equip_t4_suit_atk02_edc_01",
+    "category": "equipment",
+    "name": {
+      "zh-CN": "50式应龙雷达",
+      "en": "Type 50 Yinglung Radar",
+      "ja": "50式応龍レーダー",
+      "zh-TW": "50式應龍雷達"
+    },
+    "rarity": 5,
+    "imageId": "item_equip_t4_suit_atk02_edc_01",
+    "partTypeId": "2",
+    "suitId": "suit_atk02",
+    "suitName": {
+      "zh-CN": "50式应龙",
+      "en": "Type 50 Yinglung",
+      "ja": "50式応龍",
+      "zh-TW": "50式應龍"
+    },
+    "minimumLevel": 70
+  },
+  {
+    "id": "item_equip_t4_suit_atk02_edc_03",
+    "category": "equipment",
+    "name": {
+      "zh-CN": "50式应龙雷达·贰型",
+      "en": "Type 50 Yinglung Radar T2",
+      "ja": "50式応龍レーダーⅡ",
+      "zh-TW": "50式應龍雷達·II"
+    },
+    "rarity": 5,
+    "imageId": "item_equip_t4_suit_atk02_edc_03",
+    "partTypeId": "2",
+    "suitId": "suit_atk02",
+    "suitName": {
+      "zh-CN": "50式应龙",
+      "en": "Type 50 Yinglung",
+      "ja": "50式応龍",
+      "zh-TW": "50式應龍"
+    },
+    "minimumLevel": 70
+  },
+  {
+    "id": "item_equip_t4_suit_atk02_edc_04",
+    "category": "equipment",
+    "name": {
+      "zh-CN": "50式应龙短刃",
+      "en": "Type 50 Yinglung Knife",
+      "ja": "50式応龍短剣",
+      "zh-TW": "50式應龍短刃"
+    },
+    "rarity": 5,
+    "imageId": "item_equip_t4_suit_atk02_edc_04",
+    "partTypeId": "2",
+    "suitId": "suit_atk02",
+    "suitName": {
+      "zh-CN": "50式应龙",
+      "en": "Type 50 Yinglung",
+      "ja": "50式応龍",
+      "zh-TW": "50式應龍"
+    },
+    "minimumLevel": 70
+  },
+  {
+    "id": "item_equip_t4_suit_atk02_hand_01",
+    "category": "equipment",
+    "name": {
+      "zh-CN": "50式应龙护手",
+      "en": "Type 50 Yinglung Gloves",
+      "ja": "50式応龍プロテクター",
+      "zh-TW": "50式應龍護手"
+    },
+    "rarity": 5,
+    "imageId": "item_equip_t4_suit_atk02_hand_01",
+    "partTypeId": "1",
+    "suitId": "suit_atk02",
+    "suitName": {
+      "zh-CN": "50式应龙",
+      "en": "Type 50 Yinglung",
+      "ja": "50式応龍",
+      "zh-TW": "50式應龍"
+    },
+    "minimumLevel": 70
+  },
+  {
+    "id": "item_equip_t4_suit_usp02_edc_02",
+    "category": "equipment",
+    "name": {
+      "zh-CN": "长息蓄电核·壹型",
+      "en": "Eternal Xiranite Power Core T1",
+      "ja": "流転蓄電装置Ⅰ",
+      "zh-TW": "長息蓄電核·I"
+    },
+    "rarity": 5,
+    "imageId": "item_equip_t4_suit_usp02_edc_02",
+    "partTypeId": "2",
+    "suitId": "suit_usp02",
+    "suitName": {
+      "zh-CN": "长息",
+      "en": "Eternal Xiranite",
+      "ja": "流転",
+      "zh-TW": "長息"
+    },
+    "minimumLevel": 70
+  },
+  {
+    "id": "item_equip_t4_suit_atk02_hand_02",
+    "category": "equipment",
+    "name": {
+      "zh-CN": "50式应龙护手·壹型",
+      "en": "Type 50 Yinglung Gloves T1",
+      "ja": "50式応龍プロテクターⅠ",
+      "zh-TW": "50式應龍護手·I"
+    },
+    "rarity": 5,
+    "imageId": "item_equip_t4_suit_atk02_hand_01",
+    "partTypeId": "1",
+    "suitId": "suit_atk02",
+    "suitName": {
+      "zh-CN": "50式应龙",
+      "en": "Type 50 Yinglung",
+      "ja": "50式応龍",
+      "zh-TW": "50式應龍"
+    },
+    "minimumLevel": 70
+  },
+  {
+    "id": "item_equip_t4_suit_attri01_body_01",
+    "category": "equipment",
+    "name": {
+      "zh-CN": "碾骨重护甲",
+      "en": "Bonekrusha Heavy Armor",
+      "ja": "骨砕の重防具",
+      "zh-TW": "碾骨重護甲"
+    },
+    "rarity": 5,
+    "imageId": "item_equip_t4_suit_attri01_body_01",
+    "partTypeId": "0",
+    "suitId": "suit_attri01",
+    "suitName": {
+      "zh-CN": "碾骨",
+      "en": "Bonekrusha",
+      "ja": "骨砕",
+      "zh-TW": "碾骨"
+    },
+    "minimumLevel": 70
+  },
+  {
+    "id": "item_equip_t4_suit_criti01_hand_03",
+    "category": "equipment",
+    "name": {
+      "zh-CN": "M.I.警用手环·壹型",
+      "en": "MI Security Hands PPE T1",
+      "ja": "M.I.警備ブレスレットⅠ",
+      "zh-TW": "M. I.警用手環·I"
+    },
+    "rarity": 5,
+    "imageId": "item_equip_t4_suit_criti01_hand_03",
+    "partTypeId": "1",
+    "suitId": "suit_criti01",
+    "suitName": {
+      "zh-CN": "M.I.警用",
+      "en": "MI Security",
+      "ja": "M.I.警備",
+      "zh-TW": "M. I.警用"
+    },
+    "minimumLevel": 70
+  },
+  {
+    "id": "item_equip_t4_suit_attri01_body_02",
+    "category": "equipment",
+    "name": {
+      "zh-CN": "碾骨重护甲·壹型",
+      "en": "Bonekrusha Heavy Armor T1",
+      "ja": "骨砕の重防具Ⅰ",
+      "zh-TW": "碾骨重護甲·I"
+    },
+    "rarity": 5,
+    "imageId": "item_equip_t4_suit_attri01_body_02",
+    "partTypeId": "0",
+    "suitId": "suit_attri01",
+    "suitName": {
+      "zh-CN": "碾骨",
+      "en": "Bonekrusha",
+      "ja": "骨砕",
+      "zh-TW": "碾骨"
+    },
+    "minimumLevel": 70
+  },
+  {
+    "id": "item_equip_t4_suit_attri01_body_04",
+    "category": "equipment",
+    "name": {
+      "zh-CN": "碾骨披巾·壹型",
+      "en": "Bonekrusha Poncho T1",
+      "ja": "骨砕のマントⅠ",
+      "zh-TW": "碾骨披巾·I"
+    },
+    "rarity": 5,
+    "imageId": "item_equip_t4_suit_attri01_body_04",
+    "partTypeId": "0",
+    "suitId": "suit_attri01",
+    "suitName": {
+      "zh-CN": "碾骨",
+      "en": "Bonekrusha",
+      "ja": "骨砕",
+      "zh-TW": "碾骨"
+    },
+    "minimumLevel": 70
+  },
+  {
+    "id": "item_equip_t4_suit_attri01_body_05",
+    "category": "equipment",
+    "name": {
+      "zh-CN": "碾骨重护甲·贰型",
+      "en": "Bonekrusha Heavy Armor T2",
+      "ja": "骨砕の重防具Ⅱ",
+      "zh-TW": "碾骨重護甲·II"
+    },
+    "rarity": 5,
+    "imageId": "item_equip_t4_suit_attri01_body_05",
+    "partTypeId": "0",
+    "suitId": "suit_attri01",
+    "suitName": {
+      "zh-CN": "碾骨",
+      "en": "Bonekrusha",
+      "ja": "骨砕",
+      "zh-TW": "碾骨"
+    },
+    "minimumLevel": 70
+  },
+  {
+    "id": "item_equip_t4_suit_combo_cd01_hand_02",
+    "category": "equipment",
+    "name": {
+      "zh-CN": "清波护手",
+      "en": "Qingbo Gloves",
+      "ja": "清波プロテクター",
+      "zh-TW": "清波護手"
+    },
+    "rarity": 5,
+    "imageId": "item_equip_t4_suit_combo_cd01_hand_02",
+    "partTypeId": "1",
+    "suitId": "suit_combo_cd01",
+    "suitName": {
+      "zh-CN": "清波",
+      "en": "Qingbo",
+      "ja": "清波",
+      "zh-TW": "清波"
+    },
+    "minimumLevel": 70
+  },
+  {
+    "id": "item_equip_t4_suit_attri01_edc_02",
+    "category": "equipment",
+    "name": {
+      "zh-CN": "碾骨小雕像·贰型",
+      "en": "Bonekrusha Figurine T2",
+      "ja": "骨砕の小像Ⅱ",
+      "zh-TW": "碾骨小雕像·II"
+    },
+    "rarity": 5,
+    "imageId": "item_equip_t4_suit_attri01_edc_02",
+    "partTypeId": "2",
+    "suitId": "suit_attri01",
+    "suitName": {
+      "zh-CN": "碾骨",
+      "en": "Bonekrusha",
+      "ja": "骨砕",
+      "zh-TW": "碾骨"
+    },
+    "minimumLevel": 70
+  },
+  {
+    "id": "item_equip_t4_suit_attri01_edc_04",
+    "category": "equipment",
+    "name": {
+      "zh-CN": "碾骨面具",
+      "en": "Bonekrusha Mask",
+      "ja": "骨砕のマスク",
+      "zh-TW": "碾骨面具"
+    },
+    "rarity": 5,
+    "imageId": "item_equip_t4_suit_attri01_edc_04",
+    "partTypeId": "2",
+    "suitId": "suit_attri01",
+    "suitName": {
+      "zh-CN": "碾骨",
+      "en": "Bonekrusha",
+      "ja": "骨砕",
+      "zh-TW": "碾骨"
+    },
+    "minimumLevel": 70
+  },
+  {
+    "id": "item_equip_t4_suit_poise01_hand_01",
+    "category": "equipment",
+    "name": {
+      "zh-CN": "轻超域护手",
+      "en": "Æthertech Gloves",
+      "ja": "軽量超域ガントレット",
+      "zh-TW": "輕超域護手"
+    },
+    "rarity": 5,
+    "imageId": "item_equip_t4_suit_poise01_hand_01",
+    "partTypeId": "1",
+    "suitId": "suit_poise01",
+    "suitName": {
+      "zh-CN": "轻超域",
+      "en": "Æthertech",
+      "ja": "軽量超域",
+      "zh-TW": "輕超域"
+    },
+    "minimumLevel": 70
+  },
+  {
+    "id": "item_equip_t4_suit_attri01_edc_07",
+    "category": "equipment",
+    "name": {
+      "zh-CN": "碾骨面具·贰型",
+      "en": "Bonekrusha Mask T2",
+      "ja": "骨砕のマスクⅡ",
+      "zh-TW": "碾骨面具·II"
+    },
+    "rarity": 5,
+    "imageId": "item_equip_t4_suit_attri01_edc_07",
+    "partTypeId": "2",
+    "suitId": "suit_attri01",
+    "suitName": {
+      "zh-CN": "碾骨",
+      "en": "Bonekrusha",
+      "ja": "骨砕",
+      "zh-TW": "碾骨"
+    },
+    "minimumLevel": 70
+  },
+  {
     "id": "item_equip_t4_suit_attri01_hand_02",
     "category": "equipment",
     "name": {
@@ -3836,6 +4025,27 @@ export const wikiEquipment = [
       "en": "Bonekrusha",
       "ja": "骨砕",
       "zh-TW": "碾骨"
+    },
+    "minimumLevel": 70
+  },
+  {
+    "id": "item_equip_t4_suit_fire_natr01_hand_02",
+    "category": "equipment",
+    "name": {
+      "zh-CN": "动火用手甲",
+      "en": "Hot Work Gauntlets",
+      "ja": "火山用ガントレット",
+      "zh-TW": "動火用手甲"
+    },
+    "rarity": 5,
+    "imageId": "item_equip_t4_suit_fire_natr01_hand_02",
+    "partTypeId": "1",
+    "suitId": "suit_fire_natr01",
+    "suitName": {
+      "zh-CN": "动火用",
+      "en": "Hot Work",
+      "ja": "火山用",
+      "zh-TW": "動火用"
     },
     "minimumLevel": 70
   },
@@ -3861,6 +4071,48 @@ export const wikiEquipment = [
     "minimumLevel": 70
   },
   {
+    "id": "item_equip_t4_suit_burst01_body_01",
+    "category": "equipment",
+    "name": {
+      "zh-CN": "落潮轻甲",
+      "en": "Tide Fall Light Armor",
+      "ja": "干潮軽防具",
+      "zh-TW": "落潮輕甲"
+    },
+    "rarity": 5,
+    "imageId": "item_equip_t4_suit_burst01_body_01",
+    "partTypeId": "0",
+    "suitId": "suit_burst01",
+    "suitName": {
+      "zh-CN": "潮涌",
+      "en": "Tide Surge",
+      "ja": "満潮",
+      "zh-TW": "潮湧"
+    },
+    "minimumLevel": 70
+  },
+  {
+    "id": "item_equip_t4_suit_burst01_body_03",
+    "category": "equipment",
+    "name": {
+      "zh-CN": "涌浪重装甲",
+      "en": "Wave Swell Heavy Armor",
+      "ja": "奔浪ヘビーアーマー",
+      "zh-TW": "湧浪重裝甲"
+    },
+    "rarity": 5,
+    "imageId": "item_equip_t4_suit_burst01_body_03",
+    "partTypeId": "0",
+    "suitId": "suit_burst01",
+    "suitName": {
+      "zh-CN": "潮涌",
+      "en": "Tide Surge",
+      "ja": "満潮",
+      "zh-TW": "潮湧"
+    },
+    "minimumLevel": 70
+  },
+  {
     "id": "item_equip_t4_suit_burst01_edc_01",
     "category": "equipment",
     "name": {
@@ -3878,27 +4130,6 @@ export const wikiEquipment = [
       "en": "Tide Surge",
       "ja": "満潮",
       "zh-TW": "潮湧"
-    },
-    "minimumLevel": 70
-  },
-  {
-    "id": "item_equip_t4_suit_fire_natr01_hand_01",
-    "category": "equipment",
-    "name": {
-      "zh-CN": "动火用手套",
-      "en": "Hot Work Gloves",
-      "ja": "火山用グローブ",
-      "zh-TW": "動火用手套"
-    },
-    "rarity": 5,
-    "imageId": "item_equip_t4_suit_fire_natr01_hand_01",
-    "partTypeId": "1",
-    "suitId": "suit_fire_natr01",
-    "suitName": {
-      "zh-CN": "动火用",
-      "en": "Hot Work",
-      "ja": "火山用",
-      "zh-TW": "動火用"
     },
     "minimumLevel": 70
   },
@@ -3924,16 +4155,16 @@ export const wikiEquipment = [
     "minimumLevel": 70
   },
   {
-    "id": "item_equip_t4_suit_combo_cd01_body_01",
+    "id": "item_equip_t4_suit_combo_cd01_body_02",
     "category": "equipment",
     "name": {
-      "zh-CN": "清波重甲",
-      "en": "Qingbo Heavy Armor",
-      "ja": "清波重防具",
-      "zh-TW": "清波重甲"
+      "zh-CN": "清波轻甲",
+      "en": "Qingbo Light Armor",
+      "ja": "清波軽防具",
+      "zh-TW": "清波輕甲"
     },
     "rarity": 5,
-    "imageId": "item_equip_t4_suit_combo_cd01_body_01",
+    "imageId": "item_equip_t4_suit_combo_cd01_body_02",
     "partTypeId": "0",
     "suitId": "suit_combo_cd01",
     "suitName": {
@@ -3987,16 +4218,16 @@ export const wikiEquipment = [
     "minimumLevel": 70
   },
   {
-    "id": "item_equip_t4_suit_combo_cd01_edc_04",
+    "id": "item_equip_t4_suit_combo_cd01_edc_03",
     "category": "equipment",
     "name": {
-      "zh-CN": "清波定位仪·壹型",
-      "en": "Qingbo Positioning Kit T1",
-      "ja": "清波探知器具Ⅰ",
-      "zh-TW": "清波定位儀·I"
+      "zh-CN": "清波水罐",
+      "en": "Qingbo Cask",
+      "ja": "清波水筒",
+      "zh-TW": "清波水罐"
     },
     "rarity": 5,
-    "imageId": "item_equip_t4_suit_combo_cd01_edc_04",
+    "imageId": "item_equip_t4_suit_combo_cd01_edc_03",
     "partTypeId": "2",
     "suitId": "suit_combo_cd01",
     "suitName": {
@@ -4008,23 +4239,23 @@ export const wikiEquipment = [
     "minimumLevel": 70
   },
   {
-    "id": "item_equip_t4_suit_combo_cd01_hand_01",
+    "id": "item_equip_t4_suit_pulse_cryst01_edc_02",
     "category": "equipment",
     "name": {
-      "zh-CN": "清波手甲",
-      "en": "Qingbo Gauntlets",
-      "ja": "清波ガントレット",
-      "zh-TW": "清波手甲"
+      "zh-CN": "脉冲式校准器",
+      "en": "Pulser Labs Calibrator",
+      "ja": "パルス式校正器",
+      "zh-TW": "脈衝式校準器"
     },
     "rarity": 5,
-    "imageId": "item_equip_t4_suit_combo_cd01_hand_01",
-    "partTypeId": "1",
-    "suitId": "suit_combo_cd01",
+    "imageId": "item_equip_t4_suit_pulse_cryst01_edc_02",
+    "partTypeId": "2",
+    "suitId": "suit_pulse_cryst01",
     "suitName": {
-      "zh-CN": "清波",
-      "en": "Qingbo",
-      "ja": "清波",
-      "zh-TW": "清波"
+      "zh-CN": "脉冲式",
+      "en": "Pulser Labs",
+      "ja": "パルス式",
+      "zh-TW": "脈衝式"
     },
     "minimumLevel": 70
   },
@@ -4050,16 +4281,16 @@ export const wikiEquipment = [
     "minimumLevel": 70
   },
   {
-    "id": "item_equip_t4_suit_criti01_body_03",
+    "id": "item_equip_t4_suit_criti01_body_02",
     "category": "equipment",
     "name": {
-      "zh-CN": "M.I.警用罩衣·壹型",
-      "en": "MI Security Overalls T1",
-      "ja": "M.I.警備マントⅠ",
-      "zh-TW": "M. I.警用罩衣·I"
+      "zh-CN": "M.I.警用罩衣",
+      "en": "MI Security Overalls",
+      "ja": "M.I.警備マント",
+      "zh-TW": "M. I.警用罩衣"
     },
     "rarity": 5,
-    "imageId": "item_equip_t4_suit_criti01_body_03",
+    "imageId": "item_equip_t4_suit_criti01_body_02",
     "partTypeId": "0",
     "suitId": "suit_criti01",
     "suitName": {
@@ -4071,58 +4302,16 @@ export const wikiEquipment = [
     "minimumLevel": 70
   },
   {
-    "id": "item_equip_t4_suit_heal01_edc_05",
+    "id": "item_equip_t4_suit_criti01_body_04",
     "category": "equipment",
     "name": {
-      "zh-CN": "生物辅助接驳器·壹型",
-      "en": "LYNX Connector T1",
-      "ja": "生物補助コンタクタⅠ",
-      "zh-TW": "生物輔助接駁器·I"
+      "zh-CN": "M.I.警用罩衣·贰型",
+      "en": "MI Security Overalls T2",
+      "ja": "M.I.警備マントⅡ",
+      "zh-TW": "M. I.警用罩衣·II"
     },
     "rarity": 5,
-    "imageId": "item_equip_t4_suit_heal01_edc_01",
-    "partTypeId": "2",
-    "suitId": "suit_heal01",
-    "suitName": {
-      "zh-CN": "生物辅助",
-      "en": "LYNX",
-      "ja": "生物補助",
-      "zh-TW": "生物輔助"
-    },
-    "minimumLevel": 70
-  },
-  {
-    "id": "item_equip_t4_suit_phy01_edc_04",
-    "category": "equipment",
-    "name": {
-      "zh-CN": "点剑短刃",
-      "en": "Swordmancer Dagger",
-      "ja": "宏山点剣短剣",
-      "zh-TW": "點劍短刃"
-    },
-    "rarity": 5,
-    "imageId": "item_equip_t4_suit_phy01_edc_04",
-    "partTypeId": "2",
-    "suitId": "suit_phy01",
-    "suitName": {
-      "zh-CN": "点剑",
-      "en": "Swordmancer",
-      "ja": "宏山点剣",
-      "zh-TW": "點劍"
-    },
-    "minimumLevel": 70
-  },
-  {
-    "id": "item_equip_t4_suit_criti01_body_06",
-    "category": "equipment",
-    "name": {
-      "zh-CN": "M.I.警用护甲·壹型",
-      "en": "MI Security Armor T1",
-      "ja": "M.I.警備防具Ⅰ",
-      "zh-TW": "M. I.警用護甲·I"
-    },
-    "rarity": 5,
-    "imageId": "item_equip_t4_suit_criti01_body_06",
+    "imageId": "item_equip_t4_suit_criti01_body_04",
     "partTypeId": "0",
     "suitId": "suit_criti01",
     "suitName": {
@@ -4130,48 +4319,6 @@ export const wikiEquipment = [
       "en": "MI Security",
       "ja": "M.I.警備",
       "zh-TW": "M. I.警用"
-    },
-    "minimumLevel": 70
-  },
-  {
-    "id": "item_equip_t4_suit_criti01_edc_01",
-    "category": "equipment",
-    "name": {
-      "zh-CN": "M.I.警用臂环",
-      "en": "MI Security Armband",
-      "ja": "M.I.警備アームバンド",
-      "zh-TW": "M. I.警用臂環"
-    },
-    "rarity": 5,
-    "imageId": "item_equip_t4_suit_criti01_edc_01",
-    "partTypeId": "2",
-    "suitId": "suit_criti01",
-    "suitName": {
-      "zh-CN": "M.I.警用",
-      "en": "MI Security",
-      "ja": "M.I.警備",
-      "zh-TW": "M. I.警用"
-    },
-    "minimumLevel": 70
-  },
-  {
-    "id": "item_equip_t4_suit_crush_fracture_body_02",
-    "category": "equipment",
-    "name": {
-      "zh-CN": "旧锋装甲·壹型",
-      "en": "Grizzled Edge Armor T1",
-      "ja": "旧鋒防具Ⅰ",
-      "zh-TW": "舊鋒裝甲·I"
-    },
-    "rarity": 5,
-    "imageId": "item_equip_t4_suit_crush_fracture_body_02",
-    "partTypeId": "0",
-    "suitId": "suit_crush_fracture",
-    "suitName": {
-      "zh-CN": "旧锋",
-      "en": "Grizzled Edge",
-      "ja": "旧鋒",
-      "zh-TW": "舊鋒"
     },
     "minimumLevel": 70
   },
@@ -4186,6 +4333,27 @@ export const wikiEquipment = [
     },
     "rarity": 5,
     "imageId": "item_equip_t4_suit_criti01_edc_02",
+    "partTypeId": "2",
+    "suitId": "suit_criti01",
+    "suitName": {
+      "zh-CN": "M.I.警用",
+      "en": "MI Security",
+      "ja": "M.I.警備",
+      "zh-TW": "M. I.警用"
+    },
+    "minimumLevel": 70
+  },
+  {
+    "id": "item_equip_t4_suit_criti01_edc_03",
+    "category": "equipment",
+    "name": {
+      "zh-CN": "M.I.警用工具组",
+      "en": "MI Security Toolkit",
+      "ja": "M.I.警備マルチツール",
+      "zh-TW": "M. I.警用工具組"
+    },
+    "rarity": 5,
+    "imageId": "item_equip_t4_suit_criti01_edc_03",
     "partTypeId": "2",
     "suitId": "suit_criti01",
     "suitName": {
@@ -4218,38 +4386,59 @@ export const wikiEquipment = [
     "minimumLevel": 70
   },
   {
-    "id": "item_equip_t4_suit_crush_fracture_body_01",
+    "id": "item_equip_t4_suit_phy01_hand_01",
     "category": "equipment",
     "name": {
-      "zh-CN": "旧锋装甲",
-      "en": "Grizzled Edge Armor",
-      "ja": "旧鋒防具",
-      "zh-TW": "舊鋒裝甲"
+      "zh-CN": "点剑战术手套",
+      "en": "Swordmancer TAC Gloves",
+      "ja": "宏山点剣戦闘用グローブ",
+      "zh-TW": "點劍戰術手套"
     },
     "rarity": 5,
-    "imageId": "item_equip_t4_suit_crush_fracture_body_01",
-    "partTypeId": "0",
-    "suitId": "suit_crush_fracture",
+    "imageId": "item_equip_t4_suit_phy01_hand_01",
+    "partTypeId": "1",
+    "suitId": "suit_phy01",
     "suitName": {
-      "zh-CN": "旧锋",
-      "en": "Grizzled Edge",
-      "ja": "旧鋒",
-      "zh-TW": "舊鋒"
+      "zh-CN": "点剑",
+      "en": "Swordmancer",
+      "ja": "宏山点剣",
+      "zh-TW": "點劍"
     },
     "minimumLevel": 70
   },
   {
-    "id": "item_equip_t4_suit_criti01_edc_06",
+    "id": "item_equip_t4_suit_criti01_edc_05",
     "category": "equipment",
     "name": {
-      "zh-CN": "M.I.警用瞄具·壹型",
-      "en": "MI Security Scope T1",
-      "ja": "M.I.警備照準器Ⅰ",
-      "zh-TW": "M. I.警用瞄具·I"
+      "zh-CN": "M.I.警用刺刃·壹型",
+      "en": "MI Security Push Knife T1",
+      "ja": "M.I.警備ナイフⅠ",
+      "zh-TW": "M. I.警用刺刃·I"
     },
     "rarity": 5,
-    "imageId": "item_equip_t4_suit_criti01_edc_06",
+    "imageId": "item_equip_t4_suit_criti01_edc_05",
     "partTypeId": "2",
+    "suitId": "suit_criti01",
+    "suitName": {
+      "zh-CN": "M.I.警用",
+      "en": "MI Security",
+      "ja": "M.I.警備",
+      "zh-TW": "M. I.警用"
+    },
+    "minimumLevel": 70
+  },
+  {
+    "id": "item_equip_t4_suit_criti01_hand_01",
+    "category": "equipment",
+    "name": {
+      "zh-CN": "M.I.警用手套",
+      "en": "MI Security Gloves",
+      "ja": "M.I.警備グローブ",
+      "zh-TW": "M. I.警用手套"
+    },
+    "rarity": 5,
+    "imageId": "item_equip_t4_suit_criti01_hand_01",
+    "partTypeId": "1",
     "suitId": "suit_criti01",
     "suitName": {
       "zh-CN": "M.I.警用",
@@ -4302,23 +4491,107 @@ export const wikiEquipment = [
     "minimumLevel": 70
   },
   {
-    "id": "item_equip_t4_suit_fire_natr01_body_02",
+    "id": "item_equip_t4_suit_crush_fracture_body_01",
     "category": "equipment",
     "name": {
-      "zh-CN": "动火用辅助骨骼",
-      "en": "Hot Work Exo-Rig",
-      "ja": "火山用補助スーツ",
-      "zh-TW": "動火用輔助骨骼"
+      "zh-CN": "旧锋装甲",
+      "en": "Grizzled Edge Armor",
+      "ja": "旧鋒防具",
+      "zh-TW": "舊鋒裝甲"
     },
     "rarity": 5,
-    "imageId": "item_equip_t4_suit_fire_natr01_body_02",
+    "imageId": "item_equip_t4_suit_crush_fracture_body_01",
     "partTypeId": "0",
-    "suitId": "suit_fire_natr01",
+    "suitId": "suit_crush_fracture",
     "suitName": {
-      "zh-CN": "动火用",
-      "en": "Hot Work",
-      "ja": "火山用",
-      "zh-TW": "動火用"
+      "zh-CN": "旧锋",
+      "en": "Grizzled Edge",
+      "ja": "旧鋒",
+      "zh-TW": "舊鋒"
+    },
+    "minimumLevel": 70
+  },
+  {
+    "id": "item_equip_t4_suit_crush_fracture_body_02",
+    "category": "equipment",
+    "name": {
+      "zh-CN": "旧锋装甲·壹型",
+      "en": "Grizzled Edge Armor T1",
+      "ja": "旧鋒防具Ⅰ",
+      "zh-TW": "舊鋒裝甲·I"
+    },
+    "rarity": 5,
+    "imageId": "item_equip_t4_suit_crush_fracture_body_02",
+    "partTypeId": "0",
+    "suitId": "suit_crush_fracture",
+    "suitName": {
+      "zh-CN": "旧锋",
+      "en": "Grizzled Edge",
+      "ja": "旧鋒",
+      "zh-TW": "舊鋒"
+    },
+    "minimumLevel": 70
+  },
+  {
+    "id": "item_equip_t4_suit_crush_fracture_edc_02",
+    "category": "equipment",
+    "name": {
+      "zh-CN": "旧锋刺刃·壹型",
+      "en": "Grizzled Edge Push Knife T1",
+      "ja": "旧鋒ナイフⅠ",
+      "zh-TW": "舊鋒刺刃·I"
+    },
+    "rarity": 5,
+    "imageId": "item_equip_t4_suit_crush_fracture_edc_02",
+    "partTypeId": "2",
+    "suitId": "suit_crush_fracture",
+    "suitName": {
+      "zh-CN": "旧锋",
+      "en": "Grizzled Edge",
+      "ja": "旧鋒",
+      "zh-TW": "舊鋒"
+    },
+    "minimumLevel": 70
+  },
+  {
+    "id": "item_equip_t4_suit_crush_fracture_hand_02",
+    "category": "equipment",
+    "name": {
+      "zh-CN": "旧锋手甲·壹型",
+      "en": "Grizzled Edge Gauntlets T1",
+      "ja": "旧鋒ガントレットⅠ",
+      "zh-TW": "舊鋒手甲·I"
+    },
+    "rarity": 5,
+    "imageId": "item_equip_t4_suit_crush_fracture_hand_02",
+    "partTypeId": "1",
+    "suitId": "suit_crush_fracture",
+    "suitName": {
+      "zh-CN": "旧锋",
+      "en": "Grizzled Edge",
+      "ja": "旧鋒",
+      "zh-TW": "舊鋒"
+    },
+    "minimumLevel": 70
+  },
+  {
+    "id": "item_equip_t4_suit_expend_spell01_body_02",
+    "category": "equipment",
+    "name": {
+      "zh-CN": "壤流轻甲",
+      "en": "Xiranflow Light Armor",
+      "ja": "壌流軽防具",
+      "zh-TW": "壤流輕甲"
+    },
+    "rarity": 5,
+    "imageId": "item_equip_t4_suit_expend_spell01_body_02",
+    "partTypeId": "0",
+    "suitId": "suit_expend_spell01",
+    "suitName": {
+      "zh-CN": "壤流",
+      "en": "Xiranflow",
+      "ja": "壌流",
+      "zh-TW": "壤流"
     },
     "minimumLevel": 70
   },
@@ -4344,44 +4617,44 @@ export const wikiEquipment = [
     "minimumLevel": 70
   },
   {
-    "id": "item_equip_t4_suit_pulse_cryst01_body_01",
+    "id": "item_equip_t4_suit_fire_natr01_edc_03",
     "category": "equipment",
     "name": {
-      "zh-CN": "脉冲式干扰服",
-      "en": "Pulser Labs Disruptor Suit",
-      "ja": "パルス式妨害服",
-      "zh-TW": "脈衝式干擾服"
+      "zh-CN": "动火用电力匣",
+      "en": "Hot Work Power Cartridge",
+      "ja": "火山用モバイルバッテリー",
+      "zh-TW": "動火用電力匣"
     },
     "rarity": 5,
-    "imageId": "item_equip_t4_suit_pulse_cryst01_body_01",
-    "partTypeId": "0",
-    "suitId": "suit_pulse_cryst01",
+    "imageId": "item_equip_t4_suit_fire_natr01_edc_03",
+    "partTypeId": "2",
+    "suitId": "suit_fire_natr01",
     "suitName": {
-      "zh-CN": "脉冲式",
-      "en": "Pulser Labs",
-      "ja": "パルス式",
-      "zh-TW": "脈衝式"
+      "zh-CN": "动火用",
+      "en": "Hot Work",
+      "ja": "火山用",
+      "zh-TW": "動火用"
     },
     "minimumLevel": 70
   },
   {
-    "id": "item_equip_t4_suit_heal01_body_01",
+    "id": "item_equip_t4_suit_fire_natr01_edc_04",
     "category": "equipment",
     "name": {
-      "zh-CN": "生物辅助重甲",
-      "en": "LYNX Heavy Armor",
-      "ja": "生物補助重防具",
-      "zh-TW": "生物輔助重甲"
+      "zh-CN": "动火用隔温板",
+      "en": "Hot Work Insulation Slab",
+      "ja": "火山用遮熱板",
+      "zh-TW": "動火用隔溫板"
     },
     "rarity": 5,
-    "imageId": "item_equip_t4_suit_heal01_body_01",
-    "partTypeId": "0",
-    "suitId": "suit_heal01",
+    "imageId": "item_equip_t4_suit_fire_natr01_edc_04",
+    "partTypeId": "2",
+    "suitId": "suit_fire_natr01",
     "suitName": {
-      "zh-CN": "生物辅助",
-      "en": "LYNX",
-      "ja": "生物補助",
-      "zh-TW": "生物輔助"
+      "zh-CN": "动火用",
+      "en": "Hot Work",
+      "ja": "火山用",
+      "zh-TW": "動火用"
     },
     "minimumLevel": 70
   },
@@ -4428,16 +4701,16 @@ export const wikiEquipment = [
     "minimumLevel": 70
   },
   {
-    "id": "item_equip_t4_suit_heal01_edc_01",
+    "id": "item_equip_t4_suit_heal01_edc_02",
     "category": "equipment",
     "name": {
-      "zh-CN": "生物辅助接驳器",
-      "en": "LYNX Connector",
-      "ja": "生物補助コンタクタ",
-      "zh-TW": "生物輔助接駁器"
+      "zh-CN": "生物辅助接驳器·贰型",
+      "en": "LYNX Connector T2",
+      "ja": "生物補助コンタクタⅡ",
+      "zh-TW": "生物輔助接駁器·II"
     },
     "rarity": 5,
-    "imageId": "item_equip_t4_suit_heal01_edc_01",
+    "imageId": "item_equip_t4_suit_heal01_edc_02",
     "partTypeId": "2",
     "suitId": "suit_heal01",
     "suitName": {
@@ -4445,6 +4718,48 @@ export const wikiEquipment = [
       "en": "LYNX",
       "ja": "生物補助",
       "zh-TW": "生物輔助"
+    },
+    "minimumLevel": 70
+  },
+  {
+    "id": "item_equip_t4_suit_heal01_edc_03",
+    "category": "equipment",
+    "name": {
+      "zh-CN": "生物辅助护板",
+      "en": "LYNX Slab",
+      "ja": "生物補助プレート",
+      "zh-TW": "生物輔助護板"
+    },
+    "rarity": 5,
+    "imageId": "item_equip_t4_suit_heal01_edc_03",
+    "partTypeId": "2",
+    "suitId": "suit_heal01",
+    "suitName": {
+      "zh-CN": "生物辅助",
+      "en": "LYNX",
+      "ja": "生物補助",
+      "zh-TW": "生物輔助"
+    },
+    "minimumLevel": 70
+  },
+  {
+    "id": "item_equip_t4_suit_poise01_hand_02",
+    "category": "equipment",
+    "name": {
+      "zh-CN": "轻超域轻护手",
+      "en": "Æthertech Light Gloves",
+      "ja": "軽量超域プロテクター",
+      "zh-TW": "輕超域輕護手"
+    },
+    "rarity": 5,
+    "imageId": "item_equip_t4_suit_poise01_hand_02",
+    "partTypeId": "1",
+    "suitId": "suit_poise01",
+    "suitName": {
+      "zh-CN": "轻超域",
+      "en": "Æthertech",
+      "ja": "軽量超域",
+      "zh-TW": "輕超域"
     },
     "minimumLevel": 70
   },
@@ -4470,37 +4785,37 @@ export const wikiEquipment = [
     "minimumLevel": 70
   },
   {
-    "id": "item_equip_t4_suit_usp02_body_01",
+    "id": "item_equip_t4_suit_heal01_edc_05",
     "category": "equipment",
     "name": {
-      "zh-CN": "长息装甲",
-      "en": "Eternal Xiranite Armor",
-      "ja": "流転マント",
-      "zh-TW": "長息護甲"
+      "zh-CN": "生物辅助接驳器·壹型",
+      "en": "LYNX Connector T1",
+      "ja": "生物補助コンタクタⅠ",
+      "zh-TW": "生物輔助接駁器·I"
     },
     "rarity": 5,
-    "imageId": "item_equip_t4_suit_usp02_body_01",
-    "partTypeId": "0",
-    "suitId": "suit_usp02",
+    "imageId": "item_equip_t4_suit_heal01_edc_01",
+    "partTypeId": "2",
+    "suitId": "suit_heal01",
     "suitName": {
-      "zh-CN": "长息",
-      "en": "Eternal Xiranite",
-      "ja": "流転",
-      "zh-TW": "長息"
+      "zh-CN": "生物辅助",
+      "en": "LYNX",
+      "ja": "生物補助",
+      "zh-TW": "生物輔助"
     },
     "minimumLevel": 70
   },
   {
-    "id": "item_equip_t4_suit_heal01_hand_02",
+    "id": "item_equip_t4_suit_heal01_hand_01",
     "category": "equipment",
     "name": {
-      "zh-CN": "生物辅助手甲",
-      "en": "LYNX Gauntlets",
-      "ja": "生物補助手袋",
-      "zh-TW": "生物輔助手甲"
+      "zh-CN": "生物辅助臂甲",
+      "en": "LYNX Gloves",
+      "ja": "生物補助グローブ",
+      "zh-TW": "生物輔助臂甲"
     },
     "rarity": 5,
-    "imageId": "item_equip_t4_suit_heal01_hand_02",
+    "imageId": "item_equip_t4_suit_heal01_hand_01",
     "partTypeId": "1",
     "suitId": "suit_heal01",
     "suitName": {
@@ -4512,65 +4827,23 @@ export const wikiEquipment = [
     "minimumLevel": 70
   },
   {
-    "id": "item_equip_t4_suit_phy01_body_01",
+    "id": "item_equip_t4_suit_heal01_hand_03",
     "category": "equipment",
     "name": {
-      "zh-CN": "点剑轻装甲",
-      "en": "Swordmancer Light Armor",
-      "ja": "宏山点剣ライトアーマー",
-      "zh-TW": "點劍輕裝甲"
+      "zh-CN": "生物辅助手甲·壹型",
+      "en": "LYNX Gauntlets T1",
+      "ja": "生物補助手袋Ⅰ",
+      "zh-TW": "生物輔助手甲·I"
     },
     "rarity": 5,
-    "imageId": "item_equip_t4_suit_phy01_body_01",
-    "partTypeId": "0",
-    "suitId": "suit_phy01",
+    "imageId": "item_equip_t4_suit_heal01_hand_03",
+    "partTypeId": "1",
+    "suitId": "suit_heal01",
     "suitName": {
-      "zh-CN": "点剑",
-      "en": "Swordmancer",
-      "ja": "宏山点剣",
-      "zh-TW": "點劍"
-    },
-    "minimumLevel": 70
-  },
-  {
-    "id": "item_equip_t4_suit_phy01_body_02",
-    "category": "equipment",
-    "name": {
-      "zh-CN": "点剑重装甲",
-      "en": "Swordmancer Heavy Armor",
-      "ja": "宏山点剣ヘビーアーマー",
-      "zh-TW": "點劍重裝甲"
-    },
-    "rarity": 5,
-    "imageId": "item_equip_t4_suit_phy01_body_02",
-    "partTypeId": "0",
-    "suitId": "suit_phy01",
-    "suitName": {
-      "zh-CN": "点剑",
-      "en": "Swordmancer",
-      "ja": "宏山点剣",
-      "zh-TW": "點劍"
-    },
-    "minimumLevel": 70
-  },
-  {
-    "id": "item_equip_t4_suit_phy01_body_03",
-    "category": "equipment",
-    "name": {
-      "zh-CN": "点剑重装甲·壹型",
-      "en": "Swordmancer Heavy Armor T1",
-      "ja": "宏山点剣ヘビーアーマーⅠ",
-      "zh-TW": "點劍重裝甲·I"
-    },
-    "rarity": 5,
-    "imageId": "item_equip_t4_suit_phy01_body_03",
-    "partTypeId": "0",
-    "suitId": "suit_phy01",
-    "suitName": {
-      "zh-CN": "点剑",
-      "en": "Swordmancer",
-      "ja": "宏山点剣",
-      "zh-TW": "點劍"
+      "zh-CN": "生物辅助",
+      "en": "LYNX",
+      "ja": "生物補助",
+      "zh-TW": "生物輔助"
     },
     "minimumLevel": 70
   },
@@ -4596,16 +4869,16 @@ export const wikiEquipment = [
     "minimumLevel": 70
   },
   {
-    "id": "item_equip_t4_suit_phy01_edc_01",
+    "id": "item_equip_t4_suit_phy01_edc_02",
     "category": "equipment",
     "name": {
-      "zh-CN": "点剑定位信标",
-      "en": "Swordmancer NAV Beacon",
-      "ja": "宏山点剣定位ビーコン",
-      "zh-TW": "點劍定位信標"
+      "zh-CN": "点剑微型滤芯",
+      "en": "Swordmancer Micro Filter",
+      "ja": "宏山点剣小型フィルター",
+      "zh-TW": "點劍微型濾芯"
     },
     "rarity": 5,
-    "imageId": "item_equip_t4_suit_phy01_edc_01",
+    "imageId": "item_equip_t4_suit_phy01_edc_02",
     "partTypeId": "2",
     "suitId": "suit_phy01",
     "suitName": {
@@ -4617,23 +4890,23 @@ export const wikiEquipment = [
     "minimumLevel": 70
   },
   {
-    "id": "item_equip_t4_suit_poise01_body_01",
+    "id": "item_equip_t4_suit_phy01_edc_03",
     "category": "equipment",
     "name": {
-      "zh-CN": "轻超域护板",
-      "en": "Æthertech Plating",
-      "ja": "軽量超域プレート",
-      "zh-TW": "輕超域護板"
+      "zh-CN": "点剑火石",
+      "en": "Swordmancer Flint",
+      "ja": "宏山点剣火石",
+      "zh-TW": "點劍火石"
     },
     "rarity": 5,
-    "imageId": "item_equip_t4_suit_poise01_body_01",
-    "partTypeId": "0",
-    "suitId": "suit_poise01",
+    "imageId": "item_equip_t4_suit_phy01_edc_03",
+    "partTypeId": "2",
+    "suitId": "suit_phy01",
     "suitName": {
-      "zh-CN": "轻超域",
-      "en": "Æthertech",
-      "ja": "軽量超域",
-      "zh-TW": "輕超域"
+      "zh-CN": "点剑",
+      "en": "Swordmancer",
+      "ja": "宏山点剣",
+      "zh-TW": "點劍"
     },
     "minimumLevel": 70
   },
@@ -4680,37 +4953,100 @@ export const wikiEquipment = [
     "minimumLevel": 70
   },
   {
-    "id": "item_equip_t4_suit_pulse_cryst01_hand_01",
+    "id": "item_equip_t4_suit_spellburst_body_01",
     "category": "equipment",
     "name": {
-      "zh-CN": "脉冲式手套",
-      "en": "Pulser Labs Gloves",
-      "ja": "パルス式グローブ",
-      "zh-TW": "脈衝式手套"
+      "zh-CN": "险关装甲",
+      "en": "Deep Rampart Armor",
+      "ja": "天険防具",
+      "zh-TW": "險關裝甲"
     },
     "rarity": 5,
-    "imageId": "item_equip_t4_suit_pulse_cryst01_hand_01",
-    "partTypeId": "1",
-    "suitId": "suit_pulse_cryst01",
+    "imageId": "item_equip_t4_suit_spellburst_body_01",
+    "partTypeId": "0",
+    "suitId": "suit_spellburst",
     "suitName": {
-      "zh-CN": "脉冲式",
-      "en": "Pulser Labs",
-      "ja": "パルス式",
-      "zh-TW": "脈衝式"
+      "zh-CN": "险关",
+      "en": "Deep Rampart",
+      "ja": "天険",
+      "zh-TW": "險關"
     },
     "minimumLevel": 70
   },
   {
-    "id": "item_equip_t4_suit_usp02_edc_03",
+    "id": "item_equip_t4_suit_spellburst_edc_01",
     "category": "equipment",
     "name": {
-      "zh-CN": "长息辅助臂",
-      "en": "Eternal Xiranite Auxiliary Arm",
-      "ja": "流転ロボットアーム",
-      "zh-TW": "長息輔助臂"
+      "zh-CN": "险关通信器",
+      "en": "Deep Rampart Comms",
+      "ja": "天険通信機",
+      "zh-TW": "險關通訊器"
     },
     "rarity": 5,
-    "imageId": "item_equip_t4_suit_usp02_edc_03",
+    "imageId": "item_equip_t4_suit_spellburst_edc_01",
+    "partTypeId": "2",
+    "suitId": "suit_spellburst",
+    "suitName": {
+      "zh-CN": "险关",
+      "en": "Deep Rampart",
+      "ja": "天険",
+      "zh-TW": "險關"
+    },
+    "minimumLevel": 70
+  },
+  {
+    "id": "item_equip_t4_suit_spellburst_hand_01",
+    "category": "equipment",
+    "name": {
+      "zh-CN": "险关手甲",
+      "en": "Deep Rampart Gauntlets",
+      "ja": "天険ガントレット",
+      "zh-TW": "險關手甲"
+    },
+    "rarity": 5,
+    "imageId": "item_equip_t4_suit_spellburst_hand_01",
+    "partTypeId": "1",
+    "suitId": "suit_spellburst",
+    "suitName": {
+      "zh-CN": "险关",
+      "en": "Deep Rampart",
+      "ja": "天険",
+      "zh-TW": "險關"
+    },
+    "minimumLevel": 70
+  },
+  {
+    "id": "item_equip_t4_suit_usp02_body_01",
+    "category": "equipment",
+    "name": {
+      "zh-CN": "长息装甲",
+      "en": "Eternal Xiranite Armor",
+      "ja": "流転マント",
+      "zh-TW": "長息護甲"
+    },
+    "rarity": 5,
+    "imageId": "item_equip_t4_suit_usp02_body_01",
+    "partTypeId": "0",
+    "suitId": "suit_usp02",
+    "suitName": {
+      "zh-CN": "长息",
+      "en": "Eternal Xiranite",
+      "ja": "流転",
+      "zh-TW": "長息"
+    },
+    "minimumLevel": 70
+  },
+  {
+    "id": "item_equip_t4_suit_usp02_edc_05",
+    "category": "equipment",
+    "name": {
+      "zh-CN": "长息加固板·壹型",
+      "en": "Eternal Xiranite Bracing Slab T1",
+      "ja": "流転補強板Ⅰ",
+      "zh-TW": "長息加固板·I"
+    },
+    "rarity": 5,
+    "imageId": "item_equip_t4_suit_usp02_edc_05",
     "partTypeId": "2",
     "suitId": "suit_usp02",
     "suitName": {
@@ -4729,27 +5065,6 @@ export const wikiEquipment = [
       "en": "Eternal Xiranite Gloves",
       "ja": "流転ガントレット",
       "zh-TW": "長息護手"
-    },
-    "rarity": 5,
-    "imageId": "item_equip_t4_suit_usp02_hand_01",
-    "partTypeId": "1",
-    "suitId": "suit_usp02",
-    "suitName": {
-      "zh-CN": "长息",
-      "en": "Eternal Xiranite",
-      "ja": "流転",
-      "zh-TW": "長息"
-    },
-    "minimumLevel": 70
-  },
-  {
-    "id": "item_equip_t4_suit_usp02_hand_02",
-    "category": "equipment",
-    "name": {
-      "zh-CN": "长息护手·壹型",
-      "en": "Eternal Xiranite Gloves T1",
-      "ja": "流転ガントレットⅠ",
-      "zh-TW": "長息護手·I"
     },
     "rarity": 5,
     "imageId": "item_equip_t4_suit_usp02_hand_01",

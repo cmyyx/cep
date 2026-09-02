@@ -6282,10 +6282,10 @@
         {
           "id": "chr_0032_lizhiyan_combo_skill:7",
           "label": {
-            "zh-CN": "最大额外脆弱效果所需意志值",
-            "en": "Will Required for Max Bonus Susceptibility",
-            "ja": "最大追加脆弱効果に必要な意志",
-            "zh-TW": "最大額外脆弱效果所需意志值"
+            "zh-CN": "最大额外脆弱效果对应意志值",
+            "en": "Will for MAX Bonus Susceptibility",
+            "ja": "脆弱効果の最大追加に対応する意志",
+            "zh-TW": "最大額外脆弱效果對應意志值"
           }
         },
         {
@@ -7968,10 +7968,10 @@
             {
               "id": "chr_0032_lizhiyan_combo_skill:5",
               "label": {
-                "zh-CN": "最大额外脆弱效果所需意志值",
-                "en": "Will Required for Max Bonus Susceptibility",
-                "ja": "最大追加脆弱効果に必要な意志",
-                "zh-TW": "最大額外脆弱效果所需意志值"
+                "zh-CN": "最大额外脆弱效果对应意志值",
+                "en": "Will for MAX Bonus Susceptibility",
+                "ja": "脆弱効果の最大追加に対応する意志",
+                "zh-TW": "最大額外脆弱效果對應意志值"
               }
             },
             {
@@ -9502,7 +9502,7 @@
           "description": {
             "zh-CN": "<@ba.key>阵诀·智</>：\n- <@ba.key>破晦阵</>生成时，还会对区域内的敌人强制施加<#ba.corrupt>腐蚀</>。",
             "en": "<@ba.key>Array Arcana: INT</>:\n- When created, the <@ba.key>Gloompurger Array</> also forcibly applies <#ba.corrupt>Corrosion</> to enemies in the AOE.",
-            "ja": "<@ba.key>陣訣・知</>：\n- <@ba.key>破晦陣</>を生成する際、範囲内の敵に強制的に<#ba.corrupt>腐食</>状態にする。",
+            "ja": "<@ba.key>陣訣・知</>：\n- <@ba.key>破晦陣</>を生成する際、範囲内の敵を強制的に<#ba.corrupt>腐食</>状態にする。",
             "zh-TW": "<@ba.key>陣訣·智</>：\n- <@ba.key>破晦陣</>生成時，還會對區域內的敵人強制施加<#ba.corrupt>腐蝕</>。"
           },
           "iconId": "icon_ultimate_skill_lizhiyan_01",

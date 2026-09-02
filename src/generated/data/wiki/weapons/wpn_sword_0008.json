@@ -575,7 +575,7 @@
       "id": "wpn_attr_agi_low",
       "name": {
         "zh-CN": "敏捷提升·小",
-        "en": "Agility Boost [S]",
+        "en": "Agility [S]",
         "ja": "敏捷UP・小",
         "zh-TW": "敏捷提升·小"
       },
@@ -673,7 +673,7 @@
       "id": "wpn_sp_attr_phydam_low",
       "name": {
         "zh-CN": "物理伤害提升·小",
-        "en": "Physical DMG Boost [S]",
+        "en": "Physical DMG [S]",
         "ja": "物理ダメージUP・小",
         "zh-TW": "物理傷害提升·小"
       },

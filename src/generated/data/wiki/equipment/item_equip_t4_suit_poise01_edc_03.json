@@ -73,10 +73,10 @@
         "zh-TW": "輕超域"
       },
       "description": {
-        "zh-CN": "3件套组效果：装备者攻击力<@ba.vup>+8%</>。\n装备者施加<#ba.noguard>破防</>后，<@ba.pd>物理伤害</><@ba.vup>+8%</>，持续15秒，最多可叠加4层。若使目标达到4层<#ba.noguard>破防</>，物理伤害额外<@ba.vup>+16%</>，持续10秒，该效果无法叠加。",
-        "en": "3-piece set effect: Wearer's ATK <@ba.vup>+8%</>. \nAfter the wearer applies <#ba.noguard>Vulnerability</>, the wearer gains <@ba.pd>Physical DMG</> <@ba.vup>+8%</> for 15s. This effect can reach 4 stacks. If the target already has 4 stack(s) of <#ba.noguard>Vulnerability</>, the wearer gains an additional Physical DMG <@ba.vup>+16%</> for 10s. This effect cannot stack.",
-        "ja": "3点セット効果：装備中、攻撃力<@ba.vup>+8%</>\n自身が<#ba.noguard>クラッシュ</>を付与すると、15秒間<@ba.pd>物理ダメージ</><@ba.vup>+8%</>\nこの効果は4回まで重ね掛け可能\n敵の<#ba.noguard>クラッシュ</>段階が4になった場合、10秒間追加で物理ダメージ<@ba.vup>+16%</>\nこの効果は重ね掛け不可",
-        "zh-TW": "3件套裝效果：裝備者攻擊力<@ba.vup>+8%</>。\n裝備者施加<#ba.noguard>破防</>後，<@ba.pd>物理傷害</><@ba.vup>+8%</>，持續15秒，最多可疊加4層。若使目標達到4層<#ba.noguard>破防</>，物理傷害額外<@ba.vup>+16%</>，持續10秒，該效果無法疊加。"
+        "zh-CN": "3件套组效果：装备者攻击力<@ba.vup>+8%</>。\n装备者施加<#ba.noguard>破防</>后，<@ba.pd>物理伤害</><@ba.vup>+8%</>，持续15秒，最多可叠加4层。若使目标达到4层<#ba.noguard>破防</>，<@ba.pd>物理伤害</>额外<@ba.vup>+16%</>，持续10秒，该效果无法叠加。",
+        "en": "3-piece set effect: Wearer's ATK <@ba.vup>+8%</>.\nAfter the wearer applies <#ba.noguard>Vulnerability</>, the wearer gains <@ba.pd>Physical DMG Dealt</> <@ba.vup>+8%</> for 15s. This effect can reach 4 stacks. If the target has 4 stacks of <#ba.noguard>Vulnerability</>, the wearer gains an additional <@ba.pd>Physical DMG Dealt</> <@ba.vup>+16%</> for 10s. This effect cannot stack.",
+        "ja": "3点セット効果：装備中、攻撃力<@ba.vup>+8%</>\n自身が<#ba.noguard>クラッシュ</>を付与すると、15秒間<@ba.pd>物理ダメージ</><@ba.vup>+8%</>\nこの効果は4回まで重ね掛け可能\n目標の<#ba.noguard>クラッシュ</>段階が4になった場合、10秒間追加で<@ba.pd>物理ダメージ</><@ba.vup>+16%</>\nこの効果は重ね掛け不可",
+        "zh-TW": "3件套裝效果：裝備者攻擊力<@ba.vup>+8%</>。\n裝備者施加<#ba.noguard>破防</>後，<@ba.pd>物理傷害</><@ba.vup>+8%</>，持續15秒，最多可疊加4層。若使目標達到4層<#ba.noguard>破防</>，<@ba.pd>物理傷害</>額外<@ba.vup>+16%</>，持續10秒，該效果無法疊加。"
       },
       "requiredPieces": 3,
       "values": {

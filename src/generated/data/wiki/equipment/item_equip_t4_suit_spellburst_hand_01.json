@@ -1,0 +1,123 @@
+{
+  "id": "item_equip_t4_suit_spellburst_hand_01",
+  "category": "equipment",
+  "stats": [
+    {
+      "attributeId": "3",
+      "values": [
+        42,
+        42,
+        42,
+        42
+      ],
+      "displayValues": [
+        "防御力+42",
+        "防御力+42",
+        "防御力+42",
+        "防御力+42"
+      ]
+    },
+    {
+      "attributeId": "40",
+      "values": [
+        65,
+        71,
+        78,
+        84
+      ],
+      "displayValues": [
+        "敏捷+65",
+        "敏捷+71",
+        "敏捷+78",
+        "敏捷+84"
+      ]
+    },
+    {
+      "attributeId": "42",
+      "values": [
+        43,
+        47,
+        51,
+        55
+      ],
+      "displayValues": [
+        "意志+43",
+        "意志+47",
+        "意志+51",
+        "意志+55"
+      ]
+    },
+    {
+      "attributeId": "87",
+      "values": [
+        34.5,
+        37.95,
+        41.4,
+        44.85
+      ],
+      "displayValues": [
+        "源石技艺强度+34.5",
+        "源石技艺强度+37.95",
+        "源石技艺强度+41.4",
+        "源石技艺强度+44.85"
+      ]
+    }
+  ],
+  "suitEffects": [
+    {
+      "id": "passive_equipsuit_spellburst01",
+      "name": {
+        "zh-CN": "险关",
+        "en": "Deep Rampart",
+        "ja": "天険",
+        "zh-TW": "險關"
+      },
+      "description": {
+        "zh-CN": "3件套组效果：装备者法术伤害<@ba.vup>+16%</>。\n当装备者造成<#ba.naturalburst>自然爆发</>、<#ba.crystburst>寒冷爆发</>时，源石技艺强度<@ba.vup>+16</>，持续20秒。该效果最多叠加3层，每层单独计算持续时间，每0.1秒最多触发一次。",
+        "en": "3-piece set effect: Wearer's Arts DMG Dealt <@ba.vup>+16%</>.\nWhen the wearer applies <#ba.naturalburst>Nature Burst</> or <#ba.crystburst>Cryo Burst</>, the wearer gains Arts Intensity <@ba.vup>+16</> for 20s. Max stacks for this effect: 3. Duration of each stack is counted separately. Effect only triggers once every 0.1s.",
+        "ja": "3点セット効果：装備中、アーツダメージ<@ba.vup>+16%</>\n自身が<#ba.naturalburst>自然爆発</>、<#ba.crystburst>寒冷爆発</>を発動させるとき、20秒間アーツ強度<@ba.vup>+16</>\nこの効果は最大3段階まで重ね掛け可能（持続時間は個別にカウントされ、0.1秒に1回まで発動可能）",
+        "zh-TW": "3件套裝效果：裝備者法術傷害<@ba.vup>+16%</>。\n當裝備者造成<#ba.naturalburst>自然爆發</>、<#ba.crystburst>寒冷爆發</>時，源石技藝強度<@ba.vup>+16</>，持續20秒。該效果最多疊加3層，每層單獨計算持續時間，每0.1秒最多觸發一次。"
+      },
+      "requiredPieces": 3,
+      "values": {
+        "phy_spell_up": 16,
+        "spell_dmg_up": 0.16,
+        "max_stack": 3,
+        "duration": 20
+      }
+    }
+  ],
+  "craftingRecipes": [
+    {
+      "chainId": 4003,
+      "discount": 0.01,
+      "isDefault": true,
+      "materials": [
+        {
+          "itemId": "item_equip_script_4_3",
+          "name": {
+            "zh-CN": "灼铜装备原件",
+            "en": "Pyrrolite Component",
+            "ja": "焔銅装備部品",
+            "zh-TW": "灼銅裝備原件"
+          },
+          "iconId": "item_equip_script_4_3",
+          "rarity": 4,
+          "count": 50
+        },
+        {
+          "itemId": "item_domain_jinlong_coupon",
+          "name": {
+            "zh-CN": "武陵调度券",
+            "en": "Wuling Stock Bill",
+            "ja": "武陵取引券",
+            "zh-TW": "武陵調度券"
+          },
+          "iconId": "item_domain_jinlong_coupon",
+          "rarity": 5,
+          "count": 360
+        }
+      ]
+    }
+  ]
+}

@@ -575,7 +575,7 @@
       "id": "wpn_attr_will_high",
       "name": {
         "zh-CN": "意志提升·大",
-        "en": "Will Boost [L]",
+        "en": "Will [L]",
         "ja": "意志UP・大",
         "zh-TW": "意志提升·大"
       },
@@ -673,7 +673,7 @@
       "id": "wpn_sp_attr_electrondam_high",
       "name": {
         "zh-CN": "电磁伤害提升·大",
-        "en": "Electric DMG Boost [L]",
+        "en": "Electric DMG [L]",
         "ja": "電磁ダメージUP・大",
         "zh-TW": "電磁傷害提升·大"
       },

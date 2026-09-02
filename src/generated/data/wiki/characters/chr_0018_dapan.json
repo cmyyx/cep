@@ -5583,7 +5583,7 @@
       "description": {
         "zh-CN": "猛拍砧板，立即对前方范围内的敌人强制造成<#ba.airborne>击飞</>。随后发动6段连续斩击，造成<@ba.pd>物理伤害</>，最后将所有敌人一并击坠，强制造成<#ba.knockdown>倒地</>，造成大量<@ba.pd>物理伤害</>。",
         "en": "Da Pan slams the chopping board to forcibly <#ba.airborne>Lift</> all enemies in the area of effect in front of him. This is followed by a 6-sequence flurry of slashes that deals <@ba.pd>Physical DMG</>. The final step is to bash every enemy to the ground to forcibly <#ba.knockdown>Knock Down</> and deal massive <@ba.pd>Physical DMG</> to them.",
-        "ja": "まな板を強く叩き、前方範囲内の敵に強制的に<#ba.airborne>浮遊</>させる。その後、6段の連続斬撃を放ち、敵に<@ba.pd>物理ダメージ</>を与える。最後にすべての敵を叩き落とし、強制的に<#ba.knockdown>転倒</>させ、高い<@ba.pd>物理ダメージ</>を与える。",
+        "ja": "まな板を強く叩き、前方範囲内の敵を強制的に<#ba.airborne>浮遊</>させる。その後、6段の連続斬撃を放ち、敵に<@ba.pd>物理ダメージ</>を与える。最後にすべての敵を叩き落とし、強制的に<#ba.knockdown>転倒</>させ、高い<@ba.pd>物理ダメージ</>を与える。",
         "zh-TW": "猛拍砧板，立即對前方範圍內的敵人強制造成<#ba.airborne>擊飛</>。隨後發動6段連續斬擊，造成<@ba.pd>物理傷害</>，最後將所有敵人一併擊墜，強制使其<#ba.knockdown>倒地</>，造成大量<@ba.pd>物理傷害</>。"
       },
       "iconId": "icon_ultimate_skill_dapan_01",

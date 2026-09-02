@@ -24,13 +24,13 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       {
         "levelOne": {
           "zh-CN": "攻击力<@ba.vup>+3.0%</>",
-          "en": "Attack <@ba.vup>+3.0%</>",
+          "en": "ATK <@ba.vup>+3.0%</>",
           "ja": "攻撃力<@ba.vup>+3.0%</>",
           "zh-TW": "攻擊力<@ba.vup>+3.0%</>"
         },
         "maxLevel": {
           "zh-CN": "攻击力<@ba.vup>+23.4%</>",
-          "en": "Attack <@ba.vup>+23.4%</>",
+          "en": "ATK <@ba.vup>+23.4%</>",
           "ja": "攻撃力<@ba.vup>+23.4%</>",
           "zh-TW": "攻擊力<@ba.vup>+23.4%</>"
         },
@@ -49,6 +49,110 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
           "en": "When the wielder's battle skill hits the enemy, the wielder gains ATK <@ba.vup>+33.6%</> for 20s.\n<@ba.info>Effects of the same name cannot stack. </>",
           "ja": "装備中、自身の戦技が敵に命中するとき、20秒間攻撃力<@ba.vup>+33.6%</>\n<@ba.info>同名効果は重ね掛け不可</>",
           "zh-TW": "裝備者的戰技命中敵人時，獲得攻擊力<@ba.vup>+33.6%</>，持續20秒。\n<@ba.info>同名效果無法疊加。</>"
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
+  "wpn_lance_0006": {
+    "stats": [
+      {
+        "levelOne": {
+          "zh-CN": "意志<@ba.vup>+16</>",
+          "en": "Will <@ba.vup>+16</>",
+          "ja": "意志<@ba.vup>+16</>",
+          "zh-TW": "意志<@ba.vup>+16</>"
+        },
+        "maxLevel": {
+          "zh-CN": "意志<@ba.vup>+124</>",
+          "en": "Will <@ba.vup>+124</>",
+          "ja": "意志<@ba.vup>+124</>",
+          "zh-TW": "意志<@ba.vup>+124</>"
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "zh-CN": "电磁伤害<@ba.vup>+4.4%</>",
+          "en": "Electric DMG Dealt <@ba.vup>+4.4%</>",
+          "ja": "電磁ダメージ<@ba.vup>+4.4%</>",
+          "zh-TW": "電磁傷害<@ba.vup>+4.4%</>"
+        },
+        "maxLevel": {
+          "zh-CN": "电磁伤害<@ba.vup>+34.7%</>",
+          "en": "Electric DMG Dealt <@ba.vup>+34.7%</>",
+          "ja": "電磁ダメージ<@ba.vup>+34.7%</>",
+          "zh-TW": "電磁傷害<@ba.vup>+34.7%</>"
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "zh-CN": "连携技伤害<@ba.vup>+10.0%</>。\n装备者施放连携技时，30秒内的下次战技期间造成的电磁伤害<@ba.vup>+10.0%</>。\n<@ba.info>同名效果最多叠加3层，每层单独计算持续时间。</>",
+          "en": "Combo Skill DMG Dealt <@ba.vup>+10.0%</>.\nWhen the wielder casts a combo skill, during the next battle skill cast within 30s, the wielder gains Electric DMG Dealt <@ba.vup>+10.0%</>.\n<@ba.info>Max stacks for effects of the same name: 3. Duration of each stack is counted separately.</>",
+          "ja": "連携技ダメージ<@ba.vup>+10.0%</>\n装備中、自身が連携技を発動するとき、30秒間次の戦技発動中に与える電磁ダメージ<@ba.vup>+10.0%</>\n<@ba.info>同名効果は3回まで重ね掛け可能\n効果の持続時間は個別にカウントされる</>",
+          "zh-TW": "連攜技傷害<@ba.vup>+10.0%</>。\n裝備者施放連攜技時，30秒內的下次戰技期間造成的電磁傷害<@ba.vup>+10.0%</>。\n<@ba.info>同名效果最多疊加3層，每層單獨計算持續時間。</>"
+        },
+        "maxLevel": {
+          "zh-CN": "连携技伤害<@ba.vup>+28.0%</>。\n装备者施放连携技时，30秒内的下次战技期间造成的电磁伤害<@ba.vup>+28.0%</>。\n<@ba.info>同名效果最多叠加3层，每层单独计算持续时间。</>",
+          "en": "Combo Skill DMG Dealt <@ba.vup>+28.0%</>.\nWhen the wielder casts a combo skill, during the next battle skill cast within 30s, the wielder gains Electric DMG Dealt <@ba.vup>+28.0%</>.\n<@ba.info>Max stacks for effects of the same name: 3. Duration of each stack is counted separately.</>",
+          "ja": "連携技ダメージ<@ba.vup>+28.0%</>\n装備中、自身が連携技を発動するとき、30秒間次の戦技発動中に与える電磁ダメージ<@ba.vup>+28.0%</>\n<@ba.info>同名効果は3回まで重ね掛け可能\n効果の持続時間は個別にカウントされる</>",
+          "zh-TW": "連攜技傷害<@ba.vup>+28.0%</>。\n裝備者施放連攜技時，30秒內的下次戰技期間造成的電磁傷害<@ba.vup>+28.0%</>。\n<@ba.info>同名效果最多疊加3層，每層單獨計算持續時間。</>"
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
+  "wpn_claym_0004": {
+    "stats": [
+      {
+        "levelOne": {
+          "zh-CN": "主能力值<@ba.vup>+17</>",
+          "en": "Main attribute <@ba.vup>+17</>",
+          "ja": "メイン能力値<@ba.vup>+17</>",
+          "zh-TW": "主能力值<@ba.vup>+17</>"
+        },
+        "maxLevel": {
+          "zh-CN": "主能力值<@ba.vup>+132</>",
+          "en": "Main attribute <@ba.vup>+132</>",
+          "ja": "メイン能力値<@ba.vup>+132</>",
+          "zh-TW": "主能力值<@ba.vup>+132</>"
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "zh-CN": "攻击力<@ba.vup>+5.0%</>",
+          "en": "ATK <@ba.vup>+5.0%</>",
+          "ja": "攻撃力<@ba.vup>+5.0%</>",
+          "zh-TW": "攻擊力<@ba.vup>+5.0%</>"
+        },
+        "maxLevel": {
+          "zh-CN": "攻击力<@ba.vup>+39.0%</>",
+          "en": "ATK <@ba.vup>+39.0%</>",
+          "ja": "攻撃力<@ba.vup>+39.0%</>",
+          "zh-TW": "攻擊力<@ba.vup>+39.0%</>"
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "zh-CN": "物理伤害<@ba.vup>+10.0%</>。\n装备者的战技和终结技命中敌人时，物理伤害额外<@ba.vup>+10.0%</>，持续30秒。\n<@ba.info>同名效果最多叠加3层，每层单独计算持续时间，每0.1秒最多触发一次。</>",
+          "en": "Physical DMG Dealt <@ba.vup>+10.0%</>.\nWhen the wielder's battle skill or ultimate hits the enemy, the wielder gains Physical DMG Dealt <@ba.vup>+10.0%</> for 30s.\n<@ba.info>Max stacks for effects of the same name: 3. Duration of each stack is counted separately. Effect only triggers once every 0.1s.</>",
+          "ja": "物理ダメージ<@ba.vup>+10.0%</>\n装備中、自身の戦技または必殺技が敵に命中するとき、30秒間追加で自身の物理ダメージ<@ba.vup>+10.0%</>\n<@ba.info>同名効果は3回まで重ね掛け可能\n効果の持続時間は個別にカウントされ、0.1秒に1回まで発動可能</>",
+          "zh-TW": "物理傷害<@ba.vup>+10.0%</>。\n裝備者的戰技和終結技命中敵人時，物理傷害額外<@ba.vup>+10.0%</>，持續30秒。\n<@ba.info>同名效果最多疊加3層，每層單獨計算持續時間，每0.1秒最多觸發一次。</>"
+        },
+        "maxLevel": {
+          "zh-CN": "物理伤害<@ba.vup>+28.0%</>。\n装备者的战技和终结技命中敌人时，物理伤害额外<@ba.vup>+28.0%</>，持续30秒。\n<@ba.info>同名效果最多叠加3层，每层单独计算持续时间，每0.1秒最多触发一次。</>",
+          "en": "Physical DMG Dealt <@ba.vup>+28.0%</>.\nWhen the wielder's battle skill or ultimate hits the enemy, the wielder gains Physical DMG Dealt <@ba.vup>+28.0%</> for 30s.\n<@ba.info>Max stacks for effects of the same name: 3. Duration of each stack is counted separately. Effect only triggers once every 0.1s.</>",
+          "ja": "物理ダメージ<@ba.vup>+28.0%</>\n装備中、自身の戦技または必殺技が敵に命中するとき、30秒間追加で自身の物理ダメージ<@ba.vup>+28.0%</>\n<@ba.info>同名効果は3回まで重ね掛け可能\n効果の持続時間は個別にカウントされ、0.1秒に1回まで発動可能</>",
+          "zh-TW": "物理傷害<@ba.vup>+28.0%</>。\n裝備者的戰技和終結技命中敵人時，物理傷害額外<@ba.vup>+28.0%</>，持續30秒。\n<@ba.info>同名效果最多疊加3層，每層單獨計算持續時間，每0.1秒最多觸發一次。</>"
         },
         "levelOneLabel": "Lv.1",
         "maxLevelLabel": "Lv.9"
@@ -107,162 +211,6 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       }
     ]
   },
-  "wpn_pistol_0007": {
-    "stats": [
-      {
-        "levelOne": {
-          "zh-CN": "敏捷<@ba.vup>+20</>",
-          "en": "Agility <@ba.vup>+20</>",
-          "ja": "敏捷<@ba.vup>+20</>",
-          "zh-TW": "敏捷<@ba.vup>+20</>"
-        },
-        "maxLevel": {
-          "zh-CN": "敏捷<@ba.vup>+156</>",
-          "en": "Agility <@ba.vup>+156</>",
-          "ja": "敏捷<@ba.vup>+156</>",
-          "zh-TW": "敏捷<@ba.vup>+156</>"
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "zh-CN": "寒冷伤害<@ba.vup>+5.6%</>",
-          "en": "Cryo DMG Dealt <@ba.vup>+5.6%</>",
-          "ja": "寒冷ダメージ<@ba.vup>+5.6%</>",
-          "zh-TW": "寒冷傷害<@ba.vup>+5.6%</>"
-        },
-        "maxLevel": {
-          "zh-CN": "寒冷伤害<@ba.vup>+43.3%</>",
-          "en": "Cryo DMG Dealt <@ba.vup>+43.3%</>",
-          "ja": "寒冷ダメージ<@ba.vup>+43.3%</>",
-          "zh-TW": "寒冷傷害<@ba.vup>+43.3%</>"
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "zh-CN": "攻击力<@ba.vup>+7.0%</>。\n装备者施放连携技后，战技造成的寒冷和自然伤害<@ba.vup>+8.0%</>，持续20秒。\n<@ba.info>同名效果最多叠加2层，每层单独计算持续时间。</>",
-          "en": "ATK <@ba.vup>+7.0%</>.\nFor 20s after the wielder casts a combo skill, the wielder's next battle skill gains Cryo and Nature DMG Dealt <@ba.vup>+8.0%</>.\n<@ba.info>Max stacks for effects of the same name: 2. Duration of each stack is counted separately.</>",
-          "ja": "攻撃力<@ba.vup>+7.0%</>\n装備中、自身が連携技を発動すると、20秒間戦技で与える寒冷と自然ダメージ<@ba.vup>+8.0%</>\n<@ba.info>同名効果は2回まで重ね掛け可能\n効果の持続時間は個別にカウントされる</>",
-          "zh-TW": "攻擊力<@ba.vup>+7.0%</>。\n裝備者施放連攜技後，戰技造成的寒冷和自然傷害<@ba.vup>+8.0%</>，持續20秒。\n<@ba.info>同名效果最多疊加2層，每層單獨計算持續時間。</>"
-        },
-        "maxLevel": {
-          "zh-CN": "攻击力<@ba.vup>+19.6%</>。\n装备者施放连携技后，战技造成的寒冷和自然伤害<@ba.vup>+22.4%</>，持续20秒。\n<@ba.info>同名效果最多叠加2层，每层单独计算持续时间。</>",
-          "en": "ATK <@ba.vup>+19.6%</>.\nFor 20s after the wielder casts a combo skill, the wielder's next battle skill gains Cryo and Nature DMG Dealt <@ba.vup>+22.4%</>.\n<@ba.info>Max stacks for effects of the same name: 2. Duration of each stack is counted separately.</>",
-          "ja": "攻撃力<@ba.vup>+19.6%</>\n装備中、自身が連携技を発動すると、20秒間戦技で与える寒冷と自然ダメージ<@ba.vup>+22.4%</>\n<@ba.info>同名効果は2回まで重ね掛け可能\n効果の持続時間は個別にカウントされる</>",
-          "zh-TW": "攻擊力<@ba.vup>+19.6%</>。\n裝備者施放連攜技後，戰技造成的寒冷和自然傷害<@ba.vup>+22.4%</>，持續20秒。\n<@ba.info>同名效果最多疊加2層，每層單獨計算持續時間。</>"
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      }
-    ]
-  },
-  "wpn_sword_0014": {
-    "stats": [
-      {
-        "levelOne": {
-          "zh-CN": "主能力值<@ba.vup>+17</>",
-          "en": "Main attribute <@ba.vup>+17</>",
-          "ja": "メイン能力値<@ba.vup>+17</>",
-          "zh-TW": "主能力值<@ba.vup>+17</>"
-        },
-        "maxLevel": {
-          "zh-CN": "主能力值<@ba.vup>+132</>",
-          "en": "Main attribute <@ba.vup>+132</>",
-          "ja": "メイン能力値<@ba.vup>+132</>",
-          "zh-TW": "主能力值<@ba.vup>+132</>"
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "zh-CN": "源石技艺强度<@ba.vup>+10</>",
-          "en": "Arts Intensity <@ba.vup>+10</>",
-          "ja": "アーツ強度<@ba.vup>+10</>",
-          "zh-TW": "源石技藝強度<@ba.vup>+10</>"
-        },
-        "maxLevel": {
-          "zh-CN": "源石技艺强度<@ba.vup>+78</>",
-          "en": "Arts Intensity <@ba.vup>+78</>",
-          "ja": "アーツ強度<@ba.vup>+78</>",
-          "zh-TW": "源石技藝強度<@ba.vup>+78</>"
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "zh-CN": "法术伤害<@ba.vup>+12.0%</>。\n装备者施加<#ba.burning>燃烧</>或<#ba.conduct>导电</>后，法术伤害<@ba.vup>+12.0%</>，源石技艺强度<@ba.vup>+25</>，持续15秒。\n<@ba.info>同名效果无法叠加。</>",
-          "en": "Arts DMG Dealt <@ba.vup>+12.0%</>.\nAfter the wielder applies <#ba.burning>Combustion</> or <#ba.conduct>Electrification</>, the wielder gains Arts DMG Dealt <@ba.vup>+12.0%</> and Arts Intensity <@ba.vup>+25</> for 15s.\n<@ba.info>Effects of the same name cannot stack.</>",
-          "ja": "アーツダメージ<@ba.vup>+12.0%</>\n装備中、自身が敵を<#ba.burning>燃焼</>または<#ba.conduct>感電</>状態にすると、15秒間アーツダメージ<@ba.vup>+12.0%</>、アーツ強度<@ba.vup>+25</>\n<@ba.info>同名効果は重ね掛け不可</>",
-          "zh-TW": "法術傷害<@ba.vup>+12.0%</>。\n裝備者施加<#ba.burning>燃燒</>或<#ba.conduct>導電</>後，法術傷害<@ba.vup>+12.0%</>，源石技藝強度<@ba.vup>+25</>，持續15秒。\n<@ba.info>同名效果無法疊加。</>"
-        },
-        "maxLevel": {
-          "zh-CN": "法术伤害<@ba.vup>+33.6%</>。\n装备者施加<#ba.burning>燃烧</>或<#ba.conduct>导电</>后，法术伤害<@ba.vup>+33.6%</>，源石技艺强度<@ba.vup>+70</>，持续15秒。\n<@ba.info>同名效果无法叠加。</>",
-          "en": "Arts DMG Dealt <@ba.vup>+33.6%</>.\nAfter the wielder applies <#ba.burning>Combustion</> or <#ba.conduct>Electrification</>, the wielder gains Arts DMG Dealt <@ba.vup>+33.6%</> and Arts Intensity <@ba.vup>+70</> for 15s.\n<@ba.info>Effects of the same name cannot stack.</>",
-          "ja": "アーツダメージ<@ba.vup>+33.6%</>\n装備中、自身が敵を<#ba.burning>燃焼</>または<#ba.conduct>感電</>状態にすると、15秒間アーツダメージ<@ba.vup>+33.6%</>、アーツ強度<@ba.vup>+70</>\n<@ba.info>同名効果は重ね掛け不可</>",
-          "zh-TW": "法術傷害<@ba.vup>+33.6%</>。\n裝備者施加<#ba.burning>燃燒</>或<#ba.conduct>導電</>後，法術傷害<@ba.vup>+33.6%</>，源石技藝強度<@ba.vup>+70</>，持續15秒。\n<@ba.info>同名效果無法疊加。</>"
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      }
-    ]
-  },
-  "wpn_claym_0004": {
-    "stats": [
-      {
-        "levelOne": {
-          "zh-CN": "主能力值<@ba.vup>+17</>",
-          "en": "Main attribute <@ba.vup>+17</>",
-          "ja": "メイン能力値<@ba.vup>+17</>",
-          "zh-TW": "主能力值<@ba.vup>+17</>"
-        },
-        "maxLevel": {
-          "zh-CN": "主能力值<@ba.vup>+132</>",
-          "en": "Main attribute <@ba.vup>+132</>",
-          "ja": "メイン能力値<@ba.vup>+132</>",
-          "zh-TW": "主能力值<@ba.vup>+132</>"
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "zh-CN": "攻击力<@ba.vup>+5.0%</>",
-          "en": "Attack <@ba.vup>+5.0%</>",
-          "ja": "攻撃力<@ba.vup>+5.0%</>",
-          "zh-TW": "攻擊力<@ba.vup>+5.0%</>"
-        },
-        "maxLevel": {
-          "zh-CN": "攻击力<@ba.vup>+39.0%</>",
-          "en": "Attack <@ba.vup>+39.0%</>",
-          "ja": "攻撃力<@ba.vup>+39.0%</>",
-          "zh-TW": "攻擊力<@ba.vup>+39.0%</>"
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "zh-CN": "物理伤害<@ba.vup>+10.0%</>。\n装备者的战技和终结技命中敌人时，物理伤害额外<@ba.vup>+10.0%</>，持续30秒。\n<@ba.info>同名效果最多叠加3层，每层单独计算持续时间，每0.1秒最多触发一次。</>",
-          "en": "Physical DMG Dealt <@ba.vup>+10.0%</>.\nWhen the wielder's battle skill or ultimate hits the enemy, the wielder gains Physical DMG Dealt <@ba.vup>+10.0%</> for 30s.\n<@ba.info>Max stacks for effects of the same name: 3. Duration of each stack is counted separately. Effect only triggers once every 0.1s.</>",
-          "ja": "物理ダメージ<@ba.vup>+10.0%</>\n装備中、自身の戦技または必殺技が敵に命中するとき、30秒間追加で自身の物理ダメージ<@ba.vup>+10.0%</>\n<@ba.info>同名効果は3回まで重ね掛け可能\n効果の持続時間は個別にカウントされ、0.1秒に1回まで発動可能</>",
-          "zh-TW": "物理傷害<@ba.vup>+10.0%</>。\n裝備者的戰技和終結技命中敵人時，物理傷害額外<@ba.vup>+10.0%</>，持續30秒。\n<@ba.info>同名效果最多疊加3層，每層單獨計算持續時間，每0.1秒最多觸發一次。</>"
-        },
-        "maxLevel": {
-          "zh-CN": "物理伤害<@ba.vup>+28.0%</>。\n装备者的战技和终结技命中敌人时，物理伤害额外<@ba.vup>+28.0%</>，持续30秒。\n<@ba.info>同名效果最多叠加3层，每层单独计算持续时间，每0.1秒最多触发一次。</>",
-          "en": "Physical DMG Dealt <@ba.vup>+28.0%</>.\nWhen the wielder's battle skill or ultimate hits the enemy, the wielder gains Physical DMG Dealt <@ba.vup>+28.0%</> for 30s.\n<@ba.info>Max stacks for effects of the same name: 3. Duration of each stack is counted separately. Effect only triggers once every 0.1s.</>",
-          "ja": "物理ダメージ<@ba.vup>+28.0%</>\n装備中、自身の戦技または必殺技が敵に命中するとき、30秒間追加で自身の物理ダメージ<@ba.vup>+28.0%</>\n<@ba.info>同名効果は3回まで重ね掛け可能\n効果の持続時間は個別にカウントされ、0.1秒に1回まで発動可能</>",
-          "zh-TW": "物理傷害<@ba.vup>+28.0%</>。\n裝備者的戰技和終結技命中敵人時，物理傷害額外<@ba.vup>+28.0%</>，持續30秒。\n<@ba.info>同名效果最多疊加3層，每層單獨計算持續時間，每0.1秒最多觸發一次。</>"
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      }
-    ]
-  },
   "wpn_claym_0006": {
     "stats": [
       {
@@ -315,104 +263,52 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       }
     ]
   },
-  "wpn_funnel_0010": {
+  "wpn_lance_0003": {
     "stats": [
       {
         "levelOne": {
-          "zh-CN": "意志<@ba.vup>+20</>",
-          "en": "Will <@ba.vup>+20</>",
-          "ja": "意志<@ba.vup>+20</>",
-          "zh-TW": "意志<@ba.vup>+20</>"
+          "zh-CN": "敏捷<@ba.vup>+12</>",
+          "en": "Agility <@ba.vup>+12</>",
+          "ja": "敏捷<@ba.vup>+12</>",
+          "zh-TW": "敏捷<@ba.vup>+12</>"
         },
         "maxLevel": {
-          "zh-CN": "意志<@ba.vup>+156</>",
-          "en": "Will <@ba.vup>+156</>",
-          "ja": "意志<@ba.vup>+156</>",
-          "zh-TW": "意志<@ba.vup>+156</>"
+          "zh-CN": "敏捷<@ba.vup>+93</>",
+          "en": "Agility <@ba.vup>+93</>",
+          "ja": "敏捷<@ba.vup>+93</>",
+          "zh-TW": "敏捷<@ba.vup>+93</>"
         },
         "levelOneLabel": "Lv.1",
         "maxLevelLabel": "Lv.9"
       },
       {
         "levelOne": {
-          "zh-CN": "最大生命值<@ba.vup>+10.0%</>",
-          "en": "Max HP <@ba.vup>+10.0%</>",
-          "ja": "最大HP<@ba.vup>+10.0%</>",
-          "zh-TW": "最大生命值<@ba.vup>+10.0%</>"
+          "zh-CN": "攻击力<@ba.vup>+3.0%</>",
+          "en": "ATK <@ba.vup>+3.0%</>",
+          "ja": "攻撃力<@ba.vup>+3.0%</>",
+          "zh-TW": "攻擊力<@ba.vup>+3.0%</>"
         },
         "maxLevel": {
-          "zh-CN": "最大生命值<@ba.vup>+78.0%</>",
-          "en": "Max HP <@ba.vup>+78.0%</>",
-          "ja": "最大HP<@ba.vup>+78.0%</>",
-          "zh-TW": "最大生命值<@ba.vup>+78.0%</>"
+          "zh-CN": "攻击力<@ba.vup>+23.4%</>",
+          "en": "ATK <@ba.vup>+23.4%</>",
+          "ja": "攻撃力<@ba.vup>+23.4%</>",
+          "zh-TW": "攻擊力<@ba.vup>+23.4%</>"
         },
         "levelOneLabel": "Lv.1",
         "maxLevelLabel": "Lv.9"
       },
       {
         "levelOne": {
-          "zh-CN": "治疗效率<@ba.vup>+10.0%</>。\n装备者通过自身技能治疗后，全队攻击力<@ba.vup>+9.0%</>，持续15秒。\n<@ba.info>同名效果无法叠加。</>",
-          "en": "Treatment Efficiency <@ba.vup>+10.0%</>.\nAfter the wielder's skill provides HP treatment, the entire team gains ATK <@ba.vup>+9.0%</> for 15s.\n<@ba.info>Effects of the same name cannot stack.</>",
-          "ja": "回復効率<@ba.vup>+10.0%</>\n装備中、自身のスキルで治療すると、15秒間チーム全員の攻撃力<@ba.vup>+9.0%</>\n<@ba.info>同名効果は重ね掛け不可</>",
-          "zh-TW": "治療效率<@ba.vup>+10.0%</>。\n裝備者透過自身技能治療後，全隊攻擊力<@ba.vup>+9.0%</>，持續15秒。\n<@ba.info>同名效果無法疊加。</>"
+          "zh-CN": "当装备者的生命值高于<@ba.vup>80%</>时，攻击力<@ba.vup>+15.0%</>。",
+          "en": "When the wielder's HP is above <@ba.vup>80%</>, ATK <@ba.vup>+15.0%</>.",
+          "ja": "装備中、自身のHPが<@ba.vup>80%</>より高いとき、攻撃力<@ba.vup>+15.0%</>",
+          "zh-TW": "當裝備者的生命值高於<@ba.vup>80%</>時，攻擊力<@ba.vup>+15.0%</>。"
         },
         "maxLevel": {
-          "zh-CN": "治疗效率<@ba.vup>+28.0%</>。\n装备者通过自身技能治疗后，全队攻击力<@ba.vup>+25.2%</>，持续15秒。\n<@ba.info>同名效果无法叠加。</>",
-          "en": "Treatment Efficiency <@ba.vup>+28.0%</>.\nAfter the wielder's skill provides HP treatment, the entire team gains ATK <@ba.vup>+25.2%</> for 15s.\n<@ba.info>Effects of the same name cannot stack.</>",
-          "ja": "回復効率<@ba.vup>+28.0%</>\n装備中、自身のスキルで治療すると、15秒間チーム全員の攻撃力<@ba.vup>+25.2%</>\n<@ba.info>同名効果は重ね掛け不可</>",
-          "zh-TW": "治療效率<@ba.vup>+28.0%</>。\n裝備者透過自身技能治療後，全隊攻擊力<@ba.vup>+25.2%</>，持續15秒。\n<@ba.info>同名效果無法疊加。</>"
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      }
-    ]
-  },
-  "wpn_sword_0017": {
-    "stats": [
-      {
-        "levelOne": {
-          "zh-CN": "敏捷<@ba.vup>+20</>",
-          "en": "Agility <@ba.vup>+20</>",
-          "ja": "敏捷<@ba.vup>+20</>",
-          "zh-TW": "敏捷<@ba.vup>+20</>"
-        },
-        "maxLevel": {
-          "zh-CN": "敏捷<@ba.vup>+156</>",
-          "en": "Agility <@ba.vup>+156</>",
-          "ja": "敏捷<@ba.vup>+156</>",
-          "zh-TW": "敏捷<@ba.vup>+156</>"
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "zh-CN": "暴击率<@ba.vup>+2.5%</>",
-          "en": "Critical Rate <@ba.vup>+2.5%</>",
-          "ja": "会心率<@ba.vup>+2.5%</>",
-          "zh-TW": "暴擊率<@ba.vup>+2.5%</>"
-        },
-        "maxLevel": {
-          "zh-CN": "暴击率<@ba.vup>+19.5%</>",
-          "en": "Critical Rate <@ba.vup>+19.5%</>",
-          "ja": "会心率<@ba.vup>+19.5%</>",
-          "zh-TW": "暴擊率<@ba.vup>+19.5%</>"
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "zh-CN": "攻击力<@ba.vup>+7.0%</>。\n装备者通过技能施加<#ba.noguard>破防</>时，30秒内的下次终结技期间造成的伤害<@ba.vup>+12.0%</>。\n<@ba.info>同名效果最多叠加3层，每层单独计算持续时间，每0.5秒最多触发一次。</>",
-          "en": "ATK <@ba.vup>+7.0%</>.\nWhen the wielder's skill applies <#ba.noguard>Vulnerability</>, during the next ultimate cast within 30s, the wielder gains DMG Dealt <@ba.vup>+12.0%</>.\n<@ba.info>Max stacks for effects of the same name: 3. Duration of each stack is counted separately. Effect only triggers once every 0.5s.</>",
-          "ja": "攻撃力<@ba.vup>+7.0%</>\n装備中、自身がスキルで<#ba.noguard>クラッシュ</>を付与するとき、30秒以内に発動した次の必殺技の期間中、与えるダメージ<@ba.vup>+12.0%</>\n<@ba.info>同名効果は3回まで重ね掛け可能\n効果の持続時間は個別にカウントされ、0.5秒に1回まで発動可能</>",
-          "zh-TW": "攻擊力<@ba.vup>+7.0%</>。\n裝備者透過技能施加<#ba.noguard>破防</>時，30秒內的下次終結技期間造成的傷害<@ba.vup>+12.0%</>。\n<@ba.info>同名效果最多疊加3層，每層單獨計算持續時間，每0.5秒最多觸發一次。</>"
-        },
-        "maxLevel": {
-          "zh-CN": "攻击力<@ba.vup>+19.6%</>。\n装备者通过技能施加<#ba.noguard>破防</>时，30秒内的下次终结技期间造成的伤害<@ba.vup>+33.6%</>。\n<@ba.info>同名效果最多叠加3层，每层单独计算持续时间，每0.5秒最多触发一次。</>",
-          "en": "ATK <@ba.vup>+19.6%</>.\nWhen the wielder's skill applies <#ba.noguard>Vulnerability</>, during the next ultimate cast within 30s, the wielder gains DMG Dealt <@ba.vup>+33.6%</>.\n<@ba.info>Max stacks for effects of the same name: 3. Duration of each stack is counted separately. Effect only triggers once every 0.5s.</>",
-          "ja": "攻撃力<@ba.vup>+19.6%</>\n装備中、自身がスキルで<#ba.noguard>クラッシュ</>を付与するとき、30秒以内に発動した次の必殺技の期間中、与えるダメージ<@ba.vup>+33.6%</>\n<@ba.info>同名効果は3回まで重ね掛け可能\n効果の持続時間は個別にカウントされ、0.5秒に1回まで発動可能</>",
-          "zh-TW": "攻擊力<@ba.vup>+19.6%</>。\n裝備者透過技能施加<#ba.noguard>破防</>時，30秒內的下次終結技期間造成的傷害<@ba.vup>+33.6%</>。\n<@ba.info>同名效果最多疊加3層，每層單獨計算持續時間，每0.5秒最多觸發一次。</>"
+          "zh-CN": "当装备者的生命值高于<@ba.vup>80%</>时，攻击力<@ba.vup>+42.0%</>。",
+          "en": "When the wielder's HP is above <@ba.vup>80%</>, ATK <@ba.vup>+42.0%</>.",
+          "ja": "装備中、自身のHPが<@ba.vup>80%</>より高いとき、攻撃力<@ba.vup>+42.0%</>",
+          "zh-TW": "當裝備者的生命值高於<@ba.vup>80%</>時，攻擊力<@ba.vup>+42.0%</>。"
         },
         "levelOneLabel": "Lv.1",
         "maxLevelLabel": "Lv.9"
@@ -471,58 +367,6 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       }
     ]
   },
-  "wpn_sword_0018": {
-    "stats": [
-      {
-        "levelOne": {
-          "zh-CN": "敏捷<@ba.vup>+16</>",
-          "en": "Agility <@ba.vup>+16</>",
-          "ja": "敏捷<@ba.vup>+16</>",
-          "zh-TW": "敏捷<@ba.vup>+16</>"
-        },
-        "maxLevel": {
-          "zh-CN": "敏捷<@ba.vup>+124</>",
-          "en": "Agility <@ba.vup>+124</>",
-          "ja": "敏捷<@ba.vup>+124</>",
-          "zh-TW": "敏捷<@ba.vup>+124</>"
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "zh-CN": "攻击力<@ba.vup>+4.0%</>",
-          "en": "Attack <@ba.vup>+4.0%</>",
-          "ja": "攻撃力<@ba.vup>+4.0%</>",
-          "zh-TW": "攻擊力<@ba.vup>+4.0%</>"
-        },
-        "maxLevel": {
-          "zh-CN": "攻击力<@ba.vup>+31.2%</>",
-          "en": "Attack <@ba.vup>+31.2%</>",
-          "ja": "攻撃力<@ba.vup>+31.2%</>",
-          "zh-TW": "攻擊力<@ba.vup>+31.2%</>"
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "zh-CN": "副能力<@ba.vup>+5.0%</>。\n装备者<#ba.consume>消耗</><#ba.spellstatus>法术异常</>后，攻击力<@ba.vup>+7.5%</>，持续20秒。\n<@ba.info>同名效果最多叠加2层，每层单独计算持续时间。</>",
-          "en": "Secondary Attribute <@ba.vup>+5.0%</>.\nAfter the wielder <#ba.consume>consumes</> an <#ba.spellstatus>Arts Reaction</>, ATK <@ba.vup>+7.5%</> for 20s.\n<@ba.info>Max stacks for effects of the same name: 2. Duration of each stack is counted separately.</>",
-          "ja": "サブ能力値<@ba.vup>+5.0%</>\n装備中、自身が<#ba.spellstatus>アーツ異常</>状態を<#ba.consume>消費</>すると、20秒間攻撃力<@ba.vup>+7.5%</>\n<@ba.info>同名効果は2回まで重ね掛け可能\n効果の持続時間は個別にカウントされる</>",
-          "zh-TW": "副能力<@ba.vup>+5.0%</>。\n裝備者<#ba.consume>消耗</><#ba.spellstatus>法術異常</>後，攻擊力<@ba.vup>+7.5%</>，持續20秒。\n<@ba.info>同名效果最多疊加2層，每層單獨計算持續時間。</>"
-        },
-        "maxLevel": {
-          "zh-CN": "副能力<@ba.vup>+14.0%</>。\n装备者<#ba.consume>消耗</><#ba.spellstatus>法术异常</>后，攻击力<@ba.vup>+21.0%</>，持续20秒。\n<@ba.info>同名效果最多叠加2层，每层单独计算持续时间。</>",
-          "en": "Secondary Attribute <@ba.vup>+14.0%</>.\nAfter the wielder <#ba.consume>consumes</> an <#ba.spellstatus>Arts Reaction</>, ATK <@ba.vup>+21.0%</> for 20s.\n<@ba.info>Max stacks for effects of the same name: 2. Duration of each stack is counted separately.</>",
-          "ja": "サブ能力値<@ba.vup>+14.0%</>\n装備中、自身が<#ba.spellstatus>アーツ異常</>状態を<#ba.consume>消費</>すると、20秒間攻撃力<@ba.vup>+21.0%</>\n<@ba.info>同名効果は2回まで重ね掛け可能\n効果の持続時間は個別にカウントされる</>",
-          "zh-TW": "副能力<@ba.vup>+14.0%</>。\n裝備者<#ba.consume>消耗</><#ba.spellstatus>法術異常</>後，攻擊力<@ba.vup>+21.0%</>，持續20秒。\n<@ba.info>同名效果最多疊加2層，每層單獨計算持續時間。</>"
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      }
-    ]
-  },
   "wpn_claym_0008": {
     "stats": [
       {
@@ -569,478 +413,6 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
           "en": "When the wielder performs a <#ba.lastcombo>Final Strike</> on the enemy, the wielder gains ATK <@ba.vup>+28.0%</> for 8s.\nIf the wielder is also the controlled operator, double the ATK increase gained and buff the <#ba.lastcombo>Final Strike</> so that it deals Stagger <@ba.vup>+33.6%</> to the enemy.\n<@ba.info>Effects of the same name cannot stack.</>",
           "ja": "装備中、自身が敵に<#ba.lastcombo>重攻撃</>を与えるとき、8秒間攻撃力<@ba.vup>+28.0%</>\n自身が操作中のオペレーターの場合、攻撃力の上昇値が倍になり、<#ba.lastcombo>重攻撃</>による敵へのブレイク値<@ba.vup>+33.6%</>\n<@ba.info>同名効果は重ね掛け不可</>",
           "zh-TW": "裝備者對敵人造成<#ba.lastcombo>重擊</>時，獲得攻擊力<@ba.vup>+28.0%</>，持續8秒。\n若裝備者為主控幹員，攻擊力提升的數值翻倍，且<#ba.lastcombo>重擊</>對敵人造成的失衡值<@ba.vup>+33.6%</>。\n<@ba.info>同名效果無法疊加。</>"
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      }
-    ]
-  },
-  "wpn_claym_0009": {
-    "stats": [
-      {
-        "levelOne": {
-          "zh-CN": "意志<@ba.vup>+12</>",
-          "en": "Will <@ba.vup>+12</>",
-          "ja": "意志<@ba.vup>+12</>",
-          "zh-TW": "意志<@ba.vup>+12</>"
-        },
-        "maxLevel": {
-          "zh-CN": "意志<@ba.vup>+93</>",
-          "en": "Will <@ba.vup>+93</>",
-          "ja": "意志<@ba.vup>+93</>",
-          "zh-TW": "意志<@ba.vup>+93</>"
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "zh-CN": "最大生命值<@ba.vup>+6.0%</>",
-          "en": "Max HP <@ba.vup>+6.0%</>",
-          "ja": "最大HP<@ba.vup>+6.0%</>",
-          "zh-TW": "最大生命值<@ba.vup>+6.0%</>"
-        },
-        "maxLevel": {
-          "zh-CN": "最大生命值<@ba.vup>+46.8%</>",
-          "en": "Max HP <@ba.vup>+46.8%</>",
-          "ja": "最大HP<@ba.vup>+46.8%</>",
-          "zh-TW": "最大生命值<@ba.vup>+46.8%</>"
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "zh-CN": "装备者对敌人造成<#ba.lastcombo>重击</>时，获得攻击力<@ba.vup>+12.0%</>，持续10秒。\n<@ba.info>同名效果无法叠加。</>",
-          "en": "When the wielder performs a <#ba.lastcombo>Final Strike</> on the enemy, the wielder gains ATK <@ba.vup>+12.0%</> for 10s.\n<@ba.info>Effects of the same name cannot stack. </>",
-          "ja": "装備中、自身が敵に<#ba.lastcombo>重攻撃</>を与えるとき、10秒間攻撃力<@ba.vup>+12.0%</>\n<@ba.info>同名効果は重ね掛け不可</>",
-          "zh-TW": "裝備者對敵人造成<#ba.lastcombo>重擊</>時，獲得攻擊力<@ba.vup>+12.0%</>，持續10秒。\n<@ba.info>同名效果無法疊加。</>"
-        },
-        "maxLevel": {
-          "zh-CN": "装备者对敌人造成<#ba.lastcombo>重击</>时，获得攻击力<@ba.vup>+33.6%</>，持续10秒。\n<@ba.info>同名效果无法叠加。</>",
-          "en": "When the wielder performs a <#ba.lastcombo>Final Strike</> on the enemy, the wielder gains ATK <@ba.vup>+33.6%</> for 10s.\n<@ba.info>Effects of the same name cannot stack. </>",
-          "ja": "装備中、自身が敵に<#ba.lastcombo>重攻撃</>を与えるとき、10秒間攻撃力<@ba.vup>+33.6%</>\n<@ba.info>同名効果は重ね掛け不可</>",
-          "zh-TW": "裝備者對敵人造成<#ba.lastcombo>重擊</>時，獲得攻擊力<@ba.vup>+33.6%</>，持續10秒。\n<@ba.info>同名效果無法疊加。</>"
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      }
-    ]
-  },
-  "wpn_sword_0019": {
-    "stats": [
-      {
-        "levelOne": {
-          "zh-CN": "敏捷<@ba.vup>+16</>",
-          "en": "Agility <@ba.vup>+16</>",
-          "ja": "敏捷<@ba.vup>+16</>",
-          "zh-TW": "敏捷<@ba.vup>+16</>"
-        },
-        "maxLevel": {
-          "zh-CN": "敏捷<@ba.vup>+124</>",
-          "en": "Agility <@ba.vup>+124</>",
-          "ja": "敏捷<@ba.vup>+124</>",
-          "zh-TW": "敏捷<@ba.vup>+124</>"
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "zh-CN": "攻击力<@ba.vup>+4.0%</>",
-          "en": "Attack <@ba.vup>+4.0%</>",
-          "ja": "攻撃力<@ba.vup>+4.0%</>",
-          "zh-TW": "攻擊力<@ba.vup>+4.0%</>"
-        },
-        "maxLevel": {
-          "zh-CN": "攻击力<@ba.vup>+31.2%</>",
-          "en": "Attack <@ba.vup>+31.2%</>",
-          "ja": "攻撃力<@ba.vup>+31.2%</>",
-          "zh-TW": "攻擊力<@ba.vup>+31.2%</>"
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "zh-CN": "副能力<@ba.vup>+5.0%</>。\n装备者通过自身技能恢复技力后，全队造成的灼热和电磁伤害<@ba.vup>+3.0%</>，持续20秒。\n<@ba.info>同名效果最多叠加3层，每层单独计算持续时间。</>",
-          "en": "Secondary Attribute <@ba.vup>+5.0%</>.\nAfter the wielder's skill recovers SP, the entire team gains Heat DMG Dealt and Electric DMG Dealt <@ba.vup>+3.0%</> for 20s.\n<@ba.info>Max stacks for effects of the same name: 3. Duration of each stack is counted separately.</>",
-          "ja": "サブ能力値<@ba.vup>+5.0%</>\n装備中、自身のスキルでSPを回復すると、20秒間チーム全員の灼熱ダメージと電磁ダメージ<@ba.vup>+3.0%</>\n<@ba.info>同名効果は3回まで重ね掛け可能\n効果の持続時間は個別にカウントされる</>",
-          "zh-TW": "副能力<@ba.vup>+5.0%</>。\n裝備者透過自身技能回復技力後，全隊造成的灼熱和電磁傷害<@ba.vup>+3.0%</>，持續20秒。\n<@ba.info>同名效果最多疊加3層，每層單獨計算持續時間。</>"
-        },
-        "maxLevel": {
-          "zh-CN": "副能力<@ba.vup>+14.0%</>。\n装备者通过自身技能恢复技力后，全队造成的灼热和电磁伤害<@ba.vup>+8.4%</>，持续20秒。\n<@ba.info>同名效果最多叠加3层，每层单独计算持续时间。</>",
-          "en": "Secondary Attribute <@ba.vup>+14.0%</>.\nAfter the wielder's skill recovers SP, the entire team gains Heat DMG Dealt and Electric DMG Dealt <@ba.vup>+8.4%</> for 20s.\n<@ba.info>Max stacks for effects of the same name: 3. Duration of each stack is counted separately.</>",
-          "ja": "サブ能力値<@ba.vup>+14.0%</>\n装備中、自身のスキルでSPを回復すると、20秒間チーム全員の灼熱ダメージと電磁ダメージ<@ba.vup>+8.4%</>\n<@ba.info>同名効果は3回まで重ね掛け可能\n効果の持続時間は個別にカウントされる</>",
-          "zh-TW": "副能力<@ba.vup>+14.0%</>。\n裝備者透過自身技能回復技力後，全隊造成的灼熱和電磁傷害<@ba.vup>+8.4%</>，持續20秒。\n<@ba.info>同名效果最多疊加3層，每層單獨計算持續時間。</>"
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      }
-    ]
-  },
-  "wpn_claym_0010": {
-    "stats": [
-      {
-        "levelOne": {
-          "zh-CN": "主能力值<@ba.vup>+10</>",
-          "en": "Main attribute <@ba.vup>+10</>",
-          "ja": "メイン能力値<@ba.vup>+10</>",
-          "zh-TW": "主能力值<@ba.vup>+10</>"
-        },
-        "maxLevel": {
-          "zh-CN": "主能力值<@ba.vup>+79</>",
-          "en": "Main attribute <@ba.vup>+79</>",
-          "ja": "メイン能力値<@ba.vup>+79</>",
-          "zh-TW": "主能力值<@ba.vup>+79</>"
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "zh-CN": "攻击力<@ba.vup>+12</>。",
-          "en": "ATK <@ba.vup>+12</>.",
-          "ja": "攻撃力<@ba.vup>+12</>",
-          "zh-TW": "攻擊力<@ba.vup>+12</>。"
-        },
-        "maxLevel": {
-          "zh-CN": "攻击力<@ba.vup>+34</>。",
-          "en": "ATK <@ba.vup>+34</>.",
-          "ja": "攻撃力<@ba.vup>+34</>",
-          "zh-TW": "攻擊力<@ba.vup>+34</>。"
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      }
-    ]
-  },
-  "wpn_pistol_0011": {
-    "stats": [
-      {
-        "levelOne": {
-          "zh-CN": "敏捷<@ba.vup>+20</>",
-          "en": "Agility <@ba.vup>+20</>",
-          "ja": "敏捷<@ba.vup>+20</>",
-          "zh-TW": "敏捷<@ba.vup>+20</>"
-        },
-        "maxLevel": {
-          "zh-CN": "敏捷<@ba.vup>+156</>",
-          "en": "Agility <@ba.vup>+156</>",
-          "ja": "敏捷<@ba.vup>+156</>",
-          "zh-TW": "敏捷<@ba.vup>+156</>"
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "zh-CN": "攻击力<@ba.vup>+5.0%</>",
-          "en": "Attack <@ba.vup>+5.0%</>",
-          "ja": "攻撃力<@ba.vup>+5.0%</>",
-          "zh-TW": "攻擊力<@ba.vup>+5.0%</>"
-        },
-        "maxLevel": {
-          "zh-CN": "攻击力<@ba.vup>+39.0%</>",
-          "en": "Attack <@ba.vup>+39.0%</>",
-          "ja": "攻撃力<@ba.vup>+39.0%</>",
-          "zh-TW": "攻擊力<@ba.vup>+39.0%</>"
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "zh-CN": "寒冷伤害<@ba.vup>+16.0%</>。\n装备者通过战技或终结技施加<#ba.crystinflict>寒冷附着</>时，获得寒冷伤害<@ba.vup>+20.0%</>，持续20秒。装备者通过战技或终结技施加<#ba.spellvul>法术脆弱</>时，使目标敌人受到的法术伤害<@ba.vup>+6.0%</>，持续20秒。\n<@ba.info>两种效果独立生效，且均无法叠加。</>",
-          "en": "Cryo DMG Dealt <@ba.vup>+16.0%</>.\nWhen the wielder applies <#ba.crystinflict>Cryo Infliction</> via battle skills or ultimates, the wielder gains Cryo DMG Dealt <@ba.vup>+20.0%</> for 20s. When the wielder's battle skill or ultimate applies <#ba.spellvul>Arts Susceptibility</>, the target enemy suffers Arts DMG Taken <@ba.vup>+6.0%</> for 20s.\n<@ba.info>The two effects apply separately and do not stack with themselves.</>",
-          "ja": "寒冷ダメージ<@ba.vup>+16.0%</>\n装備中、自身の戦技または必殺技で<#ba.crystinflict>寒冷付着</>を付与するとき、20秒間寒冷ダメージ<@ba.vup>+20.0%</>\n自身の戦技または必殺技で<#ba.spellvul>アーツ脆弱</>を付与するとき、20秒間目標の受けるアーツダメージ<@ba.vup>+6.0%</>\n<@ba.info>2つの効果はそれぞれ存在し、重ね掛け不可</>",
-          "zh-TW": "寒冷傷害<@ba.vup>+16.0%</>。\n裝備者透過戰技或終結技施加<#ba.crystinflict>寒冷附著</>時，獲得寒冷傷害<@ba.vup>+20.0%</>，持續20秒。裝備者透過戰技或終結技施加<#ba.spellvul>法術脆弱</>時，使目標敵人受到的法術傷害<@ba.vup>+6.0%</>，持續20秒。\n<@ba.info>兩種效果獨立生效，且均無法疊加。</>"
-        },
-        "maxLevel": {
-          "zh-CN": "寒冷伤害<@ba.vup>+44.8%</>。\n装备者通过战技或终结技施加<#ba.crystinflict>寒冷附着</>时，获得寒冷伤害<@ba.vup>+56.0%</>，持续20秒。装备者通过战技或终结技施加<#ba.spellvul>法术脆弱</>时，使目标敌人受到的法术伤害<@ba.vup>+16.8%</>，持续20秒。\n<@ba.info>两种效果独立生效，且均无法叠加。</>",
-          "en": "Cryo DMG Dealt <@ba.vup>+44.8%</>.\nWhen the wielder applies <#ba.crystinflict>Cryo Infliction</> via battle skills or ultimates, the wielder gains Cryo DMG Dealt <@ba.vup>+56.0%</> for 20s. When the wielder's battle skill or ultimate applies <#ba.spellvul>Arts Susceptibility</>, the target enemy suffers Arts DMG Taken <@ba.vup>+16.8%</> for 20s.\n<@ba.info>The two effects apply separately and do not stack with themselves.</>",
-          "ja": "寒冷ダメージ<@ba.vup>+44.8%</>\n装備中、自身の戦技または必殺技で<#ba.crystinflict>寒冷付着</>を付与するとき、20秒間寒冷ダメージ<@ba.vup>+56.0%</>\n自身の戦技または必殺技で<#ba.spellvul>アーツ脆弱</>を付与するとき、20秒間目標の受けるアーツダメージ<@ba.vup>+16.8%</>\n<@ba.info>2つの効果はそれぞれ存在し、重ね掛け不可</>",
-          "zh-TW": "寒冷傷害<@ba.vup>+44.8%</>。\n裝備者透過戰技或終結技施加<#ba.crystinflict>寒冷附著</>時，獲得寒冷傷害<@ba.vup>+56.0%</>，持續20秒。裝備者透過戰技或終結技施加<#ba.spellvul>法術脆弱</>時，使目標敵人受到的法術傷害<@ba.vup>+16.8%</>，持續20秒。\n<@ba.info>兩種效果獨立生效，且均無法疊加。</>"
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      }
-    ]
-  },
-  "wpn_claym_0011": {
-    "stats": [
-      {
-        "levelOne": {
-          "zh-CN": "力量<@ba.vup>+16</>",
-          "en": "Strength <@ba.vup>+16</>",
-          "ja": "筋力<@ba.vup>+16</>",
-          "zh-TW": "力量<@ba.vup>+16</>"
-        },
-        "maxLevel": {
-          "zh-CN": "力量<@ba.vup>+124</>",
-          "en": "Strength <@ba.vup>+124</>",
-          "ja": "筋力<@ba.vup>+124</>",
-          "zh-TW": "力量<@ba.vup>+124</>"
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "zh-CN": "终结技充能效率<@ba.vup>+4.8%</>",
-          "en": "Ultimate Gain Efficiency <@ba.vup>+4.8%</>",
-          "ja": "必殺チャージの回復効率<@ba.vup>+4.8%</>",
-          "zh-TW": "終結技蓄能效率<@ba.vup>+4.8%</>"
-        },
-        "maxLevel": {
-          "zh-CN": "终结技充能效率<@ba.vup>+37.1%</>",
-          "en": "Ultimate Gain Efficiency <@ba.vup>+37.1%</>",
-          "ja": "必殺チャージの回復効率<@ba.vup>+37.1%</>",
-          "zh-TW": "終結技蓄能效率<@ba.vup>+37.1%</>"
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "zh-CN": "主能力<@ba.vup>+5.0%</>。\n装备者造成<#ba.spellburst>法术爆发</>时，获得攻击力<@ba.vup>+6.0%</>，持续30秒。\n<@ba.info>同名效果最多叠加3层，每层单独计算持续时间，每0.1秒最多触发一次。</>",
-          "en": "Main Attribute <@ba.vup>+5.0%</>.\nWhen the wielder applies an <#ba.spellburst>Arts Burst</>, the wielder gains ATK <@ba.vup>+6.0%</> for 30s.\n<@ba.info>Max stacks for effects of the same name: 3. Duration of each stack is counted separately. Effect only triggers once every 0.1s.</>",
-          "ja": "メイン能力値<@ba.vup>+5.0%</>\n装備中、自身が敵に<#ba.spellburst>アーツ爆発</>を与えるとき、30秒間攻撃力<@ba.vup>+6.0%</>\n<@ba.info>同名効果は3回まで重ね掛け可能\n効果の持続時間は個別にカウントされ、0.1秒に1回まで発動可能</>",
-          "zh-TW": "主能力<@ba.vup>+5.0%</>。\n裝備者造成<#ba.spellburst>法術爆發</>時，獲得攻擊力<@ba.vup>+6.0%</>，持續30秒。\n<@ba.info>同名效果最多疊加3層，每層單獨計算持續時間，每0.1秒最多觸發一次。</>"
-        },
-        "maxLevel": {
-          "zh-CN": "主能力<@ba.vup>+14.0%</>。\n装备者造成<#ba.spellburst>法术爆发</>时，获得攻击力<@ba.vup>+16.8%</>，持续30秒。\n<@ba.info>同名效果最多叠加3层，每层单独计算持续时间，每0.1秒最多触发一次。</>",
-          "en": "Main Attribute <@ba.vup>+14.0%</>.\nWhen the wielder applies an <#ba.spellburst>Arts Burst</>, the wielder gains ATK <@ba.vup>+16.8%</> for 30s.\n<@ba.info>Max stacks for effects of the same name: 3. Duration of each stack is counted separately. Effect only triggers once every 0.1s.</>",
-          "ja": "メイン能力値<@ba.vup>+14.0%</>\n装備中、自身が敵に<#ba.spellburst>アーツ爆発</>を与えるとき、30秒間攻撃力<@ba.vup>+16.8%</>\n<@ba.info>同名効果は3回まで重ね掛け可能\n効果の持続時間は個別にカウントされ、0.1秒に1回まで発動可能</>",
-          "zh-TW": "主能力<@ba.vup>+14.0%</>。\n裝備者造成<#ba.spellburst>法術爆發</>時，獲得攻擊力<@ba.vup>+16.8%</>，持續30秒。\n<@ba.info>同名效果最多疊加3層，每層單獨計算持續時間，每0.1秒最多觸發一次。</>"
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      }
-    ]
-  },
-  "wpn_pistol_0001": {
-    "stats": [
-      {
-        "levelOne": {
-          "zh-CN": "主能力值<@ba.vup>+10</>",
-          "en": "Main attribute <@ba.vup>+10</>",
-          "ja": "メイン能力値<@ba.vup>+10</>",
-          "zh-TW": "主能力值<@ba.vup>+10</>"
-        },
-        "maxLevel": {
-          "zh-CN": "主能力值<@ba.vup>+79</>",
-          "en": "Main attribute <@ba.vup>+79</>",
-          "ja": "メイン能力値<@ba.vup>+79</>",
-          "zh-TW": "主能力值<@ba.vup>+79</>"
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "zh-CN": "攻击力<@ba.vup>+12</>。",
-          "en": "ATK <@ba.vup>+12</>.",
-          "ja": "攻撃力<@ba.vup>+12</>",
-          "zh-TW": "攻擊力<@ba.vup>+12</>。"
-        },
-        "maxLevel": {
-          "zh-CN": "攻击力<@ba.vup>+34</>。",
-          "en": "ATK <@ba.vup>+34</>.",
-          "ja": "攻撃力<@ba.vup>+34</>",
-          "zh-TW": "攻擊力<@ba.vup>+34</>。"
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      }
-    ]
-  },
-  "wpn_claym_0012": {
-    "stats": [
-      {
-        "levelOne": {
-          "zh-CN": "力量<@ba.vup>+16</>",
-          "en": "Strength <@ba.vup>+16</>",
-          "ja": "筋力<@ba.vup>+16</>",
-          "zh-TW": "力量<@ba.vup>+16</>"
-        },
-        "maxLevel": {
-          "zh-CN": "力量<@ba.vup>+124</>",
-          "en": "Strength <@ba.vup>+124</>",
-          "ja": "筋力<@ba.vup>+124</>",
-          "zh-TW": "力量<@ba.vup>+124</>"
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "zh-CN": "最大生命值<@ba.vup>+8.0%</>",
-          "en": "Max HP <@ba.vup>+8.0%</>",
-          "ja": "最大HP<@ba.vup>+8.0%</>",
-          "zh-TW": "最大生命值<@ba.vup>+8.0%</>"
-        },
-        "maxLevel": {
-          "zh-CN": "最大生命值<@ba.vup>+62.4%</>",
-          "en": "Max HP <@ba.vup>+62.4%</>",
-          "ja": "最大HP<@ba.vup>+62.4%</>",
-          "zh-TW": "最大生命值<@ba.vup>+62.4%</>"
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "zh-CN": "副能力<@ba.vup>+5.0%</>。\n连携技造成的治疗效果<@ba.vup>+20.0%</>。",
-          "en": "Secondary Attribute <@ba.vup>+5.0%</>.\nCombo skill HP treatment effect <@ba.vup>+20.0%</>.",
-          "ja": "サブ能力値<@ba.vup>+5.0%</>\n連携技による回復効果<@ba.vup>+20.0%</>",
-          "zh-TW": "副能力<@ba.vup>+5.0%</>。\n連攜技造成的治療效果<@ba.vup>+20.0%</>。"
-        },
-        "maxLevel": {
-          "zh-CN": "副能力<@ba.vup>+14.0%</>。\n连携技造成的治疗效果<@ba.vup>+56.0%</>。",
-          "en": "Secondary Attribute <@ba.vup>+14.0%</>.\nCombo skill HP treatment effect <@ba.vup>+56.0%</>.",
-          "ja": "サブ能力値<@ba.vup>+14.0%</>\n連携技による回復効果<@ba.vup>+56.0%</>",
-          "zh-TW": "副能力<@ba.vup>+14.0%</>。\n連攜技造成的治療效果<@ba.vup>+56.0%</>。"
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      }
-    ]
-  },
-  "wpn_sword_0003": {
-    "stats": [
-      {
-        "levelOne": {
-          "zh-CN": "主能力值<@ba.vup>+10</>",
-          "en": "Main attribute <@ba.vup>+10</>",
-          "ja": "メイン能力値<@ba.vup>+10</>",
-          "zh-TW": "主能力值<@ba.vup>+10</>"
-        },
-        "maxLevel": {
-          "zh-CN": "主能力值<@ba.vup>+79</>",
-          "en": "Main attribute <@ba.vup>+79</>",
-          "ja": "メイン能力値<@ba.vup>+79</>",
-          "zh-TW": "主能力值<@ba.vup>+79</>"
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "zh-CN": "攻击力<@ba.vup>+12</>。",
-          "en": "ATK <@ba.vup>+12</>.",
-          "ja": "攻撃力<@ba.vup>+12</>",
-          "zh-TW": "攻擊力<@ba.vup>+12</>。"
-        },
-        "maxLevel": {
-          "zh-CN": "攻击力<@ba.vup>+34</>。",
-          "en": "ATK <@ba.vup>+34</>.",
-          "ja": "攻撃力<@ba.vup>+34</>",
-          "zh-TW": "攻擊力<@ba.vup>+34</>。"
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      }
-    ]
-  },
-  "wpn_claym_0013": {
-    "stats": [
-      {
-        "levelOne": {
-          "zh-CN": "力量<@ba.vup>+20</>",
-          "en": "Strength <@ba.vup>+20</>",
-          "ja": "筋力<@ba.vup>+20</>",
-          "zh-TW": "力量<@ba.vup>+20</>"
-        },
-        "maxLevel": {
-          "zh-CN": "力量<@ba.vup>+156</>",
-          "en": "Strength <@ba.vup>+156</>",
-          "ja": "筋力<@ba.vup>+156</>",
-          "zh-TW": "力量<@ba.vup>+156</>"
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "zh-CN": "攻击力<@ba.vup>+5.0%</>",
-          "en": "Attack <@ba.vup>+5.0%</>",
-          "ja": "攻撃力<@ba.vup>+5.0%</>",
-          "zh-TW": "攻擊力<@ba.vup>+5.0%</>"
-        },
-        "maxLevel": {
-          "zh-CN": "攻击力<@ba.vup>+39.0%</>",
-          "en": "Attack <@ba.vup>+39.0%</>",
-          "ja": "攻撃力<@ba.vup>+39.0%</>",
-          "zh-TW": "攻擊力<@ba.vup>+39.0%</>"
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "zh-CN": "所有技能伤害<@ba.vup>+20.0%</>。\n装备者通过战技施加<#ba.crystinflict>寒冷附着</>时，获得寒冷伤害<@ba.vup>+10.0%</>，持续15秒。装备者对<#ba.crystinflict>寒冷附着</>的敌人造成连携技伤害时，获得寒冷伤害<@ba.vup>+20.0%</>，持续15秒。\n<@ba.info>两种效果独立生效，且均无法叠加。</>",
-          "en": "Skill DMG Dealt <@ba.vup>+20.0%</> (for every skill).\nWhen the wielder's battle skill applies <#ba.crystinflict>Cryo Infliction</>, the wielder gains Cryo DMG Dealt <@ba.vup>+10.0%</> for 15s. When the wielder deals combo skill DMG to an enemy with <#ba.crystinflict>Cryo Infliction</>, the wielder gains Cryo DMG Dealt <@ba.vup>+20.0%</> for 15s.\n<@ba.info>The two effects apply separately and do not stack with themselves.</>",
-          "ja": "すべてのスキルダメージ<@ba.vup>+20.0%</>\n装備中、自身の戦技で<#ba.crystinflict>寒冷付着</>を付与するとき、15秒間寒冷ダメージ<@ba.vup>+10.0%</>\n自身の連携技で<#ba.crystinflict>寒冷付着</>状態の敵にダメージを与えるとき、15秒間寒冷ダメージ<@ba.vup>+20.0%</>\n<@ba.info>2つの効果はそれぞれ存在し、重ね掛け不可</>",
-          "zh-TW": "所有技能傷害<@ba.vup>+20.0%</>。\n裝備者透過戰技施加<#ba.crystinflict>寒冷附著</>時，獲得寒冷傷害<@ba.vup>+10.0%</>，持續15秒。裝備者對<#ba.crystinflict>寒冷附著</>的敵人造成連攜技傷害時，獲得寒冷傷害<@ba.vup>+20.0%</>，持續15秒。\n<@ba.info>兩種效果獨立生效，且均無法疊加。</>"
-        },
-        "maxLevel": {
-          "zh-CN": "所有技能伤害<@ba.vup>+56.0%</>。\n装备者通过战技施加<#ba.crystinflict>寒冷附着</>时，获得寒冷伤害<@ba.vup>+28.0%</>，持续15秒。装备者对<#ba.crystinflict>寒冷附着</>的敌人造成连携技伤害时，获得寒冷伤害<@ba.vup>+56.0%</>，持续15秒。\n<@ba.info>两种效果独立生效，且均无法叠加。</>",
-          "en": "Skill DMG Dealt <@ba.vup>+56.0%</> (for every skill).\nWhen the wielder's battle skill applies <#ba.crystinflict>Cryo Infliction</>, the wielder gains Cryo DMG Dealt <@ba.vup>+28.0%</> for 15s. When the wielder deals combo skill DMG to an enemy with <#ba.crystinflict>Cryo Infliction</>, the wielder gains Cryo DMG Dealt <@ba.vup>+56.0%</> for 15s.\n<@ba.info>The two effects apply separately and do not stack with themselves.</>",
-          "ja": "すべてのスキルダメージ<@ba.vup>+56.0%</>\n装備中、自身の戦技で<#ba.crystinflict>寒冷付着</>を付与するとき、15秒間寒冷ダメージ<@ba.vup>+28.0%</>\n自身の連携技で<#ba.crystinflict>寒冷付着</>状態の敵にダメージを与えるとき、15秒間寒冷ダメージ<@ba.vup>+56.0%</>\n<@ba.info>2つの効果はそれぞれ存在し、重ね掛け不可</>",
-          "zh-TW": "所有技能傷害<@ba.vup>+56.0%</>。\n裝備者透過戰技施加<#ba.crystinflict>寒冷附著</>時，獲得寒冷傷害<@ba.vup>+28.0%</>，持續15秒。裝備者對<#ba.crystinflict>寒冷附著</>的敵人造成連攜技傷害時，獲得寒冷傷害<@ba.vup>+56.0%</>，持續15秒。\n<@ba.info>兩種效果獨立生效，且均無法疊加。</>"
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      }
-    ]
-  },
-  "wpn_funnel_0006": {
-    "stats": [
-      {
-        "levelOne": {
-          "zh-CN": "意志<@ba.vup>+20</>",
-          "en": "Will <@ba.vup>+20</>",
-          "ja": "意志<@ba.vup>+20</>",
-          "zh-TW": "意志<@ba.vup>+20</>"
-        },
-        "maxLevel": {
-          "zh-CN": "意志<@ba.vup>+156</>",
-          "en": "Will <@ba.vup>+156</>",
-          "ja": "意志<@ba.vup>+156</>",
-          "zh-TW": "意志<@ba.vup>+156</>"
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "zh-CN": "自然伤害<@ba.vup>+5.6%</>",
-          "en": "Nature DMG Dealt <@ba.vup>+5.6%</>",
-          "ja": "自然ダメージ<@ba.vup>+5.6%</>",
-          "zh-TW": "自然傷害<@ba.vup>+5.6%</>"
-        },
-        "maxLevel": {
-          "zh-CN": "自然伤害<@ba.vup>+43.3%</>",
-          "en": "Nature DMG Dealt <@ba.vup>+43.3%</>",
-          "ja": "自然ダメージ<@ba.vup>+43.3%</>",
-          "zh-TW": "自然傷害<@ba.vup>+43.3%</>"
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "zh-CN": "攻击力<@ba.vup>+7.0%</>。\n装备者通过战技施加<#ba.naturalinflict>自然附着</>时，小队内其他干员获得法术伤害<@ba.vup>+5.0%</>，持续15秒。每有一个被<#ba.naturalinflict>自然附着</>的敌人，小队内其他干员获得法术伤害额外<@ba.vup>+2.0%</>，最多<@ba.vup>+6.0%</>。\n<@ba.info>同名效果无法叠加。</>",
-          "en": "ATK <@ba.vup>+7.0%</>.\nWhen the wielder's battle skill applies <#ba.naturalinflict>Nature Infliction</>, other operators in the team gain Arts DMG Dealt <@ba.vup>+5.0%</> for 15s. For every enemy suffering from <#ba.naturalinflict>Nature Infliction</> applied by the said battle skill, other operators in the team gain bonus Arts DMG Dealt <@ba.vup>+2.0%</>, up to a max of <@ba.vup>+6.0%</>.\n<@ba.info>Effects of the same name cannot stack.</>",
-          "ja": "攻撃力<@ba.vup>+7.0%</>\n装備中、自身の戦技で<#ba.naturalinflict>自然付着</>を付与するとき、15秒間チーム内の他のオペレーターのアーツダメージ<@ba.vup>+5.0%</>\n<#ba.naturalinflict>自然付着</>状態の敵1体につき、追加でチーム内の他のオペレーターのアーツダメージ<@ba.vup>+2.0%</>（最大<@ba.vup>+6.0%</>）\n<@ba.info>同名効果は重ね掛け不可</>",
-          "zh-TW": "攻擊力<@ba.vup>+7.0%</>。\n裝備者透過戰技施加<#ba.naturalinflict>自然附著</>時，小隊內其他幹員獲得法術傷害<@ba.vup>+5.0%</>，持續15秒。每有一個被<#ba.naturalinflict>自然附著</>的敵人，小隊內其他幹員獲得法術傷害額外<@ba.vup>+2.0%</>，最多<@ba.vup>+6.0%</>。\n<@ba.info>同名效果無法疊加。</>"
-        },
-        "maxLevel": {
-          "zh-CN": "攻击力<@ba.vup>+19.6%</>。\n装备者通过战技施加<#ba.naturalinflict>自然附着</>时，小队内其他干员获得法术伤害<@ba.vup>+14.0%</>，持续15秒。每有一个被<#ba.naturalinflict>自然附着</>的敌人，小队内其他干员获得法术伤害额外<@ba.vup>+5.6%</>，最多<@ba.vup>+16.8%</>。\n<@ba.info>同名效果无法叠加。</>",
-          "en": "ATK <@ba.vup>+19.6%</>.\nWhen the wielder's battle skill applies <#ba.naturalinflict>Nature Infliction</>, other operators in the team gain Arts DMG Dealt <@ba.vup>+14.0%</> for 15s. For every enemy suffering from <#ba.naturalinflict>Nature Infliction</> applied by the said battle skill, other operators in the team gain bonus Arts DMG Dealt <@ba.vup>+5.6%</>, up to a max of <@ba.vup>+16.8%</>.\n<@ba.info>Effects of the same name cannot stack.</>",
-          "ja": "攻撃力<@ba.vup>+19.6%</>\n装備中、自身の戦技で<#ba.naturalinflict>自然付着</>を付与するとき、15秒間チーム内の他のオペレーターのアーツダメージ<@ba.vup>+14.0%</>\n<#ba.naturalinflict>自然付着</>状態の敵1体につき、追加でチーム内の他のオペレーターのアーツダメージ<@ba.vup>+5.6%</>（最大<@ba.vup>+16.8%</>）\n<@ba.info>同名効果は重ね掛け不可</>",
-          "zh-TW": "攻擊力<@ba.vup>+19.6%</>。\n裝備者透過戰技施加<#ba.naturalinflict>自然附著</>時，小隊內其他幹員獲得法術傷害<@ba.vup>+14.0%</>，持續15秒。每有一個被<#ba.naturalinflict>自然附著</>的敵人，小隊內其他幹員獲得法術傷害額外<@ba.vup>+5.6%</>，最多<@ba.vup>+16.8%</>。\n<@ba.info>同名效果無法疊加。</>"
         },
         "levelOneLabel": "Lv.1",
         "maxLevelLabel": "Lv.9"
@@ -1099,7 +471,95 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       }
     ]
   },
-  "wpn_claym_0014": {
+  "wpn_claym_0009": {
+    "stats": [
+      {
+        "levelOne": {
+          "zh-CN": "意志<@ba.vup>+12</>",
+          "en": "Will <@ba.vup>+12</>",
+          "ja": "意志<@ba.vup>+12</>",
+          "zh-TW": "意志<@ba.vup>+12</>"
+        },
+        "maxLevel": {
+          "zh-CN": "意志<@ba.vup>+93</>",
+          "en": "Will <@ba.vup>+93</>",
+          "ja": "意志<@ba.vup>+93</>",
+          "zh-TW": "意志<@ba.vup>+93</>"
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "zh-CN": "最大生命值<@ba.vup>+6.0%</>",
+          "en": "Max HP <@ba.vup>+6.0%</>",
+          "ja": "最大HP<@ba.vup>+6.0%</>",
+          "zh-TW": "最大生命值<@ba.vup>+6.0%</>"
+        },
+        "maxLevel": {
+          "zh-CN": "最大生命值<@ba.vup>+46.8%</>",
+          "en": "Max HP <@ba.vup>+46.8%</>",
+          "ja": "最大HP<@ba.vup>+46.8%</>",
+          "zh-TW": "最大生命值<@ba.vup>+46.8%</>"
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "zh-CN": "装备者对敌人造成<#ba.lastcombo>重击</>时，获得攻击力<@ba.vup>+12.0%</>，持续10秒。\n<@ba.info>同名效果无法叠加。</>",
+          "en": "When the wielder performs a <#ba.lastcombo>Final Strike</> on the enemy, the wielder gains ATK <@ba.vup>+12.0%</> for 10s.\n<@ba.info>Effects of the same name cannot stack. </>",
+          "ja": "装備中、自身が敵に<#ba.lastcombo>重攻撃</>を与えるとき、10秒間攻撃力<@ba.vup>+12.0%</>\n<@ba.info>同名効果は重ね掛け不可</>",
+          "zh-TW": "裝備者對敵人造成<#ba.lastcombo>重擊</>時，獲得攻擊力<@ba.vup>+12.0%</>，持續10秒。\n<@ba.info>同名效果無法疊加。</>"
+        },
+        "maxLevel": {
+          "zh-CN": "装备者对敌人造成<#ba.lastcombo>重击</>时，获得攻击力<@ba.vup>+33.6%</>，持续10秒。\n<@ba.info>同名效果无法叠加。</>",
+          "en": "When the wielder performs a <#ba.lastcombo>Final Strike</> on the enemy, the wielder gains ATK <@ba.vup>+33.6%</> for 10s.\n<@ba.info>Effects of the same name cannot stack. </>",
+          "ja": "装備中、自身が敵に<#ba.lastcombo>重攻撃</>を与えるとき、10秒間攻撃力<@ba.vup>+33.6%</>\n<@ba.info>同名効果は重ね掛け不可</>",
+          "zh-TW": "裝備者對敵人造成<#ba.lastcombo>重擊</>時，獲得攻擊力<@ba.vup>+33.6%</>，持續10秒。\n<@ba.info>同名效果無法疊加。</>"
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
+  "wpn_claym_0010": {
+    "stats": [
+      {
+        "levelOne": {
+          "zh-CN": "主能力值<@ba.vup>+10</>",
+          "en": "Main attribute <@ba.vup>+10</>",
+          "ja": "メイン能力値<@ba.vup>+10</>",
+          "zh-TW": "主能力值<@ba.vup>+10</>"
+        },
+        "maxLevel": {
+          "zh-CN": "主能力值<@ba.vup>+79</>",
+          "en": "Main attribute <@ba.vup>+79</>",
+          "ja": "メイン能力値<@ba.vup>+79</>",
+          "zh-TW": "主能力值<@ba.vup>+79</>"
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "zh-CN": "攻击力<@ba.vup>+12</>。",
+          "en": "ATK <@ba.vup>+12</>.",
+          "ja": "攻撃力<@ba.vup>+12</>",
+          "zh-TW": "攻擊力<@ba.vup>+12</>。"
+        },
+        "maxLevel": {
+          "zh-CN": "攻击力<@ba.vup>+34</>。",
+          "en": "ATK <@ba.vup>+34</>.",
+          "ja": "攻撃力<@ba.vup>+34</>",
+          "zh-TW": "攻擊力<@ba.vup>+34</>。"
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
+  "wpn_pistol_0004": {
     "stats": [
       {
         "levelOne": {
@@ -1119,32 +579,84 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       },
       {
         "levelOne": {
-          "zh-CN": "源石技艺强度<@ba.vup>+8</>",
-          "en": "Arts Intensity <@ba.vup>+8</>",
-          "ja": "アーツ強度<@ba.vup>+8</>",
-          "zh-TW": "源石技藝強度<@ba.vup>+8</>"
+          "zh-CN": "灼热伤害<@ba.vup>+4.4%</>",
+          "en": "Heat DMG Dealt <@ba.vup>+4.4%</>",
+          "ja": "灼熱ダメージ<@ba.vup>+4.4%</>",
+          "zh-TW": "灼熱傷害<@ba.vup>+4.4%</>"
         },
         "maxLevel": {
-          "zh-CN": "源石技艺强度<@ba.vup>+62</>",
-          "en": "Arts Intensity <@ba.vup>+62</>",
-          "ja": "アーツ強度<@ba.vup>+62</>",
-          "zh-TW": "源石技藝強度<@ba.vup>+62</>"
+          "zh-CN": "灼热伤害<@ba.vup>+34.7%</>",
+          "en": "Heat DMG Dealt <@ba.vup>+34.7%</>",
+          "ja": "灼熱ダメージ<@ba.vup>+34.7%</>",
+          "zh-TW": "灼熱傷害<@ba.vup>+34.7%</>"
         },
         "levelOneLabel": "Lv.1",
         "maxLevelLabel": "Lv.9"
       },
       {
         "levelOne": {
-          "zh-CN": "源石技艺强度<@ba.vup>+10</>。\n装备者<#ba.consume>消耗</><#ba.noguard>破防</>层数后，物理伤害<@ba.vup>+[5.0%×消耗层数]</>，持续20秒。\n<@ba.info>同名效果无法叠加。</>",
-          "en": "Arts Intensity <@ba.vup>+10</>.\nAfter the wielder <#ba.consume>consumes</> <#ba.noguard>Vulnerability</> stack(s), the wielder gains Physical DMG Dealt <@ba.vup>+[5.0%×Stacks Consumed]</> for 20s.\n<@ba.info>Effects of the same name cannot stack. </>",
-          "ja": "アーツ強度<@ba.vup>+10</>\n装備中、自身が<#ba.noguard>クラッシュ</>段階を<#ba.consume>消費</>すると、20秒間物理ダメージ<@ba.vup>+[5.0%×消費した段階数]</>\n<@ba.info>同名効果は重ね掛け不可</>",
-          "zh-TW": "源石技藝強度<@ba.vup>+10</>。\n裝備者<#ba.consume>消耗</><#ba.noguard>破防</>層數後，物理傷害<@ba.vup>+[5.0%×消耗層數]</>，持續20秒。\n<@ba.info>同名效果無法疊加。</>"
+          "zh-CN": "战技伤害<@ba.vup>+10.0%</>。\n装备者通过连携技造成<#ba.spellburst>法术爆发</>或施加<#ba.burning>燃烧</>时，获得攻击力<@ba.vup>+16.0%</>，持续15秒。\n<@ba.info>同名效果无法叠加。</>",
+          "en": "Battle Skill DMG <@ba.vup>+10.0%</>.\nWhen the wielder's combo skill applies <#ba.spellburst>Arts Burst</> or <#ba.burning>Combusted</>, the wielder gains ATK <@ba.vup>+16.0%</> for 15s.\n<@ba.info>Effects of the same name cannot stack.</>",
+          "ja": "戦技ダメージ<@ba.vup>+10.0%</>\n装備中、自身が連携技で<#ba.spellburst>アーツ爆発</>または<#ba.burning>燃焼</>を発動させるとき、15秒間攻撃力<@ba.vup>+16.0%</>\n<@ba.info>同名効果は重ね掛け不可</>",
+          "zh-TW": "戰技傷害<@ba.vup>+10.0%</>。\n裝備者透過連攜技造成<#ba.spellburst>法術爆發</>或施加<#ba.burning>燃燒</>時，獲得攻擊力<@ba.vup>+16.0%</>，持續15秒。\n<@ba.info>同名效果無法疊加。</>"
         },
         "maxLevel": {
-          "zh-CN": "源石技艺强度<@ba.vup>+28</>。\n装备者<#ba.consume>消耗</><#ba.noguard>破防</>层数后，物理伤害<@ba.vup>+[14.0%×消耗层数]</>，持续20秒。\n<@ba.info>同名效果无法叠加。</>",
-          "en": "Arts Intensity <@ba.vup>+28</>.\nAfter the wielder <#ba.consume>consumes</> <#ba.noguard>Vulnerability</> stack(s), the wielder gains Physical DMG Dealt <@ba.vup>+[14.0%×Stacks Consumed]</> for 20s.\n<@ba.info>Effects of the same name cannot stack. </>",
-          "ja": "アーツ強度<@ba.vup>+28</>\n装備中、自身が<#ba.noguard>クラッシュ</>段階を<#ba.consume>消費</>すると、20秒間物理ダメージ<@ba.vup>+[14.0%×消費した段階数]</>\n<@ba.info>同名効果は重ね掛け不可</>",
-          "zh-TW": "源石技藝強度<@ba.vup>+28</>。\n裝備者<#ba.consume>消耗</><#ba.noguard>破防</>層數後，物理傷害<@ba.vup>+[14.0%×消耗層數]</>，持續20秒。\n<@ba.info>同名效果無法疊加。</>"
+          "zh-CN": "战技伤害<@ba.vup>+28.0%</>。\n装备者通过连携技造成<#ba.spellburst>法术爆发</>或施加<#ba.burning>燃烧</>时，获得攻击力<@ba.vup>+44.8%</>，持续15秒。\n<@ba.info>同名效果无法叠加。</>",
+          "en": "Battle Skill DMG <@ba.vup>+28.0%</>.\nWhen the wielder's combo skill applies <#ba.spellburst>Arts Burst</> or <#ba.burning>Combusted</>, the wielder gains ATK <@ba.vup>+44.8%</> for 15s.\n<@ba.info>Effects of the same name cannot stack.</>",
+          "ja": "戦技ダメージ<@ba.vup>+28.0%</>\n装備中、自身が連携技で<#ba.spellburst>アーツ爆発</>または<#ba.burning>燃焼</>を発動させるとき、15秒間攻撃力<@ba.vup>+44.8%</>\n<@ba.info>同名効果は重ね掛け不可</>",
+          "zh-TW": "戰技傷害<@ba.vup>+28.0%</>。\n裝備者透過連攜技造成<#ba.spellburst>法術爆發</>或施加<#ba.burning>燃燒</>時，獲得攻擊力<@ba.vup>+44.8%</>，持續15秒。\n<@ba.info>同名效果無法疊加。</>"
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
+  "wpn_claym_0011": {
+    "stats": [
+      {
+        "levelOne": {
+          "zh-CN": "力量<@ba.vup>+16</>",
+          "en": "Strength <@ba.vup>+16</>",
+          "ja": "筋力<@ba.vup>+16</>",
+          "zh-TW": "力量<@ba.vup>+16</>"
+        },
+        "maxLevel": {
+          "zh-CN": "力量<@ba.vup>+124</>",
+          "en": "Strength <@ba.vup>+124</>",
+          "ja": "筋力<@ba.vup>+124</>",
+          "zh-TW": "力量<@ba.vup>+124</>"
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "zh-CN": "终结技充能效率<@ba.vup>+4.8%</>",
+          "en": "Ultimate Gain Efficiency <@ba.vup>+4.8%</>",
+          "ja": "必殺チャージの回復効率<@ba.vup>+4.8%</>",
+          "zh-TW": "終結技蓄能效率<@ba.vup>+4.8%</>"
+        },
+        "maxLevel": {
+          "zh-CN": "终结技充能效率<@ba.vup>+37.1%</>",
+          "en": "Ultimate Gain Efficiency <@ba.vup>+37.1%</>",
+          "ja": "必殺チャージの回復効率<@ba.vup>+37.1%</>",
+          "zh-TW": "終結技蓄能效率<@ba.vup>+37.1%</>"
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "zh-CN": "主能力<@ba.vup>+5.0%</>。\n装备者造成<#ba.spellburst>法术爆发</>时，获得攻击力<@ba.vup>+6.0%</>，持续30秒。\n<@ba.info>同名效果最多叠加3层，每层单独计算持续时间，每0.1秒最多触发一次。</>",
+          "en": "Main Attribute <@ba.vup>+5.0%</>.\nWhen the wielder applies an <#ba.spellburst>Arts Burst</>, the wielder gains ATK <@ba.vup>+6.0%</> for 30s.\n<@ba.info>Max stacks for effects of the same name: 3. Duration of each stack is counted separately. Effect only triggers once every 0.1s.</>",
+          "ja": "メイン能力値<@ba.vup>+5.0%</>\n装備中、自身が敵に<#ba.spellburst>アーツ爆発</>を発動させるとき、30秒間攻撃力<@ba.vup>+6.0%</>\n<@ba.info>同名効果は3回まで重ね掛け可能\n効果の持続時間は個別にカウントされ、0.1秒に1回まで発動可能</>",
+          "zh-TW": "主能力<@ba.vup>+5.0%</>。\n裝備者造成<#ba.spellburst>法術爆發</>時，獲得攻擊力<@ba.vup>+6.0%</>，持續30秒。\n<@ba.info>同名效果最多疊加3層，每層單獨計算持續時間，每0.1秒最多觸發一次。</>"
+        },
+        "maxLevel": {
+          "zh-CN": "主能力<@ba.vup>+14.0%</>。\n装备者造成<#ba.spellburst>法术爆发</>时，获得攻击力<@ba.vup>+16.8%</>，持续30秒。\n<@ba.info>同名效果最多叠加3层，每层单独计算持续时间，每0.1秒最多触发一次。</>",
+          "en": "Main Attribute <@ba.vup>+14.0%</>.\nWhen the wielder applies an <#ba.spellburst>Arts Burst</>, the wielder gains ATK <@ba.vup>+16.8%</> for 30s.\n<@ba.info>Max stacks for effects of the same name: 3. Duration of each stack is counted separately. Effect only triggers once every 0.1s.</>",
+          "ja": "メイン能力値<@ba.vup>+14.0%</>\n装備中、自身が敵に<#ba.spellburst>アーツ爆発</>を発動させるとき、30秒間攻撃力<@ba.vup>+16.8%</>\n<@ba.info>同名効果は3回まで重ね掛け可能\n効果の持続時間は個別にカウントされ、0.1秒に1回まで発動可能</>",
+          "zh-TW": "主能力<@ba.vup>+14.0%</>。\n裝備者造成<#ba.spellburst>法術爆發</>時，獲得攻擊力<@ba.vup>+16.8%</>，持續30秒。\n<@ba.info>同名效果最多疊加3層，每層單獨計算持續時間，每0.1秒最多觸發一次。</>"
         },
         "levelOneLabel": "Lv.1",
         "maxLevelLabel": "Lv.9"
@@ -1197,6 +709,266 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
           "en": "Heat DMG Dealt <@ba.vup>+19.6%</>.\nWhen the wielder's skill applies <#ba.fireinflict>Heat Infliction</>, the wielder gains Physical and Heat DMG Dealt <@ba.vup>+22.4%</> for 20s. When the wielder's skill applies <#ba.firevul>Heat Susceptibility</>, the entire team gains Physical and Heat DMG Dealt <@ba.vup>+11.2%</> for 30s.\n<@ba.info>The two effects apply separately and do not stack with themselves.</>",
           "ja": "灼熱ダメージ<@ba.vup>+19.6%</>\n装備中、自身のスキルで<#ba.fireinflict>灼熱付着</>を付与するとき、20秒間自身の物理と灼熱ダメージ<@ba.vup>+22.4%</>\n自身のスキルで<#ba.firevul>灼熱脆弱</>を付与するとき、30秒間チーム全員の物理と灼熱ダメージ<@ba.vup>+11.2%</>\n<@ba.info>2つの効果はそれぞれ存在し、重ね掛け不可</>",
           "zh-TW": "灼熱傷害<@ba.vup>+19.6%</>。\n裝備者透過自身技能施加<#ba.fireinflict>灼熱附著</>時，自身物理和灼熱傷害<@ba.vup>+22.4%</>，持續20秒；裝備者透過自身技能施加<#ba.firevul>灼熱脆弱</>時，全隊物理和灼熱傷害<@ba.vup>+11.2%</>，持續30秒。\n<@ba.info>兩種效果獨立生效，且均無法疊加。</>"
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
+  "wpn_claym_0012": {
+    "stats": [
+      {
+        "levelOne": {
+          "zh-CN": "力量<@ba.vup>+16</>",
+          "en": "Strength <@ba.vup>+16</>",
+          "ja": "筋力<@ba.vup>+16</>",
+          "zh-TW": "力量<@ba.vup>+16</>"
+        },
+        "maxLevel": {
+          "zh-CN": "力量<@ba.vup>+124</>",
+          "en": "Strength <@ba.vup>+124</>",
+          "ja": "筋力<@ba.vup>+124</>",
+          "zh-TW": "力量<@ba.vup>+124</>"
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "zh-CN": "最大生命值<@ba.vup>+8.0%</>",
+          "en": "Max HP <@ba.vup>+8.0%</>",
+          "ja": "最大HP<@ba.vup>+8.0%</>",
+          "zh-TW": "最大生命值<@ba.vup>+8.0%</>"
+        },
+        "maxLevel": {
+          "zh-CN": "最大生命值<@ba.vup>+62.4%</>",
+          "en": "Max HP <@ba.vup>+62.4%</>",
+          "ja": "最大HP<@ba.vup>+62.4%</>",
+          "zh-TW": "最大生命值<@ba.vup>+62.4%</>"
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "zh-CN": "副能力<@ba.vup>+5.0%</>。\n连携技造成的治疗效果<@ba.vup>+20.0%</>。",
+          "en": "Secondary Attribute <@ba.vup>+5.0%</>.\nCombo skill HP treatment effect <@ba.vup>+20.0%</>.",
+          "ja": "サブ能力値<@ba.vup>+5.0%</>\n連携技による回復効果<@ba.vup>+20.0%</>",
+          "zh-TW": "副能力<@ba.vup>+5.0%</>。\n連攜技造成的治療效果<@ba.vup>+20.0%</>。"
+        },
+        "maxLevel": {
+          "zh-CN": "副能力<@ba.vup>+14.0%</>。\n连携技造成的治疗效果<@ba.vup>+56.0%</>。",
+          "en": "Secondary Attribute <@ba.vup>+14.0%</>.\nCombo skill HP treatment effect <@ba.vup>+56.0%</>.",
+          "ja": "サブ能力値<@ba.vup>+14.0%</>\n連携技による回復効果<@ba.vup>+56.0%</>",
+          "zh-TW": "副能力<@ba.vup>+14.0%</>。\n連攜技造成的治療效果<@ba.vup>+56.0%</>。"
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
+  "wpn_claym_0013": {
+    "stats": [
+      {
+        "levelOne": {
+          "zh-CN": "力量<@ba.vup>+20</>",
+          "en": "Strength <@ba.vup>+20</>",
+          "ja": "筋力<@ba.vup>+20</>",
+          "zh-TW": "力量<@ba.vup>+20</>"
+        },
+        "maxLevel": {
+          "zh-CN": "力量<@ba.vup>+156</>",
+          "en": "Strength <@ba.vup>+156</>",
+          "ja": "筋力<@ba.vup>+156</>",
+          "zh-TW": "力量<@ba.vup>+156</>"
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "zh-CN": "攻击力<@ba.vup>+5.0%</>",
+          "en": "ATK <@ba.vup>+5.0%</>",
+          "ja": "攻撃力<@ba.vup>+5.0%</>",
+          "zh-TW": "攻擊力<@ba.vup>+5.0%</>"
+        },
+        "maxLevel": {
+          "zh-CN": "攻击力<@ba.vup>+39.0%</>",
+          "en": "ATK <@ba.vup>+39.0%</>",
+          "ja": "攻撃力<@ba.vup>+39.0%</>",
+          "zh-TW": "攻擊力<@ba.vup>+39.0%</>"
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "zh-CN": "所有技能伤害<@ba.vup>+20.0%</>。\n装备者通过战技施加<#ba.crystinflict>寒冷附着</>时，获得寒冷伤害<@ba.vup>+10.0%</>，持续15秒。装备者对<#ba.crystinflict>寒冷附着</>的敌人造成连携技伤害时，获得寒冷伤害<@ba.vup>+20.0%</>，持续15秒。\n<@ba.info>两种效果独立生效，且均无法叠加。</>",
+          "en": "Skill DMG Dealt <@ba.vup>+20.0%</> (for every skill).\nWhen the wielder's battle skill applies <#ba.crystinflict>Cryo Infliction</>, the wielder gains Cryo DMG Dealt <@ba.vup>+10.0%</> for 15s. When the wielder deals combo skill DMG to an enemy with <#ba.crystinflict>Cryo Infliction</>, the wielder gains Cryo DMG Dealt <@ba.vup>+20.0%</> for 15s.\n<@ba.info>The two effects apply separately and do not stack with themselves.</>",
+          "ja": "すべてのスキルダメージ<@ba.vup>+20.0%</>\n装備中、自身の戦技で<#ba.crystinflict>寒冷付着</>を付与するとき、15秒間寒冷ダメージ<@ba.vup>+10.0%</>\n自身の連携技で<#ba.crystinflict>寒冷付着</>状態の敵にダメージを与えるとき、15秒間寒冷ダメージ<@ba.vup>+20.0%</>\n<@ba.info>2つの効果はそれぞれ存在し、重ね掛け不可</>",
+          "zh-TW": "所有技能傷害<@ba.vup>+20.0%</>。\n裝備者透過戰技施加<#ba.crystinflict>寒冷附著</>時，獲得寒冷傷害<@ba.vup>+10.0%</>，持續15秒。裝備者對<#ba.crystinflict>寒冷附著</>的敵人造成連攜技傷害時，獲得寒冷傷害<@ba.vup>+20.0%</>，持續15秒。\n<@ba.info>兩種效果獨立生效，且均無法疊加。</>"
+        },
+        "maxLevel": {
+          "zh-CN": "所有技能伤害<@ba.vup>+56.0%</>。\n装备者通过战技施加<#ba.crystinflict>寒冷附着</>时，获得寒冷伤害<@ba.vup>+28.0%</>，持续15秒。装备者对<#ba.crystinflict>寒冷附着</>的敌人造成连携技伤害时，获得寒冷伤害<@ba.vup>+56.0%</>，持续15秒。\n<@ba.info>两种效果独立生效，且均无法叠加。</>",
+          "en": "Skill DMG Dealt <@ba.vup>+56.0%</> (for every skill).\nWhen the wielder's battle skill applies <#ba.crystinflict>Cryo Infliction</>, the wielder gains Cryo DMG Dealt <@ba.vup>+28.0%</> for 15s. When the wielder deals combo skill DMG to an enemy with <#ba.crystinflict>Cryo Infliction</>, the wielder gains Cryo DMG Dealt <@ba.vup>+56.0%</> for 15s.\n<@ba.info>The two effects apply separately and do not stack with themselves.</>",
+          "ja": "すべてのスキルダメージ<@ba.vup>+56.0%</>\n装備中、自身の戦技で<#ba.crystinflict>寒冷付着</>を付与するとき、15秒間寒冷ダメージ<@ba.vup>+28.0%</>\n自身の連携技で<#ba.crystinflict>寒冷付着</>状態の敵にダメージを与えるとき、15秒間寒冷ダメージ<@ba.vup>+56.0%</>\n<@ba.info>2つの効果はそれぞれ存在し、重ね掛け不可</>",
+          "zh-TW": "所有技能傷害<@ba.vup>+56.0%</>。\n裝備者透過戰技施加<#ba.crystinflict>寒冷附著</>時，獲得寒冷傷害<@ba.vup>+28.0%</>，持續15秒。裝備者對<#ba.crystinflict>寒冷附著</>的敵人造成連攜技傷害時，獲得寒冷傷害<@ba.vup>+56.0%</>，持續15秒。\n<@ba.info>兩種效果獨立生效，且均無法疊加。</>"
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
+  "wpn_lance_0016": {
+    "stats": [
+      {
+        "levelOne": {
+          "zh-CN": "意志<@ba.vup>+20</>",
+          "en": "Will <@ba.vup>+20</>",
+          "ja": "意志<@ba.vup>+20</>",
+          "zh-TW": "意志<@ba.vup>+20</>"
+        },
+        "maxLevel": {
+          "zh-CN": "意志<@ba.vup>+156</>",
+          "en": "Will <@ba.vup>+156</>",
+          "ja": "意志<@ba.vup>+156</>",
+          "zh-TW": "意志<@ba.vup>+156</>"
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "zh-CN": "治疗效率<@ba.vup>+6.0%</>",
+          "en": "Treatment Efficiency <@ba.vup>+6.0%</>.",
+          "ja": "回復効率<@ba.vup>+6.0%</>",
+          "zh-TW": "治療效率<@ba.vup>+6.0%</>"
+        },
+        "maxLevel": {
+          "zh-CN": "治疗效率<@ba.vup>+46.4%</>",
+          "en": "Treatment Efficiency <@ba.vup>+46.4%</>.",
+          "ja": "回復効率<@ba.vup>+46.4%</>",
+          "zh-TW": "治療效率<@ba.vup>+46.4%</>"
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "zh-CN": "电磁伤害<@ba.vup>+6.0%</>。\n装备者通过连携技造成伤害时，治疗效率<@ba.vup>+4.0%</>，持续15秒；装备者通过连携技治疗小队内其他干员时，全队法术伤害<@ba.vup>+5.0%</>，持续20秒。\n<@ba.info>同名效果无法叠加。</>",
+          "en": "Electric DMG Dealt <@ba.vup>+6.0%</>.\nWhen the wielder's combo skill deals DMG, the wielder gains Treatment Efficiency <@ba.vup>+4.0%</> for 15s. When the wielder's combo skill grants HP Treatment to other operators in the team, the entire team gains Arts DMG Dealt<@ba.vup> +5.0%</> for 20s.\n<@ba.info>Effects of the same name cannot stack.</>",
+          "ja": "電磁ダメージ<@ba.vup>+6.0%</>\n装備中、自身の連携技でダメージを与えたとき、15秒間回復効率<@ba.vup>+4.0%</>\n自身の連携技でチーム内の他のオペレーターを治療したとき、20秒間チーム全員のアーツダメージ<@ba.vup>+5.0%</>\n<@ba.info>同名効果は重ね掛け不可</>",
+          "zh-TW": "電磁傷害<@ba.vup>+6.0%</>。\n裝備者透過連攜技造成傷害時，治療效率<@ba.vup>+4.0%</>，持續15秒；裝備者透過連攜技治療小隊內其他幹員時，全隊法術傷害<@ba.vup>+5.0%</>，持續20秒。\n<@ba.info>同名效果無法疊加。</>"
+        },
+        "maxLevel": {
+          "zh-CN": "电磁伤害<@ba.vup>+16.8%</>。\n装备者通过连携技造成伤害时，治疗效率<@ba.vup>+11.2%</>，持续15秒；装备者通过连携技治疗小队内其他干员时，全队法术伤害<@ba.vup>+14.0%</>，持续20秒。\n<@ba.info>同名效果无法叠加。</>",
+          "en": "Electric DMG Dealt <@ba.vup>+16.8%</>.\nWhen the wielder's combo skill deals DMG, the wielder gains Treatment Efficiency <@ba.vup>+11.2%</> for 15s. When the wielder's combo skill grants HP Treatment to other operators in the team, the entire team gains Arts DMG Dealt<@ba.vup> +14.0%</> for 20s.\n<@ba.info>Effects of the same name cannot stack.</>",
+          "ja": "電磁ダメージ<@ba.vup>+16.8%</>\n装備中、自身の連携技でダメージを与えたとき、15秒間回復効率<@ba.vup>+11.2%</>\n自身の連携技でチーム内の他のオペレーターを治療したとき、20秒間チーム全員のアーツダメージ<@ba.vup>+14.0%</>\n<@ba.info>同名効果は重ね掛け不可</>",
+          "zh-TW": "電磁傷害<@ba.vup>+16.8%</>。\n裝備者透過連攜技造成傷害時，治療效率<@ba.vup>+11.2%</>，持續15秒；裝備者透過連攜技治療小隊內其他幹員時，全隊法術傷害<@ba.vup>+14.0%</>，持續20秒。\n<@ba.info>同名效果無法疊加。</>"
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
+  "wpn_claym_0014": {
+    "stats": [
+      {
+        "levelOne": {
+          "zh-CN": "力量<@ba.vup>+16</>",
+          "en": "Strength <@ba.vup>+16</>",
+          "ja": "筋力<@ba.vup>+16</>",
+          "zh-TW": "力量<@ba.vup>+16</>"
+        },
+        "maxLevel": {
+          "zh-CN": "力量<@ba.vup>+124</>",
+          "en": "Strength <@ba.vup>+124</>",
+          "ja": "筋力<@ba.vup>+124</>",
+          "zh-TW": "力量<@ba.vup>+124</>"
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "zh-CN": "源石技艺强度<@ba.vup>+8</>",
+          "en": "Arts Intensity <@ba.vup>+8</>",
+          "ja": "アーツ強度<@ba.vup>+8</>",
+          "zh-TW": "源石技藝強度<@ba.vup>+8</>"
+        },
+        "maxLevel": {
+          "zh-CN": "源石技艺强度<@ba.vup>+62</>",
+          "en": "Arts Intensity <@ba.vup>+62</>",
+          "ja": "アーツ強度<@ba.vup>+62</>",
+          "zh-TW": "源石技藝強度<@ba.vup>+62</>"
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "zh-CN": "源石技艺强度<@ba.vup>+10</>。\n装备者<#ba.consume>消耗</><#ba.noguard>破防</>层数后，物理伤害<@ba.vup>+[5.0%×消耗层数]</>，持续20秒。\n<@ba.info>同名效果无法叠加。</>",
+          "en": "Arts Intensity <@ba.vup>+10</>.\nAfter the wielder <#ba.consume>consumes</> <#ba.noguard>Vulnerability</> stack(s), the wielder gains Physical DMG Dealt <@ba.vup>+[5.0%×Stacks Consumed]</> for 20s.\n<@ba.info>Effects of the same name cannot stack. </>",
+          "ja": "アーツ強度<@ba.vup>+10</>\n装備中、自身が<#ba.noguard>クラッシュ</>段階を<#ba.consume>消費</>すると、20秒間物理ダメージ<@ba.vup>+[5.0%×消費した段階数]</>\n<@ba.info>同名効果は重ね掛け不可</>",
+          "zh-TW": "源石技藝強度<@ba.vup>+10</>。\n裝備者<#ba.consume>消耗</><#ba.noguard>破防</>層數後，物理傷害<@ba.vup>+[5.0%×消耗層數]</>，持續20秒。\n<@ba.info>同名效果無法疊加。</>"
+        },
+        "maxLevel": {
+          "zh-CN": "源石技艺强度<@ba.vup>+28</>。\n装备者<#ba.consume>消耗</><#ba.noguard>破防</>层数后，物理伤害<@ba.vup>+[14.0%×消耗层数]</>，持续20秒。\n<@ba.info>同名效果无法叠加。</>",
+          "en": "Arts Intensity <@ba.vup>+28</>.\nAfter the wielder <#ba.consume>consumes</> <#ba.noguard>Vulnerability</> stack(s), the wielder gains Physical DMG Dealt <@ba.vup>+[14.0%×Stacks Consumed]</> for 20s.\n<@ba.info>Effects of the same name cannot stack. </>",
+          "ja": "アーツ強度<@ba.vup>+28</>\n装備中、自身が<#ba.noguard>クラッシュ</>段階を<#ba.consume>消費</>すると、20秒間物理ダメージ<@ba.vup>+[14.0%×消費した段階数]</>\n<@ba.info>同名効果は重ね掛け不可</>",
+          "zh-TW": "源石技藝強度<@ba.vup>+28</>。\n裝備者<#ba.consume>消耗</><#ba.noguard>破防</>層數後，物理傷害<@ba.vup>+[14.0%×消耗層數]</>，持續20秒。\n<@ba.info>同名效果無法疊加。</>"
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
+  "wpn_funnel_0008": {
+    "stats": [
+      {
+        "levelOne": {
+          "zh-CN": "主能力值<@ba.vup>+17</>",
+          "en": "Main attribute <@ba.vup>+17</>",
+          "ja": "メイン能力値<@ba.vup>+17</>",
+          "zh-TW": "主能力值<@ba.vup>+17</>"
+        },
+        "maxLevel": {
+          "zh-CN": "主能力值<@ba.vup>+132</>",
+          "en": "Main attribute <@ba.vup>+132</>",
+          "ja": "メイン能力値<@ba.vup>+132</>",
+          "zh-TW": "主能力值<@ba.vup>+132</>"
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "zh-CN": "源石技艺强度<@ba.vup>+10</>",
+          "en": "Arts Intensity <@ba.vup>+10</>",
+          "ja": "アーツ強度<@ba.vup>+10</>",
+          "zh-TW": "源石技藝強度<@ba.vup>+10</>"
+        },
+        "maxLevel": {
+          "zh-CN": "源石技艺强度<@ba.vup>+78</>",
+          "en": "Arts Intensity <@ba.vup>+78</>",
+          "ja": "アーツ強度<@ba.vup>+78</>",
+          "zh-TW": "源石技藝強度<@ba.vup>+78</>"
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "zh-CN": "副能力<@ba.vup>+10.0%</>。\n装备者造成<#ba.spellburst>法术爆发</>时，使目标敌人受到的法术伤害<@ba.vup>+9.0%</>，持续15秒。\n<@ba.info>同名效果无法叠加。</>",
+          "en": "Secondary Attribute <@ba.vup>+10.0%</>.\nWhen the wielder applies an <#ba.spellburst>Arts Burst</>, target enemy suffers Arts DMG Taken <@ba.vup>+9.0%</> for 15s.\n<@ba.info>Effects of the same name cannot stack.</>",
+          "ja": "サブ能力値<@ba.vup>+10.0%</>\n装備中、自身が<#ba.spellburst>アーツ爆発</>を発動させるとき、15秒間敵の受けるアーツダメージ<@ba.vup>+9.0%</>\n<@ba.info>同名効果は重ね掛け不可</>",
+          "zh-TW": "副能力<@ba.vup>+10.0%</>。\n裝備者造成<#ba.spellburst>法術爆發</>時，使目標敵人受到的法術傷害<@ba.vup>+9.0%</>，持續15秒。\n<@ba.info>同名效果無法疊加。</>"
+        },
+        "maxLevel": {
+          "zh-CN": "副能力<@ba.vup>+28.0%</>。\n装备者造成<#ba.spellburst>法术爆发</>时，使目标敌人受到的法术伤害<@ba.vup>+25.2%</>，持续15秒。\n<@ba.info>同名效果无法叠加。</>",
+          "en": "Secondary Attribute <@ba.vup>+28.0%</>.\nWhen the wielder applies an <#ba.spellburst>Arts Burst</>, target enemy suffers Arts DMG Taken <@ba.vup>+25.2%</> for 15s.\n<@ba.info>Effects of the same name cannot stack.</>",
+          "ja": "サブ能力値<@ba.vup>+28.0%</>\n装備中、自身が<#ba.spellburst>アーツ爆発</>を発動させるとき、15秒間敵の受けるアーツダメージ<@ba.vup>+25.2%</>\n<@ba.info>同名効果は重ね掛け不可</>",
+          "zh-TW": "副能力<@ba.vup>+28.0%</>。\n裝備者造成<#ba.spellburst>法術爆發</>時，使目標敵人受到的法術傷害<@ba.vup>+25.2%</>，持續15秒。\n<@ba.info>同名效果無法疊加。</>"
         },
         "levelOneLabel": "Lv.1",
         "maxLevelLabel": "Lv.9"
@@ -1292,13 +1064,13 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       {
         "levelOne": {
           "zh-CN": "副能力<@ba.vup>+5.0%</>。\n装备者造成<#ba.knockdown>倒地</>或施加<#ba.weak>虚弱</>时，获得防御力<@ba.vup>+18.0%</>，持续15秒。\n<@ba.info>同名效果无法叠加。</>",
-          "en": "Secondary Attribute <@ba.vup>+5.0%</>.\nWhen the wielder applies <#ba.knockdown>Knocked Down</> or <#ba.weak>Weakened</>, the wielder gains DEF <@ba.vup>+18.0%</> for 15s.\n<@ba.info>Effects of the same name cannot stack.</>",
+          "en": "Secondary Attribute <@ba.vup>+5.0%</>.\nWhen the wielder applies <#ba.knockdown>Knocked Down</> or <#ba.weak>Weakness</>, the wielder gains DEF <@ba.vup>+18.0%</> for 15s.\n<@ba.info>Effects of the same name cannot stack.</>",
           "ja": "サブ能力値<@ba.vup>+5.0%</>\n装備中、自身が敵を<#ba.knockdown>転倒</>させるか<#ba.weak>弱体化</>を付与するとき、15秒間防御力<@ba.vup>+18.0%</>\n<@ba.info>同名効果は重ね掛け不可</>",
           "zh-TW": "副能力<@ba.vup>+5.0%</>。\n裝備者造成<#ba.knockdown>倒地</>或施加<#ba.weak>虛弱</>時，獲得防禦力<@ba.vup>+18.0%</>，持續15秒。\n<@ba.info>同名效果無法疊加。</>"
         },
         "maxLevel": {
           "zh-CN": "副能力<@ba.vup>+14.0%</>。\n装备者造成<#ba.knockdown>倒地</>或施加<#ba.weak>虚弱</>时，获得防御力<@ba.vup>+50.4%</>，持续15秒。\n<@ba.info>同名效果无法叠加。</>",
-          "en": "Secondary Attribute <@ba.vup>+14.0%</>.\nWhen the wielder applies <#ba.knockdown>Knocked Down</> or <#ba.weak>Weakened</>, the wielder gains DEF <@ba.vup>+50.4%</> for 15s.\n<@ba.info>Effects of the same name cannot stack.</>",
+          "en": "Secondary Attribute <@ba.vup>+14.0%</>.\nWhen the wielder applies <#ba.knockdown>Knocked Down</> or <#ba.weak>Weakness</>, the wielder gains DEF <@ba.vup>+50.4%</> for 15s.\n<@ba.info>Effects of the same name cannot stack.</>",
           "ja": "サブ能力値<@ba.vup>+14.0%</>\n装備中、自身が敵を<#ba.knockdown>転倒</>させるか<#ba.weak>弱体化</>を付与するとき、15秒間防御力<@ba.vup>+50.4%</>\n<@ba.info>同名効果は重ね掛け不可</>",
           "zh-TW": "副能力<@ba.vup>+14.0%</>。\n裝備者造成<#ba.knockdown>倒地</>或施加<#ba.weak>虛弱</>時，獲得防禦力<@ba.vup>+50.4%</>，持續15秒。\n<@ba.info>同名效果無法疊加。</>"
         },
@@ -1307,52 +1079,104 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       }
     ]
   },
-  "wpn_sword_0006": {
+  "wpn_lance_0014": {
     "stats": [
       {
         "levelOne": {
-          "zh-CN": "智识<@ba.vup>+20</>",
-          "en": "Intellect <@ba.vup>+20</>",
-          "ja": "知性<@ba.vup>+20</>",
-          "zh-TW": "智識<@ba.vup>+20</>"
+          "zh-CN": "意志<@ba.vup>+20</>",
+          "en": "Will <@ba.vup>+20</>",
+          "ja": "意志<@ba.vup>+20</>",
+          "zh-TW": "意志<@ba.vup>+20</>"
         },
         "maxLevel": {
-          "zh-CN": "智识<@ba.vup>+156</>",
-          "en": "Intellect <@ba.vup>+156</>",
-          "ja": "知性<@ba.vup>+156</>",
-          "zh-TW": "智識<@ba.vup>+156</>"
+          "zh-CN": "意志<@ba.vup>+156</>",
+          "en": "Will <@ba.vup>+156</>",
+          "ja": "意志<@ba.vup>+156</>",
+          "zh-TW": "意志<@ba.vup>+156</>"
         },
         "levelOneLabel": "Lv.1",
         "maxLevelLabel": "Lv.9"
       },
       {
         "levelOne": {
-          "zh-CN": "攻击力<@ba.vup>+5.0%</>",
-          "en": "Attack <@ba.vup>+5.0%</>",
-          "ja": "攻撃力<@ba.vup>+5.0%</>",
-          "zh-TW": "攻擊力<@ba.vup>+5.0%</>"
+          "zh-CN": "治疗效率<@ba.vup>+6.0%</>",
+          "en": "Treatment Efficiency <@ba.vup>+6.0%</>.",
+          "ja": "回復効率<@ba.vup>+6.0%</>",
+          "zh-TW": "治療效率<@ba.vup>+6.0%</>"
         },
         "maxLevel": {
-          "zh-CN": "攻击力<@ba.vup>+39.0%</>",
-          "en": "Attack <@ba.vup>+39.0%</>",
-          "ja": "攻撃力<@ba.vup>+39.0%</>",
-          "zh-TW": "攻擊力<@ba.vup>+39.0%</>"
+          "zh-CN": "治疗效率<@ba.vup>+46.4%</>",
+          "en": "Treatment Efficiency <@ba.vup>+46.4%</>.",
+          "ja": "回復効率<@ba.vup>+46.4%</>",
+          "zh-TW": "治療效率<@ba.vup>+46.4%</>"
         },
         "levelOneLabel": "Lv.1",
         "maxLevelLabel": "Lv.9"
       },
       {
         "levelOne": {
-          "zh-CN": "灼热伤害<@ba.vup>+16.0%</>。\n装备者施放终结技时，获得普通攻击伤害<@ba.vup>+75.0%</>，持续20秒。\n<@ba.info>同名效果无法叠加。</>",
-          "en": "Heat DMG Dealt <@ba.vup>+16.0%</>.\nWhen the wielder casts an ultimate, the wielder gains Basic Attack DMG Dealt <@ba.vup>+75.0%</> for 20s.\n<@ba.info>Effects of the same name cannot stack.</>",
-          "ja": "灼熱ダメージ<@ba.vup>+16.0%</>\n装備中、自身が必殺技を発動するとき、20秒間通常攻撃ダメージ<@ba.vup>+75.0%</>\n<@ba.info>同名効果は重ね掛け不可</>",
-          "zh-TW": "灼熱傷害<@ba.vup>+16.0%</>。\n裝備者施放終結技時，獲得普通攻擊傷害<@ba.vup>+75.0%</>，持續20秒。\n<@ba.info>同名效果無法疊加。</>"
+          "zh-CN": "主能力<@ba.vup>+16.0%</>。\n装备者通过自身技能治疗小队内其他干员时，受到装备者治疗的干员攻击力<@ba.vup>+3.5%</>，持续20秒。\n<@ba.info>同名效果最多叠加4层，每层单独计算持续时间，每名干员每0.1秒最多获得一次该效果。</>",
+          "en": "Main attribute <@ba.vup>+16.0%</>.\nWhen the wielder's skill grants HP Treatment to other operators in the team, the operator receiving the wielder's treatment also gains ATK <@ba.vup>+3.5%</> for 20s.\n<@ba.info>Max stacks for effects of the same name: 4. Duration of each stack is counted separately. Each operator can gain this effect at most once every 0.1s. </>",
+          "ja": "メイン能力値<@ba.vup>+16.0%</>\n装備中、自身のスキルでチーム内の他のオペレーターを治療したとき、20秒間その治療を受けたオペレーターの攻撃力<@ba.vup>+3.5%</>\n<@ba.info>同名効果は4回まで重ね掛け可能\n効果の持続時間は個別にカウントされ、各オペレーターは0.1秒に1回までこの効果を獲得できる</>",
+          "zh-TW": "主能力<@ba.vup>+16.0%</>。\n裝備者透過自身技能治療小隊內其他幹員時，受到裝備者治療的幹員攻擊力<@ba.vup>+3.5%</>，持續20秒。\n<@ba.info>同名效果最多疊加4層，每層單獨計算持續時間，每名幹員每0.1秒最多獲得一次該效果。</>"
         },
         "maxLevel": {
-          "zh-CN": "灼热伤害<@ba.vup>+44.8%</>。\n装备者施放终结技时，获得普通攻击伤害<@ba.vup>+210.0%</>，持续20秒。\n<@ba.info>同名效果无法叠加。</>",
-          "en": "Heat DMG Dealt <@ba.vup>+44.8%</>.\nWhen the wielder casts an ultimate, the wielder gains Basic Attack DMG Dealt <@ba.vup>+210.0%</> for 20s.\n<@ba.info>Effects of the same name cannot stack.</>",
-          "ja": "灼熱ダメージ<@ba.vup>+44.8%</>\n装備中、自身が必殺技を発動するとき、20秒間通常攻撃ダメージ<@ba.vup>+210.0%</>\n<@ba.info>同名効果は重ね掛け不可</>",
-          "zh-TW": "灼熱傷害<@ba.vup>+44.8%</>。\n裝備者施放終結技時，獲得普通攻擊傷害<@ba.vup>+210.0%</>，持續20秒。\n<@ba.info>同名效果無法疊加。</>"
+          "zh-CN": "主能力<@ba.vup>+44.8%</>。\n装备者通过自身技能治疗小队内其他干员时，受到装备者治疗的干员攻击力<@ba.vup>+9.8%</>，持续20秒。\n<@ba.info>同名效果最多叠加4层，每层单独计算持续时间，每名干员每0.1秒最多获得一次该效果。</>",
+          "en": "Main attribute <@ba.vup>+44.8%</>.\nWhen the wielder's skill grants HP Treatment to other operators in the team, the operator receiving the wielder's treatment also gains ATK <@ba.vup>+9.8%</> for 20s.\n<@ba.info>Max stacks for effects of the same name: 4. Duration of each stack is counted separately. Each operator can gain this effect at most once every 0.1s. </>",
+          "ja": "メイン能力値<@ba.vup>+44.8%</>\n装備中、自身のスキルでチーム内の他のオペレーターを治療したとき、20秒間その治療を受けたオペレーターの攻撃力<@ba.vup>+9.8%</>\n<@ba.info>同名効果は4回まで重ね掛け可能\n効果の持続時間は個別にカウントされ、各オペレーターは0.1秒に1回までこの効果を獲得できる</>",
+          "zh-TW": "主能力<@ba.vup>+44.8%</>。\n裝備者透過自身技能治療小隊內其他幹員時，受到裝備者治療的幹員攻擊力<@ba.vup>+9.8%</>，持續20秒。\n<@ba.info>同名效果最多疊加4層，每層單獨計算持續時間，每名幹員每0.1秒最多獲得一次該效果。</>"
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
+  "wpn_pistol_0009": {
+    "stats": [
+      {
+        "levelOne": {
+          "zh-CN": "主能力值<@ba.vup>+17</>",
+          "en": "Main attribute <@ba.vup>+17</>",
+          "ja": "メイン能力値<@ba.vup>+17</>",
+          "zh-TW": "主能力值<@ba.vup>+17</>"
+        },
+        "maxLevel": {
+          "zh-CN": "主能力值<@ba.vup>+132</>",
+          "en": "Main attribute <@ba.vup>+132</>",
+          "ja": "メイン能力値<@ba.vup>+132</>",
+          "zh-TW": "主能力值<@ba.vup>+132</>"
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "zh-CN": "法术伤害<@ba.vup>+5.6%</>",
+          "en": "Arts DMG Dealt <@ba.vup>+5.6%</>",
+          "ja": "アーツダメージ<@ba.vup>+5.6%</>",
+          "zh-TW": "法術傷害<@ba.vup>+5.6%</>"
+        },
+        "maxLevel": {
+          "zh-CN": "法术伤害<@ba.vup>+43.3%</>",
+          "en": "Arts DMG Dealt <@ba.vup>+43.3%</>",
+          "ja": "アーツダメージ<@ba.vup>+43.3%</>",
+          "zh-TW": "法術傷害<@ba.vup>+43.3%</>"
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "zh-CN": "法术伤害<@ba.vup>+12.0%</>。\n装备者<#ba.consume>消耗</><#ba.spellstatus>法术异常</>后，使目标敌人受到对应属性的伤害<@ba.vup>+10.0%</>，持续15秒。\n<@ba.info>每种效果独立生效，且均无法叠加，每25秒最多触发一次。</>",
+          "en": "Arts DMG <@ba.vup>+12.0%</>.\nAfter the wielder <#ba.consume>consumes</> an <#ba.spellstatus>Arts Reaction</>, target enemy suffers Arts DMG Taken <@ba.vup>+10.0%</> (for the specified element) for 15s.\n<@ba.info>Each effect applies separately and does not stack with itself. Effect only triggers once every 25s.</>",
+          "ja": "アーツダメージ<@ba.vup>+12.0%</>\n装備中、自身が<#ba.spellstatus>アーツ異常</>状態を<#ba.consume>消費</>すると、15秒間目標の敵が受けるその属性のダメージ<@ba.vup>+10.0%</>\n<@ba.info>効果はそれぞれ存在し、重ね掛け不可\nこの効果は25秒に1回まで発動可能</>",
+          "zh-TW": "法術傷害<@ba.vup>+12.0%</>。\n裝備者<#ba.consume>消耗</><#ba.spellstatus>法術異常</>後，使目標敵人受到對應屬性的傷害<@ba.vup>+10.0%</>，持續15秒。\n<@ba.info>每種效果獨立生效，且均無法疊加，每25秒最多觸發一次。</>"
+        },
+        "maxLevel": {
+          "zh-CN": "法术伤害<@ba.vup>+33.6%</>。\n装备者<#ba.consume>消耗</><#ba.spellstatus>法术异常</>后，使目标敌人受到对应属性的伤害<@ba.vup>+28.0%</>，持续15秒。\n<@ba.info>每种效果独立生效，且均无法叠加，每25秒最多触发一次。</>",
+          "en": "Arts DMG <@ba.vup>+33.6%</>.\nAfter the wielder <#ba.consume>consumes</> an <#ba.spellstatus>Arts Reaction</>, target enemy suffers Arts DMG Taken <@ba.vup>+28.0%</> (for the specified element) for 15s.\n<@ba.info>Each effect applies separately and does not stack with itself. Effect only triggers once every 25s.</>",
+          "ja": "アーツダメージ<@ba.vup>+33.6%</>\n装備中、自身が<#ba.spellstatus>アーツ異常</>状態を<#ba.consume>消費</>すると、15秒間目標の敵が受けるその属性のダメージ<@ba.vup>+28.0%</>\n<@ba.info>効果はそれぞれ存在し、重ね掛け不可\nこの効果は25秒に1回まで発動可能</>",
+          "zh-TW": "法術傷害<@ba.vup>+33.6%</>。\n裝備者<#ba.consume>消耗</><#ba.spellstatus>法術異常</>後，使目標敵人受到對應屬性的傷害<@ba.vup>+28.0%</>，持續15秒。\n<@ba.info>每種效果獨立生效，且均無法疊加，每25秒最多觸發一次。</>"
         },
         "levelOneLabel": "Lv.1",
         "maxLevelLabel": "Lv.9"
@@ -1411,52 +1235,52 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       }
     ]
   },
-  "wpn_funnel_0011": {
+  "wpn_claym_0017": {
     "stats": [
       {
         "levelOne": {
-          "zh-CN": "意志<@ba.vup>+20</>",
-          "en": "Will <@ba.vup>+20</>",
-          "ja": "意志<@ba.vup>+20</>",
-          "zh-TW": "意志<@ba.vup>+20</>"
+          "zh-CN": "力量<@ba.vup>+20</>",
+          "en": "Strength <@ba.vup>+20</>",
+          "ja": "筋力<@ba.vup>+20</>",
+          "zh-TW": "力量<@ba.vup>+20</>"
         },
         "maxLevel": {
-          "zh-CN": "意志<@ba.vup>+156</>",
-          "en": "Will <@ba.vup>+156</>",
-          "ja": "意志<@ba.vup>+156</>",
-          "zh-TW": "意志<@ba.vup>+156</>"
+          "zh-CN": "力量<@ba.vup>+156</>",
+          "en": "Strength <@ba.vup>+156</>",
+          "ja": "筋力<@ba.vup>+156</>",
+          "zh-TW": "力量<@ba.vup>+156</>"
         },
         "levelOneLabel": "Lv.1",
         "maxLevelLabel": "Lv.9"
       },
       {
         "levelOne": {
-          "zh-CN": "终结技充能效率<@ba.vup>+6.0%</>",
-          "en": "Ultimate Gain Efficiency <@ba.vup>+6.0%</>",
-          "ja": "必殺チャージの回復効率<@ba.vup>+6.0%</>",
-          "zh-TW": "終結技蓄能效率<@ba.vup>+6.0%</>"
+          "zh-CN": "攻击力<@ba.vup>+5.0%</>",
+          "en": "ATK <@ba.vup>+5.0%</>",
+          "ja": "攻撃力<@ba.vup>+5.0%</>",
+          "zh-TW": "攻擊力<@ba.vup>+5.0%</>"
         },
         "maxLevel": {
-          "zh-CN": "终结技充能效率<@ba.vup>+46.4%</>",
-          "en": "Ultimate Gain Efficiency <@ba.vup>+46.4%</>",
-          "ja": "必殺チャージの回復効率<@ba.vup>+46.4%</>",
-          "zh-TW": "終結技蓄能效率<@ba.vup>+46.4%</>"
+          "zh-CN": "攻击力<@ba.vup>+39.0%</>",
+          "en": "ATK <@ba.vup>+39.0%</>",
+          "ja": "攻撃力<@ba.vup>+39.0%</>",
+          "zh-TW": "攻擊力<@ba.vup>+39.0%</>"
         },
         "levelOneLabel": "Lv.1",
         "maxLevelLabel": "Lv.9"
       },
       {
         "levelOne": {
-          "zh-CN": "自然伤害<@ba.vup>+16.0%</>。\n装备者通过自身连携技造成<#ba.airborne>击飞</>后，全队造成的法术伤害<@ba.vup>+12.0%</>，持续15秒。每有一个被<#ba.airborne>击飞</>的敌人，全队造成的法术伤害额外<@ba.vup>+3.5%</>，最多<@ba.vup>+10.5%</>。\n<@ba.info>同名效果无法叠加。</>",
-          "en": "Nature DMG Dealt <@ba.vup>+16.0%</>.\nAfter the wielder's combo skill applies <#ba.airborne>Lifted</>, the team gains Arts DMG Dealt <@ba.vup>+12.0%</> for 15s. For every enemy <#ba.airborne>Lifted</>, the team gains bonus Arts DMG Dealt <@ba.vup>+3.5%</>, up to a max of <@ba.vup>+10.5%</>.\n<@ba.info>Effects of the same name cannot stack.</>",
-          "ja": "自然ダメージ<@ba.vup>+16.0%</>\n装備中、自身の連携技で敵を<#ba.airborne>浮遊</>させると、15秒間チーム全員のアーツダメージ<@ba.vup>+12.0%</>\n<#ba.airborne>浮遊</>させた敵1体につき、追加でチーム全員のアーツダメージ<@ba.vup>+3.5%</>（最大<@ba.vup>+10.5%</>）\n<@ba.info>同名効果は重ね掛け不可</>",
-          "zh-TW": "自然傷害<@ba.vup>+16.0%</>。\n裝備者透過自身連攜技造成<#ba.airborne>擊飛</>後，全隊造成的法術傷害<@ba.vup>+12.0%</>，持續15秒。每有一個被<#ba.airborne>擊飛</>的敵人，全隊造成的法術傷害額外<@ba.vup>+3.5%</>，最多<@ba.vup>+10.5%</>。\n<@ba.info>同名效果無法疊加。</>"
+          "zh-CN": "物理伤害<@ba.vup>+16.0%</>。\n装备者施加<#ba.physicalvul>物理脆弱</>时，源石技艺强度<@ba.vup>+30</>，持续20秒；装备者造成<#ba.crush>猛击</>时，根据<#ba.consume>消耗</>的最大<#ba.noguard>破防</>层数，使自身物理伤害<@ba.vup>+[9.0%+3.0%×<#ba.consume>消耗</>层数]</>，持续30秒。\n<@ba.info>两种效果独立生效，且均无法叠加。</>",
+          "en": "Physical DMG Dealt <@ba.vup>+16.0%</>.\nWhen the wielder applies <#ba.physicalvul>Physical Susceptibility</>, the wielder gains Arts Intensity <@ba.vup>+30</> for 20s. When the wielder applies <#ba.crush>Crush</>, the wielder gains Physical DMG Dealt <@ba.vup>+[9.0% + (3.0% × Max number of <#ba.noguard>Vulnerability</> stacks <#ba.consume>consumed</> from one enemy)]</> for 30s.\n<@ba.info>The two effects apply separately and do not stack with themselves.</>",
+          "ja": "物理ダメージ<@ba.vup>+16.0%</>\n装備中、自身が敵に<#ba.physicalvul>物理脆弱</>を付与するとき、20秒間アーツ強度<@ba.vup>+30</>\n自身が敵に<#ba.crush>猛撃</>を与えるとき、<#ba.consume>消費</>する最大の<#ba.noguard>クラッシュ</>段階数に応じて、30秒間自身の物理ダメージ<@ba.vup>+[9.0%+3.0%×<#ba.consume>消費</>した段階数]</>\n<@ba.info>2つの効果はそれぞれ存在し、重ね掛け不可</>",
+          "zh-TW": "物理傷害<@ba.vup>+16.0%</>。\n裝備者施加<#ba.physicalvul>物理脆弱</>時，源石技藝強度<@ba.vup>+30</>，持續20秒；裝備者造成<#ba.crush>猛擊</>時，根據<#ba.consume>消耗</>的最大<#ba.noguard>破防</>層數，使自身物理傷害<@ba.vup>+[9.0%+3.0%×<#ba.consume>消耗</>層數]</>，持續30秒。\n<@ba.info>兩種效果獨立生效，且均無法疊加。</>"
         },
         "maxLevel": {
-          "zh-CN": "自然伤害<@ba.vup>+44.8%</>。\n装备者通过自身连携技造成<#ba.airborne>击飞</>后，全队造成的法术伤害<@ba.vup>+33.6%</>，持续15秒。每有一个被<#ba.airborne>击飞</>的敌人，全队造成的法术伤害额外<@ba.vup>+9.8%</>，最多<@ba.vup>+29.4%</>。\n<@ba.info>同名效果无法叠加。</>",
-          "en": "Nature DMG Dealt <@ba.vup>+44.8%</>.\nAfter the wielder's combo skill applies <#ba.airborne>Lifted</>, the team gains Arts DMG Dealt <@ba.vup>+33.6%</> for 15s. For every enemy <#ba.airborne>Lifted</>, the team gains bonus Arts DMG Dealt <@ba.vup>+9.8%</>, up to a max of <@ba.vup>+29.4%</>.\n<@ba.info>Effects of the same name cannot stack.</>",
-          "ja": "自然ダメージ<@ba.vup>+44.8%</>\n装備中、自身の連携技で敵を<#ba.airborne>浮遊</>させると、15秒間チーム全員のアーツダメージ<@ba.vup>+33.6%</>\n<#ba.airborne>浮遊</>させた敵1体につき、追加でチーム全員のアーツダメージ<@ba.vup>+9.8%</>（最大<@ba.vup>+29.4%</>）\n<@ba.info>同名効果は重ね掛け不可</>",
-          "zh-TW": "自然傷害<@ba.vup>+44.8%</>。\n裝備者透過自身連攜技造成<#ba.airborne>擊飛</>後，全隊造成的法術傷害<@ba.vup>+33.6%</>，持續15秒。每有一個被<#ba.airborne>擊飛</>的敵人，全隊造成的法術傷害額外<@ba.vup>+9.8%</>，最多<@ba.vup>+29.4%</>。\n<@ba.info>同名效果無法疊加。</>"
+          "zh-CN": "物理伤害<@ba.vup>+44.8%</>。\n装备者施加<#ba.physicalvul>物理脆弱</>时，源石技艺强度<@ba.vup>+84</>，持续20秒；装备者造成<#ba.crush>猛击</>时，根据<#ba.consume>消耗</>的最大<#ba.noguard>破防</>层数，使自身物理伤害<@ba.vup>+[25.2%+8.4%×<#ba.consume>消耗</>层数]</>，持续30秒。\n<@ba.info>两种效果独立生效，且均无法叠加。</>",
+          "en": "Physical DMG Dealt <@ba.vup>+44.8%</>.\nWhen the wielder applies <#ba.physicalvul>Physical Susceptibility</>, the wielder gains Arts Intensity <@ba.vup>+84</> for 20s. When the wielder applies <#ba.crush>Crush</>, the wielder gains Physical DMG Dealt <@ba.vup>+[25.2% + (8.4% × Max number of <#ba.noguard>Vulnerability</> stacks <#ba.consume>consumed</> from one enemy)]</> for 30s.\n<@ba.info>The two effects apply separately and do not stack with themselves.</>",
+          "ja": "物理ダメージ<@ba.vup>+44.8%</>\n装備中、自身が敵に<#ba.physicalvul>物理脆弱</>を付与するとき、20秒間アーツ強度<@ba.vup>+84</>\n自身が敵に<#ba.crush>猛撃</>を与えるとき、<#ba.consume>消費</>する最大の<#ba.noguard>クラッシュ</>段階数に応じて、30秒間自身の物理ダメージ<@ba.vup>+[25.2%+8.4%×<#ba.consume>消費</>した段階数]</>\n<@ba.info>2つの効果はそれぞれ存在し、重ね掛け不可</>",
+          "zh-TW": "物理傷害<@ba.vup>+44.8%</>。\n裝備者施加<#ba.physicalvul>物理脆弱</>時，源石技藝強度<@ba.vup>+84</>，持續20秒；裝備者造成<#ba.crush>猛擊</>時，根據<#ba.consume>消耗</>的最大<#ba.noguard>破防</>層數，使自身物理傷害<@ba.vup>+[25.2%+8.4%×<#ba.consume>消耗</>層數]</>，持續30秒。\n<@ba.info>兩種效果獨立生效，且均無法疊加。</>"
         },
         "levelOneLabel": "Lv.1",
         "maxLevelLabel": "Lv.9"
@@ -1515,162 +1339,6 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       }
     ]
   },
-  "wpn_sword_0007": {
-    "stats": [
-      {
-        "levelOne": {
-          "zh-CN": "智识<@ba.vup>+16</>",
-          "en": "Intellect <@ba.vup>+16</>",
-          "ja": "知性<@ba.vup>+16</>",
-          "zh-TW": "智識<@ba.vup>+16</>"
-        },
-        "maxLevel": {
-          "zh-CN": "智识<@ba.vup>+124</>",
-          "en": "Intellect <@ba.vup>+124</>",
-          "ja": "知性<@ba.vup>+124</>",
-          "zh-TW": "智識<@ba.vup>+124</>"
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "zh-CN": "终结技充能效率<@ba.vup>+4.8%</>",
-          "en": "Ultimate Gain Efficiency <@ba.vup>+4.8%</>",
-          "ja": "必殺チャージの回復効率<@ba.vup>+4.8%</>",
-          "zh-TW": "終結技蓄能效率<@ba.vup>+4.8%</>"
-        },
-        "maxLevel": {
-          "zh-CN": "终结技充能效率<@ba.vup>+37.1%</>",
-          "en": "Ultimate Gain Efficiency <@ba.vup>+37.1%</>",
-          "ja": "必殺チャージの回復効率<@ba.vup>+37.1%</>",
-          "zh-TW": "終結技蓄能效率<@ba.vup>+37.1%</>"
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "zh-CN": "攻击力<@ba.vup>+5.0%</>。\n源石技艺强度<@ba.vup>+25</>。",
-          "en": "ATK <@ba.vup>+5.0%</>.\nArts Intensity <@ba.vup>+25</>.",
-          "ja": "攻撃力<@ba.vup>+5.0%</>\nアーツ強度<@ba.vup>+25</>",
-          "zh-TW": "攻擊力<@ba.vup>+5.0%</>。\n源石技藝強度<@ba.vup>+25</>。"
-        },
-        "maxLevel": {
-          "zh-CN": "攻击力<@ba.vup>+14.0%</>。\n源石技艺强度<@ba.vup>+70</>。",
-          "en": "ATK <@ba.vup>+14.0%</>.\nArts Intensity <@ba.vup>+70</>.",
-          "ja": "攻撃力<@ba.vup>+14.0%</>\nアーツ強度<@ba.vup>+70</>",
-          "zh-TW": "攻擊力<@ba.vup>+14.0%</>。\n源石技藝強度<@ba.vup>+70</>。"
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      }
-    ]
-  },
-  "wpn_claym_0017": {
-    "stats": [
-      {
-        "levelOne": {
-          "zh-CN": "力量<@ba.vup>+20</>",
-          "en": "Strength <@ba.vup>+20</>",
-          "ja": "筋力<@ba.vup>+20</>",
-          "zh-TW": "力量<@ba.vup>+20</>"
-        },
-        "maxLevel": {
-          "zh-CN": "力量<@ba.vup>+156</>",
-          "en": "Strength <@ba.vup>+156</>",
-          "ja": "筋力<@ba.vup>+156</>",
-          "zh-TW": "力量<@ba.vup>+156</>"
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "zh-CN": "攻击力<@ba.vup>+5.0%</>",
-          "en": "Attack <@ba.vup>+5.0%</>",
-          "ja": "攻撃力<@ba.vup>+5.0%</>",
-          "zh-TW": "攻擊力<@ba.vup>+5.0%</>"
-        },
-        "maxLevel": {
-          "zh-CN": "攻击力<@ba.vup>+39.0%</>",
-          "en": "Attack <@ba.vup>+39.0%</>",
-          "ja": "攻撃力<@ba.vup>+39.0%</>",
-          "zh-TW": "攻擊力<@ba.vup>+39.0%</>"
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "zh-CN": "物理伤害<@ba.vup>+16.0%</>。\n装备者施加<#ba.physicalvul>物理脆弱</>时，源石技艺强度<@ba.vup>+30</>，持续20秒；装备者造成<#ba.crush>猛击</>时，根据<#ba.consume>消耗</>的最大<#ba.noguard>破防</>层数，使自身物理伤害<@ba.vup>+[9.0%+3.0%×<#ba.consume>消耗</>层数]</>，持续30秒。\n<@ba.info>两种效果独立生效，且均无法叠加。</>",
-          "en": "Physical DMG Dealt <@ba.vup>+16.0%</>.\nWhen the wielder applies <#ba.physicalvul>Physical Susceptibility</>, the wielder gains Arts Intensity <@ba.vup>+30</> for 20s. When the wielder applies <#ba.crush>Crush</>, the wielder gains Physical DMG Dealt <@ba.vup>+[9.0% + (3.0% × Max number of <#ba.noguard>Vulnerability</> stacks <#ba.consume>consumed</> from one enemy)]</> for 30s.\n<@ba.info>The two effects apply separately and do not stack with themselves.</>",
-          "ja": "物理ダメージ<@ba.vup>+16.0%</>\n装備中、自身が敵に<#ba.physicalvul>物理脆弱</>を付与するとき、20秒間アーツ強度<@ba.vup>+30</>\n自身が敵に<#ba.crush>猛撃</>を与えるとき、<#ba.consume>消費</>する最大の<#ba.noguard>クラッシュ</>段階数に応じて、30秒間自身の物理ダメージ<@ba.vup>+[9.0%+3.0%×<#ba.consume>消費</>した段階数]</>\n<@ba.info>2つの効果はそれぞれ存在し、重ね掛け不可</>",
-          "zh-TW": "物理傷害<@ba.vup>+16.0%</>。\n裝備者施加<#ba.physicalvul>物理脆弱</>時，源石技藝強度<@ba.vup>+30</>，持續20秒；裝備者造成<#ba.crush>猛擊</>時，根據<#ba.consume>消耗</>的最大<#ba.noguard>破防</>層數，使自身物理傷害<@ba.vup>+[9.0%+3.0%×<#ba.consume>消耗</>層數]</>，持續30秒。\n<@ba.info>兩種效果獨立生效，且均無法疊加。</>"
-        },
-        "maxLevel": {
-          "zh-CN": "物理伤害<@ba.vup>+44.8%</>。\n装备者施加<#ba.physicalvul>物理脆弱</>时，源石技艺强度<@ba.vup>+84</>，持续20秒；装备者造成<#ba.crush>猛击</>时，根据<#ba.consume>消耗</>的最大<#ba.noguard>破防</>层数，使自身物理伤害<@ba.vup>+[25.2%+8.4%×<#ba.consume>消耗</>层数]</>，持续30秒。\n<@ba.info>两种效果独立生效，且均无法叠加。</>",
-          "en": "Physical DMG Dealt <@ba.vup>+44.8%</>.\nWhen the wielder applies <#ba.physicalvul>Physical Susceptibility</>, the wielder gains Arts Intensity <@ba.vup>+84</> for 20s. When the wielder applies <#ba.crush>Crush</>, the wielder gains Physical DMG Dealt <@ba.vup>+[25.2% + (8.4% × Max number of <#ba.noguard>Vulnerability</> stacks <#ba.consume>consumed</> from one enemy)]</> for 30s.\n<@ba.info>The two effects apply separately and do not stack with themselves.</>",
-          "ja": "物理ダメージ<@ba.vup>+44.8%</>\n装備中、自身が敵に<#ba.physicalvul>物理脆弱</>を付与するとき、20秒間アーツ強度<@ba.vup>+84</>\n自身が敵に<#ba.crush>猛撃</>を与えるとき、<#ba.consume>消費</>する最大の<#ba.noguard>クラッシュ</>段階数に応じて、30秒間自身の物理ダメージ<@ba.vup>+[25.2%+8.4%×<#ba.consume>消費</>した段階数]</>\n<@ba.info>2つの効果はそれぞれ存在し、重ね掛け不可</>",
-          "zh-TW": "物理傷害<@ba.vup>+44.8%</>。\n裝備者施加<#ba.physicalvul>物理脆弱</>時，源石技藝強度<@ba.vup>+84</>，持續20秒；裝備者造成<#ba.crush>猛擊</>時，根據<#ba.consume>消耗</>的最大<#ba.noguard>破防</>層數，使自身物理傷害<@ba.vup>+[25.2%+8.4%×<#ba.consume>消耗</>層數]</>，持續30秒。\n<@ba.info>兩種效果獨立生效，且均無法疊加。</>"
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      }
-    ]
-  },
-  "wpn_lance_0004": {
-    "stats": [
-      {
-        "levelOne": {
-          "zh-CN": "力量<@ba.vup>+16</>",
-          "en": "Strength <@ba.vup>+16</>",
-          "ja": "筋力<@ba.vup>+16</>",
-          "zh-TW": "力量<@ba.vup>+16</>"
-        },
-        "maxLevel": {
-          "zh-CN": "力量<@ba.vup>+124</>",
-          "en": "Strength <@ba.vup>+124</>",
-          "ja": "筋力<@ba.vup>+124</>",
-          "zh-TW": "力量<@ba.vup>+124</>"
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "zh-CN": "终结技充能效率<@ba.vup>+4.8%</>",
-          "en": "Ultimate Gain Efficiency <@ba.vup>+4.8%</>",
-          "ja": "必殺チャージの回復効率<@ba.vup>+4.8%</>",
-          "zh-TW": "終結技蓄能效率<@ba.vup>+4.8%</>"
-        },
-        "maxLevel": {
-          "zh-CN": "终结技充能效率<@ba.vup>+37.1%</>",
-          "en": "Ultimate Gain Efficiency <@ba.vup>+37.1%</>",
-          "ja": "必殺チャージの回復効率<@ba.vup>+37.1%</>",
-          "zh-TW": "終結技蓄能效率<@ba.vup>+37.1%</>"
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "zh-CN": "暴击率<@ba.vup>+3.0%</>。\n装备者对没有<#ba.noguard>破防</>层数的敌人施加<#ba.noguard>破防</>时，获得攻击力<@ba.vup>+15.0%</>，持续15秒。\n<@ba.info>同名效果无法叠加。</>",
-          "en": "Critical Rate <@ba.vup>+3.0%</>.\nWhen the wielder applies <#ba.noguard>Vulnerability</> to an enemy with no <#ba.noguard>Vulnerability</> stacks, the wielder gains ATK <@ba.vup>+15.0%</> for 15s.\n<@ba.info>Effects of the same name cannot stack.</>",
-          "ja": "会心率<@ba.vup>+3.0%</>\n装備中、自身が<#ba.noguard>クラッシュ</>状態でない敵に<#ba.noguard>クラッシュ</>を付与するとき、15秒間攻撃力<@ba.vup>+15.0%</>\n<@ba.info>同名効果は重ね掛け不可</>",
-          "zh-TW": "暴擊率<@ba.vup>+3.0%</>。\n裝備者對沒有<#ba.noguard>破防</>層數的敵人施加<#ba.noguard>破防</>時，獲得攻擊力<@ba.vup>+15.0%</>，持續15秒。\n<@ba.info>同名效果無法疊加。</>"
-        },
-        "maxLevel": {
-          "zh-CN": "暴击率<@ba.vup>+8.4%</>。\n装备者对没有<#ba.noguard>破防</>层数的敌人施加<#ba.noguard>破防</>时，获得攻击力<@ba.vup>+42.0%</>，持续15秒。\n<@ba.info>同名效果无法叠加。</>",
-          "en": "Critical Rate <@ba.vup>+8.4%</>.\nWhen the wielder applies <#ba.noguard>Vulnerability</> to an enemy with no <#ba.noguard>Vulnerability</> stacks, the wielder gains ATK <@ba.vup>+42.0%</> for 15s.\n<@ba.info>Effects of the same name cannot stack.</>",
-          "ja": "会心率<@ba.vup>+8.4%</>\n装備中、自身が<#ba.noguard>クラッシュ</>状態でない敵に<#ba.noguard>クラッシュ</>を付与するとき、15秒間攻撃力<@ba.vup>+42.0%</>\n<@ba.info>同名効果は重ね掛け不可</>",
-          "zh-TW": "暴擊率<@ba.vup>+8.4%</>。\n裝備者對沒有<#ba.noguard>破防</>層數的敵人施加<#ba.noguard>破防</>時，獲得攻擊力<@ba.vup>+42.0%</>，持續15秒。\n<@ba.info>同名效果無法疊加。</>"
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      }
-    ]
-  },
   "wpn_lance_0013": {
     "stats": [
       {
@@ -1717,58 +1385,6 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
           "en": "To enemies with <#ba.crystinflict>Cryo Infliction</> or <#ba.frozen>Solidification</>, the wielder gains DMG Dealt <@ba.vup>+22.4%</>. After <#ba.consume>consuming</> <#ba.frozen>Solidification</>, ATK <@ba.vup>+33.6%</> for 15s.\n<@ba.info>Effects of the same name cannot stack.</>",
           "ja": "装備中、自身の<#ba.crystinflict>寒冷付着</>と<#ba.frozen>凍結</>状態の敵へのダメージ<@ba.vup>+22.4%</>\n<#ba.frozen>凍結</>状態を<#ba.consume>消費</>すると、15秒間攻撃力<@ba.vup>+33.6%</>\n<@ba.info>同名効果は重ね掛け不可</>",
           "zh-TW": "裝備者對處於<#ba.crystinflict>寒冷附著</>和<#ba.frozen>凍結</>狀態的敵人造成的傷害<@ba.vup>+22.4%</>；<#ba.consume>消耗</><#ba.frozen>凍結</>後，攻擊力<@ba.vup>+33.6%</>，持續15秒。\n<@ba.info>同名效果無法疊加。</>"
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      }
-    ]
-  },
-  "wpn_sword_0008": {
-    "stats": [
-      {
-        "levelOne": {
-          "zh-CN": "敏捷<@ba.vup>+12</>",
-          "en": "Agility <@ba.vup>+12</>",
-          "ja": "敏捷<@ba.vup>+12</>",
-          "zh-TW": "敏捷<@ba.vup>+12</>"
-        },
-        "maxLevel": {
-          "zh-CN": "敏捷<@ba.vup>+93</>",
-          "en": "Agility <@ba.vup>+93</>",
-          "ja": "敏捷<@ba.vup>+93</>",
-          "zh-TW": "敏捷<@ba.vup>+93</>"
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "zh-CN": "物理伤害<@ba.vup>+3.3%</>",
-          "en": "Physical DMG Dealt <@ba.vup>+3.3%</>",
-          "ja": "物理ダメージ<@ba.vup>+3.3%</>",
-          "zh-TW": "物理傷害<@ba.vup>+3.3%</>"
-        },
-        "maxLevel": {
-          "zh-CN": "物理伤害<@ba.vup>+26.0%</>",
-          "en": "Physical DMG Dealt <@ba.vup>+26.0%</>",
-          "ja": "物理ダメージ<@ba.vup>+26.0%</>",
-          "zh-TW": "物理傷害<@ba.vup>+26.0%</>"
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "zh-CN": "装备者的战技命中敌人时，获得攻击力<@ba.vup>+12.0%</>，持续20秒。\n<@ba.info>同名效果无法叠加。</>",
-          "en": "When the wielder's battle skill hits the enemy, the wielder gains ATK <@ba.vup>+12.0%</> for 20s.\n<@ba.info>Effects of the same name cannot stack. </>",
-          "ja": "装備中、自身の戦技が敵に命中するとき、20秒間攻撃力<@ba.vup>+12.0%</>\n<@ba.info>同名効果は重ね掛け不可</>",
-          "zh-TW": "裝備者的戰技命中敵人時，獲得攻擊力<@ba.vup>+12.0%</>，持續20秒。\n<@ba.info>同名效果無法疊加。</>"
-        },
-        "maxLevel": {
-          "zh-CN": "装备者的战技命中敌人时，获得攻击力<@ba.vup>+33.6%</>，持续20秒。\n<@ba.info>同名效果无法叠加。</>",
-          "en": "When the wielder's battle skill hits the enemy, the wielder gains ATK <@ba.vup>+33.6%</> for 20s.\n<@ba.info>Effects of the same name cannot stack. </>",
-          "ja": "装備中、自身の戦技が敵に命中するとき、20秒間攻撃力<@ba.vup>+33.6%</>\n<@ba.info>同名効果は重ね掛け不可</>",
-          "zh-TW": "裝備者的戰技命中敵人時，獲得攻擊力<@ba.vup>+33.6%</>，持續20秒。\n<@ba.info>同名效果無法疊加。</>"
         },
         "levelOneLabel": "Lv.1",
         "maxLevelLabel": "Lv.9"
@@ -1827,72 +1443,20 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       }
     ]
   },
-  "wpn_lance_0006": {
+  "wpn_sword_0016": {
     "stats": [
       {
         "levelOne": {
-          "zh-CN": "意志<@ba.vup>+16</>",
-          "en": "Will <@ba.vup>+16</>",
-          "ja": "意志<@ba.vup>+16</>",
-          "zh-TW": "意志<@ba.vup>+16</>"
+          "zh-CN": "意志<@ba.vup>+20</>",
+          "en": "Will <@ba.vup>+20</>",
+          "ja": "意志<@ba.vup>+20</>",
+          "zh-TW": "意志<@ba.vup>+20</>"
         },
         "maxLevel": {
-          "zh-CN": "意志<@ba.vup>+124</>",
-          "en": "Will <@ba.vup>+124</>",
-          "ja": "意志<@ba.vup>+124</>",
-          "zh-TW": "意志<@ba.vup>+124</>"
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "zh-CN": "电磁伤害<@ba.vup>+4.4%</>",
-          "en": "Electric DMG Dealt <@ba.vup>+4.4%</>",
-          "ja": "電磁ダメージ<@ba.vup>+4.4%</>",
-          "zh-TW": "電磁傷害<@ba.vup>+4.4%</>"
-        },
-        "maxLevel": {
-          "zh-CN": "电磁伤害<@ba.vup>+34.7%</>",
-          "en": "Electric DMG Dealt <@ba.vup>+34.7%</>",
-          "ja": "電磁ダメージ<@ba.vup>+34.7%</>",
-          "zh-TW": "電磁傷害<@ba.vup>+34.7%</>"
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "zh-CN": "连携技伤害<@ba.vup>+10.0%</>。\n装备者施放连携技时，30秒内的下次战技期间造成的电磁伤害<@ba.vup>+10.0%</>。\n<@ba.info>同名效果最多叠加3层，每层单独计算持续时间。</>",
-          "en": "Combo Skill DMG Dealt <@ba.vup>+10.0%</>.\nWhen the wielder casts a combo skill, during the next battle skill cast within 30s, the wielder gains Electric DMG Dealt <@ba.vup>+10.0%</>.\n<@ba.info>Max stacks for effects of the same name: 3. Duration of each stack is counted separately.</>",
-          "ja": "連携技ダメージ<@ba.vup>+10.0%</>\n装備中、自身が連携技を発動するとき、30秒間次の戦技発動中に与える電磁ダメージ<@ba.vup>+10.0%</>\n<@ba.info>同名効果は3回まで重ね掛け可能\n効果の持続時間は個別にカウントされる</>",
-          "zh-TW": "連攜技傷害<@ba.vup>+10.0%</>。\n裝備者施放連攜技時，30秒內的下次戰技期間造成的電磁傷害<@ba.vup>+10.0%</>。\n<@ba.info>同名效果最多疊加3層，每層單獨計算持續時間。</>"
-        },
-        "maxLevel": {
-          "zh-CN": "连携技伤害<@ba.vup>+28.0%</>。\n装备者施放连携技时，30秒内的下次战技期间造成的电磁伤害<@ba.vup>+28.0%</>。\n<@ba.info>同名效果最多叠加3层，每层单独计算持续时间。</>",
-          "en": "Combo Skill DMG Dealt <@ba.vup>+28.0%</>.\nWhen the wielder casts a combo skill, during the next battle skill cast within 30s, the wielder gains Electric DMG Dealt <@ba.vup>+28.0%</>.\n<@ba.info>Max stacks for effects of the same name: 3. Duration of each stack is counted separately.</>",
-          "ja": "連携技ダメージ<@ba.vup>+28.0%</>\n装備中、自身が連携技を発動するとき、30秒間次の戦技発動中に与える電磁ダメージ<@ba.vup>+28.0%</>\n<@ba.info>同名効果は3回まで重ね掛け可能\n効果の持続時間は個別にカウントされる</>",
-          "zh-TW": "連攜技傷害<@ba.vup>+28.0%</>。\n裝備者施放連攜技時，30秒內的下次戰技期間造成的電磁傷害<@ba.vup>+28.0%</>。\n<@ba.info>同名效果最多疊加3層，每層單獨計算持續時間。</>"
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      }
-    ]
-  },
-  "wpn_lance_0011": {
-    "stats": [
-      {
-        "levelOne": {
-          "zh-CN": "主能力值<@ba.vup>+17</>",
-          "en": "Main attribute <@ba.vup>+17</>",
-          "ja": "メイン能力値<@ba.vup>+17</>",
-          "zh-TW": "主能力值<@ba.vup>+17</>"
-        },
-        "maxLevel": {
-          "zh-CN": "主能力值<@ba.vup>+132</>",
-          "en": "Main attribute <@ba.vup>+132</>",
-          "ja": "メイン能力値<@ba.vup>+132</>",
-          "zh-TW": "主能力值<@ba.vup>+132</>"
+          "zh-CN": "意志<@ba.vup>+156</>",
+          "en": "Will <@ba.vup>+156</>",
+          "ja": "意志<@ba.vup>+156</>",
+          "zh-TW": "意志<@ba.vup>+156</>"
         },
         "levelOneLabel": "Lv.1",
         "maxLevelLabel": "Lv.9"
@@ -1900,13 +1464,13 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       {
         "levelOne": {
           "zh-CN": "攻击力<@ba.vup>+5.0%</>",
-          "en": "Attack <@ba.vup>+5.0%</>",
+          "en": "ATK <@ba.vup>+5.0%</>",
           "ja": "攻撃力<@ba.vup>+5.0%</>",
           "zh-TW": "攻擊力<@ba.vup>+5.0%</>"
         },
         "maxLevel": {
           "zh-CN": "攻击力<@ba.vup>+39.0%</>",
-          "en": "Attack <@ba.vup>+39.0%</>",
+          "en": "ATK <@ba.vup>+39.0%</>",
           "ja": "攻撃力<@ba.vup>+39.0%</>",
           "zh-TW": "攻擊力<@ba.vup>+39.0%</>"
         },
@@ -1915,16 +1479,16 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       },
       {
         "levelOne": {
-          "zh-CN": "法术伤害<@ba.vup>+12.0%</>。\n装备者施放战技时，获得法术伤害<@ba.vup>+12.0%</>，持续15秒；装备者施放连携技时，获得法术伤害<@ba.vup>+12.0%</>，持续15秒。\n<@ba.info>两种效果独立生效，且均无法叠加。</>",
-          "en": "Arts DMG Dealt <@ba.vup>+12.0%</>.\nWhen the wielder casts a battle skill, the wielder gains Arts DMG Dealt <@ba.vup>+12.0%</> for 15s. When the wielder casts a combo skill, Arts DMG Dealt <@ba.vup>+12.0%</> for 15s.\n<@ba.info>The two effects apply separately and do not stack with themselves.</>",
-          "ja": "アーツダメージ<@ba.vup>+12.0%</>\n装備中、自身の戦技を発動するとき、15秒間アーツダメージ<@ba.vup>+12.0%</>\n連携技を発動するとき、15秒間アーツダメージ<@ba.vup>+12.0%</>\n<@ba.info>2つの効果はそれぞれ存在し、重ね掛け不可</>",
-          "zh-TW": "法術傷害<@ba.vup>+12.0%</>。\n裝備者施放戰技時，獲得法術傷害<@ba.vup>+12.0%</>，持續15秒；裝備者施放連攜技時，獲得法術傷害<@ba.vup>+12.0%</>，持續15秒。\n<@ba.info>兩種效果獨立生效，且均無法疊加。</>"
+          "zh-CN": "物理伤害<@ba.vup>+16.0%</>。\n装备者通过自身技能恢复技力后，自身造成的物理伤害<@ba.vup>+5.0%</>，小队内其他干员造成的物理伤害<@ba.vup>+2.5%</>，持续30秒。\n<@ba.info>同名效果最多叠加5层，每层单独计算持续时间，每0.1秒最多触发一次。</>",
+          "en": "Physical DMG Dealt <@ba.vup>+16.0%</>.\nAfter the wielder's skill recovers SP, the wielder gains Physical DMG Dealt <@ba.vup>+5.0%</> while other operators in the team gain Physical DMG Dealt <@ba.vup>+2.5%</> for 30s.\n<@ba.info>Max stacks for effects of the same name: 5. Duration of each stack is counted separately. Effect only triggers once every 0.1s.</>",
+          "ja": "物理ダメージ<@ba.vup>+16.0%</>\n装備中、自身のスキルでSPを回復すると、30秒間自身の物理ダメージ<@ba.vup>+5.0%</>、チーム内の他のオペレーターの物理ダメージ<@ba.vup>+2.5%</>\n<@ba.info>同名効果は5回まで重ね掛け可能\n効果の持続時間は個別にカウントされ、0.1秒に1回まで発動可能</>",
+          "zh-TW": "物理傷害<@ba.vup>+16.0%</>。\n裝備者透過自身技能回復技力後，自身造成的物理傷害<@ba.vup>+5.0%</>，小隊內其他幹員造成的物理傷害<@ba.vup>+2.5%</>，持續30秒。\n<@ba.info>同名效果最多疊加5層，每層單獨計算持續時間，每0.1秒最多觸發一次。</>"
         },
         "maxLevel": {
-          "zh-CN": "法术伤害<@ba.vup>+33.6%</>。\n装备者施放战技时，获得法术伤害<@ba.vup>+33.6%</>，持续15秒；装备者施放连携技时，获得法术伤害<@ba.vup>+33.6%</>，持续15秒。\n<@ba.info>两种效果独立生效，且均无法叠加。</>",
-          "en": "Arts DMG Dealt <@ba.vup>+33.6%</>.\nWhen the wielder casts a battle skill, the wielder gains Arts DMG Dealt <@ba.vup>+33.6%</> for 15s. When the wielder casts a combo skill, Arts DMG Dealt <@ba.vup>+33.6%</> for 15s.\n<@ba.info>The two effects apply separately and do not stack with themselves.</>",
-          "ja": "アーツダメージ<@ba.vup>+33.6%</>\n装備中、自身の戦技を発動するとき、15秒間アーツダメージ<@ba.vup>+33.6%</>\n連携技を発動するとき、15秒間アーツダメージ<@ba.vup>+33.6%</>\n<@ba.info>2つの効果はそれぞれ存在し、重ね掛け不可</>",
-          "zh-TW": "法術傷害<@ba.vup>+33.6%</>。\n裝備者施放戰技時，獲得法術傷害<@ba.vup>+33.6%</>，持續15秒；裝備者施放連攜技時，獲得法術傷害<@ba.vup>+33.6%</>，持續15秒。\n<@ba.info>兩種效果獨立生效，且均無法疊加。</>"
+          "zh-CN": "物理伤害<@ba.vup>+44.8%</>。\n装备者通过自身技能恢复技力后，自身造成的物理伤害<@ba.vup>+14.0%</>，小队内其他干员造成的物理伤害<@ba.vup>+7.0%</>，持续30秒。\n<@ba.info>同名效果最多叠加5层，每层单独计算持续时间，每0.1秒最多触发一次。</>",
+          "en": "Physical DMG Dealt <@ba.vup>+44.8%</>.\nAfter the wielder's skill recovers SP, the wielder gains Physical DMG Dealt <@ba.vup>+14.0%</> while other operators in the team gain Physical DMG Dealt <@ba.vup>+7.0%</> for 30s.\n<@ba.info>Max stacks for effects of the same name: 5. Duration of each stack is counted separately. Effect only triggers once every 0.1s.</>",
+          "ja": "物理ダメージ<@ba.vup>+44.8%</>\n装備中、自身のスキルでSPを回復すると、30秒間自身の物理ダメージ<@ba.vup>+14.0%</>、チーム内の他のオペレーターの物理ダメージ<@ba.vup>+7.0%</>\n<@ba.info>同名効果は5回まで重ね掛け可能\n効果の持続時間は個別にカウントされ、0.1秒に1回まで発動可能</>",
+          "zh-TW": "物理傷害<@ba.vup>+44.8%</>。\n裝備者透過自身技能回復技力後，自身造成的物理傷害<@ba.vup>+14.0%</>，小隊內其他幹員造成的物理傷害<@ba.vup>+7.0%</>，持續30秒。\n<@ba.info>同名效果最多疊加5層，每層單獨計算持續時間，每0.1秒最多觸發一次。</>"
         },
         "levelOneLabel": "Lv.1",
         "maxLevelLabel": "Lv.9"
@@ -1967,58 +1531,6 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       }
     ]
   },
-  "wpn_sword_0020": {
-    "stats": [
-      {
-        "levelOne": {
-          "zh-CN": "力量<@ba.vup>+16</>",
-          "en": "Strength <@ba.vup>+16</>",
-          "ja": "筋力<@ba.vup>+16</>",
-          "zh-TW": "力量<@ba.vup>+16</>"
-        },
-        "maxLevel": {
-          "zh-CN": "力量<@ba.vup>+124</>",
-          "en": "Strength <@ba.vup>+124</>",
-          "ja": "筋力<@ba.vup>+124</>",
-          "zh-TW": "力量<@ba.vup>+124</>"
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "zh-CN": "寒冷伤害<@ba.vup>+4.4%</>",
-          "en": "Cryo DMG Dealt <@ba.vup>+4.4%</>",
-          "ja": "寒冷ダメージ<@ba.vup>+4.4%</>",
-          "zh-TW": "寒冷傷害<@ba.vup>+4.4%</>"
-        },
-        "maxLevel": {
-          "zh-CN": "寒冷伤害<@ba.vup>+34.7%</>",
-          "en": "Cryo DMG Dealt <@ba.vup>+34.7%</>",
-          "ja": "寒冷ダメージ<@ba.vup>+34.7%</>",
-          "zh-TW": "寒冷傷害<@ba.vup>+34.7%</>"
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "zh-CN": "攻击力<@ba.vup>+5.0%</>。\n装备者通过战技施加<#ba.frozen>冻结</>时，使目标敌人受到的寒冷伤害<@ba.vup>+7.0%</>，持续15秒。\n<@ba.info>同名效果无法叠加。</>",
-          "en": "ATK <@ba.vup>+5.0%</>.\nWhen the wielder's battle skill applies <#ba.frozen>Solidification</>, target enemy suffers Cryo DMG Taken <@ba.vup>+7.0%</> for 15s.\n<@ba.info>Effects of the same name cannot stack.</>",
-          "ja": "攻撃力<@ba.vup>+5.0%</>\n装備中、自身が戦技で敵を<#ba.frozen>凍結</>状態にするとき、15秒間その敵の受ける寒冷ダメージ<@ba.vup>+7.0%</>\n<@ba.info>同名効果は重ね掛け不可</>",
-          "zh-TW": "攻擊力<@ba.vup>+5.0%</>。\n裝備者透過戰技施加<#ba.frozen>凍結</>時，使目標敵人受到的寒冷傷害<@ba.vup>+7.0%</>，持續15秒。\n<@ba.info>同名效果無法疊加。</>"
-        },
-        "maxLevel": {
-          "zh-CN": "攻击力<@ba.vup>+14.0%</>。\n装备者通过战技施加<#ba.frozen>冻结</>时，使目标敌人受到的寒冷伤害<@ba.vup>+19.6%</>，持续15秒。\n<@ba.info>同名效果无法叠加。</>",
-          "en": "ATK <@ba.vup>+14.0%</>.\nWhen the wielder's battle skill applies <#ba.frozen>Solidification</>, target enemy suffers Cryo DMG Taken <@ba.vup>+19.6%</> for 15s.\n<@ba.info>Effects of the same name cannot stack.</>",
-          "ja": "攻撃力<@ba.vup>+14.0%</>\n装備中、自身が戦技で敵を<#ba.frozen>凍結</>状態にするとき、15秒間その敵の受ける寒冷ダメージ<@ba.vup>+19.6%</>\n<@ba.info>同名効果は重ね掛け不可</>",
-          "zh-TW": "攻擊力<@ba.vup>+14.0%</>。\n裝備者透過戰技施加<#ba.frozen>凍結</>時，使目標敵人受到的寒冷傷害<@ba.vup>+19.6%</>，持續15秒。\n<@ba.info>同名效果無法疊加。</>"
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      }
-    ]
-  },
   "wpn_funnel_0003": {
     "stats": [
       {
@@ -2040,13 +1552,13 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       {
         "levelOne": {
           "zh-CN": "攻击力<@ba.vup>+3.0%</>",
-          "en": "Attack <@ba.vup>+3.0%</>",
+          "en": "ATK <@ba.vup>+3.0%</>",
           "ja": "攻撃力<@ba.vup>+3.0%</>",
           "zh-TW": "攻擊力<@ba.vup>+3.0%</>"
         },
         "maxLevel": {
           "zh-CN": "攻击力<@ba.vup>+23.4%</>",
-          "en": "Attack <@ba.vup>+23.4%</>",
+          "en": "ATK <@ba.vup>+23.4%</>",
           "ja": "攻撃力<@ba.vup>+23.4%</>",
           "zh-TW": "攻擊力<@ba.vup>+23.4%</>"
         },
@@ -2123,6 +1635,58 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       }
     ]
   },
+  "wpn_lance_0008": {
+    "stats": [
+      {
+        "levelOne": {
+          "zh-CN": "意志<@ba.vup>+12</>",
+          "en": "Will <@ba.vup>+12</>",
+          "ja": "意志<@ba.vup>+12</>",
+          "zh-TW": "意志<@ba.vup>+12</>"
+        },
+        "maxLevel": {
+          "zh-CN": "意志<@ba.vup>+93</>",
+          "en": "Will <@ba.vup>+93</>",
+          "ja": "意志<@ba.vup>+93</>",
+          "zh-TW": "意志<@ba.vup>+93</>"
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "zh-CN": "法术伤害<@ba.vup>+3.3%</>",
+          "en": "Arts DMG Dealt <@ba.vup>+3.3%</>",
+          "ja": "アーツダメージ<@ba.vup>+3.3%</>",
+          "zh-TW": "法術傷害<@ba.vup>+3.3%</>"
+        },
+        "maxLevel": {
+          "zh-CN": "法术伤害<@ba.vup>+26.0%</>",
+          "en": "Arts DMG Dealt <@ba.vup>+26.0%</>",
+          "ja": "アーツダメージ<@ba.vup>+26.0%</>",
+          "zh-TW": "法術傷害<@ba.vup>+26.0%</>"
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "zh-CN": "装备者的战技命中敌人时，获得攻击力<@ba.vup>+12.0%</>，持续20秒。\n<@ba.info>同名效果无法叠加。</>",
+          "en": "When the wielder's battle skill hits the enemy, the wielder gains ATK <@ba.vup>+12.0%</> for 20s.\n<@ba.info>Effects of the same name cannot stack. </>",
+          "ja": "装備中、自身の戦技が敵に命中するとき、20秒間攻撃力<@ba.vup>+12.0%</>\n<@ba.info>同名効果は重ね掛け不可</>",
+          "zh-TW": "裝備者的戰技命中敵人時，獲得攻擊力<@ba.vup>+12.0%</>，持續20秒。\n<@ba.info>同名效果無法疊加。</>"
+        },
+        "maxLevel": {
+          "zh-CN": "装备者的战技命中敌人时，获得攻击力<@ba.vup>+33.6%</>，持续20秒。\n<@ba.info>同名效果无法叠加。</>",
+          "en": "When the wielder's battle skill hits the enemy, the wielder gains ATK <@ba.vup>+33.6%</> for 20s.\n<@ba.info>Effects of the same name cannot stack. </>",
+          "ja": "装備中、自身の戦技が敵に命中するとき、20秒間攻撃力<@ba.vup>+33.6%</>\n<@ba.info>同名効果は重ね掛け不可</>",
+          "zh-TW": "裝備者的戰技命中敵人時，獲得攻擊力<@ba.vup>+33.6%</>，持續20秒。\n<@ba.info>同名效果無法疊加。</>"
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
   "wpn_funnel_0005": {
     "stats": [
       {
@@ -2144,13 +1708,13 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       {
         "levelOne": {
           "zh-CN": "攻击力<@ba.vup>+4.0%</>",
-          "en": "Attack <@ba.vup>+4.0%</>",
+          "en": "ATK <@ba.vup>+4.0%</>",
           "ja": "攻撃力<@ba.vup>+4.0%</>",
           "zh-TW": "攻擊力<@ba.vup>+4.0%</>"
         },
         "maxLevel": {
           "zh-CN": "攻击力<@ba.vup>+31.2%</>",
-          "en": "Attack <@ba.vup>+31.2%</>",
+          "en": "ATK <@ba.vup>+31.2%</>",
           "ja": "攻撃力<@ba.vup>+31.2%</>",
           "zh-TW": "攻擊力<@ba.vup>+31.2%</>"
         },
@@ -2175,52 +1739,52 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       }
     ]
   },
-  "wpn_sword_0010": {
+  "wpn_funnel_0006": {
     "stats": [
       {
         "levelOne": {
-          "zh-CN": "智识<@ba.vup>+20</>",
-          "en": "Intellect <@ba.vup>+20</>",
-          "ja": "知性<@ba.vup>+20</>",
-          "zh-TW": "智識<@ba.vup>+20</>"
+          "zh-CN": "意志<@ba.vup>+20</>",
+          "en": "Will <@ba.vup>+20</>",
+          "ja": "意志<@ba.vup>+20</>",
+          "zh-TW": "意志<@ba.vup>+20</>"
         },
         "maxLevel": {
-          "zh-CN": "智识<@ba.vup>+156</>",
-          "en": "Intellect <@ba.vup>+156</>",
-          "ja": "知性<@ba.vup>+156</>",
-          "zh-TW": "智識<@ba.vup>+156</>"
+          "zh-CN": "意志<@ba.vup>+156</>",
+          "en": "Will <@ba.vup>+156</>",
+          "ja": "意志<@ba.vup>+156</>",
+          "zh-TW": "意志<@ba.vup>+156</>"
         },
         "levelOneLabel": "Lv.1",
         "maxLevelLabel": "Lv.9"
       },
       {
         "levelOne": {
-          "zh-CN": "灼热伤害<@ba.vup>+5.6%</>",
-          "en": "Heat DMG Dealt <@ba.vup>+5.6%</>",
-          "ja": "灼熱ダメージ<@ba.vup>+5.6%</>",
-          "zh-TW": "灼熱傷害<@ba.vup>+5.6%</>"
+          "zh-CN": "自然伤害<@ba.vup>+5.6%</>",
+          "en": "Nature DMG Dealt <@ba.vup>+5.6%</>",
+          "ja": "自然ダメージ<@ba.vup>+5.6%</>",
+          "zh-TW": "自然傷害<@ba.vup>+5.6%</>"
         },
         "maxLevel": {
-          "zh-CN": "灼热伤害<@ba.vup>+43.3%</>",
-          "en": "Heat DMG Dealt <@ba.vup>+43.3%</>",
-          "ja": "灼熱ダメージ<@ba.vup>+43.3%</>",
-          "zh-TW": "灼熱傷害<@ba.vup>+43.3%</>"
+          "zh-CN": "自然伤害<@ba.vup>+43.3%</>",
+          "en": "Nature DMG Dealt <@ba.vup>+43.3%</>",
+          "ja": "自然ダメージ<@ba.vup>+43.3%</>",
+          "zh-TW": "自然傷害<@ba.vup>+43.3%</>"
         },
         "levelOneLabel": "Lv.1",
         "maxLevelLabel": "Lv.9"
       },
       {
         "levelOne": {
-          "zh-CN": "攻击力<@ba.vup>+7.0%</>。\n场上每有一个敌人被施加<#ba.burning>燃烧</>或<#ba.corrupt>腐蚀</>状态时，装备者获得灼热和自然伤害<@ba.vup>+8.0%</>，持续20秒。\n<@ba.info>同名效果最多叠加2层，每层单独计算持续时间，每0.1秒最多触发一次。</>",
-          "en": "ATK <@ba.vup>+7.0%</>.\nWhenever <#ba.burning>Combustion</> or <#ba.corrupt>Corrosion</> is applied to an enemy, the wielder gains Heat and Nature DMG Dealt <@ba.vup>+8.0%</> for 20s.\n<@ba.info>Max stacks for effects of the same name: 2. Duration of each stack is counted separately. Effect only triggers once every 0.1s.</>",
-          "ja": "攻撃力<@ba.vup>+7.0%</>\n戦闘中、<#ba.burning>燃焼</>または<#ba.corrupt>腐食</>状態の敵1体につき、20秒間自身の灼熱ダメージと自然ダメージ<@ba.vup>+8.0%</>\n<@ba.info>同名効果は2回まで重ね掛け可能\n効果の持続時間は個別にカウントされ、0.1秒に1回まで発動可能</>",
-          "zh-TW": "攻擊力<@ba.vup>+7.0%</>。\n場上每有一個敵人被施加<#ba.burning>燃燒</>或<#ba.corrupt>腐蝕</>狀態時，裝備者獲得灼熱和自然傷害<@ba.vup>+8.0%</>，持續20秒。\n<@ba.info>同名效果最多疊加2層，每層單獨計算持續時間，每0.1秒最多觸發一次。</>"
+          "zh-CN": "攻击力<@ba.vup>+7.0%</>。\n装备者通过战技施加<#ba.naturalinflict>自然附着</>时，小队内其他干员获得法术伤害<@ba.vup>+5.0%</>，持续15秒。每有一个被<#ba.naturalinflict>自然附着</>的敌人，小队内其他干员获得法术伤害额外<@ba.vup>+2.0%</>，最多<@ba.vup>+6.0%</>。\n<@ba.info>同名效果无法叠加。</>",
+          "en": "ATK <@ba.vup>+7.0%</>.\nWhen the wielder's battle skill applies <#ba.naturalinflict>Nature Infliction</>, other operators in the team gain Arts DMG Dealt <@ba.vup>+5.0%</> for 15s. For every enemy suffering from <#ba.naturalinflict>Nature Infliction</> applied by the said battle skill, other operators in the team gain bonus Arts DMG Dealt <@ba.vup>+2.0%</>, up to a max of <@ba.vup>+6.0%</>.\n<@ba.info>Effects of the same name cannot stack.</>",
+          "ja": "攻撃力<@ba.vup>+7.0%</>\n装備中、自身の戦技で<#ba.naturalinflict>自然付着</>を付与するとき、15秒間チーム内の他のオペレーターのアーツダメージ<@ba.vup>+5.0%</>\n<#ba.naturalinflict>自然付着</>状態の敵1体につき、追加でチーム内の他のオペレーターのアーツダメージ<@ba.vup>+2.0%</>（最大<@ba.vup>+6.0%</>）\n<@ba.info>同名効果は重ね掛け不可</>",
+          "zh-TW": "攻擊力<@ba.vup>+7.0%</>。\n裝備者透過戰技施加<#ba.naturalinflict>自然附著</>時，小隊內其他幹員獲得法術傷害<@ba.vup>+5.0%</>，持續15秒。每有一個被<#ba.naturalinflict>自然附著</>的敵人，小隊內其他幹員獲得法術傷害額外<@ba.vup>+2.0%</>，最多<@ba.vup>+6.0%</>。\n<@ba.info>同名效果無法疊加。</>"
         },
         "maxLevel": {
-          "zh-CN": "攻击力<@ba.vup>+19.6%</>。\n场上每有一个敌人被施加<#ba.burning>燃烧</>或<#ba.corrupt>腐蚀</>状态时，装备者获得灼热和自然伤害<@ba.vup>+22.4%</>，持续20秒。\n<@ba.info>同名效果最多叠加2层，每层单独计算持续时间，每0.1秒最多触发一次。</>",
-          "en": "ATK <@ba.vup>+19.6%</>.\nWhenever <#ba.burning>Combustion</> or <#ba.corrupt>Corrosion</> is applied to an enemy, the wielder gains Heat and Nature DMG Dealt <@ba.vup>+22.4%</> for 20s.\n<@ba.info>Max stacks for effects of the same name: 2. Duration of each stack is counted separately. Effect only triggers once every 0.1s.</>",
-          "ja": "攻撃力<@ba.vup>+19.6%</>\n戦闘中、<#ba.burning>燃焼</>または<#ba.corrupt>腐食</>状態の敵1体につき、20秒間自身の灼熱ダメージと自然ダメージ<@ba.vup>+22.4%</>\n<@ba.info>同名効果は2回まで重ね掛け可能\n効果の持続時間は個別にカウントされ、0.1秒に1回まで発動可能</>",
-          "zh-TW": "攻擊力<@ba.vup>+19.6%</>。\n場上每有一個敵人被施加<#ba.burning>燃燒</>或<#ba.corrupt>腐蝕</>狀態時，裝備者獲得灼熱和自然傷害<@ba.vup>+22.4%</>，持續20秒。\n<@ba.info>同名效果最多疊加2層，每層單獨計算持續時間，每0.1秒最多觸發一次。</>"
+          "zh-CN": "攻击力<@ba.vup>+19.6%</>。\n装备者通过战技施加<#ba.naturalinflict>自然附着</>时，小队内其他干员获得法术伤害<@ba.vup>+14.0%</>，持续15秒。每有一个被<#ba.naturalinflict>自然附着</>的敌人，小队内其他干员获得法术伤害额外<@ba.vup>+5.6%</>，最多<@ba.vup>+16.8%</>。\n<@ba.info>同名效果无法叠加。</>",
+          "en": "ATK <@ba.vup>+19.6%</>.\nWhen the wielder's battle skill applies <#ba.naturalinflict>Nature Infliction</>, other operators in the team gain Arts DMG Dealt <@ba.vup>+14.0%</> for 15s. For every enemy suffering from <#ba.naturalinflict>Nature Infliction</> applied by the said battle skill, other operators in the team gain bonus Arts DMG Dealt <@ba.vup>+5.6%</>, up to a max of <@ba.vup>+16.8%</>.\n<@ba.info>Effects of the same name cannot stack.</>",
+          "ja": "攻撃力<@ba.vup>+19.6%</>\n装備中、自身の戦技で<#ba.naturalinflict>自然付着</>を付与するとき、15秒間チーム内の他のオペレーターのアーツダメージ<@ba.vup>+14.0%</>\n<#ba.naturalinflict>自然付着</>状態の敵1体につき、追加でチーム内の他のオペレーターのアーツダメージ<@ba.vup>+5.6%</>（最大<@ba.vup>+16.8%</>）\n<@ba.info>同名効果は重ね掛け不可</>",
+          "zh-TW": "攻擊力<@ba.vup>+19.6%</>。\n裝備者透過戰技施加<#ba.naturalinflict>自然附著</>時，小隊內其他幹員獲得法術傷害<@ba.vup>+14.0%</>，持續15秒。每有一個被<#ba.naturalinflict>自然附著</>的敵人，小隊內其他幹員獲得法術傷害額外<@ba.vup>+5.6%</>，最多<@ba.vup>+16.8%</>。\n<@ba.info>同名效果無法疊加。</>"
         },
         "levelOneLabel": "Lv.1",
         "maxLevelLabel": "Lv.9"
@@ -2279,111 +1843,59 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       }
     ]
   },
-  "wpn_pistol_0009": {
+  "wpn_funnel_0010": {
     "stats": [
       {
         "levelOne": {
-          "zh-CN": "主能力值<@ba.vup>+17</>",
-          "en": "Main attribute <@ba.vup>+17</>",
-          "ja": "メイン能力値<@ba.vup>+17</>",
-          "zh-TW": "主能力值<@ba.vup>+17</>"
+          "zh-CN": "意志<@ba.vup>+20</>",
+          "en": "Will <@ba.vup>+20</>",
+          "ja": "意志<@ba.vup>+20</>",
+          "zh-TW": "意志<@ba.vup>+20</>"
         },
         "maxLevel": {
-          "zh-CN": "主能力值<@ba.vup>+132</>",
-          "en": "Main attribute <@ba.vup>+132</>",
-          "ja": "メイン能力値<@ba.vup>+132</>",
-          "zh-TW": "主能力值<@ba.vup>+132</>"
+          "zh-CN": "意志<@ba.vup>+156</>",
+          "en": "Will <@ba.vup>+156</>",
+          "ja": "意志<@ba.vup>+156</>",
+          "zh-TW": "意志<@ba.vup>+156</>"
         },
         "levelOneLabel": "Lv.1",
         "maxLevelLabel": "Lv.9"
       },
       {
         "levelOne": {
-          "zh-CN": "法术伤害<@ba.vup>+5.6%</>",
-          "en": "Arts DMG Dealt <@ba.vup>+5.6%</>",
-          "ja": "アーツダメージ<@ba.vup>+5.6%</>",
-          "zh-TW": "法術傷害<@ba.vup>+5.6%</>"
+          "zh-CN": "最大生命值<@ba.vup>+10.0%</>",
+          "en": "Max HP <@ba.vup>+10.0%</>",
+          "ja": "最大HP<@ba.vup>+10.0%</>",
+          "zh-TW": "最大生命值<@ba.vup>+10.0%</>"
         },
         "maxLevel": {
-          "zh-CN": "法术伤害<@ba.vup>+43.3%</>",
-          "en": "Arts DMG Dealt <@ba.vup>+43.3%</>",
-          "ja": "アーツダメージ<@ba.vup>+43.3%</>",
-          "zh-TW": "法術傷害<@ba.vup>+43.3%</>"
+          "zh-CN": "最大生命值<@ba.vup>+78.0%</>",
+          "en": "Max HP <@ba.vup>+78.0%</>",
+          "ja": "最大HP<@ba.vup>+78.0%</>",
+          "zh-TW": "最大生命值<@ba.vup>+78.0%</>"
         },
         "levelOneLabel": "Lv.1",
         "maxLevelLabel": "Lv.9"
       },
       {
         "levelOne": {
-          "zh-CN": "法术伤害<@ba.vup>+12.0%</>。\n装备者<#ba.consume>消耗</><#ba.spellstatus>法术异常</>后，使目标敌人受到对应属性的伤害<@ba.vup>+10.0%</>，持续15秒。\n<@ba.info>每种效果独立生效，且均无法叠加，每25秒最多触发一次。</>",
-          "en": "Arts DMG <@ba.vup>+12.0%</>.\nAfter the wielder <#ba.consume>consumes</> an <#ba.spellstatus>Arts Reaction</>, target enemy suffers Arts DMG Taken <@ba.vup>+10.0%</> (for the specified element) for 15s.\n<@ba.info>Each effect applies separately and does not stack with itself. Effect only triggers once every 25s.</>",
-          "ja": "アーツダメージ<@ba.vup>+12.0%</>\n装備中、自身が<#ba.spellstatus>アーツ異常</>状態を<#ba.consume>消費</>すると、15秒間目標の敵が受けるその属性のダメージ<@ba.vup>+10.0%</>\n<@ba.info>効果はそれぞれ存在し、重ね掛け不可\nこの効果は25秒に1回まで発動可能</>",
-          "zh-TW": "法術傷害<@ba.vup>+12.0%</>。\n裝備者<#ba.consume>消耗</><#ba.spellstatus>法術異常</>後，使目標敵人受到對應屬性的傷害<@ba.vup>+10.0%</>，持續15秒。\n<@ba.info>每種效果獨立生效，且均無法疊加，每25秒最多觸發一次。</>"
+          "zh-CN": "治疗效率<@ba.vup>+10.0%</>。\n装备者通过自身技能治疗后，全队攻击力<@ba.vup>+9.0%</>，持续15秒。\n<@ba.info>同名效果无法叠加。</>",
+          "en": "Treatment Efficiency <@ba.vup>+10.0%</>.\nAfter the wielder's skill provides HP treatment, the entire team gains ATK <@ba.vup>+9.0%</> for 15s.\n<@ba.info>Effects of the same name cannot stack.</>",
+          "ja": "回復効率<@ba.vup>+10.0%</>\n装備中、自身のスキルで治療すると、15秒間チーム全員の攻撃力<@ba.vup>+9.0%</>\n<@ba.info>同名効果は重ね掛け不可</>",
+          "zh-TW": "治療效率<@ba.vup>+10.0%</>。\n裝備者透過自身技能治療後，全隊攻擊力<@ba.vup>+9.0%</>，持續15秒。\n<@ba.info>同名效果無法疊加。</>"
         },
         "maxLevel": {
-          "zh-CN": "法术伤害<@ba.vup>+33.6%</>。\n装备者<#ba.consume>消耗</><#ba.spellstatus>法术异常</>后，使目标敌人受到对应属性的伤害<@ba.vup>+28.0%</>，持续15秒。\n<@ba.info>每种效果独立生效，且均无法叠加，每25秒最多触发一次。</>",
-          "en": "Arts DMG <@ba.vup>+33.6%</>.\nAfter the wielder <#ba.consume>consumes</> an <#ba.spellstatus>Arts Reaction</>, target enemy suffers Arts DMG Taken <@ba.vup>+28.0%</> (for the specified element) for 15s.\n<@ba.info>Each effect applies separately and does not stack with itself. Effect only triggers once every 25s.</>",
-          "ja": "アーツダメージ<@ba.vup>+33.6%</>\n装備中、自身が<#ba.spellstatus>アーツ異常</>状態を<#ba.consume>消費</>すると、15秒間目標の敵が受けるその属性のダメージ<@ba.vup>+28.0%</>\n<@ba.info>効果はそれぞれ存在し、重ね掛け不可\nこの効果は25秒に1回まで発動可能</>",
-          "zh-TW": "法術傷害<@ba.vup>+33.6%</>。\n裝備者<#ba.consume>消耗</><#ba.spellstatus>法術異常</>後，使目標敵人受到對應屬性的傷害<@ba.vup>+28.0%</>，持續15秒。\n<@ba.info>每種效果獨立生效，且均無法疊加，每25秒最多觸發一次。</>"
+          "zh-CN": "治疗效率<@ba.vup>+28.0%</>。\n装备者通过自身技能治疗后，全队攻击力<@ba.vup>+25.2%</>，持续15秒。\n<@ba.info>同名效果无法叠加。</>",
+          "en": "Treatment Efficiency <@ba.vup>+28.0%</>.\nAfter the wielder's skill provides HP treatment, the entire team gains ATK <@ba.vup>+25.2%</> for 15s.\n<@ba.info>Effects of the same name cannot stack.</>",
+          "ja": "回復効率<@ba.vup>+28.0%</>\n装備中、自身のスキルで治療すると、15秒間チーム全員の攻撃力<@ba.vup>+25.2%</>\n<@ba.info>同名効果は重ね掛け不可</>",
+          "zh-TW": "治療效率<@ba.vup>+28.0%</>。\n裝備者透過自身技能治療後，全隊攻擊力<@ba.vup>+25.2%</>，持續15秒。\n<@ba.info>同名效果無法疊加。</>"
         },
         "levelOneLabel": "Lv.1",
         "maxLevelLabel": "Lv.9"
       }
     ]
   },
-  "wpn_funnel_0008": {
-    "stats": [
-      {
-        "levelOne": {
-          "zh-CN": "主能力值<@ba.vup>+17</>",
-          "en": "Main attribute <@ba.vup>+17</>",
-          "ja": "メイン能力値<@ba.vup>+17</>",
-          "zh-TW": "主能力值<@ba.vup>+17</>"
-        },
-        "maxLevel": {
-          "zh-CN": "主能力值<@ba.vup>+132</>",
-          "en": "Main attribute <@ba.vup>+132</>",
-          "ja": "メイン能力値<@ba.vup>+132</>",
-          "zh-TW": "主能力值<@ba.vup>+132</>"
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "zh-CN": "源石技艺强度<@ba.vup>+10</>",
-          "en": "Arts Intensity <@ba.vup>+10</>",
-          "ja": "アーツ強度<@ba.vup>+10</>",
-          "zh-TW": "源石技藝強度<@ba.vup>+10</>"
-        },
-        "maxLevel": {
-          "zh-CN": "源石技艺强度<@ba.vup>+78</>",
-          "en": "Arts Intensity <@ba.vup>+78</>",
-          "ja": "アーツ強度<@ba.vup>+78</>",
-          "zh-TW": "源石技藝強度<@ba.vup>+78</>"
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "zh-CN": "副能力<@ba.vup>+10.0%</>。\n装备者造成<#ba.spellburst>法术爆发</>时，使目标敌人受到的法术伤害<@ba.vup>+9.0%</>，持续15秒。\n<@ba.info>同名效果无法叠加。</>",
-          "en": "Secondary Attribute <@ba.vup>+10.0%</>.\nWhen the wielder applies an <#ba.spellburst>Arts Burst</>, target enemy suffers Arts DMG Taken <@ba.vup>+9.0%</> for 15s.\n<@ba.info>Effects of the same name cannot stack.</>",
-          "ja": "サブ能力値<@ba.vup>+10.0%</>\n装備中、自身が<#ba.spellburst>アーツ爆発</>を発動させるとき、15秒間敵の受けるアーツダメージ<@ba.vup>+9.0%</>\n<@ba.info>同名効果は重ね掛け不可</>",
-          "zh-TW": "副能力<@ba.vup>+10.0%</>。\n裝備者造成<#ba.spellburst>法術爆發</>時，使目標敵人受到的法術傷害<@ba.vup>+9.0%</>，持續15秒。\n<@ba.info>同名效果無法疊加。</>"
-        },
-        "maxLevel": {
-          "zh-CN": "副能力<@ba.vup>+28.0%</>。\n装备者造成<#ba.spellburst>法术爆发</>时，使目标敌人受到的法术伤害<@ba.vup>+25.2%</>，持续15秒。\n<@ba.info>同名效果无法叠加。</>",
-          "en": "Secondary Attribute <@ba.vup>+28.0%</>.\nWhen the wielder applies an <#ba.spellburst>Arts Burst</>, target enemy suffers Arts DMG Taken <@ba.vup>+25.2%</> for 15s.\n<@ba.info>Effects of the same name cannot stack.</>",
-          "ja": "サブ能力値<@ba.vup>+28.0%</>\n装備中、自身が<#ba.spellburst>アーツ爆発</>を発動させるとき、15秒間敵の受けるアーツダメージ<@ba.vup>+25.2%</>\n<@ba.info>同名効果は重ね掛け不可</>",
-          "zh-TW": "副能力<@ba.vup>+28.0%</>。\n裝備者造成<#ba.spellburst>法術爆發</>時，使目標敵人受到的法術傷害<@ba.vup>+25.2%</>，持續15秒。\n<@ba.info>同名效果無法疊加。</>"
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      }
-    ]
-  },
-  "wpn_pistol_0006": {
+  "wpn_sword_0015": {
     "stats": [
       {
         "levelOne": {
@@ -2403,32 +1915,136 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       },
       {
         "levelOne": {
-          "zh-CN": "法术伤害<@ba.vup>+4.4%</>",
-          "en": "Arts DMG Dealt <@ba.vup>+4.4%</>",
-          "ja": "アーツダメージ<@ba.vup>+4.4%</>",
-          "zh-TW": "法術傷害<@ba.vup>+4.4%</>"
+          "zh-CN": "物理伤害<@ba.vup>+4.4%</>",
+          "en": "Physical DMG Dealt <@ba.vup>+4.4%</>",
+          "ja": "物理ダメージ<@ba.vup>+4.4%</>",
+          "zh-TW": "物理傷害<@ba.vup>+4.4%</>"
         },
         "maxLevel": {
-          "zh-CN": "法术伤害<@ba.vup>+34.7%</>",
-          "en": "Arts DMG Dealt <@ba.vup>+34.7%</>",
-          "ja": "アーツダメージ<@ba.vup>+34.7%</>",
-          "zh-TW": "法術傷害<@ba.vup>+34.7%</>"
+          "zh-CN": "物理伤害<@ba.vup>+34.7%</>",
+          "en": "Physical DMG Dealt <@ba.vup>+34.7%</>",
+          "ja": "物理ダメージ<@ba.vup>+34.7%</>",
+          "zh-TW": "物理傷害<@ba.vup>+34.7%</>"
         },
         "levelOneLabel": "Lv.1",
         "maxLevelLabel": "Lv.9"
       },
       {
         "levelOne": {
-          "zh-CN": "暴击率<@ba.vup>+3.0%</>。\n装备者施加<#ba.spellstatus>法术异常</>时，获得攻击力<@ba.vup>+7.5%</>，持续20秒。\n<@ba.info>同名效果最多叠加2层，每层单独计算持续时间，每0.1秒最多触发一次。</>",
-          "en": "Critical Rate <@ba.vup>+3.0%</>.\nWhen the wielder applies an <#ba.spellstatus>Arts Reaction</>, the wielder gains ATK <@ba.vup>+7.5%</> for 20s.\n<@ba.info>Max stacks for effects of the same name: 2. Duration of each stack is counted separately. Effect only triggers once every 0.1s.</>",
-          "ja": "会心率<@ba.vup>+3.0%</>\n装備中、自身が敵を<#ba.spellstatus>アーツ異常</>状態にするとき、20秒間攻撃力<@ba.vup>+7.5%</>\n<@ba.info>同名効果は2回まで重ね掛け可能\n効果の持続時間は個別にカウントされ、0.1秒に1回まで発動可能</>",
-          "zh-TW": "暴擊率<@ba.vup>+3.0%</>。\n裝備者施加<#ba.spellstatus>法術異常</>時，獲得攻擊力<@ba.vup>+7.5%</>，持續20秒。\n<@ba.info>同名效果最多疊加2層，每層單獨計算持續時間，每0.1秒最多觸發一次。</>"
+          "zh-CN": "终结技伤害<@ba.vup>+16.0%</>。\n装备者造成<#ba.airborne>击飞</>后，30秒内的下次终结技期间造成的物理伤害<@ba.vup>+12.0%</>。\n <@ba.info>同名效果最多叠加3层，每层单独计算持续时间，每0.5秒最多触发一次。</>",
+          "en": "Ultimate DMG Dealt <@ba.vup>+16.0%</>.\nAfter the wielder applies <#ba.airborne>Lift</>, during the next ultimate cast within 30s, the wielder gains Physical DMG Dealt <@ba.vup>+12.0%</>.\n<@ba.info>Max stacks for effects of the same name: 3. Duration of each stack is counted separately. Effect only triggers once every 0.5s.</>",
+          "ja": "必殺技ダメージ<@ba.vup>+16.0%</>\n装備中、自身が敵を<#ba.airborne>浮遊</>させると、30秒以内に発動した次の必殺技の期間中、敵への物理ダメージ<@ba.vup>+12.0%</>\n<@ba.info>同名効果は3回まで重ね掛け可能\n効果の持続時間は個別にカウントされ、0.5秒に1回まで発動可能</>",
+          "zh-TW": "終結技傷害<@ba.vup>+16.0%</>。\n裝備者造成<#ba.airborne>擊飛</>後，30秒內的下次終結技期間造成的物理傷害<@ba.vup>+12.0%</>。\n<@ba.info>同名效果最多疊加3層，每層單獨計算持續時間，每0.5秒最多觸發一次。</>"
         },
         "maxLevel": {
-          "zh-CN": "暴击率<@ba.vup>+8.4%</>。\n装备者施加<#ba.spellstatus>法术异常</>时，获得攻击力<@ba.vup>+21.0%</>，持续20秒。\n<@ba.info>同名效果最多叠加2层，每层单独计算持续时间，每0.1秒最多触发一次。</>",
-          "en": "Critical Rate <@ba.vup>+8.4%</>.\nWhen the wielder applies an <#ba.spellstatus>Arts Reaction</>, the wielder gains ATK <@ba.vup>+21.0%</> for 20s.\n<@ba.info>Max stacks for effects of the same name: 2. Duration of each stack is counted separately. Effect only triggers once every 0.1s.</>",
-          "ja": "会心率<@ba.vup>+8.4%</>\n装備中、自身が敵を<#ba.spellstatus>アーツ異常</>状態にするとき、20秒間攻撃力<@ba.vup>+21.0%</>\n<@ba.info>同名効果は2回まで重ね掛け可能\n効果の持続時間は個別にカウントされ、0.1秒に1回まで発動可能</>",
-          "zh-TW": "暴擊率<@ba.vup>+8.4%</>。\n裝備者施加<#ba.spellstatus>法術異常</>時，獲得攻擊力<@ba.vup>+21.0%</>，持續20秒。\n<@ba.info>同名效果最多疊加2層，每層單獨計算持續時間，每0.1秒最多觸發一次。</>"
+          "zh-CN": "终结技伤害<@ba.vup>+44.8%</>。\n装备者造成<#ba.airborne>击飞</>后，30秒内的下次终结技期间造成的物理伤害<@ba.vup>+33.6%</>。\n <@ba.info>同名效果最多叠加3层，每层单独计算持续时间，每0.5秒最多触发一次。</>",
+          "en": "Ultimate DMG Dealt <@ba.vup>+44.8%</>.\nAfter the wielder applies <#ba.airborne>Lift</>, during the next ultimate cast within 30s, the wielder gains Physical DMG Dealt <@ba.vup>+33.6%</>.\n<@ba.info>Max stacks for effects of the same name: 3. Duration of each stack is counted separately. Effect only triggers once every 0.5s.</>",
+          "ja": "必殺技ダメージ<@ba.vup>+44.8%</>\n装備中、自身が敵を<#ba.airborne>浮遊</>させると、30秒以内に発動した次の必殺技の期間中、敵への物理ダメージ<@ba.vup>+33.6%</>\n<@ba.info>同名効果は3回まで重ね掛け可能\n効果の持続時間は個別にカウントされ、0.5秒に1回まで発動可能</>",
+          "zh-TW": "終結技傷害<@ba.vup>+44.8%</>。\n裝備者造成<#ba.airborne>擊飛</>後，30秒內的下次終結技期間造成的物理傷害<@ba.vup>+33.6%</>。\n<@ba.info>同名效果最多疊加3層，每層單獨計算持續時間，每0.5秒最多觸發一次。</>"
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
+  "wpn_funnel_0011": {
+    "stats": [
+      {
+        "levelOne": {
+          "zh-CN": "意志<@ba.vup>+20</>",
+          "en": "Will <@ba.vup>+20</>",
+          "ja": "意志<@ba.vup>+20</>",
+          "zh-TW": "意志<@ba.vup>+20</>"
+        },
+        "maxLevel": {
+          "zh-CN": "意志<@ba.vup>+156</>",
+          "en": "Will <@ba.vup>+156</>",
+          "ja": "意志<@ba.vup>+156</>",
+          "zh-TW": "意志<@ba.vup>+156</>"
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "zh-CN": "终结技充能效率<@ba.vup>+6.0%</>",
+          "en": "Ultimate Gain Efficiency <@ba.vup>+6.0%</>",
+          "ja": "必殺チャージの回復効率<@ba.vup>+6.0%</>",
+          "zh-TW": "終結技蓄能效率<@ba.vup>+6.0%</>"
+        },
+        "maxLevel": {
+          "zh-CN": "终结技充能效率<@ba.vup>+46.4%</>",
+          "en": "Ultimate Gain Efficiency <@ba.vup>+46.4%</>",
+          "ja": "必殺チャージの回復効率<@ba.vup>+46.4%</>",
+          "zh-TW": "終結技蓄能效率<@ba.vup>+46.4%</>"
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "zh-CN": "自然伤害<@ba.vup>+16.0%</>。\n装备者通过自身连携技造成<#ba.airborne>击飞</>后，全队造成的法术伤害<@ba.vup>+12.0%</>，持续15秒。每有一个被<#ba.airborne>击飞</>的敌人，全队造成的法术伤害额外<@ba.vup>+3.5%</>，最多<@ba.vup>+10.5%</>。\n<@ba.info>同名效果无法叠加。</>",
+          "en": "Nature DMG Dealt <@ba.vup>+16.0%</>.\nAfter the wielder's combo skill applies <#ba.airborne>Lifted</>, the team gains Arts DMG Dealt <@ba.vup>+12.0%</> for 15s. For every enemy <#ba.airborne>Lifted</>, the team gains bonus Arts DMG Dealt <@ba.vup>+3.5%</>, up to a max of <@ba.vup>+10.5%</>.\n<@ba.info>Effects of the same name cannot stack.</>",
+          "ja": "自然ダメージ<@ba.vup>+16.0%</>\n装備中、自身の連携技で敵を<#ba.airborne>浮遊</>させると、15秒間チーム全員のアーツダメージ<@ba.vup>+12.0%</>\n<#ba.airborne>浮遊</>させた敵1体につき、追加でチーム全員のアーツダメージ<@ba.vup>+3.5%</>（最大<@ba.vup>+10.5%</>）\n<@ba.info>同名効果は重ね掛け不可</>",
+          "zh-TW": "自然傷害<@ba.vup>+16.0%</>。\n裝備者透過自身連攜技造成<#ba.airborne>擊飛</>後，全隊造成的法術傷害<@ba.vup>+12.0%</>，持續15秒。每有一個被<#ba.airborne>擊飛</>的敵人，全隊造成的法術傷害額外<@ba.vup>+3.5%</>，最多<@ba.vup>+10.5%</>。\n<@ba.info>同名效果無法疊加。</>"
+        },
+        "maxLevel": {
+          "zh-CN": "自然伤害<@ba.vup>+44.8%</>。\n装备者通过自身连携技造成<#ba.airborne>击飞</>后，全队造成的法术伤害<@ba.vup>+33.6%</>，持续15秒。每有一个被<#ba.airborne>击飞</>的敌人，全队造成的法术伤害额外<@ba.vup>+9.8%</>，最多<@ba.vup>+29.4%</>。\n<@ba.info>同名效果无法叠加。</>",
+          "en": "Nature DMG Dealt <@ba.vup>+44.8%</>.\nAfter the wielder's combo skill applies <#ba.airborne>Lifted</>, the team gains Arts DMG Dealt <@ba.vup>+33.6%</> for 15s. For every enemy <#ba.airborne>Lifted</>, the team gains bonus Arts DMG Dealt <@ba.vup>+9.8%</>, up to a max of <@ba.vup>+29.4%</>.\n<@ba.info>Effects of the same name cannot stack.</>",
+          "ja": "自然ダメージ<@ba.vup>+44.8%</>\n装備中、自身の連携技で敵を<#ba.airborne>浮遊</>させると、15秒間チーム全員のアーツダメージ<@ba.vup>+33.6%</>\n<#ba.airborne>浮遊</>させた敵1体につき、追加でチーム全員のアーツダメージ<@ba.vup>+9.8%</>（最大<@ba.vup>+29.4%</>）\n<@ba.info>同名効果は重ね掛け不可</>",
+          "zh-TW": "自然傷害<@ba.vup>+44.8%</>。\n裝備者透過自身連攜技造成<#ba.airborne>擊飛</>後，全隊造成的法術傷害<@ba.vup>+33.6%</>，持續15秒。每有一個被<#ba.airborne>擊飛</>的敵人，全隊造成的法術傷害額外<@ba.vup>+9.8%</>，最多<@ba.vup>+29.4%</>。\n<@ba.info>同名效果無法疊加。</>"
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
+  "wpn_sword_0005": {
+    "stats": [
+      {
+        "levelOne": {
+          "zh-CN": "敏捷<@ba.vup>+16</>",
+          "en": "Agility <@ba.vup>+16</>",
+          "ja": "敏捷<@ba.vup>+16</>",
+          "zh-TW": "敏捷<@ba.vup>+16</>"
+        },
+        "maxLevel": {
+          "zh-CN": "敏捷<@ba.vup>+124</>",
+          "en": "Agility <@ba.vup>+124</>",
+          "ja": "敏捷<@ba.vup>+124</>",
+          "zh-TW": "敏捷<@ba.vup>+124</>"
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "zh-CN": "物理伤害<@ba.vup>+4.4%</>",
+          "en": "Physical DMG Dealt <@ba.vup>+4.4%</>",
+          "ja": "物理ダメージ<@ba.vup>+4.4%</>",
+          "zh-TW": "物理傷害<@ba.vup>+4.4%</>"
+        },
+        "maxLevel": {
+          "zh-CN": "物理伤害<@ba.vup>+34.7%</>",
+          "en": "Physical DMG Dealt <@ba.vup>+34.7%</>",
+          "ja": "物理ダメージ<@ba.vup>+34.7%</>",
+          "zh-TW": "物理傷害<@ba.vup>+34.7%</>"
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "zh-CN": "攻击力<@ba.vup>+5.0%</>。\n装备者造成<#ba.physicalstatus>物理异常</>时，获得攻击力<@ba.vup>+7.5%</>，持续20秒。\n<@ba.info>同名效果最多叠加2层，每层单独计算持续时间，每0.1秒最多触发一次。</>",
+          "en": "ATK <@ba.vup>+5.0%</>.\nWhen the wielder deals a <#ba.physicalstatus>Physical Status</>, the wielder gains ATK <@ba.vup>+7.5%</> for 20s.\n<@ba.info>Max stacks for effects of the same name: 2. Duration of each stack is counted separately. Effect only triggers once every 0.1s.</>",
+          "ja": "攻撃力<@ba.vup>+5.0%</>\n装備中、自身が敵に<#ba.physicalstatus>物理異常</>を与えるとき、20秒間攻撃力<@ba.vup>+7.5%</>\n<@ba.info>同名効果は2回まで重ね掛け可能\n効果の持続時間は個別にカウントされ、0.1秒に1回まで発動可能</>",
+          "zh-TW": "攻擊力<@ba.vup>+5.0%</>。\n裝備者造成<#ba.physicalstatus>物理異常</>時，獲得攻擊力<@ba.vup>+7.5%</>，持續20秒。\n<@ba.info>同名效果最多疊加2層，每層單獨計算持續時間，每0.1秒最多觸發一次。</>"
+        },
+        "maxLevel": {
+          "zh-CN": "攻击力<@ba.vup>+14.0%</>。\n装备者造成<#ba.physicalstatus>物理异常</>时，获得攻击力<@ba.vup>+21.0%</>，持续20秒。\n<@ba.info>同名效果最多叠加2层，每层单独计算持续时间，每0.1秒最多触发一次。</>",
+          "en": "ATK <@ba.vup>+14.0%</>.\nWhen the wielder deals a <#ba.physicalstatus>Physical Status</>, the wielder gains ATK <@ba.vup>+21.0%</> for 20s.\n<@ba.info>Max stacks for effects of the same name: 2. Duration of each stack is counted separately. Effect only triggers once every 0.1s.</>",
+          "ja": "攻撃力<@ba.vup>+14.0%</>\n装備中、自身が敵に<#ba.physicalstatus>物理異常</>を与えるとき、20秒間攻撃力<@ba.vup>+21.0%</>\n<@ba.info>同名効果は2回まで重ね掛け可能\n効果の持続時間は個別にカウントされ、0.1秒に1回まで発動可能</>",
+          "zh-TW": "攻擊力<@ba.vup>+14.0%</>。\n裝備者造成<#ba.physicalstatus>物理異常</>時，獲得攻擊力<@ba.vup>+21.0%</>，持續20秒。\n<@ba.info>同名效果最多疊加2層，每層單獨計算持續時間，每0.1秒最多觸發一次。</>"
         },
         "levelOneLabel": "Lv.1",
         "maxLevelLabel": "Lv.9"
@@ -2539,6 +2155,42 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       }
     ]
   },
+  "wpn_lance_0009": {
+    "stats": [
+      {
+        "levelOne": {
+          "zh-CN": "主能力值<@ba.vup>+10</>",
+          "en": "Main attribute <@ba.vup>+10</>",
+          "ja": "メイン能力値<@ba.vup>+10</>",
+          "zh-TW": "主能力值<@ba.vup>+10</>"
+        },
+        "maxLevel": {
+          "zh-CN": "主能力值<@ba.vup>+79</>",
+          "en": "Main attribute <@ba.vup>+79</>",
+          "ja": "メイン能力値<@ba.vup>+79</>",
+          "zh-TW": "主能力值<@ba.vup>+79</>"
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "zh-CN": "攻击力<@ba.vup>+12</>。",
+          "en": "ATK <@ba.vup>+12</>.",
+          "ja": "攻撃力<@ba.vup>+12</>",
+          "zh-TW": "攻擊力<@ba.vup>+12</>。"
+        },
+        "maxLevel": {
+          "zh-CN": "攻击力<@ba.vup>+34</>。",
+          "en": "ATK <@ba.vup>+34</>.",
+          "ja": "攻撃力<@ba.vup>+34</>",
+          "zh-TW": "攻擊力<@ba.vup>+34</>。"
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
   "wpn_funnel_0014": {
     "stats": [
       {
@@ -2612,13 +2264,13 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       {
         "levelOne": {
           "zh-CN": "攻击力<@ba.vup>+5.0%</>",
-          "en": "Attack <@ba.vup>+5.0%</>",
+          "en": "ATK <@ba.vup>+5.0%</>",
           "ja": "攻撃力<@ba.vup>+5.0%</>",
           "zh-TW": "攻擊力<@ba.vup>+5.0%</>"
         },
         "maxLevel": {
           "zh-CN": "攻击力<@ba.vup>+39.0%</>",
-          "en": "Attack <@ba.vup>+39.0%</>",
+          "en": "ATK <@ba.vup>+39.0%</>",
           "ja": "攻撃力<@ba.vup>+39.0%</>",
           "zh-TW": "攻擊力<@ba.vup>+39.0%</>"
         },
@@ -2681,13 +2333,13 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
         "levelOne": {
           "zh-CN": "攻击力<@ba.vup>+16.0%</>。\n装备者智识值≥意志值：装备者通过自身技能施加<#ba.spellinflict>法术附着</>时，造成的法术伤害<@ba.vup>+20.0%</>，持续20秒；装备者通过自身技能施加<#ba.spellvul>法术脆弱</>时，攻击力<@ba.vup>+20.0%</>，持续20秒。\n装备者意志值>智识值：装备者通过自身技能施加<#ba.spellburst>法术爆发</>时，使目标敌人受到的法术伤害<@ba.vup>+6.0%</>，持续25秒；装备者通过自身技能施加<#ba.spellvul>法术脆弱</>时，使目标敌人受到的法术伤害<@ba.vup>+6.0%</>，持续25秒。\n<@ba.info>同名效果无法叠加。上述能力值要求只受装备者等级提升、天赋、潜能、装备和武器提供的面板能力值影响。</>",
           "en": "ATK <@ba.vup>+16.0%</>.\nWielder's Intellect ≥ Will: When the wielder applies <#ba.spellinflict>Arts Infliction</> with their own skill, the wielder gains Arts DMG Dealt <@ba.vup>+20.0%</> for 20s; when the wielder applies <#ba.spellvul>Arts Susceptibility</> with their own skill, the wielder gains ATK <@ba.vup>+20.0%</> for 20s;\nWielder's Will ＞ Intellect: When the wielder applies <#ba.spellburst>Arts Burst</> with their own skill, the target enemy suffers Arts DMG Taken <@ba.vup>+6.0%</> for 25s; when the wielder applies <#ba.spellvul>Arts Susceptibility</> with their own skill, the target enemy suffers Arts DMG Taken <@ba.vup>+6.0%</> for 25s.\n<@ba.info>Effects of the same name cannot stack. The aforementioned attributes only include effects from the wielder's level, talents, potentials, and attribute bonuses provided by equipped gear and weapons.</>",
-          "ja": "攻撃力<@ba.vup>+16.0%</>\n装備中、知性≥意志であり、自身のスキルで<#ba.spellinflict>アーツ付着</>を付与したとき、20秒間与えるアーツダメージ<@ba.vup>+20.0%</>\n自身のスキルで<#ba.spellvul>アーツ脆弱</>を付与したとき、20秒間攻撃力<@ba.vup>+20.0%</>\n装備中、意志＞知性であり、自身のスキルで<#ba.spellburst>アーツ爆発</>を付与したとき、25秒間目標の敵が受けるアーツダメージ<@ba.vup>+6.0%</>\n自身のスキルで<#ba.spellvul>アーツ脆弱</>を付与したとき、25秒間目標の敵が受けるアーツダメージ<@ba.vup>+6.0%</>\n<@ba.info>同名効果は重ね掛け不可\n上記の能力値条件は、自身のレベル、素質、潜在、装備および武器のステータス画面の能力値のみに影響される</>",
+          "ja": "攻撃力<@ba.vup>+16.0%</>\n装備中、知性≥意志の場合、自身のスキルで<#ba.spellinflict>アーツ付着</>を付与するとき、20秒間与えるアーツダメージ<@ba.vup>+20.0%</>\n自身のスキルで<#ba.spellvul>アーツ脆弱</>を付与するとき、20秒間攻撃力<@ba.vup>+20.0%</>\n装備中、意志＞知性の場合、自身のスキルで<#ba.spellburst>アーツ爆発</>を付与するとき、25秒間目標の敵が受けるアーツダメージ<@ba.vup>+6.0%</>\n自身のスキルで<#ba.spellvul>アーツ脆弱</>を付与するとき、25秒間目標の敵が受けるアーツダメージ<@ba.vup>+6.0%</>\n<@ba.info>同名効果は重ね掛け不可\n上記の能力値条件は、自身のレベル、素質、潜在、装備および武器のステータス画面の能力値のみに影響される</>",
           "zh-TW": "攻擊力<@ba.vup>+16.0%</>。\n裝備者智識值≥意志值：裝備者透過自身技能施加<#ba.spellinflict>法術附著</>時，造成的法術傷害<@ba.vup>+20.0%</>，持續20秒；裝備者透過自身技能施加<#ba.spellvul>法術脆弱</>時，攻擊力<@ba.vup>+20.0%</>，持續20秒。\n裝備者意志值＞智識值：裝備者透過自身技能施加<#ba.spellburst>法術爆發</>時，使目標敵人受到的法術傷害<@ba.vup>+6.0%</>，持續25秒；裝備者透過自身技能施加<#ba.spellvul>法術脆弱</>時，使目標敵人受到的法術傷害<@ba.vup>+6.0%</>，持續25秒。\n<@ba.info>同名效果無法疊加。上述能力值要求只受裝備者等級提升、天賦、潛能、裝備和武器提供的面板能力值影響。</>"
         },
         "maxLevel": {
           "zh-CN": "攻击力<@ba.vup>+44.8%</>。\n装备者智识值≥意志值：装备者通过自身技能施加<#ba.spellinflict>法术附着</>时，造成的法术伤害<@ba.vup>+56.0%</>，持续20秒；装备者通过自身技能施加<#ba.spellvul>法术脆弱</>时，攻击力<@ba.vup>+56.0%</>，持续20秒。\n装备者意志值>智识值：装备者通过自身技能施加<#ba.spellburst>法术爆发</>时，使目标敌人受到的法术伤害<@ba.vup>+16.8%</>，持续25秒；装备者通过自身技能施加<#ba.spellvul>法术脆弱</>时，使目标敌人受到的法术伤害<@ba.vup>+16.8%</>，持续25秒。\n<@ba.info>同名效果无法叠加。上述能力值要求只受装备者等级提升、天赋、潜能、装备和武器提供的面板能力值影响。</>",
           "en": "ATK <@ba.vup>+44.8%</>.\nWielder's Intellect ≥ Will: When the wielder applies <#ba.spellinflict>Arts Infliction</> with their own skill, the wielder gains Arts DMG Dealt <@ba.vup>+56.0%</> for 20s; when the wielder applies <#ba.spellvul>Arts Susceptibility</> with their own skill, the wielder gains ATK <@ba.vup>+56.0%</> for 20s;\nWielder's Will ＞ Intellect: When the wielder applies <#ba.spellburst>Arts Burst</> with their own skill, the target enemy suffers Arts DMG Taken <@ba.vup>+16.8%</> for 25s; when the wielder applies <#ba.spellvul>Arts Susceptibility</> with their own skill, the target enemy suffers Arts DMG Taken <@ba.vup>+16.8%</> for 25s.\n<@ba.info>Effects of the same name cannot stack. The aforementioned attributes only include effects from the wielder's level, talents, potentials, and attribute bonuses provided by equipped gear and weapons.</>",
-          "ja": "攻撃力<@ba.vup>+44.8%</>\n装備中、知性≥意志であり、自身のスキルで<#ba.spellinflict>アーツ付着</>を付与したとき、20秒間与えるアーツダメージ<@ba.vup>+56.0%</>\n自身のスキルで<#ba.spellvul>アーツ脆弱</>を付与したとき、20秒間攻撃力<@ba.vup>+56.0%</>\n装備中、意志＞知性であり、自身のスキルで<#ba.spellburst>アーツ爆発</>を付与したとき、25秒間目標の敵が受けるアーツダメージ<@ba.vup>+16.8%</>\n自身のスキルで<#ba.spellvul>アーツ脆弱</>を付与したとき、25秒間目標の敵が受けるアーツダメージ<@ba.vup>+16.8%</>\n<@ba.info>同名効果は重ね掛け不可\n上記の能力値条件は、自身のレベル、素質、潜在、装備および武器のステータス画面の能力値のみに影響される</>",
+          "ja": "攻撃力<@ba.vup>+44.8%</>\n装備中、知性≥意志の場合、自身のスキルで<#ba.spellinflict>アーツ付着</>を付与するとき、20秒間与えるアーツダメージ<@ba.vup>+56.0%</>\n自身のスキルで<#ba.spellvul>アーツ脆弱</>を付与するとき、20秒間攻撃力<@ba.vup>+56.0%</>\n装備中、意志＞知性の場合、自身のスキルで<#ba.spellburst>アーツ爆発</>を付与するとき、25秒間目標の敵が受けるアーツダメージ<@ba.vup>+16.8%</>\n自身のスキルで<#ba.spellvul>アーツ脆弱</>を付与するとき、25秒間目標の敵が受けるアーツダメージ<@ba.vup>+16.8%</>\n<@ba.info>同名効果は重ね掛け不可\n上記の能力値条件は、自身のレベル、素質、潜在、装備および武器のステータス画面の能力値のみに影響される</>",
           "zh-TW": "攻擊力<@ba.vup>+44.8%</>。\n裝備者智識值≥意志值：裝備者透過自身技能施加<#ba.spellinflict>法術附著</>時，造成的法術傷害<@ba.vup>+56.0%</>，持續20秒；裝備者透過自身技能施加<#ba.spellvul>法術脆弱</>時，攻擊力<@ba.vup>+56.0%</>，持續20秒。\n裝備者意志值＞智識值：裝備者透過自身技能施加<#ba.spellburst>法術爆發</>時，使目標敵人受到的法術傷害<@ba.vup>+16.8%</>，持續25秒；裝備者透過自身技能施加<#ba.spellvul>法術脆弱</>時，使目標敵人受到的法術傷害<@ba.vup>+16.8%</>，持續25秒。\n<@ba.info>同名效果無法疊加。上述能力值要求只受裝備者等級提升、天賦、潛能、裝備和武器提供的面板能力值影響。</>"
         },
         "levelOneLabel": "Lv.1",
@@ -2695,52 +2347,88 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       }
     ]
   },
-  "wpn_sword_0005": {
+  "wpn_sword_0003": {
     "stats": [
       {
         "levelOne": {
-          "zh-CN": "敏捷<@ba.vup>+16</>",
-          "en": "Agility <@ba.vup>+16</>",
-          "ja": "敏捷<@ba.vup>+16</>",
-          "zh-TW": "敏捷<@ba.vup>+16</>"
+          "zh-CN": "主能力值<@ba.vup>+10</>",
+          "en": "Main attribute <@ba.vup>+10</>",
+          "ja": "メイン能力値<@ba.vup>+10</>",
+          "zh-TW": "主能力值<@ba.vup>+10</>"
         },
         "maxLevel": {
-          "zh-CN": "敏捷<@ba.vup>+124</>",
-          "en": "Agility <@ba.vup>+124</>",
-          "ja": "敏捷<@ba.vup>+124</>",
-          "zh-TW": "敏捷<@ba.vup>+124</>"
+          "zh-CN": "主能力值<@ba.vup>+79</>",
+          "en": "Main attribute <@ba.vup>+79</>",
+          "ja": "メイン能力値<@ba.vup>+79</>",
+          "zh-TW": "主能力值<@ba.vup>+79</>"
         },
         "levelOneLabel": "Lv.1",
         "maxLevelLabel": "Lv.9"
       },
       {
         "levelOne": {
-          "zh-CN": "物理伤害<@ba.vup>+4.4%</>",
-          "en": "Physical DMG Dealt <@ba.vup>+4.4%</>",
-          "ja": "物理ダメージ<@ba.vup>+4.4%</>",
-          "zh-TW": "物理傷害<@ba.vup>+4.4%</>"
+          "zh-CN": "攻击力<@ba.vup>+12</>。",
+          "en": "ATK <@ba.vup>+12</>.",
+          "ja": "攻撃力<@ba.vup>+12</>",
+          "zh-TW": "攻擊力<@ba.vup>+12</>。"
         },
         "maxLevel": {
-          "zh-CN": "物理伤害<@ba.vup>+34.7%</>",
-          "en": "Physical DMG Dealt <@ba.vup>+34.7%</>",
-          "ja": "物理ダメージ<@ba.vup>+34.7%</>",
-          "zh-TW": "物理傷害<@ba.vup>+34.7%</>"
+          "zh-CN": "攻击力<@ba.vup>+34</>。",
+          "en": "ATK <@ba.vup>+34</>.",
+          "ja": "攻撃力<@ba.vup>+34</>",
+          "zh-TW": "攻擊力<@ba.vup>+34</>。"
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
+  "wpn_sword_0017": {
+    "stats": [
+      {
+        "levelOne": {
+          "zh-CN": "敏捷<@ba.vup>+20</>",
+          "en": "Agility <@ba.vup>+20</>",
+          "ja": "敏捷<@ba.vup>+20</>",
+          "zh-TW": "敏捷<@ba.vup>+20</>"
+        },
+        "maxLevel": {
+          "zh-CN": "敏捷<@ba.vup>+156</>",
+          "en": "Agility <@ba.vup>+156</>",
+          "ja": "敏捷<@ba.vup>+156</>",
+          "zh-TW": "敏捷<@ba.vup>+156</>"
         },
         "levelOneLabel": "Lv.1",
         "maxLevelLabel": "Lv.9"
       },
       {
         "levelOne": {
-          "zh-CN": "攻击力<@ba.vup>+5.0%</>。\n装备者造成<#ba.physicalstatus>物理异常</>时，获得攻击力<@ba.vup>+7.5%</>，持续20秒。\n<@ba.info>同名效果最多叠加2层，每层单独计算持续时间，每0.1秒最多触发一次。</>",
-          "en": "ATK <@ba.vup>+5.0%</>.\nWhen the wielder deals a <#ba.physicalstatus>Physical Status</>, the wielder gains ATK <@ba.vup>+7.5%</> for 20s.\n<@ba.info>Max stacks for effects of the same name: 2. Duration of each stack is counted separately. Effect only triggers once every 0.1s.</>",
-          "ja": "攻撃力<@ba.vup>+5.0%</>\n装備中、自身が敵に<#ba.physicalstatus>物理異常</>を与えるとき、20秒間攻撃力<@ba.vup>+7.5%</>\n<@ba.info>同名効果は2回まで重ね掛け可能\n効果の持続時間は個別にカウントされ、0.1秒に1回まで発動可能</>",
-          "zh-TW": "攻擊力<@ba.vup>+5.0%</>。\n裝備者造成<#ba.physicalstatus>物理異常</>時，獲得攻擊力<@ba.vup>+7.5%</>，持續20秒。\n<@ba.info>同名效果最多疊加2層，每層單獨計算持續時間，每0.1秒最多觸發一次。</>"
+          "zh-CN": "暴击率<@ba.vup>+2.5%</>",
+          "en": "Critical Rate <@ba.vup>+2.5%</>",
+          "ja": "会心率<@ba.vup>+2.5%</>",
+          "zh-TW": "暴擊率<@ba.vup>+2.5%</>"
         },
         "maxLevel": {
-          "zh-CN": "攻击力<@ba.vup>+14.0%</>。\n装备者造成<#ba.physicalstatus>物理异常</>时，获得攻击力<@ba.vup>+21.0%</>，持续20秒。\n<@ba.info>同名效果最多叠加2层，每层单独计算持续时间，每0.1秒最多触发一次。</>",
-          "en": "ATK <@ba.vup>+14.0%</>.\nWhen the wielder deals a <#ba.physicalstatus>Physical Status</>, the wielder gains ATK <@ba.vup>+21.0%</> for 20s.\n<@ba.info>Max stacks for effects of the same name: 2. Duration of each stack is counted separately. Effect only triggers once every 0.1s.</>",
-          "ja": "攻撃力<@ba.vup>+14.0%</>\n装備中、自身が敵に<#ba.physicalstatus>物理異常</>を与えるとき、20秒間攻撃力<@ba.vup>+21.0%</>\n<@ba.info>同名効果は2回まで重ね掛け可能\n効果の持続時間は個別にカウントされ、0.1秒に1回まで発動可能</>",
-          "zh-TW": "攻擊力<@ba.vup>+14.0%</>。\n裝備者造成<#ba.physicalstatus>物理異常</>時，獲得攻擊力<@ba.vup>+21.0%</>，持續20秒。\n<@ba.info>同名效果最多疊加2層，每層單獨計算持續時間，每0.1秒最多觸發一次。</>"
+          "zh-CN": "暴击率<@ba.vup>+19.5%</>",
+          "en": "Critical Rate <@ba.vup>+19.5%</>",
+          "ja": "会心率<@ba.vup>+19.5%</>",
+          "zh-TW": "暴擊率<@ba.vup>+19.5%</>"
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "zh-CN": "攻击力<@ba.vup>+7.0%</>。\n装备者通过技能施加<#ba.noguard>破防</>时，30秒内的下次终结技期间造成的伤害<@ba.vup>+12.0%</>。\n<@ba.info>同名效果最多叠加3层，每层单独计算持续时间，每0.5秒最多触发一次。</>",
+          "en": "ATK <@ba.vup>+7.0%</>.\nWhen the wielder's skill applies <#ba.noguard>Vulnerability</>, during the next ultimate cast within 30s, the wielder gains DMG Dealt <@ba.vup>+12.0%</>.\n<@ba.info>Max stacks for effects of the same name: 3. Duration of each stack is counted separately. Effect only triggers once every 0.5s.</>",
+          "ja": "攻撃力<@ba.vup>+7.0%</>\n装備中、自身がスキルで<#ba.noguard>クラッシュ</>を付与するとき、30秒以内に発動した次の必殺技の期間中、与えるダメージ<@ba.vup>+12.0%</>\n<@ba.info>同名効果は3回まで重ね掛け可能\n効果の持続時間は個別にカウントされ、0.5秒に1回まで発動可能</>",
+          "zh-TW": "攻擊力<@ba.vup>+7.0%</>。\n裝備者透過技能施加<#ba.noguard>破防</>時，30秒內的下次終結技期間造成的傷害<@ba.vup>+12.0%</>。\n<@ba.info>同名效果最多疊加3層，每層單獨計算持續時間，每0.5秒最多觸發一次。</>"
+        },
+        "maxLevel": {
+          "zh-CN": "攻击力<@ba.vup>+19.6%</>。\n装备者通过技能施加<#ba.noguard>破防</>时，30秒内的下次终结技期间造成的伤害<@ba.vup>+33.6%</>。\n<@ba.info>同名效果最多叠加3层，每层单独计算持续时间，每0.5秒最多触发一次。</>",
+          "en": "ATK <@ba.vup>+19.6%</>.\nWhen the wielder's skill applies <#ba.noguard>Vulnerability</>, during the next ultimate cast within 30s, the wielder gains DMG Dealt <@ba.vup>+33.6%</>.\n<@ba.info>Max stacks for effects of the same name: 3. Duration of each stack is counted separately. Effect only triggers once every 0.5s.</>",
+          "ja": "攻撃力<@ba.vup>+19.6%</>\n装備中、自身がスキルで<#ba.noguard>クラッシュ</>を付与するとき、30秒以内に発動した次の必殺技の期間中、与えるダメージ<@ba.vup>+33.6%</>\n<@ba.info>同名効果は3回まで重ね掛け可能\n効果の持続時間は個別にカウントされ、0.5秒に1回まで発動可能</>",
+          "zh-TW": "攻擊力<@ba.vup>+19.6%</>。\n裝備者透過技能施加<#ba.noguard>破防</>時，30秒內的下次終結技期間造成的傷害<@ba.vup>+33.6%</>。\n<@ba.info>同名效果最多疊加3層，每層單獨計算持續時間，每0.5秒最多觸發一次。</>"
         },
         "levelOneLabel": "Lv.1",
         "maxLevelLabel": "Lv.9"
@@ -2799,680 +2487,20 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       }
     ]
   },
-  "wpn_funnel_0018": {
+  "wpn_sword_0007": {
     "stats": [
       {
         "levelOne": {
-          "zh-CN": "智识<@ba.vup>+20</>",
-          "en": "Intellect <@ba.vup>+20</>",
-          "ja": "知性<@ba.vup>+20</>",
-          "zh-TW": "智識<@ba.vup>+20</>"
+          "zh-CN": "智识<@ba.vup>+16</>",
+          "en": "Intellect <@ba.vup>+16</>",
+          "ja": "知性<@ba.vup>+16</>",
+          "zh-TW": "智識<@ba.vup>+16</>"
         },
         "maxLevel": {
-          "zh-CN": "智识<@ba.vup>+156</>",
-          "en": "Intellect <@ba.vup>+156</>",
-          "ja": "知性<@ba.vup>+156</>",
-          "zh-TW": "智識<@ba.vup>+156</>"
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "zh-CN": "终结技充能效率<@ba.vup>+6.0%</>",
-          "en": "Ultimate Gain Efficiency <@ba.vup>+6.0%</>",
-          "ja": "必殺チャージの回復効率<@ba.vup>+6.0%</>",
-          "zh-TW": "終結技蓄能效率<@ba.vup>+6.0%</>"
-        },
-        "maxLevel": {
-          "zh-CN": "终结技充能效率<@ba.vup>+46.4%</>",
-          "en": "Ultimate Gain Efficiency <@ba.vup>+46.4%</>",
-          "ja": "必殺チャージの回復効率<@ba.vup>+46.4%</>",
-          "zh-TW": "終結技蓄能效率<@ba.vup>+46.4%</>"
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "zh-CN": "自然伤害<@ba.vup>+7.0%</>。\n装备者通过连携技施加<#ba.spellvul>法术脆弱</>或<#ba.spellinflict>法术附着</>时，攻击力<@ba.vup>+6.0%</>，小队内其他干员攻击力<@ba.vup>+1.5%</>，持续20秒。\n<@ba.info>同名效果最多叠加2层，每层单独计算持续时间。</>",
-          "en": "Nature DMG Dealt <@ba.vup>+7.0%</>.\nWhen the wielder applies <#ba.spellvul>Arts Susceptibility</> or <#ba.spellinflict>Arts Infliction</> with a combo skill, the wielder gains ATK <@ba.vup>+6.0%</> while other operators in the team gain ATK <@ba.vup>+1.5%</>. Duration: 20s.\n<@ba.info>Max stacks for effects of the same name: 2. Duration of each stack is counted separately.</>",
-          "ja": "自然ダメージ<@ba.vup>+7.0%</>\n装備中、自身の連携技で<#ba.spellvul>アーツ脆弱</>または<#ba.spellinflict>アーツ付着</>を付与したとき、20秒間攻撃力<@ba.vup>+6.0%</>、チーム内の他のオペレーターの攻撃力<@ba.vup>+1.5%</>\n<@ba.info>同名効果は2回まで重ね掛け可能\n効果の持続時間は個別にカウントされる</>",
-          "zh-TW": "自然傷害<@ba.vup>+7.0%</>。\n裝備者透過連攜技施加<#ba.spellvul>法術脆弱</>或<#ba.spellinflict>法術附著</>時，攻擊力<@ba.vup>+6.0%</>，小隊內其他幹員攻擊力<@ba.vup>+1.5%</>，持續20秒。\n<@ba.info>同名效果最多疊加2層，每層單獨計算持續時間。</>"
-        },
-        "maxLevel": {
-          "zh-CN": "自然伤害<@ba.vup>+19.6%</>。\n装备者通过连携技施加<#ba.spellvul>法术脆弱</>或<#ba.spellinflict>法术附着</>时，攻击力<@ba.vup>+16.8%</>，小队内其他干员攻击力<@ba.vup>+4.2%</>，持续20秒。\n<@ba.info>同名效果最多叠加2层，每层单独计算持续时间。</>",
-          "en": "Nature DMG Dealt <@ba.vup>+19.6%</>.\nWhen the wielder applies <#ba.spellvul>Arts Susceptibility</> or <#ba.spellinflict>Arts Infliction</> with a combo skill, the wielder gains ATK <@ba.vup>+16.8%</> while other operators in the team gain ATK <@ba.vup>+4.2%</>. Duration: 20s.\n<@ba.info>Max stacks for effects of the same name: 2. Duration of each stack is counted separately.</>",
-          "ja": "自然ダメージ<@ba.vup>+19.6%</>\n装備中、自身の連携技で<#ba.spellvul>アーツ脆弱</>または<#ba.spellinflict>アーツ付着</>を付与したとき、20秒間攻撃力<@ba.vup>+16.8%</>、チーム内の他のオペレーターの攻撃力<@ba.vup>+4.2%</>\n<@ba.info>同名効果は2回まで重ね掛け可能\n効果の持続時間は個別にカウントされる</>",
-          "zh-TW": "自然傷害<@ba.vup>+19.6%</>。\n裝備者透過連攜技施加<#ba.spellvul>法術脆弱</>或<#ba.spellinflict>法術附著</>時，攻擊力<@ba.vup>+16.8%</>，小隊內其他幹員攻擊力<@ba.vup>+4.2%</>，持續20秒。\n<@ba.info>同名效果最多疊加2層，每層單獨計算持續時間。</>"
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      }
-    ]
-  },
-  "wpn_lance_0003": {
-    "stats": [
-      {
-        "levelOne": {
-          "zh-CN": "敏捷<@ba.vup>+12</>",
-          "en": "Agility <@ba.vup>+12</>",
-          "ja": "敏捷<@ba.vup>+12</>",
-          "zh-TW": "敏捷<@ba.vup>+12</>"
-        },
-        "maxLevel": {
-          "zh-CN": "敏捷<@ba.vup>+93</>",
-          "en": "Agility <@ba.vup>+93</>",
-          "ja": "敏捷<@ba.vup>+93</>",
-          "zh-TW": "敏捷<@ba.vup>+93</>"
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "zh-CN": "攻击力<@ba.vup>+3.0%</>",
-          "en": "Attack <@ba.vup>+3.0%</>",
-          "ja": "攻撃力<@ba.vup>+3.0%</>",
-          "zh-TW": "攻擊力<@ba.vup>+3.0%</>"
-        },
-        "maxLevel": {
-          "zh-CN": "攻击力<@ba.vup>+23.4%</>",
-          "en": "Attack <@ba.vup>+23.4%</>",
-          "ja": "攻撃力<@ba.vup>+23.4%</>",
-          "zh-TW": "攻擊力<@ba.vup>+23.4%</>"
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "zh-CN": "当装备者的生命值高于<@ba.vup>80%</>时，攻击力<@ba.vup>+15.0%</>。",
-          "en": "When the wielder's HP is above <@ba.vup>80%</>, ATK <@ba.vup>+15.0%</>.",
-          "ja": "装備中、自身のHPが<@ba.vup>80%</>より高いとき、攻撃力<@ba.vup>+15.0%</>",
-          "zh-TW": "當裝備者的生命值高於<@ba.vup>80%</>時，攻擊力<@ba.vup>+15.0%</>。"
-        },
-        "maxLevel": {
-          "zh-CN": "当装备者的生命值高于<@ba.vup>80%</>时，攻击力<@ba.vup>+42.0%</>。",
-          "en": "When the wielder's HP is above <@ba.vup>80%</>, ATK <@ba.vup>+42.0%</>.",
-          "ja": "装備中、自身のHPが<@ba.vup>80%</>より高いとき、攻撃力<@ba.vup>+42.0%</>",
-          "zh-TW": "當裝備者的生命值高於<@ba.vup>80%</>時，攻擊力<@ba.vup>+42.0%</>。"
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      }
-    ]
-  },
-  "wpn_lance_0014": {
-    "stats": [
-      {
-        "levelOne": {
-          "zh-CN": "意志<@ba.vup>+20</>",
-          "en": "Will <@ba.vup>+20</>",
-          "ja": "意志<@ba.vup>+20</>",
-          "zh-TW": "意志<@ba.vup>+20</>"
-        },
-        "maxLevel": {
-          "zh-CN": "意志<@ba.vup>+156</>",
-          "en": "Will <@ba.vup>+156</>",
-          "ja": "意志<@ba.vup>+156</>",
-          "zh-TW": "意志<@ba.vup>+156</>"
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "zh-CN": "治疗效率<@ba.vup>+6.0%</>",
-          "en": "Treatment Efficiency <@ba.vup>+6.0%</>.",
-          "ja": "回復効率<@ba.vup>+6.0%</>",
-          "zh-TW": "治療效率<@ba.vup>+6.0%</>"
-        },
-        "maxLevel": {
-          "zh-CN": "治疗效率<@ba.vup>+46.4%</>",
-          "en": "Treatment Efficiency <@ba.vup>+46.4%</>.",
-          "ja": "回復効率<@ba.vup>+46.4%</>",
-          "zh-TW": "治療效率<@ba.vup>+46.4%</>"
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "zh-CN": "主能力<@ba.vup>+16.0%</>。\n装备者通过自身技能治疗小队内其他干员时，受到装备者治疗的干员攻击力<@ba.vup>+3.5%</>，持续20秒。\n<@ba.info>同名效果最多叠加4层，每层单独计算持续时间，每名干员每0.1秒最多获得一次该效果。</>",
-          "en": "Main attribute <@ba.vup>+16.0%</>.\nWhen the wielder's skill grants HP Treatment to other operators in the team, the operator receiving the wielder's treatment also gains ATK <@ba.vup>+3.5%</> for 20s.\n<@ba.info>Max stacks for effects of the same name: 4. Duration of each stack is counted separately. Each operator can gain this effect at most once every 0.1s. </>",
-          "ja": "メイン能力値<@ba.vup>+16.0%</>\n装備中、自身のスキルでチーム内の他のオペレーターを治療したとき、20秒間その治療を受けたオペレーターの攻撃力<@ba.vup>+3.5%</>\n<@ba.info>同名効果は4回まで重ね掛け可能\n効果の持続時間は個別にカウントされ、各オペレーターは0.1秒に1回までこの効果を獲得できる</>",
-          "zh-TW": "主能力<@ba.vup>+16.0%</>。\n裝備者透過自身技能治療小隊內其他幹員時，受到裝備者治療的幹員攻擊力<@ba.vup>+3.5%</>，持續20秒。\n<@ba.info>同名效果最多疊加4層，每層單獨計算持續時間，每名幹員每0.1秒最多獲得一次該效果。</>"
-        },
-        "maxLevel": {
-          "zh-CN": "主能力<@ba.vup>+44.8%</>。\n装备者通过自身技能治疗小队内其他干员时，受到装备者治疗的干员攻击力<@ba.vup>+9.8%</>，持续20秒。\n<@ba.info>同名效果最多叠加4层，每层单独计算持续时间，每名干员每0.1秒最多获得一次该效果。</>",
-          "en": "Main attribute <@ba.vup>+44.8%</>.\nWhen the wielder's skill grants HP Treatment to other operators in the team, the operator receiving the wielder's treatment also gains ATK <@ba.vup>+9.8%</> for 20s.\n<@ba.info>Max stacks for effects of the same name: 4. Duration of each stack is counted separately. Each operator can gain this effect at most once every 0.1s. </>",
-          "ja": "メイン能力値<@ba.vup>+44.8%</>\n装備中、自身のスキルでチーム内の他のオペレーターを治療したとき、20秒間その治療を受けたオペレーターの攻撃力<@ba.vup>+9.8%</>\n<@ba.info>同名効果は4回まで重ね掛け可能\n効果の持続時間は個別にカウントされ、各オペレーターは0.1秒に1回までこの効果を獲得できる</>",
-          "zh-TW": "主能力<@ba.vup>+44.8%</>。\n裝備者透過自身技能治療小隊內其他幹員時，受到裝備者治療的幹員攻擊力<@ba.vup>+9.8%</>，持續20秒。\n<@ba.info>同名效果最多疊加4層，每層單獨計算持續時間，每名幹員每0.1秒最多獲得一次該效果。</>"
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      }
-    ]
-  },
-  "wpn_lance_0008": {
-    "stats": [
-      {
-        "levelOne": {
-          "zh-CN": "意志<@ba.vup>+12</>",
-          "en": "Will <@ba.vup>+12</>",
-          "ja": "意志<@ba.vup>+12</>",
-          "zh-TW": "意志<@ba.vup>+12</>"
-        },
-        "maxLevel": {
-          "zh-CN": "意志<@ba.vup>+93</>",
-          "en": "Will <@ba.vup>+93</>",
-          "ja": "意志<@ba.vup>+93</>",
-          "zh-TW": "意志<@ba.vup>+93</>"
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "zh-CN": "法术伤害<@ba.vup>+3.3%</>",
-          "en": "Arts DMG Dealt <@ba.vup>+3.3%</>",
-          "ja": "アーツダメージ<@ba.vup>+3.3%</>",
-          "zh-TW": "法術傷害<@ba.vup>+3.3%</>"
-        },
-        "maxLevel": {
-          "zh-CN": "法术伤害<@ba.vup>+26.0%</>",
-          "en": "Arts DMG Dealt <@ba.vup>+26.0%</>",
-          "ja": "アーツダメージ<@ba.vup>+26.0%</>",
-          "zh-TW": "法術傷害<@ba.vup>+26.0%</>"
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "zh-CN": "装备者的战技命中敌人时，获得攻击力<@ba.vup>+12.0%</>，持续20秒。\n<@ba.info>同名效果无法叠加。</>",
-          "en": "When the wielder's battle skill hits the enemy, the wielder gains ATK <@ba.vup>+12.0%</> for 20s.\n<@ba.info>Effects of the same name cannot stack. </>",
-          "ja": "装備中、自身の戦技が敵に命中するとき、20秒間攻撃力<@ba.vup>+12.0%</>\n<@ba.info>同名効果は重ね掛け不可</>",
-          "zh-TW": "裝備者的戰技命中敵人時，獲得攻擊力<@ba.vup>+12.0%</>，持續20秒。\n<@ba.info>同名效果無法疊加。</>"
-        },
-        "maxLevel": {
-          "zh-CN": "装备者的战技命中敌人时，获得攻击力<@ba.vup>+33.6%</>，持续20秒。\n<@ba.info>同名效果无法叠加。</>",
-          "en": "When the wielder's battle skill hits the enemy, the wielder gains ATK <@ba.vup>+33.6%</> for 20s.\n<@ba.info>Effects of the same name cannot stack. </>",
-          "ja": "装備中、自身の戦技が敵に命中するとき、20秒間攻撃力<@ba.vup>+33.6%</>\n<@ba.info>同名効果は重ね掛け不可</>",
-          "zh-TW": "裝備者的戰技命中敵人時，獲得攻擊力<@ba.vup>+33.6%</>，持續20秒。\n<@ba.info>同名效果無法疊加。</>"
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      }
-    ]
-  },
-  "wpn_lance_0015": {
-    "stats": [
-      {
-        "levelOne": {
-          "zh-CN": "敏捷<@ba.vup>+20</>",
-          "en": "Agility <@ba.vup>+20</>",
-          "ja": "敏捷<@ba.vup>+20</>",
-          "zh-TW": "敏捷<@ba.vup>+20</>"
-        },
-        "maxLevel": {
-          "zh-CN": "敏捷<@ba.vup>+156</>",
-          "en": "Agility <@ba.vup>+156</>",
-          "ja": "敏捷<@ba.vup>+156</>",
-          "zh-TW": "敏捷<@ba.vup>+156</>"
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "zh-CN": "灼热伤害<@ba.vup>+5.6%</>",
-          "en": "Heat DMG Dealt <@ba.vup>+5.6%</>",
-          "ja": "灼熱ダメージ<@ba.vup>+5.6%</>",
-          "zh-TW": "灼熱傷害<@ba.vup>+5.6%</>"
-        },
-        "maxLevel": {
-          "zh-CN": "灼热伤害<@ba.vup>+43.3%</>",
-          "en": "Heat DMG Dealt <@ba.vup>+43.3%</>",
-          "ja": "灼熱ダメージ<@ba.vup>+43.3%</>",
-          "zh-TW": "灼熱傷害<@ba.vup>+43.3%</>"
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "zh-CN": "终结技充能效率<@ba.vup>+18.0%</>。\n装备者通过自身技能恢复技力后，全队攻击力<@ba.vup>+6.0%</>，持续20秒；装备者通过自身技能施加<#ba.fireinflict>灼热附着</>时，全队造成的灼热伤害<@ba.vup>+6.0%</>，持续20秒。 \n<@ba.info>两种效果独立生效，且均无法叠加。</>",
-          "en": "Ultimate Gain Efficiency <@ba.vup>+18.0%</>.\nWhen the wielder's skill recovers SP, the entire team gains ATK <@ba.vup>+6.0%</> for 20s. When the wielder's skill applies <#ba.fireinflict>Heat Infliction</>, the entire team gains Heat DMG Dealt <@ba.vup>+6.0%</> for 20s.\n<@ba.info>The two effects apply separately and do not stack with themselves.</>",
-          "ja": "必殺チャージの回復効率<@ba.vup>+18.0%</>\n装備中、自身のスキルでSPを回復すると、20秒間チーム全員の攻撃力<@ba.vup>+6.0%</>\n自身のスキルで<#ba.fireinflict>灼熱付着</>を付与するとき、20秒間チーム全員の灼熱ダメージ<@ba.vup>+6.0%</>\n<@ba.info>2つの効果はそれぞれ存在し、重ね掛け不可</>",
-          "zh-TW": "終結技蓄能效率<@ba.vup>+18.0%</>。\n裝備者透過自身技能回復技力後，全隊攻擊力<@ba.vup>+6.0%</>，持續20秒；裝備者透過自身技能施加<#ba.fireinflict>灼熱附著</>時，全隊造成的灼熱傷害<@ba.vup>+6.0%</>，持續20秒。 \n<@ba.info>兩種效果獨立生效，且均無法疊加。</>"
-        },
-        "maxLevel": {
-          "zh-CN": "终结技充能效率<@ba.vup>+50.4%</>。\n装备者通过自身技能恢复技力后，全队攻击力<@ba.vup>+16.8%</>，持续20秒；装备者通过自身技能施加<#ba.fireinflict>灼热附着</>时，全队造成的灼热伤害<@ba.vup>+16.8%</>，持续20秒。 \n<@ba.info>两种效果独立生效，且均无法叠加。</>",
-          "en": "Ultimate Gain Efficiency <@ba.vup>+50.4%</>.\nWhen the wielder's skill recovers SP, the entire team gains ATK <@ba.vup>+16.8%</> for 20s. When the wielder's skill applies <#ba.fireinflict>Heat Infliction</>, the entire team gains Heat DMG Dealt <@ba.vup>+16.8%</> for 20s.\n<@ba.info>The two effects apply separately and do not stack with themselves.</>",
-          "ja": "必殺チャージの回復効率<@ba.vup>+50.4%</>\n装備中、自身のスキルでSPを回復すると、20秒間チーム全員の攻撃力<@ba.vup>+16.8%</>\n自身のスキルで<#ba.fireinflict>灼熱付着</>を付与するとき、20秒間チーム全員の灼熱ダメージ<@ba.vup>+16.8%</>\n<@ba.info>2つの効果はそれぞれ存在し、重ね掛け不可</>",
-          "zh-TW": "終結技蓄能效率<@ba.vup>+50.4%</>。\n裝備者透過自身技能回復技力後，全隊攻擊力<@ba.vup>+16.8%</>，持續20秒；裝備者透過自身技能施加<#ba.fireinflict>灼熱附著</>時，全隊造成的灼熱傷害<@ba.vup>+16.8%</>，持續20秒。 \n<@ba.info>兩種效果獨立生效，且均無法疊加。</>"
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      }
-    ]
-  },
-  "wpn_lance_0009": {
-    "stats": [
-      {
-        "levelOne": {
-          "zh-CN": "主能力值<@ba.vup>+10</>",
-          "en": "Main attribute <@ba.vup>+10</>",
-          "ja": "メイン能力値<@ba.vup>+10</>",
-          "zh-TW": "主能力值<@ba.vup>+10</>"
-        },
-        "maxLevel": {
-          "zh-CN": "主能力值<@ba.vup>+79</>",
-          "en": "Main attribute <@ba.vup>+79</>",
-          "ja": "メイン能力値<@ba.vup>+79</>",
-          "zh-TW": "主能力值<@ba.vup>+79</>"
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "zh-CN": "攻击力<@ba.vup>+12</>。",
-          "en": "ATK <@ba.vup>+12</>.",
-          "ja": "攻撃力<@ba.vup>+12</>",
-          "zh-TW": "攻擊力<@ba.vup>+12</>。"
-        },
-        "maxLevel": {
-          "zh-CN": "攻击力<@ba.vup>+34</>。",
-          "en": "ATK <@ba.vup>+34</>.",
-          "ja": "攻撃力<@ba.vup>+34</>",
-          "zh-TW": "攻擊力<@ba.vup>+34</>。"
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      }
-    ]
-  },
-  "wpn_lance_0016": {
-    "stats": [
-      {
-        "levelOne": {
-          "zh-CN": "意志<@ba.vup>+20</>",
-          "en": "Will <@ba.vup>+20</>",
-          "ja": "意志<@ba.vup>+20</>",
-          "zh-TW": "意志<@ba.vup>+20</>"
-        },
-        "maxLevel": {
-          "zh-CN": "意志<@ba.vup>+156</>",
-          "en": "Will <@ba.vup>+156</>",
-          "ja": "意志<@ba.vup>+156</>",
-          "zh-TW": "意志<@ba.vup>+156</>"
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "zh-CN": "治疗效率<@ba.vup>+6.0%</>",
-          "en": "Treatment Efficiency <@ba.vup>+6.0%</>.",
-          "ja": "回復効率<@ba.vup>+6.0%</>",
-          "zh-TW": "治療效率<@ba.vup>+6.0%</>"
-        },
-        "maxLevel": {
-          "zh-CN": "治疗效率<@ba.vup>+46.4%</>",
-          "en": "Treatment Efficiency <@ba.vup>+46.4%</>.",
-          "ja": "回復効率<@ba.vup>+46.4%</>",
-          "zh-TW": "治療效率<@ba.vup>+46.4%</>"
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "zh-CN": "电磁伤害<@ba.vup>+6.0%</>。\n装备者通过连携技造成伤害时，治疗效率<@ba.vup>+4.0%</>，持续15秒；装备者通过连携技治疗小队内其他干员时，全队法术伤害<@ba.vup>+5.0%</>，持续20秒。\n<@ba.info>同名效果无法叠加。</>",
-          "en": "Electric DMG Dealt <@ba.vup>+6.0%</>.\nWhen the wielder's combo skill deals DMG, the wielder gains Treatment Efficiency <@ba.vup>+4.0%</> for 15s. When the wielder's combo skill grants HP Treatment to other operators in the team, the entire team gains Arts DMG Dealt<@ba.vup> +5.0%</> for 20s.\n<@ba.info>Effects of the same name cannot stack.</>",
-          "ja": "電磁ダメージ<@ba.vup>+6.0%</>\n装備中、自身の連携技でダメージを与えたとき、15秒間回復効率<@ba.vup>+4.0%</>\n自身の連携技でチーム内の他のオペレーターを治療したとき、20秒間チーム全員のアーツダメージ<@ba.vup>+5.0%</>\n<@ba.info>同名効果は重ね掛け不可</>",
-          "zh-TW": "電磁傷害<@ba.vup>+6.0%</>。\n裝備者透過連攜技造成傷害時，治療效率<@ba.vup>+4.0%</>，持續15秒；裝備者透過連攜技治療小隊內其他幹員時，全隊法術傷害<@ba.vup>+5.0%</>，持續20秒。\n<@ba.info>同名效果無法疊加。</>"
-        },
-        "maxLevel": {
-          "zh-CN": "电磁伤害<@ba.vup>+16.8%</>。\n装备者通过连携技造成伤害时，治疗效率<@ba.vup>+11.2%</>，持续15秒；装备者通过连携技治疗小队内其他干员时，全队法术伤害<@ba.vup>+14.0%</>，持续20秒。\n<@ba.info>同名效果无法叠加。</>",
-          "en": "Electric DMG Dealt <@ba.vup>+16.8%</>.\nWhen the wielder's combo skill deals DMG, the wielder gains Treatment Efficiency <@ba.vup>+11.2%</> for 15s. When the wielder's combo skill grants HP Treatment to other operators in the team, the entire team gains Arts DMG Dealt<@ba.vup> +14.0%</> for 20s.\n<@ba.info>Effects of the same name cannot stack.</>",
-          "ja": "電磁ダメージ<@ba.vup>+16.8%</>\n装備中、自身の連携技でダメージを与えたとき、15秒間回復効率<@ba.vup>+11.2%</>\n自身の連携技でチーム内の他のオペレーターを治療したとき、20秒間チーム全員のアーツダメージ<@ba.vup>+14.0%</>\n<@ba.info>同名効果は重ね掛け不可</>",
-          "zh-TW": "電磁傷害<@ba.vup>+16.8%</>。\n裝備者透過連攜技造成傷害時，治療效率<@ba.vup>+11.2%</>，持續15秒；裝備者透過連攜技治療小隊內其他幹員時，全隊法術傷害<@ba.vup>+14.0%</>，持續20秒。\n<@ba.info>同名效果無法疊加。</>"
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      }
-    ]
-  },
-  "wpn_pistol_0002": {
-    "stats": [
-      {
-        "levelOne": {
-          "zh-CN": "智识<@ba.vup>+12</>",
-          "en": "Intellect <@ba.vup>+12</>",
-          "ja": "知性<@ba.vup>+12</>",
-          "zh-TW": "智識<@ba.vup>+12</>"
-        },
-        "maxLevel": {
-          "zh-CN": "智识<@ba.vup>+93</>",
-          "en": "Intellect <@ba.vup>+93</>",
-          "ja": "知性<@ba.vup>+93</>",
-          "zh-TW": "智識<@ba.vup>+93</>"
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "zh-CN": "攻击力<@ba.vup>+3.0%</>",
-          "en": "Attack <@ba.vup>+3.0%</>",
-          "ja": "攻撃力<@ba.vup>+3.0%</>",
-          "zh-TW": "攻擊力<@ba.vup>+3.0%</>"
-        },
-        "maxLevel": {
-          "zh-CN": "攻击力<@ba.vup>+23.4%</>",
-          "en": "Attack <@ba.vup>+23.4%</>",
-          "ja": "攻撃力<@ba.vup>+23.4%</>",
-          "zh-TW": "攻擊力<@ba.vup>+23.4%</>"
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "zh-CN": "装备者的战技命中敌人时，获得攻击力<@ba.vup>+12.0%</>，持续20秒。\n<@ba.info>同名效果无法叠加。</>",
-          "en": "When the wielder's battle skill hits the enemy, the wielder gains ATK <@ba.vup>+12.0%</> for 20s.\n<@ba.info>Effects of the same name cannot stack. </>",
-          "ja": "装備中、自身の戦技が敵に命中するとき、20秒間攻撃力<@ba.vup>+12.0%</>\n<@ba.info>同名効果は重ね掛け不可</>",
-          "zh-TW": "裝備者的戰技命中敵人時，獲得攻擊力<@ba.vup>+12.0%</>，持續20秒。\n<@ba.info>同名效果無法疊加。</>"
-        },
-        "maxLevel": {
-          "zh-CN": "装备者的战技命中敌人时，获得攻击力<@ba.vup>+33.6%</>，持续20秒。\n<@ba.info>同名效果无法叠加。</>",
-          "en": "When the wielder's battle skill hits the enemy, the wielder gains ATK <@ba.vup>+33.6%</> for 20s.\n<@ba.info>Effects of the same name cannot stack. </>",
-          "ja": "装備中、自身の戦技が敵に命中するとき、20秒間攻撃力<@ba.vup>+33.6%</>\n<@ba.info>同名効果は重ね掛け不可</>",
-          "zh-TW": "裝備者的戰技命中敵人時，獲得攻擊力<@ba.vup>+33.6%</>，持續20秒。\n<@ba.info>同名效果無法疊加。</>"
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      }
-    ]
-  },
-  "wpn_pistol_0003": {
-    "stats": [
-      {
-        "levelOne": {
-          "zh-CN": "力量<@ba.vup>+12</>",
-          "en": "Strength <@ba.vup>+12</>",
-          "ja": "筋力<@ba.vup>+12</>",
-          "zh-TW": "力量<@ba.vup>+12</>"
-        },
-        "maxLevel": {
-          "zh-CN": "力量<@ba.vup>+93</>",
-          "en": "Strength <@ba.vup>+93</>",
-          "ja": "筋力<@ba.vup>+93</>",
-          "zh-TW": "力量<@ba.vup>+93</>"
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "zh-CN": "法术伤害<@ba.vup>+3.3%</>",
-          "en": "Arts DMG Dealt <@ba.vup>+3.3%</>",
-          "ja": "アーツダメージ<@ba.vup>+3.3%</>",
-          "zh-TW": "法術傷害<@ba.vup>+3.3%</>"
-        },
-        "maxLevel": {
-          "zh-CN": "法术伤害<@ba.vup>+26.0%</>",
-          "en": "Arts DMG Dealt <@ba.vup>+26.0%</>",
-          "ja": "アーツダメージ<@ba.vup>+26.0%</>",
-          "zh-TW": "法術傷害<@ba.vup>+26.0%</>"
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "zh-CN": "装备者施放连携技时，获得攻击力<@ba.vup>+12.0%</>，持续20秒。\n<@ba.info>同名效果无法叠加。</>",
-          "en": "When the wielder casts a combo skill, the wielder gains ATK <@ba.vup>+12.0%</> for 20s.\n<@ba.info>Effects of the same name cannot stack. </>",
-          "ja": "装備中、自身が連携技を発動するとき、20秒間攻撃力<@ba.vup>+12.0%</>\n<@ba.info>同名効果は重ね掛け不可</>",
-          "zh-TW": "裝備者施放連攜技時，獲得攻擊力<@ba.vup>+12.0%</>，持續20秒。\n<@ba.info>同名效果無法疊加。</>"
-        },
-        "maxLevel": {
-          "zh-CN": "装备者施放连携技时，获得攻击力<@ba.vup>+33.6%</>，持续20秒。\n<@ba.info>同名效果无法叠加。</>",
-          "en": "When the wielder casts a combo skill, the wielder gains ATK <@ba.vup>+33.6%</> for 20s.\n<@ba.info>Effects of the same name cannot stack. </>",
-          "ja": "装備中、自身が連携技を発動するとき、20秒間攻撃力<@ba.vup>+33.6%</>\n<@ba.info>同名効果は重ね掛け不可</>",
-          "zh-TW": "裝備者施放連攜技時，獲得攻擊力<@ba.vup>+33.6%</>，持續20秒。\n<@ba.info>同名效果無法疊加。</>"
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      }
-    ]
-  },
-  "wpn_pistol_0004": {
-    "stats": [
-      {
-        "levelOne": {
-          "zh-CN": "力量<@ba.vup>+16</>",
-          "en": "Strength <@ba.vup>+16</>",
-          "ja": "筋力<@ba.vup>+16</>",
-          "zh-TW": "力量<@ba.vup>+16</>"
-        },
-        "maxLevel": {
-          "zh-CN": "力量<@ba.vup>+124</>",
-          "en": "Strength <@ba.vup>+124</>",
-          "ja": "筋力<@ba.vup>+124</>",
-          "zh-TW": "力量<@ba.vup>+124</>"
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "zh-CN": "灼热伤害<@ba.vup>+4.4%</>",
-          "en": "Heat DMG Dealt <@ba.vup>+4.4%</>",
-          "ja": "灼熱ダメージ<@ba.vup>+4.4%</>",
-          "zh-TW": "灼熱傷害<@ba.vup>+4.4%</>"
-        },
-        "maxLevel": {
-          "zh-CN": "灼热伤害<@ba.vup>+34.7%</>",
-          "en": "Heat DMG Dealt <@ba.vup>+34.7%</>",
-          "ja": "灼熱ダメージ<@ba.vup>+34.7%</>",
-          "zh-TW": "灼熱傷害<@ba.vup>+34.7%</>"
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "zh-CN": "战技伤害<@ba.vup>+10.0%</>。\n装备者通过连携技造成<#ba.spellburst>法术爆发</>或施加<#ba.burning>燃烧</>时，获得攻击力<@ba.vup>+16.0%</>，持续15秒。\n<@ba.info>同名效果无法叠加。</>",
-          "en": "Battle Skill DMG <@ba.vup>+10.0%</>.\nWhen the wielder's combo skill applies <#ba.spellburst>Arts Burst</> or <#ba.burning>Combusted</>, the wielder gains ATK <@ba.vup>+16.0%</> for 15s.\n<@ba.info>Effects of the same name cannot stack.</>",
-          "ja": "戦技ダメージ<@ba.vup>+10.0%</>\n装備中、自身が連携技で<#ba.spellburst>アーツ爆発</>または<#ba.burning>燃焼</>を発動させるとき、15秒間攻撃力<@ba.vup>+16.0%</>\n<@ba.info>同名効果は重ね掛け不可</>",
-          "zh-TW": "戰技傷害<@ba.vup>+10.0%</>。\n裝備者透過連攜技造成<#ba.spellburst>法術爆發</>或施加<#ba.burning>燃燒</>時，獲得攻擊力<@ba.vup>+16.0%</>，持續15秒。\n<@ba.info>同名效果無法疊加。</>"
-        },
-        "maxLevel": {
-          "zh-CN": "战技伤害<@ba.vup>+28.0%</>。\n装备者通过连携技造成<#ba.spellburst>法术爆发</>或施加<#ba.burning>燃烧</>时，获得攻击力<@ba.vup>+44.8%</>，持续15秒。\n<@ba.info>同名效果无法叠加。</>",
-          "en": "Battle Skill DMG <@ba.vup>+28.0%</>.\nWhen the wielder's combo skill applies <#ba.spellburst>Arts Burst</> or <#ba.burning>Combusted</>, the wielder gains ATK <@ba.vup>+44.8%</> for 15s.\n<@ba.info>Effects of the same name cannot stack.</>",
-          "ja": "戦技ダメージ<@ba.vup>+28.0%</>\n装備中、自身が連携技で<#ba.spellburst>アーツ爆発</>または<#ba.burning>燃焼</>を発動させるとき、15秒間攻撃力<@ba.vup>+44.8%</>\n<@ba.info>同名効果は重ね掛け不可</>",
-          "zh-TW": "戰技傷害<@ba.vup>+28.0%</>。\n裝備者透過連攜技造成<#ba.spellburst>法術爆發</>或施加<#ba.burning>燃燒</>時，獲得攻擊力<@ba.vup>+44.8%</>，持續15秒。\n<@ba.info>同名效果無法疊加。</>"
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      }
-    ]
-  },
-  "wpn_pistol_0005": {
-    "stats": [
-      {
-        "levelOne": {
-          "zh-CN": "智识<@ba.vup>+20</>",
-          "en": "Intellect <@ba.vup>+20</>",
-          "ja": "知性<@ba.vup>+20</>",
-          "zh-TW": "智識<@ba.vup>+20</>"
-        },
-        "maxLevel": {
-          "zh-CN": "智识<@ba.vup>+156</>",
-          "en": "Intellect <@ba.vup>+156</>",
-          "ja": "知性<@ba.vup>+156</>",
-          "zh-TW": "智識<@ba.vup>+156</>"
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "zh-CN": "寒冷伤害<@ba.vup>+5.6%</>",
-          "en": "Cryo DMG Dealt <@ba.vup>+5.6%</>",
-          "ja": "寒冷ダメージ<@ba.vup>+5.6%</>",
-          "zh-TW": "寒冷傷害<@ba.vup>+5.6%</>"
-        },
-        "maxLevel": {
-          "zh-CN": "寒冷伤害<@ba.vup>+43.3%</>",
-          "en": "Cryo DMG Dealt <@ba.vup>+43.3%</>",
-          "ja": "寒冷ダメージ<@ba.vup>+43.3%</>",
-          "zh-TW": "寒冷傷害<@ba.vup>+43.3%</>"
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "zh-CN": "暴击率<@ba.vup>+3.5%</>。\n场上有敌人被施加<#ba.frozen>冻结</>或<#ba.corrupt>腐蚀</>时，获得寒冷和自然伤害<@ba.vup>+3.5%</>，暴击率<@ba.vup>+2.0%</>，持续15秒。若由装备者触发该效果，提升的数值翻倍。\n<@ba.info>同名效果无法叠加。</>",
-          "en": "Critical Rate <@ba.vup>+3.5%</>.\nWhen <#ba.frozen>Solidification</> or <#ba.corrupt>Corrosion</> is applied to enemies, the wielder gains Cryo DMG Dealt and Nature DMG Dealt <@ba.vup>+3.5%</>, and Critical Rate <@ba.vup>+2.0%</> for 15s. If this effect is triggered by the wielder, double the increase gained.\n<@ba.info>Effects of the same name cannot stack.</>",
-          "ja": "会心率<@ba.vup>+3.5%</>\n戦闘中、敵が<#ba.frozen>凍結</>または<#ba.corrupt>腐食</>状態になるとき、15秒間寒冷ダメージと自然ダメージ<@ba.vup>+3.5%</>、会心率<@ba.vup>+2.0%</>\n効果の発動者が自身の場合、この効果が2倍になる\n<@ba.info>同名効果は重ね掛け不可</>",
-          "zh-TW": "暴擊率<@ba.vup>+3.5%</>。\n場上有敵人被施加<#ba.frozen>凍結</>或<#ba.corrupt>腐蝕</>時，獲得寒冷和自然傷害<@ba.vup>+3.5%</>，暴擊率<@ba.vup>+2.0%</>，持續15秒。若由裝備者觸發該效果，提升的數值翻倍。\n<@ba.info>同名效果無法疊加。</>"
-        },
-        "maxLevel": {
-          "zh-CN": "暴击率<@ba.vup>+9.8%</>。\n场上有敌人被施加<#ba.frozen>冻结</>或<#ba.corrupt>腐蚀</>时，获得寒冷和自然伤害<@ba.vup>+9.8%</>，暴击率<@ba.vup>+5.6%</>，持续15秒。若由装备者触发该效果，提升的数值翻倍。\n<@ba.info>同名效果无法叠加。</>",
-          "en": "Critical Rate <@ba.vup>+9.8%</>.\nWhen <#ba.frozen>Solidification</> or <#ba.corrupt>Corrosion</> is applied to enemies, the wielder gains Cryo DMG Dealt and Nature DMG Dealt <@ba.vup>+9.8%</>, and Critical Rate <@ba.vup>+5.6%</> for 15s. If this effect is triggered by the wielder, double the increase gained.\n<@ba.info>Effects of the same name cannot stack.</>",
-          "ja": "会心率<@ba.vup>+9.8%</>\n戦闘中、敵が<#ba.frozen>凍結</>または<#ba.corrupt>腐食</>状態になるとき、15秒間寒冷ダメージと自然ダメージ<@ba.vup>+9.8%</>、会心率<@ba.vup>+5.6%</>\n効果の発動者が自身の場合、この効果が2倍になる\n<@ba.info>同名効果は重ね掛け不可</>",
-          "zh-TW": "暴擊率<@ba.vup>+9.8%</>。\n場上有敵人被施加<#ba.frozen>凍結</>或<#ba.corrupt>腐蝕</>時，獲得寒冷和自然傷害<@ba.vup>+9.8%</>，暴擊率<@ba.vup>+5.6%</>，持續15秒。若由裝備者觸發該效果，提升的數值翻倍。\n<@ba.info>同名效果無法疊加。</>"
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      }
-    ]
-  },
-  "wpn_pistol_0010": {
-    "stats": [
-      {
-        "levelOne": {
-          "zh-CN": "智识<@ba.vup>+20</>",
-          "en": "Intellect <@ba.vup>+20</>",
-          "ja": "知性<@ba.vup>+20</>",
-          "zh-TW": "智識<@ba.vup>+20</>"
-        },
-        "maxLevel": {
-          "zh-CN": "智识<@ba.vup>+156</>",
-          "en": "Intellect <@ba.vup>+156</>",
-          "ja": "知性<@ba.vup>+156</>",
-          "zh-TW": "智識<@ba.vup>+156</>"
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "zh-CN": "暴击率<@ba.vup>+2.5%</>",
-          "en": "Critical Rate <@ba.vup>+2.5%</>",
-          "ja": "会心率<@ba.vup>+2.5%</>",
-          "zh-TW": "暴擊率<@ba.vup>+2.5%</>"
-        },
-        "maxLevel": {
-          "zh-CN": "暴击率<@ba.vup>+19.5%</>",
-          "en": "Critical Rate <@ba.vup>+19.5%</>",
-          "ja": "会心率<@ba.vup>+19.5%</>",
-          "zh-TW": "暴擊率<@ba.vup>+19.5%</>"
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "zh-CN": "寒冷伤害<@ba.vup>+16.0%</>。\n装备者的战技或连携技造成暴击伤害后，寒冷伤害<@ba.vup>+14.0%</>，持续30秒。\n<@ba.info>同名效果最多叠加3层，每层单独计算持续时间，每0.1秒最多触发一次。</>",
-          "en": "Cryo DMG Dealt <@ba.vup>+16.0%</>.\nAfter the wielder scores a critical hit with a battle skill or combo skill, the wielder gains Cryo DMG Dealt <@ba.vup>+14.0%</> for 30s.\n<@ba.info>Max stacks for effects of the same name: 3. Duration of each stack is counted separately. Effect only triggers once every 0.1s.</>",
-          "ja": "寒冷ダメージ<@ba.vup>+16.0%</>\n装備中、自身の戦技または連携技で会心ダメージが発生すると、30秒間寒冷ダメージ<@ba.vup>+14.0%</>\n<@ba.info>同名効果は3回まで重ね掛け可能\n効果の持続時間は個別にカウントされ、0.1秒に1回まで発動可能</>",
-          "zh-TW": "寒冷傷害<@ba.vup>+16.0%</>。\n裝備者的戰技或連攜技造成暴擊傷害後，寒冷傷害<@ba.vup>+14.0%</>，持續30秒。\n<@ba.info>同名效果最多疊加3層，每層單獨計算持續時間，每0.1秒最多觸發一次。</>"
-        },
-        "maxLevel": {
-          "zh-CN": "寒冷伤害<@ba.vup>+44.8%</>。\n装备者的战技或连携技造成暴击伤害后，寒冷伤害<@ba.vup>+39.2%</>，持续30秒。\n<@ba.info>同名效果最多叠加3层，每层单独计算持续时间，每0.1秒最多触发一次。</>",
-          "en": "Cryo DMG Dealt <@ba.vup>+44.8%</>.\nAfter the wielder scores a critical hit with a battle skill or combo skill, the wielder gains Cryo DMG Dealt <@ba.vup>+39.2%</> for 30s.\n<@ba.info>Max stacks for effects of the same name: 3. Duration of each stack is counted separately. Effect only triggers once every 0.1s.</>",
-          "ja": "寒冷ダメージ<@ba.vup>+44.8%</>\n装備中、自身の戦技または連携技で会心ダメージが発生すると、30秒間寒冷ダメージ<@ba.vup>+39.2%</>\n<@ba.info>同名効果は3回まで重ね掛け可能\n効果の持続時間は個別にカウントされ、0.1秒に1回まで発動可能</>",
-          "zh-TW": "寒冷傷害<@ba.vup>+44.8%</>。\n裝備者的戰技或連攜技造成暴擊傷害後，寒冷傷害<@ba.vup>+39.2%</>，持續30秒。\n<@ba.info>同名效果最多疊加3層，每層單獨計算持續時間，每0.1秒最多觸發一次。</>"
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      }
-    ]
-  },
-  "wpn_sword_0011": {
-    "stats": [
-      {
-        "levelOne": {
-          "zh-CN": "主能力值<@ba.vup>+17</>",
-          "en": "Main attribute <@ba.vup>+17</>",
-          "ja": "メイン能力値<@ba.vup>+17</>",
-          "zh-TW": "主能力值<@ba.vup>+17</>"
-        },
-        "maxLevel": {
-          "zh-CN": "主能力值<@ba.vup>+132</>",
-          "en": "Main attribute <@ba.vup>+132</>",
-          "ja": "メイン能力値<@ba.vup>+132</>",
-          "zh-TW": "主能力值<@ba.vup>+132</>"
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "zh-CN": "暴击率<@ba.vup>+2.5%</>",
-          "en": "Critical Rate <@ba.vup>+2.5%</>",
-          "ja": "会心率<@ba.vup>+2.5%</>",
-          "zh-TW": "暴擊率<@ba.vup>+2.5%</>"
-        },
-        "maxLevel": {
-          "zh-CN": "暴击率<@ba.vup>+19.5%</>",
-          "en": "Critical Rate <@ba.vup>+19.5%</>",
-          "ja": "会心率<@ba.vup>+19.5%</>",
-          "zh-TW": "暴擊率<@ba.vup>+19.5%</>"
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "zh-CN": "战技和终结技造成的物理伤害<@ba.vup>+15.0%</>。\n对处于<@ba.poise>失衡</>状态的敌人造成的伤害<@ba.vup>+35.0%</>。",
-          "en": "Battle skills and ultimates gain Physical DMG Dealt <@ba.vup>+15.0%</>.\nAgainst <@ba.poise>Staggered</> enemies, battle skills and ultimates also gain DMG Dealt <@ba.vup>+35.0%</>.",
-          "ja": "戦技と必殺技の物理ダメージ<@ba.vup>+15.0%</>\n<@ba.poise>ブレイク</>状態の敵へのダメージ<@ba.vup>+35.0%</>",
-          "zh-TW": "戰技和終結技造成的物理傷害<@ba.vup>+15.0%</>。\n對處於<@ba.poise>失衡</>狀態的敵人造成的傷害<@ba.vup>+35.0%</>。"
-        },
-        "maxLevel": {
-          "zh-CN": "战技和终结技造成的物理伤害<@ba.vup>+42.0%</>。\n对处于<@ba.poise>失衡</>状态的敌人造成的伤害<@ba.vup>+98.0%</>。",
-          "en": "Battle skills and ultimates gain Physical DMG Dealt <@ba.vup>+42.0%</>.\nAgainst <@ba.poise>Staggered</> enemies, battle skills and ultimates also gain DMG Dealt <@ba.vup>+98.0%</>.",
-          "ja": "戦技と必殺技の物理ダメージ<@ba.vup>+42.0%</>\n<@ba.poise>ブレイク</>状態の敵へのダメージ<@ba.vup>+98.0%</>",
-          "zh-TW": "戰技和終結技造成的物理傷害<@ba.vup>+42.0%</>。\n對處於<@ba.poise>失衡</>狀態的敵人造成的傷害<@ba.vup>+98.0%</>。"
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      }
-    ]
-  },
-  "wpn_pistol_0012": {
-    "stats": [
-      {
-        "levelOne": {
-          "zh-CN": "敏捷<@ba.vup>+16</>",
-          "en": "Agility <@ba.vup>+16</>",
-          "ja": "敏捷<@ba.vup>+16</>",
-          "zh-TW": "敏捷<@ba.vup>+16</>"
-        },
-        "maxLevel": {
-          "zh-CN": "敏捷<@ba.vup>+124</>",
-          "en": "Agility <@ba.vup>+124</>",
-          "ja": "敏捷<@ba.vup>+124</>",
-          "zh-TW": "敏捷<@ba.vup>+124</>"
+          "zh-CN": "智识<@ba.vup>+124</>",
+          "en": "Intellect <@ba.vup>+124</>",
+          "ja": "知性<@ba.vup>+124</>",
+          "zh-TW": "智識<@ba.vup>+124</>"
         },
         "levelOneLabel": "Lv.1",
         "maxLevelLabel": "Lv.9"
@@ -3495,120 +2523,16 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       },
       {
         "levelOne": {
-          "zh-CN": "攻击力<@ba.vup>+5.0%</>。\n装备者<#ba.consume>消耗</><#ba.spellinflict>法术附着</>后，自然伤害<@ba.vup>+[5.0%×消耗层数]</>，持续20秒。\n<@ba.info>同名效果无法叠加。</>",
-          "en": "ATK <@ba.vup>+5.0%</>.\nAfter the wielder <#ba.consume>consumes</> an <#ba.spellinflict>Arts Infliction</>, the wielder gains Nature DMG Dealt <@ba.vup>+[5.0%×Stacks Consumed]</> for 20s. \n<@ba.info>Effects of the same name cannot stack. </>",
-          "ja": "攻撃力<@ba.vup>+5.0%</>\n装備中、自身が<#ba.spellinflict>アーツ付着</>段階を<#ba.consume>消費</>すると、20秒間自然ダメージ<@ba.vup>+[5.0%×消費した段階数]</>\n<@ba.info>同名効果は重ね掛け不可</>",
-          "zh-TW": "攻擊力<@ba.vup>+5.0%</>。\n裝備者<#ba.consume>消耗</><#ba.spellinflict>法術附著</>後，自然傷害<@ba.vup>+[5.0%×消耗層數]</>，持續20秒。\n<@ba.info>同名效果無法疊加。</>"
+          "zh-CN": "攻击力<@ba.vup>+5.0%</>。\n源石技艺强度<@ba.vup>+25</>。",
+          "en": "ATK <@ba.vup>+5.0%</>.\nArts Intensity <@ba.vup>+25</>.",
+          "ja": "攻撃力<@ba.vup>+5.0%</>\nアーツ強度<@ba.vup>+25</>",
+          "zh-TW": "攻擊力<@ba.vup>+5.0%</>。\n源石技藝強度<@ba.vup>+25</>。"
         },
         "maxLevel": {
-          "zh-CN": "攻击力<@ba.vup>+14.0%</>。\n装备者<#ba.consume>消耗</><#ba.spellinflict>法术附着</>后，自然伤害<@ba.vup>+[14.0%×消耗层数]</>，持续20秒。\n<@ba.info>同名效果无法叠加。</>",
-          "en": "ATK <@ba.vup>+14.0%</>.\nAfter the wielder <#ba.consume>consumes</> an <#ba.spellinflict>Arts Infliction</>, the wielder gains Nature DMG Dealt <@ba.vup>+[14.0%×Stacks Consumed]</> for 20s. \n<@ba.info>Effects of the same name cannot stack. </>",
-          "ja": "攻撃力<@ba.vup>+14.0%</>\n装備中、自身が<#ba.spellinflict>アーツ付着</>段階を<#ba.consume>消費</>すると、20秒間自然ダメージ<@ba.vup>+[14.0%×消費した段階数]</>\n<@ba.info>同名効果は重ね掛け不可</>",
-          "zh-TW": "攻擊力<@ba.vup>+14.0%</>。\n裝備者<#ba.consume>消耗</><#ba.spellinflict>法術附著</>後，自然傷害<@ba.vup>+[14.0%×消耗層數]</>，持續20秒。\n<@ba.info>同名效果無法疊加。</>"
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      }
-    ]
-  },
-  "wpn_sword_0009": {
-    "stats": [
-      {
-        "levelOne": {
-          "zh-CN": "智识<@ba.vup>+12</>",
-          "en": "Intellect <@ba.vup>+12</>",
-          "ja": "知性<@ba.vup>+12</>",
-          "zh-TW": "智識<@ba.vup>+12</>"
-        },
-        "maxLevel": {
-          "zh-CN": "智识<@ba.vup>+93</>",
-          "en": "Intellect <@ba.vup>+93</>",
-          "ja": "知性<@ba.vup>+93</>",
-          "zh-TW": "智識<@ba.vup>+93</>"
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "zh-CN": "攻击力<@ba.vup>+3.0%</>",
-          "en": "Attack <@ba.vup>+3.0%</>",
-          "ja": "攻撃力<@ba.vup>+3.0%</>",
-          "zh-TW": "攻擊力<@ba.vup>+3.0%</>"
-        },
-        "maxLevel": {
-          "zh-CN": "攻击力<@ba.vup>+23.4%</>",
-          "en": "Attack <@ba.vup>+23.4%</>",
-          "ja": "攻撃力<@ba.vup>+23.4%</>",
-          "zh-TW": "攻擊力<@ba.vup>+23.4%</>"
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "zh-CN": "装备者施放连携技时，获得攻击力<@ba.vup>+12.0%</>，持续20秒。\n<@ba.info>同名效果无法叠加。</>",
-          "en": "When the wielder casts a combo skill, the wielder gains ATK <@ba.vup>+12.0%</> for 20s.\n<@ba.info>Effects of the same name cannot stack. </>",
-          "ja": "装備中、自身が連携技を発動するとき、20秒間攻撃力<@ba.vup>+12.0%</>\n<@ba.info>同名効果は重ね掛け不可</>",
-          "zh-TW": "裝備者施放連攜技時，獲得攻擊力<@ba.vup>+12.0%</>，持續20秒。\n<@ba.info>同名效果無法疊加。</>"
-        },
-        "maxLevel": {
-          "zh-CN": "装备者施放连携技时，获得攻击力<@ba.vup>+33.6%</>，持续20秒。\n<@ba.info>同名效果无法叠加。</>",
-          "en": "When the wielder casts a combo skill, the wielder gains ATK <@ba.vup>+33.6%</> for 20s.\n<@ba.info>Effects of the same name cannot stack. </>",
-          "ja": "装備中、自身が連携技を発動するとき、20秒間攻撃力<@ba.vup>+33.6%</>\n<@ba.info>同名効果は重ね掛け不可</>",
-          "zh-TW": "裝備者施放連攜技時，獲得攻擊力<@ba.vup>+33.6%</>，持續20秒。\n<@ba.info>同名效果無法疊加。</>"
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      }
-    ]
-  },
-  "wpn_sword_0012": {
-    "stats": [
-      {
-        "levelOne": {
-          "zh-CN": "意志<@ba.vup>+20</>",
-          "en": "Will <@ba.vup>+20</>",
-          "ja": "意志<@ba.vup>+20</>",
-          "zh-TW": "意志<@ba.vup>+20</>"
-        },
-        "maxLevel": {
-          "zh-CN": "意志<@ba.vup>+156</>",
-          "en": "Will <@ba.vup>+156</>",
-          "ja": "意志<@ba.vup>+156</>",
-          "zh-TW": "意志<@ba.vup>+156</>"
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "zh-CN": "攻击力<@ba.vup>+5.0%</>",
-          "en": "Attack <@ba.vup>+5.0%</>",
-          "ja": "攻撃力<@ba.vup>+5.0%</>",
-          "zh-TW": "攻擊力<@ba.vup>+5.0%</>"
-        },
-        "maxLevel": {
-          "zh-CN": "攻击力<@ba.vup>+39.0%</>",
-          "en": "Attack <@ba.vup>+39.0%</>",
-          "ja": "攻撃力<@ba.vup>+39.0%</>",
-          "zh-TW": "攻擊力<@ba.vup>+39.0%</>"
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "zh-CN": "攻击力<@ba.vup>+10.0%</>。\n装备者通过自身技能恢复技力或获得<#ba.combo>连击</>状态后，全队攻击力<@ba.vup>+5.0%</>，持续20秒。\n<@ba.info>同名效果最多叠加2层，每层单独计算持续时间。</>",
-          "en": "ATK <@ba.vup>+10.0%</>.\nAfter the wielder's skill recovers SP or grants a <#ba.combo>Link</> state, the entire team gains ATK <@ba.vup>+5.0%</> for 20s.\n<@ba.info>Max stacks for effects of the same name: 2. Duration of each stack is counted separately.</>",
-          "ja": "攻撃力<@ba.vup>+10.0%</>\n装備中、自身のスキルでSPを回復するか、<#ba.combo>リンク</>状態を獲得すると、20秒間チーム全員の攻撃力<@ba.vup>+5.0%</>\n<@ba.info>同名効果は2回まで重ね掛け可能\n効果の持続時間は個別にカウントされる</>",
-          "zh-TW": "攻擊力<@ba.vup>+10.0%</>。\n裝備者透過自身技能回復技力或獲得<#ba.combo>連擊</>狀態後，全隊攻擊力<@ba.vup>+5.0%</>，持續20秒。\n<@ba.info>同名效果最多疊加2層，每層單獨計算持續時間。</>"
-        },
-        "maxLevel": {
-          "zh-CN": "攻击力<@ba.vup>+28.0%</>。\n装备者通过自身技能恢复技力或获得<#ba.combo>连击</>状态后，全队攻击力<@ba.vup>+14.0%</>，持续20秒。\n<@ba.info>同名效果最多叠加2层，每层单独计算持续时间。</>",
-          "en": "ATK <@ba.vup>+28.0%</>.\nAfter the wielder's skill recovers SP or grants a <#ba.combo>Link</> state, the entire team gains ATK <@ba.vup>+14.0%</> for 20s.\n<@ba.info>Max stacks for effects of the same name: 2. Duration of each stack is counted separately.</>",
-          "ja": "攻撃力<@ba.vup>+28.0%</>\n装備中、自身のスキルでSPを回復するか、<#ba.combo>リンク</>状態を獲得すると、20秒間チーム全員の攻撃力<@ba.vup>+14.0%</>\n<@ba.info>同名効果は2回まで重ね掛け可能\n効果の持続時間は個別にカウントされる</>",
-          "zh-TW": "攻擊力<@ba.vup>+28.0%</>。\n裝備者透過自身技能回復技力或獲得<#ba.combo>連擊</>狀態後，全隊攻擊力<@ba.vup>+14.0%</>，持續20秒。\n<@ba.info>同名效果最多疊加2層，每層單獨計算持續時間。</>"
+          "zh-CN": "攻击力<@ba.vup>+14.0%</>。\n源石技艺强度<@ba.vup>+70</>。",
+          "en": "ATK <@ba.vup>+14.0%</>.\nArts Intensity <@ba.vup>+70</>.",
+          "ja": "攻撃力<@ba.vup>+14.0%</>\nアーツ強度<@ba.vup>+70</>",
+          "zh-TW": "攻擊力<@ba.vup>+14.0%</>。\n源石技藝強度<@ba.vup>+70</>。"
         },
         "levelOneLabel": "Lv.1",
         "maxLevelLabel": "Lv.9"
@@ -3667,59 +2591,215 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       }
     ]
   },
-  "wpn_sword_0015": {
+  "wpn_funnel_0018": {
     "stats": [
       {
         "levelOne": {
-          "zh-CN": "敏捷<@ba.vup>+16</>",
-          "en": "Agility <@ba.vup>+16</>",
-          "ja": "敏捷<@ba.vup>+16</>",
-          "zh-TW": "敏捷<@ba.vup>+16</>"
+          "zh-CN": "智识<@ba.vup>+20</>",
+          "en": "Intellect <@ba.vup>+20</>",
+          "ja": "知性<@ba.vup>+20</>",
+          "zh-TW": "智識<@ba.vup>+20</>"
         },
         "maxLevel": {
-          "zh-CN": "敏捷<@ba.vup>+124</>",
-          "en": "Agility <@ba.vup>+124</>",
-          "ja": "敏捷<@ba.vup>+124</>",
-          "zh-TW": "敏捷<@ba.vup>+124</>"
+          "zh-CN": "智识<@ba.vup>+156</>",
+          "en": "Intellect <@ba.vup>+156</>",
+          "ja": "知性<@ba.vup>+156</>",
+          "zh-TW": "智識<@ba.vup>+156</>"
         },
         "levelOneLabel": "Lv.1",
         "maxLevelLabel": "Lv.9"
       },
       {
         "levelOne": {
-          "zh-CN": "物理伤害<@ba.vup>+4.4%</>",
-          "en": "Physical DMG Dealt <@ba.vup>+4.4%</>",
-          "ja": "物理ダメージ<@ba.vup>+4.4%</>",
-          "zh-TW": "物理傷害<@ba.vup>+4.4%</>"
+          "zh-CN": "终结技充能效率<@ba.vup>+6.0%</>",
+          "en": "Ultimate Gain Efficiency <@ba.vup>+6.0%</>",
+          "ja": "必殺チャージの回復効率<@ba.vup>+6.0%</>",
+          "zh-TW": "終結技蓄能效率<@ba.vup>+6.0%</>"
         },
         "maxLevel": {
-          "zh-CN": "物理伤害<@ba.vup>+34.7%</>",
-          "en": "Physical DMG Dealt <@ba.vup>+34.7%</>",
-          "ja": "物理ダメージ<@ba.vup>+34.7%</>",
-          "zh-TW": "物理傷害<@ba.vup>+34.7%</>"
+          "zh-CN": "终结技充能效率<@ba.vup>+46.4%</>",
+          "en": "Ultimate Gain Efficiency <@ba.vup>+46.4%</>",
+          "ja": "必殺チャージの回復効率<@ba.vup>+46.4%</>",
+          "zh-TW": "終結技蓄能效率<@ba.vup>+46.4%</>"
         },
         "levelOneLabel": "Lv.1",
         "maxLevelLabel": "Lv.9"
       },
       {
         "levelOne": {
-          "zh-CN": "终结技伤害<@ba.vup>+16.0%</>。\n装备者造成<#ba.airborne>击飞</>后，30秒内的下次终结技期间造成的物理伤害<@ba.vup>+12.0%</>。\n <@ba.info>同名效果最多叠加3层，每层单独计算持续时间，每0.5秒最多触发一次。</>",
-          "en": "Ultimate DMG Dealt <@ba.vup>+16.0%</>.\nAfter the wielder applies <#ba.airborne>Lift</>, during the next ultimate cast within 30s, the wielder gains Physical DMG Dealt <@ba.vup>+12.0%</>.\n<@ba.info>Max stacks for effects of the same name: 3. Duration of each stack is counted separately. Effect only triggers once every 0.5s.</>",
-          "ja": "必殺技ダメージ<@ba.vup>+16.0%</>\n装備中、自身が敵を<#ba.airborne>浮遊</>させると、30秒以内に発動した次の必殺技の期間中、敵への物理ダメージ<@ba.vup>+12.0%</>\n<@ba.info>同名効果は3回まで重ね掛け可能\n効果の持続時間は個別にカウントされ、0.5秒に1回まで発動可能</>",
-          "zh-TW": "終結技傷害<@ba.vup>+16.0%</>。\n裝備者造成<#ba.airborne>擊飛</>後，30秒內的下次終結技期間造成的物理傷害<@ba.vup>+12.0%</>。\n<@ba.info>同名效果最多疊加3層，每層單獨計算持續時間，每0.5秒最多觸發一次。</>"
+          "zh-CN": "自然伤害<@ba.vup>+7.0%</>。\n装备者通过连携技施加<#ba.spellvul>法术脆弱</>或<#ba.spellinflict>法术附着</>时，攻击力<@ba.vup>+6.0%</>，小队内其他干员攻击力<@ba.vup>+1.5%</>，持续20秒。\n<@ba.info>同名效果最多叠加2层，每层单独计算持续时间。</>",
+          "en": "Nature DMG Dealt <@ba.vup>+7.0%</>.\nWhen the wielder applies <#ba.spellvul>Arts Susceptibility</> or <#ba.spellinflict>Arts Infliction</> with a combo skill, the wielder gains ATK <@ba.vup>+6.0%</> while other operators in the team gain ATK <@ba.vup>+1.5%</>. Duration: 20s.\n<@ba.info>Max stacks for effects of the same name: 2. Duration of each stack is counted separately.</>",
+          "ja": "自然ダメージ<@ba.vup>+7.0%</>\n装備中、自身の連携技で<#ba.spellvul>アーツ脆弱</>または<#ba.spellinflict>アーツ付着</>を付与するとき、20秒間攻撃力<@ba.vup>+6.0%</>、チーム内の他のオペレーターの攻撃力<@ba.vup>+1.5%</>\n<@ba.info>同名効果は2回まで重ね掛け可能\n効果の持続時間は個別にカウントされる</>",
+          "zh-TW": "自然傷害<@ba.vup>+7.0%</>。\n裝備者透過連攜技施加<#ba.spellvul>法術脆弱</>或<#ba.spellinflict>法術附著</>時，攻擊力<@ba.vup>+6.0%</>，小隊內其他幹員攻擊力<@ba.vup>+1.5%</>，持續20秒。\n<@ba.info>同名效果最多疊加2層，每層單獨計算持續時間。</>"
         },
         "maxLevel": {
-          "zh-CN": "终结技伤害<@ba.vup>+44.8%</>。\n装备者造成<#ba.airborne>击飞</>后，30秒内的下次终结技期间造成的物理伤害<@ba.vup>+33.6%</>。\n <@ba.info>同名效果最多叠加3层，每层单独计算持续时间，每0.5秒最多触发一次。</>",
-          "en": "Ultimate DMG Dealt <@ba.vup>+44.8%</>.\nAfter the wielder applies <#ba.airborne>Lift</>, during the next ultimate cast within 30s, the wielder gains Physical DMG Dealt <@ba.vup>+33.6%</>.\n<@ba.info>Max stacks for effects of the same name: 3. Duration of each stack is counted separately. Effect only triggers once every 0.5s.</>",
-          "ja": "必殺技ダメージ<@ba.vup>+44.8%</>\n装備中、自身が敵を<#ba.airborne>浮遊</>させると、30秒以内に発動した次の必殺技の期間中、敵への物理ダメージ<@ba.vup>+33.6%</>\n<@ba.info>同名効果は3回まで重ね掛け可能\n効果の持続時間は個別にカウントされ、0.5秒に1回まで発動可能</>",
-          "zh-TW": "終結技傷害<@ba.vup>+44.8%</>。\n裝備者造成<#ba.airborne>擊飛</>後，30秒內的下次終結技期間造成的物理傷害<@ba.vup>+33.6%</>。\n<@ba.info>同名效果最多疊加3層，每層單獨計算持續時間，每0.5秒最多觸發一次。</>"
+          "zh-CN": "自然伤害<@ba.vup>+19.6%</>。\n装备者通过连携技施加<#ba.spellvul>法术脆弱</>或<#ba.spellinflict>法术附着</>时，攻击力<@ba.vup>+16.8%</>，小队内其他干员攻击力<@ba.vup>+4.2%</>，持续20秒。\n<@ba.info>同名效果最多叠加2层，每层单独计算持续时间。</>",
+          "en": "Nature DMG Dealt <@ba.vup>+19.6%</>.\nWhen the wielder applies <#ba.spellvul>Arts Susceptibility</> or <#ba.spellinflict>Arts Infliction</> with a combo skill, the wielder gains ATK <@ba.vup>+16.8%</> while other operators in the team gain ATK <@ba.vup>+4.2%</>. Duration: 20s.\n<@ba.info>Max stacks for effects of the same name: 2. Duration of each stack is counted separately.</>",
+          "ja": "自然ダメージ<@ba.vup>+19.6%</>\n装備中、自身の連携技で<#ba.spellvul>アーツ脆弱</>または<#ba.spellinflict>アーツ付着</>を付与するとき、20秒間攻撃力<@ba.vup>+16.8%</>、チーム内の他のオペレーターの攻撃力<@ba.vup>+4.2%</>\n<@ba.info>同名効果は2回まで重ね掛け可能\n効果の持続時間は個別にカウントされる</>",
+          "zh-TW": "自然傷害<@ba.vup>+19.6%</>。\n裝備者透過連攜技施加<#ba.spellvul>法術脆弱</>或<#ba.spellinflict>法術附著</>時，攻擊力<@ba.vup>+16.8%</>，小隊內其他幹員攻擊力<@ba.vup>+4.2%</>，持續20秒。\n<@ba.info>同名效果最多疊加2層，每層單獨計算持續時間。</>"
         },
         "levelOneLabel": "Lv.1",
         "maxLevelLabel": "Lv.9"
       }
     ]
   },
-  "wpn_sword_0016": {
+  "wpn_funnel_0019": {
+    "stats": [
+      {
+        "levelOne": {
+          "zh-CN": "敏捷<@ba.vup>+20</>",
+          "en": "Agility <@ba.vup>+20</>",
+          "ja": "敏捷<@ba.vup>+20</>",
+          "zh-TW": "敏捷<@ba.vup>+20</>"
+        },
+        "maxLevel": {
+          "zh-CN": "敏捷<@ba.vup>+156</>",
+          "en": "Agility <@ba.vup>+156</>",
+          "ja": "敏捷<@ba.vup>+156</>",
+          "zh-TW": "敏捷<@ba.vup>+156</>"
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "zh-CN": "攻击力<@ba.vup>+5.0%</>",
+          "en": "ATK <@ba.vup>+5.0%</>",
+          "ja": "攻撃力<@ba.vup>+5.0%</>",
+          "zh-TW": "攻擊力<@ba.vup>+5.0%</>"
+        },
+        "maxLevel": {
+          "zh-CN": "攻击力<@ba.vup>+39.0%</>",
+          "en": "ATK <@ba.vup>+39.0%</>",
+          "ja": "攻撃力<@ba.vup>+39.0%</>",
+          "zh-TW": "攻擊力<@ba.vup>+39.0%</>"
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "zh-CN": "法术伤害<@ba.vup>+16.0%</>。\n装备者施放战技后，源石技艺强度<@ba.vup>+35</>，并获得4层<@ba.key>身形如风</>，持续15秒。\n<@ba.info>该效果无法叠加，<@ba.key>身形如风</>最多叠加4层。</>\n装备者造成<#ba.spellburst>法术爆发</>时，<#ba.consume>消耗</>1层<@ba.key>身形如风</>，法术伤害<@ba.vup>+4.0%</>，持续30秒。\n<@ba.info>该效果最多叠加4层，每层单独计算持续时间，每0.1秒最多触发一次。</>",
+          "en": "Arts DMG Dealt <@ba.vup>+16.0%</>.\nAfter the wielder casts a battle skill, the wielder gains Arts Intensity <@ba.vup>+35</> and 4 stacks of <@ba.key>Windform</> for 15s.\n<@ba.info>This entire effect cannot stack. Max <@ba.key>Windform</> stacks: 4.</>\nWhen the wielder applies an <#ba.spellburst>Arts Burst</>, <#ba.consume>consume</> 1 stack of <@ba.key>Windform</> to grant the wielder Arts DMG Dealt <@ba.vup>+4.0%</> for 30s.\n<@ba.info>This effect can reach 4 stacks. Duration of each stack is counted separately. Effect only triggers once every 0.1s.</>",
+          "ja": "アーツダメージ<@ba.vup>+16.0%</>\n装備中、自身が戦技を発動すると、アーツ強度<@ba.vup>+35</>、15秒間持続する<@ba.key>疾風の身</>を4段階獲得する\n<@ba.info>この効果は重ね掛け不可<@ba.key>疾風の身</>は4段階まで重ね掛け可能</>\n自身が<#ba.spellburst>アーツ爆発</>を与えるとき、<@ba.key>疾風の身</>を1段階<#ba.consume>消費</>して、30秒間アーツダメージ<@ba.vup>+4.0%</>\n<@ba.info>この効果は4回まで重ね掛け可能\n効果の持続時間は個別にカウントされ、0.1秒に1回まで発動可能</>",
+          "zh-TW": "法術傷害<@ba.vup>+16.0%</>。\n裝備者施放戰技後，源石技藝強度<@ba.vup>+35</>，並獲得4層<@ba.key>身形如風</>，持續15秒。\n<@ba.info>該效果無法疊加，<@ba.key>身形如風</>最多疊加4層。</>\n裝備者造成<#ba.spellburst>法術爆發</>時，<#ba.consume>消耗</>1層<@ba.key>身形如風</>，法術傷害<@ba.vup>+4.0%</>，持續30秒。\n<@ba.info>該效果最多疊加4層，每層單獨計算持續時間，每0.1秒最多觸發一次。</>"
+        },
+        "maxLevel": {
+          "zh-CN": "法术伤害<@ba.vup>+44.8%</>。\n装备者施放战技后，源石技艺强度<@ba.vup>+98</>，并获得4层<@ba.key>身形如风</>，持续15秒。\n<@ba.info>该效果无法叠加，<@ba.key>身形如风</>最多叠加4层。</>\n装备者造成<#ba.spellburst>法术爆发</>时，<#ba.consume>消耗</>1层<@ba.key>身形如风</>，法术伤害<@ba.vup>+11.2%</>，持续30秒。\n<@ba.info>该效果最多叠加4层，每层单独计算持续时间，每0.1秒最多触发一次。</>",
+          "en": "Arts DMG Dealt <@ba.vup>+44.8%</>.\nAfter the wielder casts a battle skill, the wielder gains Arts Intensity <@ba.vup>+98</> and 4 stacks of <@ba.key>Windform</> for 15s.\n<@ba.info>This entire effect cannot stack. Max <@ba.key>Windform</> stacks: 4.</>\nWhen the wielder applies an <#ba.spellburst>Arts Burst</>, <#ba.consume>consume</> 1 stack of <@ba.key>Windform</> to grant the wielder Arts DMG Dealt <@ba.vup>+11.2%</> for 30s.\n<@ba.info>This effect can reach 4 stacks. Duration of each stack is counted separately. Effect only triggers once every 0.1s.</>",
+          "ja": "アーツダメージ<@ba.vup>+44.8%</>\n装備中、自身が戦技を発動すると、アーツ強度<@ba.vup>+98</>、15秒間持続する<@ba.key>疾風の身</>を4段階獲得する\n<@ba.info>この効果は重ね掛け不可<@ba.key>疾風の身</>は4段階まで重ね掛け可能</>\n自身が<#ba.spellburst>アーツ爆発</>を与えるとき、<@ba.key>疾風の身</>を1段階<#ba.consume>消費</>して、30秒間アーツダメージ<@ba.vup>+11.2%</>\n<@ba.info>この効果は4回まで重ね掛け可能\n効果の持続時間は個別にカウントされ、0.1秒に1回まで発動可能</>",
+          "zh-TW": "法術傷害<@ba.vup>+44.8%</>。\n裝備者施放戰技後，源石技藝強度<@ba.vup>+98</>，並獲得4層<@ba.key>身形如風</>，持續15秒。\n<@ba.info>該效果無法疊加，<@ba.key>身形如風</>最多疊加4層。</>\n裝備者造成<#ba.spellburst>法術爆發</>時，<#ba.consume>消耗</>1層<@ba.key>身形如風</>，法術傷害<@ba.vup>+11.2%</>，持續30秒。\n<@ba.info>該效果最多疊加4層，每層單獨計算持續時間，每0.1秒最多觸發一次。</>"
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
+  "wpn_funnel_0020": {
+    "stats": [
+      {
+        "levelOne": {
+          "zh-CN": "敏捷<@ba.vup>+20</>",
+          "en": "Agility <@ba.vup>+20</>",
+          "ja": "敏捷<@ba.vup>+20</>",
+          "zh-TW": "敏捷<@ba.vup>+20</>"
+        },
+        "maxLevel": {
+          "zh-CN": "敏捷<@ba.vup>+156</>",
+          "en": "Agility <@ba.vup>+156</>",
+          "ja": "敏捷<@ba.vup>+156</>",
+          "zh-TW": "敏捷<@ba.vup>+156</>"
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "zh-CN": "自然伤害<@ba.vup>+5.6%</>",
+          "en": "Nature DMG Dealt <@ba.vup>+5.6%</>",
+          "ja": "自然ダメージ<@ba.vup>+5.6%</>",
+          "zh-TW": "自然傷害<@ba.vup>+5.6%</>"
+        },
+        "maxLevel": {
+          "zh-CN": "自然伤害<@ba.vup>+43.3%</>",
+          "en": "Nature DMG Dealt <@ba.vup>+43.3%</>",
+          "ja": "自然ダメージ<@ba.vup>+43.3%</>",
+          "zh-TW": "自然傷害<@ba.vup>+43.3%</>"
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "zh-CN": "源石技艺强度<@ba.vup>+15</>。\n装备者造成<#ba.spellburst>法术爆发</>时，自然伤害<@ba.vup>+2.0%</>，持续25秒。\n<@ba.info>该效果最多叠加4层，每层单独计算持续时间，每0.1秒最多触发一次。</>\n当上述效果为4层时，自然伤害额外<@ba.vup>+6.0%</>。\n<@ba.info>该效果无法叠加。</>",
+          "en": "Arts Intensity <@ba.vup>+15</>.\nWhen the wielder applies an <#ba.spellburst>Arts Burst</>, the wielder gains Nature DMG Dealt <@ba.vup>+2.0%</> for 25s.\n<@ba.info>Max stacks for this effect: 4. Duration of each stack is counted separately. Effect only triggers once every 0.1s.</>\nAt 4 stacks, the aforementioned effect grants an additional Nature DMG Dealt <@ba.vup>+6.0%</>.\n<@ba.info>This effect cannot stack.</>",
+          "ja": "アーツ強度<@ba.vup>+15</>\n装備中、自身が<#ba.spellburst>アーツ爆発</>を発動させるとき、25秒間自然ダメージ<@ba.vup>+2.0%</>\n<@ba.info>この効果は4回まで重ね掛け可能\n効果の持続時間は個別にカウントされ、0.1秒に1回まで発動可能</>\n前述の効果が4回まで重ね掛けられるとき、追加で自然ダメージ<@ba.vup>+6.0%</>\n<@ba.info>この効果は重ね掛け不可</>",
+          "zh-TW": "源石技藝強度<@ba.vup>+15</>。\n裝備者造成<#ba.spellburst>法術爆發</>時，自然傷害<@ba.vup>+2.0%</>，持續25秒。\n<@ba.info>該效果最多疊加4層，每層單獨計算持續時間，每0.1秒最多觸發一次。</>\n當上述效果為4層時，自然傷害額外<@ba.vup>+6.0%</>。\n<@ba.info>該效果無法疊加。</>"
+        },
+        "maxLevel": {
+          "zh-CN": "源石技艺强度<@ba.vup>+42</>。\n装备者造成<#ba.spellburst>法术爆发</>时，自然伤害<@ba.vup>+5.6%</>，持续25秒。\n<@ba.info>该效果最多叠加4层，每层单独计算持续时间，每0.1秒最多触发一次。</>\n当上述效果为4层时，自然伤害额外<@ba.vup>+16.8%</>。\n<@ba.info>该效果无法叠加。</>",
+          "en": "Arts Intensity <@ba.vup>+42</>.\nWhen the wielder applies an <#ba.spellburst>Arts Burst</>, the wielder gains Nature DMG Dealt <@ba.vup>+5.6%</> for 25s.\n<@ba.info>Max stacks for this effect: 4. Duration of each stack is counted separately. Effect only triggers once every 0.1s.</>\nAt 4 stacks, the aforementioned effect grants an additional Nature DMG Dealt <@ba.vup>+16.8%</>.\n<@ba.info>This effect cannot stack.</>",
+          "ja": "アーツ強度<@ba.vup>+42</>\n装備中、自身が<#ba.spellburst>アーツ爆発</>を発動させるとき、25秒間自然ダメージ<@ba.vup>+5.6%</>\n<@ba.info>この効果は4回まで重ね掛け可能\n効果の持続時間は個別にカウントされ、0.1秒に1回まで発動可能</>\n前述の効果が4回まで重ね掛けられるとき、追加で自然ダメージ<@ba.vup>+16.8%</>\n<@ba.info>この効果は重ね掛け不可</>",
+          "zh-TW": "源石技藝強度<@ba.vup>+42</>。\n裝備者造成<#ba.spellburst>法術爆發</>時，自然傷害<@ba.vup>+5.6%</>，持續25秒。\n<@ba.info>該效果最多疊加4層，每層單獨計算持續時間，每0.1秒最多觸發一次。</>\n當上述效果為4層時，自然傷害額外<@ba.vup>+16.8%</>。\n<@ba.info>該效果無法疊加。</>"
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
+  "wpn_sword_0008": {
+    "stats": [
+      {
+        "levelOne": {
+          "zh-CN": "敏捷<@ba.vup>+12</>",
+          "en": "Agility <@ba.vup>+12</>",
+          "ja": "敏捷<@ba.vup>+12</>",
+          "zh-TW": "敏捷<@ba.vup>+12</>"
+        },
+        "maxLevel": {
+          "zh-CN": "敏捷<@ba.vup>+93</>",
+          "en": "Agility <@ba.vup>+93</>",
+          "ja": "敏捷<@ba.vup>+93</>",
+          "zh-TW": "敏捷<@ba.vup>+93</>"
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "zh-CN": "物理伤害<@ba.vup>+3.3%</>",
+          "en": "Physical DMG Dealt <@ba.vup>+3.3%</>",
+          "ja": "物理ダメージ<@ba.vup>+3.3%</>",
+          "zh-TW": "物理傷害<@ba.vup>+3.3%</>"
+        },
+        "maxLevel": {
+          "zh-CN": "物理伤害<@ba.vup>+26.0%</>",
+          "en": "Physical DMG Dealt <@ba.vup>+26.0%</>",
+          "ja": "物理ダメージ<@ba.vup>+26.0%</>",
+          "zh-TW": "物理傷害<@ba.vup>+26.0%</>"
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "zh-CN": "装备者的战技命中敌人时，获得攻击力<@ba.vup>+12.0%</>，持续20秒。\n<@ba.info>同名效果无法叠加。</>",
+          "en": "When the wielder's battle skill hits the enemy, the wielder gains ATK <@ba.vup>+12.0%</> for 20s.\n<@ba.info>Effects of the same name cannot stack. </>",
+          "ja": "装備中、自身の戦技が敵に命中するとき、20秒間攻撃力<@ba.vup>+12.0%</>\n<@ba.info>同名効果は重ね掛け不可</>",
+          "zh-TW": "裝備者的戰技命中敵人時，獲得攻擊力<@ba.vup>+12.0%</>，持續20秒。\n<@ba.info>同名效果無法疊加。</>"
+        },
+        "maxLevel": {
+          "zh-CN": "装备者的战技命中敌人时，获得攻击力<@ba.vup>+33.6%</>，持续20秒。\n<@ba.info>同名效果无法叠加。</>",
+          "en": "When the wielder's battle skill hits the enemy, the wielder gains ATK <@ba.vup>+33.6%</> for 20s.\n<@ba.info>Effects of the same name cannot stack. </>",
+          "ja": "装備中、自身の戦技が敵に命中するとき、20秒間攻撃力<@ba.vup>+33.6%</>\n<@ba.info>同名効果は重ね掛け不可</>",
+          "zh-TW": "裝備者的戰技命中敵人時，獲得攻擊力<@ba.vup>+33.6%</>，持續20秒。\n<@ba.info>同名效果無法疊加。</>"
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
+  "wpn_sword_0012": {
     "stats": [
       {
         "levelOne": {
@@ -3740,13 +2820,13 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       {
         "levelOne": {
           "zh-CN": "攻击力<@ba.vup>+5.0%</>",
-          "en": "Attack <@ba.vup>+5.0%</>",
+          "en": "ATK <@ba.vup>+5.0%</>",
           "ja": "攻撃力<@ba.vup>+5.0%</>",
           "zh-TW": "攻擊力<@ba.vup>+5.0%</>"
         },
         "maxLevel": {
           "zh-CN": "攻击力<@ba.vup>+39.0%</>",
-          "en": "Attack <@ba.vup>+39.0%</>",
+          "en": "ATK <@ba.vup>+39.0%</>",
           "ja": "攻撃力<@ba.vup>+39.0%</>",
           "zh-TW": "攻擊力<@ba.vup>+39.0%</>"
         },
@@ -3755,16 +2835,1040 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       },
       {
         "levelOne": {
-          "zh-CN": "物理伤害<@ba.vup>+16.0%</>。\n装备者通过自身技能恢复技力后，自身造成的物理伤害<@ba.vup>+5.0%</>，小队内其他干员造成的物理伤害<@ba.vup>+2.5%</>，持续30秒。\n<@ba.info>同名效果最多叠加5层，每层单独计算持续时间，每0.1秒最多触发一次。</>",
-          "en": "Physical DMG Dealt <@ba.vup>+16.0%</>.\nAfter the wielder's skill recovers SP, the wielder gains Physical DMG Dealt <@ba.vup>+5.0%</> while other operators in the team gain Physical DMG Dealt <@ba.vup>+2.5%</> for 30s.\n<@ba.info>Max stacks for effects of the same name: 5. Duration of each stack is counted separately. Effect only triggers once every 0.1s.</>",
-          "ja": "物理ダメージ<@ba.vup>+16.0%</>\n装備中、自身のスキルでSPを回復すると、30秒間自身の物理ダメージ<@ba.vup>+5.0%</>、チーム内の他のオペレーターの物理ダメージ<@ba.vup>+2.5%</>\n<@ba.info>同名効果は5回まで重ね掛け可能\n効果の持続時間は個別にカウントされ、0.1秒に1回まで発動可能</>",
-          "zh-TW": "物理傷害<@ba.vup>+16.0%</>。\n裝備者透過自身技能回復技力後，自身造成的物理傷害<@ba.vup>+5.0%</>，小隊內其他幹員造成的物理傷害<@ba.vup>+2.5%</>，持續30秒。\n<@ba.info>同名效果最多疊加5層，每層單獨計算持續時間，每0.1秒最多觸發一次。</>"
+          "zh-CN": "攻击力<@ba.vup>+10.0%</>。\n装备者通过自身技能恢复技力或获得<#ba.combo>连击</>状态后，全队攻击力<@ba.vup>+5.0%</>，持续20秒。\n<@ba.info>同名效果最多叠加2层，每层单独计算持续时间。</>",
+          "en": "ATK <@ba.vup>+10.0%</>.\nAfter the wielder's skill recovers SP or grants a <#ba.combo>Link</> state, the entire team gains ATK <@ba.vup>+5.0%</> for 20s.\n<@ba.info>Max stacks for effects of the same name: 2. Duration of each stack is counted separately.</>",
+          "ja": "攻撃力<@ba.vup>+10.0%</>\n装備中、自身のスキルでSPを回復するか、<#ba.combo>リンク</>状態を獲得すると、20秒間チーム全員の攻撃力<@ba.vup>+5.0%</>\n<@ba.info>同名効果は2回まで重ね掛け可能\n効果の持続時間は個別にカウントされる</>",
+          "zh-TW": "攻擊力<@ba.vup>+10.0%</>。\n裝備者透過自身技能回復技力或獲得<#ba.combo>連擊</>狀態後，全隊攻擊力<@ba.vup>+5.0%</>，持續20秒。\n<@ba.info>同名效果最多疊加2層，每層單獨計算持續時間。</>"
         },
         "maxLevel": {
-          "zh-CN": "物理伤害<@ba.vup>+44.8%</>。\n装备者通过自身技能恢复技力后，自身造成的物理伤害<@ba.vup>+14.0%</>，小队内其他干员造成的物理伤害<@ba.vup>+7.0%</>，持续30秒。\n<@ba.info>同名效果最多叠加5层，每层单独计算持续时间，每0.1秒最多触发一次。</>",
-          "en": "Physical DMG Dealt <@ba.vup>+44.8%</>.\nAfter the wielder's skill recovers SP, the wielder gains Physical DMG Dealt <@ba.vup>+14.0%</> while other operators in the team gain Physical DMG Dealt <@ba.vup>+7.0%</> for 30s.\n<@ba.info>Max stacks for effects of the same name: 5. Duration of each stack is counted separately. Effect only triggers once every 0.1s.</>",
-          "ja": "物理ダメージ<@ba.vup>+44.8%</>\n装備中、自身のスキルでSPを回復すると、30秒間自身の物理ダメージ<@ba.vup>+14.0%</>、チーム内の他のオペレーターの物理ダメージ<@ba.vup>+7.0%</>\n<@ba.info>同名効果は5回まで重ね掛け可能\n効果の持続時間は個別にカウントされ、0.1秒に1回まで発動可能</>",
-          "zh-TW": "物理傷害<@ba.vup>+44.8%</>。\n裝備者透過自身技能回復技力後，自身造成的物理傷害<@ba.vup>+14.0%</>，小隊內其他幹員造成的物理傷害<@ba.vup>+7.0%</>，持續30秒。\n<@ba.info>同名效果最多疊加5層，每層單獨計算持續時間，每0.1秒最多觸發一次。</>"
+          "zh-CN": "攻击力<@ba.vup>+28.0%</>。\n装备者通过自身技能恢复技力或获得<#ba.combo>连击</>状态后，全队攻击力<@ba.vup>+14.0%</>，持续20秒。\n<@ba.info>同名效果最多叠加2层，每层单独计算持续时间。</>",
+          "en": "ATK <@ba.vup>+28.0%</>.\nAfter the wielder's skill recovers SP or grants a <#ba.combo>Link</> state, the entire team gains ATK <@ba.vup>+14.0%</> for 20s.\n<@ba.info>Max stacks for effects of the same name: 2. Duration of each stack is counted separately.</>",
+          "ja": "攻撃力<@ba.vup>+28.0%</>\n装備中、自身のスキルでSPを回復するか、<#ba.combo>リンク</>状態を獲得すると、20秒間チーム全員の攻撃力<@ba.vup>+14.0%</>\n<@ba.info>同名効果は2回まで重ね掛け可能\n効果の持続時間は個別にカウントされる</>",
+          "zh-TW": "攻擊力<@ba.vup>+28.0%</>。\n裝備者透過自身技能回復技力或獲得<#ba.combo>連擊</>狀態後，全隊攻擊力<@ba.vup>+14.0%</>，持續20秒。\n<@ba.info>同名效果最多疊加2層，每層單獨計算持續時間。</>"
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
+  "wpn_lance_0004": {
+    "stats": [
+      {
+        "levelOne": {
+          "zh-CN": "力量<@ba.vup>+16</>",
+          "en": "Strength <@ba.vup>+16</>",
+          "ja": "筋力<@ba.vup>+16</>",
+          "zh-TW": "力量<@ba.vup>+16</>"
+        },
+        "maxLevel": {
+          "zh-CN": "力量<@ba.vup>+124</>",
+          "en": "Strength <@ba.vup>+124</>",
+          "ja": "筋力<@ba.vup>+124</>",
+          "zh-TW": "力量<@ba.vup>+124</>"
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "zh-CN": "终结技充能效率<@ba.vup>+4.8%</>",
+          "en": "Ultimate Gain Efficiency <@ba.vup>+4.8%</>",
+          "ja": "必殺チャージの回復効率<@ba.vup>+4.8%</>",
+          "zh-TW": "終結技蓄能效率<@ba.vup>+4.8%</>"
+        },
+        "maxLevel": {
+          "zh-CN": "终结技充能效率<@ba.vup>+37.1%</>",
+          "en": "Ultimate Gain Efficiency <@ba.vup>+37.1%</>",
+          "ja": "必殺チャージの回復効率<@ba.vup>+37.1%</>",
+          "zh-TW": "終結技蓄能效率<@ba.vup>+37.1%</>"
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "zh-CN": "暴击率<@ba.vup>+3.0%</>。\n装备者对没有<#ba.noguard>破防</>层数的敌人施加<#ba.noguard>破防</>时，获得攻击力<@ba.vup>+15.0%</>，持续15秒。\n<@ba.info>同名效果无法叠加。</>",
+          "en": "Critical Rate <@ba.vup>+3.0%</>.\nWhen the wielder applies <#ba.noguard>Vulnerability</> to an enemy with no <#ba.noguard>Vulnerability</> stacks, the wielder gains ATK <@ba.vup>+15.0%</> for 15s.\n<@ba.info>Effects of the same name cannot stack.</>",
+          "ja": "会心率<@ba.vup>+3.0%</>\n装備中、自身が<#ba.noguard>クラッシュ</>状態でない敵に<#ba.noguard>クラッシュ</>を付与するとき、15秒間攻撃力<@ba.vup>+15.0%</>\n<@ba.info>同名効果は重ね掛け不可</>",
+          "zh-TW": "暴擊率<@ba.vup>+3.0%</>。\n裝備者對沒有<#ba.noguard>破防</>層數的敵人施加<#ba.noguard>破防</>時，獲得攻擊力<@ba.vup>+15.0%</>，持續15秒。\n<@ba.info>同名效果無法疊加。</>"
+        },
+        "maxLevel": {
+          "zh-CN": "暴击率<@ba.vup>+8.4%</>。\n装备者对没有<#ba.noguard>破防</>层数的敌人施加<#ba.noguard>破防</>时，获得攻击力<@ba.vup>+42.0%</>，持续15秒。\n<@ba.info>同名效果无法叠加。</>",
+          "en": "Critical Rate <@ba.vup>+8.4%</>.\nWhen the wielder applies <#ba.noguard>Vulnerability</> to an enemy with no <#ba.noguard>Vulnerability</> stacks, the wielder gains ATK <@ba.vup>+42.0%</> for 15s.\n<@ba.info>Effects of the same name cannot stack.</>",
+          "ja": "会心率<@ba.vup>+8.4%</>\n装備中、自身が<#ba.noguard>クラッシュ</>状態でない敵に<#ba.noguard>クラッシュ</>を付与するとき、15秒間攻撃力<@ba.vup>+42.0%</>\n<@ba.info>同名効果は重ね掛け不可</>",
+          "zh-TW": "暴擊率<@ba.vup>+8.4%</>。\n裝備者對沒有<#ba.noguard>破防</>層數的敵人施加<#ba.noguard>破防</>時，獲得攻擊力<@ba.vup>+42.0%</>，持續15秒。\n<@ba.info>同名效果無法疊加。</>"
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
+  "wpn_lance_0011": {
+    "stats": [
+      {
+        "levelOne": {
+          "zh-CN": "主能力值<@ba.vup>+17</>",
+          "en": "Main attribute <@ba.vup>+17</>",
+          "ja": "メイン能力値<@ba.vup>+17</>",
+          "zh-TW": "主能力值<@ba.vup>+17</>"
+        },
+        "maxLevel": {
+          "zh-CN": "主能力值<@ba.vup>+132</>",
+          "en": "Main attribute <@ba.vup>+132</>",
+          "ja": "メイン能力値<@ba.vup>+132</>",
+          "zh-TW": "主能力值<@ba.vup>+132</>"
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "zh-CN": "攻击力<@ba.vup>+5.0%</>",
+          "en": "ATK <@ba.vup>+5.0%</>",
+          "ja": "攻撃力<@ba.vup>+5.0%</>",
+          "zh-TW": "攻擊力<@ba.vup>+5.0%</>"
+        },
+        "maxLevel": {
+          "zh-CN": "攻击力<@ba.vup>+39.0%</>",
+          "en": "ATK <@ba.vup>+39.0%</>",
+          "ja": "攻撃力<@ba.vup>+39.0%</>",
+          "zh-TW": "攻擊力<@ba.vup>+39.0%</>"
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "zh-CN": "法术伤害<@ba.vup>+12.0%</>。\n装备者施放战技时，获得法术伤害<@ba.vup>+12.0%</>，持续15秒；装备者施放连携技时，获得法术伤害<@ba.vup>+12.0%</>，持续15秒。\n<@ba.info>两种效果独立生效，且均无法叠加。</>",
+          "en": "Arts DMG Dealt <@ba.vup>+12.0%</>.\nWhen the wielder casts a battle skill, the wielder gains Arts DMG Dealt <@ba.vup>+12.0%</> for 15s. When the wielder casts a combo skill, Arts DMG Dealt <@ba.vup>+12.0%</> for 15s.\n<@ba.info>The two effects apply separately and do not stack with themselves.</>",
+          "ja": "アーツダメージ<@ba.vup>+12.0%</>\n装備中、自身の戦技を発動するとき、15秒間アーツダメージ<@ba.vup>+12.0%</>\n連携技を発動するとき、15秒間アーツダメージ<@ba.vup>+12.0%</>\n<@ba.info>2つの効果はそれぞれ存在し、重ね掛け不可</>",
+          "zh-TW": "法術傷害<@ba.vup>+12.0%</>。\n裝備者施放戰技時，獲得法術傷害<@ba.vup>+12.0%</>，持續15秒；裝備者施放連攜技時，獲得法術傷害<@ba.vup>+12.0%</>，持續15秒。\n<@ba.info>兩種效果獨立生效，且均無法疊加。</>"
+        },
+        "maxLevel": {
+          "zh-CN": "法术伤害<@ba.vup>+33.6%</>。\n装备者施放战技时，获得法术伤害<@ba.vup>+33.6%</>，持续15秒；装备者施放连携技时，获得法术伤害<@ba.vup>+33.6%</>，持续15秒。\n<@ba.info>两种效果独立生效，且均无法叠加。</>",
+          "en": "Arts DMG Dealt <@ba.vup>+33.6%</>.\nWhen the wielder casts a battle skill, the wielder gains Arts DMG Dealt <@ba.vup>+33.6%</> for 15s. When the wielder casts a combo skill, Arts DMG Dealt <@ba.vup>+33.6%</> for 15s.\n<@ba.info>The two effects apply separately and do not stack with themselves.</>",
+          "ja": "アーツダメージ<@ba.vup>+33.6%</>\n装備中、自身の戦技を発動するとき、15秒間アーツダメージ<@ba.vup>+33.6%</>\n連携技を発動するとき、15秒間アーツダメージ<@ba.vup>+33.6%</>\n<@ba.info>2つの効果はそれぞれ存在し、重ね掛け不可</>",
+          "zh-TW": "法術傷害<@ba.vup>+33.6%</>。\n裝備者施放戰技時，獲得法術傷害<@ba.vup>+33.6%</>，持續15秒；裝備者施放連攜技時，獲得法術傷害<@ba.vup>+33.6%</>，持續15秒。\n<@ba.info>兩種效果獨立生效，且均無法疊加。</>"
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
+  "wpn_lance_0015": {
+    "stats": [
+      {
+        "levelOne": {
+          "zh-CN": "敏捷<@ba.vup>+20</>",
+          "en": "Agility <@ba.vup>+20</>",
+          "ja": "敏捷<@ba.vup>+20</>",
+          "zh-TW": "敏捷<@ba.vup>+20</>"
+        },
+        "maxLevel": {
+          "zh-CN": "敏捷<@ba.vup>+156</>",
+          "en": "Agility <@ba.vup>+156</>",
+          "ja": "敏捷<@ba.vup>+156</>",
+          "zh-TW": "敏捷<@ba.vup>+156</>"
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "zh-CN": "灼热伤害<@ba.vup>+5.6%</>",
+          "en": "Heat DMG Dealt <@ba.vup>+5.6%</>",
+          "ja": "灼熱ダメージ<@ba.vup>+5.6%</>",
+          "zh-TW": "灼熱傷害<@ba.vup>+5.6%</>"
+        },
+        "maxLevel": {
+          "zh-CN": "灼热伤害<@ba.vup>+43.3%</>",
+          "en": "Heat DMG Dealt <@ba.vup>+43.3%</>",
+          "ja": "灼熱ダメージ<@ba.vup>+43.3%</>",
+          "zh-TW": "灼熱傷害<@ba.vup>+43.3%</>"
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "zh-CN": "终结技充能效率<@ba.vup>+18.0%</>。\n装备者通过自身技能恢复技力后，全队攻击力<@ba.vup>+6.0%</>，持续20秒；装备者通过自身技能施加<#ba.fireinflict>灼热附着</>时，全队造成的灼热伤害<@ba.vup>+6.0%</>，持续20秒。 \n<@ba.info>两种效果独立生效，且均无法叠加。</>",
+          "en": "Ultimate Gain Efficiency <@ba.vup>+18.0%</>.\nWhen the wielder's skill recovers SP, the entire team gains ATK <@ba.vup>+6.0%</> for 20s. When the wielder's skill applies <#ba.fireinflict>Heat Infliction</>, the entire team gains Heat DMG Dealt <@ba.vup>+6.0%</> for 20s.\n<@ba.info>The two effects apply separately and do not stack with themselves.</>",
+          "ja": "必殺チャージの回復効率<@ba.vup>+18.0%</>\n装備中、自身のスキルでSPを回復すると、20秒間チーム全員の攻撃力<@ba.vup>+6.0%</>\n自身のスキルで<#ba.fireinflict>灼熱付着</>を付与するとき、20秒間チーム全員の灼熱ダメージ<@ba.vup>+6.0%</>\n<@ba.info>2つの効果はそれぞれ存在し、重ね掛け不可</>",
+          "zh-TW": "終結技蓄能效率<@ba.vup>+18.0%</>。\n裝備者透過自身技能回復技力後，全隊攻擊力<@ba.vup>+6.0%</>，持續20秒；裝備者透過自身技能施加<#ba.fireinflict>灼熱附著</>時，全隊造成的灼熱傷害<@ba.vup>+6.0%</>，持續20秒。 \n<@ba.info>兩種效果獨立生效，且均無法疊加。</>"
+        },
+        "maxLevel": {
+          "zh-CN": "终结技充能效率<@ba.vup>+50.4%</>。\n装备者通过自身技能恢复技力后，全队攻击力<@ba.vup>+16.8%</>，持续20秒；装备者通过自身技能施加<#ba.fireinflict>灼热附着</>时，全队造成的灼热伤害<@ba.vup>+16.8%</>，持续20秒。 \n<@ba.info>两种效果独立生效，且均无法叠加。</>",
+          "en": "Ultimate Gain Efficiency <@ba.vup>+50.4%</>.\nWhen the wielder's skill recovers SP, the entire team gains ATK <@ba.vup>+16.8%</> for 20s. When the wielder's skill applies <#ba.fireinflict>Heat Infliction</>, the entire team gains Heat DMG Dealt <@ba.vup>+16.8%</> for 20s.\n<@ba.info>The two effects apply separately and do not stack with themselves.</>",
+          "ja": "必殺チャージの回復効率<@ba.vup>+50.4%</>\n装備中、自身のスキルでSPを回復すると、20秒間チーム全員の攻撃力<@ba.vup>+16.8%</>\n自身のスキルで<#ba.fireinflict>灼熱付着</>を付与するとき、20秒間チーム全員の灼熱ダメージ<@ba.vup>+16.8%</>\n<@ba.info>2つの効果はそれぞれ存在し、重ね掛け不可</>",
+          "zh-TW": "終結技蓄能效率<@ba.vup>+50.4%</>。\n裝備者透過自身技能回復技力後，全隊攻擊力<@ba.vup>+16.8%</>，持續20秒；裝備者透過自身技能施加<#ba.fireinflict>灼熱附著</>時，全隊造成的灼熱傷害<@ba.vup>+16.8%</>，持續20秒。 \n<@ba.info>兩種效果獨立生效，且均無法疊加。</>"
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
+  "wpn_pistol_0001": {
+    "stats": [
+      {
+        "levelOne": {
+          "zh-CN": "主能力值<@ba.vup>+10</>",
+          "en": "Main attribute <@ba.vup>+10</>",
+          "ja": "メイン能力値<@ba.vup>+10</>",
+          "zh-TW": "主能力值<@ba.vup>+10</>"
+        },
+        "maxLevel": {
+          "zh-CN": "主能力值<@ba.vup>+79</>",
+          "en": "Main attribute <@ba.vup>+79</>",
+          "ja": "メイン能力値<@ba.vup>+79</>",
+          "zh-TW": "主能力值<@ba.vup>+79</>"
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "zh-CN": "攻击力<@ba.vup>+12</>。",
+          "en": "ATK <@ba.vup>+12</>.",
+          "ja": "攻撃力<@ba.vup>+12</>",
+          "zh-TW": "攻擊力<@ba.vup>+12</>。"
+        },
+        "maxLevel": {
+          "zh-CN": "攻击力<@ba.vup>+34</>。",
+          "en": "ATK <@ba.vup>+34</>.",
+          "ja": "攻撃力<@ba.vup>+34</>",
+          "zh-TW": "攻擊力<@ba.vup>+34</>。"
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
+  "wpn_sword_0010": {
+    "stats": [
+      {
+        "levelOne": {
+          "zh-CN": "智识<@ba.vup>+20</>",
+          "en": "Intellect <@ba.vup>+20</>",
+          "ja": "知性<@ba.vup>+20</>",
+          "zh-TW": "智識<@ba.vup>+20</>"
+        },
+        "maxLevel": {
+          "zh-CN": "智识<@ba.vup>+156</>",
+          "en": "Intellect <@ba.vup>+156</>",
+          "ja": "知性<@ba.vup>+156</>",
+          "zh-TW": "智識<@ba.vup>+156</>"
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "zh-CN": "灼热伤害<@ba.vup>+5.6%</>",
+          "en": "Heat DMG Dealt <@ba.vup>+5.6%</>",
+          "ja": "灼熱ダメージ<@ba.vup>+5.6%</>",
+          "zh-TW": "灼熱傷害<@ba.vup>+5.6%</>"
+        },
+        "maxLevel": {
+          "zh-CN": "灼热伤害<@ba.vup>+43.3%</>",
+          "en": "Heat DMG Dealt <@ba.vup>+43.3%</>",
+          "ja": "灼熱ダメージ<@ba.vup>+43.3%</>",
+          "zh-TW": "灼熱傷害<@ba.vup>+43.3%</>"
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "zh-CN": "攻击力<@ba.vup>+7.0%</>。\n场上每有一个敌人被施加<#ba.burning>燃烧</>或<#ba.corrupt>腐蚀</>状态时，装备者获得灼热和自然伤害<@ba.vup>+8.0%</>，持续20秒。\n<@ba.info>同名效果最多叠加2层，每层单独计算持续时间，每0.1秒最多触发一次。</>",
+          "en": "ATK <@ba.vup>+7.0%</>.\nWhenever <#ba.burning>Combustion</> or <#ba.corrupt>Corrosion</> is applied to an enemy, the wielder gains Heat and Nature DMG Dealt <@ba.vup>+8.0%</> for 20s.\n<@ba.info>Max stacks for effects of the same name: 2. Duration of each stack is counted separately. Effect only triggers once every 0.1s.</>",
+          "ja": "攻撃力<@ba.vup>+7.0%</>\n戦闘中、<#ba.burning>燃焼</>または<#ba.corrupt>腐食</>状態の敵1体につき、20秒間自身の灼熱ダメージと自然ダメージ<@ba.vup>+8.0%</>\n<@ba.info>同名効果は2回まで重ね掛け可能\n効果の持続時間は個別にカウントされ、0.1秒に1回まで発動可能</>",
+          "zh-TW": "攻擊力<@ba.vup>+7.0%</>。\n場上每有一個敵人被施加<#ba.burning>燃燒</>或<#ba.corrupt>腐蝕</>狀態時，裝備者獲得灼熱和自然傷害<@ba.vup>+8.0%</>，持續20秒。\n<@ba.info>同名效果最多疊加2層，每層單獨計算持續時間，每0.1秒最多觸發一次。</>"
+        },
+        "maxLevel": {
+          "zh-CN": "攻击力<@ba.vup>+19.6%</>。\n场上每有一个敌人被施加<#ba.burning>燃烧</>或<#ba.corrupt>腐蚀</>状态时，装备者获得灼热和自然伤害<@ba.vup>+22.4%</>，持续20秒。\n<@ba.info>同名效果最多叠加2层，每层单独计算持续时间，每0.1秒最多触发一次。</>",
+          "en": "ATK <@ba.vup>+19.6%</>.\nWhenever <#ba.burning>Combustion</> or <#ba.corrupt>Corrosion</> is applied to an enemy, the wielder gains Heat and Nature DMG Dealt <@ba.vup>+22.4%</> for 20s.\n<@ba.info>Max stacks for effects of the same name: 2. Duration of each stack is counted separately. Effect only triggers once every 0.1s.</>",
+          "ja": "攻撃力<@ba.vup>+19.6%</>\n戦闘中、<#ba.burning>燃焼</>または<#ba.corrupt>腐食</>状態の敵1体につき、20秒間自身の灼熱ダメージと自然ダメージ<@ba.vup>+22.4%</>\n<@ba.info>同名効果は2回まで重ね掛け可能\n効果の持続時間は個別にカウントされ、0.1秒に1回まで発動可能</>",
+          "zh-TW": "攻擊力<@ba.vup>+19.6%</>。\n場上每有一個敵人被施加<#ba.burning>燃燒</>或<#ba.corrupt>腐蝕</>狀態時，裝備者獲得灼熱和自然傷害<@ba.vup>+22.4%</>，持續20秒。\n<@ba.info>同名效果最多疊加2層，每層單獨計算持續時間，每0.1秒最多觸發一次。</>"
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
+  "wpn_pistol_0002": {
+    "stats": [
+      {
+        "levelOne": {
+          "zh-CN": "智识<@ba.vup>+12</>",
+          "en": "Intellect <@ba.vup>+12</>",
+          "ja": "知性<@ba.vup>+12</>",
+          "zh-TW": "智識<@ba.vup>+12</>"
+        },
+        "maxLevel": {
+          "zh-CN": "智识<@ba.vup>+93</>",
+          "en": "Intellect <@ba.vup>+93</>",
+          "ja": "知性<@ba.vup>+93</>",
+          "zh-TW": "智識<@ba.vup>+93</>"
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "zh-CN": "攻击力<@ba.vup>+3.0%</>",
+          "en": "ATK <@ba.vup>+3.0%</>",
+          "ja": "攻撃力<@ba.vup>+3.0%</>",
+          "zh-TW": "攻擊力<@ba.vup>+3.0%</>"
+        },
+        "maxLevel": {
+          "zh-CN": "攻击力<@ba.vup>+23.4%</>",
+          "en": "ATK <@ba.vup>+23.4%</>",
+          "ja": "攻撃力<@ba.vup>+23.4%</>",
+          "zh-TW": "攻擊力<@ba.vup>+23.4%</>"
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "zh-CN": "装备者的战技命中敌人时，获得攻击力<@ba.vup>+12.0%</>，持续20秒。\n<@ba.info>同名效果无法叠加。</>",
+          "en": "When the wielder's battle skill hits the enemy, the wielder gains ATK <@ba.vup>+12.0%</> for 20s.\n<@ba.info>Effects of the same name cannot stack. </>",
+          "ja": "装備中、自身の戦技が敵に命中するとき、20秒間攻撃力<@ba.vup>+12.0%</>\n<@ba.info>同名効果は重ね掛け不可</>",
+          "zh-TW": "裝備者的戰技命中敵人時，獲得攻擊力<@ba.vup>+12.0%</>，持續20秒。\n<@ba.info>同名效果無法疊加。</>"
+        },
+        "maxLevel": {
+          "zh-CN": "装备者的战技命中敌人时，获得攻击力<@ba.vup>+33.6%</>，持续20秒。\n<@ba.info>同名效果无法叠加。</>",
+          "en": "When the wielder's battle skill hits the enemy, the wielder gains ATK <@ba.vup>+33.6%</> for 20s.\n<@ba.info>Effects of the same name cannot stack. </>",
+          "ja": "装備中、自身の戦技が敵に命中するとき、20秒間攻撃力<@ba.vup>+33.6%</>\n<@ba.info>同名効果は重ね掛け不可</>",
+          "zh-TW": "裝備者的戰技命中敵人時，獲得攻擊力<@ba.vup>+33.6%</>，持續20秒。\n<@ba.info>同名效果無法疊加。</>"
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
+  "wpn_sword_0020": {
+    "stats": [
+      {
+        "levelOne": {
+          "zh-CN": "力量<@ba.vup>+16</>",
+          "en": "Strength <@ba.vup>+16</>",
+          "ja": "筋力<@ba.vup>+16</>",
+          "zh-TW": "力量<@ba.vup>+16</>"
+        },
+        "maxLevel": {
+          "zh-CN": "力量<@ba.vup>+124</>",
+          "en": "Strength <@ba.vup>+124</>",
+          "ja": "筋力<@ba.vup>+124</>",
+          "zh-TW": "力量<@ba.vup>+124</>"
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "zh-CN": "寒冷伤害<@ba.vup>+4.4%</>",
+          "en": "Cryo DMG Dealt <@ba.vup>+4.4%</>",
+          "ja": "寒冷ダメージ<@ba.vup>+4.4%</>",
+          "zh-TW": "寒冷傷害<@ba.vup>+4.4%</>"
+        },
+        "maxLevel": {
+          "zh-CN": "寒冷伤害<@ba.vup>+34.7%</>",
+          "en": "Cryo DMG Dealt <@ba.vup>+34.7%</>",
+          "ja": "寒冷ダメージ<@ba.vup>+34.7%</>",
+          "zh-TW": "寒冷傷害<@ba.vup>+34.7%</>"
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "zh-CN": "攻击力<@ba.vup>+5.0%</>。\n装备者通过战技施加<#ba.frozen>冻结</>时，使目标敌人受到的寒冷伤害<@ba.vup>+7.0%</>，持续15秒。\n<@ba.info>同名效果无法叠加。</>",
+          "en": "ATK <@ba.vup>+5.0%</>.\nWhen the wielder's battle skill applies <#ba.frozen>Solidification</>, target enemy suffers Cryo DMG Taken <@ba.vup>+7.0%</> for 15s.\n<@ba.info>Effects of the same name cannot stack.</>",
+          "ja": "攻撃力<@ba.vup>+5.0%</>\n装備中、自身が戦技で敵を<#ba.frozen>凍結</>状態にするとき、15秒間その敵の受ける寒冷ダメージ<@ba.vup>+7.0%</>\n<@ba.info>同名効果は重ね掛け不可</>",
+          "zh-TW": "攻擊力<@ba.vup>+5.0%</>。\n裝備者透過戰技施加<#ba.frozen>凍結</>時，使目標敵人受到的寒冷傷害<@ba.vup>+7.0%</>，持續15秒。\n<@ba.info>同名效果無法疊加。</>"
+        },
+        "maxLevel": {
+          "zh-CN": "攻击力<@ba.vup>+14.0%</>。\n装备者通过战技施加<#ba.frozen>冻结</>时，使目标敌人受到的寒冷伤害<@ba.vup>+19.6%</>，持续15秒。\n<@ba.info>同名效果无法叠加。</>",
+          "en": "ATK <@ba.vup>+14.0%</>.\nWhen the wielder's battle skill applies <#ba.frozen>Solidification</>, target enemy suffers Cryo DMG Taken <@ba.vup>+19.6%</> for 15s.\n<@ba.info>Effects of the same name cannot stack.</>",
+          "ja": "攻撃力<@ba.vup>+14.0%</>\n装備中、自身が戦技で敵を<#ba.frozen>凍結</>状態にするとき、15秒間その敵の受ける寒冷ダメージ<@ba.vup>+19.6%</>\n<@ba.info>同名効果は重ね掛け不可</>",
+          "zh-TW": "攻擊力<@ba.vup>+14.0%</>。\n裝備者透過戰技施加<#ba.frozen>凍結</>時，使目標敵人受到的寒冷傷害<@ba.vup>+19.6%</>，持續15秒。\n<@ba.info>同名效果無法疊加。</>"
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
+  "wpn_pistol_0003": {
+    "stats": [
+      {
+        "levelOne": {
+          "zh-CN": "力量<@ba.vup>+12</>",
+          "en": "Strength <@ba.vup>+12</>",
+          "ja": "筋力<@ba.vup>+12</>",
+          "zh-TW": "力量<@ba.vup>+12</>"
+        },
+        "maxLevel": {
+          "zh-CN": "力量<@ba.vup>+93</>",
+          "en": "Strength <@ba.vup>+93</>",
+          "ja": "筋力<@ba.vup>+93</>",
+          "zh-TW": "力量<@ba.vup>+93</>"
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "zh-CN": "法术伤害<@ba.vup>+3.3%</>",
+          "en": "Arts DMG Dealt <@ba.vup>+3.3%</>",
+          "ja": "アーツダメージ<@ba.vup>+3.3%</>",
+          "zh-TW": "法術傷害<@ba.vup>+3.3%</>"
+        },
+        "maxLevel": {
+          "zh-CN": "法术伤害<@ba.vup>+26.0%</>",
+          "en": "Arts DMG Dealt <@ba.vup>+26.0%</>",
+          "ja": "アーツダメージ<@ba.vup>+26.0%</>",
+          "zh-TW": "法術傷害<@ba.vup>+26.0%</>"
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "zh-CN": "装备者施放连携技时，获得攻击力<@ba.vup>+12.0%</>，持续20秒。\n<@ba.info>同名效果无法叠加。</>",
+          "en": "When the wielder casts a combo skill, the wielder gains ATK <@ba.vup>+12.0%</> for 20s.\n<@ba.info>Effects of the same name cannot stack. </>",
+          "ja": "装備中、自身が連携技を発動するとき、20秒間攻撃力<@ba.vup>+12.0%</>\n<@ba.info>同名効果は重ね掛け不可</>",
+          "zh-TW": "裝備者施放連攜技時，獲得攻擊力<@ba.vup>+12.0%</>，持續20秒。\n<@ba.info>同名效果無法疊加。</>"
+        },
+        "maxLevel": {
+          "zh-CN": "装备者施放连携技时，获得攻击力<@ba.vup>+33.6%</>，持续20秒。\n<@ba.info>同名效果无法叠加。</>",
+          "en": "When the wielder casts a combo skill, the wielder gains ATK <@ba.vup>+33.6%</> for 20s.\n<@ba.info>Effects of the same name cannot stack. </>",
+          "ja": "装備中、自身が連携技を発動するとき、20秒間攻撃力<@ba.vup>+33.6%</>\n<@ba.info>同名効果は重ね掛け不可</>",
+          "zh-TW": "裝備者施放連攜技時，獲得攻擊力<@ba.vup>+33.6%</>，持續20秒。\n<@ba.info>同名效果無法疊加。</>"
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
+  "wpn_pistol_0005": {
+    "stats": [
+      {
+        "levelOne": {
+          "zh-CN": "智识<@ba.vup>+20</>",
+          "en": "Intellect <@ba.vup>+20</>",
+          "ja": "知性<@ba.vup>+20</>",
+          "zh-TW": "智識<@ba.vup>+20</>"
+        },
+        "maxLevel": {
+          "zh-CN": "智识<@ba.vup>+156</>",
+          "en": "Intellect <@ba.vup>+156</>",
+          "ja": "知性<@ba.vup>+156</>",
+          "zh-TW": "智識<@ba.vup>+156</>"
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "zh-CN": "寒冷伤害<@ba.vup>+5.6%</>",
+          "en": "Cryo DMG Dealt <@ba.vup>+5.6%</>",
+          "ja": "寒冷ダメージ<@ba.vup>+5.6%</>",
+          "zh-TW": "寒冷傷害<@ba.vup>+5.6%</>"
+        },
+        "maxLevel": {
+          "zh-CN": "寒冷伤害<@ba.vup>+43.3%</>",
+          "en": "Cryo DMG Dealt <@ba.vup>+43.3%</>",
+          "ja": "寒冷ダメージ<@ba.vup>+43.3%</>",
+          "zh-TW": "寒冷傷害<@ba.vup>+43.3%</>"
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "zh-CN": "暴击率<@ba.vup>+3.5%</>。\n场上有敌人被施加<#ba.frozen>冻结</>或<#ba.corrupt>腐蚀</>时，获得寒冷和自然伤害<@ba.vup>+3.5%</>，暴击率<@ba.vup>+2.0%</>，持续15秒。若由装备者触发该效果，提升的数值翻倍。\n<@ba.info>同名效果无法叠加。</>",
+          "en": "Critical Rate <@ba.vup>+3.5%</>.\nWhen <#ba.frozen>Solidification</> or <#ba.corrupt>Corrosion</> is applied to enemies, the wielder gains Cryo DMG Dealt and Nature DMG Dealt <@ba.vup>+3.5%</>, and Critical Rate <@ba.vup>+2.0%</> for 15s. If this effect is triggered by the wielder, double the increase gained.\n<@ba.info>Effects of the same name cannot stack.</>",
+          "ja": "会心率<@ba.vup>+3.5%</>\n戦闘中、敵が<#ba.frozen>凍結</>または<#ba.corrupt>腐食</>状態になるとき、15秒間寒冷ダメージと自然ダメージ<@ba.vup>+3.5%</>、会心率<@ba.vup>+2.0%</>\n効果の発動者が自身の場合、この効果が2倍になる\n<@ba.info>同名効果は重ね掛け不可</>",
+          "zh-TW": "暴擊率<@ba.vup>+3.5%</>。\n場上有敵人被施加<#ba.frozen>凍結</>或<#ba.corrupt>腐蝕</>時，獲得寒冷和自然傷害<@ba.vup>+3.5%</>，暴擊率<@ba.vup>+2.0%</>，持續15秒。若由裝備者觸發該效果，提升的數值翻倍。\n<@ba.info>同名效果無法疊加。</>"
+        },
+        "maxLevel": {
+          "zh-CN": "暴击率<@ba.vup>+9.8%</>。\n场上有敌人被施加<#ba.frozen>冻结</>或<#ba.corrupt>腐蚀</>时，获得寒冷和自然伤害<@ba.vup>+9.8%</>，暴击率<@ba.vup>+5.6%</>，持续15秒。若由装备者触发该效果，提升的数值翻倍。\n<@ba.info>同名效果无法叠加。</>",
+          "en": "Critical Rate <@ba.vup>+9.8%</>.\nWhen <#ba.frozen>Solidification</> or <#ba.corrupt>Corrosion</> is applied to enemies, the wielder gains Cryo DMG Dealt and Nature DMG Dealt <@ba.vup>+9.8%</>, and Critical Rate <@ba.vup>+5.6%</> for 15s. If this effect is triggered by the wielder, double the increase gained.\n<@ba.info>Effects of the same name cannot stack.</>",
+          "ja": "会心率<@ba.vup>+9.8%</>\n戦闘中、敵が<#ba.frozen>凍結</>または<#ba.corrupt>腐食</>状態になるとき、15秒間寒冷ダメージと自然ダメージ<@ba.vup>+9.8%</>、会心率<@ba.vup>+5.6%</>\n効果の発動者が自身の場合、この効果が2倍になる\n<@ba.info>同名効果は重ね掛け不可</>",
+          "zh-TW": "暴擊率<@ba.vup>+9.8%</>。\n場上有敵人被施加<#ba.frozen>凍結</>或<#ba.corrupt>腐蝕</>時，獲得寒冷和自然傷害<@ba.vup>+9.8%</>，暴擊率<@ba.vup>+5.6%</>，持續15秒。若由裝備者觸發該效果，提升的數值翻倍。\n<@ba.info>同名效果無法疊加。</>"
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
+  "wpn_pistol_0006": {
+    "stats": [
+      {
+        "levelOne": {
+          "zh-CN": "敏捷<@ba.vup>+16</>",
+          "en": "Agility <@ba.vup>+16</>",
+          "ja": "敏捷<@ba.vup>+16</>",
+          "zh-TW": "敏捷<@ba.vup>+16</>"
+        },
+        "maxLevel": {
+          "zh-CN": "敏捷<@ba.vup>+124</>",
+          "en": "Agility <@ba.vup>+124</>",
+          "ja": "敏捷<@ba.vup>+124</>",
+          "zh-TW": "敏捷<@ba.vup>+124</>"
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "zh-CN": "法术伤害<@ba.vup>+4.4%</>",
+          "en": "Arts DMG Dealt <@ba.vup>+4.4%</>",
+          "ja": "アーツダメージ<@ba.vup>+4.4%</>",
+          "zh-TW": "法術傷害<@ba.vup>+4.4%</>"
+        },
+        "maxLevel": {
+          "zh-CN": "法术伤害<@ba.vup>+34.7%</>",
+          "en": "Arts DMG Dealt <@ba.vup>+34.7%</>",
+          "ja": "アーツダメージ<@ba.vup>+34.7%</>",
+          "zh-TW": "法術傷害<@ba.vup>+34.7%</>"
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "zh-CN": "暴击率<@ba.vup>+3.0%</>。\n装备者施加<#ba.spellstatus>法术异常</>时，获得攻击力<@ba.vup>+7.5%</>，持续20秒。\n<@ba.info>同名效果最多叠加2层，每层单独计算持续时间，每0.1秒最多触发一次。</>",
+          "en": "Critical Rate <@ba.vup>+3.0%</>.\nWhen the wielder applies an <#ba.spellstatus>Arts Reaction</>, the wielder gains ATK <@ba.vup>+7.5%</> for 20s.\n<@ba.info>Max stacks for effects of the same name: 2. Duration of each stack is counted separately. Effect only triggers once every 0.1s.</>",
+          "ja": "会心率<@ba.vup>+3.0%</>\n装備中、自身が敵を<#ba.spellstatus>アーツ異常</>状態にするとき、20秒間攻撃力<@ba.vup>+7.5%</>\n<@ba.info>同名効果は2回まで重ね掛け可能\n効果の持続時間は個別にカウントされ、0.1秒に1回まで発動可能</>",
+          "zh-TW": "暴擊率<@ba.vup>+3.0%</>。\n裝備者施加<#ba.spellstatus>法術異常</>時，獲得攻擊力<@ba.vup>+7.5%</>，持續20秒。\n<@ba.info>同名效果最多疊加2層，每層單獨計算持續時間，每0.1秒最多觸發一次。</>"
+        },
+        "maxLevel": {
+          "zh-CN": "暴击率<@ba.vup>+8.4%</>。\n装备者施加<#ba.spellstatus>法术异常</>时，获得攻击力<@ba.vup>+21.0%</>，持续20秒。\n<@ba.info>同名效果最多叠加2层，每层单独计算持续时间，每0.1秒最多触发一次。</>",
+          "en": "Critical Rate <@ba.vup>+8.4%</>.\nWhen the wielder applies an <#ba.spellstatus>Arts Reaction</>, the wielder gains ATK <@ba.vup>+21.0%</> for 20s.\n<@ba.info>Max stacks for effects of the same name: 2. Duration of each stack is counted separately. Effect only triggers once every 0.1s.</>",
+          "ja": "会心率<@ba.vup>+8.4%</>\n装備中、自身が敵を<#ba.spellstatus>アーツ異常</>状態にするとき、20秒間攻撃力<@ba.vup>+21.0%</>\n<@ba.info>同名効果は2回まで重ね掛け可能\n効果の持続時間は個別にカウントされ、0.1秒に1回まで発動可能</>",
+          "zh-TW": "暴擊率<@ba.vup>+8.4%</>。\n裝備者施加<#ba.spellstatus>法術異常</>時，獲得攻擊力<@ba.vup>+21.0%</>，持續20秒。\n<@ba.info>同名效果最多疊加2層，每層單獨計算持續時間，每0.1秒最多觸發一次。</>"
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
+  "wpn_pistol_0007": {
+    "stats": [
+      {
+        "levelOne": {
+          "zh-CN": "敏捷<@ba.vup>+20</>",
+          "en": "Agility <@ba.vup>+20</>",
+          "ja": "敏捷<@ba.vup>+20</>",
+          "zh-TW": "敏捷<@ba.vup>+20</>"
+        },
+        "maxLevel": {
+          "zh-CN": "敏捷<@ba.vup>+156</>",
+          "en": "Agility <@ba.vup>+156</>",
+          "ja": "敏捷<@ba.vup>+156</>",
+          "zh-TW": "敏捷<@ba.vup>+156</>"
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "zh-CN": "寒冷伤害<@ba.vup>+5.6%</>",
+          "en": "Cryo DMG Dealt <@ba.vup>+5.6%</>",
+          "ja": "寒冷ダメージ<@ba.vup>+5.6%</>",
+          "zh-TW": "寒冷傷害<@ba.vup>+5.6%</>"
+        },
+        "maxLevel": {
+          "zh-CN": "寒冷伤害<@ba.vup>+43.3%</>",
+          "en": "Cryo DMG Dealt <@ba.vup>+43.3%</>",
+          "ja": "寒冷ダメージ<@ba.vup>+43.3%</>",
+          "zh-TW": "寒冷傷害<@ba.vup>+43.3%</>"
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "zh-CN": "攻击力<@ba.vup>+7.0%</>。\n装备者施放连携技后，战技造成的寒冷和自然伤害<@ba.vup>+8.0%</>，持续20秒。\n<@ba.info>同名效果最多叠加2层，每层单独计算持续时间。</>",
+          "en": "ATK <@ba.vup>+7.0%</>.\nFor 20s after the wielder casts a combo skill, the wielder's next battle skill gains Cryo and Nature DMG Dealt <@ba.vup>+8.0%</>.\n<@ba.info>Max stacks for effects of the same name: 2. Duration of each stack is counted separately.</>",
+          "ja": "攻撃力<@ba.vup>+7.0%</>\n装備中、自身が連携技を発動すると、20秒間戦技で与える寒冷と自然ダメージ<@ba.vup>+8.0%</>\n<@ba.info>同名効果は2回まで重ね掛け可能\n効果の持続時間は個別にカウントされる</>",
+          "zh-TW": "攻擊力<@ba.vup>+7.0%</>。\n裝備者施放連攜技後，戰技造成的寒冷和自然傷害<@ba.vup>+8.0%</>，持續20秒。\n<@ba.info>同名效果最多疊加2層，每層單獨計算持續時間。</>"
+        },
+        "maxLevel": {
+          "zh-CN": "攻击力<@ba.vup>+19.6%</>。\n装备者施放连携技后，战技造成的寒冷和自然伤害<@ba.vup>+22.4%</>，持续20秒。\n<@ba.info>同名效果最多叠加2层，每层单独计算持续时间。</>",
+          "en": "ATK <@ba.vup>+19.6%</>.\nFor 20s after the wielder casts a combo skill, the wielder's next battle skill gains Cryo and Nature DMG Dealt <@ba.vup>+22.4%</>.\n<@ba.info>Max stacks for effects of the same name: 2. Duration of each stack is counted separately.</>",
+          "ja": "攻撃力<@ba.vup>+19.6%</>\n装備中、自身が連携技を発動すると、20秒間戦技で与える寒冷と自然ダメージ<@ba.vup>+22.4%</>\n<@ba.info>同名効果は2回まで重ね掛け可能\n効果の持続時間は個別にカウントされる</>",
+          "zh-TW": "攻擊力<@ba.vup>+19.6%</>。\n裝備者施放連攜技後，戰技造成的寒冷和自然傷害<@ba.vup>+22.4%</>，持續20秒。\n<@ba.info>同名效果最多疊加2層，每層單獨計算持續時間。</>"
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
+  "wpn_pistol_0010": {
+    "stats": [
+      {
+        "levelOne": {
+          "zh-CN": "智识<@ba.vup>+20</>",
+          "en": "Intellect <@ba.vup>+20</>",
+          "ja": "知性<@ba.vup>+20</>",
+          "zh-TW": "智識<@ba.vup>+20</>"
+        },
+        "maxLevel": {
+          "zh-CN": "智识<@ba.vup>+156</>",
+          "en": "Intellect <@ba.vup>+156</>",
+          "ja": "知性<@ba.vup>+156</>",
+          "zh-TW": "智識<@ba.vup>+156</>"
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "zh-CN": "暴击率<@ba.vup>+2.5%</>",
+          "en": "Critical Rate <@ba.vup>+2.5%</>",
+          "ja": "会心率<@ba.vup>+2.5%</>",
+          "zh-TW": "暴擊率<@ba.vup>+2.5%</>"
+        },
+        "maxLevel": {
+          "zh-CN": "暴击率<@ba.vup>+19.5%</>",
+          "en": "Critical Rate <@ba.vup>+19.5%</>",
+          "ja": "会心率<@ba.vup>+19.5%</>",
+          "zh-TW": "暴擊率<@ba.vup>+19.5%</>"
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "zh-CN": "寒冷伤害<@ba.vup>+16.0%</>。\n装备者的战技或连携技造成暴击伤害后，寒冷伤害<@ba.vup>+14.0%</>，持续30秒。\n<@ba.info>同名效果最多叠加3层，每层单独计算持续时间，每0.1秒最多触发一次。</>",
+          "en": "Cryo DMG Dealt <@ba.vup>+16.0%</>.\nAfter the wielder scores a critical hit with a battle skill or combo skill, the wielder gains Cryo DMG Dealt <@ba.vup>+14.0%</> for 30s.\n<@ba.info>Max stacks for effects of the same name: 3. Duration of each stack is counted separately. Effect only triggers once every 0.1s.</>",
+          "ja": "寒冷ダメージ<@ba.vup>+16.0%</>\n装備中、自身の戦技または連携技で会心ダメージが発生すると、30秒間寒冷ダメージ<@ba.vup>+14.0%</>\n<@ba.info>同名効果は3回まで重ね掛け可能\n効果の持続時間は個別にカウントされ、0.1秒に1回まで発動可能</>",
+          "zh-TW": "寒冷傷害<@ba.vup>+16.0%</>。\n裝備者的戰技或連攜技造成暴擊傷害後，寒冷傷害<@ba.vup>+14.0%</>，持續30秒。\n<@ba.info>同名效果最多疊加3層，每層單獨計算持續時間，每0.1秒最多觸發一次。</>"
+        },
+        "maxLevel": {
+          "zh-CN": "寒冷伤害<@ba.vup>+44.8%</>。\n装备者的战技或连携技造成暴击伤害后，寒冷伤害<@ba.vup>+39.2%</>，持续30秒。\n<@ba.info>同名效果最多叠加3层，每层单独计算持续时间，每0.1秒最多触发一次。</>",
+          "en": "Cryo DMG Dealt <@ba.vup>+44.8%</>.\nAfter the wielder scores a critical hit with a battle skill or combo skill, the wielder gains Cryo DMG Dealt <@ba.vup>+39.2%</> for 30s.\n<@ba.info>Max stacks for effects of the same name: 3. Duration of each stack is counted separately. Effect only triggers once every 0.1s.</>",
+          "ja": "寒冷ダメージ<@ba.vup>+44.8%</>\n装備中、自身の戦技または連携技で会心ダメージが発生すると、30秒間寒冷ダメージ<@ba.vup>+39.2%</>\n<@ba.info>同名効果は3回まで重ね掛け可能\n効果の持続時間は個別にカウントされ、0.1秒に1回まで発動可能</>",
+          "zh-TW": "寒冷傷害<@ba.vup>+44.8%</>。\n裝備者的戰技或連攜技造成暴擊傷害後，寒冷傷害<@ba.vup>+39.2%</>，持續30秒。\n<@ba.info>同名效果最多疊加3層，每層單獨計算持續時間，每0.1秒最多觸發一次。</>"
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
+  "wpn_pistol_0011": {
+    "stats": [
+      {
+        "levelOne": {
+          "zh-CN": "敏捷<@ba.vup>+20</>",
+          "en": "Agility <@ba.vup>+20</>",
+          "ja": "敏捷<@ba.vup>+20</>",
+          "zh-TW": "敏捷<@ba.vup>+20</>"
+        },
+        "maxLevel": {
+          "zh-CN": "敏捷<@ba.vup>+156</>",
+          "en": "Agility <@ba.vup>+156</>",
+          "ja": "敏捷<@ba.vup>+156</>",
+          "zh-TW": "敏捷<@ba.vup>+156</>"
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "zh-CN": "攻击力<@ba.vup>+5.0%</>",
+          "en": "ATK <@ba.vup>+5.0%</>",
+          "ja": "攻撃力<@ba.vup>+5.0%</>",
+          "zh-TW": "攻擊力<@ba.vup>+5.0%</>"
+        },
+        "maxLevel": {
+          "zh-CN": "攻击力<@ba.vup>+39.0%</>",
+          "en": "ATK <@ba.vup>+39.0%</>",
+          "ja": "攻撃力<@ba.vup>+39.0%</>",
+          "zh-TW": "攻擊力<@ba.vup>+39.0%</>"
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "zh-CN": "寒冷伤害<@ba.vup>+16.0%</>。\n装备者通过战技或终结技施加<#ba.crystinflict>寒冷附着</>时，获得寒冷伤害<@ba.vup>+20.0%</>，持续20秒。装备者通过战技或终结技施加<#ba.spellvul>法术脆弱</>时，使目标敌人受到的法术伤害<@ba.vup>+6.0%</>，持续20秒。\n<@ba.info>两种效果独立生效，且均无法叠加。</>",
+          "en": "Cryo DMG Dealt <@ba.vup>+16.0%</>.\nWhen the wielder applies <#ba.crystinflict>Cryo Infliction</> via battle skills or ultimates, the wielder gains Cryo DMG Dealt <@ba.vup>+20.0%</> for 20s. When the wielder's battle skill or ultimate applies <#ba.spellvul>Arts Susceptibility</>, the target enemy suffers Arts DMG Taken <@ba.vup>+6.0%</> for 20s.\n<@ba.info>The two effects apply separately and do not stack with themselves.</>",
+          "ja": "寒冷ダメージ<@ba.vup>+16.0%</>\n装備中、自身の戦技または必殺技で<#ba.crystinflict>寒冷付着</>を付与するとき、20秒間寒冷ダメージ<@ba.vup>+20.0%</>\n自身の戦技または必殺技で<#ba.spellvul>アーツ脆弱</>を付与するとき、20秒間目標の受けるアーツダメージ<@ba.vup>+6.0%</>\n<@ba.info>2つの効果はそれぞれ存在し、重ね掛け不可</>",
+          "zh-TW": "寒冷傷害<@ba.vup>+16.0%</>。\n裝備者透過戰技或終結技施加<#ba.crystinflict>寒冷附著</>時，獲得寒冷傷害<@ba.vup>+20.0%</>，持續20秒。裝備者透過戰技或終結技施加<#ba.spellvul>法術脆弱</>時，使目標敵人受到的法術傷害<@ba.vup>+6.0%</>，持續20秒。\n<@ba.info>兩種效果獨立生效，且均無法疊加。</>"
+        },
+        "maxLevel": {
+          "zh-CN": "寒冷伤害<@ba.vup>+44.8%</>。\n装备者通过战技或终结技施加<#ba.crystinflict>寒冷附着</>时，获得寒冷伤害<@ba.vup>+56.0%</>，持续20秒。装备者通过战技或终结技施加<#ba.spellvul>法术脆弱</>时，使目标敌人受到的法术伤害<@ba.vup>+16.8%</>，持续20秒。\n<@ba.info>两种效果独立生效，且均无法叠加。</>",
+          "en": "Cryo DMG Dealt <@ba.vup>+44.8%</>.\nWhen the wielder applies <#ba.crystinflict>Cryo Infliction</> via battle skills or ultimates, the wielder gains Cryo DMG Dealt <@ba.vup>+56.0%</> for 20s. When the wielder's battle skill or ultimate applies <#ba.spellvul>Arts Susceptibility</>, the target enemy suffers Arts DMG Taken <@ba.vup>+16.8%</> for 20s.\n<@ba.info>The two effects apply separately and do not stack with themselves.</>",
+          "ja": "寒冷ダメージ<@ba.vup>+44.8%</>\n装備中、自身の戦技または必殺技で<#ba.crystinflict>寒冷付着</>を付与するとき、20秒間寒冷ダメージ<@ba.vup>+56.0%</>\n自身の戦技または必殺技で<#ba.spellvul>アーツ脆弱</>を付与するとき、20秒間目標の受けるアーツダメージ<@ba.vup>+16.8%</>\n<@ba.info>2つの効果はそれぞれ存在し、重ね掛け不可</>",
+          "zh-TW": "寒冷傷害<@ba.vup>+44.8%</>。\n裝備者透過戰技或終結技施加<#ba.crystinflict>寒冷附著</>時，獲得寒冷傷害<@ba.vup>+56.0%</>，持續20秒。裝備者透過戰技或終結技施加<#ba.spellvul>法術脆弱</>時，使目標敵人受到的法術傷害<@ba.vup>+16.8%</>，持續20秒。\n<@ba.info>兩種效果獨立生效，且均無法疊加。</>"
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
+  "wpn_pistol_0012": {
+    "stats": [
+      {
+        "levelOne": {
+          "zh-CN": "敏捷<@ba.vup>+16</>",
+          "en": "Agility <@ba.vup>+16</>",
+          "ja": "敏捷<@ba.vup>+16</>",
+          "zh-TW": "敏捷<@ba.vup>+16</>"
+        },
+        "maxLevel": {
+          "zh-CN": "敏捷<@ba.vup>+124</>",
+          "en": "Agility <@ba.vup>+124</>",
+          "ja": "敏捷<@ba.vup>+124</>",
+          "zh-TW": "敏捷<@ba.vup>+124</>"
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "zh-CN": "终结技充能效率<@ba.vup>+4.8%</>",
+          "en": "Ultimate Gain Efficiency <@ba.vup>+4.8%</>",
+          "ja": "必殺チャージの回復効率<@ba.vup>+4.8%</>",
+          "zh-TW": "終結技蓄能效率<@ba.vup>+4.8%</>"
+        },
+        "maxLevel": {
+          "zh-CN": "终结技充能效率<@ba.vup>+37.1%</>",
+          "en": "Ultimate Gain Efficiency <@ba.vup>+37.1%</>",
+          "ja": "必殺チャージの回復効率<@ba.vup>+37.1%</>",
+          "zh-TW": "終結技蓄能效率<@ba.vup>+37.1%</>"
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "zh-CN": "攻击力<@ba.vup>+5.0%</>。\n装备者<#ba.consume>消耗</><#ba.spellinflict>法术附着</>后，自然伤害<@ba.vup>+[5.0%×消耗层数]</>，持续20秒。\n<@ba.info>同名效果无法叠加。</>",
+          "en": "ATK <@ba.vup>+5.0%</>.\nAfter the wielder <#ba.consume>consumes</> an <#ba.spellinflict>Arts Infliction</>, the wielder gains Nature DMG Dealt <@ba.vup>+[5.0%×Stacks Consumed]</> for 20s. \n<@ba.info>Effects of the same name cannot stack. </>",
+          "ja": "攻撃力<@ba.vup>+5.0%</>\n装備中、自身が<#ba.spellinflict>アーツ付着</>段階を<#ba.consume>消費</>すると、20秒間自然ダメージ<@ba.vup>+[5.0%×消費した段階数]</>\n<@ba.info>同名効果は重ね掛け不可</>",
+          "zh-TW": "攻擊力<@ba.vup>+5.0%</>。\n裝備者<#ba.consume>消耗</><#ba.spellinflict>法術附著</>後，自然傷害<@ba.vup>+[5.0%×消耗層數]</>，持續20秒。\n<@ba.info>同名效果無法疊加。</>"
+        },
+        "maxLevel": {
+          "zh-CN": "攻击力<@ba.vup>+14.0%</>。\n装备者<#ba.consume>消耗</><#ba.spellinflict>法术附着</>后，自然伤害<@ba.vup>+[14.0%×消耗层数]</>，持续20秒。\n<@ba.info>同名效果无法叠加。</>",
+          "en": "ATK <@ba.vup>+14.0%</>.\nAfter the wielder <#ba.consume>consumes</> an <#ba.spellinflict>Arts Infliction</>, the wielder gains Nature DMG Dealt <@ba.vup>+[14.0%×Stacks Consumed]</> for 20s. \n<@ba.info>Effects of the same name cannot stack. </>",
+          "ja": "攻撃力<@ba.vup>+14.0%</>\n装備中、自身が<#ba.spellinflict>アーツ付着</>段階を<#ba.consume>消費</>すると、20秒間自然ダメージ<@ba.vup>+[14.0%×消費した段階数]</>\n<@ba.info>同名効果は重ね掛け不可</>",
+          "zh-TW": "攻擊力<@ba.vup>+14.0%</>。\n裝備者<#ba.consume>消耗</><#ba.spellinflict>法術附著</>後，自然傷害<@ba.vup>+[14.0%×消耗層數]</>，持續20秒。\n<@ba.info>同名效果無法疊加。</>"
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
+  "wpn_sword_0006": {
+    "stats": [
+      {
+        "levelOne": {
+          "zh-CN": "智识<@ba.vup>+20</>",
+          "en": "Intellect <@ba.vup>+20</>",
+          "ja": "知性<@ba.vup>+20</>",
+          "zh-TW": "智識<@ba.vup>+20</>"
+        },
+        "maxLevel": {
+          "zh-CN": "智识<@ba.vup>+156</>",
+          "en": "Intellect <@ba.vup>+156</>",
+          "ja": "知性<@ba.vup>+156</>",
+          "zh-TW": "智識<@ba.vup>+156</>"
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "zh-CN": "攻击力<@ba.vup>+5.0%</>",
+          "en": "ATK <@ba.vup>+5.0%</>",
+          "ja": "攻撃力<@ba.vup>+5.0%</>",
+          "zh-TW": "攻擊力<@ba.vup>+5.0%</>"
+        },
+        "maxLevel": {
+          "zh-CN": "攻击力<@ba.vup>+39.0%</>",
+          "en": "ATK <@ba.vup>+39.0%</>",
+          "ja": "攻撃力<@ba.vup>+39.0%</>",
+          "zh-TW": "攻擊力<@ba.vup>+39.0%</>"
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "zh-CN": "灼热伤害<@ba.vup>+16.0%</>。\n装备者施放终结技时，获得普通攻击伤害<@ba.vup>+75.0%</>，持续20秒。\n<@ba.info>同名效果无法叠加。</>",
+          "en": "Heat DMG Dealt <@ba.vup>+16.0%</>.\nWhen the wielder casts an ultimate, the wielder gains Basic Attack DMG Dealt <@ba.vup>+75.0%</> for 20s.\n<@ba.info>Effects of the same name cannot stack.</>",
+          "ja": "灼熱ダメージ<@ba.vup>+16.0%</>\n装備中、自身が必殺技を発動するとき、20秒間通常攻撃ダメージ<@ba.vup>+75.0%</>\n<@ba.info>同名効果は重ね掛け不可</>",
+          "zh-TW": "灼熱傷害<@ba.vup>+16.0%</>。\n裝備者施放終結技時，獲得普通攻擊傷害<@ba.vup>+75.0%</>，持續20秒。\n<@ba.info>同名效果無法疊加。</>"
+        },
+        "maxLevel": {
+          "zh-CN": "灼热伤害<@ba.vup>+44.8%</>。\n装备者施放终结技时，获得普通攻击伤害<@ba.vup>+210.0%</>，持续20秒。\n<@ba.info>同名效果无法叠加。</>",
+          "en": "Heat DMG Dealt <@ba.vup>+44.8%</>.\nWhen the wielder casts an ultimate, the wielder gains Basic Attack DMG Dealt <@ba.vup>+210.0%</> for 20s.\n<@ba.info>Effects of the same name cannot stack.</>",
+          "ja": "灼熱ダメージ<@ba.vup>+44.8%</>\n装備中、自身が必殺技を発動するとき、20秒間通常攻撃ダメージ<@ba.vup>+210.0%</>\n<@ba.info>同名効果は重ね掛け不可</>",
+          "zh-TW": "灼熱傷害<@ba.vup>+44.8%</>。\n裝備者施放終結技時，獲得普通攻擊傷害<@ba.vup>+210.0%</>，持續20秒。\n<@ba.info>同名效果無法疊加。</>"
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
+  "wpn_sword_0014": {
+    "stats": [
+      {
+        "levelOne": {
+          "zh-CN": "主能力值<@ba.vup>+17</>",
+          "en": "Main attribute <@ba.vup>+17</>",
+          "ja": "メイン能力値<@ba.vup>+17</>",
+          "zh-TW": "主能力值<@ba.vup>+17</>"
+        },
+        "maxLevel": {
+          "zh-CN": "主能力值<@ba.vup>+132</>",
+          "en": "Main attribute <@ba.vup>+132</>",
+          "ja": "メイン能力値<@ba.vup>+132</>",
+          "zh-TW": "主能力值<@ba.vup>+132</>"
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "zh-CN": "源石技艺强度<@ba.vup>+10</>",
+          "en": "Arts Intensity <@ba.vup>+10</>",
+          "ja": "アーツ強度<@ba.vup>+10</>",
+          "zh-TW": "源石技藝強度<@ba.vup>+10</>"
+        },
+        "maxLevel": {
+          "zh-CN": "源石技艺强度<@ba.vup>+78</>",
+          "en": "Arts Intensity <@ba.vup>+78</>",
+          "ja": "アーツ強度<@ba.vup>+78</>",
+          "zh-TW": "源石技藝強度<@ba.vup>+78</>"
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "zh-CN": "法术伤害<@ba.vup>+12.0%</>。\n装备者施加<#ba.burning>燃烧</>或<#ba.conduct>导电</>后，法术伤害<@ba.vup>+12.0%</>，源石技艺强度<@ba.vup>+25</>，持续15秒。\n<@ba.info>同名效果无法叠加。</>",
+          "en": "Arts DMG Dealt <@ba.vup>+12.0%</>.\nAfter the wielder applies <#ba.burning>Combustion</> or <#ba.conduct>Electrification</>, the wielder gains Arts DMG Dealt <@ba.vup>+12.0%</> and Arts Intensity <@ba.vup>+25</> for 15s.\n<@ba.info>Effects of the same name cannot stack.</>",
+          "ja": "アーツダメージ<@ba.vup>+12.0%</>\n装備中、自身が敵を<#ba.burning>燃焼</>または<#ba.conduct>感電</>状態にすると、15秒間アーツダメージ<@ba.vup>+12.0%</>、アーツ強度<@ba.vup>+25</>\n<@ba.info>同名効果は重ね掛け不可</>",
+          "zh-TW": "法術傷害<@ba.vup>+12.0%</>。\n裝備者施加<#ba.burning>燃燒</>或<#ba.conduct>導電</>後，法術傷害<@ba.vup>+12.0%</>，源石技藝強度<@ba.vup>+25</>，持續15秒。\n<@ba.info>同名效果無法疊加。</>"
+        },
+        "maxLevel": {
+          "zh-CN": "法术伤害<@ba.vup>+33.6%</>。\n装备者施加<#ba.burning>燃烧</>或<#ba.conduct>导电</>后，法术伤害<@ba.vup>+33.6%</>，源石技艺强度<@ba.vup>+70</>，持续15秒。\n<@ba.info>同名效果无法叠加。</>",
+          "en": "Arts DMG Dealt <@ba.vup>+33.6%</>.\nAfter the wielder applies <#ba.burning>Combustion</> or <#ba.conduct>Electrification</>, the wielder gains Arts DMG Dealt <@ba.vup>+33.6%</> and Arts Intensity <@ba.vup>+70</> for 15s.\n<@ba.info>Effects of the same name cannot stack.</>",
+          "ja": "アーツダメージ<@ba.vup>+33.6%</>\n装備中、自身が敵を<#ba.burning>燃焼</>または<#ba.conduct>感電</>状態にすると、15秒間アーツダメージ<@ba.vup>+33.6%</>、アーツ強度<@ba.vup>+70</>\n<@ba.info>同名効果は重ね掛け不可</>",
+          "zh-TW": "法術傷害<@ba.vup>+33.6%</>。\n裝備者施加<#ba.burning>燃燒</>或<#ba.conduct>導電</>後，法術傷害<@ba.vup>+33.6%</>，源石技藝強度<@ba.vup>+70</>，持續15秒。\n<@ba.info>同名效果無法疊加。</>"
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
+  "wpn_sword_0009": {
+    "stats": [
+      {
+        "levelOne": {
+          "zh-CN": "智识<@ba.vup>+12</>",
+          "en": "Intellect <@ba.vup>+12</>",
+          "ja": "知性<@ba.vup>+12</>",
+          "zh-TW": "智識<@ba.vup>+12</>"
+        },
+        "maxLevel": {
+          "zh-CN": "智识<@ba.vup>+93</>",
+          "en": "Intellect <@ba.vup>+93</>",
+          "ja": "知性<@ba.vup>+93</>",
+          "zh-TW": "智識<@ba.vup>+93</>"
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "zh-CN": "攻击力<@ba.vup>+3.0%</>",
+          "en": "ATK <@ba.vup>+3.0%</>",
+          "ja": "攻撃力<@ba.vup>+3.0%</>",
+          "zh-TW": "攻擊力<@ba.vup>+3.0%</>"
+        },
+        "maxLevel": {
+          "zh-CN": "攻击力<@ba.vup>+23.4%</>",
+          "en": "ATK <@ba.vup>+23.4%</>",
+          "ja": "攻撃力<@ba.vup>+23.4%</>",
+          "zh-TW": "攻擊力<@ba.vup>+23.4%</>"
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "zh-CN": "装备者施放连携技时，获得攻击力<@ba.vup>+12.0%</>，持续20秒。\n<@ba.info>同名效果无法叠加。</>",
+          "en": "When the wielder casts a combo skill, the wielder gains ATK <@ba.vup>+12.0%</> for 20s.\n<@ba.info>Effects of the same name cannot stack. </>",
+          "ja": "装備中、自身が連携技を発動するとき、20秒間攻撃力<@ba.vup>+12.0%</>\n<@ba.info>同名効果は重ね掛け不可</>",
+          "zh-TW": "裝備者施放連攜技時，獲得攻擊力<@ba.vup>+12.0%</>，持續20秒。\n<@ba.info>同名效果無法疊加。</>"
+        },
+        "maxLevel": {
+          "zh-CN": "装备者施放连携技时，获得攻击力<@ba.vup>+33.6%</>，持续20秒。\n<@ba.info>同名效果无法叠加。</>",
+          "en": "When the wielder casts a combo skill, the wielder gains ATK <@ba.vup>+33.6%</> for 20s.\n<@ba.info>Effects of the same name cannot stack. </>",
+          "ja": "装備中、自身が連携技を発動するとき、20秒間攻撃力<@ba.vup>+33.6%</>\n<@ba.info>同名効果は重ね掛け不可</>",
+          "zh-TW": "裝備者施放連攜技時，獲得攻擊力<@ba.vup>+33.6%</>，持續20秒。\n<@ba.info>同名效果無法疊加。</>"
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
+  "wpn_sword_0011": {
+    "stats": [
+      {
+        "levelOne": {
+          "zh-CN": "主能力值<@ba.vup>+17</>",
+          "en": "Main attribute <@ba.vup>+17</>",
+          "ja": "メイン能力値<@ba.vup>+17</>",
+          "zh-TW": "主能力值<@ba.vup>+17</>"
+        },
+        "maxLevel": {
+          "zh-CN": "主能力值<@ba.vup>+132</>",
+          "en": "Main attribute <@ba.vup>+132</>",
+          "ja": "メイン能力値<@ba.vup>+132</>",
+          "zh-TW": "主能力值<@ba.vup>+132</>"
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "zh-CN": "暴击率<@ba.vup>+2.5%</>",
+          "en": "Critical Rate <@ba.vup>+2.5%</>",
+          "ja": "会心率<@ba.vup>+2.5%</>",
+          "zh-TW": "暴擊率<@ba.vup>+2.5%</>"
+        },
+        "maxLevel": {
+          "zh-CN": "暴击率<@ba.vup>+19.5%</>",
+          "en": "Critical Rate <@ba.vup>+19.5%</>",
+          "ja": "会心率<@ba.vup>+19.5%</>",
+          "zh-TW": "暴擊率<@ba.vup>+19.5%</>"
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "zh-CN": "战技和终结技造成的物理伤害<@ba.vup>+15.0%</>。\n对处于<@ba.poise>失衡</>状态的敌人造成的伤害<@ba.vup>+35.0%</>。",
+          "en": "Battle skills and ultimates gain Physical DMG Dealt <@ba.vup>+15.0%</>.\nAgainst <@ba.poise>Staggered</> enemies, battle skills and ultimates also gain DMG Dealt <@ba.vup>+35.0%</>.",
+          "ja": "戦技と必殺技の物理ダメージ<@ba.vup>+15.0%</>\n<@ba.poise>ブレイク</>状態の敵へのダメージ<@ba.vup>+35.0%</>",
+          "zh-TW": "戰技和終結技造成的物理傷害<@ba.vup>+15.0%</>。\n對處於<@ba.poise>失衡</>狀態的敵人造成的傷害<@ba.vup>+35.0%</>。"
+        },
+        "maxLevel": {
+          "zh-CN": "战技和终结技造成的物理伤害<@ba.vup>+42.0%</>。\n对处于<@ba.poise>失衡</>状态的敌人造成的伤害<@ba.vup>+98.0%</>。",
+          "en": "Battle skills and ultimates gain Physical DMG Dealt <@ba.vup>+42.0%</>.\nAgainst <@ba.poise>Staggered</> enemies, battle skills and ultimates also gain DMG Dealt <@ba.vup>+98.0%</>.",
+          "ja": "戦技と必殺技の物理ダメージ<@ba.vup>+42.0%</>\n<@ba.poise>ブレイク</>状態の敵へのダメージ<@ba.vup>+98.0%</>",
+          "zh-TW": "戰技和終結技造成的物理傷害<@ba.vup>+42.0%</>。\n對處於<@ba.poise>失衡</>狀態的敵人造成的傷害<@ba.vup>+98.0%</>。"
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
+  "wpn_sword_0018": {
+    "stats": [
+      {
+        "levelOne": {
+          "zh-CN": "敏捷<@ba.vup>+16</>",
+          "en": "Agility <@ba.vup>+16</>",
+          "ja": "敏捷<@ba.vup>+16</>",
+          "zh-TW": "敏捷<@ba.vup>+16</>"
+        },
+        "maxLevel": {
+          "zh-CN": "敏捷<@ba.vup>+124</>",
+          "en": "Agility <@ba.vup>+124</>",
+          "ja": "敏捷<@ba.vup>+124</>",
+          "zh-TW": "敏捷<@ba.vup>+124</>"
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "zh-CN": "攻击力<@ba.vup>+4.0%</>",
+          "en": "ATK <@ba.vup>+4.0%</>",
+          "ja": "攻撃力<@ba.vup>+4.0%</>",
+          "zh-TW": "攻擊力<@ba.vup>+4.0%</>"
+        },
+        "maxLevel": {
+          "zh-CN": "攻击力<@ba.vup>+31.2%</>",
+          "en": "ATK <@ba.vup>+31.2%</>",
+          "ja": "攻撃力<@ba.vup>+31.2%</>",
+          "zh-TW": "攻擊力<@ba.vup>+31.2%</>"
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "zh-CN": "副能力<@ba.vup>+5.0%</>。\n装备者<#ba.consume>消耗</><#ba.spellstatus>法术异常</>后，攻击力<@ba.vup>+7.5%</>，持续20秒。\n<@ba.info>同名效果最多叠加2层，每层单独计算持续时间。</>",
+          "en": "Secondary Attribute <@ba.vup>+5.0%</>.\nAfter the wielder <#ba.consume>consumes</> an <#ba.spellstatus>Arts Reaction</>, ATK <@ba.vup>+7.5%</> for 20s.\n<@ba.info>Max stacks for effects of the same name: 2. Duration of each stack is counted separately.</>",
+          "ja": "サブ能力値<@ba.vup>+5.0%</>\n装備中、自身が<#ba.spellstatus>アーツ異常</>状態を<#ba.consume>消費</>すると、20秒間攻撃力<@ba.vup>+7.5%</>\n<@ba.info>同名効果は2回まで重ね掛け可能\n効果の持続時間は個別にカウントされる</>",
+          "zh-TW": "副能力<@ba.vup>+5.0%</>。\n裝備者<#ba.consume>消耗</><#ba.spellstatus>法術異常</>後，攻擊力<@ba.vup>+7.5%</>，持續20秒。\n<@ba.info>同名效果最多疊加2層，每層單獨計算持續時間。</>"
+        },
+        "maxLevel": {
+          "zh-CN": "副能力<@ba.vup>+14.0%</>。\n装备者<#ba.consume>消耗</><#ba.spellstatus>法术异常</>后，攻击力<@ba.vup>+21.0%</>，持续20秒。\n<@ba.info>同名效果最多叠加2层，每层单独计算持续时间。</>",
+          "en": "Secondary Attribute <@ba.vup>+14.0%</>.\nAfter the wielder <#ba.consume>consumes</> an <#ba.spellstatus>Arts Reaction</>, ATK <@ba.vup>+21.0%</> for 20s.\n<@ba.info>Max stacks for effects of the same name: 2. Duration of each stack is counted separately.</>",
+          "ja": "サブ能力値<@ba.vup>+14.0%</>\n装備中、自身が<#ba.spellstatus>アーツ異常</>状態を<#ba.consume>消費</>すると、20秒間攻撃力<@ba.vup>+21.0%</>\n<@ba.info>同名効果は2回まで重ね掛け可能\n効果の持続時間は個別にカウントされる</>",
+          "zh-TW": "副能力<@ba.vup>+14.0%</>。\n裝備者<#ba.consume>消耗</><#ba.spellstatus>法術異常</>後，攻擊力<@ba.vup>+21.0%</>，持續20秒。\n<@ba.info>同名效果最多疊加2層，每層單獨計算持續時間。</>"
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
+  "wpn_sword_0019": {
+    "stats": [
+      {
+        "levelOne": {
+          "zh-CN": "敏捷<@ba.vup>+16</>",
+          "en": "Agility <@ba.vup>+16</>",
+          "ja": "敏捷<@ba.vup>+16</>",
+          "zh-TW": "敏捷<@ba.vup>+16</>"
+        },
+        "maxLevel": {
+          "zh-CN": "敏捷<@ba.vup>+124</>",
+          "en": "Agility <@ba.vup>+124</>",
+          "ja": "敏捷<@ba.vup>+124</>",
+          "zh-TW": "敏捷<@ba.vup>+124</>"
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "zh-CN": "攻击力<@ba.vup>+4.0%</>",
+          "en": "ATK <@ba.vup>+4.0%</>",
+          "ja": "攻撃力<@ba.vup>+4.0%</>",
+          "zh-TW": "攻擊力<@ba.vup>+4.0%</>"
+        },
+        "maxLevel": {
+          "zh-CN": "攻击力<@ba.vup>+31.2%</>",
+          "en": "ATK <@ba.vup>+31.2%</>",
+          "ja": "攻撃力<@ba.vup>+31.2%</>",
+          "zh-TW": "攻擊力<@ba.vup>+31.2%</>"
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "zh-CN": "副能力<@ba.vup>+5.0%</>。\n装备者通过自身技能恢复技力后，全队造成的灼热和电磁伤害<@ba.vup>+3.0%</>，持续20秒。\n<@ba.info>同名效果最多叠加3层，每层单独计算持续时间。</>",
+          "en": "Secondary Attribute <@ba.vup>+5.0%</>.\nAfter the wielder's skill recovers SP, the entire team gains Heat DMG Dealt and Electric DMG Dealt <@ba.vup>+3.0%</> for 20s.\n<@ba.info>Max stacks for effects of the same name: 3. Duration of each stack is counted separately.</>",
+          "ja": "サブ能力値<@ba.vup>+5.0%</>\n装備中、自身のスキルでSPを回復すると、20秒間チーム全員の灼熱ダメージと電磁ダメージ<@ba.vup>+3.0%</>\n<@ba.info>同名効果は3回まで重ね掛け可能\n効果の持続時間は個別にカウントされる</>",
+          "zh-TW": "副能力<@ba.vup>+5.0%</>。\n裝備者透過自身技能回復技力後，全隊造成的灼熱和電磁傷害<@ba.vup>+3.0%</>，持續20秒。\n<@ba.info>同名效果最多疊加3層，每層單獨計算持續時間。</>"
+        },
+        "maxLevel": {
+          "zh-CN": "副能力<@ba.vup>+14.0%</>。\n装备者通过自身技能恢复技力后，全队造成的灼热和电磁伤害<@ba.vup>+8.4%</>，持续20秒。\n<@ba.info>同名效果最多叠加3层，每层单独计算持续时间。</>",
+          "en": "Secondary Attribute <@ba.vup>+14.0%</>.\nAfter the wielder's skill recovers SP, the entire team gains Heat DMG Dealt and Electric DMG Dealt <@ba.vup>+8.4%</> for 20s.\n<@ba.info>Max stacks for effects of the same name: 3. Duration of each stack is counted separately.</>",
+          "ja": "サブ能力値<@ba.vup>+14.0%</>\n装備中、自身のスキルでSPを回復すると、20秒間チーム全員の灼熱ダメージと電磁ダメージ<@ba.vup>+8.4%</>\n<@ba.info>同名効果は3回まで重ね掛け可能\n効果の持続時間は個別にカウントされる</>",
+          "zh-TW": "副能力<@ba.vup>+14.0%</>。\n裝備者透過自身技能回復技力後，全隊造成的灼熱和電磁傷害<@ba.vup>+8.4%</>，持續20秒。\n<@ba.info>同名效果最多疊加3層，每層單獨計算持續時間。</>"
         },
         "levelOneLabel": "Lv.1",
         "maxLevelLabel": "Lv.9"
@@ -3792,13 +3896,13 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       {
         "levelOne": {
           "zh-CN": "攻击力<@ba.vup>+5.0%</>",
-          "en": "Attack <@ba.vup>+5.0%</>",
+          "en": "ATK <@ba.vup>+5.0%</>",
           "ja": "攻撃力<@ba.vup>+5.0%</>",
           "zh-TW": "攻擊力<@ba.vup>+5.0%</>"
         },
         "maxLevel": {
           "zh-CN": "攻击力<@ba.vup>+39.0%</>",
-          "en": "Attack <@ba.vup>+39.0%</>",
+          "en": "ATK <@ba.vup>+39.0%</>",
           "ja": "攻撃力<@ba.vup>+39.0%</>",
           "zh-TW": "攻擊力<@ba.vup>+39.0%</>"
         },
@@ -3930,6 +4034,418 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
 }
 
 export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPreview> = {
+  "item_equip_t4_suit_combo_cd01_hand_01": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "42",
+        "maxLevel": "42",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "40",
+        "levelOne": "65",
+        "maxLevel": "84",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "39",
+        "levelOne": "43",
+        "maxLevel": "55",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "AllSkillDamageIncrease",
+        "levelOne": "23%",
+        "maxLevel": "29.9%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "name": {
+              "zh-CN": "赫铜装备原件",
+              "en": "Hetonite Component",
+              "ja": "緋銅装備部品",
+              "zh-TW": "赫銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4,
+            "count": 50
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 25000
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.01,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "name": {
+              "zh-CN": "灼铜装备原件",
+              "en": "Pyrrolite Component",
+              "ja": "焔銅装備部品",
+              "zh-TW": "灼銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4,
+            "count": 25
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 250
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_attri01_edc_03": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "21",
+        "maxLevel": "21",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "42",
+        "levelOne": "32",
+        "maxLevel": "41",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "40",
+        "levelOne": "21",
+        "maxLevel": "27",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "32",
+        "levelOne": "41.4%",
+        "maxLevel": "53.82%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4000,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4",
+            "name": {
+              "zh-CN": "息壤装备原件",
+              "en": "Xiranite Component",
+              "ja": "息壌装備部品",
+              "zh-TW": "息壤裝備原件"
+            },
+            "iconId": "item_equip_script_4",
+            "rarity": 4,
+            "count": 50
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 8000
+          }
+        ]
+      },
+      {
+        "chainId": 4001,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_1",
+            "name": {
+              "zh-CN": "赤铜装备原件",
+              "en": "Cuprium Component",
+              "ja": "赤銅装備部品",
+              "zh-TW": "赤銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_1",
+            "rarity": 4,
+            "count": 50
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 8000
+          }
+        ]
+      },
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "name": {
+              "zh-CN": "赫铜装备原件",
+              "en": "Hetonite Component",
+              "ja": "緋銅装備部品",
+              "zh-TW": "赫銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4,
+            "count": 10
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 8000
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.01,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "name": {
+              "zh-CN": "灼铜装备原件",
+              "en": "Pyrrolite Component",
+              "ja": "焔銅装備部品",
+              "zh-TW": "灼銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4,
+            "count": 5
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 80
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_pulse_cryst01_hand_01": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "42",
+        "maxLevel": "42",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "42",
+        "levelOne": "65",
+        "maxLevel": "84",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "41",
+        "levelOne": "43",
+        "maxLevel": "55",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "CrystAndPulseDamageIncrease",
+        "levelOne": "19.16666667%",
+        "maxLevel": "24.916667%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4000,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4",
+            "name": {
+              "zh-CN": "息壤装备原件",
+              "en": "Xiranite Component",
+              "ja": "息壌装備部品",
+              "zh-TW": "息壤裝備原件"
+            },
+            "iconId": "item_equip_script_4",
+            "rarity": 4,
+            "count": 50
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 8000
+          }
+        ]
+      },
+      {
+        "chainId": 4001,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_1",
+            "name": {
+              "zh-CN": "赤铜装备原件",
+              "en": "Cuprium Component",
+              "ja": "赤銅装備部品",
+              "zh-TW": "赤銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_1",
+            "rarity": 4,
+            "count": 50
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 8000
+          }
+        ]
+      },
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "name": {
+              "zh-CN": "赫铜装备原件",
+              "en": "Hetonite Component",
+              "ja": "緋銅装備部品",
+              "zh-TW": "赫銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4,
+            "count": 10
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 8000
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.01,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "name": {
+              "zh-CN": "灼铜装备原件",
+              "en": "Pyrrolite Component",
+              "ja": "焔銅装備部品",
+              "zh-TW": "灼銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4,
+            "count": 5
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 80
+          }
+        ]
+      }
+    ]
+  },
   "item_equip_t4_suit_atb01_edc_01": {
     "stats": [
       {
@@ -4088,52 +4604,52 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       }
     ]
   },
-  "item_equip_t4_suit_fire_natr01_edc_04": {
+  "item_equip_t4_suit_criti01_body_06": {
     "stats": [
       {
         "attributeId": "3",
-        "levelOne": "21",
-        "maxLevel": "21",
+        "levelOne": "56",
+        "maxLevel": "56",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "40",
+        "levelOne": "87",
+        "maxLevel": "113",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
         "attributeId": "41",
-        "levelOne": "32",
-        "maxLevel": "41",
+        "levelOne": "58",
+        "maxLevel": "75",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
-        "attributeId": "42",
-        "levelOne": "21",
-        "maxLevel": "27",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "AllSkillDamageIncrease",
-        "levelOne": "27.6%",
-        "maxLevel": "35.88%",
+        "attributeId": "44",
+        "levelOne": "12.32142857%",
+        "maxLevel": "16.017857%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
     ],
     "craftingRecipes": [
       {
-        "chainId": 4003,
-        "discount": 0.01,
+        "chainId": 4001,
+        "discount": 1,
         "isDefault": true,
         "materials": [
           {
-            "itemId": "item_equip_script_4_3",
+            "itemId": "item_equip_script_4_1",
             "name": {
-              "zh-CN": "灼铜装备原件",
-              "en": "Pyrrolite Component",
-              "ja": "焔銅装備部品",
-              "zh-TW": "灼銅裝備原件"
+              "zh-CN": "赤铜装备原件",
+              "en": "Cuprium Component",
+              "ja": "赤銅装備部品",
+              "zh-TW": "赤銅裝備原件"
             },
-            "iconId": "item_equip_script_4_3",
+            "iconId": "item_equip_script_4_1",
             "rarity": 4,
             "count": 50
           },
@@ -4147,39 +4663,860 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
             },
             "iconId": "item_domain_jinlong_coupon",
             "rarity": 5,
-            "count": 360
+            "count": 16000
+          }
+        ]
+      },
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "name": {
+              "zh-CN": "赫铜装备原件",
+              "en": "Hetonite Component",
+              "ja": "緋銅装備部品",
+              "zh-TW": "赫銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4,
+            "count": 10
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 16000
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.01,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "name": {
+              "zh-CN": "灼铜装备原件",
+              "en": "Pyrrolite Component",
+              "ja": "焔銅装備部品",
+              "zh-TW": "灼銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4,
+            "count": 5
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 160
           }
         ]
       }
     ]
   },
-  "item_equip_t4_suit_crush_fracture_edc_02": {
+  "item_equip_t4_suit_atk02_body_02": {
     "stats": [
       {
         "attributeId": "3",
-        "levelOne": "21",
-        "maxLevel": "21",
+        "levelOne": "56",
+        "maxLevel": "56",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
         "attributeId": "40",
-        "levelOne": "32",
-        "maxLevel": "41",
+        "levelOne": "87",
+        "maxLevel": "113",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
         "attributeId": "39",
-        "levelOne": "21",
-        "maxLevel": "27",
+        "levelOne": "58",
+        "maxLevel": "75",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
-        "attributeId": "50",
-        "levelOne": "23%",
-        "maxLevel": "29.9%",
+        "attributeId": "44",
+        "levelOne": "12.32142857%",
+        "maxLevel": "16.017857%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4001,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_1",
+            "name": {
+              "zh-CN": "赤铜装备原件",
+              "en": "Cuprium Component",
+              "ja": "赤銅装備部品",
+              "zh-TW": "赤銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_1",
+            "rarity": 4,
+            "count": 50
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 16000
+          }
+        ]
+      },
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "name": {
+              "zh-CN": "赫铜装备原件",
+              "en": "Hetonite Component",
+              "ja": "緋銅装備部品",
+              "zh-TW": "赫銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4,
+            "count": 10
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 16000
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.01,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "name": {
+              "zh-CN": "灼铜装备原件",
+              "en": "Pyrrolite Component",
+              "ja": "焔銅装備部品",
+              "zh-TW": "灼銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4,
+            "count": 5
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 160
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_criti01_body_03": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "56",
+        "maxLevel": "56",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "41",
+        "levelOne": "87",
+        "maxLevel": "113",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "42",
+        "levelOne": "58",
+        "maxLevel": "75",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "9",
+        "levelOne": "5.175%",
+        "maxLevel": "6.7275%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4000,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4",
+            "name": {
+              "zh-CN": "息壤装备原件",
+              "en": "Xiranite Component",
+              "ja": "息壌装備部品",
+              "zh-TW": "息壤裝備原件"
+            },
+            "iconId": "item_equip_script_4",
+            "rarity": 4,
+            "count": 50
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 8000
+          }
+        ]
+      },
+      {
+        "chainId": 4001,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_1",
+            "name": {
+              "zh-CN": "赤铜装备原件",
+              "en": "Cuprium Component",
+              "ja": "赤銅装備部品",
+              "zh-TW": "赤銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_1",
+            "rarity": 4,
+            "count": 50
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 8000
+          }
+        ]
+      },
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "name": {
+              "zh-CN": "赫铜装备原件",
+              "en": "Hetonite Component",
+              "ja": "緋銅装備部品",
+              "zh-TW": "赫銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4,
+            "count": 10
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 8000
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.01,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "name": {
+              "zh-CN": "灼铜装备原件",
+              "en": "Pyrrolite Component",
+              "ja": "焔銅装備部品",
+              "zh-TW": "灼銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4,
+            "count": 5
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 80
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_heal01_body_01": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "56",
+        "maxLevel": "56",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "39",
+        "levelOne": "87",
+        "maxLevel": "113",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "42",
+        "levelOne": "58",
+        "maxLevel": "75",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "29",
+        "levelOne": "10.35%",
+        "maxLevel": "13.455%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4000,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4",
+            "name": {
+              "zh-CN": "息壤装备原件",
+              "en": "Xiranite Component",
+              "ja": "息壌装備部品",
+              "zh-TW": "息壤裝備原件"
+            },
+            "iconId": "item_equip_script_4",
+            "rarity": 4,
+            "count": 50
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 8000
+          }
+        ]
+      },
+      {
+        "chainId": 4001,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_1",
+            "name": {
+              "zh-CN": "赤铜装备原件",
+              "en": "Cuprium Component",
+              "ja": "赤銅装備部品",
+              "zh-TW": "赤銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_1",
+            "rarity": 4,
+            "count": 50
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 8000
+          }
+        ]
+      },
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "name": {
+              "zh-CN": "赫铜装备原件",
+              "en": "Hetonite Component",
+              "ja": "緋銅装備部品",
+              "zh-TW": "赫銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4,
+            "count": 10
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 8000
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.01,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "name": {
+              "zh-CN": "灼铜装备原件",
+              "en": "Pyrrolite Component",
+              "ja": "焔銅装備部品",
+              "zh-TW": "灼銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4,
+            "count": 5
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 80
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_phy01_body_02": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "56",
+        "maxLevel": "56",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "40",
+        "levelOne": "87",
+        "maxLevel": "113",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "39",
+        "levelOne": "58",
+        "maxLevel": "75",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "87",
+        "levelOne": "20.7",
+        "maxLevel": "26.91",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4000,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4",
+            "name": {
+              "zh-CN": "息壤装备原件",
+              "en": "Xiranite Component",
+              "ja": "息壌装備部品",
+              "zh-TW": "息壤裝備原件"
+            },
+            "iconId": "item_equip_script_4",
+            "rarity": 4,
+            "count": 50
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 8000
+          }
+        ]
+      },
+      {
+        "chainId": 4001,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_1",
+            "name": {
+              "zh-CN": "赤铜装备原件",
+              "en": "Cuprium Component",
+              "ja": "赤銅装備部品",
+              "zh-TW": "赤銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_1",
+            "rarity": 4,
+            "count": 50
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 8000
+          }
+        ]
+      },
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "name": {
+              "zh-CN": "赫铜装备原件",
+              "en": "Hetonite Component",
+              "ja": "緋銅装備部品",
+              "zh-TW": "赫銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4,
+            "count": 10
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 8000
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.01,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "name": {
+              "zh-CN": "灼铜装备原件",
+              "en": "Pyrrolite Component",
+              "ja": "焔銅装備部品",
+              "zh-TW": "灼銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4,
+            "count": 5
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 80
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_parts_wuling00_body_04": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "48",
+        "maxLevel": "48",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "Main",
+        "levelOne": "74",
+        "maxLevel": "96",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "Sub",
+        "levelOne": "49",
+        "maxLevel": "63",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "87",
+        "levelOne": "17.7",
+        "maxLevel": "23.01",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4000,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4",
+            "name": {
+              "zh-CN": "息壤装备原件",
+              "en": "Xiranite Component",
+              "ja": "息壌装備部品",
+              "zh-TW": "息壤裝備原件"
+            },
+            "iconId": "item_equip_script_4",
+            "rarity": 4,
+            "count": 20
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 3000
+          }
+        ]
+      },
+      {
+        "chainId": 4001,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_1",
+            "name": {
+              "zh-CN": "赤铜装备原件",
+              "en": "Cuprium Component",
+              "ja": "赤銅装備部品",
+              "zh-TW": "赤銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_1",
+            "rarity": 4,
+            "count": 20
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 3000
+          }
+        ]
+      },
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "name": {
+              "zh-CN": "赫铜装备原件",
+              "en": "Hetonite Component",
+              "ja": "緋銅装備部品",
+              "zh-TW": "赫銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4,
+            "count": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 3000
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.01,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "name": {
+              "zh-CN": "灼铜装备原件",
+              "en": "Pyrrolite Component",
+              "ja": "焔銅装備部品",
+              "zh-TW": "灼銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4,
+            "count": 2
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 30
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_atb01_hand_03": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "42",
+        "maxLevel": "42",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "41",
+        "levelOne": "65",
+        "maxLevel": "84",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "40",
+        "levelOne": "43",
+        "maxLevel": "55",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "44",
+        "levelOne": "20.53571429%",
+        "maxLevel": "26.69643%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -4249,7 +5586,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       }
     ]
   },
-  "item_equip_t4_suit_phy01_edc_03": {
+  "item_equip_t4_suit_burst01_edc_03": {
     "stats": [
       {
         "attributeId": "3",
@@ -4259,21 +5596,371 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
         "maxLevelLabel": "+3"
       },
       {
-        "attributeId": "40",
+        "attributeId": "41",
         "levelOne": "32",
         "maxLevel": "41",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
-        "attributeId": "39",
+        "attributeId": "42",
         "levelOne": "21",
         "maxLevel": "27",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
-        "attributeId": "50",
+        "attributeId": "FireAndNaturalDamageIncrease",
+        "levelOne": "23%",
+        "maxLevel": "29.9%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4003,
+        "discount": 0.01,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "name": {
+              "zh-CN": "灼铜装备原件",
+              "en": "Pyrrolite Component",
+              "ja": "焔銅装備部品",
+              "zh-TW": "灼銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4,
+            "count": 50
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 360
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_atb01_hand_02": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "42",
+        "maxLevel": "42",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "42",
+        "levelOne": "65",
+        "maxLevel": "84",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "39",
+        "levelOne": "43",
+        "maxLevel": "55",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "AllSkillDamageIncrease",
+        "levelOne": "23%",
+        "maxLevel": "29.9%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4001,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_1",
+            "name": {
+              "zh-CN": "赤铜装备原件",
+              "en": "Cuprium Component",
+              "ja": "赤銅装備部品",
+              "zh-TW": "赤銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_1",
+            "rarity": 4,
+            "count": 50
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 16000
+          }
+        ]
+      },
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "name": {
+              "zh-CN": "赫铜装备原件",
+              "en": "Hetonite Component",
+              "ja": "緋銅装備部品",
+              "zh-TW": "赫銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4,
+            "count": 10
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 16000
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.01,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "name": {
+              "zh-CN": "灼铜装备原件",
+              "en": "Pyrrolite Component",
+              "ja": "焔銅装備部品",
+              "zh-TW": "灼銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4,
+            "count": 5
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 160
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_parts_wuling00_body_01": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "48",
+        "maxLevel": "48",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "Main",
+        "levelOne": "74",
+        "maxLevel": "96",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "Sub",
+        "levelOne": "49",
+        "maxLevel": "63",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "SpellDamageIncrease",
+        "levelOne": "9.31578947%",
+        "maxLevel": "12.110526%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4000,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4",
+            "name": {
+              "zh-CN": "息壤装备原件",
+              "en": "Xiranite Component",
+              "ja": "息壌装備部品",
+              "zh-TW": "息壤裝備原件"
+            },
+            "iconId": "item_equip_script_4",
+            "rarity": 4,
+            "count": 20
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 3000
+          }
+        ]
+      },
+      {
+        "chainId": 4001,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_1",
+            "name": {
+              "zh-CN": "赤铜装备原件",
+              "en": "Cuprium Component",
+              "ja": "赤銅装備部品",
+              "zh-TW": "赤銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_1",
+            "rarity": 4,
+            "count": 20
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 3000
+          }
+        ]
+      },
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "name": {
+              "zh-CN": "赫铜装备原件",
+              "en": "Hetonite Component",
+              "ja": "緋銅装備部品",
+              "zh-TW": "赫銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4,
+            "count": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 3000
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.01,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "name": {
+              "zh-CN": "灼铜装备原件",
+              "en": "Pyrrolite Component",
+              "ja": "焔銅装備部品",
+              "zh-TW": "灼銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4,
+            "count": 2
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 30
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_criti01_edc_01": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "21",
+        "maxLevel": "21",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "39",
+        "levelOne": "32",
+        "maxLevel": "41",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "42",
+        "levelOne": "21",
+        "maxLevel": "27",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "CrystAndPulseDamageIncrease",
         "levelOne": "23%",
         "maxLevel": "29.9%",
         "levelOneLabel": "+0",
@@ -4527,7 +6214,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       }
     ]
   },
-  "item_equip_t4_suit_criti01_body_04": {
+  "item_equip_t4_suit_atb01_body_04": {
     "stats": [
       {
         "attributeId": "3",
@@ -4537,4145 +6224,181 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
         "maxLevelLabel": "+3"
       },
       {
-        "attributeId": "42",
+        "attributeId": "40",
         "levelOne": "87",
         "maxLevel": "113",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
-        "attributeId": "40",
+        "attributeId": "41",
         "levelOne": "58",
         "maxLevel": "75",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
-        "attributeId": "32",
+        "attributeId": "Sub",
+        "levelOne": "10.35089175%",
+        "maxLevel": "13.45616%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4000,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4",
+            "name": {
+              "zh-CN": "息壤装备原件",
+              "en": "Xiranite Component",
+              "ja": "息壌装備部品",
+              "zh-TW": "息壤裝備原件"
+            },
+            "iconId": "item_equip_script_4",
+            "rarity": 4,
+            "count": 50
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 8000
+          }
+        ]
+      },
+      {
+        "chainId": 4001,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_1",
+            "name": {
+              "zh-CN": "赤铜装备原件",
+              "en": "Cuprium Component",
+              "ja": "赤銅装備部品",
+              "zh-TW": "赤銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_1",
+            "rarity": 4,
+            "count": 50
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 8000
+          }
+        ]
+      },
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "name": {
+              "zh-CN": "赫铜装备原件",
+              "en": "Hetonite Component",
+              "ja": "緋銅装備部品",
+              "zh-TW": "赫銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4,
+            "count": 10
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 8000
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.01,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "name": {
+              "zh-CN": "灼铜装备原件",
+              "en": "Pyrrolite Component",
+              "ja": "焔銅装備部品",
+              "zh-TW": "灼銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4,
+            "count": 5
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 80
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_poise01_body_01": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "56",
+        "maxLevel": "56",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "39",
+        "levelOne": "87",
+        "maxLevel": "113",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "42",
+        "levelOne": "58",
+        "maxLevel": "75",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "61",
         "levelOne": "20.7%",
         "maxLevel": "26.91%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4000,
-        "discount": 1,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4",
-            "name": {
-              "zh-CN": "息壤装备原件",
-              "en": "Xiranite Component",
-              "ja": "息壌装備部品",
-              "zh-TW": "息壤裝備原件"
-            },
-            "iconId": "item_equip_script_4",
-            "rarity": 4,
-            "count": 50
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 8000
-          }
-        ]
-      },
-      {
-        "chainId": 4001,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_1",
-            "name": {
-              "zh-CN": "赤铜装备原件",
-              "en": "Cuprium Component",
-              "ja": "赤銅装備部品",
-              "zh-TW": "赤銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_1",
-            "rarity": 4,
-            "count": 50
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 8000
-          }
-        ]
-      },
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "name": {
-              "zh-CN": "赫铜装备原件",
-              "en": "Hetonite Component",
-              "ja": "緋銅装備部品",
-              "zh-TW": "赫銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4,
-            "count": 10
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 8000
-          }
-        ]
-      },
-      {
-        "chainId": 4003,
-        "discount": 0.01,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "name": {
-              "zh-CN": "灼铜装备原件",
-              "en": "Pyrrolite Component",
-              "ja": "焔銅装備部品",
-              "zh-TW": "灼銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4,
-            "count": 5
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 80
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_suit_pulse_cryst01_edc_01": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "21",
-        "maxLevel": "21",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "41",
-        "levelOne": "32",
-        "maxLevel": "41",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "40",
-        "levelOne": "21",
-        "maxLevel": "27",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "87",
-        "levelOne": "41.4",
-        "maxLevel": "53.82",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4001,
-        "discount": 1,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_1",
-            "name": {
-              "zh-CN": "赤铜装备原件",
-              "en": "Cuprium Component",
-              "ja": "赤銅装備部品",
-              "zh-TW": "赤銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_1",
-            "rarity": 4,
-            "count": 50
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 16000
-          }
-        ]
-      },
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "name": {
-              "zh-CN": "赫铜装备原件",
-              "en": "Hetonite Component",
-              "ja": "緋銅装備部品",
-              "zh-TW": "赫銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4,
-            "count": 10
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 16000
-          }
-        ]
-      },
-      {
-        "chainId": 4003,
-        "discount": 0.01,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "name": {
-              "zh-CN": "灼铜装备原件",
-              "en": "Pyrrolite Component",
-              "ja": "焔銅装備部品",
-              "zh-TW": "灼銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4,
-            "count": 5
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 160
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_suit_atb01_body_02": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "56",
-        "maxLevel": "56",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "39",
-        "levelOne": "87",
-        "maxLevel": "113",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "40",
-        "levelOne": "58",
-        "maxLevel": "75",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "32",
-        "levelOne": "20.7%",
-        "maxLevel": "26.91%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4000,
-        "discount": 1,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4",
-            "name": {
-              "zh-CN": "息壤装备原件",
-              "en": "Xiranite Component",
-              "ja": "息壌装備部品",
-              "zh-TW": "息壤裝備原件"
-            },
-            "iconId": "item_equip_script_4",
-            "rarity": 4,
-            "count": 50
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 8000
-          }
-        ]
-      },
-      {
-        "chainId": 4001,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_1",
-            "name": {
-              "zh-CN": "赤铜装备原件",
-              "en": "Cuprium Component",
-              "ja": "赤銅装備部品",
-              "zh-TW": "赤銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_1",
-            "rarity": 4,
-            "count": 50
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 8000
-          }
-        ]
-      },
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "name": {
-              "zh-CN": "赫铜装备原件",
-              "en": "Hetonite Component",
-              "ja": "緋銅装備部品",
-              "zh-TW": "赫銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4,
-            "count": 10
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 8000
-          }
-        ]
-      },
-      {
-        "chainId": 4003,
-        "discount": 0.01,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "name": {
-              "zh-CN": "灼铜装备原件",
-              "en": "Pyrrolite Component",
-              "ja": "焔銅装備部品",
-              "zh-TW": "灼銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4,
-            "count": 5
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 80
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_suit_fire_natr01_edc_03": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "21",
-        "maxLevel": "21",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "42",
-        "levelOne": "32",
-        "maxLevel": "41",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "41",
-        "levelOne": "21",
-        "maxLevel": "27",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "87",
-        "levelOne": "41.4",
-        "maxLevel": "53.82",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4000,
-        "discount": 1,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4",
-            "name": {
-              "zh-CN": "息壤装备原件",
-              "en": "Xiranite Component",
-              "ja": "息壌装備部品",
-              "zh-TW": "息壤裝備原件"
-            },
-            "iconId": "item_equip_script_4",
-            "rarity": 4,
-            "count": 50
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 8000
-          }
-        ]
-      },
-      {
-        "chainId": 4001,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_1",
-            "name": {
-              "zh-CN": "赤铜装备原件",
-              "en": "Cuprium Component",
-              "ja": "赤銅装備部品",
-              "zh-TW": "赤銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_1",
-            "rarity": 4,
-            "count": 50
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 8000
-          }
-        ]
-      },
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "name": {
-              "zh-CN": "赫铜装备原件",
-              "en": "Hetonite Component",
-              "ja": "緋銅装備部品",
-              "zh-TW": "赫銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4,
-            "count": 10
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 8000
-          }
-        ]
-      },
-      {
-        "chainId": 4003,
-        "discount": 0.01,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "name": {
-              "zh-CN": "灼铜装备原件",
-              "en": "Pyrrolite Component",
-              "ja": "焔銅装備部品",
-              "zh-TW": "灼銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4,
-            "count": 5
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 80
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_parts_wuling00_edc_03": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "18",
-        "maxLevel": "18",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "Sub",
-        "levelOne": "27",
-        "maxLevel": "35",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "Main",
-        "levelOne": "18",
-        "maxLevel": "23",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "Sub",
-        "levelOne": "17.70152502%",
-        "maxLevel": "23.011982%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4000,
-        "discount": 1,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4",
-            "name": {
-              "zh-CN": "息壤装备原件",
-              "en": "Xiranite Component",
-              "ja": "息壌装備部品",
-              "zh-TW": "息壤裝備原件"
-            },
-            "iconId": "item_equip_script_4",
-            "rarity": 4,
-            "count": 20
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 3000
-          }
-        ]
-      },
-      {
-        "chainId": 4001,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_1",
-            "name": {
-              "zh-CN": "赤铜装备原件",
-              "en": "Cuprium Component",
-              "ja": "赤銅装備部品",
-              "zh-TW": "赤銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_1",
-            "rarity": 4,
-            "count": 20
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 3000
-          }
-        ]
-      },
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "name": {
-              "zh-CN": "赫铜装备原件",
-              "en": "Hetonite Component",
-              "ja": "緋銅装備部品",
-              "zh-TW": "赫銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4,
-            "count": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 3000
-          }
-        ]
-      },
-      {
-        "chainId": 4003,
-        "discount": 0.01,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "name": {
-              "zh-CN": "灼铜装备原件",
-              "en": "Pyrrolite Component",
-              "ja": "焔銅装備部品",
-              "zh-TW": "灼銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4,
-            "count": 2
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 30
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_suit_poise01_edc_04": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "21",
-        "maxLevel": "21",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "39",
-        "levelOne": "32",
-        "maxLevel": "41",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "40",
-        "levelOne": "21",
-        "maxLevel": "27",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "32",
-        "levelOne": "41.4%",
-        "maxLevel": "53.82%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4001,
-        "discount": 1,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_1",
-            "name": {
-              "zh-CN": "赤铜装备原件",
-              "en": "Cuprium Component",
-              "ja": "赤銅装備部品",
-              "zh-TW": "赤銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_1",
-            "rarity": 4,
-            "count": 50
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 16000
-          }
-        ]
-      },
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "name": {
-              "zh-CN": "赫铜装备原件",
-              "en": "Hetonite Component",
-              "ja": "緋銅装備部品",
-              "zh-TW": "赫銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4,
-            "count": 10
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 16000
-          }
-        ]
-      },
-      {
-        "chainId": 4003,
-        "discount": 0.01,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "name": {
-              "zh-CN": "灼铜装备原件",
-              "en": "Pyrrolite Component",
-              "ja": "焔銅装備部品",
-              "zh-TW": "灼銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4,
-            "count": 5
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 160
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_parts_wuling02_edc_01": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "21",
-        "maxLevel": "21",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "40",
-        "levelOne": "43",
-        "maxLevel": "55",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "Sub",
-        "levelOne": "21.60186104%",
-        "maxLevel": "28.082418%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4003,
-        "discount": 0.01,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "name": {
-              "zh-CN": "灼铜装备原件",
-              "en": "Pyrrolite Component",
-              "ja": "焔銅装備部品",
-              "zh-TW": "灼銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4,
-            "count": 50
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 360
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_suit_attri01_edc_02": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "21",
-        "maxLevel": "21",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "42",
-        "levelOne": "32",
-        "maxLevel": "41",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "41",
-        "levelOne": "21",
-        "maxLevel": "27",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "32",
-        "levelOne": "41.4%",
-        "maxLevel": "53.82%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "name": {
-              "zh-CN": "赫铜装备原件",
-              "en": "Hetonite Component",
-              "ja": "緋銅装備部品",
-              "zh-TW": "赫銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4,
-            "count": 50
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 25000
-          }
-        ]
-      },
-      {
-        "chainId": 4003,
-        "discount": 0.01,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "name": {
-              "zh-CN": "灼铜装备原件",
-              "en": "Pyrrolite Component",
-              "ja": "焔銅装備部品",
-              "zh-TW": "灼銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4,
-            "count": 25
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 250
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_suit_expend_spell01_body_02": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "56",
-        "maxLevel": "56",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "42",
-        "levelOne": "87",
-        "maxLevel": "113",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "41",
-        "levelOne": "58",
-        "maxLevel": "75",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "CrystAndPulseDamageIncrease",
-        "levelOne": "11.5%",
-        "maxLevel": "14.95%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "name": {
-              "zh-CN": "赫铜装备原件",
-              "en": "Hetonite Component",
-              "ja": "緋銅装備部品",
-              "zh-TW": "赫銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4,
-            "count": 50
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 25000
-          }
-        ]
-      },
-      {
-        "chainId": 4003,
-        "discount": 0.01,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "name": {
-              "zh-CN": "灼铜装备原件",
-              "en": "Pyrrolite Component",
-              "ja": "焔銅装備部品",
-              "zh-TW": "灼銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4,
-            "count": 25
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 250
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_suit_expend_spell01_edc_02": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "21",
-        "maxLevel": "21",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "42",
-        "levelOne": "32",
-        "maxLevel": "41",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "41",
-        "levelOne": "21",
-        "maxLevel": "27",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "32",
-        "levelOne": "41.4%",
-        "maxLevel": "53.82%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "name": {
-              "zh-CN": "赫铜装备原件",
-              "en": "Hetonite Component",
-              "ja": "緋銅装備部品",
-              "zh-TW": "赫銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4,
-            "count": 50
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 25000
-          }
-        ]
-      },
-      {
-        "chainId": 4003,
-        "discount": 0.01,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "name": {
-              "zh-CN": "灼铜装备原件",
-              "en": "Pyrrolite Component",
-              "ja": "焔銅装備部品",
-              "zh-TW": "灼銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4,
-            "count": 25
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 250
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_suit_phy01_hand_01": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "42",
-        "maxLevel": "42",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "39",
-        "levelOne": "65",
-        "maxLevel": "84",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "42",
-        "levelOne": "43",
-        "maxLevel": "55",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "50",
-        "levelOne": "19.16666667%",
-        "maxLevel": "24.916667%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4000,
-        "discount": 1,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4",
-            "name": {
-              "zh-CN": "息壤装备原件",
-              "en": "Xiranite Component",
-              "ja": "息壌装備部品",
-              "zh-TW": "息壤裝備原件"
-            },
-            "iconId": "item_equip_script_4",
-            "rarity": 4,
-            "count": 50
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 8000
-          }
-        ]
-      },
-      {
-        "chainId": 4001,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_1",
-            "name": {
-              "zh-CN": "赤铜装备原件",
-              "en": "Cuprium Component",
-              "ja": "赤銅装備部品",
-              "zh-TW": "赤銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_1",
-            "rarity": 4,
-            "count": 50
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 8000
-          }
-        ]
-      },
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "name": {
-              "zh-CN": "赫铜装备原件",
-              "en": "Hetonite Component",
-              "ja": "緋銅装備部品",
-              "zh-TW": "赫銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4,
-            "count": 10
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 8000
-          }
-        ]
-      },
-      {
-        "chainId": 4003,
-        "discount": 0.01,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "name": {
-              "zh-CN": "灼铜装备原件",
-              "en": "Pyrrolite Component",
-              "ja": "焔銅装備部品",
-              "zh-TW": "灼銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4,
-            "count": 5
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 80
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_parts_wuling00_body_01": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "48",
-        "maxLevel": "48",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "Main",
-        "levelOne": "74",
-        "maxLevel": "96",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "Sub",
-        "levelOne": "49",
-        "maxLevel": "63",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "SpellDamageIncrease",
-        "levelOne": "9.31578947%",
-        "maxLevel": "12.110526%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4000,
-        "discount": 1,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4",
-            "name": {
-              "zh-CN": "息壤装备原件",
-              "en": "Xiranite Component",
-              "ja": "息壌装備部品",
-              "zh-TW": "息壤裝備原件"
-            },
-            "iconId": "item_equip_script_4",
-            "rarity": 4,
-            "count": 20
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 3000
-          }
-        ]
-      },
-      {
-        "chainId": 4001,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_1",
-            "name": {
-              "zh-CN": "赤铜装备原件",
-              "en": "Cuprium Component",
-              "ja": "赤銅装備部品",
-              "zh-TW": "赤銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_1",
-            "rarity": 4,
-            "count": 20
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 3000
-          }
-        ]
-      },
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "name": {
-              "zh-CN": "赫铜装备原件",
-              "en": "Hetonite Component",
-              "ja": "緋銅装備部品",
-              "zh-TW": "赫銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4,
-            "count": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 3000
-          }
-        ]
-      },
-      {
-        "chainId": 4003,
-        "discount": 0.01,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "name": {
-              "zh-CN": "灼铜装备原件",
-              "en": "Pyrrolite Component",
-              "ja": "焔銅装備部品",
-              "zh-TW": "灼銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4,
-            "count": 2
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 30
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_suit_atk02_edc_05": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "21",
-        "maxLevel": "21",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "41",
-        "levelOne": "32",
-        "maxLevel": "41",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "39",
-        "levelOne": "21",
-        "maxLevel": "27",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "AllSkillDamageIncrease",
-        "levelOne": "27.6%",
-        "maxLevel": "35.88%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4000,
-        "discount": 1,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4",
-            "name": {
-              "zh-CN": "息壤装备原件",
-              "en": "Xiranite Component",
-              "ja": "息壌装備部品",
-              "zh-TW": "息壤裝備原件"
-            },
-            "iconId": "item_equip_script_4",
-            "rarity": 4,
-            "count": 50
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 8000
-          }
-        ]
-      },
-      {
-        "chainId": 4001,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_1",
-            "name": {
-              "zh-CN": "赤铜装备原件",
-              "en": "Cuprium Component",
-              "ja": "赤銅装備部品",
-              "zh-TW": "赤銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_1",
-            "rarity": 4,
-            "count": 50
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 8000
-          }
-        ]
-      },
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "name": {
-              "zh-CN": "赫铜装备原件",
-              "en": "Hetonite Component",
-              "ja": "緋銅装備部品",
-              "zh-TW": "赫銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4,
-            "count": 10
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 8000
-          }
-        ]
-      },
-      {
-        "chainId": 4003,
-        "discount": 0.01,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "name": {
-              "zh-CN": "灼铜装备原件",
-              "en": "Pyrrolite Component",
-              "ja": "焔銅装備部品",
-              "zh-TW": "灼銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4,
-            "count": 5
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 80
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_parts_wuling00_edc_02": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "18",
-        "maxLevel": "18",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "Main",
-        "levelOne": "27",
-        "maxLevel": "35",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "Sub",
-        "levelOne": "18",
-        "maxLevel": "23",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "44",
-        "levelOne": "21.07142857%",
-        "maxLevel": "27.392858%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4000,
-        "discount": 1,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4",
-            "name": {
-              "zh-CN": "息壤装备原件",
-              "en": "Xiranite Component",
-              "ja": "息壌装備部品",
-              "zh-TW": "息壤裝備原件"
-            },
-            "iconId": "item_equip_script_4",
-            "rarity": 4,
-            "count": 20
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 3000
-          }
-        ]
-      },
-      {
-        "chainId": 4001,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_1",
-            "name": {
-              "zh-CN": "赤铜装备原件",
-              "en": "Cuprium Component",
-              "ja": "赤銅装備部品",
-              "zh-TW": "赤銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_1",
-            "rarity": 4,
-            "count": 20
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 3000
-          }
-        ]
-      },
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "name": {
-              "zh-CN": "赫铜装备原件",
-              "en": "Hetonite Component",
-              "ja": "緋銅装備部品",
-              "zh-TW": "赫銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4,
-            "count": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 3000
-          }
-        ]
-      },
-      {
-        "chainId": 4003,
-        "discount": 0.01,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "name": {
-              "zh-CN": "灼铜装备原件",
-              "en": "Pyrrolite Component",
-              "ja": "焔銅装備部品",
-              "zh-TW": "灼銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4,
-            "count": 2
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 30
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_suit_attri01_body_01": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "56",
-        "maxLevel": "56",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "40",
-        "levelOne": "87",
-        "maxLevel": "113",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "41",
-        "levelOne": "58",
-        "maxLevel": "75",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "44",
-        "levelOne": "12.32142857%",
-        "maxLevel": "16.017857%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4000,
-        "discount": 1,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4",
-            "name": {
-              "zh-CN": "息壤装备原件",
-              "en": "Xiranite Component",
-              "ja": "息壌装備部品",
-              "zh-TW": "息壤裝備原件"
-            },
-            "iconId": "item_equip_script_4",
-            "rarity": 4,
-            "count": 50
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 8000
-          }
-        ]
-      },
-      {
-        "chainId": 4001,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_1",
-            "name": {
-              "zh-CN": "赤铜装备原件",
-              "en": "Cuprium Component",
-              "ja": "赤銅装備部品",
-              "zh-TW": "赤銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_1",
-            "rarity": 4,
-            "count": 50
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 8000
-          }
-        ]
-      },
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "name": {
-              "zh-CN": "赫铜装备原件",
-              "en": "Hetonite Component",
-              "ja": "緋銅装備部品",
-              "zh-TW": "赫銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4,
-            "count": 10
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 8000
-          }
-        ]
-      },
-      {
-        "chainId": 4003,
-        "discount": 0.01,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "name": {
-              "zh-CN": "灼铜装备原件",
-              "en": "Pyrrolite Component",
-              "ja": "焔銅装備部品",
-              "zh-TW": "灼銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4,
-            "count": 5
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 80
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_parts_wuling02_hand_01": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "42",
-        "maxLevel": "42",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "41",
-        "levelOne": "86",
-        "maxLevel": "111",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "44",
-        "levelOne": "21.42857143%",
-        "maxLevel": "27.857143%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4003,
-        "discount": 0.01,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "name": {
-              "zh-CN": "灼铜装备原件",
-              "en": "Pyrrolite Component",
-              "ja": "焔銅装備部品",
-              "zh-TW": "灼銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4,
-            "count": 50
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 360
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_suit_phy01_hand_03": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "42",
-        "maxLevel": "42",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "39",
-        "levelOne": "65",
-        "maxLevel": "84",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "42",
-        "levelOne": "43",
-        "maxLevel": "55",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "87",
-        "levelOne": "34.5",
-        "maxLevel": "44.85",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "name": {
-              "zh-CN": "赫铜装备原件",
-              "en": "Hetonite Component",
-              "ja": "緋銅装備部品",
-              "zh-TW": "赫銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4,
-            "count": 50
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 25000
-          }
-        ]
-      },
-      {
-        "chainId": 4003,
-        "discount": 0.01,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "name": {
-              "zh-CN": "灼铜装备原件",
-              "en": "Pyrrolite Component",
-              "ja": "焔銅装備部品",
-              "zh-TW": "灼銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4,
-            "count": 25
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 250
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_suit_phy01_hand_02": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "42",
-        "maxLevel": "42",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "40",
-        "levelOne": "65",
-        "maxLevel": "84",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "39",
-        "levelOne": "43",
-        "maxLevel": "55",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "28",
-        "levelOne": "43.125%",
-        "maxLevel": "56.0625%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4000,
-        "discount": 1,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4",
-            "name": {
-              "zh-CN": "息壤装备原件",
-              "en": "Xiranite Component",
-              "ja": "息壌装備部品",
-              "zh-TW": "息壤裝備原件"
-            },
-            "iconId": "item_equip_script_4",
-            "rarity": 4,
-            "count": 50
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 8000
-          }
-        ]
-      },
-      {
-        "chainId": 4001,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_1",
-            "name": {
-              "zh-CN": "赤铜装备原件",
-              "en": "Cuprium Component",
-              "ja": "赤銅装備部品",
-              "zh-TW": "赤銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_1",
-            "rarity": 4,
-            "count": 50
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 8000
-          }
-        ]
-      },
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "name": {
-              "zh-CN": "赫铜装备原件",
-              "en": "Hetonite Component",
-              "ja": "緋銅装備部品",
-              "zh-TW": "赫銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4,
-            "count": 10
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 8000
-          }
-        ]
-      },
-      {
-        "chainId": 4003,
-        "discount": 0.01,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "name": {
-              "zh-CN": "灼铜装备原件",
-              "en": "Pyrrolite Component",
-              "ja": "焔銅装備部品",
-              "zh-TW": "灼銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4,
-            "count": 5
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 80
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_suit_crush_fracture_edc_01": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "21",
-        "maxLevel": "21",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "39",
-        "levelOne": "32",
-        "maxLevel": "41",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "42",
-        "levelOne": "21",
-        "maxLevel": "27",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "50",
-        "levelOne": "23%",
-        "maxLevel": "29.9%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "name": {
-              "zh-CN": "赫铜装备原件",
-              "en": "Hetonite Component",
-              "ja": "緋銅装備部品",
-              "zh-TW": "赫銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4,
-            "count": 50
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 25000
-          }
-        ]
-      },
-      {
-        "chainId": 4003,
-        "discount": 0.01,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "name": {
-              "zh-CN": "灼铜装备原件",
-              "en": "Pyrrolite Component",
-              "ja": "焔銅装備部品",
-              "zh-TW": "灼銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4,
-            "count": 25
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 250
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_suit_fire_natr01_hand_03": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "42",
-        "maxLevel": "42",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "42",
-        "levelOne": "65",
-        "maxLevel": "84",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "41",
-        "levelOne": "43",
-        "maxLevel": "55",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "FireAndNaturalDamageIncrease",
-        "levelOne": "19.16666667%",
-        "maxLevel": "24.916667%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4000,
-        "discount": 1,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4",
-            "name": {
-              "zh-CN": "息壤装备原件",
-              "en": "Xiranite Component",
-              "ja": "息壌装備部品",
-              "zh-TW": "息壤裝備原件"
-            },
-            "iconId": "item_equip_script_4",
-            "rarity": 4,
-            "count": 50
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 8000
-          }
-        ]
-      },
-      {
-        "chainId": 4001,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_1",
-            "name": {
-              "zh-CN": "赤铜装备原件",
-              "en": "Cuprium Component",
-              "ja": "赤銅装備部品",
-              "zh-TW": "赤銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_1",
-            "rarity": 4,
-            "count": 50
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 8000
-          }
-        ]
-      },
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "name": {
-              "zh-CN": "赫铜装备原件",
-              "en": "Hetonite Component",
-              "ja": "緋銅装備部品",
-              "zh-TW": "赫銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4,
-            "count": 10
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 8000
-          }
-        ]
-      },
-      {
-        "chainId": 4003,
-        "discount": 0.01,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "name": {
-              "zh-CN": "灼铜装备原件",
-              "en": "Pyrrolite Component",
-              "ja": "焔銅装備部品",
-              "zh-TW": "灼銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4,
-            "count": 5
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 80
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_suit_attri01_edc_06": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "21",
-        "maxLevel": "21",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "42",
-        "levelOne": "32",
-        "maxLevel": "41",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "41",
-        "levelOne": "21",
-        "maxLevel": "27",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "33",
-        "levelOne": "41.4%",
-        "maxLevel": "53.82%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4000,
-        "discount": 1,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4",
-            "name": {
-              "zh-CN": "息壤装备原件",
-              "en": "Xiranite Component",
-              "ja": "息壌装備部品",
-              "zh-TW": "息壤裝備原件"
-            },
-            "iconId": "item_equip_script_4",
-            "rarity": 4,
-            "count": 50
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 8000
-          }
-        ]
-      },
-      {
-        "chainId": 4001,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_1",
-            "name": {
-              "zh-CN": "赤铜装备原件",
-              "en": "Cuprium Component",
-              "ja": "赤銅装備部品",
-              "zh-TW": "赤銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_1",
-            "rarity": 4,
-            "count": 50
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 8000
-          }
-        ]
-      },
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "name": {
-              "zh-CN": "赫铜装备原件",
-              "en": "Hetonite Component",
-              "ja": "緋銅装備部品",
-              "zh-TW": "赫銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4,
-            "count": 10
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 8000
-          }
-        ]
-      },
-      {
-        "chainId": 4003,
-        "discount": 0.01,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "name": {
-              "zh-CN": "灼铜装备原件",
-              "en": "Pyrrolite Component",
-              "ja": "焔銅装備部品",
-              "zh-TW": "灼銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4,
-            "count": 5
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 80
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_suit_atk02_body_01": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "56",
-        "maxLevel": "56",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "39",
-        "levelOne": "87",
-        "maxLevel": "113",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "42",
-        "levelOne": "58",
-        "maxLevel": "75",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "50",
-        "levelOne": "11.5%",
-        "maxLevel": "14.95%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4000,
-        "discount": 1,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4",
-            "name": {
-              "zh-CN": "息壤装备原件",
-              "en": "Xiranite Component",
-              "ja": "息壌装備部品",
-              "zh-TW": "息壤裝備原件"
-            },
-            "iconId": "item_equip_script_4",
-            "rarity": 4,
-            "count": 50
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 8000
-          }
-        ]
-      },
-      {
-        "chainId": 4001,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_1",
-            "name": {
-              "zh-CN": "赤铜装备原件",
-              "en": "Cuprium Component",
-              "ja": "赤銅装備部品",
-              "zh-TW": "赤銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_1",
-            "rarity": 4,
-            "count": 50
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 8000
-          }
-        ]
-      },
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "name": {
-              "zh-CN": "赫铜装备原件",
-              "en": "Hetonite Component",
-              "ja": "緋銅装備部品",
-              "zh-TW": "赫銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4,
-            "count": 10
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 8000
-          }
-        ]
-      },
-      {
-        "chainId": 4003,
-        "discount": 0.01,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "name": {
-              "zh-CN": "灼铜装备原件",
-              "en": "Pyrrolite Component",
-              "ja": "焔銅装備部品",
-              "zh-TW": "灼銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4,
-            "count": 5
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 80
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_parts_wuling01_body_02": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "56",
-        "maxLevel": "56",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "41",
-        "levelOne": "115",
-        "maxLevel": "149",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "44",
-        "levelOne": "12.85714286%",
-        "maxLevel": "16.714285%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4001,
-        "discount": 1,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_1",
-            "name": {
-              "zh-CN": "赤铜装备原件",
-              "en": "Cuprium Component",
-              "ja": "赤銅装備部品",
-              "zh-TW": "赤銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_1",
-            "rarity": 4,
-            "count": 50
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 16000
-          }
-        ]
-      },
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "name": {
-              "zh-CN": "赫铜装备原件",
-              "en": "Hetonite Component",
-              "ja": "緋銅装備部品",
-              "zh-TW": "赫銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4,
-            "count": 10
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 16000
-          }
-        ]
-      },
-      {
-        "chainId": 4003,
-        "discount": 0.01,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "name": {
-              "zh-CN": "灼铜装备原件",
-              "en": "Pyrrolite Component",
-              "ja": "焔銅装備部品",
-              "zh-TW": "灼銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4,
-            "count": 5
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 160
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_suit_heal01_hand_03": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "42",
-        "maxLevel": "42",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "42",
-        "levelOne": "65",
-        "maxLevel": "84",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "40",
-        "levelOne": "43",
-        "maxLevel": "55",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "44",
-        "levelOne": "20.53571429%",
-        "maxLevel": "26.69643%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4003,
-        "discount": 0.01,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "name": {
-              "zh-CN": "灼铜装备原件",
-              "en": "Pyrrolite Component",
-              "ja": "焔銅装備部品",
-              "zh-TW": "灼銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4,
-            "count": 50
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 360
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_suit_burst01_body_01": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "56",
-        "maxLevel": "56",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "41",
-        "levelOne": "87",
-        "maxLevel": "113",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "39",
-        "levelOne": "58",
-        "maxLevel": "75",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "44",
-        "levelOne": "12.32142857%",
-        "maxLevel": "16.017857%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4000,
-        "discount": 1,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4",
-            "name": {
-              "zh-CN": "息壤装备原件",
-              "en": "Xiranite Component",
-              "ja": "息壌装備部品",
-              "zh-TW": "息壤裝備原件"
-            },
-            "iconId": "item_equip_script_4",
-            "rarity": 4,
-            "count": 50
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 8000
-          }
-        ]
-      },
-      {
-        "chainId": 4001,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_1",
-            "name": {
-              "zh-CN": "赤铜装备原件",
-              "en": "Cuprium Component",
-              "ja": "赤銅装備部品",
-              "zh-TW": "赤銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_1",
-            "rarity": 4,
-            "count": 50
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 8000
-          }
-        ]
-      },
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "name": {
-              "zh-CN": "赫铜装备原件",
-              "en": "Hetonite Component",
-              "ja": "緋銅装備部品",
-              "zh-TW": "赫銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4,
-            "count": 10
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 8000
-          }
-        ]
-      },
-      {
-        "chainId": 4003,
-        "discount": 0.01,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "name": {
-              "zh-CN": "灼铜装备原件",
-              "en": "Pyrrolite Component",
-              "ja": "焔銅装備部品",
-              "zh-TW": "灼銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4,
-            "count": 5
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 80
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_suit_attri01_body_05": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "56",
-        "maxLevel": "56",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "40",
-        "levelOne": "87",
-        "maxLevel": "113",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "39",
-        "levelOne": "58",
-        "maxLevel": "75",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "CrystAndPulseDamageIncrease",
-        "levelOne": "11.5%",
-        "maxLevel": "14.95%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4001,
-        "discount": 1,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_1",
-            "name": {
-              "zh-CN": "赤铜装备原件",
-              "en": "Cuprium Component",
-              "ja": "赤銅装備部品",
-              "zh-TW": "赤銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_1",
-            "rarity": 4,
-            "count": 50
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 16000
-          }
-        ]
-      },
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "name": {
-              "zh-CN": "赫铜装备原件",
-              "en": "Hetonite Component",
-              "ja": "緋銅装備部品",
-              "zh-TW": "赫銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4,
-            "count": 10
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 16000
-          }
-        ]
-      },
-      {
-        "chainId": 4003,
-        "discount": 0.01,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "name": {
-              "zh-CN": "灼铜装备原件",
-              "en": "Pyrrolite Component",
-              "ja": "焔銅装備部品",
-              "zh-TW": "灼銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4,
-            "count": 5
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 160
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_suit_criti01_hand_03": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "42",
-        "maxLevel": "42",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "41",
-        "levelOne": "65",
-        "maxLevel": "84",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "42",
-        "levelOne": "43",
-        "maxLevel": "55",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "9",
-        "levelOne": "8.625%",
-        "maxLevel": "11.2125%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4000,
-        "discount": 1,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4",
-            "name": {
-              "zh-CN": "息壤装备原件",
-              "en": "Xiranite Component",
-              "ja": "息壌装備部品",
-              "zh-TW": "息壤裝備原件"
-            },
-            "iconId": "item_equip_script_4",
-            "rarity": 4,
-            "count": 50
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 8000
-          }
-        ]
-      },
-      {
-        "chainId": 4001,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_1",
-            "name": {
-              "zh-CN": "赤铜装备原件",
-              "en": "Cuprium Component",
-              "ja": "赤銅装備部品",
-              "zh-TW": "赤銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_1",
-            "rarity": 4,
-            "count": 50
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 8000
-          }
-        ]
-      },
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "name": {
-              "zh-CN": "赫铜装备原件",
-              "en": "Hetonite Component",
-              "ja": "緋銅装備部品",
-              "zh-TW": "赫銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4,
-            "count": 10
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 8000
-          }
-        ]
-      },
-      {
-        "chainId": 4003,
-        "discount": 0.01,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "name": {
-              "zh-CN": "灼铜装备原件",
-              "en": "Pyrrolite Component",
-              "ja": "焔銅装備部品",
-              "zh-TW": "灼銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4,
-            "count": 5
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 80
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_suit_poise01_hand_02": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "42",
-        "maxLevel": "42",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "42",
-        "levelOne": "65",
-        "maxLevel": "84",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "40",
-        "levelOne": "43",
-        "maxLevel": "55",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "AllSkillDamageIncrease",
-        "levelOne": "23%",
-        "maxLevel": "29.9%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4001,
-        "discount": 1,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_1",
-            "name": {
-              "zh-CN": "赤铜装备原件",
-              "en": "Cuprium Component",
-              "ja": "赤銅装備部品",
-              "zh-TW": "赤銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_1",
-            "rarity": 4,
-            "count": 50
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 16000
-          }
-        ]
-      },
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "name": {
-              "zh-CN": "赫铜装备原件",
-              "en": "Hetonite Component",
-              "ja": "緋銅装備部品",
-              "zh-TW": "赫銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4,
-            "count": 10
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 16000
-          }
-        ]
-      },
-      {
-        "chainId": 4003,
-        "discount": 0.01,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "name": {
-              "zh-CN": "灼铜装备原件",
-              "en": "Pyrrolite Component",
-              "ja": "焔銅装備部品",
-              "zh-TW": "灼銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4,
-            "count": 5
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 160
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_suit_pulse_cryst01_edc_02": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "21",
-        "maxLevel": "21",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "41",
-        "levelOne": "41",
-        "maxLevel": "53",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "87",
-        "levelOne": "41.4",
-        "maxLevel": "53.82",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4000,
-        "discount": 1,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4",
-            "name": {
-              "zh-CN": "息壤装备原件",
-              "en": "Xiranite Component",
-              "ja": "息壌装備部品",
-              "zh-TW": "息壤裝備原件"
-            },
-            "iconId": "item_equip_script_4",
-            "rarity": 4,
-            "count": 50
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 8000
-          }
-        ]
-      },
-      {
-        "chainId": 4001,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_1",
-            "name": {
-              "zh-CN": "赤铜装备原件",
-              "en": "Cuprium Component",
-              "ja": "赤銅装備部品",
-              "zh-TW": "赤銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_1",
-            "rarity": 4,
-            "count": 50
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 8000
-          }
-        ]
-      },
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "name": {
-              "zh-CN": "赫铜装备原件",
-              "en": "Hetonite Component",
-              "ja": "緋銅装備部品",
-              "zh-TW": "赫銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4,
-            "count": 10
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 8000
-          }
-        ]
-      },
-      {
-        "chainId": 4003,
-        "discount": 0.01,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "name": {
-              "zh-CN": "灼铜装备原件",
-              "en": "Pyrrolite Component",
-              "ja": "焔銅装備部品",
-              "zh-TW": "灼銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4,
-            "count": 5
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 80
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_suit_crush_fracture_hand_02": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "42",
-        "maxLevel": "42",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "40",
-        "levelOne": "65",
-        "maxLevel": "84",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "39",
-        "levelOne": "43",
-        "maxLevel": "55",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "87",
-        "levelOne": "34.5",
-        "maxLevel": "44.85",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "name": {
-              "zh-CN": "赫铜装备原件",
-              "en": "Hetonite Component",
-              "ja": "緋銅装備部品",
-              "zh-TW": "赫銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4,
-            "count": 50
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 25000
-          }
-        ]
-      },
-      {
-        "chainId": 4003,
-        "discount": 0.01,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "name": {
-              "zh-CN": "灼铜装备原件",
-              "en": "Pyrrolite Component",
-              "ja": "焔銅装備部品",
-              "zh-TW": "灼銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4,
-            "count": 25
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 250
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_suit_pulse_cryst01_edc_03": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "21",
-        "maxLevel": "21",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "42",
-        "levelOne": "41",
-        "maxLevel": "53",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "28",
-        "levelOne": "51.75%",
-        "maxLevel": "67.275%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4001,
-        "discount": 1,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_1",
-            "name": {
-              "zh-CN": "赤铜装备原件",
-              "en": "Cuprium Component",
-              "ja": "赤銅装備部品",
-              "zh-TW": "赤銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_1",
-            "rarity": 4,
-            "count": 50
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 16000
-          }
-        ]
-      },
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "name": {
-              "zh-CN": "赫铜装备原件",
-              "en": "Hetonite Component",
-              "ja": "緋銅装備部品",
-              "zh-TW": "赫銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4,
-            "count": 10
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 16000
-          }
-        ]
-      },
-      {
-        "chainId": 4003,
-        "discount": 0.01,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "name": {
-              "zh-CN": "灼铜装备原件",
-              "en": "Pyrrolite Component",
-              "ja": "焔銅装備部品",
-              "zh-TW": "灼銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4,
-            "count": 5
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 160
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_suit_combo_cd01_hand_02": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "42",
-        "maxLevel": "42",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "41",
-        "levelOne": "65",
-        "maxLevel": "84",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "42",
-        "levelOne": "43",
-        "maxLevel": "55",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "44",
-        "levelOne": "20.53571429%",
-        "maxLevel": "26.69643%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "name": {
-              "zh-CN": "赫铜装备原件",
-              "en": "Hetonite Component",
-              "ja": "緋銅装備部品",
-              "zh-TW": "赫銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4,
-            "count": 50
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 25000
-          }
-        ]
-      },
-      {
-        "chainId": 4003,
-        "discount": 0.01,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "name": {
-              "zh-CN": "灼铜装备原件",
-              "en": "Pyrrolite Component",
-              "ja": "焔銅装備部品",
-              "zh-TW": "灼銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4,
-            "count": 25
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 250
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_suit_atk02_edc_04": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "21",
-        "maxLevel": "21",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "42",
-        "levelOne": "32",
-        "maxLevel": "41",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "40",
-        "levelOne": "21",
-        "maxLevel": "27",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "33",
-        "levelOne": "41.4%",
-        "maxLevel": "53.82%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -8965,7 +6688,165 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       }
     ]
   },
-  "item_equip_t4_suit_combo_cd01_edc_03": {
+  "item_equip_t4_parts_wuling00_hand_01": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "36",
+        "maxLevel": "36",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "Main",
+        "levelOne": "55",
+        "maxLevel": "71",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "Sub",
+        "levelOne": "37",
+        "maxLevel": "48",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "SpellDamageIncrease",
+        "levelOne": "15.52631579%",
+        "maxLevel": "20.18421%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4000,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4",
+            "name": {
+              "zh-CN": "息壤装备原件",
+              "en": "Xiranite Component",
+              "ja": "息壌装備部品",
+              "zh-TW": "息壤裝備原件"
+            },
+            "iconId": "item_equip_script_4",
+            "rarity": 4,
+            "count": 20
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 3000
+          }
+        ]
+      },
+      {
+        "chainId": 4001,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_1",
+            "name": {
+              "zh-CN": "赤铜装备原件",
+              "en": "Cuprium Component",
+              "ja": "赤銅装備部品",
+              "zh-TW": "赤銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_1",
+            "rarity": 4,
+            "count": 20
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 3000
+          }
+        ]
+      },
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "name": {
+              "zh-CN": "赫铜装备原件",
+              "en": "Hetonite Component",
+              "ja": "緋銅装備部品",
+              "zh-TW": "赫銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4,
+            "count": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 3000
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.01,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "name": {
+              "zh-CN": "灼铜装备原件",
+              "en": "Pyrrolite Component",
+              "ja": "焔銅装備部品",
+              "zh-TW": "灼銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4,
+            "count": 2
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 30
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_usp02_edc_03": {
     "stats": [
       {
         "attributeId": "3",
@@ -8975,23 +6856,181 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
         "maxLevelLabel": "+3"
       },
       {
-        "attributeId": "41",
+        "attributeId": "42",
         "levelOne": "32",
         "maxLevel": "41",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
-        "attributeId": "42",
+        "attributeId": "41",
         "levelOne": "21",
         "maxLevel": "27",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
-        "attributeId": "87",
-        "levelOne": "41.4",
-        "maxLevel": "53.82",
+        "attributeId": "44",
+        "levelOne": "24.64285714%",
+        "maxLevel": "32.035714%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4000,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4",
+            "name": {
+              "zh-CN": "息壤装备原件",
+              "en": "Xiranite Component",
+              "ja": "息壌装備部品",
+              "zh-TW": "息壤裝備原件"
+            },
+            "iconId": "item_equip_script_4",
+            "rarity": 4,
+            "count": 50
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 8000
+          }
+        ]
+      },
+      {
+        "chainId": 4001,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_1",
+            "name": {
+              "zh-CN": "赤铜装备原件",
+              "en": "Cuprium Component",
+              "ja": "赤銅装備部品",
+              "zh-TW": "赤銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_1",
+            "rarity": 4,
+            "count": 50
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 8000
+          }
+        ]
+      },
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "name": {
+              "zh-CN": "赫铜装备原件",
+              "en": "Hetonite Component",
+              "ja": "緋銅装備部品",
+              "zh-TW": "赫銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4,
+            "count": 10
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 8000
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.01,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "name": {
+              "zh-CN": "灼铜装备原件",
+              "en": "Pyrrolite Component",
+              "ja": "焔銅装備部品",
+              "zh-TW": "灼銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4,
+            "count": 5
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 80
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_combo_cd01_edc_04": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "21",
+        "maxLevel": "21",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "40",
+        "levelOne": "32",
+        "maxLevel": "41",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "39",
+        "levelOne": "21",
+        "maxLevel": "27",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "50",
+        "levelOne": "23%",
+        "maxLevel": "29.9%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -9061,191 +7100,33 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       }
     ]
   },
-  "item_equip_t4_suit_heal01_edc_03": {
+  "item_equip_t4_suit_pulse_cryst01_body_01": {
     "stats": [
       {
         "attributeId": "3",
-        "levelOne": "21",
-        "maxLevel": "21",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "42",
-        "levelOne": "32",
-        "maxLevel": "41",
+        "levelOne": "56",
+        "maxLevel": "56",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
         "attributeId": "41",
-        "levelOne": "21",
-        "maxLevel": "27",
+        "levelOne": "87",
+        "maxLevel": "113",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
-        "attributeId": "Main",
-        "levelOne": "20.7017835%",
-        "maxLevel": "26.91232%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4000,
-        "discount": 1,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4",
-            "name": {
-              "zh-CN": "息壤装备原件",
-              "en": "Xiranite Component",
-              "ja": "息壌装備部品",
-              "zh-TW": "息壤裝備原件"
-            },
-            "iconId": "item_equip_script_4",
-            "rarity": 4,
-            "count": 50
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 8000
-          }
-        ]
-      },
-      {
-        "chainId": 4001,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_1",
-            "name": {
-              "zh-CN": "赤铜装备原件",
-              "en": "Cuprium Component",
-              "ja": "赤銅装備部品",
-              "zh-TW": "赤銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_1",
-            "rarity": 4,
-            "count": 50
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 8000
-          }
-        ]
-      },
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "name": {
-              "zh-CN": "赫铜装备原件",
-              "en": "Hetonite Component",
-              "ja": "緋銅装備部品",
-              "zh-TW": "赫銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4,
-            "count": 10
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 8000
-          }
-        ]
-      },
-      {
-        "chainId": 4003,
-        "discount": 0.01,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "name": {
-              "zh-CN": "灼铜装备原件",
-              "en": "Pyrrolite Component",
-              "ja": "焔銅装備部品",
-              "zh-TW": "灼銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4,
-            "count": 5
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 80
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_suit_attri01_edc_04": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "21",
-        "maxLevel": "21",
+        "attributeId": "42",
+        "levelOne": "58",
+        "maxLevel": "75",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
-        "attributeId": "40",
-        "levelOne": "32",
-        "maxLevel": "41",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "39",
-        "levelOne": "21",
-        "maxLevel": "27",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "61",
-        "levelOne": "41.4%",
-        "maxLevel": "53.82%",
+        "attributeId": "87",
+        "levelOne": "20.7",
+        "maxLevel": "26.91",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -9377,7 +7258,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       }
     ]
   },
-  "item_equip_t4_suit_attri01_edc_07": {
+  "item_equip_t4_suit_fire_natr01_edc_01": {
     "stats": [
       {
         "attributeId": "3",
@@ -9387,23 +7268,181 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
         "maxLevelLabel": "+3"
       },
       {
-        "attributeId": "40",
+        "attributeId": "39",
         "levelOne": "32",
         "maxLevel": "41",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
-        "attributeId": "39",
+        "attributeId": "40",
         "levelOne": "21",
         "maxLevel": "27",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
-        "attributeId": "32",
-        "levelOne": "41.4%",
-        "maxLevel": "53.82%",
+        "attributeId": "87",
+        "levelOne": "41.4",
+        "maxLevel": "53.82",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4000,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4",
+            "name": {
+              "zh-CN": "息壤装备原件",
+              "en": "Xiranite Component",
+              "ja": "息壌装備部品",
+              "zh-TW": "息壤裝備原件"
+            },
+            "iconId": "item_equip_script_4",
+            "rarity": 4,
+            "count": 50
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 8000
+          }
+        ]
+      },
+      {
+        "chainId": 4001,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_1",
+            "name": {
+              "zh-CN": "赤铜装备原件",
+              "en": "Cuprium Component",
+              "ja": "赤銅装備部品",
+              "zh-TW": "赤銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_1",
+            "rarity": 4,
+            "count": 50
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 8000
+          }
+        ]
+      },
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "name": {
+              "zh-CN": "赫铜装备原件",
+              "en": "Hetonite Component",
+              "ja": "緋銅装備部品",
+              "zh-TW": "赫銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4,
+            "count": 10
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 8000
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.01,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "name": {
+              "zh-CN": "灼铜装备原件",
+              "en": "Pyrrolite Component",
+              "ja": "焔銅装備部品",
+              "zh-TW": "灼銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4,
+            "count": 5
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 80
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_attri01_hand_01": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "42",
+        "maxLevel": "42",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "39",
+        "levelOne": "65",
+        "maxLevel": "84",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "40",
+        "levelOne": "43",
+        "maxLevel": "55",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "FireAndNaturalDamageIncrease",
+        "levelOne": "19.16666667%",
+        "maxLevel": "24.916667%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -9499,6 +7538,510 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
             "iconId": "item_domain_jinlong_coupon",
             "rarity": 5,
             "count": 160
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_usp02_body_04": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "56",
+        "maxLevel": "56",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "41",
+        "levelOne": "87",
+        "maxLevel": "113",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "42",
+        "levelOne": "58",
+        "maxLevel": "75",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "Sub",
+        "levelOne": "10.35089175%",
+        "maxLevel": "13.45616%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4003,
+        "discount": 0.01,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "name": {
+              "zh-CN": "灼铜装备原件",
+              "en": "Pyrrolite Component",
+              "ja": "焔銅装備部品",
+              "zh-TW": "灼銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4,
+            "count": 50
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 360
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_burst01_hand_02": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "42",
+        "maxLevel": "42",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "41",
+        "levelOne": "65",
+        "maxLevel": "84",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "42",
+        "levelOne": "43",
+        "maxLevel": "55",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "AllSkillDamageIncrease",
+        "levelOne": "23%",
+        "maxLevel": "29.9%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4003,
+        "discount": 0.01,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "name": {
+              "zh-CN": "灼铜装备原件",
+              "en": "Pyrrolite Component",
+              "ja": "焔銅装備部品",
+              "zh-TW": "灼銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4,
+            "count": 50
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 360
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_parts_wuling00_body_05": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "48",
+        "maxLevel": "48",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "Main",
+        "levelOne": "74",
+        "maxLevel": "96",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "Sub",
+        "levelOne": "49",
+        "maxLevel": "63",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "29",
+        "levelOne": "8.85%",
+        "maxLevel": "11.505%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4000,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4",
+            "name": {
+              "zh-CN": "息壤装备原件",
+              "en": "Xiranite Component",
+              "ja": "息壌装備部品",
+              "zh-TW": "息壤裝備原件"
+            },
+            "iconId": "item_equip_script_4",
+            "rarity": 4,
+            "count": 20
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 3000
+          }
+        ]
+      },
+      {
+        "chainId": 4001,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_1",
+            "name": {
+              "zh-CN": "赤铜装备原件",
+              "en": "Cuprium Component",
+              "ja": "赤銅装備部品",
+              "zh-TW": "赤銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_1",
+            "rarity": 4,
+            "count": 20
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 3000
+          }
+        ]
+      },
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "name": {
+              "zh-CN": "赫铜装备原件",
+              "en": "Hetonite Component",
+              "ja": "緋銅装備部品",
+              "zh-TW": "赫銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4,
+            "count": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 3000
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.01,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "name": {
+              "zh-CN": "灼铜装备原件",
+              "en": "Pyrrolite Component",
+              "ja": "焔銅装備部品",
+              "zh-TW": "灼銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4,
+            "count": 2
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 30
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_usp02_edc_04": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "21",
+        "maxLevel": "21",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "42",
+        "levelOne": "41",
+        "maxLevel": "53",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "Sub",
+        "levelOne": "20.7017835%",
+        "maxLevel": "26.91232%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4003,
+        "discount": 0.01,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "name": {
+              "zh-CN": "灼铜装备原件",
+              "en": "Pyrrolite Component",
+              "ja": "焔銅装備部品",
+              "zh-TW": "灼銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4,
+            "count": 50
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 360
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_parts_wuling00_edc_05": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "18",
+        "maxLevel": "18",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "Main",
+        "levelOne": "27",
+        "maxLevel": "35",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "Sub",
+        "levelOne": "18",
+        "maxLevel": "23",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "29",
+        "levelOne": "17.7%",
+        "maxLevel": "23.01%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4000,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4",
+            "name": {
+              "zh-CN": "息壤装备原件",
+              "en": "Xiranite Component",
+              "ja": "息壌装備部品",
+              "zh-TW": "息壤裝備原件"
+            },
+            "iconId": "item_equip_script_4",
+            "rarity": 4,
+            "count": 20
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 3000
+          }
+        ]
+      },
+      {
+        "chainId": 4001,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_1",
+            "name": {
+              "zh-CN": "赤铜装备原件",
+              "en": "Cuprium Component",
+              "ja": "赤銅装備部品",
+              "zh-TW": "赤銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_1",
+            "rarity": 4,
+            "count": 20
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 3000
+          }
+        ]
+      },
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "name": {
+              "zh-CN": "赫铜装备原件",
+              "en": "Hetonite Component",
+              "ja": "緋銅装備部品",
+              "zh-TW": "赫銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4,
+            "count": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 3000
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.01,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "name": {
+              "zh-CN": "灼铜装备原件",
+              "en": "Pyrrolite Component",
+              "ja": "焔銅装備部品",
+              "zh-TW": "灼銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4,
+            "count": 2
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 30
           }
         ]
       }
@@ -9657,6 +8200,3314 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
             "iconId": "item_domain_jinlong_coupon",
             "rarity": 5,
             "count": 80
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_phy01_body_03": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "56",
+        "maxLevel": "56",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "40",
+        "levelOne": "87",
+        "maxLevel": "113",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "39",
+        "levelOne": "58",
+        "maxLevel": "75",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "50",
+        "levelOne": "11.5%",
+        "maxLevel": "14.95%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "name": {
+              "zh-CN": "赫铜装备原件",
+              "en": "Hetonite Component",
+              "ja": "緋銅装備部品",
+              "zh-TW": "赫銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4,
+            "count": 50
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 25000
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.01,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "name": {
+              "zh-CN": "灼铜装备原件",
+              "en": "Pyrrolite Component",
+              "ja": "焔銅装備部品",
+              "zh-TW": "灼銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4,
+            "count": 25
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 250
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_burst01_body_02": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "56",
+        "maxLevel": "56",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "41",
+        "levelOne": "87",
+        "maxLevel": "113",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "42",
+        "levelOne": "58",
+        "maxLevel": "75",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "44",
+        "levelOne": "12.32142857%",
+        "maxLevel": "16.017857%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4003,
+        "discount": 0.01,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "name": {
+              "zh-CN": "灼铜装备原件",
+              "en": "Pyrrolite Component",
+              "ja": "焔銅装備部品",
+              "zh-TW": "灼銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4,
+            "count": 50
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 360
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_pulse_cryst01_edc_01": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "21",
+        "maxLevel": "21",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "41",
+        "levelOne": "32",
+        "maxLevel": "41",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "40",
+        "levelOne": "21",
+        "maxLevel": "27",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "87",
+        "levelOne": "41.4",
+        "maxLevel": "53.82",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4001,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_1",
+            "name": {
+              "zh-CN": "赤铜装备原件",
+              "en": "Cuprium Component",
+              "ja": "赤銅装備部品",
+              "zh-TW": "赤銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_1",
+            "rarity": 4,
+            "count": 50
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 16000
+          }
+        ]
+      },
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "name": {
+              "zh-CN": "赫铜装备原件",
+              "en": "Hetonite Component",
+              "ja": "緋銅装備部品",
+              "zh-TW": "赫銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4,
+            "count": 10
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 16000
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.01,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "name": {
+              "zh-CN": "灼铜装备原件",
+              "en": "Pyrrolite Component",
+              "ja": "焔銅装備部品",
+              "zh-TW": "灼銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4,
+            "count": 5
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 160
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_heal01_hand_02": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "42",
+        "maxLevel": "42",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "42",
+        "levelOne": "65",
+        "maxLevel": "84",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "39",
+        "levelOne": "43",
+        "maxLevel": "55",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "29",
+        "levelOne": "17.25%",
+        "maxLevel": "22.425%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4000,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4",
+            "name": {
+              "zh-CN": "息壤装备原件",
+              "en": "Xiranite Component",
+              "ja": "息壌装備部品",
+              "zh-TW": "息壤裝備原件"
+            },
+            "iconId": "item_equip_script_4",
+            "rarity": 4,
+            "count": 50
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 8000
+          }
+        ]
+      },
+      {
+        "chainId": 4001,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_1",
+            "name": {
+              "zh-CN": "赤铜装备原件",
+              "en": "Cuprium Component",
+              "ja": "赤銅装備部品",
+              "zh-TW": "赤銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_1",
+            "rarity": 4,
+            "count": 50
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 8000
+          }
+        ]
+      },
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "name": {
+              "zh-CN": "赫铜装备原件",
+              "en": "Hetonite Component",
+              "ja": "緋銅装備部品",
+              "zh-TW": "赫銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4,
+            "count": 10
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 8000
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.01,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "name": {
+              "zh-CN": "灼铜装备原件",
+              "en": "Pyrrolite Component",
+              "ja": "焔銅装備部品",
+              "zh-TW": "灼銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4,
+            "count": 5
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 80
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_phy01_hand_03": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "42",
+        "maxLevel": "42",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "39",
+        "levelOne": "65",
+        "maxLevel": "84",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "42",
+        "levelOne": "43",
+        "maxLevel": "55",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "87",
+        "levelOne": "34.5",
+        "maxLevel": "44.85",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "name": {
+              "zh-CN": "赫铜装备原件",
+              "en": "Hetonite Component",
+              "ja": "緋銅装備部品",
+              "zh-TW": "赫銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4,
+            "count": 50
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 25000
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.01,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "name": {
+              "zh-CN": "灼铜装备原件",
+              "en": "Pyrrolite Component",
+              "ja": "焔銅装備部品",
+              "zh-TW": "灼銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4,
+            "count": 25
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 250
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_phy01_edc_04": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "21",
+        "maxLevel": "21",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "40",
+        "levelOne": "32",
+        "maxLevel": "41",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "39",
+        "levelOne": "21",
+        "maxLevel": "27",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "28",
+        "levelOne": "51.75%",
+        "maxLevel": "67.275%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "name": {
+              "zh-CN": "赫铜装备原件",
+              "en": "Hetonite Component",
+              "ja": "緋銅装備部品",
+              "zh-TW": "赫銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4,
+            "count": 50
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 25000
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.01,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "name": {
+              "zh-CN": "灼铜装备原件",
+              "en": "Pyrrolite Component",
+              "ja": "焔銅装備部品",
+              "zh-TW": "灼銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4,
+            "count": 25
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 250
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_parts_wuling01_edc_02": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "21",
+        "maxLevel": "21",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "40",
+        "levelOne": "43",
+        "maxLevel": "55",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "33",
+        "levelOne": "43.2%",
+        "maxLevel": "56.16%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4000,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4",
+            "name": {
+              "zh-CN": "息壤装备原件",
+              "en": "Xiranite Component",
+              "ja": "息壌装備部品",
+              "zh-TW": "息壤裝備原件"
+            },
+            "iconId": "item_equip_script_4",
+            "rarity": 4,
+            "count": 50
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 8000
+          }
+        ]
+      },
+      {
+        "chainId": 4001,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_1",
+            "name": {
+              "zh-CN": "赤铜装备原件",
+              "en": "Cuprium Component",
+              "ja": "赤銅装備部品",
+              "zh-TW": "赤銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_1",
+            "rarity": 4,
+            "count": 50
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 8000
+          }
+        ]
+      },
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "name": {
+              "zh-CN": "赫铜装备原件",
+              "en": "Hetonite Component",
+              "ja": "緋銅装備部品",
+              "zh-TW": "赫銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4,
+            "count": 10
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 8000
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.01,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "name": {
+              "zh-CN": "灼铜装备原件",
+              "en": "Pyrrolite Component",
+              "ja": "焔銅装備部品",
+              "zh-TW": "灼銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4,
+            "count": 5
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 80
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_parts_wuling01_edc_03": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "21",
+        "maxLevel": "21",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "41",
+        "levelOne": "43",
+        "maxLevel": "55",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "44",
+        "levelOne": "25.71428571%",
+        "maxLevel": "33.42857%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4000,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4",
+            "name": {
+              "zh-CN": "息壤装备原件",
+              "en": "Xiranite Component",
+              "ja": "息壌装備部品",
+              "zh-TW": "息壤裝備原件"
+            },
+            "iconId": "item_equip_script_4",
+            "rarity": 4,
+            "count": 50
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 8000
+          }
+        ]
+      },
+      {
+        "chainId": 4001,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_1",
+            "name": {
+              "zh-CN": "赤铜装备原件",
+              "en": "Cuprium Component",
+              "ja": "赤銅装備部品",
+              "zh-TW": "赤銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_1",
+            "rarity": 4,
+            "count": 50
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 8000
+          }
+        ]
+      },
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "name": {
+              "zh-CN": "赫铜装备原件",
+              "en": "Hetonite Component",
+              "ja": "緋銅装備部品",
+              "zh-TW": "赫銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4,
+            "count": 10
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 8000
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.01,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "name": {
+              "zh-CN": "灼铜装备原件",
+              "en": "Pyrrolite Component",
+              "ja": "焔銅装備部品",
+              "zh-TW": "灼銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4,
+            "count": 5
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 80
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_atk02_body_04": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "56",
+        "maxLevel": "56",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "42",
+        "levelOne": "87",
+        "maxLevel": "113",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "39",
+        "levelOne": "58",
+        "maxLevel": "75",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "AllSkillDamageIncrease",
+        "levelOne": "13.8%",
+        "maxLevel": "17.94%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4000,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4",
+            "name": {
+              "zh-CN": "息壤装备原件",
+              "en": "Xiranite Component",
+              "ja": "息壌装備部品",
+              "zh-TW": "息壤裝備原件"
+            },
+            "iconId": "item_equip_script_4",
+            "rarity": 4,
+            "count": 50
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 8000
+          }
+        ]
+      },
+      {
+        "chainId": 4001,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_1",
+            "name": {
+              "zh-CN": "赤铜装备原件",
+              "en": "Cuprium Component",
+              "ja": "赤銅装備部品",
+              "zh-TW": "赤銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_1",
+            "rarity": 4,
+            "count": 50
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 8000
+          }
+        ]
+      },
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "name": {
+              "zh-CN": "赫铜装备原件",
+              "en": "Hetonite Component",
+              "ja": "緋銅装備部品",
+              "zh-TW": "赫銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4,
+            "count": 10
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 8000
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.01,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "name": {
+              "zh-CN": "灼铜装备原件",
+              "en": "Pyrrolite Component",
+              "ja": "焔銅装備部品",
+              "zh-TW": "灼銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4,
+            "count": 5
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 80
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_fire_natr01_hand_01": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "42",
+        "maxLevel": "42",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "39",
+        "levelOne": "65",
+        "maxLevel": "84",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "42",
+        "levelOne": "43",
+        "maxLevel": "55",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "87",
+        "levelOne": "34.5",
+        "maxLevel": "44.85",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4001,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_1",
+            "name": {
+              "zh-CN": "赤铜装备原件",
+              "en": "Cuprium Component",
+              "ja": "赤銅装備部品",
+              "zh-TW": "赤銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_1",
+            "rarity": 4,
+            "count": 50
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 16000
+          }
+        ]
+      },
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "name": {
+              "zh-CN": "赫铜装备原件",
+              "en": "Hetonite Component",
+              "ja": "緋銅装備部品",
+              "zh-TW": "赫銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4,
+            "count": 10
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 16000
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.01,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "name": {
+              "zh-CN": "灼铜装备原件",
+              "en": "Pyrrolite Component",
+              "ja": "焔銅装備部品",
+              "zh-TW": "灼銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4,
+            "count": 5
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 160
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_pulse_cryst01_edc_03": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "21",
+        "maxLevel": "21",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "42",
+        "levelOne": "41",
+        "maxLevel": "53",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "28",
+        "levelOne": "51.75%",
+        "maxLevel": "67.275%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4001,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_1",
+            "name": {
+              "zh-CN": "赤铜装备原件",
+              "en": "Cuprium Component",
+              "ja": "赤銅装備部品",
+              "zh-TW": "赤銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_1",
+            "rarity": 4,
+            "count": 50
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 16000
+          }
+        ]
+      },
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "name": {
+              "zh-CN": "赫铜装备原件",
+              "en": "Hetonite Component",
+              "ja": "緋銅装備部品",
+              "zh-TW": "赫銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4,
+            "count": 10
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 16000
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.01,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "name": {
+              "zh-CN": "灼铜装备原件",
+              "en": "Pyrrolite Component",
+              "ja": "焔銅装備部品",
+              "zh-TW": "灼銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4,
+            "count": 5
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 160
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_phy01_edc_01": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "21",
+        "maxLevel": "21",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "39",
+        "levelOne": "41",
+        "maxLevel": "53",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "87",
+        "levelOne": "41.4",
+        "maxLevel": "53.82",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4001,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_1",
+            "name": {
+              "zh-CN": "赤铜装备原件",
+              "en": "Cuprium Component",
+              "ja": "赤銅装備部品",
+              "zh-TW": "赤銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_1",
+            "rarity": 4,
+            "count": 50
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 16000
+          }
+        ]
+      },
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "name": {
+              "zh-CN": "赫铜装备原件",
+              "en": "Hetonite Component",
+              "ja": "緋銅装備部品",
+              "zh-TW": "赫銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4,
+            "count": 10
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 16000
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.01,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "name": {
+              "zh-CN": "灼铜装备原件",
+              "en": "Pyrrolite Component",
+              "ja": "焔銅装備部品",
+              "zh-TW": "灼銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4,
+            "count": 5
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 160
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_heal01_edc_01": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "21",
+        "maxLevel": "21",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "39",
+        "levelOne": "32",
+        "maxLevel": "41",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "42",
+        "levelOne": "21",
+        "maxLevel": "27",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "AllDamageTakenScalar",
+        "levelOne": "17.14995857%",
+        "maxLevel": "21.204%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4000,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4",
+            "name": {
+              "zh-CN": "息壤装备原件",
+              "en": "Xiranite Component",
+              "ja": "息壌装備部品",
+              "zh-TW": "息壤裝備原件"
+            },
+            "iconId": "item_equip_script_4",
+            "rarity": 4,
+            "count": 50
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 8000
+          }
+        ]
+      },
+      {
+        "chainId": 4001,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_1",
+            "name": {
+              "zh-CN": "赤铜装备原件",
+              "en": "Cuprium Component",
+              "ja": "赤銅装備部品",
+              "zh-TW": "赤銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_1",
+            "rarity": 4,
+            "count": 50
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 8000
+          }
+        ]
+      },
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "name": {
+              "zh-CN": "赫铜装备原件",
+              "en": "Hetonite Component",
+              "ja": "緋銅装備部品",
+              "zh-TW": "赫銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4,
+            "count": 10
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 8000
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.01,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "name": {
+              "zh-CN": "灼铜装备原件",
+              "en": "Pyrrolite Component",
+              "ja": "焔銅装備部品",
+              "zh-TW": "灼銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4,
+            "count": 5
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 80
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_parts_wuling00_edc_04": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "18",
+        "maxLevel": "18",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "Main",
+        "levelOne": "27",
+        "maxLevel": "35",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "Sub",
+        "levelOne": "18",
+        "maxLevel": "23",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "87",
+        "levelOne": "35.4",
+        "maxLevel": "46.02",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4000,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4",
+            "name": {
+              "zh-CN": "息壤装备原件",
+              "en": "Xiranite Component",
+              "ja": "息壌装備部品",
+              "zh-TW": "息壤裝備原件"
+            },
+            "iconId": "item_equip_script_4",
+            "rarity": 4,
+            "count": 20
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 3000
+          }
+        ]
+      },
+      {
+        "chainId": 4001,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_1",
+            "name": {
+              "zh-CN": "赤铜装备原件",
+              "en": "Cuprium Component",
+              "ja": "赤銅装備部品",
+              "zh-TW": "赤銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_1",
+            "rarity": 4,
+            "count": 20
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 3000
+          }
+        ]
+      },
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "name": {
+              "zh-CN": "赫铜装备原件",
+              "en": "Hetonite Component",
+              "ja": "緋銅装備部品",
+              "zh-TW": "赫銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4,
+            "count": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 3000
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.01,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "name": {
+              "zh-CN": "灼铜装备原件",
+              "en": "Pyrrolite Component",
+              "ja": "焔銅装備部品",
+              "zh-TW": "灼銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4,
+            "count": 2
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 30
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_crush_fracture_edc_01": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "21",
+        "maxLevel": "21",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "39",
+        "levelOne": "32",
+        "maxLevel": "41",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "42",
+        "levelOne": "21",
+        "maxLevel": "27",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "50",
+        "levelOne": "23%",
+        "maxLevel": "29.9%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "name": {
+              "zh-CN": "赫铜装备原件",
+              "en": "Hetonite Component",
+              "ja": "緋銅装備部品",
+              "zh-TW": "赫銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4,
+            "count": 50
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 25000
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.01,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "name": {
+              "zh-CN": "灼铜装备原件",
+              "en": "Pyrrolite Component",
+              "ja": "焔銅装備部品",
+              "zh-TW": "灼銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4,
+            "count": 25
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 250
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_parts_wuling01_body_02": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "56",
+        "maxLevel": "56",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "41",
+        "levelOne": "115",
+        "maxLevel": "149",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "44",
+        "levelOne": "12.85714286%",
+        "maxLevel": "16.714285%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4001,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_1",
+            "name": {
+              "zh-CN": "赤铜装备原件",
+              "en": "Cuprium Component",
+              "ja": "赤銅装備部品",
+              "zh-TW": "赤銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_1",
+            "rarity": 4,
+            "count": 50
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 16000
+          }
+        ]
+      },
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "name": {
+              "zh-CN": "赫铜装备原件",
+              "en": "Hetonite Component",
+              "ja": "緋銅装備部品",
+              "zh-TW": "赫銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4,
+            "count": 10
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 16000
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.01,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "name": {
+              "zh-CN": "灼铜装备原件",
+              "en": "Pyrrolite Component",
+              "ja": "焔銅装備部品",
+              "zh-TW": "灼銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4,
+            "count": 5
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 160
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_criti01_edc_06": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "21",
+        "maxLevel": "21",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "40",
+        "levelOne": "32",
+        "maxLevel": "41",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "41",
+        "levelOne": "21",
+        "maxLevel": "27",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "9",
+        "levelOne": "10.35%",
+        "maxLevel": "13.455%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4001,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_1",
+            "name": {
+              "zh-CN": "赤铜装备原件",
+              "en": "Cuprium Component",
+              "ja": "赤銅装備部品",
+              "zh-TW": "赤銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_1",
+            "rarity": 4,
+            "count": 50
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 16000
+          }
+        ]
+      },
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "name": {
+              "zh-CN": "赫铜装备原件",
+              "en": "Hetonite Component",
+              "ja": "緋銅装備部品",
+              "zh-TW": "赫銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4,
+            "count": 10
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 16000
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.01,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "name": {
+              "zh-CN": "灼铜装备原件",
+              "en": "Pyrrolite Component",
+              "ja": "焔銅装備部品",
+              "zh-TW": "灼銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4,
+            "count": 5
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 160
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_fire_natr01_edc_02": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "21",
+        "maxLevel": "21",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "41",
+        "levelOne": "41",
+        "maxLevel": "53",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "32",
+        "levelOne": "41.4%",
+        "maxLevel": "53.82%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4000,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4",
+            "name": {
+              "zh-CN": "息壤装备原件",
+              "en": "Xiranite Component",
+              "ja": "息壌装備部品",
+              "zh-TW": "息壤裝備原件"
+            },
+            "iconId": "item_equip_script_4",
+            "rarity": 4,
+            "count": 50
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 8000
+          }
+        ]
+      },
+      {
+        "chainId": 4001,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_1",
+            "name": {
+              "zh-CN": "赤铜装备原件",
+              "en": "Cuprium Component",
+              "ja": "赤銅装備部品",
+              "zh-TW": "赤銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_1",
+            "rarity": 4,
+            "count": 50
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 8000
+          }
+        ]
+      },
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "name": {
+              "zh-CN": "赫铜装备原件",
+              "en": "Hetonite Component",
+              "ja": "緋銅装備部品",
+              "zh-TW": "赫銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4,
+            "count": 10
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 8000
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.01,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "name": {
+              "zh-CN": "灼铜装备原件",
+              "en": "Pyrrolite Component",
+              "ja": "焔銅装備部品",
+              "zh-TW": "灼銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4,
+            "count": 5
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 80
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_parts_wuling02_hand_02": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "42",
+        "maxLevel": "42",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "42",
+        "levelOne": "86",
+        "maxLevel": "111",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "32",
+        "levelOne": "36%",
+        "maxLevel": "46.8%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4003,
+        "discount": 0.01,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "name": {
+              "zh-CN": "灼铜装备原件",
+              "en": "Pyrrolite Component",
+              "ja": "焔銅装備部品",
+              "zh-TW": "灼銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4,
+            "count": 50
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 360
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_usp02_edc_06": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "21",
+        "maxLevel": "21",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "39",
+        "levelOne": "32",
+        "maxLevel": "41",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "42",
+        "levelOne": "21",
+        "maxLevel": "27",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "44",
+        "levelOne": "24.64285714%",
+        "maxLevel": "32.035714%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4003,
+        "discount": 0.01,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "name": {
+              "zh-CN": "灼铜装备原件",
+              "en": "Pyrrolite Component",
+              "ja": "焔銅装備部品",
+              "zh-TW": "灼銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4,
+            "count": 50
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 360
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_attri01_edc_06": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "21",
+        "maxLevel": "21",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "42",
+        "levelOne": "32",
+        "maxLevel": "41",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "41",
+        "levelOne": "21",
+        "maxLevel": "27",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "33",
+        "levelOne": "41.4%",
+        "maxLevel": "53.82%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4000,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4",
+            "name": {
+              "zh-CN": "息壤装备原件",
+              "en": "Xiranite Component",
+              "ja": "息壌装備部品",
+              "zh-TW": "息壤裝備原件"
+            },
+            "iconId": "item_equip_script_4",
+            "rarity": 4,
+            "count": 50
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 8000
+          }
+        ]
+      },
+      {
+        "chainId": 4001,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_1",
+            "name": {
+              "zh-CN": "赤铜装备原件",
+              "en": "Cuprium Component",
+              "ja": "赤銅装備部品",
+              "zh-TW": "赤銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_1",
+            "rarity": 4,
+            "count": 50
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 8000
+          }
+        ]
+      },
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "name": {
+              "zh-CN": "赫铜装备原件",
+              "en": "Hetonite Component",
+              "ja": "緋銅装備部品",
+              "zh-TW": "赫銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4,
+            "count": 10
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 8000
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.01,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "name": {
+              "zh-CN": "灼铜装备原件",
+              "en": "Pyrrolite Component",
+              "ja": "焔銅装備部品",
+              "zh-TW": "灼銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4,
+            "count": 5
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 80
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_atb01_body_02": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "56",
+        "maxLevel": "56",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "39",
+        "levelOne": "87",
+        "maxLevel": "113",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "40",
+        "levelOne": "58",
+        "maxLevel": "75",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "32",
+        "levelOne": "20.7%",
+        "maxLevel": "26.91%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4000,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4",
+            "name": {
+              "zh-CN": "息壤装备原件",
+              "en": "Xiranite Component",
+              "ja": "息壌装備部品",
+              "zh-TW": "息壤裝備原件"
+            },
+            "iconId": "item_equip_script_4",
+            "rarity": 4,
+            "count": 50
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 8000
+          }
+        ]
+      },
+      {
+        "chainId": 4001,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_1",
+            "name": {
+              "zh-CN": "赤铜装备原件",
+              "en": "Cuprium Component",
+              "ja": "赤銅装備部品",
+              "zh-TW": "赤銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_1",
+            "rarity": 4,
+            "count": 50
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 8000
+          }
+        ]
+      },
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "name": {
+              "zh-CN": "赫铜装备原件",
+              "en": "Hetonite Component",
+              "ja": "緋銅装備部品",
+              "zh-TW": "赫銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4,
+            "count": 10
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 8000
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.01,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "name": {
+              "zh-CN": "灼铜装备原件",
+              "en": "Pyrrolite Component",
+              "ja": "焔銅装備部品",
+              "zh-TW": "灼銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4,
+            "count": 5
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 80
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_fire_natr01_body_01": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "56",
+        "maxLevel": "56",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "39",
+        "levelOne": "87",
+        "maxLevel": "113",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "40",
+        "levelOne": "58",
+        "maxLevel": "75",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "FireAndNaturalDamageIncrease",
+        "levelOne": "11.5%",
+        "maxLevel": "14.95%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4000,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4",
+            "name": {
+              "zh-CN": "息壤装备原件",
+              "en": "Xiranite Component",
+              "ja": "息壌装備部品",
+              "zh-TW": "息壤裝備原件"
+            },
+            "iconId": "item_equip_script_4",
+            "rarity": 4,
+            "count": 50
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 8000
+          }
+        ]
+      },
+      {
+        "chainId": 4001,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_1",
+            "name": {
+              "zh-CN": "赤铜装备原件",
+              "en": "Cuprium Component",
+              "ja": "赤銅装備部品",
+              "zh-TW": "赤銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_1",
+            "rarity": 4,
+            "count": 50
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 8000
+          }
+        ]
+      },
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "name": {
+              "zh-CN": "赫铜装备原件",
+              "en": "Hetonite Component",
+              "ja": "緋銅装備部品",
+              "zh-TW": "赫銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4,
+            "count": 10
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 8000
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.01,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "name": {
+              "zh-CN": "灼铜装备原件",
+              "en": "Pyrrolite Component",
+              "ja": "焔銅装備部品",
+              "zh-TW": "灼銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4,
+            "count": 5
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 80
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_usp02_edc_01": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "21",
+        "maxLevel": "21",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "41",
+        "levelOne": "32",
+        "maxLevel": "41",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "39",
+        "levelOne": "21",
+        "maxLevel": "27",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "44",
+        "levelOne": "24.64285714%",
+        "maxLevel": "32.035714%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4000,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4",
+            "name": {
+              "zh-CN": "息壤装备原件",
+              "en": "Xiranite Component",
+              "ja": "息壌装備部品",
+              "zh-TW": "息壤裝備原件"
+            },
+            "iconId": "item_equip_script_4",
+            "rarity": 4,
+            "count": 50
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 8000
+          }
+        ]
+      },
+      {
+        "chainId": 4001,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_1",
+            "name": {
+              "zh-CN": "赤铜装备原件",
+              "en": "Cuprium Component",
+              "ja": "赤銅装備部品",
+              "zh-TW": "赤銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_1",
+            "rarity": 4,
+            "count": 50
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 8000
+          }
+        ]
+      },
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "name": {
+              "zh-CN": "赫铜装备原件",
+              "en": "Hetonite Component",
+              "ja": "緋銅装備部品",
+              "zh-TW": "赫銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4,
+            "count": 10
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 8000
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.01,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "name": {
+              "zh-CN": "灼铜装备原件",
+              "en": "Pyrrolite Component",
+              "ja": "焔銅装備部品",
+              "zh-TW": "灼銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4,
+            "count": 5
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 80
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_parts_wuling00_body_02": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "48",
+        "maxLevel": "48",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "Main",
+        "levelOne": "74",
+        "maxLevel": "96",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "Sub",
+        "levelOne": "49",
+        "maxLevel": "63",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "44",
+        "levelOne": "10.53571429%",
+        "maxLevel": "13.696429%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4000,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4",
+            "name": {
+              "zh-CN": "息壤装备原件",
+              "en": "Xiranite Component",
+              "ja": "息壌装備部品",
+              "zh-TW": "息壤裝備原件"
+            },
+            "iconId": "item_equip_script_4",
+            "rarity": 4,
+            "count": 20
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 3000
+          }
+        ]
+      },
+      {
+        "chainId": 4001,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_1",
+            "name": {
+              "zh-CN": "赤铜装备原件",
+              "en": "Cuprium Component",
+              "ja": "赤銅装備部品",
+              "zh-TW": "赤銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_1",
+            "rarity": 4,
+            "count": 20
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 3000
+          }
+        ]
+      },
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "name": {
+              "zh-CN": "赫铜装备原件",
+              "en": "Hetonite Component",
+              "ja": "緋銅装備部品",
+              "zh-TW": "赫銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4,
+            "count": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 3000
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.01,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "name": {
+              "zh-CN": "灼铜装备原件",
+              "en": "Pyrrolite Component",
+              "ja": "焔銅装備部品",
+              "zh-TW": "灼銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4,
+            "count": 2
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 30
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_parts_wuling01_body_01": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "56",
+        "maxLevel": "56",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "40",
+        "levelOne": "115",
+        "maxLevel": "149",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "17",
+        "levelOne": "14.4%",
+        "maxLevel": "18.72%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4001,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_1",
+            "name": {
+              "zh-CN": "赤铜装备原件",
+              "en": "Cuprium Component",
+              "ja": "赤銅装備部品",
+              "zh-TW": "赤銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_1",
+            "rarity": 4,
+            "count": 50
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 16000
+          }
+        ]
+      },
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "name": {
+              "zh-CN": "赫铜装备原件",
+              "en": "Hetonite Component",
+              "ja": "緋銅装備部品",
+              "zh-TW": "赫銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4,
+            "count": 10
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 16000
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.01,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "name": {
+              "zh-CN": "灼铜装备原件",
+              "en": "Pyrrolite Component",
+              "ja": "焔銅装備部品",
+              "zh-TW": "灼銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4,
+            "count": 5
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 160
           }
         ]
       }
@@ -9916,1163 +11767,6 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       }
     ]
   },
-  "item_equip_t4_suit_criti01_edc_03": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "21",
-        "maxLevel": "21",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "41",
-        "levelOne": "32",
-        "maxLevel": "41",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "40",
-        "levelOne": "21",
-        "maxLevel": "27",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "9",
-        "levelOne": "10.35%",
-        "maxLevel": "13.455%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4000,
-        "discount": 1,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4",
-            "name": {
-              "zh-CN": "息壤装备原件",
-              "en": "Xiranite Component",
-              "ja": "息壌装備部品",
-              "zh-TW": "息壤裝備原件"
-            },
-            "iconId": "item_equip_script_4",
-            "rarity": 4,
-            "count": 50
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 8000
-          }
-        ]
-      },
-      {
-        "chainId": 4001,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_1",
-            "name": {
-              "zh-CN": "赤铜装备原件",
-              "en": "Cuprium Component",
-              "ja": "赤銅装備部品",
-              "zh-TW": "赤銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_1",
-            "rarity": 4,
-            "count": 50
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 8000
-          }
-        ]
-      },
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "name": {
-              "zh-CN": "赫铜装备原件",
-              "en": "Hetonite Component",
-              "ja": "緋銅装備部品",
-              "zh-TW": "赫銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4,
-            "count": 10
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 8000
-          }
-        ]
-      },
-      {
-        "chainId": 4003,
-        "discount": 0.01,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "name": {
-              "zh-CN": "灼铜装备原件",
-              "en": "Pyrrolite Component",
-              "ja": "焔銅装備部品",
-              "zh-TW": "灼銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4,
-            "count": 5
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 80
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_suit_attri01_edc_03": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "21",
-        "maxLevel": "21",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "42",
-        "levelOne": "32",
-        "maxLevel": "41",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "40",
-        "levelOne": "21",
-        "maxLevel": "27",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "32",
-        "levelOne": "41.4%",
-        "maxLevel": "53.82%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4000,
-        "discount": 1,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4",
-            "name": {
-              "zh-CN": "息壤装备原件",
-              "en": "Xiranite Component",
-              "ja": "息壌装備部品",
-              "zh-TW": "息壤裝備原件"
-            },
-            "iconId": "item_equip_script_4",
-            "rarity": 4,
-            "count": 50
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 8000
-          }
-        ]
-      },
-      {
-        "chainId": 4001,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_1",
-            "name": {
-              "zh-CN": "赤铜装备原件",
-              "en": "Cuprium Component",
-              "ja": "赤銅装備部品",
-              "zh-TW": "赤銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_1",
-            "rarity": 4,
-            "count": 50
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 8000
-          }
-        ]
-      },
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "name": {
-              "zh-CN": "赫铜装备原件",
-              "en": "Hetonite Component",
-              "ja": "緋銅装備部品",
-              "zh-TW": "赫銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4,
-            "count": 10
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 8000
-          }
-        ]
-      },
-      {
-        "chainId": 4003,
-        "discount": 0.01,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "name": {
-              "zh-CN": "灼铜装备原件",
-              "en": "Pyrrolite Component",
-              "ja": "焔銅装備部品",
-              "zh-TW": "灼銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4,
-            "count": 5
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 80
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_suit_fire_natr01_edc_02": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "21",
-        "maxLevel": "21",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "41",
-        "levelOne": "41",
-        "maxLevel": "53",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "32",
-        "levelOne": "41.4%",
-        "maxLevel": "53.82%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4000,
-        "discount": 1,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4",
-            "name": {
-              "zh-CN": "息壤装备原件",
-              "en": "Xiranite Component",
-              "ja": "息壌装備部品",
-              "zh-TW": "息壤裝備原件"
-            },
-            "iconId": "item_equip_script_4",
-            "rarity": 4,
-            "count": 50
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 8000
-          }
-        ]
-      },
-      {
-        "chainId": 4001,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_1",
-            "name": {
-              "zh-CN": "赤铜装备原件",
-              "en": "Cuprium Component",
-              "ja": "赤銅装備部品",
-              "zh-TW": "赤銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_1",
-            "rarity": 4,
-            "count": 50
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 8000
-          }
-        ]
-      },
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "name": {
-              "zh-CN": "赫铜装备原件",
-              "en": "Hetonite Component",
-              "ja": "緋銅装備部品",
-              "zh-TW": "赫銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4,
-            "count": 10
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 8000
-          }
-        ]
-      },
-      {
-        "chainId": 4003,
-        "discount": 0.01,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "name": {
-              "zh-CN": "灼铜装备原件",
-              "en": "Pyrrolite Component",
-              "ja": "焔銅装備部品",
-              "zh-TW": "灼銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4,
-            "count": 5
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 80
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_parts_wuling00_hand_03": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "36",
-        "maxLevel": "36",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "Sub",
-        "levelOne": "55",
-        "maxLevel": "71",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "Main",
-        "levelOne": "37",
-        "maxLevel": "48",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "Sub",
-        "levelOne": "14.75127085%",
-        "maxLevel": "19.176652%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4000,
-        "discount": 1,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4",
-            "name": {
-              "zh-CN": "息壤装备原件",
-              "en": "Xiranite Component",
-              "ja": "息壌装備部品",
-              "zh-TW": "息壤裝備原件"
-            },
-            "iconId": "item_equip_script_4",
-            "rarity": 4,
-            "count": 20
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 3000
-          }
-        ]
-      },
-      {
-        "chainId": 4001,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_1",
-            "name": {
-              "zh-CN": "赤铜装备原件",
-              "en": "Cuprium Component",
-              "ja": "赤銅装備部品",
-              "zh-TW": "赤銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_1",
-            "rarity": 4,
-            "count": 20
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 3000
-          }
-        ]
-      },
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "name": {
-              "zh-CN": "赫铜装备原件",
-              "en": "Hetonite Component",
-              "ja": "緋銅装備部品",
-              "zh-TW": "赫銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4,
-            "count": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 3000
-          }
-        ]
-      },
-      {
-        "chainId": 4003,
-        "discount": 0.01,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "name": {
-              "zh-CN": "灼铜装备原件",
-              "en": "Pyrrolite Component",
-              "ja": "焔銅装備部品",
-              "zh-TW": "灼銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4,
-            "count": 2
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 30
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_suit_fire_natr01_edc_01": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "21",
-        "maxLevel": "21",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "39",
-        "levelOne": "32",
-        "maxLevel": "41",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "40",
-        "levelOne": "21",
-        "maxLevel": "27",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "87",
-        "levelOne": "41.4",
-        "maxLevel": "53.82",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4000,
-        "discount": 1,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4",
-            "name": {
-              "zh-CN": "息壤装备原件",
-              "en": "Xiranite Component",
-              "ja": "息壌装備部品",
-              "zh-TW": "息壤裝備原件"
-            },
-            "iconId": "item_equip_script_4",
-            "rarity": 4,
-            "count": 50
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 8000
-          }
-        ]
-      },
-      {
-        "chainId": 4001,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_1",
-            "name": {
-              "zh-CN": "赤铜装备原件",
-              "en": "Cuprium Component",
-              "ja": "赤銅装備部品",
-              "zh-TW": "赤銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_1",
-            "rarity": 4,
-            "count": 50
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 8000
-          }
-        ]
-      },
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "name": {
-              "zh-CN": "赫铜装备原件",
-              "en": "Hetonite Component",
-              "ja": "緋銅装備部品",
-              "zh-TW": "赫銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4,
-            "count": 10
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 8000
-          }
-        ]
-      },
-      {
-        "chainId": 4003,
-        "discount": 0.01,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "name": {
-              "zh-CN": "灼铜装备原件",
-              "en": "Pyrrolite Component",
-              "ja": "焔銅装備部品",
-              "zh-TW": "灼銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4,
-            "count": 5
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 80
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_suit_criti01_body_02": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "56",
-        "maxLevel": "56",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "41",
-        "levelOne": "87",
-        "maxLevel": "113",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "40",
-        "levelOne": "58",
-        "maxLevel": "75",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "17",
-        "levelOne": "13.8%",
-        "maxLevel": "17.94%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4000,
-        "discount": 1,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4",
-            "name": {
-              "zh-CN": "息壤装备原件",
-              "en": "Xiranite Component",
-              "ja": "息壌装備部品",
-              "zh-TW": "息壤裝備原件"
-            },
-            "iconId": "item_equip_script_4",
-            "rarity": 4,
-            "count": 50
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 8000
-          }
-        ]
-      },
-      {
-        "chainId": 4001,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_1",
-            "name": {
-              "zh-CN": "赤铜装备原件",
-              "en": "Cuprium Component",
-              "ja": "赤銅装備部品",
-              "zh-TW": "赤銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_1",
-            "rarity": 4,
-            "count": 50
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 8000
-          }
-        ]
-      },
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "name": {
-              "zh-CN": "赫铜装备原件",
-              "en": "Hetonite Component",
-              "ja": "緋銅装備部品",
-              "zh-TW": "赫銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4,
-            "count": 10
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 8000
-          }
-        ]
-      },
-      {
-        "chainId": 4003,
-        "discount": 0.01,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "name": {
-              "zh-CN": "灼铜装备原件",
-              "en": "Pyrrolite Component",
-              "ja": "焔銅装備部品",
-              "zh-TW": "灼銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4,
-            "count": 5
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 80
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_suit_usp02_edc_04": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "21",
-        "maxLevel": "21",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "42",
-        "levelOne": "41",
-        "maxLevel": "53",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "Sub",
-        "levelOne": "20.7017835%",
-        "maxLevel": "26.91232%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4003,
-        "discount": 0.01,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "name": {
-              "zh-CN": "灼铜装备原件",
-              "en": "Pyrrolite Component",
-              "ja": "焔銅装備部品",
-              "zh-TW": "灼銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4,
-            "count": 50
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 360
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_parts_wuling00_body_02": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "48",
-        "maxLevel": "48",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "Main",
-        "levelOne": "74",
-        "maxLevel": "96",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "Sub",
-        "levelOne": "49",
-        "maxLevel": "63",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "44",
-        "levelOne": "10.53571429%",
-        "maxLevel": "13.696429%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4000,
-        "discount": 1,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4",
-            "name": {
-              "zh-CN": "息壤装备原件",
-              "en": "Xiranite Component",
-              "ja": "息壌装備部品",
-              "zh-TW": "息壤裝備原件"
-            },
-            "iconId": "item_equip_script_4",
-            "rarity": 4,
-            "count": 20
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 3000
-          }
-        ]
-      },
-      {
-        "chainId": 4001,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_1",
-            "name": {
-              "zh-CN": "赤铜装备原件",
-              "en": "Cuprium Component",
-              "ja": "赤銅装備部品",
-              "zh-TW": "赤銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_1",
-            "rarity": 4,
-            "count": 20
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 3000
-          }
-        ]
-      },
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "name": {
-              "zh-CN": "赫铜装备原件",
-              "en": "Hetonite Component",
-              "ja": "緋銅装備部品",
-              "zh-TW": "赫銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4,
-            "count": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 3000
-          }
-        ]
-      },
-      {
-        "chainId": 4003,
-        "discount": 0.01,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "name": {
-              "zh-CN": "灼铜装备原件",
-              "en": "Pyrrolite Component",
-              "ja": "焔銅装備部品",
-              "zh-TW": "灼銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4,
-            "count": 2
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 30
-          }
-        ]
-      }
-    ]
-  },
   "item_equip_t4_parts_wuling00_edc_01": {
     "stats": [
       {
@@ -11231,33 +11925,191 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       }
     ]
   },
-  "item_equip_t4_parts_wuling00_hand_01": {
+  "item_equip_t4_parts_wuling00_edc_02": {
     "stats": [
       {
         "attributeId": "3",
-        "levelOne": "36",
-        "maxLevel": "36",
+        "levelOne": "18",
+        "maxLevel": "18",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
         "attributeId": "Main",
-        "levelOne": "55",
-        "maxLevel": "71",
+        "levelOne": "27",
+        "maxLevel": "35",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
         "attributeId": "Sub",
-        "levelOne": "37",
-        "maxLevel": "48",
+        "levelOne": "18",
+        "maxLevel": "23",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
-        "attributeId": "SpellDamageIncrease",
-        "levelOne": "15.52631579%",
-        "maxLevel": "20.18421%",
+        "attributeId": "44",
+        "levelOne": "21.07142857%",
+        "maxLevel": "27.392858%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4000,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4",
+            "name": {
+              "zh-CN": "息壤装备原件",
+              "en": "Xiranite Component",
+              "ja": "息壌装備部品",
+              "zh-TW": "息壤裝備原件"
+            },
+            "iconId": "item_equip_script_4",
+            "rarity": 4,
+            "count": 20
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 3000
+          }
+        ]
+      },
+      {
+        "chainId": 4001,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_1",
+            "name": {
+              "zh-CN": "赤铜装备原件",
+              "en": "Cuprium Component",
+              "ja": "赤銅装備部品",
+              "zh-TW": "赤銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_1",
+            "rarity": 4,
+            "count": 20
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 3000
+          }
+        ]
+      },
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "name": {
+              "zh-CN": "赫铜装备原件",
+              "en": "Hetonite Component",
+              "ja": "緋銅装備部品",
+              "zh-TW": "赫銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4,
+            "count": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 3000
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.01,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "name": {
+              "zh-CN": "灼铜装备原件",
+              "en": "Pyrrolite Component",
+              "ja": "焔銅装備部品",
+              "zh-TW": "灼銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4,
+            "count": 2
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 30
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_parts_wuling00_edc_03": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "18",
+        "maxLevel": "18",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "Sub",
+        "levelOne": "27",
+        "maxLevel": "35",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "Main",
+        "levelOne": "18",
+        "maxLevel": "23",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "Sub",
+        "levelOne": "17.70152502%",
+        "maxLevel": "23.011982%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -11547,127 +12399,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       }
     ]
   },
-  "item_equip_t4_parts_wuling01_body_01": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "56",
-        "maxLevel": "56",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "40",
-        "levelOne": "115",
-        "maxLevel": "149",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "17",
-        "levelOne": "14.4%",
-        "maxLevel": "18.72%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4001,
-        "discount": 1,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_1",
-            "name": {
-              "zh-CN": "赤铜装备原件",
-              "en": "Cuprium Component",
-              "ja": "赤銅装備部品",
-              "zh-TW": "赤銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_1",
-            "rarity": 4,
-            "count": 50
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 16000
-          }
-        ]
-      },
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "name": {
-              "zh-CN": "赫铜装备原件",
-              "en": "Hetonite Component",
-              "ja": "緋銅装備部品",
-              "zh-TW": "赫銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4,
-            "count": 10
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 16000
-          }
-        ]
-      },
-      {
-        "chainId": 4003,
-        "discount": 0.01,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "name": {
-              "zh-CN": "灼铜装备原件",
-              "en": "Pyrrolite Component",
-              "ja": "焔銅装備部品",
-              "zh-TW": "灼銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4,
-            "count": 5
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 160
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_suit_phy01_edc_02": {
+  "item_equip_t4_suit_expend_spell01_edc_02": {
     "stats": [
       {
         "attributeId": "3",
@@ -11677,42 +12409,42 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
         "maxLevelLabel": "+3"
       },
       {
-        "attributeId": "39",
+        "attributeId": "42",
         "levelOne": "32",
         "maxLevel": "41",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
-        "attributeId": "42",
+        "attributeId": "41",
         "levelOne": "21",
         "maxLevel": "27",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
-        "attributeId": "50",
-        "levelOne": "23%",
-        "maxLevel": "29.9%",
+        "attributeId": "32",
+        "levelOne": "41.4%",
+        "maxLevel": "53.82%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
     ],
     "craftingRecipes": [
       {
-        "chainId": 4001,
+        "chainId": 4002,
         "discount": 1,
         "isDefault": true,
         "materials": [
           {
-            "itemId": "item_equip_script_4_1",
+            "itemId": "item_equip_script_4_2",
             "name": {
-              "zh-CN": "赤铜装备原件",
-              "en": "Cuprium Component",
-              "ja": "赤銅装備部品",
-              "zh-TW": "赤銅裝備原件"
+              "zh-CN": "赫铜装备原件",
+              "en": "Hetonite Component",
+              "ja": "緋銅装備部品",
+              "zh-TW": "赫銅裝備原件"
             },
-            "iconId": "item_equip_script_4_1",
+            "iconId": "item_equip_script_4_2",
             "rarity": 4,
             "count": 50
           },
@@ -11726,38 +12458,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
             },
             "iconId": "item_domain_jinlong_coupon",
             "rarity": 5,
-            "count": 16000
-          }
-        ]
-      },
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "name": {
-              "zh-CN": "赫铜装备原件",
-              "en": "Hetonite Component",
-              "ja": "緋銅装備部品",
-              "zh-TW": "赫銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4,
-            "count": 10
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 16000
+            "count": 25000
           }
         ]
       },
@@ -11776,7 +12477,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
             },
             "iconId": "item_equip_script_4_3",
             "rarity": 4,
-            "count": 5
+            "count": 25
           },
           {
             "itemId": "item_domain_jinlong_coupon",
@@ -11788,7 +12489,481 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
             },
             "iconId": "item_domain_jinlong_coupon",
             "rarity": 5,
-            "count": 160
+            "count": 250
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_parts_wuling00_hand_03": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "36",
+        "maxLevel": "36",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "Sub",
+        "levelOne": "55",
+        "maxLevel": "71",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "Main",
+        "levelOne": "37",
+        "maxLevel": "48",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "Sub",
+        "levelOne": "14.75127085%",
+        "maxLevel": "19.176652%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4000,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4",
+            "name": {
+              "zh-CN": "息壤装备原件",
+              "en": "Xiranite Component",
+              "ja": "息壌装備部品",
+              "zh-TW": "息壤裝備原件"
+            },
+            "iconId": "item_equip_script_4",
+            "rarity": 4,
+            "count": 20
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 3000
+          }
+        ]
+      },
+      {
+        "chainId": 4001,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_1",
+            "name": {
+              "zh-CN": "赤铜装备原件",
+              "en": "Cuprium Component",
+              "ja": "赤銅装備部品",
+              "zh-TW": "赤銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_1",
+            "rarity": 4,
+            "count": 20
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 3000
+          }
+        ]
+      },
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "name": {
+              "zh-CN": "赫铜装备原件",
+              "en": "Hetonite Component",
+              "ja": "緋銅装備部品",
+              "zh-TW": "赫銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4,
+            "count": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 3000
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.01,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "name": {
+              "zh-CN": "灼铜装备原件",
+              "en": "Pyrrolite Component",
+              "ja": "焔銅装備部品",
+              "zh-TW": "灼銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4,
+            "count": 2
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 30
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_parts_wuling00_hand_04": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "36",
+        "maxLevel": "36",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "Main",
+        "levelOne": "55",
+        "maxLevel": "71",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "Sub",
+        "levelOne": "37",
+        "maxLevel": "48",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "87",
+        "levelOne": "29.5",
+        "maxLevel": "38.35",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4000,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4",
+            "name": {
+              "zh-CN": "息壤装备原件",
+              "en": "Xiranite Component",
+              "ja": "息壌装備部品",
+              "zh-TW": "息壤裝備原件"
+            },
+            "iconId": "item_equip_script_4",
+            "rarity": 4,
+            "count": 20
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 3000
+          }
+        ]
+      },
+      {
+        "chainId": 4001,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_1",
+            "name": {
+              "zh-CN": "赤铜装备原件",
+              "en": "Cuprium Component",
+              "ja": "赤銅装備部品",
+              "zh-TW": "赤銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_1",
+            "rarity": 4,
+            "count": 20
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 3000
+          }
+        ]
+      },
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "name": {
+              "zh-CN": "赫铜装备原件",
+              "en": "Hetonite Component",
+              "ja": "緋銅装備部品",
+              "zh-TW": "赫銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4,
+            "count": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 3000
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.01,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "name": {
+              "zh-CN": "灼铜装备原件",
+              "en": "Pyrrolite Component",
+              "ja": "焔銅装備部品",
+              "zh-TW": "灼銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4,
+            "count": 2
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 30
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_parts_wuling00_hand_05": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "36",
+        "maxLevel": "36",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "Main",
+        "levelOne": "55",
+        "maxLevel": "71",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "Sub",
+        "levelOne": "37",
+        "maxLevel": "48",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "29",
+        "levelOne": "14.75%",
+        "maxLevel": "19.175%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4000,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4",
+            "name": {
+              "zh-CN": "息壤装备原件",
+              "en": "Xiranite Component",
+              "ja": "息壌装備部品",
+              "zh-TW": "息壤裝備原件"
+            },
+            "iconId": "item_equip_script_4",
+            "rarity": 4,
+            "count": 20
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 3000
+          }
+        ]
+      },
+      {
+        "chainId": 4001,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_1",
+            "name": {
+              "zh-CN": "赤铜装备原件",
+              "en": "Cuprium Component",
+              "ja": "赤銅装備部品",
+              "zh-TW": "赤銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_1",
+            "rarity": 4,
+            "count": 20
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 3000
+          }
+        ]
+      },
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "name": {
+              "zh-CN": "赫铜装备原件",
+              "en": "Hetonite Component",
+              "ja": "緋銅装備部品",
+              "zh-TW": "赫銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4,
+            "count": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 3000
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.01,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "name": {
+              "zh-CN": "灼铜装备原件",
+              "en": "Pyrrolite Component",
+              "ja": "焔銅装備部品",
+              "zh-TW": "灼銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4,
+            "count": 2
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 30
           }
         ]
       }
@@ -11814,466 +12989,6 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
         "attributeId": "AllDamageTakenScalar",
         "levelOne": "17.76315789%",
         "maxLevel": "21.9238%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4000,
-        "discount": 1,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4",
-            "name": {
-              "zh-CN": "息壤装备原件",
-              "en": "Xiranite Component",
-              "ja": "息壌装備部品",
-              "zh-TW": "息壤裝備原件"
-            },
-            "iconId": "item_equip_script_4",
-            "rarity": 4,
-            "count": 50
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 8000
-          }
-        ]
-      },
-      {
-        "chainId": 4001,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_1",
-            "name": {
-              "zh-CN": "赤铜装备原件",
-              "en": "Cuprium Component",
-              "ja": "赤銅装備部品",
-              "zh-TW": "赤銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_1",
-            "rarity": 4,
-            "count": 50
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 8000
-          }
-        ]
-      },
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "name": {
-              "zh-CN": "赫铜装备原件",
-              "en": "Hetonite Component",
-              "ja": "緋銅装備部品",
-              "zh-TW": "赫銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4,
-            "count": 10
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 8000
-          }
-        ]
-      },
-      {
-        "chainId": 4003,
-        "discount": 0.01,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "name": {
-              "zh-CN": "灼铜装备原件",
-              "en": "Pyrrolite Component",
-              "ja": "焔銅装備部品",
-              "zh-TW": "灼銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4,
-            "count": 5
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 80
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_parts_wuling01_edc_02": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "21",
-        "maxLevel": "21",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "40",
-        "levelOne": "43",
-        "maxLevel": "55",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "33",
-        "levelOne": "43.2%",
-        "maxLevel": "56.16%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4000,
-        "discount": 1,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4",
-            "name": {
-              "zh-CN": "息壤装备原件",
-              "en": "Xiranite Component",
-              "ja": "息壌装備部品",
-              "zh-TW": "息壤裝備原件"
-            },
-            "iconId": "item_equip_script_4",
-            "rarity": 4,
-            "count": 50
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 8000
-          }
-        ]
-      },
-      {
-        "chainId": 4001,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_1",
-            "name": {
-              "zh-CN": "赤铜装备原件",
-              "en": "Cuprium Component",
-              "ja": "赤銅装備部品",
-              "zh-TW": "赤銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_1",
-            "rarity": 4,
-            "count": 50
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 8000
-          }
-        ]
-      },
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "name": {
-              "zh-CN": "赫铜装备原件",
-              "en": "Hetonite Component",
-              "ja": "緋銅装備部品",
-              "zh-TW": "赫銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4,
-            "count": 10
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 8000
-          }
-        ]
-      },
-      {
-        "chainId": 4003,
-        "discount": 0.01,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "name": {
-              "zh-CN": "灼铜装备原件",
-              "en": "Pyrrolite Component",
-              "ja": "焔銅装備部品",
-              "zh-TW": "灼銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4,
-            "count": 5
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 80
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_suit_heal01_hand_01": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "42",
-        "maxLevel": "42",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "39",
-        "levelOne": "65",
-        "maxLevel": "84",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "42",
-        "levelOne": "43",
-        "maxLevel": "55",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "44",
-        "levelOne": "20.53571429%",
-        "maxLevel": "26.69643%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4000,
-        "discount": 1,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4",
-            "name": {
-              "zh-CN": "息壤装备原件",
-              "en": "Xiranite Component",
-              "ja": "息壌装備部品",
-              "zh-TW": "息壤裝備原件"
-            },
-            "iconId": "item_equip_script_4",
-            "rarity": 4,
-            "count": 50
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 8000
-          }
-        ]
-      },
-      {
-        "chainId": 4001,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_1",
-            "name": {
-              "zh-CN": "赤铜装备原件",
-              "en": "Cuprium Component",
-              "ja": "赤銅装備部品",
-              "zh-TW": "赤銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_1",
-            "rarity": 4,
-            "count": 50
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 8000
-          }
-        ]
-      },
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "name": {
-              "zh-CN": "赫铜装备原件",
-              "en": "Hetonite Component",
-              "ja": "緋銅装備部品",
-              "zh-TW": "赫銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4,
-            "count": 10
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 8000
-          }
-        ]
-      },
-      {
-        "chainId": 4003,
-        "discount": 0.01,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "name": {
-              "zh-CN": "灼铜装备原件",
-              "en": "Pyrrolite Component",
-              "ja": "焔銅装備部品",
-              "zh-TW": "灼銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4,
-            "count": 5
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 80
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_parts_wuling01_edc_03": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "21",
-        "maxLevel": "21",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "41",
-        "levelOne": "43",
-        "maxLevel": "55",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "44",
-        "levelOne": "25.71428571%",
-        "maxLevel": "33.42857%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -12556,7 +13271,127 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       }
     ]
   },
-  "item_equip_t4_suit_attri01_body_03": {
+  "item_equip_t4_parts_wuling01_hand_01": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "42",
+        "maxLevel": "42",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "40",
+        "levelOne": "86",
+        "maxLevel": "111",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "28",
+        "levelOne": "45%",
+        "maxLevel": "58.5%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4001,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_1",
+            "name": {
+              "zh-CN": "赤铜装备原件",
+              "en": "Cuprium Component",
+              "ja": "赤銅装備部品",
+              "zh-TW": "赤銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_1",
+            "rarity": 4,
+            "count": 50
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 16000
+          }
+        ]
+      },
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "name": {
+              "zh-CN": "赫铜装备原件",
+              "en": "Hetonite Component",
+              "ja": "緋銅装備部品",
+              "zh-TW": "赫銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4,
+            "count": 10
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 16000
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.01,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "name": {
+              "zh-CN": "灼铜装备原件",
+              "en": "Pyrrolite Component",
+              "ja": "焔銅装備部品",
+              "zh-TW": "灼銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4,
+            "count": 5
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 160
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_combo_cd01_body_01": {
     "stats": [
       {
         "attributeId": "3",
@@ -12566,7 +13401,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
         "maxLevelLabel": "+3"
       },
       {
-        "attributeId": "42",
+        "attributeId": "40",
         "levelOne": "87",
         "maxLevel": "113",
         "levelOneLabel": "+0",
@@ -12580,7 +13415,1152 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
         "maxLevelLabel": "+3"
       },
       {
-        "attributeId": "33",
+        "attributeId": "44",
+        "levelOne": "12.32142857%",
+        "maxLevel": "16.017857%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "name": {
+              "zh-CN": "赫铜装备原件",
+              "en": "Hetonite Component",
+              "ja": "緋銅装備部品",
+              "zh-TW": "赫銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4,
+            "count": 50
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 25000
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.01,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "name": {
+              "zh-CN": "灼铜装备原件",
+              "en": "Pyrrolite Component",
+              "ja": "焔銅装備部品",
+              "zh-TW": "灼銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4,
+            "count": 25
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 250
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_parts_wuling01_hand_02": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "42",
+        "maxLevel": "42",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "39",
+        "levelOne": "86",
+        "maxLevel": "111",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "AllSkillDamageIncrease",
+        "levelOne": "24%",
+        "maxLevel": "31.2%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4001,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_1",
+            "name": {
+              "zh-CN": "赤铜装备原件",
+              "en": "Cuprium Component",
+              "ja": "赤銅装備部品",
+              "zh-TW": "赤銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_1",
+            "rarity": 4,
+            "count": 50
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 16000
+          }
+        ]
+      },
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "name": {
+              "zh-CN": "赫铜装备原件",
+              "en": "Hetonite Component",
+              "ja": "緋銅装備部品",
+              "zh-TW": "赫銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4,
+            "count": 10
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 16000
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.01,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "name": {
+              "zh-CN": "灼铜装备原件",
+              "en": "Pyrrolite Component",
+              "ja": "焔銅装備部品",
+              "zh-TW": "灼銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4,
+            "count": 5
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 160
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_phy01_hand_02": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "42",
+        "maxLevel": "42",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "40",
+        "levelOne": "65",
+        "maxLevel": "84",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "39",
+        "levelOne": "43",
+        "maxLevel": "55",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "28",
+        "levelOne": "43.125%",
+        "maxLevel": "56.0625%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4000,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4",
+            "name": {
+              "zh-CN": "息壤装备原件",
+              "en": "Xiranite Component",
+              "ja": "息壌装備部品",
+              "zh-TW": "息壤裝備原件"
+            },
+            "iconId": "item_equip_script_4",
+            "rarity": 4,
+            "count": 50
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 8000
+          }
+        ]
+      },
+      {
+        "chainId": 4001,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_1",
+            "name": {
+              "zh-CN": "赤铜装备原件",
+              "en": "Cuprium Component",
+              "ja": "赤銅装備部品",
+              "zh-TW": "赤銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_1",
+            "rarity": 4,
+            "count": 50
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 8000
+          }
+        ]
+      },
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "name": {
+              "zh-CN": "赫铜装备原件",
+              "en": "Hetonite Component",
+              "ja": "緋銅装備部品",
+              "zh-TW": "赫銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4,
+            "count": 10
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 8000
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.01,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "name": {
+              "zh-CN": "灼铜装备原件",
+              "en": "Pyrrolite Component",
+              "ja": "焔銅装備部品",
+              "zh-TW": "灼銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4,
+            "count": 5
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 80
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_parts_wuling02_body_01": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "56",
+        "maxLevel": "56",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "39",
+        "levelOne": "115",
+        "maxLevel": "149",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "87",
+        "levelOne": "21.6",
+        "maxLevel": "28.08",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4003,
+        "discount": 0.01,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "name": {
+              "zh-CN": "灼铜装备原件",
+              "en": "Pyrrolite Component",
+              "ja": "焔銅装備部品",
+              "zh-TW": "灼銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4,
+            "count": 50
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 360
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_fire_natr01_hand_04": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "42",
+        "maxLevel": "42",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "41",
+        "levelOne": "65",
+        "maxLevel": "84",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "42",
+        "levelOne": "43",
+        "maxLevel": "55",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "FireAndNaturalDamageIncrease",
+        "levelOne": "19.16666667%",
+        "maxLevel": "24.916667%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4003,
+        "discount": 0.01,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "name": {
+              "zh-CN": "灼铜装备原件",
+              "en": "Pyrrolite Component",
+              "ja": "焔銅装備部品",
+              "zh-TW": "灼銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4,
+            "count": 50
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 360
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_parts_wuling02_body_02": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "56",
+        "maxLevel": "56",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "42",
+        "levelOne": "115",
+        "maxLevel": "149",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "29",
+        "levelOne": "10.8%",
+        "maxLevel": "14.04%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4003,
+        "discount": 0.01,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "name": {
+              "zh-CN": "灼铜装备原件",
+              "en": "Pyrrolite Component",
+              "ja": "焔銅装備部品",
+              "zh-TW": "灼銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4,
+            "count": 50
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 360
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_fire_natr01_hand_03": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "42",
+        "maxLevel": "42",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "42",
+        "levelOne": "65",
+        "maxLevel": "84",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "41",
+        "levelOne": "43",
+        "maxLevel": "55",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "FireAndNaturalDamageIncrease",
+        "levelOne": "19.16666667%",
+        "maxLevel": "24.916667%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4000,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4",
+            "name": {
+              "zh-CN": "息壤装备原件",
+              "en": "Xiranite Component",
+              "ja": "息壌装備部品",
+              "zh-TW": "息壤裝備原件"
+            },
+            "iconId": "item_equip_script_4",
+            "rarity": 4,
+            "count": 50
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 8000
+          }
+        ]
+      },
+      {
+        "chainId": 4001,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_1",
+            "name": {
+              "zh-CN": "赤铜装备原件",
+              "en": "Cuprium Component",
+              "ja": "赤銅装備部品",
+              "zh-TW": "赤銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_1",
+            "rarity": 4,
+            "count": 50
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 8000
+          }
+        ]
+      },
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "name": {
+              "zh-CN": "赫铜装备原件",
+              "en": "Hetonite Component",
+              "ja": "緋銅装備部品",
+              "zh-TW": "赫銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4,
+            "count": 10
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 8000
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.01,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "name": {
+              "zh-CN": "灼铜装备原件",
+              "en": "Pyrrolite Component",
+              "ja": "焔銅装備部品",
+              "zh-TW": "灼銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4,
+            "count": 5
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 80
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_usp02_hand_02": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "42",
+        "maxLevel": "42",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "41",
+        "levelOne": "65",
+        "maxLevel": "84",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "42",
+        "levelOne": "43",
+        "maxLevel": "55",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "44",
+        "levelOne": "20.53571429%",
+        "maxLevel": "26.69643%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4000,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4",
+            "name": {
+              "zh-CN": "息壤装备原件",
+              "en": "Xiranite Component",
+              "ja": "息壌装備部品",
+              "zh-TW": "息壤裝備原件"
+            },
+            "iconId": "item_equip_script_4",
+            "rarity": 4,
+            "count": 50
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 8000
+          }
+        ]
+      },
+      {
+        "chainId": 4001,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_1",
+            "name": {
+              "zh-CN": "赤铜装备原件",
+              "en": "Cuprium Component",
+              "ja": "赤銅装備部品",
+              "zh-TW": "赤銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_1",
+            "rarity": 4,
+            "count": 50
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 8000
+          }
+        ]
+      },
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "name": {
+              "zh-CN": "赫铜装备原件",
+              "en": "Hetonite Component",
+              "ja": "緋銅装備部品",
+              "zh-TW": "赫銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4,
+            "count": 10
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 8000
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.01,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "name": {
+              "zh-CN": "灼铜装备原件",
+              "en": "Pyrrolite Component",
+              "ja": "焔銅装備部品",
+              "zh-TW": "灼銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4,
+            "count": 5
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 80
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_parts_wuling02_edc_01": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "21",
+        "maxLevel": "21",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "40",
+        "levelOne": "43",
+        "maxLevel": "55",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "Sub",
+        "levelOne": "21.60186104%",
+        "maxLevel": "28.082418%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4003,
+        "discount": 0.01,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "name": {
+              "zh-CN": "灼铜装备原件",
+              "en": "Pyrrolite Component",
+              "ja": "焔銅装備部品",
+              "zh-TW": "灼銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4,
+            "count": 50
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 360
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_parts_wuling02_hand_01": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "42",
+        "maxLevel": "42",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "41",
+        "levelOne": "86",
+        "maxLevel": "111",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "44",
+        "levelOne": "21.42857143%",
+        "maxLevel": "27.857143%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4003,
+        "discount": 0.01,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "name": {
+              "zh-CN": "灼铜装备原件",
+              "en": "Pyrrolite Component",
+              "ja": "焔銅装備部品",
+              "zh-TW": "灼銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4,
+            "count": 50
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 360
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_atb01_body_01": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "56",
+        "maxLevel": "56",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "39",
+        "levelOne": "87",
+        "maxLevel": "113",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "41",
+        "levelOne": "58",
+        "maxLevel": "75",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "28",
+        "levelOne": "25.875%",
+        "maxLevel": "33.6375%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4000,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4",
+            "name": {
+              "zh-CN": "息壤装备原件",
+              "en": "Xiranite Component",
+              "ja": "息壌装備部品",
+              "zh-TW": "息壤裝備原件"
+            },
+            "iconId": "item_equip_script_4",
+            "rarity": 4,
+            "count": 50
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 8000
+          }
+        ]
+      },
+      {
+        "chainId": 4001,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_1",
+            "name": {
+              "zh-CN": "赤铜装备原件",
+              "en": "Cuprium Component",
+              "ja": "赤銅装備部品",
+              "zh-TW": "赤銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_1",
+            "rarity": 4,
+            "count": 50
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 8000
+          }
+        ]
+      },
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "name": {
+              "zh-CN": "赫铜装备原件",
+              "en": "Hetonite Component",
+              "ja": "緋銅装備部品",
+              "zh-TW": "赫銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4,
+            "count": 10
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 8000
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.01,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "name": {
+              "zh-CN": "灼铜装备原件",
+              "en": "Pyrrolite Component",
+              "ja": "焔銅装備部品",
+              "zh-TW": "灼銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4,
+            "count": 5
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 80
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_atb01_body_03": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "56",
+        "maxLevel": "56",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "40",
+        "levelOne": "87",
+        "maxLevel": "113",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "41",
+        "levelOne": "58",
+        "maxLevel": "75",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "32",
         "levelOne": "20.7%",
         "maxLevel": "26.91%",
         "levelOneLabel": "+0",
@@ -12714,160 +14694,33 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       }
     ]
   },
-  "item_equip_t4_suit_attri01_hand_01": {
+  "item_equip_t4_suit_atk02_edc_05": {
     "stats": [
       {
         "attributeId": "3",
-        "levelOne": "42",
-        "maxLevel": "42",
+        "levelOne": "21",
+        "maxLevel": "21",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "41",
+        "levelOne": "32",
+        "maxLevel": "41",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
         "attributeId": "39",
-        "levelOne": "65",
-        "maxLevel": "84",
+        "levelOne": "21",
+        "maxLevel": "27",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
-        "attributeId": "40",
-        "levelOne": "43",
-        "maxLevel": "55",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "FireAndNaturalDamageIncrease",
-        "levelOne": "19.16666667%",
-        "maxLevel": "24.916667%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4001,
-        "discount": 1,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_1",
-            "name": {
-              "zh-CN": "赤铜装备原件",
-              "en": "Cuprium Component",
-              "ja": "赤銅装備部品",
-              "zh-TW": "赤銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_1",
-            "rarity": 4,
-            "count": 50
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 16000
-          }
-        ]
-      },
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "name": {
-              "zh-CN": "赫铜装备原件",
-              "en": "Hetonite Component",
-              "ja": "緋銅装備部品",
-              "zh-TW": "赫銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4,
-            "count": 10
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 16000
-          }
-        ]
-      },
-      {
-        "chainId": 4003,
-        "discount": 0.01,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "name": {
-              "zh-CN": "灼铜装备原件",
-              "en": "Pyrrolite Component",
-              "ja": "焔銅装備部品",
-              "zh-TW": "灼銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4,
-            "count": 5
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 160
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_suit_poise01_hand_01": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "42",
-        "maxLevel": "42",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "40",
-        "levelOne": "65",
-        "maxLevel": "84",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "39",
-        "levelOne": "43",
-        "maxLevel": "55",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "87",
-        "levelOne": "34.5",
-        "maxLevel": "44.85",
+        "attributeId": "AllSkillDamageIncrease",
+        "levelOne": "27.6%",
+        "maxLevel": "35.88%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -12999,26 +14852,33 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       }
     ]
   },
-  "item_equip_t4_parts_wuling01_hand_01": {
+  "item_equip_t4_suit_phy01_body_01": {
     "stats": [
       {
         "attributeId": "3",
-        "levelOne": "42",
-        "maxLevel": "42",
+        "levelOne": "56",
+        "maxLevel": "56",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
-        "attributeId": "40",
-        "levelOne": "86",
-        "maxLevel": "111",
+        "attributeId": "39",
+        "levelOne": "87",
+        "maxLevel": "113",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
-        "attributeId": "28",
-        "levelOne": "45%",
-        "maxLevel": "58.5%",
+        "attributeId": "42",
+        "levelOne": "58",
+        "maxLevel": "75",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "44",
+        "levelOne": "12.32142857%",
+        "maxLevel": "16.017857%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -13246,184 +15106,33 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       }
     ]
   },
-  "item_equip_t4_suit_usp02_edc_02": {
+  "item_equip_t4_suit_fire_natr01_body_02": {
     "stats": [
       {
         "attributeId": "3",
-        "levelOne": "21",
-        "maxLevel": "21",
+        "levelOne": "56",
+        "maxLevel": "56",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
         "attributeId": "41",
-        "levelOne": "32",
-        "maxLevel": "41",
+        "levelOne": "87",
+        "maxLevel": "113",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
         "attributeId": "42",
-        "levelOne": "21",
-        "maxLevel": "27",
+        "levelOne": "58",
+        "maxLevel": "75",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
-        "attributeId": "29",
-        "levelOne": "20.7%",
-        "maxLevel": "26.91%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4000,
-        "discount": 1,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4",
-            "name": {
-              "zh-CN": "息壤装备原件",
-              "en": "Xiranite Component",
-              "ja": "息壌装備部品",
-              "zh-TW": "息壤裝備原件"
-            },
-            "iconId": "item_equip_script_4",
-            "rarity": 4,
-            "count": 50
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 8000
-          }
-        ]
-      },
-      {
-        "chainId": 4001,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_1",
-            "name": {
-              "zh-CN": "赤铜装备原件",
-              "en": "Cuprium Component",
-              "ja": "赤銅装備部品",
-              "zh-TW": "赤銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_1",
-            "rarity": 4,
-            "count": 50
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 8000
-          }
-        ]
-      },
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "name": {
-              "zh-CN": "赫铜装备原件",
-              "en": "Hetonite Component",
-              "ja": "緋銅装備部品",
-              "zh-TW": "赫銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4,
-            "count": 10
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 8000
-          }
-        ]
-      },
-      {
-        "chainId": 4003,
-        "discount": 0.01,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "name": {
-              "zh-CN": "灼铜装备原件",
-              "en": "Pyrrolite Component",
-              "ja": "焔銅装備部品",
-              "zh-TW": "灼銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4,
-            "count": 5
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 80
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_parts_wuling01_hand_02": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "42",
-        "maxLevel": "42",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "39",
-        "levelOne": "86",
-        "maxLevel": "111",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "AllSkillDamageIncrease",
-        "levelOne": "24%",
-        "maxLevel": "31.2%",
+        "attributeId": "FireAndNaturalDamageIncrease",
+        "levelOne": "11.5%",
+        "maxLevel": "14.95%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -13519,1028 +15228,6 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
             "iconId": "item_domain_jinlong_coupon",
             "rarity": 5,
             "count": 160
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_parts_wuling02_body_01": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "56",
-        "maxLevel": "56",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "39",
-        "levelOne": "115",
-        "maxLevel": "149",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "87",
-        "levelOne": "21.6",
-        "maxLevel": "28.08",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4003,
-        "discount": 0.01,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "name": {
-              "zh-CN": "灼铜装备原件",
-              "en": "Pyrrolite Component",
-              "ja": "焔銅装備部品",
-              "zh-TW": "灼銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4,
-            "count": 50
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 360
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_parts_wuling02_body_02": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "56",
-        "maxLevel": "56",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "42",
-        "levelOne": "115",
-        "maxLevel": "149",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "29",
-        "levelOne": "10.8%",
-        "maxLevel": "14.04%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4003,
-        "discount": 0.01,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "name": {
-              "zh-CN": "灼铜装备原件",
-              "en": "Pyrrolite Component",
-              "ja": "焔銅装備部品",
-              "zh-TW": "灼銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4,
-            "count": 50
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 360
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_suit_atb01_edc_06": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "21",
-        "maxLevel": "21",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "41",
-        "levelOne": "32",
-        "maxLevel": "41",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "40",
-        "levelOne": "21",
-        "maxLevel": "27",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "Sub",
-        "levelOne": "20.7017835%",
-        "maxLevel": "26.91232%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "name": {
-              "zh-CN": "赫铜装备原件",
-              "en": "Hetonite Component",
-              "ja": "緋銅装備部品",
-              "zh-TW": "赫銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4,
-            "count": 50
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 25000
-          }
-        ]
-      },
-      {
-        "chainId": 4003,
-        "discount": 0.01,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "name": {
-              "zh-CN": "灼铜装备原件",
-              "en": "Pyrrolite Component",
-              "ja": "焔銅装備部品",
-              "zh-TW": "灼銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4,
-            "count": 25
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 250
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_parts_wuling02_hand_02": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "42",
-        "maxLevel": "42",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "42",
-        "levelOne": "86",
-        "maxLevel": "111",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "32",
-        "levelOne": "36%",
-        "maxLevel": "46.8%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4003,
-        "discount": 0.01,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "name": {
-              "zh-CN": "灼铜装备原件",
-              "en": "Pyrrolite Component",
-              "ja": "焔銅装備部品",
-              "zh-TW": "灼銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4,
-            "count": 50
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 360
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_suit_atb01_body_01": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "56",
-        "maxLevel": "56",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "39",
-        "levelOne": "87",
-        "maxLevel": "113",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "41",
-        "levelOne": "58",
-        "maxLevel": "75",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "28",
-        "levelOne": "25.875%",
-        "maxLevel": "33.6375%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4000,
-        "discount": 1,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4",
-            "name": {
-              "zh-CN": "息壤装备原件",
-              "en": "Xiranite Component",
-              "ja": "息壌装備部品",
-              "zh-TW": "息壤裝備原件"
-            },
-            "iconId": "item_equip_script_4",
-            "rarity": 4,
-            "count": 50
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 8000
-          }
-        ]
-      },
-      {
-        "chainId": 4001,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_1",
-            "name": {
-              "zh-CN": "赤铜装备原件",
-              "en": "Cuprium Component",
-              "ja": "赤銅装備部品",
-              "zh-TW": "赤銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_1",
-            "rarity": 4,
-            "count": 50
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 8000
-          }
-        ]
-      },
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "name": {
-              "zh-CN": "赫铜装备原件",
-              "en": "Hetonite Component",
-              "ja": "緋銅装備部品",
-              "zh-TW": "赫銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4,
-            "count": 10
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 8000
-          }
-        ]
-      },
-      {
-        "chainId": 4003,
-        "discount": 0.01,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "name": {
-              "zh-CN": "灼铜装备原件",
-              "en": "Pyrrolite Component",
-              "ja": "焔銅装備部品",
-              "zh-TW": "灼銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4,
-            "count": 5
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 80
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_suit_atb01_edc_05": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "21",
-        "maxLevel": "21",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "42",
-        "levelOne": "41",
-        "maxLevel": "53",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "50",
-        "levelOne": "23%",
-        "maxLevel": "29.9%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4001,
-        "discount": 1,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_1",
-            "name": {
-              "zh-CN": "赤铜装备原件",
-              "en": "Cuprium Component",
-              "ja": "赤銅装備部品",
-              "zh-TW": "赤銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_1",
-            "rarity": 4,
-            "count": 50
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 16000
-          }
-        ]
-      },
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "name": {
-              "zh-CN": "赫铜装备原件",
-              "en": "Hetonite Component",
-              "ja": "緋銅装備部品",
-              "zh-TW": "赫銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4,
-            "count": 10
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 16000
-          }
-        ]
-      },
-      {
-        "chainId": 4003,
-        "discount": 0.01,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "name": {
-              "zh-CN": "灼铜装备原件",
-              "en": "Pyrrolite Component",
-              "ja": "焔銅装備部品",
-              "zh-TW": "灼銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4,
-            "count": 5
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 160
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_suit_atb01_body_03": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "56",
-        "maxLevel": "56",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "40",
-        "levelOne": "87",
-        "maxLevel": "113",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "41",
-        "levelOne": "58",
-        "maxLevel": "75",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "32",
-        "levelOne": "20.7%",
-        "maxLevel": "26.91%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4000,
-        "discount": 1,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4",
-            "name": {
-              "zh-CN": "息壤装备原件",
-              "en": "Xiranite Component",
-              "ja": "息壌装備部品",
-              "zh-TW": "息壤裝備原件"
-            },
-            "iconId": "item_equip_script_4",
-            "rarity": 4,
-            "count": 50
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 8000
-          }
-        ]
-      },
-      {
-        "chainId": 4001,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_1",
-            "name": {
-              "zh-CN": "赤铜装备原件",
-              "en": "Cuprium Component",
-              "ja": "赤銅装備部品",
-              "zh-TW": "赤銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_1",
-            "rarity": 4,
-            "count": 50
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 8000
-          }
-        ]
-      },
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "name": {
-              "zh-CN": "赫铜装备原件",
-              "en": "Hetonite Component",
-              "ja": "緋銅装備部品",
-              "zh-TW": "赫銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4,
-            "count": 10
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 8000
-          }
-        ]
-      },
-      {
-        "chainId": 4003,
-        "discount": 0.01,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "name": {
-              "zh-CN": "灼铜装备原件",
-              "en": "Pyrrolite Component",
-              "ja": "焔銅装備部品",
-              "zh-TW": "灼銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4,
-            "count": 5
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 80
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_suit_criti01_edc_05": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "21",
-        "maxLevel": "21",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "42",
-        "levelOne": "32",
-        "maxLevel": "41",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "40",
-        "levelOne": "21",
-        "maxLevel": "27",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "32",
-        "levelOne": "41.4%",
-        "maxLevel": "53.82%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4000,
-        "discount": 1,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4",
-            "name": {
-              "zh-CN": "息壤装备原件",
-              "en": "Xiranite Component",
-              "ja": "息壌装備部品",
-              "zh-TW": "息壤裝備原件"
-            },
-            "iconId": "item_equip_script_4",
-            "rarity": 4,
-            "count": 50
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 8000
-          }
-        ]
-      },
-      {
-        "chainId": 4001,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_1",
-            "name": {
-              "zh-CN": "赤铜装备原件",
-              "en": "Cuprium Component",
-              "ja": "赤銅装備部品",
-              "zh-TW": "赤銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_1",
-            "rarity": 4,
-            "count": 50
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 8000
-          }
-        ]
-      },
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "name": {
-              "zh-CN": "赫铜装备原件",
-              "en": "Hetonite Component",
-              "ja": "緋銅装備部品",
-              "zh-TW": "赫銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4,
-            "count": 10
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 8000
-          }
-        ]
-      },
-      {
-        "chainId": 4003,
-        "discount": 0.01,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "name": {
-              "zh-CN": "灼铜装备原件",
-              "en": "Pyrrolite Component",
-              "ja": "焔銅装備部品",
-              "zh-TW": "灼銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4,
-            "count": 5
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 80
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_suit_atb01_body_04": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "56",
-        "maxLevel": "56",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "40",
-        "levelOne": "87",
-        "maxLevel": "113",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "41",
-        "levelOne": "58",
-        "maxLevel": "75",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "Sub",
-        "levelOne": "10.35089175%",
-        "maxLevel": "13.45616%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4000,
-        "discount": 1,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4",
-            "name": {
-              "zh-CN": "息壤装备原件",
-              "en": "Xiranite Component",
-              "ja": "息壌装備部品",
-              "zh-TW": "息壤裝備原件"
-            },
-            "iconId": "item_equip_script_4",
-            "rarity": 4,
-            "count": 50
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 8000
-          }
-        ]
-      },
-      {
-        "chainId": 4001,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_1",
-            "name": {
-              "zh-CN": "赤铜装备原件",
-              "en": "Cuprium Component",
-              "ja": "赤銅装備部品",
-              "zh-TW": "赤銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_1",
-            "rarity": 4,
-            "count": 50
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 8000
-          }
-        ]
-      },
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "name": {
-              "zh-CN": "赫铜装备原件",
-              "en": "Hetonite Component",
-              "ja": "緋銅装備部品",
-              "zh-TW": "赫銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4,
-            "count": 10
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 8000
-          }
-        ]
-      },
-      {
-        "chainId": 4003,
-        "discount": 0.01,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "name": {
-              "zh-CN": "灼铜装备原件",
-              "en": "Pyrrolite Component",
-              "ja": "焔銅装備部品",
-              "zh-TW": "灼銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4,
-            "count": 5
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 80
           }
         ]
       }
@@ -14862,131 +15549,35 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       }
     ]
   },
-  "item_equip_t4_suit_usp02_body_03": {
+  "item_equip_t4_suit_atb01_edc_05": {
     "stats": [
       {
         "attributeId": "3",
-        "levelOne": "56",
-        "maxLevel": "56",
+        "levelOne": "21",
+        "maxLevel": "21",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
         "attributeId": "42",
-        "levelOne": "110",
-        "maxLevel": "143",
+        "levelOne": "41",
+        "maxLevel": "53",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
-        "attributeId": "44",
-        "levelOne": "12.32142857%",
-        "maxLevel": "16.017857%",
+        "attributeId": "50",
+        "levelOne": "23%",
+        "maxLevel": "29.9%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
     ],
     "craftingRecipes": [
-      {
-        "chainId": 4003,
-        "discount": 0.01,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "name": {
-              "zh-CN": "灼铜装备原件",
-              "en": "Pyrrolite Component",
-              "ja": "焔銅装備部品",
-              "zh-TW": "灼銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4,
-            "count": 50
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 360
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_suit_atb01_hand_01": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "42",
-        "maxLevel": "42",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "40",
-        "levelOne": "65",
-        "maxLevel": "84",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "41",
-        "levelOne": "43",
-        "maxLevel": "55",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "32",
-        "levelOne": "34.5%",
-        "maxLevel": "44.85%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4000,
-        "discount": 1,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4",
-            "name": {
-              "zh-CN": "息壤装备原件",
-              "en": "Xiranite Component",
-              "ja": "息壌装備部品",
-              "zh-TW": "息壤裝備原件"
-            },
-            "iconId": "item_equip_script_4",
-            "rarity": 4,
-            "count": 50
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 8000
-          }
-        ]
-      },
       {
         "chainId": 4001,
         "discount": 1,
-        "isDefault": false,
+        "isDefault": true,
         "materials": [
           {
             "itemId": "item_equip_script_4_1",
@@ -15010,7 +15601,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
             },
             "iconId": "item_domain_jinlong_coupon",
             "rarity": 5,
-            "count": 8000
+            "count": 16000
           }
         ]
       },
@@ -15041,7 +15632,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
             },
             "iconId": "item_domain_jinlong_coupon",
             "rarity": 5,
-            "count": 8000
+            "count": 16000
           }
         ]
       },
@@ -15072,13 +15663,13 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
             },
             "iconId": "item_domain_jinlong_coupon",
             "rarity": 5,
-            "count": 80
+            "count": 160
           }
         ]
       }
     ]
   },
-  "item_equip_t4_suit_heal01_edc_02": {
+  "item_equip_t4_suit_poise01_edc_04": {
     "stats": [
       {
         "attributeId": "3",
@@ -15089,13 +15680,20 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "attributeId": "39",
-        "levelOne": "41",
-        "maxLevel": "53",
+        "levelOne": "32",
+        "maxLevel": "41",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
-        "attributeId": "1",
+        "attributeId": "40",
+        "levelOne": "21",
+        "maxLevel": "27",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "32",
         "levelOne": "41.4%",
         "maxLevel": "53.82%",
         "levelOneLabel": "+0",
@@ -15198,7 +15796,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       }
     ]
   },
-  "item_equip_t4_suit_usp02_edc_01": {
+  "item_equip_t4_suit_atb01_edc_06": {
     "stats": [
       {
         "attributeId": "3",
@@ -15215,366 +15813,16 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
         "maxLevelLabel": "+3"
       },
       {
-        "attributeId": "39",
+        "attributeId": "40",
         "levelOne": "21",
         "maxLevel": "27",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
-        "attributeId": "44",
-        "levelOne": "24.64285714%",
-        "maxLevel": "32.035714%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4000,
-        "discount": 1,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4",
-            "name": {
-              "zh-CN": "息壤装备原件",
-              "en": "Xiranite Component",
-              "ja": "息壌装備部品",
-              "zh-TW": "息壤裝備原件"
-            },
-            "iconId": "item_equip_script_4",
-            "rarity": 4,
-            "count": 50
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 8000
-          }
-        ]
-      },
-      {
-        "chainId": 4001,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_1",
-            "name": {
-              "zh-CN": "赤铜装备原件",
-              "en": "Cuprium Component",
-              "ja": "赤銅装備部品",
-              "zh-TW": "赤銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_1",
-            "rarity": 4,
-            "count": 50
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 8000
-          }
-        ]
-      },
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "name": {
-              "zh-CN": "赫铜装备原件",
-              "en": "Hetonite Component",
-              "ja": "緋銅装備部品",
-              "zh-TW": "赫銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4,
-            "count": 10
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 8000
-          }
-        ]
-      },
-      {
-        "chainId": 4003,
-        "discount": 0.01,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "name": {
-              "zh-CN": "灼铜装备原件",
-              "en": "Pyrrolite Component",
-              "ja": "焔銅装備部品",
-              "zh-TW": "灼銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4,
-            "count": 5
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 80
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_suit_atb01_hand_02": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "42",
-        "maxLevel": "42",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "42",
-        "levelOne": "65",
-        "maxLevel": "84",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "39",
-        "levelOne": "43",
-        "maxLevel": "55",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "AllSkillDamageIncrease",
-        "levelOne": "23%",
-        "maxLevel": "29.9%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4001,
-        "discount": 1,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_1",
-            "name": {
-              "zh-CN": "赤铜装备原件",
-              "en": "Cuprium Component",
-              "ja": "赤銅装備部品",
-              "zh-TW": "赤銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_1",
-            "rarity": 4,
-            "count": 50
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 16000
-          }
-        ]
-      },
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "name": {
-              "zh-CN": "赫铜装备原件",
-              "en": "Hetonite Component",
-              "ja": "緋銅装備部品",
-              "zh-TW": "赫銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4,
-            "count": 10
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 16000
-          }
-        ]
-      },
-      {
-        "chainId": 4003,
-        "discount": 0.01,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "name": {
-              "zh-CN": "灼铜装备原件",
-              "en": "Pyrrolite Component",
-              "ja": "焔銅装備部品",
-              "zh-TW": "灼銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4,
-            "count": 5
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 160
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_suit_usp02_body_04": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "56",
-        "maxLevel": "56",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "41",
-        "levelOne": "87",
-        "maxLevel": "113",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "42",
-        "levelOne": "58",
-        "maxLevel": "75",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
         "attributeId": "Sub",
-        "levelOne": "10.35089175%",
-        "maxLevel": "13.45616%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4003,
-        "discount": 0.01,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "name": {
-              "zh-CN": "灼铜装备原件",
-              "en": "Pyrrolite Component",
-              "ja": "焔銅装備部品",
-              "zh-TW": "灼銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4,
-            "count": 50
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 360
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_suit_atb01_hand_03": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "42",
-        "maxLevel": "42",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "41",
-        "levelOne": "65",
-        "maxLevel": "84",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "40",
-        "levelOne": "43",
-        "maxLevel": "55",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "44",
-        "levelOne": "20.53571429%",
-        "maxLevel": "26.69643%",
+        "levelOne": "20.7017835%",
+        "maxLevel": "26.91232%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -15644,7 +15892,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       }
     ]
   },
-  "item_equip_t4_suit_atk02_body_02": {
+  "item_equip_t4_suit_attri01_body_03": {
     "stats": [
       {
         "attributeId": "3",
@@ -15654,7 +15902,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
         "maxLevelLabel": "+3"
       },
       {
-        "attributeId": "40",
+        "attributeId": "42",
         "levelOne": "87",
         "maxLevel": "113",
         "levelOneLabel": "+0",
@@ -15662,133 +15910,6 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "attributeId": "39",
-        "levelOne": "58",
-        "maxLevel": "75",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "44",
-        "levelOne": "12.32142857%",
-        "maxLevel": "16.017857%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4001,
-        "discount": 1,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_1",
-            "name": {
-              "zh-CN": "赤铜装备原件",
-              "en": "Cuprium Component",
-              "ja": "赤銅装備部品",
-              "zh-TW": "赤銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_1",
-            "rarity": 4,
-            "count": 50
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 16000
-          }
-        ]
-      },
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "name": {
-              "zh-CN": "赫铜装备原件",
-              "en": "Hetonite Component",
-              "ja": "緋銅装備部品",
-              "zh-TW": "赫銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4,
-            "count": 10
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 16000
-          }
-        ]
-      },
-      {
-        "chainId": 4003,
-        "discount": 0.01,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "name": {
-              "zh-CN": "灼铜装备原件",
-              "en": "Pyrrolite Component",
-              "ja": "焔銅装備部品",
-              "zh-TW": "灼銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4,
-            "count": 5
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 160
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_suit_atk02_body_03": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "56",
-        "maxLevel": "56",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "40",
-        "levelOne": "87",
-        "maxLevel": "113",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "41",
         "levelOne": "58",
         "maxLevel": "75",
         "levelOneLabel": "+0",
@@ -15804,6 +15925,164 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
     ],
     "craftingRecipes": [
       {
+        "chainId": 4000,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4",
+            "name": {
+              "zh-CN": "息壤装备原件",
+              "en": "Xiranite Component",
+              "ja": "息壌装備部品",
+              "zh-TW": "息壤裝備原件"
+            },
+            "iconId": "item_equip_script_4",
+            "rarity": 4,
+            "count": 50
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 8000
+          }
+        ]
+      },
+      {
+        "chainId": 4001,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_1",
+            "name": {
+              "zh-CN": "赤铜装备原件",
+              "en": "Cuprium Component",
+              "ja": "赤銅装備部品",
+              "zh-TW": "赤銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_1",
+            "rarity": 4,
+            "count": 50
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 8000
+          }
+        ]
+      },
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "name": {
+              "zh-CN": "赫铜装备原件",
+              "en": "Hetonite Component",
+              "ja": "緋銅装備部品",
+              "zh-TW": "赫銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4,
+            "count": 10
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 8000
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.01,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "name": {
+              "zh-CN": "灼铜装备原件",
+              "en": "Pyrrolite Component",
+              "ja": "焔銅装備部品",
+              "zh-TW": "灼銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4,
+            "count": 5
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 80
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_poise01_edc_03": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "21",
+        "maxLevel": "21",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "40",
+        "levelOne": "32",
+        "maxLevel": "41",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "39",
+        "levelOne": "21",
+        "maxLevel": "27",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "50",
+        "levelOne": "23%",
+        "maxLevel": "29.9%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
         "chainId": 4001,
         "discount": 1,
         "isDefault": true,
@@ -15898,419 +16177,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       }
     ]
   },
-  "item_equip_t4_suit_atk02_body_04": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "56",
-        "maxLevel": "56",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "42",
-        "levelOne": "87",
-        "maxLevel": "113",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "39",
-        "levelOne": "58",
-        "maxLevel": "75",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "AllSkillDamageIncrease",
-        "levelOne": "13.8%",
-        "maxLevel": "17.94%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4000,
-        "discount": 1,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4",
-            "name": {
-              "zh-CN": "息壤装备原件",
-              "en": "Xiranite Component",
-              "ja": "息壌装備部品",
-              "zh-TW": "息壤裝備原件"
-            },
-            "iconId": "item_equip_script_4",
-            "rarity": 4,
-            "count": 50
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 8000
-          }
-        ]
-      },
-      {
-        "chainId": 4001,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_1",
-            "name": {
-              "zh-CN": "赤铜装备原件",
-              "en": "Cuprium Component",
-              "ja": "赤銅装備部品",
-              "zh-TW": "赤銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_1",
-            "rarity": 4,
-            "count": 50
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 8000
-          }
-        ]
-      },
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "name": {
-              "zh-CN": "赫铜装备原件",
-              "en": "Hetonite Component",
-              "ja": "緋銅装備部品",
-              "zh-TW": "赫銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4,
-            "count": 10
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 8000
-          }
-        ]
-      },
-      {
-        "chainId": 4003,
-        "discount": 0.01,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "name": {
-              "zh-CN": "灼铜装备原件",
-              "en": "Pyrrolite Component",
-              "ja": "焔銅装備部品",
-              "zh-TW": "灼銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4,
-            "count": 5
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 80
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_suit_combo_cd01_body_02": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "56",
-        "maxLevel": "56",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "41",
-        "levelOne": "87",
-        "maxLevel": "113",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "42",
-        "levelOne": "58",
-        "maxLevel": "75",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "87",
-        "levelOne": "20.7",
-        "maxLevel": "26.91",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "name": {
-              "zh-CN": "赫铜装备原件",
-              "en": "Hetonite Component",
-              "ja": "緋銅装備部品",
-              "zh-TW": "赫銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4,
-            "count": 50
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 25000
-          }
-        ]
-      },
-      {
-        "chainId": 4003,
-        "discount": 0.01,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "name": {
-              "zh-CN": "灼铜装备原件",
-              "en": "Pyrrolite Component",
-              "ja": "焔銅装備部品",
-              "zh-TW": "灼銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4,
-            "count": 25
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 250
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_suit_atk02_edc_01": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "21",
-        "maxLevel": "21",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "39",
-        "levelOne": "32",
-        "maxLevel": "41",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "42",
-        "levelOne": "21",
-        "maxLevel": "27",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "50",
-        "levelOne": "23%",
-        "maxLevel": "29.9%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4000,
-        "discount": 1,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4",
-            "name": {
-              "zh-CN": "息壤装备原件",
-              "en": "Xiranite Component",
-              "ja": "息壌装備部品",
-              "zh-TW": "息壤裝備原件"
-            },
-            "iconId": "item_equip_script_4",
-            "rarity": 4,
-            "count": 50
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 8000
-          }
-        ]
-      },
-      {
-        "chainId": 4001,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_1",
-            "name": {
-              "zh-CN": "赤铜装备原件",
-              "en": "Cuprium Component",
-              "ja": "赤銅装備部品",
-              "zh-TW": "赤銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_1",
-            "rarity": 4,
-            "count": 50
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 8000
-          }
-        ]
-      },
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "name": {
-              "zh-CN": "赫铜装备原件",
-              "en": "Hetonite Component",
-              "ja": "緋銅装備部品",
-              "zh-TW": "赫銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4,
-            "count": 10
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 8000
-          }
-        ]
-      },
-      {
-        "chainId": 4003,
-        "discount": 0.01,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "name": {
-              "zh-CN": "灼铜装备原件",
-              "en": "Pyrrolite Component",
-              "ja": "焔銅装備部品",
-              "zh-TW": "灼銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4,
-            "count": 5
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 80
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_suit_fire_natr01_hand_02": {
+  "item_equip_t4_suit_atb01_hand_01": {
     "stats": [
       {
         "attributeId": "3",
@@ -16320,23 +16187,23 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
         "maxLevelLabel": "+3"
       },
       {
-        "attributeId": "41",
+        "attributeId": "40",
         "levelOne": "65",
         "maxLevel": "84",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
-        "attributeId": "39",
+        "attributeId": "41",
         "levelOne": "43",
         "maxLevel": "55",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
-        "attributeId": "FireAndNaturalDamageIncrease",
-        "levelOne": "19.16666667%",
-        "maxLevel": "24.916667%",
+        "attributeId": "32",
+        "levelOne": "34.5%",
+        "maxLevel": "44.85%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -16595,33 +16462,33 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       }
     ]
   },
-  "item_equip_t4_suit_criti01_hand_01": {
+  "item_equip_t4_suit_atk02_body_01": {
     "stats": [
       {
         "attributeId": "3",
-        "levelOne": "42",
-        "maxLevel": "42",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "40",
-        "levelOne": "65",
-        "maxLevel": "84",
+        "levelOne": "56",
+        "maxLevel": "56",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
         "attributeId": "39",
-        "levelOne": "43",
-        "maxLevel": "55",
+        "levelOne": "87",
+        "maxLevel": "113",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
-        "attributeId": "32",
-        "levelOne": "34.5%",
-        "maxLevel": "44.85%",
+        "attributeId": "42",
+        "levelOne": "58",
+        "maxLevel": "75",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "50",
+        "levelOne": "11.5%",
+        "maxLevel": "14.95%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -16753,7 +16620,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       }
     ]
   },
-  "item_equip_t4_suit_fire_natr01_body_01": {
+  "item_equip_t4_suit_usp02_body_03": {
     "stats": [
       {
         "attributeId": "3",
@@ -16763,23 +16630,208 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
         "maxLevelLabel": "+3"
       },
       {
-        "attributeId": "39",
+        "attributeId": "42",
+        "levelOne": "110",
+        "maxLevel": "143",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "44",
+        "levelOne": "12.32142857%",
+        "maxLevel": "16.017857%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4003,
+        "discount": 0.01,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "name": {
+              "zh-CN": "灼铜装备原件",
+              "en": "Pyrrolite Component",
+              "ja": "焔銅装備部品",
+              "zh-TW": "灼銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4,
+            "count": 50
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 360
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_atk02_body_03": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "56",
+        "maxLevel": "56",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "40",
         "levelOne": "87",
         "maxLevel": "113",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
-        "attributeId": "40",
+        "attributeId": "41",
         "levelOne": "58",
         "maxLevel": "75",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
-        "attributeId": "FireAndNaturalDamageIncrease",
-        "levelOne": "11.5%",
-        "maxLevel": "14.95%",
+        "attributeId": "33",
+        "levelOne": "20.7%",
+        "maxLevel": "26.91%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4001,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_1",
+            "name": {
+              "zh-CN": "赤铜装备原件",
+              "en": "Cuprium Component",
+              "ja": "赤銅装備部品",
+              "zh-TW": "赤銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_1",
+            "rarity": 4,
+            "count": 50
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 16000
+          }
+        ]
+      },
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "name": {
+              "zh-CN": "赫铜装备原件",
+              "en": "Hetonite Component",
+              "ja": "緋銅装備部品",
+              "zh-TW": "赫銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4,
+            "count": 10
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 16000
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.01,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "name": {
+              "zh-CN": "灼铜装备原件",
+              "en": "Pyrrolite Component",
+              "ja": "焔銅装備部品",
+              "zh-TW": "灼銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4,
+            "count": 5
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 160
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_atk02_edc_01": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "21",
+        "maxLevel": "21",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "39",
+        "levelOne": "32",
+        "maxLevel": "41",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "42",
+        "levelOne": "21",
+        "maxLevel": "27",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "50",
+        "levelOne": "23%",
+        "maxLevel": "29.9%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -17038,6 +17090,164 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       }
     ]
   },
+  "item_equip_t4_suit_atk02_edc_04": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "21",
+        "maxLevel": "21",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "42",
+        "levelOne": "32",
+        "maxLevel": "41",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "40",
+        "levelOne": "21",
+        "maxLevel": "27",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "33",
+        "levelOne": "41.4%",
+        "maxLevel": "53.82%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4000,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4",
+            "name": {
+              "zh-CN": "息壤装备原件",
+              "en": "Xiranite Component",
+              "ja": "息壌装備部品",
+              "zh-TW": "息壤裝備原件"
+            },
+            "iconId": "item_equip_script_4",
+            "rarity": 4,
+            "count": 50
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 8000
+          }
+        ]
+      },
+      {
+        "chainId": 4001,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_1",
+            "name": {
+              "zh-CN": "赤铜装备原件",
+              "en": "Cuprium Component",
+              "ja": "赤銅装備部品",
+              "zh-TW": "赤銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_1",
+            "rarity": 4,
+            "count": 50
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 8000
+          }
+        ]
+      },
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "name": {
+              "zh-CN": "赫铜装备原件",
+              "en": "Hetonite Component",
+              "ja": "緋銅装備部品",
+              "zh-TW": "赫銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4,
+            "count": 10
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 8000
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.01,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "name": {
+              "zh-CN": "灼铜装备原件",
+              "en": "Pyrrolite Component",
+              "ja": "焔銅装備部品",
+              "zh-TW": "灼銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4,
+            "count": 5
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 80
+          }
+        ]
+      }
+    ]
+  },
   "item_equip_t4_suit_atk02_hand_01": {
     "stats": [
       {
@@ -17065,6 +17275,164 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
         "attributeId": "33",
         "levelOne": "34.5%",
         "maxLevel": "44.85%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4000,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4",
+            "name": {
+              "zh-CN": "息壤装备原件",
+              "en": "Xiranite Component",
+              "ja": "息壌装備部品",
+              "zh-TW": "息壤裝備原件"
+            },
+            "iconId": "item_equip_script_4",
+            "rarity": 4,
+            "count": 50
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 8000
+          }
+        ]
+      },
+      {
+        "chainId": 4001,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_1",
+            "name": {
+              "zh-CN": "赤铜装备原件",
+              "en": "Cuprium Component",
+              "ja": "赤銅装備部品",
+              "zh-TW": "赤銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_1",
+            "rarity": 4,
+            "count": 50
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 8000
+          }
+        ]
+      },
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "name": {
+              "zh-CN": "赫铜装备原件",
+              "en": "Hetonite Component",
+              "ja": "緋銅装備部品",
+              "zh-TW": "赫銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4,
+            "count": 10
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 8000
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.01,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "name": {
+              "zh-CN": "灼铜装备原件",
+              "en": "Pyrrolite Component",
+              "ja": "焔銅装備部品",
+              "zh-TW": "灼銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4,
+            "count": 5
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 80
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_usp02_edc_02": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "21",
+        "maxLevel": "21",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "41",
+        "levelOne": "32",
+        "maxLevel": "41",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "42",
+        "levelOne": "21",
+        "maxLevel": "27",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "29",
+        "levelOne": "20.7%",
+        "maxLevel": "26.91%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -17354,6 +17722,322 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       }
     ]
   },
+  "item_equip_t4_suit_attri01_body_01": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "56",
+        "maxLevel": "56",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "40",
+        "levelOne": "87",
+        "maxLevel": "113",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "41",
+        "levelOne": "58",
+        "maxLevel": "75",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "44",
+        "levelOne": "12.32142857%",
+        "maxLevel": "16.017857%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4000,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4",
+            "name": {
+              "zh-CN": "息壤装备原件",
+              "en": "Xiranite Component",
+              "ja": "息壌装備部品",
+              "zh-TW": "息壤裝備原件"
+            },
+            "iconId": "item_equip_script_4",
+            "rarity": 4,
+            "count": 50
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 8000
+          }
+        ]
+      },
+      {
+        "chainId": 4001,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_1",
+            "name": {
+              "zh-CN": "赤铜装备原件",
+              "en": "Cuprium Component",
+              "ja": "赤銅装備部品",
+              "zh-TW": "赤銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_1",
+            "rarity": 4,
+            "count": 50
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 8000
+          }
+        ]
+      },
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "name": {
+              "zh-CN": "赫铜装备原件",
+              "en": "Hetonite Component",
+              "ja": "緋銅装備部品",
+              "zh-TW": "赫銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4,
+            "count": 10
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 8000
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.01,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "name": {
+              "zh-CN": "灼铜装备原件",
+              "en": "Pyrrolite Component",
+              "ja": "焔銅装備部品",
+              "zh-TW": "灼銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4,
+            "count": 5
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 80
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_criti01_hand_03": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "42",
+        "maxLevel": "42",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "41",
+        "levelOne": "65",
+        "maxLevel": "84",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "42",
+        "levelOne": "43",
+        "maxLevel": "55",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "9",
+        "levelOne": "8.625%",
+        "maxLevel": "11.2125%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4000,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4",
+            "name": {
+              "zh-CN": "息壤装备原件",
+              "en": "Xiranite Component",
+              "ja": "息壌装備部品",
+              "zh-TW": "息壤裝備原件"
+            },
+            "iconId": "item_equip_script_4",
+            "rarity": 4,
+            "count": 50
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 8000
+          }
+        ]
+      },
+      {
+        "chainId": 4001,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_1",
+            "name": {
+              "zh-CN": "赤铜装备原件",
+              "en": "Cuprium Component",
+              "ja": "赤銅装備部品",
+              "zh-TW": "赤銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_1",
+            "rarity": 4,
+            "count": 50
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 8000
+          }
+        ]
+      },
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "name": {
+              "zh-CN": "赫铜装备原件",
+              "en": "Hetonite Component",
+              "ja": "緋銅装備部品",
+              "zh-TW": "赫銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4,
+            "count": 10
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 8000
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.01,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "name": {
+              "zh-CN": "灼铜装备原件",
+              "en": "Pyrrolite Component",
+              "ja": "焔銅装備部品",
+              "zh-TW": "灼銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4,
+            "count": 5
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 80
+          }
+        ]
+      }
+    ]
+  },
   "item_equip_t4_suit_attri01_body_02": {
     "stats": [
       {
@@ -17507,71 +18191,6 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
             "iconId": "item_domain_jinlong_coupon",
             "rarity": 5,
             "count": 80
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_suit_fire_natr01_hand_04": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "42",
-        "maxLevel": "42",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "41",
-        "levelOne": "65",
-        "maxLevel": "84",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "42",
-        "levelOne": "43",
-        "maxLevel": "55",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "FireAndNaturalDamageIncrease",
-        "levelOne": "19.16666667%",
-        "maxLevel": "24.916667%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4003,
-        "discount": 0.01,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "name": {
-              "zh-CN": "灼铜装备原件",
-              "en": "Pyrrolite Component",
-              "ja": "焔銅装備部品",
-              "zh-TW": "灼銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4,
-            "count": 50
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 360
           }
         ]
       }
@@ -17735,7 +18354,326 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       }
     ]
   },
-  "item_equip_t4_suit_poise01_edc_03": {
+  "item_equip_t4_suit_attri01_body_05": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "56",
+        "maxLevel": "56",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "40",
+        "levelOne": "87",
+        "maxLevel": "113",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "39",
+        "levelOne": "58",
+        "maxLevel": "75",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "CrystAndPulseDamageIncrease",
+        "levelOne": "11.5%",
+        "maxLevel": "14.95%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4001,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_1",
+            "name": {
+              "zh-CN": "赤铜装备原件",
+              "en": "Cuprium Component",
+              "ja": "赤銅装備部品",
+              "zh-TW": "赤銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_1",
+            "rarity": 4,
+            "count": 50
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 16000
+          }
+        ]
+      },
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "name": {
+              "zh-CN": "赫铜装备原件",
+              "en": "Hetonite Component",
+              "ja": "緋銅装備部品",
+              "zh-TW": "赫銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4,
+            "count": 10
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 16000
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.01,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "name": {
+              "zh-CN": "灼铜装备原件",
+              "en": "Pyrrolite Component",
+              "ja": "焔銅装備部品",
+              "zh-TW": "灼銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4,
+            "count": 5
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 160
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_combo_cd01_hand_02": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "42",
+        "maxLevel": "42",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "41",
+        "levelOne": "65",
+        "maxLevel": "84",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "42",
+        "levelOne": "43",
+        "maxLevel": "55",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "44",
+        "levelOne": "20.53571429%",
+        "maxLevel": "26.69643%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "name": {
+              "zh-CN": "赫铜装备原件",
+              "en": "Hetonite Component",
+              "ja": "緋銅装備部品",
+              "zh-TW": "赫銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4,
+            "count": 50
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 25000
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.01,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "name": {
+              "zh-CN": "灼铜装备原件",
+              "en": "Pyrrolite Component",
+              "ja": "焔銅装備部品",
+              "zh-TW": "灼銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4,
+            "count": 25
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 250
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_attri01_edc_02": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "21",
+        "maxLevel": "21",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "42",
+        "levelOne": "32",
+        "maxLevel": "41",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "41",
+        "levelOne": "21",
+        "maxLevel": "27",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "32",
+        "levelOne": "41.4%",
+        "maxLevel": "53.82%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "name": {
+              "zh-CN": "赫铜装备原件",
+              "en": "Hetonite Component",
+              "ja": "緋銅装備部品",
+              "zh-TW": "赫銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4,
+            "count": 50
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 25000
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.01,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "name": {
+              "zh-CN": "灼铜装备原件",
+              "en": "Pyrrolite Component",
+              "ja": "焔銅装備部品",
+              "zh-TW": "灼銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4,
+            "count": 25
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 250
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_attri01_edc_04": {
     "stats": [
       {
         "attributeId": "3",
@@ -17759,9 +18697,325 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
         "maxLevelLabel": "+3"
       },
       {
-        "attributeId": "50",
-        "levelOne": "23%",
-        "maxLevel": "29.9%",
+        "attributeId": "61",
+        "levelOne": "41.4%",
+        "maxLevel": "53.82%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4000,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4",
+            "name": {
+              "zh-CN": "息壤装备原件",
+              "en": "Xiranite Component",
+              "ja": "息壌装備部品",
+              "zh-TW": "息壤裝備原件"
+            },
+            "iconId": "item_equip_script_4",
+            "rarity": 4,
+            "count": 50
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 8000
+          }
+        ]
+      },
+      {
+        "chainId": 4001,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_1",
+            "name": {
+              "zh-CN": "赤铜装备原件",
+              "en": "Cuprium Component",
+              "ja": "赤銅装備部品",
+              "zh-TW": "赤銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_1",
+            "rarity": 4,
+            "count": 50
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 8000
+          }
+        ]
+      },
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "name": {
+              "zh-CN": "赫铜装备原件",
+              "en": "Hetonite Component",
+              "ja": "緋銅装備部品",
+              "zh-TW": "赫銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4,
+            "count": 10
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 8000
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.01,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "name": {
+              "zh-CN": "灼铜装备原件",
+              "en": "Pyrrolite Component",
+              "ja": "焔銅装備部品",
+              "zh-TW": "灼銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4,
+            "count": 5
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 80
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_poise01_hand_01": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "42",
+        "maxLevel": "42",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "40",
+        "levelOne": "65",
+        "maxLevel": "84",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "39",
+        "levelOne": "43",
+        "maxLevel": "55",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "87",
+        "levelOne": "34.5",
+        "maxLevel": "44.85",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4000,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4",
+            "name": {
+              "zh-CN": "息壤装备原件",
+              "en": "Xiranite Component",
+              "ja": "息壌装備部品",
+              "zh-TW": "息壤裝備原件"
+            },
+            "iconId": "item_equip_script_4",
+            "rarity": 4,
+            "count": 50
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 8000
+          }
+        ]
+      },
+      {
+        "chainId": 4001,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_1",
+            "name": {
+              "zh-CN": "赤铜装备原件",
+              "en": "Cuprium Component",
+              "ja": "赤銅装備部品",
+              "zh-TW": "赤銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_1",
+            "rarity": 4,
+            "count": 50
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 8000
+          }
+        ]
+      },
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "name": {
+              "zh-CN": "赫铜装备原件",
+              "en": "Hetonite Component",
+              "ja": "緋銅装備部品",
+              "zh-TW": "赫銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4,
+            "count": 10
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 8000
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.01,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "name": {
+              "zh-CN": "灼铜装备原件",
+              "en": "Pyrrolite Component",
+              "ja": "焔銅装備部品",
+              "zh-TW": "灼銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4,
+            "count": 5
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 80
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_attri01_edc_07": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "21",
+        "maxLevel": "21",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "40",
+        "levelOne": "32",
+        "maxLevel": "41",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "39",
+        "levelOne": "21",
+        "maxLevel": "27",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "32",
+        "levelOne": "41.4%",
+        "maxLevel": "53.82%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -17989,6 +19243,164 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       }
     ]
   },
+  "item_equip_t4_suit_fire_natr01_hand_02": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "42",
+        "maxLevel": "42",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "41",
+        "levelOne": "65",
+        "maxLevel": "84",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "39",
+        "levelOne": "43",
+        "maxLevel": "55",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "FireAndNaturalDamageIncrease",
+        "levelOne": "19.16666667%",
+        "maxLevel": "24.916667%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4000,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4",
+            "name": {
+              "zh-CN": "息壤装备原件",
+              "en": "Xiranite Component",
+              "ja": "息壌装備部品",
+              "zh-TW": "息壤裝備原件"
+            },
+            "iconId": "item_equip_script_4",
+            "rarity": 4,
+            "count": 50
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 8000
+          }
+        ]
+      },
+      {
+        "chainId": 4001,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_1",
+            "name": {
+              "zh-CN": "赤铜装备原件",
+              "en": "Cuprium Component",
+              "ja": "赤銅装備部品",
+              "zh-TW": "赤銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_1",
+            "rarity": 4,
+            "count": 50
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 8000
+          }
+        ]
+      },
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "name": {
+              "zh-CN": "赫铜装备原件",
+              "en": "Hetonite Component",
+              "ja": "緋銅装備部品",
+              "zh-TW": "赫銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4,
+            "count": 10
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 8000
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.01,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "name": {
+              "zh-CN": "灼铜装备原件",
+              "en": "Pyrrolite Component",
+              "ja": "焔銅装備部品",
+              "zh-TW": "灼銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4,
+            "count": 5
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 80
+          }
+        ]
+      }
+    ]
+  },
   "item_equip_t4_suit_attri01_hand_03": {
     "stats": [
       {
@@ -18080,6 +19492,229 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
             "iconId": "item_domain_jinlong_coupon",
             "rarity": 5,
             "count": 250
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_burst01_body_01": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "56",
+        "maxLevel": "56",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "41",
+        "levelOne": "87",
+        "maxLevel": "113",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "39",
+        "levelOne": "58",
+        "maxLevel": "75",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "44",
+        "levelOne": "12.32142857%",
+        "maxLevel": "16.017857%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4000,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4",
+            "name": {
+              "zh-CN": "息壤装备原件",
+              "en": "Xiranite Component",
+              "ja": "息壌装備部品",
+              "zh-TW": "息壤裝備原件"
+            },
+            "iconId": "item_equip_script_4",
+            "rarity": 4,
+            "count": 50
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 8000
+          }
+        ]
+      },
+      {
+        "chainId": 4001,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_1",
+            "name": {
+              "zh-CN": "赤铜装备原件",
+              "en": "Cuprium Component",
+              "ja": "赤銅装備部品",
+              "zh-TW": "赤銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_1",
+            "rarity": 4,
+            "count": 50
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 8000
+          }
+        ]
+      },
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "name": {
+              "zh-CN": "赫铜装备原件",
+              "en": "Hetonite Component",
+              "ja": "緋銅装備部品",
+              "zh-TW": "赫銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4,
+            "count": 10
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 8000
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.01,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "name": {
+              "zh-CN": "灼铜装备原件",
+              "en": "Pyrrolite Component",
+              "ja": "焔銅装備部品",
+              "zh-TW": "灼銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4,
+            "count": 5
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 80
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_burst01_body_03": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "56",
+        "maxLevel": "56",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "39",
+        "levelOne": "87",
+        "maxLevel": "113",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "42",
+        "levelOne": "58",
+        "maxLevel": "75",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "CrystAndPulseDamageIncrease",
+        "levelOne": "11.5%",
+        "maxLevel": "14.95%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4003,
+        "discount": 0.01,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "name": {
+              "zh-CN": "灼铜装备原件",
+              "en": "Pyrrolite Component",
+              "ja": "焔銅装備部品",
+              "zh-TW": "灼銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4,
+            "count": 50
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 360
           }
         ]
       }
@@ -18243,133 +19878,6 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       }
     ]
   },
-  "item_equip_t4_suit_fire_natr01_hand_01": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "42",
-        "maxLevel": "42",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "39",
-        "levelOne": "65",
-        "maxLevel": "84",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "42",
-        "levelOne": "43",
-        "maxLevel": "55",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "87",
-        "levelOne": "34.5",
-        "maxLevel": "44.85",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4001,
-        "discount": 1,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_1",
-            "name": {
-              "zh-CN": "赤铜装备原件",
-              "en": "Cuprium Component",
-              "ja": "赤銅装備部品",
-              "zh-TW": "赤銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_1",
-            "rarity": 4,
-            "count": 50
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 16000
-          }
-        ]
-      },
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "name": {
-              "zh-CN": "赫铜装备原件",
-              "en": "Hetonite Component",
-              "ja": "緋銅装備部品",
-              "zh-TW": "赫銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4,
-            "count": 10
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 16000
-          }
-        ]
-      },
-      {
-        "chainId": 4003,
-        "discount": 0.01,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "name": {
-              "zh-CN": "灼铜装备原件",
-              "en": "Pyrrolite Component",
-              "ja": "焔銅装備部品",
-              "zh-TW": "灼銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4,
-            "count": 5
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 160
-          }
-        ]
-      }
-    ]
-  },
   "item_equip_t4_suit_burst01_edc_02": {
     "stats": [
       {
@@ -18528,7 +20036,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       }
     ]
   },
-  "item_equip_t4_suit_combo_cd01_body_01": {
+  "item_equip_t4_suit_combo_cd01_body_02": {
     "stats": [
       {
         "attributeId": "3",
@@ -18538,23 +20046,23 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
         "maxLevelLabel": "+3"
       },
       {
-        "attributeId": "40",
+        "attributeId": "41",
         "levelOne": "87",
         "maxLevel": "113",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
-        "attributeId": "39",
+        "attributeId": "42",
         "levelOne": "58",
         "maxLevel": "75",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
-        "attributeId": "44",
-        "levelOne": "12.32142857%",
-        "maxLevel": "16.017857%",
+        "attributeId": "87",
+        "levelOne": "20.7",
+        "maxLevel": "26.91",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -18816,7 +20324,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       }
     ]
   },
-  "item_equip_t4_suit_combo_cd01_edc_04": {
+  "item_equip_t4_suit_combo_cd01_edc_03": {
     "stats": [
       {
         "attributeId": "3",
@@ -18826,23 +20334,23 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
         "maxLevelLabel": "+3"
       },
       {
-        "attributeId": "40",
+        "attributeId": "41",
         "levelOne": "32",
         "maxLevel": "41",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
-        "attributeId": "39",
+        "attributeId": "42",
         "levelOne": "21",
         "maxLevel": "27",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
-        "attributeId": "50",
-        "levelOne": "23%",
-        "maxLevel": "29.9%",
+        "attributeId": "87",
+        "levelOne": "41.4",
+        "maxLevel": "53.82",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -18912,52 +20420,45 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       }
     ]
   },
-  "item_equip_t4_suit_combo_cd01_hand_01": {
+  "item_equip_t4_suit_pulse_cryst01_edc_02": {
     "stats": [
       {
         "attributeId": "3",
-        "levelOne": "42",
-        "maxLevel": "42",
+        "levelOne": "21",
+        "maxLevel": "21",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
-        "attributeId": "40",
-        "levelOne": "65",
-        "maxLevel": "84",
+        "attributeId": "41",
+        "levelOne": "41",
+        "maxLevel": "53",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
-        "attributeId": "39",
-        "levelOne": "43",
-        "maxLevel": "55",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "AllSkillDamageIncrease",
-        "levelOne": "23%",
-        "maxLevel": "29.9%",
+        "attributeId": "87",
+        "levelOne": "41.4",
+        "maxLevel": "53.82",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
     ],
     "craftingRecipes": [
       {
-        "chainId": 4002,
+        "chainId": 4000,
         "discount": 1,
         "isDefault": true,
         "materials": [
           {
-            "itemId": "item_equip_script_4_2",
+            "itemId": "item_equip_script_4",
             "name": {
-              "zh-CN": "赫铜装备原件",
-              "en": "Hetonite Component",
-              "ja": "緋銅装備部品",
-              "zh-TW": "赫銅裝備原件"
+              "zh-CN": "息壤装备原件",
+              "en": "Xiranite Component",
+              "ja": "息壌装備部品",
+              "zh-TW": "息壤裝備原件"
             },
-            "iconId": "item_equip_script_4_2",
+            "iconId": "item_equip_script_4",
             "rarity": 4,
             "count": 50
           },
@@ -18971,7 +20472,69 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
             },
             "iconId": "item_domain_jinlong_coupon",
             "rarity": 5,
-            "count": 25000
+            "count": 8000
+          }
+        ]
+      },
+      {
+        "chainId": 4001,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_1",
+            "name": {
+              "zh-CN": "赤铜装备原件",
+              "en": "Cuprium Component",
+              "ja": "赤銅装備部品",
+              "zh-TW": "赤銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_1",
+            "rarity": 4,
+            "count": 50
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 8000
+          }
+        ]
+      },
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "name": {
+              "zh-CN": "赫铜装备原件",
+              "en": "Hetonite Component",
+              "ja": "緋銅装備部品",
+              "zh-TW": "赫銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4,
+            "count": 10
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 8000
           }
         ]
       },
@@ -18990,7 +20553,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
             },
             "iconId": "item_equip_script_4_3",
             "rarity": 4,
-            "count": 25
+            "count": 5
           },
           {
             "itemId": "item_domain_jinlong_coupon",
@@ -19002,7 +20565,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
             },
             "iconId": "item_domain_jinlong_coupon",
             "rarity": 5,
-            "count": 250
+            "count": 80
           }
         ]
       }
@@ -19166,7 +20729,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       }
     ]
   },
-  "item_equip_t4_suit_criti01_body_03": {
+  "item_equip_t4_suit_criti01_body_02": {
     "stats": [
       {
         "attributeId": "3",
@@ -19183,16 +20746,16 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
         "maxLevelLabel": "+3"
       },
       {
-        "attributeId": "42",
+        "attributeId": "40",
         "levelOne": "58",
         "maxLevel": "75",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
-        "attributeId": "9",
-        "levelOne": "5.175%",
-        "maxLevel": "6.7275%",
+        "attributeId": "17",
+        "levelOne": "13.8%",
+        "maxLevel": "17.94%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -19324,261 +20887,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       }
     ]
   },
-  "item_equip_t4_suit_heal01_edc_05": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "21",
-        "maxLevel": "21",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "39",
-        "levelOne": "32",
-        "maxLevel": "41",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "42",
-        "levelOne": "21",
-        "maxLevel": "27",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "1",
-        "levelOne": "41.4%",
-        "maxLevel": "53.82%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4000,
-        "discount": 1,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4",
-            "name": {
-              "zh-CN": "息壤装备原件",
-              "en": "Xiranite Component",
-              "ja": "息壌装備部品",
-              "zh-TW": "息壤裝備原件"
-            },
-            "iconId": "item_equip_script_4",
-            "rarity": 4,
-            "count": 50
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 8000
-          }
-        ]
-      },
-      {
-        "chainId": 4001,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_1",
-            "name": {
-              "zh-CN": "赤铜装备原件",
-              "en": "Cuprium Component",
-              "ja": "赤銅装備部品",
-              "zh-TW": "赤銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_1",
-            "rarity": 4,
-            "count": 50
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 8000
-          }
-        ]
-      },
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "name": {
-              "zh-CN": "赫铜装备原件",
-              "en": "Hetonite Component",
-              "ja": "緋銅装備部品",
-              "zh-TW": "赫銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4,
-            "count": 10
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 8000
-          }
-        ]
-      },
-      {
-        "chainId": 4003,
-        "discount": 0.01,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "name": {
-              "zh-CN": "灼铜装备原件",
-              "en": "Pyrrolite Component",
-              "ja": "焔銅装備部品",
-              "zh-TW": "灼銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4,
-            "count": 5
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 80
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_suit_phy01_edc_04": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "21",
-        "maxLevel": "21",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "40",
-        "levelOne": "32",
-        "maxLevel": "41",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "39",
-        "levelOne": "21",
-        "maxLevel": "27",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "28",
-        "levelOne": "51.75%",
-        "maxLevel": "67.275%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "name": {
-              "zh-CN": "赫铜装备原件",
-              "en": "Hetonite Component",
-              "ja": "緋銅装備部品",
-              "zh-TW": "赫銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4,
-            "count": 50
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 25000
-          }
-        ]
-      },
-      {
-        "chainId": 4003,
-        "discount": 0.01,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "name": {
-              "zh-CN": "灼铜装备原件",
-              "en": "Pyrrolite Component",
-              "ja": "焔銅装備部品",
-              "zh-TW": "灼銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4,
-            "count": 25
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 250
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_suit_criti01_body_06": {
+  "item_equip_t4_suit_criti01_body_04": {
     "stats": [
       {
         "attributeId": "3",
@@ -19588,150 +20897,23 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
         "maxLevelLabel": "+3"
       },
       {
-        "attributeId": "40",
+        "attributeId": "42",
         "levelOne": "87",
         "maxLevel": "113",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
-        "attributeId": "41",
+        "attributeId": "40",
         "levelOne": "58",
         "maxLevel": "75",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
-        "attributeId": "44",
-        "levelOne": "12.32142857%",
-        "maxLevel": "16.017857%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4001,
-        "discount": 1,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_1",
-            "name": {
-              "zh-CN": "赤铜装备原件",
-              "en": "Cuprium Component",
-              "ja": "赤銅装備部品",
-              "zh-TW": "赤銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_1",
-            "rarity": 4,
-            "count": 50
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 16000
-          }
-        ]
-      },
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "name": {
-              "zh-CN": "赫铜装备原件",
-              "en": "Hetonite Component",
-              "ja": "緋銅装備部品",
-              "zh-TW": "赫銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4,
-            "count": 10
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 16000
-          }
-        ]
-      },
-      {
-        "chainId": 4003,
-        "discount": 0.01,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "name": {
-              "zh-CN": "灼铜装备原件",
-              "en": "Pyrrolite Component",
-              "ja": "焔銅装備部品",
-              "zh-TW": "灼銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4,
-            "count": 5
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 160
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_suit_criti01_edc_01": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "21",
-        "maxLevel": "21",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "39",
-        "levelOne": "32",
-        "maxLevel": "41",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "42",
-        "levelOne": "21",
-        "maxLevel": "27",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "CrystAndPulseDamageIncrease",
-        "levelOne": "23%",
-        "maxLevel": "29.9%",
+        "attributeId": "32",
+        "levelOne": "20.7%",
+        "maxLevel": "26.91%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -19858,102 +21040,6 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
             "iconId": "item_domain_jinlong_coupon",
             "rarity": 5,
             "count": 80
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_suit_crush_fracture_body_02": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "56",
-        "maxLevel": "56",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "40",
-        "levelOne": "87",
-        "maxLevel": "113",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "39",
-        "levelOne": "58",
-        "maxLevel": "75",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "87",
-        "levelOne": "20.7",
-        "maxLevel": "26.91",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "name": {
-              "zh-CN": "赫铜装备原件",
-              "en": "Hetonite Component",
-              "ja": "緋銅装備部品",
-              "zh-TW": "赫銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4,
-            "count": 50
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 25000
-          }
-        ]
-      },
-      {
-        "chainId": 4003,
-        "discount": 0.01,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "name": {
-              "zh-CN": "灼铜装备原件",
-              "en": "Pyrrolite Component",
-              "ja": "焔銅装備部品",
-              "zh-TW": "灼銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4,
-            "count": 25
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 250
           }
         ]
       }
@@ -19986,6 +21072,164 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
         "attributeId": "32",
         "levelOne": "41.4%",
         "maxLevel": "53.82%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4000,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4",
+            "name": {
+              "zh-CN": "息壤装备原件",
+              "en": "Xiranite Component",
+              "ja": "息壌装備部品",
+              "zh-TW": "息壤裝備原件"
+            },
+            "iconId": "item_equip_script_4",
+            "rarity": 4,
+            "count": 50
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 8000
+          }
+        ]
+      },
+      {
+        "chainId": 4001,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_1",
+            "name": {
+              "zh-CN": "赤铜装备原件",
+              "en": "Cuprium Component",
+              "ja": "赤銅装備部品",
+              "zh-TW": "赤銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_1",
+            "rarity": 4,
+            "count": 50
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 8000
+          }
+        ]
+      },
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "name": {
+              "zh-CN": "赫铜装备原件",
+              "en": "Hetonite Component",
+              "ja": "緋銅装備部品",
+              "zh-TW": "赫銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4,
+            "count": 10
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 8000
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.01,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "name": {
+              "zh-CN": "灼铜装备原件",
+              "en": "Pyrrolite Component",
+              "ja": "焔銅装備部品",
+              "zh-TW": "灼銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4,
+            "count": 5
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 80
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_criti01_edc_03": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "21",
+        "maxLevel": "21",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "41",
+        "levelOne": "32",
+        "maxLevel": "41",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "40",
+        "levelOne": "21",
+        "maxLevel": "27",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "9",
+        "levelOne": "10.35%",
+        "maxLevel": "13.455%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -20275,52 +21519,52 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       }
     ]
   },
-  "item_equip_t4_suit_crush_fracture_body_01": {
+  "item_equip_t4_suit_phy01_hand_01": {
     "stats": [
       {
         "attributeId": "3",
-        "levelOne": "56",
-        "maxLevel": "56",
+        "levelOne": "42",
+        "maxLevel": "42",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
         "attributeId": "39",
-        "levelOne": "87",
-        "maxLevel": "113",
+        "levelOne": "65",
+        "maxLevel": "84",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
         "attributeId": "42",
-        "levelOne": "58",
-        "maxLevel": "75",
+        "levelOne": "43",
+        "maxLevel": "55",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
         "attributeId": "50",
-        "levelOne": "11.5%",
-        "maxLevel": "14.95%",
+        "levelOne": "19.16666667%",
+        "maxLevel": "24.916667%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
     ],
     "craftingRecipes": [
       {
-        "chainId": 4002,
+        "chainId": 4000,
         "discount": 1,
         "isDefault": true,
         "materials": [
           {
-            "itemId": "item_equip_script_4_2",
+            "itemId": "item_equip_script_4",
             "name": {
-              "zh-CN": "赫铜装备原件",
-              "en": "Hetonite Component",
-              "ja": "緋銅装備部品",
-              "zh-TW": "赫銅裝備原件"
+              "zh-CN": "息壤装备原件",
+              "en": "Xiranite Component",
+              "ja": "息壌装備部品",
+              "zh-TW": "息壤裝備原件"
             },
-            "iconId": "item_equip_script_4_2",
+            "iconId": "item_equip_script_4",
             "rarity": 4,
             "count": 50
           },
@@ -20334,79 +21578,14 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
             },
             "iconId": "item_domain_jinlong_coupon",
             "rarity": 5,
-            "count": 25000
+            "count": 8000
           }
         ]
       },
-      {
-        "chainId": 4003,
-        "discount": 0.01,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "name": {
-              "zh-CN": "灼铜装备原件",
-              "en": "Pyrrolite Component",
-              "ja": "焔銅装備部品",
-              "zh-TW": "灼銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4,
-            "count": 25
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 250
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_suit_criti01_edc_06": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "21",
-        "maxLevel": "21",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "40",
-        "levelOne": "32",
-        "maxLevel": "41",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "41",
-        "levelOne": "21",
-        "maxLevel": "27",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "9",
-        "levelOne": "10.35%",
-        "maxLevel": "13.455%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
       {
         "chainId": 4001,
         "discount": 1,
-        "isDefault": true,
+        "isDefault": false,
         "materials": [
           {
             "itemId": "item_equip_script_4_1",
@@ -20430,7 +21609,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
             },
             "iconId": "item_domain_jinlong_coupon",
             "rarity": 5,
-            "count": 16000
+            "count": 8000
           }
         ]
       },
@@ -20461,7 +21640,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
             },
             "iconId": "item_domain_jinlong_coupon",
             "rarity": 5,
-            "count": 16000
+            "count": 8000
           }
         ]
       },
@@ -20492,7 +21671,323 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
             },
             "iconId": "item_domain_jinlong_coupon",
             "rarity": 5,
-            "count": 160
+            "count": 80
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_criti01_edc_05": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "21",
+        "maxLevel": "21",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "42",
+        "levelOne": "32",
+        "maxLevel": "41",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "40",
+        "levelOne": "21",
+        "maxLevel": "27",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "32",
+        "levelOne": "41.4%",
+        "maxLevel": "53.82%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4000,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4",
+            "name": {
+              "zh-CN": "息壤装备原件",
+              "en": "Xiranite Component",
+              "ja": "息壌装備部品",
+              "zh-TW": "息壤裝備原件"
+            },
+            "iconId": "item_equip_script_4",
+            "rarity": 4,
+            "count": 50
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 8000
+          }
+        ]
+      },
+      {
+        "chainId": 4001,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_1",
+            "name": {
+              "zh-CN": "赤铜装备原件",
+              "en": "Cuprium Component",
+              "ja": "赤銅装備部品",
+              "zh-TW": "赤銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_1",
+            "rarity": 4,
+            "count": 50
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 8000
+          }
+        ]
+      },
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "name": {
+              "zh-CN": "赫铜装备原件",
+              "en": "Hetonite Component",
+              "ja": "緋銅装備部品",
+              "zh-TW": "赫銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4,
+            "count": 10
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 8000
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.01,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "name": {
+              "zh-CN": "灼铜装备原件",
+              "en": "Pyrrolite Component",
+              "ja": "焔銅装備部品",
+              "zh-TW": "灼銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4,
+            "count": 5
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 80
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_criti01_hand_01": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "42",
+        "maxLevel": "42",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "40",
+        "levelOne": "65",
+        "maxLevel": "84",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "39",
+        "levelOne": "43",
+        "maxLevel": "55",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "32",
+        "levelOne": "34.5%",
+        "maxLevel": "44.85%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4000,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4",
+            "name": {
+              "zh-CN": "息壤装备原件",
+              "en": "Xiranite Component",
+              "ja": "息壌装備部品",
+              "zh-TW": "息壤裝備原件"
+            },
+            "iconId": "item_equip_script_4",
+            "rarity": 4,
+            "count": 50
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 8000
+          }
+        ]
+      },
+      {
+        "chainId": 4001,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_1",
+            "name": {
+              "zh-CN": "赤铜装备原件",
+              "en": "Cuprium Component",
+              "ja": "赤銅装備部品",
+              "zh-TW": "赤銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_1",
+            "rarity": 4,
+            "count": 50
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 8000
+          }
+        ]
+      },
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "name": {
+              "zh-CN": "赫铜装备原件",
+              "en": "Hetonite Component",
+              "ja": "緋銅装備部品",
+              "zh-TW": "赫銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4,
+            "count": 10
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 8000
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.01,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "name": {
+              "zh-CN": "灼铜装备原件",
+              "en": "Pyrrolite Component",
+              "ja": "焔銅装備部品",
+              "zh-TW": "灼銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4,
+            "count": 5
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 80
           }
         ]
       }
@@ -20783,7 +22278,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       }
     ]
   },
-  "item_equip_t4_suit_fire_natr01_body_02": {
+  "item_equip_t4_suit_crush_fracture_body_01": {
     "stats": [
       {
         "attributeId": "3",
@@ -20793,7 +22288,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
         "maxLevelLabel": "+3"
       },
       {
-        "attributeId": "41",
+        "attributeId": "39",
         "levelOne": "87",
         "maxLevel": "113",
         "levelOneLabel": "+0",
@@ -20807,7 +22302,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
         "maxLevelLabel": "+3"
       },
       {
-        "attributeId": "FireAndNaturalDamageIncrease",
+        "attributeId": "50",
         "levelOne": "11.5%",
         "maxLevel": "14.95%",
         "levelOneLabel": "+0",
@@ -20816,19 +22311,19 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
     ],
     "craftingRecipes": [
       {
-        "chainId": 4001,
+        "chainId": 4002,
         "discount": 1,
         "isDefault": true,
         "materials": [
           {
-            "itemId": "item_equip_script_4_1",
+            "itemId": "item_equip_script_4_2",
             "name": {
-              "zh-CN": "赤铜装备原件",
-              "en": "Cuprium Component",
-              "ja": "赤銅装備部品",
-              "zh-TW": "赤銅裝備原件"
+              "zh-CN": "赫铜装备原件",
+              "en": "Hetonite Component",
+              "ja": "緋銅装備部品",
+              "zh-TW": "赫銅裝備原件"
             },
-            "iconId": "item_equip_script_4_1",
+            "iconId": "item_equip_script_4_2",
             "rarity": 4,
             "count": 50
           },
@@ -20842,38 +22337,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
             },
             "iconId": "item_domain_jinlong_coupon",
             "rarity": 5,
-            "count": 16000
-          }
-        ]
-      },
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "name": {
-              "zh-CN": "赫铜装备原件",
-              "en": "Hetonite Component",
-              "ja": "緋銅装備部品",
-              "zh-TW": "赫銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4,
-            "count": 10
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 16000
+            "count": 25000
           }
         ]
       },
@@ -20892,7 +22356,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
             },
             "iconId": "item_equip_script_4_3",
             "rarity": 4,
-            "count": 5
+            "count": 25
           },
           {
             "itemId": "item_domain_jinlong_coupon",
@@ -20904,7 +22368,391 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
             },
             "iconId": "item_domain_jinlong_coupon",
             "rarity": 5,
-            "count": 160
+            "count": 250
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_crush_fracture_body_02": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "56",
+        "maxLevel": "56",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "40",
+        "levelOne": "87",
+        "maxLevel": "113",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "39",
+        "levelOne": "58",
+        "maxLevel": "75",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "87",
+        "levelOne": "20.7",
+        "maxLevel": "26.91",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "name": {
+              "zh-CN": "赫铜装备原件",
+              "en": "Hetonite Component",
+              "ja": "緋銅装備部品",
+              "zh-TW": "赫銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4,
+            "count": 50
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 25000
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.01,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "name": {
+              "zh-CN": "灼铜装备原件",
+              "en": "Pyrrolite Component",
+              "ja": "焔銅装備部品",
+              "zh-TW": "灼銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4,
+            "count": 25
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 250
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_crush_fracture_edc_02": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "21",
+        "maxLevel": "21",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "40",
+        "levelOne": "32",
+        "maxLevel": "41",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "39",
+        "levelOne": "21",
+        "maxLevel": "27",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "50",
+        "levelOne": "23%",
+        "maxLevel": "29.9%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "name": {
+              "zh-CN": "赫铜装备原件",
+              "en": "Hetonite Component",
+              "ja": "緋銅装備部品",
+              "zh-TW": "赫銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4,
+            "count": 50
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 25000
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.01,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "name": {
+              "zh-CN": "灼铜装备原件",
+              "en": "Pyrrolite Component",
+              "ja": "焔銅装備部品",
+              "zh-TW": "灼銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4,
+            "count": 25
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 250
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_crush_fracture_hand_02": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "42",
+        "maxLevel": "42",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "40",
+        "levelOne": "65",
+        "maxLevel": "84",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "39",
+        "levelOne": "43",
+        "maxLevel": "55",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "87",
+        "levelOne": "34.5",
+        "maxLevel": "44.85",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "name": {
+              "zh-CN": "赫铜装备原件",
+              "en": "Hetonite Component",
+              "ja": "緋銅装備部品",
+              "zh-TW": "赫銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4,
+            "count": 50
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 25000
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.01,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "name": {
+              "zh-CN": "灼铜装备原件",
+              "en": "Pyrrolite Component",
+              "ja": "焔銅装備部品",
+              "zh-TW": "灼銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4,
+            "count": 25
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 250
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_expend_spell01_body_02": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "56",
+        "maxLevel": "56",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "42",
+        "levelOne": "87",
+        "maxLevel": "113",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "41",
+        "levelOne": "58",
+        "maxLevel": "75",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "CrystAndPulseDamageIncrease",
+        "levelOne": "11.5%",
+        "maxLevel": "14.95%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "name": {
+              "zh-CN": "赫铜装备原件",
+              "en": "Hetonite Component",
+              "ja": "緋銅装備部品",
+              "zh-TW": "赫銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4,
+            "count": 50
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 25000
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.01,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "name": {
+              "zh-CN": "灼铜装备原件",
+              "en": "Pyrrolite Component",
+              "ja": "焔銅装備部品",
+              "zh-TW": "灼銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4,
+            "count": 25
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 250
           }
         ]
       }
@@ -21006,33 +22854,33 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       }
     ]
   },
-  "item_equip_t4_suit_pulse_cryst01_body_01": {
+  "item_equip_t4_suit_fire_natr01_edc_03": {
     "stats": [
       {
         "attributeId": "3",
-        "levelOne": "56",
-        "maxLevel": "56",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "41",
-        "levelOne": "87",
-        "maxLevel": "113",
+        "levelOne": "21",
+        "maxLevel": "21",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
         "attributeId": "42",
-        "levelOne": "58",
-        "maxLevel": "75",
+        "levelOne": "32",
+        "maxLevel": "41",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "41",
+        "levelOne": "21",
+        "maxLevel": "27",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
         "attributeId": "87",
-        "levelOne": "20.7",
-        "maxLevel": "26.91",
+        "levelOne": "41.4",
+        "maxLevel": "53.82",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -21164,135 +23012,42 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       }
     ]
   },
-  "item_equip_t4_suit_heal01_body_01": {
+  "item_equip_t4_suit_fire_natr01_edc_04": {
     "stats": [
       {
         "attributeId": "3",
-        "levelOne": "56",
-        "maxLevel": "56",
+        "levelOne": "21",
+        "maxLevel": "21",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
-        "attributeId": "39",
-        "levelOne": "87",
-        "maxLevel": "113",
+        "attributeId": "41",
+        "levelOne": "32",
+        "maxLevel": "41",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
         "attributeId": "42",
-        "levelOne": "58",
-        "maxLevel": "75",
+        "levelOne": "21",
+        "maxLevel": "27",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
-        "attributeId": "29",
-        "levelOne": "10.35%",
-        "maxLevel": "13.455%",
+        "attributeId": "AllSkillDamageIncrease",
+        "levelOne": "27.6%",
+        "maxLevel": "35.88%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
     ],
     "craftingRecipes": [
       {
-        "chainId": 4000,
-        "discount": 1,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4",
-            "name": {
-              "zh-CN": "息壤装备原件",
-              "en": "Xiranite Component",
-              "ja": "息壌装備部品",
-              "zh-TW": "息壤裝備原件"
-            },
-            "iconId": "item_equip_script_4",
-            "rarity": 4,
-            "count": 50
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 8000
-          }
-        ]
-      },
-      {
-        "chainId": 4001,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_1",
-            "name": {
-              "zh-CN": "赤铜装备原件",
-              "en": "Cuprium Component",
-              "ja": "赤銅装備部品",
-              "zh-TW": "赤銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_1",
-            "rarity": 4,
-            "count": 50
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 8000
-          }
-        ]
-      },
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "name": {
-              "zh-CN": "赫铜装备原件",
-              "en": "Hetonite Component",
-              "ja": "緋銅装備部品",
-              "zh-TW": "赫銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4,
-            "count": 10
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 8000
-          }
-        ]
-      },
-      {
         "chainId": 4003,
         "discount": 0.01,
-        "isDefault": false,
+        "isDefault": true,
         "materials": [
           {
             "itemId": "item_equip_script_4_3",
@@ -21304,7 +23059,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
             },
             "iconId": "item_equip_script_4_3",
             "rarity": 4,
-            "count": 5
+            "count": 50
           },
           {
             "itemId": "item_domain_jinlong_coupon",
@@ -21316,7 +23071,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
             },
             "iconId": "item_domain_jinlong_coupon",
             "rarity": 5,
-            "count": 80
+            "count": 360
           }
         ]
       }
@@ -21545,7 +23300,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       }
     ]
   },
-  "item_equip_t4_suit_heal01_edc_01": {
+  "item_equip_t4_suit_heal01_edc_02": {
     "stats": [
       {
         "attributeId": "3",
@@ -21556,22 +23311,142 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "attributeId": "39",
+        "levelOne": "41",
+        "maxLevel": "53",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "1",
+        "levelOne": "41.4%",
+        "maxLevel": "53.82%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4001,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_1",
+            "name": {
+              "zh-CN": "赤铜装备原件",
+              "en": "Cuprium Component",
+              "ja": "赤銅装備部品",
+              "zh-TW": "赤銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_1",
+            "rarity": 4,
+            "count": 50
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 16000
+          }
+        ]
+      },
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "name": {
+              "zh-CN": "赫铜装备原件",
+              "en": "Hetonite Component",
+              "ja": "緋銅装備部品",
+              "zh-TW": "赫銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4,
+            "count": 10
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 16000
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.01,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "name": {
+              "zh-CN": "灼铜装备原件",
+              "en": "Pyrrolite Component",
+              "ja": "焔銅装備部品",
+              "zh-TW": "灼銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4,
+            "count": 5
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 160
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_heal01_edc_03": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "21",
+        "maxLevel": "21",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "42",
         "levelOne": "32",
         "maxLevel": "41",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
-        "attributeId": "42",
+        "attributeId": "41",
         "levelOne": "21",
         "maxLevel": "27",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
-        "attributeId": "AllDamageTakenScalar",
-        "levelOne": "17.14995857%",
-        "maxLevel": "21.204%",
+        "attributeId": "Main",
+        "levelOne": "20.7017835%",
+        "maxLevel": "26.91232%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -21698,6 +23573,133 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
             "iconId": "item_domain_jinlong_coupon",
             "rarity": 5,
             "count": 80
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_poise01_hand_02": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "42",
+        "maxLevel": "42",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "42",
+        "levelOne": "65",
+        "maxLevel": "84",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "40",
+        "levelOne": "43",
+        "maxLevel": "55",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "AllSkillDamageIncrease",
+        "levelOne": "23%",
+        "maxLevel": "29.9%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4001,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_1",
+            "name": {
+              "zh-CN": "赤铜装备原件",
+              "en": "Cuprium Component",
+              "ja": "赤銅装備部品",
+              "zh-TW": "赤銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_1",
+            "rarity": 4,
+            "count": 50
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 16000
+          }
+        ]
+      },
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "name": {
+              "zh-CN": "赫铜装备原件",
+              "en": "Hetonite Component",
+              "ja": "緋銅装備部品",
+              "zh-TW": "赫銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4,
+            "count": 10
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 16000
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.01,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "name": {
+              "zh-CN": "灼铜装备原件",
+              "en": "Pyrrolite Component",
+              "ja": "焔銅装備部品",
+              "zh-TW": "灼銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4,
+            "count": 5
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 160
           }
         ]
       }
@@ -21854,33 +23856,33 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       }
     ]
   },
-  "item_equip_t4_suit_usp02_body_01": {
+  "item_equip_t4_suit_heal01_edc_05": {
     "stats": [
       {
         "attributeId": "3",
-        "levelOne": "56",
-        "maxLevel": "56",
+        "levelOne": "21",
+        "maxLevel": "21",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "39",
+        "levelOne": "32",
+        "maxLevel": "41",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
         "attributeId": "42",
-        "levelOne": "87",
-        "maxLevel": "113",
+        "levelOne": "21",
+        "maxLevel": "27",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
-        "attributeId": "41",
-        "levelOne": "58",
-        "maxLevel": "75",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "87",
-        "levelOne": "20.7",
-        "maxLevel": "26.91",
+        "attributeId": "1",
+        "levelOne": "41.4%",
+        "maxLevel": "53.82%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -22012,7 +24014,165 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       }
     ]
   },
-  "item_equip_t4_suit_heal01_hand_02": {
+  "item_equip_t4_suit_heal01_hand_01": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "42",
+        "maxLevel": "42",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "39",
+        "levelOne": "65",
+        "maxLevel": "84",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "42",
+        "levelOne": "43",
+        "maxLevel": "55",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "44",
+        "levelOne": "20.53571429%",
+        "maxLevel": "26.69643%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4000,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4",
+            "name": {
+              "zh-CN": "息壤装备原件",
+              "en": "Xiranite Component",
+              "ja": "息壌装備部品",
+              "zh-TW": "息壤裝備原件"
+            },
+            "iconId": "item_equip_script_4",
+            "rarity": 4,
+            "count": 50
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 8000
+          }
+        ]
+      },
+      {
+        "chainId": 4001,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_1",
+            "name": {
+              "zh-CN": "赤铜装备原件",
+              "en": "Cuprium Component",
+              "ja": "赤銅装備部品",
+              "zh-TW": "赤銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_1",
+            "rarity": 4,
+            "count": 50
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 8000
+          }
+        ]
+      },
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "name": {
+              "zh-CN": "赫铜装备原件",
+              "en": "Hetonite Component",
+              "ja": "緋銅装備部品",
+              "zh-TW": "赫銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4,
+            "count": 10
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 8000
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.01,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "name": {
+              "zh-CN": "灼铜装备原件",
+              "en": "Pyrrolite Component",
+              "ja": "焔銅装備部品",
+              "zh-TW": "灼銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4,
+            "count": 5
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 80
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_heal01_hand_03": {
     "stats": [
       {
         "attributeId": "3",
@@ -22029,245 +24189,25 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
         "maxLevelLabel": "+3"
       },
       {
-        "attributeId": "39",
+        "attributeId": "40",
         "levelOne": "43",
         "maxLevel": "55",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
-        "attributeId": "29",
-        "levelOne": "17.25%",
-        "maxLevel": "22.425%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4000,
-        "discount": 1,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4",
-            "name": {
-              "zh-CN": "息壤装备原件",
-              "en": "Xiranite Component",
-              "ja": "息壌装備部品",
-              "zh-TW": "息壤裝備原件"
-            },
-            "iconId": "item_equip_script_4",
-            "rarity": 4,
-            "count": 50
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 8000
-          }
-        ]
-      },
-      {
-        "chainId": 4001,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_1",
-            "name": {
-              "zh-CN": "赤铜装备原件",
-              "en": "Cuprium Component",
-              "ja": "赤銅装備部品",
-              "zh-TW": "赤銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_1",
-            "rarity": 4,
-            "count": 50
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 8000
-          }
-        ]
-      },
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "name": {
-              "zh-CN": "赫铜装备原件",
-              "en": "Hetonite Component",
-              "ja": "緋銅装備部品",
-              "zh-TW": "赫銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4,
-            "count": 10
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 8000
-          }
-        ]
-      },
-      {
-        "chainId": 4003,
-        "discount": 0.01,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "name": {
-              "zh-CN": "灼铜装备原件",
-              "en": "Pyrrolite Component",
-              "ja": "焔銅装備部品",
-              "zh-TW": "灼銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4,
-            "count": 5
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 80
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_suit_phy01_body_01": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "56",
-        "maxLevel": "56",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "39",
-        "levelOne": "87",
-        "maxLevel": "113",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "42",
-        "levelOne": "58",
-        "maxLevel": "75",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
         "attributeId": "44",
-        "levelOne": "12.32142857%",
-        "maxLevel": "16.017857%",
+        "levelOne": "20.53571429%",
+        "maxLevel": "26.69643%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
     ],
     "craftingRecipes": [
       {
-        "chainId": 4001,
-        "discount": 1,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_1",
-            "name": {
-              "zh-CN": "赤铜装备原件",
-              "en": "Cuprium Component",
-              "ja": "赤銅装備部品",
-              "zh-TW": "赤銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_1",
-            "rarity": 4,
-            "count": 50
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 16000
-          }
-        ]
-      },
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "name": {
-              "zh-CN": "赫铜装备原件",
-              "en": "Hetonite Component",
-              "ja": "緋銅装備部品",
-              "zh-TW": "赫銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4,
-            "count": 10
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 16000
-          }
-        ]
-      },
-      {
         "chainId": 4003,
         "discount": 0.01,
-        "isDefault": false,
+        "isDefault": true,
         "materials": [
           {
             "itemId": "item_equip_script_4_3",
@@ -22279,71 +24219,6 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
             },
             "iconId": "item_equip_script_4_3",
             "rarity": 4,
-            "count": 5
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 160
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_suit_phy01_body_02": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "56",
-        "maxLevel": "56",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "40",
-        "levelOne": "87",
-        "maxLevel": "113",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "39",
-        "levelOne": "58",
-        "maxLevel": "75",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "87",
-        "levelOne": "20.7",
-        "maxLevel": "26.91",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4000,
-        "discount": 1,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4",
-            "name": {
-              "zh-CN": "息壤装备原件",
-              "en": "Xiranite Component",
-              "ja": "息壌装備部品",
-              "zh-TW": "息壤裝備原件"
-            },
-            "iconId": "item_equip_script_4",
-            "rarity": 4,
             "count": 50
           },
           {
@@ -22356,196 +24231,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
             },
             "iconId": "item_domain_jinlong_coupon",
             "rarity": 5,
-            "count": 8000
-          }
-        ]
-      },
-      {
-        "chainId": 4001,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_1",
-            "name": {
-              "zh-CN": "赤铜装备原件",
-              "en": "Cuprium Component",
-              "ja": "赤銅装備部品",
-              "zh-TW": "赤銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_1",
-            "rarity": 4,
-            "count": 50
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 8000
-          }
-        ]
-      },
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "name": {
-              "zh-CN": "赫铜装备原件",
-              "en": "Hetonite Component",
-              "ja": "緋銅装備部品",
-              "zh-TW": "赫銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4,
-            "count": 10
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 8000
-          }
-        ]
-      },
-      {
-        "chainId": 4003,
-        "discount": 0.01,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "name": {
-              "zh-CN": "灼铜装备原件",
-              "en": "Pyrrolite Component",
-              "ja": "焔銅装備部品",
-              "zh-TW": "灼銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4,
-            "count": 5
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 80
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_suit_phy01_body_03": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "56",
-        "maxLevel": "56",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "40",
-        "levelOne": "87",
-        "maxLevel": "113",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "39",
-        "levelOne": "58",
-        "maxLevel": "75",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "50",
-        "levelOne": "11.5%",
-        "maxLevel": "14.95%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "name": {
-              "zh-CN": "赫铜装备原件",
-              "en": "Hetonite Component",
-              "ja": "緋銅装備部品",
-              "zh-TW": "赫銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4,
-            "count": 50
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 25000
-          }
-        ]
-      },
-      {
-        "chainId": 4003,
-        "discount": 0.01,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "name": {
-              "zh-CN": "灼铜装备原件",
-              "en": "Pyrrolite Component",
-              "ja": "焔銅装備部品",
-              "zh-TW": "灼銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4,
-            "count": 25
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 250
+            "count": 360
           }
         ]
       }
@@ -22647,7 +24333,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       }
     ]
   },
-  "item_equip_t4_suit_phy01_edc_01": {
+  "item_equip_t4_suit_phy01_edc_02": {
     "stats": [
       {
         "attributeId": "3",
@@ -22658,15 +24344,22 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "attributeId": "39",
-        "levelOne": "41",
-        "maxLevel": "53",
+        "levelOne": "32",
+        "maxLevel": "41",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
-        "attributeId": "87",
-        "levelOne": "41.4",
-        "maxLevel": "53.82",
+        "attributeId": "42",
+        "levelOne": "21",
+        "maxLevel": "27",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "50",
+        "levelOne": "23%",
+        "maxLevel": "29.9%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -22767,33 +24460,33 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       }
     ]
   },
-  "item_equip_t4_suit_poise01_body_01": {
+  "item_equip_t4_suit_phy01_edc_03": {
     "stats": [
       {
         "attributeId": "3",
-        "levelOne": "56",
-        "maxLevel": "56",
+        "levelOne": "21",
+        "maxLevel": "21",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "40",
+        "levelOne": "32",
+        "maxLevel": "41",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
         "attributeId": "39",
-        "levelOne": "87",
-        "maxLevel": "113",
+        "levelOne": "21",
+        "maxLevel": "27",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
-        "attributeId": "42",
-        "levelOne": "58",
-        "maxLevel": "75",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "61",
-        "levelOne": "20.7%",
-        "maxLevel": "26.91%",
+        "attributeId": "50",
+        "levelOne": "23%",
+        "maxLevel": "29.9%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -23241,7 +24934,137 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       }
     ]
   },
-  "item_equip_t4_suit_pulse_cryst01_hand_01": {
+  "item_equip_t4_suit_spellburst_body_01": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "56",
+        "maxLevel": "56",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "40",
+        "levelOne": "87",
+        "maxLevel": "113",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "42",
+        "levelOne": "58",
+        "maxLevel": "75",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "87",
+        "levelOne": "20.7",
+        "maxLevel": "26.91",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4003,
+        "discount": 0.01,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "name": {
+              "zh-CN": "灼铜装备原件",
+              "en": "Pyrrolite Component",
+              "ja": "焔銅装備部品",
+              "zh-TW": "灼銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4,
+            "count": 50
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 360
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_spellburst_edc_01": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "21",
+        "maxLevel": "21",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "40",
+        "levelOne": "32",
+        "maxLevel": "41",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "42",
+        "levelOne": "21",
+        "maxLevel": "27",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "87",
+        "levelOne": "41.4",
+        "maxLevel": "53.82",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4003,
+        "discount": 0.01,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "name": {
+              "zh-CN": "灼铜装备原件",
+              "en": "Pyrrolite Component",
+              "ja": "焔銅装備部品",
+              "zh-TW": "灼銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4,
+            "count": 50
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 360
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_spellburst_hand_01": {
     "stats": [
       {
         "attributeId": "3",
@@ -23251,23 +25074,88 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
         "maxLevelLabel": "+3"
       },
       {
-        "attributeId": "42",
+        "attributeId": "40",
         "levelOne": "65",
         "maxLevel": "84",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
-        "attributeId": "41",
+        "attributeId": "42",
         "levelOne": "43",
         "maxLevel": "55",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
-        "attributeId": "CrystAndPulseDamageIncrease",
-        "levelOne": "19.16666667%",
-        "maxLevel": "24.916667%",
+        "attributeId": "87",
+        "levelOne": "34.5",
+        "maxLevel": "44.85",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4003,
+        "discount": 0.01,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "name": {
+              "zh-CN": "灼铜装备原件",
+              "en": "Pyrrolite Component",
+              "ja": "焔銅装備部品",
+              "zh-TW": "灼銅裝備原件"
+            },
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4,
+            "count": 50
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "name": {
+              "zh-CN": "武陵调度券",
+              "en": "Wuling Stock Bill",
+              "ja": "武陵取引券",
+              "zh-TW": "武陵調度券"
+            },
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5,
+            "count": 360
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_usp02_body_01": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "56",
+        "maxLevel": "56",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "42",
+        "levelOne": "87",
+        "maxLevel": "113",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "41",
+        "levelOne": "58",
+        "maxLevel": "75",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "87",
+        "levelOne": "20.7",
+        "maxLevel": "26.91",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -23399,7 +25287,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       }
     ]
   },
-  "item_equip_t4_suit_usp02_edc_03": {
+  "item_equip_t4_suit_usp02_edc_05": {
     "stats": [
       {
         "attributeId": "3",
@@ -23416,7 +25304,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
         "maxLevelLabel": "+3"
       },
       {
-        "attributeId": "41",
+        "attributeId": "40",
         "levelOne": "21",
         "maxLevel": "27",
         "levelOneLabel": "+0",
@@ -23432,102 +25320,9 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
     ],
     "craftingRecipes": [
       {
-        "chainId": 4000,
-        "discount": 1,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4",
-            "name": {
-              "zh-CN": "息壤装备原件",
-              "en": "Xiranite Component",
-              "ja": "息壌装備部品",
-              "zh-TW": "息壤裝備原件"
-            },
-            "iconId": "item_equip_script_4",
-            "rarity": 4,
-            "count": 50
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 8000
-          }
-        ]
-      },
-      {
-        "chainId": 4001,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_1",
-            "name": {
-              "zh-CN": "赤铜装备原件",
-              "en": "Cuprium Component",
-              "ja": "赤銅装備部品",
-              "zh-TW": "赤銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_1",
-            "rarity": 4,
-            "count": 50
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 8000
-          }
-        ]
-      },
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "name": {
-              "zh-CN": "赫铜装备原件",
-              "en": "Hetonite Component",
-              "ja": "緋銅装備部品",
-              "zh-TW": "赫銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4,
-            "count": 10
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 8000
-          }
-        ]
-      },
-      {
         "chainId": 4003,
         "discount": 0.01,
-        "isDefault": false,
+        "isDefault": true,
         "materials": [
           {
             "itemId": "item_equip_script_4_3",
@@ -23539,7 +25334,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
             },
             "iconId": "item_equip_script_4_3",
             "rarity": 4,
-            "count": 5
+            "count": 50
           },
           {
             "itemId": "item_domain_jinlong_coupon",
@@ -23551,7 +25346,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
             },
             "iconId": "item_domain_jinlong_coupon",
             "rarity": 5,
-            "count": 80
+            "count": 360
           }
         ]
       }
@@ -23575,164 +25370,6 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "attributeId": "39",
-        "levelOne": "43",
-        "maxLevel": "55",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "44",
-        "levelOne": "20.53571429%",
-        "maxLevel": "26.69643%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4000,
-        "discount": 1,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4",
-            "name": {
-              "zh-CN": "息壤装备原件",
-              "en": "Xiranite Component",
-              "ja": "息壌装備部品",
-              "zh-TW": "息壤裝備原件"
-            },
-            "iconId": "item_equip_script_4",
-            "rarity": 4,
-            "count": 50
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 8000
-          }
-        ]
-      },
-      {
-        "chainId": 4001,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_1",
-            "name": {
-              "zh-CN": "赤铜装备原件",
-              "en": "Cuprium Component",
-              "ja": "赤銅装備部品",
-              "zh-TW": "赤銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_1",
-            "rarity": 4,
-            "count": 50
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 8000
-          }
-        ]
-      },
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "name": {
-              "zh-CN": "赫铜装备原件",
-              "en": "Hetonite Component",
-              "ja": "緋銅装備部品",
-              "zh-TW": "赫銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4,
-            "count": 10
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 8000
-          }
-        ]
-      },
-      {
-        "chainId": 4003,
-        "discount": 0.01,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "name": {
-              "zh-CN": "灼铜装备原件",
-              "en": "Pyrrolite Component",
-              "ja": "焔銅装備部品",
-              "zh-TW": "灼銅裝備原件"
-            },
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4,
-            "count": 5
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "name": {
-              "zh-CN": "武陵调度券",
-              "en": "Wuling Stock Bill",
-              "ja": "武陵取引券",
-              "zh-TW": "武陵調度券"
-            },
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5,
-            "count": 80
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_suit_usp02_hand_02": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "42",
-        "maxLevel": "42",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "41",
-        "levelOne": "65",
-        "maxLevel": "84",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "42",
         "levelOne": "43",
         "maxLevel": "55",
         "levelOneLabel": "+0",

@@ -1,0 +1,7428 @@
+{
+  "id": "chr_0034_typhoea",
+  "category": "characters",
+  "maxLevel": 90,
+  "levels": [
+    {
+      "level": 1,
+      "breakStage": 0,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 9.89691
+        },
+        {
+          "attributeId": "40",
+          "value": 21.95876
+        },
+        {
+          "attributeId": "41",
+          "value": 10
+        },
+        {
+          "attributeId": "42",
+          "value": 14.96907
+        },
+        {
+          "attributeId": "1",
+          "value": 500
+        },
+        {
+          "attributeId": "2",
+          "value": 30
+        },
+        {
+          "attributeId": "49",
+          "value": 1
+        },
+        {
+          "attributeId": "25",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "level": 2,
+      "breakStage": 0,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 10.8866
+        },
+        {
+          "attributeId": "40",
+          "value": 23.67747
+        },
+        {
+          "attributeId": "41",
+          "value": 11
+        },
+        {
+          "attributeId": "42",
+          "value": 16.14105
+        },
+        {
+          "attributeId": "1",
+          "value": 556
+        },
+        {
+          "attributeId": "2",
+          "value": 33
+        },
+        {
+          "attributeId": "49",
+          "value": 1.0051
+        },
+        {
+          "attributeId": "25",
+          "value": 1.00255
+        }
+      ]
+    },
+    {
+      "level": 3,
+      "breakStage": 0,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 11.87629
+        },
+        {
+          "attributeId": "40",
+          "value": 25.39617
+        },
+        {
+          "attributeId": "41",
+          "value": 12
+        },
+        {
+          "attributeId": "42",
+          "value": 17.31302
+        },
+        {
+          "attributeId": "1",
+          "value": 612
+        },
+        {
+          "attributeId": "2",
+          "value": 36
+        },
+        {
+          "attributeId": "49",
+          "value": 1.0102
+        },
+        {
+          "attributeId": "25",
+          "value": 1.0051
+        }
+      ]
+    },
+    {
+      "level": 4,
+      "breakStage": 0,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 12.86598
+        },
+        {
+          "attributeId": "40",
+          "value": 27.11487
+        },
+        {
+          "attributeId": "41",
+          "value": 13
+        },
+        {
+          "attributeId": "42",
+          "value": 18.485
+        },
+        {
+          "attributeId": "1",
+          "value": 668
+        },
+        {
+          "attributeId": "2",
+          "value": 39
+        },
+        {
+          "attributeId": "49",
+          "value": 1.01531
+        },
+        {
+          "attributeId": "25",
+          "value": 1.00765
+        }
+      ]
+    },
+    {
+      "level": 5,
+      "breakStage": 0,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 13.85567
+        },
+        {
+          "attributeId": "40",
+          "value": 28.83358
+        },
+        {
+          "attributeId": "41",
+          "value": 14
+        },
+        {
+          "attributeId": "42",
+          "value": 19.65697
+        },
+        {
+          "attributeId": "1",
+          "value": 724
+        },
+        {
+          "attributeId": "2",
+          "value": 43
+        },
+        {
+          "attributeId": "49",
+          "value": 1.02041
+        },
+        {
+          "attributeId": "25",
+          "value": 1.0102
+        }
+      ]
+    },
+    {
+      "level": 6,
+      "breakStage": 0,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 14.84536
+        },
+        {
+          "attributeId": "40",
+          "value": 30.55228
+        },
+        {
+          "attributeId": "41",
+          "value": 15
+        },
+        {
+          "attributeId": "42",
+          "value": 20.82895
+        },
+        {
+          "attributeId": "1",
+          "value": 781
+        },
+        {
+          "attributeId": "2",
+          "value": 46
+        },
+        {
+          "attributeId": "49",
+          "value": 1.02551
+        },
+        {
+          "attributeId": "25",
+          "value": 1.01276
+        }
+      ]
+    },
+    {
+      "level": 7,
+      "breakStage": 0,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 15.83505
+        },
+        {
+          "attributeId": "40",
+          "value": 32.27099
+        },
+        {
+          "attributeId": "41",
+          "value": 16
+        },
+        {
+          "attributeId": "42",
+          "value": 22.00093
+        },
+        {
+          "attributeId": "1",
+          "value": 837
+        },
+        {
+          "attributeId": "2",
+          "value": 49
+        },
+        {
+          "attributeId": "49",
+          "value": 1.03061
+        },
+        {
+          "attributeId": "25",
+          "value": 1.01531
+        }
+      ]
+    },
+    {
+      "level": 8,
+      "breakStage": 0,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 16.82474
+        },
+        {
+          "attributeId": "40",
+          "value": 33.98969
+        },
+        {
+          "attributeId": "41",
+          "value": 17
+        },
+        {
+          "attributeId": "42",
+          "value": 23.1729
+        },
+        {
+          "attributeId": "1",
+          "value": 893
+        },
+        {
+          "attributeId": "2",
+          "value": 52
+        },
+        {
+          "attributeId": "49",
+          "value": 1.03571
+        },
+        {
+          "attributeId": "25",
+          "value": 1.01786
+        }
+      ]
+    },
+    {
+      "level": 9,
+      "breakStage": 0,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 17.81443
+        },
+        {
+          "attributeId": "40",
+          "value": 35.70839
+        },
+        {
+          "attributeId": "41",
+          "value": 18
+        },
+        {
+          "attributeId": "42",
+          "value": 24.34488
+        },
+        {
+          "attributeId": "1",
+          "value": 949
+        },
+        {
+          "attributeId": "2",
+          "value": 55
+        },
+        {
+          "attributeId": "49",
+          "value": 1.04082
+        },
+        {
+          "attributeId": "25",
+          "value": 1.02041
+        }
+      ]
+    },
+    {
+      "level": 10,
+      "breakStage": 0,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 18.80412
+        },
+        {
+          "attributeId": "40",
+          "value": 37.4271
+        },
+        {
+          "attributeId": "41",
+          "value": 19
+        },
+        {
+          "attributeId": "42",
+          "value": 25.51685
+        },
+        {
+          "attributeId": "1",
+          "value": 1005
+        },
+        {
+          "attributeId": "2",
+          "value": 58
+        },
+        {
+          "attributeId": "49",
+          "value": 1.04592
+        },
+        {
+          "attributeId": "25",
+          "value": 1.02296
+        }
+      ]
+    },
+    {
+      "level": 11,
+      "breakStage": 0,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 19.79381
+        },
+        {
+          "attributeId": "40",
+          "value": 39.1458
+        },
+        {
+          "attributeId": "41",
+          "value": 20
+        },
+        {
+          "attributeId": "42",
+          "value": 26.68883
+        },
+        {
+          "attributeId": "1",
+          "value": 1061
+        },
+        {
+          "attributeId": "2",
+          "value": 62
+        },
+        {
+          "attributeId": "49",
+          "value": 1.05102
+        },
+        {
+          "attributeId": "25",
+          "value": 1.02551
+        }
+      ]
+    },
+    {
+      "level": 12,
+      "breakStage": 0,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 20.78351
+        },
+        {
+          "attributeId": "40",
+          "value": 40.86451
+        },
+        {
+          "attributeId": "41",
+          "value": 21
+        },
+        {
+          "attributeId": "42",
+          "value": 27.8608
+        },
+        {
+          "attributeId": "1",
+          "value": 1117
+        },
+        {
+          "attributeId": "2",
+          "value": 65
+        },
+        {
+          "attributeId": "49",
+          "value": 1.05612
+        },
+        {
+          "attributeId": "25",
+          "value": 1.02806
+        }
+      ]
+    },
+    {
+      "level": 13,
+      "breakStage": 0,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 21.7732
+        },
+        {
+          "attributeId": "40",
+          "value": 42.58321
+        },
+        {
+          "attributeId": "41",
+          "value": 22
+        },
+        {
+          "attributeId": "42",
+          "value": 29.03278
+        },
+        {
+          "attributeId": "1",
+          "value": 1173
+        },
+        {
+          "attributeId": "2",
+          "value": 68
+        },
+        {
+          "attributeId": "49",
+          "value": 1.06122
+        },
+        {
+          "attributeId": "25",
+          "value": 1.03061
+        }
+      ]
+    },
+    {
+      "level": 14,
+      "breakStage": 0,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 22.76289
+        },
+        {
+          "attributeId": "40",
+          "value": 44.30191
+        },
+        {
+          "attributeId": "41",
+          "value": 23
+        },
+        {
+          "attributeId": "42",
+          "value": 30.20475
+        },
+        {
+          "attributeId": "1",
+          "value": 1230
+        },
+        {
+          "attributeId": "2",
+          "value": 71
+        },
+        {
+          "attributeId": "49",
+          "value": 1.06633
+        },
+        {
+          "attributeId": "25",
+          "value": 1.03316
+        }
+      ]
+    },
+    {
+      "level": 15,
+      "breakStage": 0,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 23.75258
+        },
+        {
+          "attributeId": "40",
+          "value": 46.02062
+        },
+        {
+          "attributeId": "41",
+          "value": 24
+        },
+        {
+          "attributeId": "42",
+          "value": 31.37673
+        },
+        {
+          "attributeId": "1",
+          "value": 1286
+        },
+        {
+          "attributeId": "2",
+          "value": 74
+        },
+        {
+          "attributeId": "49",
+          "value": 1.07143
+        },
+        {
+          "attributeId": "25",
+          "value": 1.03571
+        }
+      ]
+    },
+    {
+      "level": 16,
+      "breakStage": 0,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 24.74227
+        },
+        {
+          "attributeId": "40",
+          "value": 47.73932
+        },
+        {
+          "attributeId": "41",
+          "value": 25
+        },
+        {
+          "attributeId": "42",
+          "value": 32.54871
+        },
+        {
+          "attributeId": "1",
+          "value": 1342
+        },
+        {
+          "attributeId": "2",
+          "value": 77
+        },
+        {
+          "attributeId": "49",
+          "value": 1.07653
+        },
+        {
+          "attributeId": "25",
+          "value": 1.03827
+        }
+      ]
+    },
+    {
+      "level": 17,
+      "breakStage": 0,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 25.73196
+        },
+        {
+          "attributeId": "40",
+          "value": 49.45803
+        },
+        {
+          "attributeId": "41",
+          "value": 26
+        },
+        {
+          "attributeId": "42",
+          "value": 33.72068
+        },
+        {
+          "attributeId": "1",
+          "value": 1398
+        },
+        {
+          "attributeId": "2",
+          "value": 81
+        },
+        {
+          "attributeId": "49",
+          "value": 1.08163
+        },
+        {
+          "attributeId": "25",
+          "value": 1.04082
+        }
+      ]
+    },
+    {
+      "level": 18,
+      "breakStage": 0,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 26.72165
+        },
+        {
+          "attributeId": "40",
+          "value": 51.17673
+        },
+        {
+          "attributeId": "41",
+          "value": 27
+        },
+        {
+          "attributeId": "42",
+          "value": 34.89266
+        },
+        {
+          "attributeId": "1",
+          "value": 1454
+        },
+        {
+          "attributeId": "2",
+          "value": 84
+        },
+        {
+          "attributeId": "49",
+          "value": 1.08673
+        },
+        {
+          "attributeId": "25",
+          "value": 1.04337
+        }
+      ]
+    },
+    {
+      "level": 19,
+      "breakStage": 0,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 27.71134
+        },
+        {
+          "attributeId": "40",
+          "value": 52.89543
+        },
+        {
+          "attributeId": "41",
+          "value": 28
+        },
+        {
+          "attributeId": "42",
+          "value": 36.06463
+        },
+        {
+          "attributeId": "1",
+          "value": 1510
+        },
+        {
+          "attributeId": "2",
+          "value": 87
+        },
+        {
+          "attributeId": "49",
+          "value": 1.09184
+        },
+        {
+          "attributeId": "25",
+          "value": 1.04592
+        }
+      ]
+    },
+    {
+      "level": 20,
+      "breakStage": 1,
+      "isBreakthrough": true,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 28.70103
+        },
+        {
+          "attributeId": "40",
+          "value": 54.61414
+        },
+        {
+          "attributeId": "41",
+          "value": 29
+        },
+        {
+          "attributeId": "42",
+          "value": 37.23661
+        },
+        {
+          "attributeId": "1",
+          "value": 1566
+        },
+        {
+          "attributeId": "2",
+          "value": 90
+        },
+        {
+          "attributeId": "49",
+          "value": 1.09694
+        },
+        {
+          "attributeId": "25",
+          "value": 1.04847
+        }
+      ]
+    },
+    {
+      "level": 21,
+      "breakStage": 1,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 29.69072
+        },
+        {
+          "attributeId": "40",
+          "value": 56.33284
+        },
+        {
+          "attributeId": "41",
+          "value": 30
+        },
+        {
+          "attributeId": "42",
+          "value": 38.40858
+        },
+        {
+          "attributeId": "1",
+          "value": 1622
+        },
+        {
+          "attributeId": "2",
+          "value": 93
+        },
+        {
+          "attributeId": "49",
+          "value": 1.10204
+        },
+        {
+          "attributeId": "25",
+          "value": 1.05102
+        }
+      ]
+    },
+    {
+      "level": 22,
+      "breakStage": 1,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 30.68041
+        },
+        {
+          "attributeId": "40",
+          "value": 58.05155
+        },
+        {
+          "attributeId": "41",
+          "value": 31
+        },
+        {
+          "attributeId": "42",
+          "value": 39.58056
+        },
+        {
+          "attributeId": "1",
+          "value": 1679
+        },
+        {
+          "attributeId": "2",
+          "value": 96
+        },
+        {
+          "attributeId": "49",
+          "value": 1.10714
+        },
+        {
+          "attributeId": "25",
+          "value": 1.05357
+        }
+      ]
+    },
+    {
+      "level": 23,
+      "breakStage": 1,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 31.6701
+        },
+        {
+          "attributeId": "40",
+          "value": 59.77025
+        },
+        {
+          "attributeId": "41",
+          "value": 32
+        },
+        {
+          "attributeId": "42",
+          "value": 40.75254
+        },
+        {
+          "attributeId": "1",
+          "value": 1735
+        },
+        {
+          "attributeId": "2",
+          "value": 100
+        },
+        {
+          "attributeId": "49",
+          "value": 1.11224
+        },
+        {
+          "attributeId": "25",
+          "value": 1.05612
+        }
+      ]
+    },
+    {
+      "level": 24,
+      "breakStage": 1,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 32.65979
+        },
+        {
+          "attributeId": "40",
+          "value": 61.48895
+        },
+        {
+          "attributeId": "41",
+          "value": 33
+        },
+        {
+          "attributeId": "42",
+          "value": 41.92451
+        },
+        {
+          "attributeId": "1",
+          "value": 1791
+        },
+        {
+          "attributeId": "2",
+          "value": 103
+        },
+        {
+          "attributeId": "49",
+          "value": 1.11735
+        },
+        {
+          "attributeId": "25",
+          "value": 1.05867
+        }
+      ]
+    },
+    {
+      "level": 25,
+      "breakStage": 1,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 33.64948
+        },
+        {
+          "attributeId": "40",
+          "value": 63.20766
+        },
+        {
+          "attributeId": "41",
+          "value": 34
+        },
+        {
+          "attributeId": "42",
+          "value": 43.09649
+        },
+        {
+          "attributeId": "1",
+          "value": 1847
+        },
+        {
+          "attributeId": "2",
+          "value": 106
+        },
+        {
+          "attributeId": "49",
+          "value": 1.12245
+        },
+        {
+          "attributeId": "25",
+          "value": 1.06122
+        }
+      ]
+    },
+    {
+      "level": 26,
+      "breakStage": 1,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 34.63918
+        },
+        {
+          "attributeId": "40",
+          "value": 64.92636
+        },
+        {
+          "attributeId": "41",
+          "value": 35
+        },
+        {
+          "attributeId": "42",
+          "value": 44.26846
+        },
+        {
+          "attributeId": "1",
+          "value": 1903
+        },
+        {
+          "attributeId": "2",
+          "value": 109
+        },
+        {
+          "attributeId": "49",
+          "value": 1.12755
+        },
+        {
+          "attributeId": "25",
+          "value": 1.06378
+        }
+      ]
+    },
+    {
+      "level": 27,
+      "breakStage": 1,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 35.62887
+        },
+        {
+          "attributeId": "40",
+          "value": 66.64507
+        },
+        {
+          "attributeId": "41",
+          "value": 36
+        },
+        {
+          "attributeId": "42",
+          "value": 45.44044
+        },
+        {
+          "attributeId": "1",
+          "value": 1959
+        },
+        {
+          "attributeId": "2",
+          "value": 112
+        },
+        {
+          "attributeId": "49",
+          "value": 1.13265
+        },
+        {
+          "attributeId": "25",
+          "value": 1.06633
+        }
+      ]
+    },
+    {
+      "level": 28,
+      "breakStage": 1,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 36.61856
+        },
+        {
+          "attributeId": "40",
+          "value": 68.36377
+        },
+        {
+          "attributeId": "41",
+          "value": 37
+        },
+        {
+          "attributeId": "42",
+          "value": 46.61241
+        },
+        {
+          "attributeId": "1",
+          "value": 2015
+        },
+        {
+          "attributeId": "2",
+          "value": 115
+        },
+        {
+          "attributeId": "49",
+          "value": 1.13776
+        },
+        {
+          "attributeId": "25",
+          "value": 1.06888
+        }
+      ]
+    },
+    {
+      "level": 29,
+      "breakStage": 1,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 37.60825
+        },
+        {
+          "attributeId": "40",
+          "value": 70.08247
+        },
+        {
+          "attributeId": "41",
+          "value": 38
+        },
+        {
+          "attributeId": "42",
+          "value": 47.78439
+        },
+        {
+          "attributeId": "1",
+          "value": 2071
+        },
+        {
+          "attributeId": "2",
+          "value": 119
+        },
+        {
+          "attributeId": "49",
+          "value": 1.14286
+        },
+        {
+          "attributeId": "25",
+          "value": 1.07143
+        }
+      ]
+    },
+    {
+      "level": 30,
+      "breakStage": 1,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 38.59794
+        },
+        {
+          "attributeId": "40",
+          "value": 71.80118
+        },
+        {
+          "attributeId": "41",
+          "value": 39
+        },
+        {
+          "attributeId": "42",
+          "value": 48.95636
+        },
+        {
+          "attributeId": "1",
+          "value": 2128
+        },
+        {
+          "attributeId": "2",
+          "value": 122
+        },
+        {
+          "attributeId": "49",
+          "value": 1.14796
+        },
+        {
+          "attributeId": "25",
+          "value": 1.07398
+        }
+      ]
+    },
+    {
+      "level": 31,
+      "breakStage": 1,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 39.58763
+        },
+        {
+          "attributeId": "40",
+          "value": 73.51988
+        },
+        {
+          "attributeId": "41",
+          "value": 40
+        },
+        {
+          "attributeId": "42",
+          "value": 50.12834
+        },
+        {
+          "attributeId": "1",
+          "value": 2184
+        },
+        {
+          "attributeId": "2",
+          "value": 125
+        },
+        {
+          "attributeId": "49",
+          "value": 1.15306
+        },
+        {
+          "attributeId": "25",
+          "value": 1.07653
+        }
+      ]
+    },
+    {
+      "level": 32,
+      "breakStage": 1,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 40.57732
+        },
+        {
+          "attributeId": "40",
+          "value": 75.23859
+        },
+        {
+          "attributeId": "41",
+          "value": 41
+        },
+        {
+          "attributeId": "42",
+          "value": 51.30032
+        },
+        {
+          "attributeId": "1",
+          "value": 2240
+        },
+        {
+          "attributeId": "2",
+          "value": 128
+        },
+        {
+          "attributeId": "49",
+          "value": 1.15816
+        },
+        {
+          "attributeId": "25",
+          "value": 1.07908
+        }
+      ]
+    },
+    {
+      "level": 33,
+      "breakStage": 1,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 41.56701
+        },
+        {
+          "attributeId": "40",
+          "value": 76.95729
+        },
+        {
+          "attributeId": "41",
+          "value": 42
+        },
+        {
+          "attributeId": "42",
+          "value": 52.47229
+        },
+        {
+          "attributeId": "1",
+          "value": 2296
+        },
+        {
+          "attributeId": "2",
+          "value": 131
+        },
+        {
+          "attributeId": "49",
+          "value": 1.16327
+        },
+        {
+          "attributeId": "25",
+          "value": 1.08163
+        }
+      ]
+    },
+    {
+      "level": 34,
+      "breakStage": 1,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 42.5567
+        },
+        {
+          "attributeId": "40",
+          "value": 78.67599
+        },
+        {
+          "attributeId": "41",
+          "value": 43
+        },
+        {
+          "attributeId": "42",
+          "value": 53.64427
+        },
+        {
+          "attributeId": "1",
+          "value": 2352
+        },
+        {
+          "attributeId": "2",
+          "value": 134
+        },
+        {
+          "attributeId": "49",
+          "value": 1.16837
+        },
+        {
+          "attributeId": "25",
+          "value": 1.08418
+        }
+      ]
+    },
+    {
+      "level": 35,
+      "breakStage": 1,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 43.54639
+        },
+        {
+          "attributeId": "40",
+          "value": 80.3947
+        },
+        {
+          "attributeId": "41",
+          "value": 44
+        },
+        {
+          "attributeId": "42",
+          "value": 54.81624
+        },
+        {
+          "attributeId": "1",
+          "value": 2408
+        },
+        {
+          "attributeId": "2",
+          "value": 138
+        },
+        {
+          "attributeId": "49",
+          "value": 1.17347
+        },
+        {
+          "attributeId": "25",
+          "value": 1.08673
+        }
+      ]
+    },
+    {
+      "level": 36,
+      "breakStage": 1,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 44.53608
+        },
+        {
+          "attributeId": "40",
+          "value": 82.1134
+        },
+        {
+          "attributeId": "41",
+          "value": 45
+        },
+        {
+          "attributeId": "42",
+          "value": 55.98822
+        },
+        {
+          "attributeId": "1",
+          "value": 2464
+        },
+        {
+          "attributeId": "2",
+          "value": 141
+        },
+        {
+          "attributeId": "49",
+          "value": 1.17857
+        },
+        {
+          "attributeId": "25",
+          "value": 1.08929
+        }
+      ]
+    },
+    {
+      "level": 37,
+      "breakStage": 1,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 45.52577
+        },
+        {
+          "attributeId": "40",
+          "value": 83.83211
+        },
+        {
+          "attributeId": "41",
+          "value": 46
+        },
+        {
+          "attributeId": "42",
+          "value": 57.16019
+        },
+        {
+          "attributeId": "1",
+          "value": 2520
+        },
+        {
+          "attributeId": "2",
+          "value": 144
+        },
+        {
+          "attributeId": "49",
+          "value": 1.18367
+        },
+        {
+          "attributeId": "25",
+          "value": 1.09184
+        }
+      ]
+    },
+    {
+      "level": 38,
+      "breakStage": 1,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 46.51546
+        },
+        {
+          "attributeId": "40",
+          "value": 85.55081
+        },
+        {
+          "attributeId": "41",
+          "value": 47
+        },
+        {
+          "attributeId": "42",
+          "value": 58.33217
+        },
+        {
+          "attributeId": "1",
+          "value": 2577
+        },
+        {
+          "attributeId": "2",
+          "value": 147
+        },
+        {
+          "attributeId": "49",
+          "value": 1.18878
+        },
+        {
+          "attributeId": "25",
+          "value": 1.09439
+        }
+      ]
+    },
+    {
+      "level": 39,
+      "breakStage": 1,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 47.50515
+        },
+        {
+          "attributeId": "40",
+          "value": 87.26951
+        },
+        {
+          "attributeId": "41",
+          "value": 48
+        },
+        {
+          "attributeId": "42",
+          "value": 59.50414
+        },
+        {
+          "attributeId": "1",
+          "value": 2633
+        },
+        {
+          "attributeId": "2",
+          "value": 150
+        },
+        {
+          "attributeId": "49",
+          "value": 1.19388
+        },
+        {
+          "attributeId": "25",
+          "value": 1.09694
+        }
+      ]
+    },
+    {
+      "level": 40,
+      "breakStage": 2,
+      "isBreakthrough": true,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 48.49485
+        },
+        {
+          "attributeId": "40",
+          "value": 88.98822
+        },
+        {
+          "attributeId": "41",
+          "value": 49
+        },
+        {
+          "attributeId": "42",
+          "value": 60.67612
+        },
+        {
+          "attributeId": "1",
+          "value": 2689
+        },
+        {
+          "attributeId": "2",
+          "value": 153
+        },
+        {
+          "attributeId": "49",
+          "value": 1.19898
+        },
+        {
+          "attributeId": "25",
+          "value": 1.09949
+        }
+      ]
+    },
+    {
+      "level": 41,
+      "breakStage": 2,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 49.48454
+        },
+        {
+          "attributeId": "40",
+          "value": 90.70692
+        },
+        {
+          "attributeId": "41",
+          "value": 50
+        },
+        {
+          "attributeId": "42",
+          "value": 61.8481
+        },
+        {
+          "attributeId": "1",
+          "value": 2745
+        },
+        {
+          "attributeId": "2",
+          "value": 157
+        },
+        {
+          "attributeId": "49",
+          "value": 1.20408
+        },
+        {
+          "attributeId": "25",
+          "value": 1.10204
+        }
+      ]
+    },
+    {
+      "level": 42,
+      "breakStage": 2,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 50.47423
+        },
+        {
+          "attributeId": "40",
+          "value": 92.42563
+        },
+        {
+          "attributeId": "41",
+          "value": 51
+        },
+        {
+          "attributeId": "42",
+          "value": 63.02007
+        },
+        {
+          "attributeId": "1",
+          "value": 2801
+        },
+        {
+          "attributeId": "2",
+          "value": 160
+        },
+        {
+          "attributeId": "49",
+          "value": 1.20918
+        },
+        {
+          "attributeId": "25",
+          "value": 1.10459
+        }
+      ]
+    },
+    {
+      "level": 43,
+      "breakStage": 2,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 51.46392
+        },
+        {
+          "attributeId": "40",
+          "value": 94.14433
+        },
+        {
+          "attributeId": "41",
+          "value": 52
+        },
+        {
+          "attributeId": "42",
+          "value": 64.19205
+        },
+        {
+          "attributeId": "1",
+          "value": 2857
+        },
+        {
+          "attributeId": "2",
+          "value": 163
+        },
+        {
+          "attributeId": "49",
+          "value": 1.21429
+        },
+        {
+          "attributeId": "25",
+          "value": 1.10714
+        }
+      ]
+    },
+    {
+      "level": 44,
+      "breakStage": 2,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 52.45361
+        },
+        {
+          "attributeId": "40",
+          "value": 95.86303
+        },
+        {
+          "attributeId": "41",
+          "value": 53
+        },
+        {
+          "attributeId": "42",
+          "value": 65.36402
+        },
+        {
+          "attributeId": "1",
+          "value": 2913
+        },
+        {
+          "attributeId": "2",
+          "value": 166
+        },
+        {
+          "attributeId": "49",
+          "value": 1.21939
+        },
+        {
+          "attributeId": "25",
+          "value": 1.10969
+        }
+      ]
+    },
+    {
+      "level": 45,
+      "breakStage": 2,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 53.4433
+        },
+        {
+          "attributeId": "40",
+          "value": 97.58174
+        },
+        {
+          "attributeId": "41",
+          "value": 54
+        },
+        {
+          "attributeId": "42",
+          "value": 66.536
+        },
+        {
+          "attributeId": "1",
+          "value": 2969
+        },
+        {
+          "attributeId": "2",
+          "value": 169
+        },
+        {
+          "attributeId": "49",
+          "value": 1.22449
+        },
+        {
+          "attributeId": "25",
+          "value": 1.11224
+        }
+      ]
+    },
+    {
+      "level": 46,
+      "breakStage": 2,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 54.43299
+        },
+        {
+          "attributeId": "40",
+          "value": 99.30044
+        },
+        {
+          "attributeId": "41",
+          "value": 55
+        },
+        {
+          "attributeId": "42",
+          "value": 67.70797
+        },
+        {
+          "attributeId": "1",
+          "value": 3026
+        },
+        {
+          "attributeId": "2",
+          "value": 172
+        },
+        {
+          "attributeId": "49",
+          "value": 1.22959
+        },
+        {
+          "attributeId": "25",
+          "value": 1.1148
+        }
+      ]
+    },
+    {
+      "level": 47,
+      "breakStage": 2,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 55.42268
+        },
+        {
+          "attributeId": "40",
+          "value": 101.01915
+        },
+        {
+          "attributeId": "41",
+          "value": 56
+        },
+        {
+          "attributeId": "42",
+          "value": 68.87995
+        },
+        {
+          "attributeId": "1",
+          "value": 3082
+        },
+        {
+          "attributeId": "2",
+          "value": 176
+        },
+        {
+          "attributeId": "49",
+          "value": 1.23469
+        },
+        {
+          "attributeId": "25",
+          "value": 1.11735
+        }
+      ]
+    },
+    {
+      "level": 48,
+      "breakStage": 2,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 56.41237
+        },
+        {
+          "attributeId": "40",
+          "value": 102.73785
+        },
+        {
+          "attributeId": "41",
+          "value": 57
+        },
+        {
+          "attributeId": "42",
+          "value": 70.05193
+        },
+        {
+          "attributeId": "1",
+          "value": 3138
+        },
+        {
+          "attributeId": "2",
+          "value": 179
+        },
+        {
+          "attributeId": "49",
+          "value": 1.2398
+        },
+        {
+          "attributeId": "25",
+          "value": 1.1199
+        }
+      ]
+    },
+    {
+      "level": 49,
+      "breakStage": 2,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 57.40206
+        },
+        {
+          "attributeId": "40",
+          "value": 104.45655
+        },
+        {
+          "attributeId": "41",
+          "value": 58
+        },
+        {
+          "attributeId": "42",
+          "value": 71.2239
+        },
+        {
+          "attributeId": "1",
+          "value": 3194
+        },
+        {
+          "attributeId": "2",
+          "value": 182
+        },
+        {
+          "attributeId": "49",
+          "value": 1.2449
+        },
+        {
+          "attributeId": "25",
+          "value": 1.12245
+        }
+      ]
+    },
+    {
+      "level": 50,
+      "breakStage": 2,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 58.39175
+        },
+        {
+          "attributeId": "40",
+          "value": 106.17526
+        },
+        {
+          "attributeId": "41",
+          "value": 59
+        },
+        {
+          "attributeId": "42",
+          "value": 72.39588
+        },
+        {
+          "attributeId": "1",
+          "value": 3250
+        },
+        {
+          "attributeId": "2",
+          "value": 185
+        },
+        {
+          "attributeId": "49",
+          "value": 1.25
+        },
+        {
+          "attributeId": "25",
+          "value": 1.125
+        }
+      ]
+    },
+    {
+      "level": 51,
+      "breakStage": 2,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 59.38144
+        },
+        {
+          "attributeId": "40",
+          "value": 107.89396
+        },
+        {
+          "attributeId": "41",
+          "value": 60
+        },
+        {
+          "attributeId": "42",
+          "value": 73.56785
+        },
+        {
+          "attributeId": "1",
+          "value": 3306
+        },
+        {
+          "attributeId": "2",
+          "value": 188
+        },
+        {
+          "attributeId": "49",
+          "value": 1.2551
+        },
+        {
+          "attributeId": "25",
+          "value": 1.12755
+        }
+      ]
+    },
+    {
+      "level": 52,
+      "breakStage": 2,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 60.37113
+        },
+        {
+          "attributeId": "40",
+          "value": 109.61267
+        },
+        {
+          "attributeId": "41",
+          "value": 61
+        },
+        {
+          "attributeId": "42",
+          "value": 74.73983
+        },
+        {
+          "attributeId": "1",
+          "value": 3362
+        },
+        {
+          "attributeId": "2",
+          "value": 191
+        },
+        {
+          "attributeId": "49",
+          "value": 1.2602
+        },
+        {
+          "attributeId": "25",
+          "value": 1.1301
+        }
+      ]
+    },
+    {
+      "level": 53,
+      "breakStage": 2,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 61.36082
+        },
+        {
+          "attributeId": "40",
+          "value": 111.33137
+        },
+        {
+          "attributeId": "41",
+          "value": 62
+        },
+        {
+          "attributeId": "42",
+          "value": 75.9118
+        },
+        {
+          "attributeId": "1",
+          "value": 3418
+        },
+        {
+          "attributeId": "2",
+          "value": 195
+        },
+        {
+          "attributeId": "49",
+          "value": 1.26531
+        },
+        {
+          "attributeId": "25",
+          "value": 1.13265
+        }
+      ]
+    },
+    {
+      "level": 54,
+      "breakStage": 2,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 62.35052
+        },
+        {
+          "attributeId": "40",
+          "value": 113.05007
+        },
+        {
+          "attributeId": "41",
+          "value": 63
+        },
+        {
+          "attributeId": "42",
+          "value": 77.08378
+        },
+        {
+          "attributeId": "1",
+          "value": 3474
+        },
+        {
+          "attributeId": "2",
+          "value": 198
+        },
+        {
+          "attributeId": "49",
+          "value": 1.27041
+        },
+        {
+          "attributeId": "25",
+          "value": 1.1352
+        }
+      ]
+    },
+    {
+      "level": 55,
+      "breakStage": 2,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 63.34021
+        },
+        {
+          "attributeId": "40",
+          "value": 114.76878
+        },
+        {
+          "attributeId": "41",
+          "value": 64
+        },
+        {
+          "attributeId": "42",
+          "value": 78.25575
+        },
+        {
+          "attributeId": "1",
+          "value": 3531
+        },
+        {
+          "attributeId": "2",
+          "value": 201
+        },
+        {
+          "attributeId": "49",
+          "value": 1.27551
+        },
+        {
+          "attributeId": "25",
+          "value": 1.13776
+        }
+      ]
+    },
+    {
+      "level": 56,
+      "breakStage": 2,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 64.3299
+        },
+        {
+          "attributeId": "40",
+          "value": 116.48748
+        },
+        {
+          "attributeId": "41",
+          "value": 65
+        },
+        {
+          "attributeId": "42",
+          "value": 79.42773
+        },
+        {
+          "attributeId": "1",
+          "value": 3587
+        },
+        {
+          "attributeId": "2",
+          "value": 204
+        },
+        {
+          "attributeId": "49",
+          "value": 1.28061
+        },
+        {
+          "attributeId": "25",
+          "value": 1.14031
+        }
+      ]
+    },
+    {
+      "level": 57,
+      "breakStage": 2,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 65.31959
+        },
+        {
+          "attributeId": "40",
+          "value": 118.20619
+        },
+        {
+          "attributeId": "41",
+          "value": 66
+        },
+        {
+          "attributeId": "42",
+          "value": 80.59971
+        },
+        {
+          "attributeId": "1",
+          "value": 3643
+        },
+        {
+          "attributeId": "2",
+          "value": 207
+        },
+        {
+          "attributeId": "49",
+          "value": 1.28571
+        },
+        {
+          "attributeId": "25",
+          "value": 1.14286
+        }
+      ]
+    },
+    {
+      "level": 58,
+      "breakStage": 2,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 66.30928
+        },
+        {
+          "attributeId": "40",
+          "value": 119.92489
+        },
+        {
+          "attributeId": "41",
+          "value": 67
+        },
+        {
+          "attributeId": "42",
+          "value": 81.77168
+        },
+        {
+          "attributeId": "1",
+          "value": 3699
+        },
+        {
+          "attributeId": "2",
+          "value": 210
+        },
+        {
+          "attributeId": "49",
+          "value": 1.29082
+        },
+        {
+          "attributeId": "25",
+          "value": 1.14541
+        }
+      ]
+    },
+    {
+      "level": 59,
+      "breakStage": 2,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 67.29897
+        },
+        {
+          "attributeId": "40",
+          "value": 121.64359
+        },
+        {
+          "attributeId": "41",
+          "value": 68
+        },
+        {
+          "attributeId": "42",
+          "value": 82.94366
+        },
+        {
+          "attributeId": "1",
+          "value": 3755
+        },
+        {
+          "attributeId": "2",
+          "value": 214
+        },
+        {
+          "attributeId": "49",
+          "value": 1.29592
+        },
+        {
+          "attributeId": "25",
+          "value": 1.14796
+        }
+      ]
+    },
+    {
+      "level": 60,
+      "breakStage": 3,
+      "isBreakthrough": true,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 68.28866
+        },
+        {
+          "attributeId": "40",
+          "value": 123.3623
+        },
+        {
+          "attributeId": "41",
+          "value": 69
+        },
+        {
+          "attributeId": "42",
+          "value": 84.11563
+        },
+        {
+          "attributeId": "1",
+          "value": 3811
+        },
+        {
+          "attributeId": "2",
+          "value": 217
+        },
+        {
+          "attributeId": "49",
+          "value": 1.30102
+        },
+        {
+          "attributeId": "25",
+          "value": 1.15051
+        }
+      ]
+    },
+    {
+      "level": 61,
+      "breakStage": 3,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 69.27835
+        },
+        {
+          "attributeId": "40",
+          "value": 125.081
+        },
+        {
+          "attributeId": "41",
+          "value": 70
+        },
+        {
+          "attributeId": "42",
+          "value": 85.28761
+        },
+        {
+          "attributeId": "1",
+          "value": 3867
+        },
+        {
+          "attributeId": "2",
+          "value": 220
+        },
+        {
+          "attributeId": "49",
+          "value": 1.30612
+        },
+        {
+          "attributeId": "25",
+          "value": 1.15306
+        }
+      ]
+    },
+    {
+      "level": 62,
+      "breakStage": 3,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 70.26804
+        },
+        {
+          "attributeId": "40",
+          "value": 126.79971
+        },
+        {
+          "attributeId": "41",
+          "value": 71
+        },
+        {
+          "attributeId": "42",
+          "value": 86.45958
+        },
+        {
+          "attributeId": "1",
+          "value": 3923
+        },
+        {
+          "attributeId": "2",
+          "value": 223
+        },
+        {
+          "attributeId": "49",
+          "value": 1.31122
+        },
+        {
+          "attributeId": "25",
+          "value": 1.15561
+        }
+      ]
+    },
+    {
+      "level": 63,
+      "breakStage": 3,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 71.25773
+        },
+        {
+          "attributeId": "40",
+          "value": 128.51841
+        },
+        {
+          "attributeId": "41",
+          "value": 72
+        },
+        {
+          "attributeId": "42",
+          "value": 87.63156
+        },
+        {
+          "attributeId": "1",
+          "value": 3980
+        },
+        {
+          "attributeId": "2",
+          "value": 226
+        },
+        {
+          "attributeId": "49",
+          "value": 1.31633
+        },
+        {
+          "attributeId": "25",
+          "value": 1.15816
+        }
+      ]
+    },
+    {
+      "level": 64,
+      "breakStage": 3,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 72.24742
+        },
+        {
+          "attributeId": "40",
+          "value": 130.23711
+        },
+        {
+          "attributeId": "41",
+          "value": 73
+        },
+        {
+          "attributeId": "42",
+          "value": 88.80353
+        },
+        {
+          "attributeId": "1",
+          "value": 4036
+        },
+        {
+          "attributeId": "2",
+          "value": 229
+        },
+        {
+          "attributeId": "49",
+          "value": 1.32143
+        },
+        {
+          "attributeId": "25",
+          "value": 1.16071
+        }
+      ]
+    },
+    {
+      "level": 65,
+      "breakStage": 3,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 73.23711
+        },
+        {
+          "attributeId": "40",
+          "value": 131.95582
+        },
+        {
+          "attributeId": "41",
+          "value": 74
+        },
+        {
+          "attributeId": "42",
+          "value": 89.97551
+        },
+        {
+          "attributeId": "1",
+          "value": 4092
+        },
+        {
+          "attributeId": "2",
+          "value": 233
+        },
+        {
+          "attributeId": "49",
+          "value": 1.32653
+        },
+        {
+          "attributeId": "25",
+          "value": 1.16327
+        }
+      ]
+    },
+    {
+      "level": 66,
+      "breakStage": 3,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 74.2268
+        },
+        {
+          "attributeId": "40",
+          "value": 133.67452
+        },
+        {
+          "attributeId": "41",
+          "value": 75
+        },
+        {
+          "attributeId": "42",
+          "value": 91.14749
+        },
+        {
+          "attributeId": "1",
+          "value": 4148
+        },
+        {
+          "attributeId": "2",
+          "value": 236
+        },
+        {
+          "attributeId": "49",
+          "value": 1.33163
+        },
+        {
+          "attributeId": "25",
+          "value": 1.16582
+        }
+      ]
+    },
+    {
+      "level": 67,
+      "breakStage": 3,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 75.21649
+        },
+        {
+          "attributeId": "40",
+          "value": 135.39323
+        },
+        {
+          "attributeId": "41",
+          "value": 76
+        },
+        {
+          "attributeId": "42",
+          "value": 92.31946
+        },
+        {
+          "attributeId": "1",
+          "value": 4204
+        },
+        {
+          "attributeId": "2",
+          "value": 239
+        },
+        {
+          "attributeId": "49",
+          "value": 1.33673
+        },
+        {
+          "attributeId": "25",
+          "value": 1.16837
+        }
+      ]
+    },
+    {
+      "level": 68,
+      "breakStage": 3,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 76.20619
+        },
+        {
+          "attributeId": "40",
+          "value": 137.11193
+        },
+        {
+          "attributeId": "41",
+          "value": 77
+        },
+        {
+          "attributeId": "42",
+          "value": 93.49144
+        },
+        {
+          "attributeId": "1",
+          "value": 4260
+        },
+        {
+          "attributeId": "2",
+          "value": 242
+        },
+        {
+          "attributeId": "49",
+          "value": 1.34184
+        },
+        {
+          "attributeId": "25",
+          "value": 1.17092
+        }
+      ]
+    },
+    {
+      "level": 69,
+      "breakStage": 3,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 77.19588
+        },
+        {
+          "attributeId": "40",
+          "value": 138.83063
+        },
+        {
+          "attributeId": "41",
+          "value": 78
+        },
+        {
+          "attributeId": "42",
+          "value": 94.66341
+        },
+        {
+          "attributeId": "1",
+          "value": 4316
+        },
+        {
+          "attributeId": "2",
+          "value": 245
+        },
+        {
+          "attributeId": "49",
+          "value": 1.34694
+        },
+        {
+          "attributeId": "25",
+          "value": 1.17347
+        }
+      ]
+    },
+    {
+      "level": 70,
+      "breakStage": 3,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 78.18557
+        },
+        {
+          "attributeId": "40",
+          "value": 140.54934
+        },
+        {
+          "attributeId": "41",
+          "value": 79
+        },
+        {
+          "attributeId": "42",
+          "value": 95.83539
+        },
+        {
+          "attributeId": "1",
+          "value": 4372
+        },
+        {
+          "attributeId": "2",
+          "value": 248
+        },
+        {
+          "attributeId": "49",
+          "value": 1.35204
+        },
+        {
+          "attributeId": "25",
+          "value": 1.17602
+        }
+      ]
+    },
+    {
+      "level": 71,
+      "breakStage": 3,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 79.17526
+        },
+        {
+          "attributeId": "40",
+          "value": 142.26804
+        },
+        {
+          "attributeId": "41",
+          "value": 80
+        },
+        {
+          "attributeId": "42",
+          "value": 97.00736
+        },
+        {
+          "attributeId": "1",
+          "value": 4429
+        },
+        {
+          "attributeId": "2",
+          "value": 252
+        },
+        {
+          "attributeId": "49",
+          "value": 1.35714
+        },
+        {
+          "attributeId": "25",
+          "value": 1.17857
+        }
+      ]
+    },
+    {
+      "level": 72,
+      "breakStage": 3,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 80.16495
+        },
+        {
+          "attributeId": "40",
+          "value": 143.98675
+        },
+        {
+          "attributeId": "41",
+          "value": 81
+        },
+        {
+          "attributeId": "42",
+          "value": 98.17934
+        },
+        {
+          "attributeId": "1",
+          "value": 4485
+        },
+        {
+          "attributeId": "2",
+          "value": 255
+        },
+        {
+          "attributeId": "49",
+          "value": 1.36224
+        },
+        {
+          "attributeId": "25",
+          "value": 1.18112
+        }
+      ]
+    },
+    {
+      "level": 73,
+      "breakStage": 3,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 81.15464
+        },
+        {
+          "attributeId": "40",
+          "value": 145.70545
+        },
+        {
+          "attributeId": "41",
+          "value": 82
+        },
+        {
+          "attributeId": "42",
+          "value": 99.35131
+        },
+        {
+          "attributeId": "1",
+          "value": 4541
+        },
+        {
+          "attributeId": "2",
+          "value": 258
+        },
+        {
+          "attributeId": "49",
+          "value": 1.36735
+        },
+        {
+          "attributeId": "25",
+          "value": 1.18367
+        }
+      ]
+    },
+    {
+      "level": 74,
+      "breakStage": 3,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 82.14433
+        },
+        {
+          "attributeId": "40",
+          "value": 147.42415
+        },
+        {
+          "attributeId": "41",
+          "value": 83
+        },
+        {
+          "attributeId": "42",
+          "value": 100.52329
+        },
+        {
+          "attributeId": "1",
+          "value": 4597
+        },
+        {
+          "attributeId": "2",
+          "value": 261
+        },
+        {
+          "attributeId": "49",
+          "value": 1.37245
+        },
+        {
+          "attributeId": "25",
+          "value": 1.18622
+        }
+      ]
+    },
+    {
+      "level": 75,
+      "breakStage": 3,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 83.13402
+        },
+        {
+          "attributeId": "40",
+          "value": 149.14286
+        },
+        {
+          "attributeId": "41",
+          "value": 84
+        },
+        {
+          "attributeId": "42",
+          "value": 101.69527
+        },
+        {
+          "attributeId": "1",
+          "value": 4653
+        },
+        {
+          "attributeId": "2",
+          "value": 264
+        },
+        {
+          "attributeId": "49",
+          "value": 1.37755
+        },
+        {
+          "attributeId": "25",
+          "value": 1.18878
+        }
+      ]
+    },
+    {
+      "level": 76,
+      "breakStage": 3,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 84.12371
+        },
+        {
+          "attributeId": "40",
+          "value": 150.86156
+        },
+        {
+          "attributeId": "41",
+          "value": 85
+        },
+        {
+          "attributeId": "42",
+          "value": 102.86724
+        },
+        {
+          "attributeId": "1",
+          "value": 4709
+        },
+        {
+          "attributeId": "2",
+          "value": 267
+        },
+        {
+          "attributeId": "49",
+          "value": 1.38265
+        },
+        {
+          "attributeId": "25",
+          "value": 1.19133
+        }
+      ]
+    },
+    {
+      "level": 77,
+      "breakStage": 3,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 85.1134
+        },
+        {
+          "attributeId": "40",
+          "value": 152.58027
+        },
+        {
+          "attributeId": "41",
+          "value": 86
+        },
+        {
+          "attributeId": "42",
+          "value": 104.03922
+        },
+        {
+          "attributeId": "1",
+          "value": 4765
+        },
+        {
+          "attributeId": "2",
+          "value": 271
+        },
+        {
+          "attributeId": "49",
+          "value": 1.38776
+        },
+        {
+          "attributeId": "25",
+          "value": 1.19388
+        }
+      ]
+    },
+    {
+      "level": 78,
+      "breakStage": 3,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 86.10309
+        },
+        {
+          "attributeId": "40",
+          "value": 154.29897
+        },
+        {
+          "attributeId": "41",
+          "value": 87
+        },
+        {
+          "attributeId": "42",
+          "value": 105.21119
+        },
+        {
+          "attributeId": "1",
+          "value": 4821
+        },
+        {
+          "attributeId": "2",
+          "value": 274
+        },
+        {
+          "attributeId": "49",
+          "value": 1.39286
+        },
+        {
+          "attributeId": "25",
+          "value": 1.19643
+        }
+      ]
+    },
+    {
+      "level": 79,
+      "breakStage": 3,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 87.09278
+        },
+        {
+          "attributeId": "40",
+          "value": 156.01767
+        },
+        {
+          "attributeId": "41",
+          "value": 88
+        },
+        {
+          "attributeId": "42",
+          "value": 106.38317
+        },
+        {
+          "attributeId": "1",
+          "value": 4878
+        },
+        {
+          "attributeId": "2",
+          "value": 277
+        },
+        {
+          "attributeId": "49",
+          "value": 1.39796
+        },
+        {
+          "attributeId": "25",
+          "value": 1.19898
+        }
+      ]
+    },
+    {
+      "level": 80,
+      "breakStage": 4,
+      "isBreakthrough": true,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 88.08247
+        },
+        {
+          "attributeId": "40",
+          "value": 157.73638
+        },
+        {
+          "attributeId": "41",
+          "value": 89
+        },
+        {
+          "attributeId": "42",
+          "value": 107.55514
+        },
+        {
+          "attributeId": "1",
+          "value": 4934
+        },
+        {
+          "attributeId": "2",
+          "value": 280
+        },
+        {
+          "attributeId": "49",
+          "value": 1.40306
+        },
+        {
+          "attributeId": "25",
+          "value": 1.20153
+        }
+      ]
+    },
+    {
+      "level": 81,
+      "breakStage": 4,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 89.07216
+        },
+        {
+          "attributeId": "40",
+          "value": 159.45508
+        },
+        {
+          "attributeId": "41",
+          "value": 90
+        },
+        {
+          "attributeId": "42",
+          "value": 108.72712
+        },
+        {
+          "attributeId": "1",
+          "value": 4990
+        },
+        {
+          "attributeId": "2",
+          "value": 283
+        },
+        {
+          "attributeId": "49",
+          "value": 1.40816
+        },
+        {
+          "attributeId": "25",
+          "value": 1.20408
+        }
+      ]
+    },
+    {
+      "level": 82,
+      "breakStage": 4,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 90.06186
+        },
+        {
+          "attributeId": "40",
+          "value": 161.17378
+        },
+        {
+          "attributeId": "41",
+          "value": 91
+        },
+        {
+          "attributeId": "42",
+          "value": 109.8991
+        },
+        {
+          "attributeId": "1",
+          "value": 5046
+        },
+        {
+          "attributeId": "2",
+          "value": 286
+        },
+        {
+          "attributeId": "49",
+          "value": 1.41327
+        },
+        {
+          "attributeId": "25",
+          "value": 1.20663
+        }
+      ]
+    },
+    {
+      "level": 83,
+      "breakStage": 4,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 91.05155
+        },
+        {
+          "attributeId": "40",
+          "value": 162.89249
+        },
+        {
+          "attributeId": "41",
+          "value": 92
+        },
+        {
+          "attributeId": "42",
+          "value": 111.07107
+        },
+        {
+          "attributeId": "1",
+          "value": 5102
+        },
+        {
+          "attributeId": "2",
+          "value": 290
+        },
+        {
+          "attributeId": "49",
+          "value": 1.41837
+        },
+        {
+          "attributeId": "25",
+          "value": 1.20918
+        }
+      ]
+    },
+    {
+      "level": 84,
+      "breakStage": 4,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 92.04124
+        },
+        {
+          "attributeId": "40",
+          "value": 164.61119
+        },
+        {
+          "attributeId": "41",
+          "value": 93
+        },
+        {
+          "attributeId": "42",
+          "value": 112.24305
+        },
+        {
+          "attributeId": "1",
+          "value": 5158
+        },
+        {
+          "attributeId": "2",
+          "value": 293
+        },
+        {
+          "attributeId": "49",
+          "value": 1.42347
+        },
+        {
+          "attributeId": "25",
+          "value": 1.21173
+        }
+      ]
+    },
+    {
+      "level": 85,
+      "breakStage": 4,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 93.03093
+        },
+        {
+          "attributeId": "40",
+          "value": 166.3299
+        },
+        {
+          "attributeId": "41",
+          "value": 94
+        },
+        {
+          "attributeId": "42",
+          "value": 113.41502
+        },
+        {
+          "attributeId": "1",
+          "value": 5214
+        },
+        {
+          "attributeId": "2",
+          "value": 296
+        },
+        {
+          "attributeId": "49",
+          "value": 1.42857
+        },
+        {
+          "attributeId": "25",
+          "value": 1.21429
+        }
+      ]
+    },
+    {
+      "level": 86,
+      "breakStage": 4,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 94.02062
+        },
+        {
+          "attributeId": "40",
+          "value": 168.0486
+        },
+        {
+          "attributeId": "41",
+          "value": 95
+        },
+        {
+          "attributeId": "42",
+          "value": 114.587
+        },
+        {
+          "attributeId": "1",
+          "value": 5270
+        },
+        {
+          "attributeId": "2",
+          "value": 299
+        },
+        {
+          "attributeId": "49",
+          "value": 1.43367
+        },
+        {
+          "attributeId": "25",
+          "value": 1.21684
+        }
+      ]
+    },
+    {
+      "level": 87,
+      "breakStage": 4,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 95.01031
+        },
+        {
+          "attributeId": "40",
+          "value": 169.7673
+        },
+        {
+          "attributeId": "41",
+          "value": 96
+        },
+        {
+          "attributeId": "42",
+          "value": 115.75897
+        },
+        {
+          "attributeId": "1",
+          "value": 5327
+        },
+        {
+          "attributeId": "2",
+          "value": 302
+        },
+        {
+          "attributeId": "49",
+          "value": 1.43878
+        },
+        {
+          "attributeId": "25",
+          "value": 1.21939
+        }
+      ]
+    },
+    {
+      "level": 88,
+      "breakStage": 4,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 96
+        },
+        {
+          "attributeId": "40",
+          "value": 171.48601
+        },
+        {
+          "attributeId": "41",
+          "value": 97
+        },
+        {
+          "attributeId": "42",
+          "value": 116.93095
+        },
+        {
+          "attributeId": "1",
+          "value": 5383
+        },
+        {
+          "attributeId": "2",
+          "value": 305
+        },
+        {
+          "attributeId": "49",
+          "value": 1.44388
+        },
+        {
+          "attributeId": "25",
+          "value": 1.22194
+        }
+      ]
+    },
+    {
+      "level": 89,
+      "breakStage": 4,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 96.98969
+        },
+        {
+          "attributeId": "40",
+          "value": 173.20471
+        },
+        {
+          "attributeId": "41",
+          "value": 98
+        },
+        {
+          "attributeId": "42",
+          "value": 118.10292
+        },
+        {
+          "attributeId": "1",
+          "value": 5439
+        },
+        {
+          "attributeId": "2",
+          "value": 309
+        },
+        {
+          "attributeId": "49",
+          "value": 1.44898
+        },
+        {
+          "attributeId": "25",
+          "value": 1.22449
+        }
+      ]
+    },
+    {
+      "level": 90,
+      "breakStage": 4,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 97.97938
+        },
+        {
+          "attributeId": "40",
+          "value": 174.92342
+        },
+        {
+          "attributeId": "41",
+          "value": 99
+        },
+        {
+          "attributeId": "42",
+          "value": 119.2749
+        },
+        {
+          "attributeId": "1",
+          "value": 5495
+        },
+        {
+          "attributeId": "2",
+          "value": 312
+        },
+        {
+          "attributeId": "49",
+          "value": 1.45408
+        },
+        {
+          "attributeId": "25",
+          "value": 1.22704
+        }
+      ]
+    }
+  ],
+  "fixedStats": [
+    {
+      "attributeId": "90",
+      "value": 11
+    },
+    {
+      "attributeId": "12",
+      "value": 12
+    }
+  ],
+  "skills": [
+    {
+      "id": "chr_0034_typhoea_NormalAttack",
+      "typeId": "0",
+      "name": {
+        "zh-CN": "追猎荒原",
+        "en": "Wildlands Huntress",
+        "ja": "荒原の狩猟",
+        "zh-TW": "追獵荒原"
+      },
+      "description": {
+        "zh-CN": "普通攻击：\n对敌人进行至多5段攻击，造成<@ba.natur>自然伤害</>。作为主控干员时，<#ba.lastcombo>重击</>会造成<@ba.poise>17</>点失衡。\n\n下落攻击：\n处于空中时使用普通攻击，会下落并攻击附近敌人，造成<@ba.natur>自然伤害</>。\n\n处决攻击：\n附近有敌人处于失衡状态时使用普通攻击，将处决该敌人，造成大量<@ba.natur>自然伤害</>并恢复一定技力。",
+        "en": "BASIC ATTACK: \nAn attack with up to 5 sequences that deals <@ba.natur>Nature DMG</>. As the controlled operator, <#ba.lastcombo>Final Strike</> also deals <@ba.poise>17</> Stagger. \n\nDIVE ATTACK: \nBasic attack performed in mid-air becomes a dive attack that deals <@ba.natur>Nature DMG</> to nearby enemies. \n\nFINISHER: \nBasic attack performed near a Staggered enemy becomes a finisher that deals massive <@ba.natur>Nature DMG</> and recovers some SP.",
+        "ja": "通常攻撃：\n最大5段の攻撃で敵に<@ba.natur>自然ダメージ</>を与える。操作中のオペレーターの場合、<#ba.lastcombo>重攻撃</>はブレイク値<@ba.poise>17</>を与える。\n\n落下攻撃：\n空中で通常攻撃を使用すると、落下して周囲の敵に<@ba.natur>自然ダメージ</>を与える。\n\n終撃：\n近くにブレイク状態の敵がいるときに通常攻撃を使用すると、その敵に終撃を行い、高い<@ba.natur>自然ダメージ</>を与えてSPを一定量回復する。",
+        "zh-TW": "普通攻擊：\n對敵人進行最多5段攻擊，造成<@ba.natur>自然傷害</>。作為主控幹員時，<#ba.lastcombo>重擊</>會造成<@ba.poise>17</>點失衡。\n\n下墜攻擊：\n處於空中時使用普通攻擊，會下落並攻擊附近敵人，造成<@ba.natur>自然傷害</>。\n\n處決攻擊：\n附近有敵人處於失衡狀態時使用普通攻擊，將處決該敵人，造成大量<@ba.natur>自然傷害</>並回復一定技力。"
+      },
+      "iconId": "icon_attack_funnel",
+      "metrics": [
+        {
+          "id": "chr_0034_typhoea_attack1:0",
+          "label": {
+            "zh-CN": "普攻第一段倍率",
+            "en": "BATK SEQ 1 Multiplier",
+            "ja": "通常攻撃1段目ダメージ倍率",
+            "zh-TW": "普攻第一段倍率"
+          }
+        },
+        {
+          "id": "chr_0034_typhoea_attack2:0",
+          "label": {
+            "zh-CN": "普攻第二段倍率",
+            "en": "BATK SEQ 2 Multiplier",
+            "ja": "通常攻撃2段目ダメージ倍率",
+            "zh-TW": "普攻第二段倍率"
+          }
+        },
+        {
+          "id": "chr_0034_typhoea_attack3:0",
+          "label": {
+            "zh-CN": "普攻第三段倍率",
+            "en": "BATK SEQ 3 Multiplier",
+            "ja": "通常攻撃3段目ダメージ倍率",
+            "zh-TW": "普攻第三段倍率"
+          }
+        },
+        {
+          "id": "chr_0034_typhoea_attack4:0",
+          "label": {
+            "zh-CN": "普攻第四段倍率",
+            "en": "BATK SEQ 4 Multiplier",
+            "ja": "通常攻撃4段目ダメージ倍率",
+            "zh-TW": "普攻第四段倍率"
+          }
+        },
+        {
+          "id": "chr_0034_typhoea_attack5:0",
+          "label": {
+            "zh-CN": "普攻第五段倍率",
+            "en": "BATK SEQ 5 Multiplier",
+            "ja": "通常攻撃5段目ダメージ倍率",
+            "zh-TW": "普攻第五段倍率"
+          }
+        },
+        {
+          "id": "chr_0034_typhoea_power_attack:0",
+          "label": {
+            "zh-CN": "处决攻击倍率",
+            "en": "Finisher ATK Multiplier",
+            "ja": "終撃ダメージ倍率",
+            "zh-TW": "處決攻擊倍率"
+          }
+        },
+        {
+          "id": "chr_0034_typhoea_plunging_attack_end:0",
+          "label": {
+            "zh-CN": "下落攻击倍率",
+            "en": "Dive ATK Multiplier",
+            "ja": "落下攻撃ダメージ倍率",
+            "zh-TW": "下墜攻擊倍率"
+          }
+        }
+      ],
+      "levels": [
+        {
+          "level": 1,
+          "label": "Lv.1",
+          "values": [
+            "21%",
+            "25%",
+            "38%",
+            "42%",
+            "56%",
+            "400%",
+            "80%"
+          ]
+        },
+        {
+          "level": 2,
+          "label": "Lv.2",
+          "values": [
+            "23%",
+            "28%",
+            "42%",
+            "46%",
+            "61%",
+            "440%",
+            "88%"
+          ],
+          "materials": [
+            {
+              "itemId": "item_char_skill_level_1_6",
+              "name": {
+                "zh-CN": "协议棱柱",
+                "en": "Protoprism",
+                "ja": "協約角柱",
+                "zh-TW": "協議稜柱"
+              },
+              "iconId": "item_char_skill_level_1_6",
+              "rarity": 3,
+              "count": 6
+            },
+            {
+              "itemId": "item_plant_crylplant_1_1",
+              "name": {
+                "zh-CN": "晶化多齿叶",
+                "en": "Kalkodendra",
+                "ja": "結晶鋭葉",
+                "zh-TW": "晶化多齒葉"
+              },
+              "iconId": "item_plant_crylplant_1_1",
+              "rarity": 4,
+              "count": 1
+            },
+            {
+              "itemId": "item_gold",
+              "name": {
+                "zh-CN": "折金票",
+                "en": "T-Creds",
+                "ja": "折金券",
+                "zh-TW": "折金票"
+              },
+              "iconId": "item_gold",
+              "rarity": 4,
+              "count": 1000
+            }
+          ]
+        },
+        {
+          "level": 3,
+          "label": "Lv.3",
+          "values": [
+            "25%",
+            "30%",
+            "46%",
+            "50%",
+            "67%",
+            "480%",
+            "96%"
+          ],
+          "materials": [
+            {
+              "itemId": "item_char_skill_level_1_6",
+              "name": {
+                "zh-CN": "协议棱柱",
+                "en": "Protoprism",
+                "ja": "協約角柱",
+                "zh-TW": "協議稜柱"
+              },
+              "iconId": "item_char_skill_level_1_6",
+              "rarity": 3,
+              "count": 12
+            },
+            {
+              "itemId": "item_plant_crylplant_1_1",
+              "name": {
+                "zh-CN": "晶化多齿叶",
+                "en": "Kalkodendra",
+                "ja": "結晶鋭葉",
+                "zh-TW": "晶化多齒葉"
+              },
+              "iconId": "item_plant_crylplant_1_1",
+              "rarity": 4,
+              "count": 2
+            },
+            {
+              "itemId": "item_gold",
+              "name": {
+                "zh-CN": "折金票",
+                "en": "T-Creds",
+                "ja": "折金券",
+                "zh-TW": "折金票"
+              },
+              "iconId": "item_gold",
+              "rarity": 4,
+              "count": 2700
+            }
+          ]
+        },
+        {
+          "level": 4,
+          "label": "Lv.4",
+          "values": [
+            "27%",
+            "33%",
+            "49%",
+            "55%",
+            "72%",
+            "520%",
+            "104%"
+          ],
+          "materials": [
+            {
+              "itemId": "item_char_skill_level_1_6",
+              "name": {
+                "zh-CN": "协议棱柱",
+                "en": "Protoprism",
+                "ja": "協約角柱",
+                "zh-TW": "協議稜柱"
+              },
+              "iconId": "item_char_skill_level_1_6",
+              "rarity": 3,
+              "count": 16
+            },
+            {
+              "itemId": "item_plant_crylplant_1_2",
+              "name": {
+                "zh-CN": "纯晶多齿叶",
+                "en": "Chrysodendra",
+                "ja": "純晶鋭葉",
+                "zh-TW": "純晶多齒葉"
+              },
+              "iconId": "item_plant_crylplant_1_2",
+              "rarity": 4,
+              "count": 1
+            },
+            {
+              "itemId": "item_gold",
+              "name": {
+                "zh-CN": "折金票",
+                "en": "T-Creds",
+                "ja": "折金券",
+                "zh-TW": "折金票"
+              },
+              "iconId": "item_gold",
+              "rarity": 4,
+              "count": 3200
+            }
+          ]
+        },
+        {
+          "level": 5,
+          "label": "Lv.5",
+          "values": [
+            "29%",
+            "35%",
+            "53%",
+            "59%",
+            "78%",
+            "560%",
+            "112%"
+          ],
+          "materials": [
+            {
+              "itemId": "item_char_skill_level_1_6",
+              "name": {
+                "zh-CN": "协议棱柱",
+                "en": "Protoprism",
+                "ja": "協約角柱",
+                "zh-TW": "協議稜柱"
+              },
+              "iconId": "item_char_skill_level_1_6",
+              "rarity": 3,
+              "count": 21
+            },
+            {
+              "itemId": "item_plant_crylplant_1_2",
+              "name": {
+                "zh-CN": "纯晶多齿叶",
+                "en": "Chrysodendra",
+                "ja": "純晶鋭葉",
+                "zh-TW": "純晶多齒葉"
+              },
+              "iconId": "item_plant_crylplant_1_2",
+              "rarity": 4,
+              "count": 1
+            },
+            {
+              "itemId": "item_gold",
+              "name": {
+                "zh-CN": "折金票",
+                "en": "T-Creds",
+                "ja": "折金券",
+                "zh-TW": "折金票"
+              },
+              "iconId": "item_gold",
+              "rarity": 4,
+              "count": 4200
+            }
+          ]
+        },
+        {
+          "level": 6,
+          "label": "Lv.6",
+          "values": [
+            "31%",
+            "38%",
+            "57%",
+            "63%",
+            "83%",
+            "600%",
+            "120%"
+          ],
+          "materials": [
+            {
+              "itemId": "item_char_skill_level_1_6",
+              "name": {
+                "zh-CN": "协议棱柱",
+                "en": "Protoprism",
+                "ja": "協約角柱",
+                "zh-TW": "協議稜柱"
+              },
+              "iconId": "item_char_skill_level_1_6",
+              "rarity": 3,
+              "count": 27
+            },
+            {
+              "itemId": "item_plant_crylplant_1_2",
+              "name": {
+                "zh-CN": "纯晶多齿叶",
+                "en": "Chrysodendra",
+                "ja": "純晶鋭葉",
+                "zh-TW": "純晶多齒葉"
+              },
+              "iconId": "item_plant_crylplant_1_2",
+              "rarity": 4,
+              "count": 2
+            },
+            {
+              "itemId": "item_gold",
+              "name": {
+                "zh-CN": "折金票",
+                "en": "T-Creds",
+                "ja": "折金券",
+                "zh-TW": "折金票"
+              },
+              "iconId": "item_gold",
+              "rarity": 4,
+              "count": 5400
+            }
+          ]
+        },
+        {
+          "level": 7,
+          "label": "Lv.7",
+          "values": [
+            "33%",
+            "40%",
+            "61%",
+            "67%",
+            "89%",
+            "640%",
+            "128%"
+          ],
+          "materials": [
+            {
+              "itemId": "item_char_skill_level_7_12",
+              "name": {
+                "zh-CN": "协议棱柱组",
+                "en": "Protohedron",
+                "ja": "協約角柱セット",
+                "zh-TW": "協議稜柱組"
+              },
+              "iconId": "item_char_skill_level_7_12",
+              "rarity": 4,
+              "count": 6
+            },
+            {
+              "itemId": "item_plant_crylplant_1_3",
+              "name": {
+                "zh-CN": "至晶多齿叶",
+                "en": "Vitrodendra",
+                "ja": "至晶鋭葉",
+                "zh-TW": "至晶多齒葉"
+              },
+              "iconId": "item_plant_crylplant_1_3",
+              "rarity": 4,
+              "count": 1
+            },
+            {
+              "itemId": "item_gold",
+              "name": {
+                "zh-CN": "折金票",
+                "en": "T-Creds",
+                "ja": "折金券",
+                "zh-TW": "折金票"
+              },
+              "iconId": "item_gold",
+              "rarity": 4,
+              "count": 8200
+            }
+          ]
+        },
+        {
+          "level": 8,
+          "label": "Lv.8",
+          "values": [
+            "35%",
+            "43%",
+            "65%",
+            "71%",
+            "94%",
+            "680%",
+            "136%"
+          ],
+          "materials": [
+            {
+              "itemId": "item_char_skill_level_7_12",
+              "name": {
+                "zh-CN": "协议棱柱组",
+                "en": "Protohedron",
+                "ja": "協約角柱セット",
+                "zh-TW": "協議稜柱組"
+              },
+              "iconId": "item_char_skill_level_7_12",
+              "rarity": 4,
+              "count": 8
+            },
+            {
+              "itemId": "item_plant_crylplant_1_3",
+              "name": {
+                "zh-CN": "至晶多齿叶",
+                "en": "Vitrodendra",
+                "ja": "至晶鋭葉",
+                "zh-TW": "至晶多齒葉"
+              },
+              "iconId": "item_plant_crylplant_1_3",
+              "rarity": 4,
+              "count": 1
+            },
+            {
+              "itemId": "item_gold",
+              "name": {
+                "zh-CN": "折金票",
+                "en": "T-Creds",
+                "ja": "折金券",
+                "zh-TW": "折金票"
+              },
+              "iconId": "item_gold",
+              "rarity": 4,
+              "count": 10500
+            }
+          ]
+        },
+        {
+          "level": 9,
+          "label": "Lv.9",
+          "values": [
+            "37%",
+            "45%",
+            "68%",
+            "76%",
+            "100%",
+            "720%",
+            "144%"
+          ],
+          "materials": [
+            {
+              "itemId": "item_char_skill_level_7_12",
+              "name": {
+                "zh-CN": "协议棱柱组",
+                "en": "Protohedron",
+                "ja": "協約角柱セット",
+                "zh-TW": "協議稜柱組"
+              },
+              "iconId": "item_char_skill_level_7_12",
+              "rarity": 4,
+              "count": 15
+            },
+            {
+              "itemId": "item_plant_crylplant_1_3",
+              "name": {
+                "zh-CN": "至晶多齿叶",
+                "en": "Vitrodendra",
+                "ja": "至晶鋭葉",
+                "zh-TW": "至晶多齒葉"
+              },
+              "iconId": "item_plant_crylplant_1_3",
+              "rarity": 4,
+              "count": 2
+            },
+            {
+              "itemId": "item_gold",
+              "name": {
+                "zh-CN": "折金票",
+                "en": "T-Creds",
+                "ja": "折金券",
+                "zh-TW": "折金票"
+              },
+              "iconId": "item_gold",
+              "rarity": 4,
+              "count": 18000
+            }
+          ]
+        },
+        {
+          "level": 10,
+          "label": "M1",
+          "values": [
+            "39%",
+            "48%",
+            "73%",
+            "81%",
+            "107%",
+            "770%",
+            "154%"
+          ],
+          "materials": [
+            {
+              "itemId": "item_char_skill_crown",
+              "name": {
+                "zh-CN": "存续的痕迹",
+                "en": "Mark of Perseverance",
+                "ja": "存続の痕跡",
+                "zh-TW": "存續的痕跡"
+              },
+              "iconId": "item_char_skill_crown",
+              "rarity": 5,
+              "count": 1
+            },
+            {
+              "itemId": "item_char_skill_level_7_12",
+              "name": {
+                "zh-CN": "协议棱柱组",
+                "en": "Protohedron",
+                "ja": "協約角柱セット",
+                "zh-TW": "協議稜柱組"
+              },
+              "iconId": "item_char_skill_level_7_12",
+              "rarity": 4,
+              "count": 15
+            },
+            {
+              "itemId": "item_char_skill_specialize_2",
+              "name": {
+                "zh-CN": "D96钢样品四",
+                "en": "D96 Steel Sample 4",
+                "ja": "D96鋼試料Ⅳ",
+                "zh-TW": "D96鋼樣品四"
+              },
+              "iconId": "item_char_skill_specialize_2",
+              "rarity": 5,
+              "count": 6
+            },
+            {
+              "itemId": "item_plant_crylplant_2_3",
+              "name": {
+                "zh-CN": "红矛叶",
+                "en": "Crimson Spearleaf",
+                "ja": "赤槍葉",
+                "zh-TW": "紅矛葉"
+              },
+              "iconId": "item_plant_crylplant_2_3",
+              "rarity": 5,
+              "count": 3
+            },
+            {
+              "itemId": "item_gold",
+              "name": {
+                "zh-CN": "折金票",
+                "en": "T-Creds",
+                "ja": "折金券",
+                "zh-TW": "折金票"
+              },
+              "iconId": "item_gold",
+              "rarity": 4,
+              "count": 24000
+            }
+          ]
+        },
+        {
+          "level": 11,
+          "label": "M2",
+          "values": [
+            "43%",
+            "52%",
+            "79%",
+            "87%",
+            "115%",
+            "830%",
+            "166%"
+          ],
+          "materials": [
+            {
+              "itemId": "item_char_skill_crown",
+              "name": {
+                "zh-CN": "存续的痕迹",
+                "en": "Mark of Perseverance",
+                "ja": "存続の痕跡",
+                "zh-TW": "存續的痕跡"
+              },
+              "iconId": "item_char_skill_crown",
+              "rarity": 5,
+              "count": 2
+            },
+            {
+              "itemId": "item_char_skill_level_7_12",
+              "name": {
+                "zh-CN": "协议棱柱组",
+                "en": "Protohedron",
+                "ja": "協約角柱セット",
+                "zh-TW": "協議稜柱組"
+              },
+              "iconId": "item_char_skill_level_7_12",
+              "rarity": 4,
+              "count": 24
+            },
+            {
+              "itemId": "item_char_skill_specialize_2",
+              "name": {
+                "zh-CN": "D96钢样品四",
+                "en": "D96 Steel Sample 4",
+                "ja": "D96鋼試料Ⅳ",
+                "zh-TW": "D96鋼樣品四"
+              },
+              "iconId": "item_char_skill_specialize_2",
+              "rarity": 5,
+              "count": 16
+            },
+            {
+              "itemId": "item_plant_crylplant_2_3",
+              "name": {
+                "zh-CN": "红矛叶",
+                "en": "Crimson Spearleaf",
+                "ja": "赤槍葉",
+                "zh-TW": "紅矛葉"
+              },
+              "iconId": "item_plant_crylplant_2_3",
+              "rarity": 5,
+              "count": 6
+            },
+            {
+              "itemId": "item_gold",
+              "name": {
+                "zh-CN": "折金票",
+                "en": "T-Creds",
+                "ja": "折金券",
+                "zh-TW": "折金票"
+              },
+              "iconId": "item_gold",
+              "rarity": 4,
+              "count": 30000
+            }
+          ]
+        },
+        {
+          "level": 12,
+          "label": "M3",
+          "values": [
+            "46%",
+            "56%",
+            "86%",
+            "95%",
+            "125%",
+            "900%",
+            "180%"
+          ],
+          "materials": [
+            {
+              "itemId": "item_char_skill_crown",
+              "name": {
+                "zh-CN": "存续的痕迹",
+                "en": "Mark of Perseverance",
+                "ja": "存続の痕跡",
+                "zh-TW": "存續的痕跡"
+              },
+              "iconId": "item_char_skill_crown",
+              "rarity": 5,
+              "count": 3
+            },
+            {
+              "itemId": "item_char_skill_level_7_12",
+              "name": {
+                "zh-CN": "协议棱柱组",
+                "en": "Protohedron",
+                "ja": "協約角柱セット",
+                "zh-TW": "協議稜柱組"
+              },
+              "iconId": "item_char_skill_level_7_12",
+              "rarity": 4,
+              "count": 50
+            },
+            {
+              "itemId": "item_char_skill_specialize_2",
+              "name": {
+                "zh-CN": "D96钢样品四",
+                "en": "D96 Steel Sample 4",
+                "ja": "D96鋼試料Ⅳ",
+                "zh-TW": "D96鋼樣品四"
+              },
+              "iconId": "item_char_skill_specialize_2",
+              "rarity": 5,
+              "count": 36
+            },
+            {
+              "itemId": "item_plant_crylplant_2_3",
+              "name": {
+                "zh-CN": "红矛叶",
+                "en": "Crimson Spearleaf",
+                "ja": "赤槍葉",
+                "zh-TW": "紅矛葉"
+              },
+              "iconId": "item_plant_crylplant_2_3",
+              "rarity": 5,
+              "count": 12
+            },
+            {
+              "itemId": "item_gold",
+              "name": {
+                "zh-CN": "折金票",
+                "en": "T-Creds",
+                "ja": "折金券",
+                "zh-TW": "折金票"
+              },
+              "iconId": "item_gold",
+              "rarity": 4,
+              "count": 65000
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "chr_0034_typhoea_NormalSkill",
+      "typeId": "1",
+      "name": {
+        "zh-CN": "风矢穿林",
+        "en": "Piercing Arrows of the Woods",
+        "ja": "風裂く一矢",
+        "zh-TW": "風矢穿林"
+      },
+      "description": {
+        "zh-CN": "跃入空中进入短暂<@ba.key>浮空</>状态，期间可施放5次空中普通攻击，每次可同时攻击至多2名目标，造成<@ba.natur>自然伤害</>。\n每次空中普通攻击若命中带有<#ba.naturalinflict>自然附着</>的敌人，则消耗目标身上的1层<#ba.naturalinflict>自然附着</>，获得1点<#ba.arrowenergy>启示</>，并额外获得终结技能量。\n若自身仍存有<#ba.arrownum>猎矢</>，则会消耗1枚<#ba.arrownum>猎矢</>，将空中普通攻击转化为<@ba.key>强化射击</>。\n<@ba.key>强化射击</>：命中后额外强制造成一次<#ba.naturalburst>自然爆发</>；若消耗了目标身上的<#ba.naturalinflict>自然附着</>，则将本次造成的<#ba.naturalburst>自然爆发</>伤害提升至原本的<@ba.vup>1.3</>倍。\n<@ba.info>作为主控干员时，第五次空中普通攻击同时视为重击与强化射击，且无需消耗猎矢。</>",
+        "en": "Typhoeus leaps into the air and enters a short <@ba.key>Hovering</> state, during which she can unleash 5 Aerial Basic Attacks (ABATK). Each ABATK can shoot arrows at up to 2 targets and deal <@ba.natur>Nature DMG</>.\nWhenever an ABATK hits an enemy with <#ba.naturalinflict>Nature Infliction</>, it consumes 1 stack of <#ba.naturalinflict>Nature Infliction</>, grants Typhoeus 1 <#ba.arrowenergy>Sign</>, and gives additional Ultimate Energy.\nIf Typhoeus has <#ba.arrownum>Hunting Arrow(s)</>, she consumes 1 <#ba.arrownum>Hunting Arrow</> and converts the ABATK into a <@ba.key>Power Shot</>.\n<@ba.key>Power Shot</>: After hitting an enemy, Power Shot forcibly applies 1 instance of <#ba.naturalburst>Nature Burst</>; if the target's <#ba.naturalinflict>Nature Infliction</> is consumed, then increase the DMG dealt by this <#ba.naturalburst>Nature Burst</> to <@ba.vup>1.3</> times the original.\n<@ba.info>If Typhoeus is the controlled operator, her 5th ABATK is regarded as a Final Strike and a Power Shot, and does not consume Hunting Arrows.</>",
+        "ja": "空中へ跳躍し、短時間<@ba.key>浮遊</>状態に入る。期間中、空中通常攻撃を5回繰り出せる。毎回最大2体の目標を同時に攻撃し、<@ba.natur>自然ダメージ</>を与える。\n空中通常攻撃が<#ba.naturalinflict>自然付着</>状態の敵に命中するたびに、目標の<#ba.naturalinflict>自然付着</>を1段階消費して<#ba.arrowenergy>啓示</>を1獲得し、追加で必殺チャージを回復する。\n自身に<#ba.arrownum>猟矢</>が残っている場合、<#ba.arrownum>猟矢</>を1本消費して空中通常攻撃を<@ba.key>強化射撃</>に変換する。\n<@ba.key>強化射撃</>：命中すると追加で強制的に<#ba.naturalburst>自然爆発</>を1回与える。目標の<#ba.naturalinflict>自然付着</>を消費した場合、そのとき与える<#ba.naturalburst>自然爆発</>ダメージは<@ba.vup>1.3</>倍までアップする。\n<@ba.info>操作オペレーター時、5段目の空中通常攻撃は重攻撃および強化射撃として扱われ、猟矢を消費しない。</>",
+        "zh-TW": "躍入空中進入短暫<@ba.key>浮空</>狀態，期間可施放5次空中普通攻擊，每次可同時攻擊最多2名目標，造成<@ba.natur>自然傷害</>。\n每次空中普通攻擊若命中帶有<#ba.naturalinflict>自然附著</>的敵人，則消耗目標身上的1層<#ba.naturalinflict>自然附著</>，獲得1點<#ba.arrowenergy>啟示</>，並額外獲得終結技能量。\n若自身仍存有<#ba.arrownum>獵矢</>，則會消耗1枚<#ba.arrownum>獵矢</>，將空中普通攻擊轉化為<@ba.key>強化射擊</>。\n<@ba.key>強化射擊</>：命中後額外強制造成一次<#ba.naturalburst>自然爆發</>；若消耗了目標身上的<#ba.naturalinflict>自然附著</>，則將本次造成的<#ba.naturalburst>自然爆發</>傷害提升至原本的<@ba.vup>1.3</>倍。\n<@ba.info>作為主控幹員時，第五次空中普通攻擊同時視為重擊與強化射擊，且無需消耗獵矢。</>"
+      },
+      "iconId": "icon_skill_typhoea_01",
+      "metrics": [
+        {
+          "id": "chr_0034_typhoea_normal_skill_floating_start:0",
+          "label": {
+            "zh-CN": "起跳射击伤害倍率",
+            "en": "Initial Aerial Shot DMG Multiplier",
+            "ja": "ジャンプ射撃ダメージ倍率",
+            "zh-TW": "起跳射擊傷害倍率"
+          }
+        },
+        {
+          "id": "chr_0034_typhoea_floating_attack1:0",
+          "label": {
+            "zh-CN": "空中普通攻击伤害",
+            "en": "ABATK DMG",
+            "ja": "空中通常攻撃ダメージ",
+            "zh-TW": "空中普通攻擊傷害"
+          }
+        },
+        {
+          "id": "chr_0034_typhoea_floating_attack5:0",
+          "label": {
+            "zh-CN": "空中重击伤害",
+            "en": "Aerial Final Strike DMG",
+            "ja": "空中重攻撃ダメージ",
+            "zh-TW": "空中重擊傷害"
+          }
+        },
+        {
+          "id": "chr_0034_typhoea_floating_attack5:1",
+          "label": {
+            "zh-CN": "空中重击失衡值",
+            "en": "Aerial Final Strike Stagger",
+            "ja": "空中重攻撃ブレイク値",
+            "zh-TW": "空中重擊失衡值"
+          }
+        },
+        {
+          "id": "chr_0034_typhoea_floating_attack5:2",
+          "label": {
+            "zh-CN": "强化射击自然爆发伤害倍率",
+            "en": "Power Shot Nature Burst DMG Multiplier",
+            "ja": "強化射撃自然爆発ダメージ倍率",
+            "zh-TW": "強化射擊自然爆發傷害倍率"
+          }
+        },
+        {
+          "id": "chr_0034_typhoea_floating_attack5:3",
+          "label": {
+            "zh-CN": "额外终结技能量",
+            "en": "Additional Ultimate Energy",
+            "ja": "必殺チャージ追加回復量",
+            "zh-TW": "額外終結技能量"
+          }
+        }
+      ],
+      "levels": [
+        {
+          "level": 1,
+          "label": "Lv.1",
+          "values": [
+            "22%",
+            "29%",
+            "44%",
+            "20",
+            "1.1",
+            "12"
+          ],
+          "costValue": 100
+        },
+        {
+          "level": 2,
+          "label": "Lv.2",
+          "values": [
+            "25%",
+            "32%",
+            "49%",
+            "20",
+            "1.1",
+            "12"
+          ],
+          "costValue": 100,
+          "materials": [
+            {
+              "itemId": "item_char_skill_level_1_6",
+              "name": {
+                "zh-CN": "协议棱柱",
+                "en": "Protoprism",
+                "ja": "協約角柱",
+                "zh-TW": "協議稜柱"
+              },
+              "iconId": "item_char_skill_level_1_6",
+              "rarity": 3,
+              "count": 6
+            },
+            {
+              "itemId": "item_plant_crylplant_1_1",
+              "name": {
+                "zh-CN": "晶化多齿叶",
+                "en": "Kalkodendra",
+                "ja": "結晶鋭葉",
+                "zh-TW": "晶化多齒葉"
+              },
+              "iconId": "item_plant_crylplant_1_1",
+              "rarity": 4,
+              "count": 1
+            },
+            {
+              "itemId": "item_gold",
+              "name": {
+                "zh-CN": "折金票",
+                "en": "T-Creds",
+                "ja": "折金券",
+                "zh-TW": "折金票"
+              },
+              "iconId": "item_gold",
+              "rarity": 4,
+              "count": 1000
+            }
+          ]
+        },
+        {
+          "level": 3,
+          "label": "Lv.3",
+          "values": [
+            "27%",
+            "35%",
+            "53%",
+            "20",
+            "1.1",
+            "12"
+          ],
+          "costValue": 100,
+          "materials": [
+            {
+              "itemId": "item_char_skill_level_1_6",
+              "name": {
+                "zh-CN": "协议棱柱",
+                "en": "Protoprism",
+                "ja": "協約角柱",
+                "zh-TW": "協議稜柱"
+              },
+              "iconId": "item_char_skill_level_1_6",
+              "rarity": 3,
+              "count": 12
+            },
+            {
+              "itemId": "item_plant_crylplant_1_1",
+              "name": {
+                "zh-CN": "晶化多齿叶",
+                "en": "Kalkodendra",
+                "ja": "結晶鋭葉",
+                "zh-TW": "晶化多齒葉"
+              },
+              "iconId": "item_plant_crylplant_1_1",
+              "rarity": 4,
+              "count": 2
+            },
+            {
+              "itemId": "item_gold",
+              "name": {
+                "zh-CN": "折金票",
+                "en": "T-Creds",
+                "ja": "折金券",
+                "zh-TW": "折金票"
+              },
+              "iconId": "item_gold",
+              "rarity": 4,
+              "count": 2700
+            }
+          ]
+        },
+        {
+          "level": 4,
+          "label": "Lv.4",
+          "values": [
+            "29%",
+            "37%",
+            "58%",
+            "20",
+            "1.15",
+            "12"
+          ],
+          "costValue": 100,
+          "materials": [
+            {
+              "itemId": "item_char_skill_level_1_6",
+              "name": {
+                "zh-CN": "协议棱柱",
+                "en": "Protoprism",
+                "ja": "協約角柱",
+                "zh-TW": "協議稜柱"
+              },
+              "iconId": "item_char_skill_level_1_6",
+              "rarity": 3,
+              "count": 16
+            },
+            {
+              "itemId": "item_plant_crylplant_1_2",
+              "name": {
+                "zh-CN": "纯晶多齿叶",
+                "en": "Chrysodendra",
+                "ja": "純晶鋭葉",
+                "zh-TW": "純晶多齒葉"
+              },
+              "iconId": "item_plant_crylplant_1_2",
+              "rarity": 4,
+              "count": 1
+            },
+            {
+              "itemId": "item_gold",
+              "name": {
+                "zh-CN": "折金票",
+                "en": "T-Creds",
+                "ja": "折金券",
+                "zh-TW": "折金票"
+              },
+              "iconId": "item_gold",
+              "rarity": 4,
+              "count": 3200
+            }
+          ]
+        },
+        {
+          "level": 5,
+          "label": "Lv.5",
+          "values": [
+            "31%",
+            "40%",
+            "62%",
+            "20",
+            "1.15",
+            "12"
+          ],
+          "costValue": 100,
+          "materials": [
+            {
+              "itemId": "item_char_skill_level_1_6",
+              "name": {
+                "zh-CN": "协议棱柱",
+                "en": "Protoprism",
+                "ja": "協約角柱",
+                "zh-TW": "協議稜柱"
+              },
+              "iconId": "item_char_skill_level_1_6",
+              "rarity": 3,
+              "count": 21
+            },
+            {
+              "itemId": "item_plant_crylplant_1_2",
+              "name": {
+                "zh-CN": "纯晶多齿叶",
+                "en": "Chrysodendra",
+                "ja": "純晶鋭葉",
+                "zh-TW": "純晶多齒葉"
+              },
+              "iconId": "item_plant_crylplant_1_2",
+              "rarity": 4,
+              "count": 1
+            },
+            {
+              "itemId": "item_gold",
+              "name": {
+                "zh-CN": "折金票",
+                "en": "T-Creds",
+                "ja": "折金券",
+                "zh-TW": "折金票"
+              },
+              "iconId": "item_gold",
+              "rarity": 4,
+              "count": 4200
+            }
+          ]
+        },
+        {
+          "level": 6,
+          "label": "Lv.6",
+          "values": [
+            "33%",
+            "43%",
+            "66%",
+            "20",
+            "1.15",
+            "12"
+          ],
+          "costValue": 100,
+          "materials": [
+            {
+              "itemId": "item_char_skill_level_1_6",
+              "name": {
+                "zh-CN": "协议棱柱",
+                "en": "Protoprism",
+                "ja": "協約角柱",
+                "zh-TW": "協議稜柱"
+              },
+              "iconId": "item_char_skill_level_1_6",
+              "rarity": 3,
+              "count": 27
+            },
+            {
+              "itemId": "item_plant_crylplant_1_2",
+              "name": {
+                "zh-CN": "纯晶多齿叶",
+                "en": "Chrysodendra",
+                "ja": "純晶鋭葉",
+                "zh-TW": "純晶多齒葉"
+              },
+              "iconId": "item_plant_crylplant_1_2",
+              "rarity": 4,
+              "count": 2
+            },
+            {
+              "itemId": "item_gold",
+              "name": {
+                "zh-CN": "折金票",
+                "en": "T-Creds",
+                "ja": "折金券",
+                "zh-TW": "折金票"
+              },
+              "iconId": "item_gold",
+              "rarity": 4,
+              "count": 5400
+            }
+          ]
+        },
+        {
+          "level": 7,
+          "label": "Lv.7",
+          "values": [
+            "36%",
+            "46%",
+            "71%",
+            "20",
+            "1.2",
+            "12"
+          ],
+          "costValue": 100,
+          "materials": [
+            {
+              "itemId": "item_char_skill_level_7_12",
+              "name": {
+                "zh-CN": "协议棱柱组",
+                "en": "Protohedron",
+                "ja": "協約角柱セット",
+                "zh-TW": "協議稜柱組"
+              },
+              "iconId": "item_char_skill_level_7_12",
+              "rarity": 4,
+              "count": 6
+            },
+            {
+              "itemId": "item_plant_crylplant_1_3",
+              "name": {
+                "zh-CN": "至晶多齿叶",
+                "en": "Vitrodendra",
+                "ja": "至晶鋭葉",
+                "zh-TW": "至晶多齒葉"
+              },
+              "iconId": "item_plant_crylplant_1_3",
+              "rarity": 4,
+              "count": 1
+            },
+            {
+              "itemId": "item_gold",
+              "name": {
+                "zh-CN": "折金票",
+                "en": "T-Creds",
+                "ja": "折金券",
+                "zh-TW": "折金票"
+              },
+              "iconId": "item_gold",
+              "rarity": 4,
+              "count": 8200
+            }
+          ]
+        },
+        {
+          "level": 8,
+          "label": "Lv.8",
+          "values": [
+            "38%",
+            "49%",
+            "75%",
+            "20",
+            "1.2",
+            "12"
+          ],
+          "costValue": 100,
+          "materials": [
+            {
+              "itemId": "item_char_skill_level_7_12",
+              "name": {
+                "zh-CN": "协议棱柱组",
+                "en": "Protohedron",
+                "ja": "協約角柱セット",
+                "zh-TW": "協議稜柱組"
+              },
+              "iconId": "item_char_skill_level_7_12",
+              "rarity": 4,
+              "count": 8
+            },
+            {
+              "itemId": "item_plant_crylplant_1_3",
+              "name": {
+                "zh-CN": "至晶多齿叶",
+                "en": "Vitrodendra",
+                "ja": "至晶鋭葉",
+                "zh-TW": "至晶多齒葉"
+              },
+              "iconId": "item_plant_crylplant_1_3",
+              "rarity": 4,
+              "count": 1
+            },
+            {
+              "itemId": "item_gold",
+              "name": {
+                "zh-CN": "折金票",
+                "en": "T-Creds",
+                "ja": "折金券",
+                "zh-TW": "折金票"
+              },
+              "iconId": "item_gold",
+              "rarity": 4,
+              "count": 10500
+            }
+          ]
+        },
+        {
+          "level": 9,
+          "label": "Lv.9",
+          "values": [
+            "40%",
+            "52%",
+            "80%",
+            "20",
+            "1.2",
+            "12"
+          ],
+          "costValue": 100,
+          "materials": [
+            {
+              "itemId": "item_char_skill_level_7_12",
+              "name": {
+                "zh-CN": "协议棱柱组",
+                "en": "Protohedron",
+                "ja": "協約角柱セット",
+                "zh-TW": "協議稜柱組"
+              },
+              "iconId": "item_char_skill_level_7_12",
+              "rarity": 4,
+              "count": 15
+            },
+            {
+              "itemId": "item_plant_crylplant_1_3",
+              "name": {
+                "zh-CN": "至晶多齿叶",
+                "en": "Vitrodendra",
+                "ja": "至晶鋭葉",
+                "zh-TW": "至晶多齒葉"
+              },
+              "iconId": "item_plant_crylplant_1_3",
+              "rarity": 4,
+              "count": 2
+            },
+            {
+              "itemId": "item_gold",
+              "name": {
+                "zh-CN": "折金票",
+                "en": "T-Creds",
+                "ja": "折金券",
+                "zh-TW": "折金票"
+              },
+              "iconId": "item_gold",
+              "rarity": 4,
+              "count": 18000
+            }
+          ]
+        },
+        {
+          "level": 10,
+          "label": "M1",
+          "values": [
+            "43%",
+            "55%",
+            "85%",
+            "20",
+            "1.25",
+            "12"
+          ],
+          "costValue": 100,
+          "materials": [
+            {
+              "itemId": "item_char_skill_crown",
+              "name": {
+                "zh-CN": "存续的痕迹",
+                "en": "Mark of Perseverance",
+                "ja": "存続の痕跡",
+                "zh-TW": "存續的痕跡"
+              },
+              "iconId": "item_char_skill_crown",
+              "rarity": 5,
+              "count": 1
+            },
+            {
+              "itemId": "item_char_skill_level_7_12",
+              "name": {
+                "zh-CN": "协议棱柱组",
+                "en": "Protohedron",
+                "ja": "協約角柱セット",
+                "zh-TW": "協議稜柱組"
+              },
+              "iconId": "item_char_skill_level_7_12",
+              "rarity": 4,
+              "count": 15
+            },
+            {
+              "itemId": "item_char_skill_specialize_4",
+              "name": {
+                "zh-CN": "象限拟合液",
+                "en": "Quadrant Fitting Fluid",
+                "ja": "象限適合液",
+                "zh-TW": "象限擬合液"
+              },
+              "iconId": "item_char_skill_specialize_4",
+              "rarity": 5,
+              "count": 6
+            },
+            {
+              "itemId": "item_plant_crylplant_2_3",
+              "name": {
+                "zh-CN": "红矛叶",
+                "en": "Crimson Spearleaf",
+                "ja": "赤槍葉",
+                "zh-TW": "紅矛葉"
+              },
+              "iconId": "item_plant_crylplant_2_3",
+              "rarity": 5,
+              "count": 3
+            },
+            {
+              "itemId": "item_gold",
+              "name": {
+                "zh-CN": "折金票",
+                "en": "T-Creds",
+                "ja": "折金券",
+                "zh-TW": "折金票"
+              },
+              "iconId": "item_gold",
+              "rarity": 4,
+              "count": 24000
+            }
+          ]
+        },
+        {
+          "level": 11,
+          "label": "M2",
+          "values": [
+            "46%",
+            "60%",
+            "92%",
+            "20",
+            "1.25",
+            "12"
+          ],
+          "costValue": 100,
+          "materials": [
+            {
+              "itemId": "item_char_skill_crown",
+              "name": {
+                "zh-CN": "存续的痕迹",
+                "en": "Mark of Perseverance",
+                "ja": "存続の痕跡",
+                "zh-TW": "存續的痕跡"
+              },
+              "iconId": "item_char_skill_crown",
+              "rarity": 5,
+              "count": 2
+            },
+            {
+              "itemId": "item_char_skill_level_7_12",
+              "name": {
+                "zh-CN": "协议棱柱组",
+                "en": "Protohedron",
+                "ja": "協約角柱セット",
+                "zh-TW": "協議稜柱組"
+              },
+              "iconId": "item_char_skill_level_7_12",
+              "rarity": 4,
+              "count": 24
+            },
+            {
+              "itemId": "item_char_skill_specialize_4",
+              "name": {
+                "zh-CN": "象限拟合液",
+                "en": "Quadrant Fitting Fluid",
+                "ja": "象限適合液",
+                "zh-TW": "象限擬合液"
+              },
+              "iconId": "item_char_skill_specialize_4",
+              "rarity": 5,
+              "count": 16
+            },
+            {
+              "itemId": "item_plant_crylplant_2_3",
+              "name": {
+                "zh-CN": "红矛叶",
+                "en": "Crimson Spearleaf",
+                "ja": "赤槍葉",
+                "zh-TW": "紅矛葉"
+              },
+              "iconId": "item_plant_crylplant_2_3",
+              "rarity": 5,
+              "count": 6
+            },
+            {
+              "itemId": "item_gold",
+              "name": {
+                "zh-CN": "折金票",
+                "en": "T-Creds",
+                "ja": "折金券",
+                "zh-TW": "折金票"
+              },
+              "iconId": "item_gold",
+              "rarity": 4,
+              "count": 30000
+            }
+          ]
+        },
+        {
+          "level": 12,
+          "label": "M3",
+          "values": [
+            "50%",
+            "65%",
+            "100%",
+            "20",
+            "1.3",
+            "12"
+          ],
+          "costValue": 100,
+          "materials": [
+            {
+              "itemId": "item_char_skill_crown",
+              "name": {
+                "zh-CN": "存续的痕迹",
+                "en": "Mark of Perseverance",
+                "ja": "存続の痕跡",
+                "zh-TW": "存續的痕跡"
+              },
+              "iconId": "item_char_skill_crown",
+              "rarity": 5,
+              "count": 3
+            },
+            {
+              "itemId": "item_char_skill_level_7_12",
+              "name": {
+                "zh-CN": "协议棱柱组",
+                "en": "Protohedron",
+                "ja": "協約角柱セット",
+                "zh-TW": "協議稜柱組"
+              },
+              "iconId": "item_char_skill_level_7_12",
+              "rarity": 4,
+              "count": 50
+            },
+            {
+              "itemId": "item_char_skill_specialize_4",
+              "name": {
+                "zh-CN": "象限拟合液",
+                "en": "Quadrant Fitting Fluid",
+                "ja": "象限適合液",
+                "zh-TW": "象限擬合液"
+              },
+              "iconId": "item_char_skill_specialize_4",
+              "rarity": 5,
+              "count": 36
+            },
+            {
+              "itemId": "item_plant_crylplant_2_3",
+              "name": {
+                "zh-CN": "红矛叶",
+                "en": "Crimson Spearleaf",
+                "ja": "赤槍葉",
+                "zh-TW": "紅矛葉"
+              },
+              "iconId": "item_plant_crylplant_2_3",
+              "rarity": 5,
+              "count": 12
+            },
+            {
+              "itemId": "item_gold",
+              "name": {
+                "zh-CN": "折金票",
+                "en": "T-Creds",
+                "ja": "折金券",
+                "zh-TW": "折金票"
+              },
+              "iconId": "item_gold",
+              "rarity": 4,
+              "count": 65000
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "chr_0034_typhoea_ComboSkill",
+      "typeId": "3",
+      "name": {
+        "zh-CN": "野棘丛生",
+        "en": "Rampant Thorns",
+        "ja": "荒れ狂うトゲ",
+        "zh-TW": "野棘叢生"
+      },
+      "description": {
+        "zh-CN": "当自身<#ba.arrowenergy>启示</>已满时可以发动。\n将当前<#ba.arrowenergy>启示</>全部转化为<#ba.arrownum>猎矢</>，并且重置空中普通攻击次数。\n凝聚“猎手的注视”向目标齐射，在目标区域形成<@ba.key>箭阵</>。处于<@ba.key>箭阵</>内的敌人会持续受到<@ba.natur>自然伤害</>和<#ba.slow>缓速</>，同时受到的<#ba.naturalburst>自然爆发</>伤害提高。\n<@ba.info>每2点启示可以转化为1枚猎矢。</>",
+        "en": "COMBO TRIGGER: When Typhoeus reaches max <#ba.arrowenergy>Signs</>.\nTyphoeus converts all her <#ba.arrowenergy>Signs</> to <#ba.arrownum>Hunting Arrows</> and resets her Aerial Basic Attack (ABATK) attempts.\nTyphoeus focuses her \"Huntress's Gaze\" and launches a barrage at the target that creates a <@ba.key>Barrage Array</> at the target area. Enemies in the <@ba.key>Barrage Array</> take <@ba.natur>Nature DMG</> over time, are <#ba.slow>slowed</>, and suffer increased <#ba.naturalburst>Nature Burst</> DMG Taken.\n<@ba.info>Every 2 Signs convert to 1 Hunting Arrow.</>",
+        "ja": "自身の<#ba.arrowenergy>啓示</>が最大まで達しているときに発動可能。\n現在の<#ba.arrowenergy>啓示</>をすべて<#ba.arrownum>猟矢</>に変換し、空中通常攻撃の回数をリセットする。\n「狩人の眼差し」を集めて目標に一斉射撃し、目標地点に<@ba.key>矢陣</>を形成する。<@ba.key>矢陣</>内の敵は持続的に<@ba.natur>自然ダメージ</>と<#ba.slow>スロー</>効果を受け、同時に受ける<#ba.naturalburst>自然爆発</>ダメージがアップする。\n<@ba.info>啓示2ごとに猟矢1本へと変換する。</>",
+        "zh-TW": "當自身<#ba.arrowenergy>啟示</>已滿時可以發動。\n將目前<#ba.arrowenergy>啟示</>全部轉化為<#ba.arrownum>獵矢</>，並且重置空中普通攻擊次數。\n凝聚「獵手的注視」向目標齊射，在目標區域形成<@ba.key>箭陣</>。處於<@ba.key>箭陣</>內的敵人會持續受到<@ba.natur>自然傷害</>和<#ba.slow>緩速</>，同時受到的<#ba.naturalburst>自然爆發</>傷害提高。\n<@ba.info>每2點啟示可以轉化為1枚獵矢。</>"
+      },
+      "iconId": "icon_combo_skill_typhoea_01",
+      "metrics": [
+        {
+          "id": "chr_0034_typhoea_combo_skill:0",
+          "label": {
+            "zh-CN": "“猎手的注视”命中伤害",
+            "en": "\"Huntress's Gaze\" Hit DMG",
+            "ja": "「狩人の眼差し」命中ダメージ",
+            "zh-TW": "「獵手的注視」命中傷害"
+          }
+        },
+        {
+          "id": "chr_0034_typhoea_combo_skill:1",
+          "label": {
+            "zh-CN": "失衡值",
+            "en": "Stagger",
+            "ja": "ブレイク値",
+            "zh-TW": "失衡值"
+          }
+        },
+        {
+          "id": "chr_0034_typhoea_combo_skill:2",
+          "label": {
+            "zh-CN": "获得终结技能量",
+            "en": "Ultimate Energy Gain",
+            "ja": "必殺チャージ回復量",
+            "zh-TW": "獲得終結技能量"
+          }
+        },
+        {
+          "id": "chr_0034_typhoea_combo_skill:3",
+          "label": {
+            "zh-CN": "区域持续伤害",
+            "en": "Area DMG Over Time",
+            "ja": "エリア持続ダメージ",
+            "zh-TW": "區域持續傷害"
+          }
+        },
+        {
+          "id": "chr_0034_typhoea_combo_skill:4",
+          "label": {
+            "zh-CN": "缓速效果",
+            "en": "Slow",
+            "ja": "スロー効果",
+            "zh-TW": "緩速效果"
+          }
+        },
+        {
+          "id": "chr_0034_typhoea_combo_skill:5",
+          "label": {
+            "zh-CN": "自然爆发伤害提高",
+            "en": "Nature Burst DMG Boost",
+            "ja": "自然爆発ダメージUP",
+            "zh-TW": "自然爆發傷害提高"
+          }
+        }
+      ],
+      "levels": [
+        {
+          "level": 1,
+          "label": "Lv.1",
+          "values": [
+            "89%",
+            "10",
+            "10",
+            "45%",
+            "60%",
+            "6%"
+          ],
+          "coolDown": 21
+        },
+        {
+          "level": 2,
+          "label": "Lv.2",
+          "values": [
+            "98%",
+            "10",
+            "10",
+            "49%",
+            "60%",
+            "6%"
+          ],
+          "coolDown": 21,
+          "materials": [
+            {
+              "itemId": "item_char_skill_level_1_6",
+              "name": {
+                "zh-CN": "协议棱柱",
+                "en": "Protoprism",
+                "ja": "協約角柱",
+                "zh-TW": "協議稜柱"
+              },
+              "iconId": "item_char_skill_level_1_6",
+              "rarity": 3,
+              "count": 6
+            },
+            {
+              "itemId": "item_plant_crylplant_1_1",
+              "name": {
+                "zh-CN": "晶化多齿叶",
+                "en": "Kalkodendra",
+                "ja": "結晶鋭葉",
+                "zh-TW": "晶化多齒葉"
+              },
+              "iconId": "item_plant_crylplant_1_1",
+              "rarity": 4,
+              "count": 1
+            },
+            {
+              "itemId": "item_gold",
+              "name": {
+                "zh-CN": "折金票",
+                "en": "T-Creds",
+                "ja": "折金券",
+                "zh-TW": "折金票"
+              },
+              "iconId": "item_gold",
+              "rarity": 4,
+              "count": 1000
+            }
+          ]
+        },
+        {
+          "level": 3,
+          "label": "Lv.3",
+          "values": [
+            "107%",
+            "10",
+            "10",
+            "54%",
+            "60%",
+            "6%"
+          ],
+          "coolDown": 21,
+          "materials": [
+            {
+              "itemId": "item_char_skill_level_1_6",
+              "name": {
+                "zh-CN": "协议棱柱",
+                "en": "Protoprism",
+                "ja": "協約角柱",
+                "zh-TW": "協議稜柱"
+              },
+              "iconId": "item_char_skill_level_1_6",
+              "rarity": 3,
+              "count": 12
+            },
+            {
+              "itemId": "item_plant_crylplant_1_1",
+              "name": {
+                "zh-CN": "晶化多齿叶",
+                "en": "Kalkodendra",
+                "ja": "結晶鋭葉",
+                "zh-TW": "晶化多齒葉"
+              },
+              "iconId": "item_plant_crylplant_1_1",
+              "rarity": 4,
+              "count": 2
+            },
+            {
+              "itemId": "item_gold",
+              "name": {
+                "zh-CN": "折金票",
+                "en": "T-Creds",
+                "ja": "折金券",
+                "zh-TW": "折金票"
+              },
+              "iconId": "item_gold",
+              "rarity": 4,
+              "count": 2700
+            }
+          ]
+        },
+        {
+          "level": 4,
+          "label": "Lv.4",
+          "values": [
+            "116%",
+            "10",
+            "10",
+            "58%",
+            "60%",
+            "7%"
+          ],
+          "coolDown": 21,
+          "materials": [
+            {
+              "itemId": "item_char_skill_level_1_6",
+              "name": {
+                "zh-CN": "协议棱柱",
+                "en": "Protoprism",
+                "ja": "協約角柱",
+                "zh-TW": "協議稜柱"
+              },
+              "iconId": "item_char_skill_level_1_6",
+              "rarity": 3,
+              "count": 16
+            },
+            {
+              "itemId": "item_plant_crylplant_1_2",
+              "name": {
+                "zh-CN": "纯晶多齿叶",
+                "en": "Chrysodendra",
+                "ja": "純晶鋭葉",
+                "zh-TW": "純晶多齒葉"
+              },
+              "iconId": "item_plant_crylplant_1_2",
+              "rarity": 4,
+              "count": 1
+            },
+            {
+              "itemId": "item_gold",
+              "name": {
+                "zh-CN": "折金票",
+                "en": "T-Creds",
+                "ja": "折金券",
+                "zh-TW": "折金票"
+              },
+              "iconId": "item_gold",
+              "rarity": 4,
+              "count": 3200
+            }
+          ]
+        },
+        {
+          "level": 5,
+          "label": "Lv.5",
+          "values": [
+            "125%",
+            "10",
+            "10",
+            "62%",
+            "60%",
+            "7%"
+          ],
+          "coolDown": 21,
+          "materials": [
+            {
+              "itemId": "item_char_skill_level_1_6",
+              "name": {
+                "zh-CN": "协议棱柱",
+                "en": "Protoprism",
+                "ja": "協約角柱",
+                "zh-TW": "協議稜柱"
+              },
+              "iconId": "item_char_skill_level_1_6",
+              "rarity": 3,
+              "count": 21
+            },
+            {
+              "itemId": "item_plant_crylplant_1_2",
+              "name": {
+                "zh-CN": "纯晶多齿叶",
+                "en": "Chrysodendra",
+                "ja": "純晶鋭葉",
+                "zh-TW": "純晶多齒葉"
+              },
+              "iconId": "item_plant_crylplant_1_2",
+              "rarity": 4,
+              "count": 1
+            },
+            {
+              "itemId": "item_gold",
+              "name": {
+                "zh-CN": "折金票",
+                "en": "T-Creds",
+                "ja": "折金券",
+                "zh-TW": "折金票"
+              },
+              "iconId": "item_gold",
+              "rarity": 4,
+              "count": 4200
+            }
+          ]
+        },
+        {
+          "level": 6,
+          "label": "Lv.6",
+          "values": [
+            "134%",
+            "10",
+            "10",
+            "67%",
+            "60%",
+            "7%"
+          ],
+          "coolDown": 21,
+          "materials": [
+            {
+              "itemId": "item_char_skill_level_1_6",
+              "name": {
+                "zh-CN": "协议棱柱",
+                "en": "Protoprism",
+                "ja": "協約角柱",
+                "zh-TW": "協議稜柱"
+              },
+              "iconId": "item_char_skill_level_1_6",
+              "rarity": 3,
+              "count": 27
+            },
+            {
+              "itemId": "item_plant_crylplant_1_2",
+              "name": {
+                "zh-CN": "纯晶多齿叶",
+                "en": "Chrysodendra",
+                "ja": "純晶鋭葉",
+                "zh-TW": "純晶多齒葉"
+              },
+              "iconId": "item_plant_crylplant_1_2",
+              "rarity": 4,
+              "count": 2
+            },
+            {
+              "itemId": "item_gold",
+              "name": {
+                "zh-CN": "折金票",
+                "en": "T-Creds",
+                "ja": "折金券",
+                "zh-TW": "折金票"
+              },
+              "iconId": "item_gold",
+              "rarity": 4,
+              "count": 5400
+            }
+          ]
+        },
+        {
+          "level": 7,
+          "label": "Lv.7",
+          "values": [
+            "142%",
+            "10",
+            "10",
+            "71%",
+            "60%",
+            "8%"
+          ],
+          "coolDown": 21,
+          "materials": [
+            {
+              "itemId": "item_char_skill_level_7_12",
+              "name": {
+                "zh-CN": "协议棱柱组",
+                "en": "Protohedron",
+                "ja": "協約角柱セット",
+                "zh-TW": "協議稜柱組"
+              },
+              "iconId": "item_char_skill_level_7_12",
+              "rarity": 4,
+              "count": 6
+            },
+            {
+              "itemId": "item_plant_crylplant_1_3",
+              "name": {
+                "zh-CN": "至晶多齿叶",
+                "en": "Vitrodendra",
+                "ja": "至晶鋭葉",
+                "zh-TW": "至晶多齒葉"
+              },
+              "iconId": "item_plant_crylplant_1_3",
+              "rarity": 4,
+              "count": 1
+            },
+            {
+              "itemId": "item_gold",
+              "name": {
+                "zh-CN": "折金票",
+                "en": "T-Creds",
+                "ja": "折金券",
+                "zh-TW": "折金票"
+              },
+              "iconId": "item_gold",
+              "rarity": 4,
+              "count": 8200
+            }
+          ]
+        },
+        {
+          "level": 8,
+          "label": "Lv.8",
+          "values": [
+            "151%",
+            "10",
+            "10",
+            "76%",
+            "60%",
+            "8%"
+          ],
+          "coolDown": 21,
+          "materials": [
+            {
+              "itemId": "item_char_skill_level_7_12",
+              "name": {
+                "zh-CN": "协议棱柱组",
+                "en": "Protohedron",
+                "ja": "協約角柱セット",
+                "zh-TW": "協議稜柱組"
+              },
+              "iconId": "item_char_skill_level_7_12",
+              "rarity": 4,
+              "count": 8
+            },
+            {
+              "itemId": "item_plant_crylplant_1_3",
+              "name": {
+                "zh-CN": "至晶多齿叶",
+                "en": "Vitrodendra",
+                "ja": "至晶鋭葉",
+                "zh-TW": "至晶多齒葉"
+              },
+              "iconId": "item_plant_crylplant_1_3",
+              "rarity": 4,
+              "count": 1
+            },
+            {
+              "itemId": "item_gold",
+              "name": {
+                "zh-CN": "折金票",
+                "en": "T-Creds",
+                "ja": "折金券",
+                "zh-TW": "折金票"
+              },
+              "iconId": "item_gold",
+              "rarity": 4,
+              "count": 10500
+            }
+          ]
+        },
+        {
+          "level": 9,
+          "label": "Lv.9",
+          "values": [
+            "160%",
+            "10",
+            "10",
+            "80%",
+            "60%",
+            "8%"
+          ],
+          "coolDown": 21,
+          "materials": [
+            {
+              "itemId": "item_char_skill_level_7_12",
+              "name": {
+                "zh-CN": "协议棱柱组",
+                "en": "Protohedron",
+                "ja": "協約角柱セット",
+                "zh-TW": "協議稜柱組"
+              },
+              "iconId": "item_char_skill_level_7_12",
+              "rarity": 4,
+              "count": 15
+            },
+            {
+              "itemId": "item_plant_crylplant_1_3",
+              "name": {
+                "zh-CN": "至晶多齿叶",
+                "en": "Vitrodendra",
+                "ja": "至晶鋭葉",
+                "zh-TW": "至晶多齒葉"
+              },
+              "iconId": "item_plant_crylplant_1_3",
+              "rarity": 4,
+              "count": 2
+            },
+            {
+              "itemId": "item_gold",
+              "name": {
+                "zh-CN": "折金票",
+                "en": "T-Creds",
+                "ja": "折金券",
+                "zh-TW": "折金票"
+              },
+              "iconId": "item_gold",
+              "rarity": 4,
+              "count": 18000
+            }
+          ]
+        },
+        {
+          "level": 10,
+          "label": "M1",
+          "values": [
+            "171%",
+            "10",
+            "10",
+            "86%",
+            "60%",
+            "9%"
+          ],
+          "coolDown": 20,
+          "materials": [
+            {
+              "itemId": "item_char_skill_crown",
+              "name": {
+                "zh-CN": "存续的痕迹",
+                "en": "Mark of Perseverance",
+                "ja": "存続の痕跡",
+                "zh-TW": "存續的痕跡"
+              },
+              "iconId": "item_char_skill_crown",
+              "rarity": 5,
+              "count": 1
+            },
+            {
+              "itemId": "item_char_skill_level_7_12",
+              "name": {
+                "zh-CN": "协议棱柱组",
+                "en": "Protohedron",
+                "ja": "協約角柱セット",
+                "zh-TW": "協議稜柱組"
+              },
+              "iconId": "item_char_skill_level_7_12",
+              "rarity": 4,
+              "count": 15
+            },
+            {
+              "itemId": "item_char_skill_specialize_2",
+              "name": {
+                "zh-CN": "D96钢样品四",
+                "en": "D96 Steel Sample 4",
+                "ja": "D96鋼試料Ⅳ",
+                "zh-TW": "D96鋼樣品四"
+              },
+              "iconId": "item_char_skill_specialize_2",
+              "rarity": 5,
+              "count": 6
+            },
+            {
+              "itemId": "item_plant_crylplant_2_3",
+              "name": {
+                "zh-CN": "红矛叶",
+                "en": "Crimson Spearleaf",
+                "ja": "赤槍葉",
+                "zh-TW": "紅矛葉"
+              },
+              "iconId": "item_plant_crylplant_2_3",
+              "rarity": 5,
+              "count": 3
+            },
+            {
+              "itemId": "item_gold",
+              "name": {
+                "zh-CN": "折金票",
+                "en": "T-Creds",
+                "ja": "折金券",
+                "zh-TW": "折金票"
+              },
+              "iconId": "item_gold",
+              "rarity": 4,
+              "count": 24000
+            }
+          ]
+        },
+        {
+          "level": 11,
+          "label": "M2",
+          "values": [
+            "185%",
+            "10",
+            "10",
+            "93%",
+            "60%",
+            "9%"
+          ],
+          "coolDown": 20,
+          "materials": [
+            {
+              "itemId": "item_char_skill_crown",
+              "name": {
+                "zh-CN": "存续的痕迹",
+                "en": "Mark of Perseverance",
+                "ja": "存続の痕跡",
+                "zh-TW": "存續的痕跡"
+              },
+              "iconId": "item_char_skill_crown",
+              "rarity": 5,
+              "count": 2
+            },
+            {
+              "itemId": "item_char_skill_level_7_12",
+              "name": {
+                "zh-CN": "协议棱柱组",
+                "en": "Protohedron",
+                "ja": "協約角柱セット",
+                "zh-TW": "協議稜柱組"
+              },
+              "iconId": "item_char_skill_level_7_12",
+              "rarity": 4,
+              "count": 24
+            },
+            {
+              "itemId": "item_char_skill_specialize_2",
+              "name": {
+                "zh-CN": "D96钢样品四",
+                "en": "D96 Steel Sample 4",
+                "ja": "D96鋼試料Ⅳ",
+                "zh-TW": "D96鋼樣品四"
+              },
+              "iconId": "item_char_skill_specialize_2",
+              "rarity": 5,
+              "count": 16
+            },
+            {
+              "itemId": "item_plant_crylplant_2_3",
+              "name": {
+                "zh-CN": "红矛叶",
+                "en": "Crimson Spearleaf",
+                "ja": "赤槍葉",
+                "zh-TW": "紅矛葉"
+              },
+              "iconId": "item_plant_crylplant_2_3",
+              "rarity": 5,
+              "count": 6
+            },
+            {
+              "itemId": "item_gold",
+              "name": {
+                "zh-CN": "折金票",
+                "en": "T-Creds",
+                "ja": "折金券",
+                "zh-TW": "折金票"
+              },
+              "iconId": "item_gold",
+              "rarity": 4,
+              "count": 30000
+            }
+          ]
+        },
+        {
+          "level": 12,
+          "label": "M3",
+          "values": [
+            "200%",
+            "10",
+            "10",
+            "100%",
+            "60%",
+            "10%"
+          ],
+          "coolDown": 19,
+          "materials": [
+            {
+              "itemId": "item_char_skill_crown",
+              "name": {
+                "zh-CN": "存续的痕迹",
+                "en": "Mark of Perseverance",
+                "ja": "存続の痕跡",
+                "zh-TW": "存續的痕跡"
+              },
+              "iconId": "item_char_skill_crown",
+              "rarity": 5,
+              "count": 3
+            },
+            {
+              "itemId": "item_char_skill_level_7_12",
+              "name": {
+                "zh-CN": "协议棱柱组",
+                "en": "Protohedron",
+                "ja": "協約角柱セット",
+                "zh-TW": "協議稜柱組"
+              },
+              "iconId": "item_char_skill_level_7_12",
+              "rarity": 4,
+              "count": 50
+            },
+            {
+              "itemId": "item_char_skill_specialize_2",
+              "name": {
+                "zh-CN": "D96钢样品四",
+                "en": "D96 Steel Sample 4",
+                "ja": "D96鋼試料Ⅳ",
+                "zh-TW": "D96鋼樣品四"
+              },
+              "iconId": "item_char_skill_specialize_2",
+              "rarity": 5,
+              "count": 36
+            },
+            {
+              "itemId": "item_plant_crylplant_2_3",
+              "name": {
+                "zh-CN": "红矛叶",
+                "en": "Crimson Spearleaf",
+                "ja": "赤槍葉",
+                "zh-TW": "紅矛葉"
+              },
+              "iconId": "item_plant_crylplant_2_3",
+              "rarity": 5,
+              "count": 12
+            },
+            {
+              "itemId": "item_gold",
+              "name": {
+                "zh-CN": "折金票",
+                "en": "T-Creds",
+                "ja": "折金券",
+                "zh-TW": "折金票"
+              },
+              "iconId": "item_gold",
+              "rarity": 4,
+              "count": 65000
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "chr_0034_typhoea_UltimateSkill",
+      "typeId": "2",
+      "name": {
+        "zh-CN": "冰山呼告",
+        "en": "Call of Ice Mountain",
+        "ja": "氷山の呼び声",
+        "zh-TW": "冰山呼告"
+      },
+      "description": {
+        "zh-CN": "拉弓射出一支强力箭矢，命中目标后引发爆炸，对范围内的敌人造成高额<@ba.natur>自然伤害</>。之后会进入<@ba.key>浮空</>状态，并且重置空中普通攻击次数。\n之后的五次空中普通攻击命中敌人时，都会在目标的位置产生一轮<@ba.key>箭雨</>，造成<@ba.natur>自然伤害</>。第五轮<@ba.key>箭雨</>为强化<@ba.key>箭雨</>，造成的伤害提升。\n施放终结技可立即获得<@ba.vup>2</>枚<#ba.arrownum>猎矢</>。",
+        "en": "Typhoeus fires an Imbued Arrow that explodes after hitting the enemy and deals massive <@ba.natur>Nature DMG</> to enemies within the area of effect (AOE). She then enters a <@ba.key>Hovering</> state and her Aerial Basic Attack (ABATK) attempts are reset.\nFor her next 5 ABATKs, hitting an enemy triggers a <@ba.key>Hail of Arrows</> that deals <@ba.natur>Nature DMG</> at the target's location. Her 5th <@ba.key>Hail of Arrows</> is an empowered <@ba.key>Hail of Arrows</> that deals higher DMG.\nCasting the ultimate gives <@ba.vup>2</> <#ba.arrownum>Hunting Arrows</> immediately.",
+        "ja": "弓を引いて強力な矢を放ち、目標に命中すると爆発する。範囲内の敵に高い<@ba.natur>自然ダメージ</>を与える。その後、<@ba.key>浮遊</>状態に入り、空中通常攻撃の回数をリセットする。\nそのあとの5回の空中通常攻撃が敵に命中するとき、目標の位置に<@ba.key>矢の雨</>を発生させ、<@ba.natur>自然ダメージ</>を与える。5段目は強化された<@ba.key>矢の雨</>となり、与えるダメージがアップする。\n必殺技を発動すると即座に<#ba.arrownum>猟矢</>を<@ba.vup>2</>本獲得する。",
+        "zh-TW": "拉弓射出一支強力箭矢，命中目標後引發爆炸，對範圍內的敵人造成高額<@ba.natur>自然傷害</>。之後會進入<@ba.key>浮空</>狀態，並且重置空中普通攻擊次數。\n之後的五次空中普通攻擊命中敵人時，都會在目標的位置產生一輪<@ba.key>箭雨</>，造成<@ba.natur>自然傷害</>。第五輪<@ba.key>箭雨</>為強化<@ba.key>箭雨</>，造成的傷害提升。\n施放終結技可立即獲得<@ba.vup>2</>枚<#ba.arrownum>獵矢</>。"
+      },
+      "iconId": "icon_ultimate_skill_typhoea_01",
+      "metrics": [
+        {
+          "id": "chr_0034_typhoea_ultimate_skillfloating:0",
+          "label": {
+            "zh-CN": "强力箭爆炸伤害",
+            "en": "Imbued Arrow Explosion DMG",
+            "ja": "強力な矢による爆発ダメージ",
+            "zh-TW": "強力箭爆炸傷害"
+          }
+        },
+        {
+          "id": "chr_0034_typhoea_ultimate_skillfloating:1",
+          "label": {
+            "zh-CN": "强力箭失衡值",
+            "en": "Imbued Arrow Stagger",
+            "ja": "強力な矢によるブレイク値",
+            "zh-TW": "強力箭失衡值"
+          }
+        },
+        {
+          "id": "chr_0034_typhoea_ultimate_skillfloating:2",
+          "label": {
+            "zh-CN": "常规箭雨伤害",
+            "en": "Normal Hail of Arrows DMG",
+            "ja": "通常矢の雨ダメージ",
+            "zh-TW": "基礎箭雨傷害"
+          }
+        },
+        {
+          "id": "chr_0034_typhoea_ultimate_skillfloating:3",
+          "label": {
+            "zh-CN": "强化箭雨伤害",
+            "en": "Empowered Hail of Arrows DMG",
+            "ja": "強化矢の雨ダメージ",
+            "zh-TW": "強化箭雨傷害"
+          }
+        }
+      ],
+      "levels": [
+        {
+          "level": 1,
+          "label": "Lv.1",
+          "values": [
+            "133%",
+            "20",
+            "33%",
+            "89%"
+          ],
+          "coolDown": 20,
+          "costValue": 200
+        },
+        {
+          "level": 2,
+          "label": "Lv.2",
+          "values": [
+            "147%",
+            "20",
+            "37%",
+            "98%"
+          ],
+          "coolDown": 20,
+          "costValue": 200,
+          "materials": [
+            {
+              "itemId": "item_char_skill_level_1_6",
+              "name": {
+                "zh-CN": "协议棱柱",
+                "en": "Protoprism",
+                "ja": "協約角柱",
+                "zh-TW": "協議稜柱"
+              },
+              "iconId": "item_char_skill_level_1_6",
+              "rarity": 3,
+              "count": 6
+            },
+            {
+              "itemId": "item_plant_crylplant_1_1",
+              "name": {
+                "zh-CN": "晶化多齿叶",
+                "en": "Kalkodendra",
+                "ja": "結晶鋭葉",
+                "zh-TW": "晶化多齒葉"
+              },
+              "iconId": "item_plant_crylplant_1_1",
+              "rarity": 4,
+              "count": 1
+            },
+            {
+              "itemId": "item_gold",
+              "name": {
+                "zh-CN": "折金票",
+                "en": "T-Creds",
+                "ja": "折金券",
+                "zh-TW": "折金票"
+              },
+              "iconId": "item_gold",
+              "rarity": 4,
+              "count": 1000
+            }
+          ]
+        },
+        {
+          "level": 3,
+          "label": "Lv.3",
+          "values": [
+            "160%",
+            "20",
+            "40%",
+            "107%"
+          ],
+          "coolDown": 20,
+          "costValue": 200,
+          "materials": [
+            {
+              "itemId": "item_char_skill_level_1_6",
+              "name": {
+                "zh-CN": "协议棱柱",
+                "en": "Protoprism",
+                "ja": "協約角柱",
+                "zh-TW": "協議稜柱"
+              },
+              "iconId": "item_char_skill_level_1_6",
+              "rarity": 3,
+              "count": 12
+            },
+            {
+              "itemId": "item_plant_crylplant_1_1",
+              "name": {
+                "zh-CN": "晶化多齿叶",
+                "en": "Kalkodendra",
+                "ja": "結晶鋭葉",
+                "zh-TW": "晶化多齒葉"
+              },
+              "iconId": "item_plant_crylplant_1_1",
+              "rarity": 4,
+              "count": 2
+            },
+            {
+              "itemId": "item_gold",
+              "name": {
+                "zh-CN": "折金票",
+                "en": "T-Creds",
+                "ja": "折金券",
+                "zh-TW": "折金票"
+              },
+              "iconId": "item_gold",
+              "rarity": 4,
+              "count": 2700
+            }
+          ]
+        },
+        {
+          "level": 4,
+          "label": "Lv.4",
+          "values": [
+            "173%",
+            "20",
+            "43%",
+            "116%"
+          ],
+          "coolDown": 20,
+          "costValue": 200,
+          "materials": [
+            {
+              "itemId": "item_char_skill_level_1_6",
+              "name": {
+                "zh-CN": "协议棱柱",
+                "en": "Protoprism",
+                "ja": "協約角柱",
+                "zh-TW": "協議稜柱"
+              },
+              "iconId": "item_char_skill_level_1_6",
+              "rarity": 3,
+              "count": 16
+            },
+            {
+              "itemId": "item_plant_crylplant_1_2",
+              "name": {
+                "zh-CN": "纯晶多齿叶",
+                "en": "Chrysodendra",
+                "ja": "純晶鋭葉",
+                "zh-TW": "純晶多齒葉"
+              },
+              "iconId": "item_plant_crylplant_1_2",
+              "rarity": 4,
+              "count": 1
+            },
+            {
+              "itemId": "item_gold",
+              "name": {
+                "zh-CN": "折金票",
+                "en": "T-Creds",
+                "ja": "折金券",
+                "zh-TW": "折金票"
+              },
+              "iconId": "item_gold",
+              "rarity": 4,
+              "count": 3200
+            }
+          ]
+        },
+        {
+          "level": 5,
+          "label": "Lv.5",
+          "values": [
+            "187%",
+            "20",
+            "47%",
+            "124%"
+          ],
+          "coolDown": 20,
+          "costValue": 200,
+          "materials": [
+            {
+              "itemId": "item_char_skill_level_1_6",
+              "name": {
+                "zh-CN": "协议棱柱",
+                "en": "Protoprism",
+                "ja": "協約角柱",
+                "zh-TW": "協議稜柱"
+              },
+              "iconId": "item_char_skill_level_1_6",
+              "rarity": 3,
+              "count": 21
+            },
+            {
+              "itemId": "item_plant_crylplant_1_2",
+              "name": {
+                "zh-CN": "纯晶多齿叶",
+                "en": "Chrysodendra",
+                "ja": "純晶鋭葉",
+                "zh-TW": "純晶多齒葉"
+              },
+              "iconId": "item_plant_crylplant_1_2",
+              "rarity": 4,
+              "count": 1
+            },
+            {
+              "itemId": "item_gold",
+              "name": {
+                "zh-CN": "折金票",
+                "en": "T-Creds",
+                "ja": "折金券",
+                "zh-TW": "折金票"
+              },
+              "iconId": "item_gold",
+              "rarity": 4,
+              "count": 4200
+            }
+          ]
+        },
+        {
+          "level": 6,
+          "label": "Lv.6",
+          "values": [
+            "200%",
+            "20",
+            "50%",
+            "133%"
+          ],
+          "coolDown": 20,
+          "costValue": 200,
+          "materials": [
+            {
+              "itemId": "item_char_skill_level_1_6",
+              "name": {
+                "zh-CN": "协议棱柱",
+                "en": "Protoprism",
+                "ja": "協約角柱",
+                "zh-TW": "協議稜柱"
+              },
+              "iconId": "item_char_skill_level_1_6",
+              "rarity": 3,
+              "count": 27
+            },
+            {
+              "itemId": "item_plant_crylplant_1_2",
+              "name": {
+                "zh-CN": "纯晶多齿叶",
+                "en": "Chrysodendra",
+                "ja": "純晶鋭葉",
+                "zh-TW": "純晶多齒葉"
+              },
+              "iconId": "item_plant_crylplant_1_2",
+              "rarity": 4,
+              "count": 2
+            },
+            {
+              "itemId": "item_gold",
+              "name": {
+                "zh-CN": "折金票",
+                "en": "T-Creds",
+                "ja": "折金券",
+                "zh-TW": "折金票"
+              },
+              "iconId": "item_gold",
+              "rarity": 4,
+              "count": 5400
+            }
+          ]
+        },
+        {
+          "level": 7,
+          "label": "Lv.7",
+          "values": [
+            "213%",
+            "20",
+            "53%",
+            "142%"
+          ],
+          "coolDown": 20,
+          "costValue": 200,
+          "materials": [
+            {
+              "itemId": "item_char_skill_level_7_12",
+              "name": {
+                "zh-CN": "协议棱柱组",
+                "en": "Protohedron",
+                "ja": "協約角柱セット",
+                "zh-TW": "協議稜柱組"
+              },
+              "iconId": "item_char_skill_level_7_12",
+              "rarity": 4,
+              "count": 6
+            },
+            {
+              "itemId": "item_plant_crylplant_1_3",
+              "name": {
+                "zh-CN": "至晶多齿叶",
+                "en": "Vitrodendra",
+                "ja": "至晶鋭葉",
+                "zh-TW": "至晶多齒葉"
+              },
+              "iconId": "item_plant_crylplant_1_3",
+              "rarity": 4,
+              "count": 1
+            },
+            {
+              "itemId": "item_gold",
+              "name": {
+                "zh-CN": "折金票",
+                "en": "T-Creds",
+                "ja": "折金券",
+                "zh-TW": "折金票"
+              },
+              "iconId": "item_gold",
+              "rarity": 4,
+              "count": 8200
+            }
+          ]
+        },
+        {
+          "level": 8,
+          "label": "Lv.8",
+          "values": [
+            "227%",
+            "20",
+            "57%",
+            "151%"
+          ],
+          "coolDown": 20,
+          "costValue": 200,
+          "materials": [
+            {
+              "itemId": "item_char_skill_level_7_12",
+              "name": {
+                "zh-CN": "协议棱柱组",
+                "en": "Protohedron",
+                "ja": "協約角柱セット",
+                "zh-TW": "協議稜柱組"
+              },
+              "iconId": "item_char_skill_level_7_12",
+              "rarity": 4,
+              "count": 8
+            },
+            {
+              "itemId": "item_plant_crylplant_1_3",
+              "name": {
+                "zh-CN": "至晶多齿叶",
+                "en": "Vitrodendra",
+                "ja": "至晶鋭葉",
+                "zh-TW": "至晶多齒葉"
+              },
+              "iconId": "item_plant_crylplant_1_3",
+              "rarity": 4,
+              "count": 1
+            },
+            {
+              "itemId": "item_gold",
+              "name": {
+                "zh-CN": "折金票",
+                "en": "T-Creds",
+                "ja": "折金券",
+                "zh-TW": "折金票"
+              },
+              "iconId": "item_gold",
+              "rarity": 4,
+              "count": 10500
+            }
+          ]
+        },
+        {
+          "level": 9,
+          "label": "Lv.9",
+          "values": [
+            "240%",
+            "20",
+            "60%",
+            "160%"
+          ],
+          "coolDown": 20,
+          "costValue": 200,
+          "materials": [
+            {
+              "itemId": "item_char_skill_level_7_12",
+              "name": {
+                "zh-CN": "协议棱柱组",
+                "en": "Protohedron",
+                "ja": "協約角柱セット",
+                "zh-TW": "協議稜柱組"
+              },
+              "iconId": "item_char_skill_level_7_12",
+              "rarity": 4,
+              "count": 15
+            },
+            {
+              "itemId": "item_plant_crylplant_1_3",
+              "name": {
+                "zh-CN": "至晶多齿叶",
+                "en": "Vitrodendra",
+                "ja": "至晶鋭葉",
+                "zh-TW": "至晶多齒葉"
+              },
+              "iconId": "item_plant_crylplant_1_3",
+              "rarity": 4,
+              "count": 2
+            },
+            {
+              "itemId": "item_gold",
+              "name": {
+                "zh-CN": "折金票",
+                "en": "T-Creds",
+                "ja": "折金券",
+                "zh-TW": "折金票"
+              },
+              "iconId": "item_gold",
+              "rarity": 4,
+              "count": 18000
+            }
+          ]
+        },
+        {
+          "level": 10,
+          "label": "M1",
+          "values": [
+            "257%",
+            "20",
+            "64%",
+            "171%"
+          ],
+          "coolDown": 20,
+          "costValue": 200,
+          "materials": [
+            {
+              "itemId": "item_char_skill_crown",
+              "name": {
+                "zh-CN": "存续的痕迹",
+                "en": "Mark of Perseverance",
+                "ja": "存続の痕跡",
+                "zh-TW": "存續的痕跡"
+              },
+              "iconId": "item_char_skill_crown",
+              "rarity": 5,
+              "count": 1
+            },
+            {
+              "itemId": "item_char_skill_level_7_12",
+              "name": {
+                "zh-CN": "协议棱柱组",
+                "en": "Protohedron",
+                "ja": "協約角柱セット",
+                "zh-TW": "協議稜柱組"
+              },
+              "iconId": "item_char_skill_level_7_12",
+              "rarity": 4,
+              "count": 15
+            },
+            {
+              "itemId": "item_char_skill_specialize_4",
+              "name": {
+                "zh-CN": "象限拟合液",
+                "en": "Quadrant Fitting Fluid",
+                "ja": "象限適合液",
+                "zh-TW": "象限擬合液"
+              },
+              "iconId": "item_char_skill_specialize_4",
+              "rarity": 5,
+              "count": 6
+            },
+            {
+              "itemId": "item_plant_crylplant_2_3",
+              "name": {
+                "zh-CN": "红矛叶",
+                "en": "Crimson Spearleaf",
+                "ja": "赤槍葉",
+                "zh-TW": "紅矛葉"
+              },
+              "iconId": "item_plant_crylplant_2_3",
+              "rarity": 5,
+              "count": 3
+            },
+            {
+              "itemId": "item_gold",
+              "name": {
+                "zh-CN": "折金票",
+                "en": "T-Creds",
+                "ja": "折金券",
+                "zh-TW": "折金票"
+              },
+              "iconId": "item_gold",
+              "rarity": 4,
+              "count": 24000
+            }
+          ]
+        },
+        {
+          "level": 11,
+          "label": "M2",
+          "values": [
+            "277%",
+            "20",
+            "69%",
+            "184%"
+          ],
+          "coolDown": 20,
+          "costValue": 200,
+          "materials": [
+            {
+              "itemId": "item_char_skill_crown",
+              "name": {
+                "zh-CN": "存续的痕迹",
+                "en": "Mark of Perseverance",
+                "ja": "存続の痕跡",
+                "zh-TW": "存續的痕跡"
+              },
+              "iconId": "item_char_skill_crown",
+              "rarity": 5,
+              "count": 2
+            },
+            {
+              "itemId": "item_char_skill_level_7_12",
+              "name": {
+                "zh-CN": "协议棱柱组",
+                "en": "Protohedron",
+                "ja": "協約角柱セット",
+                "zh-TW": "協議稜柱組"
+              },
+              "iconId": "item_char_skill_level_7_12",
+              "rarity": 4,
+              "count": 24
+            },
+            {
+              "itemId": "item_char_skill_specialize_4",
+              "name": {
+                "zh-CN": "象限拟合液",
+                "en": "Quadrant Fitting Fluid",
+                "ja": "象限適合液",
+                "zh-TW": "象限擬合液"
+              },
+              "iconId": "item_char_skill_specialize_4",
+              "rarity": 5,
+              "count": 16
+            },
+            {
+              "itemId": "item_plant_crylplant_2_3",
+              "name": {
+                "zh-CN": "红矛叶",
+                "en": "Crimson Spearleaf",
+                "ja": "赤槍葉",
+                "zh-TW": "紅矛葉"
+              },
+              "iconId": "item_plant_crylplant_2_3",
+              "rarity": 5,
+              "count": 6
+            },
+            {
+              "itemId": "item_gold",
+              "name": {
+                "zh-CN": "折金票",
+                "en": "T-Creds",
+                "ja": "折金券",
+                "zh-TW": "折金票"
+              },
+              "iconId": "item_gold",
+              "rarity": 4,
+              "count": 30000
+            }
+          ]
+        },
+        {
+          "level": 12,
+          "label": "M3",
+          "values": [
+            "300%",
+            "20",
+            "75%",
+            "200%"
+          ],
+          "coolDown": 20,
+          "costValue": 200,
+          "materials": [
+            {
+              "itemId": "item_char_skill_crown",
+              "name": {
+                "zh-CN": "存续的痕迹",
+                "en": "Mark of Perseverance",
+                "ja": "存続の痕跡",
+                "zh-TW": "存續的痕跡"
+              },
+              "iconId": "item_char_skill_crown",
+              "rarity": 5,
+              "count": 3
+            },
+            {
+              "itemId": "item_char_skill_level_7_12",
+              "name": {
+                "zh-CN": "协议棱柱组",
+                "en": "Protohedron",
+                "ja": "協約角柱セット",
+                "zh-TW": "協議稜柱組"
+              },
+              "iconId": "item_char_skill_level_7_12",
+              "rarity": 4,
+              "count": 50
+            },
+            {
+              "itemId": "item_char_skill_specialize_4",
+              "name": {
+                "zh-CN": "象限拟合液",
+                "en": "Quadrant Fitting Fluid",
+                "ja": "象限適合液",
+                "zh-TW": "象限擬合液"
+              },
+              "iconId": "item_char_skill_specialize_4",
+              "rarity": 5,
+              "count": 36
+            },
+            {
+              "itemId": "item_plant_crylplant_2_3",
+              "name": {
+                "zh-CN": "红矛叶",
+                "en": "Crimson Spearleaf",
+                "ja": "赤槍葉",
+                "zh-TW": "紅矛葉"
+              },
+              "iconId": "item_plant_crylplant_2_3",
+              "rarity": 5,
+              "count": 12
+            },
+            {
+              "itemId": "item_gold",
+              "name": {
+                "zh-CN": "折金票",
+                "en": "T-Creds",
+                "ja": "折金券",
+                "zh-TW": "折金票"
+              },
+              "iconId": "item_gold",
+              "rarity": 4,
+              "count": 65000
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "talents": [
+    {
+      "id": "chr_0034_typhoea_talent_1_1",
+      "name": {
+        "zh-CN": "猎物清点",
+        "en": "Prey Checklist",
+        "ja": "獲物のチェック",
+        "zh-TW": "獵物清點"
+      },
+      "description": {
+        "zh-CN": "每当敌人触发<#ba.naturalburst>自然爆发</>的时候，获得1点<#ba.arrowenergy>启示</>。消耗<#ba.arrownum>猎矢</>强化的攻击，造成的伤害提升至原本的<@ba.vup>1.2</>倍。\n进入战斗时，立刻获得<@ba.vup>1</>点<#ba.arrowenergy>启示</>。\n<#ba.arrownum>猎矢</>上限为4枚，<#ba.arrowenergy>启示</>上限为8点。\n<@ba.info>同一时间内多名敌人受到自然爆发时，仅视为单个敌人受到自然爆发，并获得对应数量的启示。</>",
+        "en": "Whenever a <#ba.naturalburst>Nature Burst</> is triggered on an enemy, Typhoeus gains 1 <#ba.arrowenergy>Sign</>. DMG dealt by attacks empowered by consuming <#ba.arrownum>Hunting Arrows</> is increased to <@ba.vup>1.2</> times the original.\nWhen entering battle, Typhoeus immediately gains <@ba.vup>1</> <#ba.arrowenergy>Sign(s)</>.\nTyphoeus can have up to 4 <#ba.arrownum>Hunting Arrows</> and 8 <#ba.arrowenergy>Signs</>.\n<@ba.info>If Nature Burst is simultaneously triggered on multiple enemies, this only counts as one instance of Nature Burst when tallying the Signs gained by Typhoeus.</>",
+        "ja": "敵に<#ba.naturalburst>自然爆発</>を発生させるたびに、<#ba.arrowenergy>啓示</>を1獲得する\n<#ba.arrownum>猟矢</>を消費して強化された攻撃は、ダメージが<@ba.vup>1.2</>倍までアップする\n戦闘開始時、即座に<#ba.arrowenergy>啓示</>を<@ba.vup>1</>獲得する\n<#ba.arrownum>猟矢</>の上限は4本、<#ba.arrowenergy>啓示</>の上限は8\n<@ba.info>同時に複数の敵が自然爆発を受けた場合でも、1体の敵が自然爆発を受けたものとして扱い、対応する数量の啓示を獲得する</>",
+        "zh-TW": "每當敵人觸發<#ba.naturalburst>自然爆發</>的時候，獲得1點<#ba.arrowenergy>啟示</>。消耗<#ba.arrownum>獵矢</>強化的攻擊，造成的傷害提升至原本的<@ba.vup>1.2</>倍。\n進入戰鬥時，立刻獲得<@ba.vup>1</>點<#ba.arrowenergy>啟示</>。\n<#ba.arrownum>獵矢</>上限為4枚，<#ba.arrowenergy>啟示</>上限為8點。\n<@ba.info>同一時間內多名敵人受到自然爆發時，僅視為單個敵人受到自然爆發，並獲得對應數量的啟示。</>"
+      },
+      "iconId": "icon_talent_typhoea_01",
+      "breakStage": 0,
+      "materials": []
+    },
+    {
+      "id": "chr_0034_typhoea_talent_1_2",
+      "name": {
+        "zh-CN": "猎物清点",
+        "en": "Prey Checklist",
+        "ja": "獲物のチェック",
+        "zh-TW": "獵物清點"
+      },
+      "description": {
+        "zh-CN": "每当敌人触发<#ba.naturalburst>自然爆发</>的时候，获得1点<#ba.arrowenergy>启示</>。消耗<#ba.arrownum>猎矢</>强化的攻击，造成的伤害提升至原本的<@ba.vup>1.4</>倍。\n进入战斗时，立刻获得<@ba.vup>2</>点<#ba.arrowenergy>启示</>。\n<#ba.arrownum>猎矢</>上限为4枚，<#ba.arrowenergy>启示</>上限为8点。\n<@ba.info>同一时间内多名敌人受到自然爆发时，仅视为单个敌人受到自然爆发，并获得对应数量的启示。</>",
+        "en": "Whenever a <#ba.naturalburst>Nature Burst</> is triggered on an enemy, Typhoeus gains 1 <#ba.arrowenergy>Sign</>. DMG dealt by attacks empowered by consuming <#ba.arrownum>Hunting Arrows</> is increased to <@ba.vup>1.4</> times the original.\nWhen entering battle, Typhoeus immediately gains <@ba.vup>2</> <#ba.arrowenergy>Sign(s)</>.\nTyphoeus can have up to 4 <#ba.arrownum>Hunting Arrows</> and 8 <#ba.arrowenergy>Signs</>.\n<@ba.info>If Nature Burst is simultaneously triggered on multiple enemies, this only counts as one instance of Nature Burst when tallying the Signs gained by Typhoeus.</>",
+        "ja": "敵に<#ba.naturalburst>自然爆発</>を発生させるたびに、<#ba.arrowenergy>啓示</>を1獲得する\n<#ba.arrownum>猟矢</>を消費して強化された攻撃は、ダメージが<@ba.vup>1.4</>倍までアップする\n戦闘開始時、即座に<#ba.arrowenergy>啓示</>を<@ba.vup>2</>獲得する\n<#ba.arrownum>猟矢</>の上限は4本、<#ba.arrowenergy>啓示</>の上限は8\n<@ba.info>同時に複数の敵が自然爆発を受けた場合でも、1体の敵が自然爆発を受けたものとして扱い、対応する数量の啓示を獲得する</>",
+        "zh-TW": "每當敵人觸發<#ba.naturalburst>自然爆發</>的時候，獲得1點<#ba.arrowenergy>啟示</>。消耗<#ba.arrownum>獵矢</>強化的攻擊，造成的傷害提升至原本的<@ba.vup>1.4</>倍。\n進入戰鬥時，立刻獲得<@ba.vup>2</>點<#ba.arrowenergy>啟示</>。\n<#ba.arrownum>獵矢</>上限為4枚，<#ba.arrowenergy>啟示</>上限為8點。\n<@ba.info>同一時間內多名敵人受到自然爆發時，僅視為單個敵人受到自然爆發，並獲得對應數量的啟示。</>"
+      },
+      "iconId": "icon_talent_typhoea_01",
+      "breakStage": 1,
+      "materials": [
+        {
+          "itemId": "item_char_skill_level_1_6",
+          "name": {
+            "zh-CN": "协议棱柱",
+            "en": "Protoprism",
+            "ja": "協約角柱",
+            "zh-TW": "協議稜柱"
+          },
+          "iconId": "item_char_skill_level_1_6",
+          "rarity": 3,
+          "count": 12
+        },
+        {
+          "itemId": "item_gold",
+          "name": {
+            "zh-CN": "折金票",
+            "en": "T-Creds",
+            "ja": "折金券",
+            "zh-TW": "折金票"
+          },
+          "iconId": "item_gold",
+          "rarity": 4,
+          "count": 2400
+        }
+      ]
+    },
+    {
+      "id": "chr_0034_typhoea_talent_1_3",
+      "name": {
+        "zh-CN": "猎物清点",
+        "en": "Prey Checklist",
+        "ja": "獲物のチェック",
+        "zh-TW": "獵物清點"
+      },
+      "description": {
+        "zh-CN": "每当敌人触发<#ba.naturalburst>自然爆发</>的时候，获得1点<#ba.arrowenergy>启示</>。消耗<#ba.arrownum>猎矢</>强化的攻击，造成的伤害提升至原本的<@ba.vup>1.6</>倍。\n进入战斗时，立刻获得<@ba.vup>4</>点<#ba.arrowenergy>启示</>。\n<#ba.arrownum>猎矢</>上限为4枚，<#ba.arrowenergy>启示</>上限为8点。\n<@ba.info>同一时间内多名敌人受到自然爆发时，仅视为单个敌人受到自然爆发，并获得对应数量的启示。</>",
+        "en": "Whenever a <#ba.naturalburst>Nature Burst</> is triggered on an enemy, Typhoeus gains 1 <#ba.arrowenergy>Sign</>. DMG dealt by attacks empowered by consuming <#ba.arrownum>Hunting Arrows</> is increased to <@ba.vup>1.6</> times the original.\nWhen entering battle, Typhoeus immediately gains <@ba.vup>4</> <#ba.arrowenergy>Sign(s)</>.\nTyphoeus can have up to 4 <#ba.arrownum>Hunting Arrows</> and 8 <#ba.arrowenergy>Signs</>.\n<@ba.info>If Nature Burst is simultaneously triggered on multiple enemies, this only counts as one instance of Nature Burst when tallying the Signs gained by Typhoeus.</>",
+        "ja": "敵に<#ba.naturalburst>自然爆発</>を発生させるたびに、<#ba.arrowenergy>啓示</>を1獲得する\n<#ba.arrownum>猟矢</>を消費して強化された攻撃は、ダメージが<@ba.vup>1.6</>倍までアップする\n戦闘開始時、即座に<#ba.arrowenergy>啓示</>を<@ba.vup>4</>獲得する\n<#ba.arrownum>猟矢</>の上限は4本、<#ba.arrowenergy>啓示</>の上限は8\n<@ba.info>同時に複数の敵が自然爆発を受けた場合でも、1体の敵が自然爆発を受けたものとして扱い、対応する数量の啓示を獲得する</>",
+        "zh-TW": "每當敵人觸發<#ba.naturalburst>自然爆發</>的時候，獲得1點<#ba.arrowenergy>啟示</>。消耗<#ba.arrownum>獵矢</>強化的攻擊，造成的傷害提升至原本的<@ba.vup>1.6</>倍。\n進入戰鬥時，立刻獲得<@ba.vup>4</>點<#ba.arrowenergy>啟示</>。\n<#ba.arrownum>獵矢</>上限為4枚，<#ba.arrowenergy>啟示</>上限為8點。\n<@ba.info>同一時間內多名敵人受到自然爆發時，僅視為單個敵人受到自然爆發，並獲得對應數量的啟示。</>"
+      },
+      "iconId": "icon_talent_typhoea_01",
+      "breakStage": 3,
+      "materials": [
+        {
+          "itemId": "item_char_skill_level_7_12",
+          "name": {
+            "zh-CN": "协议棱柱组",
+            "en": "Protohedron",
+            "ja": "協約角柱セット",
+            "zh-TW": "協議稜柱組"
+          },
+          "iconId": "item_char_skill_level_7_12",
+          "rarity": 4,
+          "count": 18
+        },
+        {
+          "itemId": "item_gold",
+          "name": {
+            "zh-CN": "折金票",
+            "en": "T-Creds",
+            "ja": "折金券",
+            "zh-TW": "折金票"
+          },
+          "iconId": "item_gold",
+          "rarity": 4,
+          "count": 16000
+        }
+      ]
+    },
+    {
+      "id": "chr_0034_typhoea_talent_2_1",
+      "name": {
+        "zh-CN": "猎手的专注",
+        "en": "Huntress's Focus",
+        "ja": "狩人の集中力",
+        "zh-TW": "獵手的專注"
+      },
+      "description": {
+        "zh-CN": "每次进入<@ba.key>浮空</>状态时，持续期间内激活<@ba.key>防御护罩</>，使自身受到的伤害<@ba.vup>-15%</>且更难被打断，在受到伤害时<@ba.key>防御护罩</>会被击碎，且<@ba.vup>30</>秒内无法再次激活。",
+        "en": "When <@ba.key>Hovering</>, Typhoeus activates a <@ba.key>Protective Barrier</> that reduces her DMG Taken by <@ba.vup>15%</> and makes her harder to interrupt while it is active. The <@ba.key>Protective Barrier</> is shattered when Typhoeus takes DMG, and cannot be activated again for <@ba.vup>30</>s afterwards.",
+        "ja": "<@ba.key>浮遊</>状態に入るたび、持続期間中は<@ba.key>防御シールド</>が発動する\n中断されにくくなり、自身の受けるダメージ<@ba.vup>-15%</>\nダメージを受けると<@ba.key>防御シールド</>は破壊され、その後<@ba.vup>30</>秒間は再発動できない",
+        "zh-TW": "每次進入<@ba.key>浮空</>狀態時，持續期間內啟用<@ba.key>防禦護罩</>，使自身受到的傷害<@ba.vup>-15%</>且更難被打斷，在受到傷害時<@ba.key>防禦護罩</>會被擊碎，且<@ba.vup>30</>秒內無法再次啟用。"
+      },
+      "iconId": "icon_talent_typhoea_02",
+      "breakStage": 2,
+      "materials": [
+        {
+          "itemId": "item_char_skill_level_1_6",
+          "name": {
+            "zh-CN": "协议棱柱",
+            "en": "Protoprism",
+            "ja": "協約角柱",
+            "zh-TW": "協議稜柱"
+          },
+          "iconId": "item_char_skill_level_1_6",
+          "rarity": 3,
+          "count": 48
+        },
+        {
+          "itemId": "item_gold",
+          "name": {
+            "zh-CN": "折金票",
+            "en": "T-Creds",
+            "ja": "折金券",
+            "zh-TW": "折金票"
+          },
+          "iconId": "item_gold",
+          "rarity": 4,
+          "count": 10800
+        }
+      ]
+    },
+    {
+      "id": "chr_0034_typhoea_talent_2_2",
+      "name": {
+        "zh-CN": "猎手的专注",
+        "en": "Huntress's Focus",
+        "ja": "狩人の集中力",
+        "zh-TW": "獵手的專注"
+      },
+      "description": {
+        "zh-CN": "每次进入<@ba.key>浮空</>状态时，持续期间内激活<@ba.key>防御护罩</>，使自身受到的伤害<@ba.vup>-30%</>且更难被打断，在受到伤害时<@ba.key>防御护罩</>会被击碎，且<@ba.vup>18</>秒内无法再次激活。",
+        "en": "When <@ba.key>Hovering</>, Typhoeus activates a <@ba.key>Protective Barrier</> that reduces her DMG Taken by <@ba.vup>30%</> and makes her harder to interrupt while it is active. The <@ba.key>Protective Barrier</> is shattered when Typhoeus takes DMG, and cannot be activated again for <@ba.vup>18</>s afterwards.",
+        "ja": "<@ba.key>浮遊</>状態に入るたび、持続期間中は<@ba.key>防御シールド</>が発動する\n中断されにくくなり、自身の受けるダメージ<@ba.vup>-30%</>\nダメージを受けると<@ba.key>防御シールド</>は破壊され、その後<@ba.vup>18</>秒間は再発動できない",
+        "zh-TW": "每次進入<@ba.key>浮空</>狀態時，持續期間內啟用<@ba.key>防禦護罩</>，使自身受到的傷害<@ba.vup>-30%</>且更難被打斷，在受到傷害時<@ba.key>防禦護罩</>會被擊碎，且<@ba.vup>18</>秒內無法再次啟用。"
+      },
+      "iconId": "icon_talent_typhoea_02",
+      "breakStage": 3,
+      "materials": [
+        {
+          "itemId": "item_char_skill_level_7_12",
+          "name": {
+            "zh-CN": "协议棱柱组",
+            "en": "Protohedron",
+            "ja": "協約角柱セット",
+            "zh-TW": "協議稜柱組"
+          },
+          "iconId": "item_char_skill_level_7_12",
+          "rarity": 4,
+          "count": 18
+        },
+        {
+          "itemId": "item_gold",
+          "name": {
+            "zh-CN": "折金票",
+            "en": "T-Creds",
+            "ja": "折金券",
+            "zh-TW": "折金票"
+          },
+          "iconId": "item_gold",
+          "rarity": 4,
+          "count": 16000
+        }
+      ]
+    }
+  ],
+  "attributeNodes": [
+    {
+      "id": "chr_0034_typhoea_1",
+      "title": {
+        "zh-CN": "游刃",
+        "en": "Skirmisher",
+        "ja": "遊刃",
+        "zh-TW": "游刃"
+      },
+      "description": {
+        "zh-CN": "干员敏捷能力值提升10。",
+        "en": "Operator Agility +10.",
+        "ja": "敏捷が10アップする",
+        "zh-TW": "幹員敏捷能力值提升10。"
+      },
+      "breakStage": 1,
+      "favorability": 60,
+      "stats": [
+        {
+          "attributeId": "40",
+          "value": 10
+        }
+      ],
+      "materials": [
+        {
+          "itemId": "item_char_skill_level_1_6",
+          "name": {
+            "zh-CN": "协议棱柱",
+            "en": "Protoprism",
+            "ja": "協約角柱",
+            "zh-TW": "協議稜柱"
+          },
+          "iconId": "item_char_skill_level_1_6",
+          "rarity": 3,
+          "count": 5
+        },
+        {
+          "itemId": "item_gold",
+          "name": {
+            "zh-CN": "折金票",
+            "en": "T-Creds",
+            "ja": "折金券",
+            "zh-TW": "折金票"
+          },
+          "iconId": "item_gold",
+          "rarity": 4,
+          "count": 1000
+        }
+      ]
+    },
+    {
+      "id": "chr_0034_typhoea_3",
+      "title": {
+        "zh-CN": "游刃",
+        "en": "Skirmisher",
+        "ja": "遊刃",
+        "zh-TW": "游刃"
+      },
+      "description": {
+        "zh-CN": "干员敏捷能力值提升15。",
+        "en": "Operator Agility +15.",
+        "ja": "敏捷が15アップする",
+        "zh-TW": "幹員敏捷能力值提升15。"
+      },
+      "breakStage": 2,
+      "favorability": 150,
+      "stats": [
+        {
+          "attributeId": "40",
+          "value": 15
+        }
+      ],
+      "materials": [
+        {
+          "itemId": "item_char_skill_level_1_6",
+          "name": {
+            "zh-CN": "协议棱柱",
+            "en": "Protoprism",
+            "ja": "協約角柱",
+            "zh-TW": "協議稜柱"
+          },
+          "iconId": "item_char_skill_level_1_6",
+          "rarity": 3,
+          "count": 10
+        },
+        {
+          "itemId": "item_gold",
+          "name": {
+            "zh-CN": "折金票",
+            "en": "T-Creds",
+            "ja": "折金券",
+            "zh-TW": "折金票"
+          },
+          "iconId": "item_gold",
+          "rarity": 4,
+          "count": 1800
+        }
+      ]
+    },
+    {
+      "id": "chr_0034_typhoea_5",
+      "title": {
+        "zh-CN": "游刃",
+        "en": "Skirmisher",
+        "ja": "遊刃",
+        "zh-TW": "游刃"
+      },
+      "description": {
+        "zh-CN": "干员敏捷能力值提升15。",
+        "en": "Operator Agility +15.",
+        "ja": "敏捷が15アップする",
+        "zh-TW": "幹員敏捷能力值提升15。"
+      },
+      "breakStage": 3,
+      "favorability": 300,
+      "stats": [
+        {
+          "attributeId": "40",
+          "value": 15
+        }
+      ],
+      "materials": [
+        {
+          "itemId": "item_char_skill_level_7_12",
+          "name": {
+            "zh-CN": "协议棱柱组",
+            "en": "Protohedron",
+            "ja": "協約角柱セット",
+            "zh-TW": "協議稜柱組"
+          },
+          "iconId": "item_char_skill_level_7_12",
+          "rarity": 4,
+          "count": 10
+        },
+        {
+          "itemId": "item_gold",
+          "name": {
+            "zh-CN": "折金票",
+            "en": "T-Creds",
+            "ja": "折金券",
+            "zh-TW": "折金票"
+          },
+          "iconId": "item_gold",
+          "rarity": 4,
+          "count": 6000
+        }
+      ]
+    },
+    {
+      "id": "chr_0034_typhoea_7",
+      "title": {
+        "zh-CN": "游刃",
+        "en": "Skirmisher",
+        "ja": "遊刃",
+        "zh-TW": "游刃"
+      },
+      "description": {
+        "zh-CN": "干员敏捷能力值提升20。",
+        "en": "Operator Agility +20.",
+        "ja": "敏捷が20アップする",
+        "zh-TW": "幹員敏捷能力值提升20。"
+      },
+      "breakStage": 4,
+      "favorability": 300,
+      "stats": [
+        {
+          "attributeId": "40",
+          "value": 20
+        }
+      ],
+      "materials": [
+        {
+          "itemId": "item_char_skill_level_7_12",
+          "name": {
+            "zh-CN": "协议棱柱组",
+            "en": "Protohedron",
+            "ja": "協約角柱セット",
+            "zh-TW": "協議稜柱組"
+          },
+          "iconId": "item_char_skill_level_7_12",
+          "rarity": 4,
+          "count": 20
+        },
+        {
+          "itemId": "item_gold",
+          "name": {
+            "zh-CN": "折金票",
+            "en": "T-Creds",
+            "ja": "折金券",
+            "zh-TW": "折金票"
+          },
+          "iconId": "item_gold",
+          "rarity": 4,
+          "count": 12000
+        }
+      ]
+    }
+  ],
+  "equipmentNodes": [
+    {
+      "id": "equipBreakT2",
+      "name": {
+        "zh-CN": "装备适配·一",
+        "en": "Outfitting I",
+        "ja": "装備適正・Ⅰ",
+        "zh-TW": "裝備適用I"
+      },
+      "description": {
+        "zh-CN": "激活后，允许干员穿戴蓝色品质装备",
+        "en": "Activate this to let the operator equip blue quality gear",
+        "ja": "解放後、青品質の装備を着用できる",
+        "zh-TW": "解鎖後，允許幹員穿戴藍色品質裝備"
+      },
+      "breakStage": 1,
+      "equipmentTierLimit": 3,
+      "materials": [
+        {
+          "itemId": "item_gold",
+          "name": {
+            "zh-CN": "折金票",
+            "en": "T-Creds",
+            "ja": "折金券",
+            "zh-TW": "折金票"
+          },
+          "iconId": "item_gold",
+          "rarity": 4,
+          "count": 1600
+        }
+      ]
+    },
+    {
+      "id": "equipBreakT3",
+      "name": {
+        "zh-CN": "装备适配·二",
+        "en": "Outfitting II",
+        "ja": "装備適正・Ⅱ",
+        "zh-TW": "裝備適用II"
+      },
+      "description": {
+        "zh-CN": "激活后，允许干员穿戴紫色品质装备",
+        "en": "Activate this to let the operator equip purple quality gear",
+        "ja": "解放後、紫品質の装備を着用できる",
+        "zh-TW": "解鎖後，允許幹員穿戴紫色品質裝備"
+      },
+      "breakStage": 2,
+      "equipmentTierLimit": 4,
+      "materials": [
+        {
+          "itemId": "item_gold",
+          "name": {
+            "zh-CN": "折金票",
+            "en": "T-Creds",
+            "ja": "折金券",
+            "zh-TW": "折金票"
+          },
+          "iconId": "item_gold",
+          "rarity": 4,
+          "count": 6500
+        }
+      ]
+    },
+    {
+      "id": "equipBreakT4",
+      "name": {
+        "zh-CN": "装备适配·三",
+        "en": "Outfitting III",
+        "ja": "装備適正・Ⅲ",
+        "zh-TW": "裝備適用III"
+      },
+      "description": {
+        "zh-CN": "激活后，允许干员穿戴金色品质装备",
+        "en": "Activate this to let the operator equip gold quality gear",
+        "ja": "解放後、金品質の装備を着用できる",
+        "zh-TW": "解鎖後，允許幹員穿戴金色品質裝備"
+      },
+      "breakStage": 3,
+      "equipmentTierLimit": 5,
+      "materials": [
+        {
+          "itemId": "item_gold",
+          "name": {
+            "zh-CN": "折金票",
+            "en": "T-Creds",
+            "ja": "折金券",
+            "zh-TW": "折金票"
+          },
+          "iconId": "item_gold",
+          "rarity": 4,
+          "count": 18000
+        }
+      ]
+    }
+  ],
+  "logisticsNodes": [
+    {
+      "id": "fac_chr_0034_typhoea_0_1",
+      "breakStage": 1,
+      "index": 0,
+      "level": 1,
+      "materials": [
+        {
+          "itemId": "item_char_skill_level_1_6",
+          "name": {
+            "zh-CN": "协议棱柱",
+            "en": "Protoprism",
+            "ja": "協約角柱",
+            "zh-TW": "協議稜柱"
+          },
+          "iconId": "item_char_skill_level_1_6",
+          "rarity": 3,
+          "count": 6
+        },
+        {
+          "itemId": "item_gold",
+          "name": {
+            "zh-CN": "折金票",
+            "en": "T-Creds",
+            "ja": "折金券",
+            "zh-TW": "折金票"
+          },
+          "iconId": "item_gold",
+          "rarity": 4,
+          "count": 1600
+        }
+      ]
+    },
+    {
+      "id": "fac_chr_0034_typhoea_1_1",
+      "breakStage": 2,
+      "index": 1,
+      "level": 1,
+      "materials": [
+        {
+          "itemId": "item_char_skill_level_1_6",
+          "name": {
+            "zh-CN": "协议棱柱",
+            "en": "Protoprism",
+            "ja": "協約角柱",
+            "zh-TW": "協議稜柱"
+          },
+          "iconId": "item_char_skill_level_1_6",
+          "rarity": 3,
+          "count": 12
+        },
+        {
+          "itemId": "item_gold",
+          "name": {
+            "zh-CN": "折金票",
+            "en": "T-Creds",
+            "ja": "折金券",
+            "zh-TW": "折金票"
+          },
+          "iconId": "item_gold",
+          "rarity": 4,
+          "count": 3000
+        }
+      ]
+    },
+    {
+      "id": "fac_chr_0034_typhoea_0_2",
+      "breakStage": 3,
+      "index": 0,
+      "level": 2,
+      "materials": [
+        {
+          "itemId": "item_char_skill_level_7_12",
+          "name": {
+            "zh-CN": "协议棱柱组",
+            "en": "Protohedron",
+            "ja": "協約角柱セット",
+            "zh-TW": "協議稜柱組"
+          },
+          "iconId": "item_char_skill_level_7_12",
+          "rarity": 4,
+          "count": 12
+        },
+        {
+          "itemId": "item_gold",
+          "name": {
+            "zh-CN": "折金票",
+            "en": "T-Creds",
+            "ja": "折金券",
+            "zh-TW": "折金票"
+          },
+          "iconId": "item_gold",
+          "rarity": 4,
+          "count": 8000
+        }
+      ]
+    },
+    {
+      "id": "fac_chr_0034_typhoea_1_2",
+      "breakStage": 4,
+      "index": 1,
+      "level": 2,
+      "materials": [
+        {
+          "itemId": "item_char_skill_level_7_12",
+          "name": {
+            "zh-CN": "协议棱柱组",
+            "en": "Protohedron",
+            "ja": "協約角柱セット",
+            "zh-TW": "協議稜柱組"
+          },
+          "iconId": "item_char_skill_level_7_12",
+          "rarity": 4,
+          "count": 20
+        },
+        {
+          "itemId": "item_gold",
+          "name": {
+            "zh-CN": "折金票",
+            "en": "T-Creds",
+            "ja": "折金券",
+            "zh-TW": "折金票"
+          },
+          "iconId": "item_gold",
+          "rarity": 4,
+          "count": 20000
+        }
+      ]
+    }
+  ],
+  "potentials": [
+    {
+      "id": "chr_0034_typhoea_potential_1",
+      "level": 1,
+      "name": {
+        "zh-CN": "萨米制箭工艺",
+        "en": "Samifjod Fletching",
+        "ja": "サーミの矢作り",
+        "zh-TW": "薩米製箭工藝"
+      },
+      "description": {
+        "zh-CN": "处于<@ba.key>浮空</>状态时，攻击力<@ba.vup>+18%</>，空中普通攻击伤害提升至原本的<@ba.vup>1.2</>倍。\n天赋<@ba.key>猎手的专注</>效果加强：<@ba.key>防御护罩</>的再次激活时间<@ba.vup>-3</>秒。",
+        "en": "When <@ba.key>Hovering</>, ATK <@ba.vup>+18%</> and ABATK DMG Dealt is increased to <@ba.vup>1.2</> times the original. \nTalent <@ba.key>Huntress's Focus</> improved: <@ba.key>Protective Barrier</> reactivation time <@ba.vup>-3</>s.",
+        "ja": "<@ba.key>浮遊</>状態のとき、攻撃力<@ba.vup>+18%</>、空中通常攻撃ダメージが<@ba.vup>1.2</>倍までアップする\n素質<@ba.key>「狩人の集中力」</>強化：<@ba.key>防御シールド</>の再発動時間が<@ba.vup>-3</>秒になる。",
+        "zh-TW": "處於<@ba.key>浮空</>狀態時，攻擊力<@ba.vup>+18%</>，空中普通攻擊傷害提升至原本的<@ba.vup>1.2</>倍。\n天賦<@ba.key>獵手的專注</>效果加強：<@ba.key>防禦護罩</>的再次觸發時間<@ba.vup>-3</>秒。"
+      },
+      "imageIds": [
+        "item_pic_1_chr_0034_typhoea"
+      ]
+    },
+    {
+      "id": "chr_0034_typhoea_potential_2",
+      "level": 2,
+      "name": {
+        "zh-CN": "猎人步伐",
+        "en": "Huntress's Stride",
+        "ja": "狩人のペース",
+        "zh-TW": "獵人步伐"
+      },
+      "description": {
+        "zh-CN": "敏捷<@ba.vup>+20</>，源石技艺强度<@ba.vup>+16</>。",
+        "en": "Agility <@ba.vup>+20</>, Arts Intensity <@ba.vup>+16</>.",
+        "ja": "敏捷<@ba.vup>+20</>、アーツ強度<@ba.vup>+16</>",
+        "zh-TW": "敏捷<@ba.vup>+20</>，源石技藝強度<@ba.vup>+16</>。"
+      },
+      "imageIds": []
+    },
+    {
+      "id": "chr_0034_typhoea_potential_3",
+      "level": 3,
+      "name": {
+        "zh-CN": "荆棘猎笼",
+        "en": "Thorny Trap",
+        "ja": "トゲの罠",
+        "zh-TW": "荊棘獵籠"
+      },
+      "description": {
+        "zh-CN": "连携技<@ba.key>野棘丛生</>冷却时间<@ba.vup>-2</>秒，<@ba.key>箭阵</>内的敌人受到的<#ba.naturalburst>自然爆发</>伤害提高的效果<@ba.vup>+6%</>。",
+        "en": "Combo skill <@ba.key>Rampant Thorns</> improved: Length of cooldown <@ba.vup>-2</>s. Enemies in the <@ba.key>Barrage Array</> suffer <#ba.naturalburst>Nature Burst</> DMG Taken <@ba.vup>+6%</>.",
+        "ja": "連携技<@ba.key>「荒れ狂うトゲ」</>のCD時間<@ba.vup>-2</>秒、<@ba.key>矢陣</>内の敵が受ける<#ba.naturalburst>自然爆発</>ダメージがアップする効果<@ba.vup>+6%</>",
+        "zh-TW": "連攜技<@ba.key>野棘叢生</>冷卻時間<@ba.vup>-2</>秒，<@ba.key>箭陣</>內的敵人受到的<#ba.naturalburst>自然爆發</>傷害提高的效果<@ba.vup>+6%</>。"
+      },
+      "imageIds": [
+        "item_pic_3_chr_0034_typhoea"
+      ]
+    },
+    {
+      "id": "chr_0034_typhoea_potential_4",
+      "level": 4,
+      "name": {
+        "zh-CN": "无处可逃",
+        "en": "No Escape",
+        "ja": "逃げ場はもうない",
+        "zh-TW": "無處可逃"
+      },
+      "description": {
+        "zh-CN": "终结技<@ba.key>冰山呼告</>所需的终结技能量<@ba.vup>-15%</>。",
+        "en": "Ultimate <@ba.key>Call of Ice Mountain</> improved: Ultimate Energy cost <@ba.vup>-15%</>.",
+        "ja": "必殺技<@ba.key>「氷山の呼び声」</>に必要な必殺チャージ<@ba.vup>-15%</>",
+        "zh-TW": "終結技<@ba.key>冰山呼告</>所需的終結技能量<@ba.vup>-15%</>。"
+      },
+      "imageIds": []
+    },
+    {
+      "id": "chr_0034_typhoea_potential_5",
+      "level": 5,
+      "name": {
+        "zh-CN": "应弦而倒",
+        "en": "Fatal Shot",
+        "ja": "弦音ひとつ",
+        "zh-TW": "應弦而倒"
+      },
+      "description": {
+        "zh-CN": "终结技<@ba.key>冰山呼告</>获得的<#ba.arrownum>猎矢</>数量<@ba.vup>+1</>，终结技伤害提升至原本的<@ba.vup>1.2</>倍，<@ba.key>强化射击</>造成的自然爆发伤害倍率提升至原本的<@ba.vup>1.1</>倍。",
+        "en": "Ultimate <@ba.key>Call of Ice Mountain</> improved: Gains <#ba.arrownum>Hunting Arrows</> <@ba.vup>+1</>. Ultimate DMG Dealt is increased to <@ba.vup>1.2</> times the original, while Nature Burst DMG Multiplier of <@ba.key>Power Shot</> is increased to <@ba.vup>1.1</> times the original.",
+        "ja": "必殺技<@ba.key>「氷山の呼び声」</>で獲得する<#ba.arrownum>猟矢</>の数量<@ba.vup>+1</>、必殺技ダメージが<@ba.vup>1.2</>倍までアップする\n<@ba.key>強化射撃</>で与える自然爆発ダメージ倍率が<@ba.vup>1.1</>倍までアップする",
+        "zh-TW": "終結技<@ba.key>冰山呼告</>獲得的<#ba.arrownum>獵矢</>數量<@ba.vup>+1</>，終結技傷害提升至原本的<@ba.vup>1.2</>倍，<@ba.key>強化射擊</>造成的自然爆發傷害倍率提升至原本的<@ba.vup>1.1</>倍。"
+      },
+      "imageIds": [
+        "item_pic_5_chr_0034_typhoea"
+      ]
+    }
+  ],
+  "logisticsSkills": [
+    {
+      "id": "spaceship_skill_chr_0034_typhoea_1_1",
+      "name": {
+        "zh-CN": "晶石低语·β",
+        "en": "Lithic Murmurs β",
+        "ja": "晶石の囁き・β",
+        "zh-TW": "晶石低語·β"
+      },
+      "description": {
+        "zh-CN": "进驻培养舱时，矿物质料的培养速度提升20%",
+        "en": "Assign to Growth Chamber to grant rare mineral growth rate +20%",
+        "ja": "培養室配属時、鉱物素材の培養速度+20%",
+        "zh-TW": "進駐培養艙時，礦物材料的培養速度提升20%"
+      },
+      "iconId": "facskill_spaceship_plant_mineral",
+      "unlockHint": {
+        "zh-CN": "精英化阶段一可解锁",
+        "en": "Reach E1 to unlock",
+        "ja": "昇進段階1で解放",
+        "zh-TW": "精英化階段一可解鎖"
+      },
+      "index": 0,
+      "level": 1
+    },
+    {
+      "id": "spaceship_skill_chr_0034_typhoea_1_2",
+      "name": {
+        "zh-CN": "晶石低语·γ",
+        "en": "Lithic Murmurs γ",
+        "ja": "晶石の囁き・γ",
+        "zh-TW": "晶石低語·γ"
+      },
+      "description": {
+        "zh-CN": "进驻培养舱时，矿物质料的培养速度提升30%",
+        "en": "Assign to Growth Chamber to grant rare mineral growth rate +30%",
+        "ja": "培養室配属時、鉱物素材の培養速度+30%",
+        "zh-TW": "進駐培養艙時，礦物材料的培養速度提升30%"
+      },
+      "iconId": "facskill_spaceship_plant_mineral",
+      "unlockHint": {
+        "zh-CN": "精英化阶段三可激活",
+        "en": "Reach E3 to activate",
+        "ja": "昇進段階3で解放",
+        "zh-TW": "精英化階段三可啟用"
+      },
+      "index": 0,
+      "level": 2
+    },
+    {
+      "id": "spaceship_skill_chr_0034_typhoea_2_1",
+      "name": {
+        "zh-CN": "孢子生灵·β",
+        "en": "Life in the Spores β",
+        "ja": "胞子生物・β",
+        "zh-TW": "孢子生靈·β"
+      },
+      "description": {
+        "zh-CN": "进驻培养舱时，菌类质料的培养速度提升20%",
+        "en": "Assign to Growth Chamber to grant fungal matter growth rate +20%",
+        "ja": "培養室配属時、菌類素材の培養速度+20%",
+        "zh-TW": "進駐培養艙時，菌類材料的培養速度提升20%"
+      },
+      "iconId": "facskill_spaceship_plant_fungus",
+      "unlockHint": {
+        "zh-CN": "精英化阶段二可解锁",
+        "en": "Reach E2 to unlock",
+        "ja": "昇進段階2で解放",
+        "zh-TW": "精英化階段二可解鎖"
+      },
+      "index": 1,
+      "level": 1
+    },
+    {
+      "id": "spaceship_skill_chr_0034_typhoea_2_2",
+      "name": {
+        "zh-CN": "孢子生灵·γ",
+        "en": "Life in the Spores γ",
+        "ja": "胞子生物・γ",
+        "zh-TW": "孢子生靈·γ"
+      },
+      "description": {
+        "zh-CN": "进驻培养舱时，菌类质料的培养速度提升30%",
+        "en": "Assign to Growth Chamber to grant fungal matter growth rate +30%",
+        "ja": "培養室配属時、菌類素材の培養速度+30%",
+        "zh-TW": "進駐培養艙時，菌類材料的培養速度提升30%"
+      },
+      "iconId": "facskill_spaceship_plant_fungus",
+      "unlockHint": {
+        "zh-CN": "精英化阶段四可激活",
+        "en": "Reach E4 to activate",
+        "ja": "昇進段階4で解放",
+        "zh-TW": "精英化階段四可啟用"
+      },
+      "index": 1,
+      "level": 2
+    }
+  ],
+  "cvNames": [
+    {
+      "language": "zh-CN",
+      "original": "皛四白",
+      "localized": {
+        "zh-CN": "皛四白",
+        "en": "ShiHaku",
+        "ja": "皛四白",
+        "zh-TW": "皛四白"
+      }
+    },
+    {
+      "language": "en",
+      "original": "Hanna Johansson",
+      "localized": {
+        "zh-CN": "Hanna Johansson",
+        "en": "Hanna Johansson",
+        "ja": "Hanna Johansson",
+        "zh-TW": "Hanna Johansson"
+      }
+    },
+    {
+      "language": "ja",
+      "original": "大空直美",
+      "localized": {
+        "zh-CN": "大空直美",
+        "en": "Ohzora Naomi",
+        "ja": "大空直美",
+        "zh-TW": "大空直美"
+      }
+    },
+    {
+      "language": "ko",
+      "original": "채림",
+      "localized": {
+        "zh-CN": "彩琳",
+        "en": "Chae Rim",
+        "ja": "채림",
+        "zh-TW": "彩琳"
+      }
+    }
+  ],
+  "promotions": [
+    {
+      "breakStage": 1,
+      "requiredLevel": 20,
+      "materials": [
+        {
+          "itemId": "item_char_break_stage_1_2",
+          "name": {
+            "zh-CN": "协议圆盘",
+            "en": "Protodisk",
+            "ja": "協約ディスク",
+            "zh-TW": "協議圓盤"
+          },
+          "iconId": "item_char_break_stage_1_2",
+          "rarity": 3,
+          "count": 8
+        },
+        {
+          "itemId": "item_plant_mushroom_1_1",
+          "name": {
+            "zh-CN": "轻红柱状菌",
+            "en": "Pink Bolete",
+            "ja": "薄紅茸",
+            "zh-TW": "輕紅柱狀菌"
+          },
+          "iconId": "item_plant_mushroom_1_1",
+          "rarity": 4,
+          "count": 3
+        },
+        {
+          "itemId": "item_gold",
+          "name": {
+            "zh-CN": "折金票",
+            "en": "T-Creds",
+            "ja": "折金券",
+            "zh-TW": "折金票"
+          },
+          "iconId": "item_gold",
+          "rarity": 4,
+          "count": 1600
+        }
+      ]
+    },
+    {
+      "breakStage": 2,
+      "requiredLevel": 40,
+      "materials": [
+        {
+          "itemId": "item_char_break_stage_1_2",
+          "name": {
+            "zh-CN": "协议圆盘",
+            "en": "Protodisk",
+            "ja": "協約ディスク",
+            "zh-TW": "協議圓盤"
+          },
+          "iconId": "item_char_break_stage_1_2",
+          "rarity": 3,
+          "count": 25
+        },
+        {
+          "itemId": "item_plant_mushroom_1_2",
+          "name": {
+            "zh-CN": "中红柱状菌",
+            "en": "Red Bolete",
+            "ja": "紅色茸",
+            "zh-TW": "中紅柱狀菌"
+          },
+          "iconId": "item_plant_mushroom_1_2",
+          "rarity": 4,
+          "count": 5
+        },
+        {
+          "itemId": "item_gold",
+          "name": {
+            "zh-CN": "折金票",
+            "en": "T-Creds",
+            "ja": "折金券",
+            "zh-TW": "折金票"
+          },
+          "iconId": "item_gold",
+          "rarity": 4,
+          "count": 6500
+        }
+      ]
+    },
+    {
+      "breakStage": 3,
+      "requiredLevel": 60,
+      "materials": [
+        {
+          "itemId": "item_char_break_stage_3_4",
+          "name": {
+            "zh-CN": "协议圆盘组",
+            "en": "Protoset",
+            "ja": "協約ディスクセット",
+            "zh-TW": "協議圓盤組"
+          },
+          "iconId": "item_char_break_stage_3_4",
+          "rarity": 4,
+          "count": 24
+        },
+        {
+          "itemId": "item_plant_mushroom_1_3",
+          "name": {
+            "zh-CN": "重红柱状菌",
+            "en": "Ruby Bolete",
+            "ja": "深紅茸",
+            "zh-TW": "重紅柱狀菌"
+          },
+          "iconId": "item_plant_mushroom_1_3",
+          "rarity": 4,
+          "count": 5
+        },
+        {
+          "itemId": "item_gold",
+          "name": {
+            "zh-CN": "折金票",
+            "en": "T-Creds",
+            "ja": "折金券",
+            "zh-TW": "折金票"
+          },
+          "iconId": "item_gold",
+          "rarity": 4,
+          "count": 18000
+        }
+      ]
+    },
+    {
+      "breakStage": 4,
+      "requiredLevel": 70,
+      "materials": [
+        {
+          "itemId": "item_char_break_stage_3_4",
+          "name": {
+            "zh-CN": "协议圆盘组",
+            "en": "Protoset",
+            "ja": "協約ディスクセット",
+            "zh-TW": "協議圓盤組"
+          },
+          "iconId": "item_char_break_stage_3_4",
+          "rarity": 4,
+          "count": 36
+        },
+        {
+          "itemId": "item_char_skill_specialize_3",
+          "name": {
+            "zh-CN": "快子遴捡晶格",
+            "en": "Tachyon Screening Lattice",
+            "ja": "タキオン精選格子",
+            "zh-TW": "迅子遴撿晶格"
+          },
+          "iconId": "item_char_skill_specialize_3",
+          "rarity": 5,
+          "count": 20
+        },
+        {
+          "itemId": "item_plant_mushroom_2_3",
+          "name": {
+            "zh-CN": "塔罗斯菌",
+            "en": "Talos Cap",
+            "ja": "タロス茸",
+            "zh-TW": "塔羅斯菌"
+          },
+          "iconId": "item_plant_mushroom_2_3",
+          "rarity": 5,
+          "count": 8
+        },
+        {
+          "itemId": "item_gold",
+          "name": {
+            "zh-CN": "折金票",
+            "en": "T-Creds",
+            "ja": "折金券",
+            "zh-TW": "折金票"
+          },
+          "iconId": "item_gold",
+          "rarity": 4,
+          "count": 100000
+        }
+      ]
+    }
+  ],
+  "images": {
+    "defaultAvatarId": "chr_0034_typhoea",
+    "fullBodyIds": {
+      "default": "chr_0034_typhoea"
+    }
+  }
+}
