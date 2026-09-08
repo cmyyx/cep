@@ -5,7 +5,13 @@ import type { AdFeed, AdItem } from '@/types/ad'
 export const ADS_ENDPOINT = `${OPS_SERVICE_ORIGIN}/api/v1/creatives.json`
 
 function isHttpsUrl(value: unknown): value is string {
-  return typeof value === 'string' && value.startsWith('https://')
+  if (typeof value !== 'string' || value === 'https://') return false
+  try {
+    const url = new URL(value)
+    return url.protocol === 'https:' && url.hostname.length > 0
+  } catch {
+    return false
+  }
 }
 
 function parseAdItem(raw: unknown): AdItem | null {

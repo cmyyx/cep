@@ -48,6 +48,19 @@ describe('parseAdFeed', () => {
     expect(feed?.ads).toHaveLength(1)
   })
 
+  it('rejects degenerate https URLs (bare scheme, empty host)', () => {
+    // 单端非法：该端视为无素材（mobile 仍有效，条目保留）
+    for (const bad of ['https://', 'https:///', 'https://:18921/x', 'http://end-ops.canmoe.com', '/relative.png']) {
+      const single = parseAdFeed({ serverTime: 't', ads: [{ ...validAd, desktopImageUrl: bad }] })
+      expect(single?.ads).toHaveLength(1)
+      expect(single?.ads[0].desktopImageUrl).toBeNull()
+      expect(single?.ads[0].mobileImageUrl).toBeTypeOf('string')
+    }
+    // 两端同时为裸 scheme（无法渲染任何一端）→ 整条丢弃
+    const dropped = parseAdFeed({ serverTime: 't', ads: [{ ...validAd, desktopImageUrl: 'https://', mobileImageUrl: 'https://' }] })
+    expect(dropped?.ads).toHaveLength(0)
+  })
+
   it('rejects non-object / missing serverTime / non-array ads', () => {
     expect(parseAdFeed(null)).toBeNull()
     expect(parseAdFeed('x')).toBeNull()

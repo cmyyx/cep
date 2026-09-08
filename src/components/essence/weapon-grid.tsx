@@ -382,7 +382,9 @@ export const WeaponGrid = memo(function WeaponGrid({ onViewAll }: WeaponGridProp
         </FilterPanel>
       )}
 
-      {filteredWeapons.length === 0 && (
+      {/* 仅当可见区与折叠区都为空时才算"没有匹配"——搜索词只命中被折叠的隐藏武器时，
+          折叠区仍然可用，不能误报无结果。 */}
+      {filteredWeapons.length === 0 && hiddenFilteredWeapons.length === 0 && (
         <p className="text-sm text-muted-foreground text-center py-8">{t('essence.noWeaponMatch')}</p>
       )}
     </div>

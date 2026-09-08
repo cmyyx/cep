@@ -14,11 +14,17 @@ interface AdState {
   refreshAds: () => Promise<void>
 }
 
+// 模块级单调令牌：并发 refreshAds 时（轮询与可见性触发的刷新重叠、慢响应跨过
+// 轮询间隔），只有最新请求的响应可以写入 currentAd，慢的旧响应不得覆盖新数据。
+let latestAdRequestToken = 0
+
 export const useAdStore = create<AdState>((set) => ({
   currentAd: null,
   refreshAds: async () => {
+    const requestToken = ++latestAdRequestToken
     const feed = await fetchAdFeed()
     if (!feed) return
+    if (requestToken !== latestAdRequestToken) return
     const next = feed.ads[0] ?? null
     // 仅在广告变化时更新，避免同 id 重复 set 造成无谓渲染。
     if ((useAdStore.getState().currentAd?.id ?? null) === (next?.id ?? null)) return
@@ -26,7 +32,8 @@ export const useAdStore = create<AdState>((set) => ({
   },
 }))
 
-/** 测试助手 —— 重置模块状态。 */
+/** 测试助手 —— 重置模块状态与并发令牌。 */
 export function resetAdStoreForTests(): void {
+  latestAdRequestToken = 0
   useAdStore.setState({ currentAd: null })
 }
