@@ -46,6 +46,7 @@ import { useVersion } from '@/hooks/use-version'
 import { useAnnouncementStore, useImportantUnreadCount } from '@/stores/useAnnouncementStore'
 import { cn, formatTime } from '@/lib/utils'
 import { ForceUpgradeDialog } from './shared/force-upgrade-dialog'
+import { AdSlot } from '@/components/shared/ad-slot'
 import { LanguageSwitcher } from '@/components/language-switcher'
 
 const NAV_ITEMS = [
@@ -58,6 +59,7 @@ const NAV_ITEMS = [
 ]
 const TOOL_ITEMS = [
   { href: '/tools/game-i18n', label: 'nav.gameI18nLookup', Icon: Languages },
+  { href: '/background-preview', label: 'nav.backgroundPreview', Icon: ImageDown },
   { href: 'https://status.canmoe.com/', label: 'nav.siteStatus', Icon: ExternalLink, external: true },
 ]
 const WIKI_ITEMS = [
@@ -221,29 +223,6 @@ export function AppSidebar() {
             </SidebarMenu>
           )}
         </SidebarGroup>
-        <SidebarGroup className="pt-0 group-data-[collapsible=icon]:px-2">
-          <SidebarMenu className="px-2 group-data-[collapsible=icon]:px-0">
-            <SidebarMenuItem>
-              <SidebarMenuButton
-                size="lg"
-                variant="outline"
-                isActive={pathname.startsWith(`/${locale}/background-preview`)}
-                tooltip={t('nav.backgroundPreviewTooltip', { badge: t('backgroundPreview.weeklyUpdatedBadge') })}
-                render={<NavLink href={`/${locale}/background-preview`} loadingLabel={t('nav.backgroundPreview')} />}
-                onClick={() => {
-                  if (isMobile) setOpenMobile(false)
-                }}
-                className="bg-preview-pink/12 hover:bg-preview-pink/16 shadow-[0px_0px_0px_1px_var(--color-preview-pink)] hover:shadow-[0px_0px_0px_1px_var(--color-preview-pink)] group-data-[collapsible=icon]:bg-transparent! group-data-[collapsible=icon]:p-2! group-data-[collapsible=icon]:shadow-none! group-data-[collapsible=icon]:hover:bg-sidebar-accent!"
-              >
-                <ImageDown className="size-4" />
-                <span className="min-w-0 flex-1 truncate font-medium group-data-[collapsible=icon]:hidden">{t('nav.backgroundPreview')}</span>
-                <span className="rounded-full bg-preview-pink px-1.5 py-0.5 text-[9px] font-semibold leading-none text-white group-data-[collapsible=icon]:hidden">
-                  {t('backgroundPreview.weeklyUpdatedBadge')}
-                </span>
-              </SidebarMenuButton>
-            </SidebarMenuItem>
-          </SidebarMenu>
-        </SidebarGroup>
         {/* Wiki */}
         <SidebarGroup>
           <SidebarGroupLabel className="group-data-[collapsible=icon]:pointer-events-none">{t('nav.groupWiki')}</SidebarGroupLabel>
@@ -323,6 +302,10 @@ export function AppSidebar() {
           </SidebarMenu>
         </SidebarGroup>
       </SidebarContent>
+      {/* Advertisement — desktop sidebar bottom; hidden in collapsed icon mode */}
+      <div className="hidden shrink-0 justify-center px-2 md:flex group-data-[collapsible=icon]:hidden">
+        <AdSlot variant="desktop" className="mb-2" />
+      </div>
       <SidebarFooter>
         <SidebarMenu>
           {isUpdateAvailable && (

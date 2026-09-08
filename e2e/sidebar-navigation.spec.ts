@@ -42,7 +42,7 @@ test.describe('Sidebar Navigation', () => {
     await wallpaperLink.hover()
 
     const tooltip = page.locator('[data-slot="tooltip-content"]')
-    await expect(tooltip).toContainText('预览/下载壁纸')
+    await expect(tooltip).toContainText('查看背景')
     await page.waitForTimeout(700)
     await expect(tooltip).toBeVisible()
   })

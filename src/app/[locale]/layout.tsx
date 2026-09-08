@@ -18,6 +18,7 @@ import { ImportantAnnouncementBanner } from '@/components/home/important-announc
 import { HolidayBanner } from '@/components/shared/holiday-banner'
 import { BirthdayBanner } from '@/components/shared/birthday-banner'
 import { EmergencyNoticeBanner } from '@/components/shared/emergency-notice-banner'
+import { MobileAdBanner } from '@/components/shared/mobile-ad-banner'
 import { AnnouncementLoader } from '@/components/home/announcement-loader'
 import { SyncManager } from '@/components/shared/sync-manager'
 import { LegacyMigrationDialog } from '@/components/shared/legacy-migration-dialog'
@@ -117,6 +118,7 @@ export default async function LocaleLayout({
               {IS_DEV_BUILD ? <DevBuildNotice siteUrl={siteUrl} /> : null}
               {/* 紧急公告置于所有横幅最上方 —— 运营下发的最高优先级信息 */}
               <EmergencyNoticeBanner />
+              <MobileAdBanner />
               <HolidayBanner />
               <BirthdayBanner />
               <ImportantAnnouncementBanner />

@@ -77,13 +77,9 @@ export default function EssencePlannerPage() {
   const hideUnownedPlans = useEssenceSettingsStore((s) => s.hideUnownedWeaponsPlans)
   const hideEssenceOwnedPlans = useEssenceSettingsStore((s) => s.hideEssenceOwnedWeaponsPlans)
   const onlyBothOwned = useEssenceSettingsStore((s) => s.onlyHideWhenBothOwnedPlans)
-  const keepUpVisiblePlans = useEssenceSettingsStore((s) => s.keepUpVisiblePlans)
   const weaponOwnership = useEssenceSettingsStore((s) => s.weaponOwnership)
   const essenceStatus = useEssenceSettingsStore((s) => s.essenceStatus)
 
-  // UP character names for plan-side UP bypass
-  const upCharacterNames = useBannerStore((s) => s.upCharacterNames)
-  const upCharSet = useMemo(() => new Set(upCharacterNames), [upCharacterNames])
 
   const selectedCount = selectedWeaponIds.length
   const noWeaponsSelected = selectedCount === 0
@@ -109,8 +105,6 @@ export default function EssencePlannerPage() {
   // Helper: check whether a weapon should be visible in plan cards (respects hide settings)
   const isWeaponVisibleInPlans = useCallback(
     (weapon: import('@/types/matrix').Weapon): boolean => {
-      // UP and preview weapons bypass hide filters when the setting is enabled
-      if (keepUpVisiblePlans && (weapon.chars.some((c) => upCharSet.has(c)) || weapon.source === 'preview')) return true
       if (isHiddenByAcquisitionCategory(weapon.acquisitionSources, hiddenAcquisitionCategories)) return false
       if ((hideFourStarPlans && weapon.rarity === 4) || (hideThreeStarPlans && weapon.rarity === 3)) return false
       if (hideUnownedPlans && weaponOwnership[weapon.id] !== true) return false
@@ -125,7 +119,7 @@ export default function EssencePlannerPage() {
       }
       return true
     },
-    [keepUpVisiblePlans, upCharSet, hiddenAcquisitionCategories, hideFourStarPlans, hideThreeStarPlans, hideUnownedPlans, hideEssenceOwnedPlans, onlyBothOwned, weaponOwnership, essenceStatus],
+    [hiddenAcquisitionCategories, hideFourStarPlans, hideThreeStarPlans, hideUnownedPlans, hideEssenceOwnedPlans, onlyBothOwned, weaponOwnership, essenceStatus],
   )
 
   // Count visible weapons in a plan (selected-only or all)
