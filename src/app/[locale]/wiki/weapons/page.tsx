@@ -37,7 +37,7 @@ export default async function WikiWeaponsPage({ params }: { params: Promise<{ lo
       </header>
 
       <WikiEntityGrid
-        entities={localizeWikiEntitySummaries(wikiWeapons, locale)}
+        entities={localizeWikiEntitySummaries(wikiWeapons, locale, (entity) => t(`weapons.${entity.id}`))}
         imageBasePath="/images/weapon"
         enumLabels={enumLabels}
         enumOrder={enumOrder}
@@ -45,6 +45,7 @@ export default async function WikiWeaponsPage({ params }: { params: Promise<{ lo
         filters={[
           { field: 'rarity', labelKey: 'wiki.filter.rarity' },
           { field: 'weaponTypeId', labelKey: 'wiki.filter.weaponType', enumGroup: 'weaponTypes' },
+          { field: 'acquisitionCategory', labelKey: 'wiki.filter.acquisitionCategory' },
         ]}
       />
     </div>

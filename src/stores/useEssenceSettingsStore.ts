@@ -54,6 +54,11 @@ function isDefined(v: unknown): v is Record<string, unknown> {
   return v !== null && typeof v === 'object'
 }
 
+
+function normalizeCategoryList(value: unknown): string[] {
+  if (!Array.isArray(value)) return []
+  return [...new Set(value.filter((item): item is string => typeof item === 'string' && item.length > 0))]
+}
 /**
  * Decode persisted JSON with schema validation.
  * Corrupted keys fall back to defaults.
@@ -61,7 +66,7 @@ function isDefined(v: unknown): v is Record<string, unknown> {
  */
 function mergeWithDefaults(
   persisted: Record<string, unknown>,
-): Omit<EssenceSettingsState, 'toggleFlag' | 'setWeaponOwnership' | 'setEssenceStatus' | 'setWeaponNote' | 'addCustomWeapon' | 'removeCustomWeapon' | 'updateCustomWeapon' | 'addAccount' | 'renameAccount' | 'removeAccount' | 'setActiveAccount' | 'applyAccounts' | 'setRegionFirst' | 'setRegionSecond' | 'toggleWeaponFilterCollapsed' | 'setAutoSyncEnabled' | 'setNotifyOnSync' | 'setNotifyOnPull' | 'resetAllSettings'> {
+): Omit<EssenceSettingsState, 'toggleFlag' | 'setWeaponOwnership' | 'setEssenceStatus' | 'setWeaponNote' | 'addCustomWeapon' | 'removeCustomWeapon' | 'updateCustomWeapon' | 'addAccount' | 'renameAccount' | 'removeAccount' | 'setActiveAccount' | 'applyAccounts' | 'setHiddenAcquisitionCategories' | 'setRegionFirst' | 'setRegionSecond' | 'toggleWeaponFilterCollapsed' | 'setAutoSyncEnabled' | 'setNotifyOnSync' | 'setNotifyOnPull' | 'resetAllSettings'> {
   const flags = normalizeEssenceSettingsFlags(persisted)
 
   // Compute customWeapons first — we need the active set to filter
@@ -116,6 +121,8 @@ function mergeWithDefaults(
     typeof persisted.regionFirst === 'string' ? persisted.regionFirst : null
   const regionSecond: string | null =
     typeof persisted.regionSecond === 'string' ? persisted.regionSecond : null
+  const hiddenAcquisitionCategoriesList = normalizeCategoryList(persisted.hiddenAcquisitionCategoriesList)
+  const hiddenAcquisitionCategoriesPlans = normalizeCategoryList(persisted.hiddenAcquisitionCategoriesPlans)
   const weaponFilterCollapsed: boolean =
     typeof persisted.weaponFilterCollapsed === 'boolean' ? persisted.weaponFilterCollapsed : false
   const autoSyncEnabled: boolean =
@@ -135,6 +142,8 @@ function mergeWithDefaults(
     customWeapons,
     regionFirst,
     regionSecond,
+    hiddenAcquisitionCategoriesList,
+    hiddenAcquisitionCategoriesPlans,
     weaponFilterCollapsed,
     autoSyncEnabled,
     notifyOnSync,
@@ -191,6 +200,8 @@ export const useEssenceSettingsStore = create<EssenceSettingsState>()(
       customWeapons: [],
       regionFirst: null,
       regionSecond: null,
+      hiddenAcquisitionCategoriesList: [],
+      hiddenAcquisitionCategoriesPlans: [],
       weaponFilterCollapsed: false,
       autoSyncEnabled: true,
       notifyOnSync: false,
@@ -360,12 +371,19 @@ export const useEssenceSettingsStore = create<EssenceSettingsState>()(
             customWeapons: [],
             regionFirst: null,
             regionSecond: null,
+            hiddenAcquisitionCategoriesList: [],
+            hiddenAcquisitionCategoriesPlans: [],
             weaponFilterCollapsed: false,
             autoSyncEnabled: true,
             notifyOnSync: false,
             notifyOnPull: false,
           }
         }),
+
+      setHiddenAcquisitionCategories: (scope: 'list' | 'plans', categoryIds: string[]) =>
+        set(scope === 'list'
+          ? { hiddenAcquisitionCategoriesList: normalizeCategoryList(categoryIds) }
+          : { hiddenAcquisitionCategoriesPlans: normalizeCategoryList(categoryIds) }),
 
       setRegionFirst: (region: string | null) =>
         set((s) => {
@@ -410,6 +428,7 @@ export const useEssenceSettingsStore = create<EssenceSettingsState>()(
           addCustomWeapon: current.addCustomWeapon,
           removeCustomWeapon: current.removeCustomWeapon,
           updateCustomWeapon: current.updateCustomWeapon,
+          setHiddenAcquisitionCategories: current.setHiddenAcquisitionCategories,
           setRegionFirst: current.setRegionFirst,
           setRegionSecond: current.setRegionSecond,
           toggleWeaponFilterCollapsed: current.toggleWeaponFilterCollapsed,

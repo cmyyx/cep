@@ -14,6 +14,8 @@ import { useEssenceSettingsStore } from '@/stores/useEssenceSettingsStore'
 import { useBannerStore } from '@/stores/useBannerStore'
 import { OwnershipBadge, EditableNote } from './ownership-badge'
 import { ALL_PRIMARY_STATS, ALL_ELEMENTAL_DAMAGE, ALL_SPECIAL_ABILITIES } from '@/lib/essence-utils'
+import { isHiddenByAcquisitionCategory, acquisitionCategoryIds, acquisitionCategoryLabelText } from '@/lib/weapon-acquisition'
+import { useWikiTranslations } from '@/hooks/use-wiki-translations'
 import { getValidWeaponFilterOptions, matchesWeaponFilters, WEAPON_FILTER_KEYS, type WeaponFilterKey, type WeaponFilterSets } from '@/lib/weapon-filters'
 
 
@@ -30,6 +32,7 @@ function buildAttrValues(weapons: readonly Weapon[]): Record<WeaponFilterKey, st
     primaryStat: ALL_PRIMARY_STATS,
     elementalDamage: ALL_ELEMENTAL_DAMAGE,
     specialAbility: ALL_SPECIAL_ABILITIES,
+    acquisitionCategory: acquisitionCategoryIds(weapons.flatMap((weapon) => weapon.acquisitionSources ?? [])),
   }
 }
 const ATTR_LABEL_KEYS: Record<WeaponFilterKey, string> = {
@@ -37,6 +40,7 @@ const ATTR_LABEL_KEYS: Record<WeaponFilterKey, string> = {
   primaryStat: 'essence.attrPrimary',
   elementalDamage: 'essence.attrElemental',
   specialAbility: 'essence.attrSpecial',
+  acquisitionCategory: 'wiki.filter.acquisitionCategory',
 }
 
 /** Weapon type ids in the source data are zh-CN literals; map them to i18n keys. */
@@ -78,6 +82,7 @@ function attrFiltersToSets(record: Record<string, string[]>): WeaponFilterSets {
     primaryStat: new Set(record.primaryStat ?? []),
     elementalDamage: new Set(record.elementalDamage ?? []),
     specialAbility: new Set(record.specialAbility ?? []),
+    acquisitionCategory: new Set(record.acquisitionCategory ?? []),
   }
 }
 
@@ -90,6 +95,7 @@ interface WeaponGridProps {
 
 export const WeaponGrid = memo(function WeaponGrid({ onViewAll }: WeaponGridProps) {
   const t = useTranslations()
+  const { text: wikiText } = useWikiTranslations()
   const filterCollapsed = useEssenceSettingsStore((s) => s.weaponFilterCollapsed)
   const toggleFilterCollapsed = useEssenceSettingsStore((s) => s.toggleWeaponFilterCollapsed)
   const selectedWeaponIds = useMatrixStore((s) => s.selectedWeaponIds)
@@ -112,6 +118,7 @@ export const WeaponGrid = memo(function WeaponGrid({ onViewAll }: WeaponGridProp
   // Settings
   const hideFourStar = useEssenceSettingsStore((s) => s.hideFourStarWeaponsList)
   const hideThreeStar = useEssenceSettingsStore((s) => s.hideThreeStarWeaponsList)
+  const hiddenAcquisitionCategories = useEssenceSettingsStore((s) => s.hiddenAcquisitionCategoriesList)
   const hideUnowned = useEssenceSettingsStore((s) => s.hideUnownedWeaponsList)
   const hideEssenceOwned = useEssenceSettingsStore((s) => s.hideEssenceOwnedWeaponsList)
   const onlyBothOwned = useEssenceSettingsStore((s) => s.onlyHideWhenBothOwnedList)
@@ -173,6 +180,12 @@ export const WeaponGrid = memo(function WeaponGrid({ onViewAll }: WeaponGridProp
     [selectedWeaponIds],
   )
 
+  const attrValueLabel = useCallback((key: WeaponFilterKey, value: string): string => {
+    if (key === 'weaponType') return weaponTypeLabel(value, t)
+    if (key === 'acquisitionCategory') return acquisitionCategoryLabelText(value, wikiText, t)
+    return t(`weaponStats.${value}`)
+  }, [t, wikiText])
+
   const toggleFilter = useCallback((key: WeaponFilterKey, value: string) => {
     const prev = useMatrixStore.getState().weaponAttrFilters
     const current = new Set(prev[key] ?? [])
@@ -189,7 +202,7 @@ export const WeaponGrid = memo(function WeaponGrid({ onViewAll }: WeaponGridProp
   }, [storeAttrFilters])
 
   const clearAttrFilters = useCallback(() => {
-    setStoreAttrFilters({ weaponType: [], primaryStat: [], elementalDamage: [], specialAbility: [] })
+    setStoreAttrFilters({ weaponType: [], primaryStat: [], elementalDamage: [], specialAbility: [], acquisitionCategory: [] })
   }, [setStoreAttrFilters])
 
   /** Card display name: generated catalog entry, or the raw name for custom/preview weapons. */
@@ -204,6 +217,7 @@ export const WeaponGrid = memo(function WeaponGrid({ onViewAll }: WeaponGridProp
       return false
     }
     if (keepUpVisibleList && (isWeaponUp(w) || w.source === 'preview')) return true
+    if (isHiddenByAcquisitionCategory(w.acquisitionSources, hiddenAcquisitionCategories)) return false
     if ((hideFourStar && w.rarity === 4) || (hideThreeStar && w.rarity === 3)) return false
     if (hideUnowned && weaponOwnership[w.id] !== true) return false
     if (hideEssenceOwned) {
@@ -216,7 +230,7 @@ export const WeaponGrid = memo(function WeaponGrid({ onViewAll }: WeaponGridProp
       }
     }
     return true
-  }, [query, localizedWeaponName, t, keepUpVisibleList, isWeaponUp, hideFourStar, hideThreeStar, hideUnowned, hideEssenceOwned, onlyBothOwned, weaponOwnership, essenceStatus])
+  }, [query, localizedWeaponName, t, keepUpVisibleList, isWeaponUp, hiddenAcquisitionCategories, hideFourStar, hideThreeStar, hideUnowned, hideEssenceOwned, onlyBothOwned, weaponOwnership, essenceStatus])
 
   const validOptions = useMemo(() => {
     const eligibleWeapons = allWeapons.filter(matchesBaseFilters)
@@ -294,7 +308,7 @@ export const WeaponGrid = memo(function WeaponGrid({ onViewAll }: WeaponGridProp
             chipColumnClass={key === 'specialAbility' ? 'grid-cols-[repeat(auto-fill,minmax(3.5rem,1fr))]' : undefined}
             chips={attrValues[key].map((value) => ({
               key: value,
-              label: key === 'weaponType' ? weaponTypeLabel(value, t) : t(`weaponStats.${value}`),
+              label: attrValueLabel(key, value),
               valid: validOptions[key].has(value),
               selected: filters[key].has(value),
               onToggle: () => toggleFilter(key, value),

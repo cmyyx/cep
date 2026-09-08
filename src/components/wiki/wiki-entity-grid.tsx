@@ -15,7 +15,9 @@ import { FilterGroup } from '@/components/shared/filter-group'
 import { FilterPanel } from '@/components/shared/filter-panel'
 import { NavLink } from '@/components/shared/nav-link'
 import { cn } from '@/lib/utils'
+import { ACQUISITION_CATEGORY_ORDER, acquisitionCategoryIds, acquisitionCategoryLabelText } from '@/lib/weapon-acquisition'
 import { withImageCacheVersion } from '@/lib/image-url'
+import { useGameI18nLocale } from '@/hooks/use-game-i18n-catalogs'
 import { useWikiTranslations } from '@/hooks/use-wiki-translations'
 import { equipSubAttrKey } from '@/lib/equip-substats'
 import { useWikiStore } from '@/stores/useWikiStore'
@@ -40,6 +42,7 @@ type WikiFilterField =
   | 'sub1'
   | 'sub2'
   | 'special'
+  | 'acquisitionCategory'
 
 type WikiGroupField = 'elementId' | 'weaponTypeId'
 
@@ -116,6 +119,9 @@ export function filterValue(entity: GridEntity, field: WikiFilterField): string 
   if (field === 'weaponTypeId') {
     return entity.category === 'equipment' ? '' : entity.weaponTypeId
   }
+  if (field === 'acquisitionCategory') {
+    return entity.category === 'weapons' ? acquisitionCategoryIds(entity.acquisitionSources).join('\u0000') : ''
+  }
   // 精锻属性筛选仅对装备生效: 5★ 装备在 equipSubAttrsById 有记录, 其余返回空串。
   if (field === 'sub1' || field === 'sub2' || field === 'special') {
     return entity.category === 'equipment' ? equipSubAttrKey(entity.id, field) : ''
@@ -137,7 +143,7 @@ const weaponCharacters = new Map(
 export function getWikiEquipmentModelKey(entity: GridEntity): string | undefined {
   if (entity.category !== 'equipment') return undefined
   if ('modelKey' in entity && entity.modelKey) return entity.modelKey
-  return typeof entity.name === 'string' ? undefined : equipmentModelKeyFromZhCN(entity.name['zh-CN'])
+  return typeof entity.name === 'string' || !entity.name ? undefined : equipmentModelKeyFromZhCN(entity.name['zh-CN'])
 }
 
 /**
@@ -158,6 +164,19 @@ export function matchesWikiSearchTerm(
 /** Numeric enum ids ("0", "12") mean the catalog has not resolved a real label yet. */
 function isUnresolvedEnumLabel(label: string): boolean {
   return label.length === 0 || /^\d+$/.test(label)
+}
+
+/** Whether a filter value list contains one entity value; multi-value
+ * fields join their values with \u0000 and match with OR semantics. */
+function filterValueMatches(entityValue: string, selected: ReadonlySet<string>): boolean {
+  if (selected.size === 0) return true
+  if (entityValue === '') return true
+  return entityValue.split('\u0000').some((value) => selected.has(value))
+}
+
+/** Candidate chip values of a multi-value field. */
+function filterValueCandidates(entityValue: string): string[] {
+  return entityValue === '' ? [] : entityValue.split('\u0000')
 }
 
 /**
@@ -301,10 +320,11 @@ export function toggleWikiGroupKey(keys: readonly string[], key: string): string
 export function getWikiEntityUpStatus(
   entity: GridEntity,
   upNames: ReadonlySet<string>,
-  associations: ReadonlyMap<string, string[]> = weaponCharacters
-) {
+  associations: ReadonlyMap<string, string[]> = weaponCharacters,
+  characterNameFor?: (entity: GridEntity) => string,
+ ) {
   if (entity.category === 'characters') {
-    return upNames.has(entityNameZhCN(entity))
+    return upNames.has(characterNameFor?.(entity) ?? entityNameZhCN(entity))
   }
   if (entity.category === 'weapons') {
     return associations.get(entity.id)?.some((name) => upNames.has(name)) ?? false
@@ -322,7 +342,11 @@ export const WikiEntityGrid = memo(function WikiEntityGrid({
 }: WikiEntityGridProps) {
   const t = useTranslations()
   const locale = useLocale() as WikiLocale
-  const { entityName, enumLabel, suitName } = useWikiTranslations()
+  const { entityName, enumLabel, suitName, text: wikiText } = useWikiTranslations()
+  const zhCatalog = useGameI18nLocale('zh-CN')
+  const characterNameForUp = useCallback((entity: GridEntity): string => {
+    return zhCatalog?.characters[entity.id] ?? entityNameZhCN(entity)
+  }, [zhCatalog])
   /** Server label first (no raw ids in the static HTML), client catalog as fallback. */
   const labelFor = useCallback(
     (group: WikiEnumGroup, id: string) => enumLabels?.[group]?.[id] ?? enumLabel(group, id),
@@ -354,9 +378,10 @@ export const WikiEntityGrid = memo(function WikiEntityGrid({
     (filter: WikiEntityFilter, value: string) => {
       if (filter.labelPrefix) return t(`${filter.labelPrefix}.${value}`)
       if (filter.field === 'rarity') return `${value}★`
+      if (filter.field === 'acquisitionCategory') return acquisitionCategoryLabelText(value, wikiText, t)
       return filter.enumGroup ? labelFor(filter.enumGroup, value) : value
     },
-    [labelFor, t],
+    [labelFor, t, wikiText],
   )
   useEffect(() => setHydrated(true), [])
 
@@ -369,9 +394,19 @@ export const WikiEntityGrid = memo(function WikiEntityGrid({
   const filterValues = useMemo(() => {
     const result: Record<string, string[]> = {}
     for (const filter of filters) {
-      const values = new Set(entities.map((entity) => filterValue(entity, filter.field)).filter(Boolean))
+      const values = new Set(
+        entities.flatMap((entity) => filterValueCandidates(filterValue(entity, filter.field))),
+      )
       result[filter.field] = [...values].sort((left, right) => {
         if (filter.field === 'rarity') return Number(right) - Number(left)
+        if (filter.field === 'acquisitionCategory') {
+          const order = ACQUISITION_CATEGORY_ORDER
+          const leftIndex = order.indexOf(left)
+          const rightIndex = order.indexOf(right)
+          const leftRank = leftIndex === -1 ? order.length : leftIndex
+          const rightRank = rightIndex === -1 ? order.length : rightIndex
+          if (leftRank !== rightRank) return leftRank - rightRank
+        }
         const order = filter.enumGroup ? enumOrder?.[filter.enumGroup] : undefined
         if (order) {
           const leftIndex = order.indexOf(left)
@@ -394,10 +429,12 @@ export const WikiEntityGrid = memo(function WikiEntityGrid({
     const term = searchTerm.toLocaleLowerCase(locale)
     const matches = entities.filter((entity) => {
       if (!matchesWikiSearchTerm(entity, entityName(entity), term, locale)) return false
-      return Object.entries(activeFilters).every(([field, selected]) => selected.size === 0 || selected.has(filterValue(entity, field as WikiFilterField)))
+      return Object.entries(activeFilters).every(([field, selected]) =>
+        filterValueMatches(filterValue(entity, field as WikiFilterField), selected),
+      )
     })
-    return sortWikiEntities(matches, locale, (entity) => getWikiEntityUpStatus(entity, upNames), entityName)
-  }, [activeFilters, entities, entityName, locale, searchTerm, upNames])
+    return sortWikiEntities(matches, locale, (entity) => getWikiEntityUpStatus(entity, upNames, weaponCharacters, characterNameForUp), entityName)
+  }, [activeFilters, characterNameForUp, entities, entityName, locale, searchTerm, upNames])
 
   const toggleFilter = useCallback((field: string, value: string) => {
     setActiveFilters((current) => {

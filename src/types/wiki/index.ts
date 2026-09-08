@@ -1,3 +1,5 @@
+import type { WeaponAcquisitionSource } from '../weapon-acquisition'
+
 export type WikiCategorySlug = 'characters' | 'weapons' | 'equipment'
 export type WikiLocale = 'zh-CN' | 'en' | 'ja' | 'zh-TW'
 
@@ -19,8 +21,9 @@ export interface WikiCategoryMeta {
 
 interface WikiEntitySummaryBase {
   id: string
+  /** Optional in raw generated summaries; localized at the page/client boundary. */
   category: WikiCategorySlug
-  name: LocalizedText
+  name?: LocalizedText
   rarity: number
   imageId: string
 }
@@ -47,6 +50,7 @@ export interface WikiWeaponSummary extends WikiEntitySummaryBase {
   category: 'weapons'
   weaponTypeId: string
   maxLevel: number
+  acquisitionSources?: WeaponAcquisitionSource[]
 }
 
 export interface WikiEquipmentSummary extends WikiEntitySummaryBase {
@@ -54,6 +58,8 @@ export interface WikiEquipmentSummary extends WikiEntitySummaryBase {
   partTypeId: string
   suitId?: string
   suitName?: LocalizedText
+  /** Structural refinement model badge key; localized label comes from messages. */
+  modelKey?: string
   minimumLevel: number
 }
 
@@ -272,9 +278,13 @@ export interface WikiEquipmentDetail {
   craftingRecipes: WikiCraftingRecipe[]
 }
 
+export interface WikiPlannerValueRef {
+  skillId: string
+  level: number
+}
 export interface WikiPlannerValueRange {
-  levelOne: LocalizedText
-  maxLevel: LocalizedText
+  levelOne: WikiPlannerValueRef
+  maxLevel: WikiPlannerValueRef
   levelOneLabel: string
   maxLevelLabel: string
 }
@@ -290,10 +300,17 @@ export interface WikiEquipmentPlannerStatPreview {
   levelOneLabel: string
   maxLevelLabel: string
 }
+export interface WikiEquipmentPlannerRecipe {
+  chainId: number
+  discount: number
+  isDefault: boolean
+  materials: Array<Omit<WikiMaterial, 'name'>>
+}
+
 
 export interface WikiEquipmentPlannerPreview {
   stats: WikiEquipmentPlannerStatPreview[]
-  craftingRecipes: WikiCraftingRecipe[]
+  craftingRecipes: WikiEquipmentPlannerRecipe[]
 }
 
 export type WikiEntityDetail =

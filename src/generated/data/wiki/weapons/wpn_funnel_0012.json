@@ -364,6 +364,104 @@
       "baseAttack": 411
     }
   ],
+  "skills": [
+    {
+      "id": "wpn_attr_will_mid",
+      "levels": [
+        {
+          "level": 1
+        },
+        {
+          "level": 2
+        },
+        {
+          "level": 3
+        },
+        {
+          "level": 4
+        },
+        {
+          "level": 5
+        },
+        {
+          "level": 6
+        },
+        {
+          "level": 7
+        },
+        {
+          "level": 8
+        },
+        {
+          "level": 9
+        }
+      ]
+    },
+    {
+      "id": "wpn_sp_attr_heal_mid",
+      "levels": [
+        {
+          "level": 1
+        },
+        {
+          "level": 2
+        },
+        {
+          "level": 3
+        },
+        {
+          "level": 4
+        },
+        {
+          "level": 5
+        },
+        {
+          "level": 6
+        },
+        {
+          "level": 7
+        },
+        {
+          "level": 8
+        },
+        {
+          "level": 9
+        }
+      ]
+    },
+    {
+      "id": "sk_wpn_funnel_0012",
+      "levels": [
+        {
+          "level": 1
+        },
+        {
+          "level": 2
+        },
+        {
+          "level": 3
+        },
+        {
+          "level": 4
+        },
+        {
+          "level": 5
+        },
+        {
+          "level": 6
+        },
+        {
+          "level": 7
+        },
+        {
+          "level": 8
+        },
+        {
+          "level": 9
+        }
+      ]
+    }
+  ],
   "breakthroughs": [
     {
       "stage": 1,
@@ -377,39 +475,21 @@
       "materials": [
         {
           "itemId": "item_weapon_break_low",
-          "name": {
-            "zh-CN": "强固模具",
-            "en": "Cast Die",
-            "ja": "硬質金型",
-            "zh-TW": "強固模具"
-          },
+          "count": 5,
           "iconId": "item_weapon_break_low",
-          "rarity": 3,
-          "count": 5
+          "rarity": 3
         },
         {
           "itemId": "item_plant_spcstone_1_1",
-          "name": {
-            "zh-CN": "轻黯石",
-            "en": "Kalkonyx",
-            "ja": "軽闇石",
-            "zh-TW": "輕黯石"
-          },
+          "count": 3,
           "iconId": "item_plant_spcstone_1_1",
-          "rarity": 4,
-          "count": 3
+          "rarity": 4
         },
         {
           "itemId": "item_gold",
-          "name": {
-            "zh-CN": "折金票",
-            "en": "T-Creds",
-            "ja": "折金券",
-            "zh-TW": "折金票"
-          },
+          "count": 2200,
           "iconId": "item_gold",
-          "rarity": 4,
-          "count": 2200
+          "rarity": 4
         }
       ]
     },
@@ -425,39 +505,21 @@
       "materials": [
         {
           "itemId": "item_weapon_break_low",
-          "name": {
-            "zh-CN": "强固模具",
-            "en": "Cast Die",
-            "ja": "硬質金型",
-            "zh-TW": "強固模具"
-          },
+          "count": 18,
           "iconId": "item_weapon_break_low",
-          "rarity": 3,
-          "count": 18
+          "rarity": 3
         },
         {
           "itemId": "item_plant_spcstone_1_2",
-          "name": {
-            "zh-CN": "中黯石",
-            "en": "Auronyx",
-            "ja": "中闇石",
-            "zh-TW": "中黯石"
-          },
+          "count": 5,
           "iconId": "item_plant_spcstone_1_2",
-          "rarity": 4,
-          "count": 5
+          "rarity": 4
         },
         {
           "itemId": "item_gold",
-          "name": {
-            "zh-CN": "折金票",
-            "en": "T-Creds",
-            "ja": "折金券",
-            "zh-TW": "折金票"
-          },
+          "count": 8500,
           "iconId": "item_gold",
-          "rarity": 4,
-          "count": 8500
+          "rarity": 4
         }
       ]
     },
@@ -473,39 +535,21 @@
       "materials": [
         {
           "itemId": "item_weapon_break_high",
-          "name": {
-            "zh-CN": "重型强固模具",
-            "en": "Heavy Cast Die",
-            "ja": "重硬質金型",
-            "zh-TW": "重型強固模具"
-          },
+          "count": 20,
           "iconId": "item_weapon_break_high",
-          "rarity": 4,
-          "count": 20
+          "rarity": 4
         },
         {
           "itemId": "item_plant_spcstone_1_3",
-          "name": {
-            "zh-CN": "重黯石",
-            "en": "Umbronyx",
-            "ja": "重闇石",
-            "zh-TW": "重黯石"
-          },
+          "count": 5,
           "iconId": "item_plant_spcstone_1_3",
-          "rarity": 4,
-          "count": 5
+          "rarity": 4
         },
         {
           "itemId": "item_gold",
-          "name": {
-            "zh-CN": "折金票",
-            "en": "T-Creds",
-            "ja": "折金券",
-            "zh-TW": "折金票"
-          },
+          "count": 25000,
           "iconId": "item_gold",
-          "rarity": 4,
-          "count": 25000
+          "rarity": 4
         }
       ]
     },
@@ -521,347 +565,27 @@
       "materials": [
         {
           "itemId": "item_weapon_break_high",
-          "name": {
-            "zh-CN": "重型强固模具",
-            "en": "Heavy Cast Die",
-            "ja": "重硬質金型",
-            "zh-TW": "重型強固模具"
-          },
+          "count": 30,
           "iconId": "item_weapon_break_high",
-          "rarity": 4,
-          "count": 30
+          "rarity": 4
         },
         {
           "itemId": "item_char_skill_specialize_2",
-          "name": {
-            "zh-CN": "D96钢样品四",
-            "en": "D96 Steel Sample 4",
-            "ja": "D96鋼試料Ⅳ",
-            "zh-TW": "D96鋼樣品四"
-          },
+          "count": 16,
           "iconId": "item_char_skill_specialize_2",
-          "rarity": 5,
-          "count": 16
+          "rarity": 5
         },
         {
           "itemId": "item_plant_spcstone_2_2",
-          "name": {
-            "zh-CN": "武陵石",
-            "en": "Wulingstone",
-            "ja": "武陵石",
-            "zh-TW": "武陵石"
-          },
+          "count": 8,
           "iconId": "item_plant_spcstone_2_2",
-          "rarity": 5,
-          "count": 8
+          "rarity": 5
         },
         {
           "itemId": "item_gold",
-          "name": {
-            "zh-CN": "折金票",
-            "en": "T-Creds",
-            "ja": "折金券",
-            "zh-TW": "折金票"
-          },
+          "count": 90000,
           "iconId": "item_gold",
-          "rarity": 4,
-          "count": 90000
-        }
-      ]
-    }
-  ],
-  "skills": [
-    {
-      "id": "wpn_attr_will_mid",
-      "name": {
-        "zh-CN": "意志提升·中",
-        "en": "Will [M]",
-        "ja": "意志UP・中",
-        "zh-TW": "意志提升·中"
-      },
-      "description": {
-        "zh-CN": "意志<@ba.vup>+124</>",
-        "en": "Will <@ba.vup>+124</>",
-        "ja": "意志<@ba.vup>+124</>",
-        "zh-TW": "意志<@ba.vup>+124</>"
-      },
-      "levels": [
-        {
-          "level": 1,
-          "description": {
-            "zh-CN": "意志<@ba.vup>+16</>",
-            "en": "Will <@ba.vup>+16</>",
-            "ja": "意志<@ba.vup>+16</>",
-            "zh-TW": "意志<@ba.vup>+16</>"
-          }
-        },
-        {
-          "level": 2,
-          "description": {
-            "zh-CN": "意志<@ba.vup>+28</>",
-            "en": "Will <@ba.vup>+28</>",
-            "ja": "意志<@ba.vup>+28</>",
-            "zh-TW": "意志<@ba.vup>+28</>"
-          }
-        },
-        {
-          "level": 3,
-          "description": {
-            "zh-CN": "意志<@ba.vup>+41</>",
-            "en": "Will <@ba.vup>+41</>",
-            "ja": "意志<@ba.vup>+41</>",
-            "zh-TW": "意志<@ba.vup>+41</>"
-          }
-        },
-        {
-          "level": 4,
-          "description": {
-            "zh-CN": "意志<@ba.vup>+54</>",
-            "en": "Will <@ba.vup>+54</>",
-            "ja": "意志<@ba.vup>+54</>",
-            "zh-TW": "意志<@ba.vup>+54</>"
-          }
-        },
-        {
-          "level": 5,
-          "description": {
-            "zh-CN": "意志<@ba.vup>+67</>",
-            "en": "Will <@ba.vup>+67</>",
-            "ja": "意志<@ba.vup>+67</>",
-            "zh-TW": "意志<@ba.vup>+67</>"
-          }
-        },
-        {
-          "level": 6,
-          "description": {
-            "zh-CN": "意志<@ba.vup>+80</>",
-            "en": "Will <@ba.vup>+80</>",
-            "ja": "意志<@ba.vup>+80</>",
-            "zh-TW": "意志<@ba.vup>+80</>"
-          }
-        },
-        {
-          "level": 7,
-          "description": {
-            "zh-CN": "意志<@ba.vup>+92</>",
-            "en": "Will <@ba.vup>+92</>",
-            "ja": "意志<@ba.vup>+92</>",
-            "zh-TW": "意志<@ba.vup>+92</>"
-          }
-        },
-        {
-          "level": 8,
-          "description": {
-            "zh-CN": "意志<@ba.vup>+105</>",
-            "en": "Will <@ba.vup>+105</>",
-            "ja": "意志<@ba.vup>+105</>",
-            "zh-TW": "意志<@ba.vup>+105</>"
-          }
-        },
-        {
-          "level": 9,
-          "description": {
-            "zh-CN": "意志<@ba.vup>+124</>",
-            "en": "Will <@ba.vup>+124</>",
-            "ja": "意志<@ba.vup>+124</>",
-            "zh-TW": "意志<@ba.vup>+124</>"
-          }
-        }
-      ]
-    },
-    {
-      "id": "wpn_sp_attr_heal_mid",
-      "name": {
-        "zh-CN": "治疗效率提升·中",
-        "en": "Treatment Efficiency [M]",
-        "ja": "回復効率UP・中",
-        "zh-TW": "治療效率提升·中"
-      },
-      "description": {
-        "zh-CN": "治疗效率<@ba.vup>+37.1%</>",
-        "en": "Treatment Efficiency <@ba.vup>+37.1%</>.",
-        "ja": "回復効率<@ba.vup>+37.1%</>",
-        "zh-TW": "治療效率<@ba.vup>+37.1%</>"
-      },
-      "levels": [
-        {
-          "level": 1,
-          "description": {
-            "zh-CN": "治疗效率<@ba.vup>+4.8%</>",
-            "en": "Treatment Efficiency <@ba.vup>+4.8%</>.",
-            "ja": "回復効率<@ba.vup>+4.8%</>",
-            "zh-TW": "治療效率<@ba.vup>+4.8%</>"
-          }
-        },
-        {
-          "level": 2,
-          "description": {
-            "zh-CN": "治疗效率<@ba.vup>+8.6%</>",
-            "en": "Treatment Efficiency <@ba.vup>+8.6%</>.",
-            "ja": "回復効率<@ba.vup>+8.6%</>",
-            "zh-TW": "治療效率<@ba.vup>+8.6%</>"
-          }
-        },
-        {
-          "level": 3,
-          "description": {
-            "zh-CN": "治疗效率<@ba.vup>+12.4%</>",
-            "en": "Treatment Efficiency <@ba.vup>+12.4%</>.",
-            "ja": "回復効率<@ba.vup>+12.4%</>",
-            "zh-TW": "治療效率<@ba.vup>+12.4%</>"
-          }
-        },
-        {
-          "level": 4,
-          "description": {
-            "zh-CN": "治疗效率<@ba.vup>+16.2%</>",
-            "en": "Treatment Efficiency <@ba.vup>+16.2%</>.",
-            "ja": "回復効率<@ba.vup>+16.2%</>",
-            "zh-TW": "治療效率<@ba.vup>+16.2%</>"
-          }
-        },
-        {
-          "level": 5,
-          "description": {
-            "zh-CN": "治疗效率<@ba.vup>+20.0%</>",
-            "en": "Treatment Efficiency <@ba.vup>+20.0%</>.",
-            "ja": "回復効率<@ba.vup>+20.0%</>",
-            "zh-TW": "治療效率<@ba.vup>+20.0%</>"
-          }
-        },
-        {
-          "level": 6,
-          "description": {
-            "zh-CN": "治疗效率<@ba.vup>+23.8%</>",
-            "en": "Treatment Efficiency <@ba.vup>+23.8%</>.",
-            "ja": "回復効率<@ba.vup>+23.8%</>",
-            "zh-TW": "治療效率<@ba.vup>+23.8%</>"
-          }
-        },
-        {
-          "level": 7,
-          "description": {
-            "zh-CN": "治疗效率<@ba.vup>+27.6%</>",
-            "en": "Treatment Efficiency <@ba.vup>+27.6%</>.",
-            "ja": "回復効率<@ba.vup>+27.6%</>",
-            "zh-TW": "治療效率<@ba.vup>+27.6%</>"
-          }
-        },
-        {
-          "level": 8,
-          "description": {
-            "zh-CN": "治疗效率<@ba.vup>+31.4%</>",
-            "en": "Treatment Efficiency <@ba.vup>+31.4%</>.",
-            "ja": "回復効率<@ba.vup>+31.4%</>",
-            "zh-TW": "治療效率<@ba.vup>+31.4%</>"
-          }
-        },
-        {
-          "level": 9,
-          "description": {
-            "zh-CN": "治疗效率<@ba.vup>+37.1%</>",
-            "en": "Treatment Efficiency <@ba.vup>+37.1%</>.",
-            "ja": "回復効率<@ba.vup>+37.1%</>",
-            "zh-TW": "治療效率<@ba.vup>+37.1%</>"
-          }
-        }
-      ]
-    },
-    {
-      "id": "sk_wpn_funnel_0012",
-      "name": {
-        "zh-CN": "医疗·信仰救赎",
-        "en": "Medicant: Redemption of Faith",
-        "ja": "治癒・信仰救済",
-        "zh-TW": "醫療·信仰救贖"
-      },
-      "description": {
-        "zh-CN": "主能力<@ba.vup>+14.0%</>。\n装备者通过自身战技治疗后，为主控干员额外回复<@ba.heal>[168+意志×1.4]</>点生命值。\n<@ba.info>每15秒最多触发一次。</>",
-        "en": "Main Attribute <@ba.vup>+14.0%</>.\nWhen the wielder's battle skill provides HP treatment, the controlled operator is restored for another <@ba.heal>[168 + Will×1.4]</> HP.\n<@ba.info>Effect only triggers once every 15s.</>",
-        "ja": "メイン能力値<@ba.vup>+14.0%</>\n装備中、自身の戦技で治療すると、追加で操作中のオペレーターのHPを<@ba.heal>[168+意志×1.4]</>回復させる\n<@ba.info>この効果は15秒に1回まで発動可能</>",
-        "zh-TW": "主能力<@ba.vup>+14.0%</>。\n裝備者透過自身戰技治療後，為主控幹員額外回復<@ba.heal>[168+意志×1.4]</>點生命值。\n<@ba.info>每15秒最多觸發一次。</>"
-      },
-      "levels": [
-        {
-          "level": 1,
-          "description": {
-            "zh-CN": "主能力<@ba.vup>+5.0%</>。\n装备者通过自身战技治疗后，为主控干员额外回复<@ba.heal>[60+意志×0.5]</>点生命值。\n<@ba.info>每15秒最多触发一次。</>",
-            "en": "Main Attribute <@ba.vup>+5.0%</>.\nWhen the wielder's battle skill provides HP treatment, the controlled operator is restored for another <@ba.heal>[60 + Will×0.5]</> HP.\n<@ba.info>Effect only triggers once every 15s.</>",
-            "ja": "メイン能力値<@ba.vup>+5.0%</>\n装備中、自身の戦技で治療すると、追加で操作中のオペレーターのHPを<@ba.heal>[60+意志×0.5]</>回復させる\n<@ba.info>この効果は15秒に1回まで発動可能</>",
-            "zh-TW": "主能力<@ba.vup>+5.0%</>。\n裝備者透過自身戰技治療後，為主控幹員額外回復<@ba.heal>[60+意志×0.5]</>點生命值。\n<@ba.info>每15秒最多觸發一次。</>"
-          }
-        },
-        {
-          "level": 2,
-          "description": {
-            "zh-CN": "主能力<@ba.vup>+6.0%</>。\n装备者通过自身战技治疗后，为主控干员额外回复<@ba.heal>[72+意志×0.6]</>点生命值。\n<@ba.info>每15秒最多触发一次。</>",
-            "en": "Main Attribute <@ba.vup>+6.0%</>.\nWhen the wielder's battle skill provides HP treatment, the controlled operator is restored for another <@ba.heal>[72 + Will×0.6]</> HP.\n<@ba.info>Effect only triggers once every 15s.</>",
-            "ja": "メイン能力値<@ba.vup>+6.0%</>\n装備中、自身の戦技で治療すると、追加で操作中のオペレーターのHPを<@ba.heal>[72+意志×0.6]</>回復させる\n<@ba.info>この効果は15秒に1回まで発動可能</>",
-            "zh-TW": "主能力<@ba.vup>+6.0%</>。\n裝備者透過自身戰技治療後，為主控幹員額外回復<@ba.heal>[72+意志×0.6]</>點生命值。\n<@ba.info>每15秒最多觸發一次。</>"
-          }
-        },
-        {
-          "level": 3,
-          "description": {
-            "zh-CN": "主能力<@ba.vup>+7.0%</>。\n装备者通过自身战技治疗后，为主控干员额外回复<@ba.heal>[84+意志×0.7]</>点生命值。\n<@ba.info>每15秒最多触发一次。</>",
-            "en": "Main Attribute <@ba.vup>+7.0%</>.\nWhen the wielder's battle skill provides HP treatment, the controlled operator is restored for another <@ba.heal>[84 + Will×0.7]</> HP.\n<@ba.info>Effect only triggers once every 15s.</>",
-            "ja": "メイン能力値<@ba.vup>+7.0%</>\n装備中、自身の戦技で治療すると、追加で操作中のオペレーターのHPを<@ba.heal>[84+意志×0.7]</>回復させる\n<@ba.info>この効果は15秒に1回まで発動可能</>",
-            "zh-TW": "主能力<@ba.vup>+7.0%</>。\n裝備者透過自身戰技治療後，為主控幹員額外回復<@ba.heal>[84+意志×0.7]</>點生命值。\n<@ba.info>每15秒最多觸發一次。</>"
-          }
-        },
-        {
-          "level": 4,
-          "description": {
-            "zh-CN": "主能力<@ba.vup>+8.0%</>。\n装备者通过自身战技治疗后，为主控干员额外回复<@ba.heal>[96+意志×0.8]</>点生命值。\n<@ba.info>每15秒最多触发一次。</>",
-            "en": "Main Attribute <@ba.vup>+8.0%</>.\nWhen the wielder's battle skill provides HP treatment, the controlled operator is restored for another <@ba.heal>[96 + Will×0.8]</> HP.\n<@ba.info>Effect only triggers once every 15s.</>",
-            "ja": "メイン能力値<@ba.vup>+8.0%</>\n装備中、自身の戦技で治療すると、追加で操作中のオペレーターのHPを<@ba.heal>[96+意志×0.8]</>回復させる\n<@ba.info>この効果は15秒に1回まで発動可能</>",
-            "zh-TW": "主能力<@ba.vup>+8.0%</>。\n裝備者透過自身戰技治療後，為主控幹員額外回復<@ba.heal>[96+意志×0.8]</>點生命值。\n<@ba.info>每15秒最多觸發一次。</>"
-          }
-        },
-        {
-          "level": 5,
-          "description": {
-            "zh-CN": "主能力<@ba.vup>+9.0%</>。\n装备者通过自身战技治疗后，为主控干员额外回复<@ba.heal>[108+意志×0.9]</>点生命值。\n<@ba.info>每15秒最多触发一次。</>",
-            "en": "Main Attribute <@ba.vup>+9.0%</>.\nWhen the wielder's battle skill provides HP treatment, the controlled operator is restored for another <@ba.heal>[108 + Will×0.9]</> HP.\n<@ba.info>Effect only triggers once every 15s.</>",
-            "ja": "メイン能力値<@ba.vup>+9.0%</>\n装備中、自身の戦技で治療すると、追加で操作中のオペレーターのHPを<@ba.heal>[108+意志×0.9]</>回復させる\n<@ba.info>この効果は15秒に1回まで発動可能</>",
-            "zh-TW": "主能力<@ba.vup>+9.0%</>。\n裝備者透過自身戰技治療後，為主控幹員額外回復<@ba.heal>[108+意志×0.9]</>點生命值。\n<@ba.info>每15秒最多觸發一次。</>"
-          }
-        },
-        {
-          "level": 6,
-          "description": {
-            "zh-CN": "主能力<@ba.vup>+10.0%</>。\n装备者通过自身战技治疗后，为主控干员额外回复<@ba.heal>[120+意志×1]</>点生命值。\n<@ba.info>每15秒最多触发一次。</>",
-            "en": "Main Attribute <@ba.vup>+10.0%</>.\nWhen the wielder's battle skill provides HP treatment, the controlled operator is restored for another <@ba.heal>[120 + Will×1]</> HP.\n<@ba.info>Effect only triggers once every 15s.</>",
-            "ja": "メイン能力値<@ba.vup>+10.0%</>\n装備中、自身の戦技で治療すると、追加で操作中のオペレーターのHPを<@ba.heal>[120+意志×1]</>回復させる\n<@ba.info>この効果は15秒に1回まで発動可能</>",
-            "zh-TW": "主能力<@ba.vup>+10.0%</>。\n裝備者透過自身戰技治療後，為主控幹員額外回復<@ba.heal>[120+意志×1]</>點生命值。\n<@ba.info>每15秒最多觸發一次。</>"
-          }
-        },
-        {
-          "level": 7,
-          "description": {
-            "zh-CN": "主能力<@ba.vup>+11.0%</>。\n装备者通过自身战技治疗后，为主控干员额外回复<@ba.heal>[132+意志×1.1]</>点生命值。\n<@ba.info>每15秒最多触发一次。</>",
-            "en": "Main Attribute <@ba.vup>+11.0%</>.\nWhen the wielder's battle skill provides HP treatment, the controlled operator is restored for another <@ba.heal>[132 + Will×1.1]</> HP.\n<@ba.info>Effect only triggers once every 15s.</>",
-            "ja": "メイン能力値<@ba.vup>+11.0%</>\n装備中、自身の戦技で治療すると、追加で操作中のオペレーターのHPを<@ba.heal>[132+意志×1.1]</>回復させる\n<@ba.info>この効果は15秒に1回まで発動可能</>",
-            "zh-TW": "主能力<@ba.vup>+11.0%</>。\n裝備者透過自身戰技治療後，為主控幹員額外回復<@ba.heal>[132+意志×1.1]</>點生命值。\n<@ba.info>每15秒最多觸發一次。</>"
-          }
-        },
-        {
-          "level": 8,
-          "description": {
-            "zh-CN": "主能力<@ba.vup>+12.0%</>。\n装备者通过自身战技治疗后，为主控干员额外回复<@ba.heal>[144+意志×1.2]</>点生命值。\n<@ba.info>每15秒最多触发一次。</>",
-            "en": "Main Attribute <@ba.vup>+12.0%</>.\nWhen the wielder's battle skill provides HP treatment, the controlled operator is restored for another <@ba.heal>[144 + Will×1.2]</> HP.\n<@ba.info>Effect only triggers once every 15s.</>",
-            "ja": "メイン能力値<@ba.vup>+12.0%</>\n装備中、自身の戦技で治療すると、追加で操作中のオペレーターのHPを<@ba.heal>[144+意志×1.2]</>回復させる\n<@ba.info>この効果は15秒に1回まで発動可能</>",
-            "zh-TW": "主能力<@ba.vup>+12.0%</>。\n裝備者透過自身戰技治療後，為主控幹員額外回復<@ba.heal>[144+意志×1.2]</>點生命值。\n<@ba.info>每15秒最多觸發一次。</>"
-          }
-        },
-        {
-          "level": 9,
-          "description": {
-            "zh-CN": "主能力<@ba.vup>+14.0%</>。\n装备者通过自身战技治疗后，为主控干员额外回复<@ba.heal>[168+意志×1.4]</>点生命值。\n<@ba.info>每15秒最多触发一次。</>",
-            "en": "Main Attribute <@ba.vup>+14.0%</>.\nWhen the wielder's battle skill provides HP treatment, the controlled operator is restored for another <@ba.heal>[168 + Will×1.4]</> HP.\n<@ba.info>Effect only triggers once every 15s.</>",
-            "ja": "メイン能力値<@ba.vup>+14.0%</>\n装備中、自身の戦技で治療すると、追加で操作中のオペレーターのHPを<@ba.heal>[168+意志×1.4]</>回復させる\n<@ba.info>この効果は15秒に1回まで発動可能</>",
-            "zh-TW": "主能力<@ba.vup>+14.0%</>。\n裝備者透過自身戰技治療後，為主控幹員額外回復<@ba.heal>[168+意志×1.4]</>點生命值。\n<@ba.info>每15秒最多觸發一次。</>"
-          }
+          "rarity": 4
         }
       ]
     }

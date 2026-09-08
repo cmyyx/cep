@@ -20,6 +20,7 @@ import { getRegion, getSubRegion, getRegions, getSubRegions } from '@/data/dunge
 import { regionI18nKey } from '@/data/region-i18n'
 import { dungeons } from '@/data/dungeons'
 import { weapons as staticWeapons } from '@/data/weapons'
+import { isHiddenByAcquisitionCategory } from '@/lib/weapon-acquisition'
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@/components/ui/sheet'
 import { cn } from '@/lib/utils'
 import { formatNameList, isDungeonInRegionFilter } from '@/lib/essence-plan-filter'
@@ -72,6 +73,7 @@ export default function EssencePlannerPage() {
   // Hide settings (for sorting by visible selected count)
   const hideFourStarPlans = useEssenceSettingsStore((s) => s.hideFourStarWeaponsPlans)
   const hideThreeStarPlans = useEssenceSettingsStore((s) => s.hideThreeStarWeaponsPlans)
+  const hiddenAcquisitionCategories = useEssenceSettingsStore((s) => s.hiddenAcquisitionCategoriesPlans)
   const hideUnownedPlans = useEssenceSettingsStore((s) => s.hideUnownedWeaponsPlans)
   const hideEssenceOwnedPlans = useEssenceSettingsStore((s) => s.hideEssenceOwnedWeaponsPlans)
   const onlyBothOwned = useEssenceSettingsStore((s) => s.onlyHideWhenBothOwnedPlans)
@@ -109,6 +111,7 @@ export default function EssencePlannerPage() {
     (weapon: import('@/types/matrix').Weapon): boolean => {
       // UP and preview weapons bypass hide filters when the setting is enabled
       if (keepUpVisiblePlans && (weapon.chars.some((c) => upCharSet.has(c)) || weapon.source === 'preview')) return true
+      if (isHiddenByAcquisitionCategory(weapon.acquisitionSources, hiddenAcquisitionCategories)) return false
       if ((hideFourStarPlans && weapon.rarity === 4) || (hideThreeStarPlans && weapon.rarity === 3)) return false
       if (hideUnownedPlans && weaponOwnership[weapon.id] !== true) return false
       if (hideEssenceOwnedPlans) {
@@ -122,7 +125,7 @@ export default function EssencePlannerPage() {
       }
       return true
     },
-    [keepUpVisiblePlans, upCharSet, hideFourStarPlans, hideThreeStarPlans, hideUnownedPlans, hideEssenceOwnedPlans, onlyBothOwned, weaponOwnership, essenceStatus],
+    [keepUpVisiblePlans, upCharSet, hiddenAcquisitionCategories, hideFourStarPlans, hideThreeStarPlans, hideUnownedPlans, hideEssenceOwnedPlans, onlyBothOwned, weaponOwnership, essenceStatus],
   )
 
   // Count visible weapons in a plan (selected-only or all)

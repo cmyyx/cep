@@ -42,7 +42,8 @@ export function countItems(moduleId: string, data: unknown): number {
       let flags = 0
       for (const k of flagKeys) { if (d[k] === true) flags++ }
       const regions = (d.regionFirst || d.regionSecond) ? 1 : 0
-      return ow + es + wn + cw + flags + regions
+      const hiddenCategories = (Array.isArray(d.hiddenAcquisitionCategoriesList) ? d.hiddenAcquisitionCategoriesList.length : 0) + (Array.isArray(d.hiddenAcquisitionCategoriesPlans) ? d.hiddenAcquisitionCategoriesPlans.length : 0)
+      return ow + es + wn + cw + flags + regions + hiddenCategories
     }
     case 'matrix-session': {
       const d = data as Record<string, unknown>

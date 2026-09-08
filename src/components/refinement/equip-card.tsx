@@ -45,7 +45,7 @@ const MODEL_I18N_MAP: Record<string, string> = {
   'Ⅲ型': 'refinement.modelTypeIII',
 }
 
-export function splitPlannerRecipes(recipes: WikiCraftingRecipe[]) {
+export function splitPlannerRecipes<T extends Pick<WikiCraftingRecipe, 'chainId' | 'discount' | 'isDefault'>>(recipes: T[]) {
   const featured = recipes.filter((recipe) => recipe.isDefault || (recipe.discount > 0 && recipe.discount < 1)).sort((left, right) => Number(right.isDefault) - Number(left.isDefault))
   const featuredIds = new Set(featured.map((recipe) => recipe.chainId))
   return {

@@ -173,6 +173,9 @@ scripts/
     ├── generate-equips.ts              ← 装备 i18n（CN name，≥5★）
     ├── generate-dungeons.ts            ← 淤积点 i18n（region 拼接）
     ├── compare-weapons.ts              ← 武器对比（新武器检测 + 专武检测）
+    ├── weapon-acquisition.ts              ← 武器来源关系提取 + 冲突/缺失警告
+    ├── raw-wiki-data.ts                   ← 生成数据与 i18n 分离的结构化输出
+    ├── validate-data.ts                   ← 包含武器来源关系校验
     ├── compare-stats.ts                ← 词条提取
     ├── extract-textid.ts               ← 从原始 JSON 提取 int64 ID
     ├── convert-icons.ts                ← CDN PNG → AVIF（差量）

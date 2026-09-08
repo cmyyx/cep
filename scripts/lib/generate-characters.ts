@@ -7,6 +7,7 @@ import {
 } from './build-character-wiki'
 import { parseJsonSafe } from './json-utils'
 import { loadAllTextTables, SUPPORTED_LOCALES } from './stat-mapping'
+import { rawCharacterDetail, rawCharacterSummary, rawEnumLabels } from './raw-wiki-data'
 
 export interface CharacterResult {
   written: string[]
@@ -40,7 +41,7 @@ function writeCharacterSummaries(dataOutputDir: string, summaries: ReturnType<ty
       '// DO NOT EDIT MANUALLY.',
       "import type { WikiCharacterSummary } from '@/types/wiki'",
       '',
-      `export const wikiCharacters = ${JSON.stringify(summaries, null, 2)} satisfies WikiCharacterSummary[]`,
+      `export const wikiCharacters = ${JSON.stringify(summaries.map(rawCharacterSummary), null, 2)} satisfies WikiCharacterSummary[]`,
       '',
     ].join('\n'),
     'utf8'
@@ -95,7 +96,7 @@ export function generateCharacterI18n(
   for (const locale of SUPPORTED_LOCALES) {
     const path = join(i18nDir, `${locale}.json`)
     const names = Object.fromEntries(
-      generated.summaries.map((character) => [character.id, character.name[locale]])
+      generated.summaries.map((character) => [character.id, character.name?.[locale] ?? character.id])
     )
     writeFileSync(path, `${JSON.stringify(names, null, 2)}\n`, 'utf8')
     written.push(path)
@@ -119,11 +120,11 @@ export function generateCharacterI18n(
   mkdirSync(detailDir, { recursive: true })
   const detailFiles = Object.entries(generated.details).map(([id, detail]) => {
     const path = join(detailDir, `${id}.json`)
-    writeFileSync(path, `${JSON.stringify(detail, null, 2)}\n`, 'utf8')
+    writeFileSync(path, `${JSON.stringify(rawCharacterDetail(detail), null, 2)}\n`, 'utf8')
     return path
   })
   const enumFile = join(dataOutputDir, 'wiki', 'character-enums.json')
-  writeFileSync(enumFile, `${JSON.stringify(generated.enumLabels, null, 2)}\n`, 'utf8')
+  writeFileSync(enumFile, `${JSON.stringify(rawEnumLabels(generated.enumLabels as unknown as Record<string, Record<string, unknown>>), null, 2)}\n`, 'utf8')
 
   return {
     written,

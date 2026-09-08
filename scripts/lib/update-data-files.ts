@@ -12,7 +12,9 @@ import { extractItemNameIds } from './extract-textid'
 import { WEAPON_TYPE_MAP } from './compare-weapons'
 import { buildAttrShowConfigs, resolveFormat, formatEquipStat } from './equip-stat-format'
 import { resolveWeaponStats } from './weapon-stats'
+import { buildWeaponAcquisitionData } from './weapon-acquisition'
 import type { WeaponSkillPatchEntry } from './weapon-stats'
+import type { WeaponAcquisitionSource } from '../../src/types/weapon-acquisition'
 // ── Types ─────────────────────────────────────────────────────────────────
 
 interface WeaponBasicEntry {
@@ -164,13 +166,17 @@ function formatNullableStat(value: string | null): string {
   return value === null ? 'null' : formatTsString(value)
 }
 
+function formatAcquisitionSources(sources: readonly WeaponAcquisitionSource[]): string {
+  return `[${sources.map((source) => `{ categoryId: ${formatTsString(source.categoryId)}, sourceId: ${formatTsString(source.sourceId)} }`).join(', ')}]`
+}
+
 function upsertWeaponField(
   line: string,
   field: string,
   value: string,
   afterField: string,
 ): string {
-  const valuePattern = String.raw`(?:'(?:\\.|[^'\\])*'|null|\d+)`
+  const valuePattern = String.raw`(?:'(?:\\.|[^'\\])*'|null|\d+|\[[^\]]*\])`
   const fieldPattern = new RegExp(String.raw`\b${field}:\s*${valuePattern}`)
   if (fieldPattern.test(line)) {
     return line.replace(fieldPattern, () => `${field}: ${value}`)
@@ -216,6 +222,7 @@ export function updateWeaponsFile(
   const { cnToGem, tagToGem } = buildGemTableLookup(akedataPath)
   const cnTextTable = loadTextTable(akedataPath, 'zh-CN')
   const itemTable = loadItemTable(akedataPath)
+  const acquisition = buildWeaponAcquisitionData(akedataPath)
   const weaponNameTextIds = extractItemNameIds(join(akedataPath, 'TableCfg', 'ItemTable.json'))
 
   const existingIds = new Set<string>()
@@ -227,7 +234,7 @@ export function updateWeaponsFile(
     .filter(([, entry]) => entry.rarity >= 3)
     .map(([weaponId]) => weaponId)
   const targetIds = new Set(upstreamWeaponIds)
-  const resolved = new Map<string, { entry: WeaponBasicEntry; name: string; type: string; primaryStat: string | null; elementalDamage: string | null; specialAbility: string | null }>()
+  const resolved = new Map<string, { entry: WeaponBasicEntry; name: string; type: string; primaryStat: string | null; elementalDamage: string | null; specialAbility: string | null; acquisitionSources: WeaponAcquisitionSource[] }>()
   const unresolved: string[] = []
 
   for (const weaponId of targetIds) {
@@ -264,6 +271,7 @@ export function updateWeaponsFile(
       primaryStat: stats.primaryStat,
       elementalDamage: stats.elementalDamage,
       specialAbility: stats.specialAbility,
+      acquisitionSources: acquisition.sourcesByWeapon[weaponId] ?? [],
     })
   }
 
@@ -292,6 +300,7 @@ export function updateWeaponsFile(
     nextLine = upsertWeaponField(nextLine, 'primaryStat', formatNullableStat(upstream.primaryStat), 'type')
     nextLine = upsertWeaponField(nextLine, 'elementalDamage', formatNullableStat(upstream.elementalDamage), 'primaryStat')
     nextLine = upsertWeaponField(nextLine, 'specialAbility', formatNullableStat(upstream.specialAbility), 'elementalDamage')
+    nextLine = upsertWeaponField(nextLine, 'acquisitionSources', formatAcquisitionSources(upstream.acquisitionSources), 'specialAbility')
 
     if (nextLine === currentLine) {
       unchanged++
@@ -310,7 +319,7 @@ export function updateWeaponsFile(
     const iconId = resolveWeaponIconId(itemTable, weaponId) ?? weaponId
     newWeapons.push({
       rarity: upstream.entry.rarity,
-      line: `  { id: '${weaponId}', iconId: '${iconId}', name: ${formatTsString(upstream.name)}, rarity: ${upstream.entry.rarity}, type: '${upstream.type}', primaryStat: ${formatNullableStat(upstream.primaryStat)}, elementalDamage: ${formatNullableStat(upstream.elementalDamage)}, specialAbility: ${formatNullableStat(upstream.specialAbility)}, chars: [] }`,
+      line: `  { id: '${weaponId}', iconId: '${iconId}', name: ${formatTsString(upstream.name)}, rarity: ${upstream.entry.rarity}, type: '${upstream.type}', primaryStat: ${formatNullableStat(upstream.primaryStat)}, elementalDamage: ${formatNullableStat(upstream.elementalDamage)}, specialAbility: ${formatNullableStat(upstream.specialAbility)}, acquisitionSources: ${formatAcquisitionSources(upstream.acquisitionSources)}, chars: [] }`,
     })
   }
 

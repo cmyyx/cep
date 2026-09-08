@@ -9,12 +9,6 @@
         42,
         42,
         42
-      ],
-      "displayValues": [
-        "防御力+42",
-        "防御力+42",
-        "防御力+42",
-        "防御力+42"
       ]
     },
     {
@@ -24,12 +18,6 @@
         94,
         103,
         111
-      ],
-      "displayValues": [
-        "敏捷+86",
-        "敏捷+94",
-        "敏捷+103",
-        "敏捷+111"
       ]
     },
     {
@@ -39,12 +27,6 @@
         0.495,
         0.54,
         0.585
-      ],
-      "displayValues": [
-        "终结技伤害加成+45%",
-        "终结技伤害加成+49.5%",
-        "终结技伤害加成+54%",
-        "终结技伤害加成+58.5%"
       ]
     }
   ],
@@ -57,27 +39,15 @@
       "materials": [
         {
           "itemId": "item_equip_script_4_1",
-          "name": {
-            "zh-CN": "赤铜装备原件",
-            "en": "Cuprium Component",
-            "ja": "赤銅装備部品",
-            "zh-TW": "赤銅裝備原件"
-          },
+          "count": 50,
           "iconId": "item_equip_script_4_1",
-          "rarity": 4,
-          "count": 50
+          "rarity": 4
         },
         {
           "itemId": "item_domain_jinlong_coupon",
-          "name": {
-            "zh-CN": "武陵调度券",
-            "en": "Wuling Stock Bill",
-            "ja": "武陵取引券",
-            "zh-TW": "武陵調度券"
-          },
+          "count": 16000,
           "iconId": "item_domain_jinlong_coupon",
-          "rarity": 5,
-          "count": 16000
+          "rarity": 5
         }
       ]
     },
@@ -88,27 +58,15 @@
       "materials": [
         {
           "itemId": "item_equip_script_4_2",
-          "name": {
-            "zh-CN": "赫铜装备原件",
-            "en": "Hetonite Component",
-            "ja": "緋銅装備部品",
-            "zh-TW": "赫銅裝備原件"
-          },
+          "count": 10,
           "iconId": "item_equip_script_4_2",
-          "rarity": 4,
-          "count": 10
+          "rarity": 4
         },
         {
           "itemId": "item_domain_jinlong_coupon",
-          "name": {
-            "zh-CN": "武陵调度券",
-            "en": "Wuling Stock Bill",
-            "ja": "武陵取引券",
-            "zh-TW": "武陵調度券"
-          },
+          "count": 16000,
           "iconId": "item_domain_jinlong_coupon",
-          "rarity": 5,
-          "count": 16000
+          "rarity": 5
         }
       ]
     },
@@ -119,27 +77,15 @@
       "materials": [
         {
           "itemId": "item_equip_script_4_3",
-          "name": {
-            "zh-CN": "灼铜装备原件",
-            "en": "Pyrrolite Component",
-            "ja": "焔銅装備部品",
-            "zh-TW": "灼銅裝備原件"
-          },
+          "count": 5,
           "iconId": "item_equip_script_4_3",
-          "rarity": 4,
-          "count": 5
+          "rarity": 4
         },
         {
           "itemId": "item_domain_jinlong_coupon",
-          "name": {
-            "zh-CN": "武陵调度券",
-            "en": "Wuling Stock Bill",
-            "ja": "武陵取引券",
-            "zh-TW": "武陵調度券"
-          },
+          "count": 160,
           "iconId": "item_domain_jinlong_coupon",
-          "rarity": 5,
-          "count": 160
+          "rarity": 5
         }
       ]
     }

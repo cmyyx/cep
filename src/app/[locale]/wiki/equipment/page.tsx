@@ -37,7 +37,7 @@ export default async function WikiEquipmentPage({ params }: { params: Promise<{ 
       </header>
 
       <WikiEntityGrid
-        entities={localizeWikiEntitySummaries(wikiEquipment, locale)}
+        entities={localizeWikiEntitySummaries(wikiEquipment, locale, (entity) => t(`equips.${entity.id}`))}
         imageBasePath="/images/equip"
         enumLabels={enumLabels}
         enumOrder={enumOrder}

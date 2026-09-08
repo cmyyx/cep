@@ -47,7 +47,7 @@ it('sorts by rarity descending then localized name ascending', () => {
     character('six-a', 'D', 6),
   ]
 
-  expect(sortWikiEntities(entities, 'zh-CN', undefined, (entity) => typeof entity.name === 'string' ? entity.name : entity.name['zh-CN']).map((entity) => entity.id)).toEqual([
+  expect(sortWikiEntities(entities, 'zh-CN', undefined, (entity) => typeof entity.name === 'string' ? entity.name : entity.name?.['zh-CN'] ?? '').map((entity) => entity.id)).toEqual([
     'six-b',
     'six-a',
     'five',

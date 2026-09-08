@@ -364,6 +364,104 @@
       "baseAttack": 411
     }
   ],
+  "skills": [
+    {
+      "id": "wpn_attr_str_mid",
+      "levels": [
+        {
+          "level": 1
+        },
+        {
+          "level": 2
+        },
+        {
+          "level": 3
+        },
+        {
+          "level": 4
+        },
+        {
+          "level": 5
+        },
+        {
+          "level": 6
+        },
+        {
+          "level": 7
+        },
+        {
+          "level": 8
+        },
+        {
+          "level": 9
+        }
+      ]
+    },
+    {
+      "id": "wpn_sp_attr_phy_spell_mid",
+      "levels": [
+        {
+          "level": 1
+        },
+        {
+          "level": 2
+        },
+        {
+          "level": 3
+        },
+        {
+          "level": 4
+        },
+        {
+          "level": 5
+        },
+        {
+          "level": 6
+        },
+        {
+          "level": 7
+        },
+        {
+          "level": 8
+        },
+        {
+          "level": 9
+        }
+      ]
+    },
+    {
+      "id": "sk_wpn_claym_0014",
+      "levels": [
+        {
+          "level": 1
+        },
+        {
+          "level": 2
+        },
+        {
+          "level": 3
+        },
+        {
+          "level": 4
+        },
+        {
+          "level": 5
+        },
+        {
+          "level": 6
+        },
+        {
+          "level": 7
+        },
+        {
+          "level": 8
+        },
+        {
+          "level": 9
+        }
+      ]
+    }
+  ],
   "breakthroughs": [
     {
       "stage": 1,
@@ -377,39 +475,21 @@
       "materials": [
         {
           "itemId": "item_weapon_break_low",
-          "name": {
-            "zh-CN": "强固模具",
-            "en": "Cast Die",
-            "ja": "硬質金型",
-            "zh-TW": "強固模具"
-          },
+          "count": 5,
           "iconId": "item_weapon_break_low",
-          "rarity": 3,
-          "count": 5
+          "rarity": 3
         },
         {
           "itemId": "item_plant_spcstone_1_1",
-          "name": {
-            "zh-CN": "轻黯石",
-            "en": "Kalkonyx",
-            "ja": "軽闇石",
-            "zh-TW": "輕黯石"
-          },
+          "count": 3,
           "iconId": "item_plant_spcstone_1_1",
-          "rarity": 4,
-          "count": 3
+          "rarity": 4
         },
         {
           "itemId": "item_gold",
-          "name": {
-            "zh-CN": "折金票",
-            "en": "T-Creds",
-            "ja": "折金券",
-            "zh-TW": "折金票"
-          },
+          "count": 2200,
           "iconId": "item_gold",
-          "rarity": 4,
-          "count": 2200
+          "rarity": 4
         }
       ]
     },
@@ -425,39 +505,21 @@
       "materials": [
         {
           "itemId": "item_weapon_break_low",
-          "name": {
-            "zh-CN": "强固模具",
-            "en": "Cast Die",
-            "ja": "硬質金型",
-            "zh-TW": "強固模具"
-          },
+          "count": 18,
           "iconId": "item_weapon_break_low",
-          "rarity": 3,
-          "count": 18
+          "rarity": 3
         },
         {
           "itemId": "item_plant_spcstone_1_2",
-          "name": {
-            "zh-CN": "中黯石",
-            "en": "Auronyx",
-            "ja": "中闇石",
-            "zh-TW": "中黯石"
-          },
+          "count": 5,
           "iconId": "item_plant_spcstone_1_2",
-          "rarity": 4,
-          "count": 5
+          "rarity": 4
         },
         {
           "itemId": "item_gold",
-          "name": {
-            "zh-CN": "折金票",
-            "en": "T-Creds",
-            "ja": "折金券",
-            "zh-TW": "折金票"
-          },
+          "count": 8500,
           "iconId": "item_gold",
-          "rarity": 4,
-          "count": 8500
+          "rarity": 4
         }
       ]
     },
@@ -473,39 +535,21 @@
       "materials": [
         {
           "itemId": "item_weapon_break_high",
-          "name": {
-            "zh-CN": "重型强固模具",
-            "en": "Heavy Cast Die",
-            "ja": "重硬質金型",
-            "zh-TW": "重型強固模具"
-          },
+          "count": 20,
           "iconId": "item_weapon_break_high",
-          "rarity": 4,
-          "count": 20
+          "rarity": 4
         },
         {
           "itemId": "item_plant_spcstone_1_3",
-          "name": {
-            "zh-CN": "重黯石",
-            "en": "Umbronyx",
-            "ja": "重闇石",
-            "zh-TW": "重黯石"
-          },
+          "count": 5,
           "iconId": "item_plant_spcstone_1_3",
-          "rarity": 4,
-          "count": 5
+          "rarity": 4
         },
         {
           "itemId": "item_gold",
-          "name": {
-            "zh-CN": "折金票",
-            "en": "T-Creds",
-            "ja": "折金券",
-            "zh-TW": "折金票"
-          },
+          "count": 25000,
           "iconId": "item_gold",
-          "rarity": 4,
-          "count": 25000
+          "rarity": 4
         }
       ]
     },
@@ -521,347 +565,27 @@
       "materials": [
         {
           "itemId": "item_weapon_break_high",
-          "name": {
-            "zh-CN": "重型强固模具",
-            "en": "Heavy Cast Die",
-            "ja": "重硬質金型",
-            "zh-TW": "重型強固模具"
-          },
+          "count": 30,
           "iconId": "item_weapon_break_high",
-          "rarity": 4,
-          "count": 30
+          "rarity": 4
         },
         {
           "itemId": "item_char_skill_specialize_5",
-          "name": {
-            "zh-CN": "三相纳米片",
-            "en": "Triphasic Nanoflake",
-            "ja": "三相ナノフレーク",
-            "zh-TW": "三相奈米片"
-          },
+          "count": 16,
           "iconId": "item_char_skill_specialize_5",
-          "rarity": 5,
-          "count": 16
+          "rarity": 5
         },
         {
           "itemId": "item_plant_spcstone_2_2",
-          "name": {
-            "zh-CN": "武陵石",
-            "en": "Wulingstone",
-            "ja": "武陵石",
-            "zh-TW": "武陵石"
-          },
+          "count": 8,
           "iconId": "item_plant_spcstone_2_2",
-          "rarity": 5,
-          "count": 8
+          "rarity": 5
         },
         {
           "itemId": "item_gold",
-          "name": {
-            "zh-CN": "折金票",
-            "en": "T-Creds",
-            "ja": "折金券",
-            "zh-TW": "折金票"
-          },
+          "count": 90000,
           "iconId": "item_gold",
-          "rarity": 4,
-          "count": 90000
-        }
-      ]
-    }
-  ],
-  "skills": [
-    {
-      "id": "wpn_attr_str_mid",
-      "name": {
-        "zh-CN": "力量提升·中",
-        "en": "Strength [M]",
-        "ja": "筋力UP・中",
-        "zh-TW": "力量提升·中"
-      },
-      "description": {
-        "zh-CN": "力量<@ba.vup>+124</>",
-        "en": "Strength <@ba.vup>+124</>",
-        "ja": "筋力<@ba.vup>+124</>",
-        "zh-TW": "力量<@ba.vup>+124</>"
-      },
-      "levels": [
-        {
-          "level": 1,
-          "description": {
-            "zh-CN": "力量<@ba.vup>+16</>",
-            "en": "Strength <@ba.vup>+16</>",
-            "ja": "筋力<@ba.vup>+16</>",
-            "zh-TW": "力量<@ba.vup>+16</>"
-          }
-        },
-        {
-          "level": 2,
-          "description": {
-            "zh-CN": "力量<@ba.vup>+28</>",
-            "en": "Strength <@ba.vup>+28</>",
-            "ja": "筋力<@ba.vup>+28</>",
-            "zh-TW": "力量<@ba.vup>+28</>"
-          }
-        },
-        {
-          "level": 3,
-          "description": {
-            "zh-CN": "力量<@ba.vup>+41</>",
-            "en": "Strength <@ba.vup>+41</>",
-            "ja": "筋力<@ba.vup>+41</>",
-            "zh-TW": "力量<@ba.vup>+41</>"
-          }
-        },
-        {
-          "level": 4,
-          "description": {
-            "zh-CN": "力量<@ba.vup>+54</>",
-            "en": "Strength <@ba.vup>+54</>",
-            "ja": "筋力<@ba.vup>+54</>",
-            "zh-TW": "力量<@ba.vup>+54</>"
-          }
-        },
-        {
-          "level": 5,
-          "description": {
-            "zh-CN": "力量<@ba.vup>+67</>",
-            "en": "Strength <@ba.vup>+67</>",
-            "ja": "筋力<@ba.vup>+67</>",
-            "zh-TW": "力量<@ba.vup>+67</>"
-          }
-        },
-        {
-          "level": 6,
-          "description": {
-            "zh-CN": "力量<@ba.vup>+80</>",
-            "en": "Strength <@ba.vup>+80</>",
-            "ja": "筋力<@ba.vup>+80</>",
-            "zh-TW": "力量<@ba.vup>+80</>"
-          }
-        },
-        {
-          "level": 7,
-          "description": {
-            "zh-CN": "力量<@ba.vup>+92</>",
-            "en": "Strength <@ba.vup>+92</>",
-            "ja": "筋力<@ba.vup>+92</>",
-            "zh-TW": "力量<@ba.vup>+92</>"
-          }
-        },
-        {
-          "level": 8,
-          "description": {
-            "zh-CN": "力量<@ba.vup>+105</>",
-            "en": "Strength <@ba.vup>+105</>",
-            "ja": "筋力<@ba.vup>+105</>",
-            "zh-TW": "力量<@ba.vup>+105</>"
-          }
-        },
-        {
-          "level": 9,
-          "description": {
-            "zh-CN": "力量<@ba.vup>+124</>",
-            "en": "Strength <@ba.vup>+124</>",
-            "ja": "筋力<@ba.vup>+124</>",
-            "zh-TW": "力量<@ba.vup>+124</>"
-          }
-        }
-      ]
-    },
-    {
-      "id": "wpn_sp_attr_phy_spell_mid",
-      "name": {
-        "zh-CN": "源石技艺强度提升·中",
-        "en": "Arts Intensity [M]",
-        "ja": "アーツ強度UP・中",
-        "zh-TW": "源石技藝強度提升·中"
-      },
-      "description": {
-        "zh-CN": "源石技艺强度<@ba.vup>+62</>",
-        "en": "Arts Intensity <@ba.vup>+62</>",
-        "ja": "アーツ強度<@ba.vup>+62</>",
-        "zh-TW": "源石技藝強度<@ba.vup>+62</>"
-      },
-      "levels": [
-        {
-          "level": 1,
-          "description": {
-            "zh-CN": "源石技艺强度<@ba.vup>+8</>",
-            "en": "Arts Intensity <@ba.vup>+8</>",
-            "ja": "アーツ強度<@ba.vup>+8</>",
-            "zh-TW": "源石技藝強度<@ba.vup>+8</>"
-          }
-        },
-        {
-          "level": 2,
-          "description": {
-            "zh-CN": "源石技艺强度<@ba.vup>+14</>",
-            "en": "Arts Intensity <@ba.vup>+14</>",
-            "ja": "アーツ強度<@ba.vup>+14</>",
-            "zh-TW": "源石技藝強度<@ba.vup>+14</>"
-          }
-        },
-        {
-          "level": 3,
-          "description": {
-            "zh-CN": "源石技艺强度<@ba.vup>+20</>",
-            "en": "Arts Intensity <@ba.vup>+20</>",
-            "ja": "アーツ強度<@ba.vup>+20</>",
-            "zh-TW": "源石技藝強度<@ba.vup>+20</>"
-          }
-        },
-        {
-          "level": 4,
-          "description": {
-            "zh-CN": "源石技艺强度<@ba.vup>+27</>",
-            "en": "Arts Intensity <@ba.vup>+27</>",
-            "ja": "アーツ強度<@ba.vup>+27</>",
-            "zh-TW": "源石技藝強度<@ba.vup>+27</>"
-          }
-        },
-        {
-          "level": 5,
-          "description": {
-            "zh-CN": "源石技艺强度<@ba.vup>+33</>",
-            "en": "Arts Intensity <@ba.vup>+33</>",
-            "ja": "アーツ強度<@ba.vup>+33</>",
-            "zh-TW": "源石技藝強度<@ba.vup>+33</>"
-          }
-        },
-        {
-          "level": 6,
-          "description": {
-            "zh-CN": "源石技艺强度<@ba.vup>+40</>",
-            "en": "Arts Intensity <@ba.vup>+40</>",
-            "ja": "アーツ強度<@ba.vup>+40</>",
-            "zh-TW": "源石技藝強度<@ba.vup>+40</>"
-          }
-        },
-        {
-          "level": 7,
-          "description": {
-            "zh-CN": "源石技艺强度<@ba.vup>+46</>",
-            "en": "Arts Intensity <@ba.vup>+46</>",
-            "ja": "アーツ強度<@ba.vup>+46</>",
-            "zh-TW": "源石技藝強度<@ba.vup>+46</>"
-          }
-        },
-        {
-          "level": 8,
-          "description": {
-            "zh-CN": "源石技艺强度<@ba.vup>+52</>",
-            "en": "Arts Intensity <@ba.vup>+52</>",
-            "ja": "アーツ強度<@ba.vup>+52</>",
-            "zh-TW": "源石技藝強度<@ba.vup>+52</>"
-          }
-        },
-        {
-          "level": 9,
-          "description": {
-            "zh-CN": "源石技艺强度<@ba.vup>+62</>",
-            "en": "Arts Intensity <@ba.vup>+62</>",
-            "ja": "アーツ強度<@ba.vup>+62</>",
-            "zh-TW": "源石技藝強度<@ba.vup>+62</>"
-          }
-        }
-      ]
-    },
-    {
-      "id": "sk_wpn_claym_0014",
-      "name": {
-        "zh-CN": "残暴·千秋旧土",
-        "en": "Brutality: Lands of Yore",
-        "ja": "残虐・千秋の旧土",
-        "zh-TW": "殘暴·千秋舊土"
-      },
-      "description": {
-        "zh-CN": "源石技艺强度<@ba.vup>+28</>。\n装备者<#ba.consume>消耗</><#ba.noguard>破防</>层数后，物理伤害<@ba.vup>+[14.0%×消耗层数]</>，持续20秒。\n<@ba.info>同名效果无法叠加。</>",
-        "en": "Arts Intensity <@ba.vup>+28</>.\nAfter the wielder <#ba.consume>consumes</> <#ba.noguard>Vulnerability</> stack(s), the wielder gains Physical DMG Dealt <@ba.vup>+[14.0%×Stacks Consumed]</> for 20s.\n<@ba.info>Effects of the same name cannot stack. </>",
-        "ja": "アーツ強度<@ba.vup>+28</>\n装備中、自身が<#ba.noguard>クラッシュ</>段階を<#ba.consume>消費</>すると、20秒間物理ダメージ<@ba.vup>+[14.0%×消費した段階数]</>\n<@ba.info>同名効果は重ね掛け不可</>",
-        "zh-TW": "源石技藝強度<@ba.vup>+28</>。\n裝備者<#ba.consume>消耗</><#ba.noguard>破防</>層數後，物理傷害<@ba.vup>+[14.0%×消耗層數]</>，持續20秒。\n<@ba.info>同名效果無法疊加。</>"
-      },
-      "levels": [
-        {
-          "level": 1,
-          "description": {
-            "zh-CN": "源石技艺强度<@ba.vup>+10</>。\n装备者<#ba.consume>消耗</><#ba.noguard>破防</>层数后，物理伤害<@ba.vup>+[5.0%×消耗层数]</>，持续20秒。\n<@ba.info>同名效果无法叠加。</>",
-            "en": "Arts Intensity <@ba.vup>+10</>.\nAfter the wielder <#ba.consume>consumes</> <#ba.noguard>Vulnerability</> stack(s), the wielder gains Physical DMG Dealt <@ba.vup>+[5.0%×Stacks Consumed]</> for 20s.\n<@ba.info>Effects of the same name cannot stack. </>",
-            "ja": "アーツ強度<@ba.vup>+10</>\n装備中、自身が<#ba.noguard>クラッシュ</>段階を<#ba.consume>消費</>すると、20秒間物理ダメージ<@ba.vup>+[5.0%×消費した段階数]</>\n<@ba.info>同名効果は重ね掛け不可</>",
-            "zh-TW": "源石技藝強度<@ba.vup>+10</>。\n裝備者<#ba.consume>消耗</><#ba.noguard>破防</>層數後，物理傷害<@ba.vup>+[5.0%×消耗層數]</>，持續20秒。\n<@ba.info>同名效果無法疊加。</>"
-          }
-        },
-        {
-          "level": 2,
-          "description": {
-            "zh-CN": "源石技艺强度<@ba.vup>+12</>。\n装备者<#ba.consume>消耗</><#ba.noguard>破防</>层数后，物理伤害<@ba.vup>+[6.0%×消耗层数]</>，持续20秒。\n<@ba.info>同名效果无法叠加。</>",
-            "en": "Arts Intensity <@ba.vup>+12</>.\nAfter the wielder <#ba.consume>consumes</> <#ba.noguard>Vulnerability</> stack(s), the wielder gains Physical DMG Dealt <@ba.vup>+[6.0%×Stacks Consumed]</> for 20s.\n<@ba.info>Effects of the same name cannot stack. </>",
-            "ja": "アーツ強度<@ba.vup>+12</>\n装備中、自身が<#ba.noguard>クラッシュ</>段階を<#ba.consume>消費</>すると、20秒間物理ダメージ<@ba.vup>+[6.0%×消費した段階数]</>\n<@ba.info>同名効果は重ね掛け不可</>",
-            "zh-TW": "源石技藝強度<@ba.vup>+12</>。\n裝備者<#ba.consume>消耗</><#ba.noguard>破防</>層數後，物理傷害<@ba.vup>+[6.0%×消耗層數]</>，持續20秒。\n<@ba.info>同名效果無法疊加。</>"
-          }
-        },
-        {
-          "level": 3,
-          "description": {
-            "zh-CN": "源石技艺强度<@ba.vup>+14</>。\n装备者<#ba.consume>消耗</><#ba.noguard>破防</>层数后，物理伤害<@ba.vup>+[7.0%×消耗层数]</>，持续20秒。\n<@ba.info>同名效果无法叠加。</>",
-            "en": "Arts Intensity <@ba.vup>+14</>.\nAfter the wielder <#ba.consume>consumes</> <#ba.noguard>Vulnerability</> stack(s), the wielder gains Physical DMG Dealt <@ba.vup>+[7.0%×Stacks Consumed]</> for 20s.\n<@ba.info>Effects of the same name cannot stack. </>",
-            "ja": "アーツ強度<@ba.vup>+14</>\n装備中、自身が<#ba.noguard>クラッシュ</>段階を<#ba.consume>消費</>すると、20秒間物理ダメージ<@ba.vup>+[7.0%×消費した段階数]</>\n<@ba.info>同名効果は重ね掛け不可</>",
-            "zh-TW": "源石技藝強度<@ba.vup>+14</>。\n裝備者<#ba.consume>消耗</><#ba.noguard>破防</>層數後，物理傷害<@ba.vup>+[7.0%×消耗層數]</>，持續20秒。\n<@ba.info>同名效果無法疊加。</>"
-          }
-        },
-        {
-          "level": 4,
-          "description": {
-            "zh-CN": "源石技艺强度<@ba.vup>+16</>。\n装备者<#ba.consume>消耗</><#ba.noguard>破防</>层数后，物理伤害<@ba.vup>+[8.0%×消耗层数]</>，持续20秒。\n<@ba.info>同名效果无法叠加。</>",
-            "en": "Arts Intensity <@ba.vup>+16</>.\nAfter the wielder <#ba.consume>consumes</> <#ba.noguard>Vulnerability</> stack(s), the wielder gains Physical DMG Dealt <@ba.vup>+[8.0%×Stacks Consumed]</> for 20s.\n<@ba.info>Effects of the same name cannot stack. </>",
-            "ja": "アーツ強度<@ba.vup>+16</>\n装備中、自身が<#ba.noguard>クラッシュ</>段階を<#ba.consume>消費</>すると、20秒間物理ダメージ<@ba.vup>+[8.0%×消費した段階数]</>\n<@ba.info>同名効果は重ね掛け不可</>",
-            "zh-TW": "源石技藝強度<@ba.vup>+16</>。\n裝備者<#ba.consume>消耗</><#ba.noguard>破防</>層數後，物理傷害<@ba.vup>+[8.0%×消耗層數]</>，持續20秒。\n<@ba.info>同名效果無法疊加。</>"
-          }
-        },
-        {
-          "level": 5,
-          "description": {
-            "zh-CN": "源石技艺强度<@ba.vup>+18</>。\n装备者<#ba.consume>消耗</><#ba.noguard>破防</>层数后，物理伤害<@ba.vup>+[9.0%×消耗层数]</>，持续20秒。\n<@ba.info>同名效果无法叠加。</>",
-            "en": "Arts Intensity <@ba.vup>+18</>.\nAfter the wielder <#ba.consume>consumes</> <#ba.noguard>Vulnerability</> stack(s), the wielder gains Physical DMG Dealt <@ba.vup>+[9.0%×Stacks Consumed]</> for 20s.\n<@ba.info>Effects of the same name cannot stack. </>",
-            "ja": "アーツ強度<@ba.vup>+18</>\n装備中、自身が<#ba.noguard>クラッシュ</>段階を<#ba.consume>消費</>すると、20秒間物理ダメージ<@ba.vup>+[9.0%×消費した段階数]</>\n<@ba.info>同名効果は重ね掛け不可</>",
-            "zh-TW": "源石技藝強度<@ba.vup>+18</>。\n裝備者<#ba.consume>消耗</><#ba.noguard>破防</>層數後，物理傷害<@ba.vup>+[9.0%×消耗層數]</>，持續20秒。\n<@ba.info>同名效果無法疊加。</>"
-          }
-        },
-        {
-          "level": 6,
-          "description": {
-            "zh-CN": "源石技艺强度<@ba.vup>+20</>。\n装备者<#ba.consume>消耗</><#ba.noguard>破防</>层数后，物理伤害<@ba.vup>+[10.0%×消耗层数]</>，持续20秒。\n<@ba.info>同名效果无法叠加。</>",
-            "en": "Arts Intensity <@ba.vup>+20</>.\nAfter the wielder <#ba.consume>consumes</> <#ba.noguard>Vulnerability</> stack(s), the wielder gains Physical DMG Dealt <@ba.vup>+[10.0%×Stacks Consumed]</> for 20s.\n<@ba.info>Effects of the same name cannot stack. </>",
-            "ja": "アーツ強度<@ba.vup>+20</>\n装備中、自身が<#ba.noguard>クラッシュ</>段階を<#ba.consume>消費</>すると、20秒間物理ダメージ<@ba.vup>+[10.0%×消費した段階数]</>\n<@ba.info>同名効果は重ね掛け不可</>",
-            "zh-TW": "源石技藝強度<@ba.vup>+20</>。\n裝備者<#ba.consume>消耗</><#ba.noguard>破防</>層數後，物理傷害<@ba.vup>+[10.0%×消耗層數]</>，持續20秒。\n<@ba.info>同名效果無法疊加。</>"
-          }
-        },
-        {
-          "level": 7,
-          "description": {
-            "zh-CN": "源石技艺强度<@ba.vup>+22</>。\n装备者<#ba.consume>消耗</><#ba.noguard>破防</>层数后，物理伤害<@ba.vup>+[11.0%×消耗层数]</>，持续20秒。\n<@ba.info>同名效果无法叠加。</>",
-            "en": "Arts Intensity <@ba.vup>+22</>.\nAfter the wielder <#ba.consume>consumes</> <#ba.noguard>Vulnerability</> stack(s), the wielder gains Physical DMG Dealt <@ba.vup>+[11.0%×Stacks Consumed]</> for 20s.\n<@ba.info>Effects of the same name cannot stack. </>",
-            "ja": "アーツ強度<@ba.vup>+22</>\n装備中、自身が<#ba.noguard>クラッシュ</>段階を<#ba.consume>消費</>すると、20秒間物理ダメージ<@ba.vup>+[11.0%×消費した段階数]</>\n<@ba.info>同名効果は重ね掛け不可</>",
-            "zh-TW": "源石技藝強度<@ba.vup>+22</>。\n裝備者<#ba.consume>消耗</><#ba.noguard>破防</>層數後，物理傷害<@ba.vup>+[11.0%×消耗層數]</>，持續20秒。\n<@ba.info>同名效果無法疊加。</>"
-          }
-        },
-        {
-          "level": 8,
-          "description": {
-            "zh-CN": "源石技艺强度<@ba.vup>+24</>。\n装备者<#ba.consume>消耗</><#ba.noguard>破防</>层数后，物理伤害<@ba.vup>+[12.0%×消耗层数]</>，持续20秒。\n<@ba.info>同名效果无法叠加。</>",
-            "en": "Arts Intensity <@ba.vup>+24</>.\nAfter the wielder <#ba.consume>consumes</> <#ba.noguard>Vulnerability</> stack(s), the wielder gains Physical DMG Dealt <@ba.vup>+[12.0%×Stacks Consumed]</> for 20s.\n<@ba.info>Effects of the same name cannot stack. </>",
-            "ja": "アーツ強度<@ba.vup>+24</>\n装備中、自身が<#ba.noguard>クラッシュ</>段階を<#ba.consume>消費</>すると、20秒間物理ダメージ<@ba.vup>+[12.0%×消費した段階数]</>\n<@ba.info>同名効果は重ね掛け不可</>",
-            "zh-TW": "源石技藝強度<@ba.vup>+24</>。\n裝備者<#ba.consume>消耗</><#ba.noguard>破防</>層數後，物理傷害<@ba.vup>+[12.0%×消耗層數]</>，持續20秒。\n<@ba.info>同名效果無法疊加。</>"
-          }
-        },
-        {
-          "level": 9,
-          "description": {
-            "zh-CN": "源石技艺强度<@ba.vup>+28</>。\n装备者<#ba.consume>消耗</><#ba.noguard>破防</>层数后，物理伤害<@ba.vup>+[14.0%×消耗层数]</>，持续20秒。\n<@ba.info>同名效果无法叠加。</>",
-            "en": "Arts Intensity <@ba.vup>+28</>.\nAfter the wielder <#ba.consume>consumes</> <#ba.noguard>Vulnerability</> stack(s), the wielder gains Physical DMG Dealt <@ba.vup>+[14.0%×Stacks Consumed]</> for 20s.\n<@ba.info>Effects of the same name cannot stack. </>",
-            "ja": "アーツ強度<@ba.vup>+28</>\n装備中、自身が<#ba.noguard>クラッシュ</>段階を<#ba.consume>消費</>すると、20秒間物理ダメージ<@ba.vup>+[14.0%×消費した段階数]</>\n<@ba.info>同名効果は重ね掛け不可</>",
-            "zh-TW": "源石技藝強度<@ba.vup>+28</>。\n裝備者<#ba.consume>消耗</><#ba.noguard>破防</>層數後，物理傷害<@ba.vup>+[14.0%×消耗層數]</>，持續20秒。\n<@ba.info>同名效果無法疊加。</>"
-          }
+          "rarity": 4
         }
       ]
     }

@@ -14,7 +14,8 @@ import { asWikiLocale } from '@/lib/wiki-locale'
 import { wikiTextKey } from '@/lib/wiki-i18n'
 import type { WikiLocale, WikiRichTextTerm } from '@/types/wiki'
 
-const glossary = glossaryData as Record<string, WikiRichTextTerm>
+type GlossaryTerm = Pick<WikiRichTextTerm, 'styleId'> & Partial<Pick<WikiRichTextTerm, 'name' | 'description'>>
+const glossary = glossaryData as Record<string, GlossaryTerm>
 
 function styleClass(styleId: string) {
   if (/fire|burn/i.test(styleId)) return 'text-ship-red'
@@ -65,7 +66,7 @@ function renderImage(node: Extract<WikiRichTextNode, { type: 'image' }>): ReactN
 
 
 export type TermField = 'name' | 'description'
-type TermResolver = (id: string, term: WikiRichTextTerm, field: TermField) => string
+type TermResolver = (id: string, term: GlossaryTerm, field: TermField) => string
 
 /**
  * The wikiData catalog chunk loads asynchronously; until then (or if a term is missing
@@ -73,13 +74,13 @@ type TermResolver = (id: string, term: WikiRichTextTerm, field: TermField) => st
  * raw `glossary|...` lookup key.
  */
 export function resolveGlossaryText(
-  term: WikiRichTextTerm,
+  term: GlossaryTerm,
   field: TermField,
   locale: WikiLocale,
   catalogMessage: unknown,
-): string {
+ ): string {
   if (typeof catalogMessage === 'string' && catalogMessage) return catalogMessage
-  return term[field][locale] || term[field]['zh-CN'] || ''
+  return term[field]?.[locale] || term[field]?.['zh-CN'] || ''
 }
 
 function renderNodes(nodes: WikiRichTextNode[], resolveTerm: TermResolver, interactive = true): ReactNode {
@@ -132,7 +133,7 @@ export interface WikiRichTextProps {
 export function WikiRichText({ value, className }: WikiRichTextProps) {
   const locale = asWikiLocale(useLocale())
   const catalogs = useGameI18nLocale(locale)
-  const resolveTerm = (id: string, term: WikiRichTextTerm, field: TermField): string =>
+  const resolveTerm = (id: string, term: GlossaryTerm, field: TermField): string =>
     resolveGlossaryText(term, field, locale, catalogs?.wikiData[wikiTextKey('glossary', id, field)])
   return <span className={cn('whitespace-pre-line', className)}>{renderNodes(parseWikiRichText(value), resolveTerm)}</span>
 }

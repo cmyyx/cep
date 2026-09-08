@@ -20,6 +20,8 @@ import { withImageCacheVersion } from '@/lib/image-url'
 import { PlannerWikiPreview } from '@/components/shared/planner-wiki-preview'
 import { ItemFrameBackground } from '@/components/shared/item-frame-background'
 import { getWeaponWikiPreview } from '@/lib/weapon-wiki-preview'
+import { isHiddenByAcquisitionCategory, acquisitionCategoryLabelText } from '@/lib/weapon-acquisition'
+import { useWikiTranslations } from '@/hooks/use-wiki-translations'
 import { weaponMatchesS1, weaponStatLabel } from '@/lib/weapon-stats'
 import type { WikiLocale } from '@/types/wiki'
 
@@ -66,6 +68,9 @@ const WeaponThumbnail = memo(function WeaponThumbnail({
   inRange,
 }: ThumbProps) {
   const t = useTranslations()
+  const { text: wikiText, ready: wikiTextReady } = useWikiTranslations()
+  const acquisitionCategoryLabel = (categoryId: string): string =>
+    acquisitionCategoryLabelText(categoryId, wikiText, t)
   const locale = useLocale() as WikiLocale
   const enableTooltip = useEssenceSettingsStore((s) => s.enableTooltipPlans)
   const toggleWeapon = useMatrixStore((s) => s.toggleWeapon)
@@ -87,7 +92,7 @@ const WeaponThumbnail = memo(function WeaponThumbnail({
   }, [toggleWeapon, weapon.id, swallowLongPressClick])
 
   const weaponName = (weapon.id?.startsWith('custom-') || weapon.id?.startsWith('preview:')) ? weapon.name : (t(`weapons.${weapon.id}`) ?? weapon.name)
-  const preview = getWeaponWikiPreview(weapon.id, locale)
+  const preview = getWeaponWikiPreview(weapon.id, locale, wikiTextReady ? (_weaponId, skillId, level) => wikiText('weapon', weapon.id, 'skill', skillId, 'level', level) : undefined)
 
   const thumb = (
     <Button
@@ -152,6 +157,7 @@ const WeaponThumbnail = memo(function WeaponThumbnail({
             { label: weaponStatLabel(weapon.elementalDamage, t), ...preview.values[1] },
             { label: weaponStatLabel(weapon.specialAbility, t), ...preview.values[2], truncate: true },
           ].filter((_, index) => [weapon.primaryStat, weapon.elementalDamage, weapon.specialAbility][index] !== null)}
+          footer={<p className="text-xs text-muted-foreground">{t('essence.acquisitionSourceLabel')}: {[...new Set((weapon.acquisitionSources ?? []).map((source) => source.categoryId))].map(acquisitionCategoryLabel).join('、') || acquisitionCategoryLabel('unknown')}</p>}
           wikiHref={preview.wikiHref}
         />
       </TooltipContent>
@@ -413,6 +419,7 @@ export const DungeonCard = memo(function DungeonCard({
   // Plan-side settings
   const hideFourStar = useEssenceSettingsStore((s) => s.hideFourStarWeaponsPlans)
   const hideThreeStar = useEssenceSettingsStore((s) => s.hideThreeStarWeaponsPlans)
+  const hiddenAcquisitionCategories = useEssenceSettingsStore((s) => s.hiddenAcquisitionCategoriesPlans)
   const hideUnowned = useEssenceSettingsStore((s) => s.hideUnownedWeaponsPlans)
   const hideEssenceOwned = useEssenceSettingsStore((s) => s.hideEssenceOwnedWeaponsPlans)
   const onlyBothOwned = useEssenceSettingsStore((s) => s.onlyHideWhenBothOwnedPlans)
@@ -436,6 +443,7 @@ export const DungeonCard = memo(function DungeonCard({
   const visibleMatched = useMemo(() => {
     return plan.matchedWeapons.filter(({ weapon }) => {
       if (keepUpVisible && (weapon.chars.some((c) => upCharSet.has(c)) || weapon.source === 'preview')) return true
+      if (isHiddenByAcquisitionCategory(weapon.acquisitionSources, hiddenAcquisitionCategories)) return false
       if ((hideFourStar && weapon.rarity === 4) || (hideThreeStar && weapon.rarity === 3)) return false
       if (hideUnowned && weaponOwnership[weapon.id] !== true) return false
       if (hideEssenceOwned) {
@@ -452,6 +460,7 @@ export const DungeonCard = memo(function DungeonCard({
   }, [
     plan.matchedWeapons,
     keepUpVisible, upCharSet,
+    hiddenAcquisitionCategories,
     hideFourStar, hideThreeStar, hideUnowned, hideEssenceOwned, onlyBothOwned,
     weaponOwnership, essenceStatus,
   ])

@@ -23,13 +23,16 @@ import { join, resolve } from 'node:path'
 import { extractItemNameIds } from './lib/extract-textid'
 import { loadTextTable } from './lib/stat-mapping'
 
-/** Build weapon name → weaponId mapping from TableCfg (WeaponBasicTable + ItemTable + I18nTextTable_CN). */
-function buildWeaponNameMap(akedataPath: string): Map<string, string> {
+/** Build weapon name → weaponId mapping from TableCfg (WeaponBasicTable + ItemTable + I18nTextTable_CN).
+ * Names carried by more than one upstream weapon are dropped from the map and
+ * reported as ambiguous so preview migration can never pick the wrong target. */
+function buildWeaponNameMap(akedataPath: string): { nameMap: Map<string, string>; ambiguousNames: Set<string> } {
   const nameMap = new Map<string, string>()
+  const ambiguousNames = new Set<string>()
 
   // Load WeaponBasicTable for weapon list
   const wpnBasicPath = join(akedataPath, 'TableCfg', 'WeaponBasicTable.json')
-  if (!existsSync(wpnBasicPath)) return nameMap
+  if (!existsSync(wpnBasicPath)) return { nameMap, ambiguousNames }
   const wpnBasic = JSON.parse(readFileSync(wpnBasicPath, 'utf-8')) as Record<string, unknown>
 
   // Load ItemTable name text IDs
@@ -41,23 +44,39 @@ function buildWeaponNameMap(akedataPath: string): Map<string, string> {
   for (const weaponId of Object.keys(wpnBasic)) {
     const nameTextId = weaponTextIds[weaponId]
     const title = nameTextId ? (cnTextTable[nameTextId] ?? weaponId) : weaponId
-    if (title) nameMap.set(title, weaponId)
+    if (!title) continue
+    const existing = nameMap.get(title)
+    if (existing !== undefined && existing !== weaponId) {
+      ambiguousNames.add(title)
+      nameMap.delete(title)
+      continue
+    }
+    nameMap.set(title, weaponId)
   }
 
-  return nameMap
+  return { nameMap, ambiguousNames }
 }
 
 /** Detect and optionally update preview weapons in weapons.ts */
 function updatePreviewWeapons(
   weaponsTsPath: string,
-  nameMap: Map<string, string>,
+  { nameMap, ambiguousNames }: { nameMap: Map<string, string>; ambiguousNames: Set<string> },
   updateMode: boolean,
-): { previewCount: number; updatable: { name: string; previewId: string; formalId: string }[]; updated: number } {
-  if (!existsSync(weaponsTsPath)) return { previewCount: 0, updatable: [], updated: 0 }
+): { previewCount: number; updatable: { name: string; previewId: string; formalId: string }[]; skipped: string[]; updated: number } {
+  if (!existsSync(weaponsTsPath)) return { previewCount: 0, updatable: [], skipped: [], updated: 0 }
   const content = readFileSync(weaponsTsPath, 'utf-8')
   // Match preview weapons: { id: 'preview:XXX', ... source: 'preview' }
-  const previewRe = /\{\s*id:\s*'(preview:[^']+)'[^}]*?name:\s*'([^']+)'[^}]*?source:\s*'preview'[^}]*?\}/g
+  // Match one-line preview weapons without assuming the object has no nested fields.
+  const previewRe = /^\s*\{[^\n]*?id:\s*'(preview:[^']+)'[^\n]*?name:\s*'([^']+)'[^\n]*?source:\s*'preview'[^\n]*?\},?\s*$/gm
   const updatable: { name: string; previewId: string; formalId: string }[] = []
+  const skipped: string[] = []
+  // Migration guards: never replace into a formal id that already exists in
+  // the file (would create duplicate weapon ids) and never migrate two
+  // preview entries into the same formal id in one run.
+  const existingFormalIds = new Set<string>()
+  const formalIdRe = new RegExp(String.raw`\bid:\s*'(wpn_[^']+)'`, 'g')
+  for (const m of content.matchAll(formalIdRe)) existingFormalIds.add(m[1])
+  const plannedFormalIds = new Set<string>()
   let previewCount = 0
   let m: RegExpExecArray | null
   while ((m = previewRe.exec(content)) !== null) {
@@ -65,9 +84,20 @@ function updatePreviewWeapons(
     const previewId = m[1]
     const name = m[2]
     const formalId = nameMap.get(name)
-    if (formalId) {
-      updatable.push({ name, previewId, formalId })
+    if (!formalId) {
+      if (ambiguousNames.has(name)) skipped.push(`${previewId}: name "${name}" matches multiple upstream weapons — resolve manually`)
+      continue
     }
+    if (existingFormalIds.has(formalId)) {
+      skipped.push(`${previewId}: formal id ${formalId} already exists in weapons.ts — resolve manually`)
+      continue
+    }
+    if (plannedFormalIds.has(formalId)) {
+      skipped.push(`${previewId}: formal id ${formalId} already targeted by another preview entry — resolve manually`)
+      continue
+    }
+    plannedFormalIds.add(formalId)
+    updatable.push({ name, previewId, formalId })
   }
   if (updateMode && updatable.length > 0) {
     let updatedContent = content
@@ -82,13 +112,13 @@ function updatePreviewWeapons(
     for (const { formalId } of updatable) {
       // Match the line containing id: 'wpn_xxx' and remove source: 'preview'
       const escapedFormalId = formalId.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
-      const lineRe = new RegExp(`(id:\\s*'${escapedFormalId}'[^}]*?)source:\\s*'preview',?\\s*`, 'g')
+      const lineRe = new RegExp(`(^[^\\n]*id:\\s*'${escapedFormalId}'[^\\n]*?)source:\\s*'preview',?\\s*`, 'gm')
       updatedContent = updatedContent.replace(lineRe, '$1')
     }
     writeFileSync(weaponsTsPath, updatedContent, 'utf-8')
-    return { previewCount, updatable, updated: updatable.length }
+    return { previewCount, updatable, skipped, updated: updatable.length }
   }
-  return { previewCount, updatable, updated: 0 }
+  return { previewCount, updatable, skipped, updated: 0 }
 }
 
 function parseArgs() {
@@ -206,6 +236,10 @@ async function main() {
       console.log(`  Updated: ${previewResult.updated} preview weapons -> 正式 IDs`)
     }
   }
+  if (previewResult.skipped.length > 0) {
+    console.warn(`\n  Preview weapons SKIPPED (manual resolution required): ${previewResult.skipped.length}`)
+    for (const reason of previewResult.skipped) console.warn(`    ${reason}`)
+  }
   if (mode === 'update') {
     const weaponSync = updateWeaponsFile(weaponsTsPath, paths.akedata)
     console.log(
@@ -275,6 +309,10 @@ async function main() {
     const wk = generateWikiData(paths.akedata, paths.imagedb, generatedRoot, dataOutputDir, ch.wikiData)
     for (const cat of wk.categories) {
       console.log(`  ${cat}: ${wk.counts[cat]} entities`)
+    }
+    if (wk.acquisitionWarnings.length > 0) {
+      console.log(`  Acquisition warnings: ${wk.acquisitionWarnings.length}`)
+      for (const warning of wk.acquisitionWarnings) console.log(`    ${warning}`)
     }
   }
 

@@ -16,6 +16,8 @@ import { loadAllTextTables, SUPPORTED_LOCALES } from './stat-mapping'
 import { localizeWikiText, type TextRef, type WikiTextTables } from './wiki-builder-utils'
 import { collectWikiAssets, type WikiAssets } from './wiki-assets'
 import { buildPlannerGameData, writePlannerGameData, type PlannerI18nData } from './generate-planner-data'
+import { rawEnumLabels, rawEquipmentDetail, rawEquipmentSummary, rawGlossary, rawWeaponDetail, rawWeaponSummary } from './raw-wiki-data'
+import { buildWeaponAcquisitionData, type WeaponAcquisitionData } from './weapon-acquisition'
 import { wikiTextKey } from '../../src/lib/wiki-i18n'
 
 interface AttributeShowEntry {
@@ -70,6 +72,7 @@ export type WikiI18nCatalogs = Record<keyof LocalizedText, Record<string, string
 export function buildWikiI18nCatalogs(
   characters: CharacterWikiData,
   items: ItemWikiData,
+  acquisition: WeaponAcquisitionData,
   enums: WikiEnumLabels,
   glossary: Record<string, WikiRichTextTerm>,
   plannerI18n: PlannerI18nData,
@@ -86,6 +89,15 @@ export function buildWikiI18nCatalogs(
   }
   const addRef = (key: string, ref: TextRef | undefined) => add(key, localizeWikiText(ref, textTables))
 
+
+  for (const [categoryId, label] of Object.entries(acquisition.categories)) {
+    add(wikiTextKey('acquisitionCategory', categoryId), label)
+  }
+  for (const entry of Object.values(acquisition.details)) {
+    const prefix = ['acquisitionSource', entry.source.categoryId, entry.source.sourceId] as const
+    add(wikiTextKey(...prefix, 'name'), entry.name)
+    if (entry.description) add(wikiTextKey(...prefix, 'description'), entry.description)
+  }
   for (const [group, values] of Object.entries(enums)) {
     for (const [id, value] of Object.entries(values)) add(wikiTextKey('enum', group, id), value)
   }
@@ -122,6 +134,7 @@ export function buildWikiI18nCatalogs(
       add(wikiTextKey('character', detail.id, 'potential', potential.id, 'name'), potential.name)
       add(wikiTextKey('character', detail.id, 'potential', potential.id, 'description'), potential.description)
     }
+    for (const voice of detail.cvNames) add(wikiTextKey('character', detail.id, 'voice', voice.language), voice.localized)
     for (const skill of detail.logisticsSkills) {
       add(wikiTextKey('character', detail.id, 'logistics', skill.id, 'name'), skill.name)
       add(wikiTextKey('character', detail.id, 'logistics', skill.id, 'description'), skill.description)
@@ -139,6 +152,13 @@ export function buildWikiI18nCatalogs(
     if (equipment.suitId && equipment.suitName) add(wikiTextKey('suit', equipment.suitId), equipment.suitName)
   }
   for (const detail of Object.values(items.equipmentDetails)) {
+    for (const stat of detail.stats) {
+      for (const [index, value] of (stat.displayValues ?? []).entries()) {
+        const displayValue = equipmentStatValue(value)
+        const localizedValue = Object.fromEntries(SUPPORTED_LOCALES.map((locale) => [locale, displayValue])) as LocalizedText
+        add(wikiTextKey('equipment', detail.id, 'stat', stat.attributeId, 'value', index), localizedValue)
+      }
+    }
     for (const effect of detail.suitEffects) {
       add(wikiTextKey('equipment', detail.id, 'effect', effect.id, 'name'), effect.name)
       add(wikiTextKey('equipment', detail.id, 'effect', effect.id, 'description'), effect.description)
@@ -200,8 +220,8 @@ export function buildPlannerWikiPreviews(
       .filter(([id]) => weaponIds.has(id))
       .map(([id, detail]) => [id, {
         stats: detail.skills.slice(0, 3).map((skill) => ({
-          levelOne: skill.levels[0]?.description ?? skill.description,
-          maxLevel: skill.levels.at(-1)?.description ?? skill.description,
+          levelOne: { skillId: skill.id, level: skill.levels[0]?.level ?? 1 },
+          maxLevel: { skillId: skill.id, level: skill.levels.at(-1)?.level ?? 1 },
           levelOneLabel: `Lv.${skill.levels[0]?.level ?? 1}`,
           maxLevelLabel: `Lv.${skill.levels.at(-1)?.level ?? 1}`,
         })),
@@ -221,7 +241,10 @@ export function buildPlannerWikiPreviews(
             maxLevelLabel: `+${Math.max(0, values.length - 1)}`,
           }
         }),
-        craftingRecipes: detail.craftingRecipes,
+        craftingRecipes: detail.craftingRecipes.map((recipe) => ({
+          ...recipe,
+          materials: recipe.materials.map(({ itemId, count, iconId, rarity }) => ({ itemId, count, iconId, rarity })),
+        })),
       }])
   )
   return { weapons: weaponPreviews, equipment: equipmentPreviews }
@@ -293,6 +316,8 @@ function loadTable(akedataPath: string, table: string): unknown {
   return parseJsonSafe(join(akedataPath, 'TableCfg', `${table}.json`))
 }
 
+
+
 function writeSummaryFile(
   dataDir: string,
   category: 'weapons' | 'equipment',
@@ -302,7 +327,9 @@ function writeSummaryFile(
   mkdirSync(dir, { recursive: true })
   const path = join(dir, `${category}.ts`)
   const typeName = category === 'weapons' ? 'WikiWeaponSummary' : 'WikiEquipmentSummary'
-  const exportName = category === 'weapons' ? 'wikiWeapons' : 'wikiEquipment'
+  const rawEntries = category === 'weapons'
+    ? entries.filter((entry): entry is Extract<WikiEntitySummary, { category: 'weapons' }> => entry.category === 'weapons').map(rawWeaponSummary)
+    : entries.filter((entry): entry is Extract<WikiEntitySummary, { category: 'equipment' }> => entry.category === 'equipment').map(rawEquipmentSummary)
   writeFileSync(
     path,
     [
@@ -310,10 +337,10 @@ function writeSummaryFile(
       '// DO NOT EDIT MANUALLY.',
       `import type { ${typeName} } from '@/types/wiki'`,
       '',
-      `export const ${exportName} = ${JSON.stringify(entries, null, 2)} satisfies ${typeName}[]`,
+      `export const ${category === 'weapons' ? 'wikiWeapons' : 'wikiEquipment'} = ${JSON.stringify(rawEntries, null, 2)} satisfies ${typeName}[]`,
       '',
     ].join('\n'),
-    'utf8'
+    'utf8',
   )
   return path
 }
@@ -328,7 +355,8 @@ function writeDetailFiles(
   mkdirSync(dir, { recursive: true })
   return Object.entries(details).map(([id, detail]) => {
     const path = join(dir, `${id}.json`)
-    writeFileSync(path, `${JSON.stringify(detail, null, 2)}\n`, 'utf8')
+    const raw = category === 'weapons' ? rawWeaponDetail(detail as ItemWikiData['weaponDetails'][string]) : rawEquipmentDetail(detail as ItemWikiData['equipmentDetails'][string])
+    writeFileSync(path, `${JSON.stringify(raw, null, 2)}\n`, 'utf8')
     return path
   })
 }
@@ -339,10 +367,9 @@ function buildEnums(
   imagedbPath: string,
   dataOutputDir: string,
   textTables: WikiTextTables,
-  gameTextTable: Record<string, GameTextEntry>
-): { path: string; enums: WikiEnumLabels } {
-  const characterEnumPath = join(dataOutputDir, 'wiki', 'character-enums.json')
-  const characterEnums = JSON.parse(readFileSync(characterEnumPath, 'utf8')) as WikiEnumLabels
+  gameTextTable: Record<string, GameTextEntry>,
+  characterEnums: WikiEnumLabels,
+ ): { path: string; enums: WikiEnumLabels } {
   const fromGameText = (key: string) => localizeWikiText(gameTextTable[key], textTables)
   const enums: WikiEnumLabels = {
     ...characterEnums,
@@ -376,7 +403,7 @@ function buildEnums(
   }
 
   const path = join(dataOutputDir, 'wiki', 'enums.json')
-  writeFileSync(path, `${JSON.stringify(enums, null, 2)}\n`, 'utf8')
+  writeFileSync(path, `${JSON.stringify(rawEnumLabels(enums as unknown as Record<string, Record<string, unknown>>), null, 2)}\n`, 'utf8')
   return { path, enums }
 }
 
@@ -393,7 +420,7 @@ function writeEquipmentNameFiles(
       existing = JSON.parse(readFileSync(path, 'utf8')) as Record<string, string>
     } catch {}
     for (const equipment of summaries) {
-      existing[equipment.id] ??= equipment.name[locale] || equipment.name['zh-CN'] || equipment.id
+      existing[equipment.id] ??= equipment.name?.[locale] || equipment.name?.['zh-CN'] || equipment.id
     }
     writeFileSync(path, `${JSON.stringify(existing, null, 2)}\n`, 'utf8')
     return path
@@ -405,6 +432,7 @@ export interface WikiDataResult {
   files: string[]
   counts: Record<string, number>
   itemData: ItemWikiData
+  acquisitionWarnings: string[]
   assets: WikiAssets
 }
 export function generateWikiData(
@@ -430,18 +458,22 @@ export function generateWikiData(
     textTables,
   }
   const generated = buildItemWikiData(source)
+  const acquisition = buildWeaponAcquisitionData(akedataPath)
+  for (const summary of generated.weaponSummaries) {
+    summary.acquisitionSources = acquisition.sourcesByWeapon[summary.id] ?? []
+  }
   const glossaryPath = join(dataOutputDir, 'wiki', 'rich-text.json')
   const glossary = buildWikiGlossary(
     loadTable(akedataPath, 'HyperlinkTextTable') as Record<string, HyperlinkTextEntry>,
     textTables
   )
-  writeFileSync(glossaryPath, `${JSON.stringify(glossary, null, 2)}\n`, 'utf8')
+  writeFileSync(glossaryPath, `${JSON.stringify(rawGlossary(glossary), null, 2)}\n`, 'utf8')
   const assets = collectWikiAssets({ characters, items: generated, richText: glossary })
   const assetPath = join(dataOutputDir, 'wiki', 'assets.json')
   writeFileSync(assetPath, `${JSON.stringify(assets, null, 2)}\n`, 'utf8')
-  const enumOutput = buildEnums(akedataPath, imagedbPath, dataOutputDir, textTables, gameTextTable)
+  const enumOutput = buildEnums(akedataPath, imagedbPath, dataOutputDir, textTables, gameTextTable, characters.enumLabels)
   const planner = buildPlannerGameData(akedataPath, characters, generated)
-  const catalogs = buildWikiI18nCatalogs(characters, generated, enumOutput.enums, glossary, planner.i18n, gameTextTable, textTables)
+  const catalogs = buildWikiI18nCatalogs(characters, generated, acquisition, enumOutput.enums, glossary, planner.i18n, gameTextTable, textTables)
   const files = [
     writeSummaryFile(dataOutputDir, 'weapons', generated.weaponSummaries),
     writeSummaryFile(dataOutputDir, 'equipment', generated.equipmentSummaries),
@@ -464,5 +496,6 @@ export function generateWikiData(
     },
     itemData: generated,
     assets,
+    acquisitionWarnings: acquisition.warnings,
   }
 }

@@ -9,12 +9,6 @@
         40,
         40,
         40
-      ],
-      "displayValues": [
-        "防御力+40",
-        "防御力+40",
-        "防御力+40",
-        "防御力+40"
       ]
     },
     {
@@ -24,12 +18,6 @@
         65,
         65,
         65
-      ],
-      "displayValues": [
-        "智识+65",
-        "智识+65",
-        "智识+65",
-        "智识+65"
       ]
     },
     {
@@ -39,12 +27,6 @@
         43,
         43,
         43
-      ],
-      "displayValues": [
-        "敏捷+43",
-        "敏捷+43",
-        "敏捷+43",
-        "敏捷+43"
       ]
     },
     {
@@ -54,12 +36,6 @@
         0.078,
         0.078,
         0.078
-      ],
-      "displayValues": [
-        "攻击力+7.8%",
-        "攻击力+7.8%",
-        "攻击力+7.8%",
-        "攻击力+7.8%"
       ]
     }
   ],
@@ -72,27 +48,15 @@
       "materials": [
         {
           "itemId": "item_equip_script_3",
-          "name": {
-            "zh-CN": "高晶装备原件",
-            "en": "Cryston Component",
-            "ja": "高晶装備部品",
-            "zh-TW": "高晶裝備原件"
-          },
+          "count": 50,
           "iconId": "item_equip_script_3",
-          "rarity": 3,
-          "count": 50
+          "rarity": 3
         },
         {
           "itemId": "item_domain_tundra_coupon",
-          "name": {
-            "zh-CN": "谷地调度券",
-            "en": "Valley Stock Bill",
-            "ja": "谷地取引券",
-            "zh-TW": "谷地調度券"
-          },
+          "count": 9600,
           "iconId": "item_domain_tundra_coupon",
-          "rarity": 5,
-          "count": 9600
+          "rarity": 5
         }
       ]
     }

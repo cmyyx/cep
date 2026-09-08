@@ -10,6 +10,7 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     ".history/**",
+    ".tmp-sentry/**",
     "next-env.d.ts",
   ]),
   {

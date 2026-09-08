@@ -57,7 +57,7 @@ it('derives compact planner previews from Wiki detail data', () => {
     weaponDetails: {
       wpn_test: {
         skills: [
-          { description: localized('max'), levels: [{ level: 1, description: localized('level one') }, { level: 9, description: localized('max') }] },
+          { id: 'skill-test', description: localized('max'), levels: [{ level: 1, description: localized('level one') }, { level: 9, description: localized('max') }] }
         ],
       },
     },
@@ -70,7 +70,7 @@ it('derives compact planner previews from Wiki detail data', () => {
   } as unknown as ItemWikiData
 
   expect(buildPlannerWikiPreviews(data, new Set(['wpn_test']), new Set(['equip_test']))).toMatchObject({
-    weapons: { wpn_test: { stats: [{ levelOne: localized('level one'), maxLevel: localized('max'), levelOneLabel: 'Lv.1', maxLevelLabel: 'Lv.9' }] } },
+    weapons: { wpn_test: { stats: [{ levelOne: { skillId: 'skill-test', level: 1 }, maxLevel: { skillId: 'skill-test', level: 9 }, levelOneLabel: 'Lv.1', maxLevelLabel: 'Lv.9' }] } },
     equipment: { equip_test: { stats: [{ attributeId: '39', levelOne: '1', maxLevel: '2', levelOneLabel: '+0', maxLevelLabel: '+1' }] } },
   })
 })

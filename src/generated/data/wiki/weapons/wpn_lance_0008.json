@@ -364,6 +364,104 @@
       "baseAttack": 341
     }
   ],
+  "skills": [
+    {
+      "id": "wpn_attr_will_low",
+      "levels": [
+        {
+          "level": 1
+        },
+        {
+          "level": 2
+        },
+        {
+          "level": 3
+        },
+        {
+          "level": 4
+        },
+        {
+          "level": 5
+        },
+        {
+          "level": 6
+        },
+        {
+          "level": 7
+        },
+        {
+          "level": 8
+        },
+        {
+          "level": 9
+        }
+      ]
+    },
+    {
+      "id": "wpn_sp_attr_magicdam_low",
+      "levels": [
+        {
+          "level": 1
+        },
+        {
+          "level": 2
+        },
+        {
+          "level": 3
+        },
+        {
+          "level": 4
+        },
+        {
+          "level": 5
+        },
+        {
+          "level": 6
+        },
+        {
+          "level": 7
+        },
+        {
+          "level": 8
+        },
+        {
+          "level": 9
+        }
+      ]
+    },
+    {
+      "id": "sk_wpn_lance_0008",
+      "levels": [
+        {
+          "level": 1
+        },
+        {
+          "level": 2
+        },
+        {
+          "level": 3
+        },
+        {
+          "level": 4
+        },
+        {
+          "level": 5
+        },
+        {
+          "level": 6
+        },
+        {
+          "level": 7
+        },
+        {
+          "level": 8
+        },
+        {
+          "level": 9
+        }
+      ]
+    }
+  ],
   "breakthroughs": [
     {
       "stage": 1,
@@ -377,39 +475,21 @@
       "materials": [
         {
           "itemId": "item_weapon_break_low",
-          "name": {
-            "zh-CN": "强固模具",
-            "en": "Cast Die",
-            "ja": "硬質金型",
-            "zh-TW": "強固模具"
-          },
+          "count": 5,
           "iconId": "item_weapon_break_low",
-          "rarity": 3,
-          "count": 5
+          "rarity": 3
         },
         {
           "itemId": "item_plant_spcstone_1_1",
-          "name": {
-            "zh-CN": "轻黯石",
-            "en": "Kalkonyx",
-            "ja": "軽闇石",
-            "zh-TW": "輕黯石"
-          },
+          "count": 3,
           "iconId": "item_plant_spcstone_1_1",
-          "rarity": 4,
-          "count": 3
+          "rarity": 4
         },
         {
           "itemId": "item_gold",
-          "name": {
-            "zh-CN": "折金票",
-            "en": "T-Creds",
-            "ja": "折金券",
-            "zh-TW": "折金票"
-          },
+          "count": 2200,
           "iconId": "item_gold",
-          "rarity": 4,
-          "count": 2200
+          "rarity": 4
         }
       ]
     },
@@ -425,39 +505,21 @@
       "materials": [
         {
           "itemId": "item_weapon_break_low",
-          "name": {
-            "zh-CN": "强固模具",
-            "en": "Cast Die",
-            "ja": "硬質金型",
-            "zh-TW": "強固模具"
-          },
+          "count": 18,
           "iconId": "item_weapon_break_low",
-          "rarity": 3,
-          "count": 18
+          "rarity": 3
         },
         {
           "itemId": "item_plant_spcstone_1_2",
-          "name": {
-            "zh-CN": "中黯石",
-            "en": "Auronyx",
-            "ja": "中闇石",
-            "zh-TW": "中黯石"
-          },
+          "count": 5,
           "iconId": "item_plant_spcstone_1_2",
-          "rarity": 4,
-          "count": 5
+          "rarity": 4
         },
         {
           "itemId": "item_gold",
-          "name": {
-            "zh-CN": "折金票",
-            "en": "T-Creds",
-            "ja": "折金券",
-            "zh-TW": "折金票"
-          },
+          "count": 8500,
           "iconId": "item_gold",
-          "rarity": 4,
-          "count": 8500
+          "rarity": 4
         }
       ]
     },
@@ -473,39 +535,21 @@
       "materials": [
         {
           "itemId": "item_weapon_break_high",
-          "name": {
-            "zh-CN": "重型强固模具",
-            "en": "Heavy Cast Die",
-            "ja": "重硬質金型",
-            "zh-TW": "重型強固模具"
-          },
+          "count": 20,
           "iconId": "item_weapon_break_high",
-          "rarity": 4,
-          "count": 20
+          "rarity": 4
         },
         {
           "itemId": "item_plant_spcstone_1_3",
-          "name": {
-            "zh-CN": "重黯石",
-            "en": "Umbronyx",
-            "ja": "重闇石",
-            "zh-TW": "重黯石"
-          },
+          "count": 5,
           "iconId": "item_plant_spcstone_1_3",
-          "rarity": 4,
-          "count": 5
+          "rarity": 4
         },
         {
           "itemId": "item_gold",
-          "name": {
-            "zh-CN": "折金票",
-            "en": "T-Creds",
-            "ja": "折金券",
-            "zh-TW": "折金票"
-          },
+          "count": 25000,
           "iconId": "item_gold",
-          "rarity": 4,
-          "count": 25000
+          "rarity": 4
         }
       ]
     },
@@ -521,347 +565,27 @@
       "materials": [
         {
           "itemId": "item_weapon_break_high",
-          "name": {
-            "zh-CN": "重型强固模具",
-            "en": "Heavy Cast Die",
-            "ja": "重硬質金型",
-            "zh-TW": "重型強固模具"
-          },
+          "count": 30,
           "iconId": "item_weapon_break_high",
-          "rarity": 4,
-          "count": 30
+          "rarity": 4
         },
         {
           "itemId": "item_char_skill_specialize_2",
-          "name": {
-            "zh-CN": "D96钢样品四",
-            "en": "D96 Steel Sample 4",
-            "ja": "D96鋼試料Ⅳ",
-            "zh-TW": "D96鋼樣品四"
-          },
+          "count": 16,
           "iconId": "item_char_skill_specialize_2",
-          "rarity": 5,
-          "count": 16
+          "rarity": 5
         },
         {
           "itemId": "item_plant_spcstone_2_2",
-          "name": {
-            "zh-CN": "武陵石",
-            "en": "Wulingstone",
-            "ja": "武陵石",
-            "zh-TW": "武陵石"
-          },
+          "count": 8,
           "iconId": "item_plant_spcstone_2_2",
-          "rarity": 5,
-          "count": 8
+          "rarity": 5
         },
         {
           "itemId": "item_gold",
-          "name": {
-            "zh-CN": "折金票",
-            "en": "T-Creds",
-            "ja": "折金券",
-            "zh-TW": "折金票"
-          },
+          "count": 90000,
           "iconId": "item_gold",
-          "rarity": 4,
-          "count": 90000
-        }
-      ]
-    }
-  ],
-  "skills": [
-    {
-      "id": "wpn_attr_will_low",
-      "name": {
-        "zh-CN": "意志提升·小",
-        "en": "Will [S]",
-        "ja": "意志UP・小",
-        "zh-TW": "意志提升·小"
-      },
-      "description": {
-        "zh-CN": "意志<@ba.vup>+93</>",
-        "en": "Will <@ba.vup>+93</>",
-        "ja": "意志<@ba.vup>+93</>",
-        "zh-TW": "意志<@ba.vup>+93</>"
-      },
-      "levels": [
-        {
-          "level": 1,
-          "description": {
-            "zh-CN": "意志<@ba.vup>+12</>",
-            "en": "Will <@ba.vup>+12</>",
-            "ja": "意志<@ba.vup>+12</>",
-            "zh-TW": "意志<@ba.vup>+12</>"
-          }
-        },
-        {
-          "level": 2,
-          "description": {
-            "zh-CN": "意志<@ba.vup>+21</>",
-            "en": "Will <@ba.vup>+21</>",
-            "ja": "意志<@ba.vup>+21</>",
-            "zh-TW": "意志<@ba.vup>+21</>"
-          }
-        },
-        {
-          "level": 3,
-          "description": {
-            "zh-CN": "意志<@ba.vup>+31</>",
-            "en": "Will <@ba.vup>+31</>",
-            "ja": "意志<@ba.vup>+31</>",
-            "zh-TW": "意志<@ba.vup>+31</>"
-          }
-        },
-        {
-          "level": 4,
-          "description": {
-            "zh-CN": "意志<@ba.vup>+40</>",
-            "en": "Will <@ba.vup>+40</>",
-            "ja": "意志<@ba.vup>+40</>",
-            "zh-TW": "意志<@ba.vup>+40</>"
-          }
-        },
-        {
-          "level": 5,
-          "description": {
-            "zh-CN": "意志<@ba.vup>+50</>",
-            "en": "Will <@ba.vup>+50</>",
-            "ja": "意志<@ba.vup>+50</>",
-            "zh-TW": "意志<@ba.vup>+50</>"
-          }
-        },
-        {
-          "level": 6,
-          "description": {
-            "zh-CN": "意志<@ba.vup>+60</>",
-            "en": "Will <@ba.vup>+60</>",
-            "ja": "意志<@ba.vup>+60</>",
-            "zh-TW": "意志<@ba.vup>+60</>"
-          }
-        },
-        {
-          "level": 7,
-          "description": {
-            "zh-CN": "意志<@ba.vup>+69</>",
-            "en": "Will <@ba.vup>+69</>",
-            "ja": "意志<@ba.vup>+69</>",
-            "zh-TW": "意志<@ba.vup>+69</>"
-          }
-        },
-        {
-          "level": 8,
-          "description": {
-            "zh-CN": "意志<@ba.vup>+79</>",
-            "en": "Will <@ba.vup>+79</>",
-            "ja": "意志<@ba.vup>+79</>",
-            "zh-TW": "意志<@ba.vup>+79</>"
-          }
-        },
-        {
-          "level": 9,
-          "description": {
-            "zh-CN": "意志<@ba.vup>+93</>",
-            "en": "Will <@ba.vup>+93</>",
-            "ja": "意志<@ba.vup>+93</>",
-            "zh-TW": "意志<@ba.vup>+93</>"
-          }
-        }
-      ]
-    },
-    {
-      "id": "wpn_sp_attr_magicdam_low",
-      "name": {
-        "zh-CN": "法术提升·小",
-        "en": "Arts DMG [S]",
-        "ja": "アーツダメージUP・小",
-        "zh-TW": "法術提升·小"
-      },
-      "description": {
-        "zh-CN": "法术伤害<@ba.vup>+26.0%</>",
-        "en": "Arts DMG Dealt <@ba.vup>+26.0%</>",
-        "ja": "アーツダメージ<@ba.vup>+26.0%</>",
-        "zh-TW": "法術傷害<@ba.vup>+26.0%</>"
-      },
-      "levels": [
-        {
-          "level": 1,
-          "description": {
-            "zh-CN": "法术伤害<@ba.vup>+3.3%</>",
-            "en": "Arts DMG Dealt <@ba.vup>+3.3%</>",
-            "ja": "アーツダメージ<@ba.vup>+3.3%</>",
-            "zh-TW": "法術傷害<@ba.vup>+3.3%</>"
-          }
-        },
-        {
-          "level": 2,
-          "description": {
-            "zh-CN": "法术伤害<@ba.vup>+6.0%</>",
-            "en": "Arts DMG Dealt <@ba.vup>+6.0%</>",
-            "ja": "アーツダメージ<@ba.vup>+6.0%</>",
-            "zh-TW": "法術傷害<@ba.vup>+6.0%</>"
-          }
-        },
-        {
-          "level": 3,
-          "description": {
-            "zh-CN": "法术伤害<@ba.vup>+8.7%</>",
-            "en": "Arts DMG Dealt <@ba.vup>+8.7%</>",
-            "ja": "アーツダメージ<@ba.vup>+8.7%</>",
-            "zh-TW": "法術傷害<@ba.vup>+8.7%</>"
-          }
-        },
-        {
-          "level": 4,
-          "description": {
-            "zh-CN": "法术伤害<@ba.vup>+11.3%</>",
-            "en": "Arts DMG Dealt <@ba.vup>+11.3%</>",
-            "ja": "アーツダメージ<@ba.vup>+11.3%</>",
-            "zh-TW": "法術傷害<@ba.vup>+11.3%</>"
-          }
-        },
-        {
-          "level": 5,
-          "description": {
-            "zh-CN": "法术伤害<@ba.vup>+14.0%</>",
-            "en": "Arts DMG Dealt <@ba.vup>+14.0%</>",
-            "ja": "アーツダメージ<@ba.vup>+14.0%</>",
-            "zh-TW": "法術傷害<@ba.vup>+14.0%</>"
-          }
-        },
-        {
-          "level": 6,
-          "description": {
-            "zh-CN": "法术伤害<@ba.vup>+16.7%</>",
-            "en": "Arts DMG Dealt <@ba.vup>+16.7%</>",
-            "ja": "アーツダメージ<@ba.vup>+16.7%</>",
-            "zh-TW": "法術傷害<@ba.vup>+16.7%</>"
-          }
-        },
-        {
-          "level": 7,
-          "description": {
-            "zh-CN": "法术伤害<@ba.vup>+19.3%</>",
-            "en": "Arts DMG Dealt <@ba.vup>+19.3%</>",
-            "ja": "アーツダメージ<@ba.vup>+19.3%</>",
-            "zh-TW": "法術傷害<@ba.vup>+19.3%</>"
-          }
-        },
-        {
-          "level": 8,
-          "description": {
-            "zh-CN": "法术伤害<@ba.vup>+22.0%</>",
-            "en": "Arts DMG Dealt <@ba.vup>+22.0%</>",
-            "ja": "アーツダメージ<@ba.vup>+22.0%</>",
-            "zh-TW": "法術傷害<@ba.vup>+22.0%</>"
-          }
-        },
-        {
-          "level": 9,
-          "description": {
-            "zh-CN": "法术伤害<@ba.vup>+26.0%</>",
-            "en": "Arts DMG Dealt <@ba.vup>+26.0%</>",
-            "ja": "アーツダメージ<@ba.vup>+26.0%</>",
-            "zh-TW": "法術傷害<@ba.vup>+26.0%</>"
-          }
-        }
-      ]
-    },
-    {
-      "id": "sk_wpn_lance_0008",
-      "name": {
-        "zh-CN": "压制·应急强化",
-        "en": "Suppression: Emergency Boost",
-        "ja": "圧制・応急強化",
-        "zh-TW": "壓制·緊急強化"
-      },
-      "description": {
-        "zh-CN": "装备者的战技命中敌人时，获得攻击力<@ba.vup>+33.6%</>，持续20秒。\n<@ba.info>同名效果无法叠加。</>",
-        "en": "When the wielder's battle skill hits the enemy, the wielder gains ATK <@ba.vup>+33.6%</> for 20s.\n<@ba.info>Effects of the same name cannot stack. </>",
-        "ja": "装備中、自身の戦技が敵に命中するとき、20秒間攻撃力<@ba.vup>+33.6%</>\n<@ba.info>同名効果は重ね掛け不可</>",
-        "zh-TW": "裝備者的戰技命中敵人時，獲得攻擊力<@ba.vup>+33.6%</>，持續20秒。\n<@ba.info>同名效果無法疊加。</>"
-      },
-      "levels": [
-        {
-          "level": 1,
-          "description": {
-            "zh-CN": "装备者的战技命中敌人时，获得攻击力<@ba.vup>+12.0%</>，持续20秒。\n<@ba.info>同名效果无法叠加。</>",
-            "en": "When the wielder's battle skill hits the enemy, the wielder gains ATK <@ba.vup>+12.0%</> for 20s.\n<@ba.info>Effects of the same name cannot stack. </>",
-            "ja": "装備中、自身の戦技が敵に命中するとき、20秒間攻撃力<@ba.vup>+12.0%</>\n<@ba.info>同名効果は重ね掛け不可</>",
-            "zh-TW": "裝備者的戰技命中敵人時，獲得攻擊力<@ba.vup>+12.0%</>，持續20秒。\n<@ba.info>同名效果無法疊加。</>"
-          }
-        },
-        {
-          "level": 2,
-          "description": {
-            "zh-CN": "装备者的战技命中敌人时，获得攻击力<@ba.vup>+14.4%</>，持续20秒。\n<@ba.info>同名效果无法叠加。</>",
-            "en": "When the wielder's battle skill hits the enemy, the wielder gains ATK <@ba.vup>+14.4%</> for 20s.\n<@ba.info>Effects of the same name cannot stack. </>",
-            "ja": "装備中、自身の戦技が敵に命中するとき、20秒間攻撃力<@ba.vup>+14.4%</>\n<@ba.info>同名効果は重ね掛け不可</>",
-            "zh-TW": "裝備者的戰技命中敵人時，獲得攻擊力<@ba.vup>+14.4%</>，持續20秒。\n<@ba.info>同名效果無法疊加。</>"
-          }
-        },
-        {
-          "level": 3,
-          "description": {
-            "zh-CN": "装备者的战技命中敌人时，获得攻击力<@ba.vup>+16.8%</>，持续20秒。\n<@ba.info>同名效果无法叠加。</>",
-            "en": "When the wielder's battle skill hits the enemy, the wielder gains ATK <@ba.vup>+16.8%</> for 20s.\n<@ba.info>Effects of the same name cannot stack. </>",
-            "ja": "装備中、自身の戦技が敵に命中するとき、20秒間攻撃力<@ba.vup>+16.8%</>\n<@ba.info>同名効果は重ね掛け不可</>",
-            "zh-TW": "裝備者的戰技命中敵人時，獲得攻擊力<@ba.vup>+16.8%</>，持續20秒。\n<@ba.info>同名效果無法疊加。</>"
-          }
-        },
-        {
-          "level": 4,
-          "description": {
-            "zh-CN": "装备者的战技命中敌人时，获得攻击力<@ba.vup>+19.2%</>，持续20秒。\n<@ba.info>同名效果无法叠加。</>",
-            "en": "When the wielder's battle skill hits the enemy, the wielder gains ATK <@ba.vup>+19.2%</> for 20s.\n<@ba.info>Effects of the same name cannot stack. </>",
-            "ja": "装備中、自身の戦技が敵に命中するとき、20秒間攻撃力<@ba.vup>+19.2%</>\n<@ba.info>同名効果は重ね掛け不可</>",
-            "zh-TW": "裝備者的戰技命中敵人時，獲得攻擊力<@ba.vup>+19.2%</>，持續20秒。\n<@ba.info>同名效果無法疊加。</>"
-          }
-        },
-        {
-          "level": 5,
-          "description": {
-            "zh-CN": "装备者的战技命中敌人时，获得攻击力<@ba.vup>+21.6%</>，持续20秒。\n<@ba.info>同名效果无法叠加。</>",
-            "en": "When the wielder's battle skill hits the enemy, the wielder gains ATK <@ba.vup>+21.6%</> for 20s.\n<@ba.info>Effects of the same name cannot stack. </>",
-            "ja": "装備中、自身の戦技が敵に命中するとき、20秒間攻撃力<@ba.vup>+21.6%</>\n<@ba.info>同名効果は重ね掛け不可</>",
-            "zh-TW": "裝備者的戰技命中敵人時，獲得攻擊力<@ba.vup>+21.6%</>，持續20秒。\n<@ba.info>同名效果無法疊加。</>"
-          }
-        },
-        {
-          "level": 6,
-          "description": {
-            "zh-CN": "装备者的战技命中敌人时，获得攻击力<@ba.vup>+24.0%</>，持续20秒。\n<@ba.info>同名效果无法叠加。</>",
-            "en": "When the wielder's battle skill hits the enemy, the wielder gains ATK <@ba.vup>+24.0%</> for 20s.\n<@ba.info>Effects of the same name cannot stack. </>",
-            "ja": "装備中、自身の戦技が敵に命中するとき、20秒間攻撃力<@ba.vup>+24.0%</>\n<@ba.info>同名効果は重ね掛け不可</>",
-            "zh-TW": "裝備者的戰技命中敵人時，獲得攻擊力<@ba.vup>+24.0%</>，持續20秒。\n<@ba.info>同名效果無法疊加。</>"
-          }
-        },
-        {
-          "level": 7,
-          "description": {
-            "zh-CN": "装备者的战技命中敌人时，获得攻击力<@ba.vup>+26.4%</>，持续20秒。\n<@ba.info>同名效果无法叠加。</>",
-            "en": "When the wielder's battle skill hits the enemy, the wielder gains ATK <@ba.vup>+26.4%</> for 20s.\n<@ba.info>Effects of the same name cannot stack. </>",
-            "ja": "装備中、自身の戦技が敵に命中するとき、20秒間攻撃力<@ba.vup>+26.4%</>\n<@ba.info>同名効果は重ね掛け不可</>",
-            "zh-TW": "裝備者的戰技命中敵人時，獲得攻擊力<@ba.vup>+26.4%</>，持續20秒。\n<@ba.info>同名效果無法疊加。</>"
-          }
-        },
-        {
-          "level": 8,
-          "description": {
-            "zh-CN": "装备者的战技命中敌人时，获得攻击力<@ba.vup>+28.8%</>，持续20秒。\n<@ba.info>同名效果无法叠加。</>",
-            "en": "When the wielder's battle skill hits the enemy, the wielder gains ATK <@ba.vup>+28.8%</> for 20s.\n<@ba.info>Effects of the same name cannot stack. </>",
-            "ja": "装備中、自身の戦技が敵に命中するとき、20秒間攻撃力<@ba.vup>+28.8%</>\n<@ba.info>同名効果は重ね掛け不可</>",
-            "zh-TW": "裝備者的戰技命中敵人時，獲得攻擊力<@ba.vup>+28.8%</>，持續20秒。\n<@ba.info>同名效果無法疊加。</>"
-          }
-        },
-        {
-          "level": 9,
-          "description": {
-            "zh-CN": "装备者的战技命中敌人时，获得攻击力<@ba.vup>+33.6%</>，持续20秒。\n<@ba.info>同名效果无法叠加。</>",
-            "en": "When the wielder's battle skill hits the enemy, the wielder gains ATK <@ba.vup>+33.6%</> for 20s.\n<@ba.info>Effects of the same name cannot stack. </>",
-            "ja": "装備中、自身の戦技が敵に命中するとき、20秒間攻撃力<@ba.vup>+33.6%</>\n<@ba.info>同名効果は重ね掛け不可</>",
-            "zh-TW": "裝備者的戰技命中敵人時，獲得攻擊力<@ba.vup>+33.6%</>，持續20秒。\n<@ba.info>同名效果無法疊加。</>"
-          }
+          "rarity": 4
         }
       ]
     }

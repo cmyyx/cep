@@ -77,6 +77,8 @@ function syncStoresFromCloudPayload(raw: Record<string, unknown>) {
       Object.assign(next, normalizeEssenceSettingsFlags(es.flags))
       if (es.regionFirst !== undefined) next.regionFirst = es.regionFirst
       if (es.regionSecond !== undefined) next.regionSecond = es.regionSecond
+      if (Array.isArray(es.hiddenAcquisitionCategoriesList)) next.hiddenAcquisitionCategoriesList = es.hiddenAcquisitionCategoriesList.filter((id): id is string => typeof id === 'string')
+      if (Array.isArray(es.hiddenAcquisitionCategoriesPlans)) next.hiddenAcquisitionCategoriesPlans = es.hiddenAcquisitionCategoriesPlans.filter((id): id is string => typeof id === 'string')
       if (Object.keys(next).length > 0) {
         useEssenceSettingsStore.setState(next as Partial<ReturnType<typeof useEssenceSettingsStore.getState>>)
       }
@@ -124,6 +126,7 @@ function hasExistingLocalData(local: Record<string, unknown>): boolean {
     }
     const cw = es.customWeapons as unknown[] | undefined
     if (Array.isArray(cw) && cw.length > 0) return true
+    if ((Array.isArray(es.hiddenAcquisitionCategoriesList) && es.hiddenAcquisitionCategoriesList.length > 0) || (Array.isArray(es.hiddenAcquisitionCategoriesPlans) && es.hiddenAcquisitionCategoriesPlans.length > 0)) return true
   }
   const rp = local.refinementPlanner as Record<string, unknown> | undefined
   if (rp && rp.selectedEquipId) return true
@@ -384,6 +387,8 @@ function collectSyncData(): Record<string, unknown> {
         customWeapons: s.customWeapons ?? [],
         flags: normalizeEssenceSettingsFlags(s),
         regionFirst: s.regionFirst ?? null, regionSecond: s.regionSecond ?? null,
+        hiddenAcquisitionCategoriesList: Array.isArray(s.hiddenAcquisitionCategoriesList) ? s.hiddenAcquisitionCategoriesList : [],
+        hiddenAcquisitionCategoriesPlans: Array.isArray(s.hiddenAcquisitionCategoriesPlans) ? s.hiddenAcquisitionCategoriesPlans : [],
       }
     }
   } catch { /* ignore */ }
@@ -915,6 +920,8 @@ export function useAutoSync() {
           state.keepUpVisibleList !== prevState.keepUpVisibleList ||
           state.keepUpVisiblePlans !== prevState.keepUpVisiblePlans ||
           state.onlyHideWhenBothOwnedList !== prevState.onlyHideWhenBothOwnedList ||
+          state.hiddenAcquisitionCategoriesList !== prevState.hiddenAcquisitionCategoriesList ||
+          state.hiddenAcquisitionCategoriesPlans !== prevState.hiddenAcquisitionCategoriesPlans ||
           state.onlyHideWhenBothOwnedPlans !== prevState.onlyHideWhenBothOwnedPlans
         ) {
           schedulePush()

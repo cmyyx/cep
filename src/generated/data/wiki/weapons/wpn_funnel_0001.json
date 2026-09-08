@@ -364,6 +364,104 @@
       "baseAttack": 341
     }
   ],
+  "skills": [
+    {
+      "id": "wpn_attr_wisd_low",
+      "levels": [
+        {
+          "level": 1
+        },
+        {
+          "level": 2
+        },
+        {
+          "level": 3
+        },
+        {
+          "level": 4
+        },
+        {
+          "level": 5
+        },
+        {
+          "level": 6
+        },
+        {
+          "level": 7
+        },
+        {
+          "level": 8
+        },
+        {
+          "level": 9
+        }
+      ]
+    },
+    {
+      "id": "wpn_sp_attr_magicdam_low",
+      "levels": [
+        {
+          "level": 1
+        },
+        {
+          "level": 2
+        },
+        {
+          "level": 3
+        },
+        {
+          "level": 4
+        },
+        {
+          "level": 5
+        },
+        {
+          "level": 6
+        },
+        {
+          "level": 7
+        },
+        {
+          "level": 8
+        },
+        {
+          "level": 9
+        }
+      ]
+    },
+    {
+      "id": "sk_wpn_funnel_0001",
+      "levels": [
+        {
+          "level": 1
+        },
+        {
+          "level": 2
+        },
+        {
+          "level": 3
+        },
+        {
+          "level": 4
+        },
+        {
+          "level": 5
+        },
+        {
+          "level": 6
+        },
+        {
+          "level": 7
+        },
+        {
+          "level": 8
+        },
+        {
+          "level": 9
+        }
+      ]
+    }
+  ],
   "breakthroughs": [
     {
       "stage": 1,
@@ -377,39 +475,21 @@
       "materials": [
         {
           "itemId": "item_weapon_break_low",
-          "name": {
-            "zh-CN": "强固模具",
-            "en": "Cast Die",
-            "ja": "硬質金型",
-            "zh-TW": "強固模具"
-          },
+          "count": 5,
           "iconId": "item_weapon_break_low",
-          "rarity": 3,
-          "count": 5
+          "rarity": 3
         },
         {
           "itemId": "item_plant_spcstone_1_1",
-          "name": {
-            "zh-CN": "轻黯石",
-            "en": "Kalkonyx",
-            "ja": "軽闇石",
-            "zh-TW": "輕黯石"
-          },
+          "count": 3,
           "iconId": "item_plant_spcstone_1_1",
-          "rarity": 4,
-          "count": 3
+          "rarity": 4
         },
         {
           "itemId": "item_gold",
-          "name": {
-            "zh-CN": "折金票",
-            "en": "T-Creds",
-            "ja": "折金券",
-            "zh-TW": "折金票"
-          },
+          "count": 2200,
           "iconId": "item_gold",
-          "rarity": 4,
-          "count": 2200
+          "rarity": 4
         }
       ]
     },
@@ -425,39 +505,21 @@
       "materials": [
         {
           "itemId": "item_weapon_break_low",
-          "name": {
-            "zh-CN": "强固模具",
-            "en": "Cast Die",
-            "ja": "硬質金型",
-            "zh-TW": "強固模具"
-          },
+          "count": 18,
           "iconId": "item_weapon_break_low",
-          "rarity": 3,
-          "count": 18
+          "rarity": 3
         },
         {
           "itemId": "item_plant_spcstone_1_2",
-          "name": {
-            "zh-CN": "中黯石",
-            "en": "Auronyx",
-            "ja": "中闇石",
-            "zh-TW": "中黯石"
-          },
+          "count": 5,
           "iconId": "item_plant_spcstone_1_2",
-          "rarity": 4,
-          "count": 5
+          "rarity": 4
         },
         {
           "itemId": "item_gold",
-          "name": {
-            "zh-CN": "折金票",
-            "en": "T-Creds",
-            "ja": "折金券",
-            "zh-TW": "折金票"
-          },
+          "count": 8500,
           "iconId": "item_gold",
-          "rarity": 4,
-          "count": 8500
+          "rarity": 4
         }
       ]
     },
@@ -473,39 +535,21 @@
       "materials": [
         {
           "itemId": "item_weapon_break_high",
-          "name": {
-            "zh-CN": "重型强固模具",
-            "en": "Heavy Cast Die",
-            "ja": "重硬質金型",
-            "zh-TW": "重型強固模具"
-          },
+          "count": 20,
           "iconId": "item_weapon_break_high",
-          "rarity": 4,
-          "count": 20
+          "rarity": 4
         },
         {
           "itemId": "item_plant_spcstone_1_3",
-          "name": {
-            "zh-CN": "重黯石",
-            "en": "Umbronyx",
-            "ja": "重闇石",
-            "zh-TW": "重黯石"
-          },
+          "count": 5,
           "iconId": "item_plant_spcstone_1_3",
-          "rarity": 4,
-          "count": 5
+          "rarity": 4
         },
         {
           "itemId": "item_gold",
-          "name": {
-            "zh-CN": "折金票",
-            "en": "T-Creds",
-            "ja": "折金券",
-            "zh-TW": "折金票"
-          },
+          "count": 25000,
           "iconId": "item_gold",
-          "rarity": 4,
-          "count": 25000
+          "rarity": 4
         }
       ]
     },
@@ -521,347 +565,27 @@
       "materials": [
         {
           "itemId": "item_weapon_break_high",
-          "name": {
-            "zh-CN": "重型强固模具",
-            "en": "Heavy Cast Die",
-            "ja": "重硬質金型",
-            "zh-TW": "重型強固模具"
-          },
+          "count": 30,
           "iconId": "item_weapon_break_high",
-          "rarity": 4,
-          "count": 30
+          "rarity": 4
         },
         {
           "itemId": "item_char_skill_specialize_5",
-          "name": {
-            "zh-CN": "三相纳米片",
-            "en": "Triphasic Nanoflake",
-            "ja": "三相ナノフレーク",
-            "zh-TW": "三相奈米片"
-          },
+          "count": 16,
           "iconId": "item_char_skill_specialize_5",
-          "rarity": 5,
-          "count": 16
+          "rarity": 5
         },
         {
           "itemId": "item_plant_spcstone_2_1",
-          "name": {
-            "zh-CN": "燎石",
-            "en": "Igneosite",
-            "ja": "燎石",
-            "zh-TW": "燎石"
-          },
+          "count": 8,
           "iconId": "item_plant_spcstone_2_1",
-          "rarity": 5,
-          "count": 8
+          "rarity": 5
         },
         {
           "itemId": "item_gold",
-          "name": {
-            "zh-CN": "折金票",
-            "en": "T-Creds",
-            "ja": "折金券",
-            "zh-TW": "折金票"
-          },
+          "count": 90000,
           "iconId": "item_gold",
-          "rarity": 4,
-          "count": 90000
-        }
-      ]
-    }
-  ],
-  "skills": [
-    {
-      "id": "wpn_attr_wisd_low",
-      "name": {
-        "zh-CN": "智识提升·小",
-        "en": "Intellect [S]",
-        "ja": "知性UP・小",
-        "zh-TW": "智識提升·小"
-      },
-      "description": {
-        "zh-CN": "智识<@ba.vup>+93</>",
-        "en": "Intellect <@ba.vup>+93</>",
-        "ja": "知性<@ba.vup>+93</>",
-        "zh-TW": "智識<@ba.vup>+93</>"
-      },
-      "levels": [
-        {
-          "level": 1,
-          "description": {
-            "zh-CN": "智识<@ba.vup>+12</>",
-            "en": "Intellect <@ba.vup>+12</>",
-            "ja": "知性<@ba.vup>+12</>",
-            "zh-TW": "智識<@ba.vup>+12</>"
-          }
-        },
-        {
-          "level": 2,
-          "description": {
-            "zh-CN": "智识<@ba.vup>+21</>",
-            "en": "Intellect <@ba.vup>+21</>",
-            "ja": "知性<@ba.vup>+21</>",
-            "zh-TW": "智識<@ba.vup>+21</>"
-          }
-        },
-        {
-          "level": 3,
-          "description": {
-            "zh-CN": "智识<@ba.vup>+31</>",
-            "en": "Intellect <@ba.vup>+31</>",
-            "ja": "知性<@ba.vup>+31</>",
-            "zh-TW": "智識<@ba.vup>+31</>"
-          }
-        },
-        {
-          "level": 4,
-          "description": {
-            "zh-CN": "智识<@ba.vup>+40</>",
-            "en": "Intellect <@ba.vup>+40</>",
-            "ja": "知性<@ba.vup>+40</>",
-            "zh-TW": "智識<@ba.vup>+40</>"
-          }
-        },
-        {
-          "level": 5,
-          "description": {
-            "zh-CN": "智识<@ba.vup>+50</>",
-            "en": "Intellect <@ba.vup>+50</>",
-            "ja": "知性<@ba.vup>+50</>",
-            "zh-TW": "智識<@ba.vup>+50</>"
-          }
-        },
-        {
-          "level": 6,
-          "description": {
-            "zh-CN": "智识<@ba.vup>+60</>",
-            "en": "Intellect <@ba.vup>+60</>",
-            "ja": "知性<@ba.vup>+60</>",
-            "zh-TW": "智識<@ba.vup>+60</>"
-          }
-        },
-        {
-          "level": 7,
-          "description": {
-            "zh-CN": "智识<@ba.vup>+69</>",
-            "en": "Intellect <@ba.vup>+69</>",
-            "ja": "知性<@ba.vup>+69</>",
-            "zh-TW": "智識<@ba.vup>+69</>"
-          }
-        },
-        {
-          "level": 8,
-          "description": {
-            "zh-CN": "智识<@ba.vup>+79</>",
-            "en": "Intellect <@ba.vup>+79</>",
-            "ja": "知性<@ba.vup>+79</>",
-            "zh-TW": "智識<@ba.vup>+79</>"
-          }
-        },
-        {
-          "level": 9,
-          "description": {
-            "zh-CN": "智识<@ba.vup>+93</>",
-            "en": "Intellect <@ba.vup>+93</>",
-            "ja": "知性<@ba.vup>+93</>",
-            "zh-TW": "智識<@ba.vup>+93</>"
-          }
-        }
-      ]
-    },
-    {
-      "id": "wpn_sp_attr_magicdam_low",
-      "name": {
-        "zh-CN": "法术提升·小",
-        "en": "Arts DMG [S]",
-        "ja": "アーツダメージUP・小",
-        "zh-TW": "法術提升·小"
-      },
-      "description": {
-        "zh-CN": "法术伤害<@ba.vup>+26.0%</>",
-        "en": "Arts DMG Dealt <@ba.vup>+26.0%</>",
-        "ja": "アーツダメージ<@ba.vup>+26.0%</>",
-        "zh-TW": "法術傷害<@ba.vup>+26.0%</>"
-      },
-      "levels": [
-        {
-          "level": 1,
-          "description": {
-            "zh-CN": "法术伤害<@ba.vup>+3.3%</>",
-            "en": "Arts DMG Dealt <@ba.vup>+3.3%</>",
-            "ja": "アーツダメージ<@ba.vup>+3.3%</>",
-            "zh-TW": "法術傷害<@ba.vup>+3.3%</>"
-          }
-        },
-        {
-          "level": 2,
-          "description": {
-            "zh-CN": "法术伤害<@ba.vup>+6.0%</>",
-            "en": "Arts DMG Dealt <@ba.vup>+6.0%</>",
-            "ja": "アーツダメージ<@ba.vup>+6.0%</>",
-            "zh-TW": "法術傷害<@ba.vup>+6.0%</>"
-          }
-        },
-        {
-          "level": 3,
-          "description": {
-            "zh-CN": "法术伤害<@ba.vup>+8.7%</>",
-            "en": "Arts DMG Dealt <@ba.vup>+8.7%</>",
-            "ja": "アーツダメージ<@ba.vup>+8.7%</>",
-            "zh-TW": "法術傷害<@ba.vup>+8.7%</>"
-          }
-        },
-        {
-          "level": 4,
-          "description": {
-            "zh-CN": "法术伤害<@ba.vup>+11.3%</>",
-            "en": "Arts DMG Dealt <@ba.vup>+11.3%</>",
-            "ja": "アーツダメージ<@ba.vup>+11.3%</>",
-            "zh-TW": "法術傷害<@ba.vup>+11.3%</>"
-          }
-        },
-        {
-          "level": 5,
-          "description": {
-            "zh-CN": "法术伤害<@ba.vup>+14.0%</>",
-            "en": "Arts DMG Dealt <@ba.vup>+14.0%</>",
-            "ja": "アーツダメージ<@ba.vup>+14.0%</>",
-            "zh-TW": "法術傷害<@ba.vup>+14.0%</>"
-          }
-        },
-        {
-          "level": 6,
-          "description": {
-            "zh-CN": "法术伤害<@ba.vup>+16.7%</>",
-            "en": "Arts DMG Dealt <@ba.vup>+16.7%</>",
-            "ja": "アーツダメージ<@ba.vup>+16.7%</>",
-            "zh-TW": "法術傷害<@ba.vup>+16.7%</>"
-          }
-        },
-        {
-          "level": 7,
-          "description": {
-            "zh-CN": "法术伤害<@ba.vup>+19.3%</>",
-            "en": "Arts DMG Dealt <@ba.vup>+19.3%</>",
-            "ja": "アーツダメージ<@ba.vup>+19.3%</>",
-            "zh-TW": "法術傷害<@ba.vup>+19.3%</>"
-          }
-        },
-        {
-          "level": 8,
-          "description": {
-            "zh-CN": "法术伤害<@ba.vup>+22.0%</>",
-            "en": "Arts DMG Dealt <@ba.vup>+22.0%</>",
-            "ja": "アーツダメージ<@ba.vup>+22.0%</>",
-            "zh-TW": "法術傷害<@ba.vup>+22.0%</>"
-          }
-        },
-        {
-          "level": 9,
-          "description": {
-            "zh-CN": "法术伤害<@ba.vup>+26.0%</>",
-            "en": "Arts DMG Dealt <@ba.vup>+26.0%</>",
-            "ja": "アーツダメージ<@ba.vup>+26.0%</>",
-            "zh-TW": "法術傷害<@ba.vup>+26.0%</>"
-          }
-        }
-      ]
-    },
-    {
-      "id": "sk_wpn_funnel_0001",
-      "name": {
-        "zh-CN": "昂扬·远途起始",
-        "en": "Inspiring: Start of a Saga",
-        "ja": "昂揚・遠路の始まり",
-        "zh-TW": "昂揚·遠途起始"
-      },
-      "description": {
-        "zh-CN": "当装备者的生命值高于<@ba.vup>80%</>时，攻击力<@ba.vup>+42.0%</>。",
-        "en": "When the wielder's HP is above <@ba.vup>80%</>, ATK <@ba.vup>+42.0%</>.",
-        "ja": "装備中、自身のHPが<@ba.vup>80%</>より高いとき、攻撃力<@ba.vup>+42.0%</>",
-        "zh-TW": "當裝備者的生命值高於<@ba.vup>80%</>時，攻擊力<@ba.vup>+42.0%</>。"
-      },
-      "levels": [
-        {
-          "level": 1,
-          "description": {
-            "zh-CN": "当装备者的生命值高于<@ba.vup>80%</>时，攻击力<@ba.vup>+15.0%</>。",
-            "en": "When the wielder's HP is above <@ba.vup>80%</>, ATK <@ba.vup>+15.0%</>.",
-            "ja": "装備中、自身のHPが<@ba.vup>80%</>より高いとき、攻撃力<@ba.vup>+15.0%</>",
-            "zh-TW": "當裝備者的生命值高於<@ba.vup>80%</>時，攻擊力<@ba.vup>+15.0%</>。"
-          }
-        },
-        {
-          "level": 2,
-          "description": {
-            "zh-CN": "当装备者的生命值高于<@ba.vup>80%</>时，攻击力<@ba.vup>+18.0%</>。",
-            "en": "When the wielder's HP is above <@ba.vup>80%</>, ATK <@ba.vup>+18.0%</>.",
-            "ja": "装備中、自身のHPが<@ba.vup>80%</>より高いとき、攻撃力<@ba.vup>+18.0%</>",
-            "zh-TW": "當裝備者的生命值高於<@ba.vup>80%</>時，攻擊力<@ba.vup>+18.0%</>。"
-          }
-        },
-        {
-          "level": 3,
-          "description": {
-            "zh-CN": "当装备者的生命值高于<@ba.vup>80%</>时，攻击力<@ba.vup>+21.0%</>。",
-            "en": "When the wielder's HP is above <@ba.vup>80%</>, ATK <@ba.vup>+21.0%</>.",
-            "ja": "装備中、自身のHPが<@ba.vup>80%</>より高いとき、攻撃力<@ba.vup>+21.0%</>",
-            "zh-TW": "當裝備者的生命值高於<@ba.vup>80%</>時，攻擊力<@ba.vup>+21.0%</>。"
-          }
-        },
-        {
-          "level": 4,
-          "description": {
-            "zh-CN": "当装备者的生命值高于<@ba.vup>80%</>时，攻击力<@ba.vup>+24.0%</>。",
-            "en": "When the wielder's HP is above <@ba.vup>80%</>, ATK <@ba.vup>+24.0%</>.",
-            "ja": "装備中、自身のHPが<@ba.vup>80%</>より高いとき、攻撃力<@ba.vup>+24.0%</>",
-            "zh-TW": "當裝備者的生命值高於<@ba.vup>80%</>時，攻擊力<@ba.vup>+24.0%</>。"
-          }
-        },
-        {
-          "level": 5,
-          "description": {
-            "zh-CN": "当装备者的生命值高于<@ba.vup>80%</>时，攻击力<@ba.vup>+27.0%</>。",
-            "en": "When the wielder's HP is above <@ba.vup>80%</>, ATK <@ba.vup>+27.0%</>.",
-            "ja": "装備中、自身のHPが<@ba.vup>80%</>より高いとき、攻撃力<@ba.vup>+27.0%</>",
-            "zh-TW": "當裝備者的生命值高於<@ba.vup>80%</>時，攻擊力<@ba.vup>+27.0%</>。"
-          }
-        },
-        {
-          "level": 6,
-          "description": {
-            "zh-CN": "当装备者的生命值高于<@ba.vup>80%</>时，攻击力<@ba.vup>+30.0%</>。",
-            "en": "When the wielder's HP is above <@ba.vup>80%</>, ATK <@ba.vup>+30.0%</>.",
-            "ja": "装備中、自身のHPが<@ba.vup>80%</>より高いとき、攻撃力<@ba.vup>+30.0%</>",
-            "zh-TW": "當裝備者的生命值高於<@ba.vup>80%</>時，攻擊力<@ba.vup>+30.0%</>。"
-          }
-        },
-        {
-          "level": 7,
-          "description": {
-            "zh-CN": "当装备者的生命值高于<@ba.vup>80%</>时，攻击力<@ba.vup>+33.0%</>。",
-            "en": "When the wielder's HP is above <@ba.vup>80%</>, ATK <@ba.vup>+33.0%</>.",
-            "ja": "装備中、自身のHPが<@ba.vup>80%</>より高いとき、攻撃力<@ba.vup>+33.0%</>",
-            "zh-TW": "當裝備者的生命值高於<@ba.vup>80%</>時，攻擊力<@ba.vup>+33.0%</>。"
-          }
-        },
-        {
-          "level": 8,
-          "description": {
-            "zh-CN": "当装备者的生命值高于<@ba.vup>80%</>时，攻击力<@ba.vup>+36.0%</>。",
-            "en": "When the wielder's HP is above <@ba.vup>80%</>, ATK <@ba.vup>+36.0%</>.",
-            "ja": "装備中、自身のHPが<@ba.vup>80%</>より高いとき、攻撃力<@ba.vup>+36.0%</>",
-            "zh-TW": "當裝備者的生命值高於<@ba.vup>80%</>時，攻擊力<@ba.vup>+36.0%</>。"
-          }
-        },
-        {
-          "level": 9,
-          "description": {
-            "zh-CN": "当装备者的生命值高于<@ba.vup>80%</>时，攻击力<@ba.vup>+42.0%</>。",
-            "en": "When the wielder's HP is above <@ba.vup>80%</>, ATK <@ba.vup>+42.0%</>.",
-            "ja": "装備中、自身のHPが<@ba.vup>80%</>より高いとき、攻撃力<@ba.vup>+42.0%</>",
-            "zh-TW": "當裝備者的生命值高於<@ba.vup>80%</>時，攻擊力<@ba.vup>+42.0%</>。"
-          }
+          "rarity": 4
         }
       ]
     }
