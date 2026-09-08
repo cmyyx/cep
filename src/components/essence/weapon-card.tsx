@@ -15,6 +15,8 @@ import { getCharacterAvatarPath } from '@/lib/character-images'
 import { PlannerWikiPreview } from '@/components/shared/planner-wiki-preview'
 import { ItemFrameBackground } from '@/components/shared/item-frame-background'
 import { getWeaponWikiPreview } from '@/lib/weapon-wiki-preview'
+import { acquisitionCategoryIds, acquisitionCategoryLabelText } from '@/lib/weapon-acquisition'
+import { useWikiTranslations } from '@/hooks/use-wiki-translations'
 import { weaponStatLabel } from '@/lib/weapon-stats'
 import { PLANNER_SELECTED_BADGE_CLASS, PLANNER_SELECTED_RING_CLASS } from '@/lib/planner-selection-styles'
 
@@ -40,6 +42,9 @@ export const WeaponCard = memo(function WeaponCard({
   disabled,
 }: WeaponCardProps) {
   const t = useTranslations()
+  const { text: wikiText, ready: wikiTextReady } = useWikiTranslations()
+  const acquisitionCategoryLabel = (categoryId: string): string =>
+    acquisitionCategoryLabelText(categoryId, wikiText, t)
   const locale = useLocale()
   const toggleWeapon = useMatrixStore((s) => s.toggleWeapon)
   const enableTooltip = useEssenceSettingsStore((s) => s.enableTooltipList)
@@ -69,7 +74,11 @@ export const WeaponCard = memo(function WeaponCard({
     ? wid
     : withImageCacheVersion(`/images/weapon/${imageId}.avif`)
   const displayName = (isCustom || isPreview) ? weapon.name : (t(`weapons.${wid}`) ?? weapon.name)
-  const preview = getWeaponWikiPreview(wid, locale as WikiLocale)
+  const preview = getWeaponWikiPreview(wid, locale as WikiLocale, wikiTextReady ? (_weaponId, skillId, level) => wikiText('weapon', wid, 'skill', skillId, 'level', level) : undefined)
+  const acquisitionCategories = acquisitionCategoryIds(weapon.acquisitionSources)
+  const acquisitionLabel = acquisitionCategories.length > 0
+    ? acquisitionCategories.map((categoryId) => acquisitionCategoryLabel(categoryId)).join('、')
+    : acquisitionCategoryLabel('unknown')
 
   const trigger = (
     <Button
@@ -216,6 +225,7 @@ export const WeaponCard = memo(function WeaponCard({
             { label: weaponStatLabel(weapon.elementalDamage, t), ...preview.values[1] },
             { label: weaponStatLabel(weapon.specialAbility, t), ...preview.values[2], truncate: true },
           ].filter((_, index) => [weapon.primaryStat, weapon.elementalDamage, weapon.specialAbility][index] !== null)}
+          footer={<p className="text-xs text-muted-foreground">{t('essence.acquisitionSourceLabel')}: {acquisitionLabel}</p>}
           wikiHref={!isCustom && !isPreview ? preview.wikiHref : undefined}
         />
       </TooltipContent>

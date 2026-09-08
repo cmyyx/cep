@@ -62,6 +62,10 @@ export interface EssenceUserData {
 export type EssenceSettingsState = EssenceSettingsFlags &
   EssenceUserData & {
     /** Region priority: two-level. null means none. */
+    /** Source categories hidden from the weapon list. */
+    hiddenAcquisitionCategoriesList: string[]
+    /** Source categories hidden from plan recommendations. */
+    hiddenAcquisitionCategoriesPlans: string[]
     regionFirst: string | null
     regionSecond: string | null
     /** Weapon grid attribute filter collapsed state */
@@ -88,6 +92,7 @@ export type EssenceSettingsState = EssenceSettingsFlags &
     setActiveAccount: (accountId: string) => void
     /** Replace all profiles from a cloud payload (keeps active id when possible). */
     applyAccounts: (accounts: EssenceAccount[]) => void
+    setHiddenAcquisitionCategories: (scope: 'list' | 'plans', categoryIds: string[]) => void
     setRegionFirst: (region: string | null) => void
     setRegionSecond: (region: string | null) => void
     toggleWeaponFilterCollapsed: () => void

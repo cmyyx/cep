@@ -45,10 +45,17 @@ describe('WikiRichText', () => {
     expect(screen.getByRole('button', { name: 'Consume' })).toBeTruthy()
   })
 
-  it('still renders glossary triggers before the locale catalog loads', () => {
+  it('renders glossary tags as plain text while no term text is loaded, then as triggers once the catalog loads', () => {
+    // Catalog not loaded and the bundled glossary carries no localized text:
+    // an interactive Tooltip would open with an empty title and body.
     catalogState.loaded = false
-    render(<WikiRichText value="Apply <#ba.consume>Consume</>" />)
+    const { unmount } = render(<WikiRichText value="Apply <#ba.consume>Consume</>" />)
+    expect(screen.queryByRole('button', { name: 'Consume' })).toBeNull()
+    expect(screen.getByText('Consume')).toBeTruthy()
+    unmount()
 
+    catalogState.loaded = true
+    render(<WikiRichText value="Apply <#ba.consume>Consume</>" />)
     expect(screen.getByRole('button', { name: 'Consume' })).toBeTruthy()
   })
 

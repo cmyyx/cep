@@ -3528,73 +3528,25 @@
     {
       "id": "chr_0022_bounda_NormalAttack",
       "typeId": "0",
-      "name": {
-        "zh-CN": "独门射击法",
-        "en": "Signature Gun Kata",
-        "ja": "自己流射撃法",
-        "zh-TW": "獨門射擊法"
-      },
-      "description": {
-        "zh-CN": "普通攻击：\n对敌人进行至多4段攻击，造成<@ba.natur>自然伤害</>。作为主控干员时，<#ba.lastcombo>重击</>会造成<@ba.poise>15</>点失衡。\n\n下落攻击：\n处于空中时使用普通攻击，会下落并攻击附近敌人，造成<@ba.natur>自然伤害</>。\n\n处决攻击：\n附近有敌人处于失衡状态时使用普通攻击，将处决该敌人，造成大量<@ba.natur>自然伤害</>并恢复一定技力。",
-        "en": "BASIC ATTACK: \nAn attack with up to 4 sequences that deals <@ba.natur>Nature DMG</>. As the controlled operator, <#ba.lastcombo>Final Strike</> also deals <@ba.poise>15</> Stagger. \n\nDIVE ATTACK: \nBasic attack performed in mid-air becomes a dive attack that deals <@ba.natur>Nature DMG</> to nearby enemies. \n\nFINISHER: \nBasic attack performed near a Staggered enemy becomes a finisher that deals massive <@ba.natur>Nature DMG</> and recovers some SP.",
-        "ja": "通常攻撃：\n最大4段の攻撃で敵に<@ba.natur>自然ダメージ</>を与える。操作中のオペレーターの場合、<#ba.lastcombo>重攻撃</>はブレイク値<@ba.poise>15</>を与える。\n\n落下攻撃：\n空中で通常攻撃を使用すると、落下して周囲の敵に<@ba.natur>自然ダメージ</>を与える。\n\n終撃：\n近くにブレイク状態の敵がいるときに通常攻撃を使用すると、その敵に終撃を行い、高い<@ba.natur>自然ダメージ</>を与えてSPを一定量回復する。",
-        "zh-TW": "普通攻擊：\n對敵人進行最多4段攻擊，造成<@ba.natur>自然傷害</>。作為主控幹員時，<#ba.lastcombo>重擊</>會造成<@ba.poise>15</>點失衡。\n\n下墜攻擊：\n處於空中時使用普通攻擊，會下落並攻擊附近敵人，造成<@ba.natur>自然傷害</>。\n\n處決攻擊：\n附近有敵人處於失衡狀態時使用普通攻擊，將處決該敵人，造成大量<@ba.natur>自然傷害</>並回復一定技力。"
-      },
       "iconId": "icon_attack_pistol",
       "metrics": [
         {
-          "id": "chr_0022_bounda_attack1:0",
-          "label": {
-            "zh-CN": "普攻第一段倍率",
-            "en": "BATK SEQ 1 Multiplier",
-            "ja": "通常攻撃1段目ダメージ倍率",
-            "zh-TW": "普攻第一段倍率"
-          }
+          "id": "chr_0022_bounda_attack1:0"
         },
         {
-          "id": "chr_0022_bounda_attack2:0",
-          "label": {
-            "zh-CN": "普攻第二段倍率",
-            "en": "BATK SEQ 2 Multiplier",
-            "ja": "通常攻撃2段目ダメージ倍率",
-            "zh-TW": "普攻第二段倍率"
-          }
+          "id": "chr_0022_bounda_attack2:0"
         },
         {
-          "id": "chr_0022_bounda_attack3:0",
-          "label": {
-            "zh-CN": "普攻第三段倍率",
-            "en": "BATK SEQ 3 Multiplier",
-            "ja": "通常攻撃3段目ダメージ倍率",
-            "zh-TW": "普攻第三段倍率"
-          }
+          "id": "chr_0022_bounda_attack3:0"
         },
         {
-          "id": "chr_0022_bounda_attack4:0",
-          "label": {
-            "zh-CN": "普攻第四段倍率",
-            "en": "BATK SEQ 4 Multiplier",
-            "ja": "通常攻撃4段目ダメージ倍率",
-            "zh-TW": "普攻第四段倍率"
-          }
+          "id": "chr_0022_bounda_attack4:0"
         },
         {
-          "id": "chr_0022_bounda_power_attack:0",
-          "label": {
-            "zh-CN": "处决攻击倍率",
-            "en": "Finisher ATK Multiplier",
-            "ja": "終撃ダメージ倍率",
-            "zh-TW": "處決攻擊倍率"
-          }
+          "id": "chr_0022_bounda_power_attack:0"
         },
         {
-          "id": "chr_0022_bounda_plunging_attack_end:0",
-          "label": {
-            "zh-CN": "下落攻击倍率",
-            "en": "Dive ATK Multiplier",
-            "ja": "落下攻撃ダメージ倍率",
-            "zh-TW": "下墜攻擊倍率"
-          }
+          "id": "chr_0022_bounda_plunging_attack_end:0"
         }
       ],
       "levels": [
@@ -3624,39 +3576,21 @@
           "materials": [
             {
               "itemId": "item_char_skill_level_1_6",
-              "name": {
-                "zh-CN": "协议棱柱",
-                "en": "Protoprism",
-                "ja": "協約角柱",
-                "zh-TW": "協議稜柱"
-              },
+              "count": 6,
               "iconId": "item_char_skill_level_1_6",
-              "rarity": 3,
-              "count": 6
+              "rarity": 3
             },
             {
               "itemId": "item_plant_crylplant_1_1",
-              "name": {
-                "zh-CN": "晶化多齿叶",
-                "en": "Kalkodendra",
-                "ja": "結晶鋭葉",
-                "zh-TW": "晶化多齒葉"
-              },
+              "count": 1,
               "iconId": "item_plant_crylplant_1_1",
-              "rarity": 4,
-              "count": 1
+              "rarity": 4
             },
             {
               "itemId": "item_gold",
-              "name": {
-                "zh-CN": "折金票",
-                "en": "T-Creds",
-                "ja": "折金券",
-                "zh-TW": "折金票"
-              },
+              "count": 1000,
               "iconId": "item_gold",
-              "rarity": 4,
-              "count": 1000
+              "rarity": 4
             }
           ]
         },
@@ -3674,39 +3608,21 @@
           "materials": [
             {
               "itemId": "item_char_skill_level_1_6",
-              "name": {
-                "zh-CN": "协议棱柱",
-                "en": "Protoprism",
-                "ja": "協約角柱",
-                "zh-TW": "協議稜柱"
-              },
+              "count": 12,
               "iconId": "item_char_skill_level_1_6",
-              "rarity": 3,
-              "count": 12
+              "rarity": 3
             },
             {
               "itemId": "item_plant_crylplant_1_1",
-              "name": {
-                "zh-CN": "晶化多齿叶",
-                "en": "Kalkodendra",
-                "ja": "結晶鋭葉",
-                "zh-TW": "晶化多齒葉"
-              },
+              "count": 2,
               "iconId": "item_plant_crylplant_1_1",
-              "rarity": 4,
-              "count": 2
+              "rarity": 4
             },
             {
               "itemId": "item_gold",
-              "name": {
-                "zh-CN": "折金票",
-                "en": "T-Creds",
-                "ja": "折金券",
-                "zh-TW": "折金票"
-              },
+              "count": 2700,
               "iconId": "item_gold",
-              "rarity": 4,
-              "count": 2700
+              "rarity": 4
             }
           ]
         },
@@ -3724,39 +3640,21 @@
           "materials": [
             {
               "itemId": "item_char_skill_level_1_6",
-              "name": {
-                "zh-CN": "协议棱柱",
-                "en": "Protoprism",
-                "ja": "協約角柱",
-                "zh-TW": "協議稜柱"
-              },
+              "count": 16,
               "iconId": "item_char_skill_level_1_6",
-              "rarity": 3,
-              "count": 16
+              "rarity": 3
             },
             {
               "itemId": "item_plant_crylplant_1_2",
-              "name": {
-                "zh-CN": "纯晶多齿叶",
-                "en": "Chrysodendra",
-                "ja": "純晶鋭葉",
-                "zh-TW": "純晶多齒葉"
-              },
+              "count": 1,
               "iconId": "item_plant_crylplant_1_2",
-              "rarity": 4,
-              "count": 1
+              "rarity": 4
             },
             {
               "itemId": "item_gold",
-              "name": {
-                "zh-CN": "折金票",
-                "en": "T-Creds",
-                "ja": "折金券",
-                "zh-TW": "折金票"
-              },
+              "count": 3200,
               "iconId": "item_gold",
-              "rarity": 4,
-              "count": 3200
+              "rarity": 4
             }
           ]
         },
@@ -3774,39 +3672,21 @@
           "materials": [
             {
               "itemId": "item_char_skill_level_1_6",
-              "name": {
-                "zh-CN": "协议棱柱",
-                "en": "Protoprism",
-                "ja": "協約角柱",
-                "zh-TW": "協議稜柱"
-              },
+              "count": 21,
               "iconId": "item_char_skill_level_1_6",
-              "rarity": 3,
-              "count": 21
+              "rarity": 3
             },
             {
               "itemId": "item_plant_crylplant_1_2",
-              "name": {
-                "zh-CN": "纯晶多齿叶",
-                "en": "Chrysodendra",
-                "ja": "純晶鋭葉",
-                "zh-TW": "純晶多齒葉"
-              },
+              "count": 1,
               "iconId": "item_plant_crylplant_1_2",
-              "rarity": 4,
-              "count": 1
+              "rarity": 4
             },
             {
               "itemId": "item_gold",
-              "name": {
-                "zh-CN": "折金票",
-                "en": "T-Creds",
-                "ja": "折金券",
-                "zh-TW": "折金票"
-              },
+              "count": 4200,
               "iconId": "item_gold",
-              "rarity": 4,
-              "count": 4200
+              "rarity": 4
             }
           ]
         },
@@ -3824,39 +3704,21 @@
           "materials": [
             {
               "itemId": "item_char_skill_level_1_6",
-              "name": {
-                "zh-CN": "协议棱柱",
-                "en": "Protoprism",
-                "ja": "協約角柱",
-                "zh-TW": "協議稜柱"
-              },
+              "count": 27,
               "iconId": "item_char_skill_level_1_6",
-              "rarity": 3,
-              "count": 27
+              "rarity": 3
             },
             {
               "itemId": "item_plant_crylplant_1_2",
-              "name": {
-                "zh-CN": "纯晶多齿叶",
-                "en": "Chrysodendra",
-                "ja": "純晶鋭葉",
-                "zh-TW": "純晶多齒葉"
-              },
+              "count": 2,
               "iconId": "item_plant_crylplant_1_2",
-              "rarity": 4,
-              "count": 2
+              "rarity": 4
             },
             {
               "itemId": "item_gold",
-              "name": {
-                "zh-CN": "折金票",
-                "en": "T-Creds",
-                "ja": "折金券",
-                "zh-TW": "折金票"
-              },
+              "count": 5400,
               "iconId": "item_gold",
-              "rarity": 4,
-              "count": 5400
+              "rarity": 4
             }
           ]
         },
@@ -3874,39 +3736,21 @@
           "materials": [
             {
               "itemId": "item_char_skill_level_7_12",
-              "name": {
-                "zh-CN": "协议棱柱组",
-                "en": "Protohedron",
-                "ja": "協約角柱セット",
-                "zh-TW": "協議稜柱組"
-              },
+              "count": 6,
               "iconId": "item_char_skill_level_7_12",
-              "rarity": 4,
-              "count": 6
+              "rarity": 4
             },
             {
               "itemId": "item_plant_crylplant_1_3",
-              "name": {
-                "zh-CN": "至晶多齿叶",
-                "en": "Vitrodendra",
-                "ja": "至晶鋭葉",
-                "zh-TW": "至晶多齒葉"
-              },
+              "count": 1,
               "iconId": "item_plant_crylplant_1_3",
-              "rarity": 4,
-              "count": 1
+              "rarity": 4
             },
             {
               "itemId": "item_gold",
-              "name": {
-                "zh-CN": "折金票",
-                "en": "T-Creds",
-                "ja": "折金券",
-                "zh-TW": "折金票"
-              },
+              "count": 8200,
               "iconId": "item_gold",
-              "rarity": 4,
-              "count": 8200
+              "rarity": 4
             }
           ]
         },
@@ -3924,39 +3768,21 @@
           "materials": [
             {
               "itemId": "item_char_skill_level_7_12",
-              "name": {
-                "zh-CN": "协议棱柱组",
-                "en": "Protohedron",
-                "ja": "協約角柱セット",
-                "zh-TW": "協議稜柱組"
-              },
+              "count": 8,
               "iconId": "item_char_skill_level_7_12",
-              "rarity": 4,
-              "count": 8
+              "rarity": 4
             },
             {
               "itemId": "item_plant_crylplant_1_3",
-              "name": {
-                "zh-CN": "至晶多齿叶",
-                "en": "Vitrodendra",
-                "ja": "至晶鋭葉",
-                "zh-TW": "至晶多齒葉"
-              },
+              "count": 1,
               "iconId": "item_plant_crylplant_1_3",
-              "rarity": 4,
-              "count": 1
+              "rarity": 4
             },
             {
               "itemId": "item_gold",
-              "name": {
-                "zh-CN": "折金票",
-                "en": "T-Creds",
-                "ja": "折金券",
-                "zh-TW": "折金票"
-              },
+              "count": 10500,
               "iconId": "item_gold",
-              "rarity": 4,
-              "count": 10500
+              "rarity": 4
             }
           ]
         },
@@ -3974,39 +3800,21 @@
           "materials": [
             {
               "itemId": "item_char_skill_level_7_12",
-              "name": {
-                "zh-CN": "协议棱柱组",
-                "en": "Protohedron",
-                "ja": "協約角柱セット",
-                "zh-TW": "協議稜柱組"
-              },
+              "count": 15,
               "iconId": "item_char_skill_level_7_12",
-              "rarity": 4,
-              "count": 15
+              "rarity": 4
             },
             {
               "itemId": "item_plant_crylplant_1_3",
-              "name": {
-                "zh-CN": "至晶多齿叶",
-                "en": "Vitrodendra",
-                "ja": "至晶鋭葉",
-                "zh-TW": "至晶多齒葉"
-              },
+              "count": 2,
               "iconId": "item_plant_crylplant_1_3",
-              "rarity": 4,
-              "count": 2
+              "rarity": 4
             },
             {
               "itemId": "item_gold",
-              "name": {
-                "zh-CN": "折金票",
-                "en": "T-Creds",
-                "ja": "折金券",
-                "zh-TW": "折金票"
-              },
+              "count": 18000,
               "iconId": "item_gold",
-              "rarity": 4,
-              "count": 18000
+              "rarity": 4
             }
           ]
         },
@@ -4024,63 +3832,33 @@
           "materials": [
             {
               "itemId": "item_char_skill_crown",
-              "name": {
-                "zh-CN": "存续的痕迹",
-                "en": "Mark of Perseverance",
-                "ja": "存続の痕跡",
-                "zh-TW": "存續的痕跡"
-              },
+              "count": 1,
               "iconId": "item_char_skill_crown",
-              "rarity": 5,
-              "count": 1
+              "rarity": 5
             },
             {
               "itemId": "item_char_skill_level_7_12",
-              "name": {
-                "zh-CN": "协议棱柱组",
-                "en": "Protohedron",
-                "ja": "協約角柱セット",
-                "zh-TW": "協議稜柱組"
-              },
+              "count": 15,
               "iconId": "item_char_skill_level_7_12",
-              "rarity": 4,
-              "count": 15
+              "rarity": 4
             },
             {
               "itemId": "item_char_skill_specialize_3",
-              "name": {
-                "zh-CN": "快子遴捡晶格",
-                "en": "Tachyon Screening Lattice",
-                "ja": "タキオン精選格子",
-                "zh-TW": "迅子遴撿晶格"
-              },
+              "count": 6,
               "iconId": "item_char_skill_specialize_3",
-              "rarity": 5,
-              "count": 6
+              "rarity": 5
             },
             {
               "itemId": "item_plant_crylplant_2_1",
-              "name": {
-                "zh-CN": "受蚀玉化叶",
-                "en": "Blighted Jadeleaf",
-                "ja": "侵蝕玉化葉",
-                "zh-TW": "受蝕玉化葉"
-              },
+              "count": 3,
               "iconId": "item_plant_crylplant_2_1",
-              "rarity": 5,
-              "count": 3
+              "rarity": 5
             },
             {
               "itemId": "item_gold",
-              "name": {
-                "zh-CN": "折金票",
-                "en": "T-Creds",
-                "ja": "折金券",
-                "zh-TW": "折金票"
-              },
+              "count": 24000,
               "iconId": "item_gold",
-              "rarity": 4,
-              "count": 24000
+              "rarity": 4
             }
           ]
         },
@@ -4098,63 +3876,33 @@
           "materials": [
             {
               "itemId": "item_char_skill_crown",
-              "name": {
-                "zh-CN": "存续的痕迹",
-                "en": "Mark of Perseverance",
-                "ja": "存続の痕跡",
-                "zh-TW": "存續的痕跡"
-              },
+              "count": 2,
               "iconId": "item_char_skill_crown",
-              "rarity": 5,
-              "count": 2
+              "rarity": 5
             },
             {
               "itemId": "item_char_skill_level_7_12",
-              "name": {
-                "zh-CN": "协议棱柱组",
-                "en": "Protohedron",
-                "ja": "協約角柱セット",
-                "zh-TW": "協議稜柱組"
-              },
+              "count": 24,
               "iconId": "item_char_skill_level_7_12",
-              "rarity": 4,
-              "count": 24
+              "rarity": 4
             },
             {
               "itemId": "item_char_skill_specialize_3",
-              "name": {
-                "zh-CN": "快子遴捡晶格",
-                "en": "Tachyon Screening Lattice",
-                "ja": "タキオン精選格子",
-                "zh-TW": "迅子遴撿晶格"
-              },
+              "count": 16,
               "iconId": "item_char_skill_specialize_3",
-              "rarity": 5,
-              "count": 16
+              "rarity": 5
             },
             {
               "itemId": "item_plant_crylplant_2_1",
-              "name": {
-                "zh-CN": "受蚀玉化叶",
-                "en": "Blighted Jadeleaf",
-                "ja": "侵蝕玉化葉",
-                "zh-TW": "受蝕玉化葉"
-              },
+              "count": 6,
               "iconId": "item_plant_crylplant_2_1",
-              "rarity": 5,
-              "count": 6
+              "rarity": 5
             },
             {
               "itemId": "item_gold",
-              "name": {
-                "zh-CN": "折金票",
-                "en": "T-Creds",
-                "ja": "折金券",
-                "zh-TW": "折金票"
-              },
+              "count": 30000,
               "iconId": "item_gold",
-              "rarity": 4,
-              "count": 30000
+              "rarity": 4
             }
           ]
         },
@@ -4172,63 +3920,33 @@
           "materials": [
             {
               "itemId": "item_char_skill_crown",
-              "name": {
-                "zh-CN": "存续的痕迹",
-                "en": "Mark of Perseverance",
-                "ja": "存続の痕跡",
-                "zh-TW": "存續的痕跡"
-              },
+              "count": 3,
               "iconId": "item_char_skill_crown",
-              "rarity": 5,
-              "count": 3
+              "rarity": 5
             },
             {
               "itemId": "item_char_skill_level_7_12",
-              "name": {
-                "zh-CN": "协议棱柱组",
-                "en": "Protohedron",
-                "ja": "協約角柱セット",
-                "zh-TW": "協議稜柱組"
-              },
+              "count": 50,
               "iconId": "item_char_skill_level_7_12",
-              "rarity": 4,
-              "count": 50
+              "rarity": 4
             },
             {
               "itemId": "item_char_skill_specialize_3",
-              "name": {
-                "zh-CN": "快子遴捡晶格",
-                "en": "Tachyon Screening Lattice",
-                "ja": "タキオン精選格子",
-                "zh-TW": "迅子遴撿晶格"
-              },
+              "count": 36,
               "iconId": "item_char_skill_specialize_3",
-              "rarity": 5,
-              "count": 36
+              "rarity": 5
             },
             {
               "itemId": "item_plant_crylplant_2_1",
-              "name": {
-                "zh-CN": "受蚀玉化叶",
-                "en": "Blighted Jadeleaf",
-                "ja": "侵蝕玉化葉",
-                "zh-TW": "受蝕玉化葉"
-              },
+              "count": 12,
               "iconId": "item_plant_crylplant_2_1",
-              "rarity": 5,
-              "count": 12
+              "rarity": 5
             },
             {
               "itemId": "item_gold",
-              "name": {
-                "zh-CN": "折金票",
-                "en": "T-Creds",
-                "ja": "折金券",
-                "zh-TW": "折金票"
-              },
+              "count": 65000,
               "iconId": "item_gold",
-              "rarity": 4,
-              "count": 65000
+              "rarity": 4
             }
           ]
         }
@@ -4237,46 +3955,16 @@
     {
       "id": "chr_0022_bounda_NormalSkill",
       "typeId": "1",
-      "name": {
-        "zh-CN": "小惊喜",
-        "en": "Tiny Surprise",
-        "ja": "ちょっとイタズラ",
-        "zh-TW": "小驚喜"
-      },
-      "description": {
-        "zh-CN": "踢出<@ba.key>自制炸弹</>将其黏附在目标身上，并施加<#ba.slow>缓速</>，短暂延迟后爆炸对范围内的敌人造成<@ba.natur>自然伤害</>并施加<#ba.naturalinflict>自然附着</>。若黏附目标被击败则<@ba.key>自制炸弹</>提前爆炸。\n<@ba.info>场上同时只能存在一个自制炸弹。</>",
-        "en": "Kicks an <@ba.key>Improvised Explosive</> that sticks to the target, applying <#ba.slow>Slow</> and exploding after a short duration. The explosion deals <@ba.natur>Nature DMG</> and <#ba.naturalinflict>Nature Infliction</> to enemies in the area of effect. Defeating the target also sets off the <@ba.key>Improvised Explosive</> immediately.\n<@ba.info>Only 1 Improvised Explosive can be present in the battlefield.</>",
-        "ja": "<@ba.key>お手製爆弾</>を蹴って敵に貼り付け、<#ba.slow>スロー</>を付与する。一定時間後に爆発し、範囲内の敵に<@ba.natur>自然ダメージ</>を与え、<#ba.naturalinflict>自然付着</>を付与する。爆弾が付いている敵が倒れた場合、<@ba.key>お手製爆弾</>はその時点で爆発する。\n<@ba.info>お手製爆弾は同時に1個までしか存在できない。</>",
-        "zh-TW": "踢出<@ba.key>自製炸彈</>將其黏附在目標身上，並施加<#ba.slow>緩速</>，短暫延遲後爆炸對範圍內的敵人造成<@ba.natur>自然傷害</>並施加<#ba.naturalinflict>自然附著</>。若黏附目標被擊敗則<@ba.key>自製炸彈</>提前爆炸。\n<@ba.info>場上同時只能存在一個自製炸彈。</>"
-      },
       "iconId": "icon_skill_bounda_01",
       "metrics": [
         {
-          "id": "chr_0022_bounda_normal_skill:0",
-          "label": {
-            "zh-CN": "伤害倍率",
-            "en": "DMG Multiplier",
-            "ja": "ダメージ倍率",
-            "zh-TW": "傷害倍率"
-          }
+          "id": "chr_0022_bounda_normal_skill:0"
         },
         {
-          "id": "chr_0022_bounda_normal_skill:1",
-          "label": {
-            "zh-CN": "失衡值",
-            "en": "Stagger",
-            "ja": "ブレイク値",
-            "zh-TW": "失衡值"
-          }
+          "id": "chr_0022_bounda_normal_skill:1"
         },
         {
-          "id": "chr_0022_bounda_normal_skill:2",
-          "label": {
-            "zh-CN": "缓速效果",
-            "en": "Slow",
-            "ja": "スロー効果",
-            "zh-TW": "緩速效果"
-          }
+          "id": "chr_0022_bounda_normal_skill:2"
         }
       ],
       "levels": [
@@ -4302,39 +3990,21 @@
           "materials": [
             {
               "itemId": "item_char_skill_level_1_6",
-              "name": {
-                "zh-CN": "协议棱柱",
-                "en": "Protoprism",
-                "ja": "協約角柱",
-                "zh-TW": "協議稜柱"
-              },
+              "count": 6,
               "iconId": "item_char_skill_level_1_6",
-              "rarity": 3,
-              "count": 6
+              "rarity": 3
             },
             {
               "itemId": "item_plant_crylplant_1_1",
-              "name": {
-                "zh-CN": "晶化多齿叶",
-                "en": "Kalkodendra",
-                "ja": "結晶鋭葉",
-                "zh-TW": "晶化多齒葉"
-              },
+              "count": 1,
               "iconId": "item_plant_crylplant_1_1",
-              "rarity": 4,
-              "count": 1
+              "rarity": 4
             },
             {
               "itemId": "item_gold",
-              "name": {
-                "zh-CN": "折金票",
-                "en": "T-Creds",
-                "ja": "折金券",
-                "zh-TW": "折金票"
-              },
+              "count": 1000,
               "iconId": "item_gold",
-              "rarity": 4,
-              "count": 1000
+              "rarity": 4
             }
           ]
         },
@@ -4350,39 +4020,21 @@
           "materials": [
             {
               "itemId": "item_char_skill_level_1_6",
-              "name": {
-                "zh-CN": "协议棱柱",
-                "en": "Protoprism",
-                "ja": "協約角柱",
-                "zh-TW": "協議稜柱"
-              },
+              "count": 12,
               "iconId": "item_char_skill_level_1_6",
-              "rarity": 3,
-              "count": 12
+              "rarity": 3
             },
             {
               "itemId": "item_plant_crylplant_1_1",
-              "name": {
-                "zh-CN": "晶化多齿叶",
-                "en": "Kalkodendra",
-                "ja": "結晶鋭葉",
-                "zh-TW": "晶化多齒葉"
-              },
+              "count": 2,
               "iconId": "item_plant_crylplant_1_1",
-              "rarity": 4,
-              "count": 2
+              "rarity": 4
             },
             {
               "itemId": "item_gold",
-              "name": {
-                "zh-CN": "折金票",
-                "en": "T-Creds",
-                "ja": "折金券",
-                "zh-TW": "折金票"
-              },
+              "count": 2700,
               "iconId": "item_gold",
-              "rarity": 4,
-              "count": 2700
+              "rarity": 4
             }
           ]
         },
@@ -4398,39 +4050,21 @@
           "materials": [
             {
               "itemId": "item_char_skill_level_1_6",
-              "name": {
-                "zh-CN": "协议棱柱",
-                "en": "Protoprism",
-                "ja": "協約角柱",
-                "zh-TW": "協議稜柱"
-              },
+              "count": 16,
               "iconId": "item_char_skill_level_1_6",
-              "rarity": 3,
-              "count": 16
+              "rarity": 3
             },
             {
               "itemId": "item_plant_crylplant_1_2",
-              "name": {
-                "zh-CN": "纯晶多齿叶",
-                "en": "Chrysodendra",
-                "ja": "純晶鋭葉",
-                "zh-TW": "純晶多齒葉"
-              },
+              "count": 1,
               "iconId": "item_plant_crylplant_1_2",
-              "rarity": 4,
-              "count": 1
+              "rarity": 4
             },
             {
               "itemId": "item_gold",
-              "name": {
-                "zh-CN": "折金票",
-                "en": "T-Creds",
-                "ja": "折金券",
-                "zh-TW": "折金票"
-              },
+              "count": 3200,
               "iconId": "item_gold",
-              "rarity": 4,
-              "count": 3200
+              "rarity": 4
             }
           ]
         },
@@ -4446,39 +4080,21 @@
           "materials": [
             {
               "itemId": "item_char_skill_level_1_6",
-              "name": {
-                "zh-CN": "协议棱柱",
-                "en": "Protoprism",
-                "ja": "協約角柱",
-                "zh-TW": "協議稜柱"
-              },
+              "count": 21,
               "iconId": "item_char_skill_level_1_6",
-              "rarity": 3,
-              "count": 21
+              "rarity": 3
             },
             {
               "itemId": "item_plant_crylplant_1_2",
-              "name": {
-                "zh-CN": "纯晶多齿叶",
-                "en": "Chrysodendra",
-                "ja": "純晶鋭葉",
-                "zh-TW": "純晶多齒葉"
-              },
+              "count": 1,
               "iconId": "item_plant_crylplant_1_2",
-              "rarity": 4,
-              "count": 1
+              "rarity": 4
             },
             {
               "itemId": "item_gold",
-              "name": {
-                "zh-CN": "折金票",
-                "en": "T-Creds",
-                "ja": "折金券",
-                "zh-TW": "折金票"
-              },
+              "count": 4200,
               "iconId": "item_gold",
-              "rarity": 4,
-              "count": 4200
+              "rarity": 4
             }
           ]
         },
@@ -4494,39 +4110,21 @@
           "materials": [
             {
               "itemId": "item_char_skill_level_1_6",
-              "name": {
-                "zh-CN": "协议棱柱",
-                "en": "Protoprism",
-                "ja": "協約角柱",
-                "zh-TW": "協議稜柱"
-              },
+              "count": 27,
               "iconId": "item_char_skill_level_1_6",
-              "rarity": 3,
-              "count": 27
+              "rarity": 3
             },
             {
               "itemId": "item_plant_crylplant_1_2",
-              "name": {
-                "zh-CN": "纯晶多齿叶",
-                "en": "Chrysodendra",
-                "ja": "純晶鋭葉",
-                "zh-TW": "純晶多齒葉"
-              },
+              "count": 2,
               "iconId": "item_plant_crylplant_1_2",
-              "rarity": 4,
-              "count": 2
+              "rarity": 4
             },
             {
               "itemId": "item_gold",
-              "name": {
-                "zh-CN": "折金票",
-                "en": "T-Creds",
-                "ja": "折金券",
-                "zh-TW": "折金票"
-              },
+              "count": 5400,
               "iconId": "item_gold",
-              "rarity": 4,
-              "count": 5400
+              "rarity": 4
             }
           ]
         },
@@ -4542,39 +4140,21 @@
           "materials": [
             {
               "itemId": "item_char_skill_level_7_12",
-              "name": {
-                "zh-CN": "协议棱柱组",
-                "en": "Protohedron",
-                "ja": "協約角柱セット",
-                "zh-TW": "協議稜柱組"
-              },
+              "count": 6,
               "iconId": "item_char_skill_level_7_12",
-              "rarity": 4,
-              "count": 6
+              "rarity": 4
             },
             {
               "itemId": "item_plant_crylplant_1_3",
-              "name": {
-                "zh-CN": "至晶多齿叶",
-                "en": "Vitrodendra",
-                "ja": "至晶鋭葉",
-                "zh-TW": "至晶多齒葉"
-              },
+              "count": 1,
               "iconId": "item_plant_crylplant_1_3",
-              "rarity": 4,
-              "count": 1
+              "rarity": 4
             },
             {
               "itemId": "item_gold",
-              "name": {
-                "zh-CN": "折金票",
-                "en": "T-Creds",
-                "ja": "折金券",
-                "zh-TW": "折金票"
-              },
+              "count": 8200,
               "iconId": "item_gold",
-              "rarity": 4,
-              "count": 8200
+              "rarity": 4
             }
           ]
         },
@@ -4590,39 +4170,21 @@
           "materials": [
             {
               "itemId": "item_char_skill_level_7_12",
-              "name": {
-                "zh-CN": "协议棱柱组",
-                "en": "Protohedron",
-                "ja": "協約角柱セット",
-                "zh-TW": "協議稜柱組"
-              },
+              "count": 8,
               "iconId": "item_char_skill_level_7_12",
-              "rarity": 4,
-              "count": 8
+              "rarity": 4
             },
             {
               "itemId": "item_plant_crylplant_1_3",
-              "name": {
-                "zh-CN": "至晶多齿叶",
-                "en": "Vitrodendra",
-                "ja": "至晶鋭葉",
-                "zh-TW": "至晶多齒葉"
-              },
+              "count": 1,
               "iconId": "item_plant_crylplant_1_3",
-              "rarity": 4,
-              "count": 1
+              "rarity": 4
             },
             {
               "itemId": "item_gold",
-              "name": {
-                "zh-CN": "折金票",
-                "en": "T-Creds",
-                "ja": "折金券",
-                "zh-TW": "折金票"
-              },
+              "count": 10500,
               "iconId": "item_gold",
-              "rarity": 4,
-              "count": 10500
+              "rarity": 4
             }
           ]
         },
@@ -4638,39 +4200,21 @@
           "materials": [
             {
               "itemId": "item_char_skill_level_7_12",
-              "name": {
-                "zh-CN": "协议棱柱组",
-                "en": "Protohedron",
-                "ja": "協約角柱セット",
-                "zh-TW": "協議稜柱組"
-              },
+              "count": 15,
               "iconId": "item_char_skill_level_7_12",
-              "rarity": 4,
-              "count": 15
+              "rarity": 4
             },
             {
               "itemId": "item_plant_crylplant_1_3",
-              "name": {
-                "zh-CN": "至晶多齿叶",
-                "en": "Vitrodendra",
-                "ja": "至晶鋭葉",
-                "zh-TW": "至晶多齒葉"
-              },
+              "count": 2,
               "iconId": "item_plant_crylplant_1_3",
-              "rarity": 4,
-              "count": 2
+              "rarity": 4
             },
             {
               "itemId": "item_gold",
-              "name": {
-                "zh-CN": "折金票",
-                "en": "T-Creds",
-                "ja": "折金券",
-                "zh-TW": "折金票"
-              },
+              "count": 18000,
               "iconId": "item_gold",
-              "rarity": 4,
-              "count": 18000
+              "rarity": 4
             }
           ]
         },
@@ -4686,63 +4230,33 @@
           "materials": [
             {
               "itemId": "item_char_skill_crown",
-              "name": {
-                "zh-CN": "存续的痕迹",
-                "en": "Mark of Perseverance",
-                "ja": "存続の痕跡",
-                "zh-TW": "存續的痕跡"
-              },
+              "count": 1,
               "iconId": "item_char_skill_crown",
-              "rarity": 5,
-              "count": 1
+              "rarity": 5
             },
             {
               "itemId": "item_char_skill_level_7_12",
-              "name": {
-                "zh-CN": "协议棱柱组",
-                "en": "Protohedron",
-                "ja": "協約角柱セット",
-                "zh-TW": "協議稜柱組"
-              },
+              "count": 15,
               "iconId": "item_char_skill_level_7_12",
-              "rarity": 4,
-              "count": 15
+              "rarity": 4
             },
             {
               "itemId": "item_char_skill_specialize_4",
-              "name": {
-                "zh-CN": "象限拟合液",
-                "en": "Quadrant Fitting Fluid",
-                "ja": "象限適合液",
-                "zh-TW": "象限擬合液"
-              },
+              "count": 6,
               "iconId": "item_char_skill_specialize_4",
-              "rarity": 5,
-              "count": 6
+              "rarity": 5
             },
             {
               "itemId": "item_plant_crylplant_2_1",
-              "name": {
-                "zh-CN": "受蚀玉化叶",
-                "en": "Blighted Jadeleaf",
-                "ja": "侵蝕玉化葉",
-                "zh-TW": "受蝕玉化葉"
-              },
+              "count": 3,
               "iconId": "item_plant_crylplant_2_1",
-              "rarity": 5,
-              "count": 3
+              "rarity": 5
             },
             {
               "itemId": "item_gold",
-              "name": {
-                "zh-CN": "折金票",
-                "en": "T-Creds",
-                "ja": "折金券",
-                "zh-TW": "折金票"
-              },
+              "count": 24000,
               "iconId": "item_gold",
-              "rarity": 4,
-              "count": 24000
+              "rarity": 4
             }
           ]
         },
@@ -4758,63 +4272,33 @@
           "materials": [
             {
               "itemId": "item_char_skill_crown",
-              "name": {
-                "zh-CN": "存续的痕迹",
-                "en": "Mark of Perseverance",
-                "ja": "存続の痕跡",
-                "zh-TW": "存續的痕跡"
-              },
+              "count": 2,
               "iconId": "item_char_skill_crown",
-              "rarity": 5,
-              "count": 2
+              "rarity": 5
             },
             {
               "itemId": "item_char_skill_level_7_12",
-              "name": {
-                "zh-CN": "协议棱柱组",
-                "en": "Protohedron",
-                "ja": "協約角柱セット",
-                "zh-TW": "協議稜柱組"
-              },
+              "count": 24,
               "iconId": "item_char_skill_level_7_12",
-              "rarity": 4,
-              "count": 24
+              "rarity": 4
             },
             {
               "itemId": "item_char_skill_specialize_4",
-              "name": {
-                "zh-CN": "象限拟合液",
-                "en": "Quadrant Fitting Fluid",
-                "ja": "象限適合液",
-                "zh-TW": "象限擬合液"
-              },
+              "count": 16,
               "iconId": "item_char_skill_specialize_4",
-              "rarity": 5,
-              "count": 16
+              "rarity": 5
             },
             {
               "itemId": "item_plant_crylplant_2_1",
-              "name": {
-                "zh-CN": "受蚀玉化叶",
-                "en": "Blighted Jadeleaf",
-                "ja": "侵蝕玉化葉",
-                "zh-TW": "受蝕玉化葉"
-              },
+              "count": 6,
               "iconId": "item_plant_crylplant_2_1",
-              "rarity": 5,
-              "count": 6
+              "rarity": 5
             },
             {
               "itemId": "item_gold",
-              "name": {
-                "zh-CN": "折金票",
-                "en": "T-Creds",
-                "ja": "折金券",
-                "zh-TW": "折金票"
-              },
+              "count": 30000,
               "iconId": "item_gold",
-              "rarity": 4,
-              "count": 30000
+              "rarity": 4
             }
           ]
         },
@@ -4830,63 +4314,33 @@
           "materials": [
             {
               "itemId": "item_char_skill_crown",
-              "name": {
-                "zh-CN": "存续的痕迹",
-                "en": "Mark of Perseverance",
-                "ja": "存続の痕跡",
-                "zh-TW": "存續的痕跡"
-              },
+              "count": 3,
               "iconId": "item_char_skill_crown",
-              "rarity": 5,
-              "count": 3
+              "rarity": 5
             },
             {
               "itemId": "item_char_skill_level_7_12",
-              "name": {
-                "zh-CN": "协议棱柱组",
-                "en": "Protohedron",
-                "ja": "協約角柱セット",
-                "zh-TW": "協議稜柱組"
-              },
+              "count": 50,
               "iconId": "item_char_skill_level_7_12",
-              "rarity": 4,
-              "count": 50
+              "rarity": 4
             },
             {
               "itemId": "item_char_skill_specialize_4",
-              "name": {
-                "zh-CN": "象限拟合液",
-                "en": "Quadrant Fitting Fluid",
-                "ja": "象限適合液",
-                "zh-TW": "象限擬合液"
-              },
+              "count": 36,
               "iconId": "item_char_skill_specialize_4",
-              "rarity": 5,
-              "count": 36
+              "rarity": 5
             },
             {
               "itemId": "item_plant_crylplant_2_1",
-              "name": {
-                "zh-CN": "受蚀玉化叶",
-                "en": "Blighted Jadeleaf",
-                "ja": "侵蝕玉化葉",
-                "zh-TW": "受蝕玉化葉"
-              },
+              "count": 12,
               "iconId": "item_plant_crylplant_2_1",
-              "rarity": 5,
-              "count": 12
+              "rarity": 5
             },
             {
               "itemId": "item_gold",
-              "name": {
-                "zh-CN": "折金票",
-                "en": "T-Creds",
-                "ja": "折金券",
-                "zh-TW": "折金票"
-              },
+              "count": 65000,
               "iconId": "item_gold",
-              "rarity": 4,
-              "count": 65000
+              "rarity": 4
             }
           ]
         }
@@ -4895,46 +4349,16 @@
     {
       "id": "chr_0022_bounda_ComboSkill",
       "typeId": "3",
-      "name": {
-        "zh-CN": "免费赠礼",
-        "en": "Free Giveaway",
-        "ja": "特別サービス",
-        "zh-TW": "免費贈禮"
-      },
-      "description": {
-        "zh-CN": "当敌人进入2层及以上<#ba.crystinflict>寒冷附着</>或<#ba.naturalinflict>自然附着</>时可以发动。\n射击目标敌人，引发一次特殊爆炸，造成<@ba.natur>自然伤害</>并施加该<#ba.spellinflict>法术附着</>。",
-        "en": "COMBO TRIGGER: When an enemy has 2 or more stacks of <#ba.crystinflict>Cryo Infliction</> or <#ba.naturalinflict>Nature Infliction</>. \nShoots the target enemy to trigger a special explosion that deals <@ba.natur>Nature DMG</> and applies another <#ba.spellinflict>Arts Infliction</> of the element already on the enemy.",
-        "ja": "敵の<#ba.crystinflict>寒冷付着</>または<#ba.naturalinflict>自然付着</>の付着段階が2以上になったときに発動可能。\n目標の敵に射撃を行い、特殊な爆発を引き起こす。敵に<@ba.natur>自然ダメージ</>を与え、対応属性の<#ba.spellinflict>アーツ付着</>を付与する。",
-        "zh-TW": "當敵人進入2層及以上<#ba.crystinflict>寒冷附著</>或<#ba.naturalinflict>自然附著</>時可以發動。\n射擊目標敵人，引發一次特殊爆炸，造成<@ba.natur>自然傷害</>並施加該<#ba.spellinflict>法術附著</>。"
-      },
       "iconId": "icon_combo_skill_bounda_01",
       "metrics": [
         {
-          "id": "chr_0022_bounda_combo_skill:0",
-          "label": {
-            "zh-CN": "伤害倍率",
-            "en": "DMG Multiplier",
-            "ja": "ダメージ倍率",
-            "zh-TW": "傷害倍率"
-          }
+          "id": "chr_0022_bounda_combo_skill:0"
         },
         {
-          "id": "chr_0022_bounda_combo_skill:1",
-          "label": {
-            "zh-CN": "失衡值",
-            "en": "Stagger",
-            "ja": "ブレイク値",
-            "zh-TW": "失衡值"
-          }
+          "id": "chr_0022_bounda_combo_skill:1"
         },
         {
-          "id": "chr_0022_bounda_combo_skill:2",
-          "label": {
-            "zh-CN": "获得终结技能量",
-            "en": "Ultimate Energy Gain",
-            "ja": "必殺チャージ回復量",
-            "zh-TW": "獲得終結技能量"
-          }
+          "id": "chr_0022_bounda_combo_skill:2"
         }
       ],
       "levels": [
@@ -4960,39 +4384,21 @@
           "materials": [
             {
               "itemId": "item_char_skill_level_1_6",
-              "name": {
-                "zh-CN": "协议棱柱",
-                "en": "Protoprism",
-                "ja": "協約角柱",
-                "zh-TW": "協議稜柱"
-              },
+              "count": 6,
               "iconId": "item_char_skill_level_1_6",
-              "rarity": 3,
-              "count": 6
+              "rarity": 3
             },
             {
               "itemId": "item_plant_crylplant_1_1",
-              "name": {
-                "zh-CN": "晶化多齿叶",
-                "en": "Kalkodendra",
-                "ja": "結晶鋭葉",
-                "zh-TW": "晶化多齒葉"
-              },
+              "count": 1,
               "iconId": "item_plant_crylplant_1_1",
-              "rarity": 4,
-              "count": 1
+              "rarity": 4
             },
             {
               "itemId": "item_gold",
-              "name": {
-                "zh-CN": "折金票",
-                "en": "T-Creds",
-                "ja": "折金券",
-                "zh-TW": "折金票"
-              },
+              "count": 1000,
               "iconId": "item_gold",
-              "rarity": 4,
-              "count": 1000
+              "rarity": 4
             }
           ]
         },
@@ -5008,39 +4414,21 @@
           "materials": [
             {
               "itemId": "item_char_skill_level_1_6",
-              "name": {
-                "zh-CN": "协议棱柱",
-                "en": "Protoprism",
-                "ja": "協約角柱",
-                "zh-TW": "協議稜柱"
-              },
+              "count": 12,
               "iconId": "item_char_skill_level_1_6",
-              "rarity": 3,
-              "count": 12
+              "rarity": 3
             },
             {
               "itemId": "item_plant_crylplant_1_1",
-              "name": {
-                "zh-CN": "晶化多齿叶",
-                "en": "Kalkodendra",
-                "ja": "結晶鋭葉",
-                "zh-TW": "晶化多齒葉"
-              },
+              "count": 2,
               "iconId": "item_plant_crylplant_1_1",
-              "rarity": 4,
-              "count": 2
+              "rarity": 4
             },
             {
               "itemId": "item_gold",
-              "name": {
-                "zh-CN": "折金票",
-                "en": "T-Creds",
-                "ja": "折金券",
-                "zh-TW": "折金票"
-              },
+              "count": 2700,
               "iconId": "item_gold",
-              "rarity": 4,
-              "count": 2700
+              "rarity": 4
             }
           ]
         },
@@ -5056,39 +4444,21 @@
           "materials": [
             {
               "itemId": "item_char_skill_level_1_6",
-              "name": {
-                "zh-CN": "协议棱柱",
-                "en": "Protoprism",
-                "ja": "協約角柱",
-                "zh-TW": "協議稜柱"
-              },
+              "count": 16,
               "iconId": "item_char_skill_level_1_6",
-              "rarity": 3,
-              "count": 16
+              "rarity": 3
             },
             {
               "itemId": "item_plant_crylplant_1_2",
-              "name": {
-                "zh-CN": "纯晶多齿叶",
-                "en": "Chrysodendra",
-                "ja": "純晶鋭葉",
-                "zh-TW": "純晶多齒葉"
-              },
+              "count": 1,
               "iconId": "item_plant_crylplant_1_2",
-              "rarity": 4,
-              "count": 1
+              "rarity": 4
             },
             {
               "itemId": "item_gold",
-              "name": {
-                "zh-CN": "折金票",
-                "en": "T-Creds",
-                "ja": "折金券",
-                "zh-TW": "折金票"
-              },
+              "count": 3200,
               "iconId": "item_gold",
-              "rarity": 4,
-              "count": 3200
+              "rarity": 4
             }
           ]
         },
@@ -5104,39 +4474,21 @@
           "materials": [
             {
               "itemId": "item_char_skill_level_1_6",
-              "name": {
-                "zh-CN": "协议棱柱",
-                "en": "Protoprism",
-                "ja": "協約角柱",
-                "zh-TW": "協議稜柱"
-              },
+              "count": 21,
               "iconId": "item_char_skill_level_1_6",
-              "rarity": 3,
-              "count": 21
+              "rarity": 3
             },
             {
               "itemId": "item_plant_crylplant_1_2",
-              "name": {
-                "zh-CN": "纯晶多齿叶",
-                "en": "Chrysodendra",
-                "ja": "純晶鋭葉",
-                "zh-TW": "純晶多齒葉"
-              },
+              "count": 1,
               "iconId": "item_plant_crylplant_1_2",
-              "rarity": 4,
-              "count": 1
+              "rarity": 4
             },
             {
               "itemId": "item_gold",
-              "name": {
-                "zh-CN": "折金票",
-                "en": "T-Creds",
-                "ja": "折金券",
-                "zh-TW": "折金票"
-              },
+              "count": 4200,
               "iconId": "item_gold",
-              "rarity": 4,
-              "count": 4200
+              "rarity": 4
             }
           ]
         },
@@ -5152,39 +4504,21 @@
           "materials": [
             {
               "itemId": "item_char_skill_level_1_6",
-              "name": {
-                "zh-CN": "协议棱柱",
-                "en": "Protoprism",
-                "ja": "協約角柱",
-                "zh-TW": "協議稜柱"
-              },
+              "count": 27,
               "iconId": "item_char_skill_level_1_6",
-              "rarity": 3,
-              "count": 27
+              "rarity": 3
             },
             {
               "itemId": "item_plant_crylplant_1_2",
-              "name": {
-                "zh-CN": "纯晶多齿叶",
-                "en": "Chrysodendra",
-                "ja": "純晶鋭葉",
-                "zh-TW": "純晶多齒葉"
-              },
+              "count": 2,
               "iconId": "item_plant_crylplant_1_2",
-              "rarity": 4,
-              "count": 2
+              "rarity": 4
             },
             {
               "itemId": "item_gold",
-              "name": {
-                "zh-CN": "折金票",
-                "en": "T-Creds",
-                "ja": "折金券",
-                "zh-TW": "折金票"
-              },
+              "count": 5400,
               "iconId": "item_gold",
-              "rarity": 4,
-              "count": 5400
+              "rarity": 4
             }
           ]
         },
@@ -5200,39 +4534,21 @@
           "materials": [
             {
               "itemId": "item_char_skill_level_7_12",
-              "name": {
-                "zh-CN": "协议棱柱组",
-                "en": "Protohedron",
-                "ja": "協約角柱セット",
-                "zh-TW": "協議稜柱組"
-              },
+              "count": 6,
               "iconId": "item_char_skill_level_7_12",
-              "rarity": 4,
-              "count": 6
+              "rarity": 4
             },
             {
               "itemId": "item_plant_crylplant_1_3",
-              "name": {
-                "zh-CN": "至晶多齿叶",
-                "en": "Vitrodendra",
-                "ja": "至晶鋭葉",
-                "zh-TW": "至晶多齒葉"
-              },
+              "count": 1,
               "iconId": "item_plant_crylplant_1_3",
-              "rarity": 4,
-              "count": 1
+              "rarity": 4
             },
             {
               "itemId": "item_gold",
-              "name": {
-                "zh-CN": "折金票",
-                "en": "T-Creds",
-                "ja": "折金券",
-                "zh-TW": "折金票"
-              },
+              "count": 8200,
               "iconId": "item_gold",
-              "rarity": 4,
-              "count": 8200
+              "rarity": 4
             }
           ]
         },
@@ -5248,39 +4564,21 @@
           "materials": [
             {
               "itemId": "item_char_skill_level_7_12",
-              "name": {
-                "zh-CN": "协议棱柱组",
-                "en": "Protohedron",
-                "ja": "協約角柱セット",
-                "zh-TW": "協議稜柱組"
-              },
+              "count": 8,
               "iconId": "item_char_skill_level_7_12",
-              "rarity": 4,
-              "count": 8
+              "rarity": 4
             },
             {
               "itemId": "item_plant_crylplant_1_3",
-              "name": {
-                "zh-CN": "至晶多齿叶",
-                "en": "Vitrodendra",
-                "ja": "至晶鋭葉",
-                "zh-TW": "至晶多齒葉"
-              },
+              "count": 1,
               "iconId": "item_plant_crylplant_1_3",
-              "rarity": 4,
-              "count": 1
+              "rarity": 4
             },
             {
               "itemId": "item_gold",
-              "name": {
-                "zh-CN": "折金票",
-                "en": "T-Creds",
-                "ja": "折金券",
-                "zh-TW": "折金票"
-              },
+              "count": 10500,
               "iconId": "item_gold",
-              "rarity": 4,
-              "count": 10500
+              "rarity": 4
             }
           ]
         },
@@ -5296,39 +4594,21 @@
           "materials": [
             {
               "itemId": "item_char_skill_level_7_12",
-              "name": {
-                "zh-CN": "协议棱柱组",
-                "en": "Protohedron",
-                "ja": "協約角柱セット",
-                "zh-TW": "協議稜柱組"
-              },
+              "count": 15,
               "iconId": "item_char_skill_level_7_12",
-              "rarity": 4,
-              "count": 15
+              "rarity": 4
             },
             {
               "itemId": "item_plant_crylplant_1_3",
-              "name": {
-                "zh-CN": "至晶多齿叶",
-                "en": "Vitrodendra",
-                "ja": "至晶鋭葉",
-                "zh-TW": "至晶多齒葉"
-              },
+              "count": 2,
               "iconId": "item_plant_crylplant_1_3",
-              "rarity": 4,
-              "count": 2
+              "rarity": 4
             },
             {
               "itemId": "item_gold",
-              "name": {
-                "zh-CN": "折金票",
-                "en": "T-Creds",
-                "ja": "折金券",
-                "zh-TW": "折金票"
-              },
+              "count": 18000,
               "iconId": "item_gold",
-              "rarity": 4,
-              "count": 18000
+              "rarity": 4
             }
           ]
         },
@@ -5344,63 +4624,33 @@
           "materials": [
             {
               "itemId": "item_char_skill_crown",
-              "name": {
-                "zh-CN": "存续的痕迹",
-                "en": "Mark of Perseverance",
-                "ja": "存続の痕跡",
-                "zh-TW": "存續的痕跡"
-              },
+              "count": 1,
               "iconId": "item_char_skill_crown",
-              "rarity": 5,
-              "count": 1
+              "rarity": 5
             },
             {
               "itemId": "item_char_skill_level_7_12",
-              "name": {
-                "zh-CN": "协议棱柱组",
-                "en": "Protohedron",
-                "ja": "協約角柱セット",
-                "zh-TW": "協議稜柱組"
-              },
+              "count": 15,
               "iconId": "item_char_skill_level_7_12",
-              "rarity": 4,
-              "count": 15
+              "rarity": 4
             },
             {
               "itemId": "item_char_skill_specialize_3",
-              "name": {
-                "zh-CN": "快子遴捡晶格",
-                "en": "Tachyon Screening Lattice",
-                "ja": "タキオン精選格子",
-                "zh-TW": "迅子遴撿晶格"
-              },
+              "count": 6,
               "iconId": "item_char_skill_specialize_3",
-              "rarity": 5,
-              "count": 6
+              "rarity": 5
             },
             {
               "itemId": "item_plant_crylplant_2_1",
-              "name": {
-                "zh-CN": "受蚀玉化叶",
-                "en": "Blighted Jadeleaf",
-                "ja": "侵蝕玉化葉",
-                "zh-TW": "受蝕玉化葉"
-              },
+              "count": 3,
               "iconId": "item_plant_crylplant_2_1",
-              "rarity": 5,
-              "count": 3
+              "rarity": 5
             },
             {
               "itemId": "item_gold",
-              "name": {
-                "zh-CN": "折金票",
-                "en": "T-Creds",
-                "ja": "折金券",
-                "zh-TW": "折金票"
-              },
+              "count": 24000,
               "iconId": "item_gold",
-              "rarity": 4,
-              "count": 24000
+              "rarity": 4
             }
           ]
         },
@@ -5416,63 +4666,33 @@
           "materials": [
             {
               "itemId": "item_char_skill_crown",
-              "name": {
-                "zh-CN": "存续的痕迹",
-                "en": "Mark of Perseverance",
-                "ja": "存続の痕跡",
-                "zh-TW": "存續的痕跡"
-              },
+              "count": 2,
               "iconId": "item_char_skill_crown",
-              "rarity": 5,
-              "count": 2
+              "rarity": 5
             },
             {
               "itemId": "item_char_skill_level_7_12",
-              "name": {
-                "zh-CN": "协议棱柱组",
-                "en": "Protohedron",
-                "ja": "協約角柱セット",
-                "zh-TW": "協議稜柱組"
-              },
+              "count": 24,
               "iconId": "item_char_skill_level_7_12",
-              "rarity": 4,
-              "count": 24
+              "rarity": 4
             },
             {
               "itemId": "item_char_skill_specialize_3",
-              "name": {
-                "zh-CN": "快子遴捡晶格",
-                "en": "Tachyon Screening Lattice",
-                "ja": "タキオン精選格子",
-                "zh-TW": "迅子遴撿晶格"
-              },
+              "count": 16,
               "iconId": "item_char_skill_specialize_3",
-              "rarity": 5,
-              "count": 16
+              "rarity": 5
             },
             {
               "itemId": "item_plant_crylplant_2_1",
-              "name": {
-                "zh-CN": "受蚀玉化叶",
-                "en": "Blighted Jadeleaf",
-                "ja": "侵蝕玉化葉",
-                "zh-TW": "受蝕玉化葉"
-              },
+              "count": 6,
               "iconId": "item_plant_crylplant_2_1",
-              "rarity": 5,
-              "count": 6
+              "rarity": 5
             },
             {
               "itemId": "item_gold",
-              "name": {
-                "zh-CN": "折金票",
-                "en": "T-Creds",
-                "ja": "折金券",
-                "zh-TW": "折金票"
-              },
+              "count": 30000,
               "iconId": "item_gold",
-              "rarity": 4,
-              "count": 30000
+              "rarity": 4
             }
           ]
         },
@@ -5488,63 +4708,33 @@
           "materials": [
             {
               "itemId": "item_char_skill_crown",
-              "name": {
-                "zh-CN": "存续的痕迹",
-                "en": "Mark of Perseverance",
-                "ja": "存続の痕跡",
-                "zh-TW": "存續的痕跡"
-              },
+              "count": 3,
               "iconId": "item_char_skill_crown",
-              "rarity": 5,
-              "count": 3
+              "rarity": 5
             },
             {
               "itemId": "item_char_skill_level_7_12",
-              "name": {
-                "zh-CN": "协议棱柱组",
-                "en": "Protohedron",
-                "ja": "協約角柱セット",
-                "zh-TW": "協議稜柱組"
-              },
+              "count": 50,
               "iconId": "item_char_skill_level_7_12",
-              "rarity": 4,
-              "count": 50
+              "rarity": 4
             },
             {
               "itemId": "item_char_skill_specialize_3",
-              "name": {
-                "zh-CN": "快子遴捡晶格",
-                "en": "Tachyon Screening Lattice",
-                "ja": "タキオン精選格子",
-                "zh-TW": "迅子遴撿晶格"
-              },
+              "count": 36,
               "iconId": "item_char_skill_specialize_3",
-              "rarity": 5,
-              "count": 36
+              "rarity": 5
             },
             {
               "itemId": "item_plant_crylplant_2_1",
-              "name": {
-                "zh-CN": "受蚀玉化叶",
-                "en": "Blighted Jadeleaf",
-                "ja": "侵蝕玉化葉",
-                "zh-TW": "受蝕玉化葉"
-              },
+              "count": 12,
               "iconId": "item_plant_crylplant_2_1",
-              "rarity": 5,
-              "count": 12
+              "rarity": 5
             },
             {
               "itemId": "item_gold",
-              "name": {
-                "zh-CN": "折金票",
-                "en": "T-Creds",
-                "ja": "折金券",
-                "zh-TW": "折金票"
-              },
+              "count": 65000,
               "iconId": "item_gold",
-              "rarity": 4,
-              "count": 65000
+              "rarity": 4
             }
           ]
         }
@@ -5553,82 +4743,28 @@
     {
       "id": "chr_0022_bounda_UltimateSkill",
       "typeId": "2",
-      "name": {
-        "zh-CN": "巅峰闹剧",
-        "en": "Apex Prankster",
-        "ja": "つまんない茶番",
-        "zh-TW": "巔峰鬧劇"
-      },
-      "description": {
-        "zh-CN": "萤石以弧形轨迹高速运动并向弧内目标快速射击，造成4段<@ba.natur>自然伤害</>，若命中目标身上粘有<@ba.key>自制炸弹</>，则立刻将其引爆并提升爆炸伤害及范围。\n若最后一段伤害命中处于2层及以上<#ba.crystinflict>寒冷附着</>或<#ba.naturalinflict>自然附着</>的目标，则再次施加该<#ba.spellinflict>法术附着</>。",
-        "en": "Fluorite quickly moves in an arc and rapidly fires at the target within the arc to deal 4 sequences of <@ba.natur>Nature DMG</>. If an <@ba.key>Improvised Explosive</> has been stuck to the target, the skill detonates it immediately and increases the DMG and size of the explosion.\nIf the final DMG sequence hits a target with at least 2 stacks of <#ba.crystinflict>Cryo Infliction</> or <#ba.naturalinflict>Nature Infliction</>, then apply the same <#ba.spellinflict>Arts Infliction</> again.",
-        "ja": "円弧を描きながら高速移動し、内側の敵にすばやく射撃を行い、<@ba.natur>自然ダメージ</>を4段与える。命中した敵に<@ba.key>お手製爆弾</>が付いている場合、その爆弾は即座に起爆し、爆発のダメージと範囲が強化される。\n攻撃の最後の1段が2段階以上の<#ba.crystinflict>寒冷付着</>または<#ba.naturalinflict>自然付着</>状態の敵に命中した場合、対応属性の<#ba.spellinflict>アーツ付着</>をもう一度付与する。",
-        "zh-TW": "螢石以弧形軌跡高速運動並向弧內目標快速射擊，造成4段<@ba.natur>自然傷害</>，若命中目標身上黏有<@ba.key>自製炸彈</>，則立刻將其引爆並提升爆炸傷害及範圍。\n若最後一段傷害命中處於2層及以上<#ba.crystinflict>寒冷附著</>或<#ba.naturalinflict>自然附著</>的目標，則再次施加該<#ba.spellinflict>法術附著</>。"
-      },
       "iconId": "icon_ultimate_skill_bounda_01",
       "metrics": [
         {
-          "id": "chr_0022_bounda_ultimate_skill:0",
-          "label": {
-            "zh-CN": "第一段伤害倍率",
-            "en": "SEQ 1 DMG Multiplier",
-            "ja": "1段目ダメージ倍率",
-            "zh-TW": "第一段傷害倍率"
-          }
+          "id": "chr_0022_bounda_ultimate_skill:0"
         },
         {
-          "id": "chr_0022_bounda_ultimate_skill:1",
-          "label": {
-            "zh-CN": "第二段伤害倍率",
-            "en": "SEQ 2 DMG Multiplier",
-            "ja": "2段目ダメージ倍率",
-            "zh-TW": "第二段傷害倍率"
-          }
+          "id": "chr_0022_bounda_ultimate_skill:1"
         },
         {
-          "id": "chr_0022_bounda_ultimate_skill:2",
-          "label": {
-            "zh-CN": "第三段伤害倍率",
-            "en": "SEQ 3 DMG Multiplier",
-            "ja": "3段目ダメージ倍率",
-            "zh-TW": "第三段傷害倍率"
-          }
+          "id": "chr_0022_bounda_ultimate_skill:2"
         },
         {
-          "id": "chr_0022_bounda_ultimate_skill:3",
-          "label": {
-            "zh-CN": "第四段伤害倍率",
-            "en": "SEQ 4 DMG Multiplier",
-            "ja": "4段目ダメージ倍率",
-            "zh-TW": "第四段傷害倍率"
-          }
+          "id": "chr_0022_bounda_ultimate_skill:3"
         },
         {
-          "id": "chr_0022_bounda_ultimate_skill:4",
-          "label": {
-            "zh-CN": "战技范围提升",
-            "en": "Battle Skill AOE Boost",
-            "ja": "戦技範囲UP",
-            "zh-TW": "戰技範圍提升"
-          }
+          "id": "chr_0022_bounda_ultimate_skill:4"
         },
         {
-          "id": "chr_0022_bounda_ultimate_skill:5",
-          "label": {
-            "zh-CN": "战技伤害提升",
-            "en": "Battle Skill DMG Boost",
-            "ja": "戦技ダメージUP",
-            "zh-TW": "戰技傷害提升"
-          }
+          "id": "chr_0022_bounda_ultimate_skill:5"
         },
         {
-          "id": "chr_0022_bounda_ultimate_skill:6",
-          "label": {
-            "zh-CN": "失衡值",
-            "en": "Stagger",
-            "ja": "ブレイク値",
-            "zh-TW": "失衡值"
-          }
+          "id": "chr_0022_bounda_ultimate_skill:6"
         }
       ],
       "levels": [
@@ -5664,39 +4800,21 @@
           "materials": [
             {
               "itemId": "item_char_skill_level_1_6",
-              "name": {
-                "zh-CN": "协议棱柱",
-                "en": "Protoprism",
-                "ja": "協約角柱",
-                "zh-TW": "協議稜柱"
-              },
+              "count": 6,
               "iconId": "item_char_skill_level_1_6",
-              "rarity": 3,
-              "count": 6
+              "rarity": 3
             },
             {
               "itemId": "item_plant_crylplant_1_1",
-              "name": {
-                "zh-CN": "晶化多齿叶",
-                "en": "Kalkodendra",
-                "ja": "結晶鋭葉",
-                "zh-TW": "晶化多齒葉"
-              },
+              "count": 1,
               "iconId": "item_plant_crylplant_1_1",
-              "rarity": 4,
-              "count": 1
+              "rarity": 4
             },
             {
               "itemId": "item_gold",
-              "name": {
-                "zh-CN": "折金票",
-                "en": "T-Creds",
-                "ja": "折金券",
-                "zh-TW": "折金票"
-              },
+              "count": 1000,
               "iconId": "item_gold",
-              "rarity": 4,
-              "count": 1000
+              "rarity": 4
             }
           ]
         },
@@ -5717,39 +4835,21 @@
           "materials": [
             {
               "itemId": "item_char_skill_level_1_6",
-              "name": {
-                "zh-CN": "协议棱柱",
-                "en": "Protoprism",
-                "ja": "協約角柱",
-                "zh-TW": "協議稜柱"
-              },
+              "count": 12,
               "iconId": "item_char_skill_level_1_6",
-              "rarity": 3,
-              "count": 12
+              "rarity": 3
             },
             {
               "itemId": "item_plant_crylplant_1_1",
-              "name": {
-                "zh-CN": "晶化多齿叶",
-                "en": "Kalkodendra",
-                "ja": "結晶鋭葉",
-                "zh-TW": "晶化多齒葉"
-              },
+              "count": 2,
               "iconId": "item_plant_crylplant_1_1",
-              "rarity": 4,
-              "count": 2
+              "rarity": 4
             },
             {
               "itemId": "item_gold",
-              "name": {
-                "zh-CN": "折金票",
-                "en": "T-Creds",
-                "ja": "折金券",
-                "zh-TW": "折金票"
-              },
+              "count": 2700,
               "iconId": "item_gold",
-              "rarity": 4,
-              "count": 2700
+              "rarity": 4
             }
           ]
         },
@@ -5770,39 +4870,21 @@
           "materials": [
             {
               "itemId": "item_char_skill_level_1_6",
-              "name": {
-                "zh-CN": "协议棱柱",
-                "en": "Protoprism",
-                "ja": "協約角柱",
-                "zh-TW": "協議稜柱"
-              },
+              "count": 16,
               "iconId": "item_char_skill_level_1_6",
-              "rarity": 3,
-              "count": 16
+              "rarity": 3
             },
             {
               "itemId": "item_plant_crylplant_1_2",
-              "name": {
-                "zh-CN": "纯晶多齿叶",
-                "en": "Chrysodendra",
-                "ja": "純晶鋭葉",
-                "zh-TW": "純晶多齒葉"
-              },
+              "count": 1,
               "iconId": "item_plant_crylplant_1_2",
-              "rarity": 4,
-              "count": 1
+              "rarity": 4
             },
             {
               "itemId": "item_gold",
-              "name": {
-                "zh-CN": "折金票",
-                "en": "T-Creds",
-                "ja": "折金券",
-                "zh-TW": "折金票"
-              },
+              "count": 3200,
               "iconId": "item_gold",
-              "rarity": 4,
-              "count": 3200
+              "rarity": 4
             }
           ]
         },
@@ -5823,39 +4905,21 @@
           "materials": [
             {
               "itemId": "item_char_skill_level_1_6",
-              "name": {
-                "zh-CN": "协议棱柱",
-                "en": "Protoprism",
-                "ja": "協約角柱",
-                "zh-TW": "協議稜柱"
-              },
+              "count": 21,
               "iconId": "item_char_skill_level_1_6",
-              "rarity": 3,
-              "count": 21
+              "rarity": 3
             },
             {
               "itemId": "item_plant_crylplant_1_2",
-              "name": {
-                "zh-CN": "纯晶多齿叶",
-                "en": "Chrysodendra",
-                "ja": "純晶鋭葉",
-                "zh-TW": "純晶多齒葉"
-              },
+              "count": 1,
               "iconId": "item_plant_crylplant_1_2",
-              "rarity": 4,
-              "count": 1
+              "rarity": 4
             },
             {
               "itemId": "item_gold",
-              "name": {
-                "zh-CN": "折金票",
-                "en": "T-Creds",
-                "ja": "折金券",
-                "zh-TW": "折金票"
-              },
+              "count": 4200,
               "iconId": "item_gold",
-              "rarity": 4,
-              "count": 4200
+              "rarity": 4
             }
           ]
         },
@@ -5876,39 +4940,21 @@
           "materials": [
             {
               "itemId": "item_char_skill_level_1_6",
-              "name": {
-                "zh-CN": "协议棱柱",
-                "en": "Protoprism",
-                "ja": "協約角柱",
-                "zh-TW": "協議稜柱"
-              },
+              "count": 27,
               "iconId": "item_char_skill_level_1_6",
-              "rarity": 3,
-              "count": 27
+              "rarity": 3
             },
             {
               "itemId": "item_plant_crylplant_1_2",
-              "name": {
-                "zh-CN": "纯晶多齿叶",
-                "en": "Chrysodendra",
-                "ja": "純晶鋭葉",
-                "zh-TW": "純晶多齒葉"
-              },
+              "count": 2,
               "iconId": "item_plant_crylplant_1_2",
-              "rarity": 4,
-              "count": 2
+              "rarity": 4
             },
             {
               "itemId": "item_gold",
-              "name": {
-                "zh-CN": "折金票",
-                "en": "T-Creds",
-                "ja": "折金券",
-                "zh-TW": "折金票"
-              },
+              "count": 5400,
               "iconId": "item_gold",
-              "rarity": 4,
-              "count": 5400
+              "rarity": 4
             }
           ]
         },
@@ -5929,39 +4975,21 @@
           "materials": [
             {
               "itemId": "item_char_skill_level_7_12",
-              "name": {
-                "zh-CN": "协议棱柱组",
-                "en": "Protohedron",
-                "ja": "協約角柱セット",
-                "zh-TW": "協議稜柱組"
-              },
+              "count": 6,
               "iconId": "item_char_skill_level_7_12",
-              "rarity": 4,
-              "count": 6
+              "rarity": 4
             },
             {
               "itemId": "item_plant_crylplant_1_3",
-              "name": {
-                "zh-CN": "至晶多齿叶",
-                "en": "Vitrodendra",
-                "ja": "至晶鋭葉",
-                "zh-TW": "至晶多齒葉"
-              },
+              "count": 1,
               "iconId": "item_plant_crylplant_1_3",
-              "rarity": 4,
-              "count": 1
+              "rarity": 4
             },
             {
               "itemId": "item_gold",
-              "name": {
-                "zh-CN": "折金票",
-                "en": "T-Creds",
-                "ja": "折金券",
-                "zh-TW": "折金票"
-              },
+              "count": 8200,
               "iconId": "item_gold",
-              "rarity": 4,
-              "count": 8200
+              "rarity": 4
             }
           ]
         },
@@ -5982,39 +5010,21 @@
           "materials": [
             {
               "itemId": "item_char_skill_level_7_12",
-              "name": {
-                "zh-CN": "协议棱柱组",
-                "en": "Protohedron",
-                "ja": "協約角柱セット",
-                "zh-TW": "協議稜柱組"
-              },
+              "count": 8,
               "iconId": "item_char_skill_level_7_12",
-              "rarity": 4,
-              "count": 8
+              "rarity": 4
             },
             {
               "itemId": "item_plant_crylplant_1_3",
-              "name": {
-                "zh-CN": "至晶多齿叶",
-                "en": "Vitrodendra",
-                "ja": "至晶鋭葉",
-                "zh-TW": "至晶多齒葉"
-              },
+              "count": 1,
               "iconId": "item_plant_crylplant_1_3",
-              "rarity": 4,
-              "count": 1
+              "rarity": 4
             },
             {
               "itemId": "item_gold",
-              "name": {
-                "zh-CN": "折金票",
-                "en": "T-Creds",
-                "ja": "折金券",
-                "zh-TW": "折金票"
-              },
+              "count": 10500,
               "iconId": "item_gold",
-              "rarity": 4,
-              "count": 10500
+              "rarity": 4
             }
           ]
         },
@@ -6035,39 +5045,21 @@
           "materials": [
             {
               "itemId": "item_char_skill_level_7_12",
-              "name": {
-                "zh-CN": "协议棱柱组",
-                "en": "Protohedron",
-                "ja": "協約角柱セット",
-                "zh-TW": "協議稜柱組"
-              },
+              "count": 15,
               "iconId": "item_char_skill_level_7_12",
-              "rarity": 4,
-              "count": 15
+              "rarity": 4
             },
             {
               "itemId": "item_plant_crylplant_1_3",
-              "name": {
-                "zh-CN": "至晶多齿叶",
-                "en": "Vitrodendra",
-                "ja": "至晶鋭葉",
-                "zh-TW": "至晶多齒葉"
-              },
+              "count": 2,
               "iconId": "item_plant_crylplant_1_3",
-              "rarity": 4,
-              "count": 2
+              "rarity": 4
             },
             {
               "itemId": "item_gold",
-              "name": {
-                "zh-CN": "折金票",
-                "en": "T-Creds",
-                "ja": "折金券",
-                "zh-TW": "折金票"
-              },
+              "count": 18000,
               "iconId": "item_gold",
-              "rarity": 4,
-              "count": 18000
+              "rarity": 4
             }
           ]
         },
@@ -6088,63 +5080,33 @@
           "materials": [
             {
               "itemId": "item_char_skill_crown",
-              "name": {
-                "zh-CN": "存续的痕迹",
-                "en": "Mark of Perseverance",
-                "ja": "存続の痕跡",
-                "zh-TW": "存續的痕跡"
-              },
+              "count": 1,
               "iconId": "item_char_skill_crown",
-              "rarity": 5,
-              "count": 1
+              "rarity": 5
             },
             {
               "itemId": "item_char_skill_level_7_12",
-              "name": {
-                "zh-CN": "协议棱柱组",
-                "en": "Protohedron",
-                "ja": "協約角柱セット",
-                "zh-TW": "協議稜柱組"
-              },
+              "count": 15,
               "iconId": "item_char_skill_level_7_12",
-              "rarity": 4,
-              "count": 15
+              "rarity": 4
             },
             {
               "itemId": "item_char_skill_specialize_4",
-              "name": {
-                "zh-CN": "象限拟合液",
-                "en": "Quadrant Fitting Fluid",
-                "ja": "象限適合液",
-                "zh-TW": "象限擬合液"
-              },
+              "count": 6,
               "iconId": "item_char_skill_specialize_4",
-              "rarity": 5,
-              "count": 6
+              "rarity": 5
             },
             {
               "itemId": "item_plant_crylplant_2_1",
-              "name": {
-                "zh-CN": "受蚀玉化叶",
-                "en": "Blighted Jadeleaf",
-                "ja": "侵蝕玉化葉",
-                "zh-TW": "受蝕玉化葉"
-              },
+              "count": 3,
               "iconId": "item_plant_crylplant_2_1",
-              "rarity": 5,
-              "count": 3
+              "rarity": 5
             },
             {
               "itemId": "item_gold",
-              "name": {
-                "zh-CN": "折金票",
-                "en": "T-Creds",
-                "ja": "折金券",
-                "zh-TW": "折金票"
-              },
+              "count": 24000,
               "iconId": "item_gold",
-              "rarity": 4,
-              "count": 24000
+              "rarity": 4
             }
           ]
         },
@@ -6165,63 +5127,33 @@
           "materials": [
             {
               "itemId": "item_char_skill_crown",
-              "name": {
-                "zh-CN": "存续的痕迹",
-                "en": "Mark of Perseverance",
-                "ja": "存続の痕跡",
-                "zh-TW": "存續的痕跡"
-              },
+              "count": 2,
               "iconId": "item_char_skill_crown",
-              "rarity": 5,
-              "count": 2
+              "rarity": 5
             },
             {
               "itemId": "item_char_skill_level_7_12",
-              "name": {
-                "zh-CN": "协议棱柱组",
-                "en": "Protohedron",
-                "ja": "協約角柱セット",
-                "zh-TW": "協議稜柱組"
-              },
+              "count": 24,
               "iconId": "item_char_skill_level_7_12",
-              "rarity": 4,
-              "count": 24
+              "rarity": 4
             },
             {
               "itemId": "item_char_skill_specialize_4",
-              "name": {
-                "zh-CN": "象限拟合液",
-                "en": "Quadrant Fitting Fluid",
-                "ja": "象限適合液",
-                "zh-TW": "象限擬合液"
-              },
+              "count": 16,
               "iconId": "item_char_skill_specialize_4",
-              "rarity": 5,
-              "count": 16
+              "rarity": 5
             },
             {
               "itemId": "item_plant_crylplant_2_1",
-              "name": {
-                "zh-CN": "受蚀玉化叶",
-                "en": "Blighted Jadeleaf",
-                "ja": "侵蝕玉化葉",
-                "zh-TW": "受蝕玉化葉"
-              },
+              "count": 6,
               "iconId": "item_plant_crylplant_2_1",
-              "rarity": 5,
-              "count": 6
+              "rarity": 5
             },
             {
               "itemId": "item_gold",
-              "name": {
-                "zh-CN": "折金票",
-                "en": "T-Creds",
-                "ja": "折金券",
-                "zh-TW": "折金票"
-              },
+              "count": 30000,
               "iconId": "item_gold",
-              "rarity": 4,
-              "count": 30000
+              "rarity": 4
             }
           ]
         },
@@ -6242,63 +5174,33 @@
           "materials": [
             {
               "itemId": "item_char_skill_crown",
-              "name": {
-                "zh-CN": "存续的痕迹",
-                "en": "Mark of Perseverance",
-                "ja": "存続の痕跡",
-                "zh-TW": "存續的痕跡"
-              },
+              "count": 3,
               "iconId": "item_char_skill_crown",
-              "rarity": 5,
-              "count": 3
+              "rarity": 5
             },
             {
               "itemId": "item_char_skill_level_7_12",
-              "name": {
-                "zh-CN": "协议棱柱组",
-                "en": "Protohedron",
-                "ja": "協約角柱セット",
-                "zh-TW": "協議稜柱組"
-              },
+              "count": 50,
               "iconId": "item_char_skill_level_7_12",
-              "rarity": 4,
-              "count": 50
+              "rarity": 4
             },
             {
               "itemId": "item_char_skill_specialize_4",
-              "name": {
-                "zh-CN": "象限拟合液",
-                "en": "Quadrant Fitting Fluid",
-                "ja": "象限適合液",
-                "zh-TW": "象限擬合液"
-              },
+              "count": 36,
               "iconId": "item_char_skill_specialize_4",
-              "rarity": 5,
-              "count": 36
+              "rarity": 5
             },
             {
               "itemId": "item_plant_crylplant_2_1",
-              "name": {
-                "zh-CN": "受蚀玉化叶",
-                "en": "Blighted Jadeleaf",
-                "ja": "侵蝕玉化葉",
-                "zh-TW": "受蝕玉化葉"
-              },
+              "count": 12,
               "iconId": "item_plant_crylplant_2_1",
-              "rarity": 5,
-              "count": 12
+              "rarity": 5
             },
             {
               "itemId": "item_gold",
-              "name": {
-                "zh-CN": "折金票",
-                "en": "T-Creds",
-                "ja": "折金券",
-                "zh-TW": "折金票"
-              },
+              "count": 65000,
               "iconId": "item_gold",
-              "rarity": 4,
-              "count": 65000
+              "rarity": 4
             }
           ]
         }
@@ -6308,173 +5210,73 @@
   "talents": [
     {
       "id": "chr_0022_bounda_talent_1_1",
-      "name": {
-        "zh-CN": "落井下石爱好者",
-        "en": "Love the Stab and Twist",
-        "ja": "泣きっ面に石",
-        "zh-TW": "落井下石愛好者"
-      },
-      "description": {
-        "zh-CN": "萤石对处于<#ba.slow>缓速</>状态的目标造成的伤害<@ba.vup>+10%</> 。",
-        "en": "Fluorite gains DMG Dealt <@ba.vup>+10%</> against <#ba.slow>Slowed</> targets.",
-        "ja": "フローライトによる<#ba.slow>スロー</>状態の敵へのダメージ<@ba.vup>+10%</>",
-        "zh-TW": "螢石對處於<#ba.slow>緩速</>狀態的目標造成的傷害<@ba.vup>+10%</>。"
-      },
-      "iconId": "icon_talent_bounda_01",
       "breakStage": 1,
       "materials": [
         {
           "itemId": "item_char_skill_level_1_6",
-          "name": {
-            "zh-CN": "协议棱柱",
-            "en": "Protoprism",
-            "ja": "協約角柱",
-            "zh-TW": "協議稜柱"
-          },
+          "count": 12,
           "iconId": "item_char_skill_level_1_6",
-          "rarity": 3,
-          "count": 12
+          "rarity": 3
         },
         {
           "itemId": "item_gold",
-          "name": {
-            "zh-CN": "折金票",
-            "en": "T-Creds",
-            "ja": "折金券",
-            "zh-TW": "折金票"
-          },
+          "count": 2400,
           "iconId": "item_gold",
-          "rarity": 4,
-          "count": 2400
+          "rarity": 4
         }
       ]
     },
     {
       "id": "chr_0022_bounda_talent_1_2",
-      "name": {
-        "zh-CN": "落井下石爱好者",
-        "en": "Love the Stab and Twist",
-        "ja": "泣きっ面に石",
-        "zh-TW": "落井下石愛好者"
-      },
-      "description": {
-        "zh-CN": "萤石对处于<#ba.slow>缓速</>状态的目标造成的伤害<@ba.vup>+20%</> 。",
-        "en": "Fluorite gains DMG Dealt <@ba.vup>+20%</> against <#ba.slow>Slowed</> targets.",
-        "ja": "フローライトによる<#ba.slow>スロー</>状態の敵へのダメージ<@ba.vup>+20%</>",
-        "zh-TW": "螢石對處於<#ba.slow>緩速</>狀態的目標造成的傷害<@ba.vup>+20%</>。"
-      },
-      "iconId": "icon_talent_bounda_01",
       "breakStage": 2,
       "materials": [
         {
           "itemId": "item_char_skill_level_1_6",
-          "name": {
-            "zh-CN": "协议棱柱",
-            "en": "Protoprism",
-            "ja": "協約角柱",
-            "zh-TW": "協議稜柱"
-          },
+          "count": 40,
           "iconId": "item_char_skill_level_1_6",
-          "rarity": 3,
-          "count": 40
+          "rarity": 3
         },
         {
           "itemId": "item_gold",
-          "name": {
-            "zh-CN": "折金票",
-            "en": "T-Creds",
-            "ja": "折金券",
-            "zh-TW": "折金票"
-          },
+          "count": 8600,
           "iconId": "item_gold",
-          "rarity": 4,
-          "count": 8600
+          "rarity": 4
         }
       ]
     },
     {
       "id": "chr_0022_bounda_talent_2_1",
-      "name": {
-        "zh-CN": "捉摸不定",
-        "en": "Unpredictable",
-        "ja": "予測不可能",
-        "zh-TW": "捉摸不定"
-      },
-      "description": {
-        "zh-CN": "有<@ba.vup>20%</>的概率免疫<#ba.spelldmg>法术伤害</>，之后使自身攻击力<@ba.vup>+10%</>，持续<@ba.vup>10</>秒，该效果无法叠加。",
-        "en": "Grants <@ba.vup>20%</> chance of <#ba.spelldmg>Arts DMG</> immunity and grants Fluorite ATK <@ba.vup>+10%</> for <@ba.vup>10</>s. This effect cannot stack.",
-        "ja": "<@ba.vup>20%</>の確率で<#ba.spelldmg>アーツダメージ</>が無効になり、その後<@ba.vup>10</>秒間自身の攻撃力<@ba.vup>+10%</>（重ね掛け不可）",
-        "zh-TW": "有<@ba.vup>20%</>的機率免疫<#ba.spelldmg>法術傷害</>，之後使自身攻擊力<@ba.vup>+10%</>，持續<@ba.vup>10</>秒，該效果無法疊加。"
-      },
-      "iconId": "icon_talent_bounda_02",
       "breakStage": 2,
       "materials": [
         {
           "itemId": "item_char_skill_level_1_6",
-          "name": {
-            "zh-CN": "协议棱柱",
-            "en": "Protoprism",
-            "ja": "協約角柱",
-            "zh-TW": "協議稜柱"
-          },
+          "count": 48,
           "iconId": "item_char_skill_level_1_6",
-          "rarity": 3,
-          "count": 48
+          "rarity": 3
         },
         {
           "itemId": "item_gold",
-          "name": {
-            "zh-CN": "折金票",
-            "en": "T-Creds",
-            "ja": "折金券",
-            "zh-TW": "折金票"
-          },
+          "count": 10000,
           "iconId": "item_gold",
-          "rarity": 4,
-          "count": 10000
+          "rarity": 4
         }
       ]
     },
     {
       "id": "chr_0022_bounda_talent_2_2",
-      "name": {
-        "zh-CN": "捉摸不定",
-        "en": "Unpredictable",
-        "ja": "予測不可能",
-        "zh-TW": "捉摸不定"
-      },
-      "description": {
-        "zh-CN": "有<@ba.vup>20%</>的概率免疫<#ba.spelldmg>法术伤害</>，之后使自身攻击力<@ba.vup>+20%</>，持续<@ba.vup>10</>秒，该效果无法叠加。",
-        "en": "Grants <@ba.vup>20%</> chance of <#ba.spelldmg>Arts DMG</> immunity and grants Fluorite ATK <@ba.vup>+20%</> for <@ba.vup>10</>s. This effect cannot stack.",
-        "ja": "<@ba.vup>20%</>の確率で<#ba.spelldmg>アーツダメージ</>が無効になり、その後<@ba.vup>10</>秒間自身の攻撃力<@ba.vup>+20%</>（重ね掛け不可）",
-        "zh-TW": "有<@ba.vup>20%</>的機率免疫<#ba.spelldmg>法術傷害</>，之後使自身攻擊力<@ba.vup>+20%</>，持續<@ba.vup>10</>秒，該效果無法疊加。"
-      },
-      "iconId": "icon_talent_bounda_02",
       "breakStage": 3,
       "materials": [
         {
           "itemId": "item_char_skill_level_7_12",
-          "name": {
-            "zh-CN": "协议棱柱组",
-            "en": "Protohedron",
-            "ja": "協約角柱セット",
-            "zh-TW": "協議稜柱組"
-          },
+          "count": 28,
           "iconId": "item_char_skill_level_7_12",
-          "rarity": 4,
-          "count": 28
+          "rarity": 4
         },
         {
           "itemId": "item_gold",
-          "name": {
-            "zh-CN": "折金票",
-            "en": "T-Creds",
-            "ja": "折金券",
-            "zh-TW": "折金票"
-          },
+          "count": 24000,
           "iconId": "item_gold",
-          "rarity": 4,
-          "count": 24000
+          "rarity": 4
         }
       ]
     }
@@ -6482,18 +5284,6 @@
   "attributeNodes": [
     {
       "id": "chr_0022_bounda_1",
-      "title": {
-        "zh-CN": "游刃",
-        "en": "Skirmisher",
-        "ja": "遊刃",
-        "zh-TW": "游刃"
-      },
-      "description": {
-        "zh-CN": "干员敏捷能力值提升10。",
-        "en": "Operator Agility +10.",
-        "ja": "敏捷が10アップする",
-        "zh-TW": "幹員敏捷能力值提升10。"
-      },
       "breakStage": 1,
       "favorability": 60,
       "stats": [
@@ -6505,44 +5295,20 @@
       "materials": [
         {
           "itemId": "item_char_skill_level_1_6",
-          "name": {
-            "zh-CN": "协议棱柱",
-            "en": "Protoprism",
-            "ja": "協約角柱",
-            "zh-TW": "協議稜柱"
-          },
+          "count": 5,
           "iconId": "item_char_skill_level_1_6",
-          "rarity": 3,
-          "count": 5
+          "rarity": 3
         },
         {
           "itemId": "item_gold",
-          "name": {
-            "zh-CN": "折金票",
-            "en": "T-Creds",
-            "ja": "折金券",
-            "zh-TW": "折金票"
-          },
+          "count": 1000,
           "iconId": "item_gold",
-          "rarity": 4,
-          "count": 1000
+          "rarity": 4
         }
       ]
     },
     {
       "id": "chr_0022_bounda_3",
-      "title": {
-        "zh-CN": "游刃",
-        "en": "Skirmisher",
-        "ja": "遊刃",
-        "zh-TW": "游刃"
-      },
-      "description": {
-        "zh-CN": "干员敏捷能力值提升15。",
-        "en": "Operator Agility +15.",
-        "ja": "敏捷が15アップする",
-        "zh-TW": "幹員敏捷能力值提升15。"
-      },
       "breakStage": 2,
       "favorability": 150,
       "stats": [
@@ -6554,44 +5320,20 @@
       "materials": [
         {
           "itemId": "item_char_skill_level_1_6",
-          "name": {
-            "zh-CN": "协议棱柱",
-            "en": "Protoprism",
-            "ja": "協約角柱",
-            "zh-TW": "協議稜柱"
-          },
+          "count": 10,
           "iconId": "item_char_skill_level_1_6",
-          "rarity": 3,
-          "count": 10
+          "rarity": 3
         },
         {
           "itemId": "item_gold",
-          "name": {
-            "zh-CN": "折金票",
-            "en": "T-Creds",
-            "ja": "折金券",
-            "zh-TW": "折金票"
-          },
+          "count": 1800,
           "iconId": "item_gold",
-          "rarity": 4,
-          "count": 1800
+          "rarity": 4
         }
       ]
     },
     {
       "id": "chr_0022_bounda_5",
-      "title": {
-        "zh-CN": "游刃",
-        "en": "Skirmisher",
-        "ja": "遊刃",
-        "zh-TW": "游刃"
-      },
-      "description": {
-        "zh-CN": "干员敏捷能力值提升15。",
-        "en": "Operator Agility +15.",
-        "ja": "敏捷が15アップする",
-        "zh-TW": "幹員敏捷能力值提升15。"
-      },
       "breakStage": 3,
       "favorability": 300,
       "stats": [
@@ -6603,44 +5345,20 @@
       "materials": [
         {
           "itemId": "item_char_skill_level_7_12",
-          "name": {
-            "zh-CN": "协议棱柱组",
-            "en": "Protohedron",
-            "ja": "協約角柱セット",
-            "zh-TW": "協議稜柱組"
-          },
+          "count": 10,
           "iconId": "item_char_skill_level_7_12",
-          "rarity": 4,
-          "count": 10
+          "rarity": 4
         },
         {
           "itemId": "item_gold",
-          "name": {
-            "zh-CN": "折金票",
-            "en": "T-Creds",
-            "ja": "折金券",
-            "zh-TW": "折金票"
-          },
+          "count": 6000,
           "iconId": "item_gold",
-          "rarity": 4,
-          "count": 6000
+          "rarity": 4
         }
       ]
     },
     {
       "id": "chr_0022_bounda_7",
-      "title": {
-        "zh-CN": "游刃",
-        "en": "Skirmisher",
-        "ja": "遊刃",
-        "zh-TW": "游刃"
-      },
-      "description": {
-        "zh-CN": "干员敏捷能力值提升20。",
-        "en": "Operator Agility +20.",
-        "ja": "敏捷が20アップする",
-        "zh-TW": "幹員敏捷能力值提升20。"
-      },
       "breakStage": 4,
       "favorability": 300,
       "stats": [
@@ -6652,27 +5370,15 @@
       "materials": [
         {
           "itemId": "item_char_skill_level_7_12",
-          "name": {
-            "zh-CN": "协议棱柱组",
-            "en": "Protohedron",
-            "ja": "協約角柱セット",
-            "zh-TW": "協議稜柱組"
-          },
+          "count": 20,
           "iconId": "item_char_skill_level_7_12",
-          "rarity": 4,
-          "count": 20
+          "rarity": 4
         },
         {
           "itemId": "item_gold",
-          "name": {
-            "zh-CN": "折金票",
-            "en": "T-Creds",
-            "ja": "折金券",
-            "zh-TW": "折金票"
-          },
+          "count": 12000,
           "iconId": "item_gold",
-          "rarity": 4,
-          "count": 12000
+          "rarity": 4
         }
       ]
     }
@@ -6680,94 +5386,40 @@
   "equipmentNodes": [
     {
       "id": "equipBreakT2",
-      "name": {
-        "zh-CN": "装备适配·一",
-        "en": "Outfitting I",
-        "ja": "装備適正・Ⅰ",
-        "zh-TW": "裝備適用I"
-      },
-      "description": {
-        "zh-CN": "激活后，允许干员穿戴蓝色品质装备",
-        "en": "Activate this to let the operator equip blue quality gear",
-        "ja": "解放後、青品質の装備を着用できる",
-        "zh-TW": "解鎖後，允許幹員穿戴藍色品質裝備"
-      },
       "breakStage": 1,
       "equipmentTierLimit": 3,
       "materials": [
         {
           "itemId": "item_gold",
-          "name": {
-            "zh-CN": "折金票",
-            "en": "T-Creds",
-            "ja": "折金券",
-            "zh-TW": "折金票"
-          },
+          "count": 1600,
           "iconId": "item_gold",
-          "rarity": 4,
-          "count": 1600
+          "rarity": 4
         }
       ]
     },
     {
       "id": "equipBreakT3",
-      "name": {
-        "zh-CN": "装备适配·二",
-        "en": "Outfitting II",
-        "ja": "装備適正・Ⅱ",
-        "zh-TW": "裝備適用II"
-      },
-      "description": {
-        "zh-CN": "激活后，允许干员穿戴紫色品质装备",
-        "en": "Activate this to let the operator equip purple quality gear",
-        "ja": "解放後、紫品質の装備を着用できる",
-        "zh-TW": "解鎖後，允許幹員穿戴紫色品質裝備"
-      },
       "breakStage": 2,
       "equipmentTierLimit": 4,
       "materials": [
         {
           "itemId": "item_gold",
-          "name": {
-            "zh-CN": "折金票",
-            "en": "T-Creds",
-            "ja": "折金券",
-            "zh-TW": "折金票"
-          },
+          "count": 6500,
           "iconId": "item_gold",
-          "rarity": 4,
-          "count": 6500
+          "rarity": 4
         }
       ]
     },
     {
       "id": "equipBreakT4",
-      "name": {
-        "zh-CN": "装备适配·三",
-        "en": "Outfitting III",
-        "ja": "装備適正・Ⅲ",
-        "zh-TW": "裝備適用III"
-      },
-      "description": {
-        "zh-CN": "激活后，允许干员穿戴金色品质装备",
-        "en": "Activate this to let the operator equip gold quality gear",
-        "ja": "解放後、金品質の装備を着用できる",
-        "zh-TW": "解鎖後，允許幹員穿戴金色品質裝備"
-      },
       "breakStage": 3,
       "equipmentTierLimit": 5,
       "materials": [
         {
           "itemId": "item_gold",
-          "name": {
-            "zh-CN": "折金票",
-            "en": "T-Creds",
-            "ja": "折金券",
-            "zh-TW": "折金票"
-          },
+          "count": 18000,
           "iconId": "item_gold",
-          "rarity": 4,
-          "count": 18000
+          "rarity": 4
         }
       ]
     }
@@ -6781,27 +5433,15 @@
       "materials": [
         {
           "itemId": "item_char_skill_level_1_6",
-          "name": {
-            "zh-CN": "协议棱柱",
-            "en": "Protoprism",
-            "ja": "協約角柱",
-            "zh-TW": "協議稜柱"
-          },
+          "count": 6,
           "iconId": "item_char_skill_level_1_6",
-          "rarity": 3,
-          "count": 6
+          "rarity": 3
         },
         {
           "itemId": "item_gold",
-          "name": {
-            "zh-CN": "折金票",
-            "en": "T-Creds",
-            "ja": "折金券",
-            "zh-TW": "折金票"
-          },
+          "count": 1600,
           "iconId": "item_gold",
-          "rarity": 4,
-          "count": 1600
+          "rarity": 4
         }
       ]
     },
@@ -6813,27 +5453,15 @@
       "materials": [
         {
           "itemId": "item_char_skill_level_1_6",
-          "name": {
-            "zh-CN": "协议棱柱",
-            "en": "Protoprism",
-            "ja": "協約角柱",
-            "zh-TW": "協議稜柱"
-          },
+          "count": 12,
           "iconId": "item_char_skill_level_1_6",
-          "rarity": 3,
-          "count": 12
+          "rarity": 3
         },
         {
           "itemId": "item_gold",
-          "name": {
-            "zh-CN": "折金票",
-            "en": "T-Creds",
-            "ja": "折金券",
-            "zh-TW": "折金票"
-          },
+          "count": 3000,
           "iconId": "item_gold",
-          "rarity": 4,
-          "count": 3000
+          "rarity": 4
         }
       ]
     },
@@ -6845,27 +5473,15 @@
       "materials": [
         {
           "itemId": "item_char_skill_level_7_12",
-          "name": {
-            "zh-CN": "协议棱柱组",
-            "en": "Protohedron",
-            "ja": "協約角柱セット",
-            "zh-TW": "協議稜柱組"
-          },
+          "count": 12,
           "iconId": "item_char_skill_level_7_12",
-          "rarity": 4,
-          "count": 12
+          "rarity": 4
         },
         {
           "itemId": "item_gold",
-          "name": {
-            "zh-CN": "折金票",
-            "en": "T-Creds",
-            "ja": "折金券",
-            "zh-TW": "折金票"
-          },
+          "count": 8000,
           "iconId": "item_gold",
-          "rarity": 4,
-          "count": 8000
+          "rarity": 4
         }
       ]
     },
@@ -6877,27 +5493,15 @@
       "materials": [
         {
           "itemId": "item_char_skill_level_7_12",
-          "name": {
-            "zh-CN": "协议棱柱组",
-            "en": "Protohedron",
-            "ja": "協約角柱セット",
-            "zh-TW": "協議稜柱組"
-          },
+          "count": 20,
           "iconId": "item_char_skill_level_7_12",
-          "rarity": 4,
-          "count": 20
+          "rarity": 4
         },
         {
           "itemId": "item_gold",
-          "name": {
-            "zh-CN": "折金票",
-            "en": "T-Creds",
-            "ja": "折金券",
-            "zh-TW": "折金票"
-          },
+          "count": 20000,
           "iconId": "item_gold",
-          "rarity": 4,
-          "count": 20000
+          "rarity": 4
         }
       ]
     }
@@ -6906,18 +5510,6 @@
     {
       "id": "chr_0022_bounda_potential_1",
       "level": 1,
-      "name": {
-        "zh-CN": "利手成双",
-        "en": "Ten-Finger Smith",
-        "ja": "どっちも利き手",
-        "zh-TW": "利手成雙"
-      },
-      "description": {
-        "zh-CN": "敏捷<@ba.vup>+10</>，智识<@ba.vup>+10</>。",
-        "en": "Agility <@ba.vup>+10</>, Intellect <@ba.vup>+10</>.",
-        "ja": "敏捷<@ba.vup>+10</>、知性<@ba.vup>+10</>",
-        "zh-TW": "敏捷<@ba.vup>+10</>，智識<@ba.vup>+10</>。"
-      },
       "imageIds": [
         "item_pic_1_chr_0022_bounda"
       ]
@@ -6925,35 +5517,11 @@
     {
       "id": "chr_0022_bounda_potential_2",
       "level": 2,
-      "name": {
-        "zh-CN": "读心技巧",
-        "en": "Mind Reading Technique",
-        "ja": "読心術",
-        "zh-TW": "讀心技巧"
-      },
-      "description": {
-        "zh-CN": "天赋<@ba.key>捉摸不定</>效果加强：法术伤害免疫概率<@ba.vup>+10%</>。",
-        "en": "Talent <@ba.key>Unpredictable</> improved: Chance to ignore Arts DMG <@ba.vup>+10%</>.",
-        "ja": "素質<@ba.key>「予測不可能」</>強化：アーツダメージ無効の確率<@ba.vup>+10%</>",
-        "zh-TW": "天賦<@ba.key>捉摸不定</>效果加強：法術傷害免疫機率<@ba.vup>+10%</>。"
-      },
       "imageIds": []
     },
     {
       "id": "chr_0022_bounda_potential_3",
       "level": 3,
-      "name": {
-        "zh-CN": "三倍惊喜",
-        "en": "Triple Surprise",
-        "ja": "サプライズ×3",
-        "zh-TW": "三倍驚喜"
-      },
-      "description": {
-        "zh-CN": "战技<@ba.key>小惊喜</>黏附的<@ba.key>自制炸弹</>爆炸后，将<#ba.slow>缓速</>效果扩散给所有命中敌人，持续<@ba.vup>6</>秒。",
-        "en": "Battle skill <@ba.key>Tiny Surprise</> improved: After <@ba.key>Improvised Explosive</> explodes, the <#ba.slow>slow</> effect is applied to all enemies hit and lasts <@ba.vup>6</>s.",
-        "ja": "戦技<@ba.key>「ちょっとイタズラ」</>による<@ba.key>お手製爆弾</>が爆発すると、命中したすべての敵に<@ba.vup>6</>秒間持続する<#ba.slow>スロー</>効果を付与する",
-        "zh-TW": "戰技<@ba.key>小驚喜</>黏附的<@ba.key>自製炸彈</>爆炸後，將<#ba.slow>緩速</>效果擴散給所有命中敵人，持續<@ba.vup>6</>秒。"
-      },
       "imageIds": [
         "item_pic_3_chr_0022_bounda"
       ]
@@ -6961,35 +5529,11 @@
     {
       "id": "chr_0022_bounda_potential_4",
       "level": 4,
-      "name": {
-        "zh-CN": "闹剧专家",
-        "en": "Prank Master",
-        "ja": "トラブルメーカー",
-        "zh-TW": "鬧劇專家"
-      },
-      "description": {
-        "zh-CN": "终结技<@ba.key>巅峰闹剧</>所需的终结技能量<@ba.vup>-10%</>。",
-        "en": "Ultimate <@ba.key>Apex Prankster</> improved: Ultimate Energy cost <@ba.vup>-10%</>.",
-        "ja": "必殺技<@ba.key>「つまんない茶番」</>に必要な必殺チャージ<@ba.vup>-10%</>",
-        "zh-TW": "終結技<@ba.key>巔峰鬧劇</>所需的終結技能量<@ba.vup>-10%</>。"
-      },
       "imageIds": []
     },
     {
       "id": "chr_0022_bounda_potential_5",
       "level": 5,
-      "name": {
-        "zh-CN": "享受混乱",
-        "en": "Craver of Chaos",
-        "ja": "楽しいよね？",
-        "zh-TW": "享受混亂"
-      },
-      "description": {
-        "zh-CN": "每当有敌人被施加<#ba.crystinflict>寒冷附着</>或<#ba.naturalinflict>自然附着</>时，连携技<@ba.key>免费赠礼</>冷却时间<@ba.vup>-1</>秒，该效果每1秒最多触发一次。",
-        "en": "Combo skill <@ba.key>Free Giveaway</> improved: Whenever <#ba.crystinflict>Cryo Infliction</> or <#ba.naturalinflict>Nature Infliction</> is applied to the enemy, cooldown is shortened by <@ba.vup>1</>s. Effect can only trigger once every 1s.",
-        "ja": "敵が<#ba.crystinflict>寒冷付着</>または<#ba.naturalinflict>自然付着</>を受けるたびに、連携技<@ba.key>「特別サービス」</>のCD時間<@ba.vup>-1</>秒\nこの効果は1秒に1回まで発動可能",
-        "zh-TW": "每當有敵人被施加<#ba.crystinflict>寒冷附著</>或<#ba.naturalinflict>自然附著</>時，連攜技<@ba.key>免費贈禮</>冷卻時間<@ba.vup>-1</>秒，該效果每1秒最多觸發一次。"
-      },
       "imageIds": [
         "item_pic_5_chr_0022_bounda"
       ]
@@ -6998,141 +5542,27 @@
   "logisticsSkills": [
     {
       "id": "spaceship_skill_chr_0022_bounda_1_1",
-      "name": {
-        "zh-CN": "荒芜行者·α",
-        "en": "Wildlands Trekker α",
-        "ja": "荒野放浪・α",
-        "zh-TW": "荒蕪行者·α"
-      },
-      "description": {
-        "zh-CN": "进驻培养舱时，矿物质料的培养速度提升10%",
-        "en": "Assign to Growth Chamber to grant rare mineral growth rate +10%",
-        "ja": "培養室配属時、鉱物素材の培養速度+10%",
-        "zh-TW": "進駐培養艙時，礦物材料的培養速度提升10%"
-      },
       "iconId": "facskill_spaceship_plant_mineral",
-      "unlockHint": {
-        "zh-CN": "精英化阶段一可解锁",
-        "en": "Reach E1 to unlock",
-        "ja": "昇進段階1で解放",
-        "zh-TW": "精英化階段一可解鎖"
-      },
       "index": 0,
       "level": 1
     },
     {
       "id": "spaceship_skill_chr_0022_bounda_1_2",
-      "name": {
-        "zh-CN": "荒芜行者·β",
-        "en": "Wildlands Trekker β",
-        "ja": "荒野放浪・β",
-        "zh-TW": "荒蕪行者·β"
-      },
-      "description": {
-        "zh-CN": "进驻培养舱时，矿物质料的培养速度提升20%",
-        "en": "Assign to Growth Chamber to grant rare mineral growth rate +20%",
-        "ja": "培養室配属時、鉱物素材の培養速度+20%",
-        "zh-TW": "進駐培養艙時，礦物材料的培養速度提升20%"
-      },
       "iconId": "facskill_spaceship_plant_mineral",
-      "unlockHint": {
-        "zh-CN": "精英化阶段三可激活",
-        "en": "Reach E3 to activate",
-        "ja": "昇進段階3で解放",
-        "zh-TW": "精英化階段三可啟用"
-      },
       "index": 0,
       "level": 2
     },
     {
       "id": "spaceship_skill_chr_0022_bounda_2_1",
-      "name": {
-        "zh-CN": "知人所想·β",
-        "en": "Reader of Emotions β",
-        "ja": "心の透視・β",
-        "zh-TW": "知人所想·β"
-      },
-      "description": {
-        "zh-CN": "进驻总控中枢时，所有干员心情恢复提升12%",
-        "en": "Assign to Control Nexus to grant all operators' Mood Regen +12%",
-        "ja": "指揮中枢配属時、全員の体力回復+12%",
-        "zh-TW": "進駐總控中樞時，所有幹員心情恢復提升12%"
-      },
       "iconId": "facskill_spaceship_physical_power",
-      "unlockHint": {
-        "zh-CN": "精英化阶段二可解锁",
-        "en": "Reach E2 to unlock",
-        "ja": "昇進段階2で解放",
-        "zh-TW": "精英化階段二可解鎖"
-      },
       "index": 1,
       "level": 1
     },
     {
       "id": "spaceship_skill_chr_0022_bounda_2_2",
-      "name": {
-        "zh-CN": "知人所想·γ",
-        "en": "Reader of Emotions γ",
-        "ja": "心の透視・γ",
-        "zh-TW": "知人所想·γ"
-      },
-      "description": {
-        "zh-CN": "进驻总控中枢时，所有干员心情恢复提升16%",
-        "en": "Assign to Control Nexus to grant all operators' Mood Regen +16%",
-        "ja": "指揮中枢配属時、全員の体力回復+16%",
-        "zh-TW": "進駐總控中樞時，所有幹員心情恢復提升16%"
-      },
       "iconId": "facskill_spaceship_physical_power",
-      "unlockHint": {
-        "zh-CN": "精英化阶段四可激活",
-        "en": "Reach E4 to activate",
-        "ja": "昇進段階4で解放",
-        "zh-TW": "精英化階段四可啟用"
-      },
       "index": 1,
       "level": 2
-    }
-  ],
-  "cvNames": [
-    {
-      "language": "zh-CN",
-      "original": "曹雅雯",
-      "localized": {
-        "zh-CN": "曹雅雯",
-        "en": "Cao Yawen",
-        "ja": "曹雅雯",
-        "zh-TW": "曹雅雯"
-      }
-    },
-    {
-      "language": "en",
-      "original": "Katiana Sarkissian",
-      "localized": {
-        "zh-CN": "Katiana Sarkissian",
-        "en": "Katiana Sarkissian",
-        "ja": "Katiana Sarkissian",
-        "zh-TW": "Katiana Sarkissian"
-      }
-    },
-    {
-      "language": "ja",
-      "original": "大地葉",
-      "localized": {
-        "zh-CN": "大地叶",
-        "en": "Taichi You",
-        "ja": "大地葉",
-        "zh-TW": "大地葉"
-      }
-    },
-    {
-      "language": "ko",
-      "original": "장미",
-      "localized": {
-        "zh-CN": "张美",
-        "en": "Jang Mi",
-        "ja": "장미",
-        "zh-TW": "張美"
-      }
     }
   ],
   "promotions": [
@@ -7142,39 +5572,21 @@
       "materials": [
         {
           "itemId": "item_char_break_stage_1_2",
-          "name": {
-            "zh-CN": "协议圆盘",
-            "en": "Protodisk",
-            "ja": "協約ディスク",
-            "zh-TW": "協議圓盤"
-          },
+          "count": 8,
           "iconId": "item_char_break_stage_1_2",
-          "rarity": 3,
-          "count": 8
+          "rarity": 3
         },
         {
           "itemId": "item_plant_mushroom_1_1",
-          "name": {
-            "zh-CN": "轻红柱状菌",
-            "en": "Pink Bolete",
-            "ja": "薄紅茸",
-            "zh-TW": "輕紅柱狀菌"
-          },
+          "count": 3,
           "iconId": "item_plant_mushroom_1_1",
-          "rarity": 4,
-          "count": 3
+          "rarity": 4
         },
         {
           "itemId": "item_gold",
-          "name": {
-            "zh-CN": "折金票",
-            "en": "T-Creds",
-            "ja": "折金券",
-            "zh-TW": "折金票"
-          },
+          "count": 1600,
           "iconId": "item_gold",
-          "rarity": 4,
-          "count": 1600
+          "rarity": 4
         }
       ]
     },
@@ -7184,39 +5596,21 @@
       "materials": [
         {
           "itemId": "item_char_break_stage_1_2",
-          "name": {
-            "zh-CN": "协议圆盘",
-            "en": "Protodisk",
-            "ja": "協約ディスク",
-            "zh-TW": "協議圓盤"
-          },
+          "count": 25,
           "iconId": "item_char_break_stage_1_2",
-          "rarity": 3,
-          "count": 25
+          "rarity": 3
         },
         {
           "itemId": "item_plant_mushroom_1_2",
-          "name": {
-            "zh-CN": "中红柱状菌",
-            "en": "Red Bolete",
-            "ja": "紅色茸",
-            "zh-TW": "中紅柱狀菌"
-          },
+          "count": 5,
           "iconId": "item_plant_mushroom_1_2",
-          "rarity": 4,
-          "count": 5
+          "rarity": 4
         },
         {
           "itemId": "item_gold",
-          "name": {
-            "zh-CN": "折金票",
-            "en": "T-Creds",
-            "ja": "折金券",
-            "zh-TW": "折金票"
-          },
+          "count": 6500,
           "iconId": "item_gold",
-          "rarity": 4,
-          "count": 6500
+          "rarity": 4
         }
       ]
     },
@@ -7226,39 +5620,21 @@
       "materials": [
         {
           "itemId": "item_char_break_stage_3_4",
-          "name": {
-            "zh-CN": "协议圆盘组",
-            "en": "Protoset",
-            "ja": "協約ディスクセット",
-            "zh-TW": "協議圓盤組"
-          },
+          "count": 24,
           "iconId": "item_char_break_stage_3_4",
-          "rarity": 4,
-          "count": 24
+          "rarity": 4
         },
         {
           "itemId": "item_plant_mushroom_1_3",
-          "name": {
-            "zh-CN": "重红柱状菌",
-            "en": "Ruby Bolete",
-            "ja": "深紅茸",
-            "zh-TW": "重紅柱狀菌"
-          },
+          "count": 5,
           "iconId": "item_plant_mushroom_1_3",
-          "rarity": 4,
-          "count": 5
+          "rarity": 4
         },
         {
           "itemId": "item_gold",
-          "name": {
-            "zh-CN": "折金票",
-            "en": "T-Creds",
-            "ja": "折金券",
-            "zh-TW": "折金票"
-          },
+          "count": 18000,
           "iconId": "item_gold",
-          "rarity": 4,
-          "count": 18000
+          "rarity": 4
         }
       ]
     },
@@ -7268,51 +5644,27 @@
       "materials": [
         {
           "itemId": "item_char_break_stage_3_4",
-          "name": {
-            "zh-CN": "协议圆盘组",
-            "en": "Protoset",
-            "ja": "協約ディスクセット",
-            "zh-TW": "協議圓盤組"
-          },
+          "count": 36,
           "iconId": "item_char_break_stage_3_4",
-          "rarity": 4,
-          "count": 36
+          "rarity": 4
         },
         {
           "itemId": "item_char_skill_specialize_5",
-          "name": {
-            "zh-CN": "三相纳米片",
-            "en": "Triphasic Nanoflake",
-            "ja": "三相ナノフレーク",
-            "zh-TW": "三相奈米片"
-          },
+          "count": 20,
           "iconId": "item_char_skill_specialize_5",
-          "rarity": 5,
-          "count": 20
+          "rarity": 5
         },
         {
           "itemId": "item_plant_mushroom_2_2",
-          "name": {
-            "zh-CN": "星门菌",
-            "en": "Cosmagaric",
-            "ja": "星門茸",
-            "zh-TW": "星門菌"
-          },
+          "count": 8,
           "iconId": "item_plant_mushroom_2_2",
-          "rarity": 5,
-          "count": 8
+          "rarity": 5
         },
         {
           "itemId": "item_gold",
-          "name": {
-            "zh-CN": "折金票",
-            "en": "T-Creds",
-            "ja": "折金券",
-            "zh-TW": "折金票"
-          },
+          "count": 100000,
           "iconId": "item_gold",
-          "rarity": 4,
-          "count": 100000
+          "rarity": 4
         }
       ]
     }
@@ -7322,5 +5674,23 @@
     "fullBodyIds": {
       "default": "chr_0022_bounda"
     }
-  }
+  },
+  "cvNames": [
+    {
+      "language": "zh-CN",
+      "original": "曹雅雯"
+    },
+    {
+      "language": "en",
+      "original": "Katiana Sarkissian"
+    },
+    {
+      "language": "ja",
+      "original": "大地葉"
+    },
+    {
+      "language": "ko",
+      "original": "장미"
+    }
+  ]
 }

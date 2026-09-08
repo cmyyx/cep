@@ -1,3 +1,5 @@
+import type { WeaponAcquisitionSource } from './weapon-acquisition'
+
 export interface Weapon {
   id: string
   /**
@@ -15,6 +17,8 @@ export interface Weapon {
   specialAbility: string | null
   chars: string[]
   /** 'game' = from game client asset unpacking; 'preview' = from official pre-release announcements. */
+  /** Official in-game acquisition categories and source records, generated from AKEData. */
+  acquisitionSources?: WeaponAcquisitionSource[]
   source?: 'game' | 'preview'
 }
 

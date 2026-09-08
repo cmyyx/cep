@@ -364,6 +364,104 @@
       "baseAttack": 411
     }
   ],
+  "skills": [
+    {
+      "id": "wpn_attr_wisd_mid",
+      "levels": [
+        {
+          "level": 1
+        },
+        {
+          "level": 2
+        },
+        {
+          "level": 3
+        },
+        {
+          "level": 4
+        },
+        {
+          "level": 5
+        },
+        {
+          "level": 6
+        },
+        {
+          "level": 7
+        },
+        {
+          "level": 8
+        },
+        {
+          "level": 9
+        }
+      ]
+    },
+    {
+      "id": "wpn_sp_attr_usgs_mid",
+      "levels": [
+        {
+          "level": 1
+        },
+        {
+          "level": 2
+        },
+        {
+          "level": 3
+        },
+        {
+          "level": 4
+        },
+        {
+          "level": 5
+        },
+        {
+          "level": 6
+        },
+        {
+          "level": 7
+        },
+        {
+          "level": 8
+        },
+        {
+          "level": 9
+        }
+      ]
+    },
+    {
+      "id": "sk_wpn_sword_0007",
+      "levels": [
+        {
+          "level": 1
+        },
+        {
+          "level": 2
+        },
+        {
+          "level": 3
+        },
+        {
+          "level": 4
+        },
+        {
+          "level": 5
+        },
+        {
+          "level": 6
+        },
+        {
+          "level": 7
+        },
+        {
+          "level": 8
+        },
+        {
+          "level": 9
+        }
+      ]
+    }
+  ],
   "breakthroughs": [
     {
       "stage": 1,
@@ -377,39 +475,21 @@
       "materials": [
         {
           "itemId": "item_weapon_break_low",
-          "name": {
-            "zh-CN": "强固模具",
-            "en": "Cast Die",
-            "ja": "硬質金型",
-            "zh-TW": "強固模具"
-          },
+          "count": 5,
           "iconId": "item_weapon_break_low",
-          "rarity": 3,
-          "count": 5
+          "rarity": 3
         },
         {
           "itemId": "item_plant_spcstone_1_1",
-          "name": {
-            "zh-CN": "轻黯石",
-            "en": "Kalkonyx",
-            "ja": "軽闇石",
-            "zh-TW": "輕黯石"
-          },
+          "count": 3,
           "iconId": "item_plant_spcstone_1_1",
-          "rarity": 4,
-          "count": 3
+          "rarity": 4
         },
         {
           "itemId": "item_gold",
-          "name": {
-            "zh-CN": "折金票",
-            "en": "T-Creds",
-            "ja": "折金券",
-            "zh-TW": "折金票"
-          },
+          "count": 2200,
           "iconId": "item_gold",
-          "rarity": 4,
-          "count": 2200
+          "rarity": 4
         }
       ]
     },
@@ -425,39 +505,21 @@
       "materials": [
         {
           "itemId": "item_weapon_break_low",
-          "name": {
-            "zh-CN": "强固模具",
-            "en": "Cast Die",
-            "ja": "硬質金型",
-            "zh-TW": "強固模具"
-          },
+          "count": 18,
           "iconId": "item_weapon_break_low",
-          "rarity": 3,
-          "count": 18
+          "rarity": 3
         },
         {
           "itemId": "item_plant_spcstone_1_2",
-          "name": {
-            "zh-CN": "中黯石",
-            "en": "Auronyx",
-            "ja": "中闇石",
-            "zh-TW": "中黯石"
-          },
+          "count": 5,
           "iconId": "item_plant_spcstone_1_2",
-          "rarity": 4,
-          "count": 5
+          "rarity": 4
         },
         {
           "itemId": "item_gold",
-          "name": {
-            "zh-CN": "折金票",
-            "en": "T-Creds",
-            "ja": "折金券",
-            "zh-TW": "折金票"
-          },
+          "count": 8500,
           "iconId": "item_gold",
-          "rarity": 4,
-          "count": 8500
+          "rarity": 4
         }
       ]
     },
@@ -473,39 +535,21 @@
       "materials": [
         {
           "itemId": "item_weapon_break_high",
-          "name": {
-            "zh-CN": "重型强固模具",
-            "en": "Heavy Cast Die",
-            "ja": "重硬質金型",
-            "zh-TW": "重型強固模具"
-          },
+          "count": 20,
           "iconId": "item_weapon_break_high",
-          "rarity": 4,
-          "count": 20
+          "rarity": 4
         },
         {
           "itemId": "item_plant_spcstone_1_3",
-          "name": {
-            "zh-CN": "重黯石",
-            "en": "Umbronyx",
-            "ja": "重闇石",
-            "zh-TW": "重黯石"
-          },
+          "count": 5,
           "iconId": "item_plant_spcstone_1_3",
-          "rarity": 4,
-          "count": 5
+          "rarity": 4
         },
         {
           "itemId": "item_gold",
-          "name": {
-            "zh-CN": "折金票",
-            "en": "T-Creds",
-            "ja": "折金券",
-            "zh-TW": "折金票"
-          },
+          "count": 25000,
           "iconId": "item_gold",
-          "rarity": 4,
-          "count": 25000
+          "rarity": 4
         }
       ]
     },
@@ -521,347 +565,27 @@
       "materials": [
         {
           "itemId": "item_weapon_break_high",
-          "name": {
-            "zh-CN": "重型强固模具",
-            "en": "Heavy Cast Die",
-            "ja": "重硬質金型",
-            "zh-TW": "重型強固模具"
-          },
+          "count": 30,
           "iconId": "item_weapon_break_high",
-          "rarity": 4,
-          "count": 30
+          "rarity": 4
         },
         {
           "itemId": "item_char_skill_specialize_3",
-          "name": {
-            "zh-CN": "快子遴捡晶格",
-            "en": "Tachyon Screening Lattice",
-            "ja": "タキオン精選格子",
-            "zh-TW": "迅子遴撿晶格"
-          },
+          "count": 16,
           "iconId": "item_char_skill_specialize_3",
-          "rarity": 5,
-          "count": 16
+          "rarity": 5
         },
         {
           "itemId": "item_plant_spcstone_2_1",
-          "name": {
-            "zh-CN": "燎石",
-            "en": "Igneosite",
-            "ja": "燎石",
-            "zh-TW": "燎石"
-          },
+          "count": 8,
           "iconId": "item_plant_spcstone_2_1",
-          "rarity": 5,
-          "count": 8
+          "rarity": 5
         },
         {
           "itemId": "item_gold",
-          "name": {
-            "zh-CN": "折金票",
-            "en": "T-Creds",
-            "ja": "折金券",
-            "zh-TW": "折金票"
-          },
+          "count": 90000,
           "iconId": "item_gold",
-          "rarity": 4,
-          "count": 90000
-        }
-      ]
-    }
-  ],
-  "skills": [
-    {
-      "id": "wpn_attr_wisd_mid",
-      "name": {
-        "zh-CN": "智识提升·中",
-        "en": "Intellect [M]",
-        "ja": "知性UP・中",
-        "zh-TW": "智識提升·中"
-      },
-      "description": {
-        "zh-CN": "智识<@ba.vup>+124</>",
-        "en": "Intellect <@ba.vup>+124</>",
-        "ja": "知性<@ba.vup>+124</>",
-        "zh-TW": "智識<@ba.vup>+124</>"
-      },
-      "levels": [
-        {
-          "level": 1,
-          "description": {
-            "zh-CN": "智识<@ba.vup>+16</>",
-            "en": "Intellect <@ba.vup>+16</>",
-            "ja": "知性<@ba.vup>+16</>",
-            "zh-TW": "智識<@ba.vup>+16</>"
-          }
-        },
-        {
-          "level": 2,
-          "description": {
-            "zh-CN": "智识<@ba.vup>+28</>",
-            "en": "Intellect <@ba.vup>+28</>",
-            "ja": "知性<@ba.vup>+28</>",
-            "zh-TW": "智識<@ba.vup>+28</>"
-          }
-        },
-        {
-          "level": 3,
-          "description": {
-            "zh-CN": "智识<@ba.vup>+41</>",
-            "en": "Intellect <@ba.vup>+41</>",
-            "ja": "知性<@ba.vup>+41</>",
-            "zh-TW": "智識<@ba.vup>+41</>"
-          }
-        },
-        {
-          "level": 4,
-          "description": {
-            "zh-CN": "智识<@ba.vup>+54</>",
-            "en": "Intellect <@ba.vup>+54</>",
-            "ja": "知性<@ba.vup>+54</>",
-            "zh-TW": "智識<@ba.vup>+54</>"
-          }
-        },
-        {
-          "level": 5,
-          "description": {
-            "zh-CN": "智识<@ba.vup>+67</>",
-            "en": "Intellect <@ba.vup>+67</>",
-            "ja": "知性<@ba.vup>+67</>",
-            "zh-TW": "智識<@ba.vup>+67</>"
-          }
-        },
-        {
-          "level": 6,
-          "description": {
-            "zh-CN": "智识<@ba.vup>+80</>",
-            "en": "Intellect <@ba.vup>+80</>",
-            "ja": "知性<@ba.vup>+80</>",
-            "zh-TW": "智識<@ba.vup>+80</>"
-          }
-        },
-        {
-          "level": 7,
-          "description": {
-            "zh-CN": "智识<@ba.vup>+92</>",
-            "en": "Intellect <@ba.vup>+92</>",
-            "ja": "知性<@ba.vup>+92</>",
-            "zh-TW": "智識<@ba.vup>+92</>"
-          }
-        },
-        {
-          "level": 8,
-          "description": {
-            "zh-CN": "智识<@ba.vup>+105</>",
-            "en": "Intellect <@ba.vup>+105</>",
-            "ja": "知性<@ba.vup>+105</>",
-            "zh-TW": "智識<@ba.vup>+105</>"
-          }
-        },
-        {
-          "level": 9,
-          "description": {
-            "zh-CN": "智识<@ba.vup>+124</>",
-            "en": "Intellect <@ba.vup>+124</>",
-            "ja": "知性<@ba.vup>+124</>",
-            "zh-TW": "智識<@ba.vup>+124</>"
-          }
-        }
-      ]
-    },
-    {
-      "id": "wpn_sp_attr_usgs_mid",
-      "name": {
-        "zh-CN": "终结技充能效率提升·中",
-        "en": "ULT Efficiency [M]",
-        "ja": "必殺技効率UP・中",
-        "zh-TW": "終結技蓄能效率提升·中"
-      },
-      "description": {
-        "zh-CN": "终结技充能效率<@ba.vup>+37.1%</>",
-        "en": "Ultimate Gain Efficiency <@ba.vup>+37.1%</>",
-        "ja": "必殺チャージの回復効率<@ba.vup>+37.1%</>",
-        "zh-TW": "終結技蓄能效率<@ba.vup>+37.1%</>"
-      },
-      "levels": [
-        {
-          "level": 1,
-          "description": {
-            "zh-CN": "终结技充能效率<@ba.vup>+4.8%</>",
-            "en": "Ultimate Gain Efficiency <@ba.vup>+4.8%</>",
-            "ja": "必殺チャージの回復効率<@ba.vup>+4.8%</>",
-            "zh-TW": "終結技蓄能效率<@ba.vup>+4.8%</>"
-          }
-        },
-        {
-          "level": 2,
-          "description": {
-            "zh-CN": "终结技充能效率<@ba.vup>+8.6%</>",
-            "en": "Ultimate Gain Efficiency <@ba.vup>+8.6%</>",
-            "ja": "必殺チャージの回復効率<@ba.vup>+8.6%</>",
-            "zh-TW": "終結技蓄能效率<@ba.vup>+8.6%</>"
-          }
-        },
-        {
-          "level": 3,
-          "description": {
-            "zh-CN": "终结技充能效率<@ba.vup>+12.4%</>",
-            "en": "Ultimate Gain Efficiency <@ba.vup>+12.4%</>",
-            "ja": "必殺チャージの回復効率<@ba.vup>+12.4%</>",
-            "zh-TW": "終結技蓄能效率<@ba.vup>+12.4%</>"
-          }
-        },
-        {
-          "level": 4,
-          "description": {
-            "zh-CN": "终结技充能效率<@ba.vup>+16.2%</>",
-            "en": "Ultimate Gain Efficiency <@ba.vup>+16.2%</>",
-            "ja": "必殺チャージの回復効率<@ba.vup>+16.2%</>",
-            "zh-TW": "終結技蓄能效率<@ba.vup>+16.2%</>"
-          }
-        },
-        {
-          "level": 5,
-          "description": {
-            "zh-CN": "终结技充能效率<@ba.vup>+20.0%</>",
-            "en": "Ultimate Gain Efficiency <@ba.vup>+20.0%</>",
-            "ja": "必殺チャージの回復効率<@ba.vup>+20.0%</>",
-            "zh-TW": "終結技蓄能效率<@ba.vup>+20.0%</>"
-          }
-        },
-        {
-          "level": 6,
-          "description": {
-            "zh-CN": "终结技充能效率<@ba.vup>+23.8%</>",
-            "en": "Ultimate Gain Efficiency <@ba.vup>+23.8%</>",
-            "ja": "必殺チャージの回復効率<@ba.vup>+23.8%</>",
-            "zh-TW": "終結技蓄能效率<@ba.vup>+23.8%</>"
-          }
-        },
-        {
-          "level": 7,
-          "description": {
-            "zh-CN": "终结技充能效率<@ba.vup>+27.6%</>",
-            "en": "Ultimate Gain Efficiency <@ba.vup>+27.6%</>",
-            "ja": "必殺チャージの回復効率<@ba.vup>+27.6%</>",
-            "zh-TW": "終結技蓄能效率<@ba.vup>+27.6%</>"
-          }
-        },
-        {
-          "level": 8,
-          "description": {
-            "zh-CN": "终结技充能效率<@ba.vup>+31.4%</>",
-            "en": "Ultimate Gain Efficiency <@ba.vup>+31.4%</>",
-            "ja": "必殺チャージの回復効率<@ba.vup>+31.4%</>",
-            "zh-TW": "終結技蓄能效率<@ba.vup>+31.4%</>"
-          }
-        },
-        {
-          "level": 9,
-          "description": {
-            "zh-CN": "终结技充能效率<@ba.vup>+37.1%</>",
-            "en": "Ultimate Gain Efficiency <@ba.vup>+37.1%</>",
-            "ja": "必殺チャージの回復効率<@ba.vup>+37.1%</>",
-            "zh-TW": "終結技蓄能效率<@ba.vup>+37.1%</>"
-          }
-        }
-      ]
-    },
-    {
-      "id": "sk_wpn_sword_0007",
-      "name": {
-        "zh-CN": "昂扬·残城归途",
-        "en": "Inspiring: Back to the Broken City",
-        "ja": "昂揚・残城崩壊",
-        "zh-TW": "昂揚·殘城歸途"
-      },
-      "description": {
-        "zh-CN": "攻击力<@ba.vup>+14.0%</>。\n源石技艺强度<@ba.vup>+70</>。",
-        "en": "ATK <@ba.vup>+14.0%</>.\nArts Intensity <@ba.vup>+70</>.",
-        "ja": "攻撃力<@ba.vup>+14.0%</>\nアーツ強度<@ba.vup>+70</>",
-        "zh-TW": "攻擊力<@ba.vup>+14.0%</>。\n源石技藝強度<@ba.vup>+70</>。"
-      },
-      "levels": [
-        {
-          "level": 1,
-          "description": {
-            "zh-CN": "攻击力<@ba.vup>+5.0%</>。\n源石技艺强度<@ba.vup>+25</>。",
-            "en": "ATK <@ba.vup>+5.0%</>.\nArts Intensity <@ba.vup>+25</>.",
-            "ja": "攻撃力<@ba.vup>+5.0%</>\nアーツ強度<@ba.vup>+25</>",
-            "zh-TW": "攻擊力<@ba.vup>+5.0%</>。\n源石技藝強度<@ba.vup>+25</>。"
-          }
-        },
-        {
-          "level": 2,
-          "description": {
-            "zh-CN": "攻击力<@ba.vup>+6.0%</>。\n源石技艺强度<@ba.vup>+30</>。",
-            "en": "ATK <@ba.vup>+6.0%</>.\nArts Intensity <@ba.vup>+30</>.",
-            "ja": "攻撃力<@ba.vup>+6.0%</>\nアーツ強度<@ba.vup>+30</>",
-            "zh-TW": "攻擊力<@ba.vup>+6.0%</>。\n源石技藝強度<@ba.vup>+30</>。"
-          }
-        },
-        {
-          "level": 3,
-          "description": {
-            "zh-CN": "攻击力<@ba.vup>+7.0%</>。\n源石技艺强度<@ba.vup>+35</>。",
-            "en": "ATK <@ba.vup>+7.0%</>.\nArts Intensity <@ba.vup>+35</>.",
-            "ja": "攻撃力<@ba.vup>+7.0%</>\nアーツ強度<@ba.vup>+35</>",
-            "zh-TW": "攻擊力<@ba.vup>+7.0%</>。\n源石技藝強度<@ba.vup>+35</>。"
-          }
-        },
-        {
-          "level": 4,
-          "description": {
-            "zh-CN": "攻击力<@ba.vup>+8.0%</>。\n源石技艺强度<@ba.vup>+40</>。",
-            "en": "ATK <@ba.vup>+8.0%</>.\nArts Intensity <@ba.vup>+40</>.",
-            "ja": "攻撃力<@ba.vup>+8.0%</>\nアーツ強度<@ba.vup>+40</>",
-            "zh-TW": "攻擊力<@ba.vup>+8.0%</>。\n源石技藝強度<@ba.vup>+40</>。"
-          }
-        },
-        {
-          "level": 5,
-          "description": {
-            "zh-CN": "攻击力<@ba.vup>+9.0%</>。\n源石技艺强度<@ba.vup>+45</>。",
-            "en": "ATK <@ba.vup>+9.0%</>.\nArts Intensity <@ba.vup>+45</>.",
-            "ja": "攻撃力<@ba.vup>+9.0%</>\nアーツ強度<@ba.vup>+45</>",
-            "zh-TW": "攻擊力<@ba.vup>+9.0%</>。\n源石技藝強度<@ba.vup>+45</>。"
-          }
-        },
-        {
-          "level": 6,
-          "description": {
-            "zh-CN": "攻击力<@ba.vup>+10.0%</>。\n源石技艺强度<@ba.vup>+50</>。",
-            "en": "ATK <@ba.vup>+10.0%</>.\nArts Intensity <@ba.vup>+50</>.",
-            "ja": "攻撃力<@ba.vup>+10.0%</>\nアーツ強度<@ba.vup>+50</>",
-            "zh-TW": "攻擊力<@ba.vup>+10.0%</>。\n源石技藝強度<@ba.vup>+50</>。"
-          }
-        },
-        {
-          "level": 7,
-          "description": {
-            "zh-CN": "攻击力<@ba.vup>+11.0%</>。\n源石技艺强度<@ba.vup>+55</>。",
-            "en": "ATK <@ba.vup>+11.0%</>.\nArts Intensity <@ba.vup>+55</>.",
-            "ja": "攻撃力<@ba.vup>+11.0%</>\nアーツ強度<@ba.vup>+55</>",
-            "zh-TW": "攻擊力<@ba.vup>+11.0%</>。\n源石技藝強度<@ba.vup>+55</>。"
-          }
-        },
-        {
-          "level": 8,
-          "description": {
-            "zh-CN": "攻击力<@ba.vup>+12.0%</>。\n源石技艺强度<@ba.vup>+60</>。",
-            "en": "ATK <@ba.vup>+12.0%</>.\nArts Intensity <@ba.vup>+60</>.",
-            "ja": "攻撃力<@ba.vup>+12.0%</>\nアーツ強度<@ba.vup>+60</>",
-            "zh-TW": "攻擊力<@ba.vup>+12.0%</>。\n源石技藝強度<@ba.vup>+60</>。"
-          }
-        },
-        {
-          "level": 9,
-          "description": {
-            "zh-CN": "攻击力<@ba.vup>+14.0%</>。\n源石技艺强度<@ba.vup>+70</>。",
-            "en": "ATK <@ba.vup>+14.0%</>.\nArts Intensity <@ba.vup>+70</>.",
-            "ja": "攻撃力<@ba.vup>+14.0%</>\nアーツ強度<@ba.vup>+70</>",
-            "zh-TW": "攻擊力<@ba.vup>+14.0%</>。\n源石技藝強度<@ba.vup>+70</>。"
-          }
+          "rarity": 4
         }
       ]
     }

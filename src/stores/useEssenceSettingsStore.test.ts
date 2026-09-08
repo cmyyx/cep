@@ -38,6 +38,15 @@ describe('normalizeEssenceSettingsFlags', () => {
   })
 })
 
+it('persists and normalizes hidden acquisition categories independently for list and plans', () => {
+  resetStore()
+  const store = useEssenceSettingsStore.getState()
+  store.setHiddenAcquisitionCategories('list', ['gacha', 'gacha', 1 as unknown as string])
+  store.setHiddenAcquisitionCategories('plans', ['battlePass'])
+  expect(useEssenceSettingsStore.getState().hiddenAcquisitionCategoriesList).toEqual(['gacha'])
+  expect(useEssenceSettingsStore.getState().hiddenAcquisitionCategoriesPlans).toEqual(['battlePass'])
+})
+
 /** Reset the store to a pristine single-account state before each test. */
 function resetStore() {
   useEssenceSettingsStore.getState().resetAllSettings()

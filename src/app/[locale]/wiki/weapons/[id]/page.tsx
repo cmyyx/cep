@@ -59,6 +59,7 @@ export default async function WikiWeaponDetailPage({ params }: { params: Promise
       <WikiMaterialCatalogProvider catalog={catalog}>
         <WikiDetailShell tocItems={[
           { id: 'overview', label: t('wiki.overview') },
+          { id: 'acquisition', label: t('wiki.acquisitionSources') },
           { id: 'level-data', label: t('wiki.levelData') },
           { id: 'skills', label: t('wiki.skills') },
           { id: 'breakthroughs', label: t('wiki.breakthroughs') },
@@ -69,6 +70,7 @@ export default async function WikiWeaponDetailPage({ params }: { params: Promise
             rarity={weapon.rarity}
             imageId={weapon.imageId}
             meta={<span>{t('wiki.weaponType')}: {weaponType}</span>}
+            acquisitionSources={weapon.acquisitionSources ?? []}
           />
         </WikiDetailShell>
       </WikiMaterialCatalogProvider>

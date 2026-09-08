@@ -4,6 +4,8 @@ import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import { TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { WikiMaterialList } from '@/components/shared/wiki-material-list'
 import { WikiRichText } from '@/components/wiki/wiki-rich-text'
+import { WikiAcquisitionList } from '@/components/wiki/wiki-acquisition-list'
+import { acquisitionCategoryIds } from '@/lib/weapon-acquisition'
 import { WikiTable, WikiTableFrame } from '@/components/wiki/wiki-table'
 import {
   AdministratorHero,
@@ -33,7 +35,7 @@ import {
 } from '@/components/wiki/wiki-detail-utils'
 import { cn } from '@/lib/utils'
 import { localizeText, type LocalizeDeep } from '@/lib/wiki-locale-detail'
-import wikiEnums from '@/generated/data/wiki/enums.json'
+import { wikiTextKey } from '@/lib/wiki-i18n'
 import equipStatsEn from '@/generated/i18n/equipStats/en.json'
 import equipStatsJa from '@/generated/i18n/equipStats/ja.json'
 import equipStatsZhCN from '@/generated/i18n/equipStats/zh-CN.json'
@@ -45,6 +47,7 @@ import type {
   WikiLocale,
   WikiWeaponDetail,
 } from '@/types/wiki'
+import type { WeaponAcquisitionSource } from '@/types/weapon-acquisition'
 
 export {
   EQUIPMENT_STAT_LEVELS,
@@ -184,14 +187,14 @@ export async function CharacterDetailContent({
 }) {
   const t = await getTranslations()
   const locale = (await getLocale()) as WikiLocale
-  const attributes = (wikiEnums as { attributes: Record<string, LocalizedText> }).attributes
-  const skillTypes = (wikiEnums as { skillTypes: Record<string, LocalizedText> }).skillTypes
+  const attributeLabel = (id: string) => t(`wikiData.enum|attributes|${id}`)
+  const skillTypeLabel = (id: string) => t(`wikiData.enum|skillTypes|${id}`)
   const sections = new Set(getCharacterDetailSectionIds(detail))
   const fullBodyIds = imageIds.fullBodyIds
   const isAdministrator = Boolean(fullBodyIds.male && fullBodyIds.female)
   const attributeIds = (detail.levels[0]?.stats.map((stat) => stat.attributeId) ?? []).filter(isCharacterLevelStat)
   const attributeLabels = Object.fromEntries(
-    attributeIds.map((id) => [id, textOf(attributes[id] ?? { 'zh-CN': id, en: id, ja: id, 'zh-TW': id }, locale)]),
+    attributeIds.map((id) => [id, attributeLabel(id)]),
   )
   const meta = (
     // hero 的 meta 容器是 flex-wrap; 干员这块是整宽的表格网格, 需显式占满行宽。
@@ -200,7 +203,7 @@ export async function CharacterDetailContent({
         rows={[
           ...metaRows,
           ...detail.fixedStats.map((stat) => ({
-            label: textOf(attributes[stat.attributeId] ?? { 'zh-CN': stat.attributeId, en: stat.attributeId, ja: stat.attributeId, 'zh-TW': stat.attributeId }, locale),
+            label: attributeLabel(stat.attributeId),
             value: String(stat.value),
           })),
         ]}
@@ -260,7 +263,7 @@ export async function CharacterDetailContent({
                     {node.stats.length > 0 && (
                       <p className="mt-1 text-xs text-muted-foreground">
                         {node.stats
-                          .map((stat) => `${textOf(attributes[stat.attributeId] ?? { 'zh-CN': stat.attributeId, en: stat.attributeId, ja: stat.attributeId, 'zh-TW': stat.attributeId }, locale)} +${stat.value}`)
+                          .map((stat) => `${attributeLabel(stat.attributeId)} +${stat.value}`)
                           .join(' / ')}
                       </p>
                     )}
@@ -306,7 +309,7 @@ export async function CharacterDetailContent({
                       <div className="flex flex-wrap items-center gap-2">
                         <h3 className="font-medium">{skillName}</h3>
                         <Badge variant="secondary">
-                          {textOf(skillTypes[skill.typeId] ?? { 'zh-CN': skill.typeId, en: skill.typeId, ja: skill.typeId, 'zh-TW': skill.typeId }, locale)}
+                          {skillTypeLabel(skill.typeId)}
                         </Badge>
                       </div>
                       {skillDesc && skillDesc !== '0' ? (
@@ -461,19 +464,47 @@ export async function WeaponDetailContent({
   rarity,
   imageId,
   meta,
+  acquisitionSources,
 }: {
   detail: WeaponDetailView
   name: string
   rarity: number
   imageId: string
   meta: React.ReactNode
+  acquisitionSources: WeaponAcquisitionSource[]
 }) {
   const t = await getTranslations()
   const locale = (await getLocale()) as WikiLocale
+  const acquisitionCategoryLabel = (categoryId: string): string => {
+    const key = wikiTextKey('acquisitionCategory', categoryId)
+    return t.has(`wikiData.${key}`) ? t(`wikiData.${key}`) : categoryId
+  }
+  const sourceText = (source: WeaponAcquisitionSource, field: 'name' | 'description'): string => {
+    const key = `wikiData.${wikiTextKey('acquisitionSource', source.categoryId, source.sourceId, field)}`
+    return t.has(key) ? t(key) : field === 'name' ? source.sourceId : ''
+  }
+  const categoryText = (categoryId: string): string => acquisitionCategoryLabel(categoryId)
+  const groupedSources = acquisitionCategoryIds(acquisitionSources).map((categoryId) => ({
+    categoryId,
+    label: categoryText(categoryId),
+    sources: acquisitionSources
+      .filter((source) => source.categoryId === categoryId)
+      .map((source) => ({
+        name: sourceText(source, 'name'),
+        description: sourceText(source, 'description'),
+      })),
+  }))
   return (
     <>
       <WikiDetailHero name={name} rarity={rarity} imagePath={`/images/weapon/${imageId}.avif`} meta={meta} />
       <div className="mt-5 min-w-0 space-y-4">
+        <Section id="acquisition" title={t('wiki.acquisitionSources')}>
+          {groupedSources.length === 0 ? (
+            <p className="text-sm text-muted-foreground">{t('wiki.unknownAcquisitionSource')}</p>
+          ) : (
+            <WikiAcquisitionList groups={groupedSources} />
+          )}
+        </Section>
         <Section id="level-data" title={t('wiki.levelData')}>
           <WeaponLevelTableIsland levels={packWeaponLevels(detail.levels)} />
         </Section>
@@ -533,7 +564,7 @@ export async function EquipmentDetailContent({
 }) {
   const t = await getTranslations()
   const locale = (await getLocale()) as WikiLocale
-  const attributes = (wikiEnums as { attributes: Record<string, LocalizedText> }).attributes
+  const attributeLabel = (id: string) => t(`wikiData.enum|attributes|${id}`)
   const sections = new Set(getEquipmentDetailSectionIds(detail))
   return (
     <>
@@ -561,8 +592,7 @@ export async function EquipmentDetailContent({
                   const label =
                     stat.attributeId === 'baseAttack'
                       ? t('wiki.baseAttack')
-                      : equipStatsCatalogs[locale][stat.attributeId] ??
-                        textOf(attributes[stat.attributeId] ?? { 'zh-CN': stat.attributeId, en: stat.attributeId, ja: stat.attributeId, 'zh-TW': stat.attributeId }, locale)
+                      : equipStatsCatalogs[locale][stat.attributeId] ?? attributeLabel(stat.attributeId)
                   return (
                     <TableRow key={stat.attributeId}>
                       <TableCell className="whitespace-normal break-words leading-tight">{label}</TableCell>

@@ -18,14 +18,24 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
+import { FilterGroup } from '@/components/shared/filter-group'
 import { useEssenceSettingsStore } from '@/stores/useEssenceSettingsStore'
 import { getRegions } from '@/data/dungeons'
 import { dungeons } from '@/data/dungeons'
 import { regionI18nKey } from '@/data/region-i18n'
+import { weapons } from '@/data/weapons'
 import { cn } from '@/lib/utils'
+import { acquisitionCategoryIds, acquisitionCategoryLabelText } from '@/lib/weapon-acquisition'
 import type { SettingKey } from '@/types/essence-settings'
 
+import { useWikiTranslations } from '@/hooks/use-wiki-translations'
 const REGIONS = getRegions(dungeons)
+
+// Hideable acquisition categories derived from real weapon data; unknown
+// categories (weapons without sources) are not hideable by design.
+const ACQUISITION_CATEGORY_IDS = acquisitionCategoryIds(
+  weapons.flatMap((weapon) => weapon.acquisitionSources ?? []),
+)
 
 // ─── Paired setting rows (one label, two switches) ─────────────────────────
 
@@ -89,10 +99,18 @@ const PAIRED_ROWS: PairedRow[] = [
   },
 ]
 
+// Shared template for the header and every data row — identical column
+// tracks are what keep the switches aligned under their header labels
+// (per-row auto tracks would size to each row's own content).
+const SETTING_GRID_COLS = 'grid min-w-0 grid-cols-[minmax(0,1fr)_5rem_5rem]'
+
 // ─── Dialog ────────────────────────────────────────────────────────────────
 
 export function EssenceSettingsDialog() {
   const t = useTranslations()
+  const { text: wikiText } = useWikiTranslations()
+  const acquisitionCategoryLabel = (categoryId: string): string =>
+    acquisitionCategoryLabelText(categoryId, wikiText, t)
   const [open, setOpen] = useState(false)
 
   const toggleFlag = useEssenceSettingsStore((s) => s.toggleFlag)
@@ -100,6 +118,9 @@ export function EssenceSettingsDialog() {
   const regionSecond = useEssenceSettingsStore((s) => s.regionSecond)
   const setRegionFirst = useEssenceSettingsStore((s) => s.setRegionFirst)
   const setRegionSecond = useEssenceSettingsStore((s) => s.setRegionSecond)
+  const hiddenAcquisitionCategoriesList = useEssenceSettingsStore((s) => s.hiddenAcquisitionCategoriesList)
+  const hiddenAcquisitionCategoriesPlans = useEssenceSettingsStore((s) => s.hiddenAcquisitionCategoriesPlans)
+  const setHiddenAcquisitionCategories = useEssenceSettingsStore((s) => s.setHiddenAcquisitionCategories)
 
   // Read all flags individually — each selector triggers re-render only when its value changes
   const flags = {
@@ -123,6 +144,22 @@ export function EssenceSettingsDialog() {
     keepUpVisiblePlans: useEssenceSettingsStore((s) => s.keepUpVisiblePlans),
   }
 
+  const toggleHiddenCategory = (scope: 'list' | 'plans', current: string[], categoryId: string) => {
+    const next = current.includes(categoryId)
+      ? current.filter((id) => id !== categoryId)
+      : [...current, categoryId]
+    setHiddenAcquisitionCategories(scope, next)
+  }
+
+  const acquisitionChips = (scope: 'list' | 'plans', hidden: string[]) =>
+    ACQUISITION_CATEGORY_IDS.map((categoryId) => ({
+      key: categoryId,
+      label: acquisitionCategoryLabel(categoryId),
+      valid: true,
+      selected: hidden.includes(categoryId),
+      onToggle: () => toggleHiddenCategory(scope, hidden, categoryId),
+    }))
+
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <Button
@@ -139,86 +176,87 @@ export function EssenceSettingsDialog() {
           <DialogTitle>{t('essenceSettings.title')}</DialogTitle>
         </DialogHeader>
 
-        {/* Table layout */}
         <div className="max-h-[60vh] overflow-y-auto -mx-4 px-4">
-          <table className="w-full text-sm">
-            {/* Column headers */}
-            <thead>
-              <tr className="border-b border-border text-[10px] text-muted-foreground">
-                <th className="text-left font-normal pb-2 w-full">
-                  {t('essenceSettings.settingItem')}
-                </th>
-                <th className="text-center font-normal pb-2 px-2 whitespace-nowrap">
-                  {t('essenceSettings.weaponList')}
-                </th>
-                <th className="text-center font-normal pb-2 pl-2 whitespace-nowrap">
-                  {t('essenceSettings.planRec')}
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {PAIRED_ROWS.flatMap((row) => {
-                const listOn = flags[row.listKey]
-                const plansOn = flags[row.plansKey]
-                const subActive = !!(row.subSetting && (listOn || plansOn))
+          {/* Paired switch settings */}
+          <div className={cn(SETTING_GRID_COLS, 'items-end border-b border-border pb-2 text-[10px] text-muted-foreground')}>
+            <span className="pb-0">{t('essenceSettings.settingItem')}</span>
+            <span className="px-1 text-center">{t('essenceSettings.weaponList')}</span>
+            <span className="pl-1 text-center">{t('essenceSettings.planRec')}</span>
+          </div>
+          <div className="text-sm">
+            {PAIRED_ROWS.flatMap((row) => {
+              const listOn = flags[row.listKey]
+              const plansOn = flags[row.plansKey]
+              const subActive = !!(row.subSetting && (listOn || plansOn))
 
-                const rows = [
-                  <tr key={row.listKey}>
-                    <td className="py-2 pr-3">
-                      <span className="text-foreground leading-tight">
-                        {t(row.labelI18n)}
-                      </span>
-                    </td>
-                    <td className="py-2 px-2 text-center w-14">
+              const rows = [
+                <div key={row.listKey} className={cn(SETTING_GRID_COLS, 'items-center py-2')}>
+                  <span className="min-w-0 pr-3 leading-tight">{t(row.labelI18n)}</span>
+                  <div className="px-1 text-center">
+                    <Switch
+                      size="sm"
+                      checked={listOn}
+                      onCheckedChange={() => toggleFlag(row.listKey)}
+                    />
+                  </div>
+                  <div className="pl-1 text-center">
+                    <Switch
+                      size="sm"
+                      checked={plansOn}
+                      onCheckedChange={() => toggleFlag(row.plansKey)}
+                    />
+                  </div>
+                </div>,
+              ]
+
+              // Sub-setting row (indented, appears when either parent is ON)
+              if (subActive && row.subSetting) {
+                rows.push(
+                  <div key={row.subSetting.listKey} className={cn(SETTING_GRID_COLS, 'items-center py-1.5')}>
+                    <span className="min-w-0 pr-3 pl-6 text-[11px] text-muted-foreground leading-tight">
+                      {t(row.subSetting.labelI18n)}
+                    </span>
+                    <div className="px-1 text-center">
                       <Switch
                         size="sm"
-                        checked={listOn}
-                        onCheckedChange={() => toggleFlag(row.listKey)}
+                        checked={flags[row.subSetting.listKey]}
+                        disabled={!listOn}
+                        onCheckedChange={() => toggleFlag(row.subSetting!.listKey)}
                       />
-                    </td>
-                    <td className="py-2 pl-2 text-center w-14">
+                    </div>
+                    <div className="pl-1 text-center">
                       <Switch
                         size="sm"
-                        checked={plansOn}
-                        onCheckedChange={() => toggleFlag(row.plansKey)}
+                        checked={flags[row.subSetting.plansKey]}
+                        disabled={!plansOn}
+                        onCheckedChange={() => toggleFlag(row.subSetting!.plansKey)}
                       />
-                    </td>
-                  </tr>,
-                ]
+                    </div>
+                  </div>
+                )
+              }
 
-                // Sub-setting row (indented, appears when either parent is ON)
-                if (subActive && row.subSetting) {
-                  rows.push(
-                    <tr key={row.subSetting.listKey}>
-                      <td className="py-1.5 pr-3 pl-6">
-                        <span className="text-[11px] text-muted-foreground leading-tight">
-                          {t(row.subSetting.labelI18n)}
-                        </span>
-                      </td>
-                      <td className="py-1.5 px-2 text-center">
-                        <Switch
-                          size="sm"
-                          checked={flags[row.subSetting.listKey]}
-                          disabled={!listOn}
-                          onCheckedChange={() => toggleFlag(row.subSetting!.listKey)}
-                        />
-                      </td>
-                      <td className="py-1.5 pl-2 text-center">
-                        <Switch
-                          size="sm"
-                          checked={flags[row.subSetting.plansKey]}
-                          disabled={!plansOn}
-                          onCheckedChange={() => toggleFlag(row.subSetting!.plansKey)}
-                        />
-                      </td>
-                    </tr>
-                  )
-                }
+              return rows
+            })}
+          </div>
 
-                return rows
-              })}
-            </tbody>
-          </table>
+          {/* Acquisition category hiding — two multi-select chip groups */}
+          <div className="border-t border-border pt-3 mt-2 pb-1">
+            <p className="text-xs font-medium text-muted-foreground">{t('essenceSettings.acquisitionCategories')}</p>
+            <p className="text-[11px] text-muted-foreground/80 mt-1 mb-2">{t('essenceSettings.acquisitionCategoriesHint')}</p>
+            <div className="space-y-3">
+              <FilterGroup
+                label={t('essenceSettings.weaponList')}
+                chipColumnClass="grid-cols-[repeat(auto-fill,minmax(4.5rem,1fr))]"
+                chips={acquisitionChips('list', hiddenAcquisitionCategoriesList)}
+              />
+              <FilterGroup
+                label={t('essenceSettings.planRec')}
+                chipColumnClass="grid-cols-[repeat(auto-fill,minmax(4.5rem,1fr))]"
+                chips={acquisitionChips('plans', hiddenAcquisitionCategoriesPlans)}
+              />
+            </div>
+          </div>
         </div>
 
         {/* 分隔线 */}

@@ -410,6 +410,7 @@
   "essence": {
     "weaponSelected": "已選",
     "weaponNotAvailable": "不可刷",
+    "acquisitionSourceLabel": "遊戲內來源",
     "lockS2": "附加屬性",
     "lockS3": "技能屬性",
     "lockAny": "詞條鎖定",
@@ -433,7 +434,7 @@
     "emptyHint": "選擇武器以查看推薦方案",
     "noPlanMatch": "當前篩選條件下無匹配方案",
     "computing": "正在計算方案...",
-    "attrFilterTitle": "屬性篩選",
+    "attrFilterTitle": "篩選",
     "regionFilter": "地區篩選",
     "regionFilterAll": "全部",
     "weaponNotCoveredByRegion": "當前地區篩選下，「{weapons}」無可刷方案",
@@ -488,6 +489,16 @@
     "hideUnowned": "隱藏未擁有的武器",
     "hideFourStar": "隱藏四星武器",
     "hideThreeStar": "隱藏三星武器",
+    "acquisitionCategories": "隱藏特定來源武器",
+    "acquisitionCategory": {
+      "gacha": "武器抽取",
+      "shop": "商店兌換",
+      "battlePass": "通行證",
+      "explore": "探索",
+      "activity": "活動",
+      "chest": "自選箱",
+      "unknown": "未知"
+    },
     "enableOwnershipEdit": "編輯擁有狀態",
     "enableNotes": "備註功能",
     "enableTooltip": "懸停或長按顯示武器屬性",
@@ -501,7 +512,8 @@
     "sortTotalStep": "總武器數 — 同覆蓋數時，總匹配武器數越多越靠前",
     "regionFirstLabel": "第一優先區域",
     "regionSecondLabel": "第二優先區域",
-    "regionNone": "無"
+    "regionNone": "無",
+    "acquisitionCategoriesHint": "勾選來源分類後，擁有該來源的武器將隱藏；取消勾選即恢復顯示。"
   },
   "settings": {
     "title": "設定",
@@ -879,7 +891,8 @@
       "element": "元素",
       "profession": "職業",
       "weaponType": "武器類型",
-      "partType": "部位"
+      "partType": "部位",
+      "acquisitionCategory": "取得來源"
     },
     "categories": {
       "characters": "幹員",
@@ -912,6 +925,10 @@
     "minWearLv": "最低穿戴等級",
     "baseAttack": "攻擊力",
     "breakthroughs": "突破",
+    "acquisitionSources": "取得來源",
+    "unknownAcquisitionSource": "未知",
+    "showMoreAcquisitionSources": "還有 {count} 條來源…",
+    "collapseAcquisitionSources": "收起來源",
     "coolDown": "冷卻時間",
     "skillCost": "技力消耗",
     "noSet": "獨立裝備",

@@ -37,7 +37,7 @@ export default async function WikiCharactersPage({ params }: { params: Promise<{
       </header>
 
       <WikiEntityGrid
-        entities={localizeWikiEntitySummaries(wikiCharacters, locale)}
+        entities={localizeWikiEntitySummaries(wikiCharacters, locale, (entity) => t(`characters.${entity.id}`))}
         imageBasePath="/images/characters"
         enumLabels={enumLabels}
         enumOrder={enumOrder}

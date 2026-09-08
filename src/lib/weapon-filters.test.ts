@@ -3,9 +3,9 @@ import { getValidWeaponFilterOptions, matchesWeaponFilters, type WeaponFilterSet
 import type { Weapon } from '@/types/matrix'
 
 const weapons: Weapon[] = [
-  { id: 'sword', name: '剑', rarity: 6, type: '单手剑', primaryStat: 'str', elementalDamage: 'fire', specialAbility: 'burst', chars: [] },
-  { id: 'pistol', name: '铳', rarity: 6, type: '手铳', primaryStat: 'agi', elementalDamage: 'fire', specialAbility: 'burst', chars: [] },
-  { id: 'funnel', name: '单元', rarity: 5, type: '施术单元', primaryStat: 'wisd', elementalDamage: 'cryst', specialAbility: 'combo', chars: [] },
+  { id: 'sword', name: '剑', rarity: 6, type: '单手剑', primaryStat: 'str', elementalDamage: 'fire', specialAbility: 'burst', acquisitionSources: [{ categoryId: 'gacha', sourceId: 'pool_1' }], chars: [] },
+  { id: 'pistol', name: '铳', rarity: 6, type: '手铳', primaryStat: 'agi', elementalDamage: 'fire', specialAbility: 'burst', acquisitionSources: [{ categoryId: 'shop', sourceId: 'goods_1' }, { categoryId: 'gacha', sourceId: 'pool_2' }], chars: [] },
+  { id: 'funnel', name: '单元', rarity: 5, type: '施术单元', primaryStat: 'wisd', elementalDamage: 'cryst', specialAbility: 'combo', acquisitionSources: [], chars: [] },
   { id: 'wildcard', name: '三星', rarity: 3, type: '双手剑', primaryStat: 'main', elementalDamage: 'atk', specialAbility: null, chars: [] },
 ]
 
@@ -15,6 +15,7 @@ function filters(values: Partial<Record<keyof WeaponFilterSets, string[]>> = {})
     primaryStat: new Set(values.primaryStat ?? []),
     elementalDamage: new Set(values.elementalDamage ?? []),
     specialAbility: new Set(values.specialAbility ?? []),
+    acquisitionCategory: new Set(values.acquisitionCategory ?? []),
   }
 }
 
@@ -38,5 +39,22 @@ describe('weapon filters', () => {
     const selected = filters({ specialAbility: ['combo'] })
     expect(weapons.filter((weapon) => matchesWeaponFilters(weapon, selected)).map((weapon) => weapon.id)).toEqual(['funnel', 'wildcard'])
     expect([...getValidWeaponFilterOptions(weapons, filters()).specialAbility].sort()).toEqual(['burst', 'combo'])
+  })
+
+  it('matches acquisition categories with OR semantics across multiple sources', () => {
+    const selected = filters({ acquisitionCategory: ['shop'] })
+    // funnel (empty sources) and wildcard (no field) carry no category and pass.
+    expect(weapons.filter((weapon) => matchesWeaponFilters(weapon, selected)).map((weapon) => weapon.id)).toEqual(['pistol', 'funnel', 'wildcard'])
+    const gachaOnly = weapons.filter((weapon) =>
+      matchesWeaponFilters(weapon, filters({ acquisitionCategory: ['gacha'] })) && (weapon.acquisitionSources ?? []).length > 0,
+    )
+    expect(gachaOnly.map((weapon) => weapon.id)).toEqual(['sword', 'pistol'])
+  })
+
+  it('keeps weapons without acquisition data visible under any category filter', () => {
+    const selected = filters({ acquisitionCategory: ['gacha'] })
+    expect(weapons.filter((weapon) => matchesWeaponFilters(weapon, selected)).map((weapon) => weapon.id)).toEqual(['sword', 'pistol', 'funnel', 'wildcard'])
+    // No fake "unknown" option is exposed for source-less weapons.
+    expect([...getValidWeaponFilterOptions(weapons, filters()).acquisitionCategory].sort()).toEqual(['gacha', 'shop'])
   })
 })

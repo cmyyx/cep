@@ -16,6 +16,7 @@ import { WikiRichText } from '@/components/wiki/wiki-rich-text'
 import { EquipmentSuitPicker } from '@/components/panel-preview/equipment-suit-picker'
 import { useWikiTranslations } from '@/hooks/use-wiki-translations'
 import { getWeaponWikiPreview } from '@/lib/weapon-wiki-preview'
+import { acquisitionCategoryLabelText } from '@/lib/weapon-acquisition'
 import { weaponStatLabel } from '@/lib/weapon-stats'
 import { createPanelEquipmentSelection, usePanelPreviewStore } from '@/stores/usePanelPreviewStore'
 import type { PanelEquipmentSelection, PanelPreviewConfig } from '@/types/planner'
@@ -30,7 +31,9 @@ export function EquipmentWeaponConfig() {
   const t = useTranslations('panelPreview')
   const allT = useTranslations()
   const locale = useLocale() as WikiLocale
-  const { entityName, equipmentStatLabel, text } = useWikiTranslations()
+  const { entityName, equipmentStatLabel, text, ready: wikiTextReady } = useWikiTranslations()
+  const acquisitionCategoryLabel = (categoryId: string): string =>
+    acquisitionCategoryLabelText(categoryId, text, allT)
   // 与面板一致: 不限制小数位, 保留全部有效位供逐位对照。
   const number = new Intl.NumberFormat(locale, { maximumFractionDigits: 20 })
   const [picker, setPicker] = useState<PickerTarget>(null)
@@ -55,13 +58,20 @@ export function EquipmentWeaponConfig() {
   const renderWeaponTooltip = (entity: WikiEntitySummary) => {
     if (entity.category !== 'weapons') return null
     const source = weapons.find((entry) => entry.id === entity.id)
-    const preview = getWeaponWikiPreview(entity.id, locale)
+    const preview = getWeaponWikiPreview(entity.id, locale, wikiTextReady ? (_weaponId, skillId, level) => text('weapon', entity.id, 'skill', skillId, 'level', level) : undefined)
     if (!source) return null
+    const categories = [...new Set((source.acquisitionSources ?? []).map((item) => item.categoryId))]
+    const acquisitionLabel = categories.length > 0
+      ? categories.map((categoryId) => acquisitionCategoryLabel(categoryId)).join('、')
+      : acquisitionCategoryLabel('unknown')
     return <PlannerWikiPreview title={entityName(entity)} rarity={entity.rarity} compact levelOneLabel={preview.levelOneLabel} maxLevelLabel={preview.maxLevelLabel} rows={[
       { label: weaponStatLabel(source.primaryStat, allT), ...preview.values[0] },
       { label: weaponStatLabel(source.elementalDamage, allT), ...preview.values[1] },
       { label: weaponStatLabel(source.specialAbility, allT), ...preview.values[2], truncate: true },
-    ].filter((_, index) => [source.primaryStat, source.elementalDamage, source.specialAbility][index] !== null)} wikiHref={preview.wikiHref} />
+    ].filter((_, index) => [source.primaryStat, source.elementalDamage, source.specialAbility][index] !== null)}
+    footer={<p className="text-xs text-muted-foreground">{allT('essence.acquisitionSourceLabel')}: {acquisitionLabel}</p>}
+    wikiHref={preview.wikiHref}
+  />
   }
 
   return (

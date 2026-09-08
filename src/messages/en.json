@@ -410,6 +410,7 @@
   "essence": {
     "weaponSelected": "Selected",
     "weaponNotAvailable": "Unavailable",
+    "acquisitionSourceLabel": "In-game source",
     "lockS2": "Sub Stat",
     "lockS3": "Skill",
     "lockAny": "Attribute Lock",
@@ -433,7 +434,7 @@
     "emptyHint": "Select weapons to view recommended plans",
     "noPlanMatch": "No matching plans for current filters",
     "computing": "Computing plans...",
-    "attrFilterTitle": "Attribute Filter",
+    "attrFilterTitle": "Filters",
     "regionFilter": "Region Filter",
     "regionFilterAll": "All",
     "weaponNotCoveredByRegion": "Under current region filter, \"{weapons}\" has no farming plans",
@@ -488,6 +489,16 @@
     "hideUnowned": "Hide unowned weapons",
     "hideFourStar": "Hide 4-star weapons",
     "hideThreeStar": "Hide 3-star weapons",
+    "acquisitionCategories": "Hide Weapons by Source",
+    "acquisitionCategory": {
+      "gacha": "Weapon Gacha",
+      "shop": "Shop Exchange",
+      "battlePass": "Battle Pass",
+      "explore": "Exploration",
+      "activity": "Activity",
+      "chest": "Selection Chests",
+      "unknown": "Unknown"
+    },
     "enableOwnershipEdit": "Enable ownership editing",
     "enableNotes": "Enable notes",
     "enableTooltip": "Hover or hold to show stats",
@@ -501,7 +512,8 @@
     "sortTotalStep": "Total weapon count — more total matches = higher rank",
     "regionFirstLabel": "First Priority Region",
     "regionSecondLabel": "Second Priority Region",
-    "regionNone": "None"
+    "regionNone": "None",
+    "acquisitionCategoriesHint": "Checked categories hide weapons with that source; uncheck to show them again."
   },
   "settings": {
     "title": "Settings",
@@ -879,7 +891,8 @@
       "element": "Element",
       "profession": "Profession",
       "weaponType": "Weapon Type",
-      "partType": "Part"
+      "partType": "Part",
+      "acquisitionCategory": "Acquisition Source"
     },
     "categories": {
       "characters": "Characters",
@@ -912,6 +925,10 @@
     "minWearLv": "Minimum Level",
     "baseAttack": "Attack",
     "breakthroughs": "Breakthroughs",
+    "acquisitionSources": "Acquisition Sources",
+    "unknownAcquisitionSource": "Unknown",
+    "showMoreAcquisitionSources": "Show {count} more sources…",
+    "collapseAcquisitionSources": "Collapse sources",
     "coolDown": "Cooldown",
     "skillCost": "SP Cost",
     "noSet": "Independent equipment",

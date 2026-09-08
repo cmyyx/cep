@@ -165,7 +165,20 @@
         "element",
         "profession",
         "weaponType",
-        "partType"
+        "partType",
+        "acquisitionCategory"
+      ]
+    },
+    "essenceSettings.acquisitionCategory": {
+      "comment": "Acquisition category label fallbacks resolved via t(`essenceSettings.acquisitionCategory.${categoryId}`) in acquisitionCategoryLabelText (src/lib/weapon-acquisition.ts); primary labels come from the generated wikiData catalog.",
+      "keys": [
+        "gacha",
+        "shop",
+        "battlePass",
+        "explore",
+        "activity",
+        "chest",
+        "unknown"
       ]
     },
     "wiki.voiceLanguages": {

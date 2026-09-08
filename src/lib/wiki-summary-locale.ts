@@ -6,20 +6,15 @@ import type {
 } from '@/types/wiki'
 import { localizeText } from '@/lib/wiki-locale-detail'
 
-type WithLocalizedName<T extends { name: unknown }> = Omit<T, 'name' | 'suitName'> & {
+type WithLocalizedName<T> = Omit<T, 'name' | 'suitName'> & {
   name: string
   /** Original zh-CN name for banner UP matching (characters). */
   nameZhCN?: string
   suitName?: string
-  /** i18n key of the equipment model tier badge, resolved at build time from the zh-CN name. */
+  /** i18n key of the equipment model tier badge. */
   modelKey?: string
 }
 
-/**
- * Equipment model tier ("壹型" / "T1" / "Ⅰ" / "·I") is only spelled out consistently in the
- * zh-CN name: en uses "T1", ja bare roman numerals, zh-TW latin "·I". Resolve the tier from
- * zh-CN once at build time so every locale renders the same badge.
- */
 const EQUIPMENT_MODEL_KEYS: Array<[string, string]> = [
   ['壹型', 'refinement.modelTypeI'],
   ['贰型', 'refinement.modelTypeII'],
@@ -44,25 +39,18 @@ export type LocalizedWikiEntitySummary =
 export function localizeWikiEntitySummary(
   entity: WikiEntitySummary,
   locale: string,
+  resolveName: (entity: WikiEntitySummary) => string = (value) => value.name ? localizeText(value.name, locale) : value.id,
 ): LocalizedWikiEntitySummary {
+  const name = resolveName(entity) || entity.id
   if (entity.category === 'characters') {
-    return {
-      ...entity,
-      name: localizeText(entity.name, locale),
-      nameZhCN: entity.name['zh-CN'],
-    }
+    return { ...entity, name, ...(entity.name ? { nameZhCN: entity.name['zh-CN'] } : {}) }
   }
-  if (entity.category === 'weapons') {
-    return {
-      ...entity,
-      name: localizeText(entity.name, locale),
-    }
-  }
+  if (entity.category === 'weapons') return { ...entity, name }
   const { suitName: rawSuitName, ...rest } = entity
-  const modelKey = equipmentModelKeyFromZhCN(entity.name['zh-CN'])
+  const modelKey = entity.name ? equipmentModelKeyFromZhCN(entity.name['zh-CN']) : undefined
   return {
     ...rest,
-    name: localizeText(entity.name, locale),
+    name,
     ...(rawSuitName ? { suitName: localizeText(rawSuitName, locale) } : {}),
     ...(modelKey ? { modelKey } : {}),
   }
@@ -71,24 +59,26 @@ export function localizeWikiEntitySummary(
 export function localizeWikiEntitySummaries(
   entities: readonly WikiEntitySummary[],
   locale: string,
+  resolveName?: (entity: WikiEntitySummary) => string,
 ): LocalizedWikiEntitySummary[] {
-  return entities.map((entity) => localizeWikiEntitySummary(entity, locale))
+  return entities.map((entity) => localizeWikiEntitySummary(entity, locale, resolveName))
 }
 
 export function entityDisplayName(
-  entity: { name: string | { 'zh-CN'?: string; en?: string; ja?: string; 'zh-TW'?: string }; id: string },
+  entity: { name?: string | { 'zh-CN'?: string; en?: string; ja?: string; 'zh-TW'?: string }; id: string },
   locale: string,
 ): string {
   if (typeof entity.name === 'string') return entity.name
-  return localizeText(entity.name as { 'zh-CN': string; en: string; ja: string; 'zh-TW': string }, locale) || entity.id
+  if (entity.name) return localizeText(entity.name as { 'zh-CN': string; en: string; ja: string; 'zh-TW': string }, locale) || entity.id
+  return entity.id
 }
 
 export function entityNameZhCN(
-  entity: { name: string | { 'zh-CN'?: string }; nameZhCN?: string; id: string },
+  entity: { name?: string | { 'zh-CN'?: string }; nameZhCN?: string; id: string },
 ): string {
   if (entity.nameZhCN) return entity.nameZhCN
   if (typeof entity.name === 'string') return entity.name
-  return entity.name['zh-CN'] || entity.id
+  return entity.name?.['zh-CN'] || entity.id
 }
 
 export type { WikiCharacterSummary, WikiWeaponSummary, WikiEquipmentSummary }

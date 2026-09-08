@@ -1,8 +1,10 @@
 import { expect, it } from 'vitest'
 import { wikiWeaponPlannerPreviews } from '@/generated/data/wiki/planner-previews'
+import { loadGameI18nLocale } from '@/lib/game-i18n-catalogs'
 import { getWeaponWikiPreview } from './weapon-wiki-preview'
 
-it('formats numeric and descriptive weapon preview values with locale fallback', () => {
+it('formats numeric and descriptive weapon preview values with locale fallback', async () => {
+  await loadGameI18nLocale('en')
   const [weaponId, preview] = Object.entries(wikiWeaponPlannerPreviews).find(([, value]) => value.stats.length >= 3)!
   const result = getWeaponWikiPreview(weaponId, 'en')
 
@@ -12,7 +14,8 @@ it('formats numeric and descriptive weapon preview values with locale fallback',
   expect(result.wikiHref).toBe(`/en/wiki/weapons/${weaponId}`)
 })
 
-it('aligns compact three-star previews with their non-empty semantic slots', () => {
+it('aligns compact three-star previews with their non-empty semantic slots', async () => {
+  await loadGameI18nLocale('zh-CN')
   const result = getWeaponWikiPreview('wpn_claym_0010', 'zh-CN')
 
   expect(result.values[0]).toEqual({ levelOne: '+10', maxLevel: '+79' })

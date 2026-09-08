@@ -364,6 +364,104 @@
       "baseAttack": 495
     }
   ],
+  "skills": [
+    {
+      "id": "wpn_attr_main_high",
+      "levels": [
+        {
+          "level": 1
+        },
+        {
+          "level": 2
+        },
+        {
+          "level": 3
+        },
+        {
+          "level": 4
+        },
+        {
+          "level": 5
+        },
+        {
+          "level": 6
+        },
+        {
+          "level": 7
+        },
+        {
+          "level": 8
+        },
+        {
+          "level": 9
+        }
+      ]
+    },
+    {
+      "id": "wpn_sp_attr_crirate_high",
+      "levels": [
+        {
+          "level": 1
+        },
+        {
+          "level": 2
+        },
+        {
+          "level": 3
+        },
+        {
+          "level": 4
+        },
+        {
+          "level": 5
+        },
+        {
+          "level": 6
+        },
+        {
+          "level": 7
+        },
+        {
+          "level": 8
+        },
+        {
+          "level": 9
+        }
+      ]
+    },
+    {
+      "id": "sk_wpn_sword_0011",
+      "levels": [
+        {
+          "level": 1
+        },
+        {
+          "level": 2
+        },
+        {
+          "level": 3
+        },
+        {
+          "level": 4
+        },
+        {
+          "level": 5
+        },
+        {
+          "level": 6
+        },
+        {
+          "level": 7
+        },
+        {
+          "level": 8
+        },
+        {
+          "level": 9
+        }
+      ]
+    }
+  ],
   "breakthroughs": [
     {
       "stage": 1,
@@ -377,39 +475,21 @@
       "materials": [
         {
           "itemId": "item_weapon_break_low",
-          "name": {
-            "zh-CN": "强固模具",
-            "en": "Cast Die",
-            "ja": "硬質金型",
-            "zh-TW": "強固模具"
-          },
+          "count": 5,
           "iconId": "item_weapon_break_low",
-          "rarity": 3,
-          "count": 5
+          "rarity": 3
         },
         {
           "itemId": "item_plant_spcstone_1_1",
-          "name": {
-            "zh-CN": "轻黯石",
-            "en": "Kalkonyx",
-            "ja": "軽闇石",
-            "zh-TW": "輕黯石"
-          },
+          "count": 3,
           "iconId": "item_plant_spcstone_1_1",
-          "rarity": 4,
-          "count": 3
+          "rarity": 4
         },
         {
           "itemId": "item_gold",
-          "name": {
-            "zh-CN": "折金票",
-            "en": "T-Creds",
-            "ja": "折金券",
-            "zh-TW": "折金票"
-          },
+          "count": 2200,
           "iconId": "item_gold",
-          "rarity": 4,
-          "count": 2200
+          "rarity": 4
         }
       ]
     },
@@ -425,39 +505,21 @@
       "materials": [
         {
           "itemId": "item_weapon_break_low",
-          "name": {
-            "zh-CN": "强固模具",
-            "en": "Cast Die",
-            "ja": "硬質金型",
-            "zh-TW": "強固模具"
-          },
+          "count": 18,
           "iconId": "item_weapon_break_low",
-          "rarity": 3,
-          "count": 18
+          "rarity": 3
         },
         {
           "itemId": "item_plant_spcstone_1_2",
-          "name": {
-            "zh-CN": "中黯石",
-            "en": "Auronyx",
-            "ja": "中闇石",
-            "zh-TW": "中黯石"
-          },
+          "count": 5,
           "iconId": "item_plant_spcstone_1_2",
-          "rarity": 4,
-          "count": 5
+          "rarity": 4
         },
         {
           "itemId": "item_gold",
-          "name": {
-            "zh-CN": "折金票",
-            "en": "T-Creds",
-            "ja": "折金券",
-            "zh-TW": "折金票"
-          },
+          "count": 8500,
           "iconId": "item_gold",
-          "rarity": 4,
-          "count": 8500
+          "rarity": 4
         }
       ]
     },
@@ -473,39 +535,21 @@
       "materials": [
         {
           "itemId": "item_weapon_break_high",
-          "name": {
-            "zh-CN": "重型强固模具",
-            "en": "Heavy Cast Die",
-            "ja": "重硬質金型",
-            "zh-TW": "重型強固模具"
-          },
+          "count": 20,
           "iconId": "item_weapon_break_high",
-          "rarity": 4,
-          "count": 20
+          "rarity": 4
         },
         {
           "itemId": "item_plant_spcstone_1_3",
-          "name": {
-            "zh-CN": "重黯石",
-            "en": "Umbronyx",
-            "ja": "重闇石",
-            "zh-TW": "重黯石"
-          },
+          "count": 5,
           "iconId": "item_plant_spcstone_1_3",
-          "rarity": 4,
-          "count": 5
+          "rarity": 4
         },
         {
           "itemId": "item_gold",
-          "name": {
-            "zh-CN": "折金票",
-            "en": "T-Creds",
-            "ja": "折金券",
-            "zh-TW": "折金票"
-          },
+          "count": 25000,
           "iconId": "item_gold",
-          "rarity": 4,
-          "count": 25000
+          "rarity": 4
         }
       ]
     },
@@ -521,347 +565,27 @@
       "materials": [
         {
           "itemId": "item_weapon_break_high",
-          "name": {
-            "zh-CN": "重型强固模具",
-            "en": "Heavy Cast Die",
-            "ja": "重硬質金型",
-            "zh-TW": "重型強固模具"
-          },
+          "count": 30,
           "iconId": "item_weapon_break_high",
-          "rarity": 4,
-          "count": 30
+          "rarity": 4
         },
         {
           "itemId": "item_char_skill_specialize_1",
-          "name": {
-            "zh-CN": "超距辉映管",
-            "en": "Metadiastima Photoemission Tube",
-            "ja": "超距離分光管",
-            "zh-TW": "超距輝映管"
-          },
+          "count": 16,
           "iconId": "item_char_skill_specialize_1",
-          "rarity": 5,
-          "count": 16
+          "rarity": 5
         },
         {
           "itemId": "item_plant_spcstone_2_2",
-          "name": {
-            "zh-CN": "武陵石",
-            "en": "Wulingstone",
-            "ja": "武陵石",
-            "zh-TW": "武陵石"
-          },
+          "count": 8,
           "iconId": "item_plant_spcstone_2_2",
-          "rarity": 5,
-          "count": 8
+          "rarity": 5
         },
         {
           "itemId": "item_gold",
-          "name": {
-            "zh-CN": "折金票",
-            "en": "T-Creds",
-            "ja": "折金券",
-            "zh-TW": "折金票"
-          },
+          "count": 90000,
           "iconId": "item_gold",
-          "rarity": 4,
-          "count": 90000
-        }
-      ]
-    }
-  ],
-  "skills": [
-    {
-      "id": "wpn_attr_main_high",
-      "name": {
-        "zh-CN": "主能力提升·大",
-        "en": "Main Attribute [L]",
-        "ja": "メイン能力UP・大",
-        "zh-TW": "主能力提升·大"
-      },
-      "description": {
-        "zh-CN": "主能力值<@ba.vup>+132</>",
-        "en": "Main attribute <@ba.vup>+132</>",
-        "ja": "メイン能力値<@ba.vup>+132</>",
-        "zh-TW": "主能力值<@ba.vup>+132</>"
-      },
-      "levels": [
-        {
-          "level": 1,
-          "description": {
-            "zh-CN": "主能力值<@ba.vup>+17</>",
-            "en": "Main attribute <@ba.vup>+17</>",
-            "ja": "メイン能力値<@ba.vup>+17</>",
-            "zh-TW": "主能力值<@ba.vup>+17</>"
-          }
-        },
-        {
-          "level": 2,
-          "description": {
-            "zh-CN": "主能力值<@ba.vup>+30</>",
-            "en": "Main attribute <@ba.vup>+30</>",
-            "ja": "メイン能力値<@ba.vup>+30</>",
-            "zh-TW": "主能力值<@ba.vup>+30</>"
-          }
-        },
-        {
-          "level": 3,
-          "description": {
-            "zh-CN": "主能力值<@ba.vup>+44</>",
-            "en": "Main attribute <@ba.vup>+44</>",
-            "ja": "メイン能力値<@ba.vup>+44</>",
-            "zh-TW": "主能力值<@ba.vup>+44</>"
-          }
-        },
-        {
-          "level": 4,
-          "description": {
-            "zh-CN": "主能力值<@ba.vup>+57</>",
-            "en": "Main attribute <@ba.vup>+57</>",
-            "ja": "メイン能力値<@ba.vup>+57</>",
-            "zh-TW": "主能力值<@ba.vup>+57</>"
-          }
-        },
-        {
-          "level": 5,
-          "description": {
-            "zh-CN": "主能力值<@ba.vup>+71</>",
-            "en": "Main attribute <@ba.vup>+71</>",
-            "ja": "メイン能力値<@ba.vup>+71</>",
-            "zh-TW": "主能力值<@ba.vup>+71</>"
-          }
-        },
-        {
-          "level": 6,
-          "description": {
-            "zh-CN": "主能力值<@ba.vup>+85</>",
-            "en": "Main attribute <@ba.vup>+85</>",
-            "ja": "メイン能力値<@ba.vup>+85</>",
-            "zh-TW": "主能力值<@ba.vup>+85</>"
-          }
-        },
-        {
-          "level": 7,
-          "description": {
-            "zh-CN": "主能力值<@ba.vup>+98</>",
-            "en": "Main attribute <@ba.vup>+98</>",
-            "ja": "メイン能力値<@ba.vup>+98</>",
-            "zh-TW": "主能力值<@ba.vup>+98</>"
-          }
-        },
-        {
-          "level": 8,
-          "description": {
-            "zh-CN": "主能力值<@ba.vup>+112</>",
-            "en": "Main attribute <@ba.vup>+112</>",
-            "ja": "メイン能力値<@ba.vup>+112</>",
-            "zh-TW": "主能力值<@ba.vup>+112</>"
-          }
-        },
-        {
-          "level": 9,
-          "description": {
-            "zh-CN": "主能力值<@ba.vup>+132</>",
-            "en": "Main attribute <@ba.vup>+132</>",
-            "ja": "メイン能力値<@ba.vup>+132</>",
-            "zh-TW": "主能力值<@ba.vup>+132</>"
-          }
-        }
-      ]
-    },
-    {
-      "id": "wpn_sp_attr_crirate_high",
-      "name": {
-        "zh-CN": "暴击率提升·大",
-        "en": "Critical Rate [L]",
-        "ja": "会心率UP・大",
-        "zh-TW": "暴擊率提升·大"
-      },
-      "description": {
-        "zh-CN": "暴击率<@ba.vup>+19.5%</>",
-        "en": "Critical Rate <@ba.vup>+19.5%</>",
-        "ja": "会心率<@ba.vup>+19.5%</>",
-        "zh-TW": "暴擊率<@ba.vup>+19.5%</>"
-      },
-      "levels": [
-        {
-          "level": 1,
-          "description": {
-            "zh-CN": "暴击率<@ba.vup>+2.5%</>",
-            "en": "Critical Rate <@ba.vup>+2.5%</>",
-            "ja": "会心率<@ba.vup>+2.5%</>",
-            "zh-TW": "暴擊率<@ba.vup>+2.5%</>"
-          }
-        },
-        {
-          "level": 2,
-          "description": {
-            "zh-CN": "暴击率<@ba.vup>+4.5%</>",
-            "en": "Critical Rate <@ba.vup>+4.5%</>",
-            "ja": "会心率<@ba.vup>+4.5%</>",
-            "zh-TW": "暴擊率<@ba.vup>+4.5%</>"
-          }
-        },
-        {
-          "level": 3,
-          "description": {
-            "zh-CN": "暴击率<@ba.vup>+6.5%</>",
-            "en": "Critical Rate <@ba.vup>+6.5%</>",
-            "ja": "会心率<@ba.vup>+6.5%</>",
-            "zh-TW": "暴擊率<@ba.vup>+6.5%</>"
-          }
-        },
-        {
-          "level": 4,
-          "description": {
-            "zh-CN": "暴击率<@ba.vup>+8.5%</>",
-            "en": "Critical Rate <@ba.vup>+8.5%</>",
-            "ja": "会心率<@ba.vup>+8.5%</>",
-            "zh-TW": "暴擊率<@ba.vup>+8.5%</>"
-          }
-        },
-        {
-          "level": 5,
-          "description": {
-            "zh-CN": "暴击率<@ba.vup>+10.5%</>",
-            "en": "Critical Rate <@ba.vup>+10.5%</>",
-            "ja": "会心率<@ba.vup>+10.5%</>",
-            "zh-TW": "暴擊率<@ba.vup>+10.5%</>"
-          }
-        },
-        {
-          "level": 6,
-          "description": {
-            "zh-CN": "暴击率<@ba.vup>+12.5%</>",
-            "en": "Critical Rate <@ba.vup>+12.5%</>",
-            "ja": "会心率<@ba.vup>+12.5%</>",
-            "zh-TW": "暴擊率<@ba.vup>+12.5%</>"
-          }
-        },
-        {
-          "level": 7,
-          "description": {
-            "zh-CN": "暴击率<@ba.vup>+14.5%</>",
-            "en": "Critical Rate <@ba.vup>+14.5%</>",
-            "ja": "会心率<@ba.vup>+14.5%</>",
-            "zh-TW": "暴擊率<@ba.vup>+14.5%</>"
-          }
-        },
-        {
-          "level": 8,
-          "description": {
-            "zh-CN": "暴击率<@ba.vup>+16.5%</>",
-            "en": "Critical Rate <@ba.vup>+16.5%</>",
-            "ja": "会心率<@ba.vup>+16.5%</>",
-            "zh-TW": "暴擊率<@ba.vup>+16.5%</>"
-          }
-        },
-        {
-          "level": 9,
-          "description": {
-            "zh-CN": "暴击率<@ba.vup>+19.5%</>",
-            "en": "Critical Rate <@ba.vup>+19.5%</>",
-            "ja": "会心率<@ba.vup>+19.5%</>",
-            "zh-TW": "暴擊率<@ba.vup>+19.5%</>"
-          }
-        }
-      ]
-    },
-    {
-      "id": "sk_wpn_sword_0011",
-      "name": {
-        "zh-CN": "夜幕·青云",
-        "en": "Twilight: Azure Clouds",
-        "ja": "夜幕・青雲",
-        "zh-TW": "夜幕·青雲"
-      },
-      "description": {
-        "zh-CN": "战技和终结技造成的物理伤害<@ba.vup>+42.0%</>。\n对处于<@ba.poise>失衡</>状态的敌人造成的伤害<@ba.vup>+98.0%</>。",
-        "en": "Battle skills and ultimates gain Physical DMG Dealt <@ba.vup>+42.0%</>.\nAgainst <@ba.poise>Staggered</> enemies, battle skills and ultimates also gain DMG Dealt <@ba.vup>+98.0%</>.",
-        "ja": "戦技と必殺技の物理ダメージ<@ba.vup>+42.0%</>\n<@ba.poise>ブレイク</>状態の敵へのダメージ<@ba.vup>+98.0%</>",
-        "zh-TW": "戰技和終結技造成的物理傷害<@ba.vup>+42.0%</>。\n對處於<@ba.poise>失衡</>狀態的敵人造成的傷害<@ba.vup>+98.0%</>。"
-      },
-      "levels": [
-        {
-          "level": 1,
-          "description": {
-            "zh-CN": "战技和终结技造成的物理伤害<@ba.vup>+15.0%</>。\n对处于<@ba.poise>失衡</>状态的敌人造成的伤害<@ba.vup>+35.0%</>。",
-            "en": "Battle skills and ultimates gain Physical DMG Dealt <@ba.vup>+15.0%</>.\nAgainst <@ba.poise>Staggered</> enemies, battle skills and ultimates also gain DMG Dealt <@ba.vup>+35.0%</>.",
-            "ja": "戦技と必殺技の物理ダメージ<@ba.vup>+15.0%</>\n<@ba.poise>ブレイク</>状態の敵へのダメージ<@ba.vup>+35.0%</>",
-            "zh-TW": "戰技和終結技造成的物理傷害<@ba.vup>+15.0%</>。\n對處於<@ba.poise>失衡</>狀態的敵人造成的傷害<@ba.vup>+35.0%</>。"
-          }
-        },
-        {
-          "level": 2,
-          "description": {
-            "zh-CN": "战技和终结技造成的物理伤害<@ba.vup>+18.0%</>。\n对处于<@ba.poise>失衡</>状态的敌人造成的伤害<@ba.vup>+42.0%</>。",
-            "en": "Battle skills and ultimates gain Physical DMG Dealt <@ba.vup>+18.0%</>.\nAgainst <@ba.poise>Staggered</> enemies, battle skills and ultimates also gain DMG Dealt <@ba.vup>+42.0%</>.",
-            "ja": "戦技と必殺技の物理ダメージ<@ba.vup>+18.0%</>\n<@ba.poise>ブレイク</>状態の敵へのダメージ<@ba.vup>+42.0%</>",
-            "zh-TW": "戰技和終結技造成的物理傷害<@ba.vup>+18.0%</>。\n對處於<@ba.poise>失衡</>狀態的敵人造成的傷害<@ba.vup>+42.0%</>。"
-          }
-        },
-        {
-          "level": 3,
-          "description": {
-            "zh-CN": "战技和终结技造成的物理伤害<@ba.vup>+21.0%</>。\n对处于<@ba.poise>失衡</>状态的敌人造成的伤害<@ba.vup>+49.0%</>。",
-            "en": "Battle skills and ultimates gain Physical DMG Dealt <@ba.vup>+21.0%</>.\nAgainst <@ba.poise>Staggered</> enemies, battle skills and ultimates also gain DMG Dealt <@ba.vup>+49.0%</>.",
-            "ja": "戦技と必殺技の物理ダメージ<@ba.vup>+21.0%</>\n<@ba.poise>ブレイク</>状態の敵へのダメージ<@ba.vup>+49.0%</>",
-            "zh-TW": "戰技和終結技造成的物理傷害<@ba.vup>+21.0%</>。\n對處於<@ba.poise>失衡</>狀態的敵人造成的傷害<@ba.vup>+49.0%</>。"
-          }
-        },
-        {
-          "level": 4,
-          "description": {
-            "zh-CN": "战技和终结技造成的物理伤害<@ba.vup>+24.0%</>。\n对处于<@ba.poise>失衡</>状态的敌人造成的伤害<@ba.vup>+56.0%</>。",
-            "en": "Battle skills and ultimates gain Physical DMG Dealt <@ba.vup>+24.0%</>.\nAgainst <@ba.poise>Staggered</> enemies, battle skills and ultimates also gain DMG Dealt <@ba.vup>+56.0%</>.",
-            "ja": "戦技と必殺技の物理ダメージ<@ba.vup>+24.0%</>\n<@ba.poise>ブレイク</>状態の敵へのダメージ<@ba.vup>+56.0%</>",
-            "zh-TW": "戰技和終結技造成的物理傷害<@ba.vup>+24.0%</>。\n對處於<@ba.poise>失衡</>狀態的敵人造成的傷害<@ba.vup>+56.0%</>。"
-          }
-        },
-        {
-          "level": 5,
-          "description": {
-            "zh-CN": "战技和终结技造成的物理伤害<@ba.vup>+27.0%</>。\n对处于<@ba.poise>失衡</>状态的敌人造成的伤害<@ba.vup>+63.0%</>。",
-            "en": "Battle skills and ultimates gain Physical DMG Dealt <@ba.vup>+27.0%</>.\nAgainst <@ba.poise>Staggered</> enemies, battle skills and ultimates also gain DMG Dealt <@ba.vup>+63.0%</>.",
-            "ja": "戦技と必殺技の物理ダメージ<@ba.vup>+27.0%</>\n<@ba.poise>ブレイク</>状態の敵へのダメージ<@ba.vup>+63.0%</>",
-            "zh-TW": "戰技和終結技造成的物理傷害<@ba.vup>+27.0%</>。\n對處於<@ba.poise>失衡</>狀態的敵人造成的傷害<@ba.vup>+63.0%</>。"
-          }
-        },
-        {
-          "level": 6,
-          "description": {
-            "zh-CN": "战技和终结技造成的物理伤害<@ba.vup>+30.0%</>。\n对处于<@ba.poise>失衡</>状态的敌人造成的伤害<@ba.vup>+70.0%</>。",
-            "en": "Battle skills and ultimates gain Physical DMG Dealt <@ba.vup>+30.0%</>.\nAgainst <@ba.poise>Staggered</> enemies, battle skills and ultimates also gain DMG Dealt <@ba.vup>+70.0%</>.",
-            "ja": "戦技と必殺技の物理ダメージ<@ba.vup>+30.0%</>\n<@ba.poise>ブレイク</>状態の敵へのダメージ<@ba.vup>+70.0%</>",
-            "zh-TW": "戰技和終結技造成的物理傷害<@ba.vup>+30.0%</>。\n對處於<@ba.poise>失衡</>狀態的敵人造成的傷害<@ba.vup>+70.0%</>。"
-          }
-        },
-        {
-          "level": 7,
-          "description": {
-            "zh-CN": "战技和终结技造成的物理伤害<@ba.vup>+33.0%</>。\n对处于<@ba.poise>失衡</>状态的敌人造成的伤害<@ba.vup>+77.0%</>。",
-            "en": "Battle skills and ultimates gain Physical DMG Dealt <@ba.vup>+33.0%</>.\nAgainst <@ba.poise>Staggered</> enemies, battle skills and ultimates also gain DMG Dealt <@ba.vup>+77.0%</>.",
-            "ja": "戦技と必殺技の物理ダメージ<@ba.vup>+33.0%</>\n<@ba.poise>ブレイク</>状態の敵へのダメージ<@ba.vup>+77.0%</>",
-            "zh-TW": "戰技和終結技造成的物理傷害<@ba.vup>+33.0%</>。\n對處於<@ba.poise>失衡</>狀態的敵人造成的傷害<@ba.vup>+77.0%</>。"
-          }
-        },
-        {
-          "level": 8,
-          "description": {
-            "zh-CN": "战技和终结技造成的物理伤害<@ba.vup>+36.0%</>。\n对处于<@ba.poise>失衡</>状态的敌人造成的伤害<@ba.vup>+84.0%</>。",
-            "en": "Battle skills and ultimates gain Physical DMG Dealt <@ba.vup>+36.0%</>.\nAgainst <@ba.poise>Staggered</> enemies, battle skills and ultimates also gain DMG Dealt <@ba.vup>+84.0%</>.",
-            "ja": "戦技と必殺技の物理ダメージ<@ba.vup>+36.0%</>\n<@ba.poise>ブレイク</>状態の敵へのダメージ<@ba.vup>+84.0%</>",
-            "zh-TW": "戰技和終結技造成的物理傷害<@ba.vup>+36.0%</>。\n對處於<@ba.poise>失衡</>狀態的敵人造成的傷害<@ba.vup>+84.0%</>。"
-          }
-        },
-        {
-          "level": 9,
-          "description": {
-            "zh-CN": "战技和终结技造成的物理伤害<@ba.vup>+42.0%</>。\n对处于<@ba.poise>失衡</>状态的敌人造成的伤害<@ba.vup>+98.0%</>。",
-            "en": "Battle skills and ultimates gain Physical DMG Dealt <@ba.vup>+42.0%</>.\nAgainst <@ba.poise>Staggered</> enemies, battle skills and ultimates also gain DMG Dealt <@ba.vup>+98.0%</>.",
-            "ja": "戦技と必殺技の物理ダメージ<@ba.vup>+42.0%</>\n<@ba.poise>ブレイク</>状態の敵へのダメージ<@ba.vup>+98.0%</>",
-            "zh-TW": "戰技和終結技造成的物理傷害<@ba.vup>+42.0%</>。\n對處於<@ba.poise>失衡</>狀態的敵人造成的傷害<@ba.vup>+98.0%</>。"
-          }
+          "rarity": 4
         }
       ]
     }

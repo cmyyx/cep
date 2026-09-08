@@ -14,7 +14,9 @@ import { WEAPON_TYPE_MAP } from './compare-weapons'
 import { buildAttrShowConfigs, resolveFormat, formatEquipStat } from './equip-stat-format'
 import { resolveWeaponStats } from './weapon-stats'
 import type { WeaponSkillPatchEntry } from './weapon-stats'
+import { buildWeaponAcquisitionData } from './weapon-acquisition'
 import type { WikiAssets } from './wiki-assets'
+import { wikiTextKey } from '../../src/lib/wiki-i18n'
 
 // ── Validation result ─────────────────────────────────────────────────────
 
@@ -179,6 +181,97 @@ export function validateWeapons(
 
   return issues
 }
+
+function parseProjectWeaponAcquisitionSources(projectContent: string): Map<string, Array<{ categoryId: string; sourceId: string }>> {
+  const result = new Map<string, Array<{ categoryId: string; sourceId: string }>>()
+  const weaponLineRegex = /^\s*\{[^\n]*\bid:\s*'(wpn_[^']+)'[^\n]*\},?\s*$/gm
+  let match: RegExpExecArray | null
+  while ((match = weaponLineRegex.exec(projectContent)) !== null) {
+    const field = match[0].match(/acquisitionSources:\s*\[([^\]]*)\]/)?.[1] ?? ''
+    const sources: Array<{ categoryId: string; sourceId: string }> = []
+    const sourceRegex = /\{\s*categoryId:\s*'([^']+)'\s*,\s*sourceId:\s*'([^']+)'\s*\}/g
+    let sourceMatch: RegExpExecArray | null
+    while ((sourceMatch = sourceRegex.exec(field)) !== null) {
+      sources.push({ categoryId: sourceMatch[1], sourceId: sourceMatch[2] })
+    }
+    result.set(match[1], sources)
+  }
+  return result
+}
+
+export function validateWeaponAcquisition(
+  akedataPath: string,
+  projectWeaponsTsPath: string,
+  previewWeaponIds: ReadonlySet<string> = new Set(),
+  projectRoot?: string,
+): ValidationIssue[] {
+  if (!existsSync(projectWeaponsTsPath)) return []
+  const projectContent = readFileSync(projectWeaponsTsPath, 'utf8')
+  const projectSources = parseProjectWeaponAcquisitionSources(projectContent)
+  const upstream = buildWeaponAcquisitionData(akedataPath)
+  const issues: ValidationIssue[] = []
+  for (const warning of upstream.warnings) issues.push({ category: 'weapon', id: warning, field: 'acquisitionSource', expected: 'valid source mapping', actual: warning })
+  for (const [weaponId, expectedSources] of Object.entries(upstream.sourcesByWeapon)) {
+    if (previewWeaponIds.has(weaponId)) continue
+    const actualSources = projectSources.get(weaponId)
+    if (!actualSources) {
+      issues.push({ category: 'weapon', id: weaponId, field: 'acquisitionSources', expected: JSON.stringify(expectedSources), actual: '<missing>' })
+      continue
+    }
+    const expected = JSON.stringify(expectedSources)
+    const actual = JSON.stringify(actualSources)
+    if (expected !== actual) issues.push({ category: 'weapon', id: weaponId, field: 'acquisitionSources', expected, actual })
+  }
+  for (const [weaponId, sources] of Object.entries(upstream.sourcesByWeapon)) {
+    if (previewWeaponIds.has(weaponId) || sources.length > 0) continue
+    issues.push({ category: 'weapon', id: weaponId, field: 'acquisitionSources', expected: 'at least one source', actual: '<empty>' })
+  }
+  if (projectRoot) issues.push(...validateGeneratedWeaponAcquisitionI18n(projectRoot, upstream))
+  return issues
+}
+function validateGeneratedWeaponAcquisitionI18n(
+  projectRoot: string,
+  upstream: ReturnType<typeof buildWeaponAcquisitionData>,
+ ): ValidationIssue[] {
+  const issues: ValidationIssue[] = []
+  const locales = ['zh-CN', 'en', 'ja', 'zh-TW'] as const
+  for (const locale of locales) {
+    const path = join(projectRoot, 'src', 'generated', 'i18n', 'wikiData', `${locale}.json`)
+    if (!existsSync(path)) {
+      issues.push({ category: 'weapon', id: path, field: 'file', expected: 'present', actual: '<missing>' })
+      continue
+    }
+    let catalog: Record<string, unknown>
+    try {
+      catalog = JSON.parse(readFileSync(path, 'utf8')) as Record<string, unknown>
+    } catch {
+      issues.push({ category: 'weapon', id: path, field: 'file', expected: 'valid JSON', actual: '<invalid>' })
+      continue
+    }
+    for (const categoryId of Object.keys(upstream.categories)) {
+      const key = wikiTextKey('acquisitionCategory', categoryId)
+      if (typeof catalog[key] !== 'string' || !catalog[key]) {
+        issues.push({ category: 'weapon', id: categoryId, field: 'categoryI18n', expected: key, actual: String(catalog[key] ?? '<missing>') })
+      }
+    }
+    for (const entry of Object.values(upstream.details)) {
+      const prefix = ['acquisitionSource', entry.source.categoryId, entry.source.sourceId] as const
+      const nameKey = wikiTextKey(...prefix, 'name')
+      if (typeof catalog[nameKey] !== 'string' || !catalog[nameKey]) {
+        issues.push({ category: 'weapon', id: `${entry.source.categoryId}/${entry.source.sourceId}`, field: 'nameI18n', expected: nameKey, actual: String(catalog[nameKey] ?? '<missing>') })
+      }
+      if (entry.description) {
+        const descriptionKey = wikiTextKey(...prefix, 'description')
+        if (typeof catalog[descriptionKey] !== 'string' || !catalog[descriptionKey]) {
+          issues.push({ category: 'weapon', id: `${entry.source.categoryId}/${entry.source.sourceId}`, field: 'descriptionI18n', expected: descriptionKey, actual: String(catalog[descriptionKey] ?? '<missing>') })
+        }
+      }
+    }
+  }
+  return issues
+}
+
+
 
 // ── Validate equips ─────────────────────────────────────────────────────
 
@@ -399,6 +492,7 @@ export function validateAllData(
 ): ValidationIssue[] {
   const issues: ValidationIssue[] = [
     ...validateWeapons(akedataPath, join(projectRoot, 'src', 'data', 'weapons.ts')),
+    ...validateWeaponAcquisition(akedataPath, join(projectRoot, 'src', 'data', 'weapons.ts'), new Set(), projectRoot),
     ...validateEquips(akedataPath, join(projectRoot, 'src', 'data', 'equips.ts')),
     ...validateDungeons(akedataPath, join(projectRoot, 'src', 'data', 'dungeons.ts')),
   ]
