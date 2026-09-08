@@ -3,7 +3,6 @@
  * All values are baked into the static bundle at build time.
  */
 
-import { OPS_SERVICE_ORIGIN } from '@/lib/constants'
 import { resolveOptionalUrl } from '@/lib/utils'
 
 /** Split comma-separated env var into trimmed array, filtering empties. */
@@ -46,7 +45,4 @@ export const FEATURES = {
   /** Allowed embedder hostnames for anti-embed (exact match, no subdomain wildcard). */
   allowedEmbedDomains: _allowedEmbedDomains,
 
-  /** Public daily-wallpaper feed endpoint on the ops service.
-   *  Hardcoded (see OPS_SERVICE_ORIGIN) — no env override, always available. */
-  wallpaperApiUrl: `${OPS_SERVICE_ORIGIN}/api/v1/wallpapers`,
 } as const

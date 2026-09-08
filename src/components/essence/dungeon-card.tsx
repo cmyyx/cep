@@ -7,7 +7,6 @@ import { cn } from '@/lib/utils'
 import type { DungeonPlan, WeaponMatch } from '@/lib/planner/essence-solver'
 import { useMatrixStore, getPlanKey } from '@/stores/useMatrixStore'
 import { useEssenceSettingsStore } from '@/stores/useEssenceSettingsStore'
-import { useBannerStore } from '@/stores/useBannerStore'
 import { useMobileLongPressTooltip } from '@/hooks/use-mobile-long-press-tooltip'
 import { OwnershipBadge, EditableNote } from '@/components/essence/ownership-badge'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
@@ -72,7 +71,6 @@ const WeaponThumbnail = memo(function WeaponThumbnail({
   const acquisitionCategoryLabel = (categoryId: string): string =>
     acquisitionCategoryLabelText(categoryId, wikiText, t)
   const locale = useLocale() as WikiLocale
-  const enableTooltip = useEssenceSettingsStore((s) => s.enableTooltipPlans)
   const toggleWeapon = useMatrixStore((s) => s.toggleWeapon)
   const {
     open,
@@ -84,7 +82,7 @@ const WeaponThumbnail = memo(function WeaponThumbnail({
     handleContextMenu,
     swallowLongPressClick,
     isMobile,
-  } = useMobileLongPressTooltip(enableTooltip)
+  } = useMobileLongPressTooltip(true)
 
   const handleToggle = useCallback(() => {
     if (swallowLongPressClick()) return
@@ -100,15 +98,15 @@ const WeaponThumbnail = memo(function WeaponThumbnail({
       size="icon"
       ref={triggerRef}
       onClick={handleToggle}
-      onPointerDown={isMobile && enableTooltip ? handlePointerDown : undefined}
-      onPointerMove={isMobile && enableTooltip ? handlePointerMove : undefined}
-      onPointerUp={isMobile && enableTooltip ? handlePointerEnd : undefined}
-      onPointerCancel={isMobile && enableTooltip ? handlePointerEnd : undefined}
-      onContextMenu={isMobile && enableTooltip ? handleContextMenu : undefined}
+      onPointerDown={isMobile ? handlePointerDown : undefined}
+      onPointerMove={isMobile ? handlePointerMove : undefined}
+      onPointerUp={isMobile ? handlePointerEnd : undefined}
+      onPointerCancel={isMobile ? handlePointerEnd : undefined}
+      onContextMenu={isMobile ? handleContextMenu : undefined}
       className={cn(
         'relative w-16 h-16 rounded-md overflow-hidden select-none',
-        isMobile && enableTooltip ? 'cursor-default' : 'cursor-pointer',
-        isMobile && enableTooltip && 'touch-manipulation [-webkit-touch-callout:none] [&_img]:pointer-events-none [&_img]:select-none',
+        isMobile ? 'cursor-default' : 'cursor-pointer',
+        isMobile && 'touch-manipulation [-webkit-touch-callout:none] [&_img]:pointer-events-none [&_img]:select-none',
         inRange && isSelected && 'shadow-[0_0_0_1px_rgba(251,191,36,0.5)]',
         inRange && !isSelected && 'shadow-[var(--shadow-border)]',
         !inRange && isSelected && 'shadow-[0_0_0_1px_rgba(251,191,36,0.2)] opacity-40',
@@ -132,8 +130,6 @@ const WeaponThumbnail = memo(function WeaponThumbnail({
       )}
     </Button>
   )
-
-  if (!enableTooltip) return thumb
 
   return (
     <Tooltip open={open} onOpenChange={handleOpenChange}>
@@ -431,9 +427,6 @@ export const DungeonCard = memo(function DungeonCard({
   const setWeaponOwnership = useEssenceSettingsStore((s) => s.setWeaponOwnership)
   const setEssenceStatus = useEssenceSettingsStore((s) => s.setEssenceStatus)
   const setWeaponNote = useEssenceSettingsStore((s) => s.setWeaponNote)
-  const keepUpVisible = useEssenceSettingsStore((s) => s.keepUpVisiblePlans)
-  const upCharacterNames = useBannerStore((s) => s.upCharacterNames)
-  const upCharSet = useMemo(() => new Set(upCharacterNames), [upCharacterNames])
 
   const handleToggleExpand = useCallback(() => {
     toggleDungeonExpand(planKey)
@@ -442,7 +435,6 @@ export const DungeonCard = memo(function DungeonCard({
   // Filter matchedWeapons based on plan-side hide settings
   const visibleMatched = useMemo(() => {
     return plan.matchedWeapons.filter(({ weapon }) => {
-      if (keepUpVisible && (weapon.chars.some((c) => upCharSet.has(c)) || weapon.source === 'preview')) return true
       if (isHiddenByAcquisitionCategory(weapon.acquisitionSources, hiddenAcquisitionCategories)) return false
       if ((hideFourStar && weapon.rarity === 4) || (hideThreeStar && weapon.rarity === 3)) return false
       if (hideUnowned && weaponOwnership[weapon.id] !== true) return false
@@ -459,7 +451,6 @@ export const DungeonCard = memo(function DungeonCard({
     })
   }, [
     plan.matchedWeapons,
-    keepUpVisible, upCharSet,
     hiddenAcquisitionCategories,
     hideFourStar, hideThreeStar, hideUnowned, hideEssenceOwned, onlyBothOwned,
     weaponOwnership, essenceStatus,

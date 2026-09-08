@@ -28,13 +28,6 @@ const FLAG_DEFAULTS: Record<SettingKey, boolean> = {
   onlyHideWhenBothOwnedPlans: false,
   enableOwnershipEditPlans: false,
   enableNotesPlans: false,
-
-  enableTooltipList: true,
-  enableTooltipPlans: true,
-
-  keepUpVisibleList: true,
-  keepUpVisiblePlans: true,
-
 }
 
 export function normalizeEssenceSettingsFlags(
@@ -66,7 +59,7 @@ function normalizeCategoryList(value: unknown): string[] {
  */
 function mergeWithDefaults(
   persisted: Record<string, unknown>,
-): Omit<EssenceSettingsState, 'toggleFlag' | 'setWeaponOwnership' | 'setEssenceStatus' | 'setWeaponNote' | 'addCustomWeapon' | 'removeCustomWeapon' | 'updateCustomWeapon' | 'addAccount' | 'renameAccount' | 'removeAccount' | 'setActiveAccount' | 'applyAccounts' | 'setHiddenAcquisitionCategories' | 'setRegionFirst' | 'setRegionSecond' | 'toggleWeaponFilterCollapsed' | 'setAutoSyncEnabled' | 'setNotifyOnSync' | 'setNotifyOnPull' | 'resetAllSettings'> {
+): Omit<EssenceSettingsState, 'toggleFlag' | 'setWeaponOwnership' | 'setEssenceStatus' | 'setWeaponNote' | 'addCustomWeapon' | 'removeCustomWeapon' | 'updateCustomWeapon' | 'addAccount' | 'renameAccount' | 'removeAccount' | 'setActiveAccount' | 'applyAccounts' | 'setHiddenAcquisitionCategories' | 'setRegionFirst' | 'setRegionSecond' | 'toggleWeaponFilterCollapsed' | 'toggleHiddenWeaponsCollapsed' | 'setAutoSyncEnabled' | 'setNotifyOnSync' | 'setNotifyOnPull' | 'resetAllSettings'> {
   const flags = normalizeEssenceSettingsFlags(persisted)
 
   // Compute customWeapons first — we need the active set to filter
@@ -125,6 +118,8 @@ function mergeWithDefaults(
   const hiddenAcquisitionCategoriesPlans = normalizeCategoryList(persisted.hiddenAcquisitionCategoriesPlans)
   const weaponFilterCollapsed: boolean =
     typeof persisted.weaponFilterCollapsed === 'boolean' ? persisted.weaponFilterCollapsed : false
+  const hiddenWeaponsCollapsed: boolean =
+    typeof persisted.hiddenWeaponsCollapsed === 'boolean' ? persisted.hiddenWeaponsCollapsed : true
   const autoSyncEnabled: boolean =
     typeof persisted.autoSyncEnabled === 'boolean' ? persisted.autoSyncEnabled : true
   const notifyOnSync: boolean =
@@ -145,6 +140,7 @@ function mergeWithDefaults(
     hiddenAcquisitionCategoriesList,
     hiddenAcquisitionCategoriesPlans,
     weaponFilterCollapsed,
+    hiddenWeaponsCollapsed,
     autoSyncEnabled,
     notifyOnSync,
     notifyOnPull,
@@ -203,6 +199,7 @@ export const useEssenceSettingsStore = create<EssenceSettingsState>()(
       hiddenAcquisitionCategoriesList: [],
       hiddenAcquisitionCategoriesPlans: [],
       weaponFilterCollapsed: false,
+      hiddenWeaponsCollapsed: true,
       autoSyncEnabled: true,
       notifyOnSync: false,
       notifyOnPull: false,
@@ -374,6 +371,7 @@ export const useEssenceSettingsStore = create<EssenceSettingsState>()(
             hiddenAcquisitionCategoriesList: [],
             hiddenAcquisitionCategoriesPlans: [],
             weaponFilterCollapsed: false,
+            hiddenWeaponsCollapsed: true,
             autoSyncEnabled: true,
             notifyOnSync: false,
             notifyOnPull: false,
@@ -397,6 +395,9 @@ export const useEssenceSettingsStore = create<EssenceSettingsState>()(
 
       toggleWeaponFilterCollapsed: () =>
         set((s) => ({ weaponFilterCollapsed: !s.weaponFilterCollapsed })),
+
+      toggleHiddenWeaponsCollapsed: () =>
+        set((s) => ({ hiddenWeaponsCollapsed: !s.hiddenWeaponsCollapsed })),
 
       setAutoSyncEnabled: (enabled: boolean) =>
         set({ autoSyncEnabled: enabled }),
@@ -432,6 +433,7 @@ export const useEssenceSettingsStore = create<EssenceSettingsState>()(
           setRegionFirst: current.setRegionFirst,
           setRegionSecond: current.setRegionSecond,
           toggleWeaponFilterCollapsed: current.toggleWeaponFilterCollapsed,
+          toggleHiddenWeaponsCollapsed: current.toggleHiddenWeaponsCollapsed,
           setAutoSyncEnabled: current.setAutoSyncEnabled,
           setNotifyOnSync: current.setNotifyOnSync,
           setNotifyOnPull: current.setNotifyOnPull,

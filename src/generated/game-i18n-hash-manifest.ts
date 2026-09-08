@@ -16,7 +16,7 @@ export const gameI18nHashManifest: Record<string, string> = {
   "/game-i18n/ja/001.json": "b60cb981",
   "/game-i18n/ko/000.json": "13915e0e",
   "/game-i18n/ko/001.json": "1f77bcfd",
-  "/game-i18n/manifest.json": "957dca56",
+  "/game-i18n/manifest.json": "4b2516dc",
   "/game-i18n/pt-BR/000.json": "b116e1d2",
   "/game-i18n/pt-BR/001.json": "6af4ffca",
   "/game-i18n/ru/000.json": "3ea12a99",

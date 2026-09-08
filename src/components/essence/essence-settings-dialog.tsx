@@ -87,16 +87,6 @@ const PAIRED_ROWS: PairedRow[] = [
     listKey: 'enableNotesList',
     plansKey: 'enableNotesPlans',
   },
-  {
-    labelI18n: 'essenceSettings.enableTooltip',
-    listKey: 'enableTooltipList',
-    plansKey: 'enableTooltipPlans',
-  },
-  {
-    labelI18n: 'essenceSettings.keepUpVisible',
-    listKey: 'keepUpVisibleList',
-    plansKey: 'keepUpVisiblePlans',
-  },
 ]
 
 // Shared template for the header and every data row — identical column
@@ -131,7 +121,6 @@ export function EssenceSettingsDialog() {
     onlyHideWhenBothOwnedList: useEssenceSettingsStore((s) => s.onlyHideWhenBothOwnedList),
     enableOwnershipEditList: useEssenceSettingsStore((s) => s.enableOwnershipEditList),
     enableNotesList: useEssenceSettingsStore((s) => s.enableNotesList),
-    enableTooltipList: useEssenceSettingsStore((s) => s.enableTooltipList),
     hideEssenceOwnedWeaponsPlans: useEssenceSettingsStore((s) => s.hideEssenceOwnedWeaponsPlans),
     hideUnownedWeaponsPlans: useEssenceSettingsStore((s) => s.hideUnownedWeaponsPlans),
     hideFourStarWeaponsPlans: useEssenceSettingsStore((s) => s.hideFourStarWeaponsPlans),
@@ -139,9 +128,6 @@ export function EssenceSettingsDialog() {
     onlyHideWhenBothOwnedPlans: useEssenceSettingsStore((s) => s.onlyHideWhenBothOwnedPlans),
     enableOwnershipEditPlans: useEssenceSettingsStore((s) => s.enableOwnershipEditPlans),
     enableNotesPlans: useEssenceSettingsStore((s) => s.enableNotesPlans),
-    enableTooltipPlans: useEssenceSettingsStore((s) => s.enableTooltipPlans),
-    keepUpVisibleList: useEssenceSettingsStore((s) => s.keepUpVisibleList),
-    keepUpVisiblePlans: useEssenceSettingsStore((s) => s.keepUpVisiblePlans),
   }
 
   const toggleHiddenCategory = (scope: 'list' | 'plans', current: string[], categoryId: string) => {
@@ -187,7 +173,7 @@ export function EssenceSettingsDialog() {
             {PAIRED_ROWS.flatMap((row) => {
               const listOn = flags[row.listKey]
               const plansOn = flags[row.plansKey]
-              const subActive = !!(row.subSetting && (listOn || plansOn))
+              const subDimmed = !(listOn || plansOn)
 
               const rows = [
                 <div key={row.listKey} className={cn(SETTING_GRID_COLS, 'items-center py-2')}>
@@ -209,11 +195,12 @@ export function EssenceSettingsDialog() {
                 </div>,
               ]
 
-              // Sub-setting row (indented, appears when either parent is ON)
-              if (subActive && row.subSetting) {
+              // Sub-setting row (indented, always visible; dimmed + disabled
+              // while both parent switches are OFF)
+              if (row.subSetting) {
                 rows.push(
                   <div key={row.subSetting.listKey} className={cn(SETTING_GRID_COLS, 'items-center py-1.5')}>
-                    <span className="min-w-0 pr-3 pl-6 text-[11px] text-muted-foreground leading-tight">
+                    <span className={cn('min-w-0 pr-3 pl-6 text-[11px] leading-tight', subDimmed ? 'text-muted-foreground/40' : 'text-muted-foreground')}>
                       {t(row.subSetting.labelI18n)}
                     </span>
                     <div className="px-1 text-center">

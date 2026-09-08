@@ -5,7 +5,6 @@ import { useLocale, useTranslations } from 'next-intl'
 import { cn } from '@/lib/utils'
 import Image from 'next/image'
 import { useMatrixStore } from '@/stores/useMatrixStore'
-import { useEssenceSettingsStore } from '@/stores/useEssenceSettingsStore'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
 import { Button } from '@/components/ui/button'
 import { Check } from 'lucide-react'
@@ -47,7 +46,6 @@ export const WeaponCard = memo(function WeaponCard({
     acquisitionCategoryLabelText(categoryId, wikiText, t)
   const locale = useLocale()
   const toggleWeapon = useMatrixStore((s) => s.toggleWeapon)
-  const enableTooltip = useEssenceSettingsStore((s) => s.enableTooltipList)
   const {
     open,
     triggerRef,
@@ -58,7 +56,7 @@ export const WeaponCard = memo(function WeaponCard({
     handleContextMenu,
     swallowLongPressClick,
     isMobile,
-  } = useMobileLongPressTooltip(enableTooltip)
+  } = useMobileLongPressTooltip(true)
 
   const handleToggle = useCallback(() => {
     if (swallowLongPressClick()) return
@@ -88,14 +86,14 @@ export const WeaponCard = memo(function WeaponCard({
       type="button"
       onClick={handleToggle}
       disabled={disabled}
-      onPointerDown={isMobile && enableTooltip ? handlePointerDown : undefined}
-      onPointerMove={isMobile && enableTooltip ? handlePointerMove : undefined}
-      onPointerUp={isMobile && enableTooltip ? handlePointerEnd : undefined}
-      onPointerCancel={isMobile && enableTooltip ? handlePointerEnd : undefined}
-      onContextMenu={isMobile && enableTooltip ? handleContextMenu : undefined}
+      onPointerDown={isMobile ? handlePointerDown : undefined}
+      onPointerMove={isMobile ? handlePointerMove : undefined}
+      onPointerUp={isMobile ? handlePointerEnd : undefined}
+      onPointerCancel={isMobile ? handlePointerEnd : undefined}
+      onContextMenu={isMobile ? handleContextMenu : undefined}
       className={cn(
         'group relative flex items-center justify-center aspect-square w-full rounded-lg border cursor-pointer overflow-hidden transition-all',
-        isMobile && enableTooltip && 'touch-manipulation select-none [-webkit-touch-callout:none] [-webkit-user-select:none] [&_img]:pointer-events-none [&_img]:select-none',
+        isMobile && 'touch-manipulation select-none [-webkit-touch-callout:none] [-webkit-user-select:none] [&_img]:pointer-events-none [&_img]:select-none',
         disabled && 'opacity-30 cursor-not-allowed pointer-events-none',
         !disabled && [
           isSelected
@@ -199,8 +197,6 @@ export const WeaponCard = memo(function WeaponCard({
       )}
     </Button>
   )
-
-  if (!enableTooltip) return trigger
 
   return (
     <Tooltip open={open} onOpenChange={handleOpenChange}>

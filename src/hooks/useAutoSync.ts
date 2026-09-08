@@ -198,8 +198,6 @@ const FLAG_TO_I18N: Record<string, string> = {
   enableOwnershipEditPlans: 'enableOwnershipEdit',
   enableNotesList: 'enableNotes',
   enableNotesPlans: 'enableNotes',
-  keepUpVisibleList: 'keepUpVisible',
-  keepUpVisiblePlans: 'keepUpVisible',
   onlyHideWhenBothOwnedList: 'onlyHideWhenBothOwned',
   onlyHideWhenBothOwnedPlans: 'onlyHideWhenBothOwned',
 }
@@ -232,7 +230,6 @@ function buildSettingsDiff(local: Record<string, unknown>, cloud: Record<string,
     'hideThreeStarWeaponsList', 'hideThreeStarWeaponsPlans',
     'enableOwnershipEditList', 'enableOwnershipEditPlans',
     'enableNotesList', 'enableNotesPlans',
-    'keepUpVisibleList', 'keepUpVisiblePlans',
     'onlyHideWhenBothOwnedList', 'onlyHideWhenBothOwnedPlans',
   ]
   const flagsL = (esL.flags ?? {}) as Record<string, unknown>
@@ -920,8 +917,6 @@ export function useAutoSync() {
           state.enableOwnershipEditPlans !== prevState.enableOwnershipEditPlans ||
           state.enableNotesList !== prevState.enableNotesList ||
           state.enableNotesPlans !== prevState.enableNotesPlans ||
-          state.keepUpVisibleList !== prevState.keepUpVisibleList ||
-          state.keepUpVisiblePlans !== prevState.keepUpVisiblePlans ||
           state.onlyHideWhenBothOwnedList !== prevState.onlyHideWhenBothOwnedList ||
           state.hiddenAcquisitionCategoriesList !== prevState.hiddenAcquisitionCategoriesList ||
           state.hiddenAcquisitionCategoriesPlans !== prevState.hiddenAcquisitionCategoriesPlans ||

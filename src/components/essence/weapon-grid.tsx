@@ -122,7 +122,8 @@ export const WeaponGrid = memo(function WeaponGrid({ onViewAll }: WeaponGridProp
   const hideUnowned = useEssenceSettingsStore((s) => s.hideUnownedWeaponsList)
   const hideEssenceOwned = useEssenceSettingsStore((s) => s.hideEssenceOwnedWeaponsList)
   const onlyBothOwned = useEssenceSettingsStore((s) => s.onlyHideWhenBothOwnedList)
-  const keepUpVisibleList = useEssenceSettingsStore((s) => s.keepUpVisibleList)
+  const hiddenCollapsed = useEssenceSettingsStore((s) => s.hiddenWeaponsCollapsed)
+  const toggleHiddenCollapsed = useEssenceSettingsStore((s) => s.toggleHiddenWeaponsCollapsed)
   const enableOwnershipEdit = useEssenceSettingsStore((s) => s.enableOwnershipEditList)
   const enableNotes = useEssenceSettingsStore((s) => s.enableNotesList)
   const weaponOwnership = useEssenceSettingsStore((s) => s.weaponOwnership)
@@ -211,26 +212,27 @@ export const WeaponGrid = memo(function WeaponGrid({ onViewAll }: WeaponGridProp
     return t.has(key) ? t(key) : weapon.name
   }, [t])
 
-  // Base filter predicate: query + hide settings
-  const matchesBaseFilters = useCallback((w: Weapon) => {
-    if (query && !matchesWeaponQuery(weaponSearchHaystack(w, localizedWeaponName(w), weaponTypeLabel(w.type, t)), query)) {
-      return false
-    }
-    if (keepUpVisibleList && (isWeaponUp(w) || w.source === 'preview')) return true
-    if (isHiddenByAcquisitionCategory(w.acquisitionSources, hiddenAcquisitionCategories)) return false
-    if ((hideFourStar && w.rarity === 4) || (hideThreeStar && w.rarity === 3)) return false
-    if (hideUnowned && weaponOwnership[w.id] !== true) return false
+  /** Hide-setting predicate: true when the weapon is excluded by any hide toggle. */
+  const isHiddenBySettings = useCallback((w: Weapon) => {
+    if (isHiddenByAcquisitionCategory(w.acquisitionSources, hiddenAcquisitionCategories)) return true
+    if ((hideFourStar && w.rarity === 4) || (hideThreeStar && w.rarity === 3)) return true
+    if (hideUnowned && weaponOwnership[w.id] !== true) return true
     if (hideEssenceOwned) {
       const eOwned = essenceStatus[w.id] === true
       const wOwned = weaponOwnership[w.id] === true
-      if (onlyBothOwned) {
-        if (eOwned && wOwned) return false
-      } else {
-        if (eOwned) return false
-      }
+      return onlyBothOwned ? eOwned && wOwned : eOwned
     }
-    return true
-  }, [query, localizedWeaponName, t, keepUpVisibleList, isWeaponUp, hiddenAcquisitionCategories, hideFourStar, hideThreeStar, hideUnowned, hideEssenceOwned, onlyBothOwned, weaponOwnership, essenceStatus])
+    return false
+  }, [hiddenAcquisitionCategories, hideFourStar, hideThreeStar, hideUnowned, hideEssenceOwned, onlyBothOwned, weaponOwnership, essenceStatus])
+
+  /** Search predicate: query only. */
+  const matchesQuery = useCallback((w: Weapon) => {
+    if (!query) return true
+    return matchesWeaponQuery(weaponSearchHaystack(w, localizedWeaponName(w), weaponTypeLabel(w.type, t)), query)
+  }, [query, localizedWeaponName, t])
+
+  // Base filter predicate: query + hide settings
+  const matchesBaseFilters = useCallback((w: Weapon) => matchesQuery(w) && !isHiddenBySettings(w), [matchesQuery, isHiddenBySettings])
 
   const validOptions = useMemo(() => {
     const eligibleWeapons = allWeapons.filter(matchesBaseFilters)
@@ -240,6 +242,13 @@ export const WeaponGrid = memo(function WeaponGrid({ onViewAll }: WeaponGridProp
   const filteredWeapons = useMemo(
     () => allWeapons.filter((weapon) => matchesBaseFilters(weapon) && matchesWeaponFilters(weapon, filters)),
     [allWeapons, filters, matchesBaseFilters]
+  )
+
+  // Weapons excluded by hide settings but still matching search/attr filters —
+  // rendered in a collapsed section at the bottom of the grid.
+  const hiddenFilteredWeapons = useMemo(
+    () => allWeapons.filter((weapon) => matchesQuery(weapon) && isHiddenBySettings(weapon) && matchesWeaponFilters(weapon, filters)),
+    [allWeapons, filters, matchesQuery, isHiddenBySettings]
   )
 
   // Write visible weapon IDs to shared store so select-all button can read them
@@ -257,6 +266,44 @@ export const WeaponGrid = memo(function WeaponGrid({ onViewAll }: WeaponGridProp
     for (const w of allWeapons) map.set(w.id, w)
     return map
   }, [allWeapons])
+
+  /** Shared cell renderer for both the visible grid and the hidden-weapons section. */
+  const renderWeaponCells = (list: Weapon[]) =>
+    list.map((weapon) => (
+      <div key={weapon.id} className="flex flex-col gap-0.5">
+        <WeaponCard
+          weapon={weapon}
+          isSelected={selectedSet.has(weapon.id)}
+          isOnBanner={isWeaponUp(weapon)}
+        />
+        {enableOwnershipEdit && (
+          <div className="flex items-center justify-center gap-1">
+            <OwnershipBadge
+              active={weaponOwnership[weapon.id] === true}
+              onToggle={() =>
+                setWeaponOwnership(weapon.id, !weaponOwnership[weapon.id])
+              }
+              label={t('essence.weaponOwnershipLabel')}
+              activeColor="emerald"
+            />
+            <OwnershipBadge
+              active={essenceStatus[weapon.id] === true}
+              onToggle={() =>
+                setEssenceStatus(weapon.id, !essenceStatus[weapon.id])
+              }
+              label={t('essence.essenceOwnershipLabel')}
+              activeColor="sky"
+            />
+          </div>
+        )}
+        {enableNotes && (
+          <EditableNote
+            note={weaponNotes[weapon.id] || ''}
+            onSave={(value) => setWeaponNote(weapon.id, value)}
+          />
+        )}
+      </div>
+    ))
 
   return (
     <div className="flex flex-col gap-3">
@@ -318,42 +365,23 @@ export const WeaponGrid = memo(function WeaponGrid({ onViewAll }: WeaponGridProp
       </FilterPanel>
 
       <div className="grid grid-cols-[repeat(auto-fill,minmax(6.5rem,1fr))] gap-2">
-        {filteredWeapons.map((weapon) => (
-          <div key={weapon.id} className="flex flex-col gap-0.5">
-            <WeaponCard
-              weapon={weapon}
-              isSelected={selectedSet.has(weapon.id)}
-              isOnBanner={isWeaponUp(weapon)}
-            />
-            {enableOwnershipEdit && (
-              <div className="flex items-center justify-center gap-1">
-                <OwnershipBadge
-                  active={weaponOwnership[weapon.id] === true}
-                  onToggle={() =>
-                    setWeaponOwnership(weapon.id, !weaponOwnership[weapon.id])
-                  }
-                  label={t('essence.weaponOwnershipLabel')}
-                  activeColor="emerald"
-                />
-                <OwnershipBadge
-                  active={essenceStatus[weapon.id] === true}
-                  onToggle={() =>
-                    setEssenceStatus(weapon.id, !essenceStatus[weapon.id])
-                  }
-                  label={t('essence.essenceOwnershipLabel')}
-                  activeColor="sky"
-                />
-              </div>
-            )}
-            {enableNotes && (
-              <EditableNote
-                note={weaponNotes[weapon.id] || ''}
-                onSave={(value) => setWeaponNote(weapon.id, value)}
-              />
-            )}
-          </div>
-        ))}
+        {renderWeaponCells(filteredWeapons)}
       </div>
+
+      {/* Hidden weapons — collapsed by default, expandable */}
+      {hiddenFilteredWeapons.length > 0 && (
+        <FilterPanel
+          title={t('essence.hiddenWeaponsTitle')}
+          collapsed={hiddenCollapsed}
+          onToggle={toggleHiddenCollapsed}
+          activeCount={hiddenFilteredWeapons.length}
+        >
+          <div className="grid grid-cols-[repeat(auto-fill,minmax(6.5rem,1fr))] gap-2">
+            {renderWeaponCells(hiddenFilteredWeapons)}
+          </div>
+        </FilterPanel>
+      )}
+
       {filteredWeapons.length === 0 && (
         <p className="text-sm text-muted-foreground text-center py-8">{t('essence.noWeaponMatch')}</p>
       )}
