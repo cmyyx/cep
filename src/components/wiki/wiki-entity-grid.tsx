@@ -502,7 +502,9 @@ export const WikiEntityGrid = memo(function WikiEntityGrid({
   const renderEntity = (entity: GridEntity) => {
     const imageSrc = withImageCacheVersion(`${imageBasePath}/${entity.imageId}.avif`)
     const displayName = entityName(entity)
-    const isUp = getWikiEntityUpStatus(entity, upNames)
+    // Same resolver as sortWikiEntities so the UP badge matches the sort's
+    // name resolution instead of silently falling back to zh-CN only.
+    const isUp = getWikiEntityUpStatus(entity, upNames, weaponCharacters, characterNameForUp)
     const equipmentModelKey = getWikiEquipmentModelKey(entity)
     const rarity = normalizeRarity(entity.rarity)
     const metaLabel = wikiEntityMetaLabel(entity, labelFor)

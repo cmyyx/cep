@@ -282,6 +282,7 @@ export function buildWeaponAcquisitionData(akedataPath: string): WeaponAcquisiti
     // Only direct weapon sales become shop sources. Goods that merely grant
     // gacha-pool access duplicate the weapon's gacha source (same pool, same
     // content) and are skipped to avoid a redundant "shop" record.
+    if (goods.weaponGachaPoolId || goods.relatedWeaponGachPoolId) continue
     const rewardWeapons = rewardWeaponIds(rewards[goods.rewardId ?? ''], weaponIds)
     if (rewardWeapons.length === 0) continue
     const shop = goods.shopId ? shopTable[goods.shopId] : undefined

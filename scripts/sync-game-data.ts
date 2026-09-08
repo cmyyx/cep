@@ -18,44 +18,9 @@ import { convertWikiAssets } from './lib/convert-icons'
 import { downloadCharacterAvatars } from './lib/download-character-avatars'
 import type { WikiAssets } from './lib/wiki-assets'
 import { readUpstreamVersions, upstreamVersionsMatch, writeUpstreamVersions } from './lib/git-helpers'
+import { buildWeaponNameMap } from './lib/weapon-name-map'
 import { existsSync, readFileSync, mkdirSync, writeFileSync, appendFileSync } from 'node:fs'
 import { join, resolve } from 'node:path'
-import { extractItemNameIds } from './lib/extract-textid'
-import { loadTextTable } from './lib/stat-mapping'
-
-/** Build weapon name → weaponId mapping from TableCfg (WeaponBasicTable + ItemTable + I18nTextTable_CN).
- * Names carried by more than one upstream weapon are dropped from the map and
- * reported as ambiguous so preview migration can never pick the wrong target. */
-function buildWeaponNameMap(akedataPath: string): { nameMap: Map<string, string>; ambiguousNames: Set<string> } {
-  const nameMap = new Map<string, string>()
-  const ambiguousNames = new Set<string>()
-
-  // Load WeaponBasicTable for weapon list
-  const wpnBasicPath = join(akedataPath, 'TableCfg', 'WeaponBasicTable.json')
-  if (!existsSync(wpnBasicPath)) return { nameMap, ambiguousNames }
-  const wpnBasic = JSON.parse(readFileSync(wpnBasicPath, 'utf-8')) as Record<string, unknown>
-
-  // Load ItemTable name text IDs
-  const weaponTextIds = extractItemNameIds(join(akedataPath, 'TableCfg', 'ItemTable.json'))
-
-  // Load CN TextTable for display names
-  const cnTextTable = loadTextTable(akedataPath, 'zh-CN')
-
-  for (const weaponId of Object.keys(wpnBasic)) {
-    const nameTextId = weaponTextIds[weaponId]
-    const title = nameTextId ? (cnTextTable[nameTextId] ?? weaponId) : weaponId
-    if (!title) continue
-    const existing = nameMap.get(title)
-    if (existing !== undefined && existing !== weaponId) {
-      ambiguousNames.add(title)
-      nameMap.delete(title)
-      continue
-    }
-    nameMap.set(title, weaponId)
-  }
-
-  return { nameMap, ambiguousNames }
-}
 
 /** Detect and optionally update preview weapons in weapons.ts */
 function updatePreviewWeapons(

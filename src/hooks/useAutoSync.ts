@@ -126,7 +126,10 @@ function hasExistingLocalData(local: Record<string, unknown>): boolean {
     }
     const cw = es.customWeapons as unknown[] | undefined
     if (Array.isArray(cw) && cw.length > 0) return true
-    if ((Array.isArray(es.hiddenAcquisitionCategoriesList) && es.hiddenAcquisitionCategoriesList.length > 0) || (Array.isArray(es.hiddenAcquisitionCategoriesPlans) && es.hiddenAcquisitionCategoriesPlans.length > 0)) return true
+    // An explicitly-cleared category list (array present, empty) is still user
+    // data: without this, a pending-clear that failed to push would be
+    // silently overwritten by stale cloud values on the next pull.
+    if (Array.isArray(es.hiddenAcquisitionCategoriesList) || Array.isArray(es.hiddenAcquisitionCategoriesPlans)) return true
   }
   const rp = local.refinementPlanner as Record<string, unknown> | undefined
   if (rp && rp.selectedEquipId) return true

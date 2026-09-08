@@ -99,6 +99,10 @@ function renderNodes(nodes: WikiRichTextNode[], resolveTerm: TermResolver, inter
     // tooltip 内部: 术语只作纯样式文字展示 (粗体区分, 不嵌套 tooltip 也不上色), 避免移出触发区即关闭
     if (!interactive || !term) return <span key={key} className={term && 'font-medium'}>{children}</span>
     const name = resolveTerm(node.id, term, 'name')
+    // Catalog chunk not loaded (or term missing from it) and the glossary
+    // entry carries no embedded text: render as plain text instead of an
+    // interactive Tooltip with an empty title and body.
+    if (!name) return <span key={key} className="font-medium">{children}</span>
     const descriptionNodes = parseWikiRichText(resolveTerm(node.id, term, 'description'))
     return (
       <Tooltip key={key}>
