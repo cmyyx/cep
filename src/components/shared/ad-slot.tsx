@@ -14,9 +14,13 @@ export interface AdSlotProps {
   className?: string
 }
 
-/** 桌面侧边栏位 280x380（竖版）；移动端顶部 banner 320x100（横版）。 */
+/**
+ * 桌面侧边栏位 280x380（竖版）：高度由父容器决定（380px 起、可在空间不足时
+ * 收缩，见 app-sidebar 的挂载容器），宽度按素材比例 280:380 等比跟随，
+ * 素材完整展示不裁切；移动端顶部 banner 320x100（横版）为固定尺寸。
+ */
 const VARIANT_SIZE_CLASS: Record<AdSlotVariant, string> = {
-  desktop: 'h-[380px] w-[280px]',
+  desktop: 'h-full w-auto aspect-[280/380]',
   mobile: 'h-[100px] w-[320px]',
 }
 

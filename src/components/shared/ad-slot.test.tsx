@@ -39,7 +39,7 @@ it('renders nothing when no ad is active (no placeholder)', () => {
   expect(container.childElementCount).toBe(0)
 })
 
-it('renders the desktop image sized 280x380 with a direct target link', () => {
+it('renders the desktop image with fluid 280:380 sizing and a direct target link', () => {
   useAdStore.setState({ currentAd: AD })
   const { container } = render(<AdSlot variant="desktop" />)
   const link = screen.getByRole('link')
@@ -48,8 +48,9 @@ it('renders the desktop image sized 280x380 with a direct target link', () => {
   const img = container.querySelector('img')
   expect(img?.getAttribute('src')).toBe(AD.desktopImageUrl)
   expect(img?.getAttribute('alt')).toBe('campaign')
-  expect(link.className).toContain('w-[280px]')
-  expect(link.className).toContain('h-[380px]')
+  expect(link.className).toContain('aspect-[280/380]')
+  expect(link.className).toContain('h-full')
+  expect(link.className).toContain('w-auto')
 })
 
 it('reports the click via sendBeacon without blocking the link', () => {
