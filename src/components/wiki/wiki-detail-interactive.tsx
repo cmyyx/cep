@@ -40,6 +40,25 @@ export interface WikiDetailShellProps {
   tocItems: WikiTocItem[]
 }
 
+/** overflowY 可能被 Chromium 映射为 overlay，一并识别。 */
+function isScrollableOverflow(overflowY: string): boolean {
+  return overflowY === 'auto' || overflowY === 'scroll' || overflowY === 'overlay'
+}
+
+/**
+ * 真正发生滚动的祖先：md+ 是 shell 自身（overflow-y-auto），md 以下是布局
+ * 滚动壳（shell 不滚）。找不到则回退 document。
+ */
+function resolveWikiScrollRoot(el: HTMLElement | null): Element | null {
+  if (!el) return null
+  let node: HTMLElement | null = el
+  while (node) {
+    if (isScrollableOverflow(window.getComputedStyle(node).overflowY)) return node
+    node = node.parentElement
+  }
+  return document.scrollingElement
+}
+
 export function WikiDetailShell({ children, tocItems }: WikiDetailShellProps) {
   const [tocExpanded, setTocExpanded] = useState(false)
   const [activeTocId, setActiveTocId] = useState(tocItems[0]?.id ?? '')
@@ -48,7 +67,7 @@ export function WikiDetailShell({ children, tocItems }: WikiDetailShellProps) {
 
   const updateActiveSection = useCallback(() => {
     setTocExpanded(false)
-    const scrollRoot = scrollRef.current
+    const scrollRoot = resolveWikiScrollRoot(scrollRef.current)
     if (!scrollRoot) return
     const rootTop = scrollRoot.getBoundingClientRect().top
     let active = tocItems[0]?.id ?? ''
@@ -60,7 +79,7 @@ export function WikiDetailShell({ children, tocItems }: WikiDetailShellProps) {
   }, [tocItems])
 
   const initializeActiveSection = useCallback(() => {
-    const scrollRoot = scrollRef.current
+    const scrollRoot = resolveWikiScrollRoot(scrollRef.current)
     if (!scrollRoot) return
     const rootTop = scrollRoot.getBoundingClientRect().top
     let active = tocItems[0]?.id ?? ''
@@ -76,6 +95,25 @@ export function WikiDetailShell({ children, tocItems }: WikiDetailShellProps) {
     return () => window.cancelAnimationFrame(frame)
   }, [initializeActiveSection])
 
+  // 绑定到实际滚动容器：md+ 是 shell，md 以下是布局滚动壳；断点切换时重绑。
+  useEffect(() => {
+    const el = scrollRef.current
+    if (!el) return
+    let scroller = resolveWikiScrollRoot(el)
+    const onScroll = () => updateActiveSection()
+    const rebind = () => {
+      scroller?.removeEventListener('scroll', onScroll)
+      scroller = resolveWikiScrollRoot(el)
+      scroller?.addEventListener('scroll', onScroll, { passive: true })
+    }
+    rebind()
+    window.addEventListener('resize', rebind)
+    return () => {
+      scroller?.removeEventListener('scroll', onScroll)
+      window.removeEventListener('resize', rebind)
+    }
+  }, [updateActiveSection])
+
   useEffect(() => () => {
     if (scrollTimerRef.current !== null) window.clearInterval(scrollTimerRef.current)
   }, [])
@@ -83,8 +121,7 @@ export function WikiDetailShell({ children, tocItems }: WikiDetailShellProps) {
   return (
     <div
       ref={scrollRef}
-      className="relative min-h-0 min-w-0 flex-1 overflow-y-auto"
-      onScroll={updateActiveSection}
+      className="relative min-w-0 md:min-h-0 md:flex-1 md:overflow-y-auto"
     >
       <div className="w-full min-w-0 px-3 py-4 sm:px-5 sm:py-5 lg:px-6">{children}</div>
       <WikiDetailToc
@@ -93,7 +130,7 @@ export function WikiDetailShell({ children, tocItems }: WikiDetailShellProps) {
         expanded={tocExpanded}
         onExpandedChange={setTocExpanded}
         onNavigate={(id) => {
-          const scrollRoot = scrollRef.current
+          const scrollRoot = resolveWikiScrollRoot(scrollRef.current)
           const section = document.getElementById(id)
           if (!scrollRoot || !section) return
           setActiveTocId(id)

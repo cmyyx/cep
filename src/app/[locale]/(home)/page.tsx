@@ -38,17 +38,17 @@ export default function HomePage() {
         description={t('meta.homeDescription')}
         url={`${siteUrl}${pathname}`}
       />
-      <div className="flex flex-col flex-1 min-h-0 overflow-hidden">
+      <div className="flex flex-col md:flex-1 md:min-h-0 md:overflow-hidden">
         {/* Top bar */}
-        <div className="flex items-center gap-3 px-4 py-2 border-b border-border">
+        <div className="sticky top-0 z-30 flex items-center gap-3 border-b border-border bg-background/95 px-4 py-2 backdrop-blur">
           <SidebarTrigger />
           <h1 className="text-base font-semibold tracking-tight">
             {t('app.name')}
           </h1>
         </div>
 
-      {/* Scrollable content */}
-      <div className="flex-1 overflow-auto">
+      {/* Scrollable content — mobile 由布局滚动壳承载 */}
+      <div className="md:flex-1 md:overflow-auto">
         <div className="mx-auto max-w-5xl px-6 py-8 space-y-8">
           <GreetingSection greetingKey={greetingKey} />
           <RealTimeClock />

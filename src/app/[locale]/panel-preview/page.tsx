@@ -42,9 +42,9 @@ export default function PanelPreviewPage() {
   // stuck on skeletons forever; offer an explicit retry instead.
   if (plannerError) {
     return (
-      <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
+      <div className="flex flex-col md:min-h-0 md:flex-1 md:overflow-hidden">
         {renderHeader(true)}
-        <div className="min-h-0 flex-1 overflow-y-auto p-4">
+        <div className="p-4 md:min-h-0 md:flex-1 md:overflow-y-auto">
           <DataLoadError onRetry={retryPlannerData} />
         </div>
       </div>
@@ -55,9 +55,9 @@ export default function PanelPreviewPage() {
   // via getPlannerGameData()/getWikiWeaponSummaries() once this resolves.
   if (!plannerData) {
     return (
-      <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
+      <div className="flex flex-col md:min-h-0 md:flex-1 md:overflow-hidden">
         {renderHeader(true)}
-        <div className="grid min-h-0 flex-1 gap-4 overflow-hidden p-4 xl:grid-cols-[minmax(34rem,1.35fr)_minmax(22rem,0.65fr)]">
+        <div className="grid gap-4 p-4 md:min-h-0 md:flex-1 md:overflow-hidden xl:grid-cols-[minmax(34rem,1.35fr)_minmax(22rem,0.65fr)]">
           <div className="flex min-h-0 flex-col gap-3">
             <Skeleton className="h-24 w-full rounded-lg" />
             <Skeleton className="min-h-0 w-full flex-1 rounded-xl" />
@@ -71,7 +71,7 @@ export default function PanelPreviewPage() {
   }
 
   return (
-    <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
+    <div className="flex flex-col md:min-h-0 md:flex-1 md:overflow-hidden">
       {renderHeader(!config)}
       {isDesktop ? (
         <div className="min-h-0 flex-1 overflow-hidden xl:grid xl:grid-cols-[minmax(34rem,1.35fr)_minmax(22rem,0.65fr)]">
@@ -79,15 +79,16 @@ export default function PanelPreviewPage() {
           <aside className="min-h-0 overflow-y-auto p-4 pb-16"><PanelStatsSummary /></aside>
         </div>
       ) : (
-        <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
-          <div className="mx-4 mt-3 flex shrink-0 rounded-lg bg-muted p-0.5">
+        /* <xl（isDesktop=false）：md–xl 时外层 overflow-hidden，此容器自滚；<md 由布局滚动壳滚。 */
+        <div className="flex flex-col md:min-h-0 md:flex-1">
+          <div className="sticky top-0 z-40 mx-4 mt-3 flex shrink-0 rounded-lg bg-muted p-0.5">
             <Button type="button" variant="ghost" aria-pressed={mobileView === 'configuration'} onClick={() => setMobileView('configuration')} className={cn('h-auto flex-1 rounded-md px-4 py-1.5 text-sm font-medium transition-colors', mobileView === 'configuration' ? 'bg-background text-foreground shadow-[var(--shadow-raised)]' : 'text-muted-foreground')}>{t('configurationTab')}</Button>
             <Button type="button" variant="ghost" aria-pressed={mobileView === 'stats'} onClick={() => setMobileView('stats')} className={cn('h-auto flex-1 rounded-md px-4 py-1.5 text-sm font-medium transition-colors', mobileView === 'stats' ? 'bg-background text-foreground shadow-[var(--shadow-raised)]' : 'text-muted-foreground')}>{t('statsTab')}</Button>
           </div>
-          <div className="min-h-0 flex-1 overflow-y-auto">
+          <div className="pb-24 md:min-h-0 md:flex-1 md:overflow-y-auto">
             {mobileView === 'configuration' ? <section className="space-y-6 p-4 pb-16"><CharacterPanelConfig /><EquipmentWeaponConfig /></section> : <aside className="p-4 pb-16"><PanelStatsSummary /></aside>}
           </div>
-          <div className="safe-area-mb relative z-40 flex shrink-0 justify-end bg-background px-4 py-2.5 shadow-[var(--shadow-border-inset-t)]">
+          <div className="fixed inset-x-0 bottom-0 safe-area-bottom-bar z-40 flex shrink-0 justify-end bg-background px-4 py-2.5 shadow-[var(--shadow-border-inset-t)]">
             <Button type="button" variant={mobileView === 'configuration' ? 'default' : 'outline'} size="sm" onClick={() => setMobileView(mobileView === 'configuration' ? 'stats' : 'configuration')} disabled={mobileView === 'configuration' && !config}>{mobileView === 'configuration' ? t('viewStats') : t('editConfiguration')}</Button>
           </div>
         </div>

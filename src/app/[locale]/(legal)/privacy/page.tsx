@@ -46,14 +46,14 @@ export default async function PrivacyPage({
   const t = await getTranslations({ locale })
 
   return (
-    <div className="flex flex-col flex-1 min-h-0 overflow-hidden">
-      <div className="flex items-center gap-3 px-4 py-2 border-b border-border shrink-0">
+    <div className="flex flex-col md:flex-1 md:min-h-0 md:overflow-hidden">
+      <div className="flex items-center gap-3 border-b border-border px-4 py-2 shrink-0">
         <SidebarTrigger />
         <h1 className="text-base font-semibold tracking-tight">
           {t('legal.privacyTitle')}
         </h1>
       </div>
-      <div className="flex-1 overflow-y-auto">
+      <div className="md:flex-1 md:overflow-y-auto">
         <article className="max-w-3xl mx-auto px-4 py-8">
           <ReactMarkdown components={markdownComponents}>
             {t('legal.privacyContent')}

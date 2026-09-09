@@ -53,7 +53,7 @@ export default function AboutPage() {
   const t = useTranslations()
 
   return (
-    <div className="flex flex-col flex-1 min-h-0 overflow-hidden">
+    <div className="flex flex-col md:flex-1 md:min-h-0 md:overflow-hidden">
       {/* Top bar */}
       <div className="flex items-center gap-3 px-4 py-2 border-b border-border">
         <SidebarTrigger />
@@ -63,7 +63,7 @@ export default function AboutPage() {
       </div>
 
       {/* Main content */}
-      <div className="flex-1 overflow-auto p-4 md:p-8">
+      <div className="p-4 md:flex-1 md:overflow-auto md:p-8">
         <div className="max-w-3xl mx-auto">
           {/* Hero: left-right layout (stacked on mobile) */}
           <div className="flex flex-col md:flex-row items-center md:items-start gap-6 md:gap-8 mb-10">

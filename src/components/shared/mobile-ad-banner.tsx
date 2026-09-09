@@ -3,13 +3,14 @@
 import { AdSlot } from './ad-slot'
 
 /**
- * 移动端顶部广告 banner（320x100）。挂在 [locale] 布局的横幅栈最上方，
- * 仅移动端显示（md:hidden）；非 sticky，不遮挡页面内容。
+ * 移动端顶部广告 banner（320x100）。挂在 [locale] 布局的内容滚动壳顶部，
+ * 与页面内容同一滚动上下文，随内容一起滚出视口；仅移动端显示（md:hidden）。
+ * 不做成整宽背景条，避免观感上像独立顶栏。
  */
 export function MobileAdBanner() {
   return (
-    <div className="flex shrink-0 justify-center bg-background md:hidden">
-      <AdSlot variant="mobile" className="my-2" />
+    <div className="flex shrink-0 justify-center px-0 pt-3 pb-1 sm:px-4 md:hidden">
+      <AdSlot variant="mobile" />
     </div>
   )
 }

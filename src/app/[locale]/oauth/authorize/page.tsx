@@ -58,8 +58,8 @@ export default function OAuthAuthorizePage() {
 
 function OAuthLoading() {
   return (
-    <div className="flex flex-col flex-1 min-h-0 overflow-hidden">
-      <div className="flex-1 flex items-center justify-center">
+    <div className="flex flex-col md:flex-1 md:min-h-0 md:overflow-hidden">
+      <div className="flex items-center justify-center p-4 md:min-h-0 md:flex-1">
         <Loader2 className="size-6 animate-spin text-muted-foreground" />
       </div>
     </div>
@@ -170,8 +170,8 @@ function OAuthAuthorizeContent() {
   // ── Missing parameters ──────────────────────────────────
   if (missingParams) {
     return (
-      <div className="flex flex-col flex-1 min-h-0 overflow-hidden">
-        <div className="flex-1 flex items-center justify-center p-4">
+      <div className="flex flex-col md:flex-1 md:min-h-0 md:overflow-hidden">
+        <div className="flex items-center justify-center p-4 md:min-h-0 md:flex-1">
           <div className="w-full max-w-sm text-center space-y-4">
             <ShieldAlert className="size-12 mx-auto text-destructive" />
             <h1 className="text-lg font-semibold">{t('oauth.invalidRequest')}</h1>
@@ -185,9 +185,9 @@ function OAuthAuthorizeContent() {
   // ── Login required ──────────────────────────────────────
   if (needsLogin) {
     return (
-      <div className="flex flex-col flex-1 min-h-0 overflow-hidden">
-        <div className="flex-1 overflow-y-auto">
-          <div className="flex items-center justify-center min-h-full p-4">
+      <div className="flex flex-col md:flex-1 md:min-h-0 md:overflow-hidden">
+        <div className="md:flex-1 md:overflow-y-auto">
+          <div className="flex items-center justify-center min-h-[50vh] p-4 md:min-h-full">
             <div className="w-full max-w-sm py-8 space-y-6">
               <div className="text-center space-y-2">
                 <LogIn className="size-10 mx-auto text-muted-foreground" />
@@ -303,9 +303,9 @@ function OAuthAuthorizeContent() {
 
   // ── Consent screen ──────────────────────────────────────
   return (
-    <div className="flex flex-col flex-1 min-h-0 overflow-hidden">
-      <div className="flex-1 overflow-y-auto">
-        <div className="flex items-center justify-center min-h-full p-4">
+    <div className="flex flex-col md:flex-1 md:min-h-0 md:overflow-hidden">
+      <div className="md:flex-1 md:overflow-y-auto">
+        <div className="flex items-center justify-center min-h-[50vh] p-4 md:min-h-full">
           <div className="w-full max-w-sm py-8 space-y-6">
             <div className="text-center space-y-3">
               <div className="inline-flex items-center justify-center size-14 rounded-full bg-muted">

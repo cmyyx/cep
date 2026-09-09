@@ -90,14 +90,14 @@ export default function SettingsPage() {
   }
 
   return (
-    <div className="flex flex-col flex-1 min-h-0 overflow-hidden">
+    <div className="flex flex-col md:flex-1 md:min-h-0 md:overflow-hidden">
       {/* Top bar */}
-      <div className="flex items-center gap-3 px-4 py-2 shadow-[var(--shadow-border-b)]">
+      <div className="sticky top-0 z-30 flex items-center gap-3 border-b border-border bg-background/95 px-4 py-2 backdrop-blur">
         <SidebarTrigger />
         <h1 className="text-base font-semibold tracking-tight">{t('nav.settings')}</h1>
       </div>
 
-      <div className="flex-1 overflow-y-auto p-4">
+      <div className="p-4 md:flex-1 md:overflow-y-auto">
         <div className="flex w-full max-w-none flex-col gap-6">
         {/* 主题设置组 */}
         <section className="flex flex-col gap-4">

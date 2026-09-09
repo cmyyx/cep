@@ -756,9 +756,9 @@ export default function AccountPage() {
   // preventing server-vs-client HTML mismatch from Zustand persist rehydration.
   if (!mounted) {
     return (
-      <div className="flex flex-col flex-1 min-h-0 overflow-hidden">
-        <div className="flex items-center gap-3 px-4 py-2 border-b border-border"><SidebarTrigger /><h1 className="text-base font-semibold tracking-tight">{t('account.title')}</h1></div>
-        <div className="flex-1 flex items-center justify-center p-6">
+      <div className="flex flex-col md:flex-1 md:min-h-0 md:overflow-hidden">
+        <div className="flex items-center gap-3 border-b border-border px-4 py-2"><SidebarTrigger /><h1 className="text-base font-semibold tracking-tight">{t('account.title')}</h1></div>
+        <div className="flex items-center justify-center p-6 md:min-h-0 md:flex-1">
           <Loader2 className="size-6 animate-spin text-muted-foreground" />
         </div>
       </div>
@@ -767,9 +767,9 @@ export default function AccountPage() {
 
   if (!accessToken) {
     return (
-      <div className="flex flex-col flex-1 min-h-0 overflow-hidden">
-        <div className="flex items-center gap-3 px-4 py-2 border-b border-border"><SidebarTrigger /><h1 className="text-base font-semibold tracking-tight">{t('account.title')}</h1></div>
-        <div className="flex-1 flex items-center justify-center p-6">
+      <div className="flex flex-col md:flex-1 md:min-h-0 md:overflow-hidden">
+        <div className="flex items-center gap-3 border-b border-border px-4 py-2"><SidebarTrigger /><h1 className="text-base font-semibold tracking-tight">{t('account.title')}</h1></div>
+        <div className="flex items-center justify-center p-6 md:min-h-0 md:flex-1">
           <Card className="w-full max-w-sm"><CardContent className="py-8 text-center space-y-4">
             <AlertTriangle className="size-8 text-amber-500 mx-auto" />
             <p className="text-muted-foreground">{t('account.sessionExpired')}</p>
@@ -781,9 +781,9 @@ export default function AccountPage() {
   }
 
   return (
-    <div className="flex flex-col flex-1 min-h-0 overflow-hidden">
-      <div className="flex items-center gap-3 px-4 py-2 border-b border-border"><SidebarTrigger /><h1 className="text-base font-semibold tracking-tight">{t('account.title')}</h1></div>
-      <div className="flex-1 overflow-y-auto p-6 [scrollbar-gutter:stable]"><div className="max-w-2xl mx-auto space-y-6">
+    <div className="flex flex-col md:flex-1 md:min-h-0 md:overflow-hidden">
+      <div className="sticky top-0 z-30 flex items-center gap-3 border-b border-border bg-background/95 px-4 py-2 backdrop-blur"><SidebarTrigger /><h1 className="text-base font-semibold tracking-tight">{t('account.title')}</h1></div>
+      <div className="p-6 [scrollbar-gutter:stable] md:flex-1 md:overflow-y-auto"><div className="max-w-2xl mx-auto space-y-6">
 
         {/* ── Tab Navigation ── */}
         <div className="flex rounded-lg border border-border overflow-hidden">

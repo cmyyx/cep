@@ -182,9 +182,9 @@ export default function UpdatePage() {
   const displayInfo = localInfo ?? info
 
   return (
-    <div className="flex flex-col flex-1 min-h-0 overflow-hidden">
+    <div className="flex flex-col md:flex-1 md:min-h-0 md:overflow-hidden">
       {/* Top bar */}
-      <div className="flex items-center gap-3 px-4 py-2 border-b border-border">
+      <div className="flex items-center gap-3 border-b border-border px-4 py-2">
         <SidebarTrigger />
         <h1 className="text-base font-semibold tracking-tight">
           {t('nav.update')}
@@ -192,7 +192,7 @@ export default function UpdatePage() {
       </div>
 
       {/* Main content */}
-      <div className="flex-1 overflow-y-scroll p-8 flex items-start justify-center">
+      <div className="flex items-start justify-center p-8 md:min-h-0 md:flex-1 md:overflow-y-scroll">
         <div className="w-full max-w-lg">
           {/* Version comparison */}
           {isUpdateAvailable && localInfo && info ? (

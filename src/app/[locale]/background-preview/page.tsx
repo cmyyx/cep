@@ -18,7 +18,7 @@ export default function BackgroundPreviewPage() {
 
 
   return (
-    <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
+    <div className="flex flex-col md:min-h-0 md:flex-1 md:overflow-hidden">
       <header className="flex shrink-0 items-center gap-3 px-4 py-2 shadow-[var(--shadow-border-b)]">
         <SidebarTrigger />
         <h1 className="min-w-0 flex-1 truncate text-base font-semibold tracking-tight">{t('nav.backgroundPreview')}</h1>
@@ -47,7 +47,7 @@ export default function BackgroundPreviewPage() {
         </Tooltip>
       </header>
 
-      <main className="relative min-h-0 flex-1 overflow-hidden">
+      <main className="relative min-h-[50vh] md:min-h-0 md:flex-1 md:overflow-hidden">
         <button
           type="button"
           className="absolute inset-0 size-full cursor-pointer select-none rounded-none bg-transparent text-sm text-muted-foreground transition-colors hover:bg-transparent hover:text-muted-foreground focus-visible:ring-2 focus-visible:ring-inset focus-visible:outline-none"
