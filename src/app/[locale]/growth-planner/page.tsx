@@ -138,16 +138,17 @@ export default function GrowthPlannerPage() {
         {desktopView === 'summary' ? <GrowthSummary /> : <MaterialReversePanel />}
       </main>
       <GrowthFloatingPicker />
-      <div className="flex flex-col lg:hidden">
-        <div className="sticky top-0 z-30 mx-4 mt-3 flex shrink-0 rounded-lg bg-background/95 p-0.5 backdrop-blur">
+      {/* <lg：单栏。md–lg 时外层已 overflow-hidden，此容器自滚；<md 由布局滚动壳滚。 */}
+      <div className="flex flex-col md:min-h-0 md:flex-1 lg:hidden">
+        <div className="sticky top-0 z-40 mx-4 mt-3 flex shrink-0 rounded-lg bg-muted p-0.5">
           <Button type="button" variant="ghost" aria-pressed={mobileView === 'selection'} onClick={() => setMobileView('selection')} className={cn('h-auto flex-1 rounded-md px-4 py-1.5 text-sm font-medium transition-colors', mobileView === 'selection' ? 'bg-background text-foreground shadow-[var(--shadow-raised)]' : 'text-muted-foreground')}>{t('selectionTab')}</Button>
           <Button type="button" variant="ghost" aria-pressed={mobileView === 'summary'} onClick={() => setMobileView('summary')} className={cn('h-auto flex-1 rounded-md px-4 py-1.5 text-sm font-medium transition-colors', mobileView === 'summary' ? 'bg-background text-foreground shadow-[var(--shadow-raised)]' : 'text-muted-foreground')}>{t('summaryTab')}</Button>
           <Button type="button" variant="ghost" aria-pressed={mobileView === 'materials'} onClick={() => setMobileView('materials')} className={cn('h-auto flex-1 rounded-md px-4 py-1.5 text-sm font-medium transition-colors', mobileView === 'materials' ? 'bg-background text-foreground shadow-[var(--shadow-raised)]' : 'text-muted-foreground')}>{t('materialsTab')}</Button>
         </div>
-        <div className="pb-2">
+        <div className="pb-24 md:min-h-0 md:flex-1 md:overflow-y-auto">
           {mobileView === 'selection' ? <div className="flex flex-col p-3"><GrowthEntityPicker onEntityAdded={handleEntityAdded} /></div> : mobileView === 'materials' ? <div className="p-4"><MaterialReversePanel /></div> : <div className="p-4"><GrowthSummary /></div>}
         </div>
-        <div className="sticky bottom-0 safe-area-mb relative z-40 flex shrink-0 items-center justify-between bg-background px-4 py-2.5 shadow-[var(--shadow-border-inset-t)]">
+        <div className="fixed inset-x-0 bottom-0 safe-area-bottom-bar z-40 flex shrink-0 items-center justify-between bg-background px-4 py-2.5 shadow-[var(--shadow-border-inset-t)]">
           <span className="text-sm text-muted-foreground">{t('selectedCount', { count: configs.length })}</span>
           <Button type="button" variant={mobileView === 'selection' ? 'default' : 'outline'} size="sm" onClick={() => setMobileView(mobileView === 'selection' ? 'summary' : 'selection')} disabled={mobileView === 'selection' && configs.length === 0}>{mobileView === 'selection' ? t('viewSummary') : t('manageTargets')}</Button>
         </div>

@@ -57,10 +57,10 @@ export default function RefinementPlannerPage() {
       </div>
 
       {/* Mobile layout: segmented control + single panel + bottom bar.
-          内容高度由外层滚动壳承载，底栏 sticky 贴底。 */}
+          内容由布局滚动壳滚动；分段控件 sticky 钉在滚动壳顶部。 */}
       <div className="flex md:hidden flex-col">
-        {/* Segmented control */}
-        <div className="flex mx-4 mt-3 rounded-lg bg-muted p-0.5">
+        {/* Segmented control — sticky 钉在滚动壳顶；z-40 盖过装备卡角标的 z-30 */}
+        <div className="sticky top-0 z-40 mx-4 mt-3 flex shrink-0 rounded-lg bg-muted p-0.5">
           <Button
             type="button"
             variant="ghost"
@@ -92,13 +92,13 @@ export default function RefinementPlannerPage() {
         </div>
 
         {/* Content area — mobile 由布局滚动壳滚动 */}
-        <div className="pb-2">
+        <div className="pb-24">
           {mobileView === 'equips' ? (
-            <div className="p-3 pb-16">
+            <div className="p-3">
               <EquipList />
             </div>
           ) : (
-            <div className="p-4 pb-16">
+            <div className="p-4">
               {/* Selected equip context header */}
               {hasSelection && (
                 <Button
@@ -116,9 +116,9 @@ export default function RefinementPlannerPage() {
           )}
         </div>
 
-        {/* Bottom bar — sticky with margin-bottom for watermark clearance.
-            safe-area-inset handled via safe-area-mb utility. */}
-        <div className="sticky bottom-0 relative safe-area-mb z-40 flex items-center justify-between px-4 py-2.5 shadow-[var(--shadow-border-inset-t)] bg-background">
+        {/* Bottom bar — fixed so it stays reachable while the layout shell scrolls.
+            Parent is md:hidden, desktop unaffected. */}
+        <div className="fixed inset-x-0 bottom-0 safe-area-bottom-bar z-40 flex items-center justify-between bg-background px-4 py-2.5 shadow-[var(--shadow-border-inset-t)]">
           <span className="text-sm text-muted-foreground">
             {hasSelection
               ? t('refinement.hasSelection')

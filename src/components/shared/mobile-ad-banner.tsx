@@ -9,7 +9,7 @@ import { AdSlot } from './ad-slot'
  */
 export function MobileAdBanner() {
   return (
-    <div className="flex shrink-0 justify-center px-4 pt-3 pb-1 md:hidden">
+    <div className="flex shrink-0 justify-center px-0 pt-3 pb-1 sm:px-4 md:hidden">
       <AdSlot variant="mobile" />
     </div>
   )

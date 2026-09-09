@@ -42,7 +42,7 @@ export const bannerEntries: BannerEntry[] = [
     version: '1.5',
     periodStart: '2026-09-24T12:00:00+08:00',
     periodEnd: '2026-10-14T11:59:00+08:00',
-    featured: [{ name: '伊冯', period: 11 }],
+    featured: [{ name: '伊冯', period: 12 }],
   },
   {
     id: '1.5-tifuluosi',
@@ -54,7 +54,7 @@ export const bannerEntries: BannerEntry[] = [
     version: '1.5',
     periodStart: '2026-09-02T12:00:00+08:00',
     periodEnd: '2026-09-30T11:59:00+08:00',
-    featured: [{ name: '提弗洛斯', period: 10 }],
+    featured: [{ name: '提弗洛斯', period: 11 }],
   },
   {
     id: '1.4-jue',

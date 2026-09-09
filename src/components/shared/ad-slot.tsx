@@ -21,7 +21,8 @@ export interface AdSlotProps {
  */
 const VARIANT_SIZE_CLASS: Record<AdSlotVariant, string> = {
   desktop: 'h-full w-auto aspect-[280/380]',
-  mobile: 'h-[100px] w-[320px]',
+  // max-w-full：320px 视口下避免与外层 padding 叠加产生横向溢出。
+  mobile: 'h-[100px] w-[320px] max-w-full',
 }
 
 /**
