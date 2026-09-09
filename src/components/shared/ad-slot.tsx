@@ -30,8 +30,9 @@ const VARIANT_SIZE_CLASS: Record<AdSlotVariant, string> = {
  * （新标签页打开），点击瞬间用 navigator.sendBeacon 异步上报点击 —— 不经过
  * 后端中转跳转，也不阻塞新标签页。
  *
- * 素材为运营服务托管的 gif 动图 —— next/image 的优化管线会破坏动画且
- * 需要远程域名白名单，故使用原生 <img>（有 announcement-panel 先例）。
+ * 素材为运营服务托管的图片（GIF / JPEG / PNG / WebP，含动图）—— next/image
+ * 的优化管线会破坏 gif 动画且需要远程域名白名单，故使用原生 <img>（有
+ * announcement-panel 先例）。
  */
 export function AdSlot({ variant, className }: AdSlotProps) {
   useAdPolling()
@@ -52,7 +53,7 @@ export function AdSlot({ variant, className }: AdSlotProps) {
   }
 
   const image = (
-    // eslint-disable-next-line @next/next/no-img-element -- gif 动图必须绕过 next/image 优化（见组件注释）
+    // eslint-disable-next-line @next/next/no-img-element -- 运营服务托管图片（含 gif 动图）必须绕过 next/image 优化（见组件注释）
     <img
       src={(variant === 'desktop' ? ad.desktopImageUrl : ad.mobileImageUrl) ?? ''}
       alt={ad.title.length > 0 ? ad.title : t('ad.imageAlt')}

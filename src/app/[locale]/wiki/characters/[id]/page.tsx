@@ -60,7 +60,7 @@ export default async function WikiCharacterDetailPage({ params }: { params: Prom
   }))
 
   return (
-    <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
+    <div className="flex flex-col md:min-h-0 md:flex-1 md:overflow-hidden">
       <header className="flex shrink-0 items-center gap-3 px-4 py-2 shadow-[var(--shadow-border)] sm:px-6 lg:px-8">
         <SidebarTrigger />
         <NavLink

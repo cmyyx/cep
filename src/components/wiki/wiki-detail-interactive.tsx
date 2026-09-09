@@ -83,7 +83,7 @@ export function WikiDetailShell({ children, tocItems }: WikiDetailShellProps) {
   return (
     <div
       ref={scrollRef}
-      className="relative min-h-0 min-w-0 flex-1 overflow-y-auto"
+      className="relative min-w-0 md:min-h-0 md:flex-1 md:overflow-y-auto"
       onScroll={updateActiveSection}
     >
       <div className="w-full min-w-0 px-3 py-4 sm:px-5 sm:py-5 lg:px-6">{children}</div>

@@ -21,7 +21,7 @@ export default function ForumPage() {
   }
 
   return (
-    <div className="flex flex-col flex-1 min-h-0 overflow-hidden">
+    <div className="flex flex-col md:flex-1 md:min-h-0 md:overflow-hidden">
       {/* Top bar */}
       <div className="flex items-center gap-3 px-4 py-2 shadow-[var(--shadow-border-b)] shrink-0">
         <SidebarTrigger />
@@ -49,7 +49,7 @@ export default function ForumPage() {
       {/* Forum iframe */}
       <iframe
         src={FEATURES.forumUrl}
-        className="flex-1 w-full border-none"
+        className="min-h-[70vh] w-full border-none md:min-h-0 md:flex-1"
         title={t('nav.forum')}
         allow="clipboard-write"
         sandbox="allow-scripts allow-same-origin allow-forms allow-popups"

@@ -33,7 +33,7 @@ export default function RefinementPlannerPage() {
         description={t('meta.refinementPlannerDescription')}
         url={`${siteUrl}${pathname}`}
       />
-      <div className="flex flex-col flex-1 min-h-0 overflow-hidden">
+      <div className="flex flex-col md:flex-1 md:min-h-0 md:overflow-hidden">
         {/* Top bar */}
         <div className="flex items-center gap-3 px-4 py-2 border-b border-border">
           <SidebarTrigger />
@@ -56,8 +56,9 @@ export default function RefinementPlannerPage() {
         </div>
       </div>
 
-      {/* Mobile layout: segmented control + single panel + bottom bar */}
-      <div className="flex md:hidden flex-col flex-1 overflow-hidden">
+      {/* Mobile layout: segmented control + single panel + bottom bar.
+          内容高度由外层滚动壳承载，底栏 sticky 贴底。 */}
+      <div className="flex md:hidden flex-col">
         {/* Segmented control */}
         <div className="flex mx-4 mt-3 rounded-lg bg-muted p-0.5">
           <Button
@@ -90,8 +91,8 @@ export default function RefinementPlannerPage() {
           </Button>
         </div>
 
-        {/* Content area — min-h-0 prevents flex overflow if layout chain breaks */}
-        <div className="flex-1 min-h-0 overflow-y-auto">
+        {/* Content area — mobile 由布局滚动壳滚动 */}
+        <div className="pb-2">
           {mobileView === 'equips' ? (
             <div className="p-3 pb-16">
               <EquipList />
@@ -115,9 +116,9 @@ export default function RefinementPlannerPage() {
           )}
         </div>
 
-        {/* Bottom bar — relative with margin-bottom for watermark clearance.
+        {/* Bottom bar — sticky with margin-bottom for watermark clearance.
             safe-area-inset handled via safe-area-mb utility. */}
-        <div className="relative safe-area-mb z-40 flex items-center justify-between px-4 py-2.5 shadow-[var(--shadow-border-inset-t)] bg-background">
+        <div className="sticky bottom-0 relative safe-area-mb z-40 flex items-center justify-between px-4 py-2.5 shadow-[var(--shadow-border-inset-t)] bg-background">
           <span className="text-sm text-muted-foreground">
             {hasSelection
               ? t('refinement.hasSelection')

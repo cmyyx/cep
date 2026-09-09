@@ -197,15 +197,15 @@ function LoginPageContent() {
   }
 
   return (
-    <div className="flex flex-col flex-1 min-h-0 overflow-hidden">
-      <div className="flex items-center gap-3 px-4 py-2 border-b border-border">
+    <div className="flex flex-col md:flex-1 md:min-h-0 md:overflow-hidden">
+      <div className="flex items-center gap-3 border-b border-border px-4 py-2">
         <SidebarTrigger />
         <h1 className="text-base font-semibold tracking-tight">
           {isLogin ? t('nav.login') : t('nav.register')}
         </h1>
       </div>
-      <div className="flex-1 overflow-y-auto">
-        <div className="flex items-center justify-center min-h-full p-4">
+      <div className="md:flex-1 md:overflow-y-auto">
+        <div className="flex items-center justify-center min-h-[50vh] p-4 md:min-h-full">
           <div className="w-full max-w-sm py-8">
         <div className="mb-8 text-center">
           <h1 className="text-xl font-semibold tracking-[-0.48px] text-foreground">
@@ -626,7 +626,7 @@ function LoginUnavailableGuide() {
   }
 
   return (
-    <div className="flex flex-col flex-1 min-h-0 overflow-hidden">
+    <div className="flex flex-col md:flex-1 md:min-h-0 md:overflow-hidden">
       <div className="flex items-center gap-3 px-4 py-2 border-b border-border">
         <SidebarTrigger />
         <h1 className="text-base font-semibold tracking-tight">{t('auth.unavailableTitle')}</h1>

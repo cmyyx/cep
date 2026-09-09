@@ -94,7 +94,7 @@ export function BannerCalendar() {
   const hasStandard = timelineData && timelineData.standardChars.length > 0
 
   return (
-    <div className="flex flex-col flex-1 min-h-0 overflow-hidden">
+    <div className="flex flex-col md:flex-1 md:min-h-0 md:overflow-hidden">
       {/* Top bar: title + controls inline */}
       <div className="flex items-center gap-2 px-4 py-2 shadow-[var(--shadow-border-b)] shrink-0">
         <SidebarTrigger />
@@ -131,7 +131,7 @@ export function BannerCalendar() {
       )}
 
       {/* Main timeline - fills available space, vertical scroll on overflow */}
-      <div className="flex-1 min-h-0 overflow-y-auto px-4 pt-2 pb-0">
+      <div className="px-4 pt-2 pb-0 md:min-h-0 md:flex-1 md:overflow-y-auto">
         {hasData ? (
           <TimelineChart data={timelineData} t={t} />
         ) : (

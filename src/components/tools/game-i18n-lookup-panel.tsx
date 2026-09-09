@@ -552,7 +552,7 @@ export function GameI18nLookupPanel() {
   const canReloadResources = error === 'manifestMissing' || error === 'prefetchFailed'
 
   return (
-    <div className="flex min-h-0 flex-1 flex-col gap-4 overflow-hidden p-4 sm:p-6">
+    <div className="flex flex-col gap-4 p-4 sm:p-6 md:min-h-0 md:flex-1 md:overflow-hidden">
       <div className="shrink-0 space-y-3 rounded-xl bg-card p-4 shadow-[var(--shadow-border)]">
         <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-end">
           <div className="grid w-full gap-1.5 sm:w-auto sm:min-w-[10rem]">
@@ -624,7 +624,7 @@ export function GameI18nLookupPanel() {
         ) : null}
       </div>
 
-      <div className="grid min-h-0 flex-1 gap-4 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)]">
+      <div className="grid gap-4 md:min-h-0 md:flex-1 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)]">
         <div className="min-h-0 overflow-auto rounded-xl bg-card shadow-[var(--shadow-border)]">
           <Table className="table-fixed" role="grid">
             <TableHeader>

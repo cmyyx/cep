@@ -3,9 +3,9 @@ export interface AdItem {
   id: number
   /** Alt text from the admin console (optional); empty string falls back to the i18n label. */
   title: string
-  /** 280x380 creative URL; null when this ad has no desktop creative — the desktop slot then renders nothing. */
+  /** 280x380 creative URL (GIF/JPEG/PNG/WebP); null when this ad has no desktop creative — the desktop slot then renders nothing. */
   desktopImageUrl: string | null
-  /** 320x100 creative URL; null when this ad has no mobile creative — the mobile banner then renders nothing. */
+  /** 320x100 creative URL (GIF/JPEG/PNG/WebP); null when this ad has no mobile creative — the mobile banner then renders nothing. */
   mobileImageUrl: string | null
   /** Direct https target link; null when the ad is a pure display creative. */
   targetUrl: string | null
