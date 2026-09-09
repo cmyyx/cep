@@ -8,12 +8,15 @@ import { useSidebarScrollState } from './use-sidebar-scroll-state'
 type ScrollMetrics = { scrollTop: number; clientHeight: number; scrollHeight: number }
 
 let resizeCallback: ResizeObserverCallback | null = null
+const observedTargets: unknown[] = []
 
 class MockResizeObserver {
   constructor(callback: ResizeObserverCallback) {
     resizeCallback = callback
   }
-  observe = vi.fn()
+  observe = vi.fn((target: Element) => {
+    observedTargets.push(target)
+  })
   unobserve = vi.fn()
   disconnect = vi.fn()
 }
@@ -31,12 +34,15 @@ function emitResize() {
 }
 
 function Harness() {
-  const { canScrollUp, canScrollDown, contentRef, handleScroll } = useSidebarScrollState()
+  const { canScrollUp, canScrollDown, contentRef, contentInnerRef, handleScroll } =
+    useSidebarScrollState()
   return (
     <div>
       <span data-testid="up">{String(canScrollUp)}</span>
       <span data-testid="down">{String(canScrollDown)}</span>
-      <div ref={contentRef} onScroll={handleScroll} data-testid="scroller" />
+      <div ref={contentRef} onScroll={handleScroll} data-testid="scroller">
+        <div ref={contentInnerRef} data-testid="content" />
+      </div>
     </div>
   )
 }
@@ -44,6 +50,7 @@ function Harness() {
 beforeEach(() => {
   vi.stubGlobal('ResizeObserver', MockResizeObserver)
   resizeCallback = null
+  observedTargets.length = 0
 })
 
 afterEach(() => {
@@ -67,6 +74,12 @@ it('reports content below on mount via ResizeObserver', () => {
   emitResize()
   expect(screen.getByTestId('up').textContent).toBe('false')
   expect(screen.getByTestId('down').textContent).toBe('true')
+})
+
+it('observes both the scroll container and the content layer', () => {
+  render(<Harness />)
+  expect(observedTargets).toContain(screen.getByTestId('scroller'))
+  expect(observedTargets).toContain(screen.getByTestId('content'))
 })
 
 it('tracks both directions across scroll events', () => {

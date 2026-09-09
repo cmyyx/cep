@@ -121,7 +121,7 @@ export function AppSidebar() {
 
   const refreshBtnRef = useRef<HTMLDivElement>(null);
   const [popupPos, setPopupPos] = useState({ top: 0, left: 0 });
-  const { canScrollUp, canScrollDown, contentRef, handleScroll } =
+  const { canScrollUp, canScrollDown, contentRef, contentInnerRef, handleScroll } =
     useSidebarScrollState();
 
   const updatePopupPos = useCallback(() => {
@@ -243,6 +243,8 @@ export function AppSidebar() {
             onScroll={handleScroll}
             className="h-full"
           >
+            {/* 内容层供 ResizeObserver 监听 scrollHeight（子项增减/结构切换） */}
+            <div ref={contentInnerRef} className="flex shrink-0 flex-col">
             <SidebarGroup>
               <SidebarGroupLabel className="group-data-[collapsible=icon]:pointer-events-none">
                 {t("nav.groupModules")}
@@ -397,11 +399,13 @@ export function AppSidebar() {
                 })}
               </SidebarMenu>
             </SidebarGroup>
+            </div>
           </SidebarContent>
-          {canScrollUp && (
+          {/* collapsed 图标模式下内容 overflow-hidden、无法滚动，渐隐会误导为“还有内容” */}
+          {(isMobile || state !== "collapsed") && canScrollUp && (
             <div className="pointer-events-none absolute inset-x-0 top-0 z-10 h-5 bg-gradient-to-b from-sidebar to-transparent" />
           )}
-          {canScrollDown && (
+          {(isMobile || state !== "collapsed") && canScrollDown && (
             <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-5 bg-gradient-to-t from-sidebar to-transparent" />
           )}
         </div>
@@ -429,14 +433,10 @@ export function AppSidebar() {
                   createPortal(
                     <div
                       style={{
-                        position: "fixed",
                         top: popupPos.top,
                         left: popupPos.left,
-                        transform: "translateY(-50%)",
-                        transition: "top 0.3s ease, left 0.3s ease",
-                        zIndex: 9999,
                       }}
-                      className="bg-amber-500 text-white px-3 py-1.5 rounded-md text-sm font-medium shadow-[0_0_18px_rgba(245,158,11,0.5)] transition-transform hover:scale-105 whitespace-nowrap"
+                      className="fixed z-[9999] -translate-y-1/2 transition-[top,left,transform] duration-300 ease-[ease] bg-amber-500 text-white px-3 py-1.5 rounded-md text-sm font-medium shadow-[0_0_18px_rgba(245,158,11,0.5)] hover:scale-105 whitespace-nowrap"
                     >
                       {/* Arrow pointing left toward the button */}
                       <div className="absolute left-[-6px] top-1/2 -translate-y-1/2 w-0 h-0 border-t-[6px] border-t-transparent border-b-[6px] border-b-transparent border-r-[6px] border-r-amber-500" />
