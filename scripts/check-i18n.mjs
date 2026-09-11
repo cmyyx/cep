@@ -660,6 +660,7 @@ const SHARED_COMPONENT_ROUTES = {
   'wiki-material-list.tsx': ['wiki', 'essence-planner', 'refinement-planner', 'growth-planner', 'panel-preview'],
   'guard-environment-info.tsx': ['404', 'blocked'],
   'embed-warning-banner.tsx': ['forum'],
+  'maintenance-banner.tsx': ['account'],
 }
 
 function isClientFile(content) {

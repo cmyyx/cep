@@ -1,5 +1,6 @@
 import { getApiBaseUrl } from '@/lib/dev-api'
 import type { ApiErrorCode } from '@/types/error-codes'
+import { useSystemStatusStore } from '@/stores/useSystemStatusStore'
 
 const getApiBase = () => getApiBaseUrl()
 
@@ -140,12 +141,41 @@ async function fetchWithLogging(
 
 // ─── API client ────────────────────────────────────────────
 
+// ─── System status (maintenance banner) ────────────────────
+
+/**
+ * Feeds the global maintenance flag.
+ *
+ * `maintenance_mode` always raises the banner. Only two things may clear it: a
+ * successful response, or a definitive answer to a request explicitly marked as
+ * a probe (`systemProbe: true`) — the probe endpoint sits behind the maintenance
+ * gate, so any non-maintenance answer means the gate is off.
+ *
+ * Ordinary errors never clear the flag: maintenance mode does not gate every
+ * route, so a stray 4xx from an ungated endpoint must not hide a backend that is
+ * still in maintenance.
+ */
+function reportSystemStatus(code: string | null, isProbe: boolean): void {
+  const status = useSystemStatusStore.getState()
+  if (code === 'maintenance_mode') {
+    status.reportMaintenance()
+    return
+  }
+  if (code === null || isProbe) status.reportHealthy()
+}
+
 interface ApiOptions {
   method?: string
   body?: unknown
   token?: string | null
   noAuth?: boolean
   headers?: Record<string, string>
+  /**
+   * Marks the request as a system probe. A probe hitting a
+   * maintenance-gated endpoint may clear the maintenance banner even when it
+   * answers with an error (e.g. 401 for an anonymous call).
+   */
+  systemProbe?: boolean
 }
 
 export async function api<T = unknown>(
@@ -157,7 +187,7 @@ export async function api<T = unknown>(
     throw new ApiError('auth_unavailable', 0, { message: 'API base URL is not configured' })
   }
 
-  const { method = 'GET', body, token, noAuth, headers: customHeaders } = options
+  const { method = 'GET', body, token, noAuth, headers: customHeaders, systemProbe = false } = options
 
   const headers: Record<string, string> = {
     'Content-Type': 'application/json',
@@ -190,8 +220,10 @@ export async function api<T = unknown>(
       if (!retryRes.ok) {
         const retryCode = (retryData as Record<string, unknown>).error as string ?? 'unknown_error'
         silentLog('warn', `[HTTP] ${method} ${path} → ${retryRes.status} (${retryCode}) [retry]`)
+        reportSystemStatus(retryCode, systemProbe)
         throw new ApiError(retryCode, retryRes.status, retryData)
       }
+      reportSystemStatus(null, systemProbe)
       return retryData as T
     }
   }
@@ -200,9 +232,11 @@ export async function api<T = unknown>(
   if (!res.ok) {
     const code = (data as Record<string, unknown>).error as string ?? 'unknown_error'
     silentLog('warn', `[HTTP] ${method} ${path} → ${res.status} (${code})`)
+    reportSystemStatus(code, systemProbe)
     throw new ApiError(code, res.status, data)
   }
   silentLog('debug', `[API] ${method} ${path} → ${res.status}`)
+  reportSystemStatus(null, systemProbe)
   return data as T
 }
 
@@ -247,10 +281,23 @@ export interface MeResponse {
   premium_until: string | null
   premium_pre_granted_until: string | null
   premium_trial_until: string | null
-  payment_claims: unknown[]
+  sponsorship_orders: SponsorshipOrder[]
   sessions: SessionInfo[]
   redeem_history: RedeemHistoryItem[]
 }
+export interface SponsorshipOrder {
+  out_trade_no: string
+  plan_id: string | null
+  total_amount: string | null
+  show_amount: string | null
+  status: number
+  remark: string | null
+  verification_status: string
+  fulfillment_status: string
+  first_received_at: string
+  processed_at: string | null
+}
+
 
 export interface RedeemHistoryItem {
   days_granted: number

@@ -19,4 +19,6 @@ export const donors: Donor[] = [
   { name: '因支付宝限制看不到昵称', amount: 10.00, date: '2026-08-21', message: '' },
   { name: ' ', amount: 10.00, date: '2026-08-13', message: '可不可以加一个干员适配武器的功能，求求了🙏🏻🙏🏻🙏' },
   { name: 'Ken Arcane', amount: 20.00, date: '2026-08-23', message: '不错(#^.^#)👍🏻' },
+  { name: '用户1CPN3U', amount: 5.00, date: '2026-08-28', message: '能不能做一个养成资源的仓库功能' },
+  { name: 'Sui', amount: 5.00, date: '2026-09-03', message: '希望有武器屏蔽 部分下位通行证五星武器长期没用' },
 ]

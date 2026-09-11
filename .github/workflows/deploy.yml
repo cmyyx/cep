@@ -15,8 +15,14 @@ on:
         type: boolean
         default: false
 
+# 单一部署队列：同一时刻只跑一次部署流程，避免多个 tag 触发的运行并发强制推送 deploy 分支。
+# cancel-in-progress: false —— 已开始的部署会跑完（保留已开始的部署），后续运行排队；
+# 排队时只有最新一次会被保留（GitHub 的并发组行为），最终 deploy 分支始终是最新版本。
+concurrency:
+  group: deploy
+  cancel-in-progress: false
 jobs:
-  # ── Tag preparation (runs once, before matrix) ──────────
+  # ── Tag preparation (runs once) ─────────────────────────
   prepare:
     name: Prepare
     runs-on: ubuntu-latest
@@ -82,18 +88,13 @@ jobs:
 
           echo "clean-tag=${CLEAN_TAG}" >> $GITHUB_OUTPUT
 
-  # ── Build & Deploy (matrix: intl + cn) ──────────────────
+  # ── Build & Deploy────
   build-deploy:
-    name: Build & Deploy (${{ matrix.target }})
+    name: Build & Deploy
     needs: prepare
     runs-on: ubuntu-latest
     permissions:
       contents: write
-    strategy:
-      matrix:
-        target:
-          - intl
-          - cn
     steps:
       - uses: actions/checkout@v5
         with:
@@ -113,7 +114,10 @@ jobs:
         env:
           DEPLOY_TAG: ${{ needs.prepare.outputs.clean-tag }}
           SEO_INDEXABLE: 'true'
-          # ── 双版本共享 ──
+          # ── 站点配置──
+          NEXT_PUBLIC_API_BASE_URL: ${{ vars.API_BASE_URL }}
+          NEXT_PUBLIC_TURNSTILE_SITE_KEY: ${{ secrets.TURNSTILE_SITE_KEY }}
+          NEXT_PUBLIC_OAUTH_CLIENT_NAMES: ${{ vars.OAUTH_CLIENT_NAMES }}
           NEXT_PUBLIC_ALLOWED_DOMAINS: ${{ vars.ALLOWED_DOMAINS }}
           NEXT_PUBLIC_ALLOWED_EMBED_DOMAINS: ${{ vars.ALLOWED_EMBED_DOMAINS }}
           NEXT_PUBLIC_FORUM_URL: ${{ vars.FORUM_URL }}
@@ -122,15 +126,10 @@ jobs:
           # postbuild uploads source maps via sentry-cli; only the auth token
           # is secret. org/project are hard-coded in scripts/upload-sourcemaps.mjs.
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
-          # ── 仅 intl 版本 ──
-          NEXT_PUBLIC_API_BASE_URL: ${{ matrix.target == 'intl' && vars.API_BASE_URL || '' }}
-          NEXT_PUBLIC_TURNSTILE_SITE_KEY: ${{ matrix.target == 'intl' && secrets.TURNSTILE_SITE_KEY || '' }}
-          NEXT_PUBLIC_OAUTH_CLIENT_NAMES: ${{ matrix.target == 'intl' && vars.OAUTH_CLIENT_NAMES || '' }}
 
       - name: Deploy to deploy branch
         env:
           DEPLOY_LABEL: ${{ github.ref_name || inputs.version }}
-          TARGET: ${{ matrix.target }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
@@ -147,5 +146,5 @@ jobs:
           mv public/wrangler.jsonc ./wrangler.jsonc
           git add -A
           COMMIT_MSG=$(git log -1 --pretty=%s $GITHUB_SHA)
-          git commit -m "deploy: ${DEPLOY_LABEL} [${TARGET}] - ${COMMIT_MSG}"
-          git push origin "deploy-temp:deploy-${TARGET}" --force
+          git commit -m "deploy: ${DEPLOY_LABEL} - ${COMMIT_MSG}"
+          git push origin "deploy-temp:deploy" --force

@@ -563,8 +563,8 @@ function LoginPageContent() {
               <TableHeader>
                 <TableRow className="bg-muted/50 hover:bg-muted/50">
                   <TableHead className="text-left px-3 py-1.5 h-auto">{t('account.feature')}</TableHead>
-                  <TableHead className="text-center px-3 py-1.5 h-auto">Free</TableHead>
-                  <TableHead className="text-center px-3 py-1.5 h-auto text-purple-600">Premium</TableHead>
+                  <TableHead className="text-center px-3 py-1.5 h-auto">{t('account.freeTier')}</TableHead>
+                  <TableHead className="text-center px-3 py-1.5 h-auto text-purple-600">{t('account.sponsorTier')}</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -572,7 +572,6 @@ function LoginPageContent() {
                   [t('account.featSyncSize'), t('account.featSyncSizeFree'), t('account.featSyncSizePremium')],
                   [t('account.featAutoSync'), t('account.notSupported'), t('account.supported')],
                   [t('account.featCustomWeapons'), t('account.notSupported'), '300'],
-                  [t('account.featHideAds'), t('account.notSupported'), t('account.supported')],
                 ].map(([label, free, premium]) => (
                   <TableRow key={label}>
                     <TableCell className="px-3 py-1.5 text-muted-foreground">{label}</TableCell>
@@ -745,8 +744,8 @@ function LoginUnavailableGuide() {
                   <TableHeader>
                     <TableRow className="bg-muted/50 hover:bg-muted/50">
                       <TableHead className="text-left px-3 py-1.5 h-auto">{t('account.feature')}</TableHead>
-                      <TableHead className="text-center px-3 py-1.5 h-auto">Free</TableHead>
-                      <TableHead className="text-center px-3 py-1.5 h-auto text-purple-600">Premium</TableHead>
+                      <TableHead className="text-center px-3 py-1.5 h-auto">{t('account.freeTier')}</TableHead>
+                      <TableHead className="text-center px-3 py-1.5 h-auto text-purple-600">{t('account.sponsorTier')}</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
@@ -754,7 +753,6 @@ function LoginUnavailableGuide() {
                       [t('account.featSyncSize'), t('account.featSyncSizeFree'), t('account.featSyncSizePremium')],
                       [t('account.featAutoSync'), t('account.notSupported'), t('account.supported')],
                       [t('account.featCustomWeapons'), t('account.notSupported'), '300'],
-                      [t('account.featHideAds'), t('account.notSupported'), t('account.supported')],
                     ].map(([label, free, premium]) => (
                       <TableRow key={label}>
                         <TableCell className="px-3 py-1.5 text-muted-foreground">{label}</TableCell>

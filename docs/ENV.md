@@ -6,7 +6,7 @@
 
 | 变量 | 类型 | 用途 | 必填 |
 |------|------|------|------|
-| `SITE_URL` | 非 `NEXT_PUBLIC_` | `generateMetadata` 的 `metadataBase`，SEO 规范化 URL | 是 |
+| `SITE_URL` | 非 `NEXT_PUBLIC_` | 已废弃（改用代码常量 `DEFAULT_SITE_URL`） | 否 |
 | `SEO_INDEXABLE` | 构建时变量 | 是否允许当前构建被搜索引擎索引；未设置时默认禁止 | 否 |
 | `NEXT_PUBLIC_DEV_BUILD` | `NEXT_PUBLIC_` | 是否显示开发版顶部提醒；仅 dev 部署设置为 `true` | 否 |
 | `NEXT_PUBLIC_API_BASE_URL` | `NEXT_PUBLIC_` | 后端 API 服务器地址，控制登录/云同步功能是否可用 | 否 |
@@ -18,14 +18,9 @@
 
 ## 变量详解
 
-### `SITE_URL`
+### `SITE_URL`（已废弃）
 
-构建时注入，不暴露到客户端 bundle。用于 `<meta property="og:url">` 等 SEO 标签。
-
-```
-SITE_URL=https://end.canmoe.com
-```
-
+不再读取该环境变量：站点地址统一取自 `src/lib/constants.ts` 的 `DEFAULT_SITE_URL`（生产为 `https://end.canmoe.com`），用于 SEO 标签、`robots.txt` 与域名校验。需要改站点域名时改这个常量，`deploy.yml` 不再注入 `SITE_URL`。
 ### `SEO_INDEXABLE`
 
 仅在正式生产构建中设置为 `true`，允许页面被搜索引擎索引。未设置或设置为其他值时，所有页面默认输出 `noindex, nofollow`，适合本地和 dev/preview 构建。
@@ -119,7 +114,6 @@ NEXT_PUBLIC_OAUTH_CLIENT_NAMES={"nodebb-canmoe":"NodeBB Forum","nodebb-07070721"
 
 ```bash
 # .env
-SITE_URL=http://localhost:3000
 NEXT_PUBLIC_API_BASE_URL=http://localhost:8787
 NEXT_PUBLIC_TURNSTILE_SITE_KEY=1x00000000000000000000AA
 NEXT_PUBLIC_ALLOWED_DOMAINS=localhost
@@ -143,4 +137,4 @@ NEXT_PUBLIC_FORUM_URL=https://forum.example.com
 | `OAUTH_CLIENT_NAMES` | Variable | `NEXT_PUBLIC_OAUTH_CLIENT_NAMES` |
 | `FORUM_URL` | Variable | `NEXT_PUBLIC_FORUM_URL` |
 
-> `SITE_URL` 为硬编码的 `https://end.canmoe.com`，直接写在 `deploy.yml` 中（非敏感信息）。
+> `SITE_URL` 已废弃，`deploy.yml` 不再注入它（详见上文《`SITE_URL`（已废弃）》）。

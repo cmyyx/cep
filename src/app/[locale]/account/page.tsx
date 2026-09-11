@@ -2,7 +2,6 @@
 
 import { useState, useEffect, useCallback, useRef } from 'react'
 import { useRouter } from 'next/navigation'
-import Image from 'next/image'
 import { useTranslations, useLocale } from 'next-intl'
 import { SidebarTrigger } from '@/components/ui/sidebar'
 import { Button } from '@/components/ui/button'
@@ -11,8 +10,8 @@ import { Label } from '@/components/ui/label'
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Separator } from '@/components/ui/separator'
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-import { Loader2, Cloud, HardDrive, AlertTriangle, CheckCircle2, Mail, Shield, RefreshCw, LogOut, Crown, Key, Send, Zap, Monitor, X, Eye, EyeOff, Gift } from 'lucide-react'
+import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from '@/components/ui/table'
+import { Loader2, Cloud, HardDrive, AlertTriangle, CheckCircle2, Mail, Shield, RefreshCw, LogOut, Crown, Key, Zap, Monitor, X, Eye, EyeOff, Gift, ExternalLink } from 'lucide-react'
 import { Switch } from '@/components/ui/switch'
 import { useAuthStore } from '@/stores/useAuthStore'
 import { normalizeEssenceSettingsFlags, useEssenceSettingsStore } from '@/stores/useEssenceSettingsStore'
@@ -20,8 +19,8 @@ import { getSyncDataApi, postSyncDataApi, api, ApiError, type SyncDataResponse }
 import { resolveErrorI18nKey } from '@/lib/error-i18n'
 import { getSyncTimestamps, subscribeSyncTimestamps, setAutoSyncConflictCallback, syncStoresFromCloudPayload, hasExistingLocalData, syncDataDiffers, buildSummaryRows, buildSettingsDiff, updateLastPull, getCloudVersion, updateCloudVersion, setSkipNextPush, computeSyncSignature, getLastSyncSignature, setLastSyncSignature, getPendingConflict, clearPendingConflict, dismissConflictToast, notifySync, setConflictPending, getLastPullResult, type SyncConflictInfo } from '@/hooks/useAutoSync'
 import { cn, maskEmail, isValidEmail, formatTime } from '@/lib/utils'
-import { withImageCacheVersion } from '@/lib/image-url'
 import { SyncConflictDialog } from '@/components/shared/sync-conflict-dialog'
+import { MaintenanceBanner } from '@/components/shared/maintenance-banner'
 import { equipById } from '@/data/equips'
 import { redeemCodeApi } from '@/lib/api'
 import { resolveWeaponId, resolveS1Selections } from '@/lib/resolve-weapon-id'
@@ -130,6 +129,7 @@ function collectLocalData(): Record<string, unknown> {
 export default function AccountPage() {
   const t = useTranslations(); const locale = useLocale(); const router = useRouter()
 
+  const userId = useAuthStore(s => s.userId)
   const username = useAuthStore(s => s.username)
   const email = useAuthStore(s => s.email)
   const emailVerified = useAuthStore(s => s.emailVerified)
@@ -139,7 +139,7 @@ export default function AccountPage() {
   const logout = useAuthStore(s => s.logout)
   const accessToken = useAuthStore(s => s.accessToken)
   const fetchMeGlobal = useAuthStore(s => s.fetchMe)
-  const paymentClaims = useAuthStore(s => s.paymentClaims)
+  const sponsorshipOrders = useAuthStore(s => s.sponsorshipOrders)
   const autoSyncEnabled = useEssenceSettingsStore(s => s.autoSyncEnabled)
   const setAutoSyncEnabled = useEssenceSettingsStore(s => s.setAutoSyncEnabled)
   const notifyOnSync = useEssenceSettingsStore(s => s.notifyOnSync)
@@ -184,10 +184,14 @@ export default function AccountPage() {
   const revokeSession = useAuthStore(s => s.revokeSession)
 
   // Payment
-  const [showClaimForm, setShowClaimForm] = useState(false); const [claimChannel, setClaimChannel] = useState('alipay')
-  const [claimPlanType, setClaimPlanType] = useState('monthly'); const [claimQuantity, setClaimQuantity] = useState(1)
-  const [claimRef, setClaimRef] = useState(''); const [claimMerchant, setClaimMerchant] = useState(''); const [claimPaidTime, setClaimPaidTime] = useState('')
-  const [claimSubmitting, setClaimSubmitting] = useState(false); const [claimError, setClaimError] = useState<string|null>(null); const [claimSuccess, setClaimSuccess] = useState(false); const [claimPreGranted, setClaimPreGranted] = useState(false)
+  // Afdian membership links
+  const afdianUrl = (planId: string) => {
+    const url = new URL('https://afdian.com/order/create')
+    url.searchParams.set('plan_id', planId)
+    url.searchParams.set('product_type', '0')
+    url.searchParams.set('remark', String(userId ?? ''))
+    return url.toString()
+  }
 
   // Redeem
   const [redeemCode, setRedeemCode] = useState('')
@@ -574,7 +578,6 @@ export default function AccountPage() {
   const handleChangeEmail = async () => { if(!newEmail)return; if(!isValidEmail(newEmail)){setChangeEmailError('auth.invalidEmail');return}; setEmailChanging(true); setChangeEmailError(null); try { await api('/api/email/request-change',{method:'POST',body:{newEmail}}); await fetchMeGlobal(); setChangeEmailSent(true) } catch (err) { setChangeEmailError(resolveErrorI18nKey(err, 'account.sendFailed')) } finally { setEmailChanging(false) } }
   const handleSubmitChangeEmailCode = async () => { if(!changeEmailCode)return; setChangeEmailCodeSubmitting(true); setChangeEmailError(null); try { await api('/api/email/verify',{method:'POST',body:{code:changeEmailCode}}); await fetchMeGlobal(); setShowChangeEmail(false); setChangeEmailSent(false); setChangeEmailCode(''); setNewEmail('') } catch (err) { setChangeEmailError(resolveErrorI18nKey(err, 'account.invalidCode')) } finally { setChangeEmailCodeSubmitting(false) } }
   const handleChangePassword = async () => { setPwdError(null); if(!currentPwd||!newPwd||newPwd.length<6){setPwdError('auth.passwordTooShort');return}; if(newPwd!==confirmPwd){setPwdError('auth.passwordsNotMatch');return}; setPasswordChanging(true); try{await api('/api/password/change',{method:'POST',body:{currentPassword:currentPwd,newPassword:newPwd}});setShowChangePwd(false);setCurrentPwd('');setNewPwd('');setConfirmPwd('')}catch(err){setPwdError(resolveErrorI18nKey(err, 'account.serverError'))}finally{setPasswordChanging(false)} }
-  const handleSubmitClaim = async () => { if(!claimRef)return; setClaimSubmitting(true);setClaimError(null);setClaimSuccess(false); try{const res=await api<{success:boolean;claimId:number;preGranted:boolean}>('/api/payment/submit-claim',{method:'POST',body:{channel:claimChannel,externalReference:claimRef,merchantOrderNo:claimChannel==='alipay'?claimMerchant:null,paidTime:claimPaidTime||null,planType:claimPlanType,quantity:claimQuantity}});setShowClaimForm(false);setClaimRef('');setClaimMerchant('');setClaimPaidTime('');setClaimPlanType('monthly');setClaimQuantity(1);setClaimSuccess(true);setClaimPreGranted(res.preGranted===true);fetchMeGlobal()}catch(err){setClaimError(resolveErrorI18nKey(err, 'account.serverError'))}finally{setClaimSubmitting(false)} }
   const handleRevokeSession = async (sessionId: number) => { setRevokingIds(prev => new Set(prev).add(sessionId)); try { await revokeSession(sessionId) } catch { /* error handled by store */ } finally { setRevokingIds(prev => { const next = new Set(prev); next.delete(sessionId); return next }) } }
   const handleLogout = async () => { setLogoutLoading(true); await logout(); router.replace(`/${locale}`) }
 
@@ -783,6 +786,8 @@ export default function AccountPage() {
   return (
     <div className="flex flex-col md:flex-1 md:min-h-0 md:overflow-hidden">
       <div className="sticky top-0 z-30 flex items-center gap-3 border-b border-border bg-background/95 px-4 py-2 backdrop-blur"><SidebarTrigger /><h1 className="text-base font-semibold tracking-tight">{t('account.title')}</h1></div>
+      {/* 后端维护中：由 API 客户端置位，任意一次正常响应后自动消失 */}
+      <MaintenanceBanner />
       <div className="p-6 [scrollbar-gutter:stable] md:flex-1 md:overflow-y-auto"><div className="max-w-2xl mx-auto space-y-6">
 
         {/* ── Tab Navigation ── */}
@@ -799,9 +804,10 @@ export default function AccountPage() {
           <CardHeader className="pb-3"><CardTitle className="text-sm font-semibold flex items-center gap-2"><Shield className="size-4"/>{t('account.profile')}</CardTitle></CardHeader>
           <CardContent className="space-y-3">
             <div className="flex justify-between text-sm"><span className="text-muted-foreground">{t('auth.username')}</span><span className="font-medium">{username}</span></div>
+            <div className="flex justify-between text-sm"><span className="text-muted-foreground">{t('account.uid')}</span><span className="font-medium">{userId ?? '—'}</span></div>
             <div className="flex justify-between text-sm items-center"><span className="text-muted-foreground">{t('auth.email')}</span><span className="font-medium inline-flex items-center gap-1">{showFullEmail ? (email ?? '—') : maskEmail(email)}<button type="button" onClick={() => setShowFullEmail(!showFullEmail)} className="inline-flex items-center justify-center size-5 rounded hover:bg-muted transition-colors" title={showFullEmail ? t('account.hideEmail') : t('account.showEmail')}>{showFullEmail ? <EyeOff className="size-3" /> : <Eye className="size-3" />}</button></span></div>
             <div className="flex justify-between text-sm items-center"><span className="text-muted-foreground">{t('account.emailVerified')}</span>{emailVerified?<Badge variant="outline" className="text-green-600 border-green-600"><CheckCircle2 className="size-3 mr-1"/>{t('account.verified')}</Badge>:<Badge variant="outline" className="text-orange-600 border-orange-600"><AlertTriangle className="size-3 mr-1"/>{t('account.notVerified')}</Badge>}</div>
-            <div className="flex justify-between text-sm items-center"><span className="text-muted-foreground">{t('account.planTier')}</span><span className="inline-flex items-center gap-1.5"><Badge className={displayTier==='premium'?'bg-purple-100 text-purple-700 border-purple-200':displayTier==='trial'?'bg-teal-100 text-teal-700 border-teal-200':'bg-muted text-muted-foreground'}>{displayTier==='premium'?'Premium':displayTier==='trial'?t('account.trial'):'Free'}</Badge>{isPreGrantedOnly&&<Badge className="bg-amber-100 text-amber-700 border-amber-200 text-[10px]">{t('account.claimPending')}</Badge>}</span></div>
+            <div className="flex justify-between text-sm items-center"><span className="text-muted-foreground">{t('account.planTier')}</span><span className="inline-flex items-center gap-1.5"><Badge className={displayTier==='premium'?'bg-purple-100 text-purple-700 border-purple-200':displayTier==='trial'?'bg-teal-100 text-teal-700 border-teal-200':'bg-muted text-muted-foreground'}>{displayTier==='premium'?t('account.sponsorTier'):displayTier==='trial'?t('account.trial'):t('account.freeTier')}</Badge>{isPreGrantedOnly&&<Badge className="bg-amber-100 text-amber-700 border-amber-200 text-[10px]">{t('account.claimPending')}</Badge>}</span></div>
             {planExpireDate&&<div className="flex justify-between text-sm"><span className="text-muted-foreground">{t('account.expiresAt')}</span><span className="font-medium text-xs">{new Date(planExpireDate).toLocaleString(undefined, { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' })}</span></div>}
             <Separator/>
             {!emailVerified && <div className="rounded-md bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800 px-3 py-2 text-xs text-amber-800 dark:text-amber-200 flex items-center justify-between"><span>{t('account.emailNotVerifiedHint')}</span><Button variant="outline" size="sm" className="h-7 text-xs" onClick={handleVerifyEmail} disabled={verifySending}>{verifySending?<Loader2 className="size-3 mr-1 animate-spin"/>:<Mail className="size-3 mr-1"/>}{t('account.verifyNow')}</Button></div>}
@@ -911,7 +917,6 @@ export default function AccountPage() {
               <div className="rounded-md bg-red-50 border border-red-200 px-3 py-2 flex items-center gap-2">
                 <AlertTriangle className="size-4 text-red-500 shrink-0" />
                 <span className="text-xs text-red-700 flex-1">{syncError ? t(syncError) : t('account.syncFailed')}</span>
-                <Button variant="outline" size="sm" className="h-7 text-xs border-red-300 text-red-700 hover:bg-red-100" onClick={() => fetchCloud()}>{t('account.retry')}</Button>
               </div>
             )}
             <div className="flex items-center text-xs"><span className="flex-1"/><span className="flex items-center gap-1 w-16 justify-end text-muted-foreground"><HardDrive className="size-3"/>{t('account.localData')}</span><span className="flex items-center gap-1 w-16 justify-end text-muted-foreground ml-4"><Cloud className="size-3"/>{t('account.cloudData')}</span></div>
@@ -987,56 +992,47 @@ export default function AccountPage() {
         <Card>
           <CardHeader className="pb-3"><CardTitle className="text-sm font-semibold flex items-center gap-2"><Crown className="size-4"/>{t('account.premiumTitle')}</CardTitle></CardHeader>
           <CardContent className="space-y-4">
-            {isTrial&&<div className="rounded-md bg-teal-50 border border-teal-200 px-3 py-2 text-xs text-teal-700">{t('account.trialHint')}</div>}
-            <div className="rounded-lg border border-border overflow-hidden"><table className="w-full text-xs"><thead><tr className="bg-muted/50"><th className="text-left px-3 py-2 font-medium">{t('account.feature')}</th><th className="text-center px-3 py-2 font-medium">Free</th><th className="text-center px-3 py-2 font-medium text-purple-600">Premium</th></tr></thead><tbody className="divide-y divide-border">{[[t('account.featSyncSize'),t('account.featSyncSizeFree'),t('account.featSyncSizePremium')],[t('account.featAutoSync'),t('account.notSupported'),t('account.supported')], [t('account.featWeaponOwnership'),'200','2,000'],[t('account.featEssenceStatus'),'200','2,000'],[t('account.featCustomWeapons'),t('account.notSupported'),'300'],[t('account.featSelectedWeapons'),'200','500'],[t('account.featWeaponNotes'),'50','200'],[t('account.featHideAds'),t('account.notSupported'),t('account.supported')]].map(([label,free,prem])=><tr key={label}><td className="px-3 py-2 text-muted-foreground">{label}</td><td className="px-3 py-2 text-center">{free}</td><td className="px-3 py-2 text-center text-purple-600 font-medium">{prem}</td></tr>)}</tbody></table></div>
-            {/* Pricing cards */}
-            <div className="grid grid-cols-3 gap-2">
-              {/* 月付 */}
-              <div className="rounded-lg border border-border p-3 text-center">
-                <div className="text-xs text-muted-foreground mb-1">{t('account.priceMonthly')}</div>
-                <div className="text-lg font-bold text-foreground">{t('account.priceMonthlyAmount')}</div>
-              </div>
-              {/* 季付 */}
-              <div className="rounded-lg border border-border p-3 text-center">
-                <div className="text-xs text-muted-foreground mb-1">{t('account.priceQuarterly')}</div>
-                <div className="text-lg font-bold text-foreground">{t('account.priceQuarterlyAmount')}</div>
-                <div className="text-[10px] text-green-600 mt-0.5">{t('account.priceSave', { percent: '19' })}</div>
-              </div>
-              {/* 年付 */}
-              <div className="rounded-lg border-2 border-purple-300 bg-purple-50/50 p-3 text-center relative">
-                <div className="absolute -top-2 left-1/2 -translate-x-1/2 bg-purple-600 text-white text-[10px] font-semibold px-2 py-0.5 rounded-full">{t('account.priceRecommended')}</div>
-                <div className="text-xs text-muted-foreground mb-1">{t('account.priceYearly')}</div>
-                <div className="text-lg font-bold text-foreground">{t('account.priceYearlyAmount')}</div>
-                <div className="text-[10px] text-green-600 mt-0.5">{t('account.priceSave', { percent: '40' })}</div>
-              </div>
+            {isTrial&&<div className="rounded-md bg-teal-50 border border-teal-200 px-3 py-2 text-xs text-teal-700">{t('account.trialHint')}</div>}<p className="text-xs text-muted-foreground">{t('account.sponsorBenefitsDescription')}</p>
+            <div className="rounded-lg border border-border overflow-hidden">
+              <Table className="text-xs">
+                <TableHeader>
+                  <TableRow className="bg-muted/50 hover:bg-muted/50">
+                    <TableHead className="text-left px-3 py-2 h-auto">{t('account.feature')}</TableHead>
+                    <TableHead className="text-center px-3 py-2 h-auto">{t('account.freeTier')}</TableHead>
+                    <TableHead className="text-center px-3 py-2 h-auto text-purple-600">{t('account.sponsorTier')}</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {[[t('account.featSyncSize'),t('account.featSyncSizeFree'),t('account.featSyncSizePremium')],[t('account.featAutoSync'),t('account.notSupported'),t('account.supported')], [t('account.featWeaponOwnership'),'200','2,000'],[t('account.featEssenceStatus'),'200','2,000'],[t('account.featCustomWeapons'),t('account.notSupported'),'300'],[t('account.featSelectedWeapons'),'200','500'],[t('account.featWeaponNotes'),'50','200']].map(([label,free,prem])=>(
+                    <TableRow key={label}>
+                      <TableCell className="px-3 py-2 text-muted-foreground">{label}</TableCell>
+                      <TableCell className="px-3 py-2 text-center">{free}</TableCell>
+                      <TableCell className="px-3 py-2 text-center text-purple-600 font-medium">{prem}</TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
             </div>
-            {/* Payment QR codes */}
-            <div className="space-y-2">
-              <p className="text-xs text-muted-foreground">{t('account.scanToPay')}</p>
-              <div className="flex gap-3">
-                <div className="flex-1 text-center">
-                  <Image src={withImageCacheVersion('/images/payment/alipay.jpg')} alt="Alipay" width={160} height={160} unoptimized className="w-full max-w-[160px] mx-auto rounded-lg border border-border" />
-                  <span className="text-[10px] text-muted-foreground mt-1 block">{t('account.channelAlipay')}</span>
-                </div>
-                <div className="flex-1 text-center">
-                  <Image src={withImageCacheVersion('/images/payment/wechat.png')} alt="WeChat" width={160} height={160} unoptimized className="w-full max-w-[160px] mx-auto rounded-lg border border-border" />
-                  <span className="text-[10px] text-muted-foreground mt-1 block">{t('account.channelWechat')}</span>
-                </div>
-              </div>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+              { [
+                ['monthly', 'bfe39db6ad0811f1989652540025c377', 'account.priceMonthly', 'account.priceMonthlyAmount', ''],
+                ['quarterly', 'c532f0e0ad0e11f18ee35254001e7c00', 'account.priceQuarterly', 'account.priceQuarterlyAmount', '19'],
+                ['yearly', 'c96c30a4ad0e11f188475254001e7c00', 'account.priceYearly', 'account.priceYearlyAmount', '40'],
+              ].map(([key, planId, nameKey, amountKey, save]) => (
+                <Button key={key} variant="outline" className={cn('h-auto min-h-20 flex-col gap-1 p-3', key === 'yearly' && 'border-amber-300 bg-amber-50/70 hover:bg-amber-100/70')} nativeButton={false} render={<a href={userId ? afdianUrl(planId) : undefined} target="_blank" rel="noopener noreferrer" />} disabled={!userId}>
+                  <span className="text-xs">{t(nameKey)}</span>
+                  <span className="text-base font-semibold">{t(amountKey)}</span>
+                  <span className="text-[11px] text-muted-foreground">{t('account.goToAfdian')}</span>
+                  {save && <span className="text-[10px] text-green-600">{t('account.priceSave', { percent: save })}</span>}
+                  <ExternalLink className="size-3" />
+                </Button>
+              ))}
             </div>
-            {!showClaimForm?<Button variant="outline" size="sm" className="w-full" onClick={()=>{setShowClaimForm(true);setClaimSuccess(false);setClaimPreGranted(false)}}><Send className="size-4 mr-2"/>{t('account.submitPayment')}</Button>:
-            <div className="space-y-3 rounded-lg border border-border p-4">
-              <div className="flex flex-col gap-2"><Label className="text-xs">{t('account.paymentChannel')}</Label><Select value={claimChannel} onValueChange={v=>{setClaimChannel(v??'alipay');setClaimMerchant('')}}><SelectTrigger className="h-8 text-xs"><SelectValue>{(v:string)=>v==='alipay'?t('account.channelAlipay'):t('account.channelWechat')}</SelectValue></SelectTrigger><SelectContent><SelectItem value="alipay">{t('account.channelAlipay')}</SelectItem><SelectItem value="wechat">{t('account.channelWechat')}</SelectItem></SelectContent></Select></div>
-              <div className="flex flex-col gap-2"><Label className="text-xs">{t('account.planType')}</Label><Select value={claimPlanType} onValueChange={v=>setClaimPlanType(v??'monthly')}><SelectTrigger className="h-8 text-xs"><SelectValue>{(v:string)=>{const map:Record<string,string>={monthly:t('account.planMonthly'),quarterly:t('account.planQuarterly'),yearly:t('account.planYearly')};return map[v]??v}}</SelectValue></SelectTrigger><SelectContent><SelectItem value="monthly">{t('account.planMonthly')}</SelectItem><SelectItem value="quarterly">{t('account.planQuarterly')}</SelectItem><SelectItem value="yearly">{t('account.planYearly')}</SelectItem></SelectContent></Select></div>
-              <div className="flex flex-col gap-1"><Label className="text-xs">{t('account.quantity')}</Label><Input className="h-8 text-xs bg-card border-border" type="number" min={1} max={999} value={claimQuantity} onChange={e=>setClaimQuantity(Math.max(1,Math.min(999,parseInt(e.target.value)||1)))} /></div>
-              <div className="flex flex-col gap-1"><Label className="text-xs">{t('account.paymentTransactionId')}</Label><Input className="h-8 text-xs bg-card border-border" value={claimRef} onChange={e=>setClaimRef(e.target.value)} placeholder={t('account.paymentTransactionIdPlaceholder')}/></div>
-              {claimChannel==='alipay'&&<div className="flex flex-col gap-1"><Label className="text-xs">{t('account.merchantOrderNo')}</Label><Input className="h-8 text-xs bg-card border-border" value={claimMerchant} onChange={e=>setClaimMerchant(e.target.value)} placeholder={t('account.merchantOrderNoPlaceholder')}/></div>}
-              <div className="flex flex-col gap-1"><Label className="text-xs">{t('account.paymentTime')}</Label><Input className="h-8 text-xs bg-card border-border" type="datetime-local" value={claimPaidTime} onChange={e=>setClaimPaidTime(e.target.value)} /></div>
-              {claimSuccess&&<div className="rounded-md bg-green-50 border border-green-200 px-3 py-2 space-y-1"><p className="text-xs text-green-700 font-medium">{t('account.claimSubmitted')}</p>{claimPreGranted&&<p className="text-xs text-green-600">{t('account.claimSubmittedPreGranted')}</p>}</div>}
-              {claimError&&<p className="text-xs text-destructive">{t(claimError)}</p>}
-              <div className="flex gap-2"><Button variant="ghost" size="sm" onClick={()=>{setShowClaimForm(false);setClaimError(null);setClaimSuccess(false);setClaimPreGranted(false)}}>{t('account.cancel')}</Button><Button size="sm" className="flex-1" onClick={handleSubmitClaim} disabled={!claimRef||claimSubmitting}>{claimSubmitting?<Loader2 className="size-4 mr-2 animate-spin"/>:null}{t('account.submit')}</Button></div>
-            </div>}
-            {paymentClaims.length>0&&<div className="space-y-2"><h4 className="text-xs font-medium text-muted-foreground">{t('account.paymentHistory')}</h4>{paymentClaims.map(c=><div key={c.id} className="rounded-md border border-border px-3 py-2 text-xs"><div className="flex justify-between items-center"><span className="text-muted-foreground">#{c.id} {c.channel==='alipay'?t('account.channelAlipay'):t('account.channelWechat')}</span><Badge className={cn(c.status==='approved'&&'bg-green-100 text-green-700',c.status==='rejected'&&'bg-red-100 text-red-700',c.status==='pending'&&'bg-amber-100 text-amber-700')}>{c.status==='approved'?t('account.claimApproved'):c.status==='rejected'?t('account.claimRejected'):t('account.claimPending')}</Badge></div><div className="text-muted-foreground mt-1">{c.external_reference}</div>{c.admin_note&&<div className="text-muted-foreground italic mt-0.5">{c.admin_note}</div>}</div>)}</div>}
+            <div className="flex flex-col gap-1.5"><span className="text-xs font-medium text-muted-foreground">{t('account.membershipHelp')}</span><p className="text-xs text-muted-foreground">{t('account.feedbackHint')}</p><div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs"><Button variant="link" size="sm" className="h-auto p-0" nativeButton={false} render={<a href="mailto:admin@canmoe.com" />}><Mail className="size-3" />{t('account.feedbackEmail')}</Button><span className="text-muted-foreground">{t('account.feedbackQQ')}</span><Button variant="link" size="sm" className="h-auto p-0" nativeButton={false} render={<a href="https://space.bilibili.com/1580942601" target="_blank" rel="noopener noreferrer" />}><ExternalLink className="size-3" />{t('account.feedbackBilibili')}</Button><Button variant="link" size="sm" className="h-auto p-0" nativeButton={false} render={<a href="https://afdian.com/a/cmtyx" target="_blank" rel="noopener noreferrer" />}><ExternalLink className="size-3" />{t('account.feedbackAfdian')}</Button></div></div>
+            {sponsorshipOrders.length > 0 && <div className="space-y-2"><h4 className="text-xs font-medium text-muted-foreground">{t('account.sponsorshipHistory')}</h4>{sponsorshipOrders.map((order) => {
+              const planName = order.plan_id === 'bfe39db6ad0811f1989652540025c377' ? t('account.priceMonthly') : order.plan_id === 'c532f0e0ad0e11f18ee35254001e7c00' ? t('account.priceQuarterly') : order.plan_id === 'c96c30a4ad0e11f188475254001e7c00' ? t('account.priceYearly') : t('account.sponsorshipCustom')
+              return <div key={order.out_trade_no} className="rounded-md border border-border px-3 py-2 text-xs"><div className="flex justify-between items-center"><span className="text-muted-foreground">{planName}</span>{order.fulfillment_status === 'reversed' ? <Badge className="bg-red-100 text-red-700">{t('account.sponsorshipReversed')}</Badge> : <Badge className={order.fulfillment_status === 'fulfilled' ? 'bg-green-100 text-green-700' : 'bg-amber-100 text-amber-700'}>{order.fulfillment_status === 'fulfilled' ? t('account.sponsorshipFulfilled') : t('account.sponsorshipPending')}</Badge>}</div><div className="text-muted-foreground mt-1">{order.total_amount ?? order.show_amount ?? '—'} · {order.out_trade_no}</div></div>
+            })}</div>}
           </CardContent>
         </Card>
 
