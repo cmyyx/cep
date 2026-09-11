@@ -652,6 +652,10 @@
         "label": "Announcement Read Records",
         "desc": "List of read announcement IDs"
       },
+      "notice-dismissal": {
+        "label": "Dismissed Banner Notices",
+        "desc": "Emergency banner dismissals; clearing shows the banner again"
+      },
       "holiday-state": {
         "label": "Holiday Effects State",
         "desc": "Holiday banner dismiss records and effects toggle"
@@ -1088,5 +1092,9 @@
     "prefix": "Today is ",
     "nameSeparator": ", ",
     "suffix": "'s birthday~"
+  },
+  "notice": {
+    "expand": "Show more",
+    "collapse": "Show less"
   }
 }

@@ -5,8 +5,15 @@ import { useNavigationStore } from '@/stores/useNavigationStore'
 import { cn } from '@/lib/utils'
 
 /**
- * Thin progress bar at the top of <main> — appears immediately on every
+ * Thin progress bar pinned to the top of <main> — appears immediately on every
  * sidebar navigation, no debounce.
+ *
+ * `absolute` rather than `sticky`: <main> is not a scroll container (the page
+ * shells scroll internally), so `sticky top-0` never actually stuck — it only
+ * reserved 2px of layout height at the top of <main>, pushing every sibling
+ * (banners, the content scroll shell) down by 2px and leaving a visible sliver
+ * above them. Absolute keeps the bar pinned to the same spot with zero layout
+ * cost. <main> is `relative`, so `inset-x-0 top-0` resolves against it.
  *
  * Uses `transform: scaleX()` instead of `width` to stay on the GPU
  * compositing layer (no layout thrashing). Glow is applied via
@@ -51,7 +58,7 @@ export function NavigationProgressBar() {
   return (
     <div
       className={cn(
-        'sticky top-0 z-51 h-[2px] pointer-events-none overflow-hidden',
+        'absolute inset-x-0 top-0 z-51 h-[2px] pointer-events-none overflow-hidden',
         'transition-opacity duration-200 ease-out',
         started ? 'opacity-100' : 'opacity-0'
       )}

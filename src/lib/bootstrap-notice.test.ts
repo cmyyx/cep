@@ -31,7 +31,7 @@ describe('parseBootstrapPayload', () => {
       body: { 'zh-CN': '正文', ja: '本文', en: 'Body' },
       linkUrl: 'https://end.canmoe.com/status',
       linkLabel: { 'zh-CN': '查看', en: 'Check' },
-      // 后端仍可能带 dismissible, 但横幅不可关闭, 解析结果刻意不含该字段
+      dismissible: false,
       updatedAt: '2026-07-26T00:00:00Z',
     })
   })
@@ -67,10 +67,17 @@ describe('parseBootstrapNotice', () => {
     expect(notice?.updatedAt).toBeUndefined()
   })
 
-  it('ignores a dismissible flag from the backend (the banner is never closable)', () => {
-    const notice = parseBootstrapNotice({ id: 3, title: { en: 'hi' }, dismissible: false })
-    expect(notice).not.toBeNull()
-    expect(notice).not.toHaveProperty('dismissible')
+  it('only lets an explicit true make the banner closable', () => {
+    // 缺失 (旧版服务端) / 类型不对 / 明确 false 都退化为强制显示: 宁可多打扰一次,
+    // 也不要把一条运营以为在展示的公告悄悄变成"关过的人再也看不到"。
+    for (const raw of [undefined, false, 'true', 1, null, {}]) {
+      const notice = parseBootstrapNotice({ id: 3, title: { en: 'hi' }, dismissible: raw })
+      expect(notice).not.toBeNull()
+      expect(notice?.dismissible).toBe(false)
+    }
+    expect(
+      parseBootstrapNotice({ id: 3, title: { en: 'hi' }, dismissible: true })?.dismissible
+    ).toBe(true)
   })
 })
 

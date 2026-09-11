@@ -91,8 +91,8 @@ export default function SettingsPage() {
 
   return (
     <div className="flex flex-col md:flex-1 md:min-h-0 md:overflow-hidden">
-      {/* Top bar */}
-      <div className="sticky top-0 z-30 flex items-center gap-3 border-b border-border bg-background/95 px-4 py-2 backdrop-blur">
+      {/* Top bar — 非 sticky：移动端随内容滚出视口，与基质规划等页面保持一致 */}
+      <div className="flex items-center gap-3 border-b border-border px-4 py-2">
         <SidebarTrigger />
         <h1 className="text-base font-semibold tracking-tight">{t('nav.settings')}</h1>
       </div>

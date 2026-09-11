@@ -785,7 +785,8 @@ export default function AccountPage() {
 
   return (
     <div className="flex flex-col md:flex-1 md:min-h-0 md:overflow-hidden">
-      <div className="sticky top-0 z-30 flex items-center gap-3 border-b border-border bg-background/95 px-4 py-2 backdrop-blur"><SidebarTrigger /><h1 className="text-base font-semibold tracking-tight">{t('account.title')}</h1></div>
+      {/* Top bar — 非 sticky，与上方 loading / 未登录分支及基质规划等页面保持一致 */}
+      <div className="flex items-center gap-3 border-b border-border px-4 py-2"><SidebarTrigger /><h1 className="text-base font-semibold tracking-tight">{t('account.title')}</h1></div>
       {/* 后端维护中：由 API 客户端置位，任意一次正常响应后自动消失 */}
       <MaintenanceBanner />
       <div className="p-6 [scrollbar-gutter:stable] md:flex-1 md:overflow-y-auto"><div className="max-w-2xl mx-auto space-y-6">

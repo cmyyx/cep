@@ -435,6 +435,10 @@
         "label": "公告已读记录",
         "desc": "已读公告 ID 列表"
       },
+      "notice-dismissal": {
+        "label": "横幅公告关闭记录",
+        "desc": "紧急公告横幅的关闭记录；清空后横幅会重新显示"
+      },
       "holiday-state": {
         "label": "节日效果状态",
         "desc": "节日横幅关闭记录和效果开关"
@@ -1088,5 +1092,9 @@
     "prefix": "今天是",
     "nameSeparator": "、",
     "suffix": "的生日哦～"
+  },
+  "notice": {
+    "expand": "展开全文",
+    "collapse": "收起"
   }
 }
