@@ -107,6 +107,9 @@ export function parseBootstrapNotice(value: unknown): BootstrapNotice | null {
     body: parseLocalizedText(value.body),
     linkUrl: sanitizeNoticeUrl(value.linkUrl),
     linkLabel: parseLocalizedText(value.linkLabel),
+    // 只有明确的 true 才允许关闭。字段缺失 (旧版服务端) 或类型不对一律退化为
+    // "强制显示", 方向与后端一致: 宁可多打扰一次, 不可漏掉一条必须送达的信息。
+    dismissible: value.dismissible === true,
     updatedAt: typeof value.updatedAt === 'string' ? value.updatedAt : undefined,
     locales: parseNoticeLocales(value.locales),
   }
@@ -129,6 +132,5 @@ export function parseBootstrapPayload(value: unknown): BootstrapPayload | null {
   }
 }
 
-// 紧急公告横幅不可关闭 (产品决定): 它承载的是维护/故障这类必须送达的信息,
-// 因此不提供关闭按钮, 也不再有任何关闭态存储。公告下线由运营在管理端停用,
-// 前端通过轮询拿到 notice:null 后自然消失。
+// 关闭态不在这里: 它由 notice-dismiss.ts 单独管理 (localStorage + 外部 store),
+// 与"公告是什么"解耦 —— 公告变了要重新解析, 关闭态变了只需要重渲染。

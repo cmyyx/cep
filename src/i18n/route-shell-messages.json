@@ -48,6 +48,10 @@
     ],
     "ad": [
       "imageAlt"
+    ],
+    "notice": [
+      "expand",
+      "collapse"
     ]
   },
   "routes": {

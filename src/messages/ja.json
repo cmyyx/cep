@@ -652,6 +652,10 @@
         "label": "お知らせ既読記録",
         "desc": "既読のお知らせIDリスト"
       },
+      "notice-dismissal": {
+        "label": "バナー公告の閉じた記録",
+        "desc": "緊急公告バナーを閉じた記録；消すとバナーが再表示されます"
+      },
       "holiday-state": {
         "label": "祝日エフェクトの状態",
         "desc": "祝日バナーの非表示記録とエフェクト切替"
@@ -1088,5 +1092,9 @@
     "prefix": "今日は",
     "nameSeparator": "、",
     "suffix": "の誕生日だよ～"
+  },
+  "notice": {
+    "expand": "全文を表示",
+    "collapse": "折りたたむ"
   }
 }

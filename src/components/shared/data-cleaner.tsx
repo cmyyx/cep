@@ -20,6 +20,7 @@ import { useAuthStore } from '@/stores/useAuthStore'
 import { useHolidayStore } from '@/stores/useHolidayStore'
 import { useAnnouncementStore } from '@/stores/useAnnouncementStore'
 import { useWikiStore } from '@/stores/useWikiStore'
+import { NOTICE_DISMISS_STORAGE_KEY, clearNoticeDismissal } from '@/lib/notice-dismiss'
 
 // ─── 数据模块定义 ──────────────────────────────────────────────
 
@@ -92,6 +93,12 @@ export function buildModules(t: ReturnType<typeof useTranslations>): DataModule[
       label: t('dataCleaner.modules.announcement-read.label'),
       description: t('dataCleaner.modules.announcement-read.desc'),
       keys: ['cep-announcement-read-ids'],
+    },
+    {
+      id: 'notice-dismissal',
+      label: t('dataCleaner.modules.notice-dismissal.label'),
+      description: t('dataCleaner.modules.notice-dismissal.desc'),
+      keys: [NOTICE_DISMISS_STORAGE_KEY],
     },
     {
       id: 'holiday-state',
@@ -197,6 +204,9 @@ export async function resetStoreForModule(moduleId: string): Promise<void> {
     case 'announcement-read':
       useAnnouncementStore.setState({ readIds: [] })
       break
+    case 'notice-dismissal':
+      clearNoticeDismissal()
+      break
     case 'holiday-state':
       useHolidayStore.setState({ dismissedHolidays: {}, holidayEffectsEnabled: true })
       break
@@ -220,6 +230,7 @@ export async function resetAllPersistedStores(): Promise<void> {
     'panel-preview',
     'wiki-session',
     'announcement-read',
+    'notice-dismissal',
     'holiday-state',
     'user-data',
   ]) {

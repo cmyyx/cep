@@ -1,12 +1,16 @@
 // @vitest-environment jsdom
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
-import { render, screen, cleanup, act } from '@testing-library/react'
+import { render, screen, cleanup, act, fireEvent } from '@testing-library/react'
 import {
   NOTICE_POLL_ENDPOINT,
   NOTICE_POLL_INTERVAL_MS,
   ingestNoticePayload,
   resetNoticeStoreForTests,
 } from '@/lib/notice-store'
+import {
+  NOTICE_DISMISS_STORAGE_KEY,
+  resetNoticeDismissForTests,
+} from '@/lib/notice-dismiss'
 import { EmergencyNoticeBanner } from './emergency-notice-banner'
 
 let mockLocale = 'zh-CN'
@@ -24,6 +28,7 @@ function makeNotice(overrides: Record<string, unknown> = {}) {
     body: { 'zh-CN': '预计一小时', 'zh-TW': '', ja: '', en: 'About one hour' },
     linkUrl: null,
     linkLabel: null,
+    dismissible: true,
     updatedAt: '2026-07-26T00:00:00Z',
     ...overrides,
   }
@@ -31,6 +36,28 @@ function makeNotice(overrides: Record<string, unknown> = {}) {
 
 function banner() {
   return document.querySelector('[data-level]')
+}
+
+/**
+ * jsdom 不做布局, scrollHeight / clientHeight 恒为 0, 溢出测量永远判定"没超出"。
+ * 这两个属性在 Element.prototype 上, 所以在 HTMLElement.prototype 上覆盖一层,
+ * 用完 delete 掉即可恢复继承来的 getter。
+ */
+function stubBodyOverflow(overflows: boolean) {
+  Object.defineProperty(HTMLElement.prototype, 'scrollHeight', {
+    configurable: true,
+    get: () => (overflows ? 60 : 20),
+  })
+  Object.defineProperty(HTMLElement.prototype, 'clientHeight', {
+    configurable: true,
+    get: () => 20,
+  })
+}
+
+function clearBodyOverflowStub() {
+  const proto = HTMLElement.prototype as unknown as Record<string, unknown>
+  delete proto.scrollHeight
+  delete proto.clientHeight
 }
 
 function stubPoll(payload: unknown, init: { ok?: boolean; throws?: boolean } = {}) {
@@ -53,6 +80,8 @@ describe('EmergencyNoticeBanner', () => {
   beforeEach(() => {
     cleanup()
     resetNoticeStoreForTests()
+    resetNoticeDismissForTests()
+    window.localStorage.clear()
     mockLocale = 'zh-CN'
     vi.useRealTimers()
     stubPoll(null, { throws: true })
@@ -61,6 +90,9 @@ describe('EmergencyNoticeBanner', () => {
   afterEach(() => {
     cleanup()
     resetNoticeStoreForTests()
+    resetNoticeDismissForTests()
+    window.localStorage.clear()
+    clearBodyOverflowStub()
     vi.useRealTimers()
     vi.unstubAllGlobals()
   })
@@ -94,8 +126,24 @@ describe('EmergencyNoticeBanner', () => {
     expect(banner()).toBeNull()
   })
 
-  it('never renders a close button', () => {
-    ingestNoticePayload({ notice: makeNotice() })
+  it('renders a close button when the operator allows dismissing', () => {
+    ingestNoticePayload({ notice: makeNotice({ dismissible: true }) })
+    render(<EmergencyNoticeBanner />)
+    expect(banner()).not.toBeNull()
+    expect(screen.queryByRole('button', { name: 'common.close' })).not.toBeNull()
+  })
+
+  it('hides the close button when the operator turned the switch off', () => {
+    ingestNoticePayload({ notice: makeNotice({ dismissible: false }) })
+    render(<EmergencyNoticeBanner />)
+    expect(banner()).not.toBeNull()
+    expect(screen.queryByRole('button', { name: 'common.close' })).toBeNull()
+  })
+
+  it('hides the close button for a legacy payload without the field', () => {
+    // 旧版服务端不下发 dismissible。缺字段退化为"强制显示": 宁可多打扰一次, 也不要把
+    // 一条运营以为在展示的公告悄悄变成"关过的人再也看不到"。
+    ingestNoticePayload({ notice: makeNotice({ dismissible: undefined }) })
     render(<EmergencyNoticeBanner />)
     expect(banner()).not.toBeNull()
     expect(screen.queryByRole('button', { name: 'common.close' })).toBeNull()
@@ -109,6 +157,155 @@ describe('EmergencyNoticeBanner', () => {
     unmount()
     render(<EmergencyNoticeBanner />)
     expect(screen.getByText('服务维护')).toBeTruthy()
+  })
+
+  describe('dismissal', () => {
+    beforeEach(() => {
+      vi.useFakeTimers()
+    })
+
+    async function clickClose() {
+      fireEvent.click(screen.getByRole('button', { name: 'common.close' }))
+      await act(async () => {
+        await vi.advanceTimersByTimeAsync(200)
+      })
+    }
+
+    it('removes the banner and remembers the dismissal', async () => {
+      ingestNoticePayload({ notice: makeNotice() })
+      render(<EmergencyNoticeBanner />)
+      await clickClose()
+
+      expect(banner()).toBeNull()
+      expect(window.localStorage.getItem(NOTICE_DISMISS_STORAGE_KEY)).toBe('42@2026-07-26T00:00:00Z')
+    })
+
+    it('stays closed across a remount', async () => {
+      ingestNoticePayload({ notice: makeNotice() })
+      const { unmount } = render(<EmergencyNoticeBanner />)
+      await clickClose()
+      unmount()
+
+      render(<EmergencyNoticeBanner />)
+      expect(banner()).toBeNull()
+    })
+
+    it('comes back when the operator edits the copy', async () => {
+      ingestNoticePayload({ notice: makeNotice() })
+      render(<EmergencyNoticeBanner />)
+      await clickClose()
+      expect(banner()).toBeNull()
+
+      // 同一个 id, updatedAt 变了 → 运营改了内容 → 必须重新弹出, 否则改文案等于静音
+      await act(async () => {
+        ingestNoticePayload({ notice: makeNotice({ updatedAt: '2026-08-01T00:00:00Z' }) })
+      })
+      expect(screen.getByText('服务维护')).toBeTruthy()
+    })
+
+    it('does not dismiss a notice that replaced the one being closed', async () => {
+      ingestNoticePayload({ notice: makeNotice() })
+      render(<EmergencyNoticeBanner />)
+      fireEvent.click(screen.getByRole('button', { name: 'common.close' }))
+
+      // 退场动画还在跑的时候轮询换上了另一条公告: 那条不能被上一条的关闭记录带走
+      await act(async () => {
+        ingestNoticePayload({ notice: makeNotice({ id: 43, title: { 'zh-CN': '数据异常' } }) })
+      })
+      expect(screen.getByText('数据异常')).toBeTruthy()
+      // 关闭记录只针对被点掉的那一条, 新公告要正常显示
+      expect(window.localStorage.getItem(NOTICE_DISMISS_STORAGE_KEY)).toBe('42@2026-07-26T00:00:00Z')
+    })
+  })
+
+  describe('long body', () => {
+    it('clamps the body to two lines by default', () => {
+      ingestNoticePayload({ notice: makeNotice() })
+      render(<EmergencyNoticeBanner />)
+      const body = screen.getByText('预计一小时')
+      expect(body.classList.contains('line-clamp-2')).toBe(true)
+      expect(body.classList.contains('overflow-y-auto')).toBe(false)
+    })
+
+    it('offers no expand toggle when the body fits', () => {
+      stubBodyOverflow(false)
+      ingestNoticePayload({ notice: makeNotice() })
+      render(<EmergencyNoticeBanner />)
+      expect(screen.queryByRole('button', { name: 'notice.expand' })).toBeNull()
+    })
+
+    it('expands into a height capped scroll area, never the whole screen', async () => {
+      stubBodyOverflow(true)
+      ingestNoticePayload({ notice: makeNotice() })
+      render(<EmergencyNoticeBanner />)
+
+      fireEvent.click(screen.getByRole('button', { name: 'notice.expand' }))
+      await act(async () => {
+        await Promise.resolve()
+      })
+
+      const body = screen.getByText('预计一小时')
+      expect(body.classList.contains('line-clamp-2')).toBe(false)
+      expect(body.classList.contains('overflow-y-auto')).toBe(true)
+      expect(body.className).toContain('max-h-[40svh]')
+      expect(screen.getByRole('button', { name: 'notice.collapse' })).toBeTruthy()
+    })
+
+    it('collapses back to two lines', async () => {
+      stubBodyOverflow(true)
+      ingestNoticePayload({ notice: makeNotice() })
+      render(<EmergencyNoticeBanner />)
+
+      fireEvent.click(screen.getByRole('button', { name: 'notice.expand' }))
+      await act(async () => {
+        await Promise.resolve()
+      })
+      fireEvent.click(screen.getByRole('button', { name: 'notice.collapse' }))
+      await act(async () => {
+        await Promise.resolve()
+      })
+
+      expect(screen.getByText('预计一小时').classList.contains('line-clamp-2')).toBe(true)
+    })
+
+    it('resets to collapsed when a new notice arrives', async () => {
+      stubBodyOverflow(true)
+      ingestNoticePayload({ notice: makeNotice() })
+      render(<EmergencyNoticeBanner />)
+
+      fireEvent.click(screen.getByRole('button', { name: 'notice.expand' }))
+      await act(async () => {
+        await Promise.resolve()
+      })
+      expect(screen.getByRole('button', { name: 'notice.collapse' })).toBeTruthy()
+
+      await act(async () => {
+        ingestNoticePayload({
+          notice: makeNotice({ id: 44, body: { 'zh-CN': '另一条公告的正文' } }),
+        })
+      })
+      expect(screen.getByRole('button', { name: 'notice.expand' })).toBeTruthy()
+    })
+  })
+
+  it('keeps the actions out of the text column so the body keeps the full width', () => {
+    stubBodyOverflow(true)
+    ingestNoticePayload({
+      notice: makeNotice({ linkUrl: 'https://end.canmoe.com/status', linkLabel: { 'zh-CN': '状态页' } }),
+    })
+    render(<EmergencyNoticeBanner />)
+
+    const body = screen.getByText('预计一小时')
+    const textColumn = body.parentElement
+    // 正文与标题所在的那一列里不能有按钮: 按钮在侧边会按自己的宽度挤压每一行正文
+    expect(textColumn?.querySelector('button')).toBeNull()
+
+    // 展开开关与链接按钮共用底部操作行, 两者都不在正文那一列里
+    const expand = screen.getByRole('button', { name: 'notice.expand' })
+    const link = screen.getByRole('button', { name: '状态页' })
+    expect(textColumn?.contains(expand)).toBe(false)
+    expect(textColumn?.contains(link)).toBe(false)
+    expect(expand.parentElement).toBe(link.parentElement)
   })
 
   it('falls back current locale → zh-CN → en, and skips the banner when all are missing', () => {
