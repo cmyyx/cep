@@ -17,6 +17,7 @@ import {
 import { getDeviceName } from '@/lib/device'
 
 interface AuthState {
+  userId: number | null
   accessToken: string | null
   refreshToken: string | null
   username: string | null
@@ -26,7 +27,7 @@ interface AuthState {
   premiumUntil: string | null
   premiumPreGrantedUntil: string | null
   premiumTrialUntil: string | null
-  paymentClaims: Array<{id:number;channel:string;external_reference:string;merchant_order_no:string|null;note:string|null;status:string;paid_amount:string|null;plan_type:string|null;quantity:number;admin_note:string|null;submitted_at:string}>
+  sponsorshipOrders: import('@/lib/api').SponsorshipOrder[]
   sessions: SessionInfo[]
   sessionsLoading: boolean
   redeemHistory: RedeemHistoryItem[]
@@ -48,16 +49,17 @@ interface AuthState {
 export const useAuthStore = create<AuthState>()(
   persist(
     (set, get) => ({
+      userId: null,
       accessToken: typeof window !== 'undefined' ? getTokens().accessToken : null,
       refreshToken: typeof window !== 'undefined' ? getTokens().refreshToken : null,
       username: null,
       email: null,
       planTier: 'free',
+      sponsorshipOrders: [],
       emailVerified: false,
       premiumUntil: null,
       premiumPreGrantedUntil: null,
       premiumTrialUntil: null,
-      paymentClaims: [],
       sessions: [],
       sessionsLoading: false,
       redeemHistory: [],
@@ -97,7 +99,7 @@ export const useAuthStore = create<AuthState>()(
         await logoutApi()
         clearTokens()
         if (typeof window !== 'undefined') { try { localStorage.removeItem('cep-auth') } catch {}; try { localStorage.removeItem('cep-last-sync-sig') } catch {} }
-        set({ accessToken: null, refreshToken: null, username: null, email: null, planTier: 'free', emailVerified: false, premiumUntil: null, premiumPreGrantedUntil: null, premiumTrialUntil: null, paymentClaims: [], sessionExpired: false, error: null, sessions: [], redeemHistory: [] })
+        set({ userId: null, accessToken: null, refreshToken: null, username: null, email: null, planTier: 'free', emailVerified: false, premiumUntil: null, premiumPreGrantedUntil: null, premiumTrialUntil: null, sponsorshipOrders: [], sessionExpired: false, error: null, sessions: [], redeemHistory: [] })
       },
 
       // Local-only session clear — no network request.
@@ -105,7 +107,7 @@ export const useAuthStore = create<AuthState>()(
       clearLocalSession: () => {
         clearTokens()
         if (typeof window !== 'undefined') { try { localStorage.removeItem('cep-auth') } catch {}; try { localStorage.removeItem('cep-last-sync-sig') } catch {} }
-        set({ accessToken: null, refreshToken: null, username: null, email: null, planTier: 'free', emailVerified: false, premiumUntil: null, premiumPreGrantedUntil: null, premiumTrialUntil: null, paymentClaims: [], sessions: [], sessionsLoading: false, redeemHistory: [], sessionExpired: false, error: null, isLoading: false })
+        set({ userId: null, accessToken: null, refreshToken: null, username: null, email: null, planTier: 'free', emailVerified: false, premiumUntil: null, premiumPreGrantedUntil: null, premiumTrialUntil: null, sponsorshipOrders: [], sessions: [], sessionsLoading: false, redeemHistory: [], sessionExpired: false, error: null, isLoading: false })
       },
 
       fetchMe: async () => {
@@ -114,14 +116,14 @@ export const useAuthStore = create<AuthState>()(
         set({ sessionsLoading: true })
         try {
           const user = await getMeApi()
-          set({ username: user.username, email: user.email, planTier: user.plan_tier, emailVerified: user.email_verified, premiumUntil: user.premium_until, premiumPreGrantedUntil: user.premium_pre_granted_until, premiumTrialUntil: user.premium_trial_until, paymentClaims: (user.payment_claims ?? []) as AuthState['paymentClaims'], sessions: (user.sessions ?? []) as AuthState['sessions'], redeemHistory: (user.redeem_history ?? []) as RedeemHistoryItem[], sessionsLoading: false, sessionExpired: false })
+          set({ userId: user.id, username: user.username, email: user.email, planTier: user.plan_tier, emailVerified: user.email_verified, premiumUntil: user.premium_until, premiumPreGrantedUntil: user.premium_pre_granted_until, premiumTrialUntil: user.premium_trial_until, sponsorshipOrders: user.sponsorship_orders ?? [], sessions: (user.sessions ?? []) as AuthState['sessions'], redeemHistory: (user.redeem_history ?? []) as RedeemHistoryItem[], sessionsLoading: false, sessionExpired: false })
         } catch (err) {
           // Only clear session on definitive auth failures (401/403 from API after refresh was attempted).
           // Network errors and other transient issues should NOT nuke the session.
           if (err instanceof ApiError && (err.status === 401 || err.status === 403)) {
             clearTokens()
             if (typeof window !== 'undefined') { try { localStorage.removeItem('cep-auth') } catch {}; try { localStorage.removeItem('cep-last-sync-sig') } catch {} }
-            set({ accessToken: null, refreshToken: null, username: null, email: null, planTier: 'free', emailVerified: false, premiumUntil: null, premiumPreGrantedUntil: null, premiumTrialUntil: null, paymentClaims: [], sessions: [], sessionsLoading: false, redeemHistory: [], sessionExpired: true })
+            set({ userId: null, accessToken: null, refreshToken: null, username: null, email: null, planTier: 'free', emailVerified: false, premiumUntil: null, premiumPreGrantedUntil: null, premiumTrialUntil: null, sponsorshipOrders: [], sessions: [], sessionsLoading: false, redeemHistory: [], sessionExpired: true })
           }
           // On network errors, just leave the current state as-is — don't punish the user.
           set({ sessionsLoading: false })

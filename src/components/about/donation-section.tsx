@@ -39,10 +39,9 @@ export function DonationSection() {
         </p>
 
         {/* 收款码区域 */}
-        <div className="flex flex-wrap items-start gap-4">
-          {/* 支付宝 */}
-          <div className="flex flex-col items-center gap-2">
-            <div className="relative w-36 h-36 rounded-lg overflow-hidden shadow-[var(--shadow-border)]">
+        <div className="grid grid-cols-2 items-start gap-4 sm:grid-cols-3">
+          <div className="flex min-w-0 flex-col items-center gap-2">
+            <div className="relative aspect-square w-full max-w-36 overflow-hidden rounded-lg shadow-[var(--shadow-border)]">
               <Image
                 src={withImageCacheVersion('/images/payment/alipay.jpg')}
                 alt={t('about.donationAlipay')}
@@ -51,14 +50,11 @@ export function DonationSection() {
                 unoptimized
               />
             </div>
-            <span className="text-xs text-muted-foreground">
-              {t('about.donationAlipay')}
-            </span>
+            <span className="text-center text-xs text-muted-foreground">{t('about.donationAlipay')}</span>
           </div>
 
-          {/* 微信 */}
-          <div className="flex flex-col items-center gap-2">
-            <div className="relative w-36 h-36 rounded-lg overflow-hidden shadow-[var(--shadow-border)]">
+          <div className="flex min-w-0 flex-col items-center gap-2">
+            <div className="relative aspect-square w-full max-w-36 overflow-hidden rounded-lg shadow-[var(--shadow-border)]">
               <Image
                 src={withImageCacheVersion('/images/payment/wechatzs.png')}
                 alt={t('about.donationWechat')}
@@ -67,9 +63,26 @@ export function DonationSection() {
                 unoptimized
               />
             </div>
-            <span className="text-xs text-muted-foreground">
-              {t('about.donationWechat')}
-            </span>
+            <span className="text-center text-xs text-muted-foreground">{t('about.donationWechat')}</span>
+          </div>
+
+          <div className="flex min-w-0 flex-col items-center gap-2">
+            <Button
+              variant="ghost"
+              size="card"
+              nativeButton={false}
+              render={<a href="https://afdian.com/order/create?user_id=e2b8d20ca93411f1885552540025c377" target="_blank" rel="noopener noreferrer" />}
+              className="max-w-36"
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="https://pic1.afdiancdn.com/static/img/welcome/button-sponsorme.png"
+                alt={t('about.donationAfdianShort')}
+                width={200}
+                className="h-auto w-full"
+              />
+            </Button>
+            <span className="text-center text-xs text-muted-foreground">{t('about.donationAfdian')}</span>
           </div>
         </div>
 

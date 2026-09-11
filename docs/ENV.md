@@ -6,7 +6,7 @@
 
 | 变量 | 类型 | 用途 | 必填 |
 |------|------|------|------|
-| `SITE_URL` | 非 `NEXT_PUBLIC_` | `generateMetadata` 的 `metadataBase`，SEO 规范化 URL | 是 |
+| `SITE_URL` | 非 `NEXT_PUBLIC_` | 已废弃（改用代码常量 `DEFAULT_SITE_URL`） | 否 |
 | `SEO_INDEXABLE` | 构建时变量 | 是否允许当前构建被搜索引擎索引；未设置时默认禁止 | 否 |
 | `NEXT_PUBLIC_DEV_BUILD` | `NEXT_PUBLIC_` | 是否显示开发版顶部提醒；仅 dev 部署设置为 `true` | 否 |
 | `NEXT_PUBLIC_API_BASE_URL` | `NEXT_PUBLIC_` | 后端 API 服务器地址，控制登录/云同步功能是否可用 | 否 |
@@ -143,4 +143,4 @@ NEXT_PUBLIC_FORUM_URL=https://forum.example.com
 | `OAUTH_CLIENT_NAMES` | Variable | `NEXT_PUBLIC_OAUTH_CLIENT_NAMES` |
 | `FORUM_URL` | Variable | `NEXT_PUBLIC_FORUM_URL` |
 
-> `SITE_URL` 为硬编码的 `https://end.canmoe.com`，直接写在 `deploy.yml` 中（非敏感信息）。
+> `SITE_URL` 环境变量已不再使用：站点地址统一取 `src/lib/constants.ts` 的 `DEFAULT_SITE_URL`（`https://end.canmoe.com`），因此 `deploy.yml` 不再注入它。
