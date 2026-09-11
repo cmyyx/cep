@@ -1,0 +1,470 @@
+# CEP Endfield Planner — Full Context
+
+> Expanded companion to /llms.txt. Prefer this file when an agent needs a single self-contained document.
+
+## About the site
+
+CEP Endfield Planner is a free, open-source planning toolkit for the game Arknights: Endfield.
+It helps players optimize essence farming, equipment refinement, operator/weapon growth, and track banners.
+Canonical domain: https://end.canmoe.com
+Default locale path prefix: /zh-CN/
+Other locales: zh-TW, ja, en
+Unofficial fan project — game assets and names belong to their respective rights holders.
+Generated at: 2026-09-11T16:08:06.813Z
+
+## Core tools
+
+### Home
+
+CEP Endfield Planner landing page and module overview
+
+- URL: https://end.canmoe.com/zh-CN
+
+### Essence Planner
+
+Multi-weapon essence farming optimization with lock constraints, attribute conflict resolution, and ranked plans
+
+- URL: https://end.canmoe.com/zh-CN/essence-planner
+
+### Refinement Planner
+
+Equipment refinement planning — materials and substat optimization
+
+- URL: https://end.canmoe.com/zh-CN/refinement-planner
+
+### Growth Planner
+
+Operator and weapon growth planner for levels, skills, promotions, breakthroughs, and stamina
+
+- URL: https://end.canmoe.com/zh-CN/growth-planner
+
+### Stats Preview
+
+Operator stats preview with configurable operators, equipment, weapons, and full panel attributes
+
+- URL: https://end.canmoe.com/zh-CN/panel-preview
+
+### Banner Calendar
+
+Gacha banner schedule, rerun timeline, and pull planning
+
+- URL: https://end.canmoe.com/zh-CN/banner-calendar
+
+### Background Preview
+
+Preview and select website background artwork
+
+- URL: https://end.canmoe.com/zh-CN/background-preview
+
+## Wiki indexes
+
+### Characters Wiki
+
+Operator list with filters; detail pages for every character
+
+- URL: https://end.canmoe.com/zh-CN/wiki/characters
+
+### Weapons Wiki
+
+Weapon list with filters; detail pages for every weapon
+
+- URL: https://end.canmoe.com/zh-CN/wiki/weapons
+
+### Equipment Wiki
+
+Equipment list with filters; detail pages for every gear piece
+
+- URL: https://end.canmoe.com/zh-CN/wiki/equipment
+
+## Characters (31)
+
+Each character has a detail page under `/wiki/characters/{id}`.
+
+- chr_9000_endmin (6★) — https://end.canmoe.com/zh-CN/wiki/characters/chr_9000_endmin
+- chr_0004_pelica (5★) — https://end.canmoe.com/zh-CN/wiki/characters/chr_0004_pelica
+- chr_0005_chen (5★) — https://end.canmoe.com/zh-CN/wiki/characters/chr_0005_chen
+- chr_0006_wolfgd (5★) — https://end.canmoe.com/zh-CN/wiki/characters/chr_0006_wolfgd
+- chr_0007_ikut (5★) — https://end.canmoe.com/zh-CN/wiki/characters/chr_0007_ikut
+- chr_0009_azrila (6★) — https://end.canmoe.com/zh-CN/wiki/characters/chr_0009_azrila
+- chr_0011_seraph (5★) — https://end.canmoe.com/zh-CN/wiki/characters/chr_0011_seraph
+- chr_0012_avywen (5★) — https://end.canmoe.com/zh-CN/wiki/characters/chr_0012_avywen
+- chr_0013_aglina (6★) — https://end.canmoe.com/zh-CN/wiki/characters/chr_0013_aglina
+- chr_0014_aurora (5★) — https://end.canmoe.com/zh-CN/wiki/characters/chr_0014_aurora
+- chr_0015_lifeng (6★) — https://end.canmoe.com/zh-CN/wiki/characters/chr_0015_lifeng
+- chr_0016_laevat (6★) — https://end.canmoe.com/zh-CN/wiki/characters/chr_0016_laevat
+- chr_0017_yvonne (6★) — https://end.canmoe.com/zh-CN/wiki/characters/chr_0017_yvonne
+- chr_0018_dapan (5★) — https://end.canmoe.com/zh-CN/wiki/characters/chr_0018_dapan
+- chr_0019_karin (4★) — https://end.canmoe.com/zh-CN/wiki/characters/chr_0019_karin
+- chr_0020_meurs (4★) — https://end.canmoe.com/zh-CN/wiki/characters/chr_0020_meurs
+- chr_0021_whiten (4★) — https://end.canmoe.com/zh-CN/wiki/characters/chr_0021_whiten
+- chr_0022_bounda (4★) — https://end.canmoe.com/zh-CN/wiki/characters/chr_0022_bounda
+- chr_0023_antal (4★) — https://end.canmoe.com/zh-CN/wiki/characters/chr_0023_antal
+- chr_0024_deepfin (5★) — https://end.canmoe.com/zh-CN/wiki/characters/chr_0024_deepfin
+- chr_0025_ardelia (6★) — https://end.canmoe.com/zh-CN/wiki/characters/chr_0025_ardelia
+- chr_0026_lastrite (6★) — https://end.canmoe.com/zh-CN/wiki/characters/chr_0026_lastrite
+- chr_0029_pograni (6★) — https://end.canmoe.com/zh-CN/wiki/characters/chr_0029_pograni
+- chr_0027_tangtang (6★) — https://end.canmoe.com/zh-CN/wiki/characters/chr_0027_tangtang
+- chr_0028_wulfa (6★) — https://end.canmoe.com/zh-CN/wiki/characters/chr_0028_wulfa
+- chr_0030_zhuangfy (6★) — https://end.canmoe.com/zh-CN/wiki/characters/chr_0030_zhuangfy
+- chr_0031_mifu (6★) — https://end.canmoe.com/zh-CN/wiki/characters/chr_0031_mifu
+- chr_0032_lizhiyan (6★) — https://end.canmoe.com/zh-CN/wiki/characters/chr_0032_lizhiyan
+- chr_0033_camille (6★) — https://end.canmoe.com/zh-CN/wiki/characters/chr_0033_camille
+- chr_0034_typhoea (6★) — https://end.canmoe.com/zh-CN/wiki/characters/chr_0034_typhoea
+- chr_0035_liino (6★) — https://end.canmoe.com/zh-CN/wiki/characters/chr_0035_liino
+
+## Weapons (79)
+
+Each weapon has a detail page under `/wiki/weapons/{id}`.
+
+- wpn_claym_0003 (4★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_claym_0003
+- wpn_lance_0006 (5★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_lance_0006
+- wpn_claym_0004 (6★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_claym_0004
+- wpn_funnel_0009 (6★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_funnel_0009
+- wpn_claym_0006 (6★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_claym_0006
+- wpn_lance_0003 (4★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_lance_0003
+- wpn_claym_0007 (6★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_claym_0007
+- wpn_claym_0008 (6★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_claym_0008
+- wpn_pistol_0008 (6★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_pistol_0008
+- wpn_claym_0009 (4★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_claym_0009
+- wpn_claym_0010 (3★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_claym_0010
+- wpn_pistol_0004 (5★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_pistol_0004
+- wpn_claym_0011 (5★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_claym_0011
+- wpn_lance_0007 (6★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_lance_0007
+- wpn_claym_0012 (5★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_claym_0012
+- wpn_claym_0013 (6★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_claym_0013
+- wpn_lance_0016 (6★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_lance_0016
+- wpn_claym_0014 (5★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_claym_0014
+- wpn_funnel_0008 (6★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_funnel_0008
+- wpn_lance_0010 (6★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_lance_0010
+- wpn_claym_0015 (5★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_claym_0015
+- wpn_lance_0014 (6★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_lance_0014
+- wpn_pistol_0009 (6★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_pistol_0009
+- wpn_claym_0016 (6★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_claym_0016
+- wpn_claym_0017 (6★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_claym_0017
+- wpn_lance_0012 (6★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_lance_0012
+- wpn_lance_0013 (5★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_lance_0013
+- wpn_funnel_0001 (4★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_funnel_0001
+- wpn_sword_0016 (6★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_sword_0016
+- wpn_funnel_0002 (3★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_funnel_0002
+- wpn_funnel_0003 (4★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_funnel_0003
+- wpn_funnel_0004 (5★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_funnel_0004
+- wpn_lance_0008 (4★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_lance_0008
+- wpn_funnel_0005 (5★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_funnel_0005
+- wpn_funnel_0006 (6★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_funnel_0006
+- wpn_funnel_0007 (5★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_funnel_0007
+- wpn_funnel_0010 (6★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_funnel_0010
+- wpn_sword_0015 (5★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_sword_0015
+- wpn_funnel_0011 (6★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_funnel_0011
+- wpn_sword_0005 (5★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_sword_0005
+- wpn_funnel_0012 (5★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_funnel_0012
+- wpn_funnel_0013 (6★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_funnel_0013
+- wpn_lance_0009 (3★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_lance_0009
+- wpn_funnel_0014 (5★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_funnel_0014
+- wpn_funnel_0015 (6★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_funnel_0015
+- wpn_funnel_0016 (6★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_funnel_0016
+- wpn_sword_0003 (3★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_sword_0003
+- wpn_sword_0017 (6★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_sword_0017
+- wpn_funnel_0017 (6★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_funnel_0017
+- wpn_sword_0007 (5★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_sword_0007
+- wpn_sword_0013 (6★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_sword_0013
+- wpn_funnel_0018 (6★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_funnel_0018
+- wpn_funnel_0019 (6★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_funnel_0019
+- wpn_funnel_0020 (6★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_funnel_0020
+- wpn_sword_0008 (4★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_sword_0008
+- wpn_sword_0012 (6★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_sword_0012
+- wpn_lance_0004 (5★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_lance_0004
+- wpn_lance_0011 (6★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_lance_0011
+- wpn_lance_0015 (6★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_lance_0015
+- wpn_pistol_0001 (3★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_pistol_0001
+- wpn_sword_0010 (6★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_sword_0010
+- wpn_pistol_0002 (4★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_pistol_0002
+- wpn_sword_0020 (5★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_sword_0020
+- wpn_pistol_0003 (4★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_pistol_0003
+- wpn_pistol_0005 (6★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_pistol_0005
+- wpn_pistol_0006 (5★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_pistol_0006
+- wpn_pistol_0007 (6★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_pistol_0007
+- wpn_pistol_0010 (6★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_pistol_0010
+- wpn_pistol_0011 (6★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_pistol_0011
+- wpn_pistol_0012 (5★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_pistol_0012
+- wpn_sword_0006 (6★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_sword_0006
+- wpn_sword_0014 (6★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_sword_0014
+- wpn_sword_0009 (4★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_sword_0009
+- wpn_sword_0011 (6★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_sword_0011
+- wpn_sword_0018 (5★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_sword_0018
+- wpn_sword_0019 (5★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_sword_0019
+- wpn_sword_0021 (6★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_sword_0021
+- wpn_sword_0022 (6★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_sword_0022
+- wpn_sword_0026 (6★) — https://end.canmoe.com/zh-CN/wiki/weapons/wpn_sword_0026
+
+## Equipment (258)
+
+Each equipment piece has a detail page under `/wiki/equipment/{id}`.
+
+- item_equip_t0_parts_tundra01_body_01 (1★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t0_parts_tundra01_body_01
+- item_equip_t4_suit_combo_cd01_hand_01 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_combo_cd01_hand_01
+- item_equip_t0_parts_tundra01_body_02 (1★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t0_parts_tundra01_body_02
+- item_equip_t4_suit_attri01_edc_03 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_attri01_edc_03
+- item_equip_t0_parts_tundra01_hand_01 (1★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t0_parts_tundra01_hand_01
+- item_equip_t4_suit_pulse_cryst01_hand_01 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_pulse_cryst01_hand_01
+- item_equip_t0_parts_tundra01_hand_02 (1★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t0_parts_tundra01_hand_02
+- item_equip_t2_suit_wisd01_edc_03 (3★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t2_suit_wisd01_edc_03
+- item_equip_t1_parts_tundra01_body_01 (2★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t1_parts_tundra01_body_01
+- item_equip_t1_parts_tundra01_body_02 (2★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t1_parts_tundra01_body_02
+- item_equip_t4_suit_atb01_edc_01 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_atb01_edc_01
+- item_equip_t1_parts_tundra01_body_03 (2★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t1_parts_tundra01_body_03
+- item_equip_t3_suit_agi01_body_01 (4★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t3_suit_agi01_body_01
+- item_equip_t3_suit_atk01_edc_02 (4★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t3_suit_atk01_edc_02
+- item_equip_t4_suit_criti01_body_06 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_criti01_body_06
+- item_equip_t1_parts_tundra01_body_04 (2★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t1_parts_tundra01_body_04
+- item_equip_t2_suit_wisd01_edc_01 (3★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t2_suit_wisd01_edc_01
+- item_equip_t1_parts_tundra01_body_05 (2★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t1_parts_tundra01_body_05
+- item_equip_t4_suit_atk02_body_02 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_atk02_body_02
+- item_equip_t1_parts_tundra01_body_06 (2★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t1_parts_tundra01_body_06
+- item_equip_t4_suit_criti01_body_03 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_criti01_body_03
+- item_equip_t1_parts_tundra01_edc_01 (2★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t1_parts_tundra01_edc_01
+- item_equip_t4_suit_heal01_body_01 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_heal01_body_01
+- item_equip_t4_suit_phy01_body_02 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_phy01_body_02
+- item_equip_t1_parts_tundra01_edc_02 (2★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t1_parts_tundra01_edc_02
+- item_equip_t3_suit_usp01_body_01 (4★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t3_suit_usp01_body_01
+- item_equip_t1_parts_tundra01_hand_01 (2★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t1_parts_tundra01_hand_01
+- item_equip_t4_parts_wuling00_body_04 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_parts_wuling00_body_04
+- item_equip_t1_parts_tundra01_hand_02 (2★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t1_parts_tundra01_hand_02
+- item_equip_t4_suit_atb01_hand_03 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_atb01_hand_03
+- item_equip_t4_suit_burst01_edc_03 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_burst01_edc_03
+- item_equip_t1_parts_tundra01_hand_03 (2★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t1_parts_tundra01_hand_03
+- item_equip_t4_suit_atb01_hand_02 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_atb01_hand_02
+- item_equip_t1_parts_tundra01_hand_04 (2★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t1_parts_tundra01_hand_04
+- item_equip_t4_parts_wuling00_body_01 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_parts_wuling00_body_01
+- item_equip_t1_suit_stragi01_body_01 (2★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t1_suit_stragi01_body_01
+- item_equip_t4_suit_criti01_edc_01 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_criti01_edc_01
+- item_equip_t1_suit_stragi01_edc_01 (2★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t1_suit_stragi01_edc_01
+- item_equip_t4_suit_atb01_edc_03 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_atb01_edc_03
+- item_equip_t1_suit_stragi01_edc_02 (2★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t1_suit_stragi01_edc_02
+- item_equip_t1_suit_stragi01_hand_01 (2★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t1_suit_stragi01_hand_01
+- item_equip_t4_suit_atb01_body_04 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_atb01_body_04
+- item_equip_t4_suit_poise01_body_01 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_poise01_body_01
+- item_equip_t1_suit_wisdwill01_body_01 (2★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t1_suit_wisdwill01_body_01
+- item_equip_t3_suit_agi01_edc_03 (4★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t3_suit_agi01_edc_03
+- item_equip_t1_suit_wisdwill01_edc_01 (2★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t1_suit_wisdwill01_edc_01
+- item_equip_t4_suit_attri01_edc_05 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_attri01_edc_05
+- item_equip_t1_suit_wisdwill01_edc_02 (2★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t1_suit_wisdwill01_edc_02
+- item_equip_t4_parts_wuling00_hand_01 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_parts_wuling00_hand_01
+- item_equip_t1_suit_wisdwill01_hand_01 (2★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t1_suit_wisdwill01_hand_01
+- item_equip_t2_parts_tundra01_edc_01 (3★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t2_parts_tundra01_edc_01
+- item_equip_t2_suit_str01_body_01 (3★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t2_suit_str01_body_01
+- item_equip_t2_parts_tundra01_edc_02 (3★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t2_parts_tundra01_edc_02
+- item_equip_t3_suit_wisd01_edc_01 (4★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t3_suit_wisd01_edc_01
+- item_equip_t2_parts_tundra01_edc_03 (3★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t2_parts_tundra01_edc_03
+- item_equip_t2_parts_tundra01_edc_04 (3★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t2_parts_tundra01_edc_04
+- item_equip_t2_parts_tundra01_hand_01 (3★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t2_parts_tundra01_hand_01
+- item_equip_t2_parts_tundra01_hand_02 (3★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t2_parts_tundra01_hand_02
+- item_equip_t4_suit_usp02_edc_03 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_usp02_edc_03
+- item_equip_t2_suit_agi01_body_01 (3★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t2_suit_agi01_body_01
+- item_equip_t4_suit_combo_cd01_edc_04 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_combo_cd01_edc_04
+- item_equip_t4_suit_pulse_cryst01_body_01 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_pulse_cryst01_body_01
+- item_equip_t2_suit_agi01_edc_01 (3★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t2_suit_agi01_edc_01
+- item_equip_t2_suit_agi01_edc_02 (3★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t2_suit_agi01_edc_02
+- item_equip_t3_parts_tundra01_hand_02 (4★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t3_parts_tundra01_hand_02
+- item_equip_t2_suit_agi01_hand_01 (3★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t2_suit_agi01_hand_01
+- item_equip_t4_suit_fire_natr01_edc_01 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_fire_natr01_edc_01
+- item_equip_t2_suit_str01_edc_01 (3★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t2_suit_str01_edc_01
+- item_equip_t4_suit_attri01_hand_01 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_attri01_hand_01
+- item_equip_t2_suit_str01_edc_02 (3★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t2_suit_str01_edc_02
+- item_equip_t3_suit_str01_edc_01 (4★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t3_suit_str01_edc_01
+- item_equip_t4_suit_usp02_body_04 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_usp02_body_04
+- item_equip_t2_suit_str01_hand_01 (3★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t2_suit_str01_hand_01
+- item_equip_t4_suit_burst01_hand_02 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_burst01_hand_02
+- item_equip_t2_suit_will01_body_01 (3★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t2_suit_will01_body_01
+- item_equip_t3_suit_wisd01_body_01 (4★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t3_suit_wisd01_body_01
+- item_equip_t4_parts_wuling00_body_05 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_parts_wuling00_body_05
+- item_equip_t4_suit_usp02_edc_04 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_usp02_edc_04
+- item_equip_t2_suit_will01_edc_01 (3★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t2_suit_will01_edc_01
+- item_equip_t4_parts_wuling00_edc_05 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_parts_wuling00_edc_05
+- item_equip_t2_suit_will01_edc_02 (3★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t2_suit_will01_edc_02
+- item_equip_t3_suit_str01_hand_01 (4★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t3_suit_str01_hand_01
+- item_equip_t2_suit_will01_hand_01 (3★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t2_suit_will01_hand_01
+- item_equip_t3_suit_will01_edc_01 (4★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t3_suit_will01_edc_01
+- item_equip_t4_suit_burst01_hand_01 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_burst01_hand_01
+- item_equip_t4_suit_phy01_body_03 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_phy01_body_03
+- item_equip_t2_suit_wisd01_body_01 (3★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t2_suit_wisd01_body_01
+- item_equip_t4_suit_burst01_body_02 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_burst01_body_02
+- item_equip_t4_suit_pulse_cryst01_edc_01 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_pulse_cryst01_edc_01
+- item_equip_t2_suit_wisd01_edc_02 (3★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t2_suit_wisd01_edc_02
+- item_equip_t2_suit_wisd01_hand_01 (3★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t2_suit_wisd01_hand_01
+- item_equip_t4_suit_heal01_hand_02 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_heal01_hand_02
+- item_equip_t4_suit_phy01_hand_03 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_phy01_hand_03
+- item_equip_t3_parts_tundra01_body_01 (4★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t3_parts_tundra01_body_01
+- item_equip_t4_suit_phy01_edc_04 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_phy01_edc_04
+- item_equip_t3_parts_tundra01_body_02 (4★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t3_parts_tundra01_body_02
+- item_equip_t3_parts_tundra01_edc_01 (4★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t3_parts_tundra01_edc_01
+- item_equip_t3_parts_tundra01_edc_02 (4★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t3_parts_tundra01_edc_02
+- item_equip_t3_parts_tundra01_edc_03 (4★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t3_parts_tundra01_edc_03
+- item_equip_t4_parts_wuling01_edc_02 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_parts_wuling01_edc_02
+- item_equip_t3_parts_tundra01_edc_04 (4★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t3_parts_tundra01_edc_04
+- item_equip_t4_parts_wuling01_edc_03 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_parts_wuling01_edc_03
+- item_equip_t3_parts_tundra01_hand_01 (4★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t3_parts_tundra01_hand_01
+- item_equip_t3_suit_agi01_edc_01 (4★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t3_suit_agi01_edc_01
+- item_equip_t4_suit_atk02_body_04 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_atk02_body_04
+- item_equip_t3_suit_agi01_edc_02 (4★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t3_suit_agi01_edc_02
+- item_equip_t4_suit_fire_natr01_hand_01 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_fire_natr01_hand_01
+- item_equip_t3_suit_agi01_hand_01 (4★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t3_suit_agi01_hand_01
+- item_equip_t4_suit_pulse_cryst01_edc_03 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_pulse_cryst01_edc_03
+- item_equip_t3_suit_atk01_body_01 (4★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t3_suit_atk01_body_01
+- item_equip_t4_suit_phy01_edc_01 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_phy01_edc_01
+- item_equip_t3_suit_atk01_body_02 (4★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t3_suit_atk01_body_02
+- item_equip_t4_suit_heal01_edc_01 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_heal01_edc_01
+- item_equip_t3_suit_atk01_body_03 (4★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t3_suit_atk01_body_03
+- item_equip_t4_parts_wuling00_edc_04 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_parts_wuling00_edc_04
+- item_equip_t3_suit_atk01_body_04 (4★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t3_suit_atk01_body_04
+- item_equip_t3_suit_atk01_edc_01 (4★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t3_suit_atk01_edc_01
+- item_equip_t3_suit_atk01_edc_03 (4★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t3_suit_atk01_edc_03
+- item_equip_t3_suit_atk01_edc_04 (4★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t3_suit_atk01_edc_04
+- item_equip_t3_suit_atk01_edc_05 (4★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t3_suit_atk01_edc_05
+- item_equip_t4_suit_crush_fracture_edc_01 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_crush_fracture_edc_01
+- item_equip_t3_suit_atk01_edc_06 (4★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t3_suit_atk01_edc_06
+- item_equip_t4_parts_wuling01_body_02 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_parts_wuling01_body_02
+- item_equip_t3_suit_atk01_hand_01 (4★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t3_suit_atk01_hand_01
+- item_equip_t3_suit_str01_hand_02 (4★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t3_suit_str01_hand_02
+- item_equip_t3_suit_usp01_hand_01 (4★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t3_suit_usp01_hand_01
+- item_equip_t3_suit_str01_body_01 (4★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t3_suit_str01_body_01
+- item_equip_t4_suit_criti01_edc_06 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_criti01_edc_06
+- item_equip_t3_suit_str01_edc_02 (4★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t3_suit_str01_edc_02
+- item_equip_t4_suit_fire_natr01_edc_02 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_fire_natr01_edc_02
+- item_equip_t3_suit_usp01_body_02 (4★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t3_suit_usp01_body_02
+- item_equip_t4_parts_wuling02_hand_02 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_parts_wuling02_hand_02
+- item_equip_t4_suit_usp02_edc_06 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_usp02_edc_06
+- item_equip_t3_suit_usp01_edc_01 (4★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t3_suit_usp01_edc_01
+- item_equip_t4_suit_attri01_edc_06 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_attri01_edc_06
+- item_equip_t3_suit_usp01_edc_02 (4★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t3_suit_usp01_edc_02
+- item_equip_t3_suit_usp01_edc_03 (4★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t3_suit_usp01_edc_03
+- item_equip_t3_suit_will01_body_01 (4★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t3_suit_will01_body_01
+- item_equip_t3_suit_will01_edc_02 (4★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t3_suit_will01_edc_02
+- item_equip_t4_suit_atb01_body_02 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_atb01_body_02
+- item_equip_t3_suit_will01_hand_01 (4★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t3_suit_will01_hand_01
+- item_equip_t4_suit_fire_natr01_body_01 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_fire_natr01_body_01
+- item_equip_t3_suit_wisd01_body_02 (4★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t3_suit_wisd01_body_02
+- item_equip_t4_suit_usp02_edc_01 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_usp02_edc_01
+- item_equip_t3_suit_wisd01_edc_02 (4★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t3_suit_wisd01_edc_02
+- item_equip_t3_suit_wisd01_hand_01 (4★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t3_suit_wisd01_hand_01
+- item_equip_t4_parts_wuling00_body_02 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_parts_wuling00_body_02
+- item_equip_t4_parts_wuling01_body_01 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_parts_wuling01_body_01
+- item_equip_t4_parts_wuling00_body_03 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_parts_wuling00_body_03
+- item_equip_t4_suit_crush_fracture_hand_01 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_crush_fracture_hand_01
+- item_equip_t4_parts_wuling00_edc_01 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_parts_wuling00_edc_01
+- item_equip_t4_parts_wuling00_edc_02 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_parts_wuling00_edc_02
+- item_equip_t4_parts_wuling00_edc_03 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_parts_wuling00_edc_03
+- item_equip_t4_parts_wuling00_hand_02 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_parts_wuling00_hand_02
+- item_equip_t4_suit_expend_spell01_edc_02 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_expend_spell01_edc_02
+- item_equip_t4_parts_wuling00_hand_03 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_parts_wuling00_hand_03
+- item_equip_t4_parts_wuling00_hand_04 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_parts_wuling00_hand_04
+- item_equip_t4_parts_wuling00_hand_05 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_parts_wuling00_hand_05
+- item_equip_t4_parts_wuling01_edc_01 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_parts_wuling01_edc_01
+- item_equip_t4_parts_wuling01_edc_04 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_parts_wuling01_edc_04
+- item_equip_t4_parts_wuling01_hand_01 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_parts_wuling01_hand_01
+- item_equip_t4_suit_combo_cd01_body_01 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_combo_cd01_body_01
+- item_equip_t4_parts_wuling01_hand_02 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_parts_wuling01_hand_02
+- item_equip_t4_suit_phy01_hand_02 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_phy01_hand_02
+- item_equip_t4_parts_wuling02_body_01 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_parts_wuling02_body_01
+- item_equip_t4_suit_fire_natr01_hand_04 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_fire_natr01_hand_04
+- item_equip_t4_parts_wuling02_body_02 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_parts_wuling02_body_02
+- item_equip_t4_suit_fire_natr01_hand_03 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_fire_natr01_hand_03
+- item_equip_t4_suit_usp02_hand_02 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_usp02_hand_02
+- item_equip_t4_parts_wuling02_edc_01 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_parts_wuling02_edc_01
+- item_equip_t4_parts_wuling02_hand_01 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_parts_wuling02_hand_01
+- item_equip_t4_suit_atb01_body_01 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_atb01_body_01
+- item_equip_t4_suit_atb01_body_03 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_atb01_body_03
+- item_equip_t4_suit_atk02_edc_05 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_atk02_edc_05
+- item_equip_t4_suit_phy01_body_01 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_phy01_body_01
+- item_equip_t4_suit_atb01_body_05 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_atb01_body_05
+- item_equip_t4_suit_fire_natr01_body_02 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_fire_natr01_body_02
+- item_equip_t4_suit_atb01_edc_02 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_atb01_edc_02
+- item_equip_t4_suit_atb01_edc_04 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_atb01_edc_04
+- item_equip_t4_suit_atb01_edc_05 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_atb01_edc_05
+- item_equip_t4_suit_poise01_edc_04 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_poise01_edc_04
+- item_equip_t4_suit_atb01_edc_06 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_atb01_edc_06
+- item_equip_t4_suit_attri01_body_03 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_attri01_body_03
+- item_equip_t4_suit_poise01_edc_03 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_poise01_edc_03
+- item_equip_t4_suit_atb01_hand_01 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_atb01_hand_01
+- item_equip_t4_suit_atk02_edc_02 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_atk02_edc_02
+- item_equip_t4_suit_atk02_body_01 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_atk02_body_01
+- item_equip_t4_suit_usp02_body_03 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_usp02_body_03
+- item_equip_t4_suit_atk02_body_03 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_atk02_body_03
+- item_equip_t4_suit_atk02_edc_01 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_atk02_edc_01
+- item_equip_t4_suit_atk02_edc_03 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_atk02_edc_03
+- item_equip_t4_suit_atk02_edc_04 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_atk02_edc_04
+- item_equip_t4_suit_atk02_hand_01 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_atk02_hand_01
+- item_equip_t4_suit_usp02_edc_02 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_usp02_edc_02
+- item_equip_t4_suit_atk02_hand_02 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_atk02_hand_02
+- item_equip_t4_suit_attri01_body_01 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_attri01_body_01
+- item_equip_t4_suit_criti01_hand_03 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_criti01_hand_03
+- item_equip_t4_suit_attri01_body_02 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_attri01_body_02
+- item_equip_t4_suit_attri01_body_04 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_attri01_body_04
+- item_equip_t4_suit_attri01_body_05 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_attri01_body_05
+- item_equip_t4_suit_combo_cd01_hand_02 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_combo_cd01_hand_02
+- item_equip_t4_suit_attri01_edc_02 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_attri01_edc_02
+- item_equip_t4_suit_attri01_edc_04 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_attri01_edc_04
+- item_equip_t4_suit_poise01_hand_01 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_poise01_hand_01
+- item_equip_t4_suit_attri01_edc_07 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_attri01_edc_07
+- item_equip_t4_suit_attri01_hand_02 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_attri01_hand_02
+- item_equip_t4_suit_fire_natr01_hand_02 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_fire_natr01_hand_02
+- item_equip_t4_suit_attri01_hand_03 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_attri01_hand_03
+- item_equip_t4_suit_burst01_body_01 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_burst01_body_01
+- item_equip_t4_suit_burst01_body_03 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_burst01_body_03
+- item_equip_t4_suit_burst01_edc_01 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_burst01_edc_01
+- item_equip_t4_suit_burst01_edc_02 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_burst01_edc_02
+- item_equip_t4_suit_combo_cd01_body_02 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_combo_cd01_body_02
+- item_equip_t4_suit_combo_cd01_edc_01 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_combo_cd01_edc_01
+- item_equip_t4_suit_combo_cd01_edc_02 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_combo_cd01_edc_02
+- item_equip_t4_suit_combo_cd01_edc_03 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_combo_cd01_edc_03
+- item_equip_t4_suit_pulse_cryst01_edc_02 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_pulse_cryst01_edc_02
+- item_equip_t4_suit_criti01_body_01 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_criti01_body_01
+- item_equip_t4_suit_criti01_body_02 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_criti01_body_02
+- item_equip_t4_suit_criti01_body_04 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_criti01_body_04
+- item_equip_t4_suit_criti01_edc_02 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_criti01_edc_02
+- item_equip_t4_suit_criti01_edc_03 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_criti01_edc_03
+- item_equip_t4_suit_criti01_edc_04 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_criti01_edc_04
+- item_equip_t4_suit_phy01_hand_01 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_phy01_hand_01
+- item_equip_t4_suit_criti01_edc_05 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_criti01_edc_05
+- item_equip_t4_suit_criti01_hand_01 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_criti01_hand_01
+- item_equip_t4_suit_criti01_hand_02 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_criti01_hand_02
+- item_equip_t4_suit_criti01_hand_04 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_criti01_hand_04
+- item_equip_t4_suit_crush_fracture_body_01 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_crush_fracture_body_01
+- item_equip_t4_suit_crush_fracture_body_02 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_crush_fracture_body_02
+- item_equip_t4_suit_crush_fracture_edc_02 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_crush_fracture_edc_02
+- item_equip_t4_suit_crush_fracture_hand_02 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_crush_fracture_hand_02
+- item_equip_t4_suit_expend_spell01_body_02 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_expend_spell01_body_02
+- item_equip_t4_suit_expend_spell01_hand_02 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_expend_spell01_hand_02
+- item_equip_t4_suit_fire_natr01_edc_03 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_fire_natr01_edc_03
+- item_equip_t4_suit_fire_natr01_edc_04 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_fire_natr01_edc_04
+- item_equip_t4_suit_heal01_body_02 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_heal01_body_02
+- item_equip_t4_suit_heal01_body_03 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_heal01_body_03
+- item_equip_t4_suit_heal01_edc_02 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_heal01_edc_02
+- item_equip_t4_suit_heal01_edc_03 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_heal01_edc_03
+- item_equip_t4_suit_poise01_hand_02 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_poise01_hand_02
+- item_equip_t4_suit_heal01_edc_04 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_heal01_edc_04
+- item_equip_t4_suit_heal01_edc_05 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_heal01_edc_05
+- item_equip_t4_suit_heal01_hand_01 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_heal01_hand_01
+- item_equip_t4_suit_heal01_hand_03 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_heal01_hand_03
+- item_equip_t4_suit_phy01_body_04 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_phy01_body_04
+- item_equip_t4_suit_phy01_edc_02 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_phy01_edc_02
+- item_equip_t4_suit_phy01_edc_03 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_phy01_edc_03
+- item_equip_t4_suit_poise01_edc_01 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_poise01_edc_01
+- item_equip_t4_suit_poise01_edc_02 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_poise01_edc_02
+- item_equip_t4_suit_spellburst_body_01 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_spellburst_body_01
+- item_equip_t4_suit_spellburst_edc_01 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_spellburst_edc_01
+- item_equip_t4_suit_spellburst_hand_01 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_spellburst_hand_01
+- item_equip_t4_suit_usp02_body_01 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_usp02_body_01
+- item_equip_t4_suit_usp02_edc_05 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_usp02_edc_05
+- item_equip_t4_suit_usp02_hand_01 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_usp02_hand_01
+- item_equip_t4_suit_usp02_hand_03 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_usp02_hand_03
+- item_equip_t4_suit_usp02_hand_04 (5★) — https://end.canmoe.com/zh-CN/wiki/equipment/item_equip_t4_suit_usp02_hand_04
+
+## Optional pages
+
+- [Forum](https://end.canmoe.com/zh-CN/forum): Community discussion entry
+- [About](https://end.canmoe.com/zh-CN/about): Project overview, tech stack, features, and open-source information
+- [Changelog / Updates](https://end.canmoe.com/zh-CN/update): Release notes and forced-update history
+- [Privacy Policy](https://end.canmoe.com/zh-CN/privacy): How CEP handles account, planning, and analytics data
+- [Terms of Service](https://end.canmoe.com/zh-CN/terms): Terms of use and AGPL-3.0 open-source notice
+- [Sitemap](https://end.canmoe.com/sitemap.xml)
+- [llms.txt](https://end.canmoe.com/llms.txt): Curated index (same links, shorter notes)
