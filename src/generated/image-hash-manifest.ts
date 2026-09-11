@@ -422,6 +422,7 @@ export const imageHashManifest: Record<string, string> = {
   "/images/panel-preview/attribute-str.avif": "ca4bf7b1",
   "/images/panel-preview/attribute-will.avif": "79aac25f",
   "/images/panel-preview/attribute-wisd.avif": "b6539a37",
+  "/images/payment/afdian.png": "60e46dbc",
   "/images/payment/alipay.jpg": "25921153",
   "/images/payment/wechat.png": "5d147d67",
   "/images/payment/wechatzs.png": "1d381687",

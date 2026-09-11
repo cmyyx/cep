@@ -45,7 +45,7 @@ describe('useMaintenanceProbe', () => {
       vi.advanceTimersByTime(MAINTENANCE_PROBE_INTERVAL_MS)
     })
     expect(mocks.api).toHaveBeenCalledTimes(1)
-    expect(mocks.api).toHaveBeenCalledWith(MAINTENANCE_PROBE_PATH, { noAuth: true })
+    expect(mocks.api).toHaveBeenCalledWith(MAINTENANCE_PROBE_PATH, { noAuth: true, systemProbe: true })
 
     await act(async () => {
       vi.advanceTimersByTime(MAINTENANCE_PROBE_INTERVAL_MS)

@@ -1,6 +1,6 @@
 // @vitest-environment jsdom
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
-import { render, screen, cleanup } from '@testing-library/react'
+import { render, screen, cleanup, act, waitFor } from '@testing-library/react'
 import { useSystemStatusStore } from '@/stores/useSystemStatusStore'
 import { MaintenanceBanner } from './maintenance-banner'
 
@@ -31,13 +31,16 @@ describe('MaintenanceBanner', () => {
     expect(screen.getByRole('status')).toBeTruthy()
   })
 
-  it('恢复后自动消失', () => {
+  it('恢复后自动消失（走 store 订阅，不手动 rerender）', async () => {
     useSystemStatusStore.setState({ maintenance: true })
-    const { container, rerender } = render(<MaintenanceBanner />)
+    const { container } = render(<MaintenanceBanner />)
     expect(container.firstChild).not.toBeNull()
 
-    useSystemStatusStore.getState().reportHealthy()
-    rerender(<MaintenanceBanner />)
-    expect(container.firstChild).toBeNull()
+    act(() => {
+      useSystemStatusStore.getState().reportHealthy()
+    })
+    await waitFor(() => {
+      expect(container.firstChild).toBeNull()
+    })
   })
 })

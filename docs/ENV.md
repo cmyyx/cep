@@ -18,14 +18,9 @@
 
 ## 变量详解
 
-### `SITE_URL`
+### `SITE_URL`（已废弃）
 
-构建时注入，不暴露到客户端 bundle。用于 `<meta property="og:url">` 等 SEO 标签。
-
-```
-SITE_URL=https://end.canmoe.com
-```
-
+不再读取该环境变量：站点地址统一取自 `src/lib/constants.ts` 的 `DEFAULT_SITE_URL`（生产为 `https://end.canmoe.com`），用于 SEO 标签、`robots.txt` 与域名校验。需要改站点域名时改这个常量，`deploy.yml` 不再注入 `SITE_URL`。
 ### `SEO_INDEXABLE`
 
 仅在正式生产构建中设置为 `true`，允许页面被搜索引擎索引。未设置或设置为其他值时，所有页面默认输出 `noindex, nofollow`，适合本地和 dev/preview 构建。
@@ -119,7 +114,6 @@ NEXT_PUBLIC_OAUTH_CLIENT_NAMES={"nodebb-canmoe":"NodeBB Forum","nodebb-07070721"
 
 ```bash
 # .env
-SITE_URL=http://localhost:3000
 NEXT_PUBLIC_API_BASE_URL=http://localhost:8787
 NEXT_PUBLIC_TURNSTILE_SITE_KEY=1x00000000000000000000AA
 NEXT_PUBLIC_ALLOWED_DOMAINS=localhost
@@ -143,4 +137,4 @@ NEXT_PUBLIC_FORUM_URL=https://forum.example.com
 | `OAUTH_CLIENT_NAMES` | Variable | `NEXT_PUBLIC_OAUTH_CLIENT_NAMES` |
 | `FORUM_URL` | Variable | `NEXT_PUBLIC_FORUM_URL` |
 
-> `SITE_URL` 环境变量已不再使用：站点地址统一取 `src/lib/constants.ts` 的 `DEFAULT_SITE_URL`（`https://end.canmoe.com`），因此 `deploy.yml` 不再注入它。
+> `SITE_URL` 已废弃，`deploy.yml` 不再注入它（详见上文《`SITE_URL`（已废弃）》）。

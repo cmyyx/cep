@@ -15,6 +15,12 @@ on:
         type: boolean
         default: false
 
+# 单一部署队列：同一时刻只跑一次部署流程，避免多个 tag 触发的运行并发强制推送 deploy 分支。
+# cancel-in-progress: false —— 已开始的部署会跑完（保留已开始的部署），后续运行排队；
+# 排队时只有最新一次会被保留（GitHub 的并发组行为），最终 deploy 分支始终是最新版本。
+concurrency:
+  group: deploy
+  cancel-in-progress: false
 jobs:
   # ── Tag preparation (runs once) ─────────────────────────
   prepare:

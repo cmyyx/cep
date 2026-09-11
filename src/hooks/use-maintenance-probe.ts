@@ -21,9 +21,10 @@ export const MAINTENANCE_PROBE_PATH = '/api/auth/me'
 /**
  * While the maintenance banner is visible, poll a maintenance-gated endpoint so
  * the banner clears itself once the backend serves again, without the user
- * having to reload the page or click anything. The API client already reports
- * every outcome into the system-status store, so the probe only has to fire the
- * request (and swallow the error it will come back with).
+ * having to reload the page or click anything. The request is marked
+ * `systemProbe` so the API client knows a non-maintenance answer from this
+ * gated endpoint clears the banner; the probe itself only fires the request and
+ * swallows the error it will come back with.
  */
 export function useMaintenanceProbe(): void {
   const maintenance = useSystemStatusStore((state) => state.maintenance)
@@ -33,7 +34,7 @@ export function useMaintenanceProbe(): void {
 
     const probe = async () => {
       try {
-        await api(MAINTENANCE_PROBE_PATH, { noAuth: true })
+        await api(MAINTENANCE_PROBE_PATH, { noAuth: true, systemProbe: true })
       } catch {
         /* The API client already reported the result into the store. */
       }

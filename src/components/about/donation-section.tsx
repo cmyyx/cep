@@ -74,11 +74,12 @@ export function DonationSection() {
               render={<a href="https://afdian.com/order/create?user_id=e2b8d20ca93411f1885552540025c377" target="_blank" rel="noopener noreferrer" />}
               className="max-w-36"
             >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="https://pic1.afdiancdn.com/static/img/welcome/button-sponsorme.png"
+              <Image
+                src={withImageCacheVersion('/images/payment/afdian.png')}
                 alt={t('about.donationAfdianShort')}
-                width={200}
+                width={558}
+                height={156}
+                unoptimized
                 className="h-auto w-full"
               />
             </Button>
