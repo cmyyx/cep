@@ -93,7 +93,9 @@ export function EmergencyNoticeBanner() {
   // "上一条正在播退场动画时轮询换上了新公告"的串味。
   const [expandedKey, setExpandedKey] = useState<string | null>(null)
   const [exitingKey, setExitingKey] = useState<string | null>(null)
-  const [bodyOverflows, setBodyOverflows] = useState(false)
+  // 溢出结论同样用"公告身份"做键, 而不是一个裸布尔: 换公告时身份变了, 上一条的测量结果
+  // 在读取时就自动失效, 不需要在 effect 里重置 (那会级联渲染, 也被 lint 拦下)。
+  const [overflow, setOverflow] = useState<{ key: string; value: boolean } | null>(null)
   const bodyRef = useRef<HTMLParagraphElement | null>(null)
 
   const signature = notice ? noticeSignature(notice) : null
@@ -101,19 +103,26 @@ export function EmergencyNoticeBanner() {
   const body = notice ? pickLocalizedText(notice.body, locale) : undefined
   const expanded = signature !== null && expandedKey === signature
   const exiting = signature !== null && exitingKey === signature
+  const bodyOverflows = overflow !== null && overflow.key === signature ? overflow.value : false
 
   // 只有真的超出 2 行才给"展开"。按字符数猜会在中日英之间误判, 所以量 scrollHeight。
-  // 不必在换公告时重置 bodyOverflows: 正文文案没变, 溢出结论也不会变; 文案变了这个
-  // effect 会因为 body 变化重新测量, 展开态被收起时也会因 expanded 变化重测。
+  // 正文为空时没有可展开的内容, 不测; 展开态下量的是滚动区, 结论已无意义, 也不测。
+  // 换公告不必在这里重置: 测量结果带着公告身份, 读取时对不上身份就当"没溢出"。
   useEffect(() => {
-    if (expanded || !body) return
+    if (expanded || !body || signature === null) return
     const element = bodyRef.current
     if (!element) return
     let cancelled = false
     const measure = () => {
       if (cancelled) return
       // +1 容忍亚像素: 行高不是整数时 scrollHeight 会略大于 clientHeight。
-      setBodyOverflows(element.scrollHeight > element.clientHeight + 1)
+      const next = element.scrollHeight > element.clientHeight + 1
+      // 结论没变时回传同一个对象让 React bail out —— resize 会高频触发测量。
+      setOverflow((prev) =>
+        prev !== null && prev.key === signature && prev.value === next
+          ? prev
+          : { key: signature, value: next }
+      )
     }
     measure()
     window.addEventListener('resize', measure)
@@ -123,7 +132,7 @@ export function EmergencyNoticeBanner() {
       cancelled = true
       window.removeEventListener('resize', measure)
     }
-  }, [expanded, body])
+  }, [expanded, body, signature])
 
   // 退场动画只是收尾: 关闭意图在点击那一刻就已经落库 (见 handleDismiss), 这里只负责
   // 在动画跑完后把状态收回来, 让横幅真正从布局里消失。
@@ -149,7 +158,10 @@ export function EmergencyNoticeBanner() {
   const LevelIcon = LEVEL_ICONS[notice.level]
   const linkLabel = pickLocalizedText(notice.linkLabel, locale) ?? t('common.viewDetails')
   const isExternalLink = Boolean(notice.linkUrl && !notice.linkUrl.startsWith('/'))
-  const hasActions = bodyOverflows || Boolean(notice.linkUrl)
+  // 展开入口必须同时满足"量出溢出"与"确实有正文"。身份键化已经让上一条的残留值失效,
+  // 这里再按正文有无收口一次: 把"无正文必无展开入口"写成渲染期的不变量, 不依赖状态细节。
+  const canExpand = bodyOverflows && Boolean(body)
+  const hasActions = canExpand || Boolean(notice.linkUrl)
 
   const handleDismiss = () => {
     // 先落库再播动画: 关闭是访客的意图, 不该取决于动画有没有跑完。
@@ -214,7 +226,7 @@ export function EmergencyNoticeBanner() {
       */}
       {hasActions ? (
         <div className={cn('mt-1.5 flex flex-wrap items-center gap-x-3 gap-y-1.5', ACTIONS_INDENT)}>
-          {bodyOverflows ? (
+          {canExpand ? (
             <Button
               type="button"
               variant="link"

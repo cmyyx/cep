@@ -286,6 +286,64 @@ describe('EmergencyNoticeBanner', () => {
       })
       expect(screen.getByRole('button', { name: 'notice.expand' })).toBeTruthy()
     })
+
+    it('drops the expand toggle when a long-body notice is replaced by a body-less one', async () => {
+      stubBodyOverflow(true)
+      ingestNoticePayload({ notice: makeNotice() })
+      render(<EmergencyNoticeBanner />)
+      expect(screen.getByRole('button', { name: 'notice.expand' })).toBeTruthy()
+
+      // 长正文 → 无正文: 上一条量出的"溢出"必须失效, 否则新公告会挂着一个没有内容可展开的按钮
+      await act(async () => {
+        ingestNoticePayload({ notice: makeNotice({ id: 45, body: {} }) })
+      })
+      expect(screen.getByText('服务维护')).toBeTruthy()
+      expect(screen.queryByRole('button', { name: 'notice.expand' })).toBeNull()
+      expect(screen.queryByRole('button', { name: 'notice.collapse' })).toBeNull()
+      // 无正文也无链接 → 操作行整行都不该存在, 横幅里只剩关闭按钮
+      expect(banner()?.querySelectorAll('button')).toHaveLength(1)
+    })
+
+    it('keeps the link but drops the expand toggle on a body-less notice with a link', async () => {
+      stubBodyOverflow(true)
+      ingestNoticePayload({ notice: makeNotice() })
+      render(<EmergencyNoticeBanner />)
+      expect(screen.getByRole('button', { name: 'notice.expand' })).toBeTruthy()
+
+      await act(async () => {
+        ingestNoticePayload({
+          notice: makeNotice({
+            id: 46,
+            body: {},
+            linkUrl: '/zh-CN/about',
+            linkLabel: { 'zh-CN': '详情' },
+          }),
+        })
+      })
+      // 链接是独立能力, 不能被"无正文"一起误伤
+      expect(screen.getByRole('button', { name: '详情' })).toBeTruthy()
+      expect(screen.queryByRole('button', { name: 'notice.expand' })).toBeNull()
+    })
+
+    it('re-measures from scratch when a body-less notice is replaced by one with a body', async () => {
+      stubBodyOverflow(true)
+      ingestNoticePayload({ notice: makeNotice() })
+      render(<EmergencyNoticeBanner />)
+      expect(screen.getByRole('button', { name: 'notice.expand' })).toBeTruthy()
+
+      // 长正文 → 无正文: 展开入口必须消失
+      await act(async () => {
+        ingestNoticePayload({ notice: makeNotice({ id: 47, body: {} }) })
+      })
+      expect(screen.queryByRole('button', { name: 'notice.expand' })).toBeNull()
+
+      // 无正文 → 有正文: 必须重新测量并恢复入口, 不能因为中间那条而永久丢掉
+      await act(async () => {
+        ingestNoticePayload({ notice: makeNotice({ id: 48, body: { 'zh-CN': '恢复的正文' } }) })
+      })
+      expect(screen.getByText('恢复的正文')).toBeTruthy()
+      expect(screen.getByRole('button', { name: 'notice.expand' })).toBeTruthy()
+    })
   })
 
   it('keeps the actions out of the text column so the body keeps the full width', () => {
