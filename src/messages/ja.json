@@ -761,7 +761,12 @@
     "retry": "再試行",
     "dataLoadFailed": "データの読み込みに失敗しました",
     "dataLoadFailedHint": "ネットワーク接続を確認してから再試行してください",
-    "viewDetails": "詳細を見る"
+    "viewDetails": "詳細を見る",
+    "missingTranslationTitle": "異常テキストの検出",
+    "missingTranslationDesc": "{key} の解析異常が検出されました。開発者へのフィードバックにご協力ください。",
+    "copyReportInfo": "詳細をコピー",
+    "reportCopied": "コピーしました",
+    "reportToGithub": "問題を報告"
   },
   "meta": {
     "homeDescription": "アークナイツ：エンドフィールドの計画ツールキット——基質計画と計算、精鍛計画と計算、キャラ攻略、ガチャカレンダーなどを一括サポート。",

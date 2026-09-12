@@ -544,7 +544,12 @@
     "retry": "重试",
     "dataLoadFailed": "数据加载失败",
     "dataLoadFailedHint": "请检查网络连接后重试",
-    "viewDetails": "查看详情"
+    "viewDetails": "查看详情",
+    "missingTranslationTitle": "发现异常文本",
+    "missingTranslationDesc": "检测到 {key} 解析异常，欢迎向开发者反馈。",
+    "copyReportInfo": "复制反馈信息",
+    "reportCopied": "已复制",
+    "reportToGithub": "提交反馈"
   },
   "account": {
     "title": "我的",

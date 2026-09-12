@@ -761,7 +761,12 @@
     "retry": "重試",
     "dataLoadFailed": "資料載入失敗",
     "dataLoadFailedHint": "請檢查網路連線後重試",
-    "viewDetails": "檢視詳情"
+    "viewDetails": "查看詳情",
+    "missingTranslationTitle": "發現異常文字",
+    "missingTranslationDesc": "檢測到 {key} 解析異常，歡迎向開發者回饋。",
+    "copyReportInfo": "複製回饋資訊",
+    "reportCopied": "已複製",
+    "reportToGithub": "提交回饋"
   },
   "meta": {
     "homeDescription": "《明日方舟：終末地》規劃工具集——基質規劃與計算、精鍛規劃與計算、幹員攻略、卡池日曆等一站式解決方案。",

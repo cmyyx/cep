@@ -756,6 +756,53 @@ function checkClientBagCoverage(allFiles, globalConstants) {
   return { errors, warnings }
 }
 
+// ─── Phase 2e: Game catalog item integrity ──────────────────────────────────
+
+function checkGameCatalogIntegrity() {
+  const errors = []
+  const warnings = []
+  const wikiDataDir = join(ROOT, 'src', 'generated', 'i18n', 'wikiData')
+  const wikiDataSrcDir = join(ROOT, 'src', 'generated', 'data', 'wiki')
+
+  if (!existsSync(wikiDataDir) || !existsSync(wikiDataSrcDir)) {
+    return { errors, warnings }
+  }
+
+  const itemIds = new Set()
+  function scanDir(dir) {
+    if (!existsSync(dir)) return
+    for (const f of readdirSync(dir, { withFileTypes: true })) {
+      const full = join(dir, f.name)
+      if (f.isDirectory()) scanDir(full)
+      else if (f.name.endsWith('.json') || f.name.endsWith('.ts')) {
+        const content = readFileSync(full, 'utf-8')
+        for (const m of content.matchAll(/"itemId":\s*"([^"]+)"/g)) itemIds.add(m[1])
+      }
+    }
+  }
+  scanDir(wikiDataSrcDir)
+
+  const locales = ['zh-CN', 'en', 'ja', 'zh-TW']
+  for (const loc of locales) {
+    const filePath = join(wikiDataDir, `${loc}.json`)
+    if (!existsSync(filePath)) {
+      errors.push(`[P0] 缺少游戏字典文件：src/generated/i18n/wikiData/${loc}.json`)
+      continue
+    }
+    const catalog = JSON.parse(readFileSync(filePath, 'utf-8'))
+    for (const itemId of itemIds) {
+      const key = `item|${itemId}`
+      if (!catalog[key]) {
+        errors.push(
+          `[P0] 材料 "${itemId}" 缺少 ${loc} 语言游戏字典（缺少键 "${key}" 于 generated/i18n/wikiData/${loc}.json）`
+        )
+      }
+    }
+  }
+
+  return { errors, warnings }
+}
+
 // Shell namespaces = top-level keys of the messages JSONs (filled in main()).
 const SHELL_NAMESPACES = new Set()
 
@@ -872,8 +919,11 @@ function main() {
   // Phase 2d: Client bag coverage (core shell + per-route injection)
   const bagResult = checkClientBagCoverage(allFiles, globalConstants)
 
-  const errors = [...phase3.errors, ...ecResult.errors, ...bagResult.errors]
-  const warnings = [...phase3.warnings, ...ecResult.warnings, ...bagResult.warnings]
+  // Phase 2e: Game catalog item integrity (planner materials coverage)
+  const gameCatalogResult = checkGameCatalogIntegrity()
+
+  const errors = [...phase3.errors, ...ecResult.errors, ...bagResult.errors, ...gameCatalogResult.errors]
+  const warnings = [...phase3.warnings, ...ecResult.warnings, ...bagResult.warnings, ...gameCatalogResult.warnings]
   const info = phase3.info
   const exitCode = errors.length > 0 ? 1 : phase3.exitCode
 
