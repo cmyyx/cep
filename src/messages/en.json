@@ -761,7 +761,12 @@
     "retry": "Retry",
     "dataLoadFailed": "Failed to load data",
     "dataLoadFailedHint": "Check your network connection and try again",
-    "viewDetails": "View details"
+    "viewDetails": "View details",
+    "missingTranslationTitle": "Text Parsing Anomaly",
+    "missingTranslationDesc": "Parsing anomaly detected for {key}. Feedback to developers is appreciated.",
+    "copyReportInfo": "Copy Details",
+    "reportCopied": "Copied",
+    "reportToGithub": "Report Issue"
   },
   "meta": {
     "homeDescription": "Arknights: Endfield planning toolkit — essence planning & calculator, refinement planning & calculator, character guides, banner calendar and more.",

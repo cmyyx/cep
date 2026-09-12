@@ -1,5 +1,5 @@
 import { expect, it } from 'vitest'
-import { getPlannerStatPreview, splitPlannerRecipes } from './equip-card'
+import { getLatestCraftingRecipe, getPlannerStatPreview, splitPlannerRecipes } from './equip-card'
 import type { WikiCraftingRecipe } from '@/types/wiki'
 import type { Equip } from '@/types/refinement'
 import type { WikiEquipmentPlannerPreview } from '@/types/wiki'
@@ -20,6 +20,18 @@ it('shows default and discounted recipes before collapsing ordinary alternatives
     featured: [defaultRecipe, discountedRecipe],
     other: [ordinaryRecipe],
   })
+})
+
+it('selects discounted recipe with highest chainId as latest crafting recipe', () => {
+  const defaultRecipe = recipe(4000, true, 1)
+  const altRecipe = recipe(4001, false, 1)
+  const discountedRecipe1 = recipe(4002, false, 0.5)
+  const discountedRecipe2 = recipe(4003, false, 0.01)
+
+  expect(getLatestCraftingRecipe([defaultRecipe, altRecipe, discountedRecipe1, discountedRecipe2])).toEqual(discountedRecipe2)
+  expect(getLatestCraftingRecipe([defaultRecipe, altRecipe])).toEqual(defaultRecipe)
+  expect(getLatestCraftingRecipe([altRecipe])).toEqual(altRecipe)
+  expect(getLatestCraftingRecipe([])).toBeUndefined()
 })
 
 it('uses slot order when an equipment repeats the same attribute ID', () => {

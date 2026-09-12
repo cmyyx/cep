@@ -6,6 +6,7 @@ import { useGameI18nLocale } from '@/hooks/use-game-i18n-catalogs'
 import { asWikiLocale } from '@/lib/wiki-locale'
 import { wikiTextKey } from '@/lib/wiki-i18n'
 import { entityDisplayName } from '@/lib/wiki-summary-locale'
+import { reportMissingTranslation } from '@/lib/missing-translation-guard'
 import type { WikiEntitySummary, WikiEnumGroup } from '@/types/wiki'
 
 /**
@@ -27,18 +28,32 @@ export function useWikiTranslations() {
       if (embedded && embedded !== entity.id) return embedded
     }
     if (entity.category === 'characters') {
-      return catalogs?.characters[entity.id] ?? entity.id
+      const val = catalogs?.characters[entity.id]
+      if (val != null) return val
+      if (catalogs != null) reportMissingTranslation({ key: `characters|${entity.id}`, locale, category: 'characters' })
+      return entity.id
     }
     if (entity.category === 'weapons') {
-      return catalogs?.weapons[entity.id] ?? entity.id
+      const val = catalogs?.weapons[entity.id]
+      if (val != null) return val
+      if (catalogs != null) reportMissingTranslation({ key: `weapons|${entity.id}`, locale, category: 'weapons' })
+      return entity.id
     }
-    return catalogs?.equips[entity.id] ?? entity.id
+    const val = catalogs?.equips[entity.id]
+    if (val != null) return val
+    if (catalogs != null) reportMissingTranslation({ key: `equips|${entity.id}`, locale, category: 'equips' })
+    return entity.id
   }, [catalogs, locale])
 
   const text = useCallback((...segments: Array<string | number>): string => {
     const key = wikiTextKey(...segments)
-    return catalogs?.wikiData[key] ?? String(segments.at(-1) ?? key)
-  }, [catalogs])
+    const val = catalogs?.wikiData[key]
+    if (val != null) return val
+    if (catalogs != null) {
+      reportMissingTranslation({ key, locale, category: String(segments[0] ?? '') })
+    }
+    return String(segments.at(-1) ?? key)
+  }, [catalogs, locale])
 
   const enumLabel = useCallback(
     (group: WikiEnumGroup, id: string) => text('enum', group, id),

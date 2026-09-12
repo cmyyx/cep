@@ -4,7 +4,7 @@ import { cn } from '@/lib/utils'
 import { withImageCacheVersion } from '@/lib/image-url'
 import { RarityFrame } from '@/components/shared/rarity-frame'
 import { useWikiTranslations } from '@/hooks/use-wiki-translations'
-import { useExpandedWikiMaterials } from '@/components/wiki/wiki-material-catalog'
+import { useExpandedWikiMaterials, useWikiMaterialCatalog } from '@/components/wiki/wiki-material-catalog'
 import { localizeText } from '@/lib/wiki-locale-detail'
 import { useLocale } from 'next-intl'
 import type { LocalizedText } from '@/types/wiki'
@@ -32,16 +32,21 @@ export interface WikiMaterialListProps {
 export function WikiMaterialList({ materials, compact = false, iconOnly = false, className }: WikiMaterialListProps) {
   const locale = useLocale()
   const { itemName } = useWikiTranslations()
+  const catalog = useWikiMaterialCatalog()
+  const hasCatalog = Object.keys(catalog).length > 0
   // Expand compact {itemId,count} refs when a page-level material catalog is present.
   const expanded = useExpandedWikiMaterials(materials)
-  const rows = materials.some((m) => m.iconId == null || m.rarity == null || m.name == null) ? expanded : materials
+  const rows =
+    hasCatalog && materials.some((m) => m.iconId == null || m.rarity == null || m.name == null)
+      ? expanded
+      : materials
 
   return (
     <div className={cn('flex min-w-0 flex-wrap gap-3', className)}>
       {rows.map((material) => {
-        const name = material.name
-          ? localizeText(material.name, locale)
-          : itemName(material.itemId)
+        const rawName =
+          material.name && material.name !== material.itemId ? material.name : undefined
+        const name = rawName ? localizeText(rawName, locale) : itemName(material.itemId)
         const iconId = material.iconId ?? material.itemId
         const rarity = material.rarity ?? 1
         return (

@@ -15,7 +15,7 @@ import { withImageCacheVersion } from '@/lib/image-url'
 import { WikiMaterialList } from '@/components/shared/wiki-material-list'
 import { ItemFrameBackground } from '@/components/shared/item-frame-background'
 import { wikiEquipmentPlannerPreviews } from '@/generated/data/wiki/planner-previews'
-import { splitPlannerRecipes } from './equip-card'
+import { getLatestCraftingRecipe } from './equip-card'
 
 // Map Chinese equip types to i18n keys
 const TYPE_TO_KEY: Record<string, string> = {
@@ -33,12 +33,9 @@ export const RefinementPanel = memo(function RefinementPanel() {
   const isMobile = useIsMobile()
   const [expandedRecipeEquipId, setExpandedRecipeEquipId] = useState<string | null>(null)
   const selectedWikiPreview = selected ? wikiEquipmentPlannerPreviews[selected.id] : undefined
-  const recipeGroups = splitPlannerRecipes(selectedWikiPreview?.craftingRecipes ?? [])
-  const defaultRecipe = recipeGroups.featured.find((recipe) => recipe.isDefault)
-    ?? recipeGroups.featured[0]
-    ?? recipeGroups.other[0]
-  const alternativeRecipes = [...recipeGroups.featured, ...recipeGroups.other]
-    .filter((recipe) => recipe.chainId !== defaultRecipe?.chainId)
+  const allRecipes = selectedWikiPreview?.craftingRecipes ?? []
+  const primaryRecipe = getLatestCraftingRecipe(allRecipes)
+  const alternativeRecipes = allRecipes.filter((recipe) => recipe.chainId !== primaryRecipe?.chainId)
   const showOtherRecipes = selected?.id === expandedRecipeEquipId
 
   return (
@@ -148,10 +145,21 @@ export const RefinementPanel = memo(function RefinementPanel() {
                     </span>
                   </div>
                   <div className="mt-1 space-y-2">
-                    <span className="text-xs text-muted-foreground">{t('refinement.material')}</span>
-                    {defaultRecipe ? (
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs text-muted-foreground">{t('refinement.material')}</span>
+                      {primaryRecipe ? (
+                        <div className="flex items-center gap-1.5">
+                          <span className="text-[11px] text-muted-foreground font-medium">{t('wiki.recipe')} #{primaryRecipe.chainId}</span>
+                          {primaryRecipe.isDefault ? <Badge>{t('wiki.defaultRecipe')}</Badge> : null}
+                          {primaryRecipe.discount > 0 && primaryRecipe.discount < 1 ? (
+                            <Badge variant="secondary" className="text-ship-red text-[10px] px-1.5 py-0">-{Math.round((1 - primaryRecipe.discount) * 100)}%</Badge>
+                          ) : null}
+                        </div>
+                      ) : null}
+                    </div>
+                    {primaryRecipe ? (
                       <>
-                        <WikiMaterialList materials={defaultRecipe.materials} compact />
+                        <WikiMaterialList materials={primaryRecipe.materials} compact />
                         {alternativeRecipes.length > 0 ? (
                           <Button
                             type="button"
@@ -170,6 +178,7 @@ export const RefinementPanel = memo(function RefinementPanel() {
                               <div key={recipe.chainId} className="space-y-2 rounded-md bg-muted/35 p-2">
                                 <div className="flex flex-wrap items-center gap-1.5">
                                   <span className="text-[11px] font-medium">{t('wiki.recipe')} #{recipe.chainId}</span>
+                                  {recipe.isDefault ? <Badge>{t('wiki.defaultRecipe')}</Badge> : null}
                                   {recipe.discount > 0 && recipe.discount < 1 ? (
                                     <Badge variant="secondary" className="text-ship-red">-{Math.round((1 - recipe.discount) * 100)}%</Badge>
                                   ) : null}

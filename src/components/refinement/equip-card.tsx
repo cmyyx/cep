@@ -46,12 +46,26 @@ const MODEL_I18N_MAP: Record<string, string> = {
 }
 
 export function splitPlannerRecipes<T extends Pick<WikiCraftingRecipe, 'chainId' | 'discount' | 'isDefault'>>(recipes: T[]) {
-  const featured = recipes.filter((recipe) => recipe.isDefault || (recipe.discount > 0 && recipe.discount < 1)).sort((left, right) => Number(right.isDefault) - Number(left.isDefault))
+  const featured = recipes
+    .filter((recipe) => recipe.isDefault || (recipe.discount > 0 && recipe.discount < 1))
+    .sort((left, right) => {
+      const defaultDiff = Number(right.isDefault) - Number(left.isDefault)
+      if (defaultDiff !== 0) return defaultDiff
+      return right.chainId - left.chainId
+    })
   const featuredIds = new Set(featured.map((recipe) => recipe.chainId))
   return {
     featured,
     other: recipes.filter((recipe) => !featuredIds.has(recipe.chainId)),
   }
+}
+
+export function getLatestCraftingRecipe<T extends Pick<WikiCraftingRecipe, 'chainId' | 'discount' | 'isDefault'>>(recipes: T[]): T | undefined {
+  const discounted = recipes
+    .filter((recipe) => recipe.discount > 0 && recipe.discount < 1)
+    .sort((left, right) => right.chainId - left.chainId)
+  if (discounted.length > 0) return discounted[0]
+  return recipes.find((recipe) => recipe.isDefault) ?? recipes[0]
 }
 
 export function getPlannerStatPreview(

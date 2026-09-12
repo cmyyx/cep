@@ -56,3 +56,16 @@ it('supports compact icon and count only rendering', () => {
   expect(screen.getByText('×12')).toBeTruthy()
   expect(screen.getByTitle('测试材料')).toBeTruthy()
 })
+
+it('resolves localized name via useWikiTranslations when name is omitted and no catalog provider is present', () => {
+  render(
+    <NextIntlClientProvider locale="zh-CN" messages={{}} timeZone="UTC">
+      <WikiMaterialList materials={[
+        { itemId: 'material-a', iconId: 'material-a', rarity: 4, count: 5 },
+      ]} />
+    </NextIntlClientProvider>,
+  )
+
+  expect(screen.getByText('测试材料')).toBeTruthy()
+  expect(screen.getByText('×5')).toBeTruthy()
+})
