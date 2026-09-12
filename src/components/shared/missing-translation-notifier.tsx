@@ -23,6 +23,11 @@ export function MissingTranslationNotifier() {
 
   if (!event) return null
 
+  const pageUrl =
+    typeof window !== 'undefined'
+      ? `${window.location.origin}${window.location.pathname}`
+      : ''
+
   const issueTitle = encodeURIComponent(`[Game i18n Missing] ${event.key} (${event.locale})`)
   const issueBody = encodeURIComponent(
     [
@@ -30,7 +35,7 @@ export function MissingTranslationNotifier() {
       `- **Key**: \`${event.key}\``,
       `- **Locale**: \`${event.locale}\``,
       `- **Category**: \`${event.category ?? 'unknown'}\``,
-      `- **Page**: \`${typeof window !== 'undefined' ? window.location.href : ''}\``,
+      `- **Page**: \`${pageUrl}\``,
       `- **User Agent**: \`${typeof navigator !== 'undefined' ? navigator.userAgent : ''}\``,
     ].join('\n')
   )
@@ -42,8 +47,8 @@ export function MissingTranslationNotifier() {
         key: event.key,
         locale: event.locale,
         category: event.category,
-        url: window.location.href,
-        userAgent: navigator.userAgent,
+        url: pageUrl,
+        userAgent: typeof navigator !== 'undefined' ? navigator.userAgent : '',
       },
       null,
       2
