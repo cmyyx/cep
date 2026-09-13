@@ -5,7 +5,7 @@ import { useRouter, usePathname } from 'next/navigation'
 import { useTranslations, useLocale } from 'next-intl'
 import { CheckCircle2, AlertTriangle, X, RefreshCw, LogIn, Copy, ExternalLink, Check } from 'lucide-react'
 import { cn } from '@/lib/utils'
-import { Button } from '@/components/ui/button'
+import { Button, buttonVariants } from '@/components/ui/button'
 import { setAutoSyncNotifyCallback, setDismissConflictToast } from '@/hooks/useAutoSync'
 import { useAuthStore } from '@/stores/useAuthStore'
 import { useToastUiStore } from '@/stores/useToastUiStore'
@@ -214,6 +214,40 @@ export function SyncNotifier() {
     }
   }, [])
 
+  const [copiedToastId, setCopiedToastId] = useState<number | null>(null)
+
+  const handleCopyMissing = useCallback(
+    async (toastId: number, missingEvent: MissingTranslationEvent) => {
+      const pageUrl =
+        typeof window !== 'undefined'
+          ? `${window.location.origin}${window.location.pathname}`
+          : ''
+      const info = JSON.stringify(
+        {
+          key: missingEvent.key,
+          locale: missingEvent.locale,
+          category: missingEvent.category,
+          url: pageUrl,
+          userAgent: typeof navigator !== 'undefined' ? navigator.userAgent : '',
+        },
+        null,
+        2
+      )
+      try {
+        await navigator.clipboard.writeText(info)
+        setCopiedToastId(toastId)
+        timersRef.current.push(
+          setTimeout(() => {
+            setCopiedToastId((current) => (current === toastId ? null : current))
+          }, 2000)
+        )
+      } catch {
+        // Ignore clipboard failure
+      }
+    },
+    []
+  )
+
   // ── Render ──────────────────────────────────────────────
 
   if (!toast || toast.phase === 'out') {
@@ -227,6 +261,8 @@ export function SyncNotifier() {
             router={router}
             onRemove={removeToast}
             refreshPage={refreshPage}
+            copied={copiedToastId === toast.id}
+            onCopy={() => toast.payload && handleCopyMissing(toast.id, toast.payload)}
           />
         </div>
       )
@@ -246,6 +282,8 @@ export function SyncNotifier() {
         router={router}
         onRemove={removeToast}
         refreshPage={refreshPage}
+        copied={copiedToastId === toast.id}
+        onCopy={() => toast.payload && handleCopyMissing(toast.id, toast.payload)}
       />
     </div>
   )
@@ -260,6 +298,8 @@ function ToastCard({
   router,
   onRemove,
   refreshPage,
+  copied,
+  onCopy,
 }: {
   toast: ToastState
   t: ReturnType<typeof useTranslations>
@@ -267,6 +307,8 @@ function ToastCard({
   router: ReturnType<typeof useRouter>
   onRemove: () => void
   refreshPage: () => void
+  copied: boolean
+  onCopy: () => void
 }) {
   const isConflict = toast.kind === 'conflict'
   const isError = toast.kind === 'sync_error'
@@ -276,7 +318,6 @@ function ToastCard({
   const isWarning = isConflict || isError || isSessionExpired || isVersionUpdate || isMissingTranslation
   const isPersistent = toast.duration === null
 
-  const [copied, setCopied] = useState(false)
   const missingEvent = isMissingTranslation ? toast.payload : undefined
   const pageUrl =
     typeof window !== 'undefined'
@@ -297,28 +338,6 @@ function ToastCard({
         ].join('\n')
       )}`
     : undefined
-
-  const handleCopyMissing = async () => {
-    if (!missingEvent) return
-    const info = JSON.stringify(
-      {
-        key: missingEvent.key,
-        locale: missingEvent.locale,
-        category: missingEvent.category,
-        url: pageUrl,
-        userAgent: typeof navigator !== 'undefined' ? navigator.userAgent : '',
-      },
-      null,
-      2
-    )
-    try {
-      await navigator.clipboard.writeText(info)
-      setCopied(true)
-      setTimeout(() => setCopied(false), 2000)
-    } catch {
-      // Ignore clipboard failure
-    }
-  }
 
   const message = isConflict
     ? t('account.syncConflictToast')
@@ -367,7 +386,7 @@ function ToastCard({
                 variant="ghost"
                 size="icon-xs"
                 className="text-muted-foreground hover:text-foreground transition-colors"
-                onClick={handleCopyMissing}
+                onClick={onCopy}
                 aria-label={copied ? t('common.reportCopied') : t('common.copyReportInfo')}
                 title={copied ? t('common.reportCopied') : t('common.copyReportInfo')}
               >
@@ -378,7 +397,10 @@ function ToastCard({
                   href={issueUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex size-6 items-center justify-center rounded-md text-muted-foreground hover:text-foreground transition-colors"
+                  className={cn(
+                    buttonVariants({ variant: 'ghost', size: 'icon-xs' }),
+                    'text-muted-foreground hover:text-foreground transition-colors'
+                  )}
                   aria-label={t('common.reportToGithub')}
                   title={t('common.reportToGithub')}
                 >
