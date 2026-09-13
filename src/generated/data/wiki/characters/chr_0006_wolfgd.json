@@ -5610,7 +5610,9 @@
     }
   ],
   "images": {
-    "defaultAvatarId": "chr_0006_wolfgd",
+    "avatarIds": {
+      "default": "chr_0006_wolfgd"
+    },
     "fullBodyIds": {
       "default": "chr_0006_wolfgd"
     }

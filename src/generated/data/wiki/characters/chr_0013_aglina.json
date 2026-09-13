@@ -5655,7 +5655,9 @@
     }
   ],
   "images": {
-    "defaultAvatarId": "chr_0013_aglina",
+    "avatarIds": {
+      "default": "chr_0013_aglina"
+    },
     "fullBodyIds": {
       "default": "chr_0013_aglina"
     }

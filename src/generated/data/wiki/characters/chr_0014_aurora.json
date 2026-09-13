@@ -5700,7 +5700,9 @@
     }
   ],
   "images": {
-    "defaultAvatarId": "chr_0014_aurora",
+    "avatarIds": {
+      "default": "chr_0014_aurora"
+    },
     "fullBodyIds": {
       "default": "chr_0014_aurora"
     }

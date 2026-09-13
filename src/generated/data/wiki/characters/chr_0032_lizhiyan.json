@@ -8515,7 +8515,9 @@
     }
   ],
   "images": {
-    "defaultAvatarId": "chr_0032_lizhiyan",
+    "avatarIds": {
+      "default": "chr_0032_lizhiyan"
+    },
     "fullBodyIds": {
       "default": "chr_0032_lizhiyan"
     }

@@ -51,8 +51,15 @@ export function collectWikiAssets(source: WikiAssetSource): WikiAssets {
   }
 
   for (const detail of Object.values(source.characters.details)) {
-    for (const imageId of Object.values(detail.images.fullBodyIds)) {
-      if (imageId) characterFullBody.add(imageId)
+    if (detail.images?.avatarIds) {
+      for (const avatarId of Object.values(detail.images.avatarIds)) {
+        if (avatarId) characters.add(avatarId)
+      }
+    }
+    if (detail.images?.fullBodyIds) {
+      for (const imageId of Object.values(detail.images.fullBodyIds)) {
+        if (imageId) characterFullBody.add(imageId)
+      }
     }
     for (const potential of detail.potentials) {
       for (const imageId of potential.imageIds) characterPotential.add(imageId)

@@ -91,6 +91,7 @@ export function buildCharacterImageTargets(
         itemId: item.itemId,
         name: item.name,
         avatarUrl: item.brief.cover,
+        avatarId: 'chr_9000_endmin-male',
         fullBodyId: 'chr_9000_endmin-male',
       })
       continue
@@ -101,7 +102,7 @@ export function buildCharacterImageTargets(
         itemId: item.itemId,
         name: item.name,
         avatarUrl: item.brief.cover,
-        avatarId: 'chr_9000_endmin',
+        avatarId: 'chr_9000_endmin-female',
         fullBodyId: 'chr_9000_endmin-female',
       })
       continue

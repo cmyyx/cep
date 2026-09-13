@@ -3,13 +3,14 @@
 import { useEffect, useRef, useState, useCallback } from 'react'
 import { useRouter, usePathname } from 'next/navigation'
 import { useTranslations, useLocale } from 'next-intl'
-import { CheckCircle2, AlertTriangle, X, RefreshCw, LogIn } from 'lucide-react'
+import { CheckCircle2, AlertTriangle, X, RefreshCw, LogIn, Copy, ExternalLink, Check } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import { setAutoSyncNotifyCallback, setDismissConflictToast } from '@/hooks/useAutoSync'
 import { useAuthStore } from '@/stores/useAuthStore'
 import { useToastUiStore } from '@/stores/useToastUiStore'
 import { useVersion } from '@/hooks/use-version'
+import { onMissingTranslation, type MissingTranslationEvent } from '@/lib/missing-translation-guard'
 
 // ─── Types ─────────────────────────────────────────────────
 
@@ -21,6 +22,7 @@ type ToastKind =
   | 'sync_error'
   | 'session_expired'
   | 'version_update'
+  | 'missing_translation'
 
 interface ToastState {
   id: number
@@ -29,6 +31,7 @@ interface ToastState {
   phase: 'in' | 'visible' | 'out'
   /** Auto-dismiss duration in ms; null = persistent (no progress bar). */
   duration: number | null
+  payload?: MissingTranslationEvent
 }
 
 // ─── Component ────────────────────────────────────────────
@@ -64,11 +67,11 @@ export function SyncNotifier() {
   }, [])
 
   const createToast = useCallback(
-    (kind: ToastKind, duration: number | null) => {
+    (kind: ToastKind, duration: number | null, payload?: MissingTranslationEvent) => {
       clearAllTimers()
       const id = ++idRef.current
 
-      setToast({ id, kind, createdAt: Date.now(), phase: 'in', duration })
+      setToast({ id, kind, createdAt: Date.now(), phase: 'in', duration, payload })
       addTimer(
         setTimeout(() => {
           setToast((prev) =>
@@ -121,6 +124,14 @@ export function SyncNotifier() {
     }
     prevUpdateAvailable.current = isUpdateAvailable
   }, [isUpdateAvailable, createToast])
+
+  // ── Missing translation notification ────────────────────
+
+  useEffect(() => {
+    return onMissingTranslation((event) => {
+      createToast('missing_translation', 6000, event)
+    })
+  }, [createToast])
 
   // ── Publish toast visibility for corner floats (update changelog notice) ──
 
@@ -261,8 +272,53 @@ function ToastCard({
   const isError = toast.kind === 'sync_error'
   const isSessionExpired = toast.kind === 'session_expired'
   const isVersionUpdate = toast.kind === 'version_update'
-  const isWarning = isConflict || isError || isSessionExpired || isVersionUpdate
+  const isMissingTranslation = toast.kind === 'missing_translation'
+  const isWarning = isConflict || isError || isSessionExpired || isVersionUpdate || isMissingTranslation
   const isPersistent = toast.duration === null
+
+  const [copied, setCopied] = useState(false)
+  const missingEvent = isMissingTranslation ? toast.payload : undefined
+  const pageUrl =
+    typeof window !== 'undefined'
+      ? `${window.location.origin}${window.location.pathname}`
+      : ''
+
+  const issueUrl = missingEvent
+    ? `https://github.com/cmyyx/cep/issues/new?title=${encodeURIComponent(
+        `[Game i18n Missing] ${missingEvent.key} (${missingEvent.locale})`
+      )}&body=${encodeURIComponent(
+        [
+          `### Missing Game i18n Key`,
+          `- **Key**: \`${missingEvent.key}\``,
+          `- **Locale**: \`${missingEvent.locale}\``,
+          `- **Category**: \`${missingEvent.category ?? 'unknown'}\``,
+          `- **Page**: \`${pageUrl}\``,
+          `- **User Agent**: \`${typeof navigator !== 'undefined' ? navigator.userAgent : ''}\``,
+        ].join('\n')
+      )}`
+    : undefined
+
+  const handleCopyMissing = async () => {
+    if (!missingEvent) return
+    const info = JSON.stringify(
+      {
+        key: missingEvent.key,
+        locale: missingEvent.locale,
+        category: missingEvent.category,
+        url: pageUrl,
+        userAgent: typeof navigator !== 'undefined' ? navigator.userAgent : '',
+      },
+      null,
+      2
+    )
+    try {
+      await navigator.clipboard.writeText(info)
+      setCopied(true)
+      setTimeout(() => setCopied(false), 2000)
+    } catch {
+      // Ignore clipboard failure
+    }
+  }
 
   const message = isConflict
     ? t('account.syncConflictToast')
@@ -272,14 +328,17 @@ function ToastCard({
         ? t('account.sessionExpiredToast')
         : isVersionUpdate
           ? t('version.updateAvailableToast')
-          : toast.kind === 'pull_success'
-            ? t('account.syncDownloaded')
-            : toast.kind === 'push_unchanged'
-              ? t('account.syncAlreadyUpToDate')
-              : t('account.syncUploaded')
+          : isMissingTranslation
+            ? `${t('common.missingTranslationTitle')}: ${missingEvent?.key ?? ''}`
+            : toast.kind === 'pull_success'
+              ? t('account.syncDownloaded')
+              : toast.kind === 'push_unchanged'
+                ? t('account.syncAlreadyUpToDate')
+                : t('account.syncUploaded')
 
   return (
     <div
+      role="alert"
       className="rounded-lg bg-background overflow-hidden"
       style={{
         boxShadow:
@@ -288,13 +347,13 @@ function ToastCard({
     >
       <div className="flex items-start gap-2.5 px-4 py-3">
         {isWarning ? (
-          <AlertTriangle className="size-4 shrink-0 mt-0.5 text-foreground" />
+          <AlertTriangle className="size-4 shrink-0 mt-0.5 text-amber-500" />
         ) : (
           <CheckCircle2 className="size-4 shrink-0 mt-0.5 text-[#0a72ef]" />
         )}
         <span
           className={cn(
-            'flex-1 text-sm font-medium text-foreground leading-snug',
+            'flex-1 text-sm font-medium text-foreground leading-snug break-all',
             isVersionUpdate && 'cursor-pointer hover:underline',
           )}
           onClick={isVersionUpdate ? refreshPage : undefined}
@@ -302,6 +361,32 @@ function ToastCard({
           {message}
         </span>
         <div className="flex items-center gap-2 shrink-0">
+          {isMissingTranslation && (
+            <>
+              <Button
+                variant="ghost"
+                size="icon-xs"
+                className="text-muted-foreground hover:text-foreground transition-colors"
+                onClick={handleCopyMissing}
+                aria-label={copied ? t('common.reportCopied') : t('common.copyReportInfo')}
+                title={copied ? t('common.reportCopied') : t('common.copyReportInfo')}
+              >
+                {copied ? <Check className="size-3.5 text-emerald-500" /> : <Copy className="size-3.5" />}
+              </Button>
+              {issueUrl && (
+                <a
+                  href={issueUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex size-6 items-center justify-center rounded-md text-muted-foreground hover:text-foreground transition-colors"
+                  aria-label={t('common.reportToGithub')}
+                  title={t('common.reportToGithub')}
+                >
+                  <ExternalLink className="size-3.5" />
+                </a>
+              )}
+            </>
+          )}
           {isConflict && (
             <Button
               variant="link"

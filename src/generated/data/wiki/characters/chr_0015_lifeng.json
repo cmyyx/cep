@@ -5730,7 +5730,9 @@
     }
   ],
   "images": {
-    "defaultAvatarId": "chr_0015_lifeng",
+    "avatarIds": {
+      "default": "chr_0015_lifeng"
+    },
     "fullBodyIds": {
       "default": "chr_0015_lifeng"
     }

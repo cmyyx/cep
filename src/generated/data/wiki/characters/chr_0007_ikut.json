@@ -5700,7 +5700,9 @@
     }
   ],
   "images": {
-    "defaultAvatarId": "chr_0007_ikut",
+    "avatarIds": {
+      "default": "chr_0007_ikut"
+    },
     "fullBodyIds": {
       "default": "chr_0007_ikut"
     }

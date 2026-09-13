@@ -795,7 +795,7 @@ export function buildCharacterWikiData(source: CharacterWikiSource): CharacterWi
       category: 'characters',
       name: localize(item?.name ?? character.name, source.textTables),
       rarity: numberValue(character.rarity ?? item?.rarity),
-      imageId: id,
+      imageId: id === ADMINISTRATOR_ID ? `${ADMINISTRATOR_ID}-female` : id,
       elementId: character.charTypeId ?? '',
       professionId: String(character.profession ?? ''),
       factionId: character.department ?? '',
@@ -807,16 +807,23 @@ export function buildCharacterWikiData(source: CharacterWikiSource): CharacterWi
     summaries.push(summary)
 
     const growth = source.characterGrowthTable[id]
-    const images = id === ADMINISTRATOR_ID
+    const images: WikiCharacterDetail['images'] = id === ADMINISTRATOR_ID
       ? {
-          defaultAvatarId: ADMINISTRATOR_ID,
+          avatarIds: {
+            default: `${ADMINISTRATOR_ID}-female`,
+            female: `${ADMINISTRATOR_ID}-female`,
+            male: `${ADMINISTRATOR_ID}-male`,
+          },
           fullBodyIds: {
             default: `${ADMINISTRATOR_ID}-female`,
             female: `${ADMINISTRATOR_ID}-female`,
             male: `${ADMINISTRATOR_ID}-male`,
           },
         }
-      : { defaultAvatarId: id, fullBodyIds: { default: id } }
+      : {
+          avatarIds: { default: id },
+          fullBodyIds: { default: id },
+        }
     const detail: WikiCharacterDetail = {
       id,
       category: 'characters',

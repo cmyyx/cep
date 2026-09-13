@@ -5562,7 +5562,9 @@
     }
   ],
   "images": {
-    "defaultAvatarId": "chr_0019_karin",
+    "avatarIds": {
+      "default": "chr_0019_karin"
+    },
     "fullBodyIds": {
       "default": "chr_0019_karin"
     }

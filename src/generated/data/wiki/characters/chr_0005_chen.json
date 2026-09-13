@@ -5625,7 +5625,9 @@
     }
   ],
   "images": {
-    "defaultAvatarId": "chr_0005_chen",
+    "avatarIds": {
+      "default": "chr_0005_chen"
+    },
     "fullBodyIds": {
       "default": "chr_0005_chen"
     }

@@ -5670,7 +5670,9 @@
     }
   ],
   "images": {
-    "defaultAvatarId": "chr_0022_bounda",
+    "avatarIds": {
+      "default": "chr_0022_bounda"
+    },
     "fullBodyIds": {
       "default": "chr_0022_bounda"
     }

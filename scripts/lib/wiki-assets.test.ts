@@ -54,7 +54,7 @@ it('collects every image referenced by Wiki summaries and details', () => {
             { language: 'ko', original: '한국어', localized: name },
           ],
           images: {
-            defaultAvatarId: 'chr_test',
+            avatarIds: { default: 'chr_test', female: 'chr_test-female', male: 'chr_test-male' },
             fullBodyIds: { default: 'chr_test', female: 'chr_test-female', male: 'chr_test-male' },
           },
         },
@@ -107,7 +107,7 @@ it('collects every image referenced by Wiki summaries and details', () => {
   })
 
   expect(assets).toEqual({
-    characters: ['chr_test'],
+    characters: ['chr_test', 'chr_test-female', 'chr_test-male'],
     characterFullBody: ['chr_test', 'chr_test-female', 'chr_test-male'],
     characterPotential: ['potential_image'],
     weapons: ['weapon_icon'],

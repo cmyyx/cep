@@ -5667,7 +5667,9 @@
     }
   ],
   "images": {
-    "defaultAvatarId": "chr_0011_seraph",
+    "avatarIds": {
+      "default": "chr_0011_seraph"
+    },
     "fullBodyIds": {
       "default": "chr_0011_seraph"
     }

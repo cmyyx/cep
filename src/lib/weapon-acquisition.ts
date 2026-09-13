@@ -55,8 +55,11 @@ export function acquisitionCategoryLabelText(
   wikiText: (namespace: string, key: string) => string,
   t: IntlTranslator,
 ): string {
+  const fallbackKey = `essenceSettings.acquisitionCategory.${categoryId}`
+  if (typeof t.has === 'function' && t.has(fallbackKey)) {
+    return t(fallbackKey)
+  }
   const translated = wikiText('acquisitionCategory', categoryId)
   if (translated !== categoryId) return translated
-  const fallbackKey = `essenceSettings.acquisitionCategory.${categoryId}`
-  return t.has(fallbackKey) ? t(fallbackKey) : categoryId
+  return categoryId
 }

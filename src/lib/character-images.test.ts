@@ -6,11 +6,20 @@ describe('getCharacterAvatarPath', () => {
     expect(getCharacterAvatarPath('佩丽卡')).toBe('/images/characters/chr_0004_pelica.avif')
   })
 
-  it.each(['管理员', '管理员(男)', '管理员 (女)'])(
-    'uses the canonical administrator avatar for %s',
+  it.each(['管理员', '管理员(女)', '管理员 (女)'])(
+    'uses the female administrator avatar as default for %s',
     (name) => {
       expect(getCharacterAvatarPath(name)).toBe(
-        '/images/characters/chr_9000_endmin.avif'
+        '/images/characters/chr_9000_endmin-female.avif'
+      )
+    }
+  )
+
+  it.each(['管理员(男)', '管理员 (男)'])(
+    'uses the male administrator avatar for %s',
+    (name) => {
+      expect(getCharacterAvatarPath(name)).toBe(
+        '/images/characters/chr_9000_endmin-male.avif'
       )
     }
   )
