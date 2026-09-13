@@ -5655,7 +5655,9 @@
     }
   ],
   "images": {
-    "defaultAvatarId": "chr_0031_mifu",
+    "avatarIds": {
+      "default": "chr_0031_mifu"
+    },
     "fullBodyIds": {
       "default": "chr_0031_mifu"
     }

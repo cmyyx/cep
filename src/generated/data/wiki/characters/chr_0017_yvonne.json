@@ -5805,7 +5805,9 @@
     }
   ],
   "images": {
-    "defaultAvatarId": "chr_0017_yvonne",
+    "avatarIds": {
+      "default": "chr_0017_yvonne"
+    },
     "fullBodyIds": {
       "default": "chr_0017_yvonne"
     }

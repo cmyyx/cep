@@ -5642,7 +5642,9 @@
     }
   ],
   "images": {
-    "defaultAvatarId": "chr_0025_ardelia",
+    "avatarIds": {
+      "default": "chr_0025_ardelia"
+    },
     "fullBodyIds": {
       "default": "chr_0025_ardelia"
     }

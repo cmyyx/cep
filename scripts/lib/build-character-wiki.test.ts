@@ -358,9 +358,13 @@ it('normalizes the administrator and removes deprecated prototypes', () => {
 
   expect(result.summaries.map((character) => character.id)).toEqual(['chr_9000_endmin'])
   expect(result.summaries[0]?.name?.en).toBe('Endministrator')
-  expect(result.summaries[0].imageId).toBe('chr_9000_endmin')
+  expect(result.summaries[0].imageId).toBe('chr_9000_endmin-female')
   expect(result.details.chr_9000_endmin.images).toEqual({
-    defaultAvatarId: 'chr_9000_endmin',
+    avatarIds: {
+      default: 'chr_9000_endmin-female',
+      female: 'chr_9000_endmin-female',
+      male: 'chr_9000_endmin-male',
+    },
     fullBodyIds: {
       default: 'chr_9000_endmin-female',
       female: 'chr_9000_endmin-female',

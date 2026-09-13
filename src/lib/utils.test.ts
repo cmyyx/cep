@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { cn, formatTime, stripMaterialQuantity } from './utils'
+import { cn, formatTime, resolveOptionalUrl, stripMaterialQuantity } from './utils'
 
 describe('cn', () => {
   it('merges class strings', () => {
@@ -66,5 +66,28 @@ describe('stripMaterialQuantity', () => {
 
   it('trims leading/trailing whitespace', () => {
     expect(stripMaterialQuantity('  协议圆盘  ')).toBe('协议圆盘')
+  })
+})
+
+describe('resolveOptionalUrl', () => {
+  it('returns normalized URL when given valid URL', () => {
+    expect(resolveOptionalUrl('https://forum.example.com')).toBe('https://forum.example.com')
+    expect(resolveOptionalUrl('  https://forum.example.com  ')).toBe('https://forum.example.com')
+  })
+
+  it('returns undefined for empty or undefined input', () => {
+    expect(resolveOptionalUrl(undefined)).toBeUndefined()
+    expect(resolveOptionalUrl('')).toBeUndefined()
+    expect(resolveOptionalUrl('   ')).toBeUndefined()
+  })
+
+  it('returns undefined for disabling sentinels in any case', () => {
+    expect(resolveOptionalUrl('disabled')).toBeUndefined()
+    expect(resolveOptionalUrl('DISABLED')).toBeUndefined()
+    expect(resolveOptionalUrl('false')).toBeUndefined()
+    expect(resolveOptionalUrl('FALSE')).toBeUndefined()
+    expect(resolveOptionalUrl('off')).toBeUndefined()
+    expect(resolveOptionalUrl('none')).toBeUndefined()
+    expect(resolveOptionalUrl('0')).toBeUndefined()
   })
 })

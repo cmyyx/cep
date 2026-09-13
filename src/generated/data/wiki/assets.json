@@ -30,7 +30,8 @@
     "chr_0033_camille",
     "chr_0034_typhoea",
     "chr_0035_liino",
-    "chr_9000_endmin"
+    "chr_9000_endmin-female",
+    "chr_9000_endmin-male"
   ],
   "characterFullBody": [
     "chr_0004_pelica",

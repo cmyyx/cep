@@ -208,13 +208,15 @@ export interface WikiCharacterPromotion {
   materials: WikiMaterial[]
 }
 
+export interface WikiImageVariants {
+  default: string
+  female?: string
+  male?: string
+}
+
 export interface WikiCharacterImageVariants {
-  defaultAvatarId: string
-  fullBodyIds: {
-    female?: string
-    male?: string
-    default?: string
-  }
+  avatarIds: WikiImageVariants
+  fullBodyIds: WikiImageVariants
 }
 
 export interface WikiCharacterDetail {

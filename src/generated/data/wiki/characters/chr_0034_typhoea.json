@@ -5735,7 +5735,9 @@
     }
   ],
   "images": {
-    "defaultAvatarId": "chr_0034_typhoea",
+    "avatarIds": {
+      "default": "chr_0034_typhoea"
+    },
     "fullBodyIds": {
       "default": "chr_0034_typhoea"
     }

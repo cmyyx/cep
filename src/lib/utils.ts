@@ -22,11 +22,13 @@ export function formatTime(iso: string): string {
   return `${get('year')}-${get('month')}-${get('day')} ${get('hour')}:${get('minute')}`
 }
 
-/** Treat "disabled" sentinel as unset for optional URL env vars. Used by features.ts and dev-api.ts. */
+const DISABLED_SENTINELS = new Set(['disabled', 'false', 'off', 'none', '0'])
+
+/** Treat "disabled", "false", "off", "none", "0" sentinels as unset for optional URL env vars. Used by features.ts and dev-api.ts. */
 export function resolveOptionalUrl(val: string | undefined): string | undefined {
   if (!val) return undefined
   const normalized = val.trim()
-  if (normalized === '' || normalized.toLowerCase() === 'disabled') return undefined
+  if (normalized === '' || DISABLED_SENTINELS.has(normalized.toLowerCase())) return undefined
   return normalized
 }
 
