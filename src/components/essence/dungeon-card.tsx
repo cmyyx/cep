@@ -153,7 +153,7 @@ const WeaponThumbnail = memo(function WeaponThumbnail({
             { label: weaponStatLabel(weapon.elementalDamage, t), ...preview.values[1] },
             { label: weaponStatLabel(weapon.specialAbility, t), ...preview.values[2], truncate: true },
           ].filter((_, index) => [weapon.primaryStat, weapon.elementalDamage, weapon.specialAbility][index] !== null)}
-          footer={<p className="text-xs text-muted-foreground">{t('essence.acquisitionSourceLabel')}: {[...new Set((weapon.acquisitionSources ?? []).map((source) => source.categoryId))].map(acquisitionCategoryLabel).join('、') || acquisitionCategoryLabel('unknown')}</p>}
+          footer={<p className="text-xs text-muted-foreground">{t('essence.acquisitionSourceLabel')}: {[...new Set((weapon.acquisitionSources ?? []).map((source) => source.categoryId))].map(acquisitionCategoryLabel).join('、') || t('essenceSettings.acquisitionCategory.unknown')}</p>}
           wikiHref={preview.wikiHref}
         />
       </TooltipContent>

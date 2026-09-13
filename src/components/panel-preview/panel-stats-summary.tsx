@@ -115,7 +115,7 @@ export function PanelStatsSummary() {
                   key={key}
                   className="flex min-w-0 flex-col items-center rounded-lg bg-preview-pink/7 px-1 py-2.5 text-center shadow-[0_0_0_1px_color-mix(in_oklab,var(--color-preview-pink)_12%,transparent)] sm:px-1.5 sm:py-3"
                 >
-                  <span className="flex size-8 items-center justify-center rounded-md bg-foreground sm:size-9">
+                  <span className="flex size-8 items-center justify-center rounded-md bg-[#171717] shadow-[var(--shadow-border)] sm:size-9">
                     <Image src={withImageCacheVersion(icon)} alt="" width={68} height={68} className="size-6 object-contain sm:size-7" />
                   </span>
                   <p className="mt-1.5 max-w-full truncate text-[11px] text-muted-foreground sm:mt-2 sm:text-xs">{label}</p>
@@ -132,7 +132,7 @@ export function PanelStatsSummary() {
                   key={key}
                   className="flex min-w-0 flex-col items-center rounded-lg bg-muted/35 px-1.5 py-2.5 text-center shadow-[var(--shadow-border)] sm:px-2 sm:py-3"
                 >
-                  <span className="flex size-8 items-center justify-center rounded-md bg-foreground sm:size-9">
+                  <span className="flex size-8 items-center justify-center rounded-md bg-[#171717] shadow-[var(--shadow-border)] sm:size-9">
                     <Image src={withImageCacheVersion(icon)} alt="" width={68} height={68} className="size-6 object-contain sm:size-7" />
                   </span>
                   <p className="mt-1.5 max-w-full truncate text-[11px] text-muted-foreground sm:mt-2 sm:text-xs">{label}</p>

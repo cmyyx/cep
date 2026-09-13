@@ -5925,7 +5925,9 @@
     }
   ],
   "images": {
-    "defaultAvatarId": "chr_0029_pograni",
+    "avatarIds": {
+      "default": "chr_0029_pograni"
+    },
     "fullBodyIds": {
       "default": "chr_0029_pograni"
     }

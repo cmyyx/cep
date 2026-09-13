@@ -76,7 +76,7 @@ export const WeaponCard = memo(function WeaponCard({
   const acquisitionCategories = acquisitionCategoryIds(weapon.acquisitionSources)
   const acquisitionLabel = acquisitionCategories.length > 0
     ? acquisitionCategories.map((categoryId) => acquisitionCategoryLabel(categoryId)).join('、')
-    : acquisitionCategoryLabel('unknown')
+    : t('essenceSettings.acquisitionCategory.unknown')
 
   const trigger = (
     <Button

@@ -18,15 +18,23 @@ const CHARACTER_ID_BY_NAME = new Map(
     .map(([id, name]) => [name, id])
 )
 
-function isAdministratorName(name: string): boolean {
-  return /^管理员(?:\s*[（(][男女][)）])?$/.test(name.trim())
+function resolveAdministratorAssetId(name: string): string | null {
+  if (/^管理员\s*[（(]男[)）]$/.test(name)) {
+    return `${ADMINISTRATOR_ID}-male`
+  }
+  if (/^管理员(?:\s*[（(]女[)）])?$/.test(name)) {
+    return `${ADMINISTRATOR_ID}-female`
+  }
+  return null
 }
 
 export function getCharacterAvatarPath(name: string): string | null {
   const normalized = name.trim()
-  const assetId = isAdministratorName(normalized)
-    ? ADMINISTRATOR_ID
-    : CHARACTER_ID_BY_NAME.get(normalized) ?? PREVIEW_AVATAR_BY_NAME[normalized] ?? null
+  const assetId =
+    resolveAdministratorAssetId(normalized) ??
+    CHARACTER_ID_BY_NAME.get(normalized) ??
+    PREVIEW_AVATAR_BY_NAME[normalized] ??
+    null
 
   return assetId ? `/images/characters/${assetId}.avif` : null
 }

@@ -5685,7 +5685,9 @@
     }
   ],
   "images": {
-    "defaultAvatarId": "chr_0012_avywen",
+    "avatarIds": {
+      "default": "chr_0012_avywen"
+    },
     "fullBodyIds": {
       "default": "chr_0012_avywen"
     }

@@ -5715,7 +5715,9 @@
     }
   ],
   "images": {
-    "defaultAvatarId": "chr_0026_lastrite",
+    "avatarIds": {
+      "default": "chr_0026_lastrite"
+    },
     "fullBodyIds": {
       "default": "chr_0026_lastrite"
     }

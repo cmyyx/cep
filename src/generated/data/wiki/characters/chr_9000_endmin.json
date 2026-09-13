@@ -5537,7 +5537,11 @@
     }
   ],
   "images": {
-    "defaultAvatarId": "chr_9000_endmin",
+    "avatarIds": {
+      "default": "chr_9000_endmin-female",
+      "female": "chr_9000_endmin-female",
+      "male": "chr_9000_endmin-male"
+    },
     "fullBodyIds": {
       "default": "chr_9000_endmin-female",
       "female": "chr_9000_endmin-female",

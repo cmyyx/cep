@@ -35,7 +35,6 @@ import { UpdateChangelogNotice } from '@/components/shared/update-changelog-noti
 import { DEFAULT_SITE_URL } from '@/lib/constants'
 import { IS_DEV_BUILD } from '@/lib/build-flags'
 import { GameI18nCatalogPreloader } from '@/components/shared/game-i18n-catalog-preloader'
-import { MissingTranslationNotifier } from '@/components/shared/missing-translation-notifier'
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }))
@@ -100,7 +99,6 @@ export default async function LocaleLayout({
             <AnnouncementLoader />
             <SyncManager />
             <UpdateChangelogNotice />
-            <MissingTranslationNotifier />
             <LegacyMigrationDialog />
             <Background />
             <AppSidebar />

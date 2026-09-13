@@ -230,7 +230,7 @@ export async function CharacterDetailContent({
         <WikiDetailHero
           name={name}
           rarity={rarity}
-          imagePath={`/images/characters/full/${fullBodyIds.default ?? imageIds.defaultAvatarId}.avif`}
+          imagePath={`/images/characters/full/${fullBodyIds.default}.avif`}
           imageClassName="object-contain object-bottom"
           meta={meta}
         />

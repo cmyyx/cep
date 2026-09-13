@@ -5745,7 +5745,9 @@
     }
   ],
   "images": {
-    "defaultAvatarId": "chr_0030_zhuangfy",
+    "avatarIds": {
+      "default": "chr_0030_zhuangfy"
+    },
     "fullBodyIds": {
       "default": "chr_0030_zhuangfy"
     }

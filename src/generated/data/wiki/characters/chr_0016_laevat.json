@@ -5855,7 +5855,9 @@
     }
   ],
   "images": {
-    "defaultAvatarId": "chr_0016_laevat",
+    "avatarIds": {
+      "default": "chr_0016_laevat"
+    },
     "fullBodyIds": {
       "default": "chr_0016_laevat"
     }

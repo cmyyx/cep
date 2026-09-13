@@ -5655,7 +5655,9 @@
     }
   ],
   "images": {
-    "defaultAvatarId": "chr_0009_azrila",
+    "avatarIds": {
+      "default": "chr_0009_azrila"
+    },
     "fullBodyIds": {
       "default": "chr_0009_azrila"
     }

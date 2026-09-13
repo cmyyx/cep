@@ -5895,7 +5895,9 @@
     }
   ],
   "images": {
-    "defaultAvatarId": "chr_0035_liino",
+    "avatarIds": {
+      "default": "chr_0035_liino"
+    },
     "fullBodyIds": {
       "default": "chr_0035_liino"
     }

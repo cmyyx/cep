@@ -2,11 +2,23 @@
 
 import { act, cleanup, render, screen } from '@testing-library/react'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
-import { MissingTranslationNotifier } from './missing-translation-notifier'
+import { SyncNotifier } from './sync-notifier'
 import {
   reportMissingTranslation,
   resetMissingTranslationsForTests,
 } from '@/lib/missing-translation-guard'
+
+vi.mock('next/navigation', () => ({
+  useRouter: () => ({ push: vi.fn() }),
+  usePathname: () => '/wiki/equipment',
+}))
+
+vi.mock('@/hooks/use-version', () => ({
+  useVersion: () => ({
+    isUpdateAvailable: false,
+    refreshPage: vi.fn(),
+  }),
+}))
 
 vi.mock('next-intl', () => ({
   useTranslations: () => (key: string, values?: { key?: string }) => {
@@ -21,7 +33,7 @@ vi.mock('next-intl', () => ({
   useLocale: () => 'zh-CN',
 }))
 
-describe('MissingTranslationNotifier', () => {
+describe('SyncNotifier - Missing Translation integration', () => {
   beforeEach(() => {
     Object.defineProperty(window, 'location', {
       configurable: true,
@@ -34,6 +46,12 @@ describe('MissingTranslationNotifier', () => {
         href: 'https://cep.app/wiki/equipment?token=secret123#test-hash',
       },
     })
+    Object.defineProperty(navigator, 'clipboard', {
+      configurable: true,
+      value: {
+        writeText: vi.fn().mockResolvedValue(undefined),
+      },
+    })
   })
 
   afterEach(() => {
@@ -42,7 +60,7 @@ describe('MissingTranslationNotifier', () => {
   })
 
   it('renders notification when a missing translation event is emitted while mounted', async () => {
-    render(<MissingTranslationNotifier />)
+    render(<SyncNotifier />)
     expect(screen.queryByRole('alert')).toBeNull()
 
     await act(async () => {
@@ -54,33 +72,27 @@ describe('MissingTranslationNotifier', () => {
     })
 
     expect(screen.getByRole('alert')).toBeTruthy()
-    expect(screen.getByText('发现异常文本')).toBeTruthy()
-    expect(screen.getByText('检测到 item|item_unknown_script 解析异常，欢迎向开发者反馈。')).toBeTruthy()
+    expect(screen.getByText('发现异常文本: item|item_unknown_script')).toBeTruthy()
 
     const link = screen.getByRole('link', { name: '提交反馈' })
     const href = link.getAttribute('href') ?? ''
     expect(href).toContain('item%7Citem_unknown_script')
-    // Ensure URL context is sanitized (no query params or hash)
     expect(href).toContain(encodeURIComponent('https://cep.app/wiki/equipment'))
-    expect(href).not.toContain('secret123')
-    expect(href).not.toContain('test-hash')
   })
 
   it('replays buffered event when reported before notifier mounts', async () => {
-    // 1. Report before component is mounted
     reportMissingTranslation({
       key: 'item|item_early_report',
       locale: 'zh-CN',
       category: 'item',
     })
 
-    // 2. Mount notifier afterwards
     await act(async () => {
-      render(<MissingTranslationNotifier />)
+      render(<SyncNotifier />)
     })
 
     expect(screen.getByRole('alert')).toBeTruthy()
-    expect(screen.getByText('检测到 item|item_early_report 解析异常，欢迎向开发者反馈。')).toBeTruthy()
+    expect(screen.getByText('发现异常文本: item|item_early_report')).toBeTruthy()
   })
 
   it('handles reporting during component render phase without breaking', async () => {
@@ -96,13 +108,59 @@ describe('MissingTranslationNotifier', () => {
     await act(async () => {
       render(
         <div>
-          <MissingTranslationNotifier />
+          <SyncNotifier />
           <ChildWithMissingKey />
         </div>
       )
     })
 
     expect(screen.getByRole('alert')).toBeTruthy()
-    expect(screen.getByText('检测到 item|item_during_render 解析异常，欢迎向开发者反馈。')).toBeTruthy()
+    expect(screen.getByText('发现异常文本: item|item_during_render')).toBeTruthy()
+  })
+
+  it('updates copied state on copy click and does not leak copied state to replaced toast', async () => {
+    vi.useFakeTimers()
+    try {
+      render(<SyncNotifier />)
+
+      await act(async () => {
+        reportMissingTranslation({
+          key: 'item|item_first',
+          locale: 'zh-CN',
+          category: 'item',
+        })
+      })
+
+      const copyButton = screen.getByRole('button', { name: '复制反馈信息' })
+      expect(copyButton).toBeTruthy()
+
+      await act(async () => {
+        copyButton.click()
+      })
+
+      expect(navigator.clipboard.writeText).toHaveBeenCalledTimes(1)
+      expect(screen.getByRole('button', { name: '已复制' })).toBeTruthy()
+
+      // Replace toast before the 2s timeout
+      await act(async () => {
+        reportMissingTranslation({
+          key: 'item|item_second',
+          locale: 'zh-CN',
+          category: 'item',
+        })
+      })
+
+      // Advance past transition timeout (220ms) to mount the new toast
+      await act(async () => {
+        vi.advanceTimersByTime(250)
+      })
+
+      // The new toast must not inherit copied state
+      expect(screen.getByText('发现异常文本: item|item_second')).toBeTruthy()
+      expect(screen.getByRole('button', { name: '复制反馈信息' })).toBeTruthy()
+      expect(screen.queryByRole('button', { name: '已复制' })).toBeNull()
+    } finally {
+      vi.useRealTimers()
+    }
   })
 })

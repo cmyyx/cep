@@ -5625,7 +5625,9 @@
     }
   ],
   "images": {
-    "defaultAvatarId": "chr_0021_whiten",
+    "avatarIds": {
+      "default": "chr_0021_whiten"
+    },
     "fullBodyIds": {
       "default": "chr_0021_whiten"
     }

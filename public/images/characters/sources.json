@@ -149,10 +149,15 @@
     "url": "https://bbs.hycdn.cn/image/common/20260809/4826366/6a77c4b6a87c0071fa15da57_3eac6ad0.png",
     "hash": "c12c15aaa034959dd93685fe888f6a02a52e5a2a7018ca8ac21db30b592b4e5e"
   },
-  "avatar/chr_9000_endmin": {
+  "avatar/chr_9000_endmin-female": {
     "source": "skland",
     "url": "https://bbs.hycdn.cn/image/2026/01/12/2641152/837428a7e2fdc13972d45599675f53a4.png",
     "hash": "57f0b3fd1bf6ea072ae6a39e29265ab494e83ced1e4b209b48589c2377b74ec0"
+  },
+  "avatar/chr_9000_endmin-male": {
+    "source": "skland",
+    "url": "https://bbs.hycdn.cn/image/2026/01/12/2641152/40da4202dc8dd5d4a943077b195f5f25.png",
+    "hash": "2dbe86ab5065204bf4b4c95f9872ed732bddca7cfd0a229d21d5ab7ef5636728"
   },
   "avatar/preview-2117": {
     "source": "skland",

@@ -5578,7 +5578,9 @@
     }
   ],
   "images": {
-    "defaultAvatarId": "chr_0004_pelica",
+    "avatarIds": {
+      "default": "chr_0004_pelica"
+    },
     "fullBodyIds": {
       "default": "chr_0004_pelica"
     }

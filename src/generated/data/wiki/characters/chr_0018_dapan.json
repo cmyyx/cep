@@ -5610,7 +5610,9 @@
     }
   ],
   "images": {
-    "defaultAvatarId": "chr_0018_dapan",
+    "avatarIds": {
+      "default": "chr_0018_dapan"
+    },
     "fullBodyIds": {
       "default": "chr_0018_dapan"
     }

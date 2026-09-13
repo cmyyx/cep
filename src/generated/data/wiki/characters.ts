@@ -7,7 +7,7 @@ export const wikiCharacters = [
     "id": "chr_9000_endmin",
     "category": "characters",
     "rarity": 6,
-    "imageId": "chr_9000_endmin",
+    "imageId": "chr_9000_endmin-female",
     "elementId": "Physical",
     "professionId": "0",
     "factionId": "ENDFIELD INDUSTRIES",

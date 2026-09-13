@@ -5625,7 +5625,9 @@
     }
   ],
   "images": {
-    "defaultAvatarId": "chr_0023_antal",
+    "avatarIds": {
+      "default": "chr_0023_antal"
+    },
     "fullBodyIds": {
       "default": "chr_0023_antal"
     }

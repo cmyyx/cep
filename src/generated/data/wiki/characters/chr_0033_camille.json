@@ -5745,7 +5745,9 @@
     }
   ],
   "images": {
-    "defaultAvatarId": "chr_0033_camille",
+    "avatarIds": {
+      "default": "chr_0033_camille"
+    },
     "fullBodyIds": {
       "default": "chr_0033_camille"
     }

@@ -51,13 +51,14 @@ describe('Skland character image metadata', () => {
         itemId: '89',
         name: '管理员 (男)',
         avatarUrl: 'male-avatar',
+        avatarId: 'chr_9000_endmin-male',
         fullBodyId: 'chr_9000_endmin-male',
       },
       {
         itemId: '156',
         name: '管理员 (女)',
         avatarUrl: 'female-avatar',
-        avatarId: 'chr_9000_endmin',
+        avatarId: 'chr_9000_endmin-female',
         fullBodyId: 'chr_9000_endmin-female',
       },
       {
