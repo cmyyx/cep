@@ -80,9 +80,9 @@ NEXT_PUBLIC_ALLOWED_EMBED_DOMAINS=nodebb.example.com,forum.example.com
 
 ### `NEXT_PUBLIC_FORUM_URL`
 
-社区论坛地址（如 NodeBB），用于在侧边栏内嵌显示。未配置或设为 `disabled` 时侧边栏不显示社区入口。
+社区论坛地址（如 NodeBB），用于在侧边栏内嵌显示。未配置或设为关闭标识值（如 `disabled`、`false`、`off`、`none`、`0`）时侧边栏不显示社区入口。
 
-> **哨兵值 `disabled`**：同 `NEXT_PUBLIC_API_BASE_URL`，在禁止空值的云平台上填入 `disabled` 即可关闭。
+> **关闭变量值**：支持 `disabled`、`false`、`off`、`none`、`0`（忽略大小写），便于在禁止空值或统一布尔风格的平台/环境上关闭该功能。
 
 论坛服务端需允许被 CEP 域名嵌入（配置 `X-Frame-Options: ALLOW-FROM` 或 `Content-Security-Policy: frame-ancestors`）。
 
@@ -90,8 +90,9 @@ NEXT_PUBLIC_ALLOWED_EMBED_DOMAINS=nodebb.example.com,forum.example.com
 # 开启
 NEXT_PUBLIC_FORUM_URL=https://forum.302200.xyz
 
-# 关闭
+# 关闭（以下任选其一）
 NEXT_PUBLIC_FORUM_URL=disabled
+NEXT_PUBLIC_FORUM_URL=false
 ```
 
 ### `NEXT_PUBLIC_OAUTH_CLIENT_NAMES`
