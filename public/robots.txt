@@ -1,0 +1,4 @@
+User-Agent: *
+Allow: /
+
+Sitemap: https://end.canmoe.com/sitemap.xml
