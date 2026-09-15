@@ -11,6 +11,9 @@ export interface AdItem {
   targetUrl: string | null
 }
 
+/** 广告素材槽位：一条广告可有桌面端与移动端两块素材，展示上报要说明是哪一块。 */
+export type AdSlotName = 'desktop' | 'mobile'
+
 /** Response shape of GET /api/v1/creatives.json on the ops service. */
 export interface AdFeed {
   serverTime: string

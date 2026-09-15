@@ -11,6 +11,7 @@ vi.mock('@/hooks/use-ad-polling', () => ({ useAdPolling: () => {} }))
 
 import { AdSlot } from './ad-slot'
 import { resetAdStoreForTests, useAdStore } from '@/stores/useAdStore'
+import { resetAdSessionForTests } from '@/lib/ads'
 import type { AdItem } from '@/types/ad'
 
 const AD: AdItem = {
@@ -24,6 +25,7 @@ const AD: AdItem = {
 const sendBeacon = vi.fn()
 beforeEach(() => {
   resetAdStoreForTests()
+  resetAdSessionForTests()
   sendBeacon.mockReset()
   Object.defineProperty(window.navigator, 'sendBeacon', {
     value: sendBeacon,
@@ -81,4 +83,29 @@ it('renders nothing on the variant whose creative is missing', () => {
   cleanup()
   const desktop = render(<AdSlot variant="desktop" />)
   expect(desktop.container.querySelector('img')?.getAttribute('src')).toBe(AD.desktopImageUrl)
+})
+
+it('reports one impression per mount once the creative loads', () => {
+  useAdStore.setState({ currentAd: AD })
+  const { container } = render(<AdSlot variant="desktop" />)
+  const img = container.querySelector('img')
+  expect(img).not.toBeNull()
+  // 未加载完成不上报
+  expect(sendBeacon).not.toHaveBeenCalled()
+  fireEvent.load(img!)
+  expect(sendBeacon).toHaveBeenCalledTimes(1)
+  expect(sendBeacon.mock.calls[0][0]).toContain('/api/v1/creatives/7/impression?')
+  expect(sendBeacon.mock.calls[0][0]).toContain('slot=desktop')
+  // 同一挂载周期内的重复 load 不会重复上报
+  fireEvent.load(img!)
+  expect(sendBeacon).toHaveBeenCalledTimes(1)
+})
+
+it('reports the impression for the mobile slot when that creative loads', () => {
+  useAdStore.setState({ currentAd: { ...AD, targetUrl: null } })
+  const { container } = render(<AdSlot variant="mobile" />)
+  fireEvent.load(container.querySelector('img')!)
+  expect(sendBeacon).toHaveBeenCalledTimes(1)
+  expect(sendBeacon.mock.calls[0][0]).toContain('/api/v1/creatives/7/impression?')
+  expect(sendBeacon.mock.calls[0][0]).toContain('slot=mobile')
 })

@@ -1,5 +1,5 @@
 import { OPS_SERVICE_ORIGIN } from '@/lib/constants'
-import type { AdFeed, AdItem } from '@/types/ad'
+import type { AdFeed, AdItem, AdSlotName } from '@/types/ad'
 
 /** 广告位公共端点（运营服务）。 */
 export const ADS_ENDPOINT = `${OPS_SERVICE_ORIGIN}/api/v1/creatives.json`
@@ -73,4 +73,66 @@ export async function fetchAdFeed(signal?: AbortSignal): Promise<AdFeed | null> 
 export function buildAdClickBeaconUrl(adId: number, path: string, locale: string): string {
   const params = new URLSearchParams({ path, locale })
   return `${OPS_SERVICE_ORIGIN}/api/v1/creatives/${adId}/click?${params.toString()}`
+}
+
+/** 会话 id 在 sessionStorage 中的键。 */
+const AD_SESSION_STORAGE_KEY = 'cep-ad-session'
+
+const UUID_PATTERN = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i
+
+/** 进程内回退：sessionStorage 不可用（无痕 / 隐私设置）时的会话 id。 */
+let memorySessionId: string | null = null
+
+function createSessionId(): string {
+  // crypto.randomUUID 只在安全上下文存在（线上是 https，localhost 也算安全上下文）。
+  // 没有它就返回空串：服务端照常记录这次展示，只是不计入“独立访客”。
+  if (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function') {
+    return crypto.randomUUID()
+  }
+  return ''
+}
+
+/**
+ * 返回本标签页的广告会话 id（sessionStorage 中的随机 UUID），关闭标签页即失效。
+ *
+ * 它只为“独立访客”服务：运营商的 CGNAT 会把很多访客压进同一个 IP，手机的动态地址
+ * 又会把同一个访客拆成很多个，会话 id 让去重不再依赖网络地址。它不做跨会话持久化，
+ * 因此不是长期标识符。sessionStorage 读写全部兜底：Safari 无痕模式写入会抛异常，
+ * 统计绝不能因此影响渲染。
+ */
+export function getAdSessionId(): string {
+  if (memorySessionId !== null) return memorySessionId
+  try {
+    const stored = window.sessionStorage.getItem(AD_SESSION_STORAGE_KEY)
+    if (stored !== null && UUID_PATTERN.test(stored)) {
+      memorySessionId = stored
+      return stored
+    }
+  } catch {
+    // 存储被禁用：走下面的内存回退
+  }
+  const created = createSessionId()
+  memorySessionId = created
+  try {
+    window.sessionStorage.setItem(AD_SESSION_STORAGE_KEY, created)
+  } catch {
+    // 写不进去就用内存值，功能不受影响
+  }
+  return created
+}
+
+/**
+ * 构建展示上报的 beacon URL（POST，无请求体，slot / sid / path / locale 走 query）。
+ * 与点击 beacon 同构：简单请求，不触发 CORS 预检；服务端永远回 204。
+ */
+export function buildAdImpressionBeaconUrl(adId: number, slot: AdSlotName, path: string, locale: string): string {
+  const params = new URLSearchParams({ slot, path, locale })
+  const sessionId = getAdSessionId()
+  if (sessionId !== '') params.set('sid', sessionId)
+  return `${OPS_SERVICE_ORIGIN}/api/v1/creatives/${adId}/impression?${params.toString()}`
+}
+
+/** 测试助手 —— 重置进程内的会话 id 回退值。 */
+export function resetAdSessionForTests(): void {
+  memorySessionId = null
 }

@@ -1,5 +1,14 @@
-import { describe, expect, it } from 'vitest'
-import { parseAdFeed, buildAdClickBeaconUrl, ADS_ENDPOINT } from './ads'
+// @vitest-environment jsdom
+
+import { afterEach, describe, expect, it, vi } from 'vitest'
+import {
+  parseAdFeed,
+  buildAdClickBeaconUrl,
+  buildAdImpressionBeaconUrl,
+  getAdSessionId,
+  resetAdSessionForTests,
+  ADS_ENDPOINT,
+} from './ads'
 
 describe('parseAdFeed', () => {
   const validAd = {
@@ -91,5 +100,55 @@ describe('parseAdFeed', () => {
     expect(buildAdClickBeaconUrl(7, '/zh-CN/essence-planner', 'zh-CN')).toBe(
       'https://end-ops.canmoe.com/api/v1/creatives/7/click?path=%2Fzh-CN%2Fessence-planner&locale=zh-CN'
     )
+  })
+})
+
+describe('ad session id and impression beacon', () => {
+  const SESSION = '0f9a6c1e-3d2b-4f5a-8c7d-6e5f4a3b2c1d'
+
+  afterEach(() => {
+    vi.unstubAllGlobals()
+    window.sessionStorage.clear()
+    resetAdSessionForTests()
+  })
+
+  it('keeps one id per tab in sessionStorage and sends it with the impression beacon', () => {
+    vi.stubGlobal('crypto', { randomUUID: () => SESSION })
+    resetAdSessionForTests()
+
+    expect(getAdSessionId()).toBe(SESSION)
+    expect(getAdSessionId()).toBe(SESSION) // 同一标签页内稳定
+    expect(window.sessionStorage.getItem('cep-ad-session')).toBe(SESSION)
+    expect(buildAdImpressionBeaconUrl(7, 'desktop', '/zh-CN/planner', 'zh-CN')).toBe(
+      `https://end-ops.canmoe.com/api/v1/creatives/7/impression?slot=desktop&path=%2Fzh-CN%2Fplanner&locale=zh-CN&sid=${SESSION}`
+    )
+  })
+
+  it('omits the session id when the browser cannot create one', () => {
+    vi.stubGlobal('crypto', {})
+    resetAdSessionForTests()
+
+    expect(getAdSessionId()).toBe('')
+    expect(buildAdImpressionBeaconUrl(7, 'mobile', '/zh-CN/', 'zh-CN')).toBe(
+      'https://end-ops.canmoe.com/api/v1/creatives/7/impression?slot=mobile&path=%2Fzh-CN%2F&locale=zh-CN'
+    )
+  })
+
+  it('degrades to an in-memory id when sessionStorage throws', () => {
+    vi.stubGlobal('crypto', { randomUUID: () => SESSION })
+    const getItem = vi.spyOn(window.sessionStorage, 'getItem').mockImplementation(() => {
+      throw new Error('storage disabled')
+    })
+    const setItem = vi.spyOn(window.sessionStorage, 'setItem').mockImplementation(() => {
+      throw new Error('storage disabled')
+    })
+    resetAdSessionForTests()
+    try {
+      expect(getAdSessionId()).toBe(SESSION)
+      expect(getAdSessionId()).toBe(SESSION)
+    } finally {
+      getItem.mockRestore()
+      setItem.mockRestore()
+    }
   })
 })
