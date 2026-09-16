@@ -2,6 +2,7 @@ import { getTranslations } from 'next-intl/server'
 import type { Metadata } from 'next'
 import { loadPlannerCatalogs, loadRouteShellMessages } from '@/i18n/load-messages'
 import { RouteMessages } from '@/components/shared/route-messages'
+import { GameI18nCatalogPreloader } from '@/components/shared/game-i18n-catalog-preloader'
 import type { WikiLocale } from '@/types/wiki'
 
 export async function generateMetadata({
@@ -42,5 +43,10 @@ export default async function WikiLayout({
     ...loadRouteShellMessages(locale as WikiLocale, 'wiki'),
     ...loadPlannerCatalogs(locale as WikiLocale, 'wiki'),
   }
-  return <RouteMessages messages={messages}>{children}</RouteMessages>
+  return (
+    <RouteMessages messages={messages}>
+      <GameI18nCatalogPreloader locale={locale} />
+      {children}
+    </RouteMessages>
+  )
 }

@@ -2,9 +2,26 @@ import { create } from 'zustand'
 import { persist, createJSONStorage } from 'zustand/middleware'
 import type { Announcement } from '@/types/announcement'
 import { useAppInitStore } from '@/stores/useAppInitStore'
-import { MIN_LOADING_DISPLAY_MS } from '@/lib/constants'
+import { withCacheVersion } from '@/lib/cache-url'
+import { announcementHashManifest } from '@/generated/announcement-hash-manifest'
 
 const TASK_ID = 'announcements'
+
+/**
+ * Announcement markdown is served `max-age=31536000, immutable`, but the
+ * filenames carry no content fingerprint — so the client used to append
+ * `?t=Date.now()`, which defeated `immutable` entirely and re-downloaded every
+ * file on every navigation. The build emits a content hash per file
+ * (`scripts/generate-version.mjs` → `announcementHashManifest`), so the URL now
+ * changes only when the content does and the long cache is actually usable.
+ *
+ * The index (`index.generated.json`) deliberately gets NO version param: it is
+ * the only way to discover a new announcement, so it must stay short-lived and
+ * revalidate (it is already `max-age=0, must-revalidate` + ETag).
+ */
+function announcementContentUrl(file: string): string {
+  return withCacheVersion(`/announcements/${file}`, announcementHashManifest)
+}
 
 interface AnnouncementState {
   announcements: Announcement[]
@@ -76,6 +93,17 @@ interface AnnouncementIndexItem {
 let fetching = false
 
 /**
+ * Set once the catalog has loaded successfully in this tab.
+ *
+ * `AnnouncementLoader` re-runs `loadAnnouncements` on every route change, so
+ * without this guard each navigation re-fetched the index plus all four
+ * markdown files. Failures deliberately do NOT set it, so a later navigation
+ * retries. Urgent notices are unaffected: those come from the ops notice
+ * endpoint (polled by EmergencyNoticeBanner), not from this static catalog.
+ */
+let loadedOnce = false
+
+/**
  * Wait until zustand/persist has restored `readIds` from localStorage.
  * Any `set()` before hydration would re-persist the default empty array and wipe history.
  */
@@ -114,11 +142,14 @@ export const useAnnouncementStore = create<AnnouncementState>()(
       loadError: false,
 
       loadAnnouncements: async () => {
+        // Already loaded in this tab — AnnouncementLoader fires on every route
+        // change, and re-fetching here would cost the index round-trip plus all
+        // markdown on every navigation.
+        if (loadedOnce) return
         // Prevent concurrent fetches (independent of isLoading, which starts as true for skeleton)
         if (fetching) return
         fetching = true
 
-        const startedAt = Date.now()
         let didError = false
         let registered = false
 
@@ -174,7 +205,8 @@ export const useAnnouncementStore = create<AnnouncementState>()(
 
               if (item.file) {
                 try {
-                  const mdRes = await fetch(`/announcements/${item.file}?t=${Date.now()}`)
+                  // Versioned URL: cached for a year, invalidated by content hash.
+                  const mdRes = await fetch(announcementContentUrl(item.file))
                   if (mdRes.ok) {
                     content = await mdRes.text()
                   } else {
@@ -242,17 +274,18 @@ export const useAnnouncementStore = create<AnnouncementState>()(
         } catch {
           didError = true
         } finally {
-          // Enforce minimum display time so skeleton doesn't flash
-          const elapsed = Date.now() - startedAt
-          if (elapsed < MIN_LOADING_DISPLAY_MS) {
-            await new Promise((r) => setTimeout(r, MIN_LOADING_DISPLAY_MS - elapsed))
-          }
+          // No minimum-display sleep here any more: it existed so the skeleton
+          // would not flash while the curtain was still up, but the curtain no
+          // longer waits on this task — the sleep only delayed the panel.
           set({
             isLoading: false,
             loadError: didError,
             ...(didError ? { announcements: [] } : {}),
           })
           fetching = false
+          // Only a clean load is remembered; a failed one retries on the next
+          // navigation instead of leaving the panel permanently empty.
+          if (!didError) loadedOnce = true
           // Signal task completion to init store (only if we registered)
           if (registered) {
             useAppInitStore.getState().completeTask(TASK_ID)
@@ -286,4 +319,16 @@ export function useImportantUnreadCount(): number {
       (a) => a.priority === 'important' && !s.readIds.includes(a.id)
     ).length
   )
+}
+
+/**
+ * Test helper — clears the module-level fetch guards.
+ *
+ * `fetching` and `loadedOnce` live outside the store (they must survive
+ * re-renders without triggering them), so tests need an explicit reset between
+ * cases, same as `resetGameI18nCatalogCacheForTests` in lib/game-i18n-catalogs.
+ */
+export function resetAnnouncementLoadStateForTests(): void {
+  fetching = false
+  loadedOnce = false
 }

@@ -1,6 +1,19 @@
 import { create } from 'zustand'
+import { createJSONStorage, persist } from 'zustand/middleware'
+import { APP_INIT_STORAGE_KEY } from '@/lib/constants'
 
 export type InitPhase = 'splash' | 'tracking' | 'ready'
+
+/**
+ * Progress bookkeeping for the startup curtain.
+ *
+ * NOTE: `tasks` / `completedTasks` / `progress` are NO LONGER a gate. The
+ * curtain used to stay up until every registered task finished, which meant
+ * waiting on `/version.json` plus the announcement index and all announcement
+ * markdown files — network the user should never block on. `AppInitOverlay` now
+ * reveals on hydration alone; these fields remain as a progress-reporting API
+ * for data sources and are still exercised by tests.
+ */
 
 interface AppInitState {
   /** Current phase */
@@ -27,47 +40,61 @@ interface AppInitState {
   markCompleted: () => void
 }
 
-export const useAppInitStore = create<AppInitState>((set, get) => ({
-  phase: 'splash',
-  progress: 0,
-  tasks: new Set(),
-  completedTasks: new Set(),
-  hasCompleted: false,
+export const useAppInitStore = create<AppInitState>()(
+  persist(
+    (set, get) => ({
+      phase: 'splash',
+      progress: 0,
+      tasks: new Set(),
+      completedTasks: new Set(),
+      hasCompleted: false,
 
-  beginTracking: () => {
-    const { hasCompleted } = get()
-    if (hasCompleted) return
-    set({ phase: 'tracking', progress: 0 })
-  },
+      beginTracking: () => {
+        const { hasCompleted } = get()
+        if (hasCompleted) return
+        set({ phase: 'tracking', progress: 0 })
+      },
 
-  registerTask: (taskId) => {
-    const { tasks } = get()
-    const next = new Set(tasks)
-    next.add(taskId)
-    set({ tasks: next })
-  },
+      registerTask: (taskId) => {
+        const { tasks } = get()
+        const next = new Set(tasks)
+        next.add(taskId)
+        set({ tasks: next })
+      },
 
-  completeTask: (taskId) => {
-    const { tasks, completedTasks } = get()
-    const nextCompleted = new Set(completedTasks)
-    nextCompleted.add(taskId)
+      completeTask: (taskId) => {
+        const { tasks, completedTasks } = get()
+        const nextCompleted = new Set(completedTasks)
+        nextCompleted.add(taskId)
 
-    const allDone = [...tasks].every((t) => nextCompleted.has(t))
-    set({
-      completedTasks: nextCompleted,
-      ...(allDone ? { progress: 90 } : {}),
-    })
-  },
+        const allDone = [...tasks].every((t) => nextCompleted.has(t))
+        set({
+          completedTasks: nextCompleted,
+          ...(allDone ? { progress: 90 } : {}),
+        })
+      },
 
-  setProgress: (value) => {
-    set({ progress: Math.max(get().progress, value) })
-  },
+      setProgress: (value) => {
+        set({ progress: Math.max(get().progress, value) })
+      },
 
-  markReady: () => {
-    set({ phase: 'ready', progress: 100 })
-  },
+      markReady: () => {
+        set({ phase: 'ready', progress: 100 })
+      },
 
-  markCompleted: () => {
-    set({ hasCompleted: true })
-  },
-}))
+      markCompleted: () => {
+        set({ hasCompleted: true })
+      },
+    }),
+    {
+      name: APP_INIT_STORAGE_KEY,
+      // sessionStorage, not localStorage: a reload in the same tab should skip
+      // the curtain, but a fresh tab is a fresh visit and should show it.
+      storage: createJSONStorage(() => sessionStorage),
+      // Only the completion flag is durable. `tasks` / `completedTasks` are Set
+      // instances (they would serialize to `{}` and silently break the task
+      // bookkeeping), and phase/progress are per-load transient state.
+      partialize: (state) => ({ hasCompleted: state.hasCompleted }),
+    },
+  ),
+)

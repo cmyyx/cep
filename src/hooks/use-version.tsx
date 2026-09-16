@@ -116,11 +116,11 @@ export function VersionProvider({ children, initialInfo }: { children: ReactNode
         if (result) setLastCheckResult(result)
       }
       if (isFirstFetch) {
-        // Signal completion after a brief animation grace period so the
-        // progress bar doesn't snap from loading → finalising instantly
-        setTimeout(() => {
-          useAppInitStore.getState().completeTask('version')
-        }, MIN_LOADING_DISPLAY_MS)
+        // Report immediately. This used to sleep MIN_LOADING_DISPLAY_MS first so
+        // the curtain's progress bar would not "snap", but the curtain no longer
+        // gates on tasks (see AppInitOverlay) — the sleep only delayed the task
+        // bookkeeping and, transitively, the reveal.
+        useAppInitStore.getState().completeTask('version')
       }
     }
   }, [localInfo])

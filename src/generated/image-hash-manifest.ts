@@ -77,7 +77,7 @@ export const imageHashManifest: Record<string, string> = {
   "/images/characters/full/chr_9000_endmin-male.avif": "aab95524",
   "/images/characters/full/preview-2117.avif": "ac057cd2",
   "/images/characters/preview-2117.avif": "b6d4f443",
-  "/images/characters/sources.json": "0ffb4f0b",
+  "/images/characters/sources.json": "fbc0ccaf",
   "/images/equip/item_equip_t0_parts_tundra01_body_01.avif": "0d888ac5",
   "/images/equip/item_equip_t0_parts_tundra01_body_02.avif": "78f388af",
   "/images/equip/item_equip_t0_parts_tundra01_hand_01.avif": "9b0a87f6",

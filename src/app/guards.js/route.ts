@@ -11,7 +11,8 @@ import { BROWSER_GUARD_CODE } from '@/components/shared/browser-guard'
  * 注意: 两段代码必须保持 ES5 语法 — 文件级 SyntaxError 会让旧浏览器
  * 无法执行 BrowserGuard, 而它正是给旧浏览器看的。
  * 必须保持内联的守卫: theme-fouc / no-js / CssGuard (检测资源加载失败,
- * 外置即自我失效) / LocaleGuardHead / DomainGuard。
+ * 外置即自我失效) / LocaleGuard (需在样式表与 chunk 请求之前同步跳转) / DomainGuard。
+ * 后两者与 CssGuard 一同由 postbuild 注入的 /guard-inline.js 承载。
  */
 export const dynamic = 'force-static'
 

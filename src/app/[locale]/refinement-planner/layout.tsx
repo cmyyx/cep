@@ -4,6 +4,7 @@ import { routing } from '@/i18n/routing'
 import { getAlternates } from '@/lib/metadata'
 import { loadPlannerCatalogs, loadRouteShellMessages } from '@/i18n/load-messages'
 import { RouteMessages } from '@/components/shared/route-messages'
+import { GameI18nCatalogPreloader } from '@/components/shared/game-i18n-catalog-preloader'
 import { PLANNER_GRID_TOOLTIP_OPEN_DELAY_MS, TooltipProvider } from '@/components/ui/tooltip'
 import type { WikiLocale } from '@/types/wiki'
 
@@ -58,6 +59,7 @@ export default async function RefinementPlannerLayout({
   }
   return (
     <RouteMessages messages={messages}>
+      <GameI18nCatalogPreloader locale={locale} />
       <TooltipProvider delay={PLANNER_GRID_TOOLTIP_OPEN_DELAY_MS}>
         {children}
       </TooltipProvider>

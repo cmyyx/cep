@@ -7,7 +7,16 @@ const SUPPORTED = ['zh-CN', 'zh-TW', 'ja', 'en'] as const
 export type SupportedLocale = (typeof SUPPORTED)[number]
 const DEFAULT: SupportedLocale = 'zh-CN'
 
-const ZH_VARIANT_MAP: Record<string, SupportedLocale> = {
+/** Exported so the static root redirect script can embed the same tables. */
+export const SUPPORTED_LOCALES = SUPPORTED
+export const DEFAULT_LOCALE = DEFAULT
+
+/**
+ * Chinese variant table. Order matters — `detectBrowserLocale` and the static
+ * root redirect script both scan it in insertion order, so a longer variant
+ * must not be shadowed by a shorter prefix of it.
+ */
+export const ZH_VARIANT_MAP: Record<string, SupportedLocale> = {
   'zh-hans': 'zh-CN',
   'zh-hant': 'zh-TW',
   'zh-cn': 'zh-CN',
@@ -47,7 +56,15 @@ export function detectBrowserLocale(): SupportedLocale {
   }
 
   // Non-Chinese prefix match: "en-US" → "en"
-  const prefix = nav.split('-')[0]
+  //
+  // Uses the lowercased tag, like the two steps above. Splitting the raw
+  // `navigator.language` here would make this step the only case-sensitive one:
+  // "JA-jp" would miss the match and fall through to the default even though
+  // the exact-match step accepts "JA". Real browsers report lowercase language
+  // subtags (BCP 47), so this only matters for unusual user agents — but the
+  // inconsistency was a latent bug, and the root redirect script mirrors this
+  // function so both must agree.
+  const prefix = lower.split('-')[0]
   const match = SUPPORTED.find((l) => l.split('-')[0] === prefix)
   return match ?? DEFAULT
 }

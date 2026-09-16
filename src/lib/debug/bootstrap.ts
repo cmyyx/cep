@@ -190,6 +190,12 @@ window.__cep_debug__.silentLog=function(l,a){A(l,a)};
 window.__cep_debug__.openPanel=openPanel;
 window.__cep_debug__.togglePanel=togglePanel;
 
+/* preloadPanel — fetch /debug-panel.js WITHOUT opening it.
+   Used by DebugLabel to warm the HTTP cache during idle, so a later click opens
+   the panel instantly while the download stays off the critical path. */
+function preloadPanel(){loadPanel(function(){})}
+window.__cep_debug__.preloadPanel=preloadPanel;
+
 /* Multi-click gesture + label click — both delegated on document (capture phase).
    Child-bound handlers are unreachable when Next.js error overlay calls
    stopPropagation() at document level. */

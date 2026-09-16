@@ -6,6 +6,7 @@ import { routing } from '@/i18n/routing'
 import { loadClientMessages } from '@/i18n/load-messages'
 import type { WikiLocale } from '@/types/wiki'
 import { SidebarProvider } from '@/components/ui/sidebar'
+import { TooltipProvider } from '@/components/ui/tooltip'
 import { AppSidebar } from '@/components/app-sidebar'
 import { Background } from '@/components/background'
 import { ThemeProvider } from '@/components/theme-provider'
@@ -34,7 +35,6 @@ import { versionData } from '@/generated/version-data'
 import { UpdateChangelogNotice } from '@/components/shared/update-changelog-notice'
 import { DEFAULT_SITE_URL } from '@/lib/constants'
 import { IS_DEV_BUILD } from '@/lib/build-flags'
-import { GameI18nCatalogPreloader } from '@/components/shared/game-i18n-catalog-preloader'
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }))
@@ -82,7 +82,12 @@ export default async function LocaleLayout({
   return (
     <>
       <NextIntlClientProvider messages={messages} locale={locale}>
-      <GameI18nCatalogPreloader locale={locale} />
+      {/* Moved down from app/layout.tsx: that layout is shared with the static
+          root redirect page, which must not pull in Base UI + React. Nothing
+          outside this locale subtree uses Tooltip (root 404 does not), so the
+          provider belongs here. Inner providers (AppSidebar, planner layouts)
+          override the delay for their own subtrees. */}
+      <TooltipProvider>
       <LocaleGuard />
       <DebugLabel />
       <SiteUrlProvider url={siteUrl}>
@@ -138,6 +143,7 @@ export default async function LocaleLayout({
         </SentryProvider>
       </VersionProvider>
       </SiteUrlProvider>
+      </TooltipProvider>
     </NextIntlClientProvider>
     </>
   )
