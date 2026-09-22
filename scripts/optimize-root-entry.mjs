@@ -132,11 +132,13 @@ export function optimizeRootEntry(outDir) {
     throw new Error(`optimize-root-entry: 剥离后仍残留 ${leftovers.join(' / ')}, 中止改写`)
   }
 
+  // Booleans, not pattern objects: a bare regex literal is always truthy, so with
+  // the objects below these probes would never fail.
   const required = [
-    [extractScriptById(out, REDIRECT_SCRIPT_ID), '跳转脚本'],
-    [/http-equiv="refresh"/i, 'noscript meta refresh'],
-    [/<link rel="stylesheet" href="\/_next\/static\/chunks\//, '样式表链接'],
-    [/<noscript>/i, 'noscript 语言链接'],
+    [Boolean(extractScriptById(out, REDIRECT_SCRIPT_ID)), '跳转脚本'],
+    [/http-equiv="refresh"/i.test(out), 'noscript meta refresh'],
+    [/<link rel="stylesheet" href="\/_next\/static\/chunks\//.test(out), '样式表链接'],
+    [/<noscript>/i.test(out), 'noscript 语言链接'],
   ]
   for (const [probe, label] of required) {
     if (!probe) throw new Error(`optimize-root-entry: 剥离后丢失${label}, 中止改写`)

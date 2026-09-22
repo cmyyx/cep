@@ -19,11 +19,15 @@
  */
 export const LOCALE_GUARD_HEAD_CODE = `(function(){
 try{
-var s=["zh-CN","zh-TW","ja","en"];
+// ES5 only: this code runs in the postbuild-injected guard bundle, which must
+// execute on the browsers that still get the "unsupported browser" overlay. No
+// Array.prototype.find/some (ES6) — plain loops, like the other guards.
+var s=["zh-CN","zh-TW","ja","en"],i;
 var n=window.location.pathname;
 var g=n.split("/");
 var u=g.length>1?g[1]:"";
-var c=s.find(function(x){return x.toLowerCase()===u.toLowerCase()});
+var c=null;
+for(i=0;i<s.length;i++){if(s[i].toLowerCase()===u.toLowerCase()){c=s[i];break}}
 if(c)document.documentElement.lang=c;
 var r=localStorage.getItem("cep-settings");
 if(!r)return;
@@ -32,7 +36,8 @@ var l=p.language;
 if(!l||l==="auto")return;
 if(s.indexOf(l)===-1)return;
 if(g.length>1&&g[1]){
-var m=s.some(function(x){return x.toLowerCase()===g[1].toLowerCase()});
+var m=false;
+for(i=0;i<s.length;i++){if(s[i].toLowerCase()===g[1].toLowerCase()){m=true;break}}
 if(m&&g[1].toLowerCase()===l.toLowerCase())return;
 if(m){g[1]=l}else{g.splice(1,0,l)}
 window.location.replace(window.location.origin+g.join("/")+window.location.search+window.location.hash)

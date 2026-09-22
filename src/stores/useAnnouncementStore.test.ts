@@ -138,7 +138,9 @@ describe('useAnnouncementStore loadAnnouncements', () => {
     await useAnnouncementStore.getState().loadAnnouncements()
 
     const state = useAnnouncementStore.getState()
-    expect(state.loadError).toBe(false)
+    // A missing announcement is a load error (so the next call retries it) even
+    // though the entry that did load is kept below.
+    expect(state.loadError).toBe(true)
     // Only A loaded successfully
     expect(state.announcements.map((a) => a.id)).toEqual(['ann-a'])
     // But all three read markers must remain (still in catalog index)
@@ -294,5 +296,50 @@ describe('useAnnouncementStore loadAnnouncements', () => {
     await useAnnouncementStore.getState().loadAnnouncements()
     expect(useAnnouncementStore.getState().loadError).toBe(false)
     expect(useAnnouncementStore.getState().announcements.map((a) => a.id)).toEqual(['ann-1'])
+  })
+
+  it('keeps the announcements that loaded and retries the one that failed', async () => {
+    // Index lists two entries; one markdown 404s and has no inline copy. The load
+    // must not be remembered as complete (the missing announcement would then never
+    // appear), and the entry that did load must survive the failure so its banner
+    // and unread count stay correct.
+    const [okPath, brokenPath] = Object.keys(announcementHashManifest)
+    const okFile = okPath.replace('/announcements/', '')
+    const brokenFile = brokenPath.replace('/announcements/', '')
+    let brokenFailing = true
+    const urls: string[] = []
+
+    vi.stubGlobal(
+      'fetch',
+      vi.fn(async (input: RequestInfo | URL) => {
+        const url = String(input)
+        urls.push(url)
+        if (url.includes('index.generated.json')) {
+          return jsonResponse([
+            { id: 'ok', title: 'ok', file: okFile, publishTime: '2026-01-01T00:00:00.000Z' },
+            { id: 'broken', title: 'broken', file: brokenFile, publishTime: '2025-01-01T00:00:00.000Z' },
+          ])
+        }
+        if (url.includes(brokenFile) && brokenFailing) return textResponse('', false)
+        return textResponse('# body')
+      })
+    )
+
+    await useAnnouncementStore.getState().loadAnnouncements()
+    const afterFirst = useAnnouncementStore.getState()
+    expect(afterFirst.loadError).toBe(true)
+    expect(afterFirst.announcements.map((a) => a.id)).toEqual(['ok'])
+
+    // Second call: the failed markdown loads this time, and the load is remembered.
+    brokenFailing = false
+    await useAnnouncementStore.getState().loadAnnouncements()
+    const afterRetry = useAnnouncementStore.getState()
+    expect(afterRetry.loadError).toBe(false)
+    expect([...afterRetry.announcements.map((a) => a.id)].sort()).toEqual(['broken', 'ok'])
+
+    const indexRequests = () => urls.filter((u) => u.includes('index.generated.json')).length
+    const before = indexRequests()
+    await useAnnouncementStore.getState().loadAnnouncements()
+    expect(indexRequests()).toBe(before)
   })
 })

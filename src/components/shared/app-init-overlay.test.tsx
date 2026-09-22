@@ -2,7 +2,7 @@
 
 import { act, cleanup, render } from '@testing-library/react'
 import { afterEach, beforeEach, expect, it, vi } from 'vitest'
-import { AppInitOverlay } from './app-init-overlay'
+import { AppInitOverlay, curtainVisible } from './app-init-overlay'
 import { useAppInitStore } from '@/stores/useAppInitStore'
 
 vi.mock('next-intl', () => ({
@@ -94,5 +94,17 @@ it('marks init completed after the exit animation, so it is persisted for the se
   } finally {
     vi.useRealTimers()
   }
+})
+
+it('keeps the curtain in the first render of a repeat visit (hydration contract)', () => {
+  // The shipped HTML always contains the curtain, so removing it on the very
+  // first client render would make hydration patch the DOM instead of matching
+  // it. jsdom cannot assert React's mismatch handling reliably, so the contract
+  // lives in this helper and is pinned here.
+  expect(curtainVisible(false, true)).toBe(true)
+  expect(curtainVisible(true, true)).toBe(false)
+  // Unchanged for a first visit, and for the commit after the reveal.
+  expect(curtainVisible(false, false)).toBe(true)
+  expect(curtainVisible(true, false)).toBe(true)
 })
 

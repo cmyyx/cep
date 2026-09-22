@@ -110,6 +110,11 @@ export const useAnnouncementStore = create<AnnouncementState>()(
         fetching = true
 
         let didError = false
+        // Only an index-level failure blanks the list. When a single markdown file
+        // fails, the announcements that did load stay in the store (their banners
+        // and unread counts keep working) while `didError` blocks `loadedOnce`, so a
+        // later call retries the missing one.
+        let indexFailed = false
 
         try {
           // Ensure persisted readIds are restored before any set() that would re-write storage
@@ -153,7 +158,11 @@ export const useAnnouncementStore = create<AnnouncementState>()(
                     // Fall back to inline content if .md load fails
                     content = typeof item.content === 'string' ? item.content : ''
                     if (!content) {
+                      // Recorded as a load error: this announcement is missing, so
+                      // the load must not be remembered as complete — the next call
+                      // retries it instead of returning early forever.
                       console.error(`[announcements] Failed to load ${item.file} and no inline content for ${item.id}`)
+                      didError = true
                       return null
                     }
                   }
@@ -161,6 +170,9 @@ export const useAnnouncementStore = create<AnnouncementState>()(
                   content = typeof item.content === 'string' ? item.content : ''
                   if (!content) {
                     console.error(`[announcements] Network error loading ${item.file} for ${item.id}`)
+                    // Same as above: a missing announcement is a load error, not a
+                    // successful load that happens to be short one entry.
+                    didError = true
                     return null
                   }
                 }
@@ -209,6 +221,7 @@ export const useAnnouncementStore = create<AnnouncementState>()(
           }
         } catch {
           didError = true
+          indexFailed = true
         } finally {
           // No minimum-display sleep here any more: it existed so the skeleton
           // would not flash while the curtain was still up, but the curtain no
@@ -216,11 +229,12 @@ export const useAnnouncementStore = create<AnnouncementState>()(
           set({
             isLoading: false,
             loadError: didError,
-            ...(didError ? { announcements: [] } : {}),
+            ...(indexFailed ? { announcements: [] } : {}),
           })
           fetching = false
-          // Only a clean load is remembered; a failed one retries on the next
-          // navigation instead of leaving the panel permanently empty.
+          // Only a fully clean load is remembered: a failed markdown request (with no
+          // inline fallback) leaves the load retryable, so the missing announcement can
+          // still appear once the network recovers.
           if (!didError) loadedOnce = true
         }
       },

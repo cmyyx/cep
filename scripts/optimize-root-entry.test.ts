@@ -159,6 +159,29 @@ describe('optimizeRootEntry', () => {
       rmSync(entryPath)
       expect(() => optimizeRootEntry(dir)).toThrow(/未找到 out\/index.html/)
     })
+    // The four post-strip probes are booleans; a bare regex literal would be truthy
+    // and these two cases would pass silently.
+    it('fails when the stylesheet link is gone (splash would render unstyled)', () => {
+      writeFileSync(entryPath, FIXTURE.replace(/<link rel="stylesheet"[^>]*>/, ''))
+      expect(() => optimizeRootEntry(dir)).toThrow(/丢失样式表链接/)
+    })
+
+    it('fails when the noscript meta refresh fallback is gone', () => {
+      writeFileSync(entryPath, FIXTURE.replace(/<meta http-equiv="refresh"[^>]*\/>/, ''))
+      expect(() => optimizeRootEntry(dir)).toThrow(/丢失noscript meta refresh/)
+    })
+
+    it('fails when the noscript wrapper is gone', () => {
+      // The refresh is moved to <head> here, so the probe that checks it still
+      // passes and the missing <noscript> wrapper is what fails the check.
+      const moved = FIXTURE.replace(/<noscript>[\s\S]*?<\/noscript>/, '').replace(
+        '<head>',
+        '<head><meta http-equiv="refresh" content="0;url=/zh-CN"/>',
+      )
+      writeFileSync(entryPath, moved)
+      expect(() => optimizeRootEntry(dir)).toThrow(/丢失noscript 语言链接/)
+    })
+
 
     it('never writes the file when a contract check fails', () => {
       writeFileSync(entryPath, FIXTURE.replace('<meta charset="utf-8"/>', ''))

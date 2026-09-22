@@ -28,12 +28,32 @@ import { FullScreenStatus } from '@/components/shared/full-screen-status'
  * When JavaScript is disabled, the overlay is hidden by a .no-js CSS rule (see
  * globals.css) so crawlers and no-JS users see the static SSG content.
  */
+/**
+ * Whether this commit should render the curtain.
+ *
+ * The export is static, so the shipped HTML always carries the curtain and the
+ * first client render has to match it: applying the persisted `hasCompleted`
+ * flag on that first render would remove the node during hydration and make
+ * React patch the DOM. Only from the commit that has seen hydration may the
+ * flag hide the curtain. CSS already hides it on repeat visits in the meantime
+ * (`html[data-cep-init-done]`, see app-init-done-script.ts), so nothing flashes.
+ *
+ * Exported because React's mismatch handling cannot be asserted reliably in
+ * jsdom — this is the contract, pinned by app-init-overlay.test.tsx.
+ */
+export function curtainVisible(hydrated: boolean, hasCompleted: boolean): boolean {
+  return !hydrated || !hasCompleted
+}
+
 export function AppInitOverlay() {
   const hasCompleted = useAppInitStore((s) => s.hasCompleted)
   const markReady = useAppInitStore((s) => s.markReady)
   const markCompleted = useAppInitStore((s) => s.markCompleted)
   const ready = useAppInitStore((s) => s.phase === 'ready')
 
+  // See curtainVisible() above for why the persisted flag is applied one commit
+  // after the first render instead of during it.
+  const [hydrated, setHydrated] = useState(false)
   const [exitPhase, setExitPhase] = useState<'none' | 'exiting'>('none')
   const t = useTranslations()
 
@@ -43,14 +63,18 @@ export function AppInitOverlay() {
   // overlay stuck forever. Must stay ahead of any early return.
   useEffect(() => {
     document.documentElement.setAttribute('data-cep-hydrated', '1')
+    // Mount-only flag whose false value IS the point (it keeps the first render
+    // aligned with the shipped HTML), so it cannot be derived during render.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setHydrated(true)
   }, [])
 
   // Reveal on the next frame after hydration — no network task gates this.
   useEffect(() => {
-    if (hasCompleted) return
+    if (!hydrated || hasCompleted) return
     const raf = requestAnimationFrame(() => markReady())
     return () => cancelAnimationFrame(raf)
-  }, [hasCompleted, markReady])
+  }, [hydrated, hasCompleted, markReady])
 
   // Ready → exit animation → permanently hide.
   useEffect(() => {
@@ -68,8 +92,7 @@ export function AppInitOverlay() {
     { href: FEEDBACK_CHANNELS.qqGroup.href, label: t('feedback.qqGroup') },
   ], [t])
 
-  // Never show again after first completion.
-  if (hasCompleted) return null
+  if (!curtainVisible(hydrated, hasCompleted)) return null
 
   return (
     <FullScreenStatus

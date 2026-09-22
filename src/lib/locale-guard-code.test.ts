@@ -61,6 +61,12 @@ describe('LOCALE_GUARD_HEAD_CODE', () => {
 
   it('stays ES5-compatible so old browsers can still run it', () => {
     expect(LOCALE_GUARD_HEAD_CODE).not.toMatch(/\bconst\b|\blet\b|=>/)
+    // Syntax alone is not enough: the guard runs before anything else, so an ES6
+    // *method* would throw on an old browser and the surrounding try/catch would
+    // swallow it — silently leaving the visitor in the wrong language.
+    expect(LOCALE_GUARD_HEAD_CODE).not.toMatch(
+      /\.(find|findIndex|some|every|includes|map|filter|forEach|reduce|startsWith|endsWith|repeat)\s*\(/,
+    )
   })
 
   describe('document language', () => {
