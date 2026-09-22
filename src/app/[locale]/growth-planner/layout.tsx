@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 import { getAlternates } from '@/lib/metadata'
 import { loadRouteShellMessages } from '@/i18n/load-messages'
 import { RouteMessages } from '@/components/shared/route-messages'
+import { GameI18nCatalogPreloader } from '@/components/shared/game-i18n-catalog-preloader'
 import type { WikiLocale } from '@/types/wiki'
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
@@ -26,5 +27,10 @@ export default async function GrowthPlannerLayout({
   const { locale } = await params
   // Entity names / wikiData come from game-i18n dynamic catalogs (useWikiTranslations), not ClientProvider.
   const messages = loadRouteShellMessages(locale as WikiLocale, 'growth-planner')
-  return <RouteMessages messages={messages}>{children}</RouteMessages>
+  return (
+    <RouteMessages messages={messages}>
+      <GameI18nCatalogPreloader locale={locale} />
+      {children}
+    </RouteMessages>
+  )
 }

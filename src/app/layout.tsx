@@ -1,11 +1,10 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Script from "next/script";
-import { TooltipProvider } from "@/components/ui/tooltip";
 import { HeadScript } from "@/components/shared/head-script";
-import { LocaleGuardHead } from '@/components/shared/locale-guard-head';
+import { APP_INIT_DONE_SCRIPT } from '@/lib/app-init-done-script';
 import { versionData } from '@/generated/version-data';
-import { buildNotFoundLocaleScript } from '@/lib/not-found-copy';
+import { buildNotFoundLocaleScript } from '@/lib/not-found-locale';
 import { OPS_SERVICE_ORIGIN } from '@/lib/constants';
 import { SEO_INDEXABLE_BUILD } from '@/lib/seo'
 import "./globals.css";
@@ -62,6 +61,12 @@ export default function RootLayout({
           id="no-js-remove"
           code="document.documentElement.classList.remove('no-js')"
         />
+        {/* Init curtain: when a previous load in this tab already completed the
+            startup sequence, mark <html> so CSS hides [data-app-init] from the
+            very first paint. Without this the curtain would be painted from the
+            SSG HTML and only disappear once React hydrates — worse than not
+            having it. See @/lib/app-init-done-script. */}
+        <HeadScript id="app-init-done" code={APP_INIT_DONE_SCRIPT} />
         {/* 404 locale: static hosts return one out/404.html for every unmatched
             path, so the locale must be resolved at parse time — this script
             sets <html data-notfound-lang> before the body exists, and CSS shows
@@ -92,43 +97,56 @@ export default function RootLayout({
           async
           suppressHydrationWarning
         />
-        {/* LocaleGuardHead — synchronously redirects to explicit language
-            preference before any page content renders, avoiding wrong-locale flash. */}
-        <LocaleGuardHead />
-        {/* Preload + execute the debug panel early, so the [DEBUG] button works
-            without network delay. Uses afterInteractive so it doesn't block hydration. */}
-        <Script src="/debug-panel.js" strategy="afterInteractive" />
+        {/* locale-guard (显式语言与 URL 不符时同步跳转) 已并入 postbuild 注入的
+            /guard-inline.js —— React 渲染的 <head> 子节点会排在 Next 的样式表
+            与 chunk <script> 之后, 实测要 1451ms 才执行, 期间 31 个 chunk 请求
+            已发起并被重定向中止。next dev 下由 LocaleGuard 承担 (见 [locale]/layout)。 */}
+        {/* Warm the debug panel at the lowest priority instead of preloading it.
+            The panel is 19.9 KB (5.8 KB gzip) and only developers ever open it;
+            guards.js already loads it on demand (openPanel → loadPanel), and
+            DebugLabel additionally warms it on idle, so a click still opens it
+            instantly without occupying a connection during the critical window. */}
+        <link rel="prefetch" href="/debug-panel.js" suppressHydrationWarning />
         {/* Analytics — all in <head> to avoid React hydration conflicts
-            (React does not reconcile <head> children). */}
-        {/* Umami analytics disabled: umami.2x.nz service is no longer valid.
-        <Script
-          strategy="afterInteractive"
-          src="https://umami.2x.nz/script.js"
-          data-website-id="604899d8-6614-4230-9feb-974ba09fae4e"
-        /> */}
-        <Script id="baidu-hmt" strategy="afterInteractive">
+            (React does not reconcile <head> children).
+            Strategy: lazyOnload (not afterInteractive). These are third-party
+            trackers that must never compete with app chunks for bandwidth on
+            first paint; measured, blocking them cuts FCP by ~750 ms on Slow 4G.
+            Four vendors, each covering something the others cannot (P2-8 asked
+            for exactly this to be written down instead of assumed; dropping one
+            is a product decision — "which number would we stop trusting?" — and
+            has not been taken, so the deferral above is the load-bearing part):
+              - 百度统计 hm.js     : 中国大陆访问量与百度搜索来源
+              - Clarity clarity.ms : 会话录制 / 热图，计数指标反推不出来
+              - GA4 gtag.js        : 跨地域渠道归因（172 KB，仍是最大第三方文件）
+              - CF Insights beacon : 边缘请求与真实用户指标，不依赖第三方脚本 */}
+        <Script id="baidu-hmt" strategy="lazyOnload">
           {`var _hmt = _hmt || [];`}
         </Script>
         <Script
-          strategy="afterInteractive"
+          strategy="lazyOnload"
           src="https://hm.baidu.com/hm.js?27db54b42d0271041b2c3e59b731fc6a"
         />
-        <Script id="ms-clarity" strategy="afterInteractive">
+        <Script id="ms-clarity" strategy="lazyOnload">
           {`(function(c,l,a,r,i){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};})(window,document,"clarity");`}
         </Script>
-        <Script strategy="afterInteractive" src="https://www.clarity.ms/tag/wp0yo2ig74" />
+        <Script strategy="lazyOnload" src="https://www.clarity.ms/tag/wp0yo2ig74" />
         <Script
-          strategy="afterInteractive"
+          strategy="lazyOnload"
           src="https://static.cloudflareinsights.com/beacon.min.js"
           data-cf-beacon='{"token": "2d3a7ea7fd75438ca7195e0687c32333"}'
         />
-        <Script id="ga4-loader" strategy="afterInteractive" src="https://www.googletagmanager.com/gtag/js?id=G-FQ81EJB28L" />
-        <Script id="ga4-init" strategy="afterInteractive">
+        <Script id="ga4-loader" strategy="lazyOnload" src="https://www.googletagmanager.com/gtag/js?id=G-FQ81EJB28L" />
+        <Script id="ga4-init" strategy="lazyOnload">
           {`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-FQ81EJB28L');`}
         </Script>
       </head>
       <body className="min-h-full flex flex-col" suppressHydrationWarning>
-        <TooltipProvider>{children}</TooltipProvider>
+        {/* No client components here on purpose: this layout is shared by the
+            static root redirect page (app/page.tsx), which must ship zero
+            framework JS. TooltipProvider lives in app/[locale]/layout.tsx —
+            it is the only thing that used to make every page hydrate React. */}
+        {children}
       </body>
     </html>
   );

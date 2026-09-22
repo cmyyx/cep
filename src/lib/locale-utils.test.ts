@@ -118,6 +118,24 @@ describe('detectBrowserLocale', () => {
     expect(detectBrowserLocale()).toBe('ja')
   })
 
+  it('returns prefix match for an upper-case language subtag', () => {
+    // Regression: the prefix step used to split the raw navigator.language,
+    // making it the only case-sensitive step — "JA-jp" fell through to the
+    // default even though the exact-match step accepts "JA".
+    mockNavigator.language = 'JA-jp'
+    expect(detectBrowserLocale()).toBe('ja')
+  })
+
+  it('returns prefix match for an upper-case English tag', () => {
+    mockNavigator.language = 'EN-us'
+    expect(detectBrowserLocale()).toBe('en')
+  })
+
+  it('still returns the default for an upper-case unknown language', () => {
+    mockNavigator.language = 'FR-fr'
+    expect(detectBrowserLocale()).toBe('zh-CN')
+  })
+
   it('returns default for unknown locale', () => {
     mockNavigator.language = 'fr-FR'
     expect(detectBrowserLocale()).toBe('zh-CN')

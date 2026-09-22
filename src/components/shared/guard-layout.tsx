@@ -23,10 +23,6 @@
 import { BROWSER_INFO_INLINE_CODE } from '@/lib/browser-info'
 import { versionData } from '@/generated/version-data'
 import { cn, formatTime } from '@/lib/utils'
-import enMessages from '@/messages/en.json'
-import jaMessages from '@/messages/ja.json'
-import zhCNMessages from '@/messages/zh-CN.json'
-import zhTWMessages from '@/messages/zh-TW.json'
 import type { WikiLocale } from '@/types/wiki'
 
 // ═══════════════════════════════════════════════════════════════
@@ -81,39 +77,47 @@ export const GUARD_HEADER_HTML =
   '<img src="/icon.png" alt="" width="48" height="48" style="display:block">'+
   '<h1 style="font-size:22px;font-weight:600;margin:0;">CEP \u7EC8\u672B\u5730\u89C4\u5212\u5668</h1>'
 
-/** Environment labels sourced from the same locale messages as next-intl. */
+/**
+ * Environment labels for the four locale routes.
+ *
+ * Deliberately inlined instead of importing messages/*.json: this module is
+ * reachable from the root redirect page and from the app-init overlay, so a
+ * static JSON import would pull all four full message catalogs (240 KB) into
+ * the critical path of every page, while only these 6 keys are ever read.
+ * `guard-layout.test.ts` asserts these stay byte-identical to messages/*.json.
+ */
 export const GUARD_ENVIRONMENT_LABELS = {
   'zh-CN': {
-    browser: zhCNMessages.environment.browser,
-    engine: zhCNMessages.environment.engine,
-    version: zhCNMessages.version.version,
-    commits: zhCNMessages.version.commitCount,
-    commitTime: zhCNMessages.version.commitTime,
-    buildTime: zhCNMessages.version.buildTime,
+    browser: '\u6D4F\u89C8\u5668',
+    engine: '\u5185\u6838',
+    version: '\u7248\u672C',
+    commits: '\u63D0\u4EA4\u6B21\u6570',
+    commitTime: '\u63D0\u4EA4\u65F6\u95F4',
+    buildTime: '\u6784\u5EFA\u65F6\u95F4',
   },
   'zh-TW': {
-    browser: zhTWMessages.environment.browser,
-    engine: zhTWMessages.environment.engine,
-    version: zhTWMessages.version.version,
-    commits: zhTWMessages.version.commitCount,
-    commitTime: zhTWMessages.version.commitTime,
-    buildTime: zhTWMessages.version.buildTime,
+    browser: '\u700F\u89BD\u5668',
+    engine: '\u6838\u5FC3',
+    version: '\u7248\u672C',
+    commits: '\u63D0\u4EA4\u6B21\u6578',
+    commitTime: '\u63D0\u4EA4\u6642\u9593',
+    buildTime: '\u69CB\u5EFA\u6642\u9593',
   },
   ja: {
-    browser: jaMessages.environment.browser,
-    engine: jaMessages.environment.engine,
-    version: jaMessages.version.version,
-    commits: jaMessages.version.commitCount,
-    commitTime: jaMessages.version.commitTime,
-    buildTime: jaMessages.version.buildTime,
+    browser: '\u30D6\u30E9\u30A6\u30B6',
+    engine: '\u30A8\u30F3\u30B8\u30F3',
+    version: '\u30D0\u30FC\u30B8\u30E7\u30F3',
+    commits: '\u30B3\u30DF\u30C3\u30C8\u6570',
+    commitTime: '\u30B3\u30DF\u30C3\u30C8\u65E5\u6642',
+    buildTime: '\u30D3\u30EB\u30C9\u65E5\u6642',
   },
   en: {
-    browser: enMessages.environment.browser,
-    engine: enMessages.environment.engine,
-    version: enMessages.version.version,
-    commits: enMessages.version.commitCount,
-    commitTime: enMessages.version.commitTime,
-    buildTime: enMessages.version.buildTime,
+    browser: 'Browser',
+    engine: 'Engine',
+    version: 'Version',
+    commits: 'Commits',
+    commitTime: 'Commit Time',
+    buildTime: 'Build Time',
   },
 } satisfies Record<WikiLocale, Record<'browser' | 'engine' | 'version' | 'commits' | 'commitTime' | 'buildTime', string>>
 

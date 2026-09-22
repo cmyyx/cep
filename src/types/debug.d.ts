@@ -5,6 +5,7 @@ interface CepDebugApi {
   silentLog(level: 'warn' | 'debug' | 'error' | 'log', args: unknown[]): void
   openPanel(): void
   togglePanel(): void
+  preloadPanel(): void
   _openPanel(): void
   _togglePanel(): void
   _onLog: (() => void) | null

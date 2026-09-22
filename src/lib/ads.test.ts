@@ -97,8 +97,8 @@ describe('parseAdFeed', () => {
 
   it('exposes the ops-service endpoint and builds beacon urls', () => {
     expect(ADS_ENDPOINT).toBe('https://end-ops.canmoe.com/api/v1/creatives.json')
-    expect(buildAdClickBeaconUrl(7, '/zh-CN/essence-planner', 'zh-CN')).toBe(
-      'https://end-ops.canmoe.com/api/v1/creatives/7/click?path=%2Fzh-CN%2Fessence-planner&locale=zh-CN'
+    expect(buildAdClickBeaconUrl(7, 'desktop', '/zh-CN/essence-planner', 'zh-CN')).toBe(
+      'https://end-ops.canmoe.com/api/v1/creatives/7/click?slot=desktop&path=%2Fzh-CN%2Fessence-planner&locale=zh-CN'
     )
   })
 })

@@ -1,11 +1,12 @@
 // @vitest-environment jsdom
 
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
-import { pruneReadIds, useAnnouncementStore } from './useAnnouncementStore'
-
-vi.mock('@/lib/constants', () => ({
-  MIN_LOADING_DISPLAY_MS: 0,
-}))
+import {
+  pruneReadIds,
+  resetAnnouncementLoadStateForTests,
+  useAnnouncementStore,
+} from './useAnnouncementStore'
+import { announcementHashManifest } from '@/generated/announcement-hash-manifest'
 
 function jsonResponse(data: unknown, ok = true): Response {
   return {
@@ -79,6 +80,7 @@ describe('readIds persistence', () => {
 describe('useAnnouncementStore loadAnnouncements', () => {
   beforeEach(() => {
     localStorage.clear()
+    resetAnnouncementLoadStateForTests()
     useAnnouncementStore.setState({
       announcements: [],
       readIds: [],
@@ -136,7 +138,9 @@ describe('useAnnouncementStore loadAnnouncements', () => {
     await useAnnouncementStore.getState().loadAnnouncements()
 
     const state = useAnnouncementStore.getState()
-    expect(state.loadError).toBe(false)
+    // A missing announcement is a load error (so the next call retries it) even
+    // though the entry that did load is kept below.
+    expect(state.loadError).toBe(true)
     // Only A loaded successfully
     expect(state.announcements.map((a) => a.id)).toEqual(['ann-a'])
     // But all three read markers must remain (still in catalog index)
@@ -200,5 +204,142 @@ describe('useAnnouncementStore loadAnnouncements', () => {
     expect(state.loadError).toBe(true)
     expect(state.announcements).toEqual([])
     expect(state.readIds).toEqual(['ann-a', 'ann-b'])
+  })
+
+  it('version-stamps markdown URLs from the build manifest instead of busting the cache', async () => {
+    // Production serves /announcements/*.md with `immutable`, so the old
+    // `?t=Date.now()` made every navigation a cache miss. The build emits a
+    // content hash per file; the URL must carry it and must NOT carry `t=`.
+    const [manifestPath, hash] = Object.entries(announcementHashManifest)[0]
+    const file = manifestPath.replace('/announcements/', '')
+
+    const urls: string[] = []
+    vi.stubGlobal(
+      'fetch',
+      vi.fn(async (input: RequestInfo | URL) => {
+        const url = String(input)
+        urls.push(url)
+        if (url.includes('index.generated.json')) {
+          return jsonResponse([
+            { id: 'ann-1', title: 'A', file, publishTime: '2026-01-01T00:00:00.000Z' },
+          ])
+        }
+        return textResponse('# body')
+      })
+    )
+
+    await useAnnouncementStore.getState().loadAnnouncements()
+
+    expect(urls).toContain(`${manifestPath}?v=${hash}`)
+    for (const url of urls) expect(url).not.toContain('t=')
+  })
+
+  it('leaves the index URL unversioned so new announcements can still be discovered', async () => {
+    const urls: string[] = []
+    vi.stubGlobal(
+      'fetch',
+      vi.fn(async (input: RequestInfo | URL) => {
+        urls.push(String(input))
+        if (String(input).includes('index.generated.json')) {
+          return jsonResponse([
+            { id: 'ann-1', title: 'A', content: 'inline', publishTime: '2026-01-01T00:00:00.000Z' },
+          ])
+        }
+        return textResponse('', false)
+      })
+    )
+
+    await useAnnouncementStore.getState().loadAnnouncements()
+
+    expect(urls).toContain('/announcements/index.generated.json')
+  })
+
+  it('does not refetch on a second call in the same session', async () => {
+    // AnnouncementLoader re-runs on every route change.
+    const fetchMock = vi.fn(async (input: RequestInfo | URL) => {
+      if (String(input).includes('index.generated.json')) {
+        return jsonResponse([
+          { id: 'ann-1', title: 'A', content: 'inline', publishTime: '2026-01-01T00:00:00.000Z' },
+        ])
+      }
+      return textResponse('', false)
+    })
+    vi.stubGlobal('fetch', fetchMock)
+
+    await useAnnouncementStore.getState().loadAnnouncements()
+    const callsAfterFirstLoad = fetchMock.mock.calls.length
+    expect(callsAfterFirstLoad).toBeGreaterThan(0)
+
+    await useAnnouncementStore.getState().loadAnnouncements()
+    expect(fetchMock.mock.calls.length).toBe(callsAfterFirstLoad)
+  })
+
+  it('retries after a failed load rather than caching the failure', async () => {
+    let failing = true
+    vi.stubGlobal(
+      'fetch',
+      vi.fn(async (input: RequestInfo | URL) => {
+        if (failing) throw new Error('network down')
+        if (String(input).includes('index.generated.json')) {
+          return jsonResponse([
+            { id: 'ann-1', title: 'A', content: 'inline', publishTime: '2026-01-01T00:00:00.000Z' },
+          ])
+        }
+        return textResponse('', false)
+      })
+    )
+
+    await useAnnouncementStore.getState().loadAnnouncements()
+    expect(useAnnouncementStore.getState().loadError).toBe(true)
+
+    failing = false
+    await useAnnouncementStore.getState().loadAnnouncements()
+    expect(useAnnouncementStore.getState().loadError).toBe(false)
+    expect(useAnnouncementStore.getState().announcements.map((a) => a.id)).toEqual(['ann-1'])
+  })
+
+  it('keeps the announcements that loaded and retries the one that failed', async () => {
+    // Index lists two entries; one markdown 404s and has no inline copy. The load
+    // must not be remembered as complete (the missing announcement would then never
+    // appear), and the entry that did load must survive the failure so its banner
+    // and unread count stay correct.
+    const [okPath, brokenPath] = Object.keys(announcementHashManifest)
+    const okFile = okPath.replace('/announcements/', '')
+    const brokenFile = brokenPath.replace('/announcements/', '')
+    let brokenFailing = true
+    const urls: string[] = []
+
+    vi.stubGlobal(
+      'fetch',
+      vi.fn(async (input: RequestInfo | URL) => {
+        const url = String(input)
+        urls.push(url)
+        if (url.includes('index.generated.json')) {
+          return jsonResponse([
+            { id: 'ok', title: 'ok', file: okFile, publishTime: '2026-01-01T00:00:00.000Z' },
+            { id: 'broken', title: 'broken', file: brokenFile, publishTime: '2025-01-01T00:00:00.000Z' },
+          ])
+        }
+        if (url.includes(brokenFile) && brokenFailing) return textResponse('', false)
+        return textResponse('# body')
+      })
+    )
+
+    await useAnnouncementStore.getState().loadAnnouncements()
+    const afterFirst = useAnnouncementStore.getState()
+    expect(afterFirst.loadError).toBe(true)
+    expect(afterFirst.announcements.map((a) => a.id)).toEqual(['ok'])
+
+    // Second call: the failed markdown loads this time, and the load is remembered.
+    brokenFailing = false
+    await useAnnouncementStore.getState().loadAnnouncements()
+    const afterRetry = useAnnouncementStore.getState()
+    expect(afterRetry.loadError).toBe(false)
+    expect([...afterRetry.announcements.map((a) => a.id)].sort()).toEqual(['broken', 'ok'])
+
+    const indexRequests = () => urls.filter((u) => u.includes('index.generated.json')).length
+    const before = indexRequests()
+    await useAnnouncementStore.getState().loadAnnouncements()
+    expect(indexRequests()).toBe(before)
   })
 })

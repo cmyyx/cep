@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 import { getAlternates } from '@/lib/metadata'
 import { loadPlannerCatalogs, loadRouteShellMessages } from '@/i18n/load-messages'
 import { RouteMessages } from '@/components/shared/route-messages'
+import { GameI18nCatalogPreloader } from '@/components/shared/game-i18n-catalog-preloader'
 import { PLANNER_GRID_TOOLTIP_OPEN_DELAY_MS, TooltipProvider } from '@/components/ui/tooltip'
 import type { WikiLocale } from '@/types/wiki'
 
@@ -40,6 +41,10 @@ export default async function EssencePlannerLayout({
   }
   return (
     <RouteMessages messages={messages}>
+      {/* Entity names / wikiData come from the per-locale game i18n catalogs.
+          Preloaded here (not in [locale]/layout.tsx) so routes that never read
+          the catalog — home, legal, settings — skip the ~958 KB chunk. */}
+      <GameI18nCatalogPreloader locale={locale} />
       <TooltipProvider delay={PLANNER_GRID_TOOLTIP_OPEN_DELAY_MS}>
         {children}
       </TooltipProvider>

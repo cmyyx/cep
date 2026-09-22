@@ -357,7 +357,7 @@
   }
 }
 
-/* Engineering grid pattern — shared by AppInitOverlay and BootstrapScreen */
+/* Engineering grid pattern — shared by AppInitOverlay and the root redirect splash */
 @utility bg-engineering-grid {
   background-image:
     linear-gradient(rgba(128,128,128,0.06) 1px, transparent 1px),
@@ -479,9 +479,11 @@
   }
 }
 
-/* ─── Bootstrap screen progress bar ─── */
+/* ─── Root redirect splash progress bar ─── */
 
-/* Auto-fill progress bar for BootstrapScreen locale redirect */
+/* Auto-fill progress bar shown while the root entry redirects to the user's
+   locale (app/page.tsx). Purely decorative — the redirect itself is a
+   synchronous inline script and does not wait for this animation. */
 @keyframes bootstrap-progress {
   0% {
     width: 0%;
@@ -575,6 +577,14 @@
    don't execute JS), .no-js remains on <html>, allowing CSS to hide
    JS-dependent overlays and reveal static content. ── */
 .no-js [data-app-init] {
+  display: none !important;
+}
+
+/* ── Repeat-visit curtain skip. The #app-init-done head script sets
+   <html data-cep-init-done> when useAppInitStore's persisted hasCompleted flag
+   is already true, so the curtain is never painted on a reload in the same tab
+   instead of being painted and then removed after hydration. ── */
+html[data-cep-init-done] [data-app-init] {
   display: none !important;
 }
 

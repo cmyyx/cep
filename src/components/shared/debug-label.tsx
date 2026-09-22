@@ -28,24 +28,44 @@ export function DebugLabel() {
     // Trigger fade-in on next paint so the transition animates
     const raf = requestAnimationFrame(() => setMounted(true))
 
-    let hideTimer: ReturnType<typeof setTimeout>
-    let removeTimer: ReturnType<typeof setTimeout>
+    let hideTimer: ReturnType<typeof setTimeout> | undefined
+    let removeTimer: ReturnType<typeof setTimeout> | undefined
+    let idleHandle: number | undefined
+    let warmTimer: ReturnType<typeof setTimeout> | undefined
 
-    const startTimers = () => {
+    // Warm /debug-panel.js during idle so a click opens the panel instantly.
+    // The download no longer sits on the critical path (guards.js also loads it
+    // on demand), so this is purely a first-click latency optimisation.
+    // Optional call guards against a stale cached guards.js from a previous
+    // deploy that predates preloadPanel.
+    const warmPanel = () => {
+      const preload = () => { window.__cep_debug__?.preloadPanel?.() }
+      if (typeof requestIdleCallback === 'function') {
+        idleHandle = requestIdleCallback(preload, { timeout: 2000 })
+      } else {
+        warmTimer = setTimeout(preload, 1500)
+      }
+    }
+
+    const onLoad = () => {
       hideTimer = setTimeout(() => setHiding(true), 0)
       removeTimer = setTimeout(() => setRemoved(true), 700)
+      warmPanel()
     }
 
     if (document.readyState === 'complete') {
-      startTimers()
+      onLoad()
     } else {
-      window.addEventListener('load', startTimers, { once: true })
+      window.addEventListener('load', onLoad, { once: true })
     }
 
     return () => {
       cancelAnimationFrame(raf)
       clearTimeout(hideTimer)
       clearTimeout(removeTimer)
+      clearTimeout(warmTimer)
+      if (idleHandle !== undefined) cancelIdleCallback(idleHandle)
+      window.removeEventListener('load', onLoad)
     }
   }, [])
 

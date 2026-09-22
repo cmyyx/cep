@@ -79,7 +79,7 @@ export function AdSlot({ variant, className }: AdSlotProps) {
   const reportClick = (adId: number) => {
     if (typeof navigator === 'undefined' || typeof navigator.sendBeacon !== 'function') return
     try {
-      navigator.sendBeacon(buildAdClickBeaconUrl(adId, window.location.pathname, locale))
+      navigator.sendBeacon(buildAdClickBeaconUrl(adId, variant, window.location.pathname, locale))
     } catch {
       // 上报失败不影响跳转
     }

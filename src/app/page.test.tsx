@@ -1,109 +1,73 @@
 // @vitest-environment jsdom
-import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
-import { render, cleanup, act } from '@testing-library/react'
-import RootRedirect from './page'
 
-const mockReplace = vi.fn()
+import { readFileSync } from 'node:fs'
+import path from 'node:path'
+import { fileURLToPath } from 'node:url'
+import { renderToStaticMarkup } from 'react-dom/server'
+import { describe, expect, it, vi } from 'vitest'
+import RootRedirectPage from './page'
+import { ROOT_REDIRECT_SCRIPT } from '@/lib/root-redirect'
 
-vi.mock('next/navigation', () => ({
-  useRouter: () => ({ replace: mockReplace }),
-}))
-
-vi.mock('@/lib/locale-utils', () => ({
-  getExplicitLanguage: vi.fn(() => null),
-  detectBrowserLocale: vi.fn(() => 'en'),
-}))
-
-vi.mock('@/components/shared/bootstrap-screen', () => ({
-  BootstrapScreen: ({ timedOut, status }: { timedOut?: boolean; status?: string }) => (
-    <div data-testid="bootstrap" data-timed-out={String(timedOut)} data-status={status} />
+vi.mock('next/link', () => ({
+  default: ({ href, children, ...props }: React.AnchorHTMLAttributes<HTMLAnchorElement>) => (
+    <a href={String(href)} {...props}>{children}</a>
   ),
 }))
 
-beforeEach(() => {
-  vi.useFakeTimers()
-  vi.spyOn(console, 'log').mockImplementation(() => {})
-  vi.spyOn(window, 'location', 'get').mockReturnValue({
-    ...window.location,
-    pathname: '/',
-    replace: vi.fn(),
-  } as Location)
-  mockReplace.mockClear()
-})
+vi.mock('next/image', () => ({
+  default: ({ alt = '', ...props }: React.ImgHTMLAttributes<HTMLImageElement>) => (
+    <span role="img" aria-label={alt} data-src={String(props.src)} />
+  ),
+}))
 
-afterEach(() => {
-  cleanup()
-  vi.useRealTimers()
-  vi.restoreAllMocks()
-})
+const here = path.dirname(fileURLToPath(import.meta.url))
 
-describe('RootRedirect', () => {
-  it('calls router.replace with detected locale on mount', async () => {
-    await act(async () => {
-      render(<RootRedirect />)
-    })
-    expect(mockReplace).toHaveBeenCalledWith('/en')
+// Rendered as static markup (not via @testing-library) because jsdom parses
+// <noscript> children as text, which would hide the no-JS fallback from the DOM
+// queries. Static markup is also what the export actually ships.
+const html = renderToStaticMarkup(<RootRedirectPage />)
+const source = readFileSync(path.join(here, 'page.tsx'), 'utf-8')
+
+describe('root redirect page', () => {
+  it('renders the inline locale redirect script verbatim', () => {
+    expect(html).toContain(`<script id="root-redirect">${ROOT_REDIRECT_SCRIPT}</script>`)
   })
 
-  it('falls back to location.replace after 2s inner timeout when router.replace does not navigate', async () => {
-    const locationReplace = vi.fn()
-    vi.spyOn(window, 'location', 'get').mockReturnValue({
-      ...window.location,
-      pathname: '/',
-      replace: locationReplace,
-    } as Location)
-
-    await act(async () => {
-      render(<RootRedirect />)
-    })
-
-    await act(async () => {
-      vi.advanceTimersByTime(2_000)
-    })
-
-    expect(locationReplace).toHaveBeenCalledWith('/en')
+  it('renders the splash heading so the first frame is not blank', () => {
+    expect(html).toContain('终末地规划器')
   })
 
-  it('uses explicit language when available', async () => {
-    const { getExplicitLanguage } = await import('@/lib/locale-utils')
-    vi.mocked(getExplicitLanguage).mockReturnValue('ja')
-
-    await act(async () => {
-      render(<RootRedirect />)
-    })
-
-    expect(mockReplace).toHaveBeenCalledWith('/ja')
+  it('offers every locale as a manual link for no-JS users', () => {
+    for (const [locale, label] of [
+      ['zh-CN', '简体中文'],
+      ['zh-TW', '繁體中文'],
+      ['ja', '日本語'],
+      ['en', 'English'],
+    ] as const) {
+      expect(html, locale).toContain(`href="/${locale}"`)
+      expect(html, locale).toContain(label)
+    }
   })
 
-  it('does not call location.replace if router.replace already redirected', async () => {
-    const locationReplace = vi.fn()
-    vi.spyOn(window, 'location', 'get').mockReturnValue({
-      ...window.location,
-      pathname: '/en',
-      replace: locationReplace,
-    } as Location)
-
-    await act(async () => {
-      render(<RootRedirect />)
-    })
-
-    await act(async () => {
-      vi.advanceTimersByTime(2_000)
-    })
-
-    expect(locationReplace).not.toHaveBeenCalled()
+  it('falls back to a meta refresh when JavaScript is unavailable', () => {
+    expect(html).toContain('http-equiv="refresh"')
+    expect(html).toContain('content="0;url=/zh-CN"')
   })
 
-  it('cleans up timers on unmount', async () => {
-    const clearTimeoutSpy = vi.spyOn(globalThis, 'clearTimeout')
+  it('stays a server component (a "use client" directive would re-add the React bundle)', () => {
+    expect(source).not.toMatch(/^\s*['"]use client['"]/m)
+  })
 
-    let unmount: (() => void) | undefined
-    await act(async () => {
-      const result = render(<RootRedirect />)
-      unmount = result.unmount
-    })
+  it('does not import the client-only BootstrapScreen', () => {
+    expect(source).not.toContain('bootstrap-screen')
+    expect(html).not.toContain('data-bootstrap-screen')
+  })
 
-    unmount!()
-    expect(clearTimeoutSpy).toHaveBeenCalled()
+  it('imports only server-renderable components', () => {
+    const imports = [...source.matchAll(/from '(@\/[^']+)'/g)].map((m) => m[1])
+    // Components that would drag React into the entry bundle.
+    expect(imports).not.toContain('@/components/shared/bootstrap-screen')
+    expect(imports).not.toContain('@/components/shared/app-init-overlay')
+    expect(imports).not.toContain('@/components/ui/tooltip')
   })
 })

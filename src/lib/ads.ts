@@ -67,11 +67,14 @@ export async function fetchAdFeed(signal?: AbortSignal): Promise<AdFeed | null> 
 }
 
 /**
- * 构建 ad 点击上报的 beacon URL（POST，无请求体，page path 与 locale 走 query）。
+ * 构建 ad 点击上报的 beacon URL（POST，无请求体，slot / page path / locale 走 query）。
  * 跳转本身不经过后端 —— 点击时 navigator.sendBeacon 异步上报，不阻塞新标签页打开。
+ *
+ * slot 是本次点击的素材槽位：运营端按它拆分点击统计，缺了它这次点击只能记成“未标注”，
+ * 无法归到桌面端或移动端。
  */
-export function buildAdClickBeaconUrl(adId: number, path: string, locale: string): string {
-  const params = new URLSearchParams({ path, locale })
+export function buildAdClickBeaconUrl(adId: number, slot: AdSlotName, path: string, locale: string): string {
+  const params = new URLSearchParams({ slot, path, locale })
   return `${OPS_SERVICE_ORIGIN}/api/v1/creatives/${adId}/click?${params.toString()}`
 }
 

@@ -1,73 +1,59 @@
 import { create } from 'zustand'
+import { createJSONStorage, persist } from 'zustand/middleware'
+import { APP_INIT_STORAGE_KEY } from '@/lib/constants'
 
-export type InitPhase = 'splash' | 'tracking' | 'ready'
+export type InitPhase = 'splash' | 'ready'
 
+/**
+ * Startup curtain state.
+ *
+ * The curtain reveals on hydration alone (see AppInitOverlay): it used to wait
+ * for every registered data task — `/version.json` plus the announcement index
+ * and all announcement markdown — which measured 300 ms past hydration on
+ * Fast 3G and far more on slow links.
+ *
+ * The task registry (`tasks` / `completedTasks` / `registerTask` /
+ * `completeTask`), the `progress` counter and the `'tracking'` phase were
+ * removed together with that gate: nothing read them any more, `beginTracking()`
+ * had no caller left (so `phase: 'tracking'` was unreachable, which in turn made
+ * `use-version`'s first-fetch branch permanently false), and the progress bar
+ * they fed was replaced by an indeterminate shimmer.
+ */
 interface AppInitState {
-  /** Current phase */
+  /** 'splash' until the reveal starts, 'ready' while the exit animation runs. */
   phase: InitPhase
-  /** Overall progress 0–100, driven by CSS animation + data sources */
-  progress: number
-  /** Tasks registered by data sources (e.g. 'announcements', 'version') */
-  tasks: Set<string>
-  completedTasks: Set<string>
   /** Set to true once init has fully completed in this session */
   hasCompleted: boolean
 
-  /** Transition from splash to tracking phase */
-  beginTracking: () => void
-  /** Register a data-loading task (call BEFORE async work) */
-  registerTask: (taskId: string) => void
-  /** Complete a data-loading task */
-  completeTask: (taskId: string) => void
-  /** Bump progress by an absolute value (for byte-stream tracking) */
-  setProgress: (value: number) => void
   /** Mark loading done → phase='ready', triggers exit animation */
   markReady: () => void
   /** Call AFTER the exit animation finishes to permanently hide the overlay */
   markCompleted: () => void
 }
 
-export const useAppInitStore = create<AppInitState>((set, get) => ({
-  phase: 'splash',
-  progress: 0,
-  tasks: new Set(),
-  completedTasks: new Set(),
-  hasCompleted: false,
+export const useAppInitStore = create<AppInitState>()(
+  persist(
+    (set) => ({
+      phase: 'splash',
+      hasCompleted: false,
 
-  beginTracking: () => {
-    const { hasCompleted } = get()
-    if (hasCompleted) return
-    set({ phase: 'tracking', progress: 0 })
-  },
+      markReady: () => {
+        set({ phase: 'ready' })
+      },
 
-  registerTask: (taskId) => {
-    const { tasks } = get()
-    const next = new Set(tasks)
-    next.add(taskId)
-    set({ tasks: next })
-  },
-
-  completeTask: (taskId) => {
-    const { tasks, completedTasks } = get()
-    const nextCompleted = new Set(completedTasks)
-    nextCompleted.add(taskId)
-
-    const allDone = [...tasks].every((t) => nextCompleted.has(t))
-    set({
-      completedTasks: nextCompleted,
-      ...(allDone ? { progress: 90 } : {}),
-    })
-  },
-
-  setProgress: (value) => {
-    set({ progress: Math.max(get().progress, value) })
-  },
-
-  markReady: () => {
-    set({ phase: 'ready', progress: 100 })
-  },
-
-  markCompleted: () => {
-    set({ hasCompleted: true })
-  },
-}))
+      markCompleted: () => {
+        set({ hasCompleted: true })
+      },
+    }),
+    {
+      name: APP_INIT_STORAGE_KEY,
+      // sessionStorage, not localStorage: a reload in the same tab should skip
+      // the curtain, but a fresh tab is a fresh visit and should show it.
+      storage: createJSONStorage(() => sessionStorage),
+      // Only the completion flag is durable; the phase is per-load transient
+      // state. `app-init-done-script.ts` reads exactly this envelope shape from
+      // the same key, so the persisted shape must stay `{ state: { hasCompleted } }`.
+      partialize: (state) => ({ hasCompleted: state.hasCompleted }),
+    },
+  ),
+)

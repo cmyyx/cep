@@ -1,10 +1,24 @@
 import { create } from 'zustand'
 import { persist, createJSONStorage } from 'zustand/middleware'
 import type { Announcement } from '@/types/announcement'
-import { useAppInitStore } from '@/stores/useAppInitStore'
-import { MIN_LOADING_DISPLAY_MS } from '@/lib/constants'
+import { withCacheVersion } from '@/lib/cache-url'
+import { announcementHashManifest } from '@/generated/announcement-hash-manifest'
 
-const TASK_ID = 'announcements'
+/**
+ * Announcement markdown is served `max-age=31536000, immutable`, but the
+ * filenames carry no content fingerprint — so the client used to append
+ * `?t=Date.now()`, which defeated `immutable` entirely and re-downloaded every
+ * file on every navigation. The build emits a content hash per file
+ * (`scripts/generate-version.mjs` → `announcementHashManifest`), so the URL now
+ * changes only when the content does and the long cache is actually usable.
+ *
+ * The index (`index.generated.json`) deliberately gets NO version param: it is
+ * the only way to discover a new announcement, so it must stay short-lived and
+ * revalidate (it is already `max-age=0, must-revalidate` + ETag).
+ */
+function announcementContentUrl(file: string): string {
+  return withCacheVersion(`/announcements/${file}`, announcementHashManifest)
+}
 
 interface AnnouncementState {
   announcements: Announcement[]
@@ -16,49 +30,11 @@ interface AnnouncementState {
   markAllAsRead: () => void
 }
 
-/**
- * Fetch JSON with byte-level progress reporting.
- * Falls back to a standard fetch if ReadableStream is unavailable or body is null.
- */
-async function fetchJSONWithProgress<T>(
-  url: string,
-  onProgress: (pct: number) => void
-): Promise<T> {
+/** Fetch and parse JSON, throwing on a non-OK response. */
+async function fetchJSON<T>(url: string): Promise<T> {
   const res = await fetch(url)
   if (!res.ok) throw new Error(`HTTP ${res.status}`)
-
-  const contentLength = Number(res.headers.get('Content-Length') || 0)
-  const body = res.body
-
-  // No streaming support — fall back
-  if (!body || !contentLength) {
-    onProgress(0.5)
-    const data = await res.json()
-    onProgress(1)
-    return data as T
-  }
-
-  const reader = body.getReader()
-  const chunks: Uint8Array[] = []
-  let received = 0
-
-  while (true) {
-    const { done, value } = await reader.read()
-    if (done) break
-    chunks.push(value)
-    received += value.length
-    onProgress(received / contentLength)
-  }
-
-  // Assemble and parse
-  const combined = new Uint8Array(received)
-  let offset = 0
-  for (const chunk of chunks) {
-    combined.set(chunk, offset)
-    offset += chunk.length
-  }
-  const text = new TextDecoder().decode(combined)
-  return JSON.parse(text) as T
+  return (await res.json()) as T
 }
 
 /** Raw item shape from index.generated.json — content is optional (loaded from .md file) */
@@ -74,6 +50,17 @@ interface AnnouncementIndexItem {
 
 /** Module-level fetch lock so initial isLoading:true (skeleton) doesn't block the first call */
 let fetching = false
+
+/**
+ * Set once the catalog has loaded successfully in this tab.
+ *
+ * `AnnouncementLoader` re-runs `loadAnnouncements` on every route change, so
+ * without this guard each navigation re-fetched the index plus all four
+ * markdown files. Failures deliberately do NOT set it, so a later navigation
+ * retries. Urgent notices are unaffected: those come from the ops notice
+ * endpoint (polled by EmergencyNoticeBanner), not from this static catalog.
+ */
+let loadedOnce = false
 
 /**
  * Wait until zustand/persist has restored `readIds` from localStorage.
@@ -114,13 +101,20 @@ export const useAnnouncementStore = create<AnnouncementState>()(
       loadError: false,
 
       loadAnnouncements: async () => {
+        // Already loaded in this tab — AnnouncementLoader fires on every route
+        // change, and re-fetching here would cost the index round-trip plus all
+        // markdown on every navigation.
+        if (loadedOnce) return
         // Prevent concurrent fetches (independent of isLoading, which starts as true for skeleton)
         if (fetching) return
         fetching = true
 
-        const startedAt = Date.now()
         let didError = false
-        let registered = false
+        // Only an index-level failure blanks the list. When a single markdown file
+        // fails, the announcements that did load stay in the store (their banners
+        // and unread counts keep working) while `didError` blocks `loadedOnce`, so a
+        // later call retries the missing one.
+        let indexFailed = false
 
         try {
           // Ensure persisted readIds are restored before any set() that would re-write storage
@@ -128,17 +122,10 @@ export const useAnnouncementStore = create<AnnouncementState>()(
 
           set({ isLoading: true, loadError: false })
 
-          // Register task with init store for progress tracking
-          useAppInitStore.getState().registerTask(TASK_ID)
-          registered = true
-
-          // Phase 1: fetch index.json (40% of progress)
-          const indexItems = await fetchJSONWithProgress<AnnouncementIndexItem[]>(
-            '/announcements/index.generated.json',
-            (fileProgress) => {
-              const overall = 40 * fileProgress
-              useAppInitStore.getState().setProgress(overall)
-            }
+          // Phase 1: fetch the announcement index (the only discovery channel
+          // for new announcements, so it stays unversioned and revalidated).
+          const indexItems = await fetchJSON<AnnouncementIndexItem[]>(
+            '/announcements/index.generated.json'
           )
 
           if (!Array.isArray(indexItems)) throw new Error('Invalid data format')
@@ -157,32 +144,25 @@ export const useAnnouncementStore = create<AnnouncementState>()(
           const indexIds = new Set(validatedIndex.map((item) => item.id))
 
           // Phase 2: load .md content in parallel for items that use file references
-          const totalItems = validatedIndex.length
-          let completedCount = 0
-
-          function updateProgress() {
-            completedCount++
-            // Avoid divide-by-zero when the index is empty
-            const overall =
-              totalItems === 0 ? 85 : 40 + (completedCount / totalItems) * 45
-            useAppInitStore.getState().setProgress(overall)
-          }
-
           const loadedItems = await Promise.all(
             validatedIndex.map(async (item): Promise<Announcement | null> => {
               let content = ''
 
               if (item.file) {
                 try {
-                  const mdRes = await fetch(`/announcements/${item.file}?t=${Date.now()}`)
+                  // Versioned URL: cached for a year, invalidated by content hash.
+                  const mdRes = await fetch(announcementContentUrl(item.file))
                   if (mdRes.ok) {
                     content = await mdRes.text()
                   } else {
                     // Fall back to inline content if .md load fails
                     content = typeof item.content === 'string' ? item.content : ''
                     if (!content) {
+                      // Recorded as a load error: this announcement is missing, so
+                      // the load must not be remembered as complete — the next call
+                      // retries it instead of returning early forever.
                       console.error(`[announcements] Failed to load ${item.file} and no inline content for ${item.id}`)
-                      updateProgress()
+                      didError = true
                       return null
                     }
                   }
@@ -190,7 +170,9 @@ export const useAnnouncementStore = create<AnnouncementState>()(
                   content = typeof item.content === 'string' ? item.content : ''
                   if (!content) {
                     console.error(`[announcements] Network error loading ${item.file} for ${item.id}`)
-                    updateProgress()
+                    // Same as above: a missing announcement is a load error, not a
+                    // successful load that happens to be short one entry.
+                    didError = true
                     return null
                   }
                 }
@@ -198,11 +180,9 @@ export const useAnnouncementStore = create<AnnouncementState>()(
                 content = item.content
               } else {
                 // Neither file nor content — skip
-                updateProgress()
                 return null
               }
 
-              updateProgress()
               return {
                 id: item.id,
                 title: item.title,
@@ -241,22 +221,21 @@ export const useAnnouncementStore = create<AnnouncementState>()(
           }
         } catch {
           didError = true
+          indexFailed = true
         } finally {
-          // Enforce minimum display time so skeleton doesn't flash
-          const elapsed = Date.now() - startedAt
-          if (elapsed < MIN_LOADING_DISPLAY_MS) {
-            await new Promise((r) => setTimeout(r, MIN_LOADING_DISPLAY_MS - elapsed))
-          }
+          // No minimum-display sleep here any more: it existed so the skeleton
+          // would not flash while the curtain was still up, but the curtain no
+          // longer waits on this task — the sleep only delayed the panel.
           set({
             isLoading: false,
             loadError: didError,
-            ...(didError ? { announcements: [] } : {}),
+            ...(indexFailed ? { announcements: [] } : {}),
           })
           fetching = false
-          // Signal task completion to init store (only if we registered)
-          if (registered) {
-            useAppInitStore.getState().completeTask(TASK_ID)
-          }
+          // Only a fully clean load is remembered: a failed markdown request (with no
+          // inline fallback) leaves the load retryable, so the missing announcement can
+          // still appear once the network recovers.
+          if (!didError) loadedOnce = true
         }
       },
 
@@ -286,4 +265,16 @@ export function useImportantUnreadCount(): number {
       (a) => a.priority === 'important' && !s.readIds.includes(a.id)
     ).length
   )
+}
+
+/**
+ * Test helper — clears the module-level fetch guards.
+ *
+ * `fetching` and `loadedOnce` live outside the store (they must survive
+ * re-renders without triggering them), so tests need an explicit reset between
+ * cases, same as `resetGameI18nCatalogCacheForTests` in lib/game-i18n-catalogs.
+ */
+export function resetAnnouncementLoadStateForTests(): void {
+  fetching = false
+  loadedOnce = false
 }

@@ -55,14 +55,25 @@ it('renders the desktop image with fluid 280:380 sizing and a direct target link
   expect(link.className).toContain('w-auto')
 })
 
-it('reports the click via sendBeacon without blocking the link', () => {
+it('reports the click via sendBeacon with its own slot, without blocking the link', () => {
   useAdStore.setState({ currentAd: AD })
   render(<AdSlot variant="desktop" />)
   fireEvent.click(screen.getByRole('link'))
   expect(sendBeacon).toHaveBeenCalledTimes(1)
   expect(sendBeacon.mock.calls[0][0]).toContain('/api/v1/creatives/7/click?')
+  // 端与素材同源：运营端靠这个参数拆分点击统计，不能缺。
+  expect(sendBeacon.mock.calls[0][0]).toContain('slot=desktop')
   expect(sendBeacon.mock.calls[0][0]).toContain(encodeURIComponent(window.location.pathname))
   expect(sendBeacon.mock.calls[0][0]).toContain('locale=zh-CN')
+})
+
+it('reports the mobile slot when the mobile creative is clicked', () => {
+  useAdStore.setState({ currentAd: AD })
+  render(<AdSlot variant="mobile" />)
+  fireEvent.click(screen.getByRole('link'))
+  expect(sendBeacon).toHaveBeenCalledTimes(1)
+  expect(sendBeacon.mock.calls[0][0]).toContain('/api/v1/creatives/7/click?')
+  expect(sendBeacon.mock.calls[0][0]).toContain('slot=mobile')
 })
 
 it('renders the mobile image sized 320x100 and falls back to the alt key when title is empty', () => {

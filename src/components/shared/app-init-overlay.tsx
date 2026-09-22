@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState, useCallback, useMemo } from 'react'
+import { useEffect, useState, useMemo } from 'react'
 import { useTranslations } from 'next-intl'
 import { useAppInitStore } from '@/stores/useAppInitStore'
 import { cn } from '@/lib/utils'
@@ -8,53 +8,73 @@ import { FEEDBACK_CHANNELS, GuardFeedback } from '@/components/shared/guard-layo
 import { FullScreenStatus } from '@/components/shared/full-screen-status'
 
 /**
- * Full-viewport loading overlay.
+ * Full-viewport loading curtain.
  *
- * Renders from the very first SSG HTML frame to prevent layout shifts
- * (announcement banner, etc.) from being visible before hydration completes.
+ * Renders from the very first SSG HTML frame so the pre-hydration window is not
+ * a flash of unanchored content.
  *
- * Instead of a fake percentage-based progress bar, shows an indeterminate
- * skeleton shimmer — a CSS-only animation that communicates "loading" without
- * lying about progress. Fades out when all registered init tasks complete.
+ * Reveal policy: hydration ONLY. The curtain used to wait for the `version` and
+ * `announcements` tasks — `/version.json` plus the announcement index and every
+ * announcement markdown file — and each of those paths additionally slept for a
+ * hard-coded `MIN_LOADING_DISPLAY_MS`. Measured on Fast 3G the curtain lifted
+ * 300 ms after hydration, so the network gate bought nothing but a slower
+ * reveal. Announcements now resolve into their own panel skeleton instead.
  *
- * When JavaScript is disabled, the overlay is hidden by a .no-js CSS rule
- * (see globals.css) so crawlers and no-JS users see the static SSG content.
+ * Repeat visits skip the curtain entirely: `hasCompleted` is persisted to
+ * sessionStorage, and the inline <head> bootstrap sets `<html data-cep-init-done>`
+ * so CSS hides `[data-app-init]` from the first paint (see globals.css) rather
+ * than painting it and removing it after hydration.
+ *
+ * When JavaScript is disabled, the overlay is hidden by a .no-js CSS rule (see
+ * globals.css) so crawlers and no-JS users see the static SSG content.
  */
+/**
+ * Whether this commit should render the curtain.
+ *
+ * The export is static, so the shipped HTML always carries the curtain and the
+ * first client render has to match it: applying the persisted `hasCompleted`
+ * flag on that first render would remove the node during hydration and make
+ * React patch the DOM. Only from the commit that has seen hydration may the
+ * flag hide the curtain. CSS already hides it on repeat visits in the meantime
+ * (`html[data-cep-init-done]`, see app-init-done-script.ts), so nothing flashes.
+ *
+ * Exported because React's mismatch handling cannot be asserted reliably in
+ * jsdom — this is the contract, pinned by app-init-overlay.test.tsx.
+ */
+export function curtainVisible(hydrated: boolean, hasCompleted: boolean): boolean {
+  return !hydrated || !hasCompleted
+}
+
 export function AppInitOverlay() {
   const hasCompleted = useAppInitStore((s) => s.hasCompleted)
   const markReady = useAppInitStore((s) => s.markReady)
   const markCompleted = useAppInitStore((s) => s.markCompleted)
-  const beginTracking = useAppInitStore((s) => s.beginTracking)
-  const tasks = useAppInitStore((s) => s.tasks)
-  const completedTasks = useAppInitStore((s) => s.completedTasks)
+  const ready = useAppInitStore((s) => s.phase === 'ready')
 
+  // See curtainVisible() above for why the persisted flag is applied one commit
+  // after the first render instead of during it.
+  const [hydrated, setHydrated] = useState(false)
   const [exitPhase, setExitPhase] = useState<'none' | 'exiting'>('none')
   const t = useTranslations()
-
-  // Kick off task registration after mount.
-  // beginTracking() is idempotent — it checks hasCompleted internally.
-  useEffect(() => {
-    if (hasCompleted) return
-    beginTracking()
-  }, [hasCompleted, beginTracking])
 
   // Hydration sentinel for the inline JS-resource guard: set as soon as this
   // component mounts, which proves React hydrated. If a critical chunk fails,
   // this never runs and the guard shows its fallback instead of leaving the
-  // overlay stuck forever.
+  // overlay stuck forever. Must stay ahead of any early return.
   useEffect(() => {
     document.documentElement.setAttribute('data-cep-hydrated', '1')
+    // Mount-only flag whose false value IS the point (it keeps the first render
+    // aligned with the shipped HTML), so it cannot be derived during render.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setHydrated(true)
   }, [])
 
-  // When all registered tasks complete (or none were registered) → exit.
-  const allTasksDone = tasks.size === 0 || [...tasks].every((t) => completedTasks.has(t))
-  const ready = useAppInitStore((s) => s.phase === 'ready')
-  const markReadyFromStore = useCallback(() => markReady(), [markReady])
-
+  // Reveal on the next frame after hydration — no network task gates this.
   useEffect(() => {
-    if (!allTasksDone || ready) return
-    markReadyFromStore()
-  }, [allTasksDone, ready, markReadyFromStore])
+    if (!hydrated || hasCompleted) return
+    const raf = requestAnimationFrame(() => markReady())
+    return () => cancelAnimationFrame(raf)
+  }, [hydrated, hasCompleted, markReady])
 
   // Ready → exit animation → permanently hide.
   useEffect(() => {
@@ -72,8 +92,7 @@ export function AppInitOverlay() {
     { href: FEEDBACK_CHANNELS.qqGroup.href, label: t('feedback.qqGroup') },
   ], [t])
 
-  // Never show again after first completion.
-  if (hasCompleted) return null
+  if (!curtainVisible(hydrated, hasCompleted)) return null
 
   return (
     <FullScreenStatus
