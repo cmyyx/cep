@@ -1,4 +1,4 @@
-import { mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
+import { existsSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import path from 'node:path'
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
@@ -111,13 +111,27 @@ describe('optimizeRootEntry', () => {
     expect(result.removedRscPayloads).toBe(2)
   })
 
-  it('is idempotent-safe: a second run fails loudly instead of corrupting the file', () => {
-    optimizeRootEntry(dir)
+  it('is idempotent: a second run redoes the hoist and changes nothing', () => {
+    const first = optimizeRootEntry(dir)
+    expect(first.alreadyOptimized).toBe(false)
     const once = read()
-    // The chunk scripts and RSC payload are gone, so the contract check must
-    // refuse to rewrite rather than silently produce a broken page.
-    expect(() => optimizeRootEntry(dir)).toThrow(/未发现 \/_next\/static\/chunks 脚本/)
+
+    // postbuild must survive being run twice (a local `pnpm build` that reuses
+    // out/): both the strip and the removal are no-ops the second time.
+    const second = optimizeRootEntry(dir)
+    expect(second.alreadyOptimized).toBe(true)
+    expect(second.removedChunkScripts).toBe(0)
     expect(read()).toBe(once)
+  })
+
+  it('drops the standalone RSC flight file for the entry', () => {
+    const rscPath = path.join(dir, 'index.txt')
+    writeFileSync(rscPath, '1:"$Sreact.fragment"')
+
+    expect(optimizeRootEntry(dir).removedRscEntry).toBe(true)
+    expect(existsSync(rscPath)).toBe(false)
+    // Absent already → nothing to report, and no failure.
+    expect(optimizeRootEntry(dir).removedRscEntry).toBe(false)
   })
 
   describe('contract assertions', () => {
@@ -128,12 +142,12 @@ describe('optimizeRootEntry', () => {
 
     it('fails when the chunk scripts are missing (Next export contract changed)', () => {
       writeFileSync(entryPath, FIXTURE.replace(/<script[^>]*src="\/_next\/static\/chunks\/[^"]*"[^>]*><\/script>/g, ''))
-      expect(() => optimizeRootEntry(dir)).toThrow(/未发现 \/_next\/static\/chunks 脚本/)
+      expect(() => optimizeRootEntry(dir)).toThrow(/只缺少chunk 脚本/)
     })
 
     it('fails when the RSC payload is missing (Next export contract changed)', () => {
       writeFileSync(entryPath, FIXTURE.replace(/<script>(?:\(?self\.__next_f[\s\S]*?)<\/script>/g, ''))
-      expect(() => optimizeRootEntry(dir)).toThrow(/未发现 RSC flight 载荷/)
+      expect(() => optimizeRootEntry(dir)).toThrow(/只缺少RSC flight 载荷/)
     })
 
     it('fails when <meta charset> is missing (no safe insertion point)', () => {

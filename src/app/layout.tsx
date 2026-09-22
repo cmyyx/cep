@@ -109,9 +109,17 @@ export default function RootLayout({
         <link rel="prefetch" href="/debug-panel.js" suppressHydrationWarning />
         {/* Analytics — all in <head> to avoid React hydration conflicts
             (React does not reconcile <head> children).
-            lazyOnload (not afterInteractive): these are third-party trackers
-            that must never compete with app chunks for bandwidth on first paint.
-            Measured: blocking them cuts FCP by ~750 ms on Slow 4G. */}
+            Strategy: lazyOnload (not afterInteractive). These are third-party
+            trackers that must never compete with app chunks for bandwidth on
+            first paint; measured, blocking them cuts FCP by ~750 ms on Slow 4G.
+            Four vendors, each covering something the others cannot (P2-8 asked
+            for exactly this to be written down instead of assumed; dropping one
+            is a product decision — "which number would we stop trusting?" — and
+            has not been taken, so the deferral above is the load-bearing part):
+              - 百度统计 hm.js     : 中国大陆访问量与百度搜索来源
+              - Clarity clarity.ms : 会话录制 / 热图，计数指标反推不出来
+              - GA4 gtag.js        : 跨地域渠道归因（172 KB，仍是最大第三方文件）
+              - CF Insights beacon : 边缘请求与真实用户指标，不依赖第三方脚本 */}
         <Script id="baidu-hmt" strategy="lazyOnload">
           {`var _hmt = _hmt || [];`}
         </Script>

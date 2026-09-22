@@ -2,7 +2,6 @@
 
 import { createContext, useContext, useState, useEffect, useRef, useCallback, type ReactNode } from 'react'
 import type { VersionInfo } from '@/types/version'
-import { useAppInitStore } from '@/stores/useAppInitStore'
 import { MIN_LOADING_DISPLAY_MS } from '@/lib/constants'
 
 const POLL_INTERVAL = 5 * 60 * 1000
@@ -42,12 +41,6 @@ export function VersionProvider({ children, initialInfo }: { children: ReactNode
 
     const checkStartedAt = manual ? Date.now() : 0
     let result: 'up-to-date' | 'error' | null = null
-
-    const initStore = useAppInitStore.getState()
-    const isFirstFetch = initStore.phase === 'tracking' && !initStore.completedTasks.has('version')
-    if (isFirstFetch) {
-      initStore.registerTask('version')
-    }
 
     try {
       const res = await fetch(`/version.json?t=${Date.now()}`, { cache: 'no-store' })
@@ -114,13 +107,6 @@ export function VersionProvider({ children, initialInfo }: { children: ReactNode
         }
         setIsChecking(false)
         if (result) setLastCheckResult(result)
-      }
-      if (isFirstFetch) {
-        // Report immediately. This used to sleep MIN_LOADING_DISPLAY_MS first so
-        // the curtain's progress bar would not "snap", but the curtain no longer
-        // gates on tasks (see AppInitOverlay) — the sleep only delayed the task
-        // bookkeeping and, transitively, the reveal.
-        useAppInitStore.getState().completeTask('version')
       }
     }
   }, [localInfo])

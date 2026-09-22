@@ -24,13 +24,7 @@ async function flushAnimationFrames() {
 
 beforeEach(() => {
   sessionStorage.clear()
-  useAppInitStore.setState({
-    hasCompleted: false,
-    phase: 'splash',
-    progress: 0,
-    tasks: new Set(),
-    completedTasks: new Set(),
-  })
+  useAppInitStore.setState({ hasCompleted: false, phase: 'splash' })
 })
 
 afterEach(() => {
@@ -62,12 +56,11 @@ it('renders nothing once init has completed', () => {
   expect(container.querySelector('[data-app-init]')).toBeNull()
 })
 
-it('reveals on hydration alone, without waiting for registered data tasks', async () => {
-  // A registered-but-incomplete task must no longer hold the curtain up: the
-  // overlay used to gate on `/version.json` plus the announcement index and all
-  // markdown, which measured 300 ms past hydration on Fast 3G and much longer
-  // on slow links. See the AppInitOverlay doc comment.
-  useAppInitStore.getState().registerTask('announcements')
+it('reveals on hydration alone, with no data-source gate left', async () => {
+  // The curtain used to hold until `/version.json` plus the announcement index
+  // and every markdown file had loaded — measured 300 ms past hydration on
+  // Fast 3G and far more on slow links. The task registry that drove that gate
+  // is gone (see useAppInitStore); hydration plus one frame is the whole policy.
   render(<AppInitOverlay />)
   expect(useAppInitStore.getState().phase).toBe('splash')
 
@@ -94,17 +87,12 @@ it('marks init completed after the exit animation, so it is persisted for the se
       state?: { hasCompleted?: boolean }
     } | null
     expect(stored?.state?.hasCompleted).toBe(true)
+    // The envelope shape is a contract with the inline `app-init-done` script
+    // (see @/lib/app-init-done-script): it reads `state.hasCompleted` from this
+    // exact key, so nothing else may be persisted here.
+    expect(Object.keys(stored?.state ?? {})).toEqual(['hasCompleted'])
   } finally {
     vi.useRealTimers()
   }
 })
 
-it('does not persist the task bookkeeping (Set fields would serialize to {})', async () => {
-  useAppInitStore.getState().registerTask('version')
-  await flushAnimationFrames()
-
-  const stored = JSON.parse(sessionStorage.getItem('cep-app-init') ?? 'null') as {
-    state?: Record<string, unknown>
-  } | null
-  expect(Object.keys(stored?.state ?? {})).toEqual(['hasCompleted'])
-})

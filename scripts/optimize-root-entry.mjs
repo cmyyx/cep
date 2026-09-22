@@ -27,12 +27,25 @@
  *   消失、且关键内容仍在。Next 升级若改变导出结构, 这里会大声失败, 而不是
  *   悄悄产出一个坏掉的首页 —— 与 prune-export.mjs 对 __next._full.txt 的
  *   字节比对同一思路。
+ *
+ * 幂等 (必须):
+ *   已经剥离过的 index.html (chunk script 与 RSC 载荷都不在了) 视为"已完成",
+ *   只重做搬移并直接返回, 不再报错 —— postbuild 重复执行 (本地 pnpm build
+ *   复用 out/) 不该失败。只有"一半"的状态 (两者只剩其一) 才是契约变化, 那时
+ *   照旧中止。
+ *
+ * index.txt (首页 RSC flight 的独立文件) 一并删除: 它复制了同一份 chunk 清单,
+ *   而应用内没有任何指向 / 的 <Link>, 唯一可能请求它的客户端软导航在当前设计下
+ *   本来就该退化成整页加载 (静态页会立刻跳转)。留着它反而会让"以后有人加一个
+ *   指向 / 的链接"变成把 splash 渲染进应用外壳里。
  */
-import { existsSync, readFileSync, statSync, writeFileSync } from 'node:fs'
+import { existsSync, readFileSync, rmSync, statSync, writeFileSync } from 'node:fs'
 import path from 'node:path'
 import { pathToFileURL } from 'node:url'
 
 const ENTRY_FILE = 'index.html'
+/** 独立落盘的首页 RSC flight 载荷 (只有客户端软导航会请求它)。 */
+const RSC_ENTRY_FILE = 'index.txt'
 const REDIRECT_SCRIPT_ID = 'root-redirect'
 
 /** Next 的 chunk <script src="/_next/static/chunks/...">(含 noModule / id="_R_" 变体)。 */
@@ -75,17 +88,16 @@ export function optimizeRootEntry(outDir) {
   }
 
   const chunkScripts = before.match(CHUNK_SCRIPT_RE) ?? []
-  if (chunkScripts.length === 0) {
-    throw new Error(
-      `optimize-root-entry: out/${ENTRY_FILE} 未发现 /_next/static/chunks 脚本 — ` +
-        `Next 导出契约可能已变化, 中止改写`,
-    )
-  }
-
   const rscPayloads = before.match(RSC_PAYLOAD_RE) ?? []
-  if (rscPayloads.length === 0) {
+  // Already stripped by an earlier postbuild run: both the chunk scripts and
+  // the RSC payload are gone while the redirect script is still there. The
+  // hoist below is re-applied either way, which is what makes this idempotent.
+  const alreadyOptimized = chunkScripts.length === 0 && rscPayloads.length === 0
+  if (!alreadyOptimized && (chunkScripts.length === 0 || rscPayloads.length === 0)) {
+    // Half-stripped output is a contract change, not a repeat run: fail loudly.
+    const missing = chunkScripts.length === 0 ? 'chunk 脚本' : 'RSC flight 载荷'
     throw new Error(
-      `optimize-root-entry: out/${ENTRY_FILE} 未发现 RSC flight 载荷 — ` +
+      `optimize-root-entry: out/${ENTRY_FILE} 只缺少${missing} — ` +
         `Next 导出契约可能已变化, 中止改写`,
     )
   }
@@ -130,6 +142,12 @@ export function optimizeRootEntry(outDir) {
     if (!probe) throw new Error(`optimize-root-entry: 剥离后丢失${label}, 中止改写`)
   }
 
+  // index.txt first: a crash in between leaves a still-unstripped index.html,
+  // which the next run handles in full again.
+  const rscEntryPath = path.join(outDir, RSC_ENTRY_FILE)
+  const removedRscEntry = existsSync(rscEntryPath)
+  if (removedRscEntry) rmSync(rscEntryPath, { force: true })
+
   writeFileSync(entryPath, out)
 
   const bytesAfter = Buffer.byteLength(out)
@@ -137,19 +155,35 @@ export function optimizeRootEntry(outDir) {
     path: entryPath,
     bytesBefore,
     bytesAfter,
+    alreadyOptimized,
     removedChunkScripts: chunkScripts.length,
     removedRscPayloads: rscPayloads.length,
+    removedRscEntry,
   }
 }
 
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
   const outDir = path.resolve(process.argv[2] ?? 'out')
-  const result = optimizeRootEntry(outDir)
-  const saved = result.bytesBefore - result.bytesAfter
-  console.log(
-    `optimize-root-entry: ${path.relative(process.cwd(), result.path)} ` +
-      `${(result.bytesBefore / 1024).toFixed(1)}KB → ${(result.bytesAfter / 1024).toFixed(1)}KB ` +
-      `(省 ${(saved / 1024).toFixed(1)}KB, 移除 ${result.removedChunkScripts} 个 chunk script / ` +
-      `${result.removedRscPayloads} 段 RSC 载荷)`,
-  )
+  try {
+    const result = optimizeRootEntry(outDir)
+    const saved = result.bytesBefore - result.bytesAfter
+    if (result.alreadyOptimized) {
+      console.log(`optimize-root-entry: ${path.relative(process.cwd(), result.path)} 已处理过, 本次只重做搬移`)
+    } else {
+      console.log(
+        `optimize-root-entry: ${path.relative(process.cwd(), result.path)} ` +
+          `${(result.bytesBefore / 1024).toFixed(1)}KB → ${(result.bytesAfter / 1024).toFixed(1)}KB ` +
+          `(省 ${(saved / 1024).toFixed(1)}KB, 移除 ${result.removedChunkScripts} 个 chunk script / ` +
+          `${result.removedRscPayloads} 段 RSC 载荷)`,
+      )
+    }
+    if (result.removedRscEntry) {
+      console.log(`optimize-root-entry: 已删除 ${RSC_ENTRY_FILE} (首页不再有客户端软导航入口)`)
+    }
+  } catch (error) {
+    // A readable one-line diagnosis instead of a raw stack: this runs at the end
+    // of a build, where the message is the whole signal.
+    console.error(error instanceof Error ? error.message : String(error))
+    process.exit(1)
+  }
 }

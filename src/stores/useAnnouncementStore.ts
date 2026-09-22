@@ -1,11 +1,8 @@
 import { create } from 'zustand'
 import { persist, createJSONStorage } from 'zustand/middleware'
 import type { Announcement } from '@/types/announcement'
-import { useAppInitStore } from '@/stores/useAppInitStore'
 import { withCacheVersion } from '@/lib/cache-url'
 import { announcementHashManifest } from '@/generated/announcement-hash-manifest'
-
-const TASK_ID = 'announcements'
 
 /**
  * Announcement markdown is served `max-age=31536000, immutable`, but the
@@ -33,49 +30,11 @@ interface AnnouncementState {
   markAllAsRead: () => void
 }
 
-/**
- * Fetch JSON with byte-level progress reporting.
- * Falls back to a standard fetch if ReadableStream is unavailable or body is null.
- */
-async function fetchJSONWithProgress<T>(
-  url: string,
-  onProgress: (pct: number) => void
-): Promise<T> {
+/** Fetch and parse JSON, throwing on a non-OK response. */
+async function fetchJSON<T>(url: string): Promise<T> {
   const res = await fetch(url)
   if (!res.ok) throw new Error(`HTTP ${res.status}`)
-
-  const contentLength = Number(res.headers.get('Content-Length') || 0)
-  const body = res.body
-
-  // No streaming support — fall back
-  if (!body || !contentLength) {
-    onProgress(0.5)
-    const data = await res.json()
-    onProgress(1)
-    return data as T
-  }
-
-  const reader = body.getReader()
-  const chunks: Uint8Array[] = []
-  let received = 0
-
-  while (true) {
-    const { done, value } = await reader.read()
-    if (done) break
-    chunks.push(value)
-    received += value.length
-    onProgress(received / contentLength)
-  }
-
-  // Assemble and parse
-  const combined = new Uint8Array(received)
-  let offset = 0
-  for (const chunk of chunks) {
-    combined.set(chunk, offset)
-    offset += chunk.length
-  }
-  const text = new TextDecoder().decode(combined)
-  return JSON.parse(text) as T
+  return (await res.json()) as T
 }
 
 /** Raw item shape from index.generated.json — content is optional (loaded from .md file) */
@@ -151,7 +110,6 @@ export const useAnnouncementStore = create<AnnouncementState>()(
         fetching = true
 
         let didError = false
-        let registered = false
 
         try {
           // Ensure persisted readIds are restored before any set() that would re-write storage
@@ -159,17 +117,10 @@ export const useAnnouncementStore = create<AnnouncementState>()(
 
           set({ isLoading: true, loadError: false })
 
-          // Register task with init store for progress tracking
-          useAppInitStore.getState().registerTask(TASK_ID)
-          registered = true
-
-          // Phase 1: fetch index.json (40% of progress)
-          const indexItems = await fetchJSONWithProgress<AnnouncementIndexItem[]>(
-            '/announcements/index.generated.json',
-            (fileProgress) => {
-              const overall = 40 * fileProgress
-              useAppInitStore.getState().setProgress(overall)
-            }
+          // Phase 1: fetch the announcement index (the only discovery channel
+          // for new announcements, so it stays unversioned and revalidated).
+          const indexItems = await fetchJSON<AnnouncementIndexItem[]>(
+            '/announcements/index.generated.json'
           )
 
           if (!Array.isArray(indexItems)) throw new Error('Invalid data format')
@@ -188,17 +139,6 @@ export const useAnnouncementStore = create<AnnouncementState>()(
           const indexIds = new Set(validatedIndex.map((item) => item.id))
 
           // Phase 2: load .md content in parallel for items that use file references
-          const totalItems = validatedIndex.length
-          let completedCount = 0
-
-          function updateProgress() {
-            completedCount++
-            // Avoid divide-by-zero when the index is empty
-            const overall =
-              totalItems === 0 ? 85 : 40 + (completedCount / totalItems) * 45
-            useAppInitStore.getState().setProgress(overall)
-          }
-
           const loadedItems = await Promise.all(
             validatedIndex.map(async (item): Promise<Announcement | null> => {
               let content = ''
@@ -214,7 +154,6 @@ export const useAnnouncementStore = create<AnnouncementState>()(
                     content = typeof item.content === 'string' ? item.content : ''
                     if (!content) {
                       console.error(`[announcements] Failed to load ${item.file} and no inline content for ${item.id}`)
-                      updateProgress()
                       return null
                     }
                   }
@@ -222,7 +161,6 @@ export const useAnnouncementStore = create<AnnouncementState>()(
                   content = typeof item.content === 'string' ? item.content : ''
                   if (!content) {
                     console.error(`[announcements] Network error loading ${item.file} for ${item.id}`)
-                    updateProgress()
                     return null
                   }
                 }
@@ -230,11 +168,9 @@ export const useAnnouncementStore = create<AnnouncementState>()(
                 content = item.content
               } else {
                 // Neither file nor content — skip
-                updateProgress()
                 return null
               }
 
-              updateProgress()
               return {
                 id: item.id,
                 title: item.title,
@@ -286,10 +222,6 @@ export const useAnnouncementStore = create<AnnouncementState>()(
           // Only a clean load is remembered; a failed one retries on the next
           // navigation instead of leaving the panel permanently empty.
           if (!didError) loadedOnce = true
-          // Signal task completion to init store (only if we registered)
-          if (registered) {
-            useAppInitStore.getState().completeTask(TASK_ID)
-          }
         }
       },
 
