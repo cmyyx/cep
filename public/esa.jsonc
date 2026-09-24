@@ -1,0 +1,7 @@
+{
+  "name": "cep",
+  "assets": {
+    "directory": ".",
+    "notFoundStrategy": "404Page"
+  }
+}
