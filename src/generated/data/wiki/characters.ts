@@ -476,6 +476,22 @@ export const wikiCharacters = [
     }
   },
   {
+    "id": "chr_0038_purrche",
+    "category": "characters",
+    "rarity": 5,
+    "imageId": "chr_0038_purrche",
+    "elementId": "Physical",
+    "professionId": "2",
+    "factionId": "ENDFIELD INDUSTRIES",
+    "weaponTypeId": "1",
+    "mainAttributeId": "39",
+    "subAttributeId": "42",
+    "birthday": {
+      "month": 11,
+      "day": 26
+    }
+  },
+  {
     "id": "chr_0035_liino",
     "category": "characters",
     "rarity": 6,
