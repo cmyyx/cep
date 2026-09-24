@@ -30,6 +30,7 @@
     "chr_0033_camille",
     "chr_0034_typhoea",
     "chr_0035_liino",
+    "chr_0038_purrche",
     "chr_9000_endmin-female",
     "chr_9000_endmin-male"
   ],
@@ -64,6 +65,7 @@
     "chr_0033_camille",
     "chr_0034_typhoea",
     "chr_0035_liino",
+    "chr_0038_purrche",
     "chr_9000_endmin-female",
     "chr_9000_endmin-male"
   ],
@@ -100,6 +102,7 @@
     "item_pic_1_chr_0033_camille",
     "item_pic_1_chr_0034_typhoea",
     "item_pic_1_chr_0035_liino",
+    "item_pic_1_chr_0038_purrche",
     "item_pic_1_ex01_chr_0004_pelica",
     "item_pic_3_chr_0002_endminm",
     "item_pic_3_chr_0003_endminf",
@@ -133,6 +136,7 @@
     "item_pic_3_chr_0033_camille",
     "item_pic_3_chr_0034_typhoea",
     "item_pic_3_chr_0035_liino",
+    "item_pic_3_chr_0038_purrche",
     "item_pic_5_chr_0002_endminm",
     "item_pic_5_chr_0003_endminf",
     "item_pic_5_chr_0004_pelica",
@@ -164,7 +168,8 @@
     "item_pic_5_chr_0032_lizhiyan",
     "item_pic_5_chr_0033_camille",
     "item_pic_5_chr_0034_typhoea",
-    "item_pic_5_chr_0035_liino"
+    "item_pic_5_chr_0035_liino",
+    "item_pic_5_chr_0038_purrche"
   ],
   "weapons": [
     "wpn_claym_0003",
@@ -245,6 +250,7 @@
     "wpn_sword_0020",
     "wpn_sword_0021",
     "wpn_sword_0022",
+    "wpn_sword_0023",
     "wpn_sword_0026"
   ],
   "equipment": [
@@ -531,6 +537,7 @@
     "icon_combo_skill_mifu_01",
     "icon_combo_skill_pelica_01",
     "icon_combo_skill_pograni_01",
+    "icon_combo_skill_purrche_01",
     "icon_combo_skill_seraph_01",
     "icon_combo_skill_tangtang_01",
     "icon_combo_skill_typhoea_01",
@@ -563,6 +570,7 @@
     "icon_skill_mifu_01",
     "icon_skill_pelica_01",
     "icon_skill_pograni_01",
+    "icon_skill_purrche_01",
     "icon_skill_seraph_01",
     "icon_skill_tangtang_01",
     "icon_skill_typhoea_01",
@@ -617,6 +625,8 @@
     "icon_talent_pelica_02",
     "icon_talent_pograni_01",
     "icon_talent_pograni_02",
+    "icon_talent_purrche_01",
+    "icon_talent_purrche_02",
     "icon_talent_seraph_01",
     "icon_talent_seraph_02",
     "icon_talent_tangtang_01",
@@ -657,6 +667,7 @@
     "icon_ultimate_skill_mifu_01",
     "icon_ultimate_skill_pelica_01",
     "icon_ultimate_skill_pograni_01",
+    "icon_ultimate_skill_purrche_01",
     "icon_ultimate_skill_seraph_01",
     "icon_ultimate_skill_tangtang_01",
     "icon_ultimate_skill_typhoea_01",

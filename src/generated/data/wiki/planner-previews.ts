@@ -43,15 +43,15 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       }
     ]
   },
-  "wpn_lance_0006": {
+  "wpn_pistol_0004": {
     "stats": [
       {
         "levelOne": {
-          "skillId": "wpn_attr_will_mid",
+          "skillId": "wpn_attr_str_mid",
           "level": 1
         },
         "maxLevel": {
-          "skillId": "wpn_attr_will_mid",
+          "skillId": "wpn_attr_str_mid",
           "level": 9
         },
         "levelOneLabel": "Lv.1",
@@ -59,11 +59,11 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       },
       {
         "levelOne": {
-          "skillId": "wpn_sp_attr_electrondam_mid",
+          "skillId": "wpn_sp_attr_firedam_mid",
           "level": 1
         },
         "maxLevel": {
-          "skillId": "wpn_sp_attr_electrondam_mid",
+          "skillId": "wpn_sp_attr_firedam_mid",
           "level": 9
         },
         "levelOneLabel": "Lv.1",
@@ -71,11 +71,11 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       },
       {
         "levelOne": {
-          "skillId": "sk_wpn_lance_0006",
+          "skillId": "sk_wpn_pistol_0004",
           "level": 1
         },
         "maxLevel": {
-          "skillId": "sk_wpn_lance_0006",
+          "skillId": "sk_wpn_pistol_0004",
           "level": 9
         },
         "levelOneLabel": "Lv.1",
@@ -123,15 +123,15 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       }
     ]
   },
-  "wpn_funnel_0009": {
+  "wpn_funnel_0008": {
     "stats": [
       {
         "levelOne": {
-          "skillId": "wpn_attr_wisd_high",
+          "skillId": "wpn_attr_main_high",
           "level": 1
         },
         "maxLevel": {
-          "skillId": "wpn_attr_wisd_high",
+          "skillId": "wpn_attr_main_high",
           "level": 9
         },
         "levelOneLabel": "Lv.1",
@@ -139,11 +139,11 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       },
       {
         "levelOne": {
-          "skillId": "wpn_sp_attr_magicdam_high",
+          "skillId": "wpn_sp_attr_phy_spell_high",
           "level": 1
         },
         "maxLevel": {
-          "skillId": "wpn_sp_attr_magicdam_high",
+          "skillId": "wpn_sp_attr_phy_spell_high",
           "level": 9
         },
         "levelOneLabel": "Lv.1",
@@ -151,11 +151,51 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       },
       {
         "levelOne": {
-          "skillId": "sk_wpn_funnel_0009",
+          "skillId": "sk_wpn_funnel_0008",
           "level": 1
         },
         "maxLevel": {
-          "skillId": "sk_wpn_funnel_0009",
+          "skillId": "sk_wpn_funnel_0008",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
+  "wpn_sword_0014": {
+    "stats": [
+      {
+        "levelOne": {
+          "skillId": "wpn_attr_main_high",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_attr_main_high",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "wpn_sp_attr_phy_spell_high",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_sp_attr_phy_spell_high",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "sk_wpn_sword_0014",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "sk_wpn_sword_0014",
           "level": 9
         },
         "levelOneLabel": "Lv.1",
@@ -203,46 +243,6 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       }
     ]
   },
-  "wpn_lance_0003": {
-    "stats": [
-      {
-        "levelOne": {
-          "skillId": "wpn_attr_agi_low",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_attr_agi_low",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "wpn_sp_attr_atk_low",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_sp_attr_atk_low",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "sk_wpn_lance_0003",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "sk_wpn_lance_0003",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      }
-    ]
-  },
   "wpn_claym_0007": {
     "stats": [
       {
@@ -276,6 +276,46 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
         },
         "maxLevel": {
           "skillId": "sk_wpn_claym_0007",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
+  "wpn_sword_0011": {
+    "stats": [
+      {
+        "levelOne": {
+          "skillId": "wpn_attr_main_high",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_attr_main_high",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "wpn_sp_attr_crirate_high",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_sp_attr_crirate_high",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "sk_wpn_sword_0011",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "sk_wpn_sword_0011",
           "level": 9
         },
         "levelOneLabel": "Lv.1",
@@ -323,15 +363,15 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       }
     ]
   },
-  "wpn_pistol_0008": {
+  "wpn_sword_0010": {
     "stats": [
       {
         "levelOne": {
-          "skillId": "wpn_attr_main_high",
+          "skillId": "wpn_attr_wisd_high",
           "level": 1
         },
         "maxLevel": {
-          "skillId": "wpn_attr_main_high",
+          "skillId": "wpn_attr_wisd_high",
           "level": 9
         },
         "levelOneLabel": "Lv.1",
@@ -339,11 +379,11 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       },
       {
         "levelOne": {
-          "skillId": "wpn_sp_attr_crirate_high",
+          "skillId": "wpn_sp_attr_firedam_high",
           "level": 1
         },
         "maxLevel": {
-          "skillId": "wpn_sp_attr_crirate_high",
+          "skillId": "wpn_sp_attr_firedam_high",
           "level": 9
         },
         "levelOneLabel": "Lv.1",
@@ -351,11 +391,11 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       },
       {
         "levelOne": {
-          "skillId": "sk_wpn_pistol_0008",
+          "skillId": "sk_wpn_sword_0010",
           "level": 1
         },
         "maxLevel": {
-          "skillId": "sk_wpn_pistol_0008",
+          "skillId": "sk_wpn_sword_0010",
           "level": 9
         },
         "levelOneLabel": "Lv.1",
@@ -431,46 +471,6 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       }
     ]
   },
-  "wpn_pistol_0004": {
-    "stats": [
-      {
-        "levelOne": {
-          "skillId": "wpn_attr_str_mid",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_attr_str_mid",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "wpn_sp_attr_firedam_mid",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_sp_attr_firedam_mid",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "sk_wpn_pistol_0004",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "sk_wpn_pistol_0004",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      }
-    ]
-  },
   "wpn_claym_0011": {
     "stats": [
       {
@@ -504,46 +504,6 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
         },
         "maxLevel": {
           "skillId": "sk_wpn_claym_0011",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      }
-    ]
-  },
-  "wpn_lance_0007": {
-    "stats": [
-      {
-        "levelOne": {
-          "skillId": "wpn_attr_agi_high",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_attr_agi_high",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "wpn_sp_attr_usgs_high",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_sp_attr_usgs_high",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "sk_wpn_lance_0007",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "sk_wpn_lance_0007",
           "level": 9
         },
         "levelOneLabel": "Lv.1",
@@ -631,15 +591,15 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       }
     ]
   },
-  "wpn_lance_0016": {
+  "wpn_pistol_0005": {
     "stats": [
       {
         "levelOne": {
-          "skillId": "wpn_attr_will_high",
+          "skillId": "wpn_attr_wisd_high",
           "level": 1
         },
         "maxLevel": {
-          "skillId": "wpn_attr_will_high",
+          "skillId": "wpn_attr_wisd_high",
           "level": 9
         },
         "levelOneLabel": "Lv.1",
@@ -647,11 +607,11 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       },
       {
         "levelOne": {
-          "skillId": "wpn_sp_attr_heal_high",
+          "skillId": "wpn_sp_attr_crystdam_high",
           "level": 1
         },
         "maxLevel": {
-          "skillId": "wpn_sp_attr_heal_high",
+          "skillId": "wpn_sp_attr_crystdam_high",
           "level": 9
         },
         "levelOneLabel": "Lv.1",
@@ -659,11 +619,11 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       },
       {
         "levelOne": {
-          "skillId": "sk_wpn_lance_0016",
+          "skillId": "sk_wpn_pistol_0005",
           "level": 1
         },
         "maxLevel": {
-          "skillId": "sk_wpn_lance_0016",
+          "skillId": "sk_wpn_pistol_0005",
           "level": 9
         },
         "levelOneLabel": "Lv.1",
@@ -711,15 +671,15 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       }
     ]
   },
-  "wpn_funnel_0008": {
+  "wpn_sword_0020": {
     "stats": [
       {
         "levelOne": {
-          "skillId": "wpn_attr_main_high",
+          "skillId": "wpn_attr_str_mid",
           "level": 1
         },
         "maxLevel": {
-          "skillId": "wpn_attr_main_high",
+          "skillId": "wpn_attr_str_mid",
           "level": 9
         },
         "levelOneLabel": "Lv.1",
@@ -727,11 +687,11 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       },
       {
         "levelOne": {
-          "skillId": "wpn_sp_attr_phy_spell_high",
+          "skillId": "wpn_sp_attr_crystdam_mid",
           "level": 1
         },
         "maxLevel": {
-          "skillId": "wpn_sp_attr_phy_spell_high",
+          "skillId": "wpn_sp_attr_crystdam_mid",
           "level": 9
         },
         "levelOneLabel": "Lv.1",
@@ -739,51 +699,11 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       },
       {
         "levelOne": {
-          "skillId": "sk_wpn_funnel_0008",
+          "skillId": "sk_wpn_sword_0020",
           "level": 1
         },
         "maxLevel": {
-          "skillId": "sk_wpn_funnel_0008",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      }
-    ]
-  },
-  "wpn_lance_0010": {
-    "stats": [
-      {
-        "levelOne": {
-          "skillId": "wpn_attr_agi_high",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_attr_agi_high",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "wpn_sp_attr_phydam_high",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_sp_attr_phydam_high",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "sk_wpn_lance_0010",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "sk_wpn_lance_0010",
+          "skillId": "sk_wpn_sword_0020",
           "level": 9
         },
         "levelOneLabel": "Lv.1",
@@ -831,86 +751,6 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       }
     ]
   },
-  "wpn_lance_0014": {
-    "stats": [
-      {
-        "levelOne": {
-          "skillId": "wpn_attr_will_high",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_attr_will_high",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "wpn_sp_attr_heal_high",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_sp_attr_heal_high",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "sk_wpn_lance_0014",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "sk_wpn_lance_0014",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      }
-    ]
-  },
-  "wpn_pistol_0009": {
-    "stats": [
-      {
-        "levelOne": {
-          "skillId": "wpn_attr_main_high",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_attr_main_high",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "wpn_sp_attr_magicdam_high",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_sp_attr_magicdam_high",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "sk_wpn_pistol_0009",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "sk_wpn_pistol_0009",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      }
-    ]
-  },
   "wpn_claym_0016": {
     "stats": [
       {
@@ -944,6 +784,46 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
         },
         "maxLevel": {
           "skillId": "sk_wpn_claym_0016",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
+  "wpn_sword_0022": {
+    "stats": [
+      {
+        "levelOne": {
+          "skillId": "wpn_attr_agi_high",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_attr_agi_high",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "wpn_sp_attr_crirate_high",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_sp_attr_crirate_high",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "sk_wpn_sword_0022",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "sk_wpn_sword_0022",
           "level": 9
         },
         "levelOneLabel": "Lv.1",
@@ -991,7 +871,7 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       }
     ]
   },
-  "wpn_lance_0012": {
+  "wpn_sword_0021": {
     "stats": [
       {
         "levelOne": {
@@ -1007,11 +887,11 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       },
       {
         "levelOne": {
-          "skillId": "wpn_sp_attr_phydam_high",
+          "skillId": "wpn_sp_attr_atk_high",
           "level": 1
         },
         "maxLevel": {
-          "skillId": "wpn_sp_attr_phydam_high",
+          "skillId": "wpn_sp_attr_atk_high",
           "level": 9
         },
         "levelOneLabel": "Lv.1",
@@ -1019,11 +899,11 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       },
       {
         "levelOne": {
-          "skillId": "sk_wpn_lance_0012",
+          "skillId": "sk_wpn_sword_0021",
           "level": 1
         },
         "maxLevel": {
-          "skillId": "sk_wpn_lance_0012",
+          "skillId": "sk_wpn_sword_0021",
           "level": 9
         },
         "levelOneLabel": "Lv.1",
@@ -1031,15 +911,15 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       }
     ]
   },
-  "wpn_lance_0013": {
+  "wpn_sword_0023": {
     "stats": [
       {
         "levelOne": {
-          "skillId": "wpn_attr_will_mid",
+          "skillId": "wpn_attr_str_mid",
           "level": 1
         },
         "maxLevel": {
-          "skillId": "wpn_attr_will_mid",
+          "skillId": "wpn_attr_str_mid",
           "level": 9
         },
         "levelOneLabel": "Lv.1",
@@ -1047,11 +927,11 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       },
       {
         "levelOne": {
-          "skillId": "wpn_sp_attr_phydam_mid",
+          "skillId": "wpn_sp_attr_heal_mid",
           "level": 1
         },
         "maxLevel": {
-          "skillId": "wpn_sp_attr_phydam_mid",
+          "skillId": "wpn_sp_attr_heal_mid",
           "level": 9
         },
         "levelOneLabel": "Lv.1",
@@ -1059,11 +939,11 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       },
       {
         "levelOne": {
-          "skillId": "sk_wpn_lance_0013",
+          "skillId": "sk_wpn_sword_0023",
           "level": 1
         },
         "maxLevel": {
-          "skillId": "sk_wpn_lance_0013",
+          "skillId": "sk_wpn_sword_0023",
           "level": 9
         },
         "levelOneLabel": "Lv.1",
@@ -1111,15 +991,15 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       }
     ]
   },
-  "wpn_sword_0016": {
+  "wpn_pistol_0011": {
     "stats": [
       {
         "levelOne": {
-          "skillId": "wpn_attr_will_high",
+          "skillId": "wpn_attr_agi_high",
           "level": 1
         },
         "maxLevel": {
-          "skillId": "wpn_attr_will_high",
+          "skillId": "wpn_attr_agi_high",
           "level": 9
         },
         "levelOneLabel": "Lv.1",
@@ -1139,11 +1019,11 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       },
       {
         "levelOne": {
-          "skillId": "sk_wpn_sword_0016",
+          "skillId": "sk_wpn_pistol_0011",
           "level": 1
         },
         "maxLevel": {
-          "skillId": "sk_wpn_sword_0016",
+          "skillId": "sk_wpn_pistol_0011",
           "level": 9
         },
         "levelOneLabel": "Lv.1",
@@ -1259,15 +1139,15 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       }
     ]
   },
-  "wpn_lance_0008": {
+  "wpn_lance_0007": {
     "stats": [
       {
         "levelOne": {
-          "skillId": "wpn_attr_will_low",
+          "skillId": "wpn_attr_agi_high",
           "level": 1
         },
         "maxLevel": {
-          "skillId": "wpn_attr_will_low",
+          "skillId": "wpn_attr_agi_high",
           "level": 9
         },
         "levelOneLabel": "Lv.1",
@@ -1275,11 +1155,11 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       },
       {
         "levelOne": {
-          "skillId": "wpn_sp_attr_magicdam_low",
+          "skillId": "wpn_sp_attr_usgs_high",
           "level": 1
         },
         "maxLevel": {
-          "skillId": "wpn_sp_attr_magicdam_low",
+          "skillId": "wpn_sp_attr_usgs_high",
           "level": 9
         },
         "levelOneLabel": "Lv.1",
@@ -1287,11 +1167,11 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       },
       {
         "levelOne": {
-          "skillId": "sk_wpn_lance_0008",
+          "skillId": "sk_wpn_lance_0007",
           "level": 1
         },
         "maxLevel": {
-          "skillId": "sk_wpn_lance_0008",
+          "skillId": "sk_wpn_lance_0007",
           "level": 9
         },
         "levelOneLabel": "Lv.1",
@@ -1419,6 +1299,46 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       }
     ]
   },
+  "wpn_funnel_0009": {
+    "stats": [
+      {
+        "levelOne": {
+          "skillId": "wpn_attr_wisd_high",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_attr_wisd_high",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "wpn_sp_attr_magicdam_high",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_sp_attr_magicdam_high",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "sk_wpn_funnel_0009",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "sk_wpn_funnel_0009",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
   "wpn_funnel_0010": {
     "stats": [
       {
@@ -1459,15 +1379,15 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       }
     ]
   },
-  "wpn_sword_0015": {
+  "wpn_lance_0008": {
     "stats": [
       {
         "levelOne": {
-          "skillId": "wpn_attr_agi_mid",
+          "skillId": "wpn_attr_will_low",
           "level": 1
         },
         "maxLevel": {
-          "skillId": "wpn_attr_agi_mid",
+          "skillId": "wpn_attr_will_low",
           "level": 9
         },
         "levelOneLabel": "Lv.1",
@@ -1475,11 +1395,11 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       },
       {
         "levelOne": {
-          "skillId": "wpn_sp_attr_phydam_mid",
+          "skillId": "wpn_sp_attr_magicdam_low",
           "level": 1
         },
         "maxLevel": {
-          "skillId": "wpn_sp_attr_phydam_mid",
+          "skillId": "wpn_sp_attr_magicdam_low",
           "level": 9
         },
         "levelOneLabel": "Lv.1",
@@ -1487,11 +1407,11 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       },
       {
         "levelOne": {
-          "skillId": "sk_wpn_sword_0015",
+          "skillId": "sk_wpn_lance_0008",
           "level": 1
         },
         "maxLevel": {
-          "skillId": "sk_wpn_sword_0015",
+          "skillId": "sk_wpn_lance_0008",
           "level": 9
         },
         "levelOneLabel": "Lv.1",
@@ -1539,15 +1459,15 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       }
     ]
   },
-  "wpn_sword_0005": {
+  "wpn_pistol_0001": {
     "stats": [
       {
         "levelOne": {
-          "skillId": "wpn_attr_agi_mid",
+          "skillId": "wpn_attr_main_low",
           "level": 1
         },
         "maxLevel": {
-          "skillId": "wpn_attr_agi_mid",
+          "skillId": "wpn_attr_main_low",
           "level": 9
         },
         "levelOneLabel": "Lv.1",
@@ -1555,23 +1475,11 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       },
       {
         "levelOne": {
-          "skillId": "wpn_sp_attr_phydam_mid",
+          "skillId": "sk_wpn_pistol_0001",
           "level": 1
         },
         "maxLevel": {
-          "skillId": "wpn_sp_attr_phydam_mid",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "sk_wpn_sword_0005",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "sk_wpn_sword_0005",
+          "skillId": "sk_wpn_pistol_0001",
           "level": 9
         },
         "levelOneLabel": "Lv.1",
@@ -1652,34 +1560,6 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
         },
         "maxLevel": {
           "skillId": "sk_wpn_funnel_0013",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      }
-    ]
-  },
-  "wpn_lance_0009": {
-    "stats": [
-      {
-        "levelOne": {
-          "skillId": "wpn_attr_main_low",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_attr_main_low",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "sk_wpn_lance_0009",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "sk_wpn_lance_0009",
           "level": 9
         },
         "levelOneLabel": "Lv.1",
@@ -1807,74 +1687,6 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       }
     ]
   },
-  "wpn_sword_0003": {
-    "stats": [
-      {
-        "levelOne": {
-          "skillId": "wpn_attr_main_low",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_attr_main_low",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "sk_wpn_sword_0003",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "sk_wpn_sword_0003",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      }
-    ]
-  },
-  "wpn_sword_0017": {
-    "stats": [
-      {
-        "levelOne": {
-          "skillId": "wpn_attr_agi_high",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_attr_agi_high",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "wpn_sp_attr_crirate_high",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_sp_attr_crirate_high",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "sk_wpn_sword_0017",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "sk_wpn_sword_0017",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      }
-    ]
-  },
   "wpn_funnel_0017": {
     "stats": [
       {
@@ -1908,86 +1720,6 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
         },
         "maxLevel": {
           "skillId": "sk_wpn_funnel_0017",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      }
-    ]
-  },
-  "wpn_sword_0007": {
-    "stats": [
-      {
-        "levelOne": {
-          "skillId": "wpn_attr_wisd_mid",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_attr_wisd_mid",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "wpn_sp_attr_usgs_mid",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_sp_attr_usgs_mid",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "sk_wpn_sword_0007",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "sk_wpn_sword_0007",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      }
-    ]
-  },
-  "wpn_sword_0013": {
-    "stats": [
-      {
-        "levelOne": {
-          "skillId": "wpn_attr_main_high",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_attr_main_high",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "wpn_sp_attr_phydam_high",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_sp_attr_phydam_high",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "sk_wpn_sword_0013",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "sk_wpn_sword_0013",
           "level": 9
         },
         "levelOneLabel": "Lv.1",
@@ -2035,6 +1767,86 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       }
     ]
   },
+  "wpn_sword_0015": {
+    "stats": [
+      {
+        "levelOne": {
+          "skillId": "wpn_attr_agi_mid",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_attr_agi_mid",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "wpn_sp_attr_phydam_mid",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_sp_attr_phydam_mid",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "sk_wpn_sword_0015",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "sk_wpn_sword_0015",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
+  "wpn_sword_0019": {
+    "stats": [
+      {
+        "levelOne": {
+          "skillId": "wpn_attr_agi_mid",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_attr_agi_mid",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "wpn_sp_attr_atk_mid",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_sp_attr_atk_mid",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "sk_wpn_sword_0019",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "sk_wpn_sword_0019",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
   "wpn_funnel_0019": {
     "stats": [
       {
@@ -2075,6 +1887,46 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       }
     ]
   },
+  "wpn_sword_0005": {
+    "stats": [
+      {
+        "levelOne": {
+          "skillId": "wpn_attr_agi_mid",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_attr_agi_mid",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "wpn_sp_attr_phydam_mid",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_sp_attr_phydam_mid",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "sk_wpn_sword_0005",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "sk_wpn_sword_0005",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
   "wpn_funnel_0020": {
     "stats": [
       {
@@ -2108,6 +1960,902 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
         },
         "maxLevel": {
           "skillId": "sk_wpn_funnel_0020",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
+  "wpn_sword_0007": {
+    "stats": [
+      {
+        "levelOne": {
+          "skillId": "wpn_attr_wisd_mid",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_attr_wisd_mid",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "wpn_sp_attr_usgs_mid",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_sp_attr_usgs_mid",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "sk_wpn_sword_0007",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "sk_wpn_sword_0007",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
+  "wpn_lance_0003": {
+    "stats": [
+      {
+        "levelOne": {
+          "skillId": "wpn_attr_agi_low",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_attr_agi_low",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "wpn_sp_attr_atk_low",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_sp_attr_atk_low",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "sk_wpn_lance_0003",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "sk_wpn_lance_0003",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
+  "wpn_pistol_0007": {
+    "stats": [
+      {
+        "levelOne": {
+          "skillId": "wpn_attr_agi_high",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_attr_agi_high",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "wpn_sp_attr_crystdam_high",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_sp_attr_crystdam_high",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "sk_wpn_pistol_0007",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "sk_wpn_pistol_0007",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
+  "wpn_lance_0004": {
+    "stats": [
+      {
+        "levelOne": {
+          "skillId": "wpn_attr_str_mid",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_attr_str_mid",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "wpn_sp_attr_usgs_mid",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_sp_attr_usgs_mid",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "sk_wpn_lance_0004",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "sk_wpn_lance_0004",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
+  "wpn_lance_0006": {
+    "stats": [
+      {
+        "levelOne": {
+          "skillId": "wpn_attr_will_mid",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_attr_will_mid",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "wpn_sp_attr_electrondam_mid",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_sp_attr_electrondam_mid",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "sk_wpn_lance_0006",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "sk_wpn_lance_0006",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
+  "wpn_lance_0009": {
+    "stats": [
+      {
+        "levelOne": {
+          "skillId": "wpn_attr_main_low",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_attr_main_low",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "sk_wpn_lance_0009",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "sk_wpn_lance_0009",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
+  "wpn_sword_0009": {
+    "stats": [
+      {
+        "levelOne": {
+          "skillId": "wpn_attr_wisd_low",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_attr_wisd_low",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "wpn_sp_attr_atk_low",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_sp_attr_atk_low",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "sk_wpn_sword_0009",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "sk_wpn_sword_0009",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
+  "wpn_lance_0010": {
+    "stats": [
+      {
+        "levelOne": {
+          "skillId": "wpn_attr_agi_high",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_attr_agi_high",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "wpn_sp_attr_phydam_high",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_sp_attr_phydam_high",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "sk_wpn_lance_0010",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "sk_wpn_lance_0010",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
+  "wpn_lance_0011": {
+    "stats": [
+      {
+        "levelOne": {
+          "skillId": "wpn_attr_main_high",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_attr_main_high",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "wpn_sp_attr_atk_high",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_sp_attr_atk_high",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "sk_wpn_lance_0011",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "sk_wpn_lance_0011",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
+  "wpn_lance_0012": {
+    "stats": [
+      {
+        "levelOne": {
+          "skillId": "wpn_attr_agi_high",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_attr_agi_high",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "wpn_sp_attr_phydam_high",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_sp_attr_phydam_high",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "sk_wpn_lance_0012",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "sk_wpn_lance_0012",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
+  "wpn_pistol_0009": {
+    "stats": [
+      {
+        "levelOne": {
+          "skillId": "wpn_attr_main_high",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_attr_main_high",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "wpn_sp_attr_magicdam_high",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_sp_attr_magicdam_high",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "sk_wpn_pistol_0009",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "sk_wpn_pistol_0009",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
+  "wpn_lance_0013": {
+    "stats": [
+      {
+        "levelOne": {
+          "skillId": "wpn_attr_will_mid",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_attr_will_mid",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "wpn_sp_attr_phydam_mid",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_sp_attr_phydam_mid",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "sk_wpn_lance_0013",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "sk_wpn_lance_0013",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
+  "wpn_pistol_0008": {
+    "stats": [
+      {
+        "levelOne": {
+          "skillId": "wpn_attr_main_high",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_attr_main_high",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "wpn_sp_attr_crirate_high",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_sp_attr_crirate_high",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "sk_wpn_pistol_0008",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "sk_wpn_pistol_0008",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
+  "wpn_lance_0014": {
+    "stats": [
+      {
+        "levelOne": {
+          "skillId": "wpn_attr_will_high",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_attr_will_high",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "wpn_sp_attr_heal_high",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_sp_attr_heal_high",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "sk_wpn_lance_0014",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "sk_wpn_lance_0014",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
+  "wpn_lance_0015": {
+    "stats": [
+      {
+        "levelOne": {
+          "skillId": "wpn_attr_agi_high",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_attr_agi_high",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "wpn_sp_attr_firedam_high",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_sp_attr_firedam_high",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "sk_wpn_lance_0015",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "sk_wpn_lance_0015",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
+  "wpn_lance_0016": {
+    "stats": [
+      {
+        "levelOne": {
+          "skillId": "wpn_attr_will_high",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_attr_will_high",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "wpn_sp_attr_heal_high",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_sp_attr_heal_high",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "sk_wpn_lance_0016",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "sk_wpn_lance_0016",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
+  "wpn_pistol_0002": {
+    "stats": [
+      {
+        "levelOne": {
+          "skillId": "wpn_attr_wisd_low",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_attr_wisd_low",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "wpn_sp_attr_atk_low",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_sp_attr_atk_low",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "sk_wpn_pistol_0002",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "sk_wpn_pistol_0002",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
+  "wpn_pistol_0003": {
+    "stats": [
+      {
+        "levelOne": {
+          "skillId": "wpn_attr_str_low",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_attr_str_low",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "wpn_sp_attr_magicdam_low",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_sp_attr_magicdam_low",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "sk_wpn_pistol_0003",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "sk_wpn_pistol_0003",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
+  "wpn_pistol_0006": {
+    "stats": [
+      {
+        "levelOne": {
+          "skillId": "wpn_attr_agi_mid",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_attr_agi_mid",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "wpn_sp_attr_magicdam_mid",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_sp_attr_magicdam_mid",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "sk_wpn_pistol_0006",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "sk_wpn_pistol_0006",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
+  "wpn_pistol_0010": {
+    "stats": [
+      {
+        "levelOne": {
+          "skillId": "wpn_attr_wisd_high",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_attr_wisd_high",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "wpn_sp_attr_crirate_high",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_sp_attr_crirate_high",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "sk_wpn_pistol_0010",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "sk_wpn_pistol_0010",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
+  "wpn_pistol_0012": {
+    "stats": [
+      {
+        "levelOne": {
+          "skillId": "wpn_attr_agi_mid",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_attr_agi_mid",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "wpn_sp_attr_usgs_mid",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_sp_attr_usgs_mid",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "sk_wpn_pistol_0012",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "sk_wpn_pistol_0012",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
+  "wpn_sword_0003": {
+    "stats": [
+      {
+        "levelOne": {
+          "skillId": "wpn_attr_main_low",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_attr_main_low",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "sk_wpn_sword_0003",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "sk_wpn_sword_0003",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
+  "wpn_sword_0006": {
+    "stats": [
+      {
+        "levelOne": {
+          "skillId": "wpn_attr_wisd_high",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_attr_wisd_high",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "wpn_sp_attr_atk_high",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_sp_attr_atk_high",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "sk_wpn_sword_0006",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "sk_wpn_sword_0006",
           "level": 9
         },
         "levelOneLabel": "Lv.1",
@@ -2195,15 +2943,15 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       }
     ]
   },
-  "wpn_lance_0004": {
+  "wpn_sword_0013": {
     "stats": [
       {
         "levelOne": {
-          "skillId": "wpn_attr_str_mid",
+          "skillId": "wpn_attr_main_high",
           "level": 1
         },
         "maxLevel": {
-          "skillId": "wpn_attr_str_mid",
+          "skillId": "wpn_attr_main_high",
           "level": 9
         },
         "levelOneLabel": "Lv.1",
@@ -2211,11 +2959,11 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       },
       {
         "levelOne": {
-          "skillId": "wpn_sp_attr_usgs_mid",
+          "skillId": "wpn_sp_attr_phydam_high",
           "level": 1
         },
         "maxLevel": {
-          "skillId": "wpn_sp_attr_usgs_mid",
+          "skillId": "wpn_sp_attr_phydam_high",
           "level": 9
         },
         "levelOneLabel": "Lv.1",
@@ -2223,11 +2971,11 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       },
       {
         "levelOne": {
-          "skillId": "sk_wpn_lance_0004",
+          "skillId": "sk_wpn_sword_0013",
           "level": 1
         },
         "maxLevel": {
-          "skillId": "sk_wpn_lance_0004",
+          "skillId": "sk_wpn_sword_0013",
           "level": 9
         },
         "levelOneLabel": "Lv.1",
@@ -2235,15 +2983,15 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       }
     ]
   },
-  "wpn_lance_0011": {
+  "wpn_sword_0016": {
     "stats": [
       {
         "levelOne": {
-          "skillId": "wpn_attr_main_high",
+          "skillId": "wpn_attr_will_high",
           "level": 1
         },
         "maxLevel": {
-          "skillId": "wpn_attr_main_high",
+          "skillId": "wpn_attr_will_high",
           "level": 9
         },
         "levelOneLabel": "Lv.1",
@@ -2263,11 +3011,11 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       },
       {
         "levelOne": {
-          "skillId": "sk_wpn_lance_0011",
+          "skillId": "sk_wpn_sword_0016",
           "level": 1
         },
         "maxLevel": {
-          "skillId": "sk_wpn_lance_0011",
+          "skillId": "sk_wpn_sword_0016",
           "level": 9
         },
         "levelOneLabel": "Lv.1",
@@ -2275,7 +3023,7 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       }
     ]
   },
-  "wpn_lance_0015": {
+  "wpn_sword_0017": {
     "stats": [
       {
         "levelOne": {
@@ -2284,354 +3032,6 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
         },
         "maxLevel": {
           "skillId": "wpn_attr_agi_high",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "wpn_sp_attr_firedam_high",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_sp_attr_firedam_high",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "sk_wpn_lance_0015",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "sk_wpn_lance_0015",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      }
-    ]
-  },
-  "wpn_pistol_0001": {
-    "stats": [
-      {
-        "levelOne": {
-          "skillId": "wpn_attr_main_low",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_attr_main_low",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "sk_wpn_pistol_0001",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "sk_wpn_pistol_0001",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      }
-    ]
-  },
-  "wpn_sword_0010": {
-    "stats": [
-      {
-        "levelOne": {
-          "skillId": "wpn_attr_wisd_high",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_attr_wisd_high",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "wpn_sp_attr_firedam_high",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_sp_attr_firedam_high",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "sk_wpn_sword_0010",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "sk_wpn_sword_0010",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      }
-    ]
-  },
-  "wpn_pistol_0002": {
-    "stats": [
-      {
-        "levelOne": {
-          "skillId": "wpn_attr_wisd_low",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_attr_wisd_low",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "wpn_sp_attr_atk_low",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_sp_attr_atk_low",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "sk_wpn_pistol_0002",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "sk_wpn_pistol_0002",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      }
-    ]
-  },
-  "wpn_sword_0020": {
-    "stats": [
-      {
-        "levelOne": {
-          "skillId": "wpn_attr_str_mid",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_attr_str_mid",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "wpn_sp_attr_crystdam_mid",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_sp_attr_crystdam_mid",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "sk_wpn_sword_0020",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "sk_wpn_sword_0020",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      }
-    ]
-  },
-  "wpn_pistol_0003": {
-    "stats": [
-      {
-        "levelOne": {
-          "skillId": "wpn_attr_str_low",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_attr_str_low",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "wpn_sp_attr_magicdam_low",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_sp_attr_magicdam_low",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "sk_wpn_pistol_0003",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "sk_wpn_pistol_0003",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      }
-    ]
-  },
-  "wpn_pistol_0005": {
-    "stats": [
-      {
-        "levelOne": {
-          "skillId": "wpn_attr_wisd_high",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_attr_wisd_high",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "wpn_sp_attr_crystdam_high",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_sp_attr_crystdam_high",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "sk_wpn_pistol_0005",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "sk_wpn_pistol_0005",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      }
-    ]
-  },
-  "wpn_pistol_0006": {
-    "stats": [
-      {
-        "levelOne": {
-          "skillId": "wpn_attr_agi_mid",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_attr_agi_mid",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "wpn_sp_attr_magicdam_mid",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_sp_attr_magicdam_mid",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "sk_wpn_pistol_0006",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "sk_wpn_pistol_0006",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      }
-    ]
-  },
-  "wpn_pistol_0007": {
-    "stats": [
-      {
-        "levelOne": {
-          "skillId": "wpn_attr_agi_high",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_attr_agi_high",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "wpn_sp_attr_crystdam_high",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_sp_attr_crystdam_high",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "sk_wpn_pistol_0007",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "sk_wpn_pistol_0007",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      }
-    ]
-  },
-  "wpn_pistol_0010": {
-    "stats": [
-      {
-        "levelOne": {
-          "skillId": "wpn_attr_wisd_high",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_attr_wisd_high",
           "level": 9
         },
         "levelOneLabel": "Lv.1",
@@ -2651,251 +3051,11 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       },
       {
         "levelOne": {
-          "skillId": "sk_wpn_pistol_0010",
+          "skillId": "sk_wpn_sword_0017",
           "level": 1
         },
         "maxLevel": {
-          "skillId": "sk_wpn_pistol_0010",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      }
-    ]
-  },
-  "wpn_pistol_0011": {
-    "stats": [
-      {
-        "levelOne": {
-          "skillId": "wpn_attr_agi_high",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_attr_agi_high",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "wpn_sp_attr_atk_high",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_sp_attr_atk_high",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "sk_wpn_pistol_0011",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "sk_wpn_pistol_0011",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      }
-    ]
-  },
-  "wpn_pistol_0012": {
-    "stats": [
-      {
-        "levelOne": {
-          "skillId": "wpn_attr_agi_mid",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_attr_agi_mid",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "wpn_sp_attr_usgs_mid",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_sp_attr_usgs_mid",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "sk_wpn_pistol_0012",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "sk_wpn_pistol_0012",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      }
-    ]
-  },
-  "wpn_sword_0006": {
-    "stats": [
-      {
-        "levelOne": {
-          "skillId": "wpn_attr_wisd_high",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_attr_wisd_high",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "wpn_sp_attr_atk_high",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_sp_attr_atk_high",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "sk_wpn_sword_0006",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "sk_wpn_sword_0006",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      }
-    ]
-  },
-  "wpn_sword_0014": {
-    "stats": [
-      {
-        "levelOne": {
-          "skillId": "wpn_attr_main_high",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_attr_main_high",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "wpn_sp_attr_phy_spell_high",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_sp_attr_phy_spell_high",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "sk_wpn_sword_0014",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "sk_wpn_sword_0014",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      }
-    ]
-  },
-  "wpn_sword_0009": {
-    "stats": [
-      {
-        "levelOne": {
-          "skillId": "wpn_attr_wisd_low",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_attr_wisd_low",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "wpn_sp_attr_atk_low",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_sp_attr_atk_low",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "sk_wpn_sword_0009",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "sk_wpn_sword_0009",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      }
-    ]
-  },
-  "wpn_sword_0011": {
-    "stats": [
-      {
-        "levelOne": {
-          "skillId": "wpn_attr_main_high",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_attr_main_high",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "wpn_sp_attr_crirate_high",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_sp_attr_crirate_high",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "sk_wpn_sword_0011",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "sk_wpn_sword_0011",
+          "skillId": "sk_wpn_sword_0017",
           "level": 9
         },
         "levelOneLabel": "Lv.1",
@@ -2936,126 +3096,6 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
         },
         "maxLevel": {
           "skillId": "sk_wpn_sword_0018",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      }
-    ]
-  },
-  "wpn_sword_0019": {
-    "stats": [
-      {
-        "levelOne": {
-          "skillId": "wpn_attr_agi_mid",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_attr_agi_mid",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "wpn_sp_attr_atk_mid",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_sp_attr_atk_mid",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "sk_wpn_sword_0019",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "sk_wpn_sword_0019",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      }
-    ]
-  },
-  "wpn_sword_0021": {
-    "stats": [
-      {
-        "levelOne": {
-          "skillId": "wpn_attr_agi_high",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_attr_agi_high",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "wpn_sp_attr_atk_high",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_sp_attr_atk_high",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "sk_wpn_sword_0021",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "sk_wpn_sword_0021",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      }
-    ]
-  },
-  "wpn_sword_0022": {
-    "stats": [
-      {
-        "levelOne": {
-          "skillId": "wpn_attr_agi_high",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_attr_agi_high",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "wpn_sp_attr_crirate_high",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_sp_attr_crirate_high",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "sk_wpn_sword_0022",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "sk_wpn_sword_0022",
           "level": 9
         },
         "levelOneLabel": "Lv.1",

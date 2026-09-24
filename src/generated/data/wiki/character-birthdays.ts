@@ -144,6 +144,11 @@ export const characterBirthdays = [
     "day": 13
   },
   {
+    "id": "chr_0038_purrche",
+    "month": 11,
+    "day": 26
+  },
+  {
     "id": "chr_0035_liino",
     "month": 7,
     "day": 27
