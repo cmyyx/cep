@@ -11,6 +11,9 @@ on:
 
 jobs:
   check:
+    # force_sync (manual dispatch) means the operator already decided a sync must run,
+    # so the entire gate is skipped — including the upstream clones and chromium install.
+    if: ${{ inputs.force_sync != true }}
     runs-on: ubuntu-latest
     outputs:
       changed: ${{ steps.diff.outputs.changed }}
@@ -83,18 +86,7 @@ jobs:
 
       - name: Check upstream changes
         id: diff
-        env:
-          FORCE_SYNC: ${{ inputs.force_sync }}
         run: |
-          # Manual dispatch can bypass the gate: upstream SHAs only track AKEData /
-          # AKEDatabase, so stale avatars and preview-character mappings (Skland
-          # state) never make `--check` report a change on their own.
-          if [ "$FORCE_SYNC" = "true" ]; then
-            echo "::notice::force_sync=true — bypassing the upstream change gate"
-            echo "changed=true" >> $GITHUB_OUTPUT
-            exit 0
-          fi
-
           # Run check (exit code 2 = changed, 0 = no change)
           set +e
           npx tsx scripts/sync-game-data.ts --check --skland-probe \
@@ -117,7 +109,9 @@ jobs:
 
   sync:
     needs: check
-    if: needs.check.outputs.changed == 'true'
+    # always() is required: when force_sync skips the check job, a plain `needs` guard
+    # would skip this job too. The check job's own token validation still runs inside it.
+    if: ${{ always() && (inputs.force_sync == true || needs.check.outputs.changed == 'true') }}
     runs-on: ubuntu-latest
     permissions:
       contents: write

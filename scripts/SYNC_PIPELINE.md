@@ -181,8 +181,8 @@ warning —— 不让维基挂掉把数据同步整条卡死。
 - **触发**：每周四、周五 00:00 UTC（cron `0 0 * * 4,5`）+ 手动 dispatch
 - **Check 阶段**：shallow sparse clone 上游仓库（仅需的目录），比较 SHA + 本地一致性（含角色头像映射）+ Skland 目录探针（需要 chromium）
 - **Sync 阶段**：有变更时运行 `sync:update --force`（update 不再自己判一次闸门），自动创建 PR 到**触发它的那个分支**
-- **手动强制**：dispatch 时勾选 `force_sync` → 跳过变更闸门直接跑 `sync:update`
-  （上游 SHA 没动但头像/映射过期时的唯一入口）
+- **手动强制**：dispatch 时勾选 `force_sync` → **整个 check job 被跳过**（不 clone 上游、不装 chromium），
+  直接运行 `sync:update --force`（上游 SHA 没动但头像/映射过期时的入口）
 - **PR 分支命名**：`base = 触发分支`，head 分支 `auto/sync-game-data-<触发分支>`，
   因此不同分支的 sync 不会互相 force-push 掉对方的 PR
 
