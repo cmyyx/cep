@@ -1,13 +1,93 @@
 import { mkdtempSync, mkdirSync, rmSync, writeFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
+import { fileURLToPath } from 'node:url'
 import { afterEach, expect, it } from 'vitest'
-import { validateEquips, validateWeapons } from './validate-data'
+import { validateCharacterAvatarMappings, validateEquips, validateWeapons } from './validate-data'
+import type { BannerNameSource } from './validate-data'
 
 const roots: string[] = []
 
 afterEach(() => {
   for (const root of roots.splice(0)) rmSync(root, { recursive: true, force: true })
+})
+
+/** Minimal project carrying the three files the avatar mapping check reads. */
+function avatarMappingProject(
+  characters: Record<string, string>,
+  previewAvatars: Record<string, string>,
+  withBannerTs = true,
+): string {
+  const root = mkdtempSync(join(tmpdir(), 'cep-avatar-mapping-'))
+  roots.push(root)
+  mkdirSync(join(root, 'src', 'data'), { recursive: true })
+  mkdirSync(join(root, 'src', 'generated', 'i18n', 'characters'), { recursive: true })
+  mkdirSync(join(root, 'src', 'generated', 'data', 'wiki'), { recursive: true })
+  if (withBannerTs) {
+    writeFileSync(join(root, 'src', 'data', 'banner.ts'), 'export const bannerSchedule = {}\n')
+  }
+  writeFileSync(
+    join(root, 'src', 'generated', 'i18n', 'characters', 'zh-CN.json'),
+    JSON.stringify(characters),
+  )
+  writeFileSync(
+    join(root, 'src', 'generated', 'data', 'wiki', 'preview-character-avatars.json'),
+    JSON.stringify(previewAvatars),
+  )
+  return root
+}
+
+const stubBannerData = (names: BannerNameSource) => async () => names
+
+it('reports banner and standard characters that have no avatar mapping', async () => {
+  const root = avatarMappingProject({ chr_0004_pelica: '佩丽卡', chr_0035_liino: '梨诺' }, {})
+
+  const issues = await validateCharacterAvatarMappings(
+    root,
+    stubBannerData({
+      bannerSchedule: { 佩丽卡: {}, 祀: {}, 明河: {} },
+      standardCharacters: ['艾尔黛拉', '梨诺'],
+    }),
+  )
+
+  expect(issues).toEqual([
+    { name: '祀', source: 'banner' },
+    { name: '明河', source: 'banner' },
+    { name: '艾尔黛拉', source: 'standard' },
+  ])
+})
+
+it('accepts Skland preview mappings and reports a name only once', async () => {
+  const root = avatarMappingProject({ chr_0004_pelica: '佩丽卡' }, { 祀: 'preview-2201' })
+
+  expect(
+    await validateCharacterAvatarMappings(
+      root,
+      stubBannerData({ bannerSchedule: { 祀: {}, 明河: {} }, standardCharacters: ['祀', '明河'] }),
+    ),
+  ).toEqual([{ name: '明河', source: 'banner' }])
+})
+
+it('skips the check when the project has no banner data', async () => {
+  const root = avatarMappingProject({ chr_0004_pelica: '佩丽卡' }, {}, false)
+
+  expect(
+    await validateCharacterAvatarMappings(
+      root,
+      stubBannerData({ bannerSchedule: { 祀: {} }, standardCharacters: [] }),
+    ),
+  ).toEqual([])
+})
+
+it('loads the real banner data through the default loader', async () => {
+  const root = fileURLToPath(new URL('../..', import.meta.url))
+
+  // Emptiness is enforced by the sync check phase (which prints an actionable
+  // message); this test only proves the default loader can import banner.ts.
+  const issues = await validateCharacterAvatarMappings(root)
+  expect(
+    issues.every((issue) => issue.name.length > 0 && ['banner', 'standard'].includes(issue.source)),
+  ).toBe(true)
 })
 
 it('compares equipment only after every upstream modifier has been collected', () => {

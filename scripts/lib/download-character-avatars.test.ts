@@ -6,6 +6,7 @@ import sharp from 'sharp'
 import { afterEach, expect, it, vi } from 'vitest'
 import {
   downloadCharacterAvatars,
+  probeSklandPreviewDrift,
   serializeImageSources,
 } from './download-character-avatars'
 import { fetchRemoteWithRetry } from './wiki-builder-utils'
@@ -187,6 +188,150 @@ it('writes avatars from successful Skland downloads', async () => {
   expect(existsSync(join(publicDirectory, 'images/characters/chr_0004_pelica.avif'))).toBe(true)
   expect(existsSync(join(publicDirectory, 'images/characters/full/chr_0004_pelica.avif'))).toBe(true)
   expect(goToUrls).toContain('https://wiki.skland.com/endfield/detail?mainTypeId=1&subTypeId=1&gameEntryId=pelica&header=0')
+})
+
+it('reports required images the scrape did not produce', async () => {
+  const publicDirectory = tempProject('cep-characters-expect-', { chr_0004_pelica: '佩丽卡' })
+
+  const png = await sharp({
+    create: { width: 4, height: 4, channels: 4, background: '#ffffff' },
+  }).png().toBuffer()
+
+  const browser = mockBrowser(
+    catalogWith([{ itemId: 'pelica', name: '佩丽卡', brief: { cover: 'https://cdn.example/avatar.png' } }]),
+    { data: { item: { document: { extraInfo: { illustration: 'https://cdn.example/full.png' } } } } }
+  )
+  vi.stubGlobal('fetch', vi.fn(async () => ({
+    ok: true,
+    arrayBuffer: async () => png.buffer.slice(png.byteOffset, png.byteOffset + png.byteLength),
+  })))
+
+  const result = await downloadCharacterAvatars(publicDirectory, async () => browser as never, {
+    avatarIds: ['chr_0004_pelica', 'chr_0099_missing'],
+    fullBodyIds: ['chr_0004_pelica'],
+  })
+
+  expect(result.skipped).toBe(false)
+  expect(result.missing).toEqual(['avatar/chr_0099_missing'])
+})
+
+it('reports what a skipped scrape still lacks in the committed directory', async () => {
+  const publicDirectory = tempProject('cep-characters-skipped-missing-', {
+    chr_0004_pelica: '佩丽卡',
+    chr_0099_other: '另一个人',
+  })
+  mkdirSync(join(publicDirectory, 'images/characters/full'), { recursive: true })
+  writeFileSync(join(publicDirectory, 'images/characters/chr_0004_pelica.avif'), 'committed')
+  writeFileSync(join(publicDirectory, 'images/characters/full/chr_0004_pelica.avif'), 'committed')
+
+  const result = await downloadCharacterAvatars(
+    publicDirectory,
+    async () => {
+      throw new Error('Chromium unavailable')
+    },
+    { avatarIds: ['chr_0004_pelica', 'chr_0099_other'], fullBodyIds: ['chr_0004_pelica'] }
+  )
+
+  expect(result.skipped).toBe(true)
+  expect(result.missing).toEqual(['avatar/chr_0099_other'])
+})
+
+it('expects the released roster plus administrator variants when none is given', async () => {
+  const publicDirectory = tempProject('cep-characters-default-expect-', { chr_0004_pelica: '佩丽卡' })
+
+  const png = await sharp({
+    create: { width: 4, height: 4, channels: 4, background: '#ffffff' },
+  }).png().toBuffer()
+
+  const browser = mockBrowser(
+    catalogWith([{ itemId: 'pelica', name: '佩丽卡', brief: { cover: 'https://cdn.example/avatar.png' } }]),
+    { data: { item: { document: { extraInfo: { illustration: 'https://cdn.example/full.png' } } } } }
+  )
+  vi.stubGlobal('fetch', vi.fn(async () => ({
+    ok: true,
+    arrayBuffer: async () => png.buffer.slice(png.byteOffset, png.byteOffset + png.byteLength),
+  })))
+
+  const result = await downloadCharacterAvatars(publicDirectory, async () => browser as never)
+
+  expect(result.missing).toEqual([
+    'avatar/chr_9000_endmin-female',
+    'avatar/chr_9000_endmin-male',
+    'fullBody/chr_9000_endmin-female',
+    'fullBody/chr_9000_endmin-male',
+  ])
+})
+
+const PREVIEW_MANIFEST = join('src', 'generated', 'data', 'wiki', 'preview-character-avatars.json')
+
+/** Committed state the probe compares the live catalog against. */
+function seedCommittedPreview(
+  publicDirectory: string,
+  manifest: Record<string, string>,
+  sourceUrl: string
+): void {
+  const root = join(publicDirectory, '..')
+  mkdirSync(join(root, 'src', 'generated', 'data', 'wiki'), { recursive: true })
+  writeFileSync(join(root, PREVIEW_MANIFEST), JSON.stringify(manifest))
+  mkdirSync(join(publicDirectory, 'images', 'characters'), { recursive: true })
+  const [assetId] = Object.values(manifest)
+  writeFileSync(
+    join(publicDirectory, 'images', 'characters', 'sources.json'),
+    JSON.stringify({ [`avatar/${assetId}`]: { source: 'skland', url: sourceUrl } })
+  )
+}
+
+it('flags preview characters the committed manifest does not have', async () => {
+  const publicDirectory = tempProject('cep-characters-probe-', { chr_0004_pelica: '佩丽卡' })
+  const browser = mockBrowser(
+    catalogWith([
+      { itemId: 'pelica', name: '佩丽卡', brief: { cover: 'https://cdn.example/pelica.png' } },
+      { itemId: '9999', name: '祀', brief: { cover: 'https://cdn.example/si.png' } },
+    ]),
+    { data: { item: {} } }
+  )
+
+  const drift = await probeSklandPreviewDrift(publicDirectory, async () => browser as never)
+
+  expect(drift).toEqual({ unscraped: [{ name: '祀', assetId: 'preview-9999' }], changedAvatars: [] })
+})
+
+it('reports no drift when the manifest and the recorded source URL match', async () => {
+  const publicDirectory = tempProject('cep-characters-probe-ok-', { chr_0004_pelica: '佩丽卡' })
+  seedCommittedPreview(publicDirectory, { 祀: 'preview-9999' }, 'https://cdn.example/si.png')
+  const browser = mockBrowser(
+    catalogWith([{ itemId: '9999', name: '祀', brief: { cover: 'https://cdn.example/si.png' } }]),
+    { data: { item: {} } }
+  )
+
+  const drift = await probeSklandPreviewDrift(publicDirectory, async () => browser as never)
+
+  expect(drift).toEqual({ unscraped: [], changedAvatars: [] })
+})
+
+it('flags a preview avatar whose Skland source URL changed', async () => {
+  const publicDirectory = tempProject('cep-characters-probe-changed-', { chr_0004_pelica: '佩丽卡' })
+  seedCommittedPreview(publicDirectory, { 祀: 'preview-9999' }, 'https://cdn.example/old.png')
+  const browser = mockBrowser(
+    catalogWith([{ itemId: '9999', name: '祀', brief: { cover: 'https://cdn.example/new.png' } }]),
+    { data: { item: {} } }
+  )
+
+  const drift = await probeSklandPreviewDrift(publicDirectory, async () => browser as never)
+
+  expect(drift).toEqual({ unscraped: [], changedAvatars: [{ name: '祀', assetId: 'preview-9999' }] })
+})
+
+it('reports a probe error instead of throwing when the browser is unavailable', async () => {
+  const publicDirectory = tempProject('cep-characters-probe-fail-', { chr_0004_pelica: '佩丽卡' })
+
+  const drift = await probeSklandPreviewDrift(publicDirectory, async () => {
+    throw new Error('Chromium unavailable')
+  })
+
+  expect(drift.unscraped).toEqual([])
+  expect(drift.changedAvatars).toEqual([])
+  expect(drift.probeError).toMatch(/Chromium unavailable/)
 })
 
 it('keeps preview avatars when the preview full body is missing and writes the preview manifest', async () => {

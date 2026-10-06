@@ -3,9 +3,17 @@ on:
   schedule:
     - cron: '0 0 * * 4,5'  # every Thursday and Friday at 00:00 UTC
   workflow_dispatch:      # manual trigger
+    inputs:
+      force_sync:
+        description: 'Skip the upstream-change gate and run the sync unconditionally'
+        type: boolean
+        default: false
 
 jobs:
   check:
+    # force_sync (manual dispatch) means the operator already decided a sync must run,
+    # so the entire gate is skipped — including the upstream clones and chromium install.
+    if: ${{ inputs.force_sync != true }}
     runs-on: ubuntu-latest
     outputs:
       changed: ${{ steps.diff.outputs.changed }}
@@ -22,6 +30,17 @@ jobs:
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
+
+      - name: Cache Playwright browsers
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
+
+      # The check phase probes the Skland wiki (not part of the upstream SHAs) so a
+      # new preview character/avatar triggers a sync without a manual dispatch.
+      - name: Install Playwright browsers
+        run: pnpm exec playwright install --with-deps chromium
 
       - name: Validate AKEData access token
         env:
@@ -70,7 +89,7 @@ jobs:
         run: |
           # Run check (exit code 2 = changed, 0 = no change)
           set +e
-          npx tsx scripts/sync-game-data.ts --check \
+          npx tsx scripts/sync-game-data.ts --check --skland-probe \
             --akedata "$RUNNER_TEMP/upstream/AKEData" \
             --imagedb "$RUNNER_TEMP/upstream/AKEDatabase"
           exit_code=$?
@@ -90,7 +109,9 @@ jobs:
 
   sync:
     needs: check
-    if: needs.check.outputs.changed == 'true'
+    # always() is required: when force_sync skips the check job, a plain `needs` guard
+    # would skip this job too. The check job's own token validation still runs inside it.
+    if: ${{ always() && (inputs.force_sync == true || needs.check.outputs.changed == 'true') }}
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -152,7 +173,7 @@ jobs:
           git -C "$UPSTREAM_DIR/AKEDatabase" checkout
 
       - name: Cache Playwright browsers
-        uses: actions/cache@5a3ec84eff668545956fd18022155c47e93e2684 # v4.2.3
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
           path: ~/.cache/ms-playwright
           key: playwright-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
@@ -163,7 +184,7 @@ jobs:
       - name: Run sync update
         id: sync
         run: |
-          npx tsx scripts/sync-game-data.ts --update \
+          npx tsx scripts/sync-game-data.ts --update --force \
             --akedata "$RUNNER_TEMP/upstream/AKEData" \
             --imagedb "$RUNNER_TEMP/upstream/AKEDatabase"
 
@@ -188,7 +209,11 @@ jobs:
         uses: peter-evans/create-pull-request@v8
         with:
           title: 'chore: sync game data from upstream'
-          branch: auto/sync-game-data
+          # PR back into the branch this run was triggered on (schedule → default
+          # branch, workflow_dispatch → the branch you picked). One PR branch per
+          # base keeps parallel syncs from force-updating each other's PR.
+          base: ${{ github.ref_name }}
+          branch: auto/sync-game-data-${{ github.ref_name }}
           commit-message: 'chore: sync game data from upstream'
           body: |
             Automated sync from:

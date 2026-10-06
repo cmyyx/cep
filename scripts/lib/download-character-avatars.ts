@@ -47,6 +47,46 @@ interface ImageSourceRecord {
   hash?: string
 }
 
+/**
+ * Images the run is required to produce. Callers pass the freshly generated Wiki
+ * asset manifest so the scrape fails for exactly the files the prebuild image gate
+ * (scripts/check-images.mjs) rejects — not for a list this module invents.
+ */
+export interface CharacterImageExpectation {
+  /** Avatar asset ids required in `images/characters/`. */
+  avatarIds: readonly string[]
+  /** Full-body asset ids required in `images/characters/full/`. */
+  fullBodyIds: readonly string[]
+}
+
+/** Administrator variants are part of every scraped avatar set. */
+const ADMINISTRATOR_ASSET_IDS = ['chr_9000_endmin-male', 'chr_9000_endmin-female'] as const
+
+/** Fallback expectation for standalone runs (no asset manifest on hand). */
+function releasedExpectation(
+  releasedNameToId: Readonly<Record<string, string>>
+): CharacterImageExpectation {
+  const ids = [...Object.values(releasedNameToId), ...ADMINISTRATOR_ASSET_IDS]
+  return { avatarIds: ids, fullBodyIds: ids }
+}
+
+function expectedImageKeys(expectation: CharacterImageExpectation): string[] {
+  return [
+    ...[...new Set(expectation.avatarIds)].map((id) => `avatar/${id}`),
+    ...[...new Set(expectation.fullBodyIds)].map((id) => `fullBody/${id}`),
+  ]
+}
+
+/** `avatar/<id>` / `fullBody/<id>` → committed avif path. */
+function imagePathFor(avatarDir: string, key: string): string {
+  const [kind, id] = key.split('/')
+  return kind === 'fullBody' ? join(avatarDir, 'full', `${id}.avif`) : join(avatarDir, `${id}.avif`)
+}
+
+function collectMissing(keys: readonly string[], has: (key: string) => boolean): string[] {
+  return keys.filter((key) => !has(key)).sort()
+}
+
 export interface CharacterImageDownloadResult {
   avatars: number
   fullBody: number
@@ -57,6 +97,13 @@ export interface CharacterImageDownloadResult {
    * so the frontend can resolve avatars without hardcoding.
    */
   previews: number
+  /**
+   * Required image keys (`avatar/<id>` / `fullBody/<id>`) the run did not produce.
+   * A skipped scrape reports what the committed directory is still missing, so
+   * "keep the previous files" can never quietly ship a character whose avatar CI
+   * then rejects.
+   */
+  missing: string[]
   /**
    * Scrape was skipped — browser unavailable, network failed, or Skland response
    * lacked expected image URLs. Existing `images/characters` is left untouched so
@@ -85,10 +132,12 @@ function loadReleasedNameMap(projectRoot: string): Record<string, string> {
 }
 
 
-async function collectSklandTargets(
-  page: Page,
-  releasedNameToId: Readonly<Record<string, string>>
-): Promise<{ targets: CharacterImageTarget[]; illustrations: Record<string, string> }> {
+/**
+ * Skland's wiki API requires a per-request `timestamp` + `sign` header that only
+ * the page's own JS can produce, so payloads are captured from the page's own
+ * (signed) responses instead of calling the API directly (which returns HTTP 401).
+ */
+async function fetchSklandCatalogPayload(page: Page): Promise<unknown> {
   let catalogPayload: unknown
   const responsePromise = page.waitForResponse(
     async (response) => {
@@ -109,6 +158,14 @@ async function collectSklandTargets(
   )
   await page.goto(CATALOG_URL, { waitUntil: 'domcontentloaded', timeout: 30_000 })
   await responsePromise
+  return catalogPayload
+}
+
+async function collectSklandTargets(
+  page: Page,
+  releasedNameToId: Readonly<Record<string, string>>
+): Promise<{ targets: CharacterImageTarget[]; illustrations: Record<string, string> }> {
+  const catalogPayload = await fetchSklandCatalogPayload(page)
   const targets = buildCharacterImageTargets(
     getCatalogItems(catalogPayload),
     releasedNameToId
@@ -176,13 +233,32 @@ function loadExistingSources(avatarDir: string): Record<string, ImageSourceRecor
   }
 }
 
+/** Generated name -> `preview-<itemId>` manifest, written by every scrape. */
+function previewManifestPath(projectRoot: string): string {
+  return join(projectRoot, 'src', 'generated', 'data', 'wiki', 'preview-character-avatars.json')
+}
+
+function loadPreviewManifest(projectRoot: string): Record<string, string> {
+  const path = previewManifestPath(projectRoot)
+  if (!existsSync(path)) return {}
+  try {
+    return (JSON.parse(readFileSync(path, 'utf8')) as Record<string, string>) ?? {}
+  } catch {
+    return {}
+  }
+}
+
 export async function downloadCharacterAvatars(
   outputDir = 'public',
-  launchBrowser: () => Promise<Browser> = () => chromium.launch({ headless: true })
+  launchBrowser: () => Promise<Browser> = () => chromium.launch({ headless: true }),
+  expectation?: CharacterImageExpectation,
 ): Promise<CharacterImageDownloadResult> {
   const projectRoot = outputDir === 'public' ? process.cwd() : resolve(outputDir, '..')
   const releasedNameToId = loadReleasedNameMap(projectRoot)
   const avatarDir = join(outputDir, 'images', 'characters')
+  const expectedKeys = expectedImageKeys(expectation ?? releasedExpectation(releasedNameToId))
+  const missingIn = (dir: string) =>
+    collectMissing(expectedKeys, (key) => existsSync(imagePathFor(dir, key)))
   const tempDir = join(dirname(avatarDir), `.characters-${process.pid}-${Date.now()}`)
   const tempFullDir = join(tempDir, 'full')
   mkdirSync(tempFullDir, { recursive: true })
@@ -200,7 +276,7 @@ export async function downloadCharacterAvatars(
     illustrations = scraped.illustrations
   } catch (error) {
     rmSync(tempDir, { recursive: true, force: true })
-    return skippedResult(`Skland character scrape failed: ${String(error)}`)
+    return skippedResult(`Skland character scrape failed: ${String(error)}`, missingIn(avatarDir))
   } finally {
     if (browser) await browser.close()
   }
@@ -214,7 +290,7 @@ export async function downloadCharacterAvatars(
         // half-finished Skland wiki page cannot abort the whole scrape.
         if (target.isPreview) continue
         rmSync(tempDir, { recursive: true, force: true })
-        return skippedResult(`Missing Skland image URL for avatar/${target.avatarId}`)
+        return skippedResult(`Missing Skland image URL for avatar/${target.avatarId}`, missingIn(avatarDir))
       }
       jobs.push({
         id: target.avatarId,
@@ -228,7 +304,7 @@ export async function downloadCharacterAvatars(
         // Same leniency for preview entries: avatar-only is still useful.
         if (target.isPreview) continue
         rmSync(tempDir, { recursive: true, force: true })
-        return skippedResult(`Missing Skland image URL for fullBody/${target.fullBodyId}`)
+        return skippedResult(`Missing Skland image URL for fullBody/${target.fullBodyId}`, missingIn(avatarDir))
       }
       jobs.push({
         id: target.fullBodyId,
@@ -269,11 +345,15 @@ export async function downloadCharacterAvatars(
     writeFileSync(join(tempDir, 'sources.json'), serializeImageSources(sources), 'utf8')
   } catch (error) {
     rmSync(tempDir, { recursive: true, force: true })
-    return skippedResult(`Skland character download failed: ${String(error)}`)
+    return skippedResult(`Skland character download failed: ${String(error)}`, missingIn(avatarDir))
   }
 
   rmSync(avatarDir, { recursive: true, force: true })
   renameSync(tempDir, avatarDir)
+
+  // The committed directory was just replaced wholesale, so anything still absent
+  // here is exactly what the prebuild image gate will reject.
+  const missing = missingIn(avatarDir)
 
   // Emit name -> asset ID for preview characters (not yet in game data) so
   // the frontend can resolve their avatars without hardcoding. Once a
@@ -288,26 +368,91 @@ export async function downloadCharacterAvatars(
       previewAvatars[target.name] = target.avatarId
     }
   }
-  const previewManifestPath = join(
-    projectRoot,
-    'src',
-    'generated',
-    'data',
-    'wiki',
-    'preview-character-avatars.json'
-  )
-  mkdirSync(dirname(previewManifestPath), { recursive: true })
-  writeFileSync(previewManifestPath, `${JSON.stringify(previewAvatars, null, 2)}\n`, 'utf8')
+  const manifestPath = previewManifestPath(projectRoot)
+  mkdirSync(dirname(manifestPath), { recursive: true })
+  writeFileSync(manifestPath, `${JSON.stringify(previewAvatars, null, 2)}\n`, 'utf8')
   return {
     avatars: jobs.filter((job) => job.kind === 'avatar').length,
     fullBody: jobs.filter((job) => job.kind === 'fullBody').length,
     previews: Object.keys(previewAvatars).length,
     skipped: false,
+    missing,
   }
 }
 
-function skippedResult(skipReason: string): CharacterImageDownloadResult {
-  return { avatars: 0, fullBody: 0, previews: 0, skipped: true, skipReason }
+// ── Skland preview drift probe (check phase) ──────────────────────────────
+
+export interface SklandPreviewDriftEntry {
+  name: string
+  assetId: string
+}
+
+/**
+ * Skland-side drift the upstream SHA gates cannot see: the wiki is neither in
+ * AKEData nor in AKEDatabase, so a new preview character (or a replaced avatar)
+ * never makes a plain `--check` report a change. Callers treat a probe failure as
+ * "unknown", never as "changed".
+ */
+export interface SklandPreviewDrift {
+  /** Preview characters on the wiki whose avatar is absent from the committed manifest. */
+  unscraped: SklandPreviewDriftEntry[]
+  /** Committed preview avatars whose Skland source URL changed since the last scrape. */
+  changedAvatars: SklandPreviewDriftEntry[]
+  /** Probe could not run (browser unavailable, network error, wiki layout change). */
+  probeError?: string
+}
+
+/**
+ * Compares the live Skland operator catalog against the committed preview avatars.
+ * Only the catalog page is fetched (a single navigation) — the avatar cover URL is
+ * part of that payload — so a new preview character is detected in ~15s instead of
+ * the minutes a full character scrape costs.
+ */
+export async function probeSklandPreviewDrift(
+  outputDir = 'public',
+  launchBrowser: () => Promise<Browser> = () => chromium.launch({ headless: true })
+): Promise<SklandPreviewDrift> {
+  const projectRoot = outputDir === 'public' ? process.cwd() : resolve(outputDir, '..')
+  const manifest = loadPreviewManifest(projectRoot)
+  const sources = loadExistingSources(join(outputDir, 'images', 'characters'))
+  const releasedNameToId = loadReleasedNameMap(projectRoot)
+
+  let browser: Browser | undefined
+  try {
+    browser = await launchBrowser()
+    const context = await browser.newContext({ viewport: { width: 1280, height: 800 } })
+    const page = await context.newPage()
+    const targets = buildCharacterImageTargets(
+      getCatalogItems(await fetchSklandCatalogPayload(page)),
+      releasedNameToId
+    )
+
+    const unscraped: SklandPreviewDriftEntry[] = []
+    const changedAvatars: SklandPreviewDriftEntry[] = []
+    for (const target of targets) {
+      if (!target.isPreview || !target.avatarId) continue
+      const entry = { name: target.name, assetId: target.avatarId }
+      if (manifest[target.name] !== target.avatarId) {
+        // Released characters resolve through the i18n name map instead, so only
+        // entries that are still previews can land here.
+        unscraped.push(entry)
+        continue
+      }
+      const recorded = sources[`avatar/${target.avatarId}`]?.url
+      if (recorded && target.avatarUrl && recorded !== target.avatarUrl) {
+        changedAvatars.push(entry)
+      }
+    }
+    return { unscraped, changedAvatars }
+  } catch (error) {
+    return { unscraped: [], changedAvatars: [], probeError: String(error) }
+  } finally {
+    if (browser) await browser.close()
+  }
+}
+
+function skippedResult(skipReason: string, missing: string[]): CharacterImageDownloadResult {
+  return { avatars: 0, fullBody: 0, previews: 0, skipped: true, skipReason, missing }
 }
 
 const isCli = process.argv[1]
