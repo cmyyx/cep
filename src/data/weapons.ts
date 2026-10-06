@@ -3,6 +3,10 @@ import type { Weapon } from '@/types/matrix'
 export const weapons: Weapon[] = [
   // ===== 六星 =====
   // --- 纯 preview（无正式 id / 图标 / 翻译）：id 用 preview:名称 前缀，实装后改为正式 id ---
+  { id: 'preview:玉中身', name: '玉中身', rarity: 6, type: '双手剑', primaryStat: 'gat_passive_attr_wisd', elementalDamage: 'gat_passive_attr_icedam', specialAbility: 'gst_passive_keyword', chars: ['祀'], source: 'preview' },
+  { id: 'preview:悠久传承', name: '悠久传承', rarity: 6, type: '双手剑', primaryStat: 'gat_passive_attr_wisd', elementalDamage: 'gat_passive_attr_icedam', specialAbility: 'gst_passive_keyword', chars: [], source: 'preview' },
+  { id: 'preview:唤月', name: '唤月', rarity: 6, type: '单手剑', primaryStat: 'gat_passive_attr_will', elementalDamage: 'gat_passive_attr_atk', specialAbility: 'gst_passive_magabn', chars: ['明河'], source: 'preview' },
+  { id: 'preview:聚合工业', name: '聚合工业', rarity: 6, type: '单手剑', primaryStat: 'gat_passive_attr_will', elementalDamage: 'gat_passive_attr_atk', specialAbility: 'gst_passive_burst', chars: [], source: 'preview' },
   { id: 'wpn_funnel_0019', iconId: 'wpn_funnel_0019', name: '寒夜幽影', rarity: 6, type: '施术单元', primaryStat: 'gat_passive_attr_agi', elementalDamage: 'gat_passive_attr_atk', specialAbility: 'gst_passive_burst', acquisitionSources: [{ categoryId: 'gacha', sourceId: 'weponbox_1_5_1' }], chars: ['提弗洛斯'], },
   { id: 'wpn_sword_0023', name: '点心时刻', rarity: 5, type: '单手剑', primaryStat: 'gat_passive_attr_str', elementalDamage: 'gat_passive_attr_heal', specialAbility: 'gst_passive_heal', acquisitionSources: [{ categoryId: 'activity', sourceId: 'item_obtain_activity' }], chars: ['噗切娜'], },
   { id: 'wpn_funnel_0020', iconId: 'wpn_funnel_0020', name: '苦难的尽头', rarity: 6, type: '施术单元', primaryStat: 'gat_passive_attr_agi', elementalDamage: 'gat_passive_attr_naturaldam', specialAbility: 'gst_passive_burst', acquisitionSources: [{ categoryId: 'battlePass', sourceId: 'item_obtain_bp' }, { categoryId: 'chest', sourceId: 'item_case_wpn_selfselect_bp_6' }], chars: [], },
