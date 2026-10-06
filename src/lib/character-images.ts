@@ -1,40 +1,21 @@
 import characterNames from '@/generated/i18n/characters/zh-CN.json'
 import previewCharacterAvatars from '@/generated/data/wiki/preview-character-avatars.json'
+import { createCharacterAvatarResolver } from './character-avatar-resolve'
 
-const PREVIEW_AVATAR_BY_NAME = previewCharacterAvatars as Record<string, string>
+const resolver = createCharacterAvatarResolver({
+  characterNames: characterNames as Record<string, string>,
+  previewAvatars: previewCharacterAvatars as Record<string, string>,
+})
 
-const ADMINISTRATOR_ID = 'chr_9000_endmin'
-const DEPRECATED_ADMIN_IDS = new Set(['chr_0002_endminm', 'chr_0003_endminf'])
-
-const CHARACTER_ID_BY_NAME = new Map(
-  Object.entries(characterNames)
-    .filter(
-      ([id, name]) =>
-        id.startsWith('chr_') &&
-        !DEPRECATED_ADMIN_IDS.has(id) &&
-        id !== ADMINISTRATOR_ID &&
-        name !== id
-    )
-    .map(([id, name]) => [name, id])
-)
-
-function resolveAdministratorAssetId(name: string): string | null {
-  if (/^管理员\s*[（(]男[)）]$/.test(name)) {
-    return `${ADMINISTRATOR_ID}-male`
-  }
-  if (/^管理员(?:\s*[（(]女[)）])?$/.test(name)) {
-    return `${ADMINISTRATOR_ID}-female`
-  }
-  return null
-}
-
+/**
+ * Resolves a localized character name to its avatar file.
+ *
+ * Preview characters (announced on the Skland wiki but not yet in the game data)
+ * resolve through `preview-character-avatars.json`, which the sync pipeline
+ * regenerates on every scrape. Unmapped names return null — callers decide
+ * whether that is a fallback (weapon cards) or a hard error (banner schedule).
+ */
 export function getCharacterAvatarPath(name: string): string | null {
-  const normalized = name.trim()
-  const assetId =
-    resolveAdministratorAssetId(normalized) ??
-    CHARACTER_ID_BY_NAME.get(normalized) ??
-    PREVIEW_AVATAR_BY_NAME[normalized] ??
-    null
-
+  const assetId = resolver.resolve(name)
   return assetId ? `/images/characters/${assetId}.avif` : null
 }

@@ -142,17 +142,45 @@ SHA 追踪信息存储在主仓库文件 `scripts/.cache/upstream-versions.json`
 }
 ```
 
-- `pnpm sync:check`：读取此文件记录的 AKEData 与 AKEDatabase SHA，并分别与两个上游当前 HEAD 比较
-- 两个 SHA 均相同且图片完整 → 跳过；任一不同或图片缺失 → 执行全量检查
-- `pnpm sync:update` 成功后同时更新两个 SHA（通过 PR 提交到主分支）
+### 更新判定（四道闸门，全过才跳过）
+
+`pnpm sync:check` 只有在**两个 SHA 都相同**时才进入本地一致性校验，任一 SHA 不同直接判定"有变更"：
+
+1. AKEData HEAD SHA == `scripts/.cache/upstream-versions.json`
+2. AKEDatabase HEAD SHA == 同上
+3. 本地一致性：`validateAllData`（武器/装备/淤积点 + 来源关系）、武器 iconId、`validateImages`、
+   `validateCharacterAvatarMappings`（banner 引用的角色名是否都能解析出头像）
+4. Skland 目录探针（仅 `--check --skland-probe`，CI 的 check job 会带上）：对比线上干员目录与已提交的
+   `preview-character-avatars.json` / `sources.json`，命中两类漂移即判定需要更新：
+   出现未抓取的前瞻角色、前瞻头像 URL 变了
+
+任一不过 → `exit 2`（`changed=true`）→ 跑 `sync:update`；全过 → `exit 0` → sync job 被跳过。
+
+**为什么需要第 4 道**：Skland 既不在 AKEData 也不在 AKEDatabase 里（其 API 还需要浏览器内签名的
+`timestamp`/`sign` 请求），所以第 1-3 道看不见"维基上新出现一个前瞻角色"。没有第 4 道时，只能靠人工
+`force_sync` 或等该角色进游戏数据（SHA 变化）才会刷新头像。第 3 道仍然必要：它负责"本地/分支引用了
+没有映射的角色名"（此时 Skland 可能本来就没有这个名字），失败信息是明确的
+`[banner] 祀`，而不是 CI 里 4 个测试文件报 `Missing character avatar mapping`。
+
+**第 4 道失败即忽略**：浏览器缺失、网络错误、Skland 改版都返回 `probeError` 并按"无变化"处理，只打
+warning —— 不让维基挂掉把数据同步整条卡死。
+
+- `pnpm sync:update` 成功后同时更新两个 SHA（通过 PR 提交到目标分支）
+- 头像抓取新增硬校验：抓取后 `downloadCharacterAvatars` 返回的 `missing` 非空（对比本次生成的
+  Wiki 资源清单）→ 直接 `exit 1`，不开注定过不了 CI 的 PR。抓取失败被跳过时，`missing` 按
+  已有目录计算，因此"保留旧头像"不会掩盖新角色缺图
 
 ## CI 工作流
 
 `.github/workflows/sync-game-data.yml`：
 
-- **触发**：每日 06:00 UTC + 手动 dispatch
-- **Check 阶段**：shallow sparse clone 上游仓库（仅需的目录），比较 SHA
-- **Sync 阶段**：有变更时运行 `sync:update`，自动创建 PR
+- **触发**：每周四、周五 00:00 UTC（cron `0 0 * * 4,5`）+ 手动 dispatch
+- **Check 阶段**：shallow sparse clone 上游仓库（仅需的目录），比较 SHA + 本地一致性（含角色头像映射）+ Skland 目录探针（需要 chromium）
+- **Sync 阶段**：有变更时运行 `sync:update`，自动创建 PR 到**触发它的那个分支**
+- **手动强制**：dispatch 时勾选 `force_sync` → 跳过变更闸门直接跑 `sync:update`
+  （上游 SHA 没动但头像/映射过期时的唯一入口）
+- **PR 分支命名**：`base = 触发分支`，head 分支 `auto/sync-game-data-<触发分支>`，
+  因此不同分支的 sync 不会互相 force-push 掉对方的 PR
 
 **需要配置**：
 - GitHub Secrets → `GH_FORK_SYNC_TOKEN`（有权访问私有 AKEData fork 的 Personal Access Token，过期/无效将硬阻断工作流）
@@ -175,9 +203,11 @@ scripts/
     ├── compare-weapons.ts              ← 武器对比（新武器检测 + 专武检测）
     ├── weapon-acquisition.ts              ← 武器来源关系提取 + 冲突/缺失警告
     ├── raw-wiki-data.ts                   ← 生成数据与 i18n 分离的结构化输出
-    ├── validate-data.ts                   ← 包含武器来源关系校验
+    ├── validate-data.ts                   ← 武器来源关系校验 + 角色头像映射校验
     ├── compare-stats.ts                ← 词条提取
     ├── extract-textid.ts               ← 从原始 JSON 提取 int64 ID
     ├── convert-icons.ts                ← CDN PNG → AVIF（差量）
+    ├── download-character-avatars.ts      ← Skland 角色头像/立绘抓取（返回缺失清单）
+    ├── skland-character-images.ts         ← Skland 目录/立绘 URL 解析（纯函数）
     └── git-helpers.ts                  ← SHA 分支读写
 ```

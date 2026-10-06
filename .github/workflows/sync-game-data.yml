@@ -3,6 +3,11 @@ on:
   schedule:
     - cron: '0 0 * * 4,5'  # every Thursday and Friday at 00:00 UTC
   workflow_dispatch:      # manual trigger
+    inputs:
+      force_sync:
+        description: 'Skip the upstream-change gate and run the sync unconditionally'
+        type: boolean
+        default: false
 
 jobs:
   check:
@@ -22,6 +27,17 @@ jobs:
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
+
+      - name: Cache Playwright browsers
+        uses: actions/cache@5a3ec84eff668545956fd18022155c47e93e2684 # v4.2.3
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
+
+      # The check phase probes the Skland wiki (not part of the upstream SHAs) so a
+      # new preview character/avatar triggers a sync without a manual dispatch.
+      - name: Install Playwright browsers
+        run: pnpm exec playwright install --with-deps chromium
 
       - name: Validate AKEData access token
         env:
@@ -67,10 +83,21 @@ jobs:
 
       - name: Check upstream changes
         id: diff
+        env:
+          FORCE_SYNC: ${{ inputs.force_sync }}
         run: |
+          # Manual dispatch can bypass the gate: upstream SHAs only track AKEData /
+          # AKEDatabase, so stale avatars and preview-character mappings (Skland
+          # state) never make `--check` report a change on their own.
+          if [ "$FORCE_SYNC" = "true" ]; then
+            echo "::notice::force_sync=true — bypassing the upstream change gate"
+            echo "changed=true" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+
           # Run check (exit code 2 = changed, 0 = no change)
           set +e
-          npx tsx scripts/sync-game-data.ts --check \
+          npx tsx scripts/sync-game-data.ts --check --skland-probe \
             --akedata "$RUNNER_TEMP/upstream/AKEData" \
             --imagedb "$RUNNER_TEMP/upstream/AKEDatabase"
           exit_code=$?
@@ -188,7 +215,11 @@ jobs:
         uses: peter-evans/create-pull-request@v8
         with:
           title: 'chore: sync game data from upstream'
-          branch: auto/sync-game-data
+          # PR back into the branch this run was triggered on (schedule → default
+          # branch, workflow_dispatch → the branch you picked). One PR branch per
+          # base keeps parallel syncs from force-updating each other's PR.
+          base: ${{ github.ref_name }}
+          branch: auto/sync-game-data-${{ github.ref_name }}
           commit-message: 'chore: sync game data from upstream'
           body: |
             Automated sync from:

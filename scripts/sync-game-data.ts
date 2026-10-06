@@ -13,9 +13,9 @@ import { compareWeapons } from './lib/compare-weapons'
 import { compareEquips } from './lib/compare-equips'
 import { compareDungeons } from './lib/compare-dungeons'
 import { updateWeaponsFile, updateEquipsFile, updateDungeonsFile, reconcileWeaponsIconIds } from './lib/update-data-files'
-import { validateAllData, validateImages } from './lib/validate-data'
+import { validateAllData, validateCharacterAvatarMappings, validateImages } from './lib/validate-data'
 import { convertWikiAssets } from './lib/convert-icons'
-import { downloadCharacterAvatars } from './lib/download-character-avatars'
+import { downloadCharacterAvatars, probeSklandPreviewDrift } from './lib/download-character-avatars'
 import type { WikiAssets } from './lib/wiki-assets'
 import { readUpstreamVersions, upstreamVersionsMatch, writeUpstreamVersions } from './lib/git-helpers'
 import { buildWeaponNameMap } from './lib/weapon-name-map'
@@ -92,6 +92,7 @@ function parseArgs() {
     mode: (a.includes('--update') ? 'update' : 'check') as 'check' | 'update',
     local: a.includes('--local'),
     iconsOnly: a.includes('--icons-only'),
+    sklandProbe: a.includes('--skland-probe'),
     paths: Object.fromEntries(['akedata','imagedb'].map((k) => {
       const idx = a.indexOf('--' + k); return [k, idx >= 0 ? a[idx+1] ?? '' : '']
     })),
@@ -99,8 +100,8 @@ function parseArgs() {
 }
 
 async function main() {
-  const { mode, local, iconsOnly, paths: cliPaths } = parseArgs()
-  console.log(`\n[sync] mode=${mode} local=${local} iconsOnly=${iconsOnly}`)
+  const { mode, local, iconsOnly, sklandProbe, paths: cliPaths } = parseArgs()
+  console.log(`\n[sync] mode=${mode} local=${local} iconsOnly=${iconsOnly} sklandProbe=${sklandProbe}`)
   const paths = resolvePaths(cliPaths)
   console.log(`  AKEData: ${paths.akedata}\n  AKEDatabase: ${paths.imagedb}`)
   const warnings = validatePaths(paths)
@@ -131,7 +132,24 @@ async function main() {
         true,
       ).issues
       const missingImages = validateImages(projectRoot)
-      if (dataIssues.length === 0 && iconIssues.length === 0 && missingImages.length === 0) {
+      const mappingIssues = await validateCharacterAvatarMappings(projectRoot)
+      // Skland is not part of the upstream SHA gates, so a new preview character
+      // (or a replaced avatar) is only visible through a live catalog probe. The
+      // probe is best-effort: a failure means "unknown", never "changed".
+      const drift = sklandProbe
+        ? await probeSklandPreviewDrift(join(projectRoot, 'public'))
+        : null
+      if (drift?.probeError) {
+        console.warn(`\n  Skland probe skipped (treated as no change): ${drift.probeError}`)
+      }
+      const driftCount = (drift?.unscraped.length ?? 0) + (drift?.changedAvatars.length ?? 0)
+      if (
+        dataIssues.length === 0 &&
+        iconIssues.length === 0 &&
+        mappingIssues.length === 0 &&
+        missingImages.length === 0 &&
+        driftCount === 0
+      ) {
         console.log('\n  Up to date.\n')
         process.exit(0)
       }
@@ -150,6 +168,24 @@ async function main() {
       if (missingImages.length > 0) {
         console.log(`\n  SHA matches but ${missingImages.length} image(s) missing — re-sync needed:`)
         for (const img of missingImages) console.log(`    ${img}`)
+      }
+      if (mappingIssues.length > 0) {
+        console.log(`\n  SHA matches but ${mappingIssues.length} character(s) lack an avatar mapping — re-sync needed:`)
+        for (const issue of mappingIssues) {
+          console.log(`    [${issue.source}] ${issue.name}`)
+        }
+      }
+      if (drift && drift.unscraped.length > 0) {
+        console.log(`\n  SHA matches but Skland lists ${drift.unscraped.length} un-scraped preview character(s) — re-sync needed:`)
+        for (const entry of drift.unscraped) {
+          console.log(`    [new] ${entry.name} → ${entry.assetId}`)
+        }
+      }
+      if (drift && drift.changedAvatars.length > 0) {
+        console.log(`\n  SHA matches but ${drift.changedAvatars.length} preview avatar(s) changed on Skland — re-sync needed:`)
+        for (const entry of drift.changedAvatars) {
+          console.log(`    [changed] ${entry.name} → ${entry.assetId}`)
+        }
       }
       if (mode === 'check') process.exit(2)
       // update mode: fall through to full reconciliation
@@ -341,7 +377,9 @@ async function main() {
       readFileSync(join(projectRoot, 'src', 'generated', 'data', 'wiki', 'assets.json'), 'utf8')
     ) as WikiAssets
     const characterResult = await downloadCharacterAvatars(
-      join(projectRoot, 'public')
+      join(projectRoot, 'public'),
+      undefined,
+      { avatarIds: assets.characters, fullBodyIds: assets.characterFullBody }
     )
     if (characterResult.skipped) {
       characterScrapeSkipped = true
@@ -351,6 +389,17 @@ async function main() {
       console.log(
         `  Characters: ${characterResult.avatars} avatars, ${characterResult.fullBody} full-body`
       )
+    }
+    if (characterResult.missing.length > 0) {
+      console.error(
+        `\n  ERROR: ${characterResult.missing.length} character image(s) still missing after the run:`
+      )
+      for (const key of characterResult.missing) {
+        console.error(`    ${key}`)
+      }
+      console.error('\n  The prebuild image gate (scripts/check-images.mjs) rejects these files, so')
+      console.error('  this sync would open a PR that can never pass CI. Fix the Skland scrape first.')
+      process.exit(1)
     }
     const iconResult = await convertWikiAssets(join(projectRoot, 'public'), assets)
     console.log(
@@ -379,6 +428,21 @@ async function main() {
     process.exit(1)
   } else {
     console.log(`  All images present`)
+  }
+
+  // A banner name without an avatar mapping makes useBannerStore throw on import,
+  // which fails CI in 4 unrelated test files. Unreleased characters only get a
+  // mapping from the Skland scrape, so this is the gate that proves it ran.
+  const finalMappingIssues = await validateCharacterAvatarMappings(projectRoot)
+  if (finalMappingIssues.length > 0) {
+    console.error(
+      `\n  ERROR: ${finalMappingIssues.length} character(s) referenced by banner data have no avatar mapping:`
+    )
+    for (const issue of finalMappingIssues) {
+      console.error(`    [${issue.source}] ${issue.name}`)
+    }
+    console.error('\n  Unreleased characters need a Skland preview entry in preview-character-avatars.json.')
+    process.exit(mode === 'check' ? 2 : 1)
   }
 
   // Surface skip status to CI (consumed by the workflow to annotate the PR).

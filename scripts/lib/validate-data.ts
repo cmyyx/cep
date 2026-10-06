@@ -7,6 +7,7 @@
 
 import { existsSync, readFileSync } from 'node:fs'
 import { join } from 'node:path'
+import { pathToFileURL } from 'node:url'
 import { parseJsonSafe } from './json-utils'
 import { buildGemTableLookup, loadTextTable } from './stat-mapping'
 import { extractItemNameIds } from './extract-textid'
@@ -16,6 +17,7 @@ import { resolveWeaponStats } from './weapon-stats'
 import type { WeaponSkillPatchEntry } from './weapon-stats'
 import { buildWeaponAcquisitionData } from './weapon-acquisition'
 import type { WikiAssets } from './wiki-assets'
+import { createCharacterAvatarResolver } from '../../src/lib/character-avatar-resolve'
 import { wikiTextKey } from '../../src/lib/wiki-i18n'
 
 // ── Validation result ─────────────────────────────────────────────────────
@@ -482,6 +484,76 @@ export function validateImages(
     ...(assets.buffIcons ?? []).map((id) => `/images/wiki/bufficon/${id}.avif`),
   ]
   return paths.filter((path) => !existsSync(join(projectRoot, 'public', path)))
+}
+
+// ── Validate character avatar mappings ────────────────────────────────────
+
+export interface CharacterAvatarMappingIssue {
+  name: string
+  /** Where the name is referenced: banner schedule entries or the standard pool. */
+  source: 'banner' | 'standard'
+}
+
+/** Names the UI must be able to resolve to an avatar file. */
+export interface BannerNameSource {
+  bannerSchedule: Readonly<Record<string, unknown>>
+  standardCharacters: readonly string[]
+}
+
+/**
+ * `src/data/banner.ts` is app source, so it is imported rather than re-parsed:
+ * a regex over the schedule would drift the moment the file is refactored.
+ */
+async function loadBannerNameSource(bannerTsPath: string): Promise<BannerNameSource> {
+  const loaded = (await import(pathToFileURL(bannerTsPath).href)) as BannerNameSource
+  return loaded
+}
+
+/**
+ * Every character name the banner UI resolves to an avatar must have a mapping,
+ * or `useBannerStore` throws while the module is imported — which fails 4 CI test
+ * files without ever mentioning the missing avatar. The mapping for unreleased
+ * characters only exists after a Skland scrape, so this check is what lets the
+ * check phase notice "a new preview character was referenced but never scraped".
+ */
+export async function validateCharacterAvatarMappings(
+  projectRoot: string,
+  loadBannerData: (bannerTsPath: string) => Promise<BannerNameSource> = loadBannerNameSource,
+): Promise<CharacterAvatarMappingIssue[]> {
+  const bannerTsPath = join(projectRoot, 'src', 'data', 'banner.ts')
+  const charactersPath = join(projectRoot, 'src', 'generated', 'i18n', 'characters', 'zh-CN.json')
+  if (!existsSync(bannerTsPath) || !existsSync(charactersPath)) return []
+
+  const previewPath = join(
+    projectRoot,
+    'src',
+    'generated',
+    'data',
+    'wiki',
+    'preview-character-avatars.json',
+  )
+  const resolver = createCharacterAvatarResolver({
+    characterNames: (parseJsonSafe(charactersPath) ?? {}) as Record<string, string>,
+    previewAvatars: (existsSync(previewPath)
+      ? parseJsonSafe(previewPath) ?? {}
+      : {}) as Record<string, string>,
+  })
+
+  const { bannerSchedule, standardCharacters } = await loadBannerData(bannerTsPath)
+  const issues: CharacterAvatarMappingIssue[] = []
+  const reported = new Set<string>()
+
+  const check = (name: string, source: CharacterAvatarMappingIssue['source']) => {
+    if (reported.has(name)) return
+    if (resolver.resolve(name)) return
+    reported.add(name)
+    issues.push({ name, source })
+  }
+
+  for (const name of Object.keys(bannerSchedule ?? {})) check(name, 'banner')
+  for (const name of standardCharacters ?? []) check(name, 'standard')
+
+  return issues
 }
 
 // ── Main validation function ──────────────────────────────────────────────
