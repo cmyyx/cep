@@ -85,7 +85,7 @@ export const bannerEntries: BannerEntry[] = [
     version: '1.5',
     periodStart: '2026-09-24T12:00:00+08:00',
     periodEnd: '2026-10-15T11:59:00+08:00',
-    featured: [{ name: '伊冯', period: 12 }],
+    featured: [{ name: '伊冯', isRerun: true }],
   },
   {
     id: '1.5-tifuluosi',
