@@ -36,7 +36,7 @@ export function PoolInfoStrip() {
 
   // Sort by version descending
   const visuals = useMemo(() => {
-    return [...bannerEntries].sort((a, b) => {
+    return [...bannerEntries].filter((v) => !v.hidden).sort((a, b) => {
       const vA = a.version.split('.').map(v => parseInt(v, 10) || 0)
       const vB = b.version.split('.').map(v => parseInt(v, 10) || 0)
       for (let i = 0; i < Math.max(vA.length, vB.length); i++) {

@@ -10,6 +10,11 @@ export interface BannerEntry {
   version: string
   periodStart: string
   periodEnd: string
+  /**
+   * 占位条目：日期待官方公布，暂不解析展示。
+   * 设为 true 后 deriveSchedule 与卡池图条都会跳过该条目。
+   */
+  hidden?: boolean
   featured: {
     name: string
     period?: number
@@ -33,6 +38,44 @@ export const standardCharacters: readonly string[] = STANDARD_CHARS
 
 export const bannerEntries: BannerEntry[] = [
   {
+    id: '1.6-minghe',
+    title: '「烟火邀星河」特许寻访',
+    subtitle: '明河',
+    description: '',
+    imageUrl: '',
+    officialUrl: '',
+    version: '1.6',
+    periodStart: '2026-11-05T12:00:00+08:00',
+    // TODO: 结束时间待官方公布，当前为占位值；公布后填入真实时间并去掉 hidden
+    periodEnd: '2099-12-31T11:59:00+08:00',
+    hidden: true,
+    featured: [{ name: '明河', period: 14 }],
+  },
+  {
+    id: '1.6-tangtang',
+    title: '「祖泉的新流」重构寻访',
+    subtitle: '汤汤',
+    description: '',
+    imageUrl: '',
+    officialUrl: '',
+    version: '1.6',
+    periodStart: '2026-10-29T12:00:00+08:00',
+    periodEnd: '2026-11-19T11:59:00+08:00',
+    featured: [{ name: '汤汤', isRerun: true }],
+  },
+  {
+    id: '1.6-si',
+    title: '「万物更新」特许寻访',
+    subtitle: '祀',
+    description: '',
+    imageUrl: '',
+    officialUrl: '',
+    version: '1.6',
+    periodStart: '2026-10-15T12:00:00+08:00',
+    periodEnd: '2026-11-05T11:59:00+08:00',
+    featured: [{ name: '祀', period: 13 }],
+  },
+  {
     id: '1.5-yifeng',
     title: '「绚丽异彩」重构寻访',
     subtitle: '伊冯',
@@ -41,7 +84,7 @@ export const bannerEntries: BannerEntry[] = [
     officialUrl: '',
     version: '1.5',
     periodStart: '2026-09-24T12:00:00+08:00',
-    periodEnd: '2026-10-14T11:59:00+08:00',
+    periodEnd: '2026-10-15T11:59:00+08:00',
     featured: [{ name: '伊冯', period: 12 }],
   },
   {
@@ -185,6 +228,7 @@ function deriveSchedule(entries: BannerEntry[]): BannerSchedule {
   const schedule: Record<string, { windows: BannerWindow[]; offRateNote?: string }> = {}
 
   for (const entry of entries) {
+    if (entry.hidden) continue
     for (const fc of entry.featured) {
       if (!schedule[fc.name]) {
         schedule[fc.name] = { windows: [] }
