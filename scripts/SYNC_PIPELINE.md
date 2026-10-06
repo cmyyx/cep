@@ -42,6 +42,10 @@ pnpm sync:update [--local]
 
 - `--local`：跳过 SHA 分支检查，直接使用本地文件路径
 - 不加 `--local`：CI 模式，比较 SHA 后决定是否执行
+- `--force`（仅 update 模式）：跳过"已是最新"短路，直接做全量重建。**CI 的 sync job 必须带它** ——
+  "是否需要更新"由 check job 判定，update 再自己判一次就会出现"check 说 changed、update 却说
+  Up to date、最后没开 PR"（2026-10-06 run #70 就是这个故障）
+- `--skland-probe`：check 模式下额外探测 Skland 目录漂移（需要 chromium，见下文第 4 道闸门）
 
 ## 生成文件结构
 
@@ -176,7 +180,7 @@ warning —— 不让维基挂掉把数据同步整条卡死。
 
 - **触发**：每周四、周五 00:00 UTC（cron `0 0 * * 4,5`）+ 手动 dispatch
 - **Check 阶段**：shallow sparse clone 上游仓库（仅需的目录），比较 SHA + 本地一致性（含角色头像映射）+ Skland 目录探针（需要 chromium）
-- **Sync 阶段**：有变更时运行 `sync:update`，自动创建 PR 到**触发它的那个分支**
+- **Sync 阶段**：有变更时运行 `sync:update --force`（update 不再自己判一次闸门），自动创建 PR 到**触发它的那个分支**
 - **手动强制**：dispatch 时勾选 `force_sync` → 跳过变更闸门直接跑 `sync:update`
   （上游 SHA 没动但头像/映射过期时的唯一入口）
 - **PR 分支命名**：`base = 触发分支`，head 分支 `auto/sync-game-data-<触发分支>`，

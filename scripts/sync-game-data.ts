@@ -92,6 +92,12 @@ function parseArgs() {
     mode: (a.includes('--update') ? 'update' : 'check') as 'check' | 'update',
     local: a.includes('--local'),
     iconsOnly: a.includes('--icons-only'),
+    /**
+     * Update runs only: skip the up-to-date short-circuit. CI establishes "changed"
+     * in the check job, so re-evaluating the gates here made the sync job answer
+     * "Up to date" and open no PR right after the check reported a change.
+     */
+    force: a.includes('--force'),
     sklandProbe: a.includes('--skland-probe'),
     paths: Object.fromEntries(['akedata','imagedb'].map((k) => {
       const idx = a.indexOf('--' + k); return [k, idx >= 0 ? a[idx+1] ?? '' : '']
@@ -100,8 +106,10 @@ function parseArgs() {
 }
 
 async function main() {
-  const { mode, local, iconsOnly, sklandProbe, paths: cliPaths } = parseArgs()
-  console.log(`\n[sync] mode=${mode} local=${local} iconsOnly=${iconsOnly} sklandProbe=${sklandProbe}`)
+  const { mode, local, iconsOnly, force: forceFlag, sklandProbe, paths: cliPaths } = parseArgs()
+  // `--force` is an update-mode concept: in check mode the SHA gate *is* the answer.
+  const force = forceFlag && mode === 'update'
+  console.log(`\n[sync] mode=${mode} local=${local} iconsOnly=${iconsOnly} force=${force} sklandProbe=${sklandProbe}`)
   const paths = resolvePaths(cliPaths)
   console.log(`  AKEData: ${paths.akedata}\n  AKEDatabase: ${paths.imagedb}`)
   const warnings = validatePaths(paths)
@@ -113,8 +121,8 @@ async function main() {
 
   const projectRoot = resolve(join(import.meta.dirname ?? __dirname, '..'))
 
-  // SHA check (skip for local mode or icons-only)
-  if (!local && !iconsOnly) {
+  // SHA check (skip for local mode, icons-only, or a forced update)
+  if (!local && !iconsOnly && !force) {
     const versions = readUpstreamVersions()
     const currentAkedata = getRepoHead(paths.akedata)
     const currentImagedb = getRepoHead(paths.imagedb)
