@@ -44,17 +44,19 @@ function PoolCard({
 }) {
   const locale = useLocale()
   const cardRef = useRef<HTMLButtonElement | null>(null)
-  // jsdom and very old browsers (no IntersectionObserver): load everything.
-  // The `window` guard keeps the server render lean — SSG must not embed all
-  // fifteen artworks into the HTML.
-  const [inView, setInView] = useState(
-    () => eager || (typeof window !== 'undefined' && typeof IntersectionObserver === 'undefined'),
-  )
+  const [inView, setInView] = useState(eager)
 
   useEffect(() => {
     if (inView) return
     const el = cardRef.current
     if (!el) return
+    // jsdom and very old browsers: no IntersectionObserver — load the image.
+    // Deferred via a timer: effects must not call setState synchronously
+    // (react-hooks/set-state-in-effect).
+    if (typeof IntersectionObserver === 'undefined') {
+      const timer = setTimeout(() => setInView(true), 0)
+      return () => clearTimeout(timer)
+    }
     const observer = new IntersectionObserver(
       (entries) => {
         if (entries.some((entry) => entry.isIntersecting)) setInView(true)

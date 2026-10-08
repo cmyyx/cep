@@ -193,16 +193,16 @@ describe('useBannerStore', () => {
     expect(filtered.rEndMs).toBe(all.rEndMs)
   })
 
-  it('refresh produces rerunWaitStats matching the out rows, independent of showEndedChars', () => {
+  it('refresh produces rerunWaitStats matching the out and upcoming rows, independent of showEndedChars', () => {
     const store = useBannerStore.getState()
     store.refresh(mockT, 'zh-CN')
     const all = useBannerStore.getState().timelineData!
-    const outNames = all.charRows
-      .filter((r) => r.statusBadge?.type === 'out')
+    const trackedNames = all.charRows
+      .filter((r) => r.statusBadge?.type === 'out' || r.statusBadge?.type === 'upcoming')
       .map((r) => r.name)
       .sort()
     const statNames = all.rerunWaitStats.map((s) => s.name).sort()
-    expect(statNames).toEqual(outNames)
+    expect(statNames).toEqual(trackedNames)
 
     const days = all.rerunWaitStats.map((s) => s.days)
     expect(days.every((d) => d >= 0)).toBe(true)

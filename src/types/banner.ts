@@ -3,8 +3,7 @@ export interface BannerWindow {
   end: string
   version?: string
   period?: number // 卡池期数 (1-based), only set for main UP windows
-  isRerun?: boolean // true = 非主 UP 窗口（个人复刻或特殊寻访）
-  special?: boolean // true = 特殊寻访（如辉光庆典），不算个人复刻
+  isRerun?: boolean // true = 非主 UP 窗口（复刻或特殊寻访）
 }
 
 export interface BannerSchedule {
@@ -24,7 +23,6 @@ export interface NormalizedWindow {
   sourceIndex: number
   period: number | null
   isRerun: boolean
-  special: boolean
 }
 
 /** Per-character normalized schedule entry */
@@ -99,11 +97,12 @@ export interface StandardCharInfo {
 }
 
 /**
- * Days elapsed since a character's last personal banner ended
- * (特许寻访 or a personal 重构寻访 rerun). Special pools (辉光庆典)
- * do not reset the counter.
- * Only produced for characters whose status badge is "out" (已退池):
- * everyone still in the off-rate pool or with a rerun on the way is excluded.
+ * Days elapsed since the character's latest banner appearance ended
+ * (首次 / 复刻 / 特殊寻访 all count uniformly).
+ * Only produced for characters that cannot be obtained right now:
+ * on-banner and off-rate-pool characters are excluded; a scheduled
+ * (upcoming) rerun neither hides the character nor resets the counter
+ * until it actually ends.
  */
 export interface RerunWaitStat {
   name: string

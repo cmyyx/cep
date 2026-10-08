@@ -34,7 +34,7 @@ export function RerunWaitSection() {
       <div className="flex min-h-0 flex-1 flex-col justify-between gap-2 px-3 py-3 overflow-y-auto scrollbar-thin scrollbar-thumb-muted-foreground/20 scrollbar-track-transparent">
         {stats.map((s) => (
           <div key={s.name} className="flex items-center gap-2">
-            <span className="w-16 lg:w-20 shrink-0 truncate text-xs text-muted-foreground">
+            <span className="w-20 lg:w-24 shrink-0 truncate text-right text-sm">
               {s.name}
             </span>
             <div className="flex min-w-0 flex-1 items-center gap-1.5">
@@ -42,7 +42,7 @@ export function RerunWaitSection() {
                 className="h-5 shrink-0 rounded-sm bg-foreground/85"
                 style={{ width: `${(s.days / plotMax) * 100}%` }}
               />
-              <span className="shrink-0 text-xs tabular-nums text-muted-foreground">
+              <span className="shrink-0 text-sm tabular-nums text-muted-foreground">
                 {s.days}
               </span>
             </div>

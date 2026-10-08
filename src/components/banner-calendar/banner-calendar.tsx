@@ -1,7 +1,6 @@
 'use client'
 
 import { useEffect, useCallback, useLayoutEffect, useRef } from 'react'
-import Image from 'next/image'
 import { useTranslations, useLocale } from 'next-intl'
 import { useBannerStore } from '@/stores/useBannerStore'
 import { SidebarTrigger } from '@/components/ui/sidebar'
@@ -92,7 +91,6 @@ export function BannerCalendar() {
   }, [doFit])
 
   const hasData = timelineData && timelineData.charRows.length > 0
-  const hasStandard = timelineData && timelineData.standardChars.length > 0
 
   return (
     <div className="flex flex-col md:flex-1 md:min-h-0 md:overflow-hidden">
@@ -147,37 +145,6 @@ export function BannerCalendar() {
         <PoolInfoStrip />
         <RerunWaitSection />
       </div>
-
-      {/* Standard characters table - follows page margins */}
-      {hasStandard && (
-        <div className="shrink-0 px-4 pb-4 pt-3">
-          <div className="rounded-lg shadow-[var(--shadow-border)] overflow-hidden">
-            <div className="flex items-center gap-2 px-3 py-2 bg-muted/30 shadow-[var(--shadow-border-b)]">
-              <span className="size-2 rounded-full bg-secondary" />
-              <span className="text-xs font-medium text-muted-foreground">
-                {t('bannerCalendar.badgeStandard')}
-              </span>
-            </div>
-            <div className="flex flex-wrap gap-3 px-3 py-3">
-              {timelineData!.standardChars.map((ch) => (
-                <div key={ch.name} className="flex items-center gap-2">
-                  <div className="relative size-7 rounded-full overflow-hidden bg-muted shrink-0">
-                    <Image
-                      src={ch.avatarSrc}
-                      alt={ch.name}
-                      fill
-                      className="object-cover"
-                      unoptimized
-                      loading="lazy"
-                    />
-                  </div>
-                  <span className="text-sm">{ch.name}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      )}
 
     </div>
   )

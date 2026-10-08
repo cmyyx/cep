@@ -15,11 +15,6 @@ export interface BannerEntry {
    * 设为 true 后 deriveSchedule 与卡池图条都会跳过该条目。
    */
   hidden?: boolean
-  /**
-   * 特殊寻访（如辉光庆典）：窗口标记为复刻池，但不属于角色的个人复刻，
-   * 不影响「未复刻天数」的起算。
-   */
-  special?: boolean
   featured: {
     name: string
     period?: number
@@ -156,7 +151,6 @@ export const bannerEntries: BannerEntry[] = [
     version: '1.2',
     periodStart: '2026-05-14T12:00:00+08:00',
     periodEnd: '2026-06-05T12:00:00+08:00',
-    special: true,
     featured: [
       { name: '莱万汀', isRerun: true, versionLabel: '1.2「春晓时」' },
       { name: '洁尔佩塔', isRerun: true, versionLabel: '1.2「春晓时」' },
@@ -251,7 +245,6 @@ function deriveSchedule(entries: BannerEntry[]): BannerSchedule {
         version: fc.versionLabel ?? entry.version,
         period: fc.period,
         isRerun: fc.isRerun ?? false,
-        special: entry.special ?? false,
       })
       if (fc.offRateNote) {
         schedule[fc.name].offRateNote = fc.offRateNote

@@ -51,7 +51,6 @@ function normalizeSchedule(source: BannerSchedule): CharacterScheduleIndex {
           sourceIndex: i,
           period: w.period ?? null,
           isRerun: w.isRerun ?? false,
-          special: w.special ?? false,
         }
       })
       .filter((w): w is NormalizedWindow => w !== null)
@@ -166,7 +165,7 @@ function deriveTimelineData(
   // 3. Build character entries (exclude standard from main timeline)
   const limitedChars: {
     name: string; avatarSrc: string
-    wins: { startMs: number; endMs: number; version: string; isRerun: boolean; special: boolean }[]
+    wins: { startMs: number; endMs: number; version: string; isRerun: boolean }[]
     period: number | null; isStandard: boolean
     offRateNote?: string
   }[] = []
@@ -180,7 +179,7 @@ function deriveTimelineData(
       continue
     }
     const wins = record.windows.map((w) => ({
-      startMs: w.startMs, endMs: w.endMs, version: w.version, isRerun: w.isRerun, special: w.special,
+      startMs: w.startMs, endMs: w.endMs, version: w.version, isRerun: w.isRerun,
     }))
     for (const w of wins) {
       if (w.startMs < gMin) gMin = w.startMs
@@ -348,17 +347,18 @@ function deriveTimelineData(
     return { name: ch.name, avatarSrc: ch.avatarSrc, bars, hasActive: badgeType === 'active', statusBadge, offRateNote: ch.offRateNote }
   })
 
-  // 8. Days since the last personal banner (特许 or 重构寻访 rerun) for
-  // out-of-pool characters. Special pools (辉光庆典) do not reset the counter.
-  // Independent of the showEndedChars row filter — the stats panel always
-  // covers every out char.
+  // 8. Days since the character's latest banner appearance (首次/复刻/特殊寻访
+  // all count uniformly) for every character who cannot be obtained right now.
+  // On-banner and off-rate-pool characters are excluded, but a scheduled
+  // (upcoming) rerun neither hides the character nor resets the counter until
+  // it actually ends. Independent of the showEndedChars row filter.
   const rerunWaitStats: RerunWaitStat[] = []
   for (const ch of limitedChars) {
-    if (statusCache.get(ch)!.badgeType !== 'out') continue
-    const personalWins = ch.wins.filter((w) => !w.special)
-    if (!personalWins.length) continue
-    const lastPersonalEndMs = Math.max(...personalWins.map((w) => w.endMs))
-    rerunWaitStats.push({ name: ch.name, days: Math.floor((nowMs - lastPersonalEndMs) / DAY_MS) })
+    const { badgeType } = statusCache.get(ch)!
+    if (badgeType !== 'out' && badgeType !== 'upcoming') continue
+    const pastEnds = ch.wins.filter((w) => w.endMs <= nowMs).map((w) => w.endMs)
+    if (!pastEnds.length) continue
+    rerunWaitStats.push({ name: ch.name, days: Math.floor((nowMs - Math.max(...pastEnds)) / DAY_MS) })
   }
   rerunWaitStats.sort((a, b) => a.days - b.days || a.name.localeCompare(b.name))
 
