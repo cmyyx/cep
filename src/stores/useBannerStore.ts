@@ -113,6 +113,8 @@ interface DeriveTimelineOptions {
   nowMs: number
   pxPerDay: number
   sortMode: SortMode
+  /** When false, rows whose status badge is "out" (all banners ended) are omitted. */
+  showEndedChars: boolean
   locale?: string
   t: (key: string, params?: Record<string, number | string>) => string
 }
@@ -121,7 +123,7 @@ function deriveTimelineData(
   schedule: CharacterScheduleIndex,
   options: DeriveTimelineOptions,
 ): TimelineData | null {
-  const { nowMs, pxPerDay, sortMode, locale, t } = options
+  const { nowMs, pxPerDay, sortMode, showEndedChars, locale, t } = options
 
   // 1. Build period boundaries
   const periodBounds = new Map<number, PeriodBound>()
@@ -289,7 +291,11 @@ function deriveTimelineData(
     }
   }
 
-  const charRows: TimelineCharRow[] = limitedChars.map((ch) => {
+  const visibleChars = showEndedChars
+    ? limitedChars
+    : limitedChars.filter((ch) => statusCache.get(ch)!.badgeType !== 'out')
+
+  const charRows: TimelineCharRow[] = visibleChars.map((ch) => {
     const { badgeType } = statusCache.get(ch)!
     const bars: TimelineBar[] = []
 
@@ -367,6 +373,8 @@ interface BannerState {
   zoom: number
   fullOverview: boolean
   showPreviewAxis: boolean
+  /** When false, characters whose banners have all ended are hidden from the timeline. */
+  showEndedChars: boolean
   sortMode: SortMode
   timelineData: TimelineData | null
   needsFit: boolean
@@ -376,6 +384,7 @@ interface BannerState {
   setZoom: (value: number) => void
   toggleFullOverview: (width: number) => void
   togglePreviewAxis: () => void
+  toggleShowEndedChars: () => void
   setSortMode: (mode: SortMode) => void
   refresh: (t: TranslationFn, locale?: string) => void
   fitToViewport: (width: number, t: TranslationFn, locale?: string) => void
@@ -393,6 +402,7 @@ export const useBannerStore = create<BannerState>((set, get) => ({
   zoom: DEFAULT_ZOOM,
   fullOverview: false,
   showPreviewAxis: true,
+  showEndedChars: true,
   sortMode: 'default',
   timelineData: null,
   needsFit: true,
@@ -421,23 +431,25 @@ export const useBannerStore = create<BannerState>((set, get) => ({
 
   togglePreviewAxis: () => set((s) => ({ showPreviewAxis: !s.showPreviewAxis })),
 
+  toggleShowEndedChars: () => set((s) => ({ showEndedChars: !s.showEndedChars })),
+
   setSortMode: (mode: SortMode) => set({ sortMode: mode }),
 
   refresh: (t, locale) => {
-    const { zoom, sortMode } = get()
+    const { zoom, sortMode, showEndedChars } = get()
     const nowMs = Date.now()
-    const data = deriveTimelineData(normalizedCache, { nowMs, pxPerDay: zoom, sortMode, locale, t })
+    const data = deriveTimelineData(normalizedCache, { nowMs, pxPerDay: zoom, sortMode, showEndedChars, locale, t })
     set({ timelineData: data })
   },
 
   fitToViewport: (width: number, t, locale) => {
-    const { sortMode } = get()
+    const { sortMode, showEndedChars } = get()
     const nowMs = Date.now()
-    const probe = deriveTimelineData(normalizedCache, { nowMs, pxPerDay: 1, sortMode, locale, t })
+    const probe = deriveTimelineData(normalizedCache, { nowMs, pxPerDay: 1, sortMode, showEndedChars, locale, t })
     if (!probe) return
     const fitZoom = Math.round((width / probe.totalDays) * 10) / 10
     const z = Math.max(MIN_ZOOM, Math.min(MAX_ZOOM, fitZoom))
-    const data = deriveTimelineData(normalizedCache, { nowMs, pxPerDay: z, sortMode, locale, t })
+    const data = deriveTimelineData(normalizedCache, { nowMs, pxPerDay: z, sortMode, showEndedChars, locale, t })
     set({ timelineData: data, zoom: z, fullOverview: true, needsFit: false })
   },
 

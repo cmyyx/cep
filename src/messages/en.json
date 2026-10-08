@@ -690,6 +690,7 @@
     "zoom": "Zoom",
     "overviewTitle": "Fit to viewport",
     "previewAxisTitle": "Preview axis",
+    "endedCharsTitle": "Ended characters",
     "statusPast": "Ended",
     "statusActive": "Active",
     "statusUpcoming": "Upcoming",
