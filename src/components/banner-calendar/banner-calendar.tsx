@@ -8,6 +8,7 @@ import { SidebarTrigger } from '@/components/ui/sidebar'
 import { TimelineControls } from './timeline-controls'
 import { TimelineChart } from './timeline-chart'
 import { PoolInfoStrip } from './pool-info-strip'
+import { RerunWaitSection } from './rerun-wait-section'
 
 export function BannerCalendar() {
   const t = useTranslations()
@@ -141,8 +142,11 @@ export function BannerCalendar() {
         )}
       </div>
 
-      {/* Banner pool info strip */}
-      <PoolInfoStrip />
+      {/* Pool info + days-since-last-banner stats — side by side so the timeline keeps its room */}
+      <div className="shrink-0 grid md:grid-cols-2 gap-4 px-4 pb-4 pt-3">
+        <PoolInfoStrip />
+        <RerunWaitSection />
+      </div>
 
       {/* Standard characters table - follows page margins */}
       {hasStandard && (

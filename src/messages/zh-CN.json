@@ -474,6 +474,8 @@
     "overviewTitle": "适配视口",
     "previewAxisTitle": "预览轴",
     "endedCharsTitle": "已结束角色",
+    "rerunWaitTitle": "未复刻天数",
+    "rerunWaitSubtitle": "已退池角色距上次卡池结束的天数",
     "statusPast": "已结束",
     "statusActive": "进行中",
     "statusUpcoming": "即将开始",

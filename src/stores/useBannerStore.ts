@@ -11,6 +11,7 @@ import type {
   TimelineCharRow,
   TimelineBar,
   TimelineMonth,
+  RerunWaitStat,
   StatusBadge,
   StatusBadgeType,
 } from '@/types/banner'
@@ -50,6 +51,7 @@ function normalizeSchedule(source: BannerSchedule): CharacterScheduleIndex {
           sourceIndex: i,
           period: w.period ?? null,
           isRerun: w.isRerun ?? false,
+          special: w.special ?? false,
         }
       })
       .filter((w): w is NormalizedWindow => w !== null)
@@ -164,7 +166,7 @@ function deriveTimelineData(
   // 3. Build character entries (exclude standard from main timeline)
   const limitedChars: {
     name: string; avatarSrc: string
-    wins: { startMs: number; endMs: number; version: string; isRerun: boolean }[]
+    wins: { startMs: number; endMs: number; version: string; isRerun: boolean; special: boolean }[]
     period: number | null; isStandard: boolean
     offRateNote?: string
   }[] = []
@@ -178,7 +180,7 @@ function deriveTimelineData(
       continue
     }
     const wins = record.windows.map((w) => ({
-      startMs: w.startMs, endMs: w.endMs, version: w.version, isRerun: w.isRerun,
+      startMs: w.startMs, endMs: w.endMs, version: w.version, isRerun: w.isRerun, special: w.special,
     }))
     for (const w of wins) {
       if (w.startMs < gMin) gMin = w.startMs
@@ -346,11 +348,26 @@ function deriveTimelineData(
     return { name: ch.name, avatarSrc: ch.avatarSrc, bars, hasActive: badgeType === 'active', statusBadge, offRateNote: ch.offRateNote }
   })
 
+  // 8. Days since the last personal banner (特许 or 重构寻访 rerun) for
+  // out-of-pool characters. Special pools (辉光庆典) do not reset the counter.
+  // Independent of the showEndedChars row filter — the stats panel always
+  // covers every out char.
+  const rerunWaitStats: RerunWaitStat[] = []
+  for (const ch of limitedChars) {
+    if (statusCache.get(ch)!.badgeType !== 'out') continue
+    const personalWins = ch.wins.filter((w) => !w.special)
+    if (!personalWins.length) continue
+    const lastPersonalEndMs = Math.max(...personalWins.map((w) => w.endMs))
+    rerunWaitStats.push({ name: ch.name, days: Math.floor((nowMs - lastPersonalEndMs) / DAY_MS) })
+  }
+  rerunWaitStats.sort((a, b) => a.days - b.days || a.name.localeCompare(b.name))
+
   return {
     charRows, months, canvasW,
     rStartMs, rEndMs, totalDays, pxPerDay,
     todayPx, showToday, nowMs,
     standardChars: stdChars,
+    rerunWaitStats,
   }
 }
 

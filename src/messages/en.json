@@ -691,6 +691,8 @@
     "overviewTitle": "Fit to viewport",
     "previewAxisTitle": "Preview axis",
     "endedCharsTitle": "Ended characters",
+    "rerunWaitTitle": "Days Since Last Banner",
+    "rerunWaitSubtitle": "Elapsed days since each out-of-pool character's last banner",
     "statusPast": "Ended",
     "statusActive": "Active",
     "statusUpcoming": "Upcoming",

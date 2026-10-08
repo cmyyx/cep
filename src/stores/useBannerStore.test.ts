@@ -193,6 +193,26 @@ describe('useBannerStore', () => {
     expect(filtered.rEndMs).toBe(all.rEndMs)
   })
 
+  it('refresh produces rerunWaitStats matching the out rows, independent of showEndedChars', () => {
+    const store = useBannerStore.getState()
+    store.refresh(mockT, 'zh-CN')
+    const all = useBannerStore.getState().timelineData!
+    const outNames = all.charRows
+      .filter((r) => r.statusBadge?.type === 'out')
+      .map((r) => r.name)
+      .sort()
+    const statNames = all.rerunWaitStats.map((s) => s.name).sort()
+    expect(statNames).toEqual(outNames)
+
+    const days = all.rerunWaitStats.map((s) => s.days)
+    expect(days.every((d) => d >= 0)).toBe(true)
+    expect([...days].sort((a, b) => a - b)).toEqual(days)
+
+    store.toggleShowEndedChars()
+    store.refresh(mockT, 'zh-CN')
+    expect(useBannerStore.getState().timelineData!.rerunWaitStats).toEqual(all.rerunWaitStats)
+  })
+
   it('refresh with different sort modes produces different orderings', () => {
     const store = useBannerStore.getState()
 
