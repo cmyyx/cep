@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useMemo, useRef, useEffect } from 'react'
+import { useState, useMemo, useRef, useEffect, type RefObject } from 'react'
 import Image from 'next/image'
 import { useTranslations, useLocale } from 'next-intl'
 import { Info, X } from 'lucide-react'
@@ -18,12 +18,105 @@ import type { BannerEntry } from '@/data/banner'
 
 const CARD_CLOSE_DURATION = 150 // ms — must match `duration-150` in animation classes
 
+function formatDate(iso: string, locale: string) {
+  return new Date(iso).toLocaleDateString(locale, {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+  })
+}
+
+/**
+ * Banner artwork tile. Only the first row loads eagerly; the rest wait until
+ * they scroll into the strip's viewport — the full-size (1600px+) artworks
+ * otherwise all load on page load and add megabytes to the initial payload.
+ */
+function PoolCard({
+  visual,
+  eager,
+  scrollerRef,
+  onSelect,
+}: {
+  visual: BannerEntry
+  eager: boolean
+  scrollerRef: RefObject<HTMLDivElement | null>
+  onSelect: (visual: BannerEntry) => void
+}) {
+  const locale = useLocale()
+  const cardRef = useRef<HTMLButtonElement | null>(null)
+  // jsdom and very old browsers (no IntersectionObserver): load everything.
+  // The `window` guard keeps the server render lean — SSG must not embed all
+  // fifteen artworks into the HTML.
+  const [inView, setInView] = useState(
+    () => eager || (typeof window !== 'undefined' && typeof IntersectionObserver === 'undefined'),
+  )
+
+  useEffect(() => {
+    if (inView) return
+    const el = cardRef.current
+    if (!el) return
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((entry) => entry.isIntersecting)) setInView(true)
+      },
+      { root: scrollerRef.current, rootMargin: '150px 0px' },
+    )
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [inView, scrollerRef])
+
+  return (
+    <Button
+      ref={cardRef}
+      type="button"
+      variant="ghost"
+      onClick={() => onSelect(visual)}
+      className={cn(
+        'relative w-full h-auto aspect-video rounded-lg overflow-hidden bg-muted',
+        'shadow-[var(--shadow-border)] cursor-pointer p-0',
+        'transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0px_2px_8px_rgba(0,0,0,0.12)] hover:bg-transparent',
+        'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2'
+      )}
+    >
+      {inView && (
+        <Image
+          src={withImageCacheVersion(visual.imageUrl)}
+          alt={visual.title}
+          fill
+          className="object-cover"
+          unoptimized
+          loading="eager"
+        />
+      )}
+
+      {/* Gradient overlay */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+
+      {/* Content */}
+      <div className="absolute bottom-0 left-0 right-0 p-2.5">
+        <h3 className="text-xs lg:text-sm font-semibold text-white truncate">
+          {visual.title}
+        </h3>
+        {visual.subtitle && (
+          <p className="text-[10px] lg:text-xs text-white/80 mt-0.5 truncate">
+            {visual.subtitle}
+          </p>
+        )}
+        <p className="text-[10px] text-white/60 mt-1">
+          {formatDate(visual.periodStart, locale)} - {formatDate(visual.periodEnd, locale)}
+        </p>
+      </div>
+    </Button>
+  )
+}
+
 export function PoolInfoStrip() {
   const t = useTranslations()
   const locale = useLocale()
   const [selectedVisual, setSelectedVisual] = useState<BannerEntry | null>(null)
   const [cardState, setCardState] = useState<'closed' | 'open' | 'closing'>('closed')
   const closeTimerRef = useRef<ReturnType<typeof setTimeout>>(undefined)
+  const scrollerRef = useRef<HTMLDivElement | null>(null)
 
   useEffect(() => {
     return () => {
@@ -67,73 +160,33 @@ export function PoolInfoStrip() {
     }, CARD_CLOSE_DURATION)
   }
 
-  const formatDate = (iso: string) => {
-    const date = new Date(iso)
-    return date.toLocaleDateString(locale, {
-      year: 'numeric',
-      month: '2-digit',
-      day: '2-digit',
-    })
-  }
-
   return (
     <>
-      <div className="shrink-0 px-4 pb-4 pt-3">
-        <div className="rounded-lg shadow-[var(--shadow-border)] overflow-hidden">
-          {/* Header */}
-          <div className="flex items-center gap-2 px-3 py-2 bg-muted/30 shadow-[var(--shadow-border-b)]">
-            <span className="size-2 rounded-full bg-primary" />
-            <span className="text-xs font-medium text-muted-foreground">
-              {t('bannerCalendar.poolInfo')}
-            </span>
-            <span className="text-xs text-muted-foreground/60 ml-auto">
-              {t('bannerCalendar.poolInfoSubtitle')}
-            </span>
-          </div>
+      <div className="rounded-lg shadow-[var(--shadow-border)] overflow-hidden">
+        {/* Header */}
+        <div className="flex items-center gap-2 px-3 py-2 bg-muted/30 shadow-[var(--shadow-border-b)]">
+          <span className="size-2 shrink-0 rounded-full bg-primary" />
+          <span className="text-xs font-medium text-muted-foreground shrink-0">
+            {t('bannerCalendar.poolInfo')}
+          </span>
+          <span className="ml-auto truncate text-xs text-muted-foreground/60">
+            {t('bannerCalendar.poolInfoSubtitle')}
+          </span>
+        </div>
 
-          {/* Horizontal scroll strip */}
-          <div className="flex gap-3 px-3 py-3 overflow-x-auto scrollbar-thin scrollbar-thumb-muted-foreground/20 scrollbar-track-transparent">
-            {visuals.map((visual) => (
-              <Button
+        {/* 1x2 grid — exactly one 16:9 row visible, scroll for the rest.
+            Scroller height ≈ one card row + padding, so the next row peeks by
+            a few pixels as a scroll hint. */}
+        <div ref={scrollerRef} className="aspect-[3/1] overflow-y-auto px-3 py-3 scrollbar-thin scrollbar-thumb-muted-foreground/20 scrollbar-track-transparent">
+          <div className="grid grid-cols-2 gap-2">
+            {visuals.map((visual, index) => (
+              <PoolCard
                 key={visual.id}
-                type="button"
-                variant="ghost"
-                onClick={() => setSelectedVisual(visual)}
-                className={cn(
-                  'relative flex-shrink-0 w-[280px] h-[160px] md:w-[320px] md:h-[180px] rounded-lg overflow-hidden',
-                  'shadow-[var(--shadow-border)] cursor-pointer p-0',
-                  'transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0px_2px_8px_rgba(0,0,0,0.12)] hover:bg-transparent',
-                  'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2'
-                )}
-              >
-                {/* Background image */}
-                <Image
-                  src={withImageCacheVersion(visual.imageUrl)}
-                  alt={visual.title}
-                  fill
-                  className="object-cover"
-                  unoptimized
-                  loading="lazy"
-                />
-
-                {/* Gradient overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
-
-                {/* Content */}
-                <div className="absolute bottom-0 left-0 right-0 p-3">
-                  <h3 className="text-sm font-semibold text-white truncate">
-                    {visual.title}
-                  </h3>
-                  {visual.subtitle && (
-                    <p className="text-xs text-white/80 mt-0.5 truncate">
-                      {visual.subtitle}
-                    </p>
-                  )}
-                  <p className="text-[10px] text-white/60 mt-1">
-                    {formatDate(visual.periodStart)} - {formatDate(visual.periodEnd)}
-                  </p>
-                </div>
-              </Button>
+                visual={visual}
+                eager={index < 2}
+                scrollerRef={scrollerRef}
+                onSelect={setSelectedVisual}
+              />
             ))}
           </div>
         </div>
@@ -238,7 +291,7 @@ export function PoolInfoStrip() {
                     <div className="flex items-center gap-2 text-xs text-muted-foreground mb-2">
                       <span className="font-medium">{t('bannerCalendar.poolDuration')}:</span>
                       <span>
-                        {formatDate(selectedVisual.periodStart)} - {formatDate(selectedVisual.periodEnd)}
+                        {formatDate(selectedVisual.periodStart, locale)} - {formatDate(selectedVisual.periodEnd, locale)}
                       </span>
                     </div>
 
