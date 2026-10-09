@@ -3,7 +3,7 @@ export interface BannerWindow {
   end: string
   version?: string
   period?: number // 卡池期数 (1-based), only set for main UP windows
-  isRerun?: boolean // true = 辉光庆典复刻池
+  isRerun?: boolean // true = 非主 UP 窗口（复刻或特殊寻访）
 }
 
 export interface BannerSchedule {
@@ -96,6 +96,19 @@ export interface StandardCharInfo {
   avatarSrc: string
 }
 
+/**
+ * Days elapsed since the character's latest banner appearance ended
+ * (首次 / 复刻 / 特殊寻访 all count uniformly).
+ * Only produced for characters that cannot be obtained right now:
+ * on-banner and off-rate-pool characters are excluded; a scheduled
+ * (upcoming) rerun neither hides the character nor resets the counter
+ * until it actually ends.
+ */
+export interface RerunWaitStat {
+  name: string
+  days: number
+}
+
 /** Full timeline data structure for the Gantt chart */
 export interface TimelineData {
   charRows: TimelineCharRow[]
@@ -109,6 +122,8 @@ export interface TimelineData {
   showToday: boolean
   nowMs: number
   standardChars: StandardCharInfo[]
+  /** Out-of-pool characters ranked by days since their last banner ended (ascending). */
+  rerunWaitStats: RerunWaitStat[]
 }
 
 /** Tooltip data when hovering a bar */

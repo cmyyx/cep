@@ -3,7 +3,7 @@
 import { useBannerStore, type SortMode } from '@/stores/useBannerStore'
 import { Button } from '@/components/ui/button'
 import { Slider } from '@/components/ui/slider'
-import { Maximize2, Axis3d, ArrowUpAZ, ArrowDownZA, LayoutList } from 'lucide-react'
+import { Maximize2, Axis3d, ArrowUpAZ, ArrowDownZA, LayoutList, Eye, EyeOff } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 interface TimelineControlsProps {
@@ -27,8 +27,15 @@ const SORT_LABELS: Record<SortMode, string> = {
 const SORT_ORDER: SortMode[] = ['default', 'asc', 'desc']
 
 export function TimelineControls({ t, onRefresh, onFit }: TimelineControlsProps) {
-  const { zoom, fullOverview, showPreviewAxis, sortMode, setZoom, togglePreviewAxis, setSortMode } =
-    useBannerStore()
+  const {
+    zoom, fullOverview, showPreviewAxis, showEndedChars, sortMode,
+    setZoom, togglePreviewAxis, toggleShowEndedChars, setSortMode,
+  } = useBannerStore()
+
+  const handleEndedToggle = () => {
+    toggleShowEndedChars()
+    onRefresh()
+  }
 
   const handleZoomChange = (value: number[]) => {
     setZoom(value[0])
@@ -84,6 +91,18 @@ export function TimelineControls({ t, onRefresh, onFit }: TimelineControlsProps)
         title={t('bannerCalendar.previewAxisTitle')}
       >
         <Axis3d className="size-3.5" />
+      </Button>
+
+      {/* Ended characters visibility toggle */}
+      <Button
+        variant="ghost"
+        size="sm"
+        onClick={handleEndedToggle}
+        className={cn('h-7 px-2 gap-1', showEndedChars && 'bg-accent')}
+        title={t('bannerCalendar.endedCharsTitle')}
+      >
+        {showEndedChars ? <Eye className="size-3.5" /> : <EyeOff className="size-3.5" />}
+        <span className="text-[10px] text-muted-foreground">{t('bannerCalendar.endedCharsTitle')}</span>
       </Button>
 
       {/* Sort mode cycle */}

@@ -20,6 +20,7 @@ describe('useBannerStore', () => {
       zoom: 5,
       fullOverview: false,
       showPreviewAxis: true,
+      showEndedChars: true,
       sortMode: 'default',
       timelineData: null,
       needsFit: true,
@@ -32,6 +33,7 @@ describe('useBannerStore', () => {
     expect(state.zoom).toBe(5)
     expect(state.fullOverview).toBe(false)
     expect(state.showPreviewAxis).toBe(true)
+    expect(state.showEndedChars).toBe(true)
     expect(state.sortMode).toBe('default')
     expect(state.timelineData).toBeNull()
     expect(state.needsFit).toBe(true)
@@ -164,6 +166,51 @@ describe('useBannerStore', () => {
     expect(useBannerStore.getState().showPreviewAxis).toBe(false)
     useBannerStore.getState().togglePreviewAxis()
     expect(useBannerStore.getState().showPreviewAxis).toBe(true)
+  })
+
+  it('toggleShowEndedChars toggles showEndedChars', () => {
+    expect(useBannerStore.getState().showEndedChars).toBe(true)
+    useBannerStore.getState().toggleShowEndedChars()
+    expect(useBannerStore.getState().showEndedChars).toBe(false)
+    useBannerStore.getState().toggleShowEndedChars()
+    expect(useBannerStore.getState().showEndedChars).toBe(true)
+  })
+
+  it('refresh hides out rows when showEndedChars is false without shifting the time axis', () => {
+    const store = useBannerStore.getState()
+    store.refresh(mockT, 'zh-CN')
+    const all = useBannerStore.getState().timelineData!
+    const outCount = all.charRows.filter((r) => r.statusBadge?.type === 'out').length
+
+    store.toggleShowEndedChars()
+    store.refresh(mockT, 'zh-CN')
+    const filtered = useBannerStore.getState().timelineData!
+
+    expect(filtered.charRows.length).toBe(all.charRows.length - outCount)
+    expect(filtered.charRows.some((r) => r.statusBadge?.type === 'out')).toBe(false)
+    expect(filtered.canvasW).toBe(all.canvasW)
+    expect(filtered.rStartMs).toBe(all.rStartMs)
+    expect(filtered.rEndMs).toBe(all.rEndMs)
+  })
+
+  it('refresh produces rerunWaitStats matching the out and upcoming rows, independent of showEndedChars', () => {
+    const store = useBannerStore.getState()
+    store.refresh(mockT, 'zh-CN')
+    const all = useBannerStore.getState().timelineData!
+    const trackedNames = all.charRows
+      .filter((r) => r.statusBadge?.type === 'out' || r.statusBadge?.type === 'upcoming')
+      .map((r) => r.name)
+      .sort()
+    const statNames = all.rerunWaitStats.map((s) => s.name).sort()
+    expect(statNames).toEqual(trackedNames)
+
+    const days = all.rerunWaitStats.map((s) => s.days)
+    expect(days.every((d) => d >= 0)).toBe(true)
+    expect([...days].sort((a, b) => a - b)).toEqual(days)
+
+    store.toggleShowEndedChars()
+    store.refresh(mockT, 'zh-CN')
+    expect(useBannerStore.getState().timelineData!.rerunWaitStats).toEqual(all.rerunWaitStats)
   })
 
   it('refresh with different sort modes produces different orderings', () => {

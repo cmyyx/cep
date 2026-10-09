@@ -25,13 +25,7 @@ export interface BannerEntry {
 }
 
 // Future banners without visuals yet — schedule data only
-const PENDING_SCHEDULE = {
-  梨诺: {
-    windows: [
-      { start: '2026-08-09T12:00:00+08:00', end: '2026-09-02T11:59:00+08:00', version: '1.4', period: 10, isRerun: false },
-    ],
-  },
-} as const satisfies Record<string, { windows: BannerWindow[] }>
+const PENDING_SCHEDULE: Record<string, { windows: BannerWindow[] }> = {}
 
 const STANDARD_CHARS = ['艾尔黛拉', '余烬', '黎风', '别礼', '骏卫'] as const
 export const standardCharacters: readonly string[] = STANDARD_CHARS
@@ -42,7 +36,7 @@ export const bannerEntries: BannerEntry[] = [
     title: '「烟火邀星河」特许寻访',
     subtitle: '明河',
     description: '',
-    imageUrl: '',
+    imageUrl: '/images/banners/明河.webp',
     officialUrl: '',
     version: '1.6',
     periodStart: '2026-11-05T12:00:00+08:00',
@@ -56,7 +50,7 @@ export const bannerEntries: BannerEntry[] = [
     title: '「祖泉的新流」重构寻访',
     subtitle: '汤汤',
     description: '',
-    imageUrl: '',
+    imageUrl: '/images/banners/汤汤重构寻访.webp',
     officialUrl: '',
     version: '1.6',
     periodStart: '2026-10-29T12:00:00+08:00',
@@ -68,7 +62,7 @@ export const bannerEntries: BannerEntry[] = [
     title: '「万物更新」特许寻访',
     subtitle: '祀',
     description: '',
-    imageUrl: '',
+    imageUrl: '/images/banners/祀.webp',
     officialUrl: '',
     version: '1.6',
     periodStart: '2026-10-15T12:00:00+08:00',
@@ -80,7 +74,7 @@ export const bannerEntries: BannerEntry[] = [
     title: '「绚丽异彩」重构寻访',
     subtitle: '伊冯',
     description: '',
-    imageUrl: '',
+    imageUrl: '/images/banners/伊冯重构寻访.webp',
     officialUrl: '',
     version: '1.5',
     periodStart: '2026-09-24T12:00:00+08:00',
@@ -92,12 +86,24 @@ export const bannerEntries: BannerEntry[] = [
     title: '「雪凇幽梦」特许寻访',
     subtitle: '提弗洛斯',
     description: '',
-    imageUrl: '',
+    imageUrl: '/images/banners/提弗洛斯.webp',
     officialUrl: '',
     version: '1.5',
     periodStart: '2026-09-02T12:00:00+08:00',
     periodEnd: '2026-09-30T11:59:00+08:00',
     featured: [{ name: '提弗洛斯', period: 11 }],
+  },
+  {
+    id: '1.4-linuo',
+    title: '「晨星于此闪耀」特许寻访',
+    subtitle: '梨诺',
+    description: '',
+    imageUrl: '/images/banners/梨诺.webp',
+    officialUrl: '',
+    version: '1.4',
+    periodStart: '2026-08-09T12:00:00+08:00',
+    periodEnd: '2026-09-02T11:59:00+08:00',
+    featured: [{ name: '梨诺', period: 10 }],
   },
   {
     id: '1.4-jue',
