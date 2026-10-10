@@ -22,6 +22,7 @@ describe('useBannerStore', () => {
       showPreviewAxis: true,
       showEndedChars: true,
       sortMode: 'default',
+      rerunWaitOrder: 'asc',
       timelineData: null,
       needsFit: true,
       upCharacterNames: [],
@@ -168,6 +169,14 @@ describe('useBannerStore', () => {
     expect(useBannerStore.getState().showPreviewAxis).toBe(true)
   })
 
+  it('toggleRerunWaitOrder flips the days-since list order', () => {
+    expect(useBannerStore.getState().rerunWaitOrder).toBe('asc')
+    useBannerStore.getState().toggleRerunWaitOrder()
+    expect(useBannerStore.getState().rerunWaitOrder).toBe('desc')
+    useBannerStore.getState().toggleRerunWaitOrder()
+    expect(useBannerStore.getState().rerunWaitOrder).toBe('asc')
+  })
+
   it('toggleShowEndedChars toggles showEndedChars', () => {
     expect(useBannerStore.getState().showEndedChars).toBe(true)
     useBannerStore.getState().toggleShowEndedChars()
@@ -208,9 +217,31 @@ describe('useBannerStore', () => {
     expect(days.every((d) => d >= 0)).toBe(true)
     expect([...days].sort((a, b) => a - b)).toEqual(days)
 
+    // Each stat carries the formatted end date (and version) of the window it
+    // counts from, which is what the hover card in the section shows.
+    for (const stat of all.rerunWaitStats) {
+      expect(stat.lastEndLabel).toContain('2026')
+    }
+    expect(all.rerunWaitStats.some((s) => s.lastVersion !== '')).toBe(true)
+
     store.toggleShowEndedChars()
     store.refresh(mockT, 'zh-CN')
     expect(useBannerStore.getState().timelineData!.rerunWaitStats).toEqual(all.rerunWaitStats)
+  })
+
+  it('renders every ended window with the solid past fill, never the dashed outline', () => {
+    const store = useBannerStore.getState()
+    store.refresh(mockT, 'zh-CN')
+    const data = useBannerStore.getState().timelineData!
+    const endedBars = data.charRows
+      .flatMap((r) => r.bars)
+      .filter((b) => b.statusText === 'bannerCalendar.statusPast' && b.endMs < data.nowMs)
+
+    // Guard against a vacuous assertion: the schedule must contain ended windows.
+    expect(endedBars.length).toBeGreaterThan(0)
+    // 'rerun' and 'upcoming' draw a dashed outline; an ended window (including
+    // an ended rerun) must use the solid 'past' fill instead.
+    expect(endedBars.every((b) => b.cls === 'past')).toBe(true)
   })
 
   it('refresh with different sort modes produces different orderings', () => {

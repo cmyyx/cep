@@ -107,6 +107,10 @@ export interface StandardCharInfo {
 export interface RerunWaitStat {
   name: string
   days: number
+  /** Formatted end date of the window the counter is measured from. */
+  lastEndLabel: string
+  /** Version label of that window; empty string when the schedule has none. */
+  lastVersion: string
 }
 
 /** Full timeline data structure for the Gantt chart */
