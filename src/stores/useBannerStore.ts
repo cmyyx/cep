@@ -20,6 +20,11 @@ const DAY_MS = 24 * 60 * 60 * 1000
 
 export type SortMode = 'default' | 'asc' | 'desc'
 
+/** Display order of the "days since last banner" list. Ascending = shortest
+ *  wait first (the historical default); the per-row TOP rank always counts
+ *  from the longest wait, whichever way the rows are displayed. */
+export type RerunWaitOrder = 'asc' | 'desc'
+
 // --- Normalization ---
 
 function parseTimestamp(value: string): number {
@@ -304,7 +309,10 @@ function deriveTimelineData(
       const isActive = nowMs >= w.startMs && nowMs <= w.endMs
       const isPast = nowMs > w.endMs
       if (w.isRerun) {
-        bars.push(makeBar(w.startMs, w.endMs, isActive ? 'rerunActive' : 'rerun',
+        // An ended rerun is drawn like every other ended window (solid fill).
+        // The dashed 'rerun' outline is reserved for a scheduled rerun that has
+        // not started yet.
+        bars.push(makeBar(w.startMs, w.endMs, isActive ? 'rerunActive' : isPast ? 'past' : 'rerun',
           isActive ? t('bannerCalendar.statusRerunActive') : isPast ? t('bannerCalendar.statusPast') : t('bannerCalendar.statusUpcoming'), w.version))
       } else if (isActive) {
         bars.push(makeBar(w.startMs, w.endMs, 'active', t('bannerCalendar.statusActive'), w.version))
@@ -356,9 +364,16 @@ function deriveTimelineData(
   for (const ch of limitedChars) {
     const { badgeType } = statusCache.get(ch)!
     if (badgeType !== 'out' && badgeType !== 'upcoming') continue
-    const pastEnds = ch.wins.filter((w) => w.endMs <= nowMs).map((w) => w.endMs)
-    if (!pastEnds.length) continue
-    rerunWaitStats.push({ name: ch.name, days: Math.floor((nowMs - Math.max(...pastEnds)) / DAY_MS) })
+    const pastWins = ch.wins.filter((w) => w.endMs <= nowMs)
+    if (!pastWins.length) continue
+    // The counter is measured from the latest window that already ended.
+    const last = pastWins.reduce((a, b) => (b.endMs > a.endMs ? b : a))
+    rerunWaitStats.push({
+      name: ch.name,
+      days: Math.floor((nowMs - last.endMs) / DAY_MS),
+      lastEndLabel: formatFullDate(last.endMs, locale),
+      lastVersion: last.version,
+    })
   }
   rerunWaitStats.sort((a, b) => a.days - b.days || a.name.localeCompare(b.name))
 
@@ -393,6 +408,8 @@ interface BannerState {
   /** When false, characters whose banners have all ended are hidden from the timeline. */
   showEndedChars: boolean
   sortMode: SortMode
+  /** Display order of the days-since-last-banner list. */
+  rerunWaitOrder: RerunWaitOrder
   timelineData: TimelineData | null
   needsFit: boolean
   /** Character names currently on banner. */
@@ -403,6 +420,7 @@ interface BannerState {
   togglePreviewAxis: () => void
   toggleShowEndedChars: () => void
   setSortMode: (mode: SortMode) => void
+  toggleRerunWaitOrder: () => void
   refresh: (t: TranslationFn, locale?: string) => void
   fitToViewport: (width: number, t: TranslationFn, locale?: string) => void
   /** Re-compute upCharacterNames with current Date.now(). */
@@ -421,6 +439,7 @@ export const useBannerStore = create<BannerState>((set, get) => ({
   showPreviewAxis: true,
   showEndedChars: true,
   sortMode: 'default',
+  rerunWaitOrder: 'asc',
   timelineData: null,
   needsFit: true,
   // Must stay empty at module-evaluation time: zustand v5 serves
@@ -451,6 +470,9 @@ export const useBannerStore = create<BannerState>((set, get) => ({
   toggleShowEndedChars: () => set((s) => ({ showEndedChars: !s.showEndedChars })),
 
   setSortMode: (mode: SortMode) => set({ sortMode: mode }),
+
+  toggleRerunWaitOrder: () =>
+    set((s) => ({ rerunWaitOrder: s.rerunWaitOrder === 'asc' ? 'desc' : 'asc' })),
 
   refresh: (t, locale) => {
     const { zoom, sortMode, showEndedChars } = get()
