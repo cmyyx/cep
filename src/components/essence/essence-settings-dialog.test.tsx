@@ -41,6 +41,12 @@ describe('EssenceSettingsDialog mobile sizing', () => {
     expect(content.className).toContain('overflow-y-auto')
   })
 
+  it('stacks above the notification layer', () => {
+    const content = openDialog()
+    // 同步/导入 toast 在 z-[60]；设置弹窗必须盖过它（用户要求弹窗优先）。
+    expect(content.className).toContain('z-[70]')
+  })
+
   it('toggles the per-account selection switch (default on)', () => {
     openDialog()
     expect(useEssenceSettingsStore.getState().separateSelectionPerAccount).toBe(true)

@@ -9,6 +9,7 @@ import { Button, buttonVariants } from '@/components/ui/button'
 import { setAutoSyncNotifyCallback, setDismissConflictToast } from '@/hooks/useAutoSync'
 import { useAuthStore } from '@/stores/useAuthStore'
 import { useToastUiStore } from '@/stores/useToastUiStore'
+import { setAppToastHandler, type AppToastEvent } from '@/lib/app-toast'
 import { useVersion } from '@/hooks/use-version'
 import { onMissingTranslation, type MissingTranslationEvent } from '@/lib/missing-translation-guard'
 
@@ -23,6 +24,8 @@ type ToastKind =
   | 'session_expired'
   | 'version_update'
   | 'missing_translation'
+  | 'app_success'
+  | 'app_error'
 
 interface ToastState {
   id: number
@@ -32,6 +35,8 @@ interface ToastState {
   /** Auto-dismiss duration in ms; null = persistent (no progress bar). */
   duration: number | null
   payload?: MissingTranslationEvent
+  /** 应用消息正文（已翻译），仅 app_* 使用。 */
+  text?: string
 }
 
 // ─── Component ────────────────────────────────────────────
@@ -54,24 +59,12 @@ export function SyncNotifier() {
     timersRef.current.push(id)
   }
 
-  const removeToast = useCallback(() => {
-    setToast((prev) => {
-      if (!prev || prev.phase !== 'visible') return prev
-      return { ...prev, phase: 'out' }
-    })
-    addTimer(
-      setTimeout(() => {
-        setToast(null)
-      }, 220),
-    )
-  }, [])
-
   const createToast = useCallback(
-    (kind: ToastKind, duration: number | null, payload?: MissingTranslationEvent) => {
+    (kind: ToastKind, duration: number | null, payload?: MissingTranslationEvent, text?: string) => {
       clearAllTimers()
       const id = ++idRef.current
 
-      setToast({ id, kind, createdAt: Date.now(), phase: 'in', duration, payload })
+      setToast({ id, kind, createdAt: Date.now(), phase: 'in', duration, payload, text })
       addTimer(
         setTimeout(() => {
           setToast((prev) =>
@@ -102,6 +95,56 @@ export function SyncNotifier() {
     },
     [],
   )
+
+  // ── App messages (data-import results) share this single toast slot ──
+  // 数据导入原先自己渲染一个 fixed bottom-6 right-6 的提示，位置与同步通知完全
+  // 重叠；现在统一走这里，且不抢占持久通知（冲突/会话过期）的槽位。
+  const pendingAppToastRef = useRef<AppToastEvent | null>(null)
+
+  const flushPendingAppToast = useCallback(() => {
+    const pending = pendingAppToastRef.current
+    if (!pending) return
+    pendingAppToastRef.current = null
+    createToast(
+      pending.tone === 'success' ? 'app_success' : 'app_error',
+      pending.tone === 'success' ? 3500 : 6000,
+      undefined,
+      pending.text,
+    )
+  }, [createToast])
+
+  const removeToast = useCallback(() => {
+    setToast((prev) => {
+      if (!prev || prev.phase !== 'visible') return prev
+      return { ...prev, phase: 'out' }
+    })
+    addTimer(
+      setTimeout(() => {
+        setToast(null)
+        // 持久通知退场后，把排队等着的应用消息放出来。
+        flushPendingAppToast()
+      }, 220),
+    )
+  }, [flushPendingAppToast])
+
+  useEffect(() => {
+    // 直接用 toast 状态（而不是 ref）决定是否排队，React Compiler 不希望
+    // 跨 effect 读写同一个 ref。
+    setAppToastHandler((event) => {
+      if (toast && toast.phase !== 'out' && toast.duration === null) {
+        // 持久通知在场：排队等它消失，否则重要提示会被默默顶掉。
+        pendingAppToastRef.current = event
+        return
+      }
+      createToast(
+        event.tone === 'success' ? 'app_success' : 'app_error',
+        event.tone === 'success' ? 3500 : 6000,
+        undefined,
+        event.text,
+      )
+    })
+    return () => setAppToastHandler(null)
+  }, [toast, createToast])
 
   // ── Session expiry notification ─────────────────────────
 
@@ -206,13 +249,22 @@ export function SyncNotifier() {
   // Cleanup on unmount
   useEffect(() => {
     setDismissConflictToast(() => {
-      setToast((prev) => (prev?.kind === 'conflict' ? null : prev))
+      setToast((prev) => {
+        if (prev?.kind !== 'conflict') return prev
+        // 冲突提示被账号页解决后，把排队等着的应用消息放出来。
+        addTimer(
+          setTimeout(() => {
+            flushPendingAppToast()
+          }, 0),
+        )
+        return null
+      })
     })
     return () => {
       clearAllTimers()
       setDismissConflictToast(null)
     }
-  }, [])
+  }, [flushPendingAppToast])
 
   const [copiedToastId, setCopiedToastId] = useState<number | null>(null)
 
@@ -315,8 +367,15 @@ function ToastCard({
   const isSessionExpired = toast.kind === 'session_expired'
   const isVersionUpdate = toast.kind === 'version_update'
   const isMissingTranslation = toast.kind === 'missing_translation'
-  const isWarning = isConflict || isError || isSessionExpired || isVersionUpdate || isMissingTranslation
+  // 应用消息（数据导入结果）：正文由调用方传入，配色区分成功/失败。
+  const isAppError = toast.kind === 'app_error'
+  const isAppMessage = isAppError || toast.kind === 'app_success'
+  const isWarning =
+    isConflict || isError || isSessionExpired || isVersionUpdate || isMissingTranslation || isAppError
   const isPersistent = toast.duration === null
+  const iconClass = isAppMessage
+    ? isAppError ? 'text-red-500' : 'text-green-500'
+    : isWarning ? 'text-amber-500' : 'text-[#0a72ef]'
 
   const missingEvent = isMissingTranslation ? toast.payload : undefined
   const pageUrl =
@@ -339,7 +398,9 @@ function ToastCard({
       )}`
     : undefined
 
-  const message = isConflict
+  const message = isAppMessage
+    ? toast.text ?? ''
+    : isConflict
     ? t('account.syncConflictToast')
     : isError
       ? t('account.syncErrorToast')
@@ -366,9 +427,9 @@ function ToastCard({
     >
       <div className="flex items-start gap-2.5 px-4 py-3">
         {isWarning ? (
-          <AlertTriangle className="size-4 shrink-0 mt-0.5 text-amber-500" />
+          <AlertTriangle className={cn('size-4 shrink-0 mt-0.5', iconClass)} />
         ) : (
-          <CheckCircle2 className="size-4 shrink-0 mt-0.5 text-[#0a72ef]" />
+          <CheckCircle2 className={cn('size-4 shrink-0 mt-0.5', iconClass)} />
         )}
         <span
           className={cn(

@@ -354,7 +354,7 @@
     "exportData": "导出数据",
     "exportDataDesc": "导出所有本地标记数据和设置为 JSON 文件",
     "importData": "导入数据",
-    "importDataDesc": "从 JSON 文件导入之前导出的数据",
+    "importDataDesc": "支持 CEP 备份文件与 MaaEND 基质库存，把文件拖到页面任意位置即可导入",
     "importTitle": "导入数据",
     "importDesc": "即将从 {file} 导入数据。以下模块将被覆盖：",
     "importExportedAt": "导出时间",

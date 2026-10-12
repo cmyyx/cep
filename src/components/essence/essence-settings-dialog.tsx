@@ -162,8 +162,9 @@ export function EssenceSettingsDialog() {
       </Button>
 
       {/* 尺寸约束 + 整框滚动：手机上无 max-h 时弹窗高约 693px、超出 600px 视口，
-          标题与 Close 按钮会永久落在屏幕外；内层 max-h-[60vh] 只能滚上半部分。 */}
-      <DialogContent className="sm:max-w-lg max-h-[calc(100dvh-2rem)] overflow-y-auto">
+          标题与 Close 按钮会永久落在屏幕外；内层 max-h-[60vh] 只能滚上半部分。
+          z-[70] 让设置弹窗盖过右下角通知层（toast 为 z-[60]）。 */}
+      <DialogContent className="sm:max-w-lg z-[70] max-h-[calc(100dvh-2rem)] overflow-y-auto">
         <DialogHeader>
           <DialogTitle>{t('essenceSettings.title')}</DialogTitle>
         </DialogHeader>

@@ -3,6 +3,8 @@
 import { act, cleanup, render, screen } from '@testing-library/react'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { SyncNotifier } from './sync-notifier'
+import { showAppToast } from '@/lib/app-toast'
+import { notifySync } from '@/hooks/useAutoSync'
 import {
   reportMissingTranslation,
   resetMissingTranslationsForTests,
@@ -159,6 +161,56 @@ describe('SyncNotifier - Missing Translation integration', () => {
       expect(screen.getByText('发现异常文本: item|item_second')).toBeTruthy()
       expect(screen.getByRole('button', { name: '复制反馈信息' })).toBeTruthy()
       expect(screen.queryByRole('button', { name: '已复制' })).toBeNull()
+    } finally {
+      vi.useRealTimers()
+    }
+  })
+})
+
+describe('SyncNotifier - app messages share the toast slot', () => {
+  afterEach(() => {
+    cleanup()
+    vi.unstubAllGlobals()
+  })
+
+  it('renders a data-import result in the same toast instead of a second overlay', async () => {
+    render(<SyncNotifier />)
+
+    await act(async () => {
+      showAppToast({ tone: 'success', text: '数据导入成功' })
+    })
+
+    // Exactly one bottom-right toast lives in the DOM — the import dialog no
+    // longer renders its own overlay at the same position.
+    expect(screen.getByText('数据导入成功')).toBeTruthy()
+    expect(document.querySelectorAll('.fixed.bottom-6.right-6')).toHaveLength(1)
+  })
+
+  it('queues an app message while a persistent conflict toast is showing', async () => {
+    vi.useFakeTimers()
+    try {
+      render(<SyncNotifier />)
+
+      await act(async () => {
+        notifySync({ type: 'push_conflict' })
+      })
+      expect(screen.getByText('account.syncConflictToast')).toBeTruthy()
+
+      await act(async () => {
+        showAppToast({ tone: 'error', text: '文件格式不支持' })
+      })
+      // The important conflict notice is not silently replaced.
+      expect(screen.getByText('account.syncConflictToast')).toBeTruthy()
+      expect(screen.queryByText('文件格式不支持')).toBeNull()
+
+      // Closing the conflict toast releases the queued message.
+      await act(async () => {
+        screen.getAllByRole('button', { name: '关闭' })[0].click()
+      })
+      await act(async () => {
+        vi.advanceTimersByTime(300)
+      })
+      expect(screen.getByText('文件格式不支持')).toBeTruthy()
     } finally {
       vi.useRealTimers()
     }

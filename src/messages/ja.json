@@ -571,7 +571,7 @@
     "exportData": "データをエクスポート",
     "exportDataDesc": "すべてのローカルマーカーデータと設定をJSONファイルとしてエクスポート",
     "importData": "データをインポート",
-    "importDataDesc": "以前にエクスポートしたJSONファイルからデータをインポート",
+    "importDataDesc": "CEP バックアップと MaaEND のマトリクス在庫に対応。ファイルをページのどこにドロップしても取り込めます",
     "importTitle": "データをインポート",
     "importDesc": "{file} からデータをインポートします。以下のモジュールが上書きされます：",
     "importExportedAt": "エクスポート日時",

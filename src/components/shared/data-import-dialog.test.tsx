@@ -1,6 +1,6 @@
 // @vitest-environment jsdom
 
-import { cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react'
+import { act, cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
 // The planner stores kick off loadPlannerData() at module scope; stub it so the
@@ -21,6 +21,11 @@ const { DataImportDialog } = await import('./data-import-dialog')
 const { prepareImport } = await import('@/lib/data-import')
 const { useDataImportStore } = await import('@/stores/useDataImportStore')
 const { useEssenceSettingsStore } = await import('@/stores/useEssenceSettingsStore')
+const { setAppToastHandler } = await import('@/lib/app-toast')
+import type { AppToastEvent } from '@/lib/app-toast'
+
+/** Import results are shown by the shared toast layer (SyncNotifier). */
+const appToasts: AppToastEvent[] = []
 
 function seedTwoAccounts() {
   useEssenceSettingsStore.setState({
@@ -128,11 +133,33 @@ const twoAccountBackup = {
 beforeEach(() => {
   localStorage.clear()
   useDataImportStore.setState({ request: null, errorKey: null, success: false })
+  appToasts.length = 0
+  setAppToastHandler((event) => appToasts.push(event))
   seedTwoAccounts()
 })
 
 afterEach(() => {
   cleanup()
+  setAppToastHandler(null)
+})
+
+describe('DataImportDialog: notification surface', () => {
+  it('routes results through the shared toast instead of its own overlay', () => {
+    render(<DataImportDialog />)
+
+    act(() => useDataImportStore.getState().reportError('settings.importParseError'))
+    expect(appToasts).toContainEqual({ tone: 'error', text: 'settings.importParseError' })
+    // The key is consumed by the toast layer, so it cannot linger in the store.
+    expect(useDataImportStore.getState().errorKey).toBeNull()
+
+    act(() => useDataImportStore.getState().markSuccess())
+    expect(appToasts).toContainEqual({ tone: 'success', text: 'settings.importSuccess' })
+    expect(useDataImportStore.getState().success).toBe(false)
+
+    // No second overlay at the toast position — that is what overlapped the
+    // sync conflict notification.
+    expect(document.querySelectorAll('.fixed.bottom-6.right-6')).toHaveLength(0)
+  })
 })
 
 describe('DataImportDialog: CEP backup', () => {
@@ -154,7 +181,7 @@ describe('DataImportDialog: CEP backup', () => {
     expect(state.accounts.map((a) => a.id)).toEqual(['acc_f'])
     expect(state.activeAccountId).toBe('acc_f')
     expect(state.weaponOwnership).toEqual({ wpn_lance_0010: true })
-    expect(useDataImportStore.getState().success).toBe(true)
+    expect(appToasts).toContainEqual({ tone: 'success', text: 'settings.importSuccess' })
   })
 })
 

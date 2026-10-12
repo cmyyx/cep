@@ -571,7 +571,7 @@
     "exportData": "Export Data",
     "exportDataDesc": "Export all local marker data and settings as a JSON file",
     "importData": "Import Data",
-    "importDataDesc": "Import previously exported data from a JSON file",
+    "importDataDesc": "Accepts CEP backup files and MaaEND essence inventories — drop the file anywhere on the page to import",
     "importTitle": "Import Data",
     "importDesc": "You are about to import data from {file}. The following modules will be overwritten:",
     "importExportedAt": "Exported at",

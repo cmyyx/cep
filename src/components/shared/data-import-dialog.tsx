@@ -1,8 +1,8 @@
 'use client'
 
-import { useCallback, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useTranslations } from 'next-intl'
-import { AlertTriangle, CheckCircle2, X } from 'lucide-react'
+import { AlertTriangle } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Label } from '@/components/ui/label'
@@ -35,6 +35,7 @@ import {
 import { importModule } from '@/lib/data-import'
 import type { PreparedImport } from '@/lib/data-import'
 import { applyMaaEndEssence, listFileAccounts, type EssenceRestoreMode } from '@/lib/essence-import/apply'
+import { showAppToast } from '@/lib/app-toast'
 
 /** Unknown MaaEND weapon ids rendered before the list is truncated. */
 const UNKNOWN_WEAPON_LIST_LIMIT = 20
@@ -457,36 +458,27 @@ export function DataImportDialog() {
   const success = useDataImportStore((s) => s.success)
   const dismissSuccess = useDataImportStore((s) => s.dismissSuccess)
 
+  // 导入结果走全局单槽位 toast（SyncNotifier）—— 自己再渲染一个
+  // fixed bottom-6 right-6 会和同步冲突通知完全重叠。
+  useEffect(() => {
+    if (!errorKey) return
+    showAppToast({ tone: 'error', text: t(errorKey) })
+    clearError()
+  }, [errorKey, t, clearError])
+
+  useEffect(() => {
+    if (!success) return
+    showAppToast({ tone: 'success', text: t('settings.importSuccess') })
+    dismissSuccess()
+  }, [success, t, dismissSuccess])
+
   return (
     <>
-      {errorKey ? (
-        <div className="fixed bottom-6 right-6 z-[60] max-w-sm rounded-lg bg-background px-4 py-3 text-sm shadow-[var(--shadow-card)]">
-          <div className="flex items-start gap-2.5">
-            <AlertTriangle className="size-4 shrink-0 mt-0.5 text-red-500" />
-            <span className="flex-1 text-sm">{t(errorKey)}</span>
-            <Button variant="ghost" size="icon-xs" className="text-muted-foreground hover:text-foreground" onClick={clearError}>
-              <X className="size-3.5" />
-            </Button>
-          </div>
-        </div>
-      ) : null}
-
-      {success ? (
-        <div className="fixed bottom-6 right-6 z-[60] max-w-sm rounded-lg bg-background px-4 py-3 text-sm shadow-[var(--shadow-card)] animate-toast-in">
-          <div className="flex items-start gap-2.5">
-            <CheckCircle2 className="size-4 shrink-0 mt-0.5 text-green-500" />
-            <span className="flex-1 text-sm">{t('settings.importSuccess')}</span>
-            <Button variant="ghost" size="icon-xs" className="text-muted-foreground hover:text-foreground" onClick={dismissSuccess}>
-              <X className="size-3.5" />
-            </Button>
-          </div>
-        </div>
-      ) : null}
-
       <Dialog open={request !== null} onOpenChange={(open) => { if (!open) close() }}>
         {/* The dialog can carry 8 module rows + account pickers + warnings; without
-            a height cap the confirm button ends up outside a short viewport. */}
-        <DialogContent className="sm:max-w-md max-h-[calc(100dvh-2rem)] overflow-y-auto">
+            a height cap the confirm button ends up outside a short viewport.
+            z-[70] 让设置类弹窗盖过右下角通知（toast 为 z-[60]）。 */}
+        <DialogContent className="sm:max-w-md z-[70] max-h-[calc(100dvh-2rem)] overflow-y-auto">
           {request ? (
             <DataImportDialogBody
               key={request.id}
