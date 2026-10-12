@@ -477,8 +477,8 @@ export function DataImportDialog() {
       <Dialog open={request !== null} onOpenChange={(open) => { if (!open) close() }}>
         {/* The dialog can carry 8 module rows + account pickers + warnings; without
             a height cap the confirm button ends up outside a short viewport.
-            z-[70] 让设置类弹窗盖过右下角通知（toast 为 z-[60]）。 */}
-        <DialogContent className="sm:max-w-md z-[70] max-h-[calc(100dvh-2rem)] overflow-y-auto">
+            层级：不加 z 覆盖值（通知层 z-[45] < 对话框 z-50 < 弹窗内 Select 弹层 z-50）。 */}
+        <DialogContent className="sm:max-w-md max-h-[calc(100dvh-2rem)] overflow-y-auto">
           {request ? (
             <DataImportDialogBody
               key={request.id}

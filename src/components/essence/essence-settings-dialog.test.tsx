@@ -41,10 +41,12 @@ describe('EssenceSettingsDialog mobile sizing', () => {
     expect(content.className).toContain('overflow-y-auto')
   })
 
-  it('stacks above the notification layer', () => {
+  it('keeps the default dialog layer so in-dialog dropdowns stay on top', () => {
     const content = openDialog()
-    // 同步/导入 toast 在 z-[60]；设置弹窗必须盖过它（用户要求弹窗优先）。
-    expect(content.className).toContain('z-[70]')
+    // 通知层是 z-[45]，对话框保持 shadcn 默认的 z-50；不要加 z 覆盖值——
+    // 之前加 z-[70] 导致对话框内的 Select 弹层（z-50）被对话框自己盖住，
+    // 表现就是“点下拉框没反应”。
+    expect(/z-\[/.test(content.className)).toBe(false)
   })
 
   it('toggles the per-account selection switch (default on)', () => {

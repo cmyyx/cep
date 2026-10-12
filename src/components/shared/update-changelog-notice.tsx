@@ -80,7 +80,7 @@ export function UpdateChangelogNotice() {
     <div
       data-testid="update-changelog-notice"
       className={cn(
-        'fixed right-6 z-[55] w-[340px] sm:w-[420px] lg:w-[460px] max-w-[calc(100vw-3rem)] rounded-lg bg-background overflow-hidden shadow-[var(--shadow-card),var(--shadow-card-inner)] animate-in fade-in slide-in-from-bottom-2 duration-200 transition-[bottom] duration-200',
+        'fixed right-6 z-[44] w-[340px] sm:w-[420px] lg:w-[460px] max-w-[calc(100vw-3rem)] rounded-lg bg-background overflow-hidden shadow-[var(--shadow-card),var(--shadow-card-inner)] animate-in fade-in slide-in-from-bottom-2 duration-200 transition-[bottom] duration-200',
         toastVisible ? 'bottom-24' : 'bottom-6',
       )}
     >

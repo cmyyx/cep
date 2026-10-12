@@ -184,6 +184,11 @@ describe('SyncNotifier - app messages share the toast slot', () => {
     // longer renders its own overlay at the same position.
     expect(screen.getByText('数据导入成功')).toBeTruthy()
     expect(document.querySelectorAll('.fixed.bottom-6.right-6')).toHaveLength(1)
+
+    // 通知层必须低于对话框层（z-50），否则弹窗里的 Select/Dropdown 弹层
+    // （portal + z-50）会被弹窗自己盖住。
+    const zIndex = Number(document.querySelector('.fixed.bottom-6.right-6')?.className.match(/z-\[(\d+)\]/)?.[1])
+    expect(zIndex).toBeLessThan(50)
   })
 
   it('queues an app message while a persistent conflict toast is showing', async () => {

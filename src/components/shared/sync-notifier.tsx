@@ -305,7 +305,7 @@ export function SyncNotifier() {
   if (!toast || toast.phase === 'out') {
     if (toast?.phase === 'out') {
       return (
-        <div className="fixed bottom-6 right-6 z-[60] max-w-sm animate-toast-out">
+        <div className="fixed bottom-6 right-6 z-[45] max-w-sm animate-toast-out">
           <ToastCard
             toast={toast}
             t={t}
@@ -325,7 +325,7 @@ export function SyncNotifier() {
   const isIn = toast.phase === 'in'
   return (
     <div
-      className={`fixed bottom-6 right-6 z-[60] max-w-sm ${isIn ? 'animate-toast-in' : ''}`}
+      className={`fixed bottom-6 right-6 z-[45] max-w-sm ${isIn ? 'animate-toast-in' : ''}`}
     >
       <ToastCard
         toast={toast}

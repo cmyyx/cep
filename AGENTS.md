@@ -99,6 +99,17 @@ src/
 - **`<SelectValue>` 必须传入 `children` render function**：本项目 Select 底层为 Base UI（非 Radix）。`<SelectValue />` 无 children 时 Base UI 无法从子 `SelectItem` 自动解析显示文本，会退回到显示原始 `value` 字符串。必须传 render function 将 value 映射为翻译后的显示文本：`<SelectValue>{(v: string) => labelMap[v] ?? v}</SelectValue>`。禁止在 `<SelectTrigger>` 内手写 `<span>` 替代 `SelectValue`。
 - **侧边栏内所有可交互元素必须使用 `SidebarMenuButton`**：禁止在 `<SidebarMenu>` 内手写 `<button>` 或手动区分 `collapsed`/`expanded` 状态分支。`SidebarMenuButton` 原生处理收起/展开过渡动画（`transition-[width,height,padding]`），手写按钮会导致动画不一致。
 
+### 通知系统 —— 单一出口（强制）
+
+全站**只能有一个通知出口**：`src/components/shared/sync-notifier.tsx` 的单槽位 toast。同步事件、数据导入结果、缺失翻译全部走它。
+
+- **禁止任何组件自己渲染 `fixed bottom-* right-*` 形式的提示浮层**。两个浮层用同一坐标（如 `fixed bottom-6 right-6`）必然重叠；历史上数据导入就是这样和同步冲突通知叠在一起的。
+- 应用级消息（导入结果、操作反馈）统一调用 `src/lib/app-toast.ts` 的 `showAppToast({ tone, text })`（text 由调用方用 `useTranslations` 译好）。持久通知（同步冲突/会话过期）在场时它会自动排队，不抢占重要提示。
+- 同步事件继续用 `notifySync(...)`（`src/hooks/useAutoSync.ts`）；新增通知类型时在 SyncNotifier 的 `ToastKind` 里加，不要在别处另开一套。
+- 右下角其它常驻浮层（如 `UpdateChangelogNotice`）必须订阅 `useToastUiStore.syncToastVisible` 动态避让，不得与 toast 抢占同一坐标。
+- **层级：通知层必须低于对话框层**。对话框/Sheet 为 `z-50`，其内部 Select/Dropdown 弹层同样是 `z-50`（portal + DOM 顺序靠后盖住对话框）。因此通知用 `z-[45]`、changelog 浮层用 `z-[44]`。
+  **禁止把对话框抬到通知之上**（例如给 DialogContent 加 `z-[70]`）：那会把对话框内的下拉菜单盖在自己身下，表现为「点下拉框没反应」。
+
 ### 页面布局高度链规范
 
 所有使用侧边栏布局的页面必须遵循以下三层高度链，确保内部 flex 子元素能正确解析 `flex-1`，实现面板独立滚动：
