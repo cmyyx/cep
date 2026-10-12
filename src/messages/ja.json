@@ -503,8 +503,13 @@
     "accountMaxReached": "最大 {count} アカウントまで対応しています"
   },
   "maaendImport": {
+    "preview": "{file} のプレビュー。アカウント：{name}",
+    "pendingAdded": "追加予定のマーク（{count}）",
+    "confirm": "インポートを確定",
+    "selectionHint": "新しい武器のチェックを外すと、今回の追加から除外できます。既存のマークは保持され、確定後に保存されます。",
+    "selectedCount": "追加する基質所持マーク：{count}",
     "title": "MaaEnd 基質をインポート",
-    "description": "EssenceInventory.json を選択し、現在のアカウントの基質所持マークを更新します。既存のマークは保持されます。",
+    "description": "EssenceInventory.json を選択し、新しい基質所持マークを確認・調整してからインポートを確定します。既存のマークは保持されます。",
     "fileLabel": "MaaEnd 在庫ファイル",
     "account": "現在のアカウント：{name}",
     "reading": "ファイルを読み込み中…",
@@ -522,7 +527,7 @@
     "invalidFormat": "MaaEnd の基質在庫形式と一致しません。既存のマークは変更されていません。",
     "unknownOnly": "ファイル内の武器はすべて CEP 未対応です。インポートせず、既存のマークを保持しました。",
     "readError": "ファイルを読み込めません。再度選択してください。既存のマークは変更されていません。",
-    "accountChanged": "読み込み中にアカウントが切り替えられたか削除されたため、インポートしませんでした。ファイルを再度選択してください。"
+    "accountChanged": "アカウントが切り替えられたか削除されたため、インポートしませんでした。ファイルを再度選択してください。"
   },
   "essenceSettings": {
     "title": "マトリクスプランナー設定",

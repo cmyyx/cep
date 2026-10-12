@@ -45,15 +45,19 @@ const inventoryText = JSON.stringify([{
   weapon_ids: ['wpn_sword_0012'], essences: [{ levels: [1, 1, 1], count: 1 }],
 }])
 
-it('imports compatible marks and shows additions and retained scan differences', async () => {
+it('previews compatible marks without writing until the user confirms', async () => {
   useEssenceSettingsStore.getState().setEssenceStatus('wpn_sword_0016', true)
+  const before = useEssenceSettingsStore.getState()
   openImporter()
   selectFile(async () => inventoryText)
 
-  expect(await screen.findByText('新增勾选（1）')).toBeTruthy()
+  expect(await screen.findByText('待新增勾选（1）')).toBeTruthy()
   expect(screen.getByText('本次扫描未发现，已保留（1）')).toBeTruthy()
   expect(screen.getByText('热熔切割器')).toBeTruthy()
   expect(screen.getByText('不知归')).toBeTruthy()
+  expect(useEssenceSettingsStore.getState()).toBe(before)
+  fireEvent.click(screen.getByRole('button', { name: '确定导入' }))
+  expect(await screen.findByText('新增勾选（1）')).toBeTruthy()
   expect(useEssenceSettingsStore.getState().essenceStatus).toEqual({ wpn_sword_0016: true, wpn_sword_0012: true })
 })
 
@@ -64,6 +68,8 @@ it('shows skipped unknown IDs alongside imported marks', async () => {
   }]))
   expect(await screen.findByText('未知武器，已跳过（1）')).toBeTruthy()
   expect(screen.getByText('wpn_future_9999')).toBeTruthy()
+  expect(useEssenceSettingsStore.getState().essenceStatus).toEqual({})
+  fireEvent.click(screen.getByRole('button', { name: messages.maaendImport.confirm }))
   expect(useEssenceSettingsStore.getState().essenceStatus).toEqual({ wpn_sword_0012: true })
 })
 
@@ -88,19 +94,25 @@ it('keeps previous marks on a read failure and allows retrying', async () => {
   expect(await screen.findByText(messages.maaendImport.readError)).toBeTruthy()
   expect(useEssenceSettingsStore.getState()).toBe(before)
   selectFile(async () => inventoryText)
-  expect(await screen.findByText('新增勾选（1）')).toBeTruthy()
+  expect(await screen.findByText('待新增勾选（1）')).toBeTruthy()
   expect(screen.queryByRole('alert')).toBeNull()
+  expect(useEssenceSettingsStore.getState()).toBe(before)
 })
 
 it('reports zero additions on a repeated file and keeps marks on an empty scan', async () => {
   openImporter()
   selectFile(async () => inventoryText)
+  expect(await screen.findByText('待新增勾选（1）')).toBeTruthy()
+  fireEvent.click(screen.getByRole('button', { name: messages.maaendImport.confirm }))
   expect(await screen.findByText('新增勾选（1）')).toBeTruthy()
   selectFile(async () => inventoryText)
+  expect(await screen.findByText('待新增勾选（0）')).toBeTruthy()
+  fireEvent.click(screen.getByRole('button', { name: messages.maaendImport.confirm }))
   expect(await screen.findByText(messages.maaendImport.noNewMarks)).toBeTruthy()
   expect(screen.getByText('与本次扫描一致（1）')).toBeTruthy()
   selectFile(async () => '[]')
   expect(await screen.findByText(messages.maaendImport.emptyScan)).toBeTruthy()
+  fireEvent.click(screen.getByRole('button', { name: messages.maaendImport.confirm }))
   expect(screen.getByText('本次扫描未发现，已保留（1）')).toBeTruthy()
   expect(useEssenceSettingsStore.getState().essenceStatus).toEqual({ wpn_sword_0012: true })
 })
@@ -142,9 +154,84 @@ it('cancels a pending read when the dialog is closed', async () => {
   await waitFor(() => expect(screen.queryByRole('status')).toBeNull())
 })
 
+it('lets the user exclude scanned additions before importing while preserving all old marks', async () => {
+  const store = useEssenceSettingsStore.getState()
+  store.setEssenceStatus('wpn_sword_0001', true)
+  openImporter()
+  selectFile(async () => JSON.stringify([{
+    weapon_ids: ['wpn_sword_0012', 'wpn_sword_0016'], essences: [{ levels: [1, 1, 1], count: 1 }],
+  }]))
+  expect(await screen.findByText('待新增勾选（2）')).toBeTruthy()
+  fireEvent.click(screen.getByRole('checkbox', { name: '热熔切割器' }))
+  expect(screen.getByText('本次将新增 1 把武器的基质勾选')).toBeTruthy()
+  expect(screen.getByText('待新增勾选（1）')).toBeTruthy()
+  expect(useEssenceSettingsStore.getState().essenceStatus).toEqual({ wpn_sword_0001: true })
+  fireEvent.click(screen.getByRole('button', { name: messages.maaendImport.confirm }))
+  expect(await screen.findByText('新增勾选（1）')).toBeTruthy()
+  expect(useEssenceSettingsStore.getState().essenceStatus).toEqual({ wpn_sword_0001: true, wpn_sword_0016: true })
+  expect(screen.queryByRole('button', { name: messages.maaendImport.confirm })).toBeNull()
+})
+
+it('does not let import selection clear a mark the account already owns', async () => {
+  useEssenceSettingsStore.getState().setEssenceStatus('wpn_sword_0012', true)
+  openImporter()
+  selectFile(async () => inventoryText)
+  expect(await screen.findByText('与本次扫描一致（1）')).toBeTruthy()
+  fireEvent.click(screen.getByRole('button', { name: '与本次扫描一致（1）' }))
+  expect(screen.getByRole('checkbox', { name: '热熔切割器' }).getAttribute('aria-disabled')).toBe('true')
+  fireEvent.click(screen.getByRole('checkbox', { name: '热熔切割器' }))
+  fireEvent.click(screen.getByRole('button', { name: messages.maaendImport.confirm }))
+  expect(useEssenceSettingsStore.getState().essenceStatus).toEqual({ wpn_sword_0012: true })
+})
+
+it('discards an unconfirmed preview when closed', async () => {
+  openImporter()
+  selectFile(async () => inventoryText)
+  expect(await screen.findByText('待新增勾选（1）')).toBeTruthy()
+  fireEvent.click(screen.getByRole('button', { name: messages.common.close }))
+  expect(useEssenceSettingsStore.getState().essenceStatus).toEqual({})
+  fireEvent.click(screen.getByRole('button', { name: messages.maaendImport.title }))
+  expect(screen.queryByRole('button', { name: messages.maaendImport.confirm })).toBeNull()
+})
+
+it('rejects confirmation if the account changed after the preview', async () => {
+  openImporter()
+  selectFile(async () => inventoryText)
+  expect(await screen.findByText('待新增勾选（1）')).toBeTruthy()
+  act(() => { useEssenceSettingsStore.getState().addAccount('Other') })
+  expect(screen.getByText(messages.maaendImport.accountChanged)).toBeTruthy()
+  expect(screen.getByRole('button', { name: messages.maaendImport.confirm }).hasAttribute('disabled')).toBe(true)
+  fireEvent.click(screen.getByRole('button', { name: messages.maaendImport.confirm }))
+  expect(useEssenceSettingsStore.getState().accounts.every((account) => Object.keys(account.essenceStatus).length === 0)).toBe(true)
+})
+
+it('resets import selections when a different file is chosen', async () => {
+  openImporter()
+  selectFile(async () => inventoryText)
+  expect(await screen.findByText('待新增勾选（1）')).toBeTruthy()
+  fireEvent.click(screen.getByRole('checkbox', { name: '热熔切割器' }))
+  selectFile(async () => JSON.stringify([{
+    weapon_ids: ['wpn_sword_0016'], essences: [{ levels: [1, 1, 1], count: 1 }],
+  }]))
+  const checkbox = await screen.findByRole('checkbox', { name: '不知归' })
+  expect(checkbox.getAttribute('aria-checked')).toBe('true')
+  fireEvent.click(screen.getByRole('button', { name: messages.maaendImport.confirm }))
+  expect(useEssenceSettingsStore.getState().essenceStatus).toEqual({ wpn_sword_0016: true })
+})
+
+it('imports nothing when all new marks are unchecked', async () => {
+  openImporter()
+  selectFile(async () => inventoryText)
+  expect(await screen.findByText('待新增勾选（1）')).toBeTruthy()
+  fireEvent.click(screen.getByRole('checkbox', { name: '热熔切割器' }))
+  fireEvent.click(screen.getByRole('button', { name: messages.maaendImport.confirm }))
+  expect(await screen.findByText(messages.maaendImport.noNewMarks)).toBeTruthy()
+  expect(useEssenceSettingsStore.getState().essenceStatus).toEqual({})
+})
+
 it.each([
   ['zh-CN', messages], ['en', enMessages], ['ja', jaMessages], ['zh-TW', twMessages],
-] as const)('renders import errors in %s without missing translations', async (locale, catalog) => {
+] as const)('renders the preview and confirmation in %s without missing translations', async (locale, catalog) => {
   const intlErrors: unknown[] = []
   render(
     <NextIntlClientProvider locale={locale} messages={clientMessages(locale)} onError={(error) => intlErrors.push(error)}>
@@ -153,8 +240,11 @@ it.each([
   )
   fireEvent.click(screen.getByRole('button', { name: catalog.maaendImport.title }))
   const file = new File([''], 'EssenceInventory.json')
-  Object.defineProperty(file, 'text', { value: async () => '{}' })
+  Object.defineProperty(file, 'text', { value: async () => inventoryText })
   fireEvent.change(screen.getByLabelText(catalog.maaendImport.fileLabel), { target: { files: [file] } })
-  expect(await screen.findByText(catalog.maaendImport.invalidFormat)).toBeTruthy()
+  expect(await screen.findByRole('button', { name: catalog.maaendImport.confirm })).toBeTruthy()
+  expect(useEssenceSettingsStore.getState().essenceStatus).toEqual({})
+  fireEvent.click(screen.getByRole('button', { name: catalog.maaendImport.confirm }))
+  expect(useEssenceSettingsStore.getState().essenceStatus).toEqual({ wpn_sword_0012: true })
   expect(intlErrors).toEqual([])
 })

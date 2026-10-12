@@ -55,6 +55,16 @@ function resetStore() {
 }
 
 describe('MaaEnd essence marks import', () => {
+  it('previews a batch without publishing or persisting any changes', () => {
+    resetStore()
+    const store = useEssenceSettingsStore.getState()
+    store.setEssenceStatus('wpn_sword_0016', true)
+    const before = useEssenceSettingsStore.getState()
+    const storageBefore = localStorage.getItem('essence-settings')
+    expect(before.previewEssenceMarks(before.activeAccountId, ['wpn_sword_0012'])).toMatchObject({ added: ['wpn_sword_0012'], retainedMissing: ['wpn_sword_0016'] })
+    expect(useEssenceSettingsStore.getState()).toBe(before)
+    expect(localStorage.getItem('essence-settings')).toBe(storageBefore)
+  })
   it('adds scanned marks while preserving old marks, custom weapons and other account data', () => {
     resetStore()
     const store = useEssenceSettingsStore.getState()
@@ -143,6 +153,7 @@ describe('MaaEnd essence marks import', () => {
     await restored.persist.rehydrate()
     expect(restored.getState().essenceStatus).toEqual({ wpn_sword_0012: true })
     expect(restored.getState().accounts[0].essenceStatus).toBe(restored.getState().essenceStatus)
+    expect(restored.getState().previewEssenceMarks(restored.getState().activeAccountId, ['wpn_sword_0016'])?.added).toEqual(['wpn_sword_0016'])
     expect(restored.getState().importEssenceMarks(restored.getState().activeAccountId, ['wpn_sword_0016'])?.added).toEqual(['wpn_sword_0016'])
   })
 })

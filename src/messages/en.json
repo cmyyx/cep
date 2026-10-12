@@ -503,8 +503,13 @@
     "accountMaxReached": "Up to {count} accounts supported"
   },
   "maaendImport": {
+    "preview": "Previewing {file} for account: {name}",
+    "pendingAdded": "Marks to add ({count})",
+    "confirm": "Confirm import",
+    "selectionHint": "Uncheck new weapons to skip them. Existing marks are retained. Changes are saved only after you confirm the import.",
+    "selectedCount": "New essence marks to add: {count}",
     "title": "Import MaaEnd essences",
-    "description": "Select EssenceInventory.json to update the active account's owned essence marks. Existing marks are retained.",
+    "description": "Select EssenceInventory.json, review and adjust new essence marks, then confirm the import. Existing marks are retained.",
     "fileLabel": "MaaEnd inventory file",
     "account": "Active account: {name}",
     "reading": "Reading file…",
@@ -522,7 +527,7 @@
     "invalidFormat": "The file does not match MaaEnd's essence inventory format. Existing marks have not been changed.",
     "unknownOnly": "CEP does not support any weapons in this file. Nothing was imported and existing marks have not been changed.",
     "readError": "Could not read the file. Select it again. Existing marks have not been changed.",
-    "accountChanged": "The account was switched or deleted while reading. Nothing was imported. Select the file again."
+    "accountChanged": "The account has been switched or deleted. Nothing was imported. Select the file again."
   },
   "essenceSettings": {
     "title": "Essence Planner Settings",

@@ -286,8 +286,13 @@
     "accountMaxReached": "最多支持 {count} 个账号"
   },
   "maaendImport": {
+    "preview": "待导入 {file}，账号：{name}",
+    "pendingAdded": "待新增勾选（{count}）",
+    "confirm": "确定导入",
+    "selectionHint": "可取消勾选本次新增的武器。原有勾选会保留，点击“确定导入”后才会保存。",
+    "selectedCount": "本次将新增 {count} 把武器的基质勾选",
     "title": "导入 MaaEnd 基质",
-    "description": "选择 EssenceInventory.json，更新当前账号的已有基质勾选。原有勾选会保留。",
+    "description": "选择 EssenceInventory.json，预览并调整本次新增的基质勾选，再确定导入。原有勾选会保留。",
     "fileLabel": "MaaEnd 库存文件",
     "account": "当前账号：{name}",
     "reading": "正在读取文件…",
@@ -305,7 +310,7 @@
     "invalidFormat": "文件不符合 MaaEnd 基质库存格式，原有勾选未修改。",
     "unknownOnly": "文件中的武器均未被 CEP 支持，未导入。原有勾选未修改。",
     "readError": "无法读取文件，请重新选择。原有勾选未修改。",
-    "accountChanged": "读取期间账号已切换或删除，未导入。请重新选择文件。"
+    "accountChanged": "当前账号已切换或删除，未导入。请重新选择文件。"
   },
   "essenceSettings": {
     "title": "基质规划设置",

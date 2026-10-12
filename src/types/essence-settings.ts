@@ -85,6 +85,8 @@ export type EssenceSettingsState = EssenceSettingsFlags &
     setEssenceStatus: (weaponId: string, status: boolean) => void
     /** Merge scanned weapon IDs into the expected active account, or reject a changed account. */
     importEssenceMarks: (accountId: string, weaponIds: readonly string[]) => EssenceImportReport | null
+    /** Read the current account's import changes without writing any state. */
+    previewEssenceMarks: (accountId: string, weaponIds: readonly string[]) => EssenceImportReport | null
     setWeaponNote: (weaponId: string, note: string) => void
     addCustomWeapon: (weapon: Weapon) => void
     removeCustomWeapon: (weaponId: string) => void

@@ -13,11 +13,21 @@ import { useEssenceSettingsStore } from '@/stores/useEssenceSettingsStore'
 import { weapons } from '@/data/weapons'
 import { cn } from '@/lib/utils'
 import type { EssenceImportReport } from '@/types/essence-settings'
+import { MaaEndEssenceWeaponRow } from './maaend-essence-weapon-row'
 
 type ImportError = MaaEndEssenceImportError | 'readError' | 'accountChanged'
 
 interface ImportResult {
   report: EssenceImportReport
+  unknownWeaponIds: string[]
+  fileName: string
+  emptyScan: boolean
+}
+
+interface ImportPreview {
+  accountId: string
+  weaponIds: string[]
+  selectedWeaponIds: string[]
   unknownWeaponIds: string[]
   fileName: string
   emptyScan: boolean
@@ -33,9 +43,12 @@ export function MaaEndEssenceImportDialog() {
   const [reading, setReading] = useState(false)
   const [inputKey, setInputKey] = useState(0)
   const [result, setResult] = useState<ImportResult | null>(null)
+  const [preview, setPreview] = useState<ImportPreview | null>(null)
   const [error, setError] = useState<ImportError | null>(null)
   const [unknownErrors, setUnknownErrors] = useState<string[]>([])
-  const accountName = useEssenceSettingsStore((state) => state.accounts.find((account) => account.id === state.activeAccountId)?.name ?? '')
+  const accounts = useEssenceSettingsStore((state) => state.accounts)
+  const activeAccountId = useEssenceSettingsStore((state) => state.activeAccountId)
+  const accountName = accounts.find((account) => account.id === activeAccountId)?.name ?? ''
   const customWeapons = useEssenceSettingsStore((state) => state.customWeapons)
 
   const changeOpen = (nextOpen: boolean) => {
@@ -43,16 +56,18 @@ export function MaaEndEssenceImportDialog() {
     setReading(false)
     setInputKey((key) => key + 1)
     setResult(null)
+    setPreview(null)
     setError(null)
     setUnknownErrors([])
     setOpen(nextOpen)
   }
 
-  const importFile = async (file: File) => {
+  const previewFile = async (file: File) => {
     const request = ++generation.current
     const accountId = useEssenceSettingsStore.getState().activeAccountId
     setReading(true)
     setResult(null)
+    setPreview(null)
     setError(null)
     setUnknownErrors([])
     const finish = () => {
@@ -79,15 +94,32 @@ export function MaaEndEssenceImportDialog() {
       finish()
       return
     }
-    const report = useEssenceSettingsStore.getState().importEssenceMarks(accountId, parsed.weaponIds)
+    const report = useEssenceSettingsStore.getState().previewEssenceMarks(accountId, parsed.weaponIds)
     if (!report) {
       setError('accountChanged')
       finish()
       return
     }
-    setResult({ report, unknownWeaponIds: parsed.unknownWeaponIds, fileName: file.name, emptyScan: parsed.weaponIds.length === 0 })
+    setPreview({ accountId, weaponIds: parsed.weaponIds, selectedWeaponIds: parsed.weaponIds, unknownWeaponIds: parsed.unknownWeaponIds, fileName: file.name, emptyScan: parsed.weaponIds.length === 0 })
     finish()
   }
+
+  const confirmImport = () => {
+    if (!preview || reading) return
+    const report = useEssenceSettingsStore.getState().importEssenceMarks(preview.accountId, preview.selectedWeaponIds)
+    if (!report) {
+      setError('accountChanged')
+      return
+    }
+    setResult({ report, unknownWeaponIds: preview.unknownWeaponIds, fileName: preview.fileName, emptyScan: preview.emptyScan })
+    setPreview(null)
+  }
+
+  const previewReport = preview ? useEssenceSettingsStore.getState().previewEssenceMarks(preview.accountId, preview.weaponIds) : null
+  const report = result?.report ?? previewReport
+  const viewError = error ?? (preview && !previewReport ? 'accountChanged' : null)
+  const unknownWeaponIds = result?.unknownWeaponIds ?? preview?.unknownWeaponIds ?? []
+  const selectedCount = previewReport?.added.filter((id) => preview?.selectedWeaponIds.includes(id)).length ?? 0
 
   const weaponName = (id: string) => {
     const custom = customWeapons.find((weapon) => weapon.id === id)
@@ -104,12 +136,12 @@ export function MaaEndEssenceImportDialog() {
     readError: t('maaendImport.readError'),
     accountChanged: t('maaendImport.accountChanged'),
   }
-  const sections = result ? [
-    { key: 'added', label: t('maaendImport.added', { count: result.report.added.length }), ids: result.report.added, expanded: true },
-    { key: 'consistent', label: t('maaendImport.consistent', { count: result.report.consistent.length }), ids: result.report.consistent, expanded: false },
-    { key: 'retainedMissing', label: t('maaendImport.retainedMissing', { count: result.report.retainedMissing.length }), ids: result.report.retainedMissing, expanded: true, description: t('maaendImport.scanDifferenceHint') },
-    { key: 'retainedCustom', label: t('maaendImport.retainedCustom', { count: result.report.retainedCustom.length }), ids: result.report.retainedCustom, expanded: false, description: t('maaendImport.customHint') },
-    { key: 'unknown', label: t('maaendImport.unknown', { count: result.unknownWeaponIds.length }), ids: result.unknownWeaponIds, expanded: true },
+  const sections = report ? [
+    { key: 'added', label: preview ? t('maaendImport.pendingAdded', { count: selectedCount }) : t('maaendImport.added', { count: report.added.length }), ids: report.added, expanded: true },
+    { key: 'consistent', label: t('maaendImport.consistent', { count: report.consistent.length }), ids: report.consistent, expanded: false },
+    { key: 'retainedMissing', label: t('maaendImport.retainedMissing', { count: report.retainedMissing.length }), ids: report.retainedMissing, expanded: true, description: t('maaendImport.scanDifferenceHint') },
+    { key: 'retainedCustom', label: t('maaendImport.retainedCustom', { count: report.retainedCustom.length }), ids: report.retainedCustom, expanded: false, description: t('maaendImport.customHint') },
+    { key: 'unknown', label: t('maaendImport.unknown', { count: unknownWeaponIds.length }), ids: unknownWeaponIds, expanded: true },
   ] : []
 
   return (
@@ -117,12 +149,12 @@ export function MaaEndEssenceImportDialog() {
       <Button variant="ghost" size="icon-sm" aria-label={t('maaendImport.title')} title={t('maaendImport.title')} onClick={() => changeOpen(true)}>
         <Upload className="size-4" />
       </Button>
-      <DialogContent showCloseButton={false} className={cn('max-h-[calc(100svh-2rem)] overflow-y-auto', 'sm:max-w-lg')}>
-        <DialogHeader>
+      <DialogContent showCloseButton={false} className={cn('flex max-h-[calc(100svh-2rem)] flex-col overflow-hidden', 'sm:max-w-lg')}>
+        <DialogHeader className="shrink-0">
           <DialogTitle>{t('maaendImport.title')}</DialogTitle>
           <DialogDescription>{t('maaendImport.description')}</DialogDescription>
         </DialogHeader>
-        <div className="space-y-2">
+        <div className="shrink-0 space-y-2">
           <p className="break-words text-sm font-medium">{t('maaendImport.account', { name: accountName })}</p>
           <Label htmlFor={inputId}>{t('maaendImport.fileLabel')}</Label>
           <Input
@@ -134,23 +166,25 @@ export function MaaEndEssenceImportDialog() {
             className={cn('h-auto min-h-8 border-0 shadow-[0_0_0_1px_rgba(0,0,0,0.08)]', 'file:max-w-full')}
             onChange={(event) => {
               const file = event.currentTarget.files?.[0]
-              if (file) void importFile(file)
+              if (file) void previewFile(file)
             }}
           />
         </div>
+        {(reading || viewError || report) && <div className="min-h-0 space-y-4 overflow-y-auto">
         {reading && <p role="status" className="text-sm text-muted-foreground">{t('maaendImport.reading')}</p>}
-        {error && (
+        {viewError && (
           <div role="alert" className="space-y-2 text-sm text-destructive">
-            <p>{errorMessages[error]}</p>
+            <p>{errorMessages[viewError]}</p>
             {unknownErrors.length > 0 && <ul className="space-y-1 font-mono text-xs">{unknownErrors.map((id) => <li key={id} className="break-all">{id}</li>)}</ul>}
           </div>
         )}
-        {result && (
+        {report && (
           <div className="space-y-2">
-            <p role="status" className="break-words text-sm font-medium">{t('maaendImport.success', { file: result.fileName, name: result.report.accountName })}</p>
-            {result.emptyScan
+            <p role="status" className="break-words text-sm font-medium">{result ? t('maaendImport.success', { file: result.fileName, name: report.accountName }) : t('maaendImport.preview', { file: preview!.fileName, name: report.accountName })}</p>
+            {preview && <p className="text-sm text-muted-foreground">{t('maaendImport.selectionHint')}</p>}
+            {(result?.emptyScan || preview?.emptyScan)
               ? <p className="text-sm text-muted-foreground">{t('maaendImport.emptyScan')}</p>
-              : result.report.added.length === 0 && <p className="text-sm text-muted-foreground">{t('maaendImport.noNewMarks')}</p>}
+              : result && report.added.length === 0 && <p className="text-sm text-muted-foreground">{t('maaendImport.noNewMarks')}</p>}
             {sections.map((section) => (
               <Collapsible key={section.key} defaultOpen={section.expanded && section.ids.length > 0} className="group rounded-lg shadow-[0_0_0_1px_rgba(0,0,0,0.08)]">
                 <CollapsibleTrigger render={<Button variant="ghost" className={cn('h-auto w-full justify-between gap-2 p-2', 'whitespace-normal text-left')} />} disabled={section.ids.length === 0}>
@@ -159,13 +193,27 @@ export function MaaEndEssenceImportDialog() {
                 </CollapsibleTrigger>
                 <CollapsibleContent className="space-y-2 px-2 pb-2">
                   {section.description && <p className="text-xs text-muted-foreground">{section.description}</p>}
-                  <ul className="space-y-1 text-sm">{section.ids.map((id) => <li key={id} className="break-words">{section.key === 'unknown' ? id : weaponName(id)}</li>)}</ul>
+                  <ul className="space-y-2 text-sm">{section.ids.map((id) => (
+                    <li key={id}>
+                      <MaaEndEssenceWeaponRow
+                        weapon={customWeapons.find((weapon) => weapon.id === id) ?? builtInWeapons.get(id)}
+                        name={section.key === 'unknown' ? id : weaponName(id)}
+                        checked={section.key === 'unknown' ? undefined : preview && section.key === 'added' ? preview.selectedWeaponIds.includes(id) : true}
+                        onCheckedChange={preview && section.key === 'added' ? (checked) => setPreview((current) => current ? { ...current, selectedWeaponIds: checked ? [...current.selectedWeaponIds, id] : current.selectedWeaponIds.filter((selectedId) => selectedId !== id) } : null) : undefined}
+                      />
+                    </li>
+                  ))}</ul>
                 </CollapsibleContent>
               </Collapsible>
             ))}
           </div>
         )}
-        <Button variant="outline" onClick={() => changeOpen(false)}>{t('common.close')}</Button>
+        </div>}
+        <div className="flex shrink-0 flex-wrap items-center justify-end gap-2">
+          {preview && <span className="mr-auto text-sm text-muted-foreground">{t('maaendImport.selectedCount', { count: selectedCount })}</span>}
+          <Button variant="outline" onClick={() => changeOpen(false)}>{t('common.close')}</Button>
+          {preview && <Button disabled={reading || !previewReport || Boolean(viewError)} onClick={confirmImport}>{t('maaendImport.confirm')}</Button>}
+        </div>
       </DialogContent>
     </Dialog>
   )
