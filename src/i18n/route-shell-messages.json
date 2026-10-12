@@ -115,6 +115,7 @@
     "essence-planner": {
       "namespaces": [
         "essence",
+        "maaendImport",
         "essenceSettings",
         "wiki"
       ],

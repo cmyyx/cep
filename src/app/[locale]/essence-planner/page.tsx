@@ -11,6 +11,7 @@ import { WeaponCard } from '@/components/essence/weapon-card'
 import { DungeonCard } from '@/components/essence/dungeon-card'
 import { EssenceSettingsDialog } from '@/components/essence/essence-settings-dialog'
 import { AccountSwitcher } from '@/components/essence/account-switcher'
+import { MaaEndEssenceImportDialog } from '@/components/essence/maaend-essence-import-dialog'
 import { CustomWeaponDialog } from '@/components/essence/custom-weapon-dialog'
 import { useMatrixStore } from '@/stores/useMatrixStore'
 import { useEssenceSettingsStore } from '@/stores/useEssenceSettingsStore'
@@ -441,7 +442,7 @@ export default function EssencePlannerPage() {
       />
       <div className="flex flex-col md:flex-1 md:min-h-0 md:overflow-hidden">
         {/* Top bar */}
-        <div className="flex items-center gap-3 px-4 py-2 border-b border-border">
+        <div className="flex flex-wrap items-center gap-2 px-4 py-2 border-b border-border">
           <SidebarTrigger />
           <h1 className="text-base font-semibold tracking-tight">
             {t('nav.essencePlanner')}
@@ -450,6 +451,7 @@ export default function EssencePlannerPage() {
             {t('essence.selectedCount', { count: selectedCount })}
           </span>
           <AccountSwitcher />
+          <MaaEndEssenceImportDialog />
           <div className="flex-1" />
           <Button
             variant="ghost"

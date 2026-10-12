@@ -502,6 +502,28 @@
     "accountDefaultName": "Account {n}",
     "accountMaxReached": "Up to {count} accounts supported"
   },
+  "maaendImport": {
+    "title": "Import MaaEnd essences",
+    "description": "Select EssenceInventory.json to update the active account's owned essence marks. Existing marks are retained.",
+    "fileLabel": "MaaEnd inventory file",
+    "account": "Active account: {name}",
+    "reading": "Reading file…",
+    "success": "Imported {file} for account: {name}",
+    "emptyScan": "The scan is empty. Existing marks have been retained.",
+    "noNewMarks": "No new marks were added. Existing marks are unchanged.",
+    "added": "New marks ({count})",
+    "consistent": "Confirmed by this scan ({count})",
+    "retainedMissing": "Not found in this scan, retained ({count})",
+    "retainedCustom": "Custom weapon marks retained ({count})",
+    "unknown": "Unknown weapons skipped ({count})",
+    "scanDifferenceHint": "These weapons were already marked, but are absent from this scan. This does not mean their essences are lost. Existing marks have been retained.",
+    "customHint": "MaaEnd scans do not cover custom weapons. Existing marks have been retained.",
+    "invalidJson": "Could not parse the JSON file. Existing marks have not been changed.",
+    "invalidFormat": "The file does not match MaaEnd's essence inventory format. Existing marks have not been changed.",
+    "unknownOnly": "CEP does not support any weapons in this file. Nothing was imported and existing marks have not been changed.",
+    "readError": "Could not read the file. Select it again. Existing marks have not been changed.",
+    "accountChanged": "The account was switched or deleted while reading. Nothing was imported. Select the file again."
+  },
   "essenceSettings": {
     "title": "Essence Planner Settings",
     "weaponList": "Weapon List",

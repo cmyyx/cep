@@ -2,6 +2,7 @@ import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 import type {
   EssenceAccount,
+  EssenceImportReport,
   EssenceSettingsState,
   SettingKey,
 } from '@/types/essence-settings'
@@ -9,6 +10,9 @@ import type { Weapon } from '@/types/matrix'
 import { isValidWeaponId, sanitizeCustomWeapons } from '@/lib/persist-sanitizer'
 import { resolveWeaponIdKeys } from '@/lib/resolve-weapon-id'
 import { createAccountId, MAX_ACCOUNTS, sanitizeCloudAccounts } from '@/lib/essence-accounts'
+import { weapons } from '@/data/weapons'
+
+const importableWeaponIds = new Set(weapons.map((weapon) => weapon.id))
 
 // ─── Defaults ──────────────────────────────────────────────────────────────
 
@@ -59,7 +63,7 @@ function normalizeCategoryList(value: unknown): string[] {
  */
 function mergeWithDefaults(
   persisted: Record<string, unknown>,
-): Omit<EssenceSettingsState, 'toggleFlag' | 'setWeaponOwnership' | 'setEssenceStatus' | 'setWeaponNote' | 'addCustomWeapon' | 'removeCustomWeapon' | 'updateCustomWeapon' | 'addAccount' | 'renameAccount' | 'removeAccount' | 'setActiveAccount' | 'applyAccounts' | 'setHiddenAcquisitionCategories' | 'setRegionFirst' | 'setRegionSecond' | 'toggleWeaponFilterCollapsed' | 'toggleHiddenWeaponsCollapsed' | 'setAutoSyncEnabled' | 'setNotifyOnSync' | 'setNotifyOnPull' | 'resetAllSettings'> {
+): Omit<EssenceSettingsState, 'toggleFlag' | 'setWeaponOwnership' | 'setEssenceStatus' | 'importEssenceMarks' | 'setWeaponNote' | 'addCustomWeapon' | 'removeCustomWeapon' | 'updateCustomWeapon' | 'addAccount' | 'renameAccount' | 'removeAccount' | 'setActiveAccount' | 'applyAccounts' | 'setHiddenAcquisitionCategories' | 'setRegionFirst' | 'setRegionSecond' | 'toggleWeaponFilterCollapsed' | 'toggleHiddenWeaponsCollapsed' | 'setAutoSyncEnabled' | 'setNotifyOnSync' | 'setNotifyOnPull' | 'resetAllSettings'> {
   const flags = normalizeEssenceSettingsFlags(persisted)
 
   // Compute customWeapons first — we need the active set to filter
@@ -227,6 +231,29 @@ export const useEssenceSettingsStore = create<EssenceSettingsState>()(
           }
           return patchActiveAccountMarks(s, { essenceStatus: next })
         }),
+
+      importEssenceMarks: (accountId, weaponIds) => {
+        const state = get()
+        const account = state.accounts.find((item) => item.id === accountId)
+        if (state.activeAccountId !== accountId || !account) return null
+
+        const incoming = new Set(weaponIds.filter((id) => importableWeaponIds.has(id)))
+        const oldIds = Object.keys(account.essenceStatus).filter((id) => account.essenceStatus[id] === true)
+        const report: EssenceImportReport = {
+          accountId,
+          accountName: account.name,
+          added: [...incoming].filter((id) => account.essenceStatus[id] !== true),
+          consistent: [...incoming].filter((id) => account.essenceStatus[id] === true),
+          retainedMissing: oldIds.filter((id) => !id.startsWith('custom-') && !incoming.has(id)),
+          retainedCustom: oldIds.filter((id) => id.startsWith('custom-')),
+        }
+        if (report.added.length > 0) {
+          const next = { ...account.essenceStatus }
+          for (const id of report.added) next[id] = true
+          set(patchActiveAccountMarks(state, { essenceStatus: next }))
+        }
+        return report
+      },
 
       setWeaponNote: (weaponId: string, note: string) =>
         set((s) => {
@@ -420,6 +447,7 @@ export const useEssenceSettingsStore = create<EssenceSettingsState>()(
           toggleFlag: current.toggleFlag,
           setWeaponOwnership: current.setWeaponOwnership,
           setEssenceStatus: current.setEssenceStatus,
+          importEssenceMarks: current.importEssenceMarks,
           setWeaponNote: current.setWeaponNote,
           addAccount: current.addAccount,
           renameAccount: current.renameAccount,

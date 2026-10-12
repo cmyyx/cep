@@ -502,6 +502,28 @@
     "accountDefaultName": "帳號 {n}",
     "accountMaxReached": "最多支援 {count} 個帳號"
   },
+  "maaendImport": {
+    "title": "匯入 MaaEnd 基質",
+    "description": "選擇 EssenceInventory.json，更新目前帳號的已有基質勾選。原有勾選會保留。",
+    "fileLabel": "MaaEnd 庫存檔案",
+    "account": "目前帳號：{name}",
+    "reading": "正在讀取檔案…",
+    "success": "已匯入 {file}，帳號：{name}",
+    "emptyScan": "本次掃描結果為空，原有勾選已保留。",
+    "noNewMarks": "本次沒有新增勾選，原有勾選保持不變。",
+    "added": "新增勾選（{count}）",
+    "consistent": "與本次掃描一致（{count}）",
+    "retainedMissing": "本次掃描未發現，已保留（{count}）",
+    "retainedCustom": "自訂武器已保留（{count}）",
+    "unknown": "未知武器，已略過（{count}）",
+    "scanDifferenceHint": "這些武器已有基質勾選，但未出現在本次掃描中。這不代表基質遺失，原有勾選已保留。",
+    "customHint": "自訂武器不在 MaaEnd 掃描涵蓋範圍內，原有勾選已保留。",
+    "invalidJson": "無法解析 JSON 檔案，原有勾選未修改。",
+    "invalidFormat": "檔案不符合 MaaEnd 基質庫存格式，原有勾選未修改。",
+    "unknownOnly": "檔案中的武器均未被 CEP 支援，未匯入。原有勾選未修改。",
+    "readError": "無法讀取檔案，請重新選擇。原有勾選未修改。",
+    "accountChanged": "讀取期間帳號已切換或刪除，未匯入。請重新選擇檔案。"
+  },
   "essenceSettings": {
     "title": "基質規劃設定",
     "weaponList": "武器列表",

@@ -36,6 +36,16 @@ export interface EssenceAccount {
   weaponNotes: Record<string, string>
 }
 
+/** One import's changes; scan differences never clear existing marks. */
+export interface EssenceImportReport {
+  accountId: string
+  accountName: string
+  added: string[]
+  consistent: string[]
+  retainedMissing: string[]
+  retainedCustom: string[]
+}
+
 /**
  * Persistent user data.
  *
@@ -73,6 +83,8 @@ export type EssenceSettingsState = EssenceSettingsFlags &
     toggleFlag: (key: SettingKey) => void
     setWeaponOwnership: (weaponId: string, owned: boolean) => void
     setEssenceStatus: (weaponId: string, status: boolean) => void
+    /** Merge scanned weapon IDs into the expected active account, or reject a changed account. */
+    importEssenceMarks: (accountId: string, weaponIds: readonly string[]) => EssenceImportReport | null
     setWeaponNote: (weaponId: string, note: string) => void
     addCustomWeapon: (weapon: Weapon) => void
     removeCustomWeapon: (weaponId: string) => void
