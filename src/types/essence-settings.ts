@@ -37,6 +37,16 @@ export interface EssenceAccount {
 }
 
 /**
+ * Untrusted marks patch (import file / third-party data). Values are sanitized
+ * by the store, so any shape is accepted here.
+ */
+export interface AccountMarksPatch {
+  weaponOwnership?: unknown
+  essenceStatus?: unknown
+  weaponNotes?: unknown
+}
+
+/**
  * Persistent user data.
  *
  * `weaponOwnership` / `essenceStatus` / `weaponNotes` are the ACTIVE account's
@@ -86,6 +96,10 @@ export type EssenceSettingsState = EssenceSettingsFlags &
     setActiveAccount: (accountId: string) => void
     /** Replace all profiles from a cloud payload (keeps active id when possible). */
     applyAccounts: (accounts: EssenceAccount[]) => void
+    /** Replace all profiles from an import file; prefers the file's active account id. */
+    restoreAccounts: (accounts: unknown, activeAccountId?: unknown) => void
+    /** Replace one profile's marks (single-account import / third-party essence data). */
+    replaceAccountMarks: (accountId: string | undefined, marks: AccountMarksPatch) => void
     setHiddenAcquisitionCategories: (scope: 'list' | 'plans', categoryIds: string[]) => void
     setRegionFirst: (region: string | null) => void
     setRegionSecond: (region: string | null) => void

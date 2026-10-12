@@ -34,16 +34,31 @@ export function countItems(moduleId: string, data: unknown): number {
   switch (moduleId) {
     case 'essence-settings': {
       const d = data as Record<string, unknown>
-      const ow = Object.keys((d.weaponOwnership as object) ?? {}).length
-      const es = Object.keys((d.essenceStatus as object) ?? {}).length
-      const wn = Object.keys((d.weaponNotes as object) ?? {}).length
+      // Protocol v3: marks live inside accounts[]; the flat weaponOwnership /
+      // essenceStatus / weaponNotes fields are only the ACTIVE account's mirror
+      // (see useEssenceSettingsStore) and must not be counted twice.
+      const accounts = Array.isArray(d.accounts) ? d.accounts : []
+      let marks = 0
+      if (accounts.length > 0) {
+        for (const account of accounts) {
+          if (account === null || typeof account !== 'object') continue
+          const a = account as Record<string, unknown>
+          marks += Object.keys((a.weaponOwnership as object) ?? {}).length
+          marks += Object.keys((a.essenceStatus as object) ?? {}).length
+          marks += Object.keys((a.weaponNotes as object) ?? {}).length
+        }
+      } else {
+        marks += Object.keys((d.weaponOwnership as object) ?? {}).length
+        marks += Object.keys((d.essenceStatus as object) ?? {}).length
+        marks += Object.keys((d.weaponNotes as object) ?? {}).length
+      }
       const cw = Array.isArray(d.customWeapons) ? d.customWeapons.length : 0
       const flagKeys = ['hideEssenceOwnedWeaponsList','hideUnownedWeaponsList','hideFourStarWeaponsList','hideThreeStarWeaponsList','onlyHideWhenBothOwnedList','enableOwnershipEditList','enableNotesList','hideEssenceOwnedWeaponsPlans','hideUnownedWeaponsPlans','hideFourStarWeaponsPlans','hideThreeStarWeaponsPlans','onlyHideWhenBothOwnedPlans','enableOwnershipEditPlans','enableNotesPlans']
       let flags = 0
       for (const k of flagKeys) { if (d[k] === true) flags++ }
       const regions = (d.regionFirst || d.regionSecond) ? 1 : 0
       const hiddenCategories = (Array.isArray(d.hiddenAcquisitionCategoriesList) ? d.hiddenAcquisitionCategoriesList.length : 0) + (Array.isArray(d.hiddenAcquisitionCategoriesPlans) ? d.hiddenAcquisitionCategoriesPlans.length : 0)
-      return ow + es + wn + cw + flags + regions + hiddenCategories
+      return marks + cw + flags + regions + hiddenCategories
     }
     case 'matrix-session': {
       const d = data as Record<string, unknown>
@@ -109,6 +124,14 @@ export function countItems(moduleId: string, data: unknown): number {
 export function getKnownModuleIds(t: ReturnType<typeof useTranslations>): Set<string> {
   return new Set(getIoModules(t).map((m) => m.id))
 }
+
+/**
+ * CEP 导出文件格式版本。
+ *
+ * v1: essence-settings 模块同时含 accounts 与激活账号平铺镜像。
+ * v2: 只保留 accounts（一个标记只存一份）；导入器仍兼容 v1 文件。
+ */
+export const EXPORT_FORMAT_VERSION = 2
 
 /** 每个模块的条目数上限，超过则跳过该模块。 */
 export const MAX_ITEMS_PER_MODULE: Record<string, number> = {
@@ -177,4 +200,20 @@ export function readModule(key: string): unknown {
   } catch {
     return null
   }
+}
+
+/**
+ * 导出用的 essence-settings 投影。
+ *
+ * 持久化 / 同步状态里，顶层的 weaponOwnership / essenceStatus / weaponNotes 是
+ * 激活账号的平铺镜像（component 读取用），与 accounts[active] 完全重复。导出文件
+ * 只保留 accounts，去除这三份镜像 —— 一个标记只存一份。
+ */
+export function projectEssenceSettingsForExport(data: unknown): Record<string, unknown> | null {
+  if (data === null || typeof data !== 'object' || Array.isArray(data)) return null
+  const projected = { ...(data as Record<string, unknown>) }
+  delete projected.weaponOwnership
+  delete projected.essenceStatus
+  delete projected.weaponNotes
+  return projected
 }

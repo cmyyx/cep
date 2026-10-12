@@ -8,6 +8,7 @@ import {
   getIoModules,
   getKnownModuleIds,
   MAX_ITEMS_PER_MODULE,
+  projectEssenceSettingsForExport,
   readModule,
 } from './data-io-utils'
 
@@ -104,5 +105,61 @@ describe('readModule', () => {
     expect(readModule('growthPlanner')).toBeNull()
     localStorage.setItem('panelPreview', '{oops')
     expect(readModule('panelPreview')).toBeNull()
+  })
+})
+
+describe('countItems: essence-settings', () => {
+  it('counts every account mark, not only the active-account mirror', () => {
+    const data = {
+      // the active-account mirror duplicates accounts[active] — it must not be added twice
+      weaponOwnership: { wpn_claym_0017: true },
+      essenceStatus: { wpn_claym_0017: true },
+      weaponNotes: { wpn_claym_0017: 'x' },
+      accounts: [
+        { id: 'a', name: 'A', weaponOwnership: { wpn_claym_0017: true }, essenceStatus: { wpn_claym_0017: true }, weaponNotes: { wpn_claym_0017: 'x' } },
+        { id: 'b', name: 'B', weaponOwnership: { wpn_sword_0012: true, wpn_lance_0010: true }, essenceStatus: {}, weaponNotes: {} },
+      ],
+    }
+
+    expect(countItems('essence-settings', data)).toBe(5)
+  })
+
+  it('falls back to the flat marks of a legacy payload without accounts', () => {
+    expect(countItems('essence-settings', {
+      weaponOwnership: { wpn_claym_0017: true },
+      essenceStatus: { wpn_sword_0012: true },
+      weaponNotes: { wpn_claym_0017: 'x' },
+    })).toBe(3)
+  })
+})
+
+describe('projectEssenceSettingsForExport', () => {
+  it('drops the duplicated active-account mirror and keeps everything else', () => {
+    const projected = projectEssenceSettingsForExport({
+      accounts: [{ id: 'a', name: 'A', weaponOwnership: { wpn_claym_0017: true }, essenceStatus: {}, weaponNotes: {} }],
+      activeAccountId: 'a',
+      weaponOwnership: { wpn_claym_0017: true },
+      essenceStatus: { wpn_sword_0012: true },
+      weaponNotes: { wpn_claym_0017: 'x' },
+      customWeapons: [],
+      regionFirst: 'r1',
+      hideFourStarWeaponsList: true,
+      autoSyncEnabled: false,
+    })
+
+    expect(projected).not.toBeNull()
+    expect(projected?.accounts).toHaveLength(1)
+    expect(projected?.activeAccountId).toBe('a')
+    expect(projected?.regionFirst).toBe('r1')
+    expect(projected?.hideFourStarWeaponsList).toBe(true)
+    expect(projected?.autoSyncEnabled).toBe(false)
+    expect('weaponOwnership' in (projected ?? {})).toBe(false)
+    expect('essenceStatus' in (projected ?? {})).toBe(false)
+    expect('weaponNotes' in (projected ?? {})).toBe(false)
+  })
+
+  it('returns null when there is nothing to export', () => {
+    expect(projectEssenceSettingsForExport(null)).toBeNull()
+    expect(projectEssenceSettingsForExport('nope')).toBeNull()
   })
 })

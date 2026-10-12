@@ -663,6 +663,23 @@ const SHARED_COMPONENT_ROUTES = {
   'maintenance-banner.tsx': ['account'],
 }
 
+/**
+ * src/lib 文件里的 i18n key 生产者。
+ *
+ * 有的函数把 t('...') 包起来返回字符串（例：getIoModules 返回模块名），
+ * 真正渲染它的却是别的组件——那些 key 不在任何 client 文件里出现，
+ * Phase 2d 只能靠这张表把它们登记到对应的消息包。
+ * 值的语义与 attributeFileRoutes 一致：'global' = 必须存在于核心包。
+ *
+ * 修正方式（按优先级）：
+ *  1. 把 key 需要的命名空间/子 key 加到 route-shell-messages.json 的 corePicks
+ *  2. 或者改掉实现，让消费组件自己持有所属路由的 key
+ */
+const LIB_KEY_PRODUCER_ROUTES = {
+  // getIoModules(): dataCleaner.modules.*.label — 全局导入对话框 + 导出对话框
+  'data-io-utils.ts': 'global',
+}
+
 function isClientFile(content) {
   return /^\s*['"]use client['"]/.test(content.slice(0, 400))
 }
@@ -670,6 +687,10 @@ function isClientFile(content) {
 /** Attribute a source file to the route bags available where it mounts. */
 function attributeFileRoutes(relPath) {
   const posix = relPath.replaceAll('\\', '/')
+  // lib key producers first: their keys are rendered by other components
+  if (posix.startsWith('src/lib/')) {
+    return LIB_KEY_PRODUCER_ROUTES[posix.slice('src/lib/'.length)] ?? null
+  }
   const appMatch = posix.match(/^src\/app\/\[locale\]\/([^/]+)(?:\/([^/]+))?/)
   if (appMatch) {
     const seg = appMatch[1]
@@ -720,10 +741,15 @@ function checkClientBagCoverage(allFiles, globalConstants) {
   for (const file of allFiles) {
     const relPath = file.replace(ROOT + '/', '').replace(ROOT + '\\', '')
     const posix = relPath.replaceAll('\\', '/')
-    if (!posix.startsWith('src/app/') && !posix.startsWith('src/components/')) continue
+    const isLibProducer = posix.startsWith('src/lib/')
+    if (!posix.startsWith('src/app/') && !posix.startsWith('src/components/') && !isLibProducer) continue
 
     const content = readFileSync(file, 'utf-8')
-    if (!isClientFile(content)) continue
+    // lib key producers are plain modules (no 'use client') but their keys are
+    // rendered by client components, so they must be checked against the
+    // configured bag instead of being skipped as non-client code. Files without
+    // a LIB_KEY_PRODUCER_ROUTES entry return null below and stay skipped.
+    if (!isClientFile(content) && !isLibProducer) continue
 
     const routesForFile = attributeFileRoutes(relPath)
     if (routesForFile === null) continue

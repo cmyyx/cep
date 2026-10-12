@@ -21,6 +21,8 @@ import { BirthdayBanner } from '@/components/shared/birthday-banner'
 import { EmergencyNoticeBanner } from '@/components/shared/emergency-notice-banner'
 import { MobileAdBanner } from '@/components/shared/mobile-ad-banner'
 import { AnnouncementLoader } from '@/components/home/announcement-loader'
+import { DataImportDialog } from '@/components/shared/data-import-dialog'
+import { GlobalFileDropOverlay } from '@/components/shared/global-file-drop-overlay'
 import { SyncManager } from '@/components/shared/sync-manager'
 import { LegacyMigrationDialog } from '@/components/shared/legacy-migration-dialog'
 import { DebugLabel } from '@/components/shared/debug-label'
@@ -105,6 +107,9 @@ export default async function LocaleLayout({
             <SyncManager />
             <UpdateChangelogNotice />
             <LegacyMigrationDialog />
+            {/* 数据导入：设置页按钮与全站拖放都汇入这一个对话框 */}
+            <DataImportDialog />
+            <GlobalFileDropOverlay />
             <Background />
             <AppSidebar />
             <main className="flex flex-col flex-1 w-full relative overflow-hidden">

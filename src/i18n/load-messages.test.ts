@@ -1,4 +1,7 @@
 import { expect, it } from 'vitest'
+import { createTranslator } from 'next-intl'
+import type { useTranslations } from 'next-intl'
+import { getIoModules } from '@/lib/data-io-utils'
 import {
   loadClientMessages,
   loadMessages,
@@ -11,8 +14,8 @@ import routeShellMessages from './route-shell-messages.json'
 it('client messages are the core shell only: global namespaces + key-level picks', () => {
   for (const locale of ['zh-CN', 'zh-TW', 'ja', 'en'] as const) {
     const messages = loadClientMessages(locale) as Record<string, Record<string, unknown>>
-    // 路由级命名空间不允许出现在核心包
-    for (const routeOnly of ['settings', 'auth', 'legal', 'meta', 'about', 'essence', 'refinement', 'wikiData', 'weapons', 'equips']) {
+    // 路由级命名空间不允许完整出现在核心包（corePicks 的 key 级子集除外，见下）
+    for (const routeOnly of ['auth', 'legal', 'meta', 'about', 'essence', 'refinement', 'wikiData', 'weapons', 'equips']) {
       expect(messages, `core bag must not contain "${routeOnly}" (${locale})`).not.toHaveProperty(routeOnly)
     }
     // 全局命名空间完整保留
@@ -25,7 +28,44 @@ it('client messages are the core shell only: global namespaces + key-level picks
     expect(Object.keys(messages.home).sort()).toEqual(
       [...routeShellMessages.corePicks.home].sort(),
     )
+    // settings 只包含全局导入对话框 / 拖放提示用到的 key，不包含整包
+    expect(Object.keys(messages.settings).sort()).toEqual(
+      [...routeShellMessages.corePicks.settings].sort(),
+    )
+    expect(Object.keys(messages.settings).length).toBeLessThan(
+      Object.keys(loadMessages(locale).settings as object).length,
+    )
     expect(Object.keys(messages.wiki)).toEqual(['categories'])
+    // dataCleaner 只取 modules: 全局导入/导出对话框用它渲染模块名
+    expect(Object.keys(messages.dataCleaner)).toEqual(['modules'])
+  }
+})
+
+/**
+ * DataImportDialog mounts in the root [locale] layout (outside every route's
+ * RouteMessages provider), so the module labels it renders must resolve from the
+ * CORE bag — the route-scoped dataCleaner namespace only exists on /settings.
+ * A missing key here degrades to printing the raw key path in the dialog and
+ * spams MISSING_MESSAGE to the console.
+ */
+it('core bag resolves every module label the global import dialog renders', () => {
+  for (const locale of ['zh-CN', 'zh-TW', 'ja', 'en'] as const) {
+    const messages = loadClientMessages(locale)
+    const errors: string[] = []
+    const t = createTranslator({
+      locale,
+      messages,
+      onError: (error) => {
+        errors.push(error.message)
+      },
+    })
+    const modules = getIoModules(t as unknown as ReturnType<typeof useTranslations>)
+    expect(modules).toHaveLength(8)
+    expect(errors, `core bag misses import-dialog labels (${locale})`).toEqual([])
+    for (const mod of modules) {
+      // Not a fallback key path (e.g. "dataCleaner.modules.x.label").
+      expect(mod.label, `${mod.id} label unresolved (${locale})`).not.toContain('.')
+    }
   }
 })
 

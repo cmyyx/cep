@@ -195,6 +195,16 @@
       "keys": [
         "female"
       ]
+    },
+    "settings": {
+      "comment": "Import failure toasts: data-import.ts returns these i18n keys as plain strings (readJsonFile) and the importer reports them via useDataImportStore.reportError(key) → t(errorKey) in data-import-dialog.tsx.",
+      "keys": [
+        "importParseError",
+        "importReadError",
+        "importInvalidFormat",
+        "importFileTooLarge",
+        "importUnsupportedFile"
+      ]
     }
   }
 }

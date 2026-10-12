@@ -13,7 +13,7 @@ import {
 } from '@/components/ui/dialog'
 import { Download } from 'lucide-react'
 import { cn } from '@/lib/utils'
-import { getIoModules, countItems, buildSummary, readModule } from '@/lib/data-io-utils'
+import { getIoModules, countItems, buildSummary, readModule, projectEssenceSettingsForExport, EXPORT_FORMAT_VERSION } from '@/lib/data-io-utils'
 import { versionData } from '@/generated/version-data'
 import PreviewToggle from '@/components/shared/preview-toggle'
 
@@ -87,13 +87,16 @@ export function DataExporter() {
     () =>
       modules.map((mod) => {
         const data = readModule(mod.key)
-        const itemCount = countItems(mod.id, data)
+        // essence-settings: export accounts only, dropping the active-account
+        // mirror copy (see projectEssenceSettingsForExport).
+        const payload = mod.id === 'essence-settings' ? projectEssenceSettingsForExport(data) : data
+        const itemCount = countItems(mod.id, payload)
         return {
           ...mod,
-          data,
+          data: payload,
           itemCount,
           hasData: itemCount > 0,
-          summary: buildSummary(mod.id, data, t),
+          summary: buildSummary(mod.id, payload, t),
         }
       }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -130,7 +133,7 @@ export function DataExporter() {
       }
     }
     const exportData: Record<string, unknown> = {
-      version: 1,
+      version: EXPORT_FORMAT_VERSION,
       exportedAt: new Date().toISOString(),
       appVersion: versionData?.version ?? '0.0.0',
       device: {

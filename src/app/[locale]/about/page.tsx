@@ -39,7 +39,7 @@ const TECH_VALUES: Record<string, string> = {
 }
 
 const LINK_KEYS = [
-  { key: 'akedata', url: 'https://akedata.top' },
+  { key: 'akedata', url: 'https://www.akedata.wiki' },
   { key: 'jeiweb', url: 'https://jeiweb.sirrus.cc/#/' },
 ] as const
 

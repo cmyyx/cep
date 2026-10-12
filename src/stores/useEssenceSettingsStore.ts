@@ -1,6 +1,7 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 import type {
+  AccountMarksPatch,
   EssenceAccount,
   EssenceSettingsState,
   SettingKey,
@@ -48,7 +49,7 @@ function isDefined(v: unknown): v is Record<string, unknown> {
 }
 
 
-function normalizeCategoryList(value: unknown): string[] {
+export function normalizeCategoryList(value: unknown): string[] {
   if (!Array.isArray(value)) return []
   return [...new Set(value.filter((item): item is string => typeof item === 'string' && item.length > 0))]
 }
@@ -59,7 +60,7 @@ function normalizeCategoryList(value: unknown): string[] {
  */
 function mergeWithDefaults(
   persisted: Record<string, unknown>,
-): Omit<EssenceSettingsState, 'toggleFlag' | 'setWeaponOwnership' | 'setEssenceStatus' | 'setWeaponNote' | 'addCustomWeapon' | 'removeCustomWeapon' | 'updateCustomWeapon' | 'addAccount' | 'renameAccount' | 'removeAccount' | 'setActiveAccount' | 'applyAccounts' | 'setHiddenAcquisitionCategories' | 'setRegionFirst' | 'setRegionSecond' | 'toggleWeaponFilterCollapsed' | 'toggleHiddenWeaponsCollapsed' | 'setAutoSyncEnabled' | 'setNotifyOnSync' | 'setNotifyOnPull' | 'resetAllSettings'> {
+): Omit<EssenceSettingsState, 'toggleFlag' | 'setWeaponOwnership' | 'setEssenceStatus' | 'setWeaponNote' | 'addCustomWeapon' | 'removeCustomWeapon' | 'updateCustomWeapon' | 'addAccount' | 'renameAccount' | 'removeAccount' | 'setActiveAccount' | 'applyAccounts' | 'restoreAccounts' | 'replaceAccountMarks' | 'setHiddenAcquisitionCategories' | 'setRegionFirst' | 'setRegionSecond' | 'toggleWeaponFilterCollapsed' | 'toggleHiddenWeaponsCollapsed' | 'setAutoSyncEnabled' | 'setNotifyOnSync' | 'setNotifyOnPull' | 'resetAllSettings'> {
   const flags = normalizeEssenceSettingsFlags(persisted)
 
   // Compute customWeapons first — we need the active set to filter
@@ -313,6 +314,72 @@ export const useEssenceSettingsStore = create<EssenceSettingsState>()(
         })
       },
 
+      /**
+       * Restore a whole account list from an import file.
+       *
+       * Unlike applyAccounts (cloud pull), the file's own active account wins —
+       * a backup round-trip must reproduce the exported active profile. Ids are
+       * preserved by sanitizeCloudAccounts so re-importing stays idempotent.
+       */
+      restoreAccounts: (accounts: unknown, activeAccountId?: unknown) =>
+        set((s) => {
+          const next = sanitizeCloudAccounts(accounts)
+          if (next.length === 0) return s
+          const preferred = typeof activeAccountId === 'string' ? activeAccountId : ''
+          const active =
+            next.find((account) => account.id === preferred) ??
+            next.find((account) => account.id === s.activeAccountId) ??
+            next[0]
+          return {
+            accounts: next,
+            activeAccountId: active.id,
+            weaponOwnership: active.weaponOwnership,
+            essenceStatus: active.essenceStatus,
+            weaponNotes: active.weaponNotes,
+          }
+        }),
+
+      /**
+       * Patch one profile's marks (single-account import / third-party data).
+       *
+       * Only the provided mark fields are replaced — omissions keep the target's
+       * current values, so a MaaEND essence import cannot wipe weapon ownership.
+       * Marks are sanitized by the same rule as hydration, and the flat mirrors
+       * are refreshed when the target is the active account. Writing localStorage
+       * directly instead would be reverted by this store's next persist write.
+       */
+      replaceAccountMarks: (accountId: string | undefined, marks: AccountMarksPatch) =>
+        set((s) => {
+          const target =
+            s.accounts.find((account) => account.id === accountId) ??
+            s.accounts.find((account) => account.id === s.activeAccountId) ??
+            s.accounts[0]
+          if (!target) return s
+          const [sanitized] = sanitizeCloudAccounts([{
+            id: target.id,
+            name: target.name,
+            weaponOwnership: marks.weaponOwnership ?? target.weaponOwnership,
+            essenceStatus: marks.essenceStatus ?? target.essenceStatus,
+            weaponNotes: marks.weaponNotes ?? target.weaponNotes,
+          }])
+          if (!sanitized) return s
+          const next: EssenceAccount = {
+            id: target.id,
+            name: target.name,
+            weaponOwnership: sanitized.weaponOwnership,
+            essenceStatus: sanitized.essenceStatus,
+            weaponNotes: sanitized.weaponNotes,
+          }
+          const accounts = s.accounts.map((account) => (account.id === target.id ? next : account))
+          if (target.id !== s.activeAccountId) return { accounts }
+          return {
+            accounts,
+            weaponOwnership: next.weaponOwnership,
+            essenceStatus: next.essenceStatus,
+            weaponNotes: next.weaponNotes,
+          }
+        }),
+
       addCustomWeapon: (weapon: Weapon) =>
         set((s) => ({
           customWeapons: [...s.customWeapons, weapon],
@@ -426,6 +493,8 @@ export const useEssenceSettingsStore = create<EssenceSettingsState>()(
           removeAccount: current.removeAccount,
           setActiveAccount: current.setActiveAccount,
           applyAccounts: current.applyAccounts,
+          restoreAccounts: current.restoreAccounts,
+          replaceAccountMarks: current.replaceAccountMarks,
           addCustomWeapon: current.addCustomWeapon,
           removeCustomWeapon: current.removeCustomWeapon,
           updateCustomWeapon: current.updateCustomWeapon,
