@@ -2,7 +2,6 @@
 
 import { memo, useMemo, useCallback, useEffect } from 'react'
 import { useTranslations } from 'next-intl'
-import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { FilterGroup } from '@/components/shared/filter-group'
 import { FilterPanel } from '@/components/shared/filter-panel'
@@ -100,8 +99,6 @@ export const WeaponGrid = memo(function WeaponGrid({ onViewAll }: WeaponGridProp
   const toggleFilterCollapsed = useEssenceSettingsStore((s) => s.toggleWeaponFilterCollapsed)
   const selectedWeaponIds = useMatrixStore((s) => s.selectedWeaponIds)
   const toggleWeapon = useMatrixStore((s) => s.toggleWeapon)
-  const selectAllWeapons = useMatrixStore((s) => s.selectAllWeapons)
-  const clearWeapons = useMatrixStore((s) => s.clearWeapons)
   // Shared filter state (lifted to store so desktop/mobile instances stay in sync)
   const query = useMatrixStore((s) => s.weaponSearchQuery)
   const setQuery = useMatrixStore((s) => s.setWeaponSearchQuery)
@@ -307,28 +304,9 @@ export const WeaponGrid = memo(function WeaponGrid({ onViewAll }: WeaponGridProp
 
   return (
     <div className="flex flex-col gap-3">
-      {/* 搜索 + 全选/清空 (与武器列表同区域, 替代顶部栏的远程按钮) */}
+      {/* 搜索（全选/清空已移入「已选清单」面板，见 selected-weapons-strip） */}
       <div className="flex items-center gap-1.5">
         <Input placeholder={t('essence.searchWeapon')} value={query} onChange={(e) => setQuery(e.target.value)} className="text-sm flex-1 min-w-0" />
-        <Button
-          type="button"
-          variant="outline"
-          size="xs"
-          className="shrink-0"
-          onClick={() => selectAllWeapons(useMatrixStore.getState().visibleWeaponIds)}
-        >
-          {t('essence.selectAll')}
-        </Button>
-        <Button
-          type="button"
-          variant="ghost"
-          size="xs"
-          className="shrink-0"
-          onClick={clearWeapons}
-          disabled={selectedWeaponIds.length === 0}
-        >
-          {t('essence.clearAll')}
-        </Button>
       </div>
 
       {/* Selected weapons strip */}

@@ -10,7 +10,7 @@
  */
 
 import type { EssenceAccount } from '@/types/essence-settings'
-import { resolveWeaponIdKeys } from '@/lib/resolve-weapon-id'
+import { resolveWeaponId, resolveWeaponIdKeys } from '@/lib/resolve-weapon-id'
 import { isValidWeaponId } from '@/lib/persist-sanitizer'
 
 /** Max game-account profiles per website account (must match backend). */
@@ -47,6 +47,22 @@ function sanitizeMarks<T>(value: unknown, isValueValid: (v: unknown) => v is T):
 const isBoolean = (v: unknown): v is boolean => v === true || v === false
 const isString = (v: unknown): v is string => typeof v === 'string'
 
+/** Filter a weapon-id list: resolve preview ids, drop unknown/duplicate ids. */
+function sanitizeWeaponIdList(value: unknown): string[] {
+  if (!Array.isArray(value)) return []
+  const out: string[] = []
+  const seen = new Set<string>()
+  for (const raw of value) {
+    if (typeof raw !== 'string') continue
+    const id = resolveWeaponId(raw)
+    if (id.length === 0 || seen.has(id)) continue
+    if (!isValidWeaponId(id)) continue
+    seen.add(id)
+    out.push(id)
+  }
+  return out.sort()
+}
+
 /** Trim to the account name length limit (used by the rename UI). */
 export function clampAccountName(name: string): string {
   return name.slice(0, MAX_ACCOUNT_NAME_LENGTH)
@@ -81,6 +97,7 @@ export function sanitizeCloudAccounts(value: unknown): EssenceAccount[] {
       weaponOwnership: sanitizeMarks(raw.weaponOwnership, isBoolean),
       essenceStatus: sanitizeMarks(raw.essenceStatus, isBoolean),
       weaponNotes: sanitizeMarks(raw.weaponNotes, isString),
+      selectedWeaponIds: sanitizeWeaponIdList(raw.selectedWeaponIds),
     })
   }
   return accounts

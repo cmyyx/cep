@@ -460,6 +460,7 @@
     "regionFilterAll": "全部",
     "weaponNotCoveredByRegion": "當前地區篩選下，「{weapons}」無可刷方案",
     "settings": "基質規劃設定",
+    "settingsShort": "設定",
     "customWeapons": "自定義武器",
     "addCustomWeapon": "添加武器",
     "editCustomWeapon": "編輯武器",
@@ -532,7 +533,9 @@
     "regionFirstLabel": "第一優先區域",
     "regionSecondLabel": "第二優先區域",
     "regionNone": "無",
-    "acquisitionCategoriesHint": "勾選來源分類後，擁有該來源的武器將摺疊到列表底部；取消勾選即恢復顯示。"
+    "acquisitionCategoriesHint": "勾選來源分類後，擁有該來源的武器將摺疊到列表底部；取消勾選即恢復顯示。",
+    "separateSelectionPerAccount": "分隔不同帳號已選的武器",
+    "separateSelectionPerAccountHint": "依帳號分別儲存已選武器，切換帳號時自動切換選擇；關閉後所有帳號共用同一份選擇。"
   },
   "settings": {
     "title": "設定",

@@ -14,12 +14,14 @@ function seedTwoAccounts() {
         weaponOwnership: { wpn_claym_0017: true },
         essenceStatus: { wpn_claym_0017: true },
         weaponNotes: { wpn_claym_0017: 'note-a' },
+        selectedWeaponIds: [],
       },
       {
         id: 'acc_b',
         name: 'B',
         weaponOwnership: {},
         essenceStatus: { wpn_sword_0012: true },
+        selectedWeaponIds: [],
         weaponNotes: {},
       },
     ],
@@ -291,6 +293,50 @@ describe('applyCepEssenceSettings: source account selection', () => {
     applyCepEssenceSettings(anonymous, { mode: 'active', accountId: 'acc_b', sourceAccountId: '#0' })
 
     expect(useEssenceSettingsStore.getState().accounts[1].weaponOwnership).toEqual({ wpn_lance_0010: true })
+  })
+})
+
+describe('applyCepEssenceSettings: per-account weapon selection', () => {
+  const file = {
+    accounts: [
+      { id: 'acc_f1', name: 'F1', weaponOwnership: {}, essenceStatus: {}, weaponNotes: {}, selectedWeaponIds: ['wpn_lance_0010', 'wpn_bogus_9999'] },
+      { id: 'acc_f2', name: 'F2', weaponOwnership: {}, essenceStatus: {}, weaponNotes: {} },
+    ],
+    activeAccountId: 'acc_f1',
+  }
+
+  it('carries the file selection through a full restore', () => {
+    applyCepEssenceSettings(file)
+
+    const state = useEssenceSettingsStore.getState()
+    // Unknown ids from the file are dropped, the rest is kept verbatim.
+    expect(state.accounts[0].selectedWeaponIds).toEqual(['wpn_lance_0010'])
+    // A file account without the field starts empty rather than inheriting.
+    expect(state.accounts[1].selectedWeaponIds).toEqual([])
+  })
+
+  it('keeps the local selection when an old backup has no selection field', () => {
+    useEssenceSettingsStore.getState().setAccountSelection('acc_a', ['wpn_sword_0012'])
+
+    applyCepEssenceSettings(
+      { accounts: [{ id: 'acc_f1', name: 'F1', weaponOwnership: { wpn_lance_0010: true } }] },
+      { mode: 'active', accountId: 'acc_a' },
+    )
+
+    const state = useEssenceSettingsStore.getState()
+    expect(state.accounts[0].weaponOwnership).toEqual({ wpn_lance_0010: true })
+    // 旧文件没有已选武器 → 保留本机选择，不清空
+    expect(state.accounts[0].selectedWeaponIds).toEqual(['wpn_sword_0012'])
+  })
+
+  it('replaces the selection of the target account in single-account mode', () => {
+    useEssenceSettingsStore.getState().setAccountSelection('acc_b', ['wpn_sword_0012'])
+
+    applyCepEssenceSettings(file, { mode: 'active', accountId: 'acc_b' })
+
+    const state = useEssenceSettingsStore.getState()
+    expect(state.accounts[1].selectedWeaponIds).toEqual(['wpn_lance_0010'])
+    expect(state.accounts[0].selectedWeaponIds).toEqual([])
   })
 })
 

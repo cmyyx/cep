@@ -460,6 +460,7 @@
     "regionFilterAll": "All",
     "weaponNotCoveredByRegion": "Under current region filter, \"{weapons}\" has no farming plans",
     "settings": "Essence Planner Settings",
+    "settingsShort": "Settings",
     "customWeapons": "Custom Weapons",
     "addCustomWeapon": "Add Weapon",
     "editCustomWeapon": "Edit Weapon",
@@ -532,7 +533,9 @@
     "regionFirstLabel": "First Priority Region",
     "regionSecondLabel": "Second Priority Region",
     "regionNone": "None",
-    "acquisitionCategoriesHint": "Checked categories fold weapons with that source to the bottom of the list; uncheck to show them again."
+    "acquisitionCategoriesHint": "Checked categories fold weapons with that source to the bottom of the list; uncheck to show them again.",
+    "separateSelectionPerAccount": "Separate selected weapons per account",
+    "separateSelectionPerAccountHint": "Keep the planner selection per account and switch it together with the account. Turn off to share one selection across every account."
   },
   "settings": {
     "title": "Settings",

@@ -39,6 +39,27 @@ describe('sanitizeCloudAccounts', () => {
     expect(accounts[0].name.length).toBe(50)
   })
 
+  it('keeps a valid weapon selection and drops junk ids', () => {
+    const accounts = sanitizeCloudAccounts([
+      {
+        id: 'acc_1',
+        name: '主号',
+        selectedWeaponIds: ['wpn_claym_0017', 'wpn_claym_0017', 'unknown_weapon', 7, null, 'wpn_sword_0012'],
+      },
+    ])
+    // Deduplicated, unknown ids dropped, order normalized.
+    expect(accounts[0].selectedWeaponIds).toEqual(['wpn_claym_0017', 'wpn_sword_0012'])
+  })
+
+  it('defaults the selection to an empty list when the field is missing or corrupt', () => {
+    const accounts = sanitizeCloudAccounts([
+      { id: 'acc_1', name: '主号' },
+      { id: 'acc_2', name: '小号', selectedWeaponIds: 'nope' },
+    ])
+    expect(accounts[0].selectedWeaponIds).toEqual([])
+    expect(accounts[1].selectedWeaponIds).toEqual([])
+  })
+
   it('caps the account list at MAX_ACCOUNTS', () => {
     const many = Array.from({ length: MAX_ACCOUNTS + 5 }, (_, i) => ({
       id: `acc_${i}`,
@@ -61,8 +82,8 @@ describe('sanitizeCloudAccounts', () => {
 describe('accountEntryCounts', () => {
   it('sums mark entries across accounts', () => {
     const counts = accountEntryCounts([
-      { id: 'a', name: 'A', weaponOwnership: { wpn_claym_0017: true }, essenceStatus: {}, weaponNotes: { wpn_claym_0017: 'x' } },
-      { id: 'b', name: 'B', weaponOwnership: { wpn_funnel_0001: true, wpn_lance_0003: true }, essenceStatus: { wpn_funnel_0001: true }, weaponNotes: {} },
+      { id: 'a', name: 'A', weaponOwnership: { wpn_claym_0017: true }, essenceStatus: {}, weaponNotes: { wpn_claym_0017: 'x' }, selectedWeaponIds: [] },
+      { id: 'b', name: 'B', weaponOwnership: { wpn_funnel_0001: true, wpn_lance_0003: true }, essenceStatus: { wpn_funnel_0001: true }, weaponNotes: {}, selectedWeaponIds: [] },
     ])
     expect(counts).toEqual({ ownership: 3, essence: 1, notes: 1 })
   })

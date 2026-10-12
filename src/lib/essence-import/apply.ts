@@ -38,7 +38,7 @@ export interface FileAccountSummary {
   /** Account id from the file, or `#<index>` when the entry has none. */
   id: string
   name: string
-  /** Marks (ownership + essence + notes) carried by this account entry. */
+  /** Data rows carried by this account entry (marks + planner selection). */
   markCount: number
 }
 
@@ -75,6 +75,7 @@ export function listFileAccounts(data: unknown): FileAccountSummary[] {
     for (const field of ['weaponOwnership', 'essenceStatus', 'weaponNotes'] as const) {
       if (isRecord(account[field])) markCount += Object.keys(account[field] as object).length
     }
+    if (Array.isArray(account.selectedWeaponIds)) markCount += account.selectedWeaponIds.length
     return {
       id: key,
       name: typeof account.name === 'string' ? account.name : '',
@@ -97,16 +98,20 @@ function readFileMarks(data: Record<string, unknown>, sourceAccountId?: string):
   if (raw) {
     // Normalize to {} so an omitted field means "empty", not "keep local": a
     // backup restore must reproduce the file, not merge into the local profile.
+    // 已选武器例外：旧备份文件根本没有这个字段，省略 = 保留本机选择，
+    // 否则导入一个旧备份会默默清空用户正在规划的武器。
     return {
       weaponOwnership: raw.weaponOwnership ?? {},
       essenceStatus: raw.essenceStatus ?? {},
       weaponNotes: raw.weaponNotes ?? {},
+      ...(Array.isArray(raw.selectedWeaponIds) ? { selectedWeaponIds: raw.selectedWeaponIds } : {}),
     }
   }
   return {
     weaponOwnership: data.weaponOwnership ?? {},
     essenceStatus: data.essenceStatus ?? {},
     weaponNotes: data.weaponNotes ?? {},
+    ...(Array.isArray(data.selectedWeaponIds) ? { selectedWeaponIds: data.selectedWeaponIds } : {}),
   }
 }
 

@@ -28,6 +28,7 @@ function seedTwoAccounts() {
         weaponOwnership: { wpn_claym_0017: true },
         essenceStatus: { wpn_claym_0017: true },
         weaponNotes: { wpn_claym_0017: 'note-a' },
+        selectedWeaponIds: [],
       },
       {
         id: 'acc_b',
@@ -35,6 +36,7 @@ function seedTwoAccounts() {
         weaponOwnership: { wpn_lance_0010: true },
         essenceStatus: {},
         weaponNotes: {},
+        selectedWeaponIds: [],
       },
     ],
     activeAccountId: 'acc_a',
@@ -223,6 +225,29 @@ describe('importModule: essence-settings', () => {
     expect(state.accounts.map((a) => a.id)).toEqual(['acc_a', 'acc_b'])
     expect(state.weaponOwnership).toEqual({ wpn_claym_0017: true })
     expect(state.essenceStatus).toEqual({ wpn_claym_0017: true })
+  })
+
+  it('keeps per-account weapon selections across a rehydrate', async () => {
+    useEssenceSettingsStore.setState({
+      accounts: [
+        { id: 'acc_a', name: 'A', weaponOwnership: {}, essenceStatus: {}, weaponNotes: {}, selectedWeaponIds: ['wpn_claym_0017'] },
+        { id: 'acc_b', name: 'B', weaponOwnership: {}, essenceStatus: {}, weaponNotes: {}, selectedWeaponIds: ['wpn_lance_0010'] },
+      ],
+      activeAccountId: 'acc_a',
+    })
+    const exported = projectEssenceSettingsForExport(readModule('essence-settings'))!
+    expect(
+      (exported.accounts as { selectedWeaponIds: string[] }[]).map((a) => a.selectedWeaponIds),
+    ).toEqual([['wpn_claym_0017'], ['wpn_lance_0010']])
+
+    await importModule('essence-settings', exported)
+    await useEssenceSettingsStore.persist.rehydrate()
+
+    const accounts = useEssenceSettingsStore.getState().accounts
+    expect(accounts.map((a) => a.selectedWeaponIds)).toEqual([
+      ['wpn_claym_0017'],
+      ['wpn_lance_0010'],
+    ])
   })
 
   it('applies a v1 file (flat mirrors, no accounts) to a single account', async () => {

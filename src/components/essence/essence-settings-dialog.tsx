@@ -128,6 +128,7 @@ export function EssenceSettingsDialog() {
     onlyHideWhenBothOwnedPlans: useEssenceSettingsStore((s) => s.onlyHideWhenBothOwnedPlans),
     enableOwnershipEditPlans: useEssenceSettingsStore((s) => s.enableOwnershipEditPlans),
     enableNotesPlans: useEssenceSettingsStore((s) => s.enableNotesPlans),
+    separateSelectionPerAccount: useEssenceSettingsStore((s) => s.separateSelectionPerAccount),
   }
 
   const toggleHiddenCategory = (scope: 'list' | 'plans', current: string[], categoryId: string) => {
@@ -153,16 +154,21 @@ export function EssenceSettingsDialog() {
         size="icon-sm"
         onClick={() => setOpen(true)}
         aria-label={t('essence.settings')}
+        className="md:w-auto md:gap-1.5 md:px-2.5"
       >
         <Settings className="size-4" />
+        {/* 移动端顶栏只剩 32px 余量，文字仅在 md+ 显示 */}
+        <span className="hidden md:inline">{t('essence.settingsShort')}</span>
       </Button>
 
-      <DialogContent className="sm:max-w-lg">
+      {/* 尺寸约束 + 整框滚动：手机上无 max-h 时弹窗高约 693px、超出 600px 视口，
+          标题与 Close 按钮会永久落在屏幕外；内层 max-h-[60vh] 只能滚上半部分。 */}
+      <DialogContent className="sm:max-w-lg max-h-[calc(100dvh-2rem)] overflow-y-auto">
         <DialogHeader>
           <DialogTitle>{t('essenceSettings.title')}</DialogTitle>
         </DialogHeader>
 
-        <div className="max-h-[60vh] overflow-y-auto -mx-4 px-4">
+        <div className="-mx-4 px-4">
           {/* Paired switch settings */}
           <div className={cn(SETTING_GRID_COLS, 'items-end border-b border-border pb-2 text-[10px] text-muted-foreground')}>
             <span className="pb-0">{t('essenceSettings.settingItem')}</span>
@@ -225,6 +231,23 @@ export function EssenceSettingsDialog() {
 
               return rows
             })}
+          </div>
+
+          {/* 多账号：按账号分隔已选武器（单一开关，不成对） */}
+          <div className="border-t border-border pt-3 mt-2">
+            <div className="flex items-start justify-between gap-3">
+              <div className="min-w-0">
+                <span className="text-sm leading-tight">{t('essenceSettings.separateSelectionPerAccount')}</span>
+                <p className="text-[11px] text-muted-foreground/80 mt-1">
+                  {t('essenceSettings.separateSelectionPerAccountHint')}
+                </p>
+              </div>
+              <Switch
+                size="sm"
+                checked={flags.separateSelectionPerAccount}
+                onCheckedChange={() => toggleFlag('separateSelectionPerAccount')}
+              />
+            </div>
           </div>
 
           {/* Acquisition category hiding — two multi-select chip groups */}

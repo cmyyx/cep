@@ -31,6 +31,7 @@ function seedTwoAccounts() {
         weaponOwnership: { wpn_claym_0017: true },
         essenceStatus: { wpn_claym_0017: true },
         weaponNotes: {},
+        selectedWeaponIds: [],
       },
       {
         id: 'acc_b',
@@ -38,6 +39,7 @@ function seedTwoAccounts() {
         weaponOwnership: {},
         essenceStatus: {},
         weaponNotes: {},
+        selectedWeaponIds: [],
       },
     ],
     activeAccountId: 'acc_a',

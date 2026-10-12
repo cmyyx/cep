@@ -123,6 +123,9 @@ function hasExistingLocalData(local: Record<string, unknown>): boolean {
       if (ess && Object.keys(ess).length > 0) return true
       const wn = raw.weaponNotes as Record<string, unknown> | undefined
       if (wn && Object.keys(wn).length > 0) return true
+      // 按账号保存的已选武器同样是用户数据（否则只选了武器的新设备
+      // 会在首次拉取时被云端静默覆盖）。
+      if (Array.isArray(raw.selectedWeaponIds) && raw.selectedWeaponIds.length > 0) return true
     }
     const cw = es.customWeapons as unknown[] | undefined
     if (Array.isArray(cw) && cw.length > 0) return true
@@ -200,6 +203,7 @@ const FLAG_TO_I18N: Record<string, string> = {
   enableNotesPlans: 'enableNotes',
   onlyHideWhenBothOwnedList: 'onlyHideWhenBothOwned',
   onlyHideWhenBothOwnedPlans: 'onlyHideWhenBothOwned',
+  separateSelectionPerAccount: 'separateSelectionPerAccount',
 }
 /** Suffix for list vs plans context (i18n key) */
 function flagContextSuffix(k: string): string {
@@ -231,6 +235,7 @@ function buildSettingsDiff(local: Record<string, unknown>, cloud: Record<string,
     'enableOwnershipEditList', 'enableOwnershipEditPlans',
     'enableNotesList', 'enableNotesPlans',
     'onlyHideWhenBothOwnedList', 'onlyHideWhenBothOwnedPlans',
+    'separateSelectionPerAccount',
   ]
   const flagsL = (esL.flags ?? {}) as Record<string, unknown>
   const flagsC = (esC.flags ?? {}) as Record<string, unknown>

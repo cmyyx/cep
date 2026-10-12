@@ -460,6 +460,7 @@
     "regionFilterAll": "すべて",
     "weaponNotCoveredByRegion": "現在の地域フィルターでは「{weapons}」に該当するプランがありません",
     "settings": "マトリクスプランナー設定",
+    "settingsShort": "設定",
     "customWeapons": "カスタム武器",
     "addCustomWeapon": "武器を追加",
     "editCustomWeapon": "武器を編集",
@@ -532,7 +533,9 @@
     "regionFirstLabel": "第一優先地域",
     "regionSecondLabel": "第二優先地域",
     "regionNone": "なし",
-    "acquisitionCategoriesHint": "チェックした入手方法を持つ武器をリスト下部に折りたたみます。チェックを外すと再度表示されます。"
+    "acquisitionCategoriesHint": "チェックした入手方法を持つ武器をリスト下部に折りたたみます。チェックを外すと再度表示されます。",
+    "separateSelectionPerAccount": "アカウントごとに選択武器を分ける",
+    "separateSelectionPerAccountHint": "アカウントごとに選択中の武器を保存し、切り替え時に選択も切り替えます。オフにすると全アカウントで同じ選択を共有します。"
   },
   "settings": {
     "title": "設定",

@@ -46,14 +46,17 @@ export function countItems(moduleId: string, data: unknown): number {
           marks += Object.keys((a.weaponOwnership as object) ?? {}).length
           marks += Object.keys((a.essenceStatus as object) ?? {}).length
           marks += Object.keys((a.weaponNotes as object) ?? {}).length
+          // 按账号分隔的基质已选武器也是用户数据（旧文件没有这个字段）。
+          marks += Array.isArray(a.selectedWeaponIds) ? a.selectedWeaponIds.length : 0
         }
       } else {
         marks += Object.keys((d.weaponOwnership as object) ?? {}).length
         marks += Object.keys((d.essenceStatus as object) ?? {}).length
         marks += Object.keys((d.weaponNotes as object) ?? {}).length
+        marks += Array.isArray(d.selectedWeaponIds) ? d.selectedWeaponIds.length : 0
       }
       const cw = Array.isArray(d.customWeapons) ? d.customWeapons.length : 0
-      const flagKeys = ['hideEssenceOwnedWeaponsList','hideUnownedWeaponsList','hideFourStarWeaponsList','hideThreeStarWeaponsList','onlyHideWhenBothOwnedList','enableOwnershipEditList','enableNotesList','hideEssenceOwnedWeaponsPlans','hideUnownedWeaponsPlans','hideFourStarWeaponsPlans','hideThreeStarWeaponsPlans','onlyHideWhenBothOwnedPlans','enableOwnershipEditPlans','enableNotesPlans']
+      const flagKeys = ['hideEssenceOwnedWeaponsList','hideUnownedWeaponsList','hideFourStarWeaponsList','hideThreeStarWeaponsList','onlyHideWhenBothOwnedList','enableOwnershipEditList','enableNotesList','hideEssenceOwnedWeaponsPlans','hideUnownedWeaponsPlans','hideFourStarWeaponsPlans','hideThreeStarWeaponsPlans','onlyHideWhenBothOwnedPlans','enableOwnershipEditPlans','enableNotesPlans','separateSelectionPerAccount']
       let flags = 0
       for (const k of flagKeys) { if (d[k] === true) flags++ }
       const regions = (d.regionFirst || d.regionSecond) ? 1 : 0

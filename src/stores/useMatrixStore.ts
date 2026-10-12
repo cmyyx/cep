@@ -19,6 +19,45 @@ export function getPlanKey(plan: DungeonPlan): string {
   return `${plan.dungeon.id}-${plan.lockType}-${plan.lockValue}`
 }
 
+// ─── Per-account weapon selection ───────────────────────────────────────────
+// 选择集仍然存在本 store 的扁平 selectedWeaponIds（所有既有读者、导出、云同步
+// 均不变）；当「分隔不同账号已选的武器」开启时，它代表当前账号的选择，权威副本
+// 按账号存在 essence store 的 accounts[].selectedWeaponIds 里（跟随导入/导出/
+// 云同步一起走）。
+
+/**
+ * Record the current selection on one account.
+ *
+ * No-op for an unknown account id (账号刚被删除/替换时不能回退到别的账号)
+ * and while the separation switch is off.
+ */
+export function storeAccountSelection(accountId: string, ids: readonly string[]): void {
+  const settings = useEssenceSettingsStore.getState()
+  if (!settings.separateSelectionPerAccount) return
+  settings.setAccountSelection(accountId, ids)
+}
+
+/** Resolve one account's stored selection against the current weapon dataset. */
+function loadAccountSelection(accountId: string): string[] {
+  const account = useEssenceSettingsStore.getState().accounts.find((a) => a.id === accountId)
+  const stored = account?.selectedWeaponIds ?? []
+  return sanitizeWeaponIdArray(stored, getActiveCustomWeaponIds())
+}
+
+/**
+ * Move the in-memory selection from one account to another: the outgoing
+ * account keeps what the user just had, the incoming one gets its own list.
+ * Exported for tests (the live path is the store subscription below).
+ */
+export function swapAccountSelection(prevAccountId: string, nextAccountId: string): void {
+  if (prevAccountId === nextAccountId) return
+  storeAccountSelection(prevAccountId, useMatrixStore.getState().selectedWeaponIds)
+  const next = loadAccountSelection(nextAccountId)
+  cancelPlansUpdate()
+  useMatrixStore.setState({ selectedWeaponIds: next, plansStale: true })
+  schedulePlansUpdate(useMatrixStore.setState, useMatrixStore.getState)
+}
+
 /**
  * Value comparison of two DungeonPlans.
  * Returns true when the plan is semantically unchanged — same weapons,
@@ -343,6 +382,36 @@ export const useMatrixStore = create<MatrixState>()(
     },
   ),
 )
+
+// ── 按账号分隔选择集：切账号 → 回写旧账号 + 载入新账号 ──
+// （用订阅而不是在 essence store 里回调，避免两个 store 循环依赖）
+useEssenceSettingsStore.subscribe((state, prevState) => {
+  try {
+    if (!state.separateSelectionPerAccount) return
+    // 开关刚打开：把眼前这份选择登记给当前账号，不清空。
+    if (prevState.separateSelectionPerAccount !== state.separateSelectionPerAccount) {
+      storeAccountSelection(state.activeAccountId, useMatrixStore.getState().selectedWeaponIds)
+    }
+    if (state.activeAccountId !== prevState.activeAccountId) {
+      swapAccountSelection(prevState.activeAccountId, state.activeAccountId)
+    }
+  } catch {
+    // 选择集隔离失败不应影响规划器主流程。
+  }
+})
+
+// ── 选择集变化 → 记到当前账号（开关关闭时不维护，保持共享行为）──
+useMatrixStore.subscribe((state, prevState) => {
+  if (state.selectedWeaponIds === prevState.selectedWeaponIds) return
+  try {
+    storeAccountSelection(
+      useEssenceSettingsStore.getState().activeAccountId,
+      state.selectedWeaponIds,
+    )
+  } catch {
+    // 同上。
+  }
+})
 
 // ── Cross-store cleanup: when a custom weapon is deleted, remove its ID ──
 // ── from selectedWeaponIds so stale IDs don't linger in the session.   ──

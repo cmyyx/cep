@@ -36,6 +36,14 @@ describe('normalizeEssenceSettingsFlags', () => {
     expect(flags.hideFourStarWeaponsList).toBe(false)
     expect(flags.hideThreeStarWeaponsList).toBe(true)
   })
+
+  it('defaults the per-account weapon selection switch to on', () => {
+    expect(normalizeEssenceSettingsFlags(undefined).separateSelectionPerAccount).toBe(true)
+    expect(
+      normalizeEssenceSettingsFlags({ separateSelectionPerAccount: false })
+        .separateSelectionPerAccount,
+    ).toBe(false)
+  })
 })
 
 it('persists and normalizes hidden acquisition categories independently for list and plans', () => {
@@ -143,12 +151,59 @@ describe('useEssenceSettingsStore — game accounts', () => {
     expect(next.accounts.some((a) => a.id === firstId)).toBe(true)
   })
 
+  it('removing a custom weapon purges its selections from every account', () => {
+    resetStore()
+    const store = useEssenceSettingsStore.getState()
+    const secondId = store.addAccount('B')!
+    store.addCustomWeapon({ id: 'custom-test', name: '测试武器', rarity: 5, type: 'claymore', primaryStat: 'attack', elementalDamage: 'physical', specialAbility: '', chars: [] })
+    useEssenceSettingsStore.getState().setAccountSelection(store.accounts[0].id, ['custom-test', 'wpn_claym_0017'])
+    useEssenceSettingsStore.getState().setAccountSelection(secondId, ['custom-test'])
+
+    useEssenceSettingsStore.getState().removeCustomWeapon('custom-test')
+
+    const next = useEssenceSettingsStore.getState()
+    expect(next.accounts[0].selectedWeaponIds).toEqual(['wpn_claym_0017'])
+    expect(next.accounts[1].selectedWeaponIds).toEqual([])
+  })
+
+  it('stores a selection per account and ignores unknown account ids', () => {
+    resetStore()
+    const store = useEssenceSettingsStore.getState()
+    const firstId = store.accounts[0].id
+    const secondId = store.addAccount('B')!
+
+    useEssenceSettingsStore.getState().setAccountSelection(firstId, ['wpn_bogus', 'wpn_claym_0017', 'wpn_claym_0017'])
+    const afterFirst = useEssenceSettingsStore.getState().accounts
+    // Unknown ids and duplicates are dropped; the other account is untouched.
+    expect(afterFirst[0].selectedWeaponIds).toEqual(['wpn_claym_0017'])
+    expect(afterFirst[1].selectedWeaponIds).toEqual([])
+
+    // An id that no longer exists must NOT fall back to the active account.
+    useEssenceSettingsStore.getState().setAccountSelection('acc_missing', ['wpn_sword_0012'])
+    const afterMissing = useEssenceSettingsStore.getState().accounts
+    expect(afterMissing[0].selectedWeaponIds).toEqual(['wpn_claym_0017'])
+    expect(afterMissing[1].selectedWeaponIds).toEqual([])
+    expect(secondId).toBe(afterMissing[1].id)
+  })
+
+  it('leaves the account list reference untouched when the selection is unchanged', () => {
+    resetStore()
+    const firstId = useEssenceSettingsStore.getState().accounts[0].id
+    useEssenceSettingsStore.getState().setAccountSelection(firstId, ['wpn_claym_0017'])
+    const before = useEssenceSettingsStore.getState().accounts
+
+    useEssenceSettingsStore.getState().setAccountSelection(firstId, ['wpn_claym_0017'])
+
+    // Same reference = no needless persist write on every toggle.
+    expect(useEssenceSettingsStore.getState().accounts).toBe(before)
+  })
+
   it('applyAccounts replaces profiles and keeps the active id when it survives', () => {
     resetStore()
     const state = useEssenceSettingsStore.getState()
     state.applyAccounts([
-      { id: 'acc_x', name: 'X', weaponOwnership: { 'wpn_claym_0017': true }, essenceStatus: {}, weaponNotes: {} },
-      { id: 'acc_y', name: 'Y', weaponOwnership: {}, essenceStatus: {}, weaponNotes: {} },
+      { id: 'acc_x', name: 'X', weaponOwnership: { 'wpn_claym_0017': true }, essenceStatus: {}, weaponNotes: {}, selectedWeaponIds: [] },
+      { id: 'acc_y', name: 'Y', weaponOwnership: {}, essenceStatus: {}, weaponNotes: {}, selectedWeaponIds: [] },
     ])
     const next = useEssenceSettingsStore.getState()
     expect(next.accounts.length).toBe(2)

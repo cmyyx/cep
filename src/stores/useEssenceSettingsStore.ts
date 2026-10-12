@@ -8,7 +8,7 @@ import type {
 } from '@/types/essence-settings'
 import type { Weapon } from '@/types/matrix'
 import { isValidWeaponId, sanitizeCustomWeapons } from '@/lib/persist-sanitizer'
-import { resolveWeaponIdKeys } from '@/lib/resolve-weapon-id'
+import { resolveWeaponId, resolveWeaponIdKeys } from '@/lib/resolve-weapon-id'
 import { createAccountId, MAX_ACCOUNTS, sanitizeCloudAccounts } from '@/lib/essence-accounts'
 
 // ─── Defaults ──────────────────────────────────────────────────────────────
@@ -29,6 +29,9 @@ const FLAG_DEFAULTS: Record<SettingKey, boolean> = {
   onlyHideWhenBothOwnedPlans: false,
   enableOwnershipEditPlans: false,
   enableNotesPlans: false,
+
+  // 多账号：按账号分隔已选武器（默认开）。
+  separateSelectionPerAccount: true,
 }
 
 export function normalizeEssenceSettingsFlags(
@@ -60,7 +63,7 @@ export function normalizeCategoryList(value: unknown): string[] {
  */
 function mergeWithDefaults(
   persisted: Record<string, unknown>,
-): Omit<EssenceSettingsState, 'toggleFlag' | 'setWeaponOwnership' | 'setEssenceStatus' | 'setWeaponNote' | 'addCustomWeapon' | 'removeCustomWeapon' | 'updateCustomWeapon' | 'addAccount' | 'renameAccount' | 'removeAccount' | 'setActiveAccount' | 'applyAccounts' | 'restoreAccounts' | 'replaceAccountMarks' | 'setHiddenAcquisitionCategories' | 'setRegionFirst' | 'setRegionSecond' | 'toggleWeaponFilterCollapsed' | 'toggleHiddenWeaponsCollapsed' | 'setAutoSyncEnabled' | 'setNotifyOnSync' | 'setNotifyOnPull' | 'resetAllSettings'> {
+): Omit<EssenceSettingsState, 'toggleFlag' | 'setWeaponOwnership' | 'setEssenceStatus' | 'setWeaponNote' | 'addCustomWeapon' | 'removeCustomWeapon' | 'updateCustomWeapon' | 'addAccount' | 'renameAccount' | 'removeAccount' | 'setActiveAccount' | 'applyAccounts' | 'restoreAccounts' | 'replaceAccountMarks' | 'setAccountSelection' | 'setHiddenAcquisitionCategories' | 'setRegionFirst' | 'setRegionSecond' | 'toggleWeaponFilterCollapsed' | 'toggleHiddenWeaponsCollapsed' | 'setAutoSyncEnabled' | 'setNotifyOnSync' | 'setNotifyOnPull' | 'resetAllSettings'> {
   const flags = normalizeEssenceSettingsFlags(persisted)
 
   // Compute customWeapons first — we need the active set to filter
@@ -85,6 +88,23 @@ function mergeWithDefaults(
     return out
   }
 
+  // Same rules for the per-account weapon selection (an array, not a record).
+  const filterIdList = (raw: unknown): string[] => {
+    if (!Array.isArray(raw)) return []
+    const out: string[] = []
+    const seen = new Set<string>()
+    for (const value of raw) {
+      if (typeof value !== 'string') continue
+      const id = resolveWeaponId(value)
+      if (id.length === 0 || seen.has(id)) continue
+      if (!isValidWeaponId(id)) continue
+      if (id.startsWith('custom-') && !activeCustomIds.has(id)) continue
+      seen.add(id)
+      out.push(id)
+    }
+    return out.sort()
+  }
+
   // ── Game-account profiles ────────────────────────────────
   // accounts is the source of truth; the flat marks below are the ACTIVE
   // account's mirror. Legacy persisted data (flat marks, no accounts) is
@@ -93,13 +113,14 @@ function mergeWithDefaults(
     weaponOwnership: filterMarks(raw.weaponOwnership, (v): v is boolean => v === true),
     essenceStatus: filterMarks(raw.essenceStatus, (v): v is boolean => v === true),
     weaponNotes: filterMarks(raw.weaponNotes, (v): v is string => typeof v === 'string'),
+    selectedWeaponIds: filterIdList(raw.selectedWeaponIds),
   })
 
   const persistedAccounts = sanitizeCloudAccounts(persisted.accounts)
   const accounts: EssenceAccount[] = persistedAccounts.length > 0
     ? persistedAccounts.map((account) => ({
         ...account,
-        ...sanitizeAccountMarks({ weaponOwnership: account.weaponOwnership, essenceStatus: account.essenceStatus, weaponNotes: account.weaponNotes }),
+        ...sanitizeAccountMarks({ weaponOwnership: account.weaponOwnership, essenceStatus: account.essenceStatus, weaponNotes: account.weaponNotes, selectedWeaponIds: account.selectedWeaponIds }),
       }))
     : [{
         id: createAccountId(),
@@ -189,6 +210,7 @@ export const useEssenceSettingsStore = create<EssenceSettingsState>()(
         weaponOwnership: {},
         essenceStatus: {},
         weaponNotes: {},
+        selectedWeaponIds: [],
       }],
       activeAccountId: DEFAULT_ACCOUNT_ID,
       weaponOwnership: {},
@@ -251,6 +273,7 @@ export const useEssenceSettingsStore = create<EssenceSettingsState>()(
             weaponOwnership: {},
             essenceStatus: {},
             weaponNotes: {},
+            selectedWeaponIds: [],
           }
           return {
             accounts: [...s.accounts, account],
@@ -361,6 +384,7 @@ export const useEssenceSettingsStore = create<EssenceSettingsState>()(
             weaponOwnership: marks.weaponOwnership ?? target.weaponOwnership,
             essenceStatus: marks.essenceStatus ?? target.essenceStatus,
             weaponNotes: marks.weaponNotes ?? target.weaponNotes,
+            selectedWeaponIds: marks.selectedWeaponIds ?? target.selectedWeaponIds,
           }])
           if (!sanitized) return s
           const next: EssenceAccount = {
@@ -369,6 +393,10 @@ export const useEssenceSettingsStore = create<EssenceSettingsState>()(
             weaponOwnership: sanitized.weaponOwnership,
             essenceStatus: sanitized.essenceStatus,
             weaponNotes: sanitized.weaponNotes,
+            // 省略 selectedWeaponIds = 保留目标账号已有选择（旧备份文件）。
+            selectedWeaponIds: marks.selectedWeaponIds === undefined
+              ? target.selectedWeaponIds
+              : sanitized.selectedWeaponIds,
           }
           const accounts = s.accounts.map((account) => (account.id === target.id ? next : account))
           if (target.id !== s.activeAccountId) return { accounts }
@@ -377,6 +405,27 @@ export const useEssenceSettingsStore = create<EssenceSettingsState>()(
             weaponOwnership: next.weaponOwnership,
             essenceStatus: next.essenceStatus,
             weaponNotes: next.weaponNotes,
+          }
+        }),
+
+      setAccountSelection: (accountId: string, weaponIds: readonly string[]) =>
+        set((s) => {
+          // 不回退到 activeAccountId：账号切换时旧账号可能已不存在，
+          // 回退会把选择写到刚载入的新账号上。
+          const target = s.accounts.find((account) => account.id === accountId)
+          if (!target) return s
+          const selectedWeaponIds = [...new Set(weaponIds)].filter((id) => isValidWeaponId(id)).sort()
+          const current = target.selectedWeaponIds
+          if (
+            current.length === selectedWeaponIds.length &&
+            selectedWeaponIds.every((id, i) => id === current[i])
+          ) {
+            return s
+          }
+          return {
+            accounts: s.accounts.map((account) =>
+              account.id === accountId ? { ...account, selectedWeaponIds } : account,
+            ),
           }
         }),
 
@@ -399,6 +448,8 @@ export const useEssenceSettingsStore = create<EssenceSettingsState>()(
             weaponOwnership: strip(account.weaponOwnership),
             essenceStatus: strip(account.essenceStatus),
             weaponNotes: strip(account.weaponNotes),
+            // 已选武器里的自定义武器 id 同步清理，否则切换账号时会残留。
+            selectedWeaponIds: account.selectedWeaponIds.filter((id) => id !== weaponId),
           }))
           return {
             customWeapons: s.customWeapons.filter((w) => w.id !== weaponId),
@@ -424,6 +475,7 @@ export const useEssenceSettingsStore = create<EssenceSettingsState>()(
             weaponOwnership: {},
             essenceStatus: {},
             weaponNotes: {},
+            selectedWeaponIds: [],
           }
           return {
             ...FLAG_DEFAULTS,

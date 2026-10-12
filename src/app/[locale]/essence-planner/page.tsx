@@ -456,8 +456,11 @@ export default function EssencePlannerPage() {
             size="icon-sm"
             onClick={() => setCustomWeaponOpen(true)}
             aria-label={t('essence.customWeapons')}
+            className="md:w-auto md:gap-1.5 md:px-2.5"
           >
             <Plus className="size-4" />
+            {/* 移动端顶栏只剩 32px 余量，文字仅在 md+ 显示 */}
+            <span className="hidden md:inline">{t('essence.customWeapons')}</span>
           </Button>
           <EssenceSettingsDialog />
         <CustomWeaponDialog
@@ -535,7 +538,6 @@ export default function EssencePlannerPage() {
               variant="outline"
               size="sm"
               onClick={() => setViewAllOpen(true)}
-              disabled={noWeaponsSelected}
             >
               {t('essence.selectedList')}
             </Button>
@@ -575,20 +577,19 @@ export default function EssencePlannerPage() {
         <SheetHeader>
           <SheetTitle>{t('essence.selectedCount', { count: selectedCount })}</SheetTitle>
         </SheetHeader>
-        {!noWeaponsSelected && (
-          <div className="flex items-center gap-2 px-4 pb-3">
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => selectAllWeapons(useMatrixStore.getState().visibleWeaponIds)}
-            >
-              {t('essence.selectAll')}
-            </Button>
-            <Button variant="ghost" size="sm" onClick={clearWeapons}>
-              {t('essence.clearAll')}
-            </Button>
-          </div>
-        )}
+        {/* 全选/清空 常驻：搜索栏已移除这两个按钮，本面板是唯一入口。 */}
+        <div className="flex items-center gap-2 px-4 pb-3">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => selectAllWeapons(useMatrixStore.getState().visibleWeaponIds)}
+          >
+            {t('essence.selectAll')}
+          </Button>
+          <Button variant="ghost" size="sm" onClick={clearWeapons} disabled={noWeaponsSelected}>
+            {t('essence.clearAll')}
+          </Button>
+        </div>
         <div className="grid grid-cols-3 gap-2 px-4 pb-4">
           {selectedWeaponIds.map((id) => {
             const weapon = allWeaponsMap.get(id)

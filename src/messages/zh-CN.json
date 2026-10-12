@@ -243,6 +243,7 @@
     "regionFilterAll": "全部",
     "weaponNotCoveredByRegion": "当前地区筛选下，\"{weapons}\" 无可刷方案",
     "settings": "基质规划设置",
+    "settingsShort": "设置",
     "customWeapons": "自定义武器",
     "addCustomWeapon": "添加武器",
     "editCustomWeapon": "编辑武器",
@@ -315,7 +316,9 @@
     "regionFirstLabel": "第一优先区域",
     "regionSecondLabel": "第二优先区域",
     "regionNone": "无",
-    "acquisitionCategoriesHint": "勾选来源分类后，拥有该来源的武器将折叠到列表底部；取消勾选即恢复显示。"
+    "acquisitionCategoriesHint": "勾选来源分类后，拥有该来源的武器将折叠到列表底部；取消勾选即恢复显示。",
+    "separateSelectionPerAccount": "分隔不同账号已选的武器",
+    "separateSelectionPerAccountHint": "按账号分别保存已选武器，切换账号时自动切换选择；关闭后所有账号共用同一份选择。"
   },
   "settings": {
     "title": "设置",

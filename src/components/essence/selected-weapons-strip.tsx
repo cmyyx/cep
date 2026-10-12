@@ -25,11 +25,14 @@ export const SelectedWeaponsStrip = memo(function SelectedWeaponsStrip({
 }: SelectedWeaponsStripProps) {
   const t = useTranslations()
 
-  if (selectedIds.length === 0) return null
+  const hasSelection = selectedIds.length > 0
+  // 入口必须常驻：搜索栏不再提供「全选」，空选时这里是唯一入口。
+  if (!hasSelection && !onViewAll) return null
 
   return (
     <div className="flex items-center gap-1.5">
-      <div className="flex-1 flex gap-1.5 overflow-x-auto pb-1 min-w-0">
+      {hasSelection ? (
+        <div className="flex-1 flex gap-1.5 overflow-x-auto pb-1 min-w-0">
         {selectedIds.map((id) => {
           const weapon = weaponsMap.get(id)
           if (!weapon) return null
@@ -78,7 +81,10 @@ export const SelectedWeaponsStrip = memo(function SelectedWeaponsStrip({
             </Button>
           )
         })}
-      </div>
+        </div>
+      ) : (
+        <div className="flex-1" />
+      )}
       {onViewAll && (
         <Button
           variant="ghost"
