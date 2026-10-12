@@ -503,6 +503,7 @@
     "accountMaxReached": "最多支援 {count} 個帳號"
   },
   "maaendImport": {
+    "repreview": "重新預覽已選檔案",
     "preview": "待匯入 {file}，帳號：{name}",
     "pendingAdded": "待新增勾選（{count}）",
     "confirm": "確定匯入",

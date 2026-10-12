@@ -503,6 +503,7 @@
     "accountMaxReached": "最大 {count} アカウントまで対応しています"
   },
   "maaendImport": {
+    "repreview": "選択済みファイルを再プレビュー",
     "preview": "{file} のプレビュー。アカウント：{name}",
     "pendingAdded": "追加予定のマーク（{count}）",
     "confirm": "インポートを確定",

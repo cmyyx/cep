@@ -503,6 +503,7 @@
     "accountMaxReached": "Up to {count} accounts supported"
   },
   "maaendImport": {
+    "repreview": "Preview selected file again",
     "preview": "Previewing {file} for account: {name}",
     "pendingAdded": "Marks to add ({count})",
     "confirm": "Confirm import",

@@ -2,7 +2,7 @@
 
 import { useId, useRef, useState } from 'react'
 import { useTranslations } from 'next-intl'
-import { ChevronDown, Upload } from 'lucide-react'
+import { ChevronDown, RotateCcw, Upload } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -42,6 +42,7 @@ export function MaaEndEssenceImportDialog() {
   const [open, setOpen] = useState(false)
   const [reading, setReading] = useState(false)
   const [inputKey, setInputKey] = useState(0)
+  const [selectedFile, setSelectedFile] = useState<File | null>(null)
   const [result, setResult] = useState<ImportResult | null>(null)
   const [preview, setPreview] = useState<ImportPreview | null>(null)
   const [error, setError] = useState<ImportError | null>(null)
@@ -55,6 +56,7 @@ export function MaaEndEssenceImportDialog() {
     generation.current += 1
     setReading(false)
     setInputKey((key) => key + 1)
+    setSelectedFile(null)
     setResult(null)
     setPreview(null)
     setError(null)
@@ -65,6 +67,7 @@ export function MaaEndEssenceImportDialog() {
   const previewFile = async (file: File) => {
     const request = ++generation.current
     const accountId = useEssenceSettingsStore.getState().activeAccountId
+    setSelectedFile(file)
     setReading(true)
     setResult(null)
     setPreview(null)
@@ -72,7 +75,6 @@ export function MaaEndEssenceImportDialog() {
     setUnknownErrors([])
     const finish = () => {
       setReading(false)
-      setInputKey((key) => key + 1)
     }
 
     let text: string
@@ -157,6 +159,7 @@ export function MaaEndEssenceImportDialog() {
         <div className="shrink-0 space-y-2">
           <p className="break-words text-sm font-medium">{t('maaendImport.account', { name: accountName })}</p>
           <Label htmlFor={inputId}>{t('maaendImport.fileLabel')}</Label>
+          <div className="flex items-center gap-2">
           <Input
             key={inputKey}
             id={inputId}
@@ -169,6 +172,10 @@ export function MaaEndEssenceImportDialog() {
               if (file) void previewFile(file)
             }}
           />
+          {selectedFile && <Button variant="ghost" size="icon-sm" disabled={reading} aria-label={t('maaendImport.repreview')} title={t('maaendImport.repreview')} onClick={() => void previewFile(selectedFile)}>
+            <RotateCcw className="size-4" />
+          </Button>}
+          </div>
         </div>
         {(reading || viewError || report) && <div className="min-h-0 space-y-4 overflow-y-auto">
         {reading && <p role="status" className="text-sm text-muted-foreground">{t('maaendImport.reading')}</p>}

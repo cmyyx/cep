@@ -39,11 +39,47 @@ function selectFile(read: () => Promise<string>) {
   const file = new File([''], 'EssenceInventory.json', { type: 'application/json' })
   Object.defineProperty(file, 'text', { value: read })
   fireEvent.change(screen.getByLabelText(messages.maaendImport.fileLabel), { target: { files: [file] } })
+  return file
 }
 
 const inventoryText = JSON.stringify([{
   weapon_ids: ['wpn_sword_0012'], essences: [{ levels: [1, 1, 1], count: 1 }],
 }])
+
+it('keeps the selected file in the input after reading and confirming', async () => {
+  openImporter()
+  const file = selectFile(async () => inventoryText)
+  expect(await screen.findByText('待新增勾选（1）')).toBeTruthy()
+  const input = screen.getByLabelText(messages.maaendImport.fileLabel) as HTMLInputElement
+  expect(input.files?.[0]).toBe(file)
+  expect(input.files?.[0]?.name).toBe('EssenceInventory.json')
+  fireEvent.click(screen.getByRole('button', { name: messages.maaendImport.confirm }))
+  expect(await screen.findByText('新增勾选（1）')).toBeTruthy()
+  expect((screen.getByLabelText(messages.maaendImport.fileLabel) as HTMLInputElement).files?.[0]).toBe(file)
+})
+
+it('can preview the same selected file again without clearing its filename', async () => {
+  openImporter()
+  const file = selectFile(async () => inventoryText)
+  expect(await screen.findByText('待新增勾选（1）')).toBeTruthy()
+  fireEvent.click(screen.getByRole('button', { name: messages.maaendImport.confirm }))
+  expect(await screen.findByText('新增勾选（1）')).toBeTruthy()
+  fireEvent.click(screen.getByRole('button', { name: messages.maaendImport.repreview }))
+  expect(await screen.findByText('待新增勾选（0）')).toBeTruthy()
+  expect((screen.getByLabelText(messages.maaendImport.fileLabel) as HTMLInputElement).files?.[0]).toBe(file)
+  expect(screen.getByRole('button', { name: messages.maaendImport.confirm })).toBeTruthy()
+})
+
+it('keeps a failed file visible and clears it only when the dialog is closed', async () => {
+  openImporter()
+  const file = selectFile(async () => '{}')
+  expect(await screen.findByText(messages.maaendImport.invalidFormat)).toBeTruthy()
+  expect((screen.getByLabelText(messages.maaendImport.fileLabel) as HTMLInputElement).files?.[0]).toBe(file)
+  fireEvent.click(screen.getByRole('button', { name: messages.common.close }))
+  fireEvent.click(screen.getByRole('button', { name: messages.maaendImport.title }))
+  expect((screen.getByLabelText(messages.maaendImport.fileLabel) as HTMLInputElement).files?.length).toBe(0)
+  expect(screen.queryByRole('button', { name: messages.maaendImport.repreview })).toBeNull()
+})
 
 it('previews compatible marks without writing until the user confirms', async () => {
   useEssenceSettingsStore.getState().setEssenceStatus('wpn_sword_0016', true)

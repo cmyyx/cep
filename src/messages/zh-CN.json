@@ -286,6 +286,7 @@
     "accountMaxReached": "最多支持 {count} 个账号"
   },
   "maaendImport": {
+    "repreview": "重新预览已选文件",
     "preview": "待导入 {file}，账号：{name}",
     "pendingAdded": "待新增勾选（{count}）",
     "confirm": "确定导入",
