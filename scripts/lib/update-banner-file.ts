@@ -20,7 +20,21 @@ export interface BannerUpdateResult {
   issues: string[]
   /** 上游还没下发的条目 (保留手写值) */
   pending: string[]
+  /** 命中的例外 (站点口径与客户端不同), 每个同步都打印, 便于复核 */
+  notes: string[]
 }
+
+/**
+ * 站点口径与客户端不同的例外 —— **逐条写清原因**, 不是"跳过检查"的开关。
+ * key = 客户端卡池 id。
+ */
+const POOL_EXCEPTIONS: Record<string, { keepHandWrittenSchedule?: string }> = {
+  // 1.0 莱万汀池: 客户端这条档期(2025-12-09)是三次测试期, 公测开池以手写 2026-01-22 为准
+  special_1_0_1: { keepHandWrittenSchedule: '上游档期属三次测试 (2025-12), 非公测' },
+}
+
+/** 标题形如 「池名」特许寻访 / 「池名」重构寻访 —— 池名以客户端为准, 后缀保留。 */
+const TITLE_NAME = /^(\s*title: ')「[^」]*」(.*)('.*)$/
 
 interface EntryBlock {
   /** 在 lines 里的起止下标 (含) */
@@ -119,6 +133,7 @@ export function updateBannerEntries(
   const updated: BannerUpdateResult['updated'] = []
   const issues: string[] = []
   const pending: string[] = []
+  const notes: string[] = []
   const matchedEntryIds = new Set<string>()
 
   for (const pool of pools) {
@@ -129,11 +144,17 @@ export function updateBannerEntries(
       continue
     }
     matchedEntryIds.add(block.id)
+    // 认领标记 (避免同一轮里另一个卡池再匹配到同一条目) 与"文件里本来就有 poolId"要分开记
+    const alreadyLinked = block.poolId !== null
+    block.poolId = pool.poolId
     const changes: string[] = []
     // 日期差超过一天不是"维护提前结束"能解释的, 只报告不覆盖 (可能手写档期是另一档/版本级)
     const sameDate = sameDay(block.periodStart, pool.start)
+    const exception = POOL_EXCEPTIONS[pool.poolId]
 
-    if (sameDate) {
+    if (exception?.keepHandWrittenSchedule) {
+      notes.push(`${block.id} (${pool.poolId}): 保留手写档期 — ${exception.keepHandWrittenSchedule}`)
+    } else if (sameDate) {
       for (let index = block.from; index <= block.to; index += 1) {
         const line = lines[index]
         const start = /^(\s*)periodStart: '([^']+)',/.exec(line)
@@ -175,7 +196,7 @@ export function updateBannerEntries(
     }
 
     // 关联键: 首次同步写入 poolId, 之后按它精确匹配
-    if (!block.poolId) {
+    if (!alreadyLinked) {
       const idIndex = lines.findIndex((line, index) => index >= block.from && index <= block.to && /^\s*id: '[^']+',$/.test(line))
       if (idIndex >= 0) {
         const indent = /^(\s*)/.exec(lines[idIndex])?.[1] ?? '    '
@@ -185,9 +206,21 @@ export function updateBannerEntries(
       }
     }
 
-    // 核查手写内容 (只报告, 不覆盖)
-    if (pool.title && !block.title.includes(pool.title)) {
-      issues.push(`${block.id}: title "${block.title}" 不含上游池名 "${pool.title}" — 需人工确认`)
+    // 标题: 池名以客户端为准 (站点表现与公告文案不影响池名)
+    if (pool.title) {
+      const titleIndex = lines.findIndex((line, index) => index >= block.from && index <= block.to && /^\s*title: '[^']*',$/.test(line))
+      if (titleIndex >= 0) {
+        const current = lines[titleIndex]
+        if (!current.includes(pool.title)) {
+          const match = TITLE_NAME.exec(current)
+          if (match) {
+            lines[titleIndex] = `${match[1]}「${pool.title}」${match[2]}${match[3]}`
+            changes.push(`title 池名 -> 「${pool.title}」`)
+          } else {
+            issues.push(`${block.id}: title ${JSON.stringify(current.trim())} 不含上游池名 "${pool.title}" 且不是「」格式 — 需人工确认`)
+          }
+        }
+      }
     }
     const missing = upNames.filter((name) => !block.featuredNames.includes(name))
     if (missing.length > 0) {
@@ -202,7 +235,7 @@ export function updateBannerEntries(
     if (!block.hidden && !matchedEntryIds.has(block.id)) pending.push(`${block.id} (${block.title || block.id})`)
   }
 
-  return { content: lines.join(eol), updated, issues, pending }
+  return { content: lines.join(eol), updated, issues, pending, notes }
 }
 
 /** 读取 `src/data/banner.ts`, 按上游更新 (updateMode) 或只报告。 */
@@ -212,9 +245,9 @@ export function updateBannerFile(
   nameByCharacterId: Record<string, string>,
   updateMode: boolean,
 ): Omit<BannerUpdateResult, 'content'> {
-  if (!existsSync(bannerTsPath)) return { updated: [], issues: ['banner.ts 不存在'], pending: [] }
+  if (!existsSync(bannerTsPath)) return { updated: [], issues: ['banner.ts 不存在'], pending: [], notes: [] }
   const content = readFileSync(bannerTsPath, 'utf-8')
   const result = updateBannerEntries(content, pools, nameByCharacterId)
   if (updateMode && result.content !== content) writeFileSync(bannerTsPath, result.content, 'utf-8')
-  return { updated: result.updated, issues: result.issues, pending: result.pending }
+  return { updated: result.updated, issues: result.issues, pending: result.pending, notes: result.notes }
 }

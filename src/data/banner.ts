@@ -91,7 +91,7 @@ export const bannerEntries: BannerEntry[] = [
   {
     id: '1.5-tifuluosi',
     poolId: 'special_1_5_1',
-    title: '「雪凇幽梦」特许寻访',
+    title: '「冬猎」特许寻访',
     subtitle: '提弗洛斯',
     description: '',
     imageUrl: '/images/banners/提弗洛斯.webp',

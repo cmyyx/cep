@@ -388,6 +388,7 @@ async function main() {
       console.log(`  ${entry.entryId} (${entry.poolId}):`)
       for (const change of entry.changes) console.log(`    ${change}`)
     }
+    for (const note of bannerUpdate.notes) console.log(`  例外: ${note}`)
     if (bannerUpdate.pending.length > 0) console.log(`  上游未下发, 保留手写档期: ${bannerUpdate.pending.join(', ')}`)
     for (const issue of bannerUpdate.issues) console.warn(`  ⚠ ${issue}`)
   }

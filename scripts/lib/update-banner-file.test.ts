@@ -102,14 +102,55 @@ describe('updateBannerEntries', () => {
     expect(result.pending).toEqual(['1.5-yifeng (「绚丽异彩」重构寻访)'])
   })
 
-  it('reports upstream pools without an entry, and hand-written content that disagrees', () => {
+  it('reports upstream pools without an entry, and syncs the title name from the client', () => {
     const unknown = pool({ poolId: 'special_9_9_9', title: '不存在的池', upCharacterIds: ['chr_9999_x'], start: '2026-12-01T07:00:00+08:00' })
-    const renamed = pool({ title: '别的池名' })
-    const missingUp = pool({ upCharacterIds: ['chr_0034_typhoea', 'chr_0013_aglina'] })
-    const result = updateBannerEntries(BANNER_TS, [unknown, renamed, missingUp], NAMES)
+    // 池名以客户端为准: 「别的池名」会覆盖手写标题里的池名
+    const renamed = pool({ poolId: 'special_1_4_1', title: '别的池名', start: '2026-09-02T07:00:00+08:00' })
+    const result = updateBannerEntries(BANNER_TS, [unknown, renamed], NAMES)
     expect(result.issues.some((issue) => issue.includes('没有唯一对应条目') && issue.includes('special_9_9_9'))).toBe(true)
-    expect(result.issues.some((issue) => issue.includes('不含上游池名'))).toBe(true)
-    expect(result.issues.some((issue) => issue.includes('featured 缺少上游 UP 角色 (洁尔佩塔)'))).toBe(true)
+    expect(result.content).toContain('「别的池名」特许寻访')
+    expect(result.updated.some((entry) => entry.changes.some((change) => change.includes('title 池名')))).toBe(true)
+
+    // UP 名单少于上游 -> 报 issue (单独一轮, 避免同一条目被两个池争抢)
+    const missingUp = pool({ upCharacterIds: ['chr_0034_typhoea', 'chr_0013_aglina'] })
+    const upResult = updateBannerEntries(BANNER_TS, [missingUp], NAMES)
+    expect(upResult.issues.some((issue) => issue.includes('featured 缺少上游 UP 角色 (洁尔佩塔)'))).toBe(true)
+  })
+
+  it('reports a title that cannot be rewritten (no 「」 name part)', () => {
+    // 标题里既没有上游池名, 也不是「」格式 -> 只能报告
+    const noNamePart = BANNER_TS.replace("title: '「冬猎」特许寻访'", "title: '莫名其妙的寻访'")
+    const result = updateBannerEntries(noNamePart, [pool()], NAMES)
+    expect(result.issues.some((issue) => issue.includes('不含上游池名') && issue.includes('不是「」格式'))).toBe(true)
+  })
+
+  it('rewrites the title name from the client and honours the documented schedule exception', () => {
+    // 站内写「雪凇幽梦」而客户端池名是「冬猎」-> 同步改成客户端的池名, 不报 issue
+    const withStationTitle = BANNER_TS.replace('「冬猎」特许寻访', '「雪凇幽梦」特许寻访')
+    const titleResult = updateBannerEntries(withStationTitle, [pool()], NAMES)
+    expect(titleResult.issues).toEqual([])
+    expect(titleResult.content).toContain('「冬猎」特许寻访')
+    expect(titleResult.content).not.toContain('雪凇幽梦')
+    expect(titleResult.updated[0].changes.some((change) => change.includes('title 池名'))).toBe(true)
+
+    // special_1_0_1: 上游那条是三次测试档期, 保留手写公测档期且不报"相差超过一天"
+    const beta = pool({ poolId: 'special_1_0_1', title: '熔火灼痕', upCharacterIds: ['chr_0016_laevat'], start: '2025-12-09T07:00:00+08:00', end: '2026-01-09T12:00:00+08:00' })
+    const laiwanting = `export const bannerEntries: BannerEntry[] = [
+  {
+    id: '1.0-laiwanting',
+    title: '「熔火灼痕」特许寻访',
+    version: '1.0',
+    periodStart: '2026-01-22T12:00:00+08:00',
+    periodEnd: '2026-02-07T11:59:00+08:00',
+    featured: [{ name: '莱万汀', period: 1 }],
+  },
+]
+`
+    const betaResult = updateBannerEntries(laiwanting, [beta], NAMES)
+    expect(betaResult.issues).toEqual([])
+    expect(betaResult.content).toContain("periodStart: '2026-01-22T12:00:00+08:00',")
+    expect(betaResult.content).toContain("poolId: 'special_1_0_1',")
+    expect(betaResult.notes.some((note) => note.includes('保留手写档期'))).toBe(true)
   })
 
   it('handles CRLF files without rewriting line endings', () => {

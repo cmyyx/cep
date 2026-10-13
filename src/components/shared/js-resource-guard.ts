@@ -135,8 +135,10 @@ var onErr=function(e){
 };
 document.addEventListener('error',onErr,true);
 
-window.addEventListener('load',function(){_loadDone=true;tryAudit();});
-setTimeout(function(){if(!_loadDone){_loadDone=true;tryAudit();}},15000);
+window.addEventListener('load',function(){_loadDone=true;clearTimeout(hangTimer);tryAudit();});
+/* 兜底: window.load 迟迟不来 (挂住的请求) 时也要做审计。timer 必须可回收, 否则
+   页面/测试拆环境后仍会回调 (jsdom 下就是 'document is not defined')。 */
+var hangTimer=setTimeout(function(){if(!_loadDone){_loadDone=true;tryAudit();}},15000);
 
 function hydrated(){var h=document.documentElement;return !!h&&h.getAttribute('data-cep-hydrated')==='1';}
 
@@ -177,11 +179,11 @@ function tryAudit(){
    when every failing URL came back ok; a throw, a non-ok response or a hang
    counts as failure so the caller shows the error page instead of reloading. */
 function repairAll(cb){
-  var urls=F.slice(),pending=urls.length,ok=pending>0,settled=false,timer;
-  function finish(pass){if(settled)return;settled=true;if(timer)clearTimeout(timer);cb(pass);}
+  var urls=F.slice(),pending=urls.length,ok=pending>0,settled=false;
+  function finish(pass){if(settled)return;settled=true;clearTimeout(repairTimer);cb(pass);}
   if(!pending){finish(false);return;}
   if(typeof fetch!=='function'){finish(false);return;}
-  timer=setTimeout(function(){finish(false);},10000);
+  repairTimer=setTimeout(function(){finish(false);},10000);
   function settle(){pending--;if(pending<=0)finish(ok);}
   for(var i=0;i<urls.length;i++){(function(u){
     var p;
@@ -243,6 +245,8 @@ function show(locale){
 }
 
 
+/* 修复请求的 10s 超时; 由 finish() 或清理函数回收。 */
+var repairTimer=0;
 var pollTimer=setInterval(function(){
   var el=document.getElementById('cep-js-fatal');
   /* hydration 完成后:移除覆盖层(若存在)并终止轮询,守卫正常收尾。 */
@@ -257,5 +261,7 @@ var pollTimer=setInterval(function(){
 return function(){
   try{document.removeEventListener('error',onErr,true);}catch(e){}
   try{clearInterval(pollTimer);}catch(e){}
+  try{clearTimeout(hangTimer);}catch(e){}
+  try{clearTimeout(repairTimer);}catch(e){}
 };
 })()`.replace(/\n\s*/g, '')
