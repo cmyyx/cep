@@ -1,6 +1,8 @@
 # 交接文档：面板计算机制修复 + 卡池 / 前瞻数据自动同步
 
-> 分支工作树状态：23 个文件修改 + 12 个新增 + 本文档；`tsc` / `eslint` / `vitest` 全绿（详见 §5）。
+> 分支工作树状态：第一批（23 修改 + 12 新增 + 本文档）已提交为 `b51dd4b1be`；之后又跑了一次**本地全量同步**，
+> 落地 39 个真实内容改动（含 4 个新图标），另 396 个文件只是换行符噪音（`git add` 后自动消失）。
+> `tsc` / `eslint` / `vitest`（210 文件 / 1429 测试）/ `check-i18n`（0 P0）全绿。
 > 本文记录**做了什么、为什么这么做、还差什么、怎么上线**。
 
 ---
@@ -17,6 +19,30 @@
 
 ## 2. 已完成
 
+### 2.0 数据落地（本地同步已完成）
+
+本地 `D:/GitHub/AKEData` 已更新到 **`fd324e7506`（2026-10-08）= 云端 main HEAD**，比 CEP 记录的上次同步 `e796ccc3`（10-06）新 2 天。
+
+```bash
+npx tsx scripts/sync-game-data.ts --update --local --force \
+  --akedata D:/GitHub/AKEData --imagedb D:/GitHub/AKEDatabase
+```
+
+结果：`All data consistent with upstream`；`modifierType` 983/983 条装备词条齐、`attributeLimits` 28 条属性、
+图标只新转 4 个（前瞻武器）、`I18nTextTable` 导出 149,414 条/语言 × 14 语言。
+
+**上游翻译已到齐**：`TableCfg/I18nTextTable_*.json`（扁平键 `"-1414695695683300716": "玉中身"`）4 把前瞻武器 4/4 全语言可解析：
+
+| 正式 ID | zh-CN | en | ja | zh-TW |
+|---|---|---|---|---|
+| `wpn_claym_0018` | 玉中身 | Jade Vessel | 玉芯 | 玉中身 |
+| `wpn_claym_0019` | 悠久传承 | Long Heritage | 悠久の継承 | 悠久傳承 |
+| `wpn_sword_0024` | 聚合工业 | Complexed Industry | 複合工業 | 聚合工業 |
+| `wpn_sword_0025` | 唤月 | Lunar Calling | 喚月 | 喚月 |
+
+匹配策略因此升级为**名字优先、标签兑底**：客户端 CN 名与 `preview:` 条目同名即同一把，
+两把完全同标签的双手剑（玉中身 / 悠久传承）靠名字就能分开 → **4/4 唯一匹配、0 警告**，全部显示真图标。
+
 ### 2.1 面板计算机制（`src/lib/planner/progression.ts`）
 
 | # | 结论 | 依据 | 状态 |
@@ -25,9 +51,9 @@
 | 2 | **四维取整数部分**再参与派生公式（力量→生命/攻击、敏捷/智识→抗性、意志→受治疗） | 游戏内实测两例：力量显示 695 → 「力量提供的生命」3475（=5×695，真值 695.41174 会给 3477）；属性详情「来自力量的攻击加成 +171.0%」= 0.005×342（真值会给 171.2%） | ✅ 已改 + 测试 |
 | 3 | **敏捷/智识→抗性是反比例**：`1 − 1/(1 + 0.001×属性)`，原为线性 `属性×0.001` | `AttributeShowConfigTable` 里 attrType 80–84 的显示格式 `{100-100*value:0}`；`BattleConst` 的 0.001 / `charResistanceMaxValue=90` / `charDmgResistMinValue=0.1` | ✅ 已改 + 测试 |
 | 4 | **显示层按游戏口径**：先 `round(v,1e-5)` 再 `floor`（非百分比） | `AKEData/LuaScripts/Common/Utils/AttributeUtils.lua:282-355` + `lume.round`（`floor(x+0.5)`） | ✅ `src/lib/game-display-value.ts` + 面板卡片（游戏值为主 + 精确值小字 + 说明行，i18n 四语言） |
-| 5 | **装备词条乘区**：`modifierType=7`（BaseFinalAddition）要在基值乘算**之后**相加 | `ModifierType` 枚举 + `_CalculateBaseAttribute` + Lua `getAtkTotalBaseDetailList` 的"百分比加成/固定数值加成"拆分 | ⚠️ 代码已就绪（`baseFinalAdditions` 池 + 兼容回退），**数据待同步** |
+| 5 | **装备词条乘区**：`modifierType=7`（BaseFinalAddition）要在基值乘算**之后**相加 | `ModifierType` 枚举 + `_CalculateBaseAttribute` + Lua `getAtkTotalBaseDetailList` 的"百分比加成/固定数值加成"拆分 | ✅ 代码 + 数据均已落地（mod7 实测样例：`tundra01_body_01` MaxHp = 46.3273721859878） |
 | 6 | **套组效果白名单**：删掉 `hp_add` 死分支（原表里它是"击败敌人后回复 100 点生命值"的回复量）；生成器白名单补 `def_up: 防御力` | `scripts/lib/generate-planner-data.ts` 的 `STATIC_SET_VALUE_LABELS` + 258 份装备 wiki JSON 全量核对 | ✅ |
-| 7 | **属性钳制（Clamp）**：每个乘区结算后按 `AttributeMetaTable` 的 min/max 钳制，乘算池取下限 0 | `AttributeMetaTable` + `_CalculateBaseAttribute(..., min, max)` 签名；池下限来自文章 | ⚠️ 生成器 + 运行时已就绪，**数据待同步**（缺字段时自动跳过） |
+| 7 | **属性钳制（Clamp）**：每个乘区结算后按 `AttributeMetaTable` 的 min/max 钳制，乘算池取下限 0 | `AttributeMetaTable` + `_CalculateBaseAttribute(..., min, max)` 签名；池下限来自文章 | ✅ 代码 + 数据均已落地（28 条属性限值） |
 
 ### 2.2 卡池日历自动同步
 
@@ -56,11 +82,13 @@
 
 | 前瞻正式 ID | 匹配到 | 结果 |
 |---|---|---|
-| `wpn_sword_0025` | `preview:唤月` | ✅ unique（已显示真图标） |
-| `wpn_sword_0024` | `preview:聚合工业` | ✅ unique（已显示真图标） |
-| `wpn_claym_0018` / `wpn_claym_0019` | `preview:玉中身` / `preview:悠久传承` | ⚠️ **ambiguous**（两把标签完全相同，待人工确认） |
+| `wpn_sword_0025` | `preview:唤月` | ✅ unique（真图标） |
+| `wpn_sword_0024` | `preview:聚合工业` | ✅ unique（真图标） |
+| `wpn_claym_0018` | `preview:玉中身` | ✅ unique（名字消歧） |
+| `wpn_claym_0019` | `preview:悠久传承` | ✅ unique（名字消歧） |
 
-**名字来源**：前瞻武器在客户端里没有文本（云端 `ItemTable`/`I18nTextTable_CN` 11.9MB 都已核对，4 把既无 ItemTable 条目，前瞻表的 `name.id` 也不属于游戏文本 id 口径）→ 名字用 CEP 自己 `preview:` 条目里人工核对过的名称，生成器如实把 `names` 记为 `null`，上游补文本后自动填。
+**名字来源**：前瞻武器没有 `ItemTable` 条目（未上线），名字取自前瞻表 `name.id` → `I18nTextTable_*`（上游权威翻译）。
+生成器只在文本真的存在时取值，取不到就记 `names: null` 并写进 `issues`，不猜。
 
 ---
 
@@ -79,25 +107,35 @@
 ## 4. 上线流程
 
 ```bash
-# 1. 提交并推送分支
-git add -A && git commit -m "..." && git push -u origin <branch>
+# A. 本地同步（现在可行：本地 AKEData 已 = 云端 main HEAD）
+#    提交工作树后跑，同步产生的差异会以干净 diff 呈现
+git add -A && git commit -m "..."
+npx tsx scripts/sync-game-data.ts --update --local --force \
+  --akedata D:/GitHub/AKEData --imagedb D:/GitHub/AKEDatabase
+git add -A && git commit -m "chore(data): 同步上游数据"
 
-# 2. GitHub Actions → Sync Game Data → Run workflow
-#    - Branch: <你的分支>
-#    - force_sync: true   （必须勾：默认会因上游 SHA 未变而跳过，导致新字段不进数据）
+# B. 也可走 CI（上游有更新但本地仓库旧时）
+#    GitHub Actions → Sync Game Data → Run workflow
+#    - Branch: <你的分支>；force_sync: true（不勾会因 SHA 未变而跳过）
 #    它会开一个 PR: auto/sync-game-data-<分支> → <你的分支>
 
-# 3. 合并该 PR（重点看这些文件）
-#    - src/generated/data/planner.ts           是否出现 modifierType / attributeLimits
-#    - src/generated/data/wiki/equipment/*.json 是否带 modifierType
-#    - src/generated/data/gacha-pools.ts / foresight-weapons.ts 是否重建
+# 无论哪条路，合并前重点看这些文件
+#    - src/generated/data/planner.ts            是否出现 modifierType / attributeLimits
+#    - src/generated/data/wiki/assets.json      前瞻武器图标是否入列（+4）
+#    - src/generated/data/foresight-weapons.ts  names 是否 4/4、previewMatch 是否 unique
+#    - public/game-i18n/manifest.json           entryCount 是否更新
 #    - 其余 i18n / weapons.ts / 图标 属上游漂移，按目录分组审阅
 
-# 4. 分支 → main 的 PR 才会跑 Quality Gate（ci.yml 只监听 main）
+# C. 分支 → main 的 PR 才会跑 Quality Gate（ci.yml 只监听 main）
 ```
 
-**注意**：本地 AKEData 是 2026-09-08 的快照（仓库记录的同步版本是 2026-10-06 的 `e796ccc3`），本地全量重生成会**删掉**已提交的 `chr_0038_purrche`、`wpn_sword_0023` 等并产生大量无关漂移 → 一律走 CI，不要本地重生成。
-（如需单文件核对，可用 `gh api repos/cmyyx/AKEData/contents/<path>` / `git/blobs/<sha>`；>1MB 的文件 contents API 不返回内容，要用 blob API。）
+**换行符噪音**：同步写出的生成文件带 LF，仓库里剩的是 CRLF，所以 `git status` 会多出 ~400 个 `M`；
+它们 `git add` 后会因 `.gitattributes` 归一化而消失——不用手动清理，也不要把它当成真实改动。
+
+**本地同步的前置条件**：本地 AKEData 必须 ≥ 仓库记录的 `scripts/.cache/upstream-versions.json` 版本。
+以前本地是 2026-09-08 的旧快照（落后于记录的 10-06 `e796ccc3`），全量重生成会**删掉** `chr_0038_purrche`、`wpn_sword_0023`，
+所以当时只能走 CI；现在已是 10-08 的 `fd324e7506`，本地同步安全。
+（需要单文件核对时：`gh api repos/cmyyx/AKEData/contents/<path>` / `git/blobs/<sha>`；>1MB 的文件 contents API 不返回内容，必须用 blob API。）
 
 ---
 
@@ -106,8 +144,8 @@ git add -A && git commit -m "..." && git push -u origin <branch>
 ```bash
 npx tsc --noEmit        # 0 错误
 npx eslint              # 0 错误 0 警告
-npx vitest run          # 210 文件 / 1428 测试全过
-node scripts/check-i18n.mjs   # 无 P0/P1（新增 key 已补 zh-CN/en/ja/zh-TW）
+npx vitest run          # 210 文件 / 1429 测试全过
+node scripts/check-i18n.mjs   # 0 P0（28 个警告均为既有的 P2 死键 / 动态 key，与本次无关）
 ```
 
 关键数值（余烬 L90 + 大雷斑 L9 + 生物辅助四件，全满）：
@@ -142,3 +180,12 @@ node scripts/check-i18n.mjs   # 无 P0/P1（新增 key 已补 zh-CN/en/ja/zh-TW�
 - `src/types/planner.ts`、`src/types/wiki/index.ts`：`modifierType` / `attributeLimits`
 - `scripts/lib/build-item-wiki.ts`（+ test）、`scripts/lib/generate-planner-data.ts`（+ test）、`scripts/lib/wiki-assets.ts`（+ test）、`scripts/lib/generate-wiki-data.ts`、`scripts/sync-game-data.ts`
 - `src/messages/{zh-CN,en,ja,zh-TW}.json`：面板显示口径说明行
+- `src/lib/planner/progression.test.ts`：mod-7 / Clamp 兼容分支改为自建桩数据（真数据现在总带这两个字段）
+
+**本地同步产生的内容改动（39 个）**
+- `src/generated/data/planner.ts`：设备词条 `modifierType`（983 条）+ `attributeLimits`（28 条）
+- `src/generated/data/foresight-weapons.ts`：4/4 多语言名 + `previewMatch: unique`
+- `src/generated/data/wiki/assets.json`：+4 前瞻武器图标
+- `public/images/weapon/wpn_{claym_0018,claym_0019,sword_0024,sword_0025}.avif`：新图标（生成产物）
+- `public/game-i18n/**`、`src/generated/i18n/**`：上游翻译/清单漂移
+- `src/generated/data/wiki/**`：wiki 实体重建（weapons 80 / equipment 258 / characters 32）

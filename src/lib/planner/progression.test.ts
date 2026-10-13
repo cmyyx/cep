@@ -424,10 +424,19 @@ describe('panel preview', () => {
     const hpAffixValue = hpAffix.values.at(-1) ?? 0
     const baseHp = plannerGameData.characters['chr_0009_azrila'].levels.at(-1)?.stats.find((stat) => stat.attributeId === '1')?.value ?? 0
 
-    const panelFor = async (modifierType: number | undefined) => {
+    // 生成数据现在总是带 modifierType, 所以旧数据要真的把字段删掉 (而不是传 undefined 不覆盖)
+    const panelFor = async (modifierType: number | null) => {
       const equipment = {
         ...plannerGameData.equipment,
-        [armorId]: armorStats.map((stat) => (stat.attributeId === '1' && modifierType !== undefined ? { ...stat, modifierType } : stat)),
+        [armorId]: armorStats.map((stat) => {
+          if (stat.attributeId !== '1') return stat
+          if (modifierType === null) {
+            const legacy: { attributeId: string; values: number[]; displayValues?: string[]; modifierType?: number } = { ...stat }
+            delete legacy.modifierType
+            return legacy
+          }
+          return { ...stat, modifierType }
+        }),
       }
       resetPlannerDataCacheForTests()
       setPlannerDataImporterForTests(async () => ({
@@ -441,7 +450,7 @@ describe('panel preview', () => {
 
     try {
       const withPool = await panelFor(7)
-      const withoutField = await panelFor(undefined)
+      const withoutField = await panelFor(null)
       const strengthHp = Math.floor(withPool.strength) * plannerGameData.derivedAttributes.efficiencyOfSTR
 
       // 大雷斑 L9 = 最大生命值 +78%; 7 的固定值在 ×1.78 之后相加
@@ -457,14 +466,14 @@ describe('panel preview', () => {
 
   /**
    * 四维/生命等按上游 `AttributeMetaTable` 钳制 (旧数据无该字段则不钳制), 与 ModifierType 7 同样
-   * 用假装载器注入, 因为已提交数据要等下一次上游同步才会带上这两个字段。
+   * 用假装载器注入: 已提交数据现在两个字段都有, 注入是为了单独覆盖"旧数据/限值不同"的兼容分支。
    */
   it('clamps each base pool to the upstream attribute limits', async () => {
     const armorId = 'item_equip_t1_parts_tundra01_body_01'
     const panelFor = async (limits: Record<string, { min?: number; max?: number }> | undefined) => {
       resetPlannerDataCacheForTests()
       setPlannerDataImporterForTests(async () => ({
-        plannerGameData: { ...plannerGameData, ...(limits ? { attributeLimits: limits } : {}) },
+        plannerGameData: { ...plannerGameData, attributeLimits: limits },
         wikiCharacters: [],
         wikiWeapons: [],
       }))
@@ -473,6 +482,7 @@ describe('panel preview', () => {
     }
 
     try {
+      // 旧数据 (无 attributeLimits) 不做任何钳制
       const unlimited = await panelFor(undefined)
       // 力量上限压到 300: 池内先加固定值再乘 (1+%) 后钳制到 300
       const maxed = await panelFor({ '39': { min: 0, max: 300 } })
