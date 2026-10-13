@@ -8,9 +8,10 @@ import { generateMetadataI18n } from './lib/generate-metadata'
 import { generateStatI18n } from './lib/generate-stat-i18n'
 import { generateCharacterI18n } from './lib/generate-characters'
 import { generateWikiData } from './lib/generate-wiki-data'
-import { describeGachaPoolData, generateGachaPoolData } from './lib/generate-gacha-pools'
+import { describeGachaPoolData, loadGachaPoolData } from './lib/gacha-pools'
 import { describeForesightData, generateForesightData } from './lib/generate-foresight'
 import { migrateForesightWeapons } from './lib/migrate-foresight-weapons'
+import { updateBannerFile } from './lib/update-banner-file'
 import { exportGameI18nTables } from './lib/export-game-i18n'
 import { compareWeapons } from './lib/compare-weapons'
 import { compareEquips } from './lib/compare-equips'
@@ -205,6 +206,14 @@ async function main() {
   }
 
   const generatedRoot = join(projectRoot, 'src', 'generated', 'i18n')
+  // 客户端角色 id -> 简中名 (上个步骤刚重新生成的 i18n 产物; 用于比对卡池 UP 名单)
+  const CHARACTER_NAME_BY_ID: Record<string, string> = (() => {
+    try {
+      return JSON.parse(readFileSync(join(generatedRoot, 'characters', 'zh-CN.json'), 'utf-8')) as Record<string, string>
+    } catch {
+      return {}
+    }
+  })()
   mkdirSync(generatedRoot, { recursive: true })
 
   // Weapons (AKEData as source)
@@ -363,22 +372,24 @@ async function main() {
 
   // Foresight weapons 已在上方 Weapons 步骤之前处理 (迁移正式 id + i18n), 此处不再重复。
 
-  // Gacha pools: 客户端 UP 名单 + 实际时间档 (entry[0]), 供卡牌日历自动同步
+  // Gacha pools: 客户端 UP 名单 + 实际时间档 (entry[0]), 直接写进 src/data/banner.ts
+  // (与武器/装备同样的做法: 数据只有一个落点, 没有并行的生成文件在运行时合并)
   if (mode === 'update') {
-    console.log('\n-- Gacha pools --')
-    const gp = generateGachaPoolData(paths.akedata, join(projectRoot, 'src', 'generated', 'data'))
-    for (const line of describeGachaPoolData(gp.data)) console.log('  ' + line)
-    // 日历排期以上游为准; 手写档期被自动修正的条目在这里列出 (不阻塞同步)。
-    // 动态 import: 必须等上面重新生成 gacha-pools.ts 之后再读取。
-    try {
-      const { bannerScheduleRepairs } = await import('../src/data/banner')
-      console.log(`  日历自动修正 ${bannerScheduleRepairs.length} 处手写档期:`)
-      for (const repair of bannerScheduleRepairs) {
-        console.log(`    ${repair.entryId} / ${repair.character} ${repair.field}: ${repair.handWritten} → ${repair.upstream}`)
-      }
-    } catch (error: unknown) {
-      console.warn(`  日历修正检查跳过: ${error instanceof Error ? error.message : String(error)}`)
+    console.log('\n-- Gacha pools -> banner.ts --')
+    const pools = loadGachaPoolData(paths.akedata)
+    for (const line of describeGachaPoolData(pools)) console.log('  ' + line)
+    const bannerUpdate = updateBannerFile(
+      join(projectRoot, 'src', 'data', 'banner.ts'),
+      pools.pools,
+      CHARACTER_NAME_BY_ID,
+      true,
+    )
+    for (const entry of bannerUpdate.updated) {
+      console.log(`  ${entry.entryId} (${entry.poolId}):`)
+      for (const change of entry.changes) console.log(`    ${change}`)
     }
+    if (bannerUpdate.pending.length > 0) console.log(`  上游未下发, 保留手写档期: ${bannerUpdate.pending.join(', ')}`)
+    for (const issue of bannerUpdate.issues) console.warn(`  ⚠ ${issue}`)
   }
 
   // Generate stat i18n — gemStats (weapons/dungeons) + equipStats (equipment)

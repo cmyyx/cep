@@ -25,7 +25,6 @@ vi.mock('@/data/banner', () => ({
     },
   ],
   // 档期辅助函数: 测试里直接用条目自带的公告口径
-  entryWindow: (entry: { periodStart: string; periodEnd: string }) => ({ start: entry.periodStart, end: entry.periodEnd }),
 }))
 
 afterEach(() => {

@@ -1,14 +1,42 @@
-// Generates the client-side gacha pool table (UP 角色 + 实际时间档) for the
-// banner calendar. 数据源全部是客户端表, 不含任何人工推算:
+// 读取客户端卡池表 (UP 角色 + 实际时间档 + 池名), 供 `update-banner-file.ts` 直接更新
+// `src/data/banner.ts` —— 不产出独立数据文件 (卡池日历只有一个数据来源: banner.ts)。
+// 数据源全部是客户端表, 不含任何人工推算:
 //   - GachaCharPoolTable.json       卡池 -> upCharIds (UP 名单, 多 UP 为数组) + type
 //   - GachaCharPoolContentTable.json 池内容; isHardGuaranteeItem 为交叉校验信号
 //   - TimeRangeTable.json           time_<poolId> -> timeRangeList (取 entry[0])
 // ================================================================================
 
-import { existsSync, mkdirSync, writeFileSync } from 'node:fs'
+import { existsSync } from 'node:fs'
 import { join } from 'node:path'
 import { parseJsonSafe } from './json-utils'
-import type { GachaPoolData, GachaPoolKind, GachaPoolWindow } from '../../src/types/banner'
+import { loadAllTextTables } from './stat-mapping'
+
+/** 池型 (`GachaCharPoolTable.type`) 的语义。与池 id 前缀互相印证 (special_* / joint_* / rerun_*)。 */
+export type GachaPoolKind = 'special' | 'beginner' | 'standard' | 'joint' | 'rerun'
+
+/** 单个卡池 (含实际时间档)。 */
+export interface GachaPool {
+  poolId: string
+  kind: GachaPoolKind
+  /** 上游池名 (简中), 取自 `GachaCharPoolTable.name.id` → I18nTextTable_CN */
+  title: string
+  /** 概率提升角色, 多 UP 为多个 */
+  upCharacterIds: string[]
+  /** 客户端实际开池时刻: 维护提前结束即可抽, 早于公告口径的 12:00 */
+  start: string
+  /** 结束时间尚未写定时为 null (客户端 closeTime 为空) */
+  end: string | null
+  /** 实际使用的 TimeRangeTable 键 (复刻池的档期挂在 time_rerun_<版本> 上) */
+  timeKey: string
+}
+
+export interface GachaPoolData {
+  pools: GachaPool[]
+  /** 有档期但客户端还没有卡池行的窗口 (如实记录, 不猜 UP) */
+  scheduledWithoutPool: Array<{ poolId: string; start: string; end: string | null }>
+  /** 自检结果: 缺 UP 名单 / 缺时间档 / 与池内容表不一致 */
+  issues: string[]
+}
 
 /** `GachaCharPoolTable.type` -> 语义。与池 id 前缀互相印证 (special_* / joint_* / rerun_*)。 */
 const KIND_BY_TYPE: Record<number, GachaPoolKind> = {
@@ -46,6 +74,8 @@ interface PoolRow {
   id?: unknown
   type?: unknown
   upCharIds?: unknown
+  /** 池名文本 id (`parseJsonSafe` 无损 -> 字符串) */
+  name?: { id?: unknown }
   /** 池行的 UI 资源名: 复刻池的版本号只写在这里 (如 GachaPoolNodeRerun_1_5_2) */
   uiPrefab?: unknown
   nameImage?: unknown
@@ -63,6 +93,15 @@ export interface GachaPoolSources {
   contentTable: Record<string, ContentRow>
   /** TimeRangeTable.json */
   timeRangeTable: Record<string, { timeRangeList?: TimeRangeEntry[] }>
+  /** I18nTextTable_*.json (只用到简中): 池名 name.id -> 文本 */
+  textTables: Record<string, Record<string, string>>
+}
+
+/** 池名: `name.id` (字符串, 无损) → 简中文本; 取不到就返回空串 (不猜) */
+function poolTitle(textTables: GachaPoolSources['textTables'], row: PoolRow): string {
+  const id = row.name?.id === undefined ? '' : String(row.name.id)
+  if (!id) return ''
+  return textTables['zh-CN']?.[id] ?? ''
 }
 
 /** 池型 -> `TimeRangeTable` 键的家族前缀 (复刻/联合/特许都是 `time_<家族>_<版本>`) */
@@ -118,8 +157,8 @@ export function resolveLinkedTimeKey(
  * `issues` 是自检结果 (不阻塞生成): 缺 UP 名单、缺时间档、与池内容表的 UP 标记不一致。
  */
 export function buildGachaPoolData(sources: GachaPoolSources): GachaPoolData {
-  const { poolTable, contentTable, timeRangeTable } = sources
-  const pools: GachaPoolWindow[] = []
+  const { poolTable, contentTable, timeRangeTable, textTables } = sources
+  const pools: GachaPool[] = []
   const issues: string[] = []
   const scheduledWithoutPool: GachaPoolData['scheduledWithoutPool'] = []
   const knownPoolIds = new Set(Object.keys(poolTable))
@@ -159,7 +198,7 @@ export function buildGachaPoolData(sources: GachaPoolSources): GachaPoolData {
       continue
     }
     claimedTimeKeys.add(timeKey)
-    pools.push({ poolId, kind, upCharacterIds, start, end, timeKey })
+    pools.push({ poolId, kind, title: poolTitle(textTables, row), upCharacterIds, start, end, timeKey })
   }
 
   for (const key of Object.keys(timeRangeTable).sort()) {
@@ -176,37 +215,22 @@ export function buildGachaPoolData(sources: GachaPoolSources): GachaPoolData {
   return { pools, scheduledWithoutPool, issues }
 }
 
-export interface GachaPoolGenerationResult {
-  file: string
-  data: GachaPoolData
-}
-
 function readTable<T>(akedataPath: string, name: string): T {
   const path = join(akedataPath, 'TableCfg', `${name}.json`)
-  if (!existsSync(path)) throw new Error(`generate-gacha-pools: 缺少上游表 ${path}`)
+  if (!existsSync(path)) throw new Error(`gacha-pools: 缺少上游表 ${path}`)
   return parseJsonSafe(path) as T
 }
 
-/** 读取上游表并写出 `src/generated/data/gacha-pools.ts`。 */
-export function generateGachaPoolData(akedataPath: string, outputDir: string): GachaPoolGenerationResult {
-  const data = buildGachaPoolData({
+/**
+ * 读取上游表并组装卡池数据 (纯返回, 不写文件 —— 卡池日历的数据落点是 `src/data/banner.ts`)。
+ */
+export function loadGachaPoolData(akedataPath: string): GachaPoolData {
+  return buildGachaPoolData({
     poolTable: readTable<Record<string, PoolRow>>(akedataPath, 'GachaCharPoolTable'),
     contentTable: readTable<Record<string, ContentRow>>(akedataPath, 'GachaCharPoolContentTable'),
     timeRangeTable: readTable<Record<string, { timeRangeList?: TimeRangeEntry[] }>>(akedataPath, 'TimeRangeTable'),
+    textTables: loadAllTextTables(akedataPath),
   })
-
-  mkdirSync(outputDir, { recursive: true })
-  const file = join(outputDir, 'gacha-pools.ts')
-  const content = `// Auto-generated by scripts/lib/generate-gacha-pools.ts.
-// DO NOT EDIT MANUALLY.
-import type { GachaPoolData } from '@/types/banner'
-
-export const gachaPoolData: GachaPoolData = ${JSON.stringify(data, null, 2)}
-
-export default gachaPoolData
-`
-  writeFileSync(file, content, 'utf8')
-  return { file, data }
 }
 
 /** 供同步流程打印的摘要。 */

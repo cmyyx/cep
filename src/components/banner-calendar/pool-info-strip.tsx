@@ -13,7 +13,7 @@ import {
 } from '@/components/ui/dialog'
 import { cn } from '@/lib/utils'
 import { withImageCacheVersion } from '@/lib/image-url'
-import { bannerEntries, entryWindow } from '@/data/banner'
+import { bannerEntries } from '@/data/banner'
 import type { BannerEntry } from '@/data/banner'
 
 const CARD_CLOSE_DURATION = 150 // ms — must match `duration-150` in animation classes
@@ -43,8 +43,8 @@ function PoolCard({
   onSelect: (visual: BannerEntry) => void
 }) {
   const locale = useLocale()
-  // 档期以上游为准 (见 lib/banner-schedule); 客户端未下发该卡池时回退手写公告值
-  const window = entryWindow(visual)
+  // 档期已由同步按客户端数据就地写入 banner.ts (见 scripts/lib/update-banner-file.ts)
+  const window = { start: visual.periodStart, end: visual.periodEnd }
   const cardRef = useRef<HTMLButtonElement | null>(null)
   const [inView, setInView] = useState(eager)
 
@@ -296,7 +296,7 @@ export function PoolInfoStrip() {
                     <div className="flex items-center gap-2 text-xs text-muted-foreground mb-2">
                       <span className="font-medium">{t('bannerCalendar.poolDuration')}:</span>
                       <span>
-                        {formatDate(entryWindow(selectedVisual).start, locale)} - {formatDate(entryWindow(selectedVisual).end, locale)}
+                        {formatDate(selectedVisual.periodStart, locale)} - {formatDate(selectedVisual.periodEnd, locale)}
                       </span>
                     </div>
 

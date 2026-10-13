@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { buildGachaPoolData, parseClientTime, type GachaPoolSources } from './generate-gacha-pools'
+import { buildGachaPoolData, parseClientTime, type GachaPoolSources } from './gacha-pools'
 
 /** 精简自真实上游数据 (1.5 期): 特许池单 UP / 联合池双 UP / 复刻池无时间档 / 复刻窗口无卡池行。 */
 function sources(): GachaPoolSources {
@@ -15,6 +15,7 @@ function sources(): GachaPoolSources {
       joint_1_2_2: { list: [{ charId: 'chr_0016_laevat', isHardGuaranteeItem: false }, { charId: 'chr_0013_aglina', isHardGuaranteeItem: false }] },
       special_1_5_1: { list: [{ charId: 'chr_0034_typhoea', isHardGuaranteeItem: true }, { charId: 'chr_0035_liino', isHardGuaranteeItem: false }] },
     },
+    textTables: { 'zh-CN': { '-5316297970819701000': '启程寻访' } },
     timeRangeTable: {
       time_special_1_5_1: { timeRangeList: [{ openTime: '2026/9/2 7:00:00', closeTime: '2026/9/30 12:00:00' }, { openTime: '2026/9/2 7:00:00', closeTime: '2026/9/30 12:00:00' }, { openTime: '2026/9/1 18:00:00', closeTime: '2026/9/30 12:00:00' }] },
       time_joint_1_2_2: { timeRangeList: [{ openTime: '2026/5/14 12:00:00', closeTime: '2026/6/5 6:00:00' }] },
