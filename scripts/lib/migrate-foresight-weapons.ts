@@ -33,8 +33,10 @@ export interface ForesightMigrationResult {
   content: string
   /** 本次迁成正式 id 的条目 */
   migrated: Array<{ previewId: string; formalId: string }>
-  /** 已迁过 (id 已是正式 id) 的条目, 无需处理 */
+  /** 已迁过 (id 已是正式 id) 的条目 */
   already: string[]
+  /** 原本没标前瞻状态、已补上 `source: 'preview'` 的条目 */
+  repaired: string[]
   /** 需要人工处理: 找不到条目 / id 冲突 / 字段对不上 */
   skipped: string[]
 }
@@ -46,6 +48,15 @@ const TYPE_NAME_BY_WEAPON_TYPE: Record<string, string> = {
   '3': '双手剑',
   '5': '长柄武器',
   '6': '手铳',
+}
+
+/** 给条目补上前瞻状态 (上游前瞻表里有 = 未上线), 返回补过的行。 */
+function ensurePreviewSource(line: string): string {
+  if (/source:\s*'preview'/.test(line)) return line
+  // 行尾形如 `, chars: [...], },` / `, },` -> 插到收尾的 ` }` 之前
+  const index = line.lastIndexOf(' }')
+  if (index < 0) return line
+  return `${line.slice(0, index)}, source: 'preview'${line.slice(index)}`
 }
 
 /** `gat_passive_attr_wisd` / `gst_passive_keyword` → 客户端 gemTagId (`attr_wisd` / `keyword`) */
@@ -95,16 +106,41 @@ export function migrateForesightWeaponsFile(content: string, targets: ForesightW
   const lines = content.split('\n')
   const migrated: Array<{ previewId: string; formalId: string }> = []
   const already: string[] = []
+  const repairedIds: string[] = []
   const skipped: string[] = []
   // 迁移护栏: 不覆盖已存在的正式 id, 也不让两个前瞻条目撞到同一个 id
   const existingFormalIds = new Set([...content.matchAll(/\bid:\s*'(wpn_[^']+)'/g)].map((match) => match[1]))
   const plannedFormalIds = new Set<string>()
 
   for (const target of targets) {
+    // 已迁移 (条目 id 就是正式 id): 只确认前瞻状态还在, 不重复迁移也不报冲突
+    if (target.previewId === target.formalId) {
+      const formalIndex = lines.findIndex((line) => line.includes(`id: '${target.formalId}'`))
+      if (formalIndex < 0) {
+        skipped.push(`${target.formalId}: weapons.ts 里找不到该条目`)
+        continue
+      }
+      already.push(`${target.formalId} (${target.name})`)
+      const repaired = ensurePreviewSource(lines[formalIndex])
+      if (repaired !== lines[formalIndex]) {
+        lines[formalIndex] = repaired
+        repairedIds.push(target.formalId)
+      }
+      continue
+    }
     const lineIndex = lines.findIndex((line) => line.includes(`id: '${target.previewId}'`))
     if (lineIndex < 0) {
       if (existingFormalIds.has(target.formalId)) {
         already.push(`${target.formalId} (${target.name})`)
+        // 已用正式 id 但漏标前瞻状态 -> 补上 (上游前瞻表是唯一真源)
+        const formalIndex = lines.findIndex((line) => line.includes(`id: '${target.formalId}'`))
+        if (formalIndex >= 0) {
+          const repaired = ensurePreviewSource(lines[formalIndex])
+          if (repaired !== lines[formalIndex]) {
+            lines[formalIndex] = repaired
+            repairedIds.push(target.formalId)
+          }
+        }
       } else {
         skipped.push(`${target.previewId}: weapons.ts 里找不到该条目, 也没有 ${target.formalId}`)
       }
@@ -119,13 +155,15 @@ export function migrateForesightWeaponsFile(content: string, targets: ForesightW
       skipped.push(`${target.previewId}: 与上游不一致 (${problems.join('; ')}) — 未迁移`)
       continue
     }
-    lines[lineIndex] = lines[lineIndex].replace(`id: '${target.previewId}'`, `id: '${target.formalId}'`)
+    const beforeSource = lines[lineIndex]
+    lines[lineIndex] = ensurePreviewSource(beforeSource.replace(`id: '${target.previewId}'`, `id: '${target.formalId}'`))
+    if (!/source:\s*'preview'/.test(beforeSource)) repairedIds.push(target.formalId)
     existingFormalIds.add(target.formalId)
     plannedFormalIds.add(target.formalId)
     migrated.push({ previewId: target.previewId, formalId: target.formalId })
   }
 
-  return { content: lines.join('\n'), migrated, already, skipped }
+  return { content: lines.join('\n'), migrated, already, repaired: repairedIds, skipped }
 }
 
 /** 读取 `src/data/weapons.ts`, 迁移 (updateMode) 或只报告。 */
@@ -133,10 +171,12 @@ export function migrateForesightWeapons(
   weaponsTsPath: string,
   targets: ForesightWeaponTarget[],
   updateMode: boolean,
-): { migrated: ForesightMigrationResult['migrated']; already: string[]; skipped: string[] } {
-  if (!existsSync(weaponsTsPath)) return { migrated: [], already: [], skipped: ['weapons.ts 不存在'] }
+): { migrated: ForesightMigrationResult['migrated']; already: string[]; repaired: string[]; skipped: string[] } {
+  if (!existsSync(weaponsTsPath)) return { migrated: [], already: [], repaired: [], skipped: ['weapons.ts 不存在'] }
   const content = readFileSync(weaponsTsPath, 'utf-8')
   const result = migrateForesightWeaponsFile(content, targets)
-  if (updateMode && result.migrated.length > 0) writeFileSync(weaponsTsPath, result.content, 'utf-8')
-  return { migrated: result.migrated, already: result.already, skipped: result.skipped }
+  if (updateMode && (result.migrated.length > 0 || result.repaired.length > 0)) {
+    writeFileSync(weaponsTsPath, result.content, 'utf-8')
+  }
+  return { migrated: result.migrated, already: result.already, repaired: result.repaired, skipped: result.skipped }
 }

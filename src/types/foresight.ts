@@ -29,12 +29,12 @@ export interface ForesightWeaponEntry {
   /** 升级材料汇总 ([itemId, count]) */
   materials: Array<[string, number]>
   /**
-   * `src/data/weapons.ts` 里对应的前瞻条目 (`preview:名称`), 按 类型+稀有度+标签三元组 匹配。
-   * 唯一命中时可以用正式 ID 的图标替换预览图; 多个候选 (两把标签完全相同的双手剑) 需要人工确认。
+   * `src/data/weapons.ts` 里对应的前台条目 id (`preview:名称` 或迁移后的正式 id)。
+   * 匹配优先按名字 (客户端文本 CN == 条目 name), 文本缺失时退回 类型+稀有度+gemTagIds 三元组。
    */
-  previewCandidates: string[]
-  /** 匹配结果: unique=可自动挂载, ambiguous=多候选待确认, none=没有对应预览条目 */
-  previewMatch: 'unique' | 'ambiguous' | 'none'
+  matchedEntryIds: string[]
+  /** 匹配结果: unique=唯一命中可自动处理, ambiguous=多候选待确认, none=没有对应条目 */
+  match: 'unique' | 'ambiguous' | 'none'
 }
 
 export interface ForesightData {

@@ -102,8 +102,8 @@ describe('buildForesightData', () => {
 
   it('matches the CEP preview entry by type + rarity + gem tags', () => {
     const { weapons, issues } = buildForesightData(sources())
-    expect(weapons[0].previewCandidates).toEqual(['preview:玉中身'])
-    expect(weapons[0].previewMatch).toBe('unique')
+    expect(weapons[0].matchedEntryIds).toEqual(['preview:玉中身'])
+    expect(weapons[0].match).toBe('unique')
     expect(issues.some((issue) => issue.includes('没有对应的前瞻条目'))).toBe(false)
   })
 
@@ -115,8 +115,8 @@ describe('buildForesightData', () => {
       weapons: [...sources().weapons, twin],
     })
     const matched = buildForesightData(withText)
-    expect(matched.weapons[0].previewCandidates).toEqual(['preview:玉中身'])
-    expect(matched.weapons[0].previewMatch).toBe('unique')
+    expect(matched.weapons[0].matchedEntryIds).toEqual(['preview:玉中身'])
+    expect(matched.weapons[0].match).toBe('unique')
   })
 
   it('falls back to the tag triple when the client text is missing, and reports no match', () => {
@@ -126,11 +126,11 @@ describe('buildForesightData', () => {
       { ...sources().weapons[0], id: 'preview:悠久传承', name: '悠久传承' },
     ] }
     const ambiguous = buildForesightData(noText)
-    expect(ambiguous.weapons[0].previewMatch).toBe('ambiguous')
+    expect(ambiguous.weapons[0].match).toBe('ambiguous')
     expect(ambiguous.issues.some((issue) => issue.includes('需人工确认'))).toBe(true)
 
     const none = buildForesightData(sources({ weapons: [] }))
-    expect(none.weapons[0].previewMatch).toBe('none')
+    expect(none.weapons[0].match).toBe('none')
     expect(none.issues.some((issue) => issue.includes('没有对应的前瞻条目'))).toBe(true)
   })
 

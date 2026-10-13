@@ -70,4 +70,20 @@ describe('migrateForesightWeaponsFile', () => {
     expect(missing.migrated).toEqual([])
     expect(missing.skipped.some((reason) => reason.includes('找不到'))).toBe(true)
   })
+
+  it('adds the foresight state when a preview entry lacks source', () => {
+    const withoutSource = WEAPONS_TS.replace(", source: 'preview' }", ' }')
+    const { content, repaired } = migrateForesightWeaponsFile(withoutSource, [TARGETS[0]])
+    expect(repaired).toEqual(['wpn_claym_0018'])
+    expect(content).toMatch(/id: 'wpn_claym_0018'[^\n]*source: 'preview'[^\n]*\},$/m)
+  })
+
+  it('adds the foresight state on an entry that already uses the formal id', () => {
+    const formal = WEAPONS_TS.replace("id: 'preview:玉中身', name: '玉中身'", "id: 'wpn_claym_0018', name: '玉中身'").replace(", chars: ['祀'], source: 'preview' }", ", chars: ['祀'] }")
+    const { content, migrated, already, repaired } = migrateForesightWeaponsFile(formal, [TARGETS[0]])
+    expect(migrated).toEqual([])
+    expect(already).toHaveLength(1)
+    expect(repaired).toEqual(['wpn_claym_0018'])
+    expect(content).toMatch(/id: 'wpn_claym_0018'[^\n]*source: 'preview'[^\n]*\},$/m)
+  })
 })

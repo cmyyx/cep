@@ -14,7 +14,6 @@ import { getCharacterAvatarPath } from '@/lib/character-images'
 import { PlannerWikiPreview } from '@/components/shared/planner-wiki-preview'
 import { ItemFrameBackground } from '@/components/shared/item-frame-background'
 import { getWeaponWikiPreview } from '@/lib/weapon-wiki-preview'
-import { isForesightWeapon } from '@/lib/foresight-weapons'
 import { acquisitionCategoryIds, acquisitionCategoryLabelText } from '@/lib/weapon-acquisition'
 import { useWikiTranslations } from '@/hooks/use-wiki-translations'
 import { weaponStatLabel } from '@/lib/weapon-stats'
@@ -67,8 +66,8 @@ export const WeaponCard = memo(function WeaponCard({
   const wid = weapon.id || 'wpn_sword_0001'
   const isCustom = wid.startsWith('custom-')
   const isPreview = wid.startsWith('preview:')
-  // 前瞻状态: 手写 source (公告已出) 或客户端前瞻表自动识别 (正式 id 但未上线)
-  const isForesight = weapon.source === 'preview' || isForesightWeapon(wid)
+  // 前瞻 (未上线) 状态由同步维护: 前瞻表里有 -> source: 'preview', 实装后自动去掉 (见 scripts/lib/migrate-foresight-weapons.ts)
+  const isForesight = weapon.source === 'preview'
   const showsPlaceholderArt = isCustom || isPreview
   // 优先使用 iconId（游戏原始资源映射，如 wpn_funnel_0008/0010 交叉指向）
   const imageId = weapon.iconId ?? wid

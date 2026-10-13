@@ -214,14 +214,15 @@ async function main() {
   // (compareWeapons / updateWeaponsFile / generateWeaponI18n) 会把它们当普通武器处理;
   // 实装那天由 updatePreviewWeapons + updateWeaponsFile 接管其余字段。
   console.log('\n-- Foresight weapons --')
-  const foresight = generateForesightData(paths.akedata, join(projectRoot, 'src', 'generated', 'data'))
-  for (const line of describeForesightData(foresight.data)) console.log('  ' + line)
+  const foresight = generateForesightData(paths.akedata)
+  for (const line of describeForesightData(foresight)) console.log('  ' + line)
   // 上场条目唯一命中 -> 迁到正式 id; 任何字段与上游对不上就只报告不迁移 (migrate-foresight-weapons.ts)
-  const foresightTargets = foresight.data.weapons
-    .filter((weapon) => weapon.previewMatch === 'unique' && weapon.previewCandidates.length === 1)
+  const foresightTargets = foresight.weapons
+    .filter((weapon) => weapon.match === 'unique' && weapon.matchedEntryIds.length === 1)
     .map((weapon) => ({
       formalId: weapon.id,
-      previewId: weapon.previewCandidates[0],
+      // 迁移过之后条目 id 就是正式 id; 迁移模块把这种情况当"已迁移"处理 (只补 source)
+      previewId: weapon.matchedEntryIds[0],
       name: weapon.names?.['zh-CN'] ?? '',
       rarity: weapon.rarity,
       weaponTypeId: weapon.weaponTypeId,
@@ -233,6 +234,7 @@ async function main() {
     console.log(`  迁移到正式 id: ${entry.previewId} -> ${entry.formalId} (保留 source: 'preview')`)
   }
   if (foresightMigration.already.length > 0) console.log(`  已是正式 id: ${foresightMigration.already.join(', ')}`)
+  if (foresightMigration.repaired.length > 0) console.log(`  补上前瞻状态 source: 'preview': ${foresightMigration.repaired.join(', ')}`)
   for (const reason of foresightMigration.skipped) console.warn(`  SKIPPED ${reason}`)
 
   console.log('\n-- Weapons --')
@@ -288,7 +290,7 @@ async function main() {
     if (iconIdFix.added > 0 || iconIdFix.updated > 0) {
       console.log(`  iconId reconciled: ${iconIdFix.added} added, ${iconIdFix.updated} updated, ${iconIdFix.unchanged} unchanged`)
     }
-    const wI18n = generateWeaponI18n(paths.akedata, generatedRoot, foresight.data.weapons.map((weapon) => ({
+    const wI18n = generateWeaponI18n(paths.akedata, generatedRoot, foresight.weapons.map((weapon) => ({
       id: weapon.id,
       rarity: weapon.rarity,
       names: weapon.names ?? {},
