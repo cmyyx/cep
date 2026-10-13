@@ -1,6 +1,6 @@
 // @vitest-environment jsdom
 import { afterEach, beforeEach, describe, it, expect, vi } from 'vitest'
-import { cleanup, fireEvent, render, screen } from '@testing-library/react'
+import { act, cleanup, fireEvent, render, screen } from '@testing-library/react'
 import { useBannerStore } from '@/stores/useBannerStore'
 import type { RerunWaitStat, TimelineData } from '@/types/banner'
 import { RerunWaitSection } from './rerun-wait-section'
@@ -13,8 +13,10 @@ const mockT = (key: string, params?: Record<string, string | number>) =>
         .map(([k, v]) => `${k}=${v}`)
         .join(' ')})`
     : key
+let mockLocale = 'zh-CN'
 vi.mock('next-intl', () => ({
   useTranslations: () => mockT,
+  useLocale: () => mockLocale,
 }))
 
 const EMPTY_TIMELINE: TimelineData = {
@@ -39,6 +41,7 @@ function renderSection(stats: RerunWaitStat[] = FIXTURE_STATS) {
 }
 
 beforeEach(() => {
+  mockLocale = 'zh-CN'
   useBannerStore.setState({ timelineData: null, rerunWaitOrder: 'asc' })
 })
 
@@ -195,4 +198,84 @@ describe('RerunWaitSection', () => {
     expect(versionLine.textContent).toBe('')
     expect(versionLine.style.display).toBe('none')
   })
+
+  it('hides the card when the pointer leaves a row for the gap around it', () => {
+    const { tooltip, list } = renderSection()
+    const row = rowOf(list, '汤汤')
+
+    fireEvent.mouseMove(row, { clientX: 100, clientY: 300 })
+    expect(tooltip.style.display).toBe('block')
+
+    // The rows are 8px apart and the list pads them, so the pointer spends real
+    // time over no row at all while still inside the list.
+    fireEvent.mouseLeave(row)
+    expect(tooltip.style.display).toBe('none')
+  })
+
+  it('rewrites the card when the hovered character data changes under the pointer', () => {
+    const { tooltip, list } = renderSection()
+    const row = rowOf(list, '汤汤')
+
+    fireEvent.mouseMove(row, { clientX: 100, clientY: 300 })
+    expect(tooltip.textContent).toContain('bannerCalendar.rerunWaitTooltipDays(days=195)')
+
+    // A day rolls over (or the schedule syncs) while the pointer stays put.
+    act(() => {
+      useBannerStore.setState({
+        timelineData: {
+          ...EMPTY_TIMELINE,
+          rerunWaitStats: [{ ...FIXTURE_STATS[3], days: 196, lastEndLabel: '2026/3/28' }],
+        },
+      })
+    })
+    fireEvent.mouseMove(rowOf(list, '汤汤'), { clientX: 101, clientY: 300 })
+
+    expect(tooltip.textContent).toContain('bannerCalendar.rerunWaitTooltipDays(days=196)')
+    expect(tooltip.textContent).toContain('bannerCalendar.rerunWaitTooltipEnded(date=2026/3/28)')
+  })
+
+  it('rewrites the card after a locale change even on the same character', () => {
+    const { tooltip, list } = renderSection()
+    const row = rowOf(list, '汤汤')
+    const nameLine = tooltip.firstElementChild as HTMLElement
+
+    fireEvent.mouseMove(row, { clientX: 100, clientY: 300 })
+    expect(nameLine.textContent).toBe('汤汤')
+
+    // Cache keyed on the character alone would skip the rewrite and leave the
+    // card in the previous language, so the blanked line has to come back.
+    nameLine.textContent = ''
+    // A real locale switch re-renders with fresh labels while the values stay
+    // the same, which is the only thing this key has to catch.
+    act(() => {
+      mockLocale = 'en'
+      useBannerStore.setState({
+        timelineData: { ...EMPTY_TIMELINE, rerunWaitStats: FIXTURE_STATS.map((s) => ({ ...s })) },
+      })
+    })
+    fireEvent.mouseMove(row, { clientX: 101, clientY: 300 })
+
+    expect(nameLine.textContent).toBe('汤汤')
+  })
+
+  it('keeps the card inside the viewport at the bottom-right corner', () => {
+    const { tooltip, list } = renderSection()
+    const row = rowOf(list, '汤汤')
+
+    fireEvent.mouseMove(row, { clientX: window.innerWidth - 20, clientY: window.innerHeight - 10 })
+
+    // jsdom viewport is 1024x768; the card box is 260x90 with a 4px edge margin.
+    expect(tooltip.style.left).toBe(`${window.innerWidth - 264}px`)
+    expect(tooltip.style.top).toBe(`${window.innerHeight - 94}px`)
+  })
 })
+
+/** Rows are direct children of the list; looked up by name so the hover card
+ *  cannot be matched by mistake once it repeats the same text. */
+function rowOf(list: HTMLElement, name: string): HTMLElement {
+  const row = Array.from(list.children).find(
+    (el) => (el as HTMLElement).textContent?.startsWith(name),
+  ) as HTMLElement
+  expect(row).toBeTruthy()
+  return row
+}

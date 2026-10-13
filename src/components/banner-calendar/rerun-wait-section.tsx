@@ -1,7 +1,7 @@
 'use client'
 
 import { useCallback, useRef } from 'react'
-import { useTranslations } from 'next-intl'
+import { useLocale, useTranslations } from 'next-intl'
 import { ArrowDownNarrowWide, ArrowUpNarrowWide } from 'lucide-react'
 import { useBannerStore, type RerunWaitOrder } from '@/stores/useBannerStore'
 import { Button } from '@/components/ui/button'
@@ -13,6 +13,19 @@ import { cn } from '@/lib/utils'
  * fits after the longest bar without clipping the row.
  */
 const PLOT_SCALE = 1.15
+
+/**
+ * The hover card never wraps, so its box is stable: the widest localized
+ * content measured 193x84px. Clamping with these constants instead of reading
+ * offsetWidth keeps a layout pass off every pointer move.
+ */
+const TIP_W = 260
+const TIP_H = 90
+
+/** Pointer-to-card offset, and the margin kept from the viewport edges. */
+const TIP_GAP_X = 14
+const TIP_GAP_Y = 48
+const TIP_EDGE = 4
 
 /**
  * Name colors for the three longest waits (gold / silver / bronze). Every
@@ -47,6 +60,7 @@ const ORDER_LABELS: Record<RerunWaitOrder, string> = {
 
 export function RerunWaitSection() {
   const t = useTranslations()
+  const locale = useLocale()
   const stats = useBannerStore((s) => s.timelineData?.rerunWaitStats)
   const order = useBannerStore((s) => s.rerunWaitOrder)
   const toggleOrder = useBannerStore((s) => s.toggleRerunWaitOrder)
@@ -59,10 +73,10 @@ export function RerunWaitSection() {
   const tooltipDaysRef = useRef<HTMLDivElement>(null)
   const tooltipEndedRef = useRef<HTMLDivElement>(null)
   const tooltipVersionRef = useRef<HTMLDivElement>(null)
-  const hoveredNameRef = useRef('')
+  const hoveredKeyRef = useRef('')
 
   const hideTooltip = useCallback(() => {
-    hoveredNameRef.current = ''
+    hoveredKeyRef.current = ''
     if (tooltipRef.current) tooltipRef.current.style.display = 'none'
   }, [])
 
@@ -71,12 +85,24 @@ export function RerunWaitSection() {
       const tip = tooltipRef.current
       if (!tip) return
 
-      tip.style.left = `${Math.min(e.clientX + 14, window.innerWidth - 260)}px`
-      tip.style.top = `${Math.max(e.clientY - 48, 4)}px`
+      const left = Math.max(
+        Math.min(e.clientX + TIP_GAP_X, window.innerWidth - TIP_W - TIP_EDGE),
+        TIP_EDGE,
+      )
+      const top = Math.min(
+        Math.max(e.clientY - TIP_GAP_Y, TIP_EDGE),
+        window.innerHeight - TIP_H - TIP_EDGE,
+      )
+      tip.style.left = `${left}px`
+      tip.style.top = `${top}px`
       tip.style.display = 'block'
 
-      if (hoveredNameRef.current === stat.name) return
-      hoveredNameRef.current = stat.name
+      // Cached on everything the card renders, not just the character name: a
+      // store refresh or a locale switch can change the days, the ended date or
+      // the wording under a pointer that never left its row.
+      const key = `${stat.name}|${stat.days}|${stat.lastEndLabel}|${stat.lastVersion}|${locale}`
+      if (hoveredKeyRef.current === key) return
+      hoveredKeyRef.current = key
       if (tooltipNameRef.current) tooltipNameRef.current.textContent = stat.name
       if (tooltipDaysRef.current) {
         tooltipDaysRef.current.textContent = t('bannerCalendar.rerunWaitTooltipDays', { days: stat.days })
@@ -89,7 +115,7 @@ export function RerunWaitSection() {
         tooltipVersionRef.current.style.display = stat.lastVersion ? '' : 'none'
       }
     },
-    [t],
+    [locale, t],
   )
 
   if (!stats || stats.length === 0) return null
@@ -147,6 +173,10 @@ export function RerunWaitSection() {
               key={s.name}
               className="flex items-center gap-2"
               onMouseMove={(e) => handleRowMove(e, s)}
+              // Rows sit 8px apart (more when justify-between spreads them) and
+              // the list also pads them, so the list-level mouseleave alone
+              // would leave this card floating over a row nobody is on.
+              onMouseLeave={hideTooltip}
             >
               <span
                 data-rank={rank}
