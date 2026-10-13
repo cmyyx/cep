@@ -580,6 +580,8 @@
     "importInvalidFormat": "Invalid file format. Please select a JSON file exported by this tool.",
     "importParseError": "JSON parse failed. The file may be corrupted.",
     "importReadError": "Failed to read file",
+    "importApplyError": "Import failed partway through — some data may not be applied. Please retry.",
+    "importing": "Importing…",
     "exportTitle": "Export Data",
     "exportSelectModules": "Select modules to export:",
     "exportSelected": "Export Selected",

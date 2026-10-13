@@ -59,6 +59,17 @@ function ensurePreviewSource(line: string): string {
   return `${line.slice(0, index)}, source: 'preview'${line.slice(index)}`
 }
 
+/**
+ * 行首的 `id: 'xxx'` 字段匹配 (锚定, 不做子串包含)。
+ *
+ * `line.includes("id: 'wpn_x'")` 会误命中别的字段: 例如 `previewId: 'preview:唤月'`
+ * 含子串 `id: 'preview:唤月'`; `[\`{,\`]` 前缀把它限定为对象的 id 字段。
+ */
+function lineId(line: string): string | null {
+  const match = /(?:^|[{,]) *id: *'([^']*)'/.exec(line)
+  return match ? match[1] : null
+}
+
 /** `gat_passive_attr_wisd` / `gst_passive_keyword` → 客户端 gemTagId (`attr_wisd` / `keyword`) */
 function normalizeClientTag(cepTag: string): string {
   return cepTag.replace(/^ga?t_passive_/, '').replace(/^gst_passive_/, '')
@@ -109,13 +120,13 @@ export function migrateForesightWeaponsFile(content: string, targets: ForesightW
   const repairedIds: string[] = []
   const skipped: string[] = []
   // 迁移护栏: 不覆盖已存在的正式 id, 也不让两个前瞻条目撞到同一个 id
-  const existingFormalIds = new Set([...content.matchAll(/\bid:\s*'(wpn_[^']+)'/g)].map((match) => match[1]))
+  const existingFormalIds = new Set(lines.map(lineId).filter((id): id is string => id !== null && id.startsWith('wpn_')))
   const plannedFormalIds = new Set<string>()
 
   for (const target of targets) {
     // 已迁移 (条目 id 就是正式 id): 只确认前瞻状态还在, 不重复迁移也不报冲突
     if (target.previewId === target.formalId) {
-      const formalIndex = lines.findIndex((line) => line.includes(`id: '${target.formalId}'`))
+      const formalIndex = lines.findIndex((line) => lineId(line) === target.formalId)
       if (formalIndex < 0) {
         skipped.push(`${target.formalId}: weapons.ts 里找不到该条目`)
         continue
@@ -128,12 +139,12 @@ export function migrateForesightWeaponsFile(content: string, targets: ForesightW
       }
       continue
     }
-    const lineIndex = lines.findIndex((line) => line.includes(`id: '${target.previewId}'`))
+    const lineIndex = lines.findIndex((line) => lineId(line) === target.previewId)
     if (lineIndex < 0) {
       if (existingFormalIds.has(target.formalId)) {
         already.push(`${target.formalId} (${target.name})`)
         // 已用正式 id 但漏标前瞻状态 -> 补上 (上游前瞻表是唯一真源)
-        const formalIndex = lines.findIndex((line) => line.includes(`id: '${target.formalId}'`))
+      const formalIndex = lines.findIndex((line) => lineId(line) === target.formalId)
         if (formalIndex >= 0) {
           const repaired = ensurePreviewSource(lines[formalIndex])
           if (repaired !== lines[formalIndex]) {

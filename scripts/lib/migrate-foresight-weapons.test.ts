@@ -86,4 +86,19 @@ describe('migrateForesightWeaponsFile', () => {
     expect(repaired).toEqual(['wpn_claym_0018'])
     expect(content).toMatch(/id: 'wpn_claym_0018'[^\n]*source: 'preview'[^\n]*\},$/m)
   })
+
+  it('matches the id field only, never a substring in another field', () => {
+    // 别的条目把 `previewId: 'preview:玉中身'` 写在前面: 子串匹配会改错行
+    const decoy = `export const weapons: Weapon[] = [
+  { id: 'wpn_other', previewId: 'preview:玉中身', name: '别的武器', rarity: 6, type: '双手剑', primaryStat: 'gat_passive_attr_wisd', elementalDamage: 'gat_passive_attr_icedam', specialAbility: 'gst_passive_keyword', source: 'preview' },
+  { id: 'wpn_claym_0019', name: '悠久传承', rarity: 6, type: '双手剑', primaryStat: 'gat_passive_attr_wisd', elementalDamage: 'gat_passive_attr_icedam', specialAbility: 'gst_passive_keyword', source: 'preview' },
+]
+`
+    const result = migrateForesightWeaponsFile(decoy, [TARGETS[0]])
+    expect(result.migrated).toEqual([])
+    expect(result.skipped.some((reason) => reason.includes('找不到'))).toBe(true)
+    // 诱饵行一个字符都没动
+    expect(result.content).toContain("id: 'wpn_other', previewId: 'preview:玉中身'")
+    expect(result.content).toContain("id: 'wpn_claym_0019', name: '悠久传承'")
+  })
 })

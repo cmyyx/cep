@@ -90,6 +90,8 @@
       "importSummaryEmpty",
       "importParseError",
       "importReadError",
+      "importApplyError",
+      "importing",
       "importFileTooLarge",
       "importUnsupportedFile",
       "importConfirm",

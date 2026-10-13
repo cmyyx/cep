@@ -109,7 +109,11 @@ function findEntry(blocks: EntryBlock[], pool: GachaPool, upNames: string[]): En
   if (byPoolId.length === 1) return byPoolId[0]
   if (byPoolId.length > 1) return null
   const unlinked = blocks.filter((block) => !block.poolId)
-  const byTitle = pool.title ? unlinked.filter((block) => block.title.includes(pool.title)) : []
+  // 标题只是"同名"证据, 必须同时有 UP 角色佐证: 上游池名可能很通用 (如「启程寻访」),
+  // 单靠标题会把无关条目认成这条卡池, 之后按 poolId 一直错下去。
+  const byTitle = pool.title
+    ? unlinked.filter((block) => block.title.includes(pool.title) && block.featuredNames.some((name) => upNames.includes(name)))
+    : []
   const candidates = byTitle.length > 0
     ? byTitle
     : unlinked.filter((block) => sameDay(block.periodStart, pool.start) && block.featuredNames.some((name) => upNames.includes(name)))

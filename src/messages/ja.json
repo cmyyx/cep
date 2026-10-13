@@ -580,6 +580,8 @@
     "importInvalidFormat": "無効なファイル形式です。本ツールでエクスポートされたJSONファイルを選択してください。",
     "importParseError": "JSONの解析に失敗しました。ファイルが破損している可能性があります。",
     "importReadError": "ファイルの読み取りに失敗しました",
+    "importApplyError": "インポート中にエラーが発生しました。一部のデータが反映されていない可能性があります",
+    "importing": "インポート中…",
     "exportTitle": "データをエクスポート",
     "exportSelectModules": "エクスポートするモジュールを選択：",
     "exportSelected": "選択をエクスポート",

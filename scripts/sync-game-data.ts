@@ -8,7 +8,7 @@ import { generateMetadataI18n } from './lib/generate-metadata'
 import { generateStatI18n } from './lib/generate-stat-i18n'
 import { generateCharacterI18n } from './lib/generate-characters'
 import { generateWikiData } from './lib/generate-wiki-data'
-import { describeGachaPoolData, loadGachaPoolData } from './lib/gacha-pools'
+import { loadGachaPoolData } from './lib/gacha-pools'
 import { describeForesightData, generateForesightData } from './lib/generate-foresight'
 import { migrateForesightWeapons } from './lib/migrate-foresight-weapons'
 import { updateBannerFile } from './lib/update-banner-file'
@@ -206,14 +206,6 @@ async function main() {
   }
 
   const generatedRoot = join(projectRoot, 'src', 'generated', 'i18n')
-  // 客户端角色 id -> 简中名 (上个步骤刚重新生成的 i18n 产物; 用于比对卡池 UP 名单)
-  const CHARACTER_NAME_BY_ID: Record<string, string> = (() => {
-    try {
-      return JSON.parse(readFileSync(join(generatedRoot, 'characters', 'zh-CN.json'), 'utf-8')) as Record<string, string>
-    } catch {
-      return {}
-    }
-  })()
   mkdirSync(generatedRoot, { recursive: true })
 
   // Weapons (AKEData as source)
@@ -377,19 +369,17 @@ async function main() {
   if (mode === 'update') {
     console.log('\n-- Gacha pools -> banner.ts --')
     const pools = loadGachaPoolData(paths.akedata)
-    for (const line of describeGachaPoolData(pools)) console.log('  ' + line)
-    const bannerUpdate = updateBannerFile(
-      join(projectRoot, 'src', 'data', 'banner.ts'),
-      pools.pools,
-      CHARACTER_NAME_BY_ID,
-      true,
-    )
-    for (const entry of bannerUpdate.updated) {
-      console.log(`  ${entry.entryId} (${entry.poolId}):`)
-      for (const change of entry.changes) console.log(`    ${change}`)
+    // 客户端角色 id -> 简中名: 必须在 Wiki data 步骤跑完之后读 (那是它被重新生成的时刻),
+    // 否则拿到的可能是旧文件, 新角色的 UP 名单就匹配不上。
+    let characterNameById: Record<string, string> = {}
+    try {
+      characterNameById = JSON.parse(readFileSync(join(generatedRoot, 'characters', 'zh-CN.json'), 'utf-8')) as Record<string, string>
+    } catch {
+      console.warn('  ⚠ 角色名映射缺失, 卡池按 UP 角色匹配会退化')
     }
-    for (const note of bannerUpdate.notes) console.log(`  例外: ${note}`)
-    if (bannerUpdate.pending.length > 0) console.log(`  上游未下发, 保留手写档期: ${bannerUpdate.pending.join(', ')}`)
+    const bannerUpdate = updateBannerFile(join(projectRoot, 'src', 'data', 'banner.ts'), pools.pools, characterNameById, true)
+    const changed = bannerUpdate.updated.reduce((sum, entry) => sum + entry.changes.length, 0)
+    console.log(`  ${pools.pools.length} 个卡池, banner.ts ${bannerUpdate.updated.length} 个条目按上游更新 (${changed} 处)`)
     for (const issue of bannerUpdate.issues) console.warn(`  ⚠ ${issue}`)
   }
 
