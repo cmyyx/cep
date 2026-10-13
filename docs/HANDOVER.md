@@ -65,7 +65,12 @@ npx tsx scripts/sync-game-data.ts --update --local --force \
 | `src/components/banner-calendar/pool-info-strip.tsx` | 卡面/详情时间改用 `entryWindow()`（与时间轴一致） |
 | `scripts/sync-game-data.ts` | 新增 `-- Gacha pools --` 步骤，打印"日历自动修正 N 处手写档期" |
 
-**当前结果**：12 个卡池带 UP + 时间；`joint_1_2_2 = [雷万汀, 安洁莉娜]`（多 UP 正确）；`rerun_1_5_2`（9/24–10/15）有档期无名单 → 进 `scheduledWithoutPool`，不猜；`rerun_chr_yvonne` 有名单无档期 → issue；17 处手写档期被自动修正。
+**当前结果**：**13 个卡池**带 UP + 时间；`joint_1_2_2 = [雷万汀, 安洁莉娜]`（多 UP 正确）；`scheduledWithoutPool` 空、`issues` 空；**18 处**手写档期被自动修正。
+
+**复刻池档期的关联规则**（新增）：复刻池没有自己的 `time_<poolId>`，档期挂在 `time_rerun_<版本>` 下，版本号只写在池行自己的 UI 资源名里
+（`rerun_chr_yvonne.uiPrefab = "GachaPoolNodeRerun_1_5_2"`）。`resolveLinkedTimeKey()` 只在**唯一命中**时采用：
+(1) 键属于同家族（`special_/joint_/rerun_`）且没被别的卡池行占用；(2) 池行资源名含该键的版本号；命中数 ≠ 1 就照旧报 issue，不猜。
+效果：伊冯 1.5 复刻（2026-09-24 ~ 10-15）现在是上游驱动 + `isRerun` 自动置位；`time_rerun_1_5_2` 不再被算作孤儿窗口。
 
 **时间口径**：`TimeRangeTable` 每个池 3 条候选（取 entry[0]）= **实际开池时间**（维护提前结束即可抽，比公告早 5~6 小时）；公告的 12:00/11:59 属展示口径。因此**校验只看日期是否同日 + 小时差 ≤ 8h**，差异本身是预期差。
 
@@ -94,26 +99,13 @@ npx tsx scripts/sync-game-data.ts --update --local --force \
 
 ## 3. 待办
 
-只列真正还开着的事（前面的数据落地 / 翻译 / 歧义均已关闭）：
+**待办为 0 项**（数据落地 / 翻译 / 歧义 / 复刻池档期均已关闭）。以下三条经确认**不做**（记录备查）：
 
-| # | 事项 | 依赖 | 备注 |
-|---|---|---|---|
-| 1 | **P1-4 装备词条显示文本按游戏格式说明符**：上游 `AttributeShowConfigTable.valueFormat` 是 `{value:0.0%}`（1 位小数）/ `{value}`（非百分比取整），当前 `formatEquipStat` 只做了 ×100+`%`，**没处理小数位** | 无（不需要截图，规则齐全：表里的 `valueFormat` + `Lua/Common/Utils/AttributeUtils.lua` 的取整） | 纯显示问题，不影响面板数值。实例：attr29 `mod5={value:0.0%}` 的 0.1035 现在输出 `10.35%`（游戏 10.4%）；tundra 的 MaxHp 46.3273721859878 现在输出 `生命值+46.32737219`（游戏 `生命值+46`） |
-| 2 | `rerun_1_5_2` / `rerun_chr_yvonne` 的上游数据缺口 | 上游 | 见 §3.1（这两条其实是同一个复刻池被拆到两张表里） |
-
-**已明确不做**（用户决定）：
-- 前瞻角色（明河 / 祀）的 wiki / 面板条目 —— 上游没有角色表（`ForesightChar*` 只有成长/推荐武器/养成配置，无 name/属性/技能），同步变不出来；卡池日历已有的预览头像已足够。
-- `time_gift_*`（流行品排期）—— 与卡池/前瞻/面板无关，不列入范围。
-
-### 3.1 两个复刻池数据缺口
-
-| 上游 id | 有 UP 名单 | 有档期 | 情况 |
-|---|---|---|---|
-| `rerun_1_5_2` | 无（`GachaCharPoolTable` 无此行） | 有（`time_rerun_1_5_2` = 2026-09-24 ~ 10-15） | 记录在 `scheduledWithoutPool` |
-| `rerun_chr_yvonne` | 有（伊冯） | 无（`time_rerun_chr_yvonne` 不存在） | 记录在 `issues` |
-
-两边时间/内容一致 + CEP 手写卡面 `1.5-yifeng`（伊冯重构寻访，2026-09-24 ~ 10-15）→ 可断定是**同一个复刻池**，只是上游把名单和档期拆在两张不交叉的表里。
-当前处理：只记录不显示（卡面由手写 entry 覆盖，功能不缺）；若要让日历完全上游驱动，再加一条"档期唯一命中时合并名单/档期"的规则（需你确认）。
+| 事项 | 结论 |
+|---|---|
+| 装备词条显示文本按 `valueFormat` 小数位（实测案例：attr29 的 0.1035 现输出 `10.35%`，游戏 10.4%；tundra MaxHp 现输出 `生命值+46.32737219`，游戏 `生命值+46`） | 不做（纯显示精度，不影响面板数值） |
+| 前瞻角色（明河 / 祀）进 wiki | 不做（上游 `ForesightChar*` 只有成长/推荐武器/养成配置，无 name/属性/技能，同步变不出来；卡池日历的预览头像已够用） |
+| `time_gift_*`（流行品排期） | 不做（与卡池/前瞻/面板无关） |
 
 ---
 

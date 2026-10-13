@@ -62,6 +62,29 @@ describe('buildGachaPoolData', () => {
     expect(scheduledWithoutPool).toEqual([{ poolId: 'rerun_1_5_2', start: '2026-09-24T12:00:00+08:00', end: '2026-10-15T06:00:00+08:00' }])
   })
 
+  it('links a rerun pool to the version window named in its own UI asset', () => {
+    // 真实上游: rerun_chr_yvonne 有 uiPrefab=GachaPoolNodeRerun_1_5_2, 档期在 time_rerun_1_5_2
+    const input = sources()
+    input.poolTable.rerun_chr_yvonne = { id: 'rerun_chr_yvonne', type: 4, upCharIds: ['chr_0017_yvonne'], uiPrefab: 'GachaPoolNodeRerun_1_5_2', nameImage: 'gachapool_titleicon_1_5_2' }
+    const { pools, scheduledWithoutPool, issues } = buildGachaPoolData(input)
+    const rerun = pools.find((pool) => pool.poolId === 'rerun_chr_yvonne')
+    expect(rerun).toMatchObject({ kind: 'rerun', timeKey: 'time_rerun_1_5_2', start: '2026-09-24T12:00:00+08:00', end: '2026-10-15T06:00:00+08:00' })
+    // 关联走的档期不再算孤儿, 也不再报"缺时间档"
+    expect(scheduledWithoutPool).toEqual([])
+    expect(issues.some((issue) => issue.includes('rerun_chr_yvonne'))).toBe(false)
+  })
+
+  it('refuses to link when more than one family window matches the asset name', () => {
+    const input = sources()
+    input.poolTable.rerun_chr_yvonne = { id: 'rerun_chr_yvonne', type: 4, upCharIds: ['chr_0017_yvonne'], uiPrefab: 'GachaPoolNodeRerun_1_5_2' }
+    // '1_5' 也是 'GachaPoolNodeRerun_1_5_2' 的子串 ⇒ 两个候选 ⇒ 不猜
+    input.timeRangeTable.time_rerun_1_5 = { timeRangeList: [{ openTime: '2026/9/1 7:00:00', closeTime: '2026/9/20 12:00:00' }] }
+    const { pools, scheduledWithoutPool, issues } = buildGachaPoolData(input)
+    expect(pools.find((pool) => pool.poolId === 'rerun_chr_yvonne')).toBeUndefined()
+    expect(issues.some((issue) => issue.includes('rerun_chr_yvonne'))).toBe(true)
+    expect(scheduledWithoutPool.map((entry) => entry.poolId).sort()).toEqual(['rerun_1_5', 'rerun_1_5_2'])
+  })
+
   it('does not require an UP list on permanent pools', () => {
     const { issues } = buildGachaPoolData(sources())
     expect(issues.some((issue) => issue.includes('standard'))).toBe(false)

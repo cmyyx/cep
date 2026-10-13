@@ -155,11 +155,21 @@ export interface GachaPoolWindow {
   start: string
   /** 结束时间尚未写定时为 null (客户端 closeTime 为空) */
   end: string | null
+  /**
+   * 实际使用的 `TimeRangeTable` 键 (生成数据总会写入, 手写 fixture 可省)。通常就是 `time_<poolId>`;
+   * 复刻池没有自己的时间档时, 档期挂在 `time_rerun_<版本>` 上,
+   * 版本号写在池行自己的 UI 资源名里 (`uiPrefab: GachaPoolNodeRerun_1_5_2`)
+   * —— 唯一命中才会关联, 否则记为 issue (见 generate-gacha-pools.ts)。
+   */
+  timeKey?: string
 }
 
 export interface GachaPoolData {
   pools: GachaPoolWindow[]
-  /** 有档期但客户端还没有卡池行的窗口 (如 time_rerun_1_5_2), 用于提示待补 UP 名单 */
+  /**
+   * 有档期但客户端还没有卡池行的窗口, 用于提示待补 UP 名单。
+   * 已被某个卡池行通过 UI 资源名关联走的档期不算孤儿 (见 pools[].timeKey)。
+   */
   scheduledWithoutPool: Array<{ poolId: string; start: string; end: string | null }>
   /** 生成时自检结果: 缺 UP 名单 / 缺时间档 / 与池内容表不一致 */
   issues: string[]

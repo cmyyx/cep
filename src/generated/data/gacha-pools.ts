@@ -12,7 +12,18 @@ export const gachaPoolData: GachaPoolData = {
         "chr_0013_aglina"
       ],
       "start": "2026-05-14T12:00:00+08:00",
-      "end": "2026-06-05T06:00:00+08:00"
+      "end": "2026-06-05T06:00:00+08:00",
+      "timeKey": "time_joint_1_2_2"
+    },
+    {
+      "poolId": "rerun_chr_yvonne",
+      "kind": "rerun",
+      "upCharacterIds": [
+        "chr_0017_yvonne"
+      ],
+      "start": "2026-09-24T12:00:00+08:00",
+      "end": "2026-10-15T06:00:00+08:00",
+      "timeKey": "time_rerun_1_5_2"
     },
     {
       "poolId": "special_1_0_1",
@@ -21,7 +32,8 @@ export const gachaPoolData: GachaPoolData = {
         "chr_0016_laevat"
       ],
       "start": "2025-12-09T04:00:00+08:00",
-      "end": "2026-02-07T12:00:00+08:00"
+      "end": "2026-02-07T12:00:00+08:00",
+      "timeKey": "time_special_1_0_1"
     },
     {
       "poolId": "special_1_0_2",
@@ -30,7 +42,8 @@ export const gachaPoolData: GachaPoolData = {
         "chr_0017_yvonne"
       ],
       "start": "2026-02-24T12:00:00+08:00",
-      "end": "2026-03-12T06:00:00+08:00"
+      "end": "2026-03-12T06:00:00+08:00",
+      "timeKey": "time_special_1_0_2"
     },
     {
       "poolId": "special_1_0_3",
@@ -39,7 +52,8 @@ export const gachaPoolData: GachaPoolData = {
         "chr_0013_aglina"
       ],
       "start": "2026-02-07T12:00:00+08:00",
-      "end": "2026-02-24T12:00:00+08:00"
+      "end": "2026-02-24T12:00:00+08:00",
+      "timeKey": "time_special_1_0_3"
     },
     {
       "poolId": "special_1_1_1",
@@ -48,7 +62,8 @@ export const gachaPoolData: GachaPoolData = {
         "chr_0027_tangtang"
       ],
       "start": "2026-03-12T07:00:00+08:00",
-      "end": "2026-03-29T12:00:00+08:00"
+      "end": "2026-03-29T12:00:00+08:00",
+      "timeKey": "time_special_1_1_1"
     },
     {
       "poolId": "special_1_1_2",
@@ -57,7 +72,8 @@ export const gachaPoolData: GachaPoolData = {
         "chr_0028_wulfa"
       ],
       "start": "2026-03-29T12:00:00+08:00",
-      "end": "2026-04-17T06:00:00+08:00"
+      "end": "2026-04-17T06:00:00+08:00",
+      "timeKey": "time_special_1_1_2"
     },
     {
       "poolId": "special_1_2_1",
@@ -66,7 +82,8 @@ export const gachaPoolData: GachaPoolData = {
         "chr_0030_zhuangfy"
       ],
       "start": "2026-04-17T07:00:00+08:00",
-      "end": "2026-05-22T12:00:00+08:00"
+      "end": "2026-05-22T12:00:00+08:00",
+      "timeKey": "time_special_1_2_1"
     },
     {
       "poolId": "special_1_3_1",
@@ -75,7 +92,8 @@ export const gachaPoolData: GachaPoolData = {
         "chr_0031_mifu"
       ],
       "start": "2026-06-05T07:00:00+08:00",
-      "end": "2026-06-26T12:00:00+08:00"
+      "end": "2026-06-26T12:00:00+08:00",
+      "timeKey": "time_special_1_3_1"
     },
     {
       "poolId": "special_1_3_2",
@@ -84,7 +102,8 @@ export const gachaPoolData: GachaPoolData = {
         "chr_0033_camille"
       ],
       "start": "2026-06-26T12:00:00+08:00",
-      "end": "2026-07-16T06:00:00+08:00"
+      "end": "2026-07-16T06:00:00+08:00",
+      "timeKey": "time_special_1_3_2"
     },
     {
       "poolId": "special_1_4_1",
@@ -93,7 +112,8 @@ export const gachaPoolData: GachaPoolData = {
         "chr_0032_lizhiyan"
       ],
       "start": "2026-07-16T07:00:00+08:00",
-      "end": "2026-08-09T12:00:00+08:00"
+      "end": "2026-08-09T12:00:00+08:00",
+      "timeKey": "time_special_1_4_1"
     },
     {
       "poolId": "special_1_4_2",
@@ -102,7 +122,8 @@ export const gachaPoolData: GachaPoolData = {
         "chr_0035_liino"
       ],
       "start": "2026-08-09T12:00:00+08:00",
-      "end": "2026-09-02T06:00:00+08:00"
+      "end": "2026-09-02T06:00:00+08:00",
+      "timeKey": "time_special_1_4_2"
     },
     {
       "poolId": "special_1_5_1",
@@ -111,19 +132,12 @@ export const gachaPoolData: GachaPoolData = {
         "chr_0034_typhoea"
       ],
       "start": "2026-09-02T07:00:00+08:00",
-      "end": "2026-09-30T12:00:00+08:00"
+      "end": "2026-09-30T12:00:00+08:00",
+      "timeKey": "time_special_1_5_1"
     }
   ],
-  "scheduledWithoutPool": [
-    {
-      "poolId": "rerun_1_5_2",
-      "start": "2026-09-24T12:00:00+08:00",
-      "end": "2026-10-15T06:00:00+08:00"
-    }
-  ],
-  "issues": [
-    "卡池 rerun_chr_yvonne (rerun): 有 UP 名单但没有可用时间档 (TimeRangeTable.time_rerun_chr_yvonne)"
-  ]
+  "scheduledWithoutPool": [],
+  "issues": []
 }
 
 export default gachaPoolData

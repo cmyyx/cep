@@ -46,6 +46,10 @@ interface PoolRow {
   id?: unknown
   type?: unknown
   upCharIds?: unknown
+  /** 池行的 UI 资源名: 复刻池的版本号只写在这里 (如 GachaPoolNodeRerun_1_5_2) */
+  uiPrefab?: unknown
+  nameImage?: unknown
+  tabImage?: unknown
 }
 
 interface ContentRow {
@@ -61,10 +65,51 @@ export interface GachaPoolSources {
   timeRangeTable: Record<string, { timeRangeList?: TimeRangeEntry[] }>
 }
 
+/** 池型 -> `TimeRangeTable` 键的家族前缀 (复刻/联合/特许都是 `time_<家族>_<版本>`) */
+const TIME_FAMILY_BY_KIND: Partial<Record<GachaPoolKind, string>> = {
+  special: 'special',
+  joint: 'joint',
+  rerun: 'rerun',
+}
+
 function firstRange(timeRangeTable: GachaPoolSources['timeRangeTable'], key: string): TimeRangeEntry | null {
   const list = timeRangeTable[key]?.timeRangeList
   // entry[0]: 三个候选中与官方口径同行的一条 (entry[1] 与它相同, entry[2] 早一天)
   return Array.isArray(list) && list.length > 0 ? list[0] : null
+}
+
+/**
+ * 卡池行没有自己的 `time_<poolId>` 时, 找该家族里**唯一**能挂上的时间档。
+ *
+ * 复刻池就是这样: `rerun_chr_yvonne` 的档期写在 `time_rerun_1_5_2` 下, 版本号 `1_5_2` 只
+ * 出现在池行自己的 UI 资源名 (`uiPrefab`/`nameImage`/`tabImage`) 里。因此用一个硬条件 + 一个
+ * 软条件收敛: (1) 该键属于同家族且还没被其他卡池行占用; (2) 池行的资源名里含该键的版本号。
+ * 命中数必须**恰好为 1**, 否则返回 null 让调用方照旧报 issue —— 不猜、不取第一个。
+ */
+export function resolveLinkedTimeKey(
+  row: PoolRow,
+  poolId: string,
+  kind: GachaPoolKind,
+  timeRangeTable: GachaPoolSources['timeRangeTable'],
+  knownPoolIds: ReadonlySet<string>,
+): string | null {
+  const family = TIME_FAMILY_BY_KIND[kind]
+  if (!family) return null
+  const artNames = [row.uiPrefab, row.nameImage, row.tabImage].filter((value): value is string => typeof value === 'string' && value.length > 0)
+  if (artNames.length === 0) return null
+  const candidates = Object.keys(timeRangeTable)
+    .filter((key) => {
+      const rest = key.startsWith(`time_${family}_`) ? key.slice('time_'.length) : ''
+      if (!rest) return false
+      // 已被别的卡池行按 id 直接认领的档期不能抢
+      if (knownPoolIds.has(rest)) return false
+      if (rest === poolId) return false
+      const version = rest.slice(`${family}_`.length)
+      if (version.length === 0) return false
+      return artNames.some((name) => name.includes(version))
+    })
+    .sort()
+  return candidates.length === 1 ? candidates[0] : null
 }
 
 /**
@@ -77,6 +122,9 @@ export function buildGachaPoolData(sources: GachaPoolSources): GachaPoolData {
   const pools: GachaPoolWindow[] = []
   const issues: string[] = []
   const scheduledWithoutPool: GachaPoolData['scheduledWithoutPool'] = []
+  const knownPoolIds = new Set(Object.keys(poolTable))
+  /** 已被卡池行用掉的时间档 (含 UI 资源名关联的), 孤儿扫描要跳过 */
+  const claimedTimeKeys = new Set<string>()
 
   for (const poolId of Object.keys(poolTable).sort()) {
     const row = poolTable[poolId]
@@ -100,20 +148,24 @@ export function buildGachaPoolData(sources: GachaPoolSources): GachaPoolData {
       }
     }
 
-    const range = firstRange(timeRangeTable, `time_${poolId}`)
+    const ownKey = `time_${poolId}`
+    const linkedKey = firstRange(timeRangeTable, ownKey) ? null : resolveLinkedTimeKey(row, poolId, kind, timeRangeTable, knownPoolIds)
+    const timeKey = linkedKey ?? ownKey
+    const range = firstRange(timeRangeTable, timeKey)
     const start = parseClientTime(range?.openTime)
     const end = parseClientTime(range?.closeTime)
     if (!range || !start) {
       if (!POOLS_WITHOUT_UP.has(kind)) issues.push(`卡池 ${poolId} (${kind}): 有 UP 名单但没有可用时间档 (TimeRangeTable.time_${poolId})`)
       continue
     }
-    pools.push({ poolId, kind, upCharacterIds, start, end })
+    claimedTimeKeys.add(timeKey)
+    pools.push({ poolId, kind, upCharacterIds, start, end, timeKey })
   }
 
-  const knownPoolIds = new Set(Object.keys(poolTable))
   for (const key of Object.keys(timeRangeTable).sort()) {
     const poolId = key.startsWith('time_') ? key.slice('time_'.length) : ''
     if (!/^(special|joint|rerun)_/.test(poolId) || knownPoolIds.has(poolId)) continue
+    if (claimedTimeKeys.has(key)) continue
     const range = firstRange(timeRangeTable, key)
     const start = parseClientTime(range?.openTime)
     if (!start) continue
@@ -162,6 +214,9 @@ export function describeGachaPoolData(data: GachaPoolData): string[] {
   const lines = [`卡池: ${data.pools.length} 个 (含 UP 名单与时间档)`]
   if (data.scheduledWithoutPool.length > 0) {
     lines.push(`  有档期无卡池行: ${data.scheduledWithoutPool.map((entry) => `${entry.poolId}(${entry.start.slice(0, 10)})`).join(', ')}`)
+  }
+  for (const pool of data.pools) {
+    if (pool.timeKey !== `time_${pool.poolId}`) lines.push(`  ${pool.poolId}: 时间档取自 ${pool.timeKey} (UI 资源名关联)`)
   }
   for (const issue of data.issues) lines.push(`  ⚠ ${issue}`)
   return lines
