@@ -229,6 +229,7 @@ function buildEquipmentStats(equipment: EquipEntry, source: ItemWikiSource): Wik
   if (displayModifiers.length > 0) {
     return displayModifiers.map((modifier) => {
       const attributeId = modifier.compositeAttr || String(modifier.attrType ?? '')
+      const modifierType = modifier.modifierType === undefined ? undefined : numberValue(modifier.modifierType)
       const rawModifier = (equipment.equipAttrModifiers ?? []).find(
         (candidate) => numberValue(candidate.attrIndex, -1) === numberValue(modifier.attrIndex, -2)
       )
@@ -241,10 +242,11 @@ function buildEquipmentStats(equipment: EquipEntry, source: ItemWikiSource): Wik
       const config = modifier.compositeAttr
         ? source.equipStatFormats?.compositeCfg.get(modifier.compositeAttr)
         : source.equipStatFormats?.attrTypeMap.get(numberValue(modifier.attrType))
-      const displayValues = config && modifier.modifierType !== undefined
-        ? values.map((value) => formatEquipStat(config.name, String(value), resolveFormat(config, attributeId, numberValue(modifier.modifierType))))
+      const displayValues = config && modifierType !== undefined
+        ? values.map((value) => formatEquipStat(config.name, String(value), resolveFormat(config, attributeId, modifierType)))
         : undefined
-      return { attributeId, values, ...(displayValues ? { displayValues } : {}) }
+      // modifierType 必须保留: 面板计算要靠它区分 BaseAddition / BaseFinalAddition。
+      return { attributeId, values, ...(modifierType !== undefined ? { modifierType } : {}), ...(displayValues ? { displayValues } : {}) }
     })
   }
 

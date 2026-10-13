@@ -14,6 +14,7 @@ import { getCharacterAvatarPath } from '@/lib/character-images'
 import { PlannerWikiPreview } from '@/components/shared/planner-wiki-preview'
 import { ItemFrameBackground } from '@/components/shared/item-frame-background'
 import { getWeaponWikiPreview } from '@/lib/weapon-wiki-preview'
+import { foresightWeaponIconId } from '@/lib/foresight-weapons'
 import { acquisitionCategoryIds, acquisitionCategoryLabelText } from '@/lib/weapon-acquisition'
 import { useWikiTranslations } from '@/hooks/use-wiki-translations'
 import { weaponStatLabel } from '@/lib/weapon-stats'
@@ -66,11 +67,14 @@ export const WeaponCard = memo(function WeaponCard({
   const wid = weapon.id || 'wpn_sword_0001'
   const isCustom = wid.startsWith('custom-')
   const isPreview = wid.startsWith('preview:')
+  // 前瞻条目若已与客户端正式 ID 自动匹配成功, 就直接用真图标 (见 lib/foresight-weapons)
+  const foresightIconId = isPreview ? foresightWeaponIconId(wid) : undefined
+  const showsPlaceholderArt = isCustom || (isPreview && foresightIconId === undefined)
   // 优先使用 iconId（游戏原始资源映射，如 wpn_funnel_0008/0010 交叉指向）
   const imageId = weapon.iconId ?? wid
-  const imageSrc = (isCustom || isPreview) ? undefined : wid.startsWith('data:')
+  const imageSrc = showsPlaceholderArt ? undefined : wid.startsWith('data:')
     ? wid
-    : withImageCacheVersion(`/images/weapon/${imageId}.avif`)
+    : withImageCacheVersion(`/images/weapon/${foresightIconId ?? imageId}.avif`)
   const displayName = (isCustom || isPreview) ? weapon.name : (t(`weapons.${wid}`) ?? weapon.name)
   const preview = getWeaponWikiPreview(wid, locale as WikiLocale, wikiTextReady ? (_weaponId, skillId, level) => wikiText('weapon', wid, 'skill', skillId, 'level', level) : undefined)
   const acquisitionCategories = acquisitionCategoryIds(weapon.acquisitionSources)
@@ -105,7 +109,7 @@ export const WeaponCard = memo(function WeaponCard({
       <ItemFrameBackground />
       {/* Weapon art */}
       <div className="absolute inset-0 z-10 flex items-center justify-center">
-        {isCustom || isPreview ? (
+        {showsPlaceholderArt ? (
           <span className="text-2xl font-bold text-white/50 select-none absolute inset-0 flex items-center justify-center">{weapon.name?.charAt(0) ?? '?'}</span>
         ) : (
           <Image

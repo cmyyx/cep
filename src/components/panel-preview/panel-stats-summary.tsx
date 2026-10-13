@@ -2,9 +2,10 @@
 
 import Image from 'next/image'
 import { useLocale, useTranslations } from 'next-intl'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { usePanelPreviewStore } from '@/stores/usePanelPreviewStore'
 import { calculatePanelStats } from '@/lib/planner/progression'
+import { gameDisplayValue } from '@/lib/game-display-value'
 import { useWikiTranslations } from '@/hooks/use-wiki-translations'
 import { cn } from '@/lib/utils'
 import { withImageCacheVersion } from '@/lib/image-url'
@@ -59,6 +60,9 @@ export function panelStatValueClass(value: string): string {
   )
 }
 
+/** 精确值小字: 只在游戏显示值截掉了小数时出现。 */
+const exactValueClass = 'mt-0.5 max-w-full font-mono text-[9px] leading-tight tabular-nums break-all text-muted-foreground/70'
+
 export function PanelStatsSummary() {
   const t = useTranslations('panelPreview')
   const locale = useLocale() as WikiLocale
@@ -96,20 +100,22 @@ export function PanelStatsSummary() {
     )
   }
   const stats = calculatePanelStats(config)
-  // 不限制小数位: 面板数值要与游戏内逐位对照 (progression 已用 stripFloatNoise
-  // 削掉浮点误差尾巴, 这里保留全部有效位)。20 是 Intl 允许的上限。
+  // 主数值按游戏显示口径 (非百分比属性向下取整, 见 game-display-value);
+  // 计算值本身保持全精度, 差一位小数时用下方小字标出精确值。
   const number = new Intl.NumberFormat(locale, { maximumFractionDigits: 20 })
+  const shown = (value: number) => ({ display: number.format(gameDisplayValue(value)), exact: number.format(value) })
 
   return (
     <Card className="overflow-visible">
       <CardHeader>
         <CardTitle>{t('resultTitle')}</CardTitle>
+        <CardDescription className="text-xs">{t('displayPrecisionNote')}</CardDescription>
       </CardHeader>
       <CardContent className="space-y-5">
         <div className="space-y-2">
           <div className="grid grid-cols-4 gap-1.5 sm:gap-2">
             {primaryStats.map(([key, label, icon]) => {
-              const value = number.format(stats[key])
+              const { display, exact } = shown(stats[key])
               return (
                 <div
                   key={key}
@@ -119,14 +125,15 @@ export function PanelStatsSummary() {
                     <Image src={withImageCacheVersion(icon)} alt="" width={68} height={68} className="size-6 object-contain sm:size-7" />
                   </span>
                   <p className="mt-1.5 max-w-full truncate text-[11px] text-muted-foreground sm:mt-2 sm:text-xs">{label}</p>
-                  <p className={panelStatValueClass(value)}>{value}</p>
+                  <p className={panelStatValueClass(display)} title={exact}>{display}</p>
+                  {display !== exact && <p className={exactValueClass}>{exact}</p>}
                 </div>
               )
             })}
           </div>
           <div className="grid grid-cols-3 gap-1.5 sm:gap-2">
             {combatStats.map(([key, label, icon]) => {
-              const value = number.format(stats[key])
+              const { display, exact } = shown(stats[key])
               return (
                 <div
                   key={key}
@@ -137,7 +144,8 @@ export function PanelStatsSummary() {
                   </span>
                   <p className="mt-1.5 max-w-full truncate text-[11px] text-muted-foreground sm:mt-2 sm:text-xs">{label}</p>
                   {/* 与四维一致走同一套长度分档: 生命值这类数值位数最多 */}
-                  <p className={panelStatValueClass(value)}>{value}</p>
+                  <p className={panelStatValueClass(display)} title={exact}>{display}</p>
+                  {display !== exact && <p className={exactValueClass}>{exact}</p>}
                 </div>
               )
             })}

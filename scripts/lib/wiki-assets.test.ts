@@ -151,3 +151,14 @@ it('collects BuffIcon references from any locale and only single-segment basenam
   })
   expect(assets.buffIcons).toEqual(['icon_energy_fusion_fire'])
 })
+
+it('adds extra weapon icons (前瞻武器) on request', () => {
+  const assets = collectWikiAssets(
+    {
+      characters: { summaries: [], details: {} },
+      items: { weaponSummaries: [], weaponDetails: {}, equipmentSummaries: [], equipmentDetails: {} },
+    },
+    { extraWeaponIconIds: ['wpn_claym_0018', 'wpn_sword_0024'] },
+  )
+  expect(assets.weapons).toEqual(['wpn_claym_0018', 'wpn_sword_0024'])
+})

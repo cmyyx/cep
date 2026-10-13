@@ -7,7 +7,7 @@ import type {
   MaterialRequirement,
   PanelAttributeContribution,
   PanelPreviewConfig,
-  PanelStatModifier,
+  PlannerAttributeLimitData,  PanelStatModifier,
   PanelStats,
   PlannerCharacterData,
   PlannerEquipmentStatData,
@@ -312,11 +312,37 @@ function applyCoreValue(
   return true
 }
 
+/**
+ * 词条乘区 (`ModifierType`): 7 = BaseFinalAddition, 在基值乘算**之后**相加。
+ *
+ * 游戏侧: `_CalculateBaseAttribute(raw, baseAdd, baseMul, baseFinalAdd, baseFinalMul)`
+ * = `(raw + baseAdd) × (1 + baseMul) + baseFinalAdd`; 装备里用这个池的只有
+ * 测试型重甲/手甲与 tundra01 t0 件的生命值 (46.33/77.21/125.38) 和 4 件攻击力
+ * (11.72/16.19)。
+ * 旧数据没有 `modifierType` 字段 (重新生成前), 按 5 (普通固定值) 处理 —— 与修复前一致。
+ */
+function equipmentStatPool(modifierType: number | undefined): 'base' | 'baseFinal' {
+  return modifierType === 7 ? 'baseFinal' : 'base'
+}
+
+/** 基值最终加算池: 池内原始单位相加, 与乘算百分比无关。 */
+function applyCoreFinalAddition(
+  baseFinalAdditions: Partial<Record<CorePanelStatKey, number>>,
+  attributeId: string,
+  value: number
+): boolean {
+  const key = CORE_KEY_BY_ID[attributeId]
+  if (!key) return false
+  baseFinalAdditions[key] = (baseFinalAdditions[key] ?? 0) + value
+  return true
+}
+
 function addEquipmentStats(
   gameData: PlannerGameData,
   stats: PanelStats,
   percentages: Partial<Record<CorePanelStatKey, number>>,
   modifiers: Map<string, PanelStatModifier>,
+  baseFinalAdditions: Partial<Record<CorePanelStatKey, number>>,
   character: PlannerCharacter,
   equipmentId: string | null,
   statLevels: number[]
@@ -329,9 +355,13 @@ function addEquipmentStats(
     const rawValue = stat.values[level] ?? 0
     const display = stat.displayValues?.[level] ?? ''
     const isPercent = display.includes('%')
-    const value = isPercent ? Math.abs(parseFirstNumber(display)) : rawValue
+    const pool = equipmentStatPool(stat.modifierType)
+    // 乘算池用显示值 (百分点), 其余池用原始值 (游戏池内是原始单位)。
+    const value = isPercent && pool === 'base' ? Math.abs(parseFirstNumber(display)) : rawValue
     const resolvedId = stat.attributeId === 'Main' ? character.mainAttributeId : stat.attributeId === 'Sub' ? character.subAttributeId : stat.attributeId
-    const appliedToCore = applyCoreValue(stats, percentages, resolvedId, value, isPercent)
+    const appliedToCore = pool === 'baseFinal'
+      ? applyCoreFinalAddition(baseFinalAdditions, resolvedId, value)
+      : applyCoreValue(stats, percentages, resolvedId, value, isPercent)
     if (stat.attributeId === 'Main' || stat.attributeId === 'Sub') addModifier(modifiers, stat.attributeId, value, isPercent)
     else if (!appliedToCore) addModifier(modifiers, stat.attributeId, value, isPercent)
   })
@@ -342,14 +372,18 @@ function applyEquipmentSetValues(
   percentages: Partial<Record<CorePanelStatKey, number>>,
   values: Record<string, number>
 ): void {
+  // 只保留 STATIC_SET_VALUE_LABELS 白名单里的字段, 且名字必须出现在效果描述首句
+  // (scripts/lib/generate-planner-data.ts 的 STATIC_SET_VALUE_LABELS)。
+  // 不要把 `hp_add` 加进来: 原始表里它是「击败敌人后回复100点生命值」的回复量。
   stats.strength += values.str_up ?? 0
   stats.agility += values.agi_up ?? 0
   stats.intellect += values.wisd_up ?? 0
   stats.will += values.will_up ?? 0
   stats.hp += values.hp_up ?? 0
-  stats.hp += values.hp_add ?? 0
   stats.defense += values.def_up ?? 0
   if (values.atk_up) {
+    // 套组效果的攻击力加成一律是百分比 (0.08~0.15); 大于 1 只可能来自原始表里
+    // 与首句无关的其他黑名字段, 按固定值累加, 而不是当成 +2000% 使用。
     if (Math.abs(values.atk_up) <= 1) percentages.attack = (percentages.attack ?? 0) + values.atk_up
     else stats.attack += values.atk_up
   }
@@ -460,32 +494,79 @@ function attributeSource(attributeId: string): PanelAttributeContribution['sourc
   return 'strength'
 }
 
-function addDerivedAttributes(gameData: PlannerGameData, stats: PanelStats, contributions: PanelAttributeContribution[], character: PlannerCharacter): void {
-  const derived = gameData.derivedAttributes
-  const hpIncrease = stats.strength * derived.efficiencyOfSTR
+/**
+ * 按上游 `AttributeMetaTable` 的区间钳制属性值。
+ *
+ * 游戏在**每个乘区结算后**都 Clamp 一次 (`AttributesCalculator._CalculateBaseAttribute`
+ * 的 min/max 参数): `baseValue = Clamp((Clamp(raw + baseAdd) × max(baseMul,0) + baseFinalAdd) × baseFinalMul)`。
+ * `attributeLimits` 缺失时（旧数据）不钳制，与修复前一致。
+ */
+function clampToLimit(value: number, limit: PlannerAttributeLimitData | undefined): number {
+  if (!limit) return value
+  let result = value
+  if (limit.min !== undefined) result = Math.max(limit.min, result)
+  if (limit.max !== undefined) result = Math.min(limit.max, result)
+  return result
+}
+
+/**
+ * 四维属性 (力量/敏捷/智识/意志) 在派生公式里只取整数部分。
+ *
+ * 游戏侧没有把这条写在任何可读的表或 Lua 里 (`Attributes` 全部返回 `double`,
+ * `AttributeUtils.lua` 只在显示层 floor), 结论来自游戏内实测, 两例互相印证:
+ * - 余烬 L90 基础力量 176.41174, 其余力量来源全为整数 ⇒ 面板显示 695 时真值为
+ *   695.41174。「力量提供的生命值」游戏内为 3475 = 5×695; 若用真值应为 3477.057。
+ * - 同一角色的属性详情「来自力量的攻击加成 +171.0%」= 0.005×342; 真值 342.41174
+ *   应为 171.206% (游戏百分比显示保留一位, floor)。
+ */
+function integerPart(value: number): number {
+  return Math.floor(value)
+}
+
+/**
+ * 力量→生命的换算属于「基值加成」池, 必须并入生命池**之后**再乘生命值%。
+ *
+ * 游戏侧: `Attributes.GetHpBaseAddFromStrAttribute()` 把 `力量 × efficiencyOfSTR`
+ * 加进 MaxHp 的 baseAdd; 装备/套装的「最大生命值+X%」是 `ModifierType.BaseMultiplier` (6),
+ * `AttributesCalculator._CalculateBaseAttribute` 的次序为 `(raw + baseAdd) × (1 + baseMultiplier)`。
+ * 旧实现把换算放在百分比之后相加, 高生命%配装系统性偏低 (余烬 + 大雷斑 + 生物辅助四件套
+ * 会少算 6259.9, 约 33%)。
+ */
+function applyStrengthHpConversion(gameData: PlannerGameData, stats: PanelStats, contributions: PanelAttributeContribution[]): void {
+  const hpIncrease = integerPart(stats.strength) * gameData.derivedAttributes.efficiencyOfSTR
   stats.hp += hpIncrease
   if (hpIncrease > 0) contributions.push({ source: 'strength', target: 'hp', value: hpIncrease, isPercent: false })
+}
 
-  const mainValue = character.mainAttributeId === CORE_ATTRIBUTE_IDS.strength ? stats.strength : character.mainAttributeId === CORE_ATTRIBUTE_IDS.agility ? stats.agility : character.mainAttributeId === CORE_ATTRIBUTE_IDS.intellect ? stats.intellect : stats.will
-  const subValue = character.subAttributeId === CORE_ATTRIBUTE_IDS.strength ? stats.strength : character.subAttributeId === CORE_ATTRIBUTE_IDS.agility ? stats.agility : character.subAttributeId === CORE_ATTRIBUTE_IDS.intellect ? stats.intellect : stats.will
+/**
+ * 其余派生属性只影响面板上的「属性提供」条目与攻击力末位乘算; 均以四维取整后的值为输入。
+ */
+function addDerivedAttributes(gameData: PlannerGameData, stats: PanelStats, contributions: PanelAttributeContribution[], character: PlannerCharacter): void {
+  const derived = gameData.derivedAttributes
+  const mainValue = integerPart(character.mainAttributeId === CORE_ATTRIBUTE_IDS.strength ? stats.strength : character.mainAttributeId === CORE_ATTRIBUTE_IDS.agility ? stats.agility : character.mainAttributeId === CORE_ATTRIBUTE_IDS.intellect ? stats.intellect : stats.will)
+  const subValue = integerPart(character.subAttributeId === CORE_ATTRIBUTE_IDS.strength ? stats.strength : character.subAttributeId === CORE_ATTRIBUTE_IDS.agility ? stats.agility : character.subAttributeId === CORE_ATTRIBUTE_IDS.intellect ? stats.intellect : stats.will)
   const mainAttackIncrease = mainValue * derived.atkRateOfMain
   const subAttackIncrease = subValue * derived.atkRateOfSub
   stats.attack *= 1 + mainAttackIncrease + subAttackIncrease
   if (mainAttackIncrease > 0) contributions.push({ source: attributeSource(character.mainAttributeId), target: 'attack', value: mainAttackIncrease * 100, isPercent: true })
   if (subAttackIncrease > 0) contributions.push({ source: attributeSource(character.subAttributeId), target: 'attack', value: subAttackIncrease * 100, isPercent: true })
 
-  const physicalResistance = stats.agility * derived.efficiencyOfAGI * 100
+  // 敏捷/智识提供的是「抗性点数」, 换算成承伤系数是反比例而非线性:
+  // 抗性点数 = 100 - 100/(1 + efficiency×属性), 抗性区 = 1/(1 + efficiency×属性)。
+  // 同一形式已在防御力上使用; 旧写的 `属性 × efficiency × 100` 是线性近似, 会高估减免
+  // (余烬 96.95876 敏捷: 9.6959% vs 正确 8.7591%)。
+  const physicalResistance = (1 - 1 / (1 + derived.efficiencyOfAGI * integerPart(stats.agility))) * 100
   if (physicalResistance > 0) contributions.push({ source: 'agility', target: 'physicalDamageReduction', value: physicalResistance, isPercent: true })
 
   // Intellect (WISD) provides spell resistance, which reduces elemental spell damage.
-  const spellResistance = stats.intellect * derived.efficiencyOfWISD * 100
+  const spellResistance = (1 - 1 / (1 + derived.efficiencyOfWISD * integerPart(stats.intellect))) * 100
   if (spellResistance > 0) {
     for (const target of ['fireDamageReduction', 'pulseDamageReduction', 'crystDamageReduction', 'naturalDamageReduction'] as const) {
       contributions.push({ source: 'intellect', target, value: spellResistance, isPercent: true })
     }
   }
 
-  const healingIncrease = stats.will * derived.recoverEfficiencyOfWILL * 100
+  const healingIncrease = integerPart(stats.will) * derived.recoverEfficiencyOfWILL * 100
   if (healingIncrease > 0) contributions.push({ source: 'will', target: 'healingReceived', value: healingIncrease, isPercent: true })
 
   const damageReduction = 1 - 1 / (1 + derived.efficiencyOfDEF * stats.defense)
@@ -502,6 +583,7 @@ export function calculatePanelStats(config: PanelPreviewConfig): PanelStats {
   const baseLevel = character.levels.find((entry) => entry.level === config.level) ?? character.levels.at(-1)
   const stats = createEmptyPanelStats()
   const percentages: Partial<Record<CorePanelStatKey, number>> = {}
+  const baseFinalAdditions: Partial<Record<CorePanelStatKey, number>> = {}
   const modifiers = new Map<string, PanelStatModifier>()
   for (const stat of baseLevel?.stats ?? []) {
     const key = CORE_KEY_BY_ID[stat.attributeId]
@@ -522,7 +604,7 @@ export function calculatePanelStats(config: PanelPreviewConfig): PanelStats {
     }
   }
   const selectedEquipment = [config.armor, config.gloves, config.accessoryOne, config.accessoryTwo]
-  for (const item of selectedEquipment) addEquipmentStats(gameData, stats, percentages, modifiers, character, item.equipmentId, item.statLevels ?? [])
+  for (const item of selectedEquipment) addEquipmentStats(gameData, stats, percentages, modifiers, baseFinalAdditions, character, item.equipmentId, item.statLevels ?? [])
   const suitCounts = new Map<string, { count: number; equipmentId: string }>()
   for (const item of selectedEquipment) {
     if (!item.equipmentId) continue
@@ -548,9 +630,19 @@ export function calculatePanelStats(config: PanelPreviewConfig): PanelStats {
       applyWeaponSkill(stats, percentages, modifiers, character, skill.id, description)
     })
   }
-  for (const key of ['strength', 'agility', 'intellect', 'will', 'hp', 'defense', 'attack'] as const) {
-    stats[key] *= 1 + (percentages[key] ?? 0)
+  // 基值结算次序按游戏 `_CalculateBaseAttribute`: 先 `(raw + baseAddition) × (1 + baseMultiplier)`,
+  // 再加 `baseFinalAddition`, 每步按 AttributeMetaTable 钳制 (乘算池取下限 0)。
+  // 生命值必须留到最后: 力量换算的生命要先并入生命池 (见 applyStrengthHpConversion)。
+  const limits = gameData.attributeLimits
+  const applyBasePools = (key: CorePanelStatKey): number => {
+    const limit = limits?.[CORE_ATTRIBUTE_IDS[key]]
+    const base = clampToLimit(clampToLimit(stats[key], limit) * Math.max(1 + (percentages[key] ?? 0), 0) + (baseFinalAdditions[key] ?? 0), limit)
+    stats[key] = base
+    return base
   }
+  for (const key of ['strength', 'agility', 'intellect', 'will', 'defense', 'attack'] as const) applyBasePools(key)
+  applyStrengthHpConversion(gameData, stats, stats.attributeContributions)
+  applyBasePools('hp')
   addDerivedAttributes(gameData, stats, stats.attributeContributions, character)
   // 不做展示用的取整: 面板要与游戏内数值逐位对照, 有多少位就保留多少位。
   // 这里只用 stripFloatNoise 消掉二进制浮点运算的尾巴 (例如 0.1+0.2 的

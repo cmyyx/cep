@@ -37,11 +37,17 @@ interface WikiAssetSource {
   richText?: Record<string, WikiRichTextTerm>
 }
 
-export function collectWikiAssets(source: WikiAssetSource): WikiAssets {
+export interface CollectWikiAssetsOptions {
+  /** 额外需要转换的武器图标 (前瞻武器: 不在 wiki 数据里, 但 CDN 已有图标)。 */
+  extraWeaponIconIds?: string[]
+}
+
+export function collectWikiAssets(source: WikiAssetSource, options: CollectWikiAssetsOptions = {}): WikiAssets {
   const characters = new Set(source.characters.summaries.map((entry) => entry.imageId))
   const characterFullBody = new Set<string>()
   const characterPotential = new Set<string>()
   const weapons = new Set(source.items.weaponSummaries.map((entry) => entry.imageId))
+  for (const iconId of options.extraWeaponIconIds ?? []) weapons.add(iconId)
   const equipment = new Set(source.items.equipmentSummaries.map((entry) => entry.imageId))
   const skills = new Set<string>()
   const logisticsSkills = new Set<string>()

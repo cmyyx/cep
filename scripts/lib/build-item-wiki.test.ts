@@ -188,9 +188,11 @@ it('builds every equipment item with stats, suit effect, and crafting materials'
     suitName: { en: 'Test Set' },
     minimumLevel: 80,
   })
+  // modifierType 以前只用来挑显示格式 (挑完就丢), 面板计算需要它区分
+  // BaseAddition (5) 与 BaseFinalAddition (7), 所以必须一起带出去。
   expect(detail.stats).toEqual([
-    { attributeId: '3', values: [40, 45, 50, 55], displayValues: ['防御力+40', '防御力+45', '防御力+50', '防御力+55'] },
-    { attributeId: 'Sub', values: [0.2, 0.25, 0.3, 0.35], displayValues: ['副能力+20%', '副能力+25%', '副能力+30%', '副能力+35%'] },
+    { attributeId: '3', values: [40, 45, 50, 55], modifierType: 5, displayValues: ['防御力+40', '防御力+45', '防御力+50', '防御力+55'] },
+    { attributeId: 'Sub', values: [0.2, 0.25, 0.3, 0.35], modifierType: 6, displayValues: ['副能力+20%', '副能力+25%', '副能力+30%', '副能力+35%'] },
   ])
   expect(detail.suitEffects[0]).toMatchObject({
     id: 'suit_skill',

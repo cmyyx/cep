@@ -138,3 +138,29 @@ export interface TimelineTooltip {
   y: number
 }
 
+
+/**
+ * 客户端卡池类型 (`GachaCharPoolTable.type`)。
+ * 0=特许(新角色) 1=新手 2=基础(常驻) 3=联合 4=复刻；与池 id 前缀互相印证。
+ */
+export type GachaPoolKind = 'special' | 'beginner' | 'standard' | 'joint' | 'rerun'
+
+/** 单个卡池的 UP 名单与实际时间档 (来自客户端表, 生成于 generate-gacha-pools.ts)。 */
+export interface GachaPoolWindow {
+  poolId: string
+  kind: GachaPoolKind
+  /** 概率提升角色, 多 UP 为多个 (联合池 / 多 UP 复刻池) */
+  upCharacterIds: string[]
+  /** 客户端实际开池时刻: 维护提前结束即可抽, 早于公告口径的 12:00 */
+  start: string
+  /** 结束时间尚未写定时为 null (客户端 closeTime 为空) */
+  end: string | null
+}
+
+export interface GachaPoolData {
+  pools: GachaPoolWindow[]
+  /** 有档期但客户端还没有卡池行的窗口 (如 time_rerun_1_5_2), 用于提示待补 UP 名单 */
+  scheduledWithoutPool: Array<{ poolId: string; start: string; end: string | null }>
+  /** 生成时自检结果: 缺 UP 名单 / 缺时间档 / 与池内容表不一致 */
+  issues: string[]
+}

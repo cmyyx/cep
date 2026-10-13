@@ -13,7 +13,7 @@ import {
 } from '@/components/ui/dialog'
 import { cn } from '@/lib/utils'
 import { withImageCacheVersion } from '@/lib/image-url'
-import { bannerEntries } from '@/data/banner'
+import { bannerEntries, entryWindow } from '@/data/banner'
 import type { BannerEntry } from '@/data/banner'
 
 const CARD_CLOSE_DURATION = 150 // ms — must match `duration-150` in animation classes
@@ -43,6 +43,8 @@ function PoolCard({
   onSelect: (visual: BannerEntry) => void
 }) {
   const locale = useLocale()
+  // 档期以上游为准 (见 lib/banner-schedule); 客户端未下发该卡池时回退手写公告值
+  const window = entryWindow(visual)
   const cardRef = useRef<HTMLButtonElement | null>(null)
   const [inView, setInView] = useState(eager)
 
@@ -105,7 +107,7 @@ function PoolCard({
           </p>
         )}
         <p className="text-[10px] text-white/60 mt-1">
-          {formatDate(visual.periodStart, locale)} - {formatDate(visual.periodEnd, locale)}
+          {formatDate(window.start, locale)} - {formatDate(window.end, locale)}
         </p>
       </div>
     </Button>
@@ -117,6 +119,7 @@ export function PoolInfoStrip() {
   const locale = useLocale()
   const [selectedVisual, setSelectedVisual] = useState<BannerEntry | null>(null)
   const [cardState, setCardState] = useState<'closed' | 'open' | 'closing'>('closed')
+
   const closeTimerRef = useRef<ReturnType<typeof setTimeout>>(undefined)
   const scrollerRef = useRef<HTMLDivElement | null>(null)
 
@@ -293,7 +296,7 @@ export function PoolInfoStrip() {
                     <div className="flex items-center gap-2 text-xs text-muted-foreground mb-2">
                       <span className="font-medium">{t('bannerCalendar.poolDuration')}:</span>
                       <span>
-                        {formatDate(selectedVisual.periodStart, locale)} - {formatDate(selectedVisual.periodEnd, locale)}
+                        {formatDate(entryWindow(selectedVisual).start, locale)} - {formatDate(entryWindow(selectedVisual).end, locale)}
                       </span>
                     </div>
 

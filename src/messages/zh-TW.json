@@ -1055,6 +1055,7 @@
     "weaponLibrary": "武器庫",
     "weaponLevel": "武器等級",
     "resultTitle": "幹員面板",
+    "displayPrecisionNote": "數值採用遊戲內顯示口徑（非百分比屬性向下取整）；下方小字為精確值。",
     "additionalAttributes": "潛能、武器與裝備提供的額外屬性",
     "attributeContributions": "屬性提供的加成",
     "attributeProvides": "{attribute}提供{effect}",

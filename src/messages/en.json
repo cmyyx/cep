@@ -1055,6 +1055,7 @@
     "weaponLibrary": "Weapon library",
     "weaponLevel": "Weapon level",
     "resultTitle": "Operator stats",
+    "displayPrecisionNote": "Values use the in-game display convention (non-percent attributes are floored); the small number below is the exact value.",
     "additionalAttributes": "Additional potential, weapon, and equipment attributes",
     "attributeContributions": "Attribute contributions",
     "attributeProvides": "{attribute} provides {effect}",

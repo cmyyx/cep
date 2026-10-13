@@ -1055,6 +1055,7 @@
     "weaponLibrary": "武器库",
     "weaponLevel": "武器等级",
     "resultTitle": "干员面板",
+    "displayPrecisionNote": "数值采用游戏内显示口径（非百分比属性向下取整）；下方小字为精确值。",
     "additionalAttributes": "潜能、武器与装备提供的额外属性",
     "attributeContributions": "属性提供的加成",
     "attributeProvides": "{attribute}提供{effect}",

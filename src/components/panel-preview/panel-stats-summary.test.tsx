@@ -17,7 +17,7 @@ vi.mock('@/stores/usePanelPreviewStore', () => ({
   usePanelPreviewStore: (selector: (state: { config: object }) => unknown) => selector({ config: {} }),
 }))
 
-// 面板数值不做四舍五入 (要与游戏内逐位对照), 所以小数位可能很多。
+// 面板主数值走游戏显示口径 (非百分比属性向下取整), 精确值另起一行小字。
 vi.mock('@/lib/planner/progression', () => ({
   calculatePanelStats: () => ({
     strength: 1234567.89,
@@ -47,24 +47,24 @@ vi.mock('@/components/wiki/wiki-rich-text', () => ({
 
 afterEach(cleanup)
 
-it('keeps long primary stat values visible on narrow layouts', () => {
+it('shows the in-game display value (floored) as the primary number', () => {
   render(<PanelStatsSummary />)
 
-  const value = screen.getByText('1,234,567.89')
-  expect(value.className).toContain('text-[9px]')
-  // 长数值在桌面也必须降档: 固定 sm:text-base 会让它溢出瓷砖
-  expect(value.className).toContain('sm:text-xs')
-  expect(value.className).not.toContain('sm:text-base')
-  expect(value.className).not.toContain('truncate')
+  // 105.6340205 在游戏面板上显示 105
+  const primary = screen.getByText('105')
+  expect(primary.className).toContain('break-all')
+  expect(primary.className).not.toContain('truncate')
 })
 
-it('renders combat stats with full precision through the same sizing tiers', () => {
+it('keeps the exact value on a second line for digit-by-digit comparison', () => {
   render(<PanelStatsSummary />)
 
-  // 未被四舍五入成 105.63; 11 字符落在 >=10 档
-  const value = screen.getByText('105.6340205')
-  expect(value.className).toContain('break-all')
-  expect(value.className).toContain('text-[9px]')
+  // 精确值小字 (固定 9px 档, 与本行末注释一致)
+  expect(screen.getByText('105.6340205').className).toContain('text-[9px]')
+  expect(screen.getByText('105.6340205').className).toContain('text-muted-foreground/70')
+  // 大数值带千位分隔, 且精确值同样保留
+  expect(screen.getByText('1,234,567')).toBeTruthy()
+  expect(screen.getByText('1,234,567.89')).toBeTruthy()
 })
 
 it('scales the type down as the value gets longer, and never clips it', () => {

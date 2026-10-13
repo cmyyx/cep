@@ -104,16 +104,24 @@ function materials(values: Array<{ itemId: string; count: number }>): PlannerMat
   return values.map((value) => [value.itemId, value.count] as const)
 }
 
+/**
+ * 套组效果里可当面板数值结算的黑名字段 → 效果描述首句里必须出现的名字。
+ *
+ * 只保留「首句明写该名字」的字段: 原始表里同名黑名字段常常是别的含义
+ * (例如 `hp_add` 是「击败敌人后回复100点生命值」的回复量, 不是生命值上限加成),
+ * 不做名字校验就会把回复量当成固定生命加成。
+ */
 const STATIC_SET_VALUE_LABELS: Record<string, string> = {
   str_up: '力量',
   agi_up: '敏捷',
   wisd_up: '智识',
   will_up: '意志',
   hp_up: '生命值',
+  def_up: '防御力',
   atk_up: '攻击力',
 }
 
-function staticSetValues(effect: ItemWikiData['equipmentDetails'][string]['suitEffects'][number]): Record<string, number> {
+export function staticSetValues(effect: ItemWikiData['equipmentDetails'][string]['suitEffects'][number]): Record<string, number> {
   const summary = effect.description['zh-CN'].split('\n')[0] ?? ''
   return Object.fromEntries(
     Object.entries(effect.values).filter(([key]) => {
@@ -149,6 +157,15 @@ export function buildPlannerGameData(
   const table = (name: string) => parseJsonSafe(join(akedataPath, 'TableCfg', `${name}.json`)) as Record<string, unknown>
   const potentialEffects = table('PotentialTalentEffectTable') as Record<string, PotentialEffectSource>
   const battleConst = table('BattleConst') as Record<string, unknown>
+  // 属性钳制区间: 游戏按 AttributeMetaTable 的 min/max 在每个乘区结算后 Clamp
+  const attributeMetaTable = table('AttributeMetaTable') as Record<string, { hasMinValue?: unknown; hasMaxValue?: unknown; minValue?: unknown; maxValue?: unknown }>
+  const attributeLimits = Object.fromEntries(
+    Object.entries(attributeMetaTable).flatMap(([attributeId, meta]) => {
+      const min = meta.hasMinValue === true ? numeric(meta.minValue as number | string | undefined) : undefined
+      const max = meta.hasMaxValue === true ? numeric(meta.maxValue as number | string | undefined) : undefined
+      return min === undefined && max === undefined ? [] : [[attributeId, { ...(min !== undefined ? { min } : {}), ...(max !== undefined ? { max } : {}) }]]
+    })
+  )
   const derivedAttributes: PlannerGameData['derivedAttributes'] = {
     atkRateOfMain: numeric(battleConst.atkRateOfMain as number | string | undefined),
     atkRateOfSub: numeric(battleConst.atkRateOfSub as number | string | undefined),
@@ -265,7 +282,13 @@ export function buildPlannerGameData(
   )
 
   const equipmentMap = Object.fromEntries(
-    Object.entries(items.equipmentDetails).map(([id, detail]) => [id, detail.stats.map((stat) => ({ attributeId: stat.attributeId, values: stat.values, displayValues: stat.displayValues ?? [] }))])
+    Object.entries(items.equipmentDetails).map(([id, detail]) => [id, detail.stats.map((stat) => ({
+      attributeId: stat.attributeId,
+      values: stat.values,
+      displayValues: stat.displayValues ?? [],
+      // 词条乘区 (ModifierType): 面板计算要靠它区分 BaseAddition 与 BaseFinalAddition。
+      ...(stat.modifierType !== undefined ? { modifierType: stat.modifierType } : {}),
+    }))])
   )
   const equipmentSummaries = new Map(items.equipmentSummaries.map((summary) => [summary.id, summary]))
   const equipmentSuits = Object.fromEntries(
@@ -367,6 +390,7 @@ export function buildPlannerGameData(
       equipmentSuits,
       dungeons,
       derivedAttributes,
+      attributeLimits,
     },
     i18n: {
       materialNames,

@@ -93,6 +93,12 @@ export interface PlannerEquipmentStatData {
   attributeId: string
   values: number[]
   displayValues?: string[]
+  /**
+   * 上游 `EquipTable` 的词条乘区 (`ModifierType`): 5=BaseAddition, 6=BaseMultiplier,
+   * 7=BaseFinalAddition。7 要在基值乘算**之后**相加 (面板 HP/攻击力各 4~6 条词条)。
+   * 旧数据没有这个字段, 运行时按 5 (普通固定值) 处理 —— 见 progression.ts。
+   */
+  modifierType?: number
 }
 
 export interface PlannerEquipmentSuitEffectData {
@@ -122,6 +128,12 @@ export interface PlannerDungeonData {
   rewardItems: PlannerMaterialTuple[]
 }
 
+/** 单个属性值的钳制区间 (上游 AttributeMetaTable: hasMinValue/hasMaxValue)。 */
+export interface PlannerAttributeLimitData {
+  min?: number
+  max?: number
+}
+
 export interface PlannerDerivedAttributeData {
   atkRateOfMain: number
   atkRateOfSub: number
@@ -140,6 +152,11 @@ export interface PlannerGameData {
   equipmentSuits: Record<string, PlannerEquipmentSuitData>
   dungeons: PlannerDungeonData[]
   derivedAttributes: PlannerDerivedAttributeData
+  /**
+   * 各核心属性的钳制区间 (属性 id -> {min,max})。游戏按 AttributeMetaTable 在每个
+   * 乘区结算后 Clamp; 旧数据没有该字段时跳过钳制 (与修复前一致)。
+   */
+  attributeLimits?: Record<string, PlannerAttributeLimitData>
 }
 
 export interface CharacterGrowthConfig {

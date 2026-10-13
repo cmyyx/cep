@@ -1055,6 +1055,7 @@
     "weaponLibrary": "武器一覧",
     "weaponLevel": "武器レベル",
     "resultTitle": "オペレーターステータス",
+    "displayPrecisionNote": "数値はゲーム内の表示規則（%以外の属性は切り捨て）に合わせています。下の小さい数字が正確な値です。",
     "additionalAttributes": "潜在・武器・装備の追加能力",
     "attributeContributions": "能力値による補正",
     "attributeProvides": "{attribute}による{effect}",

@@ -8,6 +8,8 @@ import { generateMetadataI18n } from './lib/generate-metadata'
 import { generateStatI18n } from './lib/generate-stat-i18n'
 import { generateCharacterI18n } from './lib/generate-characters'
 import { generateWikiData } from './lib/generate-wiki-data'
+import { describeGachaPoolData, generateGachaPoolData } from './lib/generate-gacha-pools'
+import { describeForesightData, generateForesightData } from './lib/generate-foresight'
 import { exportGameI18nTables } from './lib/export-game-i18n'
 import { compareWeapons } from './lib/compare-weapons'
 import { compareEquips } from './lib/compare-equips'
@@ -322,6 +324,31 @@ async function main() {
     if (wk.acquisitionWarnings.length > 0) {
       console.log(`  Acquisition warnings: ${wk.acquisitionWarnings.length}`)
       for (const warning of wk.acquisitionWarnings) console.log(`    ${warning}`)
+    }
+  }
+
+  // Foresight weapons: 未上线武器 (不在 WeaponBasicTable 里, 许愿单交叉验证)
+  if (mode === 'update') {
+    console.log('\n-- Foresight weapons --')
+    const foresight = generateForesightData(paths.akedata, join(projectRoot, 'src', 'generated', 'data'))
+    for (const line of describeForesightData(foresight.data)) console.log('  ' + line)
+  }
+
+  // Gacha pools: 客户端 UP 名单 + 实际时间档 (entry[0]), 供卡牌日历自动同步
+  if (mode === 'update') {
+    console.log('\n-- Gacha pools --')
+    const gp = generateGachaPoolData(paths.akedata, join(projectRoot, 'src', 'generated', 'data'))
+    for (const line of describeGachaPoolData(gp.data)) console.log('  ' + line)
+    // 日历排期以上游为准; 手写档期被自动修正的条目在这里列出 (不阻塞同步)。
+    // 动态 import: 必须等上面重新生成 gacha-pools.ts 之后再读取。
+    try {
+      const { bannerScheduleRepairs } = await import('../src/data/banner')
+      console.log(`  日历自动修正 ${bannerScheduleRepairs.length} 处手写档期:`)
+      for (const repair of bannerScheduleRepairs) {
+        console.log(`    ${repair.entryId} / ${repair.character} ${repair.field}: ${repair.handWritten} → ${repair.upstream}`)
+      }
+    } catch (error: unknown) {
+      console.warn(`  日历修正检查跳过: ${error instanceof Error ? error.message : String(error)}`)
     }
   }
 

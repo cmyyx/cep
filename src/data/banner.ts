@@ -1,3 +1,5 @@
+import { gachaPoolData } from '@/generated/data/gacha-pools'
+import { buildBannerSchedule, resolveEntryWindow, type BannerScheduleRepair } from '@/lib/banner-schedule'
 import type { BannerSchedule, BannerWindow } from '@/types/banner'
 
 export interface BannerEntry {
@@ -230,49 +232,19 @@ export const bannerEntries: BannerEntry[] = [
   },
 ]
 
-function deriveSchedule(entries: BannerEntry[]): BannerSchedule {
-  const schedule: Record<string, { windows: BannerWindow[]; offRateNote?: string }> = {}
+/**
+ * 排期以上游客户端数据为准 (generate-gacha-pools.ts 生成): 手写 `periodStart/periodEnd`
+ * 只在客户端还没下发该卡池、或客户端还没写定结束时间时兜底; 不一致的差异记录在
+ * `bannerScheduleRepairs` 里供追溯 (客户端实际开池时间比公告早数小时, 属预期差)。
+ */
+const derivedSchedule = buildBannerSchedule(bannerEntries, gachaPoolData.pools, PENDING_SCHEDULE)
 
-  for (const entry of entries) {
-    if (entry.hidden) continue
-    for (const fc of entry.featured) {
-      if (!schedule[fc.name]) {
-        schedule[fc.name] = { windows: [] }
-      }
-      schedule[fc.name].windows.push({
-        start: entry.periodStart,
-        end: entry.periodEnd,
-        version: fc.versionLabel ?? entry.version,
-        period: fc.period,
-        isRerun: fc.isRerun ?? false,
-      })
-      if (fc.offRateNote) {
-        schedule[fc.name].offRateNote = fc.offRateNote
-      }
-    }
-  }
+export const bannerSchedule: BannerSchedule = derivedSchedule.schedule
 
-  // Merge pending entries without visuals
-  for (const [name, data] of Object.entries(PENDING_SCHEDULE)) {
-    if (!schedule[name]) {
-      schedule[name] = { windows: [] }
-    }
-    schedule[name].windows.push(...data.windows)
-  }
+/** 手写档期与上游不一致、已按上游自动修正的记录。 */
+export const bannerScheduleRepairs: BannerScheduleRepair[] = derivedSchedule.repairs
 
-  // Ensure windows are sorted chronologically for each character
-  for (const data of Object.values(schedule)) {
-    data.windows.sort((a, b) => {
-      if (a.start === b.start) {
-        const aPeriod = typeof a.period === 'number' ? a.period : 0
-        const bPeriod = typeof b.period === 'number' ? b.period : 0
-        return aPeriod - bPeriod
-      }
-      return a.start.localeCompare(b.start)
-    })
-  }
-
-  return schedule as BannerSchedule
+/** 卡面/详情展示用的档期: 与时间轴一致 (上游优先), 客户端未下发时回退手写公告值。 */
+export function entryWindow(entry: BannerEntry): { start: string; end: string } {
+  return resolveEntryWindow(entry, gachaPoolData.pools)
 }
-
-export const bannerSchedule: BannerSchedule = deriveSchedule(bannerEntries)

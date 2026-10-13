@@ -270,6 +270,12 @@ export interface WikiEquipmentStat {
   attributeId: string
   values: number[]
   displayValues?: string[]
+  /**
+   * 上游 `EquipTable` 的词条乘区 (`ModifierType`): 5=BaseAddition, 6=BaseMultiplier,
+   * 7=BaseFinalAddition。面板计算需要它来区分「乘算前入池」与「乘算后相加」,
+   * 所以必须随数据一路带到 planner 数据。
+   */
+  modifierType?: number
 }
 
 export interface WikiEquipmentDetail {

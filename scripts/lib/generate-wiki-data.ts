@@ -15,6 +15,7 @@ import { parseJsonSafe } from './json-utils'
 import { loadAllTextTables, SUPPORTED_LOCALES } from './stat-mapping'
 import { localizeWikiText, type TextRef, type WikiTextTables } from './wiki-builder-utils'
 import { collectWikiAssets, type WikiAssets } from './wiki-assets'
+import { readForesightWeaponIconIds } from './generate-foresight'
 import { buildPlannerGameData, writePlannerGameData, type PlannerI18nData } from './generate-planner-data'
 import { rawEnumLabels, rawEquipmentDetail, rawEquipmentSummary, rawGlossary, rawWeaponDetail, rawWeaponSummary } from './raw-wiki-data'
 import { buildWeaponAcquisitionData, type WeaponAcquisitionData } from './weapon-acquisition'
@@ -468,7 +469,9 @@ export function generateWikiData(
     textTables
   )
   writeFileSync(glossaryPath, `${JSON.stringify(rawGlossary(glossary), null, 2)}\n`, 'utf8')
-  const assets = collectWikiAssets({ characters, items: generated, richText: glossary })
+  // 前瞻武器不在 wiki 数据里, 但图标要先转换好, 供后续接入使用
+  const extraWeaponIconIds = readForesightWeaponIconIds(akedataPath)
+  const assets = collectWikiAssets({ characters, items: generated, richText: glossary }, { extraWeaponIconIds })
   const assetPath = join(dataOutputDir, 'wiki', 'assets.json')
   writeFileSync(assetPath, `${JSON.stringify(assets, null, 2)}\n`, 'utf8')
   const enumOutput = buildEnums(akedataPath, imagedbPath, dataOutputDir, textTables, gameTextTable, characters.enumLabels)
