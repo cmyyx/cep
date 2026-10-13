@@ -167,31 +167,30 @@ describe('SyncNotifier - Missing Translation integration', () => {
   })
 })
 
-describe('SyncNotifier - app messages share the toast slot', () => {
+describe('SyncNotifier - app messages stack with sync notices', () => {
   afterEach(() => {
     cleanup()
     vi.unstubAllGlobals()
   })
 
-  it('renders a data-import result in the same toast instead of a second overlay', async () => {
+  it('renders a data-import result in the shared toast stack instead of a second overlay', async () => {
     render(<SyncNotifier />)
 
     await act(async () => {
       showAppToast({ tone: 'success', text: '数据导入成功' })
     })
 
-    // Exactly one bottom-right toast lives in the DOM — the import dialog no
+    // Exactly one bottom-right container lives in the DOM — the import dialog no
     // longer renders its own overlay at the same position.
     expect(screen.getByText('数据导入成功')).toBeTruthy()
     expect(document.querySelectorAll('.fixed.bottom-6.right-6')).toHaveLength(1)
 
-    // 通知层必须低于对话框层（z-50），否则弹窗里的 Select/Dropdown 弹层
-    // （portal + z-50）会被弹窗自己盖住。
+    // 通知堆必须浮在对话框之上（对话框 z-50），否则对话框的遮罩会把通知压住。
     const zIndex = Number(document.querySelector('.fixed.bottom-6.right-6')?.className.match(/z-\[(\d+)\]/)?.[1])
-    expect(zIndex).toBeLessThan(50)
+    expect(zIndex).toBeGreaterThanOrEqual(50)
   })
 
-  it('queues an app message while a persistent conflict toast is showing', async () => {
+  it('shows an app message beside a persistent conflict toast instead of queueing it', async () => {
     vi.useFakeTimers()
     try {
       render(<SyncNotifier />)
@@ -199,23 +198,82 @@ describe('SyncNotifier - app messages share the toast slot', () => {
       await act(async () => {
         notifySync({ type: 'push_conflict' })
       })
-      expect(screen.getByText('account.syncConflictToast')).toBeTruthy()
-
+      await act(async () => {
+        vi.advanceTimersByTime(400)
+      })
       await act(async () => {
         showAppToast({ tone: 'error', text: '文件格式不支持' })
       })
-      // The important conflict notice is not silently replaced.
-      expect(screen.getByText('account.syncConflictToast')).toBeTruthy()
-      expect(screen.queryByText('文件格式不支持')).toBeNull()
 
-      // Closing the conflict toast releases the queued message.
+      expect(screen.getByText('account.syncConflictToast')).toBeTruthy()
+      expect(screen.getByText('文件格式不支持')).toBeTruthy()
+    } finally {
+      vi.useRealTimers()
+    }
+  })
+
+  it('keeps every app message from the same batch visible at once', async () => {
+    render(<SyncNotifier />)
+
+    await act(async () => {
+      showAppToast({ tone: 'error', text: '第一条：文件格式不支持' })
+      showAppToast({ tone: 'success', text: '第二条：导入完成' })
+    })
+
+    expect(screen.getByText('第一条：文件格式不支持')).toBeTruthy()
+    expect(screen.getByText('第二条：导入完成')).toBeTruthy()
+  })
+
+  it('lets each toast expire on its own timer without cutting others short', async () => {
+    vi.useFakeTimers()
+    try {
+      render(<SyncNotifier />)
+
+      await act(async () => {
+        notifySync({ type: 'pull_success' })
+      })
+      await act(async () => {
+        vi.advanceTimersByTime(400)
+      })
+      // 瞬时通知在场时再来一条持久通知, 两者的定时器互不影响。
+      await act(async () => {
+        notifySync({ type: 'push_conflict' })
+      })
+      expect(screen.getByText('account.syncDownloaded')).toBeTruthy()
+
+      await act(async () => {
+        vi.advanceTimersByTime(6000)
+      })
+      expect(screen.queryByText('account.syncDownloaded')).toBeNull()
+      expect(screen.getByText('account.syncConflictToast')).toBeTruthy()
+    } finally {
+      vi.useRealTimers()
+    }
+  })
+
+  it('does not lose an app message that arrives while a sync toast is fading out', async () => {
+    vi.useFakeTimers()
+    try {
+      render(<SyncNotifier />)
+
+      await act(async () => {
+        notifySync({ type: 'push_conflict' })
+      })
+      await act(async () => {
+        vi.advanceTimersByTime(400)
+      })
       await act(async () => {
         screen.getAllByRole('button', { name: '关闭' })[0].click()
       })
+      // 淡出中 (220ms 内) 到达的新消息不能被别人的收尾流程吞掉。
       await act(async () => {
-        vi.advanceTimersByTime(300)
+        showAppToast({ tone: 'success', text: '导入完成' })
       })
-      expect(screen.getByText('文件格式不支持')).toBeTruthy()
+      await act(async () => {
+        vi.advanceTimersByTime(400)
+      })
+
+      expect(screen.getByText('导入完成')).toBeTruthy()
     } finally {
       vi.useRealTimers()
     }

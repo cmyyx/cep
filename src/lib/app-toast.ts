@@ -1,9 +1,9 @@
 /**
  * App-level toast channel.
  *
- * 数据导入结果这类"应用消息"必须和同步通知共用同一个提示位（SyncNotifier
- * 的单槽位 toast）——各自渲染 fixed bottom-6 right-6 会重叠在一起。
- * SyncNotifier 挂载时注册 handler；没人监听时静默丢弃。
+ * 数据导入结果这类"应用消息"必须和同步通知走同一处通知堆（SyncNotifier），
+ * 各自渲染 fixed bottom-6 right-6 会重叠在一起。堆里每条通知独立存活，
+ * 应用消息不会被别的通知阻塞。SyncNotifier 挂载时注册 handler；没人监听时静默丢弃。
  */
 
 export type AppToastTone = 'success' | 'error'

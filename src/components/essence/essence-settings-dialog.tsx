@@ -163,7 +163,7 @@ export function EssenceSettingsDialog() {
 
       {/* 尺寸约束 + 整框滚动：手机上无 max-h 时弹窗高约 693px、超出 600px 视口，
           标题与 Close 按钮会永久落在屏幕外；内层 max-h-[60vh] 只能滚上半部分。
-          层级：不要给弹窗加 z 覆盖值。通知层在 z-[45]，低于对话框的 z-50；
+          层级：不要给弹窗加 z 覆盖值。通知堆自己浮在 z-[60]，对话框保持默认的 z-50；
           把弹窗抬到 z-70 会让弹窗内的 Select/Dropdown 弹层（z-50）被自己盖住。 */}
       <DialogContent className="sm:max-w-lg max-h-[calc(100dvh-2rem)] overflow-y-auto">
         <DialogHeader>

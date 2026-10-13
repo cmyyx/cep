@@ -66,6 +66,7 @@ function DataImportDialogBody({ fileName, prepared, onDone }: DataImportDialogBo
   const accounts = useEssenceSettingsStore((s) => s.accounts)
   const activeAccountId = useEssenceSettingsStore((s) => s.activeAccountId)
   const markSuccess = useDataImportStore((s) => s.markSuccess)
+  const reportError = useDataImportStore((s) => s.reportError)
 
   const activeAccount = useMemo(
     () => accounts.find((account) => account.id === activeAccountId) ?? accounts[0],
@@ -164,7 +165,11 @@ function DataImportDialogBody({ fileName, prepared, onDone }: DataImportDialogBo
     })
   }, [])
 
+  // 导入进行中: 双重点击会跑两遍 importModule (顺序写入同一批 store)
+  const [importing, setImporting] = useState(false)
+
   const handleConfirm = useCallback(async () => {
+    if (importing) return
     if (kind === 'maamend-essence') {
       if (!inventory) return
       applyMaaEndEssence(inventory.weaponIds, targetAccountId)
@@ -173,27 +178,37 @@ function DataImportDialogBody({ fileName, prepared, onDone }: DataImportDialogBo
       return
     }
     if (kind !== 'cep-backup' || !file) return
-    for (const mod of modules) {
-      if (!checked.has(mod.id)) continue
-      if (!knownIds.has(mod.id)) continue
-      const rawData = file.modules[mod.id]
-      if (rawData === null || rawData === undefined) continue
-      if (countItems(mod.id, rawData) > (MAX_ITEMS_PER_MODULE[mod.id] ?? 10000)) continue
-      // Sequential: modules are independent but lazily-loaded stores must settle
-      // before the dialog closes.
-      await importModule(mod.id, rawData, {
-        essence: {
-          mode: effectiveEssenceMode,
-          accountId: targetAccountId,
-          sourceAccountId: sourceAccount ? sourceAccount.id : undefined,
-        },
-      })
+    setImporting(true)
+    try {
+      for (const mod of modules) {
+        if (!checked.has(mod.id)) continue
+        if (!knownIds.has(mod.id)) continue
+        const rawData = file.modules[mod.id]
+        if (rawData === null || rawData === undefined) continue
+        if (countItems(mod.id, rawData) > (MAX_ITEMS_PER_MODULE[mod.id] ?? 10000)) continue
+        // Sequential: modules are independent but lazily-loaded stores must settle
+        // before the dialog closes.
+        await importModule(mod.id, rawData, {
+          essence: {
+            mode: effectiveEssenceMode,
+            accountId: targetAccountId,
+            sourceAccountId: sourceAccount ? sourceAccount.id : undefined,
+          },
+        })
+      }
+      markSuccess()
+      onDone()
+    } catch {
+      // importModule 会动态 import 各 store 的 chunk: 分包 404 / 部署过期时可能抛错,
+      // 此时前面的模块已经写入、后面的没有 —— 必须明确告诉用户是部分导入,
+      // 不能让 reject 只以 unhandledrejection 的形式消失。
+      reportError('settings.importApplyError')
+    } finally {
+      setImporting(false)
     }
-    markSuccess()
-    onDone()
   }, [
-    checked, effectiveEssenceMode, file, inventory, kind, knownIds, markSuccess, modules, onDone,
-    sourceAccount, targetAccountId,
+    checked, effectiveEssenceMode, file, importing, inventory, kind, knownIds, markSuccess, modules,
+    onDone, reportError, sourceAccount, targetAccountId,
   ])
 
   const formatLabel =
@@ -431,10 +446,10 @@ function DataImportDialogBody({ fileName, prepared, onDone }: DataImportDialogBo
         <Button
           type="button"
           size="sm"
-          disabled={confirmDisabled}
+          disabled={confirmDisabled || importing}
           onClick={() => void handleConfirm()}
         >
-          {t('settings.importConfirm')}
+          {importing ? t('settings.importing') : t('settings.importConfirm')}
         </Button>
       </div>
     </>
@@ -458,8 +473,8 @@ export function DataImportDialog() {
   const success = useDataImportStore((s) => s.success)
   const dismissSuccess = useDataImportStore((s) => s.dismissSuccess)
 
-  // 导入结果走全局单槽位 toast（SyncNotifier）—— 自己再渲染一个
-  // fixed bottom-6 right-6 会和同步冲突通知完全重叠。
+  // 导入结果走全局通知堆（SyncNotifier）—— 自己再渲染一个
+  // fixed bottom-6 right-6 会和同步通知完全重叠。
   useEffect(() => {
     if (!errorKey) return
     showAppToast({ tone: 'error', text: t(errorKey) })
@@ -477,7 +492,7 @@ export function DataImportDialog() {
       <Dialog open={request !== null} onOpenChange={(open) => { if (!open) close() }}>
         {/* The dialog can carry 8 module rows + account pickers + warnings; without
             a height cap the confirm button ends up outside a short viewport.
-            层级：不加 z 覆盖值（通知层 z-[45] < 对话框 z-50 < 弹窗内 Select 弹层 z-50）。 */}
+            层级：不加 z 覆盖值（对话框保持 z-50；通知堆在 z-[60]，浮在对话框之上）。 */}
         <DialogContent className="sm:max-w-md max-h-[calc(100dvh-2rem)] overflow-y-auto">
           {request ? (
             <DataImportDialogBody

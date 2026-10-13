@@ -101,14 +101,15 @@ src/
 
 ### 通知系统 —— 单一出口（强制）
 
-全站**只能有一个通知出口**：`src/components/shared/sync-notifier.tsx` 的单槽位 toast。同步事件、数据导入结果、缺失翻译全部走它。
+全站**只能有一个通知出口**：`src/components/shared/sync-notifier.tsx` 的通知堆（多条垂直堆叠）。同步事件、数据导入结果、缺失翻译全部走它。
 
 - **禁止任何组件自己渲染 `fixed bottom-* right-*` 形式的提示浮层**。两个浮层用同一坐标（如 `fixed bottom-6 right-6`）必然重叠；历史上数据导入就是这样和同步冲突通知叠在一起的。
-- 应用级消息（导入结果、操作反馈）统一调用 `src/lib/app-toast.ts` 的 `showAppToast({ tone, text })`（text 由调用方用 `useTranslations` 译好）。持久通知（同步冲突/会话过期）在场时它会自动排队，不抢占重要提示。
-- 同步事件继续用 `notifySync(...)`（`src/hooks/useAutoSync.ts`）；新增通知类型时在 SyncNotifier 的 `ToastKind` 里加，不要在别处另开一套。
-- 右下角其它常驻浮层（如 `UpdateChangelogNotice`）必须订阅 `useToastUiStore.syncToastVisible` 动态避让，不得与 toast 抢占同一坐标。
-- **层级：通知层必须低于对话框层**。对话框/Sheet 为 `z-50`，其内部 Select/Dropdown 弹层同样是 `z-50`（portal + DOM 顺序靠后盖住对话框）。因此通知用 `z-[45]`、changelog 浮层用 `z-[44]`。
-  **禁止把对话框抬到通知之上**（例如给 DialogContent 加 `z-[70]`）：那会把对话框内的下拉菜单盖在自己身下，表现为「点下拉框没反应」。
+- 应用级消息（导入结果、操作反馈）统一调用 `src/lib/app-toast.ts` 的 `showAppToast({ tone, text })`（text 由调用方用 `useTranslations` 译好）。
+- **禁止排队阻塞通知**：堆里每条通知有自己的定时器，任何一条都不得让另一条延迟或消失。历史上导入结果曾被「持久通知在场就排队」吞掉——持久通知（同步冲突/会话过期/版本更新）`duration` 为 `null`，永远不会自己消失，队列只有用户手动关闭才放行，等于没有反馈。新增通知类型时在 SyncNotifier 的 `ToastKind` 里加，不要在别处另开一套。
+- 去重规则：持久通知按 `kind` 去重（同类型只留一条）；`missing_translation` 复用自身位置（新 key 顶掉旧 key，否则上一条的「已复制」状态会跟过来）；其余瞬时通知一律各自追加一条。
+- 右下角其它常驻浮层（如 `UpdateChangelogNotice`）必须订阅 `useToastUiStore.syncToastVisible` 动态避让，不得与通知抢占同一坐标。
+- **层级：通知堆高于对话框**。通知堆 `z-[60]`、changelog 浮层 `z-[44]`，对话框/Sheet 保持默认 `z-50`。对话框的遮罩是 `fixed inset-0 z-50`（`src/components/ui/dialog.tsx` 的 `DialogOverlay`），低于它的一切都会被压住——通知曾放在 `z-[45]`，表现为「弹窗开着时收不到任何提示」。
+  **仍然禁止给 `DialogContent` 加 z 覆盖值**（例如 `z-[70]`）：那会把对话框内的 Select/Dropdown 弹层（portal + `z-50`）盖在对话框自己下面，表现为「点下拉框没反应」。抬升通知堆不影响弹层。
 
 ### 页面布局高度链规范
 

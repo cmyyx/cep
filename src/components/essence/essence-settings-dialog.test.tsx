@@ -43,7 +43,7 @@ describe('EssenceSettingsDialog mobile sizing', () => {
 
   it('keeps the default dialog layer so in-dialog dropdowns stay on top', () => {
     const content = openDialog()
-    // 通知层是 z-[45]，对话框保持 shadcn 默认的 z-50；不要加 z 覆盖值——
+    // 通知堆自己浮在 z-[60]，对话框保持 shadcn 默认的 z-50；不要加 z 覆盖值——
     // 之前加 z-[70] 导致对话框内的 Select 弹层（z-50）被对话框自己盖住，
     // 表现就是“点下拉框没反应”。
     expect(/z-\[/.test(content.className)).toBe(false)
