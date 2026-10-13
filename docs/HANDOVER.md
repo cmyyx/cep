@@ -94,13 +94,26 @@ npx tsx scripts/sync-game-data.ts --update --local --force \
 
 ## 3. 待办
 
+只列真正还开着的事（前面的数据落地 / 翻译 / 歧义均已关闭）：
+
 | # | 事项 | 依赖 | 备注 |
 |---|---|---|---|
-| 1 | **数据落地**：装备 `modifierType`、`attributeLimits` 写进 `planner.ts`；`equipment/*.json` 带 `modifierType`；重建 `gacha-pools.ts` / `foresight-weapons.ts` | 云端 sync | 代码已就绪且向后兼容，缺字段自动按旧行为 |
-| 2 | **P1-4 装备 `displayValues` 按 .NET 说明符**（非百分比 floor；百分比按 `0.0%` / `2` 位小数；现为 8 位小数清理） | 需要游戏内装备浮窗截图核对小数位/进位 | 会改约 1000 条显示串 |
-| 3 | `玉中身` / `悠久传承` ↔ `claym_0018` / `claym_0019` 人工确认 | 你 | 确认后写成显式映射，生成器继续校验 |
-| 4 | 前瞻角色（明河 / 祀）尚无 wiki / 面板条目（只有 banner 头像 + 前瞻表数据） | 产品决定 | `ForesightCharGrowthTable` 当前只用于 gift/复刻判定，未接入 |
-| 5 | `time_gift_*`（流行品排期，11 条） | 未列入范围 | 与卡池无关，将来可做"本周流行品" |
+| 1 | **P1-4 装备词条显示文本按游戏格式说明符**：上游 `AttributeShowConfigTable.valueFormat` 是 `{value:0.0%}`（1 位小数）/ `{value}`（非百分比取整），当前 `formatEquipStat` 只做了 ×100+`%`，**没处理小数位** | 无（不需要截图，规则齐全：表里的 `valueFormat` + `Lua/Common/Utils/AttributeUtils.lua` 的取整） | 纯显示问题，不影响面板数值。实例：attr29 `mod5={value:0.0%}` 的 0.1035 现在输出 `10.35%`（游戏 10.4%）；tundra 的 MaxHp 46.3273721859878 现在输出 `生命值+46.32737219`（游戏 `生命值+46`） |
+| 2 | `rerun_1_5_2` / `rerun_chr_yvonne` 的上游数据缺口 | 上游 | 见 §3.1（这两条其实是同一个复刻池被拆到两张表里） |
+
+**已明确不做**（用户决定）：
+- 前瞻角色（明河 / 祀）的 wiki / 面板条目 —— 上游没有角色表（`ForesightChar*` 只有成长/推荐武器/养成配置，无 name/属性/技能），同步变不出来；卡池日历已有的预览头像已足够。
+- `time_gift_*`（流行品排期）—— 与卡池/前瞻/面板无关，不列入范围。
+
+### 3.1 两个复刻池数据缺口
+
+| 上游 id | 有 UP 名单 | 有档期 | 情况 |
+|---|---|---|---|
+| `rerun_1_5_2` | 无（`GachaCharPoolTable` 无此行） | 有（`time_rerun_1_5_2` = 2026-09-24 ~ 10-15） | 记录在 `scheduledWithoutPool` |
+| `rerun_chr_yvonne` | 有（伊冯） | 无（`time_rerun_chr_yvonne` 不存在） | 记录在 `issues` |
+
+两边时间/内容一致 + CEP 手写卡面 `1.5-yifeng`（伊冯重构寻访，2026-09-24 ~ 10-15）→ 可断定是**同一个复刻池**，只是上游把名单和档期拆在两张不交叉的表里。
+当前处理：只记录不显示（卡面由手写 entry 覆盖，功能不缺）；若要让日历完全上游驱动，再加一条"档期唯一命中时合并名单/档期"的规则（需你确认）。
 
 ---
 
