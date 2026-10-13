@@ -8,9 +8,18 @@ import { join } from 'node:path'
 import { extractItemNameIds } from './extract-textid'
 import { loadAllTextTables, SUPPORTED_LOCALES } from './stat-mapping'
 
+/** 前瞻武器等 `WeaponBasicTable` 里没有的条目: 名字直接给 (上游 `ForesightWeaponTable.name.id` 已解析好)。 */
+export interface ExtraWeaponI18nEntry {
+  id: string
+  /** 上游缺 rarity 时按 1★ 处理 (会被 3★ 过滤掉, 与已上线武器同一套规则) */
+  rarity: number | null
+  names: Record<string, string>
+}
+
 export function generateWeaponI18n(
   akedataPath: string,
   outputDir: string,
+  extraWeapons: ExtraWeaponI18nEntry[] = [],
 ): { written: string[]; count: number; missing: number } {
   // Load WeaponBasicTable for weapon list and rarity filtering
   const wpnBasicPath = join(akedataPath, 'TableCfg', 'WeaponBasicTable.json')
@@ -55,6 +64,21 @@ export function generateWeaponI18n(
         }
         i18nData[loc][weaponId] = text.replace(/\n/g, ' ').trim()
       }
+    }
+    count++
+  }
+
+  // 前瞻 (未上线) 武器: 与已上线武器走同一份 i18n 产物, 名字取自上游前瞻表解析结果。
+  // 已上线的那天会出现在 WeaponBasicTable 里, 上面的循环会接管同一 id (覆盖同样的值)。
+  for (const extra of extraWeapons) {
+    if ((extra.rarity ?? 1) < 3 || i18nData['zh-CN'][extra.id] !== undefined) continue
+    const cn = extra.names['zh-CN'] ?? extra.id
+    i18nData['zh-CN'][extra.id] = cn.replace(/\n/g, ' ').trim()
+    for (const loc of SUPPORTED_LOCALES) {
+      if (loc === 'zh-CN') continue
+      const text = extra.names[loc] || cn
+      if (!extra.names[loc]) missing++
+      i18nData[loc][extra.id] = text.replace(/\n/g, ' ').trim()
     }
     count++
   }
