@@ -9,6 +9,13 @@ on:
         type: boolean
         default: false
 
+# 同一分支串行: 两个并行同步会各自 clone 同一个 cep-assets 提交, 后跑的那个可能把
+# 子模块指针写回旧提交 (并发下 peter-evans 还会争同一个 PR 分支)。
+# cancel-in-progress: false —— 已开始的同步跑完, 新的排队 (与 deploy 工作流同一策略)。
+concurrency:
+  group: sync-game-data-${{ github.ref }}
+  cancel-in-progress: false
+
 jobs:
   check:
     # force_sync (manual dispatch) means the operator already decided a sync must run,
@@ -212,12 +219,25 @@ jobs:
           fi
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
+          # 别的运行 (或跨分支的同步) 可能已经推进了 cep-assets main: 先快进本地,
+          # 否则即使无导出变更, 也会把主仓指针写成落后的提交。
+          git fetch origin main
+          git merge --ff-only origin/main
           git add -A
           if git diff --cached --quiet; then
             echo "cep-assets: 无变化"
           else
             git commit -m "chore: sync game i18n export (${GITHUB_SHA:0:7})"
-            git push origin HEAD:main
+            if ! git push origin HEAD:main; then
+              # 竞态: 推送期间别人抢先推到 main —— 变基后重试一次, 再失败就交给人处理
+              echo "cep-assets: push 被拒, 变基后重试"
+              git fetch origin main
+              git rebase origin/main
+              git push origin HEAD:main || {
+                echo "::error::无法推送 cep-assets (并发冲突), 需人工处理"
+                exit 1
+              }
+            fi
           fi
           cd "$GITHUB_WORKSPACE"
           # 把子仓新提交写成主仓的子模块指针 (随 PR 一起提交)
