@@ -223,10 +223,11 @@ jobs:
           # 把子仓新提交写成主仓的子模块指针 (随 PR 一起提交)
           git add public/game-i18n
 
-      - name: Verify submodule list
+      - name: Verify submodule wiring
         run: |
           # 历史上上游 sparse clone 会把 .gitmodules 带进工作区; 现在仓库有一个合法子模块
-          # (public/game-i18n -> cmyyx/cep-assets), 所以校验"子模块列表恰好等于预期"。
+          # (public/game-i18n -> cmyyx/cep-assets), 所以校验"子模块列表恰好等于预期",
+          # 并确认主仓 index 里记的是子仓当前提交 (即前面那一步真的 git add 了指针)。
           if [ ! -f .gitmodules ]; then
             echo "::error::.gitmodules 缺失 —— public/game-i18n 应为 cep-assets 子模块"
             exit 1
@@ -237,12 +238,20 @@ jobs:
             printf '%s\n' "$actual"
             exit 1
           fi
-          ptr=$(git ls-files -s public/game-i18n | awk '{print $2}')
-          if [ "$ptr" != "160000" ]; then
-            echo "::error::public/game-i18n 不是子模块指针 (mode=$ptr)"
+          # git ls-files -s 的格式: <mode> <object> <stage>\t<path>
+          entry=$(git ls-files -s public/game-i18n)
+          mode=$(printf '%s\n' "$entry" | awk '{print $1}')
+          pointer=$(printf '%s\n' "$entry" | awk '{print $2}')
+          if [ "$mode" != "160000" ]; then
+            echo "::error::public/game-i18n 不是子模块指针 (mode=$mode)"
             exit 1
           fi
-          echo "Submodule check passed — only public/game-i18n (cep-assets)."
+          sub_head=$(git -C public/game-i18n rev-parse HEAD)
+          if [ "$pointer" != "$sub_head" ]; then
+            echo "::error::子模块指针 ($pointer) 与 cep-assets HEAD ($sub_head) 不一致 —— 漏了 git add public/game-i18n"
+            exit 1
+          fi
+          echo "Submodule check passed — public/game-i18n -> ${pointer} (cep-assets)."
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v8
