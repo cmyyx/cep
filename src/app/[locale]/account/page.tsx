@@ -1002,7 +1002,7 @@ export default function AccountPage() {
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {[[t('account.featSyncSize'),t('account.featSyncSizeFree'),t('account.featSyncSizePremium')],[t('account.featAutoSync'),t('account.notSupported'),t('account.supported')], [t('account.featWeaponOwnership'),'200','2,000'],[t('account.featEssenceStatus'),'200','2,000'],[t('account.featCustomWeapons'),t('account.notSupported'),'300'],[t('account.featSelectedWeapons'),'200','500'],[t('account.featWeaponNotes'),'50','200']].map(([label,free,prem])=>(
+                  {[[t('account.featSyncSize'),t('account.featSyncSizeFree'),t('account.featSyncSizePremium')],[t('account.featAutoSync'),t('account.notSupported'),t('account.supported')],[t('account.featHideAds'),t('account.notSupported'),t('account.supported')], [t('account.featWeaponOwnership'),'200','2,000'],[t('account.featEssenceStatus'),'200','2,000'],[t('account.featCustomWeapons'),t('account.notSupported'),'300'],[t('account.featSelectedWeapons'),'200','500'],[t('account.featWeaponNotes'),'50','200']].map(([label,free,prem])=>(
                     <TableRow key={label}>
                       <TableCell className="px-3 py-2 text-muted-foreground">{label}</TableCell>
                       <TableCell className="px-3 py-2 text-center">{free}</TableCell>

@@ -602,3 +602,10 @@ html[data-notfound-lang='ja'] [data-notfound-panel='ja'],
 html[data-notfound-lang='en'] [data-notfound-panel='en'] {
   display: flex;
 }
+
+/* ── Adwork 自带关闭按钮。我们在容器外自绘了常显按钮（样式与 i18n 统一），
+   同时把它藏起来，避免同一角落出现两个关闭入口。选择器带三个类名，
+   优先级高于 SDK 运行时注入的 .adwork .ad-close。 ── */
+[data-cep-adwork] .adwork .ad-close {
+  display: none;
+}

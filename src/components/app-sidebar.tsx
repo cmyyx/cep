@@ -55,7 +55,7 @@ import {
 } from "@/stores/useAnnouncementStore";
 import { cn, formatTime } from "@/lib/utils";
 import { ForceUpgradeDialog } from "./shared/force-upgrade-dialog";
-import { AdSlot } from "@/components/shared/ad-slot";
+import { AdworkSlot } from "@/components/shared/adwork-slot";
 import { LanguageSwitcher } from "@/components/language-switcher";
 import { useSidebarScrollState } from "@/hooks/use-sidebar-scroll-state";
 
@@ -409,11 +409,11 @@ export function AppSidebar() {
             <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-5 bg-gradient-to-t from-sidebar to-transparent" />
           )}
         </div>
-        {/* Advertisement — desktop sidebar bottom; hidden in collapsed icon mode.
-          高度为 min(380px, 32svh)、下限 160px：短屏仍展示但为导航让位，
-          宽度由 AdSlot 按 280:380 等比跟随。 */}
-        <div className="hidden h-[min(380px,32svh)] min-h-40 shrink justify-center px-2 mb-2 md:flex group-data-[collapsible=icon]:hidden">
-          <AdSlot variant="desktop" />
+        {/* Adwork — desktop sidebar bottom; hidden in collapsed icon mode.
+          AdworkSlot 自己决定高度：主素材 300x250，云端兜底素材仍按 280:380
+          占据原来的 min(380px, 32svh) 区域。 */}
+        <div className="hidden shrink justify-center px-2 mb-2 md:flex group-data-[collapsible=icon]:hidden">
+          <AdworkSlot variant="desktop" />
         </div>
         <SidebarFooter>
           <SidebarMenu>

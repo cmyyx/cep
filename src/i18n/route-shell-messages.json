@@ -47,7 +47,11 @@
       "categories"
     ],
     "ad": [
-      "imageAlt"
+      "imageAlt",
+      "loading",
+      "loadFailed",
+      "supportMessage",
+      "closeLabel"
     ],
     "notice": [
       "expand",

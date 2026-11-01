@@ -15,6 +15,7 @@
 | `NEXT_PUBLIC_ALLOWED_EMBED_DOMAINS` | `NEXT_PUBLIC_` | 逗号分隔的允许嵌入域名列表，用于反 iframe 嵌入校验 | 否 |
 | `NEXT_PUBLIC_OAUTH_CLIENT_NAMES` | `NEXT_PUBLIC_` | JSON 对象，OAuth client_id → 可读名称映射 | 否 |
 | `NEXT_PUBLIC_FORUM_URL` | `NEXT_PUBLIC_` | 嵌入式社区论坛地址，控制侧边栏社区入口是否显示 | 否 |
+| `NEXT_PUBLIC_ADWORK_MODE` | `NEXT_PUBLIC_` | Adwork 广告模式：`production` / `staging`；未设置时 dev 为 staging、构建为 production | 否 |
 
 ## 变量详解
 
@@ -76,6 +77,15 @@ NEXT_PUBLIC_ALLOWED_DOMAINS=end.canmoe.com,end.07070721.xyz
 
 ```
 NEXT_PUBLIC_ALLOWED_EMBED_DOMAINS=nodebb.example.com,forum.example.com
+```
+
+### `NEXT_PUBLIC_ADWORK_MODE`
+
+控制 Adwork 广告容器的 `data-mode`。`staging` 返回测试素材，**不会产生真实投放**，仅用于联调；`production` 才会请求正式广告。未设置时按构建环境推断：`next dev` 为 `staging`，`next build` 为 `production`。生产构建不要显式设为 `staging`。
+
+```bash
+# 预览构建联调
+NEXT_PUBLIC_ADWORK_MODE=staging
 ```
 
 ### `NEXT_PUBLIC_FORUM_URL`

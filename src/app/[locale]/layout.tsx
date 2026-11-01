@@ -20,6 +20,7 @@ import { HolidayBanner } from '@/components/shared/holiday-banner'
 import { BirthdayBanner } from '@/components/shared/birthday-banner'
 import { EmergencyNoticeBanner } from '@/components/shared/emergency-notice-banner'
 import { MobileAdBanner } from '@/components/shared/mobile-ad-banner'
+import { AdworkProvider } from '@/components/shared/adwork-provider'
 import { AnnouncementLoader } from '@/components/home/announcement-loader'
 import { DataImportDialog } from '@/components/shared/data-import-dialog'
 import { GlobalFileDropOverlay } from '@/components/shared/global-file-drop-overlay'
@@ -104,6 +105,7 @@ export default async function LocaleLayout({
             <AppInitOverlay />
 
             <AnnouncementLoader />
+            <AdworkProvider />
             <SyncManager />
             <UpdateChangelogNotice />
             <LegacyMigrationDialog />

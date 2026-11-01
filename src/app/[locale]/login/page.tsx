@@ -571,6 +571,7 @@ function LoginPageContent() {
                 {[
                   [t('account.featSyncSize'), t('account.featSyncSizeFree'), t('account.featSyncSizePremium')],
                   [t('account.featAutoSync'), t('account.notSupported'), t('account.supported')],
+                  [t('account.featHideAds'), t('account.notSupported'), t('account.supported')],
                   [t('account.featCustomWeapons'), t('account.notSupported'), '300'],
                 ].map(([label, free, premium]) => (
                   <TableRow key={label}>
@@ -752,6 +753,7 @@ function LoginUnavailableGuide() {
                     {[
                       [t('account.featSyncSize'), t('account.featSyncSizeFree'), t('account.featSyncSizePremium')],
                       [t('account.featAutoSync'), t('account.notSupported'), t('account.supported')],
+                      [t('account.featHideAds'), t('account.notSupported'), t('account.supported')],
                       [t('account.featCustomWeapons'), t('account.notSupported'), '300'],
                     ].map(([label, free, premium]) => (
                       <TableRow key={label}>

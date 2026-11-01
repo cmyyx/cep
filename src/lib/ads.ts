@@ -139,3 +139,24 @@ export function buildAdImpressionBeaconUrl(adId: number, slot: AdSlotName, path:
 export function resetAdSessionForTests(): void {
   memorySessionId = null
 }
+
+/** Membership windows that make a visitor ad-free. */
+export interface AdFreeWindows {
+  premiumUntil: string | null
+  premiumPreGrantedUntil: string | null
+  premiumTrialUntil: string | null
+}
+
+/**
+ * 付费会员不展示广告。三个窗口任一仍在有效期内即命中：premiumUntil 是正式订阅，
+ * premiumPreGrantedUntil 是提前开通，premiumTrialUntil 是试用。非法日期按未开通处理，
+ * 与旧实现一致。
+ */
+export function shouldHideAdsForUser(windows: AdFreeWindows, now: number): boolean {
+  for (const raw of [windows.premiumUntil, windows.premiumPreGrantedUntil, windows.premiumTrialUntil]) {
+    if (raw === null) continue
+    const expiresAt = Date.parse(raw)
+    if (Number.isFinite(expiresAt) && expiresAt > now) return true
+  }
+  return false
+}
