@@ -5,6 +5,7 @@ import Script from 'next/script'
 import {
   ADWORK_SDK_URL,
   adworkSlotFromElement,
+  classifyAdworkError,
   localeFromPath,
   reportPartnerAdEvent,
 } from '@/lib/adwork'
@@ -22,6 +23,9 @@ import { useAdworkStore } from '@/stores/useAdworkStore'
  *
  * The callbacks read everything from external state (the store, the current
  * URL), so they never close over a render that may have been discarded.
+ *
+ * The SDK also calls `onError` for `Blank` and `Disabled`. Those are successful
+ * `/imp` responses with no creative, not load failures; see classifyAdworkError.
  */
 if (typeof window !== 'undefined') {
   window.adwork = {
@@ -36,11 +40,16 @@ if (typeof window !== 'undefined') {
       const path = window.location.pathname
       reportPartnerAdEvent('impression', slot, path, localeFromPath(path))
     },
-    onError() {
+    onError(error) {
       // The error carries the placement id, not the element. Only one slot is
       // mounted at a time, so the active slot is unambiguous.
       const slot = useAdworkStore.getState().activeSlot
       if (slot === null) return
+      const outcome = classifyAdworkError(error?.code)
+      if (outcome.status === 'unavailable') {
+        useAdworkStore.getState().setUnavailable(slot, outcome.reason)
+        return
+      }
       useAdworkStore.getState().setPhase(slot, 'failed')
     },
   }

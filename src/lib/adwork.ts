@@ -34,6 +34,15 @@ export const ADWORK_MODE: AdworkMode = resolveAdworkMode(
 export type PartnerAdEventName = 'impression' | 'click'
 
 /**
+ * Staging placements render the network's own placeholder creative, not a real
+ * ad. Counting those fills would write phantom rows into the partner tables, so
+ * only a production build reports.
+ */
+export function shouldReportPartnerEvents(mode: AdworkMode): boolean {
+  return mode === 'production'
+}
+
+/**
  * Build the beacon URL of one partner event. Partner placements have no row in
  * the ops advertisement table, so they use their own route and table; the
  * payload is bodyless like the native beacons, which keeps the cross-origin
@@ -66,6 +75,7 @@ export function reportPartnerAdEvent(
   path: string,
   locale: string,
 ): void {
+  if (!shouldReportPartnerEvents(ADWORK_MODE)) return
   if (typeof navigator === 'undefined' || typeof navigator.sendBeacon !== 'function') return
   try {
     navigator.sendBeacon(buildPartnerAdEventUrl(event, slot, path, locale))
@@ -80,8 +90,30 @@ export interface AdworkAdHandle {
 }
 
 export interface AdworkError {
+  id?: string
   code?: string
   message?: string
+}
+
+export type AdworkUnavailableReason = 'blank' | 'disabled'
+
+/**
+ * What an SDK media callback means for the UI.
+ *
+ * `Blank` and `Disabled` are successful `/imp` responses that carry no
+ * creative: the code is installed and waiting for review / has no matching ad,
+ * or the site is not enrolled. Treating them as a load failure would ask a
+ * visitor to whitelist us for an ad that does not exist yet. `NetworkError`
+ * (and any unknown code) is the only outcome that gets the blocker message.
+ */
+export type AdworkErrorOutcome =
+  | { status: 'unavailable'; reason: AdworkUnavailableReason }
+  | { status: 'failed' }
+
+export function classifyAdworkError(code: string | undefined): AdworkErrorOutcome {
+  if (code === 'Blank') return { status: 'unavailable', reason: 'blank' }
+  if (code === 'Disabled') return { status: 'unavailable', reason: 'disabled' }
+  return { status: 'failed' }
 }
 
 declare global {

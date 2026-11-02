@@ -49,6 +49,8 @@
     "ad": [
       "imageAlt",
       "loading",
+      "waitingForAds",
+      "slotDisabled",
       "loadFailed",
       "supportMessage",
       "closeLabel"

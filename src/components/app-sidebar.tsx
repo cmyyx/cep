@@ -410,8 +410,8 @@ export function AppSidebar() {
           )}
         </div>
         {/* Adwork — desktop sidebar bottom; hidden in collapsed icon mode.
-          AdworkSlot 自己决定高度：主素材 300x250，云端兜底素材仍按 280:380
-          占据原来的 min(380px, 32svh) 区域。 */}
+          AdworkSlot 固定预留 SDK 盒位（>1024px 为 300x250，≤1024px 为 320x120）；
+          云端兜底素材以覆盖层显示在同一盒位内，不再改变槽位高度。 */}
         <div className="hidden shrink justify-center px-2 mb-2 md:flex group-data-[collapsible=icon]:hidden">
           <AdworkSlot variant="desktop" />
         </div>

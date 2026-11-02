@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useSyncExternalStore, type MouseEvent } from 'react'
+import { useLayoutEffect, useSyncExternalStore, type MouseEvent } from 'react'
 import { useLocale, useTranslations } from 'next-intl'
 import { X } from 'lucide-react'
 import { Button } from '@/components/ui/button'
@@ -20,12 +20,24 @@ export interface AdworkSlotProps {
 }
 
 /**
- * How long a pending placement waits before the cloud ad replaces it. The SDK
- * has no timeout of its own; an ad blocker that answers with an empty 200, or a
- * stalled creative request, would otherwise leave the reserved area blank
- * forever.
+ * How long a pending placement waits before it is treated as a load failure.
+ * The SDK has no timeout of its own; a blocked script or a request that never
+ * settles would otherwise leave the reserved area on "loading" forever. The
+ * timeout uses the same prompt as a network error, including the allowlist
+ * message, so a silently blocked request still gets the explanation.
  */
 const ADWORK_FILL_TIMEOUT_MS = 15_000
+
+/**
+ * The SDK's `.adwork-auto` CSS is 300x250 above 1024px and 320x120 below it.
+ * Reserve the same box in every phase: an empty placement, one the SDK hid for
+ * `Blank`/`Disabled`, and a timed-out fill must not collapse the layout or shift
+ * the sidebar and page content around.
+ */
+const SLOT_SIZE_CLASS: Record<AdSlotName, string> = {
+  desktop: 'h-[120px] w-[300px] min-[1025px]:h-[250px]',
+  mobile: 'h-[120px] w-[320px]',
+}
 
 /**
  * One Adwork placement.
@@ -60,11 +72,15 @@ function AdworkSlotBody({ variant, className }: AdworkSlotProps) {
 
   useAdPolling()
   const phase = useAdworkStore((s) => s.phases[variant])
+  const unavailableReason = useAdworkStore((s) => s.unavailableReasons[variant])
   const dismissed = useAdworkStore((s) => s.dismissed[variant])
   const dismiss = useAdworkStore((s) => s.dismiss)
   const ad = useAdStore((s) => s.currentAd)
 
-  useEffect(() => {
+  // Layout effect, not passive: the SDK starts a 1ms poll for `.adwork-net` as
+  // soon as it runs, and a response that beats the active-slot bookkeeping would
+  // be attributed to nothing. This runs before the browser can schedule timers.
+  useLayoutEffect(() => {
     const store = useAdworkStore.getState()
     store.activate(variant)
     // A fresh mount always starts pending: a resize across the breakpoint
@@ -85,12 +101,19 @@ function AdworkSlotBody({ variant, className }: AdworkSlotProps) {
   // `idle` only exists for the first frame between mount and the effect above;
   // it must render exactly like pending so no frame collapses the reserved box.
   const pending = phase === 'idle' || phase === 'pending'
+  const loaded = phase === 'loaded'
   const failed = phase === 'failed'
+  const unavailable = phase === 'unavailable'
+  // The cloud creative replaces a placement that failed to fill, not one the
+  // network explicitly reported as empty (Blank/Disabled). In the latter case
+  // the reserved slot stays in place and only its status text changes.
   const showingFallback = failed && fallbackAvailable
-  // On desktop the cloud creative keeps its 280:380 shape, so the fallback gets
-  // the height the previous sidebar slot already reserved.
-  const fallbackHeight = isDesktop && showingFallback ? 'h-[min(380px,32svh)] min-h-40' : ''
-  const pendingHeight = pending ? (isDesktop ? 'min-h-[250px]' : 'min-h-[120px]') : ''
+  const messageVisible = !showingFallback && (failed || unavailable)
+  // Only the cloud creative needs an opaque surface; the status message leaves
+  // the page background visible, exactly like the old empty-slot hint did.
+  const fallbackSurface = isDesktop ? 'bg-sidebar' : 'bg-background'
+  const unavailableMessage =
+    unavailableReason === 'disabled' ? t('ad.slotDisabled') : t('ad.waitingForAds')
 
   const handleClickCapture = (event: MouseEvent<HTMLDivElement>) => {
     const target = event.target
@@ -114,16 +137,21 @@ function AdworkSlotBody({ variant, className }: AdworkSlotProps) {
   return (
     <div
       data-cep-adwork=""
+      data-cep-adwork-phase={phase}
       className={cn(
-        'relative',
-        isDesktop ? 'w-[300px] max-w-full' : 'w-[320px] max-w-full',
+        'relative max-w-full',
+        SLOT_SIZE_CLASS[variant],
         dismissed && 'hidden',
         className,
       )}
     >
-      <div className={cn('relative flex w-full flex-col items-center', fallbackHeight, pendingHeight)}>
+      <div data-cep-adwork-box="" className="relative h-full w-full overflow-hidden">
+        {/* Never put `hidden`/`display:none` on this node. The SDK only requests
+            a creative once the placement intersects the viewport; a class-based
+            hide survives the SDK's route rescan (it only clears inline styles),
+            so every later /imp request would be skipped until a full reload. */}
         <div
-          className={cn('adwork-net adwork-auto w-full max-w-full', failed && 'hidden')}
+          className="adwork-net adwork-auto w-full max-w-full"
           data-id={ADWORK_PLACEMENT_ID}
           data-placeholder="none"
           data-cep-adwork-slot={variant}
@@ -131,42 +159,53 @@ function AdworkSlotBody({ variant, className }: AdworkSlotProps) {
           onClickCapture={handleClickCapture}
         />
 
-        {!dismissed && (phase === 'loaded' || showingFallback) ? (
+        {!dismissed && showingFallback ? (
+          <div
+            className={cn(
+              'absolute inset-0 z-10 flex items-center justify-center',
+              fallbackSurface,
+            )}
+          >
+            <AdSlot variant={variant} />
+          </div>
+        ) : null}
+
+        {!dismissed && messageVisible ? (
+          <div className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-1 px-3 text-center">
+            {failed ? (
+              <>
+                <span className="text-xs font-medium text-muted-foreground">
+                  {t('ad.loadFailed')}
+                </span>
+                <span className="max-w-[280px] text-[11px] leading-relaxed text-muted-foreground">
+                  {t('ad.supportMessage')}
+                </span>
+              </>
+            ) : (
+              <span className="text-xs font-medium text-muted-foreground">
+                {unavailableMessage}
+              </span>
+            )}
+          </div>
+        ) : null}
+
+        {!dismissed && pending ? (
+          <span className="pointer-events-none absolute inset-0 z-10 flex items-center justify-center text-xs text-muted-foreground">
+            {t('ad.loading')}
+          </span>
+        ) : null}
+
+        {!dismissed && (loaded || showingFallback) ? (
           <Button
             type="button"
             variant="secondary"
             size="icon-xs"
             aria-label={t('ad.closeLabel')}
-            className="absolute top-1 right-1 z-10 rounded-full opacity-90"
+            className="absolute top-1 right-1 z-20 rounded-full opacity-90"
             onClick={() => dismiss(variant)}
           >
             <X aria-hidden="true" />
           </Button>
-        ) : null}
-
-        {!dismissed && pending ? (
-          <span className="pointer-events-none absolute inset-0 flex items-center justify-center text-xs text-muted-foreground">
-            {t('ad.loading')}
-          </span>
-        ) : null}
-
-        {!dismissed && showingFallback
-          ? isDesktop
-            ? (
-                <div className="flex h-full w-full items-center justify-center">
-                  <AdSlot variant="desktop" />
-                </div>
-              )
-            : <AdSlot variant="mobile" />
-          : null}
-
-        {!dismissed && failed && !fallbackAvailable ? (
-          <div className="flex flex-col items-center gap-1 px-3 py-4 text-center">
-            <span className="text-xs font-medium text-muted-foreground">{t('ad.loadFailed')}</span>
-            <span className="max-w-[280px] text-[11px] leading-relaxed text-muted-foreground">
-              {t('ad.supportMessage')}
-            </span>
-          </div>
         ) : null}
       </div>
     </div>

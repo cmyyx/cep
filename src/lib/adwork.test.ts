@@ -1,12 +1,22 @@
 // @vitest-environment jsdom
 
-import { afterEach, beforeEach, describe, expect, it } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
+
+vi.hoisted(() => {
+  // This file exercises the staging branch of the partner reporter.
+  process.env.NEXT_PUBLIC_ADWORK_MODE = 'staging'
+})
+
 import {
+  ADWORK_MODE,
   ADWORK_PLACEMENT_ID,
   adworkSlotFromElement,
   buildPartnerAdEventUrl,
+  classifyAdworkError,
   localeFromPath,
+  reportPartnerAdEvent,
   resolveAdworkMode,
+  shouldReportPartnerEvents,
 } from './adwork'
 import { resetAdSessionForTests, shouldHideAdsForUser } from './ads'
 
@@ -33,6 +43,45 @@ describe('resolveAdworkMode', () => {
 
   it('ignores an unknown value instead of shipping it to the SDK', () => {
     expect(resolveAdworkMode('prod', 'production')).toBe('production')
+  })
+})
+
+describe('classifyAdworkError', () => {
+  it('treats Blank as an empty placement, not a load failure', () => {
+    expect(classifyAdworkError('Blank')).toEqual({ status: 'unavailable', reason: 'blank' })
+  })
+
+  it('treats Disabled as a site that is not enrolled yet', () => {
+    expect(classifyAdworkError('Disabled')).toEqual({ status: 'unavailable', reason: 'disabled' })
+  })
+
+  it('treats a request error and an unknown code as a real failure', () => {
+    expect(classifyAdworkError('NetworkError')).toEqual({ status: 'failed' })
+    expect(classifyAdworkError(undefined)).toEqual({ status: 'failed' })
+    expect(classifyAdworkError('SomethingElse')).toEqual({ status: 'failed' })
+  })
+})
+
+describe('shouldReportPartnerEvents', () => {
+  it('only reports production traffic', () => {
+    expect(shouldReportPartnerEvents('production')).toBe(true)
+    expect(shouldReportPartnerEvents('staging')).toBe(false)
+  })
+})
+
+describe('reportPartnerAdEvent', () => {
+  it('does not write partner stats from a staging build', () => {
+    expect(ADWORK_MODE).toBe('staging')
+    const sendBeacon = vi.fn()
+    Object.defineProperty(window.navigator, 'sendBeacon', {
+      value: sendBeacon,
+      configurable: true,
+      writable: true,
+    })
+
+    reportPartnerAdEvent('impression', 'mobile', '/', 'zh-CN')
+
+    expect(sendBeacon).not.toHaveBeenCalled()
   })
 })
 

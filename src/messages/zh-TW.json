@@ -41,6 +41,8 @@
   "ad": {
     "imageAlt": "廣告",
     "loading": "廣告載入中",
+    "waitingForAds": "廣告位正在準備中",
+    "slotDisabled": "廣告位暫未開放",
     "loadFailed": "廣告載入失敗",
     "supportMessage": "廣告收入是維持本站營運的主要來源。如果可以的話~能將本站加入廣告攔截器的白名單嘛~非常感謝你的理解與支持",
     "closeLabel": "關閉廣告"

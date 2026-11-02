@@ -3,6 +3,11 @@
 import { act, cleanup, render, screen } from '@testing-library/react'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
+vi.hoisted(() => {
+  // Partner reporting must be enabled: these tests assert the impression beacon.
+  process.env.NEXT_PUBLIC_ADWORK_MODE = 'production'
+})
+
 vi.mock('next/script', () => ({
   default: () => <div data-testid="adwork-script" />,
 }))
@@ -63,9 +68,25 @@ describe('the global media callbacks', () => {
     expect(sendBeacon).not.toHaveBeenCalled()
   })
 
-  it('marks the active slot failed on a request error', () => {
+  it('treats Blank as an empty placement instead of a load failure', () => {
     useAdworkStore.getState().activate('desktop')
     act(() => window.adwork?.onError({ code: 'Blank', message: 'No ad returned' }))
+    expect(useAdworkStore.getState().phases.desktop).toBe('unavailable')
+    expect(useAdworkStore.getState().unavailableReasons.desktop).toBe('blank')
+    expect(sendBeacon).not.toHaveBeenCalled()
+  })
+
+  it('treats Disabled as a site that is not enrolled yet', () => {
+    useAdworkStore.getState().activate('mobile')
+    act(() => window.adwork?.onError({ code: 'Disabled', message: 'Website disabled' }))
+    expect(useAdworkStore.getState().phases.mobile).toBe('unavailable')
+    expect(useAdworkStore.getState().unavailableReasons.mobile).toBe('disabled')
+  })
+
+  it('marks the active slot failed on a real request error', () => {
+    useAdworkStore.getState().activate('desktop')
+    act(() => window.adwork?.onError({ code: 'NetworkError', message: 'blocked' }))
     expect(useAdworkStore.getState().phases.desktop).toBe('failed')
+    expect(useAdworkStore.getState().unavailableReasons.desktop).toBeNull()
   })
 })
