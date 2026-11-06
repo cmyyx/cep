@@ -33,9 +33,9 @@
       "attributeId": "CrystAndPulseDamageIncrease",
       "values": [
         0.19166666666666668,
-        0.21083333,
-        0.23,
-        0.24916667
+        0.2108333259820938,
+        0.23000000417232513,
+        0.24916666746139526
       ]
     }
   ],
@@ -55,7 +55,7 @@
   "craftingRecipes": [
     {
       "chainId": 4003,
-      "discount": 0.01,
+      "discount": 0.009999999776482582,
       "isDefault": true,
       "materials": [
         {

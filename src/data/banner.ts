@@ -39,6 +39,7 @@ export const standardCharacters: readonly string[] = STANDARD_CHARS
 export const bannerEntries: BannerEntry[] = [
   {
     id: '1.6-minghe',
+    poolId: 'special_1_6_2',
     title: '「烟火邀星河」特许寻访',
     subtitle: '明河',
     description: '',
@@ -47,8 +48,7 @@ export const bannerEntries: BannerEntry[] = [
     version: '1.6',
     periodStart: '2026-11-05T12:00:00+08:00',
     // TODO: 结束时间待官方公布，当前为占位值；公布后填入真实时间并去掉 hidden
-    periodEnd: '2099-12-31T11:59:00+08:00',
-    hidden: true,
+    periodEnd: '2026-11-25T06:00:00+08:00',
     featured: [{ name: '明河', period: 14 }],
   },
   {

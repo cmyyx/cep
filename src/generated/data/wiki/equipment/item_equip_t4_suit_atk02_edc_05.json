@@ -33,9 +33,9 @@
       "attributeId": "AllSkillDamageIncrease",
       "values": [
         0.27599999999999997,
-        0.3036,
-        0.3312,
-        0.3588
+        0.303600013256073,
+        0.3312000036239624,
+        0.3587999939918518
       ]
     }
   ],
@@ -44,8 +44,8 @@
       "id": "passive_equipsuit_atk_02",
       "requiredPieces": 3,
       "values": {
-        "atk_up": 0.15,
-        "dmg_up": 0.2,
+        "atk_up": 0.15000000596046448,
+        "dmg_up": 0.20000000298023224,
         "max_stack": 3
       }
     }
@@ -110,7 +110,7 @@
     },
     {
       "chainId": 4003,
-      "discount": 0.01,
+      "discount": 0.009999999776482582,
       "isDefault": false,
       "materials": [
         {

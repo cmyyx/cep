@@ -24,9 +24,9 @@
       "attributeId": "1",
       "values": [
         0.414,
-        0.4554,
-        0.4968,
-        0.5382
+        0.4553999900817871,
+        0.4968000054359436,
+        0.5382000207901001
       ]
     }
   ],
@@ -35,10 +35,10 @@
       "id": "passive_equipsuit_healup_01",
       "requiredPieces": 3,
       "values": {
-        "heal_up": 0.2,
+        "heal_up": 0.20000000298023224,
         "duration": 10,
-        "dmg_taken_down": 0.85,
-        "dmg_taken_down2": 0.7
+        "dmg_taken_down": 0.8500000238418579,
+        "dmg_taken_down2": 0.699999988079071
       }
     }
   ],
@@ -83,7 +83,7 @@
     },
     {
       "chainId": 4003,
-      "discount": 0.01,
+      "discount": 0.009999999776482582,
       "isDefault": false,
       "materials": [
         {

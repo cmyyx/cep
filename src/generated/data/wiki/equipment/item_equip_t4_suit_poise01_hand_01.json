@@ -33,9 +33,9 @@
       "attributeId": "87",
       "values": [
         34.5,
-        37.95,
-        41.4,
-        44.85
+        37.95000076293945,
+        41.400001525878906,
+        44.849998474121094
       ]
     }
   ],
@@ -44,12 +44,12 @@
       "id": "passive_equipsuit_poisebreak_01",
       "requiredPieces": 3,
       "values": {
-        "atk_up": 0.08,
-        "phy_dmg_up": 0.08,
+        "atk_up": 0.07999999821186066,
+        "phy_dmg_up": 0.07999999821186066,
         "duration": 15,
         "max_stack": 4,
         "stack_cond": 4,
-        "phy_dmg_up2": 0.16,
+        "phy_dmg_up2": 0.1599999964237213,
         "duration2": 10
       }
     }
@@ -114,7 +114,7 @@
     },
     {
       "chainId": 4003,
-      "discount": 0.01,
+      "discount": 0.009999999776482582,
       "isDefault": false,
       "materials": [
         {

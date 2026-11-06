@@ -33,9 +33,9 @@
       "attributeId": "Sub",
       "values": [
         0.1035089175054887,
-        0.11385981,
-        0.1242107,
-        0.1345616
+        0.11385980993509293,
+        0.12421070039272308,
+        0.13456159830093384
       ]
     }
   ],
@@ -44,8 +44,8 @@
       "id": "passive_equipsuit_combosuit_01",
       "requiredPieces": 3,
       "values": {
-        "comboskill_cooldown": 0.85,
-        "dmg_up": 0.16,
+        "comboskill_cooldown": 0.8500000238418579,
+        "dmg_up": 0.1599999964237213,
         "duration": 15
       }
     }
@@ -110,7 +110,7 @@
     },
     {
       "chainId": 4003,
-      "discount": 0.01,
+      "discount": 0.009999999776482582,
       "isDefault": false,
       "materials": [
         {
