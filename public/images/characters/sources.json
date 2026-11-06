@@ -154,6 +154,11 @@
     "url": "https://bbs.hycdn.cn/image/common/20261014/4826366/6acf92a9b8edfebe3af524e0_56331367.png",
     "hash": "e7a699633d851d5dd459a7d90ed56c7559cff6e66e538181e4c3b3054cf384cc"
   },
+  "avatar/chr_0037_minghe": {
+    "source": "skland",
+    "url": "https://bbs.hycdn.cn/image/common/20261105/736412/6aebf6197c212eb1c6154d24_3eac6ad0.png",
+    "hash": "174719e48efcb3192d4d14f819d91d3527a12e7ba484574244c1ae963b96d9d4"
+  },
   "avatar/chr_0038_purrche": {
     "source": "skland",
     "url": "https://bbs.hycdn.cn/image/common/20260924/4634516/6ab48a0028cbf869859e3a22_6ad0f152.png",
@@ -168,11 +173,6 @@
     "source": "skland",
     "url": "https://bbs.hycdn.cn/image/2026/01/12/2641152/40da4202dc8dd5d4a943077b195f5f25.png",
     "hash": "2dbe86ab5065204bf4b4c95f9872ed732bddca7cfd0a229d21d5ab7ef5636728"
-  },
-  "avatar/preview-2503": {
-    "source": "skland",
-    "url": "https://bbs.hycdn.cn/image/common/20261006/4634516/6ac4dcc91add8879b04f5a34_db193eac.png",
-    "hash": "174719e48efcb3192d4d14f819d91d3527a12e7ba484574244c1ae963b96d9d4"
   },
   "fullBody/chr_0004_pelica": {
     "source": "skland",
@@ -329,6 +329,11 @@
     "url": "https://bbs.hycdn.cn/image/common/20261014/4826366/6acf92b09b052e6236f0c2fa_db193eac.png",
     "hash": "7e2bd08601b730ca9bd0c6d58dba8959137ea013dfaa6e625935f58462db0dfc"
   },
+  "fullBody/chr_0037_minghe": {
+    "source": "skland",
+    "url": "https://bbs.hycdn.cn/image/common/20261105/736412/6aebf61d47ee253892664747_13673ac9.png",
+    "hash": "86315cb65bd63cb72811118cc8c457ec468f9b2f6e91123315ca9dde905dbde8"
+  },
   "fullBody/chr_0038_purrche": {
     "source": "skland",
     "url": "https://bbs.hycdn.cn/image/common/20260924/4634516/6ab48a03d2041cf262b20d55_13673ac9.png",
@@ -343,10 +348,5 @@
     "source": "skland",
     "url": "https://bbs.hycdn.cn/image/2026/01/03/2641152/81c42622f55c1a54102b999f81f4eab3.png",
     "hash": "20a50c19cee23a8805393c75847f2302c884c4dfaf3f80d4103267217349fdad"
-  },
-  "fullBody/preview-2503": {
-    "source": "skland",
-    "url": "https://bbs.hycdn.cn/image/common/20261006/4634516/6ac4dccc9b052e6236f0ba52_2f76db19.png",
-    "hash": "86315cb65bd63cb72811118cc8c457ec468f9b2f6e91123315ca9dde905dbde8"
   }
 }

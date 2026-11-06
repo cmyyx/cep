@@ -44,8 +44,8 @@
       "id": "passive_equipsuit_atk_01",
       "requiredPieces": 3,
       "values": {
-        "dmg_up": 0.24,
-        "atk_up": 0.05,
+        "dmg_up": 0.23999999463558197,
+        "atk_up": 0.05000000074505806,
         "duration": 15
       }
     }

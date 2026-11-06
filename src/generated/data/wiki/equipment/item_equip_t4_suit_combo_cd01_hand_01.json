@@ -33,9 +33,9 @@
       "attributeId": "AllSkillDamageIncrease",
       "values": [
         0.23,
-        0.253,
-        0.276,
-        0.299
+        0.2529999911785126,
+        0.2759999930858612,
+        0.29899999499320984
       ]
     }
   ],
@@ -44,8 +44,8 @@
       "id": "passive_equipsuit_combo_cd01",
       "requiredPieces": 3,
       "values": {
-        "comboskill_cooldown": 0.85,
-        "spell_up": 0.2,
+        "comboskill_cooldown": 0.8500000238418579,
+        "spell_up": 0.20000000298023224,
         "duration": 15,
         "max_stack": 2
       }
@@ -73,7 +73,7 @@
     },
     {
       "chainId": 4003,
-      "discount": 0.01,
+      "discount": 0.009999999776482582,
       "isDefault": false,
       "materials": [
         {

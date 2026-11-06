@@ -33,9 +33,9 @@
       "attributeId": "28",
       "values": [
         0.43125,
-        0.474375,
-        0.5175,
-        0.560625
+        0.47437500953674316,
+        0.5174999833106995,
+        0.5606250166893005
       ]
     }
   ],
@@ -44,7 +44,7 @@
       "id": "passive_equipsuit_physuit_01",
       "requiredPieces": 3,
       "values": {
-        "poise_up": 0.2,
+        "poise_up": 0.20000000298023224,
         "atk_scale": 2.5,
         "poise": 10,
         "duration": 15
@@ -111,7 +111,7 @@
     },
     {
       "chainId": 4003,
-      "discount": 0.01,
+      "discount": 0.009999999776482582,
       "isDefault": false,
       "materials": [
         {

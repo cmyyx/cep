@@ -33,9 +33,9 @@
       "attributeId": "33",
       "values": [
         0.207,
-        0.2277,
-        0.2484,
-        0.2691
+        0.22769999504089355,
+        0.2484000027179718,
+        0.26910001039505005
       ]
     }
   ],
@@ -45,7 +45,7 @@
       "requiredPieces": 3,
       "values": {
         "hp_up": 1000,
-        "dmg_up": 0.16,
+        "dmg_up": 0.1599999964237213,
         "duration": 15
       }
     }
@@ -53,7 +53,7 @@
   "craftingRecipes": [
     {
       "chainId": 4003,
-      "discount": 0.01,
+      "discount": 0.009999999776482582,
       "isDefault": true,
       "materials": [
         {

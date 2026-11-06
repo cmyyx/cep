@@ -33,9 +33,9 @@
       "attributeId": "87",
       "values": [
         34.5,
-        37.95,
-        41.4,
-        44.85
+        37.95000076293945,
+        41.400001525878906,
+        44.849998474121094
       ]
     }
   ],
@@ -44,8 +44,8 @@
       "id": "passive_equipsuit_crush_fracture",
       "requiredPieces": 3,
       "values": {
-        "atk_up": 0.08,
-        "phy_dmg_up_perstack": 0.06,
+        "atk_up": 0.07999999821186066,
+        "phy_dmg_up_perstack": 0.05999999865889549,
         "special_multi": 1.5,
         "duration": 20
       }
@@ -73,7 +73,7 @@
     },
     {
       "chainId": 4003,
-      "discount": 0.01,
+      "discount": 0.009999999776482582,
       "isDefault": false,
       "materials": [
         {
