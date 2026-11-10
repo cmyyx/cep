@@ -10,7 +10,11 @@ on:
 jobs:
   quality:
     name: Quality Gate
-    runs-on: ubuntu-latest
+    # 固定 24.04 而不是 ubuntu-latest：runner 镜像已切到 26.04，而 Playwright 1.60
+    # 不支持 ubuntu26.04-x64（`playwright install --with-deps` 直接报
+    # "Playwright does not support chromium on ubuntu26.04-x64" 并中止整个 job）。
+    # Playwright 支持 26.04 后再改回 latest。
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v5
         with:

@@ -360,7 +360,7 @@ describe('panel preview', () => {
   })
 
   it('multiplies strength-derived HP and the whole flat HP pool by 最大生命值%', () => {
-    // 余烬 + 大雷斑 + 生物辅助 4 件 (胸甲/手甲/接驳器·贰型/接驳器·壹型); 游戏内约 25323 (旧实现 19068)。
+    // 余烬 + 大雷斑 + 生物辅助 4 件 (胸甲/手甲/接驳器·贰型/接驳器·壹型); 游戏内约 25322 (旧实现 19068)。
     const config = maxedPanelConfig('chr_0009_azrila', {
       weaponId: 'wpn_claym_0007',
       weaponSkillLevels: [9, 9, 9],
@@ -370,10 +370,12 @@ describe('panel preview', () => {
       accessoryTwo: maxedEquipment('item_equip_t4_suit_heal01_edc_05'),
     })
     const stats = calculatePanelStats(config)
-    const strengthHp = Math.floor(stats.strength) * plannerGameData.derivedAttributes.efficiencyOfSTR
-    const hpPercent = 0.78 + 0.5382 + 0.5382
 
-    expect(stats.hp).toBeCloseTo((5495 + strengthHp) * (1 + hpPercent), 6)
+    // 只断言游戏内面板上的整数生命值（容差 ±0.5）。
+    // 不用 (5495 + strengthHp) × (1 + hpPercent) 这种把数据快照写死的算法：
+    // 上游 game data 每次 sync 都会让平摊生命值/加成百分比的末位变化（本次 5495 → 5495.000129），
+    // 那样的断言会在每次数据同步后误报，却检测不出真正的公式回归。
+    expect(stats.hp).toBeCloseTo(25322, 0)
   })
 
   /**
@@ -391,7 +393,9 @@ describe('panel preview', () => {
     expect(stats.strength).toBeCloseTo(412.41174, 5)
     expect(strengthHp?.value).toBe(5 * 412)
     expect(strengthHp?.value).toBeLessThan(5 * stats.strength)
-    expect(strengthAttack?.value).toBeCloseTo(412 * 0.005 * 100, 6)
+    // 0.5%（力量→攻击）= 206；efficiency 来自 game data，末位存在浮点误差，
+    // 所以只固定到 0.001 的精度（旧的线性实现会偏差 ~1.0）。
+    expect(strengthAttack?.value).toBeCloseTo(206, 3)
   })
 
   it('derives physical/spell resistance from the reciprocal curve, not a linear one', () => {

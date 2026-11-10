@@ -48,6 +48,8 @@ describe('getCharacterId', () => {
 
   it('returns null for names with no game entry (preview / custom names)', () => {
     expect(getCharacterId('不存在')).toBeNull()
-    expect(getCharacterId('明河')).toBeNull()
+    // 不要拿真实的前瞻角色名当反例：上游一旦实装（2026-11 的「明河」就是这样），
+    // 这条断言会从“无收录”变成“有收录”而误报。用不可能存在的名字。
+    expect(getCharacterId('未实装的测试角色')).toBeNull()
   })
 })
