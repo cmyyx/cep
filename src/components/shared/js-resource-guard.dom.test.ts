@@ -1,6 +1,6 @@
 // @vitest-environment jsdom
 
-import { afterEach, beforeEach, expect, it, vi } from 'vitest'
+import { afterAll, afterEach, beforeEach, expect, it, vi } from 'vitest'
 import { JS_RESOURCE_GUARD_CODE } from './js-resource-guard'
 
 /**
@@ -11,6 +11,45 @@ import { JS_RESOURCE_GUARD_CODE } from './js-resource-guard'
  */
 let guardCleanup: (() => void) | null = null
 let fetchMock: ReturnType<typeof vi.fn>
+
+/**
+ * 守卫内部会排多个定时器（15s 挂起看门狗、自愈的 10s 修复超时、1s 轮询），
+ * 而它返回的 cleanup 只清掉自己记着的 id：先 cleanup 后落定的 fetch 回调还会
+ * 再排一轮，于是漏掉的定时器在 jsdom 拆掉之后才触发，抛
+ * `ReferenceError: document is not defined`。vitest 把它算作 unhandled error，
+ * 整个 test run 直接失败（CI 就这样红过一次）。
+ * 下面登记所有定时器 id，afterEach 与 afterAll 统一清空。
+ */
+
+/** 未被登记的原始 setTimeout：afterAll 里只是等一拍，不应再被记录成待清理定时器。 */
+const realSetTimeoutShim = globalThis.setTimeout.bind(globalThis)
+
+const scheduledTimers = new Set<unknown>()
+
+function clearScheduledTimers(): void {
+  for (const id of scheduledTimers) {
+    clearTimeout(id as never)
+    clearInterval(id as never)
+  }
+  scheduledTimers.clear()
+}
+
+function trackTimers(): void {
+  const realSetTimeout = globalThis.setTimeout.bind(globalThis)
+  const realSetInterval = globalThis.setInterval.bind(globalThis)
+  const trackedSetTimeout = ((handler: TimerHandler, ms?: number, ...args: unknown[]) => {
+    const id = realSetTimeout(handler as never, ms, ...(args as never[]))
+    scheduledTimers.add(id)
+    return id
+  }) as unknown as typeof setTimeout
+  const trackedSetInterval = ((handler: TimerHandler, ms?: number, ...args: unknown[]) => {
+    const id = realSetInterval(handler as never, ms, ...(args as never[]))
+    scheduledTimers.add(id)
+    return id
+  }) as unknown as typeof setInterval
+  vi.stubGlobal('setTimeout', trackedSetTimeout)
+  vi.stubGlobal('setInterval', trackedSetInterval)
+}
 
 function runGuard(): void {
   // The guard is an IIFE; execute it as-is. new Function is required here:
@@ -25,6 +64,7 @@ function runGuard(): void {
 // cleanup (error listener + poll timer) runs via the cleanup function returned
 // by runGuard.
 beforeEach(() => {
+  trackTimers()
   document.getElementById('cep-js-fatal')?.remove()
   document.documentElement.removeAttribute('data-cep-hydrated')
   sessionStorage.clear()
@@ -38,8 +78,20 @@ beforeEach(() => {
 afterEach(() => {
   guardCleanup?.()
   guardCleanup = null
+  clearScheduledTimers()
   vi.unstubAllGlobals()
   vi.useRealTimers()
+})
+
+// 兜底：cleanup 之后才落定的 fetch 回调还会再排一轮定时器（微任务在本用例的
+// afterEach 跑完后才执行），必须等微任务清空再补一次清理，否则它们会活到 jsdom
+// 拆掉之后，最后以 `document is not defined` 变成 unhandled error。
+afterAll(async () => {
+  for (let round = 0; round < 3; round += 1) {
+    await Promise.resolve()
+    await new Promise((resolve) => realSetTimeoutShim(resolve, 0))
+    clearScheduledTimers()
+  }
 })
 
 
