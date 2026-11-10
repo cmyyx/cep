@@ -24,9 +24,9 @@
       "attributeId": "FireAndNaturalDamageIncrease",
       "values": [
         0.11999999999999998,
-        0.132,
-        0.144,
-        0.156
+        0.13199999928474426,
+        0.14399999380111694,
+        0.15600000321865082
       ]
     }
   ],
@@ -34,7 +34,7 @@
   "craftingRecipes": [
     {
       "chainId": 4003,
-      "discount": 0.01,
+      "discount": 0.009999999776482582,
       "isDefault": true,
       "materials": [
         {

@@ -43,15 +43,15 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       }
     ]
   },
-  "wpn_lance_0004": {
+  "wpn_claym_0017": {
     "stats": [
       {
         "levelOne": {
-          "skillId": "wpn_attr_str_mid",
+          "skillId": "wpn_attr_str_high",
           "level": 1
         },
         "maxLevel": {
-          "skillId": "wpn_attr_str_mid",
+          "skillId": "wpn_attr_str_high",
           "level": 9
         },
         "levelOneLabel": "Lv.1",
@@ -59,11 +59,11 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       },
       {
         "levelOne": {
-          "skillId": "wpn_sp_attr_usgs_mid",
+          "skillId": "wpn_sp_attr_atk_high",
           "level": 1
         },
         "maxLevel": {
-          "skillId": "wpn_sp_attr_usgs_mid",
+          "skillId": "wpn_sp_attr_atk_high",
           "level": 9
         },
         "levelOneLabel": "Lv.1",
@@ -71,11 +71,11 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       },
       {
         "levelOne": {
-          "skillId": "sk_wpn_lance_0004",
+          "skillId": "sk_wpn_claym_0017",
           "level": 1
         },
         "maxLevel": {
-          "skillId": "sk_wpn_lance_0004",
+          "skillId": "sk_wpn_claym_0017",
           "level": 9
         },
         "levelOneLabel": "Lv.1",
@@ -83,15 +83,15 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       }
     ]
   },
-  "wpn_lance_0008": {
+  "wpn_lance_0015": {
     "stats": [
       {
         "levelOne": {
-          "skillId": "wpn_attr_will_low",
+          "skillId": "wpn_attr_agi_high",
           "level": 1
         },
         "maxLevel": {
-          "skillId": "wpn_attr_will_low",
+          "skillId": "wpn_attr_agi_high",
           "level": 9
         },
         "levelOneLabel": "Lv.1",
@@ -99,11 +99,11 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       },
       {
         "levelOne": {
-          "skillId": "wpn_sp_attr_magicdam_low",
+          "skillId": "wpn_sp_attr_firedam_high",
           "level": 1
         },
         "maxLevel": {
-          "skillId": "wpn_sp_attr_magicdam_low",
+          "skillId": "wpn_sp_attr_firedam_high",
           "level": 9
         },
         "levelOneLabel": "Lv.1",
@@ -111,11 +111,11 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       },
       {
         "levelOne": {
-          "skillId": "sk_wpn_lance_0008",
+          "skillId": "sk_wpn_lance_0015",
           "level": 1
         },
         "maxLevel": {
-          "skillId": "sk_wpn_lance_0008",
+          "skillId": "sk_wpn_lance_0015",
           "level": 9
         },
         "levelOneLabel": "Lv.1",
@@ -163,6 +163,86 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       }
     ]
   },
+  "wpn_claym_0016": {
+    "stats": [
+      {
+        "levelOne": {
+          "skillId": "wpn_attr_str_high",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_attr_str_high",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "wpn_sp_attr_phy_spell_high",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_sp_attr_phy_spell_high",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "sk_wpn_claym_0016",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "sk_wpn_claym_0016",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
+  "wpn_lance_0014": {
+    "stats": [
+      {
+        "levelOne": {
+          "skillId": "wpn_attr_will_high",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_attr_will_high",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "wpn_sp_attr_heal_high",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_sp_attr_heal_high",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "sk_wpn_lance_0014",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "sk_wpn_lance_0014",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
   "wpn_claym_0006": {
     "stats": [
       {
@@ -196,462 +276,6 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
         },
         "maxLevel": {
           "skillId": "sk_wpn_claym_0006",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      }
-    ]
-  },
-  "wpn_funnel_0019": {
-    "stats": [
-      {
-        "levelOne": {
-          "skillId": "wpn_attr_agi_high",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_attr_agi_high",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "wpn_sp_attr_atk_high",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_sp_attr_atk_high",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "sk_wpn_funnel_0019",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "sk_wpn_funnel_0019",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      }
-    ]
-  },
-  "wpn_lance_0007": {
-    "stats": [
-      {
-        "levelOne": {
-          "skillId": "wpn_attr_agi_high",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_attr_agi_high",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "wpn_sp_attr_usgs_high",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_sp_attr_usgs_high",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "sk_wpn_lance_0007",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "sk_wpn_lance_0007",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      }
-    ]
-  },
-  "wpn_claym_0007": {
-    "stats": [
-      {
-        "levelOne": {
-          "skillId": "wpn_attr_str_high",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_attr_str_high",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "wpn_sp_attr_hp_high",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_sp_attr_hp_high",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "sk_wpn_claym_0007",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "sk_wpn_claym_0007",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      }
-    ]
-  },
-  "wpn_funnel_0014": {
-    "stats": [
-      {
-        "levelOne": {
-          "skillId": "wpn_attr_wisd_mid",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_attr_wisd_mid",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "wpn_sp_attr_phy_spell_mid",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_sp_attr_phy_spell_mid",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "sk_wpn_funnel_0014",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "sk_wpn_funnel_0014",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      }
-    ]
-  },
-  "wpn_claym_0008": {
-    "stats": [
-      {
-        "levelOne": {
-          "skillId": "wpn_attr_str_high",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_attr_str_high",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "wpn_sp_attr_crirate_high",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_sp_attr_crirate_high",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "sk_wpn_claym_0008",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "sk_wpn_claym_0008",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      }
-    ]
-  },
-  "wpn_claym_0009": {
-    "stats": [
-      {
-        "levelOne": {
-          "skillId": "wpn_attr_will_low",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_attr_will_low",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "wpn_sp_attr_hp_low",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_sp_attr_hp_low",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "sk_wpn_claym_0009",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "sk_wpn_claym_0009",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      }
-    ]
-  },
-  "wpn_pistol_0011": {
-    "stats": [
-      {
-        "levelOne": {
-          "skillId": "wpn_attr_agi_high",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_attr_agi_high",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "wpn_sp_attr_atk_high",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_sp_attr_atk_high",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "sk_wpn_pistol_0011",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "sk_wpn_pistol_0011",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      }
-    ]
-  },
-  "wpn_claym_0010": {
-    "stats": [
-      {
-        "levelOne": {
-          "skillId": "wpn_attr_main_low",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_attr_main_low",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "sk_wpn_claym_0010",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "sk_wpn_claym_0010",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      }
-    ]
-  },
-  "wpn_claym_0011": {
-    "stats": [
-      {
-        "levelOne": {
-          "skillId": "wpn_attr_str_mid",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_attr_str_mid",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "wpn_sp_attr_usgs_mid",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_sp_attr_usgs_mid",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "sk_wpn_claym_0011",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "sk_wpn_claym_0011",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      }
-    ]
-  },
-  "wpn_claym_0012": {
-    "stats": [
-      {
-        "levelOne": {
-          "skillId": "wpn_attr_str_mid",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_attr_str_mid",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "wpn_sp_attr_hp_mid",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_sp_attr_hp_mid",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "sk_wpn_claym_0012",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "sk_wpn_claym_0012",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      }
-    ]
-  },
-  "wpn_claym_0013": {
-    "stats": [
-      {
-        "levelOne": {
-          "skillId": "wpn_attr_str_high",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_attr_str_high",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "wpn_sp_attr_atk_high",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_sp_attr_atk_high",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "sk_wpn_claym_0013",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "sk_wpn_claym_0013",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      }
-    ]
-  },
-  "wpn_pistol_0001": {
-    "stats": [
-      {
-        "levelOne": {
-          "skillId": "wpn_attr_main_low",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_attr_main_low",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "sk_wpn_pistol_0001",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "sk_wpn_pistol_0001",
           "level": 9
         },
         "levelOneLabel": "Lv.1",
@@ -699,6 +323,554 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       }
     ]
   },
+  "wpn_claym_0007": {
+    "stats": [
+      {
+        "levelOne": {
+          "skillId": "wpn_attr_str_high",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_attr_str_high",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "wpn_sp_attr_hp_high",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_sp_attr_hp_high",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "sk_wpn_claym_0007",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "sk_wpn_claym_0007",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
+  "wpn_claym_0013": {
+    "stats": [
+      {
+        "levelOne": {
+          "skillId": "wpn_attr_str_high",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_attr_str_high",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "wpn_sp_attr_atk_high",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_sp_attr_atk_high",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "sk_wpn_claym_0013",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "sk_wpn_claym_0013",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
+  "wpn_lance_0011": {
+    "stats": [
+      {
+        "levelOne": {
+          "skillId": "wpn_attr_main_high",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_attr_main_high",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "wpn_sp_attr_atk_high",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_sp_attr_atk_high",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "sk_wpn_lance_0011",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "sk_wpn_lance_0011",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
+  "wpn_claym_0008": {
+    "stats": [
+      {
+        "levelOne": {
+          "skillId": "wpn_attr_str_high",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_attr_str_high",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "wpn_sp_attr_crirate_high",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_sp_attr_crirate_high",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "sk_wpn_claym_0008",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "sk_wpn_claym_0008",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
+  "wpn_claym_0012": {
+    "stats": [
+      {
+        "levelOne": {
+          "skillId": "wpn_attr_str_mid",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_attr_str_mid",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "wpn_sp_attr_hp_mid",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_sp_attr_hp_mid",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "sk_wpn_claym_0012",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "sk_wpn_claym_0012",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
+  "wpn_lance_0010": {
+    "stats": [
+      {
+        "levelOne": {
+          "skillId": "wpn_attr_agi_high",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_attr_agi_high",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "wpn_sp_attr_phydam_high",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_sp_attr_phydam_high",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "sk_wpn_lance_0010",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "sk_wpn_lance_0010",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
+  "wpn_sword_0018": {
+    "stats": [
+      {
+        "levelOne": {
+          "skillId": "wpn_attr_agi_mid",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_attr_agi_mid",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "wpn_sp_attr_atk_mid",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_sp_attr_atk_mid",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "sk_wpn_sword_0018",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "sk_wpn_sword_0018",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
+  "wpn_claym_0009": {
+    "stats": [
+      {
+        "levelOne": {
+          "skillId": "wpn_attr_will_low",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_attr_will_low",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "wpn_sp_attr_hp_low",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_sp_attr_hp_low",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "sk_wpn_claym_0009",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "sk_wpn_claym_0009",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
+  "wpn_claym_0010": {
+    "stats": [
+      {
+        "levelOne": {
+          "skillId": "wpn_attr_main_low",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_attr_main_low",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "sk_wpn_claym_0010",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "sk_wpn_claym_0010",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
+  "wpn_funnel_0004": {
+    "stats": [
+      {
+        "levelOne": {
+          "skillId": "wpn_attr_wisd_mid",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_attr_wisd_mid",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "wpn_sp_attr_electrondam_mid",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_sp_attr_electrondam_mid",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "sk_wpn_funnel_0004",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "sk_wpn_funnel_0004",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
+  "wpn_funnel_0018": {
+    "stats": [
+      {
+        "levelOne": {
+          "skillId": "wpn_attr_wisd_high",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_attr_wisd_high",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "wpn_sp_attr_usgs_high",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_sp_attr_usgs_high",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "sk_wpn_funnel_0018",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "sk_wpn_funnel_0018",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
+  "wpn_claym_0011": {
+    "stats": [
+      {
+        "levelOne": {
+          "skillId": "wpn_attr_str_mid",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_attr_str_mid",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "wpn_sp_attr_usgs_mid",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_sp_attr_usgs_mid",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "sk_wpn_claym_0011",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "sk_wpn_claym_0011",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
+  "wpn_funnel_0014": {
+    "stats": [
+      {
+        "levelOne": {
+          "skillId": "wpn_attr_wisd_mid",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_attr_wisd_mid",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "wpn_sp_attr_phy_spell_mid",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_sp_attr_phy_spell_mid",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "sk_wpn_funnel_0014",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "sk_wpn_funnel_0014",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
+  "wpn_sword_0017": {
+    "stats": [
+      {
+        "levelOne": {
+          "skillId": "wpn_attr_agi_high",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_attr_agi_high",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "wpn_sp_attr_crirate_high",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_sp_attr_crirate_high",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "sk_wpn_sword_0017",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "sk_wpn_sword_0017",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
   "wpn_claym_0015": {
     "stats": [
       {
@@ -739,15 +911,15 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       }
     ]
   },
-  "wpn_claym_0016": {
+  "wpn_lance_0013": {
     "stats": [
       {
         "levelOne": {
-          "skillId": "wpn_attr_str_high",
+          "skillId": "wpn_attr_will_mid",
           "level": 1
         },
         "maxLevel": {
-          "skillId": "wpn_attr_str_high",
+          "skillId": "wpn_attr_will_mid",
           "level": 9
         },
         "levelOneLabel": "Lv.1",
@@ -755,11 +927,11 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       },
       {
         "levelOne": {
-          "skillId": "wpn_sp_attr_phy_spell_high",
+          "skillId": "wpn_sp_attr_phydam_mid",
           "level": 1
         },
         "maxLevel": {
-          "skillId": "wpn_sp_attr_phy_spell_high",
+          "skillId": "wpn_sp_attr_phydam_mid",
           "level": 9
         },
         "levelOneLabel": "Lv.1",
@@ -767,11 +939,11 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       },
       {
         "levelOne": {
-          "skillId": "sk_wpn_claym_0016",
+          "skillId": "sk_wpn_lance_0013",
           "level": 1
         },
         "maxLevel": {
-          "skillId": "sk_wpn_claym_0016",
+          "skillId": "sk_wpn_lance_0013",
           "level": 9
         },
         "levelOneLabel": "Lv.1",
@@ -779,15 +951,15 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       }
     ]
   },
-  "wpn_funnel_0016": {
+  "wpn_pistol_0008": {
     "stats": [
       {
         "levelOne": {
-          "skillId": "wpn_attr_wisd_high",
+          "skillId": "wpn_attr_main_high",
           "level": 1
         },
         "maxLevel": {
-          "skillId": "wpn_attr_wisd_high",
+          "skillId": "wpn_attr_main_high",
           "level": 9
         },
         "levelOneLabel": "Lv.1",
@@ -795,11 +967,11 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       },
       {
         "levelOne": {
-          "skillId": "wpn_sp_attr_usgs_high",
+          "skillId": "wpn_sp_attr_crirate_high",
           "level": 1
         },
         "maxLevel": {
-          "skillId": "wpn_sp_attr_usgs_high",
+          "skillId": "wpn_sp_attr_crirate_high",
           "level": 9
         },
         "levelOneLabel": "Lv.1",
@@ -807,91 +979,11 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       },
       {
         "levelOne": {
-          "skillId": "sk_wpn_funnel_0016",
+          "skillId": "sk_wpn_pistol_0008",
           "level": 1
         },
         "maxLevel": {
-          "skillId": "sk_wpn_funnel_0016",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      }
-    ]
-  },
-  "wpn_claym_0017": {
-    "stats": [
-      {
-        "levelOne": {
-          "skillId": "wpn_attr_str_high",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_attr_str_high",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "wpn_sp_attr_atk_high",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_sp_attr_atk_high",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "sk_wpn_claym_0017",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "sk_wpn_claym_0017",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      }
-    ]
-  },
-  "wpn_funnel_0017": {
-    "stats": [
-      {
-        "levelOne": {
-          "skillId": "wpn_attr_will_high",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_attr_will_high",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "wpn_sp_attr_electrondam_high",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_sp_attr_electrondam_high",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "sk_wpn_funnel_0017",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "sk_wpn_funnel_0017",
+          "skillId": "sk_wpn_pistol_0008",
           "level": 9
         },
         "levelOneLabel": "Lv.1",
@@ -979,46 +1071,6 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       }
     ]
   },
-  "wpn_pistol_0012": {
-    "stats": [
-      {
-        "levelOne": {
-          "skillId": "wpn_attr_agi_mid",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_attr_agi_mid",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "wpn_sp_attr_usgs_mid",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_sp_attr_usgs_mid",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "sk_wpn_pistol_0012",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "sk_wpn_pistol_0012",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      }
-    ]
-  },
   "wpn_funnel_0001": {
     "stats": [
       {
@@ -1059,15 +1111,15 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       }
     ]
   },
-  "wpn_lance_0011": {
+  "wpn_funnel_0015": {
     "stats": [
       {
         "levelOne": {
-          "skillId": "wpn_attr_main_high",
+          "skillId": "wpn_attr_will_high",
           "level": 1
         },
         "maxLevel": {
-          "skillId": "wpn_attr_main_high",
+          "skillId": "wpn_attr_will_high",
           "level": 9
         },
         "levelOneLabel": "Lv.1",
@@ -1087,11 +1139,51 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       },
       {
         "levelOne": {
-          "skillId": "sk_wpn_lance_0011",
+          "skillId": "sk_wpn_funnel_0015",
           "level": 1
         },
         "maxLevel": {
-          "skillId": "sk_wpn_lance_0011",
+          "skillId": "sk_wpn_funnel_0015",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
+  "wpn_sword_0007": {
+    "stats": [
+      {
+        "levelOne": {
+          "skillId": "wpn_attr_wisd_mid",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_attr_wisd_mid",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "wpn_sp_attr_usgs_mid",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_sp_attr_usgs_mid",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "sk_wpn_sword_0007",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "sk_wpn_sword_0007",
           "level": 9
         },
         "levelOneLabel": "Lv.1",
@@ -1120,6 +1212,46 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
         },
         "maxLevel": {
           "skillId": "sk_wpn_funnel_0002",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
+  "wpn_funnel_0016": {
+    "stats": [
+      {
+        "levelOne": {
+          "skillId": "wpn_attr_wisd_high",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_attr_wisd_high",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "wpn_sp_attr_usgs_high",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_sp_attr_usgs_high",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "sk_wpn_funnel_0016",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "sk_wpn_funnel_0016",
           "level": 9
         },
         "levelOneLabel": "Lv.1",
@@ -1167,7 +1299,7 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       }
     ]
   },
-  "wpn_sword_0024": {
+  "wpn_funnel_0017": {
     "stats": [
       {
         "levelOne": {
@@ -1195,51 +1327,11 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       },
       {
         "levelOne": {
-          "skillId": "sk_wpn_sword_0024",
+          "skillId": "sk_wpn_funnel_0017",
           "level": 1
         },
         "maxLevel": {
-          "skillId": "sk_wpn_sword_0024",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      }
-    ]
-  },
-  "wpn_funnel_0004": {
-    "stats": [
-      {
-        "levelOne": {
-          "skillId": "wpn_attr_wisd_mid",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_attr_wisd_mid",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "wpn_sp_attr_electrondam_mid",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_sp_attr_electrondam_mid",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "sk_wpn_funnel_0004",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "sk_wpn_funnel_0004",
+          "skillId": "sk_wpn_funnel_0017",
           "level": 9
         },
         "levelOneLabel": "Lv.1",
@@ -1280,6 +1372,46 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
         },
         "maxLevel": {
           "skillId": "sk_wpn_funnel_0005",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
+  "wpn_funnel_0019": {
+    "stats": [
+      {
+        "levelOne": {
+          "skillId": "wpn_attr_agi_high",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_attr_agi_high",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "wpn_sp_attr_atk_high",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_sp_attr_atk_high",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "sk_wpn_funnel_0019",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "sk_wpn_funnel_0019",
           "level": 9
         },
         "levelOneLabel": "Lv.1",
@@ -1407,6 +1539,46 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       }
     ]
   },
+  "wpn_sword_0005": {
+    "stats": [
+      {
+        "levelOne": {
+          "skillId": "wpn_attr_agi_mid",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_attr_agi_mid",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "wpn_sp_attr_phydam_mid",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_sp_attr_phydam_mid",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "sk_wpn_sword_0005",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "sk_wpn_sword_0005",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
   "wpn_funnel_0009": {
     "stats": [
       {
@@ -1487,15 +1659,15 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       }
     ]
   },
-  "wpn_sword_0015": {
+  "wpn_lance_0016": {
     "stats": [
       {
         "levelOne": {
-          "skillId": "wpn_attr_agi_mid",
+          "skillId": "wpn_attr_will_high",
           "level": 1
         },
         "maxLevel": {
-          "skillId": "wpn_attr_agi_mid",
+          "skillId": "wpn_attr_will_high",
           "level": 9
         },
         "levelOneLabel": "Lv.1",
@@ -1503,11 +1675,11 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       },
       {
         "levelOne": {
-          "skillId": "wpn_sp_attr_phydam_mid",
+          "skillId": "wpn_sp_attr_heal_high",
           "level": 1
         },
         "maxLevel": {
-          "skillId": "wpn_sp_attr_phydam_mid",
+          "skillId": "wpn_sp_attr_heal_high",
           "level": 9
         },
         "levelOneLabel": "Lv.1",
@@ -1515,11 +1687,11 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       },
       {
         "levelOne": {
-          "skillId": "sk_wpn_sword_0015",
+          "skillId": "sk_wpn_lance_0016",
           "level": 1
         },
         "maxLevel": {
-          "skillId": "sk_wpn_sword_0015",
+          "skillId": "sk_wpn_lance_0016",
           "level": 9
         },
         "levelOneLabel": "Lv.1",
@@ -1567,15 +1739,15 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       }
     ]
   },
-  "wpn_lance_0012": {
+  "wpn_pistol_0010": {
     "stats": [
       {
         "levelOne": {
-          "skillId": "wpn_attr_agi_high",
+          "skillId": "wpn_attr_wisd_high",
           "level": 1
         },
         "maxLevel": {
-          "skillId": "wpn_attr_agi_high",
+          "skillId": "wpn_attr_wisd_high",
           "level": 9
         },
         "levelOneLabel": "Lv.1",
@@ -1583,11 +1755,11 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       },
       {
         "levelOne": {
-          "skillId": "wpn_sp_attr_phydam_high",
+          "skillId": "wpn_sp_attr_crirate_high",
           "level": 1
         },
         "maxLevel": {
-          "skillId": "wpn_sp_attr_phydam_high",
+          "skillId": "wpn_sp_attr_crirate_high",
           "level": 9
         },
         "levelOneLabel": "Lv.1",
@@ -1595,51 +1767,11 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       },
       {
         "levelOne": {
-          "skillId": "sk_wpn_lance_0012",
+          "skillId": "sk_wpn_pistol_0010",
           "level": 1
         },
         "maxLevel": {
-          "skillId": "sk_wpn_lance_0012",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      }
-    ]
-  },
-  "wpn_sword_0005": {
-    "stats": [
-      {
-        "levelOne": {
-          "skillId": "wpn_attr_agi_mid",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_attr_agi_mid",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "wpn_sp_attr_phydam_mid",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_sp_attr_phydam_mid",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "sk_wpn_sword_0005",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "sk_wpn_sword_0005",
+          "skillId": "sk_wpn_pistol_0010",
           "level": 9
         },
         "levelOneLabel": "Lv.1",
@@ -1727,15 +1859,15 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       }
     ]
   },
-  "wpn_funnel_0015": {
+  "wpn_lance_0006": {
     "stats": [
       {
         "levelOne": {
-          "skillId": "wpn_attr_will_high",
+          "skillId": "wpn_attr_will_mid",
           "level": 1
         },
         "maxLevel": {
-          "skillId": "wpn_attr_will_high",
+          "skillId": "wpn_attr_will_mid",
           "level": 9
         },
         "levelOneLabel": "Lv.1",
@@ -1743,11 +1875,11 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       },
       {
         "levelOne": {
-          "skillId": "wpn_sp_attr_atk_high",
+          "skillId": "wpn_sp_attr_electrondam_mid",
           "level": 1
         },
         "maxLevel": {
-          "skillId": "wpn_sp_attr_atk_high",
+          "skillId": "wpn_sp_attr_electrondam_mid",
           "level": 9
         },
         "levelOneLabel": "Lv.1",
@@ -1755,51 +1887,11 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       },
       {
         "levelOne": {
-          "skillId": "sk_wpn_funnel_0015",
+          "skillId": "sk_wpn_lance_0006",
           "level": 1
         },
         "maxLevel": {
-          "skillId": "sk_wpn_funnel_0015",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      }
-    ]
-  },
-  "wpn_funnel_0018": {
-    "stats": [
-      {
-        "levelOne": {
-          "skillId": "wpn_attr_wisd_high",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_attr_wisd_high",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "wpn_sp_attr_usgs_high",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_sp_attr_usgs_high",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "sk_wpn_funnel_0018",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "sk_wpn_funnel_0018",
+          "skillId": "sk_wpn_lance_0006",
           "level": 9
         },
         "levelOneLabel": "Lv.1",
@@ -1847,15 +1939,15 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       }
     ]
   },
-  "wpn_pistol_0007": {
+  "wpn_sword_0015": {
     "stats": [
       {
         "levelOne": {
-          "skillId": "wpn_attr_agi_high",
+          "skillId": "wpn_attr_agi_mid",
           "level": 1
         },
         "maxLevel": {
-          "skillId": "wpn_attr_agi_high",
+          "skillId": "wpn_attr_agi_mid",
           "level": 9
         },
         "levelOneLabel": "Lv.1",
@@ -1863,11 +1955,11 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       },
       {
         "levelOne": {
-          "skillId": "wpn_sp_attr_crystdam_high",
+          "skillId": "wpn_sp_attr_phydam_mid",
           "level": 1
         },
         "maxLevel": {
-          "skillId": "wpn_sp_attr_crystdam_high",
+          "skillId": "wpn_sp_attr_phydam_mid",
           "level": 9
         },
         "levelOneLabel": "Lv.1",
@@ -1875,51 +1967,11 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       },
       {
         "levelOne": {
-          "skillId": "sk_wpn_pistol_0007",
+          "skillId": "sk_wpn_sword_0015",
           "level": 1
         },
         "maxLevel": {
-          "skillId": "sk_wpn_pistol_0007",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      }
-    ]
-  },
-  "wpn_sword_0012": {
-    "stats": [
-      {
-        "levelOne": {
-          "skillId": "wpn_attr_will_high",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_attr_will_high",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "wpn_sp_attr_atk_high",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_sp_attr_atk_high",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "sk_wpn_sword_0012",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "sk_wpn_sword_0012",
+          "skillId": "sk_wpn_sword_0015",
           "level": 9
         },
         "levelOneLabel": "Lv.1",
@@ -1967,6 +2019,166 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       }
     ]
   },
+  "wpn_pistol_0007": {
+    "stats": [
+      {
+        "levelOne": {
+          "skillId": "wpn_attr_agi_high",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_attr_agi_high",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "wpn_sp_attr_crystdam_high",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_sp_attr_crystdam_high",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "sk_wpn_pistol_0007",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "sk_wpn_pistol_0007",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
+  "wpn_lance_0004": {
+    "stats": [
+      {
+        "levelOne": {
+          "skillId": "wpn_attr_str_mid",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_attr_str_mid",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "wpn_sp_attr_usgs_mid",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_sp_attr_usgs_mid",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "sk_wpn_lance_0004",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "sk_wpn_lance_0004",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
+  "wpn_lance_0007": {
+    "stats": [
+      {
+        "levelOne": {
+          "skillId": "wpn_attr_agi_high",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_attr_agi_high",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "wpn_sp_attr_usgs_high",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_sp_attr_usgs_high",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "sk_wpn_lance_0007",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "sk_wpn_lance_0007",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
+  "wpn_lance_0008": {
+    "stats": [
+      {
+        "levelOne": {
+          "skillId": "wpn_attr_will_low",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_attr_will_low",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "wpn_sp_attr_magicdam_low",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_sp_attr_magicdam_low",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "sk_wpn_lance_0008",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "sk_wpn_lance_0008",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
   "wpn_lance_0009": {
     "stats": [
       {
@@ -1995,47 +2207,7 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       }
     ]
   },
-  "wpn_lance_0006": {
-    "stats": [
-      {
-        "levelOne": {
-          "skillId": "wpn_attr_will_mid",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_attr_will_mid",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "wpn_sp_attr_electrondam_mid",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_sp_attr_electrondam_mid",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "sk_wpn_lance_0006",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "sk_wpn_lance_0006",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      }
-    ]
-  },
-  "wpn_lance_0010": {
+  "wpn_lance_0012": {
     "stats": [
       {
         "levelOne": {
@@ -2063,11 +2235,11 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       },
       {
         "levelOne": {
-          "skillId": "sk_wpn_lance_0010",
+          "skillId": "sk_wpn_lance_0012",
           "level": 1
         },
         "maxLevel": {
-          "skillId": "sk_wpn_lance_0010",
+          "skillId": "sk_wpn_lance_0012",
           "level": 9
         },
         "levelOneLabel": "Lv.1",
@@ -2075,7 +2247,47 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       }
     ]
   },
-  "wpn_sword_0003": {
+  "wpn_pistol_0004": {
+    "stats": [
+      {
+        "levelOne": {
+          "skillId": "wpn_attr_str_mid",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_attr_str_mid",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "wpn_sp_attr_firedam_mid",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_sp_attr_firedam_mid",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "sk_wpn_pistol_0004",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "sk_wpn_pistol_0004",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
+  "wpn_pistol_0001": {
     "stats": [
       {
         "levelOne": {
@@ -2091,331 +2303,11 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       },
       {
         "levelOne": {
-          "skillId": "sk_wpn_sword_0003",
+          "skillId": "sk_wpn_pistol_0001",
           "level": 1
         },
         "maxLevel": {
-          "skillId": "sk_wpn_sword_0003",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      }
-    ]
-  },
-  "wpn_lance_0013": {
-    "stats": [
-      {
-        "levelOne": {
-          "skillId": "wpn_attr_will_mid",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_attr_will_mid",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "wpn_sp_attr_phydam_mid",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_sp_attr_phydam_mid",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "sk_wpn_lance_0013",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "sk_wpn_lance_0013",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      }
-    ]
-  },
-  "wpn_sword_0006": {
-    "stats": [
-      {
-        "levelOne": {
-          "skillId": "wpn_attr_wisd_high",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_attr_wisd_high",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "wpn_sp_attr_atk_high",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_sp_attr_atk_high",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "sk_wpn_sword_0006",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "sk_wpn_sword_0006",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      }
-    ]
-  },
-  "wpn_lance_0014": {
-    "stats": [
-      {
-        "levelOne": {
-          "skillId": "wpn_attr_will_high",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_attr_will_high",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "wpn_sp_attr_heal_high",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_sp_attr_heal_high",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "sk_wpn_lance_0014",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "sk_wpn_lance_0014",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      }
-    ]
-  },
-  "wpn_sword_0007": {
-    "stats": [
-      {
-        "levelOne": {
-          "skillId": "wpn_attr_wisd_mid",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_attr_wisd_mid",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "wpn_sp_attr_usgs_mid",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_sp_attr_usgs_mid",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "sk_wpn_sword_0007",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "sk_wpn_sword_0007",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      }
-    ]
-  },
-  "wpn_lance_0015": {
-    "stats": [
-      {
-        "levelOne": {
-          "skillId": "wpn_attr_agi_high",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_attr_agi_high",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "wpn_sp_attr_firedam_high",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_sp_attr_firedam_high",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "sk_wpn_lance_0015",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "sk_wpn_lance_0015",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      }
-    ]
-  },
-  "wpn_sword_0008": {
-    "stats": [
-      {
-        "levelOne": {
-          "skillId": "wpn_attr_agi_low",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_attr_agi_low",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "wpn_sp_attr_phydam_low",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_sp_attr_phydam_low",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "sk_wpn_sword_0008",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "sk_wpn_sword_0008",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      }
-    ]
-  },
-  "wpn_lance_0016": {
-    "stats": [
-      {
-        "levelOne": {
-          "skillId": "wpn_attr_will_high",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_attr_will_high",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "wpn_sp_attr_heal_high",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_sp_attr_heal_high",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "sk_wpn_lance_0016",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "sk_wpn_lance_0016",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      }
-    ]
-  },
-  "wpn_sword_0009": {
-    "stats": [
-      {
-        "levelOne": {
-          "skillId": "wpn_attr_wisd_low",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_attr_wisd_low",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "wpn_sp_attr_atk_low",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_sp_attr_atk_low",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "sk_wpn_sword_0009",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "sk_wpn_sword_0009",
+          "skillId": "sk_wpn_pistol_0001",
           "level": 9
         },
         "levelOneLabel": "Lv.1",
@@ -2503,46 +2395,6 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       }
     ]
   },
-  "wpn_pistol_0004": {
-    "stats": [
-      {
-        "levelOne": {
-          "skillId": "wpn_attr_str_mid",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_attr_str_mid",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "wpn_sp_attr_firedam_mid",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_sp_attr_firedam_mid",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "sk_wpn_pistol_0004",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "sk_wpn_pistol_0004",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      }
-    ]
-  },
   "wpn_pistol_0005": {
     "stats": [
       {
@@ -2623,86 +2475,6 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       }
     ]
   },
-  "wpn_sword_0022": {
-    "stats": [
-      {
-        "levelOne": {
-          "skillId": "wpn_attr_agi_high",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_attr_agi_high",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "wpn_sp_attr_crirate_high",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_sp_attr_crirate_high",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "sk_wpn_sword_0022",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "sk_wpn_sword_0022",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      }
-    ]
-  },
-  "wpn_pistol_0008": {
-    "stats": [
-      {
-        "levelOne": {
-          "skillId": "wpn_attr_main_high",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_attr_main_high",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "wpn_sp_attr_crirate_high",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_sp_attr_crirate_high",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "sk_wpn_pistol_0008",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "sk_wpn_pistol_0008",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      }
-    ]
-  },
   "wpn_pistol_0009": {
     "stats": [
       {
@@ -2743,7 +2515,115 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       }
     ]
   },
-  "wpn_pistol_0010": {
+  "wpn_pistol_0011": {
+    "stats": [
+      {
+        "levelOne": {
+          "skillId": "wpn_attr_agi_high",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_attr_agi_high",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "wpn_sp_attr_atk_high",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_sp_attr_atk_high",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "sk_wpn_pistol_0011",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "sk_wpn_pistol_0011",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
+  "wpn_pistol_0012": {
+    "stats": [
+      {
+        "levelOne": {
+          "skillId": "wpn_attr_agi_mid",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_attr_agi_mid",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "wpn_sp_attr_usgs_mid",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_sp_attr_usgs_mid",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "sk_wpn_pistol_0012",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "sk_wpn_pistol_0012",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
+  "wpn_sword_0003": {
+    "stats": [
+      {
+        "levelOne": {
+          "skillId": "wpn_attr_main_low",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_attr_main_low",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "sk_wpn_sword_0003",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "sk_wpn_sword_0003",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
+  "wpn_sword_0006": {
     "stats": [
       {
         "levelOne": {
@@ -2759,11 +2639,11 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       },
       {
         "levelOne": {
-          "skillId": "wpn_sp_attr_crirate_high",
+          "skillId": "wpn_sp_attr_atk_high",
           "level": 1
         },
         "maxLevel": {
-          "skillId": "wpn_sp_attr_crirate_high",
+          "skillId": "wpn_sp_attr_atk_high",
           "level": 9
         },
         "levelOneLabel": "Lv.1",
@@ -2771,11 +2651,91 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       },
       {
         "levelOne": {
-          "skillId": "sk_wpn_pistol_0010",
+          "skillId": "sk_wpn_sword_0006",
           "level": 1
         },
         "maxLevel": {
-          "skillId": "sk_wpn_pistol_0010",
+          "skillId": "sk_wpn_sword_0006",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
+  "wpn_sword_0008": {
+    "stats": [
+      {
+        "levelOne": {
+          "skillId": "wpn_attr_agi_low",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_attr_agi_low",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "wpn_sp_attr_phydam_low",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_sp_attr_phydam_low",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "sk_wpn_sword_0008",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "sk_wpn_sword_0008",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
+  "wpn_sword_0009": {
+    "stats": [
+      {
+        "levelOne": {
+          "skillId": "wpn_attr_wisd_low",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_attr_wisd_low",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "wpn_sp_attr_atk_low",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_sp_attr_atk_low",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "sk_wpn_sword_0009",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "sk_wpn_sword_0009",
           "level": 9
         },
         "levelOneLabel": "Lv.1",
@@ -2856,6 +2816,46 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
         },
         "maxLevel": {
           "skillId": "sk_wpn_sword_0011",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
+  "wpn_sword_0012": {
+    "stats": [
+      {
+        "levelOne": {
+          "skillId": "wpn_attr_will_high",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_attr_will_high",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "wpn_sp_attr_atk_high",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_sp_attr_atk_high",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "sk_wpn_sword_0012",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "sk_wpn_sword_0012",
           "level": 9
         },
         "levelOneLabel": "Lv.1",
@@ -2983,126 +2983,6 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       }
     ]
   },
-  "wpn_sword_0017": {
-    "stats": [
-      {
-        "levelOne": {
-          "skillId": "wpn_attr_agi_high",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_attr_agi_high",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "wpn_sp_attr_crirate_high",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_sp_attr_crirate_high",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "sk_wpn_sword_0017",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "sk_wpn_sword_0017",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      }
-    ]
-  },
-  "wpn_sword_0018": {
-    "stats": [
-      {
-        "levelOne": {
-          "skillId": "wpn_attr_agi_mid",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_attr_agi_mid",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "wpn_sp_attr_atk_mid",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_sp_attr_atk_mid",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "sk_wpn_sword_0018",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "sk_wpn_sword_0018",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      }
-    ]
-  },
-  "wpn_sword_0021": {
-    "stats": [
-      {
-        "levelOne": {
-          "skillId": "wpn_attr_agi_high",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_attr_agi_high",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "wpn_sp_attr_atk_high",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_sp_attr_atk_high",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "sk_wpn_sword_0021",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "sk_wpn_sword_0021",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      }
-    ]
-  },
   "wpn_sword_0019": {
     "stats": [
       {
@@ -3183,6 +3063,86 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       }
     ]
   },
+  "wpn_sword_0021": {
+    "stats": [
+      {
+        "levelOne": {
+          "skillId": "wpn_attr_agi_high",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_attr_agi_high",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "wpn_sp_attr_atk_high",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_sp_attr_atk_high",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "sk_wpn_sword_0021",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "sk_wpn_sword_0021",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
+  "wpn_sword_0022": {
+    "stats": [
+      {
+        "levelOne": {
+          "skillId": "wpn_attr_agi_high",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_attr_agi_high",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "wpn_sp_attr_crirate_high",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_sp_attr_crirate_high",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "sk_wpn_sword_0022",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "sk_wpn_sword_0022",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
   "wpn_sword_0023": {
     "stats": [
       {
@@ -3216,6 +3176,86 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
         },
         "maxLevel": {
           "skillId": "sk_wpn_sword_0023",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
+  "wpn_sword_0024": {
+    "stats": [
+      {
+        "levelOne": {
+          "skillId": "wpn_attr_will_high",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_attr_will_high",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "wpn_sp_attr_electrondam_high",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_sp_attr_electrondam_high",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "sk_wpn_sword_0024",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "sk_wpn_sword_0024",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
+  "wpn_sword_0025": {
+    "stats": [
+      {
+        "levelOne": {
+          "skillId": "wpn_attr_will_high",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_attr_will_high",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "wpn_sp_attr_atk_high",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_sp_attr_atk_high",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "sk_wpn_sword_0025",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "sk_wpn_sword_0025",
           "level": 9
         },
         "levelOneLabel": "Lv.1",
@@ -3292,7 +3332,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "44",
         "levelOne": "20.53571429%",
-        "maxLevel": "26.69643%",
+        "maxLevel": "26.69642866%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -3319,7 +3359,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -3364,7 +3404,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "87",
         "levelOne": "41.4",
-        "maxLevel": "53.82",
+        "maxLevel": "53.81999969",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -3429,7 +3469,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -3474,7 +3514,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "87",
         "levelOne": "41.4",
-        "maxLevel": "53.82",
+        "maxLevel": "53.81999969",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -3539,7 +3579,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -3584,7 +3624,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "44",
         "levelOne": "24.64285714%",
-        "maxLevel": "32.035714%",
+        "maxLevel": "32.03571439%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -3649,7 +3689,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -3694,7 +3734,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "44",
         "levelOne": "20.53571429%",
-        "maxLevel": "26.69643%",
+        "maxLevel": "26.69642866%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -3721,7 +3761,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -3766,7 +3806,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "32",
         "levelOne": "34.5%",
-        "maxLevel": "44.85%",
+        "maxLevel": "44.85000074%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -3831,7 +3871,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -3876,7 +3916,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "AllSkillDamageIncrease",
         "levelOne": "23%",
-        "maxLevel": "29.9%",
+        "maxLevel": "29.8999995%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -3922,7 +3962,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -3967,7 +4007,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "32",
         "levelOne": "41.4%",
-        "maxLevel": "53.82%",
+        "maxLevel": "53.82000208%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -3994,7 +4034,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -4039,7 +4079,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "87",
         "levelOne": "34.5",
-        "maxLevel": "44.85",
+        "maxLevel": "44.84999847",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -4066,7 +4106,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -4111,7 +4151,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "CrystAndPulseDamageIncrease",
         "levelOne": "23%",
-        "maxLevel": "29.9%",
+        "maxLevel": "29.8999995%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -4176,7 +4216,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -4221,7 +4261,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "29",
         "levelOne": "17.7%",
-        "maxLevel": "23.01%",
+        "maxLevel": "23.01000059%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -4286,7 +4326,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -4331,7 +4371,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "Main",
         "levelOne": "20.7017835%",
-        "maxLevel": "26.91232%",
+        "maxLevel": "26.91231966%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -4396,7 +4436,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -4441,7 +4481,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "44",
         "levelOne": "24.64285714%",
-        "maxLevel": "32.035714%",
+        "maxLevel": "32.03571439%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -4449,7 +4489,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
     "craftingRecipes": [
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": true,
         "materials": [
           {
@@ -4494,7 +4534,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "17",
         "levelOne": "13.8%",
-        "maxLevel": "17.94%",
+        "maxLevel": "17.9399997%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -4559,7 +4599,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -4604,7 +4644,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "87",
         "levelOne": "34.5",
-        "maxLevel": "44.85",
+        "maxLevel": "44.84999847",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -4631,7 +4671,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -4676,7 +4716,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "44",
         "levelOne": "12.32142857%",
-        "maxLevel": "16.017857%",
+        "maxLevel": "16.01785719%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -4741,7 +4781,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -4779,7 +4819,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "29",
         "levelOne": "20.7%",
-        "maxLevel": "26.91%",
+        "maxLevel": "26.91000104%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -4844,7 +4884,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -4889,7 +4929,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "Sub",
         "levelOne": "20.7017835%",
-        "maxLevel": "26.91232%",
+        "maxLevel": "26.91231966%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -4916,7 +4956,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -4961,7 +5001,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "44",
         "levelOne": "12.32142857%",
-        "maxLevel": "16.017857%",
+        "maxLevel": "16.01785719%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -5007,7 +5047,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -5052,7 +5092,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "87",
         "levelOne": "34.5",
-        "maxLevel": "44.85",
+        "maxLevel": "44.84999847",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -5117,7 +5157,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -5162,7 +5202,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "44",
         "levelOne": "20.53571429%",
-        "maxLevel": "26.69643%",
+        "maxLevel": "26.69642866%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -5170,7 +5210,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
     "craftingRecipes": [
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": true,
         "materials": [
           {
@@ -5215,7 +5255,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "AllSkillDamageIncrease",
         "levelOne": "23%",
-        "maxLevel": "29.9%",
+        "maxLevel": "29.8999995%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -5223,7 +5263,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
     "craftingRecipes": [
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": true,
         "materials": [
           {
@@ -5268,7 +5308,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "33",
         "levelOne": "20.7%",
-        "maxLevel": "26.91%",
+        "maxLevel": "26.91000104%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -5276,7 +5316,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
     "craftingRecipes": [
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": true,
         "materials": [
           {
@@ -5321,7 +5361,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "Sub",
         "levelOne": "10.35089175%",
-        "maxLevel": "13.45616%",
+        "maxLevel": "13.45615983%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -5386,7 +5426,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -5431,7 +5471,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "33",
         "levelOne": "34.5%",
-        "maxLevel": "44.85%",
+        "maxLevel": "44.85000074%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -5439,7 +5479,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
     "craftingRecipes": [
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": true,
         "materials": [
           {
@@ -5484,7 +5524,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "44",
         "levelOne": "17.55952381%",
-        "maxLevel": "22.827381%",
+        "maxLevel": "22.8273809%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -5549,7 +5589,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -5594,7 +5634,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "33",
         "levelOne": "20.7%",
-        "maxLevel": "26.91%",
+        "maxLevel": "26.91000104%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -5640,7 +5680,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -5685,7 +5725,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "FireAndNaturalDamageIncrease",
         "levelOne": "23%",
-        "maxLevel": "29.9%",
+        "maxLevel": "29.8999995%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -5750,7 +5790,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -5795,7 +5835,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "50",
         "levelOne": "23%",
-        "maxLevel": "29.9%",
+        "maxLevel": "29.8999995%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -5841,7 +5881,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -5879,7 +5919,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "87",
         "levelOne": "41.4",
-        "maxLevel": "53.82",
+        "maxLevel": "53.81999969",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -5944,7 +5984,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -5982,7 +6022,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "28",
         "levelOne": "51.75%",
-        "maxLevel": "67.275%",
+        "maxLevel": "67.27499962%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -6028,7 +6068,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -6066,7 +6106,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "9",
         "levelOne": "10.8%",
-        "maxLevel": "14.04%",
+        "maxLevel": "14.04000074%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -6131,7 +6171,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -6176,7 +6216,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "32",
         "levelOne": "41.4%",
-        "maxLevel": "53.82%",
+        "maxLevel": "53.82000208%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -6241,7 +6281,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -6279,7 +6319,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "44",
         "levelOne": "12.32142857%",
-        "maxLevel": "16.017857%",
+        "maxLevel": "16.01785719%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -6287,7 +6327,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
     "craftingRecipes": [
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": true,
         "materials": [
           {
@@ -6332,7 +6372,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "32",
         "levelOne": "20.7%",
-        "maxLevel": "26.91%",
+        "maxLevel": "26.91000104%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -6397,7 +6437,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -6442,7 +6482,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "33",
         "levelOne": "20.7%",
-        "maxLevel": "26.91%",
+        "maxLevel": "26.91000104%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -6450,7 +6490,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
     "craftingRecipes": [
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": true,
         "materials": [
           {
@@ -6495,7 +6535,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "CrystAndPulseDamageIncrease",
         "levelOne": "11.5%",
-        "maxLevel": "14.95%",
+        "maxLevel": "14.94999975%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -6503,7 +6543,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
     "craftingRecipes": [
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": true,
         "materials": [
           {
@@ -6548,7 +6588,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "50",
         "levelOne": "23%",
-        "maxLevel": "29.9%",
+        "maxLevel": "29.8999995%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -6613,7 +6653,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -6658,7 +6698,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "50",
         "levelOne": "9.83333333%",
-        "maxLevel": "12.783334%",
+        "maxLevel": "12.78333366%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -6723,7 +6763,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -6761,7 +6801,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "87",
         "levelOne": "41.4",
-        "maxLevel": "53.82",
+        "maxLevel": "53.81999969",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -6807,7 +6847,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -6852,7 +6892,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "50",
         "levelOne": "16.38888889%",
-        "maxLevel": "21.305555%",
+        "maxLevel": "21.30555511%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -6917,7 +6957,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -6962,7 +7002,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "44",
         "levelOne": "12.32142857%",
-        "maxLevel": "16.017857%",
+        "maxLevel": "16.01785719%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -7008,7 +7048,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -7046,7 +7086,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "AllSkillDamageIncrease",
         "levelOne": "24%",
-        "maxLevel": "31.2%",
+        "maxLevel": "31.20000064%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -7092,7 +7132,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -7137,7 +7177,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "87",
         "levelOne": "20.7",
-        "maxLevel": "26.91",
+        "maxLevel": "26.90999985",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -7202,7 +7242,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -7247,7 +7287,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "Sub",
         "levelOne": "8.85076251%",
-        "maxLevel": "11.505991%",
+        "maxLevel": "11.50599122%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -7312,7 +7352,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -7357,7 +7397,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "CrystAndPulseDamageIncrease",
         "levelOne": "23%",
-        "maxLevel": "29.9%",
+        "maxLevel": "29.8999995%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -7422,7 +7462,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -7467,7 +7507,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "SpellDamageIncrease",
         "levelOne": "15.52631579%",
-        "maxLevel": "20.18421%",
+        "maxLevel": "20.18420994%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -7532,7 +7572,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -7577,7 +7617,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "44",
         "levelOne": "12.32142857%",
-        "maxLevel": "16.017857%",
+        "maxLevel": "16.01785719%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -7642,7 +7682,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -7680,7 +7720,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "33",
         "levelOne": "43.2%",
-        "maxLevel": "56.16%",
+        "maxLevel": "56.16000295%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -7745,7 +7785,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -7790,7 +7830,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "33",
         "levelOne": "20.7%",
-        "maxLevel": "26.91%",
+        "maxLevel": "26.91000104%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -7855,7 +7895,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -7900,7 +7940,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "32",
         "levelOne": "20.7%",
-        "maxLevel": "26.91%",
+        "maxLevel": "26.91000104%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -7965,7 +8005,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -8010,7 +8050,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "SpellDamageIncrease",
         "levelOne": "9.31578947%",
-        "maxLevel": "12.110526%",
+        "maxLevel": "12.11052611%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -8075,7 +8115,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -8120,7 +8160,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "32",
         "levelOne": "41.4%",
-        "maxLevel": "53.82%",
+        "maxLevel": "53.82000208%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -8185,7 +8225,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -8230,7 +8270,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "44",
         "levelOne": "10.53571429%",
-        "maxLevel": "13.696429%",
+        "maxLevel": "13.69642913%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -8295,7 +8335,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -8340,7 +8380,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "FireAndNaturalDamageIncrease",
         "levelOne": "11.5%",
-        "maxLevel": "14.95%",
+        "maxLevel": "14.94999975%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -8386,7 +8426,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -8431,7 +8471,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "87",
         "levelOne": "17.7",
-        "maxLevel": "23.01",
+        "maxLevel": "23.01000023",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -8496,7 +8536,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -8541,7 +8581,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "29",
         "levelOne": "8.85%",
-        "maxLevel": "11.505%",
+        "maxLevel": "11.50500029%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -8606,7 +8646,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -8651,7 +8691,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "FireAndNaturalDamageIncrease",
         "levelOne": "11.5%",
-        "maxLevel": "14.95%",
+        "maxLevel": "14.94999975%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -8716,7 +8756,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -8761,7 +8801,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "SpellDamageIncrease",
         "levelOne": "18.63157895%",
-        "maxLevel": "24.221052%",
+        "maxLevel": "24.22105223%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -8826,7 +8866,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -8871,7 +8911,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "44",
         "levelOne": "21.07142857%",
-        "maxLevel": "27.392858%",
+        "maxLevel": "27.39285827%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -8936,7 +8976,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -8981,7 +9021,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "Sub",
         "levelOne": "17.70152502%",
-        "maxLevel": "23.011982%",
+        "maxLevel": "23.01198244%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -9046,7 +9086,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -9091,7 +9131,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "87",
         "levelOne": "35.4",
-        "maxLevel": "46.02",
+        "maxLevel": "46.02000046",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -9156,7 +9196,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -9201,7 +9241,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "50",
         "levelOne": "19.66666667%",
-        "maxLevel": "25.566667%",
+        "maxLevel": "25.56666732%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -9266,7 +9306,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -9311,7 +9351,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "Sub",
         "levelOne": "14.75127085%",
-        "maxLevel": "19.176652%",
+        "maxLevel": "19.17665154%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -9376,7 +9416,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -9421,7 +9461,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "87",
         "levelOne": "29.5",
-        "maxLevel": "38.35",
+        "maxLevel": "38.34999847",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -9486,7 +9526,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -9531,7 +9571,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "29",
         "levelOne": "14.75%",
-        "maxLevel": "19.175%",
+        "maxLevel": "19.17500049%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -9596,7 +9636,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -9634,7 +9674,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "17",
         "levelOne": "14.4%",
-        "maxLevel": "18.72%",
+        "maxLevel": "18.71999949%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -9680,7 +9720,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -9725,7 +9765,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "FireAndNaturalDamageIncrease",
         "levelOne": "19.16666667%",
-        "maxLevel": "24.916667%",
+        "maxLevel": "24.91666675%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -9771,7 +9811,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -9809,7 +9849,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "44",
         "levelOne": "12.85714286%",
-        "maxLevel": "16.714285%",
+        "maxLevel": "16.71428531%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -9855,7 +9895,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -9900,7 +9940,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "CrystAndPulseDamageIncrease",
         "levelOne": "19.16666667%",
-        "maxLevel": "24.916667%",
+        "maxLevel": "24.91666675%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -9946,7 +9986,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -9984,7 +10024,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "AllDamageTakenScalar",
         "levelOne": "17.76315789%",
-        "maxLevel": "21.9238%",
+        "maxLevel": "21.92379832%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -10049,7 +10089,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -10087,7 +10127,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "44",
         "levelOne": "21.42857143%",
-        "maxLevel": "27.857143%",
+        "maxLevel": "27.85714269%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -10095,7 +10135,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
     "craftingRecipes": [
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": true,
         "materials": [
           {
@@ -10140,7 +10180,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "87",
         "levelOne": "41.4",
-        "maxLevel": "53.82",
+        "maxLevel": "53.81999969",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -10186,7 +10226,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -10224,7 +10264,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "44",
         "levelOne": "25.71428571%",
-        "maxLevel": "33.42857%",
+        "maxLevel": "33.42857063%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -10289,7 +10329,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -10327,7 +10367,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "28",
         "levelOne": "45%",
-        "maxLevel": "58.5%",
+        "maxLevel": "58.49999785%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -10373,7 +10413,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -10411,7 +10451,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "87",
         "levelOne": "21.6",
-        "maxLevel": "28.08",
+        "maxLevel": "28.07999992",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -10419,7 +10459,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
     "craftingRecipes": [
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": true,
         "materials": [
           {
@@ -10457,7 +10497,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "29",
         "levelOne": "10.8%",
-        "maxLevel": "14.04%",
+        "maxLevel": "14.04000074%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -10465,7 +10505,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
     "craftingRecipes": [
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": true,
         "materials": [
           {
@@ -10510,7 +10550,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "61",
         "levelOne": "41.4%",
-        "maxLevel": "53.82%",
+        "maxLevel": "53.82000208%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -10575,7 +10615,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -10620,7 +10660,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "FireAndNaturalDamageIncrease",
         "levelOne": "23%",
-        "maxLevel": "29.9%",
+        "maxLevel": "29.8999995%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -10647,7 +10687,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -10685,7 +10725,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "33",
         "levelOne": "21.6%",
-        "maxLevel": "28.08%",
+        "maxLevel": "28.08000147%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -10693,7 +10733,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
     "craftingRecipes": [
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": true,
         "materials": [
           {
@@ -10738,7 +10778,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "32",
         "levelOne": "41.4%",
-        "maxLevel": "53.82%",
+        "maxLevel": "53.82000208%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -10765,7 +10805,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -10810,7 +10850,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "CrystAndPulseDamageIncrease",
         "levelOne": "19.16666667%",
-        "maxLevel": "24.916667%",
+        "maxLevel": "24.91666675%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -10875,7 +10915,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -10913,7 +10953,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "FireAndNaturalDamageIncrease",
         "levelOne": "12%",
-        "maxLevel": "15.6%",
+        "maxLevel": "15.60000032%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -10921,7 +10961,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
     "craftingRecipes": [
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": true,
         "materials": [
           {
@@ -10959,7 +10999,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "Sub",
         "levelOne": "21.60186104%",
-        "maxLevel": "28.082418%",
+        "maxLevel": "28.08241844%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -10967,7 +11007,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
     "craftingRecipes": [
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": true,
         "materials": [
           {
@@ -11012,7 +11052,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "28",
         "levelOne": "51.75%",
-        "maxLevel": "67.275%",
+        "maxLevel": "67.27499962%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -11058,7 +11098,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -11096,7 +11136,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "Sub",
         "levelOne": "20.7017835%",
-        "maxLevel": "26.91232%",
+        "maxLevel": "26.91231966%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -11104,7 +11144,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
     "craftingRecipes": [
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": true,
         "materials": [
           {
@@ -11142,7 +11182,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "44",
         "levelOne": "25.71428571%",
-        "maxLevel": "33.42857%",
+        "maxLevel": "33.42857063%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -11150,7 +11190,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
     "craftingRecipes": [
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": true,
         "materials": [
           {
@@ -11195,7 +11235,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "AllSkillDamageIncrease",
         "levelOne": "27.6%",
-        "maxLevel": "35.88%",
+        "maxLevel": "35.8799994%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -11260,7 +11300,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -11305,7 +11345,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "33",
         "levelOne": "41.4%",
-        "maxLevel": "53.82%",
+        "maxLevel": "53.82000208%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -11313,7 +11353,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
     "craftingRecipes": [
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": true,
         "materials": [
           {
@@ -11351,7 +11391,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "32",
         "levelOne": "36%",
-        "maxLevel": "46.8%",
+        "maxLevel": "46.79999948%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -11359,7 +11399,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
     "craftingRecipes": [
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": true,
         "materials": [
           {
@@ -11397,7 +11437,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "CrystAndPulseDamageIncrease",
         "levelOne": "20%",
-        "maxLevel": "26%",
+        "maxLevel": "25.99999905%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -11405,7 +11445,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
     "craftingRecipes": [
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": true,
         "materials": [
           {
@@ -11450,7 +11490,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "17",
         "levelOne": "27.6%",
-        "maxLevel": "35.88%",
+        "maxLevel": "35.8799994%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -11515,7 +11555,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -11553,7 +11593,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "17",
         "levelOne": "24%",
-        "maxLevel": "31.2%",
+        "maxLevel": "31.20000064%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -11561,7 +11601,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
     "craftingRecipes": [
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": true,
         "materials": [
           {
@@ -11606,7 +11646,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "28",
         "levelOne": "25.875%",
-        "maxLevel": "33.6375%",
+        "maxLevel": "33.63749981%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -11671,7 +11711,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -11716,7 +11756,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "33",
         "levelOne": "41.4%",
-        "maxLevel": "53.82%",
+        "maxLevel": "53.82000208%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -11781,7 +11821,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -11819,7 +11859,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "1",
         "levelOne": "41.4%",
-        "maxLevel": "53.82%",
+        "maxLevel": "53.82000208%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -11865,7 +11905,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -11903,7 +11943,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "28",
         "levelOne": "51.75%",
-        "maxLevel": "67.275%",
+        "maxLevel": "67.27499962%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -11949,7 +11989,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -11994,7 +12034,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "Sub",
         "levelOne": "20.7017835%",
-        "maxLevel": "26.91232%",
+        "maxLevel": "26.91231966%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -12059,7 +12099,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -12097,7 +12137,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "50",
         "levelOne": "23%",
-        "maxLevel": "29.9%",
+        "maxLevel": "29.8999995%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -12143,7 +12183,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -12188,7 +12228,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "50",
         "levelOne": "11.5%",
-        "maxLevel": "14.95%",
+        "maxLevel": "14.94999975%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -12253,7 +12293,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -12298,7 +12338,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "87",
         "levelOne": "41.4",
-        "maxLevel": "53.82",
+        "maxLevel": "53.81999969",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -12306,7 +12346,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
     "craftingRecipes": [
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": true,
         "materials": [
           {
@@ -12351,7 +12391,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "AllSkillDamageIncrease",
         "levelOne": "13.8%",
-        "maxLevel": "17.94%",
+        "maxLevel": "17.9399997%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -12416,7 +12456,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -12461,7 +12501,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "28",
         "levelOne": "51.75%",
-        "maxLevel": "67.275%",
+        "maxLevel": "67.27499962%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -12488,7 +12528,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -12533,7 +12573,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "50",
         "levelOne": "23%",
-        "maxLevel": "29.9%",
+        "maxLevel": "29.8999995%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -12598,7 +12638,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -12643,7 +12683,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "32",
         "levelOne": "41.4%",
-        "maxLevel": "53.82%",
+        "maxLevel": "53.82000208%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -12689,7 +12729,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -12734,7 +12774,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "44",
         "levelOne": "24.64285714%",
-        "maxLevel": "32.035714%",
+        "maxLevel": "32.03571439%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -12799,7 +12839,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -12844,7 +12884,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "33",
         "levelOne": "41.4%",
-        "maxLevel": "53.82%",
+        "maxLevel": "53.82000208%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -12890,7 +12930,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -12935,7 +12975,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "44",
         "levelOne": "24.64285714%",
-        "maxLevel": "32.035714%",
+        "maxLevel": "32.03571439%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -12943,7 +12983,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
     "craftingRecipes": [
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": true,
         "materials": [
           {
@@ -12988,7 +13028,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "33",
         "levelOne": "41.4%",
-        "maxLevel": "53.82%",
+        "maxLevel": "53.82000208%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -13053,7 +13093,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -13098,7 +13138,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "44",
         "levelOne": "24.64285714%",
-        "maxLevel": "32.035714%",
+        "maxLevel": "32.03571439%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -13106,7 +13146,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
     "craftingRecipes": [
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": true,
         "materials": [
           {
@@ -13151,7 +13191,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "33",
         "levelOne": "41.4%",
-        "maxLevel": "53.82%",
+        "maxLevel": "53.82000208%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -13159,7 +13199,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
     "craftingRecipes": [
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": true,
         "materials": [
           {
@@ -13204,7 +13244,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "33",
         "levelOne": "34.5%",
-        "maxLevel": "44.85%",
+        "maxLevel": "44.85000074%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -13269,7 +13309,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -13314,7 +13354,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "32",
         "levelOne": "20.7%",
-        "maxLevel": "26.91%",
+        "maxLevel": "26.91000104%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -13379,7 +13419,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -13424,7 +13464,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "50",
         "levelOne": "11.5%",
-        "maxLevel": "14.95%",
+        "maxLevel": "14.94999975%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -13451,7 +13491,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -13496,7 +13536,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "33",
         "levelOne": "34.5%",
-        "maxLevel": "44.85%",
+        "maxLevel": "44.85000074%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -13561,7 +13601,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -13606,7 +13646,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "50",
         "levelOne": "11.5%",
-        "maxLevel": "14.95%",
+        "maxLevel": "14.94999975%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -13633,7 +13673,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -13678,7 +13718,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "33",
         "levelOne": "34.5%",
-        "maxLevel": "44.85%",
+        "maxLevel": "44.85000074%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -13686,7 +13726,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
     "craftingRecipes": [
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": true,
         "materials": [
           {
@@ -13731,7 +13771,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "87",
         "levelOne": "20.7",
-        "maxLevel": "26.91",
+        "maxLevel": "26.90999985",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -13796,7 +13836,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -13841,7 +13881,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "44",
         "levelOne": "12.32142857%",
-        "maxLevel": "16.017857%",
+        "maxLevel": "16.01785719%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -13906,7 +13946,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -13951,7 +13991,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "CrystAndPulseDamageIncrease",
         "levelOne": "11.5%",
-        "maxLevel": "14.95%",
+        "maxLevel": "14.94999975%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -13997,7 +14037,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -14042,7 +14082,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "33",
         "levelOne": "20.7%",
-        "maxLevel": "26.91%",
+        "maxLevel": "26.91000104%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -14107,7 +14147,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -14152,7 +14192,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "9",
         "levelOne": "10.35%",
-        "maxLevel": "13.455%",
+        "maxLevel": "13.45500052%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -14217,7 +14257,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -14262,7 +14302,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "33",
         "levelOne": "41.4%",
-        "maxLevel": "53.82%",
+        "maxLevel": "53.82000208%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -14327,7 +14367,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -14372,7 +14412,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "32",
         "levelOne": "41.4%",
-        "maxLevel": "53.82%",
+        "maxLevel": "53.82000208%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -14418,7 +14458,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -14463,7 +14503,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "CrystAndPulseDamageIncrease",
         "levelOne": "19.16666667%",
-        "maxLevel": "24.916667%",
+        "maxLevel": "24.91666675%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -14490,7 +14530,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -14535,7 +14575,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "44",
         "levelOne": "12.32142857%",
-        "maxLevel": "16.017857%",
+        "maxLevel": "16.01785719%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -14543,7 +14583,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
     "craftingRecipes": [
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": true,
         "materials": [
           {
@@ -14588,7 +14628,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "87",
         "levelOne": "20.7",
-        "maxLevel": "26.91",
+        "maxLevel": "26.90999985",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -14615,7 +14655,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -14660,7 +14700,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "CrystAndPulseDamageIncrease",
         "levelOne": "11.5%",
-        "maxLevel": "14.95%",
+        "maxLevel": "14.94999975%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -14668,7 +14708,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
     "craftingRecipes": [
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": true,
         "materials": [
           {
@@ -14713,7 +14753,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "FireAndNaturalDamageIncrease",
         "levelOne": "23%",
-        "maxLevel": "29.9%",
+        "maxLevel": "29.8999995%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -14721,7 +14761,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
     "craftingRecipes": [
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": true,
         "materials": [
           {
@@ -14766,7 +14806,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "CrystAndPulseDamageIncrease",
         "levelOne": "19.16666667%",
-        "maxLevel": "24.916667%",
+        "maxLevel": "24.91666675%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -14831,7 +14871,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -14876,7 +14916,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "44",
         "levelOne": "12.32142857%",
-        "maxLevel": "16.017857%",
+        "maxLevel": "16.01785719%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -14884,7 +14924,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
     "craftingRecipes": [
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": true,
         "materials": [
           {
@@ -14929,7 +14969,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "44",
         "levelOne": "12.32142857%",
-        "maxLevel": "16.017857%",
+        "maxLevel": "16.01785719%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -14956,7 +14996,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -15001,7 +15041,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "87",
         "levelOne": "41.4",
-        "maxLevel": "53.82",
+        "maxLevel": "53.81999969",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -15028,7 +15068,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -15073,7 +15113,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "50",
         "levelOne": "23%",
-        "maxLevel": "29.9%",
+        "maxLevel": "29.8999995%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -15100,7 +15140,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -15145,7 +15185,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "CrystAndPulseDamageIncrease",
         "levelOne": "19.16666667%",
-        "maxLevel": "24.916667%",
+        "maxLevel": "24.91666675%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -15153,7 +15193,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
     "craftingRecipes": [
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": true,
         "materials": [
           {
@@ -15198,7 +15238,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "AllSkillDamageIncrease",
         "levelOne": "23%",
-        "maxLevel": "29.9%",
+        "maxLevel": "29.8999995%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -15225,7 +15265,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -15270,7 +15310,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "87",
         "levelOne": "20.7",
-        "maxLevel": "26.91",
+        "maxLevel": "26.90999985",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -15335,7 +15375,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -15380,7 +15420,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "9",
         "levelOne": "5.175%",
-        "maxLevel": "6.7275%",
+        "maxLevel": "6.72750026%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -15445,7 +15485,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -15490,7 +15530,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "44",
         "levelOne": "12.32142857%",
-        "maxLevel": "16.017857%",
+        "maxLevel": "16.01785719%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -15536,7 +15576,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -15581,7 +15621,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "CrystAndPulseDamageIncrease",
         "levelOne": "23%",
-        "maxLevel": "29.9%",
+        "maxLevel": "29.8999995%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -15646,7 +15686,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -15691,7 +15731,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "32",
         "levelOne": "41.4%",
-        "maxLevel": "53.82%",
+        "maxLevel": "53.82000208%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -15756,7 +15796,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -15801,7 +15841,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "9",
         "levelOne": "10.35%",
-        "maxLevel": "13.455%",
+        "maxLevel": "13.45500052%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -15866,7 +15906,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -15911,7 +15951,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "9",
         "levelOne": "10.35%",
-        "maxLevel": "13.455%",
+        "maxLevel": "13.45500052%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -15957,7 +15997,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -16002,7 +16042,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "AllSkillDamageIncrease",
         "levelOne": "23%",
-        "maxLevel": "29.9%",
+        "maxLevel": "29.8999995%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -16048,7 +16088,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -16093,7 +16133,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "44",
         "levelOne": "20.53571429%",
-        "maxLevel": "26.69643%",
+        "maxLevel": "26.69642866%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -16158,7 +16198,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -16203,7 +16243,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "32",
         "levelOne": "34.5%",
-        "maxLevel": "44.85%",
+        "maxLevel": "44.85000074%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -16268,7 +16308,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -16313,7 +16353,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "17",
         "levelOne": "23%",
-        "maxLevel": "29.9%",
+        "maxLevel": "29.8999995%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -16378,7 +16418,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -16423,7 +16463,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "9",
         "levelOne": "8.625%",
-        "maxLevel": "11.2125%",
+        "maxLevel": "11.21250018%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -16488,7 +16528,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -16533,7 +16573,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "28",
         "levelOne": "43.125%",
-        "maxLevel": "56.0625%",
+        "maxLevel": "56.06250167%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -16579,7 +16619,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -16624,7 +16664,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "50",
         "levelOne": "11.5%",
-        "maxLevel": "14.95%",
+        "maxLevel": "14.94999975%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -16651,7 +16691,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -16696,7 +16736,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "87",
         "levelOne": "20.7",
-        "maxLevel": "26.91",
+        "maxLevel": "26.90999985",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -16723,7 +16763,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -16768,7 +16808,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "50",
         "levelOne": "23%",
-        "maxLevel": "29.9%",
+        "maxLevel": "29.8999995%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -16795,7 +16835,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -16840,7 +16880,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "50",
         "levelOne": "23%",
-        "maxLevel": "29.9%",
+        "maxLevel": "29.8999995%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -16867,7 +16907,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -16912,7 +16952,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "44",
         "levelOne": "20.53571429%",
-        "maxLevel": "26.69643%",
+        "maxLevel": "26.69642866%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -16920,7 +16960,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
     "craftingRecipes": [
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": true,
         "materials": [
           {
@@ -16965,7 +17005,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "CrystAndPulseDamageIncrease",
         "levelOne": "11.5%",
-        "maxLevel": "14.95%",
+        "maxLevel": "14.94999975%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -16992,7 +17032,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -17037,7 +17077,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "32",
         "levelOne": "41.4%",
-        "maxLevel": "53.82%",
+        "maxLevel": "53.82000208%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -17064,7 +17104,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -17109,7 +17149,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "AllDamageTakenScalar",
         "levelOne": "17.14995857%",
-        "maxLevel": "21.204%",
+        "maxLevel": "21.20400071%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -17174,7 +17214,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -17219,7 +17259,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "1",
         "levelOne": "41.4%",
-        "maxLevel": "53.82%",
+        "maxLevel": "53.82000208%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -17284,7 +17324,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -17329,7 +17369,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "29",
         "levelOne": "17.25%",
-        "maxLevel": "22.425%",
+        "maxLevel": "22.42500037%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -17394,7 +17434,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -17439,7 +17479,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "CrystAndPulseDamageIncrease",
         "levelOne": "19.16666667%",
-        "maxLevel": "24.916667%",
+        "maxLevel": "24.91666675%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -17466,7 +17506,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -17511,7 +17551,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "87",
         "levelOne": "41.4",
-        "maxLevel": "53.82",
+        "maxLevel": "53.81999969",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -17576,7 +17616,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -17614,7 +17654,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "32",
         "levelOne": "41.4%",
-        "maxLevel": "53.82%",
+        "maxLevel": "53.82000208%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -17679,7 +17719,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -17724,7 +17764,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "AllSkillDamageIncrease",
         "levelOne": "27.6%",
-        "maxLevel": "35.88%",
+        "maxLevel": "35.8799994%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -17732,7 +17772,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
     "craftingRecipes": [
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": true,
         "materials": [
           {
@@ -17777,7 +17817,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "87",
         "levelOne": "34.5",
-        "maxLevel": "44.85",
+        "maxLevel": "44.84999847",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -17823,7 +17863,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -17868,7 +17908,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "FireAndNaturalDamageIncrease",
         "levelOne": "19.16666667%",
-        "maxLevel": "24.916667%",
+        "maxLevel": "24.91666675%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -17933,7 +17973,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -17978,7 +18018,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "FireAndNaturalDamageIncrease",
         "levelOne": "19.16666667%",
-        "maxLevel": "24.916667%",
+        "maxLevel": "24.91666675%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -18043,7 +18083,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -18088,7 +18128,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "FireAndNaturalDamageIncrease",
         "levelOne": "19.16666667%",
-        "maxLevel": "24.916667%",
+        "maxLevel": "24.91666675%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -18096,7 +18136,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
     "craftingRecipes": [
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": true,
         "materials": [
           {
@@ -18141,7 +18181,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "29",
         "levelOne": "10.35%",
-        "maxLevel": "13.455%",
+        "maxLevel": "13.45500052%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -18206,7 +18246,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -18251,7 +18291,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "29",
         "levelOne": "10.35%",
-        "maxLevel": "13.455%",
+        "maxLevel": "13.45500052%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -18316,7 +18356,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -18361,7 +18401,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "44",
         "levelOne": "12.32142857%",
-        "maxLevel": "16.017857%",
+        "maxLevel": "16.01785719%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -18369,7 +18409,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
     "craftingRecipes": [
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": true,
         "materials": [
           {
@@ -18414,7 +18454,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "87",
         "levelOne": "34.5",
-        "maxLevel": "44.85",
+        "maxLevel": "44.84999847",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -18422,7 +18462,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
     "craftingRecipes": [
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": true,
         "materials": [
           {
@@ -18467,7 +18507,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "44",
         "levelOne": "20.53571429%",
-        "maxLevel": "26.69643%",
+        "maxLevel": "26.69642866%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -18532,7 +18572,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -18577,7 +18617,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "44",
         "levelOne": "20.53571429%",
-        "maxLevel": "26.69643%",
+        "maxLevel": "26.69642866%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -18585,7 +18625,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
     "craftingRecipes": [
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": true,
         "materials": [
           {
@@ -18630,7 +18670,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "28",
         "levelOne": "43.125%",
-        "maxLevel": "56.0625%",
+        "maxLevel": "56.06250167%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -18695,7 +18735,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -18740,7 +18780,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "44",
         "levelOne": "12.32142857%",
-        "maxLevel": "16.017857%",
+        "maxLevel": "16.01785719%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -18786,7 +18826,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -18831,7 +18871,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "50",
         "levelOne": "19.16666667%",
-        "maxLevel": "24.916667%",
+        "maxLevel": "24.91666675%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -18896,7 +18936,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -18941,7 +18981,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "87",
         "levelOne": "34.5",
-        "maxLevel": "44.85",
+        "maxLevel": "44.84999847",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -18968,7 +19008,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -19013,7 +19053,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "61",
         "levelOne": "20.7%",
-        "maxLevel": "26.91%",
+        "maxLevel": "26.91000104%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -19078,7 +19118,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -19123,7 +19163,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "50",
         "levelOne": "23%",
-        "maxLevel": "29.9%",
+        "maxLevel": "29.8999995%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -19188,7 +19228,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -19233,7 +19273,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "50",
         "levelOne": "23%",
-        "maxLevel": "29.9%",
+        "maxLevel": "29.8999995%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -19279,7 +19319,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -19324,7 +19364,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "29",
         "levelOne": "20.7%",
-        "maxLevel": "26.91%",
+        "maxLevel": "26.91000104%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -19389,7 +19429,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -19434,7 +19474,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "87",
         "levelOne": "20.7",
-        "maxLevel": "26.91",
+        "maxLevel": "26.90999985",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -19499,7 +19539,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {
@@ -19544,7 +19584,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "87",
         "levelOne": "20.7",
-        "maxLevel": "26.91",
+        "maxLevel": "26.90999985",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -19552,7 +19592,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
     "craftingRecipes": [
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": true,
         "materials": [
           {
@@ -19597,7 +19637,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "Sub",
         "levelOne": "10.35089175%",
-        "maxLevel": "13.45616%",
+        "maxLevel": "13.45615983%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -19605,7 +19645,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
     "craftingRecipes": [
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": true,
         "materials": [
           {
@@ -19650,7 +19690,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       {
         "attributeId": "44",
         "levelOne": "20.53571429%",
-        "maxLevel": "26.69643%",
+        "maxLevel": "26.69642866%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -19715,7 +19755,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "chainId": 4003,
-        "discount": 0.01,
+        "discount": 0.009999999776482582,
         "isDefault": false,
         "materials": [
           {

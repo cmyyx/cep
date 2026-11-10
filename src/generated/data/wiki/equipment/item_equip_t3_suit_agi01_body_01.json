@@ -45,8 +45,8 @@
       "requiredPieces": 3,
       "values": {
         "agi_up": 50,
-        "hp_ratio": 0.8,
-        "phy_dmg_up": 0.2
+        "hp_ratio": 0.800000011920929,
+        "phy_dmg_up": 0.20000000298023224
       }
     }
   ],

@@ -33,9 +33,9 @@
       "attributeId": "CrystAndPulseDamageIncrease",
       "values": [
         0.11499999999999999,
-        0.1265,
-        0.138,
-        0.1495
+        0.1264999955892563,
+        0.1379999965429306,
+        0.14949999749660492
       ]
     }
   ],
@@ -44,8 +44,8 @@
       "id": "passive_equipsuit_expend_spell01",
       "requiredPieces": 3,
       "values": {
-        "atk_up": 0.1,
-        "spell_dmg_up": 0.15,
+        "atk_up": 0.10000000149011612,
+        "spell_dmg_up": 0.15000000596046448,
         "duration": 25,
         "max_stack": 3
       }
@@ -73,7 +73,7 @@
     },
     {
       "chainId": 4003,
-      "discount": 0.01,
+      "discount": 0.009999999776482582,
       "isDefault": false,
       "materials": [
         {

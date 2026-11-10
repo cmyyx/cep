@@ -33,9 +33,9 @@
       "attributeId": "32",
       "values": [
         0.414,
-        0.4554,
-        0.4968,
-        0.5382
+        0.4553999900817871,
+        0.4968000054359436,
+        0.5382000207901001
       ]
     }
   ],
@@ -44,8 +44,8 @@
       "id": "passive_equipsuit_expend_spell01",
       "requiredPieces": 3,
       "values": {
-        "atk_up": 0.1,
-        "spell_dmg_up": 0.15,
+        "atk_up": 0.10000000149011612,
+        "spell_dmg_up": 0.15000000596046448,
         "duration": 25,
         "max_stack": 3
       }
@@ -73,7 +73,7 @@
     },
     {
       "chainId": 4003,
-      "discount": 0.01,
+      "discount": 0.009999999776482582,
       "isDefault": false,
       "materials": [
         {

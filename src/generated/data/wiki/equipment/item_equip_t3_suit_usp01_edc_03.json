@@ -44,7 +44,7 @@
       "id": "passive_equipsuit_usp_01",
       "requiredPieces": 3,
       "values": {
-        "ultimate_gain_up": 0.2,
+        "ultimate_gain_up": 0.20000000298023224,
         "atb_recover": 50
       }
     }

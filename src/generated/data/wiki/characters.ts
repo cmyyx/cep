@@ -522,5 +522,21 @@ export const wikiCharacters = [
       "month": 9,
       "day": 15
     }
+  },
+  {
+    "id": "chr_0037_minghe",
+    "category": "characters",
+    "rarity": 6,
+    "imageId": "chr_0037_minghe",
+    "elementId": "Pulse",
+    "professionId": "0",
+    "factionId": "ENDFIELD INDUSTRIES",
+    "weaponTypeId": "1",
+    "mainAttributeId": "42",
+    "subAttributeId": "39",
+    "birthday": {
+      "month": 10,
+      "day": 23
+    }
   }
 ] satisfies WikiCharacterSummary[]

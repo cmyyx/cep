@@ -33,9 +33,9 @@
       "attributeId": "28",
       "values": [
         0.43125,
-        0.474375,
-        0.5175,
-        0.560625
+        0.47437500953674316,
+        0.5174999833106995,
+        0.5606250166893005
       ]
     }
   ],
@@ -44,11 +44,11 @@
       "id": "passive_equipsuit_critsuit_01",
       "requiredPieces": 3,
       "values": {
-        "crit_up": 0.05,
+        "crit_up": 0.05000000074505806,
         "duration": 5,
-        "atk_up": 0.05,
+        "atk_up": 0.05000000074505806,
         "max_stack": 5,
-        "crit_up2": 0.05
+        "crit_up2": 0.05000000074505806
       }
     }
   ],
@@ -93,7 +93,7 @@
     },
     {
       "chainId": 4003,
-      "discount": 0.01,
+      "discount": 0.009999999776482582,
       "isDefault": false,
       "materials": [
         {

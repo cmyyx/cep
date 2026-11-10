@@ -24,9 +24,9 @@
       "attributeId": "AllSkillDamageIncrease",
       "values": [
         0.24,
-        0.264,
-        0.288,
-        0.312
+        0.2639999985694885,
+        0.2879999876022339,
+        0.31200000643730164
       ]
     }
   ],
@@ -72,7 +72,7 @@
     },
     {
       "chainId": 4003,
-      "discount": 0.01,
+      "discount": 0.009999999776482582,
       "isDefault": false,
       "materials": [
         {

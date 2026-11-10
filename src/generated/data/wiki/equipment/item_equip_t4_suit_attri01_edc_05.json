@@ -33,9 +33,9 @@
       "attributeId": "9",
       "values": [
         0.1035,
-        0.11385,
-        0.1242,
-        0.13455
+        0.11384999752044678,
+        0.1242000013589859,
+        0.13455000519752502
       ]
     }
   ],
@@ -44,8 +44,8 @@
       "id": "passive_equipsuit_attrisuit_01",
       "requiredPieces": 3,
       "values": {
-        "atk_up": 0.15,
-        "dmg_up": 0.3,
+        "atk_up": 0.15000000596046448,
+        "dmg_up": 0.30000001192092896,
         "max_stack": 2
       }
     }
@@ -110,7 +110,7 @@
     },
     {
       "chainId": 4003,
-      "discount": 0.01,
+      "discount": 0.009999999776482582,
       "isDefault": false,
       "materials": [
         {

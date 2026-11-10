@@ -33,9 +33,9 @@
       "attributeId": "FireAndNaturalDamageIncrease",
       "values": [
         0.11499999999999999,
-        0.1265,
-        0.138,
-        0.1495
+        0.1264999955892563,
+        0.1379999965429306,
+        0.14949999749660492
       ]
     }
   ],
@@ -93,7 +93,7 @@
     },
     {
       "chainId": 4003,
-      "discount": 0.01,
+      "discount": 0.009999999776482582,
       "isDefault": false,
       "materials": [
         {

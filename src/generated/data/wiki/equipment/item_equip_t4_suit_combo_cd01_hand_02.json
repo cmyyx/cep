@@ -33,9 +33,9 @@
       "attributeId": "44",
       "values": [
         0.20535714285714285,
-        0.22589286,
-        0.24642856,
-        0.2669643
+        0.22589285671710968,
+        0.24642856419086456,
+        0.26696428656578064
       ]
     }
   ],
@@ -44,8 +44,8 @@
       "id": "passive_equipsuit_combo_cd01",
       "requiredPieces": 3,
       "values": {
-        "comboskill_cooldown": 0.85,
-        "spell_up": 0.2,
+        "comboskill_cooldown": 0.8500000238418579,
+        "spell_up": 0.20000000298023224,
         "duration": 15,
         "max_stack": 2
       }
@@ -73,7 +73,7 @@
     },
     {
       "chainId": 4003,
-      "discount": 0.01,
+      "discount": 0.009999999776482582,
       "isDefault": false,
       "materials": [
         {

@@ -46,7 +46,7 @@
       "values": {
         "will_up": 50,
         "hp_ratio": 0.5,
-        "heal_up": 0.3
+        "heal_up": 0.30000001192092896
       }
     }
   ],
