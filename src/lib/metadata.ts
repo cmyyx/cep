@@ -27,3 +27,15 @@ export function getAlternates(
     languages,
   }
 }
+
+/**
+ * 把翻译文件里的逗号分隔关键词串切成 <meta name="keywords"> 用的数组。
+ * 中文关键词本身不含逗号，所以按半角逗号切分是安全的；空段与首尾空白都丢掉。
+ */
+export function parseKeywords(value: string | undefined): string[] {
+  if (!value) return []
+  return value
+    .split(',')
+    .map((keyword) => keyword.trim())
+    .filter((keyword) => keyword.length > 0)
+}

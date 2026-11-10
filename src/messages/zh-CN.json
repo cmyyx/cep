@@ -19,6 +19,7 @@
     "closePreview": "关闭预览"
   },
   "nav": {
+    "home": "首页",
     "essencePlanner": "基质规划",
     "refinementPlanner": "精锻规划",
     "bannerCalendar": "卡池日历",
@@ -39,13 +40,7 @@
     "groupTools": "更多工具"
   },
   "ad": {
-    "imageAlt": "广告",
-    "loading": "广告加载中",
-    "waitingForAds": "广告位正在准备中",
-    "slotDisabled": "广告位暂未开放",
-    "loadFailed": "广告加载失败",
-    "supportMessage": "广告收入是维持本站运营的主要来源。如果可以的话~能将本站加入广告拦截器的白名单嘛~非常感谢你的理解与支持",
-    "closeLabel": "关闭广告"
+    "imageAlt": "广告"
   },
   "app": {
     "name": "CEP 终末地规划器（原终末地基质规划器）"
@@ -844,6 +839,21 @@
     "wikiTitle": "明日方舟:终末地 WIKI",
     "wikiDescription": "终末地游戏数据维基——浏览干员、武器、装备、基质、副本、敌人、物品、设备、任务和活动数据。",
     "wikiKeywords": "终末地维基,游戏数据,数据库,干员,武器,装备,基质,副本,敌人,物品,设备,任务,活动",
+    "wikiHubTitle": "WIKI：干员/武器/装备图鉴",
+    "wikiHubDescription": "终末地 WIKI 入口：干员、武器、装备图鉴与游戏内数据查询，配合基质规划器、精锻规划器一起使用。",
+    "wikiHubKeywords": "终末地wiki,明日方舟终末地wiki,干员图鉴,武器图鉴,装备图鉴",
+    "wikiCharactersTitle": "干员图鉴：全角色属性/职业/元素",
+    "wikiCharactersDescription": "明日方舟：终末地全部干员图鉴——稀有度、职业、元素、武器类型、属性成长、技能与天赋资料，支持按条件筛选，一页查完。",
+    "wikiCharactersKeywords": "终末地干员,干员图鉴,角色一览,终末地wiki,明日方舟终末地,终末地攻略",
+    "wikiWeaponsTitle": "武器图鉴：全武器属性与技能数值",
+    "wikiWeaponsDescription": "明日方舟：终末地全部武器图鉴——稀有度、武器类型、基础属性与技能数值一览，可从干员页与基质规划直接跳转查看。",
+    "wikiWeaponsKeywords": "终末地武器,武器图鉴,武器一览,终末地wiki,明日方舟终末地,武器属性",
+    "wikiEquipmentTitle": "装备图鉴：属性词条与精锻材料",
+    "wikiEquipmentDescription": "明日方舟：终末地全部装备图鉴——部件、属性词条、精锻材料与套装效果一览，可配合精锻规划器直接计算方案。",
+    "wikiEquipmentKeywords": "终末地装备,装备图鉴,装备一览,终末地wiki,装备精锻,精锻材料",
+    "wikiCharacterDetailDescription": "{name} —— 明日方舟：终末地的干员数据：稀有度、职业、元素、属性成长、技能与天赋、养成材料一览。",
+    "wikiWeaponDetailDescription": "{name} —— 明日方舟：终末地的武器数据：稀有度、类型、基础属性与技能数值一览。",
+    "wikiEquipmentDetailDescription": "{name} —— 明日方舟：终末地的装备数据：部件、属性词条、精锻材料与套装效果一览。",
     "growthPlannerDescription": "终末地干员与武器养成规划工具，计算等级、技能、精英化、突破与节点所需资源及最高级副本次数。",
     "growthPlannerKeywords": "终末地养成规划,干员养成,武器养成,升级材料,副本次数,理智计算",
     "panelPreviewDescription": "终末地干员面板预览工具，自由配置干员、装备与武器并计算完整面板属性。",
@@ -999,6 +1009,15 @@
       "en": "英语配音",
       "ja": "日语配音",
       "ko": "韩语配音"
+    },
+    "hub": {
+      "title": "WIKI",
+      "subtitle": "干员、武器、装备与游戏内数据，全部一页可达。",
+      "recordCount": "{count} 条记录",
+      "charactersDesc": "全部干员的属性、职业、元素与技能资料。",
+      "weaponsDesc": "全部武器的属性、类型与技能数值。",
+      "equipmentDesc": "全部装备的词条、精锻材料与套装效果。",
+      "relatedTools": "配套工具"
     }
   },
   "growthPlanner": {

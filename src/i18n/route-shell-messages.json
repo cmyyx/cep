@@ -47,13 +47,7 @@
       "categories"
     ],
     "ad": [
-      "imageAlt",
-      "loading",
-      "waitingForAds",
-      "slotDisabled",
-      "loadFailed",
-      "supportMessage",
-      "closeLabel"
+      "imageAlt"
     ],
     "notice": [
       "expand",

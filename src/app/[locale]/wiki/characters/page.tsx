@@ -6,14 +6,27 @@ import { localizeWikiEntitySummaries } from '@/lib/wiki-summary-locale'
 import { buildWikiEnumCatalog } from '@/lib/wiki-enum-catalog'
 import { SidebarTrigger } from '@/components/ui/sidebar'
 import { WikiEntityGrid } from '@/components/wiki/wiki-entity-grid'
-import { getAlternates } from '@/lib/metadata'
+import { JsonLd } from '@/components/shared/json-ld'
+import { getAlternates, parseKeywords } from '@/lib/metadata'
+import { buildCollectionPageLd, pageUrl, wikiListBreadcrumbs } from '@/lib/wiki-structured-data'
+
+const PATH = 'wiki/characters'
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params
   const t = await getTranslations({ locale })
+  const title = t('meta.wikiCharactersTitle')
+  const description = t('meta.wikiCharactersDescription')
   return {
-    title: t('wiki.categories.characters'),
-    alternates: getAlternates(locale, 'wiki/characters'),
+    title,
+    description,
+    keywords: parseKeywords(t('meta.wikiCharactersKeywords')),
+    alternates: getAlternates(locale, PATH),
+    openGraph: {
+      title: `${title} - ${t('meta.wikiTitle')}`,
+      description,
+      images: [`/og/wiki/${locale}.png`],
+    },
   }
 }
 
@@ -28,7 +41,28 @@ export default async function WikiCharactersPage({ params }: { params: Promise<{
   )
 
   return (
-    <div className="flex flex-col md:min-h-0 md:flex-1 md:overflow-hidden">
+    <>
+      <JsonLd
+        id="wiki-characters"
+        data={buildCollectionPageLd({
+          locale,
+          siteName: t('app.name'),
+          name: t('meta.wikiCharactersTitle'),
+          description: t('meta.wikiCharactersDescription'),
+          path: PATH,
+          items: wikiCharacters.map((entity) => ({
+            name: t(`characters.${entity.id}`),
+            url: pageUrl(locale, `${PATH}/${entity.id}`),
+          })),
+          breadcrumbs: wikiListBreadcrumbs(
+            locale,
+            t('nav.home'),
+            t('wiki.categories.characters'),
+            PATH,
+          ),
+        })}
+      />
+      <div className="flex flex-col md:min-h-0 md:flex-1 md:overflow-hidden">
       <header className="flex shrink-0 items-center gap-3 px-4 py-2 shadow-[var(--shadow-border)] sm:px-6 lg:px-8">
         <SidebarTrigger />
         <h1 className="text-base font-semibold tracking-tight">
@@ -48,6 +82,7 @@ export default async function WikiCharactersPage({ params }: { params: Promise<{
           { field: 'weaponTypeId', labelKey: 'wiki.filter.weaponType', enumGroup: 'weaponTypes' },
         ]}
       />
-    </div>
+      </div>
+    </>
   )
 }

@@ -98,6 +98,8 @@ export function AppInitOverlay() {
     <FullScreenStatus
       data-app-init="true"
       data-testid="app-init-overlay"
+      // 幕布内联在每个页面的 HTML 里，标题不能是 <h1>：页面自己的 h1 才是文档标题。
+      titleTag="p"
       heading={t('home.title')}
       animateIcon
       indicator={(

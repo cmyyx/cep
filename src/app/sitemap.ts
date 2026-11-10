@@ -43,6 +43,7 @@ export const ROUTES: {
   { path: 'settings',         priority: 0.3, changefreq: 'monthly' },
   { path: 'update',           priority: 0.5, changefreq: 'weekly'  },
   { path: 'privacy',          priority: 0.2, changefreq: 'yearly'  },
+  { path: 'wiki',             priority: 0.8, changefreq: 'weekly'  },
   { path: 'wiki/characters',  priority: 0.7, changefreq: 'weekly'  },
   { path: 'wiki/weapons',     priority: 0.7, changefreq: 'weekly'  },
   { path: 'wiki/equipment',   priority: 0.7, changefreq: 'weekly'  },

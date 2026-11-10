@@ -127,6 +127,12 @@ export const ROUTE_META = {
     title: 'Terms of Service',
     description: 'Terms of use and AGPL-3.0 open-source notice',
   },
+  'wiki': {
+    section: 'wiki',
+    title: 'WIKI',
+    description:
+      'Entry point for the wiki: character, weapon and equipment indexes plus the planners',
+  },
   'wiki/characters': {
     section: 'wiki',
     title: 'Characters Wiki',

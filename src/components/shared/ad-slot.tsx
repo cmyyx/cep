@@ -4,6 +4,7 @@ import { useEffect, useRef } from 'react'
 import { useLocale, useTranslations } from 'next-intl'
 import { cn } from '@/lib/utils'
 import { buildAdClickBeaconUrl, buildAdImpressionBeaconUrl } from '@/lib/ads'
+import { AD_SLOT_BOX_CLASS } from '@/lib/ad-slot-spec'
 import { useAdStore } from '@/stores/useAdStore'
 import { useAdPolling } from '@/hooks/use-ad-polling'
 import type { AdSlotName } from '@/types/ad'
@@ -15,15 +16,10 @@ export interface AdSlotProps {
 }
 
 /**
- * 桌面侧边栏位 280x380（竖版）：高度由父容器决定（380px 起、可在空间不足时
- * 收缩，见 app-sidebar 的挂载容器），宽度按素材比例 280:380 等比跟随，
- * 素材完整展示不裁切；移动端顶部 banner 320x100（横版）为固定尺寸。
+ * 盒位尺寸由 src/lib/ad-slot-spec.ts 统一描述（桌面 300x250、移动 320x120），
+ * 换广告平台时只改那一处；素材按盒位等比裁切（object-cover）。
  */
-const VARIANT_SIZE_CLASS: Record<AdSlotName, string> = {
-  desktop: 'h-full w-auto aspect-[280/380]',
-  // max-w-full：320px 视口下避免与外层 padding 叠加产生横向溢出。
-  mobile: 'h-[100px] w-[320px] max-w-full',
-}
+const VARIANT_SIZE_CLASS: Record<AdSlotName, string> = AD_SLOT_BOX_CLASS
 
 /**
  * 广告位。数据来自运营服务轮询（见 use-ad-polling）：
@@ -97,6 +93,8 @@ export function AdSlot({ variant, className }: AdSlotProps) {
     />
   )
 
+  const variantSize = cn(VARIANT_SIZE_CLASS[variant], variant === 'mobile' && 'max-w-full')
+
   if (ad.targetUrl) {
     return (
       <a
@@ -104,14 +102,14 @@ export function AdSlot({ variant, className }: AdSlotProps) {
         target="_blank"
         rel="noopener noreferrer nofollow"
         onClick={() => reportClick(ad.id)}
-        className={cn('block shrink-0 overflow-hidden rounded-[6px]', VARIANT_SIZE_CLASS[variant], className)}
+        className={cn('block shrink-0 overflow-hidden rounded-[6px]', variantSize, className)}
       >
         {image}
       </a>
     )
   }
 
-  return <div className={cn('shrink-0 overflow-hidden rounded-[6px]', VARIANT_SIZE_CLASS[variant], className)}>{image}</div>
+  return <div className={cn('shrink-0 overflow-hidden rounded-[6px]', variantSize, className)}>{image}</div>
 }
 
 export default AdSlot

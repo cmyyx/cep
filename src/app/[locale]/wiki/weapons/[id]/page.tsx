@@ -10,6 +10,8 @@ import { WikiMaterialCatalogProvider } from '@/components/wiki/wiki-material-cat
 import { wikiWeapons } from '@/generated/data/wiki/weapons'
 import { getLocalizedWeaponWikiDetail } from '@/lib/wiki-data'
 import { getAlternates } from '@/lib/metadata'
+import { JsonLd } from '@/components/shared/json-ld'
+import { assetUrl, buildDetailPageLd, pageUrl } from '@/lib/wiki-structured-data'
 import { cn } from '@/lib/utils'
 
 
@@ -24,8 +26,10 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const weapon = wikiWeapons.find((entry) => entry.id === id)
   if (!weapon) return { title: 'Not Found' }
   const t = await getTranslations({ locale })
+  const name = t(`weapons.${id}`)
   return {
-    title: t(`weapons.${id}`),
+    title: name,
+    description: t('meta.wikiWeaponDetailDescription', { name }),
     alternates: getAlternates(locale, `wiki/weapons/${id}`),
   }
 }
@@ -42,7 +46,24 @@ export default async function WikiWeaponDetailPage({ params }: { params: Promise
   const weaponType = t(`wikiData.enum|weaponTypes|${weapon.weaponTypeId}`)
 
   return (
-    <div className="flex flex-col md:min-h-0 md:flex-1 md:overflow-hidden">
+    <>
+      <JsonLd
+        id={`wiki-weapon-${id}`}
+        data={buildDetailPageLd({
+          locale,
+          siteName: t('app.name'),
+          name,
+          description: t('meta.wikiWeaponDetailDescription', { name }),
+          url: pageUrl(locale, `wiki/weapons/${id}`),
+          image: assetUrl(`/images/weapon/${weapon.imageId}.avif`),
+          breadcrumbs: [
+            { name: t('nav.home'), url: pageUrl(locale) },
+            { name: t('wiki.categories.weapons'), url: pageUrl(locale, 'wiki/weapons') },
+            { name, url: pageUrl(locale, `wiki/weapons/${id}`) },
+          ],
+        })}
+      />
+      <div className="flex flex-col md:min-h-0 md:flex-1 md:overflow-hidden">
       <header className="flex shrink-0 items-center gap-3 px-4 py-2 shadow-[var(--shadow-border)] sm:px-6 lg:px-8">
         <SidebarTrigger />
         <NavLink
@@ -74,6 +95,7 @@ export default async function WikiWeaponDetailPage({ params }: { params: Promise
           />
         </WikiDetailShell>
       </WikiMaterialCatalogProvider>
-    </div>
+      </div>
+    </>
   )
 }

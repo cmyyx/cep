@@ -37,3 +37,12 @@ it('supports a status-specific primary title', () => {
 
   expect(screen.getByRole('heading', { name: '404' })).toBeTruthy()
 })
+
+it('renders the title as a paragraph when titleTag="p" (overlays must not add a second h1)', () => {
+  render(<FullScreenStatus title="CEP" titleTag="p" heading="Loading" />)
+
+  expect(screen.queryByRole('heading', { name: 'CEP' })).toBeNull()
+  expect(screen.getByText('CEP').tagName).toBe('P')
+  // 副标题仍然保留标题语义，供状态页使用
+  expect(screen.getByRole('heading', { name: 'Loading' })).toBeTruthy()
+})

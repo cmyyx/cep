@@ -6,14 +6,27 @@ import { WikiEntityGrid } from '@/components/wiki/wiki-entity-grid'
 import { wikiWeapons } from '@/generated/data/wiki/weapons'
 import { localizeWikiEntitySummaries } from '@/lib/wiki-summary-locale'
 import { buildWikiEnumCatalog } from '@/lib/wiki-enum-catalog'
-import { getAlternates } from '@/lib/metadata'
+import { JsonLd } from '@/components/shared/json-ld'
+import { getAlternates, parseKeywords } from '@/lib/metadata'
+import { buildCollectionPageLd, pageUrl, wikiListBreadcrumbs } from '@/lib/wiki-structured-data'
+
+const PATH = 'wiki/weapons'
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params
   const t = await getTranslations({ locale })
+  const title = t('meta.wikiWeaponsTitle')
+  const description = t('meta.wikiWeaponsDescription')
   return {
-    title: t('wiki.categories.weapons'),
-    alternates: getAlternates(locale, 'wiki/weapons'),
+    title,
+    description,
+    keywords: parseKeywords(t('meta.wikiWeaponsKeywords')),
+    alternates: getAlternates(locale, PATH),
+    openGraph: {
+      title: `${title} - ${t('meta.wikiTitle')}`,
+      description,
+      images: [`/og/wiki/${locale}.png`],
+    },
   }
 }
 
@@ -28,7 +41,28 @@ export default async function WikiWeaponsPage({ params }: { params: Promise<{ lo
   )
 
   return (
-    <div className="flex flex-col md:min-h-0 md:flex-1 md:overflow-hidden">
+    <>
+      <JsonLd
+        id="wiki-weapons"
+        data={buildCollectionPageLd({
+          locale,
+          siteName: t('app.name'),
+          name: t('meta.wikiWeaponsTitle'),
+          description: t('meta.wikiWeaponsDescription'),
+          path: PATH,
+          items: wikiWeapons.map((entity) => ({
+            name: t(`weapons.${entity.id}`),
+            url: pageUrl(locale, `${PATH}/${entity.id}`),
+          })),
+          breadcrumbs: wikiListBreadcrumbs(
+            locale,
+            t('nav.home'),
+            t('wiki.categories.weapons'),
+            PATH,
+          ),
+        })}
+      />
+      <div className="flex flex-col md:min-h-0 md:flex-1 md:overflow-hidden">
       <header className="flex shrink-0 items-center gap-3 px-4 py-2 shadow-[var(--shadow-border)] sm:px-6 lg:px-8">
         <SidebarTrigger />
         <h1 className="text-base font-semibold tracking-tight">
@@ -48,6 +82,7 @@ export default async function WikiWeaponsPage({ params }: { params: Promise<{ lo
           { field: 'acquisitionCategory', labelKey: 'wiki.filter.acquisitionCategory' },
         ]}
       />
-    </div>
+      </div>
+    </>
   )
 }

@@ -61,6 +61,8 @@ export default function RootRedirectPage() {
         <meta httpEquiv="refresh" content={`0;url=/${DEFAULT_LOCALE}`} />
         <FullScreenStatus
           heading="终末地规划器"
+          // noscript 分支与上面的跳转分支同时存在于 HTML 里，只保留一个 <h1>。
+          titleTag="p"
           actions={(
             <div className="flex flex-col items-center gap-3 opacity-0 animate-noscript-delay-reveal">
               <p className="text-xs text-muted-foreground">选择语言 / Choose language / 言語を選択 / 選擇語言</p>

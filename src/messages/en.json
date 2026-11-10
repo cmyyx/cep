@@ -19,6 +19,7 @@
     "closePreview": "Close preview"
   },
   "nav": {
+    "home": "Home",
     "essencePlanner": "Essence Planner",
     "refinementPlanner": "Refinement Planner",
     "bannerCalendar": "Banner Calendar",
@@ -39,13 +40,7 @@
     "groupTools": "More Tools"
   },
   "ad": {
-    "imageAlt": "Advertisement",
-    "loading": "Loading ad",
-    "waitingForAds": "Ad space is being prepared",
-    "slotDisabled": "Ad space is not available yet",
-    "loadFailed": "Ad failed to load",
-    "supportMessage": "Ad revenue is what keeps this site running. If it's not too much trouble, would you add us to your ad blocker's allowlist? Thank you so much for your understanding and support.",
-    "closeLabel": "Close ad"
+    "imageAlt": "Advertisement"
   },
   "app": {
     "name": "CEP Endfield Planner (formerly Endfield Essence Planner)"
@@ -844,6 +839,21 @@
     "wikiTitle": "Arknights: Endfield WIKI",
     "wikiDescription": "Endfield game data wiki — browse characters, weapons, equipment, essences, dungeons, enemies, items, devices, quests and activities.",
     "wikiKeywords": "Endfield wiki,game data,database,characters,weapons,equipment,essences,dungeons,enemies,items,devices,quests,activities",
+    "wikiHubTitle": "WIKI: characters, weapons, equipment",
+    "wikiHubDescription": "Endfield WIKI hub — every character, weapon and equipment record in one place, alongside the essence and refinement planners.",
+    "wikiHubKeywords": "Endfield wiki,Endfield database,character list,weapon list,equipment list",
+    "wikiCharactersTitle": "Characters: stats, class and element",
+    "wikiCharactersDescription": "Every Arknights: Endfield character — rarity, class, element, weapon type, stat growth, skills and talents, filterable on one page.",
+    "wikiCharactersKeywords": "Endfield characters,character list,Endfield wiki,character stats",
+    "wikiWeaponsTitle": "Weapons: stats and skill values",
+    "wikiWeaponsDescription": "Every Arknights: Endfield weapon — rarity, type, base stats and skill values, linked from the character pages and the essence planner.",
+    "wikiWeaponsKeywords": "Endfield weapons,weapon list,Endfield wiki,weapon stats",
+    "wikiEquipmentTitle": "Equipment: affixes and refinement materials",
+    "wikiEquipmentDescription": "Every Arknights: Endfield equipment piece — slots, stat affixes, refinement materials and set effects, ready for the refinement planner.",
+    "wikiEquipmentKeywords": "Endfield equipment,equipment list,Endfield wiki,refinement materials",
+    "wikiCharacterDetailDescription": "{name} — Arknights: Endfield character data: rarity, class, element, stat growth, skills, talents and ascension materials.",
+    "wikiWeaponDetailDescription": "{name} — Arknights: Endfield weapon data: rarity, type, base stats and skill values.",
+    "wikiEquipmentDetailDescription": "{name} — Arknights: Endfield equipment data: slot, stat affixes, refinement materials and set effects.",
     "growthPlannerDescription": "Endfield operator and weapon growth planner for levels, skills, promotions, breakthroughs, resources, max-stage runs, and stamina.",
     "growthPlannerKeywords": "Endfield growth planner,operator leveling,weapon leveling,upgrade materials,stage runs,stamina calculator",
     "panelPreviewDescription": "Endfield operator stats preview with configurable operators, equipment, weapons, and complete panel attributes.",
@@ -999,6 +1009,15 @@
       "en": "English Voice",
       "ja": "Japanese Voice",
       "ko": "Korean Voice"
+    },
+    "hub": {
+      "title": "WIKI",
+      "subtitle": "Characters, weapons, equipment and in-game data, one click away.",
+      "recordCount": "{count} records",
+      "charactersDesc": "Stats, class, element and skills for every character.",
+      "weaponsDesc": "Stats, type and skill values for every weapon.",
+      "equipmentDesc": "Affixes, refinement materials and set effects for every piece.",
+      "relatedTools": "Related tools"
     }
   },
   "growthPlanner": {

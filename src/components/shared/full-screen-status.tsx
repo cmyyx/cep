@@ -4,6 +4,12 @@ import { cn } from '@/lib/utils'
 
 export interface FullScreenStatusProps extends Omit<ComponentProps<'div'>, 'title'> {
   title?: ReactNode
+  /**
+   * 标题（默认显示在副标题上方的大字）使用的标签。
+   * 全屏装束类用途（初始化幕布）必须传 `"p"`：它会内联进每一个页面，
+   * 若用 `<h1>` 就会让每页多出一个 h1（真正的文档标题是页面自己的 h1）。
+   */
+  titleTag?: 'h1' | 'p'
   heading: ReactNode
   description?: ReactNode
   indicator?: ReactNode
@@ -16,6 +22,7 @@ export interface FullScreenStatusProps extends Omit<ComponentProps<'div'>, 'titl
 
 export function FullScreenStatus({
   title = 'CEP',
+  titleTag = 'h1',
   heading,
   description,
   indicator,
@@ -28,6 +35,7 @@ export function FullScreenStatus({
   ...props
 }: FullScreenStatusProps) {
   const destructive = tone === 'destructive'
+  const TitleTag = titleTag
 
   return (
     <div
@@ -53,7 +61,7 @@ export function FullScreenStatus({
         </div>
 
         <div className="space-y-1">
-          <h1 className="select-none font-mono text-[48px] font-semibold tracking-[-2.88px]">{title}</h1>
+          <TitleTag className="select-none font-mono text-[48px] font-semibold tracking-[-2.88px]">{title}</TitleTag>
           <h2 className={cn('text-sm font-medium tracking-[-0.32px]', destructive ? 'text-ship-red' : 'text-muted-foreground')}>
             {heading}
           </h2>

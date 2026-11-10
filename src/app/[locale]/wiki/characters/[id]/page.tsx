@@ -12,6 +12,8 @@ import { getLocalizedCharacterWikiDetail } from '@/lib/wiki-data'
 import { formatBirthday } from '@/lib/wiki-birthday'
 import type { WikiEnumGroup, WikiLocale } from '@/types/wiki'
 import { getAlternates } from '@/lib/metadata'
+import { JsonLd } from '@/components/shared/json-ld'
+import { assetUrl, buildDetailPageLd, pageUrl } from '@/lib/wiki-structured-data'
 import { cn } from '@/lib/utils'
 
 
@@ -26,8 +28,10 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const character = wikiCharacters.find((entry) => entry.id === id)
   if (!character) return { title: 'Not Found' }
   const t = await getTranslations({ locale })
+  const name = t(`characters.${id}`)
   return {
-    title: t(`characters.${id}`),
+    title: name,
+    description: t('meta.wikiCharacterDetailDescription', { name }),
     alternates: getAlternates(locale, `wiki/characters/${id}`),
   }
 }
@@ -60,7 +64,24 @@ export default async function WikiCharacterDetailPage({ params }: { params: Prom
   }))
 
   return (
-    <div className="flex flex-col md:min-h-0 md:flex-1 md:overflow-hidden">
+    <>
+      <JsonLd
+        id={`wiki-character-${id}`}
+        data={buildDetailPageLd({
+          locale,
+          siteName: t('app.name'),
+          name,
+          description: t('meta.wikiCharacterDetailDescription', { name }),
+          url: pageUrl(locale, `wiki/characters/${id}`),
+          image: assetUrl(`/images/characters/${character.imageId}.avif`),
+          breadcrumbs: [
+            { name: t('nav.home'), url: pageUrl(locale) },
+            { name: t('wiki.categories.characters'), url: pageUrl(locale, 'wiki/characters') },
+            { name, url: pageUrl(locale, `wiki/characters/${id}`) },
+          ],
+        })}
+      />
+      <div className="flex flex-col md:min-h-0 md:flex-1 md:overflow-hidden">
       <header className="flex shrink-0 items-center gap-3 px-4 py-2 shadow-[var(--shadow-border)] sm:px-6 lg:px-8">
         <SidebarTrigger />
         <NavLink
@@ -94,6 +115,7 @@ export default async function WikiCharacterDetailPage({ params }: { params: Prom
           />
         </WikiDetailShell>
       </WikiMaterialCatalogProvider>
-    </div>
+      </div>
+    </>
   )
 }

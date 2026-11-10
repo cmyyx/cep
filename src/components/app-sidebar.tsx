@@ -55,7 +55,8 @@ import {
 } from "@/stores/useAnnouncementStore";
 import { cn, formatTime } from "@/lib/utils";
 import { ForceUpgradeDialog } from "./shared/force-upgrade-dialog";
-import { AdworkSlot } from "@/components/shared/adwork-slot";
+import { AdSlot } from "@/components/shared/ad-slot";
+import { ADS_ENABLED } from "@/lib/ad-slot-spec";
 import { LanguageSwitcher } from "@/components/language-switcher";
 import { useSidebarScrollState } from "@/hooks/use-sidebar-scroll-state";
 
@@ -304,9 +305,16 @@ export function AppSidebar() {
                 </SidebarMenu>
               )}
             </SidebarGroup>
-            {/* Wiki */}
+            {/* Wiki —— 分组标题（WIKI）本身就是入口页 /wiki，不另占一个菜单项：
+                三个分类已经在下面一屏内，多一层入口只会让用户多点一次。 */}
             <SidebarGroup>
-              <SidebarGroupLabel className="group-data-[collapsible=icon]:pointer-events-none">
+              <SidebarGroupLabel
+                className={cn(
+                  "group-data-[collapsible=icon]:pointer-events-none transition-colors hover:text-sidebar-foreground",
+                  pathname.startsWith(`/${locale}/wiki`) && "text-sidebar-foreground",
+                )}
+                render={<NavLink href={`/${locale}/wiki`} loadingLabel={t("nav.groupWiki")} />}
+              >
                 {t("nav.groupWiki")}
               </SidebarGroupLabel>
               {isMobile || state !== "collapsed" ? (
@@ -409,12 +417,13 @@ export function AppSidebar() {
             <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-5 bg-gradient-to-t from-sidebar to-transparent" />
           )}
         </div>
-        {/* Adwork — desktop sidebar bottom; hidden in collapsed icon mode.
-          AdworkSlot 固定预留 SDK 盒位（>1024px 为 300x250，≤1024px 为 320x120）；
-          云端兜底素材以覆盖层显示在同一盒位内，不再改变槽位高度。 */}
-        <div className="hidden shrink justify-center px-2 mb-2 md:flex group-data-[collapsible=icon]:hidden">
-          <AdworkSlot variant="desktop" />
-        </div>
+        {/* 桌面侧栏底部广告位 —— 当前不投放（ADS_ENABLED 默认 false），
+          整块连同留白一起不渲染。盒位规格见 src/lib/ad-slot-spec.ts。 */}
+        {ADS_ENABLED && (
+          <div className="hidden shrink justify-center px-2 mb-2 md:flex group-data-[collapsible=icon]:hidden">
+            <AdSlot variant="desktop" />
+          </div>
+        )}
         <SidebarFooter>
           <SidebarMenu>
             {isUpdateAvailable && (

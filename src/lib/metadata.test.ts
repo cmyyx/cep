@@ -1,7 +1,22 @@
 import { describe, it, expect, afterEach } from 'vitest'
 import { routing } from '@/i18n/routing'
-import { getAlternates } from '@/lib/metadata'
+import { getAlternates, parseKeywords } from '@/lib/metadata'
 import { DEFAULT_SITE_URL } from '@/lib/constants'
+
+describe('parseKeywords', () => {
+  it('splits on commas and trims each keyword', () => {
+    expect(parseKeywords('终末地wiki, 干员图鉴 ,武器')).toEqual(['终末地wiki', '干员图鉴', '武器'])
+  })
+
+  it('drops empty segments', () => {
+    expect(parseKeywords('a, ,b,')).toEqual(['a', 'b'])
+  })
+
+  it('returns an empty array for an empty or missing value', () => {
+    expect(parseKeywords('')).toEqual([])
+    expect(parseKeywords(undefined)).toEqual([])
+  })
+})
 
 const LOCALES = routing.locales
 const DEFAULT_LOCALE = routing.defaultLocale

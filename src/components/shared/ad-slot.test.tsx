@@ -50,9 +50,9 @@ it('renders the desktop image with fluid 280:380 sizing and a direct target link
   const img = container.querySelector('img')
   expect(img?.getAttribute('src')).toBe(AD.desktopImageUrl)
   expect(img?.getAttribute('alt')).toBe('campaign')
-  expect(link.className).toContain('aspect-[280/380]')
-  expect(link.className).toContain('h-full')
-  expect(link.className).toContain('w-auto')
+  expect(link.className).toContain('h-[120px]')
+  expect(link.className).toContain('min-[1025px]:h-[250px]')
+  expect(link.className).toContain('w-[300px]')
 })
 
 it('reports the click via sendBeacon with its own slot, without blocking the link', () => {
@@ -76,7 +76,7 @@ it('reports the mobile slot when the mobile creative is clicked', () => {
   expect(sendBeacon.mock.calls[0][0]).toContain('slot=mobile')
 })
 
-it('renders the mobile image sized 320x100 and falls back to the alt key when title is empty', () => {
+it('renders the mobile image in the 320x120 box and falls back to the alt key when title is empty', () => {
   useAdStore.setState({ currentAd: { ...AD, title: '', targetUrl: null } })
   const { container } = render(<AdSlot variant="mobile" />)
   expect(screen.queryByRole('link')).toBeNull()
@@ -84,7 +84,8 @@ it('renders the mobile image sized 320x100 and falls back to the alt key when ti
   expect(img?.getAttribute('src')).toBe(AD.mobileImageUrl)
   expect(img?.getAttribute('alt')).toBe('ad.imageAlt')
   expect(img?.parentElement?.className).toContain('w-[320px]')
-  expect(img?.parentElement?.className).toContain('h-[100px]')
+  expect(img?.parentElement?.className).toContain('h-[120px]')
+  expect(img?.parentElement?.className).toContain('max-w-full')
 })
 
 it('renders nothing on the variant whose creative is missing', () => {

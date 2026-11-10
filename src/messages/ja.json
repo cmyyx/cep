@@ -19,6 +19,7 @@
     "closePreview": "プレビューを閉じる"
   },
   "nav": {
+    "home": "ホーム",
     "essencePlanner": "基質計画",
     "refinementPlanner": "精鍛計画",
     "bannerCalendar": "ガチャカレンダー",
@@ -39,13 +40,7 @@
     "groupTools": "その他ツール"
   },
   "ad": {
-    "imageAlt": "広告",
-    "loading": "広告を読み込み中",
-    "waitingForAds": "広告枠を準備中です",
-    "slotDisabled": "広告枠はまだご利用いただけません",
-    "loadFailed": "広告の読み込みに失敗しました",
-    "supportMessage": "広告収入がこのサイトの運営を支えています。もしよろしければ~このサイトを広告ブロッカーの許可リストに追加していただけませんか~ご理解とご支援に感謝します",
-    "closeLabel": "広告を閉じる"
+    "imageAlt": "広告"
   },
   "app": {
     "name": "CEP エンドフィールドプランナー（旧終末地基質プランナー）"
@@ -844,6 +839,21 @@
     "wikiTitle": "アークナイツ:エンドフィールド WIKI",
     "wikiDescription": "エンドフィールドゲームデータウィキ——キャラクター、武器、装備、基質、ダンジョン、敵、アイテム、設備、任務、イベントを閲覧。",
     "wikiKeywords": "エンドフィールドウィキ,ゲームデータ,データベース,キャラクター,武器,装備,基質,ダンジョン,敵,アイテム,設備,任務,イベント",
+    "wikiHubTitle": "WIKI：オペレーター/武器/装備",
+    "wikiHubDescription": "エンドフィールド WIKI の入口。オペレーター・武器・装備のデータをまとめて閲覧でき、基質プランナーや精錬プランナーと併用できます。",
+    "wikiHubKeywords": "エンドフィールド wiki,エンドフィールド データベース,オペレーター一覧,武器一覧,装備一覧",
+    "wikiCharactersTitle": "オペレーター図鑑：ステータス/クラス/元素",
+    "wikiCharactersDescription": "アークナイツ：エンドフィールドの全オペレーター図鑑。レアリティ、クラス、元素、武器種、ステータス成長、スキルと素質を条件で絞り込めます。",
+    "wikiCharactersKeywords": "エンドフィールド オペレーター,オペレーター一覧,エンドフィールド wiki,キャラ ステータス",
+    "wikiWeaponsTitle": "武器図鑑：ステータスとスキル値",
+    "wikiWeaponsDescription": "アークナイツ：エンドフィールドの全武器図鑑。レアリティ、武器種、基礎ステータス、スキル値を一覧できます。",
+    "wikiWeaponsKeywords": "エンドフィールド 武器,武器一覧,エンドフィールド wiki,武器ステータス",
+    "wikiEquipmentTitle": "装備図鑑：ステータスと精錬素材",
+    "wikiEquipmentDescription": "アークナイツ：エンドフィールドの全装備図鑑。部位、ステータス厳選、精錬素材、セット効果を一覧できます。",
+    "wikiEquipmentKeywords": "エンドフィールド 装備,装備一覧,エンドフィールド wiki,精錬素材",
+    "wikiCharacterDetailDescription": "{name} — アークナイツ：エンドフィールドのオペレーターデータ。レアリティ、クラス、元素、ステータス成長、スキル、素質、育成素材。",
+    "wikiWeaponDetailDescription": "{name} — アークナイツ：エンドフィールドの武器データ。レアリティ、武器種、基礎ステータス、スキル値。",
+    "wikiEquipmentDetailDescription": "{name} — アークナイツ：エンドフィールドの装備データ。部位、ステータス厳選、精錬素材、セット効果。",
     "growthPlannerDescription": "エンドフィールドのオペレーター・武器育成計画。レベル、スキル、昇進、突破、素材、最高級ステージ周回数を計算。",
     "growthPlannerKeywords": "エンドフィールド育成計画,オペレーター育成,武器育成,強化素材,周回数,スタミナ計算",
     "panelPreviewDescription": "オペレーター、装備、武器を設定して完全な能力値を計算するエンドフィールドステータスプレビュー。",
@@ -999,6 +1009,15 @@
       "en": "英語ボイス",
       "ja": "日本語ボイス",
       "ko": "韓国語ボイス"
+    },
+    "hub": {
+      "title": "WIKI",
+      "subtitle": "オペレーター・武器・装備・ゲーム内データをまとめて。",
+      "recordCount": "{count} 件",
+      "charactersDesc": "全オペレーターのステータス、クラス、元素、スキル。",
+      "weaponsDesc": "全武器のステータス、武器種、スキル値。",
+      "equipmentDesc": "全装備の厳選、精錬素材、セット効果。",
+      "relatedTools": "関連ツール"
     }
   },
   "growthPlanner": {
