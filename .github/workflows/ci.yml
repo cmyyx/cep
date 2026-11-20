@@ -17,7 +17,7 @@ jobs:
     # 让 CI 和线上同步跑同一个系统，提前发现下一次镜像切换。
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v7
         with:
           fetch-depth: 0
           # public/game-i18n 是 cmyyx/cep-assets 子模块 (公开仓)，构建与 e2e 都需要
@@ -25,7 +25,7 @@ jobs:
 
       - uses: pnpm/action-setup@v6
 
-      - uses: actions/setup-node@v5
+      - uses: actions/setup-node@v7
         with:
           node-version: 22
 
