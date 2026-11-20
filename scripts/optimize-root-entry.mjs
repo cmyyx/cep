@@ -48,8 +48,13 @@ const ENTRY_FILE = 'index.html'
 const RSC_ENTRY_FILE = 'index.txt'
 const REDIRECT_SCRIPT_ID = 'root-redirect'
 
-/** Next 的 chunk <script src="/_next/static/chunks/...">(含 noModule / id="_R_" 变体)。 */
-const CHUNK_SCRIPT_RE = /<script[^>]*src="\/_next\/static\/chunks\/[^"]*"[^>]*><\/script>/g
+/**
+ * Next 的 chunk <script>(含 noModule / id="_R_" 变体)。
+ * 路径里 static 后面可能还夹一段 immutable/ —— Vercel 的构建会插入它
+ * (/_next/static/immutable/chunks/xxx.js)，本地 build 则没有，两种都要认。
+ */
+const CHUNK_SCRIPT_RE =
+  /<script[^>]*src="\/_next\/static\/(?:immutable\/)?chunks\/[^"]*"[^>]*><\/script>/g
 /** Next 为 chunk 生成的 <link rel="preload" as="script" ...>(样式表链接没有 as=, 不受影响)。 */
 const CHUNK_PRELOAD_RE = /<link[^>]*as="script"[^>]*\/?>/g
 /** RSC flight 载荷: <script>self.__next_f.push(...)</script> 及其初始化语句。 */
@@ -133,13 +138,15 @@ export function optimizeRootEntry(outDir) {
   // ── 2. 剥离框架 JS ────────────────────────────────────────────────
   out = out.replace(CHUNK_SCRIPT_RE, '')
   out = out.replace(RSC_PAYLOAD_RE, '')
-  out = out.replace(CHUNK_PRELOAD_RE, (tag) => (tag.includes('/_next/static/chunks/') ? '' : tag))
+  out = out.replace(CHUNK_PRELOAD_RE, (tag) =>
+    /\/_next\/static\/(?:immutable\/)?chunks\//.test(tag) ? '' : tag,
+  )
 
   // ── 3. 契约校验: 改写后 ──────────────────────────────────────────
   // Fresh (non-global) regexes: a /g/ regex carries lastIndex between calls,
   // so reusing CHUNK_SCRIPT_RE here would give a wrong answer.
   const leftovers = []
-  if (/<script[^>]*src="\/_next\/static\/chunks\/[^"]*"[^>]*><\/script>/.test(out)) {
+  if (/<script[^>]*src="\/_next\/static\/(?:immutable\/)?chunks\/[^"]*"[^>]*><\/script>/.test(out)) {
     leftovers.push('chunk <script>')
   }
   if (/self\.__next_f/.test(out)) leftovers.push('RSC flight 载荷')
@@ -152,7 +159,7 @@ export function optimizeRootEntry(outDir) {
   const required = [
     [Boolean(extractScriptById(out, REDIRECT_SCRIPT_ID)), '跳转脚本'],
     [/http-equiv="refresh"/i.test(out), 'noscript meta refresh'],
-    [/<link rel="stylesheet" href="\/_next\/static\/chunks\//.test(out), '样式表链接'],
+    [/<link rel="stylesheet" href="\/_next\/static\/(?:immutable\/)?chunks\//.test(out), '样式表链接'],
     [/<noscript>/i.test(out), 'noscript 语言链接'],
   ]
   for (const [probe, label] of required) {
