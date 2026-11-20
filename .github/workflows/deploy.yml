@@ -31,7 +31,7 @@ jobs:
     outputs:
       clean-tag: ${{ steps.tag-prep.outputs.clean-tag }}
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v7
         with:
           fetch-depth: 0
 
@@ -96,7 +96,7 @@ jobs:
     permissions:
       contents: write
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v7
         with:
           fetch-depth: 0
           # public/game-i18n 是 cmyyx/cep-assets 子模块 (公开仓)：不拉下来 out/game-i18n 会缺内容
@@ -104,7 +104,7 @@ jobs:
 
       - uses: pnpm/action-setup@v6
 
-      - uses: actions/setup-node@v5
+      - uses: actions/setup-node@v7
         with:
           node-version: 22
 
