@@ -569,6 +569,7 @@
   "enum|attributes|104": "電磁ダメージ軽減",
   "enum|attributes|105": "灼熱ダメージ軽減",
   "enum|attributes|106": "超域ダメージ軽減",
+  "enum|attributes|107": "连携技技力消耗增加",
   "enum|elements|Cryst": "寒冷",
   "enum|elements|Fire": "灼熱",
   "enum|elements|Pulse": "電磁",
