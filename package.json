@@ -57,7 +57,7 @@
     "@vitejs/plugin-react": "^6.0.1",
     "eslint": "^9",
     "eslint-config-next": "16.2.4",
-    "jsdom": "^29.1.1",
+    "jsdom": "^31.0.1",
     "satori": "^0.26.0",
     "serve": "^14.2.4",
     "sharp": "^0.34.5",
