@@ -62,13 +62,18 @@ export function extractScriptById(html, id) {
 }
 
 /** 契约不符时打印现场：script/preload 计数 + 前三个 <script> 标签样本（截断）。 */
-function describeHtml(html) {
-  const scriptCount = (html.match(/<script\b/g) ?? []).length
-  const preloadCount = (html.match(/<link[^>]*as="script"[^>]*>/g) ?? []).length
-  const sample = [...html.matchAll(/<script\b[^>]*>/g)]
-    .slice(0, 3)
-    .map((m) => m[0].slice(0, 120))
-  return `scripts=${scriptCount} preloads=${preloadCount} sample=${JSON.stringify(sample)}`
+function describeHtml(entryPath) {
+  try {
+    const html = readFileSync(entryPath, 'utf-8')
+    const scriptCount = (html.match(/<script\b/g) ?? []).length
+    const preloadCount = (html.match(/<link[^>]*as="script"[^>]*>/g) ?? []).length
+    const sample = [...html.matchAll(/<script\b[^>]*>/g)]
+      .slice(0, 3)
+      .map((m) => m[0].slice(0, 120))
+    return `scripts=${scriptCount} preloads=${preloadCount} sample=${JSON.stringify(sample)}`
+  } catch (error) {
+    return `无法读取 ${entryPath}: ${error instanceof Error ? error.message : String(error)}`
+  }
 }
 
 /**
@@ -104,13 +109,11 @@ export function optimizeRootEntry(outDir) {
   // hoist below is re-applied either way, which is what makes this idempotent.
   const alreadyOptimized = chunkScripts.length === 0 && rscPayloads.length === 0
   if (!alreadyOptimized && (chunkScripts.length === 0 || rscPayloads.length === 0)) {
-    // 只告警，不中止：这里的两种残缺都只会让"剥离"少做一点，页面本身仍然可用；
-    // 中止则会把整条部署打死（Vercel 的构建环境就出现过 chunk=0 / rsc>0）。
-    // 同时把现场打出来，下一次构建就能看出对方的 HTML 到底长什么样。
+    // Half-stripped output is a contract change, not a repeat run: fail loudly.
     const missing = chunkScripts.length === 0 ? 'chunk 脚本' : 'RSC flight 载荷'
-    console.warn(
-      `[optimize-root-entry] 契约与预期不一致（缺少${missing}，` +
-        `chunk=${chunkScripts.length} / rsc=${rscPayloads.length}），继续改写。现场: ${describeHtml(before)}`,
+    throw new Error(
+      `optimize-root-entry: out/${ENTRY_FILE} 只缺少${missing} — ` +
+        `Next 导出契约可能已变化, 中止改写`,
     )
   }
 
@@ -195,9 +198,12 @@ if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) 
       console.log(`optimize-root-entry: 已删除 ${RSC_ENTRY_FILE} (首页不再有客户端软导航入口)`)
     }
   } catch (error) {
-    // A readable one-line diagnosis instead of a raw stack: this runs at the end
-    // of a build, where the message is the whole signal.
-    console.error(error instanceof Error ? error.message : String(error))
-    process.exit(1)
+    // 结论是"这次不改写"，不是"构建失败"：所有抛错都发生在写文件之前，out/index.html
+    // 仍是 Next 导出的原样页面，站点照常可用，只是少了首屏优化。以前这里 exit 1，
+    // 契约一变（Vercel 上就出现过 chunk=0 / rsc>0）整条部署直接死掉，代价太大。
+    // 打印现场，方便下次定位差异。
+    const message = error instanceof Error ? error.message : String(error)
+    console.error(`[optimize-root-entry] 跳过首页改写（部署继续）: ${message}`)
+    console.error(`[optimize-root-entry] 现场: ${describeHtml(path.join(outDir, ENTRY_FILE))}`)
   }
 }
