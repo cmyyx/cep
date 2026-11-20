@@ -61,6 +61,16 @@ export function extractScriptById(html, id) {
   return match ? match[0] : null
 }
 
+/** 契约不符时打印现场：script/preload 计数 + 前三个 <script> 标签样本（截断）。 */
+function describeHtml(html) {
+  const scriptCount = (html.match(/<script\b/g) ?? []).length
+  const preloadCount = (html.match(/<link[^>]*as="script"[^>]*>/g) ?? []).length
+  const sample = [...html.matchAll(/<script\b[^>]*>/g)]
+    .slice(0, 3)
+    .map((m) => m[0].slice(0, 120))
+  return `scripts=${scriptCount} preloads=${preloadCount} sample=${JSON.stringify(sample)}`
+}
+
 /**
  * 把 out/index.html 重写为零 JS 静态跳转页。
  *
@@ -94,11 +104,13 @@ export function optimizeRootEntry(outDir) {
   // hoist below is re-applied either way, which is what makes this idempotent.
   const alreadyOptimized = chunkScripts.length === 0 && rscPayloads.length === 0
   if (!alreadyOptimized && (chunkScripts.length === 0 || rscPayloads.length === 0)) {
-    // Half-stripped output is a contract change, not a repeat run: fail loudly.
+    // 只告警，不中止：这里的两种残缺都只会让"剥离"少做一点，页面本身仍然可用；
+    // 中止则会把整条部署打死（Vercel 的构建环境就出现过 chunk=0 / rsc>0）。
+    // 同时把现场打出来，下一次构建就能看出对方的 HTML 到底长什么样。
     const missing = chunkScripts.length === 0 ? 'chunk 脚本' : 'RSC flight 载荷'
-    throw new Error(
-      `optimize-root-entry: out/${ENTRY_FILE} 只缺少${missing} — ` +
-        `Next 导出契约可能已变化, 中止改写`,
+    console.warn(
+      `[optimize-root-entry] 契约与预期不一致（缺少${missing}，` +
+        `chunk=${chunkScripts.length} / rsc=${rscPayloads.length}），继续改写。现场: ${describeHtml(before)}`,
     )
   }
 
