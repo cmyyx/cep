@@ -10,13 +10,14 @@ on:
 jobs:
   quality:
     name: Quality Gate
-    # 固定 24.04 而不是 ubuntu-latest：runner 镜像已切到 26.04，而 Playwright 1.60
-    # 不支持 ubuntu26.04-x64（`playwright install --with-deps` 直接报
-    # "Playwright does not support chromium on ubuntu26.04-x64" 并中止整个 job）。
-    # Playwright 支持 26.04 后再改回 latest。
+    # 质量门暂时固定 24.04 作为已知可用的基线。runner 的 ubuntu-latest 已切到
+    # 26.04；Playwright 从 1.65.1 起才认 ubuntu26.04-x64（1.60.0 会报
+    # "Playwright does not support chromium on ubuntu26.04-x64" 并中止整个 job，
+    # 同步工作流因此连挂 4 次）。等 26.04 上的构建链跑通后可以改回 latest，
+    # 让 CI 和线上同步跑同一个系统，提前发现下一次镜像切换。
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v7
         with:
           fetch-depth: 0
           # public/game-i18n 是 cmyyx/cep-assets 子模块 (公开仓)，构建与 e2e 都需要
@@ -24,9 +25,9 @@ jobs:
 
       - uses: pnpm/action-setup@v6
 
-      - uses: actions/setup-node@v5
+      - uses: actions/setup-node@v7
         with:
-          node-version: 22
+          node-version: 24
 
       - run: pnpm install --frozen-lockfile
 

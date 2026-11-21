@@ -569,6 +569,7 @@
   "enum|attributes|104": "Electric DMG Reduction",
   "enum|attributes|105": "Heat DMG Reduction",
   "enum|attributes|106": "Æther DMG Reduction",
+  "enum|attributes|107": "连携技技力消耗增加",
   "enum|elements|Cryst": "Cryo",
   "enum|elements|Fire": "Heat",
   "enum|elements|Pulse": "Electric",

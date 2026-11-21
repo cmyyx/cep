@@ -57,8 +57,16 @@ export function SentryProvider({ version, children }: SentryProviderProps) {
       beforeSend(event, hint) {
         return shouldDropSentryEvent(event, hint) ? null : event
       },
-      // Don't send default PII (IP, cookies) — opt in later per category if needed.
-      sendDefaultPii: false,
+      // v11 删掉了 sendDefaultPii，改成 dataCollection 逐项控制；而且 v11 的默认
+      // 比 v10 宽松（userInfo / cookies / 请求头 / 请求体默认全开）。这里逐项关掉，
+      // 保持"不发送默认 PII"的原意，以后需要哪类再单独开。
+      dataCollection: {
+        userInfo: false,
+        cookies: false,
+        httpHeaders: false,
+        httpBodies: [],
+        urlQueryParams: false,
+      },
     })
   }, [version.version])
 

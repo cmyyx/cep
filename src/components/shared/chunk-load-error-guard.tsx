@@ -146,6 +146,10 @@ function ChunkLoadErrorPage({ failure }: { failure: ChunkFailure }) {
     window.location.reload()
   }
 
+  // chunk 已经坏了，客户端软导航拿不到新的 chunk，这里只能整页硬跳。
+  // eslint-disable-next-line @next/next/no-location-assign-relative-destination
+  const handleGoHome = () => window.location.assign('/')
+
   return (
     <FullScreenStatus
       title="CEP"
@@ -172,7 +176,7 @@ function ChunkLoadErrorPage({ failure }: { failure: ChunkFailure }) {
             <RefreshCw className="size-4" />
             {t('retry')}
           </Button>
-          <Button variant="outline" onClick={() => window.location.assign('/')}>
+          <Button variant="outline" onClick={handleGoHome}>
             {t('goHome')}
           </Button>
         </>

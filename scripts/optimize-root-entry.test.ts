@@ -56,6 +56,18 @@ describe('optimizeRootEntry', () => {
     expect(html).not.toContain('/_next/static/chunks/c3.js')
   })
 
+  it('handles the immutable/ chunk path that Vercel builds emit', () => {
+    // Vercel 的构建会把资源放到 /_next/static/immutable/chunks/ 下，本地 build
+    // 则是 /_next/static/chunks/。两种路径都必须能剥干净，否则部署时这里会中止。
+    writeFileSync(entryPath, FIXTURE.replaceAll('/_next/static/chunks/', '/_next/static/immutable/chunks/'))
+    const result = optimizeRootEntry(dir)
+    const html = read()
+    expect(result.removedChunkScripts).toBe(3)
+    expect(html).not.toContain('/_next/static/immutable/chunks/c1.js')
+    expect(html).not.toContain('as="script" fetchPriority="low"')
+    expect(html).toContain('<link rel="stylesheet" href="/_next/static/immutable/chunks/aa11.css"')
+  })
+
   it('removes the chunk preload but keeps unrelated script preloads', () => {
     optimizeRootEntry(dir)
     const html = read()

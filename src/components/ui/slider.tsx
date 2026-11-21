@@ -22,6 +22,8 @@ const Slider = React.forwardRef<
     <SliderPrimitive.Thumb className="block h-4 w-4 rounded-full bg-background shadow-[0px_0px_0px_1px_color-mix(in_oklab,var(--color-primary)_50%,transparent)] transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50" />
   </SliderPrimitive.Root>
 ))
-Slider.displayName = SliderPrimitive.Root.displayName
+// @radix-ui/react-slider 1.6 起不再给 Root 挂 displayName，这里写死，
+// 否则 devtools 和 slider.test.tsx 都拿不到名字。
+Slider.displayName = 'Slider'
 
 export { Slider }

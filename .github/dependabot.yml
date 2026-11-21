@@ -1,0 +1,54 @@
+# 依赖自动升级。
+#
+# 背景：GitHub 的 ubuntu-latest 镜像会不定期整体换系统（2026-11 从 24.04 变成
+# 26.04），而 Playwright 只认自己内置的系统清单 —— 1.60.0 里没有 ubuntu26.04，
+# `playwright install --with-deps chromium` 直接报
+# "Playwright does not support chromium on ubuntu26.04-x64" 并中止整个 job，
+# 造成 Sync Game Data 连续 4 次失败（11-12 / 11-13 / 11-19 / 11-20）。
+#
+# 因此 Playwright 单独成组、每周跟随 latest：镜像切换后最多一周就会收到 PR，
+# CI 的 e2e（ci.yml 的 Quality Gate）会在合并前暴露不兼容。
+version: 2
+updates:
+  - package-ecosystem: 'npm'
+    directory: '/'
+    schedule:
+      interval: 'weekly'
+      day: 'monday'
+      time: '06:00'
+      timezone: 'Asia/Shanghai'
+    open-pull-requests-limit: 5
+    # 让 package.json 的版本范围跟着一起抬，而不是只动 lockfile ——
+    # 否则 ^1.65.1 这类范围会把后续 minor 卡在锁文件里。
+    versioning-strategy: 'increase'
+    # 分组原则：能直接看的合并成一条，要排期的单独走。
+    # minor/patch 进组 -> 每周最多三条，CI 绿了就能合；
+    # major 不进组 -> 各自成 PR，提醒"这个要专门排时间迁移"，不拖累日常那几条。
+    groups:
+      playwright:
+        patterns:
+          - '@playwright/test'
+          - 'playwright'
+          - 'playwright-core'
+      production-minor-patch:
+        dependency-type: 'production'
+        update-types:
+          - 'minor'
+          - 'patch'
+      development-minor-patch:
+        dependency-type: 'development'
+        update-types:
+          - 'minor'
+          - 'patch'
+
+  - package-ecosystem: 'github-actions'
+    directory: '/'
+    schedule:
+      interval: 'weekly'
+      day: 'monday'
+      time: '06:00'
+      timezone: 'Asia/Shanghai'
+    groups:
+      github-actions:
+        patterns:
+          - '*'
