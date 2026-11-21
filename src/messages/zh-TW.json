@@ -1121,6 +1121,7 @@
   "gameI18nLookup": {
     "title": "遊戲文案查詢",
     "searchLocale": "搜尋語言",
+    "displayLocales": "顯示語言",
     "query": "關鍵詞 / textId",
     "queryPlaceholder": "輸入文字關鍵詞，或貼上 textId",
     "localeZhCN": "簡體中文",

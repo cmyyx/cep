@@ -174,6 +174,16 @@
     "url": "https://bbs.hycdn.cn/image/2026/01/12/2641152/40da4202dc8dd5d4a943077b195f5f25.png",
     "hash": "2dbe86ab5065204bf4b4c95f9872ed732bddca7cfd0a229d21d5ab7ef5636728"
   },
+  "avatar/preview-2922": {
+    "source": "skland",
+    "url": "https://bbs.hycdn.cn/image/common/20261121/4826366/6b0182843350648b67af168b_f1525633.png",
+    "hash": "48e975a05e17d9dbec905e319705490679818d5a40380c60dff87a69e49fefaa"
+  },
+  "avatar/preview-2923": {
+    "source": "skland",
+    "url": "https://bbs.hycdn.cn/image/common/20261121/4850358/6b01887bdb3b3da19abf6b9b_56331367.png",
+    "hash": "f45393d18d417267809584d52c595e729f8b8a83959566106b50a3964f1cfc3e"
+  },
   "fullBody/chr_0004_pelica": {
     "source": "skland",
     "url": "https://bbs.hycdn.cn/image/common/20260128/5246026/6979acea74509b5561051577_f1525633.png",
@@ -348,5 +358,15 @@
     "source": "skland",
     "url": "https://bbs.hycdn.cn/image/2026/01/03/2641152/81c42622f55c1a54102b999f81f4eab3.png",
     "hash": "20a50c19cee23a8805393c75847f2302c884c4dfaf3f80d4103267217349fdad"
+  },
+  "fullBody/preview-2922": {
+    "source": "skland",
+    "url": "https://bbs.hycdn.cn/image/common/20261121/4826366/6b01828ac2d57d9812a9e716_db193eac.png",
+    "hash": "6d46665e38cc4457afbf726dcc76706f41cb0b043df44c328873e8b6b15f7e4c"
+  },
+  "fullBody/preview-2923": {
+    "source": "skland",
+    "url": "https://bbs.hycdn.cn/image/common/20261121/4850358/6b01887d16d68fe0356a583d_f1525633.png",
+    "hash": "f9b9be6aa249588c69c03ecb2da91f577027f4a64388acea18b3daff433b5063"
   }
 }

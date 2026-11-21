@@ -143,6 +143,47 @@ export interface GameI18nSearchOptions {
   onResolveProgress?: (resolved: number, total: number) => void
 }
 
+/** 词边界：搜索命中落在这些字符旁边时视为"分段命中"，比纯子串更靠前。 */
+const SEGMENT_BOUNDARY_RE = /[\s，。、；：！？,.;:!?()（）【】\[\]「」『』/·—\-…+"'“”]/
+
+/**
+ * 命中的相关性分数（越小越靠前）：
+ *   0 完全相等 / 1 前缀 / 2 分词边界命中 / 3 普通子串
+ * 只是"包含"并不足够——搜「明河」时，长文案里夹带这两个字的应与「明河」本身排开。
+ */
+function relevanceScore(text: string, needle: string): number | null {
+  const lower = text.toLocaleLowerCase()
+  if (lower === needle) return 0
+  const index = lower.indexOf(needle)
+  if (index < 0) return null
+  if (index === 0) return 1
+  const before = lower[index - 1]
+  const after = lower[index + needle.length]
+  if (SEGMENT_BOUNDARY_RE.test(before) || after === undefined || SEGMENT_BOUNDARY_RE.test(after)) return 2
+  return 3
+}
+
+interface RankedHit {
+  hit: GameI18nSearchHit
+  score: number
+  length: number
+}
+
+function compareRanked(a: RankedHit, b: RankedHit): number {
+  if (a.score !== b.score) return a.score - b.score
+  if (a.length !== b.length) return a.length - b.length
+  return a.hit.textId.localeCompare(b.hit.textId, undefined, { numeric: true })
+}
+
+/** 受限制的插入排序：始终保持前 limit 条按相关性有序，避免为高频词存下全部命中。 */
+function insertRanked(list: RankedHit[], item: RankedHit, limit: number): void {
+  if (list.length >= limit && compareRanked(item, list[list.length - 1]) >= 0) return
+  let index = list.length
+  while (index > 0 && compareRanked(item, list[index - 1]) < 0) index -= 1
+  list.splice(index, 0, item)
+  if (list.length > limit) list.pop()
+}
+
 function isTextIdQuery(query: string): boolean {
   return /^-?\d{5,}$/.test(query.trim())
 }
@@ -290,12 +331,15 @@ export async function prefetchGameI18nLocale(
 export async function prefetchAllGameI18nLocales(options?: {
   signal?: AbortSignal
   concurrency?: number
+  /** 只预取这些语言（默认全部）。工具页只加载用户选中/在看的语言。 */
+  locales?: readonly GameI18nLocale[]
   onProgress?: (progress: GameI18nAllLoadProgress) => void
 }): Promise<GameI18nAllLoadResult> {
   const manifest = await loadGameI18nManifest()
+  const locales = options?.locales ?? GAME_I18N_LOCALES
   const concurrency = options?.concurrency ?? PREFETCH_LOCALE_CONCURRENCY
-  const totalLocales = GAME_I18N_LOCALES.length
-  const totalBytes = GAME_I18N_LOCALES.reduce((sum, locale) => {
+  const totalLocales = locales.length
+  const totalBytes = locales.reduce((sum, locale) => {
     const meta = manifest.locales[locale]
     if (!meta) return sum
     return sum + meta.chunks.reduce((inner, chunk) => inner + chunk.bytes, 0)
@@ -303,7 +347,7 @@ export async function prefetchAllGameI18nLocales(options?: {
 
   const localeBytes = new Map<GameI18nLocale, { loaded: number; total: number; ready: boolean }>()
   const failedLocales = new Set<GameI18nLocale>()
-  for (const locale of GAME_I18N_LOCALES) {
+  for (const locale of locales) {
     const meta = manifest.locales[locale]
     const total = meta?.chunks.reduce((sum, chunk) => sum + chunk.bytes, 0) ?? 0
     const ready = localeFullyLoaded.has(locale)
@@ -317,13 +361,13 @@ export async function prefetchAllGameI18nLocales(options?: {
   let activeLocale: GameI18nLocale | null = null
 
   const snapshot = (): GameI18nAllLoadResult => ({
-    readyLocales: GAME_I18N_LOCALES.filter((locale) => localeBytes.get(locale)?.ready),
-    failedLocales: GAME_I18N_LOCALES.filter((locale) => failedLocales.has(locale)),
+    readyLocales: locales.filter((locale) => localeBytes.get(locale)?.ready),
+    failedLocales: locales.filter((locale) => failedLocales.has(locale)),
   })
 
   const report = () => {
     let loadedBytes = 0
-    for (const locale of GAME_I18N_LOCALES) {
+    for (const locale of locales) {
       const state = localeBytes.get(locale)
       if (state) loadedBytes += state.loaded
     }
@@ -343,7 +387,7 @@ export async function prefetchAllGameI18nLocales(options?: {
   if (areAllGameI18nLocalesLoaded()) return snapshot()
 
   await mapPool(
-    GAME_I18N_LOCALES,
+    locales,
     concurrency,
     async (locale) => {
       assertNotAborted(options?.signal)
@@ -449,45 +493,52 @@ export async function searchGameI18n(options: GameI18nSearchOptions): Promise<Ga
   } else {
     const needle = query.toLocaleLowerCase()
     // Yield + progress so UI can show real scan progress (entries, not chunks).
-    // Stream partial hits so the result table grows while scanning.
+    // 命中要按相关性排序：完全相等 > 前缀 > 分词边界 > 普通子串，同档短的靠前。
+    // 因此不能"扫够 limit 条就停"——那会把排在后面 map 顺序里的精确命中漏掉，
+    // 改为全表扫描 + 有界 top-N。
     let scanned = 0
     let lastEmittedHits = 0
+    const ranked: RankedHit[] = []
     options.onSearchProgress?.(0, totalEntries, 0)
+
+    const emitRanked = () => {
+      hits = ranked.map((entry) => entry.hit)
+      if (allDisplayReady) {
+        emitPartialHits(options, hits.map((hit) => fillHitFromLoadedLocales(hit, displayLocales)))
+      } else {
+        emitPartialHits(options, hits)
+      }
+    }
+
     for (const [textId, text] of map) {
       assertNotAborted(options.signal)
       scanned += 1
-      if (text.toLocaleLowerCase().includes(needle)) {
-        hits.push({
-          textId,
-          texts: { [options.searchLocale]: text },
-          pendingLocales: allDisplayReady ? [] : pendingOther.length > 0 ? [...pendingOther] : [],
-        })
+      const score = relevanceScore(text, needle)
+      if (score !== null) {
+        insertRanked(
+          ranked,
+          {
+            hit: {
+              textId,
+              texts: { [options.searchLocale]: text },
+              pendingLocales: allDisplayReady ? [] : pendingOther.length > 0 ? [...pendingOther] : [],
+            },
+            score,
+            length: text.length,
+          },
+          limit,
+        )
         // Emit as soon as the first hit lands, then every few hits.
-        if (hits.length === 1 || hits.length - lastEmittedHits >= 3) {
-          lastEmittedHits = hits.length
-          if (allDisplayReady) {
-            emitPartialHits(
-              options,
-              hits.map((hit) => fillHitFromLoadedLocales(hit, displayLocales)),
-            )
-          } else {
-            emitPartialHits(options, hits)
-          }
+        if (ranked.length === 1 || ranked.length - lastEmittedHits >= 3) {
+          lastEmittedHits = ranked.length
+          emitRanked()
         }
-        if (hits.length >= limit) break
       }
-      if (scanned % 4000 === 0 || scanned === totalEntries || hits.length >= limit) {
-        options.onSearchProgress?.(scanned, totalEntries, hits.length)
-        if (hits.length > lastEmittedHits) {
-          lastEmittedHits = hits.length
-          if (allDisplayReady) {
-            emitPartialHits(
-              options,
-              hits.map((hit) => fillHitFromLoadedLocales(hit, displayLocales)),
-            )
-          } else {
-            emitPartialHits(options, hits)
-          }
+      if (scanned % 4000 === 0 || scanned === totalEntries) {
+        options.onSearchProgress?.(scanned, totalEntries, ranked.length)
+        if (ranked.length > lastEmittedHits) {
+          lastEmittedHits = ranked.length
+          emitRanked()
         }
         await new Promise<void>((resolve) => {
           if (typeof requestAnimationFrame === 'function') requestAnimationFrame(() => resolve())
@@ -495,7 +546,8 @@ export async function searchGameI18n(options: GameI18nSearchOptions): Promise<Ga
         })
       }
     }
-    options.onSearchProgress?.(scanned, totalEntries, hits.length)
+    options.onSearchProgress?.(scanned, totalEntries, ranked.length)
+    hits = ranked.map((entry) => entry.hit)
     if (allDisplayReady && hits.length > 0) {
       hits = hits.map((hit) => fillHitFromLoadedLocales(hit, displayLocales))
     }

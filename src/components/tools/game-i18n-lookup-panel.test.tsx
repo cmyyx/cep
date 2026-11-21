@@ -51,6 +51,7 @@ vi.mock('next-intl', () => ({
 
 vi.mock('@/lib/game-i18n-lookup', () => ({
   areAllGameI18nLocalesLoaded: () => lookupMocks.allLoaded,
+  isGameI18nLocaleLoaded: () => lookupMocks.allLoaded,
   loadGameI18nManifest: () => lookupMocks.loadManifest(),
   prefetchAllGameI18nLocales: (options?: PrefetchOptions) => lookupMocks.prefetch(options),
   searchGameI18n: (options: SearchOptions) => lookupMocks.search(options),

@@ -1,0 +1,4 @@
+# 游戏文案导出（public/game-i18n）是内容寻址的：客户端用 ?v=<内容哈希> 请求，
+# 哈希变了 URL 就变，所以可以放心 immutable，刷新时不再逐个回源验证。
+/game-i18n/*
+  Cache-Control: public, max-age=31536000, immutable

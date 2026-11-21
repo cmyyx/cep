@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useFormatter, useTranslations } from 'next-intl'
 import { Copy, LoaderCircle, RefreshCw, Search, TriangleAlert } from 'lucide-react'
 import { Button } from '@/components/ui/button'
@@ -11,7 +11,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { Badge } from '@/components/ui/badge'
 import { GAME_I18N_LOCALES, type GameI18nLocale } from '@/lib/game-i18n-shared'
 import {
-  areAllGameI18nLocalesLoaded,
+  isGameI18nLocaleLoaded,
   loadGameI18nManifest,
   prefetchAllGameI18nLocales,
   searchGameI18n,
@@ -73,10 +73,15 @@ function resultsKey(query: string, locale: GameI18nLocale): string {
   return `${locale}::${query}`
 }
 
+/** 默认加载的"常用语言"：与站点支持的四语言一致，其余按需勾选。 */
+const DEFAULT_DISPLAY_LOCALES: GameI18nLocale[] = ['zh-CN', 'en', 'ja', 'zh-TW']
+
 export function GameI18nLookupPanel() {
   const t = useTranslations('gameI18nLookup')
   const format = useFormatter()
   const [searchLocale, setSearchLocale] = useState<GameI18nLocale>('zh-CN')
+  /** 想看的译文语言；没勾选的语言完全不下载。 */
+  const [displayLocales, setDisplayLocales] = useState<GameI18nLocale[]>(DEFAULT_DISPLAY_LOCALES)
   const [query, setQuery] = useState('')
   const [debouncedQuery, setDebouncedQuery] = useState('')
   const [hits, setHits] = useState<GameI18nSearchHit[]>([])
@@ -115,7 +120,18 @@ export function GameI18nLookupPanel() {
     }
   }, [])
 
-  const allLocalesReady = Boolean(prefetch?.ready) || areAllGameI18nLocalesLoaded()
+  // 搜索语言必须在列（结果至少要有它自己的原文）。
+  const activeLocales = useMemo(
+    () => Array.from(new Set<GameI18nLocale>([searchLocale, ...displayLocales])),
+    [searchLocale, displayLocales],
+  )
+  const allLocalesReady =
+    Boolean(prefetch?.ready) || activeLocales.every((locale) => isGameI18nLocaleLoaded(locale))
+  const toggleDisplayLocale = useCallback((locale: GameI18nLocale) => {
+    setDisplayLocales((current) =>
+      current.includes(locale) ? current.filter((item) => item !== locale) : [...current, locale],
+    )
+  }, [])
   const allLocalesLoading = manifestReady && Boolean(prefetch?.loading)
   const resourceLoading = manifestLoading || allLocalesLoading
   const loadPercent = prefetch ? percentOf(prefetch.loadedBytes, prefetch.totalBytes) : 0
@@ -267,13 +283,13 @@ export function GameI18nLookupPanel() {
     queueMicrotask(() => {
       if (prefetchId !== prefetchIdRef.current) return
       setError((current) => (current === 'prefetchFailed' ? null : current))
-      if (areAllGameI18nLocalesLoaded()) {
+      if (activeLocales.every((locale) => isGameI18nLocaleLoaded(locale))) {
         applyPrefetch({
-          loadedLocales: GAME_I18N_LOCALES.length,
-          totalLocales: GAME_I18N_LOCALES.length,
+          loadedLocales: activeLocales.length,
+          totalLocales: activeLocales.length,
           loadedBytes: 1,
           totalBytes: 1,
-          readyLocales: [...GAME_I18N_LOCALES],
+          readyLocales: [...activeLocales],
           failedLocales: [],
           activeLocale: null,
           loading: false,
@@ -284,7 +300,7 @@ export function GameI18nLookupPanel() {
 
       applyPrefetch({
         loadedLocales: 0,
-        totalLocales: GAME_I18N_LOCALES.length,
+        totalLocales: activeLocales.length,
         loadedBytes: 0,
         totalBytes: 1,
         readyLocales: [],
@@ -296,6 +312,7 @@ export function GameI18nLookupPanel() {
 
       void prefetchAllGameI18nLocales({
         signal: controller.signal,
+        locales: activeLocales,
         onProgress: (progress: GameI18nAllLoadProgress) => {
           applyPrefetch({
             loadedLocales: progress.loadedLocales,
@@ -312,10 +329,11 @@ export function GameI18nLookupPanel() {
       })
         .then((result) => {
           if (controller.signal.aborted || prefetchId !== prefetchIdRef.current) return
-          const ready = result.failedLocales.length === 0 && result.readyLocales.length === GAME_I18N_LOCALES.length
+          const ready =
+            result.failedLocales.length === 0 && activeLocales.every((locale) => result.readyLocales.includes(locale))
           setPrefetch((current) => ({
             loadedLocales: result.readyLocales.length,
-            totalLocales: GAME_I18N_LOCALES.length,
+            totalLocales: activeLocales.length,
             loadedBytes: ready ? (current?.totalBytes ?? 1) : (current?.loadedBytes ?? 0),
             totalBytes: current?.totalBytes ?? 1,
             readyLocales: result.readyLocales,
@@ -337,7 +355,7 @@ export function GameI18nLookupPanel() {
     })
 
     return () => controller.abort()
-  }, [manifestReady, prefetchAttempt])
+  }, [manifestReady, prefetchAttempt, activeLocales])
   // Search only after all locale files are ready. Input is allowed earlier (plan A).
   useEffect(() => {
     abortRef.current?.abort()
@@ -388,6 +406,7 @@ export function GameI18nLookupPanel() {
       searchLocale: localeForRequest,
       query: queryForRequest,
       limit: 80,
+      displayLocales: activeLocales,
       signal: controller.signal,
       onSearchProgress: (loaded, total, hitCount) => {
         if (requestId !== requestIdRef.current) return
@@ -451,7 +470,7 @@ export function GameI18nLookupPanel() {
       })
 
     return () => controller.abort()
-  }, [debouncedQuery, searchLocale, manifestReady, allLocalesReady, beginExitDisplayed, showOrUpdateDisplayed])
+  }, [debouncedQuery, searchLocale, manifestReady, allLocalesReady, activeLocales, beginExitDisplayed, showOrUpdateDisplayed])
 
   const busySearching = searching || searchPendingForQuery
   const renderingHits = displayed?.hits ?? []
@@ -590,6 +609,29 @@ export function GameI18nLookupPanel() {
             </div>
           </div>
         </div>
+        <div className="grid gap-1.5">
+          <Label className="whitespace-normal leading-snug">{t('displayLocales')}</Label>
+          <div className="flex flex-wrap gap-1.5" role="group" aria-label={t('displayLocales')}>
+            {GAME_I18N_LOCALES.map((locale) => {
+              const active = activeLocales.includes(locale)
+              const locked = locale === searchLocale
+              return (
+                <Button
+                  key={locale}
+                  type="button"
+                  size="sm"
+                  variant={active ? 'secondary' : 'outline'}
+                  aria-pressed={active}
+                  disabled={locked}
+                  onClick={() => toggleDisplayLocale(locale)}
+                >
+                  {localeLabel(locale)}
+                </Button>
+              )
+            })}
+          </div>
+        </div>
+
         <div className="flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
           {manifestReady ? <span>{t('entryCount', { count: format.number(entryCount) })}</span> : null}
           {statusLine}
@@ -741,7 +783,7 @@ export function GameI18nLookupPanel() {
                 ) : null}
               </div>
               <div className="space-y-3">
-                {GAME_I18N_LOCALES.map((locale) => {
+                {activeLocales.map((locale) => {
                   const pending = selected.pendingLocales?.includes(locale) ?? false
                   const value = selected.texts[locale]
                   return (

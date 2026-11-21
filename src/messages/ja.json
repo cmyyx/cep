@@ -1121,6 +1121,7 @@
   "gameI18nLookup": {
     "title": "ゲームテキスト検索",
     "searchLocale": "検索言語",
+    "displayLocales": "表示言語",
     "query": "キーワード / textId",
     "queryPlaceholder": "キーワードまたは textId を入力",
     "localeZhCN": "簡体字中国語",

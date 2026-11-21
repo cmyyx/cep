@@ -1121,6 +1121,7 @@
   "gameI18nLookup": {
     "title": "游戏文案查询",
     "searchLocale": "搜索语言",
+    "displayLocales": "显示语言",
     "query": "关键词 / textId",
     "queryPlaceholder": "输入文本关键词，或粘贴 textId",
     "localeZhCN": "简体中文",

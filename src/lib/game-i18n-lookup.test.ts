@@ -361,3 +361,57 @@ it('exposes all upstream locales in GAME_I18N_LOCALES', () => {
     'vi',
   ])
 })
+
+it('prefetches only the locales it is asked for', async () => {
+  const result = await prefetchAllGameI18nLocales({ locales: ['zh-CN', 'en'] })
+
+  expect([...result.readyLocales].sort()).toEqual(['en', 'zh-CN'].sort())
+  expect(isGameI18nLocaleLoaded('ja')).toBe(false)
+  expect(areAllGameI18nLocalesLoaded()).toBe(false)
+
+  const urls = vi.mocked(fetch).mock.calls.map(([input]) => String(input))
+  expect(urls.some((url) => url.includes('/ja/'))).toBe(false)
+})
+
+it('ranks exact and short matches ahead of long texts that merely contain the query', async () => {
+  // 真实场景：搜「明河」时，先扫到的是长文案（id 更小），精确条目在后面。
+  const customChunks: Record<string, Record<string, string>> = {
+    'zh-CN/000.json': {
+      '10001': '这是一段很长的说明文案，里面提到了明河这两个字但并不是名字本身',
+      '10002': '明河',
+      '10003': '明河之光',
+      '10004': '前往明河的列车',
+    },
+  }
+  vi.stubGlobal(
+    'fetch',
+    vi.fn(async (input: RequestInfo | URL) => {
+      const file = resourceFile(input)
+      if (file === 'manifest.json') {
+        return jsonResponse({
+          ...manifest,
+          locales: {
+            ...manifest.locales,
+            'zh-CN': {
+              entryCount: 4,
+              chunks: [{ file: 'zh-CN/000.json', count: 4, startId: '10001', endId: '10004', bytes: 10 }],
+            },
+          },
+        })
+      }
+      const body = customChunks[file]
+      if (!body) return { ok: false, status: 404, json: async () => ({}) } as Response
+      return jsonResponse(body)
+    }),
+  )
+
+  const hits = await searchGameI18n({
+    searchLocale: 'zh-CN',
+    query: '明河',
+    displayLocales: ['zh-CN'],
+    limit: 10,
+  })
+
+  // 完全相等 -> 前缀 -> 短子串 -> 长文案
+  expect(hits.map((hit) => hit.textId)).toEqual(['10002', '10003', '10004', '10001'])
+})

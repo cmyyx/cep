@@ -1121,6 +1121,7 @@
   "gameI18nLookup": {
     "title": "Game text lookup",
     "searchLocale": "Search language",
+    "displayLocales": "Display languages",
     "query": "Keyword / textId",
     "queryPlaceholder": "Type a keyword or paste a textId",
     "localeZhCN": "Simplified Chinese",
