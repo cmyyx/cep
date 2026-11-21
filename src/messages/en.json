@@ -371,6 +371,8 @@
     "commitMessage": "Changelog",
     "commitTime": "Commit Time",
     "buildTime": "Build Time",
+    "gameDataVersion": "Game Data Version",
+    "gameDataPublishedAt": "Data Resource Published",
     "checkUpdate": "Check for Updates",
     "checking": "Checking...",
     "alreadyUpToDate": "Already up to date",

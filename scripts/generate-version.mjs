@@ -85,6 +85,32 @@ function getSemver() {
 }
 
 /**
+ * 本次构建内嵌的游戏数据版本，来自同步快照（scripts/.cache/upstream-versions.json）。
+ * v2 记录 manifest 的版本 id；v1 只有 SHA，回退成前 7 位，等下次同步后再变成版本号。
+ * @param {string} [rootDir]
+ * @returns {{ version: string, publishedAt: string | null } | null}
+ */
+export function readGameDataVersion(rootDir = root) {
+  const path = resolve(rootDir, "scripts", ".cache", "upstream-versions.json")
+  try {
+    const raw = JSON.parse(readFileSync(path, "utf-8"))
+    const version =
+      typeof raw.akedataVersion === "string" && raw.akedataVersion
+        ? raw.akedataVersion
+        : typeof raw.akedata === "string" && raw.akedata
+          ? raw.akedata.slice(0, 7)
+          : null
+    if (!version) return null
+    return {
+      version,
+      publishedAt: typeof raw.akedataPublishedAt === "string" ? raw.akedataPublishedAt : null,
+    }
+  } catch {
+    return null
+  }
+}
+
+/**
  * 为静态资源按文件内容计算 hash。URL 只在对应文件内容变化时变化，
  * 避免一个资源修改导致全部资源重新请求。读取失败直接阻断构建。
  * @param {string} directory
@@ -167,6 +193,8 @@ function main() {
     )
   }
   const announcementManifest = generateAnnouncementManifest()
+  // 仅用于版本页展示（本地 vs 云端），不参与任何更新判定。
+  const gameData = readGameDataVersion()
   const version = {
     commit: commitHash,
     count,
@@ -174,6 +202,7 @@ function main() {
     buildTime: new Date().toISOString(),
     version: derivedVersion,
     forceUpgradeSerial: getForceUpgradeSerial(),
+    ...(gameData ? { gameData } : {}),
   }
 
   const outPath = resolve(root, "public", "version.json")

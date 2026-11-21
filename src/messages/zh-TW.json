@@ -371,6 +371,8 @@
     "commitMessage": "更新日誌",
     "commitTime": "提交時間",
     "buildTime": "構建時間",
+    "gameDataVersion": "遊戲數據版本",
+    "gameDataPublishedAt": "資料資源發佈時間",
     "checkUpdate": "檢查更新",
     "checking": "正在檢查...",
     "alreadyUpToDate": "已是最新版本",

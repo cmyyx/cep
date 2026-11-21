@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest'
 import { mkdirSync, mkdtempSync, rmSync, writeFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
-import { generateHashManifest, parseChangelog, parseForceUpgradeSerial } from './generate-version.mjs'
+import { generateHashManifest, parseChangelog, parseForceUpgradeSerial, readGameDataVersion } from './generate-version.mjs'
 
 const FIELD = '\x1f'
 const RECORD = '\x1e'
@@ -76,5 +76,48 @@ describe('parseForceUpgradeSerial', () => {
 
   it('returns zero when no force marker exists', () => {
     expect(parseForceUpgradeSerial('v1.4.0\nmain')).toBe(0)
+  })
+})
+
+describe('readGameDataVersion', () => {
+  function withVersionsFile(payload: unknown): string {
+    const dir = mkdtempSync(join(tmpdir(), 'cep-game-data-'))
+    mkdirSync(join(dir, 'scripts', '.cache'), { recursive: true })
+    writeFileSync(join(dir, 'scripts', '.cache', 'upstream-versions.json'), JSON.stringify(payload), 'utf8')
+    return dir
+  }
+
+  it('reads the published version and timestamp from the v2 snapshot', () => {
+    const dir = withVersionsFile({
+      schemaVersion: 2,
+      akedataVersion: '1.6.4@11944529-13',
+      akedataPublishedAt: '2026-11-21T19:33:07+08:00',
+    })
+    try {
+      expect(readGameDataVersion(dir)).toEqual({
+        version: '1.6.4@11944529-13',
+        publishedAt: '2026-11-21T19:33:07+08:00',
+      })
+    } finally {
+      rmSync(dir, { recursive: true, force: true })
+    }
+  })
+
+  it('falls back to the legacy SHA prefix and keeps the timestamp empty', () => {
+    const dir = withVersionsFile({ akedata: '2f74a1123f2e7bed6d7d746102b4858641070756', imagedb: 'f3a5f76' })
+    try {
+      expect(readGameDataVersion(dir)).toEqual({ version: '2f74a11', publishedAt: null })
+    } finally {
+      rmSync(dir, { recursive: true, force: true })
+    }
+  })
+
+  it('returns null when the snapshot is missing', () => {
+    const dir = mkdtempSync(join(tmpdir(), 'cep-game-data-'))
+    try {
+      expect(readGameDataVersion(dir)).toBeNull()
+    } finally {
+      rmSync(dir, { recursive: true, force: true })
+    }
   })
 })

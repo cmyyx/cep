@@ -153,6 +153,8 @@
     "commitMessage": "更新日志",
     "commitTime": "提交时间",
     "buildTime": "构建时间",
+    "gameDataVersion": "游戏数据版本",
+    "gameDataPublishedAt": "数据资源发布时间",
     "checkUpdate": "检查更新",
     "checking": "正在检查...",
     "alreadyUpToDate": "已是最新版本",

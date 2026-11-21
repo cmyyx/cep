@@ -1,56 +1,22 @@
 'use client'
 
-import { useState, useEffect, useCallback, useRef, useSyncExternalStore } from 'react'
+import { useState, useEffect, useCallback, useRef } from 'react'
 import { useTranslations } from 'next-intl'
 import { SidebarTrigger } from '@/components/ui/sidebar'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Skeleton } from '@/components/ui/skeleton'
 import { useVersion } from '@/hooks/use-version'
+import { VersionCard } from '@/components/version/version-card'
 import { cn, formatTime } from '@/lib/utils'
 import { MIN_LOADING_DISPLAY_MS } from '@/lib/constants'
 import { RefreshCw, ArrowRight } from 'lucide-react'
-import type { ChangelogEntry, VersionInfo } from '@/types/version'
+import type { ChangelogEntry } from '@/types/version'
 
 interface ChangelogResponse {
   changelog: ChangelogEntry[]
 }
 
-
-function VersionCard({ label, info }: { label: string; info: VersionInfo }) {
-  const t = useTranslations()
-  const mounted = useSyncExternalStore(() => () => {}, () => true, () => false)
-  const commitTimeText = mounted ? formatTime(info.commitTime) : '--:--'
-  const buildTimeText = mounted ? formatTime(info.buildTime) : '--:--'
-
-  return (
-    <div className="flex-1 rounded-lg shadow-[var(--shadow-border)] p-4">
-      <h3 className="text-xs font-medium text-muted-foreground mb-3 uppercase tracking-wide text-center">{label}</h3>
-      <div className="space-y-2">
-        <div className="flex items-center justify-between">
-          <span className="text-xs text-muted-foreground">{t('version.version')}</span>
-          <span className="text-sm font-mono font-medium">{info.version}</span>
-        </div>
-        <div className="flex items-center justify-between">
-          <span className="text-xs text-muted-foreground">{t('version.commit')}</span>
-          <span className="text-sm font-mono">{info.commit}</span>
-        </div>
-        <div className="flex items-center justify-between">
-          <span className="text-xs text-muted-foreground">{t('version.commitCount')}</span>
-          <span className="text-sm font-mono">{info.count}</span>
-        </div>
-        <div className="flex items-center justify-between">
-          <span className="text-xs text-muted-foreground">{t('version.commitTime')}</span>
-          <span className="text-sm font-mono">{commitTimeText}</span>
-        </div>
-        <div className="flex items-center justify-between">
-          <span className="text-xs text-muted-foreground">{t('version.buildTime')}</span>
-          <span className="text-sm font-mono">{buildTimeText}</span>
-        </div>
-      </div>
-    </div>
-  )
-}
 
 export default function UpdatePage() {
   const t = useTranslations()

@@ -645,6 +645,7 @@ const COMPONENT_DIR_ROUTES = {
   'panel-preview': ['panel-preview'],
   'refinement': ['refinement-planner'],
   'tools': ['tools/game-i18n'],
+  'version': ['update'],
   'wiki': ['wiki', 'essence-planner', 'refinement-planner', 'growth-planner', 'panel-preview'],
   'ui': 'global',
 }
