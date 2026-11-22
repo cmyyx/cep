@@ -34,9 +34,9 @@ export function VersionComparison({ localInfo, remoteInfo, isUpdateAvailable }: 
 
   return (
     <div className="mb-6">
-      <div className="flex items-center gap-3 mb-4">
+      <div className="flex flex-col items-stretch gap-3 mb-4 sm:flex-row sm:items-center">
         <VersionCard label={t('version.local')} info={localInfo} />
-        <ArrowRight className="size-5 text-muted-foreground shrink-0" />
+        <ArrowRight className="size-5 shrink-0 self-center text-muted-foreground rotate-90 sm:rotate-0" />
         <VersionCard label={t('version.remote')} info={remoteInfo} />
       </div>
       {isUpdateAvailable && (

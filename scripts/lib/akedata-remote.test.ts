@@ -1,5 +1,5 @@
-import { describe, expect, it } from 'vitest'
-import { existsSync, mkdtempSync, readFileSync, rmSync, writeFileSync, mkdirSync } from 'node:fs'
+import { afterEach, describe, expect, it, vi } from 'vitest'
+import { existsSync, mkdtempSync, readFileSync, readdirSync, rmSync, writeFileSync, mkdirSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import {
@@ -14,7 +14,12 @@ import {
   GAME_I18N_SUFFIXES,
   MAPS_LOCALES,
   SYNC_TABLES,
+  defaultFetchText,
 } from './akedata-remote'
+
+afterEach(() => {
+  vi.unstubAllGlobals()
+})
 
 const manifestRaw = {
   schemaVersion: 1,
@@ -118,15 +123,17 @@ describe('materializeTableCfg', () => {
     }
   })
 
-  it('downloads every exported locale in update mode', async () => {
+  it('downloads every exported locale in update mode and keeps per-locale bytes', async () => {
     const root = mkdtempSync(join(tmpdir(), 'cep-akedata-'))
     try {
-      const { fetchText } = fakeFetch('{}')
+      const { fetchText } = fakeFetch({ '/I18nTextTable_EN.json': '{"locale":"en"}' })
       const result = await materializeTableCfg({ version, destRoot: root, mode: 'update', fetchText })
       expect(result.downloaded).toHaveLength(SYNC_TABLES.length + GAME_I18N_SUFFIXES.length)
       for (const suffix of GAME_I18N_SUFFIXES) {
         expect(existsSync(join(root, 'TableCfg', `I18nTextTable_${suffix}.json`))).toBe(true)
       }
+      expect(readFileSync(join(root, 'TableCfg', 'I18nTextTable_EN.json'), 'utf-8')).toBe('{"locale":"en"}')
+      expect(readFileSync(join(root, 'TableCfg', 'I18nTextTable_CN.json'), 'utf-8')).toBe('{}')
     } finally {
       rmSync(root, { recursive: true, force: true })
     }
@@ -137,7 +144,19 @@ describe('materializeTableCfg', () => {
     try {
       const { fetchText } = fakeFetch('<!DOCTYPE html><html></html>')
       await expect(materializeTableCfg({ version, destRoot: root, mode: 'check', fetchText }))
-        .rejects.toThrow(/not JSON/)
+        .rejects.toThrow(/invalid or truncated/)
+    } finally {
+      rmSync(root, { recursive: true, force: true })
+    }
+  })
+
+  it('rejects truncated JSON instead of caching it', async () => {
+    const root = mkdtempSync(join(tmpdir(), 'cep-akedata-'))
+    try {
+      const { fetchText } = fakeFetch('{"entries":')
+      await expect(materializeTableCfg({ version, destRoot: root, mode: 'check', fetchText }))
+        .rejects.toThrow(/invalid or truncated/)
+      expect(existsSync(join(root, 'TableCfg', 'WeaponBasicTable.json'))).toBe(false)
     } finally {
       rmSync(root, { recursive: true, force: true })
     }
@@ -154,6 +173,56 @@ describe('materializeTableCfg', () => {
     } finally {
       rmSync(root, { recursive: true, force: true })
     }
+  })
+})
+
+describe('defaultFetchText', () => {
+  it('refuses redirects instead of following them', async () => {
+    vi.stubGlobal('fetch', vi.fn().mockResolvedValue({
+      status: 302,
+      ok: false,
+      text: () => Promise.resolve(''),
+    }))
+    await expect(defaultFetchText('https://example.test/table.json')).rejects.toThrow(/Redirect not allowed/)
+  })
+
+  it('includes the failing url in the error', async () => {
+    vi.stubGlobal('fetch', vi.fn().mockResolvedValue({
+      status: 404,
+      ok: false,
+      text: () => Promise.resolve(''),
+    }))
+    await expect(defaultFetchText('https://example.test/missing.json'))
+      .rejects.toThrow(/https:\/\/example\.test\/missing\.json/)
+  })
+})
+
+describe('SYNC_TABLES coverage', () => {
+  it('lists every TableCfg file the sync scripts read', () => {
+    const files: string[] = []
+    const walk = (dir: string) => {
+      for (const entry of readdirSync(dir, { withFileTypes: true })) {
+        const full = join(dir, entry.name)
+        if (entry.isDirectory()) walk(full)
+        else if (full.endsWith('.ts') && !full.endsWith('.test.ts')) files.push(full)
+      }
+    }
+    walk(join(process.cwd(), 'scripts'))
+
+    const referenced = new Set<string>()
+    for (const file of files) {
+      const source = readFileSync(file, 'utf-8')
+      for (const match of source.matchAll(/(?:table|readTable|readTableOptional|loadTable)(?:<[^>]*>)?\(\s*'([A-Za-z0-9_]+)'\s*\)/g)) {
+        referenced.add(match[1])
+      }
+      for (const match of source.matchAll(/TableCfg', '([A-Za-z0-9_]+)\.json'/g)) {
+        referenced.add(match[1])
+      }
+    }
+
+    const missing = [...referenced].filter((name) => !(SYNC_TABLES as readonly string[]).includes(name))
+    expect(missing).toEqual([])
+    expect(referenced.has('ExpItemDataMap')).toBe(true)
   })
 })
 

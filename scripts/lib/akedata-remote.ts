@@ -9,8 +9,9 @@
 // int64 note: tables are stored byte-for-byte, and the sync pipeline parses them
 // with parseJsonSafe (lossless-json). Never JSON.parse a table just to inspect it.
 
+import { execFileSync } from 'node:child_process'
 import { createHash } from 'node:crypto'
-import { existsSync, mkdirSync, readFileSync, renameSync, writeFileSync } from 'node:fs'
+import { closeSync, existsSync, mkdirSync, openSync, readFileSync, readSync, renameSync, statSync, writeFileSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { GAME_I18N_LOCALES, GAME_I18N_UPSTREAM_SUFFIX } from '../../src/lib/game-i18n-shared'
 
@@ -18,7 +19,7 @@ import { GAME_I18N_LOCALES, GAME_I18N_UPSTREAM_SUFFIX } from '../../src/lib/game
 export const AKE_DATA_CDN = 'https://data.akedata.wiki'
 
 /** Attribute maps used by the Wiki (ATTR_MAP / ATTR_MAP_EN). */
-export const AKEDATABASE_RAW_BASE = 'https://raw.githubusercontent.com/NagiYume/AKEDatabase/main'
+export const AKEDATABASE_RAW_BASE = 'https://raw.githubusercontent.com/NagiYume/AKEDatabase'
 
 /** Locale directories that carry maps.json inside AKEDatabase. */
 export const MAPS_LOCALES = ['CH', 'EN', 'JP', 'TC'] as const
@@ -48,6 +49,7 @@ export const SYNC_TABLES = [
   'EquipFormulaTable',
   'EquipSuitTable',
   'EquipTable',
+  'ExpItemDataMap',
   'ForesightWeaponGemwishlistTable',
   'ForesightWeaponTable',
   'GachaCharPoolContentTable',
@@ -99,12 +101,21 @@ export interface AkedataManifest {
 
 export type FetchText = (url: string) => Promise<string>
 
-/** Download a URL as text with one retry; JSON bodies are validated cheaply. */
+/**
+ * Download a URL as text with one retry.
+ *
+ * Redirects are rejected (`redirect: 'manual'`): every host we pull from serves
+ * the bytes directly, and following a redirect would let a compromised upstream
+ * point the sync runner at an internal address.
+ */
 export async function defaultFetchText(url: string): Promise<string> {
   let lastError: unknown
   for (let attempt = 0; attempt < 2; attempt += 1) {
     try {
-      const response = await fetch(url, { signal: AbortSignal.timeout(120_000) })
+      const response = await fetch(url, { signal: AbortSignal.timeout(120_000), redirect: 'manual' })
+      if (response.status >= 300 && response.status < 400) {
+        throw new Error(`Redirect not allowed (HTTP ${response.status})`)
+      }
       if (!response.ok) throw new Error(`HTTP ${response.status}`)
       return await response.text()
     } catch (error) {
@@ -114,10 +125,60 @@ export async function defaultFetchText(url: string): Promise<string> {
   throw new Error(`Failed to download ${url}: ${String(lastError)}`)
 }
 
+/**
+ * Files above this size are only checked for a valid tail, because JSON.parse
+ * materialises the whole document and six concurrent 34MB text tables would
+ * spike memory on the runner (and on phones).
+ */
+const MAX_FULL_JSON_VALIDATION_BYTES = 8 * 1024 * 1024
+const JSON_TAIL_BYTES = 64
+
+function isSpace(code: number): boolean {
+  return code === 0x20 || code === 0x09 || code === 0x0a || code === 0x0d
+}
+
+/**
+ * Reject truncated or non-JSON bodies before they become an immutable cache
+ * entry. A body that merely starts with "{" is not enough: a truncated
+ * `{"entry":` would be cached and fail every later run until the version
+ * directory changes.
+ */
 function assertJsonBody(text: string, url: string): void {
-  const head = text.trimStart()[0]
-  if (head !== '{' && head !== '[') {
-    throw new Error(`Unexpected response (not JSON) for ${url}`)
+  let start = 0
+  let end = text.length - 1
+  while (start <= end && isSpace(text.charCodeAt(start))) start += 1
+  while (end >= start && isSpace(text.charCodeAt(end))) end -= 1
+  const head = text[start]
+  const tail = text[end]
+  if ((head !== '{' && head !== '[') || (tail !== '}' && tail !== ']')) {
+    throw new Error(`Unexpected response (invalid or truncated JSON) for ${url}`)
+  }
+  if (Buffer.byteLength(text, 'utf-8') > MAX_FULL_JSON_VALIDATION_BYTES) return
+  try {
+    JSON.parse(text)
+  } catch {
+    throw new Error(`Malformed JSON from ${url}`)
+  }
+}
+
+/** Cheap integrity check for a cached table: non-empty and ends like JSON. */
+function hasJsonTail(filePath: string): boolean {
+  try {
+    const { size } = statSync(filePath)
+    if (size === 0) return false
+    const length = Math.min(JSON_TAIL_BYTES, size)
+    const fd = openSync(filePath, 'r')
+    try {
+      const buffer = Buffer.alloc(length)
+      readSync(fd, buffer, 0, length, size - length)
+      const tail = buffer.toString('utf-8').trimEnd()
+      const last = tail[tail.length - 1]
+      return last === '}' || last === ']'
+    } finally {
+      closeSync(fd)
+    }
+  } catch {
+    return false
   }
 }
 
@@ -171,8 +232,27 @@ export function tableCfgUrl(baseUrl: string, version: AkedataVersion, fileName: 
   return `${baseUrl.replace(/\/$/, '')}/${version.tableCfgPath}/${fileName}.json`
 }
 
-export function mapsUrl(locale: string): string {
-  return `${AKEDATABASE_RAW_BASE}/public/${locale}/maps.json`
+export function mapsUrl(locale: string, revision = 'main'): string {
+  return `${AKEDATABASE_RAW_BASE}/${revision}/public/${locale}/maps.json`
+}
+
+/**
+ * Resolve the current AKEDatabase commit once per run so the four locale files
+ * in one materialization all come from the same tree. Falls back to "main" when
+ * git is unavailable (offline runs will fail later with a clearer error).
+ */
+export function resolveImageDbRevision(): string {
+  try {
+    const output = execFileSync(
+      'git',
+      ['ls-remote', 'https://github.com/NagiYume/AKEDatabase.git', 'refs/heads/main'],
+      { encoding: 'utf-8', timeout: 30_000 },
+    )
+    const sha = output.trim().split(/\s+/)[0] ?? ''
+    return /^[0-9a-f]{40}$/.test(sha) ? sha : 'main'
+  } catch {
+    return 'main'
+  }
 }
 
 async function mapPool<T>(values: readonly T[], concurrency: number, worker: (value: T) => Promise<void>): Promise<void> {
@@ -200,11 +280,15 @@ async function downloadJsonFile(
   fetchText: FetchText,
   skipExisting: boolean,
 ): Promise<'skipped' | 'downloaded'> {
-  if (skipExisting && existsSync(destPath)) return 'skipped'
+  // A cached file with a broken tail is re-downloaded instead of trusted, so a
+  // truncated entry can heal itself on the next run.
+  if (skipExisting && existsSync(destPath) && hasJsonTail(destPath)) return 'skipped'
   const text = await fetchText(url)
   assertJsonBody(text, url)
   mkdirSync(dirname(destPath), { recursive: true })
-  const tempPath = `${destPath}.tmp`
+  // Per-process temp name: two syncs sharing a cache dir must not rename each
+  // other's half-written file.
+  const tempPath = `${destPath}.${process.pid}.tmp`
   writeFileSync(tempPath, text, 'utf-8')
   renameSync(tempPath, destPath)
   return 'downloaded'
@@ -295,16 +379,19 @@ export interface ImageDbResult {
 
 export async function materializeImageDb(options: {
   destRoot: string
+  /** Immutable AKEDatabase revision; defaults to main. */
+  revision?: string
   fetchText?: FetchText
   skipExisting?: boolean
 }): Promise<ImageDbResult> {
   const fetchText = options.fetchText ?? defaultFetchText
   const skipExisting = options.skipExisting ?? true
+  const revision = options.revision ?? 'main'
   const downloaded: string[] = []
   let skipped = 0
   await mapPool(MAPS_LOCALES, 4, async (locale) => {
     const destPath = join(options.destRoot, 'public', locale, 'maps.json')
-    const outcome = await downloadJsonFile(mapsUrl(locale), destPath, fetchText, skipExisting)
+    const outcome = await downloadJsonFile(mapsUrl(locale, revision), destPath, fetchText, skipExisting)
     if (outcome === 'skipped') skipped += 1
     else downloaded.push(locale)
   })

@@ -172,7 +172,7 @@ v1（`akedata` / `imagedb` 两个 SHA）仍能读取，但不会匹配任何新�
 
 `pnpm sync:check` 只有在**版本 id 与 maps 哈希都相同**时才进入本地一致性校验，任一不同直接判定"有变更"：
 
-1. manifest `latest` 的 id == `akedataVersion`（比 id，不比 `updatedAt`：同版本重发会变时间戳）
+1. 选定版本的 id == `akedataVersion`：设置了 `AKEDATA_VERSION` 时为该版本，否则为 manifest 的 `latest`（比 id，不比 `updatedAt`：同版本重发会变时间戳）
 2. AKEDatabase 四个 maps.json 的内容哈希 == `imagedbMapsHash`（每次都会重下这 52KB，所以哈希是实时的）
 3. 本地一致性：`validateAllData`（武器/装备/淤积点 + 来源关系）、武器 iconId、`validateImages`、
    `validateCharacterAvatarMappings`（banner 引用的角色名是否都能解析出头像）
@@ -218,7 +218,7 @@ warning —— 不让维基挂掉把数据同步整条卡死。
 - **Sync 阶段**：有变更时运行 `sync:update --force`（update 不再自己判一次闸门），物化新版本的 TableCfg 后自动创建 PR 到**触发它的那个分支**
 - **手动强制**：dispatch 时勾选 `force_sync` → **整个 check job 被跳过**（不装 chromium、不比对版本），
   直接运行 `sync:update --force`（版本没动但头像/映射过期时的入口）
-- **缓存**：`scripts/.cache/akedata` 按 `upstream-versions.json` 的哈希缓存，未换版本时 check 不重复下载表
+- **不缓存表**：`actions/cache` 主键命中后不会覆盖，check 存的半套缓存会让 sync 反复补下 locale 文件，所以每次重下（check 几 MB，sync 约 100MB）
 - **PR 分支命名**：`base = 触发分支`，head 分支 `auto/sync-game-data-<触发分支>`，
   因此不同分支的 sync 不会互相 force-push 掉对方的 PR
 

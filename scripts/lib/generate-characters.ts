@@ -8,6 +8,7 @@ import {
 import { parseJsonSafe } from './json-utils'
 import { loadAllTextTables, SUPPORTED_LOCALES } from './stat-mapping'
 import { rawCharacterDetail, rawCharacterSummary, rawEnumLabels } from './raw-wiki-data'
+import { assertSafeFileId, joinWithin } from './safe-path'
 
 export interface CharacterResult {
   written: string[]
@@ -119,7 +120,7 @@ export function generateCharacterI18n(
   rmSync(detailDir, { recursive: true, force: true })
   mkdirSync(detailDir, { recursive: true })
   const detailFiles = Object.entries(generated.details).map(([id, detail]) => {
-    const path = join(detailDir, `${id}.json`)
+    const path = joinWithin(detailDir, `${assertSafeFileId(id, 'character id')}.json`)
     writeFileSync(path, `${JSON.stringify(rawCharacterDetail(detail), null, 2)}\n`, 'utf8')
     return path
   })

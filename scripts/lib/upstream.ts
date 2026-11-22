@@ -3,11 +3,15 @@ import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import {
   fetchAkedataManifest,
+  hashMaps,
+  MAPS_LOCALES,
   materializeImageDb,
   materializeTableCfg,
+  resolveImageDbRevision,
   sanitizeVersionId,
   selectAkedataVersion,
   type AkedataManifest,
+  type FetchText,
 } from './akedata-remote'
 
 export interface UpstreamPaths {
@@ -36,8 +40,7 @@ interface SyncConfig {
   version: string
 }
 
-const CACHE_ROOT = join(projectRoot(), 'scripts', '.cache')
-const MANIFEST_CACHE = join(CACHE_ROOT, 'akedata', 'manifest.json')
+const DEFAULT_CACHE_ROOT = join(projectRoot(), 'scripts', '.cache')
 
 function projectRoot(): string {
   try {
@@ -89,6 +92,20 @@ export function validatePaths(paths: UpstreamPaths): string[] {
 export interface ResolveSourceOptions {
   mode: 'check' | 'update'
   local: boolean
+  /** Injectable for tests; defaults to the real HTTP downloader. */
+  fetchText?: FetchText
+  /** Override the materialization cache root (tests use a temp dir). */
+  cacheRoot?: string
+}
+
+/**
+ * A run is "local" when --local was passed *or* when no remote metadata was
+ * produced (explicit checkout / config path). The version gate must skip both,
+ * otherwise a local checkout without --local reports "up to date" and exits
+ * before regenerating anything.
+ */
+export function isLocalSource(source: UpstreamSource, local: boolean): boolean {
+  return local || source.remote === null
 }
 
 /**
@@ -117,22 +134,54 @@ export async function resolveUpstreamSource(
     return { paths, remote: null }
   }
 
-  const manifest: AkedataManifest = await fetchAkedataManifest({ cachePath: MANIFEST_CACHE })
+  const cacheRoot = options.cacheRoot ?? DEFAULT_CACHE_ROOT
+  const manifest: AkedataManifest = await fetchAkedataManifest({
+    cachePath: join(cacheRoot, 'akedata', 'manifest.json'),
+    fetchText: options.fetchText,
+  })
   const pinned = process.env['AKEDATA_VERSION'] || config.version || null
   const version = selectAkedataVersion(manifest, pinned)
   console.log(`  [upstream] data.akedata.wiki ${version.id} (published ${version.publishedAt})`)
 
-  const versionRoot = join(CACHE_ROOT, 'akedata', sanitizeVersionId(version.id))
-  const tables = await materializeTableCfg({ version, destRoot: versionRoot, mode: options.mode })
+  const versionRoot = join(cacheRoot, 'akedata', sanitizeVersionId(version.id))
+  const tables = await materializeTableCfg({
+    version,
+    destRoot: versionRoot,
+    mode: options.mode,
+    fetchText: options.fetchText,
+  })
   console.log(
     `  [upstream] TableCfg: ${tables.downloaded.length} downloaded, ${tables.skipped} cached`,
   )
 
-  // maps.json is tiny (4 x ~13KB): always refetch so mapsHash tracks upstream
-  // changes instead of pinning the first copy forever.
-  const imageDb = await materializeImageDb({ destRoot: join(CACHE_ROOT, 'akedatabase'), skipExisting: false })
+  // An explicit --imagedb / config path wins over the cache: callers use it to
+  // test local attribute maps without cloning AKEData as well.
+  const explicitMaps = cliArgs['imagedb'] || cliArgs['i'] || config.imagedb
+  if (explicitMaps) {
+    const missing = MAPS_LOCALES.filter((locale) => !existsSync(join(explicitMaps, 'public', locale, 'maps.json')))
+    if (missing.length > 0) {
+      throw new Error(`--imagedb "${explicitMaps}" is missing maps.json for: ${missing.join(', ')}`)
+    }
+    const mapsHash = hashMaps(explicitMaps)
+    console.log(`  [upstream] AKEDatabase maps: local ${explicitMaps} (${mapsHash})`)
+    return {
+      paths: { akedata: versionRoot, imagedb: explicitMaps },
+      remote: { version: version.id, publishedAt: version.publishedAt, mapsHash },
+    }
+  }
+
+  // Pin the AKEDatabase revision once so the four locale files cannot come from
+  // different commits while main advances mid-download. maps.json is tiny, so
+  // it is always refetched to keep mapsHash honest.
+  const revision = resolveImageDbRevision()
+  const imageDb = await materializeImageDb({
+    destRoot: join(cacheRoot, 'akedatabase'),
+    revision,
+    skipExisting: false,
+    fetchText: options.fetchText,
+  })
   console.log(
-    `  [upstream] AKEDatabase maps: ${imageDb.downloaded.length > 0 ? 'refreshed' : 'cached'} (${imageDb.mapsHash})`,
+    `  [upstream] AKEDatabase maps @${revision.slice(0, 7)}: ${imageDb.downloaded.length > 0 ? 'refreshed' : 'cached'} (${imageDb.mapsHash})`,
   )
 
   return {

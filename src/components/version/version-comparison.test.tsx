@@ -52,6 +52,11 @@ describe('VersionComparison', () => {
     expect(screen.getByText('云端')).toBeTruthy()
     expect(screen.getAllByText('游戏数据版本')).toHaveLength(2)
     expect(screen.queryByText('发现新版本')).toBeNull()
+    // 窄屏竖排、宽屏横排；箭头跟着换向
+    const row = screen.getByText('本地').closest('.flex')
+    expect(row?.className).toContain('flex-col')
+    expect(row?.className).toContain('sm:flex-row')
+    expect(document.querySelector('svg.rotate-90')).toBeTruthy()
   })
 
   it('keeps the update banner separate from the data comparison', () => {

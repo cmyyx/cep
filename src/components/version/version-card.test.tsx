@@ -45,6 +45,16 @@ describe('VersionCard', () => {
     expect(publishedRow?.textContent).toMatch(/数据资源发布时间\d{4}-\d{2}-\d{2} \d{2}:\d{2}/)
   })
 
+  it('keeps long data ids inside the card', () => {
+    render(<VersionCard label="本地" info={makeInfo({
+      gameData: { version: '1.6.4@11944529-13', publishedAt: '2026-11-21T19:33:07+08:00' },
+    })} />)
+
+    const value = screen.getByText('1.6.4@11944529-13')
+    expect(value.className).toContain('break-all')
+    expect(value.className).toContain('text-right')
+  })
+
   it('renders placeholders for builds without a data snapshot', () => {
     render(<VersionCard label="本地" info={makeInfo()} />)
 

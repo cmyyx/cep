@@ -49,14 +49,6 @@ jobs:
       - name: Install Playwright browsers
         run: pnpm exec playwright install --with-deps chromium
 
-      # Tables are immutable per published version, so the materialized tree can be
-      # reused until scripts/.cache/upstream-versions.json records a new version.
-      - name: Cache upstream tables
-        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
-        with:
-          path: scripts/.cache/akedata
-          key: akedata-tables-${{ hashFiles('scripts/.cache/upstream-versions.json') }}
-
       - name: Check upstream changes
         id: diff
         run: |
@@ -114,12 +106,6 @@ jobs:
 
       - name: Install Playwright browsers
         run: pnpm exec playwright install --with-deps chromium
-
-      - name: Cache upstream tables
-        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
-        with:
-          path: scripts/.cache/akedata
-          key: akedata-tables-${{ hashFiles('scripts/.cache/upstream-versions.json') }}
 
       - name: Run sync update
         id: sync

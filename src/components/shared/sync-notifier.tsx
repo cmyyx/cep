@@ -298,11 +298,8 @@ export function SyncNotifier() {
       const id = Number(el.dataset.toastId)
       if (!Number.isFinite(id)) continue
       // 容器是 bottom 锚定的：子项 offsetTop 不随容器高度变化，必须用视口坐标。
-      if (typeof el.getAnimations === 'function') {
-        for (const animation of el.getAnimations()) {
-          if (animation.id === 'toast-shift') animation.cancel()
-        }
-      }
+      // 不要 cancel 进行中的动画：取消会把元素瞬移到终点，下一次无关更新再测就得到
+      // delta=0。直接按当前视觉位置重新计算，动画会从当前进度继续。
       const top = el.getBoundingClientRect().top
       nextOffsets.set(id, top)
       const previous = offsetsRef.current.get(id)

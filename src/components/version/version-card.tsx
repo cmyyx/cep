@@ -29,13 +29,13 @@ export function VersionCard({ label, info }: VersionCardProps) {
     <div className="flex-1 rounded-lg shadow-[var(--shadow-border)] p-4">
       <h3 className="text-xs font-medium text-muted-foreground mb-3 uppercase tracking-wide text-center">{label}</h3>
       <div className="space-y-2">
-        <div className="flex items-center justify-between">
-          <span className="text-xs text-muted-foreground">{t('version.version')}</span>
-          <span className="text-sm font-mono font-medium">{info.version}</span>
+        <div className="flex items-start justify-between gap-2">
+          <span className="shrink-0 text-xs text-muted-foreground">{t('version.version')}</span>
+          <span className="min-w-0 break-all text-right text-sm font-mono font-medium">{info.version}</span>
         </div>
-        <div className="flex items-center justify-between">
-          <span className="text-xs text-muted-foreground">{t('version.commit')}</span>
-          <span className="text-sm font-mono">{info.commit}</span>
+        <div className="flex items-start justify-between gap-2">
+          <span className="shrink-0 text-xs text-muted-foreground">{t('version.commit')}</span>
+          <span className="min-w-0 break-all text-right text-sm font-mono">{info.commit}</span>
         </div>
         <div className="flex items-center justify-between">
           <span className="text-xs text-muted-foreground">{t('version.commitCount')}</span>
@@ -49,9 +49,9 @@ export function VersionCard({ label, info }: VersionCardProps) {
           <span className="text-xs text-muted-foreground">{t('version.buildTime')}</span>
           <span className="text-sm font-mono">{buildTimeText}</span>
         </div>
-        <div className="flex items-center justify-between">
-          <span className="text-xs text-muted-foreground">{t('version.gameDataVersion')}</span>
-          <span className="text-sm font-mono font-medium">{info.gameData?.version ?? '—'}</span>
+        <div className="flex items-start justify-between gap-2">
+          <span className="shrink-0 text-xs text-muted-foreground">{t('version.gameDataVersion')}</span>
+          <span className="min-w-0 break-all text-right text-sm font-mono font-medium">{info.gameData?.version ?? '—'}</span>
         </div>
         <div className="flex items-center justify-between">
           <span className="text-xs text-muted-foreground">{t('version.gameDataPublishedAt')}</span>

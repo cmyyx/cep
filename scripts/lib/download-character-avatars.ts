@@ -20,6 +20,7 @@ import {
   type CharacterImageTarget,
 } from './skland-character-images'
 import { fetchRemoteWithRetry, runPool } from './wiki-builder-utils'
+import { assertSafeFileId, joinWithin } from './safe-path'
 
 const CATALOG_URL =
   'https://wiki.skland.com/endfield/catalog?mainTypeId=1&subTypeId=1&filterIds=&header=0'
@@ -79,8 +80,9 @@ function expectedImageKeys(expectation: CharacterImageExpectation): string[] {
 
 /** `avatar/<id>` / `fullBody/<id>` → committed avif path. */
 function imagePathFor(avatarDir: string, key: string): string {
-  const [kind, id] = key.split('/')
-  return kind === 'fullBody' ? join(avatarDir, 'full', `${id}.avif`) : join(avatarDir, `${id}.avif`)
+  const [kind, id = ''] = key.split('/')
+  const fileName = `${assertSafeFileId(id, 'avatar id')}.avif`
+  return kind === 'fullBody' ? joinWithin(join(avatarDir, 'full'), fileName) : joinWithin(avatarDir, fileName)
 }
 
 function collectMissing(keys: readonly string[], has: (key: string) => boolean): string[] {

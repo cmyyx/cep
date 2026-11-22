@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { resolveUpstreamSource, validatePaths } from './lib/upstream'
+import { isLocalSource, resolveUpstreamSource, validatePaths } from './lib/upstream'
 import { generateWeaponI18n } from './lib/generate-weapons'
 import { generateWeaponStatsI18n } from './lib/generate-weapon-stats-i18n'
 import { generateEquipI18n } from './lib/generate-equips'
@@ -116,18 +116,21 @@ async function main() {
   console.log(`\n[sync] mode=${mode} local=${local} iconsOnly=${iconsOnly} force=${force} sklandProbe=${sklandProbe}`)
   const source = await resolveUpstreamSource(cliPaths, { local, mode })
   const paths = source.paths
+  // 显式 checkout（--akedata / 配置路径）没有 manifest 版本，和 --local 一样
+  // 必须跳过版本闸门，否则会误判 Up to date 并在重新生成前退出。
+  const localSource = isLocalSource(source, local)
   console.log(`  AKEData: ${paths.akedata}\n  AKEDatabase: ${paths.imagedb}`)
   const warnings = validatePaths(paths)
   if (warnings.length > 0) {
     console.warn('\n  Warnings:')
     warnings.forEach(w => console.warn(`    ${w}`))
-    if (!local) { console.error('  Exiting.\n'); process.exit(1) }
+    if (!localSource) { console.error('  Exiting.\n'); process.exit(1) }
   }
 
   const projectRoot = resolve(join(import.meta.dirname ?? __dirname, '..'))
 
   // Version gate (skip for local mode, icons-only, or a forced update)
-  if (!local && !iconsOnly && !force) {
+  if (!localSource && !iconsOnly && !force) {
     const versions = readUpstreamVersions()
     const versionChanged = source.remote
       ? !upstreamVersionsMatch(versions, { version: source.remote.version, mapsHash: source.remote.mapsHash })
@@ -546,7 +549,7 @@ async function main() {
   }
 
   // Surface skip status to CI (consumed by the workflow to annotate the PR).
-  if (!local && characterScrapeSkipped) {
+  if (!localSource && characterScrapeSkipped) {
     const githubOutput = process.env['GITHUB_OUTPUT']
     if (githubOutput) {
       appendFileSync(githubOutput, 'character_scrape_skipped=true\n')
@@ -559,7 +562,7 @@ async function main() {
 
   // Version snapshot — written to the working tree and committed via PR.
   // Local runs keep whatever snapshot the last remote sync produced.
-  if (mode === 'update' && !local && source.remote) {
+  if (mode === 'update' && !localSource && source.remote) {
     console.log('\n-- Updating upstream versions --')
     writeUpstreamVersions(source.remote)
   }
