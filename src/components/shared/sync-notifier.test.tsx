@@ -251,6 +251,58 @@ describe('SyncNotifier - app messages stack with sync notices', () => {
     }
   })
 
+  it('merges a repeated identical app message into one toast', async () => {
+    render(<SyncNotifier />)
+
+    await act(async () => {
+      showAppToast({ tone: 'success', text: '已是最新版本' })
+      showAppToast({ tone: 'success', text: '已是最新版本' })
+    })
+
+    expect(screen.getAllByRole('alert')).toHaveLength(1)
+    expect(screen.getByText('已是最新版本')).toBeTruthy()
+  })
+
+  it('resets the auto-dismiss timer when the same toast is merged again', async () => {
+    vi.useFakeTimers()
+    try {
+      render(<SyncNotifier />)
+
+      await act(async () => {
+        showAppToast({ tone: 'success', text: '已是最新版本' })
+      })
+      await act(async () => {
+        vi.advanceTimersByTime(2900)
+      })
+      // 第二次点击：复用同一条并重置倒计时（否则会在 3500ms 处消失）
+      await act(async () => {
+        showAppToast({ tone: 'success', text: '已是最新版本' })
+      })
+      await act(async () => {
+        vi.advanceTimersByTime(3000)
+      })
+      expect(screen.getByText('已是最新版本')).toBeTruthy()
+
+      await act(async () => {
+        vi.advanceTimersByTime(1200)
+      })
+      expect(screen.queryByText('已是最新版本')).toBeNull()
+    } finally {
+      vi.useRealTimers()
+    }
+  })
+
+  it('merges repeated identical sync notices instead of stacking them', async () => {
+    render(<SyncNotifier />)
+
+    await act(async () => {
+      notifySync({ type: 'push_success' })
+      notifySync({ type: 'push_success' })
+    })
+
+    expect(screen.getAllByRole('alert')).toHaveLength(1)
+  })
+
   it('does not lose an app message that arrives while a sync toast is fading out', async () => {
     vi.useFakeTimers()
     try {

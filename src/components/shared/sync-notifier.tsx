@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef, useState, useCallback } from 'react'
+import { useEffect, useLayoutEffect, useRef, useState, useCallback } from 'react'
 import { useRouter } from 'next/navigation'
 import { useTranslations, useLocale } from 'next-intl'
 import { CheckCircle2, AlertTriangle, X, RefreshCw, LogIn, Copy, ExternalLink, Check } from 'lucide-react'
@@ -31,6 +31,8 @@ interface ToastState {
   id: number
   kind: ToastKind
   createdAt: number
+  /** Bumped when an identical toast is merged in; restarts the progress bar + pulse. */
+  nonce: number
   phase: 'in' | 'visible' | 'out'
   /** Auto-dismiss duration in ms; null = persistent (no progress bar). */
   duration: number | null
@@ -87,36 +89,58 @@ export function SyncNotifier() {
     [commit],
   )
 
+  /** Auto-dismiss sequence — timer starts when the toast is (re)created. */
+  const scheduleDismiss = useCallback(
+    (id: number, duration: number) => {
+      addTimer(
+        id,
+        setTimeout(() => {
+          if (toastsRef.current.find((entry) => entry.id === id)?.phase === 'visible') {
+            patchToast(id, { phase: 'out' })
+          }
+          addTimer(id, setTimeout(() => removeWhere((entry) => entry.id === id), 220))
+        }, duration),
+      )
+    },
+    [addTimer, patchToast, removeWhere],
+  )
+
   const createToast = useCallback(
     (kind: ToastKind, duration: number | null, payload?: MissingTranslationEvent, text?: string) => {
+      // 相同通知合并: 同 kind + 同正文、且仍在倒计时里的，复用原位置并重置
+      // 满额倒计时（nonce 变化会让进度条与脉冲动画重放），不再叠第二条。
+      const existing = duration === null || kind === 'missing_translation'
+        ? undefined
+        : toastsRef.current.find(
+            (entry) =>
+              entry.kind === kind &&
+              entry.duration !== null &&
+              entry.phase !== 'out' &&
+              (entry.text ?? '') === (text ?? ''),
+          )
+      if (existing && duration !== null) {
+        clearTimers(existing.id)
+        patchToast(existing.id, { nonce: existing.nonce + 1, createdAt: Date.now(), phase: 'visible' })
+        scheduleDismiss(existing.id, duration)
+        return
+      }
+
       const id = ++idRef.current
       // missing_translation 复用同一个位置: 新 key 顶掉旧 key, 否则上一条的「已复制」状态会跟过来。
       if (kind === 'missing_translation') removeWhere((entry) => entry.kind === kind)
 
       commit([
         ...toastsRef.current,
-        { id, kind, createdAt: Date.now(), phase: 'in', duration, payload, text },
+        { id, kind, createdAt: Date.now(), phase: 'in', duration, payload, text, nonce: 0 },
       ])
       addTimer(
         id,
         setTimeout(() => patchToast(id, { phase: 'visible' }), 320),
       )
 
-      // Auto-dismiss — timer starts from toast creation so it aligns with
-      // the progress bar which also starts at render time.
-      if (duration !== null) {
-        addTimer(
-          id,
-          setTimeout(() => {
-            if (toastsRef.current.find((entry) => entry.id === id)?.phase === 'visible') {
-              patchToast(id, { phase: 'out' })
-            }
-            addTimer(id, setTimeout(() => removeWhere((entry) => entry.id === id), 220))
-          }, duration),
-        )
-      }
+      if (duration !== null) scheduleDismiss(id, duration)
     },
-    [addTimer, commit, patchToast, removeWhere],
+    [addTimer, clearTimers, commit, patchToast, removeWhere, scheduleDismiss],
   )
 
   const hasKind = useCallback(
@@ -258,16 +282,54 @@ export function SyncNotifier() {
     [addTimer]
   )
 
+  // ── Stack layout animation ──────────────────────────────
+  // 通知新增/移除时其余条目会整体位移: 用 FLIP + WAAPI 补一段过渡，
+  // 避免下方条目瞬移。offsetTop 不受 transform 影响，连续触发也不会累积误差。
+  const stackRef = useRef<HTMLDivElement>(null)
+  const offsetsRef = useRef(new Map<number, number>())
+
+  useLayoutEffect(() => {
+    const stack = stackRef.current
+    if (!stack) return
+    const reduced = typeof window.matchMedia === 'function'
+      && window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    const nextOffsets = new Map<number, number>()
+    for (const el of Array.from(stack.querySelectorAll<HTMLElement>('[data-toast-id]'))) {
+      const id = Number(el.dataset.toastId)
+      if (!Number.isFinite(id)) continue
+      // 容器是 bottom 锚定的：子项 offsetTop 不随容器高度变化，必须用视口坐标。
+      if (typeof el.getAnimations === 'function') {
+        for (const animation of el.getAnimations()) {
+          if (animation.id === 'toast-shift') animation.cancel()
+        }
+      }
+      const top = el.getBoundingClientRect().top
+      nextOffsets.set(id, top)
+      const previous = offsetsRef.current.get(id)
+      const entry = toasts.find((item) => item.id === id)
+      if (reduced || previous === undefined || !entry || entry.phase !== 'visible') continue
+      if (typeof el.animate !== 'function') continue
+      const delta = previous - top
+      if (Math.abs(delta) < 1) continue
+      el.animate(
+        [{ transform: `translateY(${delta}px)` }, { transform: 'translateY(0)' }],
+        { duration: 200, easing: 'cubic-bezier(0.22, 1, 0.36, 1)', id: 'toast-shift' },
+      )
+    }
+    offsetsRef.current = nextOffsets
+  }, [toasts])
+
   // ── Render ──────────────────────────────────────────────
 
   if (toasts.length === 0) return null
 
   // 多条通知垂直堆叠: 最新一条在最上方, 先出现的（含持久通知）留在角落。
   return (
-    <div className="fixed bottom-6 right-6 z-[60] flex flex-col-reverse items-end gap-2">
+    <div ref={stackRef} className="fixed bottom-6 right-6 z-[60] flex flex-col-reverse items-end gap-2">
       {toasts.map((entry) => (
         <div
           key={entry.id}
+          data-toast-id={entry.id}
           className={cn(
             'max-w-sm',
             entry.phase === 'in'
@@ -327,6 +389,22 @@ function ToastCard({
     ? isAppError ? 'text-red-500' : 'text-green-500'
     : isWarning ? 'text-amber-500' : 'text-[#0a72ef]'
 
+  // 合并同一条通知时重放一次轻微脉冲，让「又更新了」看得见。
+  const cardRef = useRef<HTMLDivElement>(null)
+  const previousNonce = useRef(toast.nonce)
+  useEffect(() => {
+    if (toast.nonce === previousNonce.current) return
+    previousNonce.current = toast.nonce
+    const el = cardRef.current
+    if (!el || typeof el.animate !== 'function') return
+    if (typeof window.matchMedia === 'function' && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+    // 只做一个极轻的缩放脉冲：带透明度会读成「消失又出现」，闪得难受。
+    el.animate(
+      [{ transform: 'scale(1)' }, { transform: 'scale(1.012)' }, { transform: 'scale(1)' }],
+      { duration: 240, easing: 'ease-out' },
+    )
+  }, [toast.nonce])
+
   const missingEvent = isMissingTranslation ? toast.payload : undefined
   const pageUrl =
     typeof window !== 'undefined'
@@ -368,6 +446,7 @@ function ToastCard({
 
   return (
     <div
+      ref={cardRef}
       role="alert"
       className="rounded-lg bg-background overflow-hidden"
       style={{
@@ -469,7 +548,7 @@ function ToastCard({
       {!isPersistent && toast.duration !== null && (
         <div className="h-[2px] bg-[#ebebeb]">
           <div
-            key={toast.id}
+            key={`${toast.id}-${toast.nonce}`}
             className="h-full bg-[#0a72ef]"
             style={{
               animation: `toast-progress ${toast.duration}ms linear forwards`,
