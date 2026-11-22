@@ -8,6 +8,7 @@ import { Badge } from '@/components/ui/badge'
 import { Skeleton } from '@/components/ui/skeleton'
 import { useVersion } from '@/hooks/use-version'
 import { VersionComparison } from '@/components/version/version-comparison'
+import { showAppToast } from '@/lib/app-toast'
 import { cn, formatTime } from '@/lib/utils'
 import { MIN_LOADING_DISPLAY_MS } from '@/lib/constants'
 import { RefreshCw } from 'lucide-react'
@@ -91,15 +92,15 @@ export default function UpdatePage() {
     prevChecking.current = isChecking
   }, [isChecking, lastCheckResult, fetchChangelog])
 
-  // Auto-dismiss check result after 3s
-  const [checkMessage, setCheckMessage] = useState<string | null>(null)
+  // Surface the manual check result in the shared bottom-right toast stack.
+  // The inline line that used to live above the changelog shifted the whole
+  // column every time it appeared/disappeared.
   useEffect(() => {
     if (!lastCheckResult) return
-    const msg = lastCheckResult === 'up-to-date' ? t('version.alreadyUpToDate') : t('version.checkFailed')
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setCheckMessage(msg)
-    const id = setTimeout(() => setCheckMessage(null), 3000)
-    return () => clearTimeout(id)
+    showAppToast({
+      tone: lastCheckResult === 'error' ? 'error' : 'success',
+      text: lastCheckResult === 'up-to-date' ? t('version.alreadyUpToDate') : t('version.checkFailed'),
+    })
   }, [lastCheckResult, t])
   // Effects watch isLoading and transition the animation phase.
   const skeletonShown = useRef(false)
@@ -158,7 +159,7 @@ export default function UpdatePage() {
       </div>
 
       {/* Main content */}
-      <div className="flex items-start justify-center p-8 md:min-h-0 md:flex-1 md:overflow-y-scroll">
+      <div className="flex items-start justify-center p-8 [scrollbar-gutter:stable] md:min-h-0 md:flex-1 md:overflow-y-scroll">
         <div className="w-full max-w-lg">
           {/* Version comparison — the cloud card shows as soon as /version.json loads */}
           <VersionComparison
@@ -180,15 +181,6 @@ export default function UpdatePage() {
               </Button>
             )}
           </div>
-          {checkMessage && (
-            <p className={cn(
-              'text-xs mb-3 animate-in fade-in duration-200',
-              lastCheckResult === 'error' ? 'text-red-500' : 'text-emerald-600',
-            )}>
-              {checkMessage}
-            </p>
-          )}
-
           {/* Changelog */}
           <div className="rounded-lg shadow-[var(--shadow-border)] p-4">
             <h3 className="text-sm font-semibold mb-3">{t('version.commitMessage')}</h3>

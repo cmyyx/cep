@@ -2,6 +2,5 @@
 export const announcementHashManifest: Record<string, string> = {
   "/announcements/2026-05-09-002.md": "d91901ea",
   "/announcements/2026-05-29-001.md": "c3c9bf5b",
-  "/announcements/2026-06-25-01.md": "14f8523c",
-  "/announcements/2026-09-09-01.md": "189b8fae"
+  "/announcements/2026-06-25-01.md": "14f8523c"
 }

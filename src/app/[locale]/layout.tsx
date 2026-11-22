@@ -135,7 +135,7 @@ export default async function LocaleLayout({
               {/* 内容滚动壳：移动端整页内容与顶部广告共用一个滚动上下文
                   （广告随内容滚出视口）；桌面保持 overflow-hidden，各页
                   自行用 flex-1 + 内部面板滚动（高度链规范见 AGENTS.md）。 */}
-              <div className="flex min-h-0 flex-1 flex-col overflow-y-auto md:overflow-hidden">
+              <div className="flex min-h-0 flex-1 flex-col overflow-y-auto [scrollbar-gutter:stable] md:overflow-hidden md:[scrollbar-gutter:auto]">
                 <MobileAdBanner />
                 {children}
               </div>
