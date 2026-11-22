@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { resolvePaths, getRepoHead, validatePaths } from './lib/upstream'
+import { isLocalSource, resolveUpstreamSource, validatePaths } from './lib/upstream'
 import { generateWeaponI18n } from './lib/generate-weapons'
 import { generateWeaponStatsI18n } from './lib/generate-weapon-stats-i18n'
 import { generateEquipI18n } from './lib/generate-equips'
@@ -114,27 +114,32 @@ async function main() {
   // `--force` is an update-mode concept: in check mode the SHA gate *is* the answer.
   const force = forceFlag && mode === 'update'
   console.log(`\n[sync] mode=${mode} local=${local} iconsOnly=${iconsOnly} force=${force} sklandProbe=${sklandProbe}`)
-  const paths = resolvePaths(cliPaths)
+  const source = await resolveUpstreamSource(cliPaths, { local, mode })
+  const paths = source.paths
+  // 显式 checkout（--akedata / 配置路径）没有 manifest 版本，和 --local 一样
+  // 必须跳过版本闸门，否则会误判 Up to date 并在重新生成前退出。
+  const localSource = isLocalSource(source, local)
   console.log(`  AKEData: ${paths.akedata}\n  AKEDatabase: ${paths.imagedb}`)
   const warnings = validatePaths(paths)
   if (warnings.length > 0) {
     console.warn('\n  Warnings:')
     warnings.forEach(w => console.warn(`    ${w}`))
-    if (!local) { console.error('  Exiting.\n'); process.exit(1) }
+    if (!localSource) { console.error('  Exiting.\n'); process.exit(1) }
   }
 
   const projectRoot = resolve(join(import.meta.dirname ?? __dirname, '..'))
 
-  // SHA check (skip for local mode, icons-only, or a forced update)
-  if (!local && !iconsOnly && !force) {
+  // Version gate (skip for local mode, icons-only, or a forced update)
+  if (!localSource && !iconsOnly && !force) {
     const versions = readUpstreamVersions()
-    const currentAkedata = getRepoHead(paths.akedata)
-    const currentImagedb = getRepoHead(paths.imagedb)
-    if (upstreamVersionsMatch(versions, {
-      akedata: currentAkedata,
-      imagedb: currentImagedb,
-    })) {
-      // A matching upstream SHA is not sufficient: project data can still be
+    const versionChanged = source.remote
+      ? !upstreamVersionsMatch(versions, { version: source.remote.version, mapsHash: source.remote.mapsHash })
+      : false
+    if (versionChanged) {
+      console.log(`\n  Upstream data changed: ${versions.akedataVersion ?? '<none>'} → ${source.remote?.version ?? '<unknown>'} — sync needed`)
+    }
+    if (!versionChanged) {
+      // A matching data version is not sufficient: project data can still be
       // stale or manually corrupted. Validate both data and generated images
       // before taking the fast path.
       const dataValidation = partitionValidationIssues(validateAllData(paths.akedata, projectRoot))
@@ -146,7 +151,7 @@ async function main() {
       ).issues
       const missingImages = validateImages(projectRoot)
       const mappingIssues = await validateCharacterAvatarMappings(projectRoot)
-      // Skland is not part of the upstream SHA gates, so a new preview character
+      // Skland is not part of the data-version gate, so a new preview character
       // (or a replaced avatar) is only visible through a live catalog probe. The
       // probe is best-effort: a failure means "unknown", never "changed".
       const drift = sklandProbe
@@ -544,7 +549,7 @@ async function main() {
   }
 
   // Surface skip status to CI (consumed by the workflow to annotate the PR).
-  if (!local && characterScrapeSkipped) {
+  if (!localSource && characterScrapeSkipped) {
     const githubOutput = process.env['GITHUB_OUTPUT']
     if (githubOutput) {
       appendFileSync(githubOutput, 'character_scrape_skipped=true\n')
@@ -555,13 +560,11 @@ async function main() {
     }
   }
 
-  // SHA update — write version file to working tree (committed via PR)
-  if (mode === 'update' && !local) {
+  // Version snapshot — written to the working tree and committed via PR.
+  // Local runs keep whatever snapshot the last remote sync produced.
+  if (mode === 'update' && !localSource && source.remote) {
     console.log('\n-- Updating upstream versions --')
-    writeUpstreamVersions({
-      akedata: getRepoHead(paths.akedata),
-      imagedb: getRepoHead(paths.imagedb),
-    })
+    writeUpstreamVersions(source.remote)
   }
 
   console.log('\n  Done\n')

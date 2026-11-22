@@ -1,13 +1,15 @@
 # Game Data Sync Pipeline
 
-将上游仓库（AKEData、AKEDatabase）的游戏数据同步到项目，生成多语言 i18n 文件和图标。多语言翻译直接取自 `AKEData/TableCfg/I18nTextTable_*.json`。
+从 `https://data.akedata.wiki` 拉取游戏表数据，同步到项目并生成多语言 i18n 文件和图标。多语言翻译直接取自版本目录下的 `TableCfg/I18nTextTable_*.json`。
 
 ## 上游数据源
 
-| 仓库 | 用途 | 路径示例 |
-|------|------|---------|
-| [AKEData](https://github.com/cmyyx/AKEData) (fork) | 武器/装备/角色/副本条目 + 属性数据 + 多语言翻译（TableCfg/I18nTextTable_*.json） | `output/CN/weapon/`, `TableCfg/` |
-| [AKEDatabase](https://github.com/NagiYume/AKEDatabase) | 属性映射 maps.json | `public/*/maps.json` |
+| 来源 | 用途 | 路径 |
+|------|------|------|
+| [data.akedata.wiki](https://data.akedata.wiki/manifest.json) | 全部 TableCfg 表 + 14 语言翻译 | `manifest.json` → `public/<游戏版本>/<热更>/TableCfg/` |
+| [AKEDatabase](https://github.com/NagiYume/AKEDatabase) | 属性映射 maps.json | `public/{CH,EN,JP,TC}/maps.json`（4 个 13KB 文件，raw 直取，不 clone） |
+
+数据源不再 clone 仓库：每次先读 `manifest.json` 的 `latest`，把需要的表下载到 `scripts/.cache/akedata/<版本 id>/`，同版本重复运行直接命中缓存。版本目录在服务端是不可变的，所以缓存可以一直复用。
 
 ## 环境准备
 
@@ -26,9 +28,9 @@
 - 子仓根另有 `README.md` / `.gitattributes`，它们在构建后由 `scripts/prune-export.mjs` 从 `out/` 里剔除，
   不会作为站点资源发布
 
-### 本地配置
+### 本地配置（可选）
 
-在项目根目录创建 `sync-game-data.config.json`（已 gitignore）：
+默认走域名，不需要任何本地仓库。只有想用本地 checkout 时才创建 `sync-game-data.config.json`（已 gitignore）：
 
 ```json
 {
@@ -37,7 +39,7 @@
 }
 ```
 
-如果上游仓库尚未 clone，脚本会使用默认路径 `../upstream/AKEData` 等（项目目录外，避免 submodule 污染）。可通过 CLI 参数覆盖：
+没有配置文件时，`--local` 会回退到默认路径 `../upstream/AKEData` 等（项目目录外）。也可以通过 CLI 参数显式指定（一旦指定 `--akedata` 就按本地模式跑）：
 
 ```bash
 pnpm sync:check --local \
@@ -55,8 +57,9 @@ pnpm sync:check [--local]
 pnpm sync:update [--local]
 ```
 
-- `--local`：跳过 SHA 分支检查，直接使用本地文件路径
-- 不加 `--local`：CI 模式，比较 SHA 后决定是否执行
+- 不加 `--local`：从 data.akedata.wiki 物化数据，比较发布版本 id 决定是否执行（CI 用这个）
+- `--local`：使用本地 checkout（`--akedata` / 配置文件），跳过版本闸门
+- `AKEDATA_VERSION=1.6.4@11944529-13`：把本次运行钉在某个已发布版本上（可复现构建、排查历史数据）
 - `--force`（仅 update 模式）：跳过"已是最新"短路，直接做全量重建。**CI 的 sync job 必须带它** ——
   "是否需要更新"由 check job 判定，update 再自己判一次就会出现"check 说 changed、update 却说
   Up to date、最后没开 PR"（2026-10-06 run #70 就是这个故障）
@@ -67,12 +70,12 @@ pnpm sync:update [--local]
 ```text
 src/generated/i18n/
 ├── weapons/
-│   ├── zh-CN.json     ← CN: output/CN weapon title
+│   ├── zh-CN.json     ← CN: WeaponBasicTable + ItemTable title
 │   ├── en.json        ← EN: TextTable_EN[engName.id]
 │   ├── ja.json        ← JP: TextTable_JP[engName.id]
 │   └── zh-TW.json      ← TC: TextTable_TC[engName.id]
 ├── equips/
-│   ├── zh-CN.json      ← CN: output/CN equip name（≥5★）
+│   ├── zh-CN.json      ← CN: EquipTable + ItemTable name（≥5★）
 │   ├── en.json         ← 同上（等待 TextTable 映射）
 │   ├── ja.json
 │   └── zh-TW.json
@@ -149,24 +152,28 @@ t(key)                                  // → "四号谷地" / "Valley IV"
 | `equips.ts` 的 `id` | `EquipTable.json` 的 key（如 `item_equip_t4_suit_atb01_body_01`） |
 | `dungeons.ts` 的 `id` | `DungeonTable.json` 的 key（如 `dung_wuling_01`） |
 
-## SHA 追踪
+## 版本追踪
 
-SHA 追踪信息存储在主仓库文件 `scripts/.cache/upstream-versions.json` 中（随主分支提交）：
+版本快照记录在主仓库文件 `scripts/.cache/upstream-versions.json` 中（随主分支提交）：
 
 ```json
 {
-  "akedata": "abc123...",
-  "imagedb": "def456...",
-  "lastSync": "2026-06-07T00:00:00.000Z"
+  "schemaVersion": 2,
+  "akedataVersion": "1.6.4@11944529-13",
+  "akedataPublishedAt": "2026-11-21T19:33:07+08:00",
+  "imagedbMapsHash": "maps-4c78a3f5e851",
+  "lastSync": "2026-11-22T00:00:00.000Z"
 }
 ```
 
+v1（`akedata` / `imagedb` 两个 SHA）仍能读取，但不会匹配任何新快照 —— 升级后第一次同步会做一次全量。
+
 ### 更新判定（四道闸门，全过才跳过）
 
-`pnpm sync:check` 只有在**两个 SHA 都相同**时才进入本地一致性校验，任一 SHA 不同直接判定"有变更"：
+`pnpm sync:check` 只有在**版本 id 与 maps 哈希都相同**时才进入本地一致性校验，任一不同直接判定"有变更"：
 
-1. AKEData HEAD SHA == `scripts/.cache/upstream-versions.json`
-2. AKEDatabase HEAD SHA == 同上
+1. 选定版本的 id == `akedataVersion`：设置了 `AKEDATA_VERSION` 时为该版本，否则为 manifest 的 `latest`（比 id，不比 `updatedAt`：同版本重发会变时间戳）
+2. AKEDatabase 四个 maps.json 的内容哈希 == `imagedbMapsHash`（每次都会重下这 52KB，所以哈希是实时的）
 3. 本地一致性：`validateAllData`（武器/装备/淤积点 + 来源关系）、武器 iconId、`validateImages`、
    `validateCharacterAvatarMappings`（banner 引用的角色名是否都能解析出头像）
 
@@ -188,16 +195,16 @@ SHA 追踪信息存储在主仓库文件 `scripts/.cache/upstream-versions.json`
 
 任一不过 → `exit 2`（`changed=true`）→ 跑 `sync:update`；全过 → `exit 0` → sync job 被跳过。
 
-**为什么需要第 4 道**：Skland 既不在 AKEData 也不在 AKEDatabase 里（其 API 还需要浏览器内签名的
+**为什么需要第 4 道**：Skland 既不在 data.akedata.wiki 里也不在 AKEDatabase 里（其 API 还需要浏览器内签名的
 `timestamp`/`sign` 请求），所以第 1-3 道看不见"维基上新出现一个前瞻角色"。没有第 4 道时，只能靠人工
-`force_sync` 或等该角色进游戏数据（SHA 变化）才会刷新头像。第 3 道仍然必要：它负责"本地/分支引用了
+`force_sync` 或等该角色进游戏数据（版本变化）才会刷新头像。第 3 道仍然必要：它负责"本地/分支引用了
 没有映射的角色名"（此时 Skland 可能本来就没有这个名字），失败信息是明确的
 `[banner] 祀`，而不是 CI 里 4 个测试文件报 `Missing character avatar mapping`。
 
 **第 4 道失败即忽略**：浏览器缺失、网络错误、Skland 改版都返回 `probeError` 并按"无变化"处理，只打
 warning —— 不让维基挂掉把数据同步整条卡死。
 
-- `pnpm sync:update` 成功后同时更新两个 SHA（通过 PR 提交到目标分支）
+- `pnpm sync:update` 成功后写入版本 id / 发布时间 / maps 哈希（通过 PR 提交到目标分支）
 - 头像抓取新增硬校验：抓取后 `downloadCharacterAvatars` 返回的 `missing` 非空（对比本次生成的
   Wiki 资源清单）→ 直接 `exit 1`，不开注定过不了 CI 的 PR。抓取失败被跳过时，`missing` 按
   已有目录计算，因此"保留旧头像"不会掩盖新角色缺图
@@ -207,17 +214,18 @@ warning —— 不让维基挂掉把数据同步整条卡死。
 `.github/workflows/sync-game-data.yml`：
 
 - **触发**：每周四、周五 00:00 UTC（cron `0 0 * * 4,5`）+ 手动 dispatch
-- **Check 阶段**：shallow sparse clone 上游仓库（仅需的目录），比较 SHA + 本地一致性（含角色头像映射）+ Skland 目录探针（需要 chromium）
-- **Sync 阶段**：有变更时运行 `sync:update --force`（update 不再自己判一次闸门），自动创建 PR 到**触发它的那个分支**
-- **手动强制**：dispatch 时勾选 `force_sync` → **整个 check job 被跳过**（不 clone 上游、不装 chromium），
-  直接运行 `sync:update --force`（上游 SHA 没动但头像/映射过期时的入口）
+- **Check 阶段**：读 manifest 比较版本 id + maps 哈希，再跑本地一致性（含角色头像映射）+ Skland 目录探针（需要 chromium）
+- **Sync 阶段**：有变更时运行 `sync:update --force`（update 不再自己判一次闸门），物化新版本的 TableCfg 后自动创建 PR 到**触发它的那个分支**
+- **手动强制**：dispatch 时勾选 `force_sync` → **整个 check job 被跳过**（不装 chromium、不比对版本），
+  直接运行 `sync:update --force`（版本没动但头像/映射过期时的入口）
+- **不缓存表**：`actions/cache` 主键命中后不会覆盖，check 存的半套缓存会让 sync 反复补下 locale 文件，所以每次重下（check 几 MB，sync 约 100MB）
 - **PR 分支命名**：`base = 触发分支`，head 分支 `auto/sync-game-data-<触发分支>`，
   因此不同分支的 sync 不会互相 force-push 掉对方的 PR
 
 **需要配置**：
-- GitHub Secrets → `GH_FORK_SYNC_TOKEN`（有权访问私有 AKEData fork 的 Personal Access Token，过期/无效将硬阻断工作流）
-- AKEDatabase 为公开仓库，无须认证
-- **注意**：上游仓库必须在工作树外部 clone（CI 中用 `$RUNNER_TEMP`），禁止 clone 到项目目录内，否则会产生 submodule 污染
+- GitHub Secrets → `GH_FORK_SYNC_TOKEN`：只用于 clone/push `cmyyx/cep-assets` 子模块；数据读取不再需要它
+- data.akedata.wiki 与 AKEDatabase 都是公开的，无须认证
+- 物化目录固定在 `scripts/.cache/`（已 gitignore），不会产生 submodule 污染
 
 ## 脚本目录结构
 
@@ -227,7 +235,8 @@ scripts/
 ├── sync-game-data.ts                   ← CLI 入口
 ├── SYNC_PIPELINE.md                    ← 本文档
 └── lib/
-    ├── upstream.ts                     ← 路径解析 + sparse clone + 文件读取
+    ├── upstream.ts                     ← 数据源解析（域名物化 / 本地 checkout）
+    ├── akedata-remote.ts               ← manifest 解析 + TableCfg 下载 + maps.json 哈希
     ├── generate-i18n.ts                ← 通用 i18n 生成（stats）
     ├── generate-weapons.ts             ← 武器 i18n（CN title + EN/JP/TC engName）
     ├── generate-equips.ts              ← 装备 i18n（CN name，≥5★）
@@ -241,5 +250,5 @@ scripts/
     ├── convert-icons.ts                ← CDN PNG → AVIF（差量）
     ├── download-character-avatars.ts      ← Skland 角色头像/立绘抓取（返回缺失清单）
     ├── skland-character-images.ts         ← Skland 目录/立绘 URL 解析（纯函数）
-    └── git-helpers.ts                  ← SHA 分支读写
+    └── git-helpers.ts                  ← 版本快照读写（v2，兼容 v1 SHA）
 ```

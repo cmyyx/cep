@@ -787,7 +787,7 @@ export default function AccountPage() {
       <div className="flex items-center gap-3 border-b border-border px-4 py-2"><SidebarTrigger /><h1 className="text-base font-semibold tracking-tight">{t('account.title')}</h1></div>
       {/* 后端维护中：由 API 客户端置位，任意一次正常响应后自动消失 */}
       <MaintenanceBanner />
-      <div className="p-6 [scrollbar-gutter:stable] md:flex-1 md:overflow-y-auto"><div className="max-w-2xl mx-auto space-y-6">
+      <div className="p-6 scroll-stable md:flex-1 md:overflow-y-auto"><div className="max-w-2xl mx-auto space-y-6">
 
         {/* ── Tab Navigation ── */}
         <div className="flex rounded-lg border border-border overflow-hidden">

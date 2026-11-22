@@ -186,7 +186,7 @@ function OAuthAuthorizeContent() {
   if (needsLogin) {
     return (
       <div className="flex flex-col md:flex-1 md:min-h-0 md:overflow-hidden">
-        <div className="md:flex-1 md:overflow-y-auto">
+        <div className="scroll-stable md:flex-1 md:overflow-y-auto">
           <div className="flex items-center justify-center min-h-[50vh] p-4 md:min-h-full">
             <div className="w-full max-w-sm py-8 space-y-6">
               <div className="text-center space-y-2">
@@ -304,7 +304,7 @@ function OAuthAuthorizeContent() {
   // ── Consent screen ──────────────────────────────────────
   return (
     <div className="flex flex-col md:flex-1 md:min-h-0 md:overflow-hidden">
-      <div className="md:flex-1 md:overflow-y-auto">
+      <div className="scroll-stable md:flex-1 md:overflow-y-auto">
         <div className="flex items-center justify-center min-h-[50vh] p-4 md:min-h-full">
           <div className="w-full max-w-sm py-8 space-y-6">
             <div className="text-center space-y-3">

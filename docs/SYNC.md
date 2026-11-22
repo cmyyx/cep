@@ -1,21 +1,22 @@
 # 同步上游游戏数据
 
-CEP 的武器、装备、淤积点数据来自上游游戏数据仓库，数据文件（`src/data/weapons.ts`、`src/data/equips.ts`、`src/data/dungeons.ts`）及多语言翻译（`src/generated/i18n/`）由同步脚本自动生成或更新。
+CEP 的武器、装备、淤积点数据来自上游游戏数据源，数据文件（`src/data/weapons.ts`、`src/data/equips.ts`、`src/data/dungeons.ts`）及多语言翻译（`src/generated/i18n/`）由同步脚本自动生成或更新。
 
 ## 上游数据源
 
-两个 Git 仓库，路径通过 `sync-game-data.config.json` 配置：
+默认直接从 `https://data.akedata.wiki` 取数：先读 `manifest.json` 的 `latest`，再把本版本目录下的 TableCfg 表下载到 `scripts/.cache/akedata/<版本 id>/`。属性映射拉 AKEDatabase 的四个 `maps.json`（raw 直取，不 clone）。
 
-| 仓库 | 配置键 | 内容 |
-|------|--------|------|
-| AKEData | `akedataPath` | 游戏原始表结构（TableCfg，含 `I18nTextTable_*.json` 多语言翻译）、输出数据（output/CN/） |
-| AKEDatabase | `imagedbPath` | 属性映射 maps.json（图标从 https://data.akedata.wiki 按需拉取） |
+| 来源 | 内容 |
+|------|------|
+| data.akedata.wiki | 全部 TableCfg 表 + 14 语言 `I18nTextTable_*.json` |
+| AKEDatabase | 属性映射 maps.json（CH/EN/JP/TC） |
 
-> 多语言翻译直接取自 `AKEData/TableCfg/I18nTextTable_{CN,EN,JP,TC}.json`
+> 多语言翻译直接取自版本目录下的 `TableCfg/I18nTextTable_{CN,EN,JP,TC,...}.json`
+> 版本可用 `AKEDATA_VERSION=1.6.4@11944529-13` 固定；不设置时跟 `latest`。
 
-### 配置
+### 配置（可选）
 
-项目根目录 `sync-game-data.config.json`：
+默认不需要配置文件。想用本地 checkout 时才创建项目根目录 `sync-game-data.config.json`：
 
 ```json
 {
@@ -26,9 +27,9 @@ CEP 的武器、装备、淤积点数据来自上游游戏数据仓库，数据�
 
 > CLI 参数优先级高于配置文件：`--akedata <path>`、`--imagedb <path>`。
 
-### 首次克隆上游仓库
+### 本地 checkout（可选）
 
-将三个仓库克隆到 `upstream/` 目录（或你指定的任意路径），然后在 `sync-game-data.config.json` 中填写对应路径。
+把 AKEData / AKEDatabase clone 到任意目录，在 `sync-game-data.config.json` 中填写路径，运行时加 `--local`。不配置就走域名。
 
 ## 命令
 
@@ -39,7 +40,7 @@ pnpm sync:check
 # 更新模式：同步武器/装备/地牢数据 + 生成 i18n + 转换图标
 pnpm sync:update
 
-# 本地模式：跳过 SHA 检查和 git fetch
+# 本地模式：使用本地 checkout，跳过版本闸门
 pnpm sync:update --local
 ```
 
@@ -58,12 +59,13 @@ pnpm sync:check
 `pnpm sync:update` 依次执行：
 
 ```
-1. 路径校验
-   └─ validatePaths() — 检查 AKEData/Translation 目录及必要子目录
+1. 数据源解析
+   ├─ 默认：读 data.akedata.wiki/manifest.json，把本版本的 TableCfg 物化到 scripts/.cache/
+   └─ validatePaths() — 校验 TableCfg 目录与 AKEDatabase maps.json 目录
 
-2. SHA 检查（非 --local 模式）
-   ├─ 对比 scripts/.cache/upstream-versions.json 中的 SHA（akedata）与上游当前 HEAD
-   ├─ 匹配 → 继续校验项目数据、武器 iconId 与生成图片；全部一致才跳过
+2. 版本检查（非 --local 模式）
+   ├─ 对比 scripts/.cache/upstream-versions.json 中的版本 id 与 manifest.latest
+   ├─ 一致 → 校验 maps 哈希、项目数据、武器 iconId 与生成图片；全部一致才跳过
    ├─ 存在差异 + --check 模式 → exit code 2（CI 触发 sync job）
    └─ 存在差异 + --update 模式 → 继续执行后续同步步骤
 
@@ -99,8 +101,8 @@ pnpm sync:check
 10. 图片验证（Image validation）
     └─ validateImages()      — 校验所有 weapon/equip AVIF 存在，缺失则 exit(1) 阻断同步
 
-11. SHA 更新（非 --local 模式）
-    └─ writeUpstreamVersions() — 写入 scripts/.cache/upstream-versions.json（随 PR 提交）
+11. 版本快照（非 --local 模式）
+    └─ writeUpstreamVersions() — 写入版本 id / 发布时间 / maps 哈希到 scripts/.cache/upstream-versions.json（随 PR 提交）
 ```
 ## 单脚本调用
 

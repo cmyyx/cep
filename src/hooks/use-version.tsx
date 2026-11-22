@@ -13,6 +13,8 @@ interface VersionContextType {
   localInfo: VersionInfo | null
   isUpdateAvailable: boolean
   isChecking: boolean
+  /** True once /version.json has been fetched at least once; the cloud card waits for it. */
+  remoteLoaded: boolean
   lastCheckResult: 'up-to-date' | 'error' | null
   forceUpgrade: boolean
   checkNow: () => void
@@ -25,6 +27,7 @@ export function VersionProvider({ children, initialInfo }: { children: ReactNode
   const [info, setInfo] = useState<VersionInfo | null>(initialInfo ?? null)
   const [localInfo] = useState<VersionInfo | null>(() => initialInfo ?? null)
   const [isUpdateAvailable, setIsUpdateAvailable] = useState(false)
+  const [remoteLoaded, setRemoteLoaded] = useState(false)
   const [isChecking, setIsChecking] = useState(false)
   const [lastCheckResult, setLastCheckResult] = useState<'up-to-date' | 'error' | null>(null)
   const [forceUpgrade, setForceUpgrade] = useState(false)
@@ -51,6 +54,7 @@ export function VersionProvider({ children, initialInfo }: { children: ReactNode
       }
       const data: VersionInfo = await res.json()
       setInfo(data)
+      setRemoteLoaded(true)
       consecutiveFailures.current = 0
 
       if (initialCommit.current === null) {
@@ -170,7 +174,7 @@ export function VersionProvider({ children, initialInfo }: { children: ReactNode
   }, [localInfo])
 
   return (
-    <VersionContext.Provider value={{ info, localInfo, isUpdateAvailable, isChecking, lastCheckResult, forceUpgrade, checkNow, refreshPage }}>
+    <VersionContext.Provider value={{ info, localInfo, isUpdateAvailable, remoteLoaded, isChecking, lastCheckResult, forceUpgrade, checkNow, refreshPage }}>
       {children}
     </VersionContext.Provider>
   )

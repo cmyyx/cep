@@ -53,7 +53,7 @@ export default async function TermsPage({
           {t('legal.termsTitle')}
         </h1>
       </div>
-      <div className="md:flex-1 md:overflow-y-auto">
+      <div className="scroll-stable md:flex-1 md:overflow-y-auto">
         <article className="max-w-3xl mx-auto px-4 py-8">
           <ReactMarkdown components={markdownComponents}>
             {t('legal.termsContent')}

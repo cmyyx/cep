@@ -1,60 +1,27 @@
 'use client'
 
-import { useState, useEffect, useCallback, useRef, useSyncExternalStore } from 'react'
+import { useState, useEffect, useCallback, useRef } from 'react'
 import { useTranslations } from 'next-intl'
 import { SidebarTrigger } from '@/components/ui/sidebar'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Skeleton } from '@/components/ui/skeleton'
 import { useVersion } from '@/hooks/use-version'
+import { VersionComparison } from '@/components/version/version-comparison'
+import { showAppToast } from '@/lib/app-toast'
 import { cn, formatTime } from '@/lib/utils'
 import { MIN_LOADING_DISPLAY_MS } from '@/lib/constants'
-import { RefreshCw, ArrowRight } from 'lucide-react'
-import type { ChangelogEntry, VersionInfo } from '@/types/version'
+import { RefreshCw } from 'lucide-react'
+import type { ChangelogEntry } from '@/types/version'
 
 interface ChangelogResponse {
   changelog: ChangelogEntry[]
 }
 
 
-function VersionCard({ label, info }: { label: string; info: VersionInfo }) {
-  const t = useTranslations()
-  const mounted = useSyncExternalStore(() => () => {}, () => true, () => false)
-  const commitTimeText = mounted ? formatTime(info.commitTime) : '--:--'
-  const buildTimeText = mounted ? formatTime(info.buildTime) : '--:--'
-
-  return (
-    <div className="flex-1 rounded-lg shadow-[var(--shadow-border)] p-4">
-      <h3 className="text-xs font-medium text-muted-foreground mb-3 uppercase tracking-wide text-center">{label}</h3>
-      <div className="space-y-2">
-        <div className="flex items-center justify-between">
-          <span className="text-xs text-muted-foreground">{t('version.version')}</span>
-          <span className="text-sm font-mono font-medium">{info.version}</span>
-        </div>
-        <div className="flex items-center justify-between">
-          <span className="text-xs text-muted-foreground">{t('version.commit')}</span>
-          <span className="text-sm font-mono">{info.commit}</span>
-        </div>
-        <div className="flex items-center justify-between">
-          <span className="text-xs text-muted-foreground">{t('version.commitCount')}</span>
-          <span className="text-sm font-mono">{info.count}</span>
-        </div>
-        <div className="flex items-center justify-between">
-          <span className="text-xs text-muted-foreground">{t('version.commitTime')}</span>
-          <span className="text-sm font-mono">{commitTimeText}</span>
-        </div>
-        <div className="flex items-center justify-between">
-          <span className="text-xs text-muted-foreground">{t('version.buildTime')}</span>
-          <span className="text-sm font-mono">{buildTimeText}</span>
-        </div>
-      </div>
-    </div>
-  )
-}
-
 export default function UpdatePage() {
   const t = useTranslations()
-  const { info, localInfo, isUpdateAvailable, isChecking, lastCheckResult, checkNow, refreshPage } = useVersion()
+  const { info, localInfo, remoteLoaded, isUpdateAvailable, isChecking, lastCheckResult, checkNow, refreshPage } = useVersion()
   const [changelog, setChangelog] = useState<ChangelogEntry[] | null>(null)
   const [isLoading, setIsLoading] = useState(true)
   const [loadError, setLoadError] = useState(false)
@@ -125,15 +92,15 @@ export default function UpdatePage() {
     prevChecking.current = isChecking
   }, [isChecking, lastCheckResult, fetchChangelog])
 
-  // Auto-dismiss check result after 3s
-  const [checkMessage, setCheckMessage] = useState<string | null>(null)
+  // Surface the manual check result in the shared bottom-right toast stack.
+  // The inline line that used to live above the changelog shifted the whole
+  // column every time it appeared/disappeared.
   useEffect(() => {
     if (!lastCheckResult) return
-    const msg = lastCheckResult === 'up-to-date' ? t('version.alreadyUpToDate') : t('version.checkFailed')
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setCheckMessage(msg)
-    const id = setTimeout(() => setCheckMessage(null), 3000)
-    return () => clearTimeout(id)
+    showAppToast({
+      tone: lastCheckResult === 'error' ? 'error' : 'success',
+      text: lastCheckResult === 'up-to-date' ? t('version.alreadyUpToDate') : t('version.checkFailed'),
+    })
   }, [lastCheckResult, t])
   // Effects watch isLoading and transition the animation phase.
   const skeletonShown = useRef(false)
@@ -192,29 +159,14 @@ export default function UpdatePage() {
       </div>
 
       {/* Main content */}
-      <div className="flex items-start justify-center p-8 md:min-h-0 md:flex-1 md:overflow-y-scroll">
+      <div className="flex items-start justify-center p-8 scroll-stable md:min-h-0 md:flex-1 md:overflow-y-scroll">
         <div className="w-full max-w-lg">
-          {/* Version comparison */}
-          {isUpdateAvailable && localInfo && info ? (
-            <div className="mb-6">
-              <div className="flex items-center gap-3 mb-4">
-                <VersionCard label={t('version.local')} info={localInfo} />
-                <ArrowRight className="size-5 text-muted-foreground shrink-0" />
-                <VersionCard label={t('version.remote')} info={info} />
-              </div>
-              <div className="rounded-lg border border-amber-500/50 bg-amber-50 dark:bg-amber-950 p-3">
-                <span className="text-sm font-medium text-amber-700 dark:text-amber-400">
-                  {t('version.updateAvailable')}
-                </span>
-              </div>
-            </div>
-          ) : (
-            displayInfo && (
-              <div className="mb-6">
-                <VersionCard label={t('version.local')} info={displayInfo} />
-              </div>
-            )
-          )}
+          {/* Version comparison — the cloud card shows as soon as /version.json loads */}
+          <VersionComparison
+            localInfo={displayInfo}
+            remoteInfo={remoteLoaded ? info : null}
+            isUpdateAvailable={isUpdateAvailable}
+          />
 
           {/* Action buttons — above changelog */}
           <div className="flex gap-2 mb-3">
@@ -229,15 +181,6 @@ export default function UpdatePage() {
               </Button>
             )}
           </div>
-          {checkMessage && (
-            <p className={cn(
-              'text-xs mb-3 animate-in fade-in duration-200',
-              lastCheckResult === 'error' ? 'text-red-500' : 'text-emerald-600',
-            )}>
-              {checkMessage}
-            </p>
-          )}
-
           {/* Changelog */}
           <div className="rounded-lg shadow-[var(--shadow-border)] p-4">
             <h3 className="text-sm font-semibold mb-3">{t('version.commitMessage')}</h3>

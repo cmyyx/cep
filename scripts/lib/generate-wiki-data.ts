@@ -20,6 +20,7 @@ import { buildPlannerGameData, writePlannerGameData, type PlannerI18nData } from
 import { rawEnumLabels, rawEquipmentDetail, rawEquipmentSummary, rawGlossary, rawWeaponDetail, rawWeaponSummary } from './raw-wiki-data'
 import { buildWeaponAcquisitionData, type WeaponAcquisitionData } from './weapon-acquisition'
 import { wikiTextKey } from '../../src/lib/wiki-i18n'
+import { assertSafeFileId, joinWithin } from './safe-path'
 
 interface AttributeShowEntry {
   list?: Array<{ name?: TextRef }>
@@ -355,7 +356,7 @@ function writeDetailFiles(
   rmSync(dir, { recursive: true, force: true })
   mkdirSync(dir, { recursive: true })
   return Object.entries(details).map(([id, detail]) => {
-    const path = join(dir, `${id}.json`)
+    const path = joinWithin(dir, `${assertSafeFileId(id, 'entity id')}.json`)
     const raw = category === 'weapons' ? rawWeaponDetail(detail as ItemWikiData['weaponDetails'][string]) : rawEquipmentDetail(detail as ItemWikiData['equipmentDetails'][string])
     writeFileSync(path, `${JSON.stringify(raw, null, 2)}\n`, 'utf8')
     return path

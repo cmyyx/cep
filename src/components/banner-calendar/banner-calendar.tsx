@@ -130,7 +130,7 @@ export function BannerCalendar() {
       )}
 
       {/* Main timeline - fills available space, vertical scroll on overflow */}
-      <div className="px-4 pt-2 pb-0 md:min-h-0 md:flex-1 md:overflow-y-auto">
+      <div className="px-4 pt-2 pb-0 scroll-stable md:min-h-0 md:flex-1 md:overflow-y-auto">
         {hasData ? (
           <TimelineChart data={timelineData} t={t} />
         ) : (

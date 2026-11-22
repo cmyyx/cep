@@ -475,10 +475,10 @@ export default function EssencePlannerPage() {
 
       {/* Desktop layout: left weapon grid + right plans */}
       <div className="hidden md:flex flex-1 overflow-hidden">
-        <div className="grow min-w-96 max-w-[33.333%] border-r border-border overflow-y-scroll p-3 pb-16">
+        <div className="grow min-w-96 max-w-[33.333%] border-r border-border scroll-stable overflow-y-scroll p-3 pb-16">
           <WeaponGrid onViewAll={() => setViewAllOpen(true)} />
         </div>
-        <div className="flex-1 overflow-y-auto p-4 pb-16">
+        <div className="flex-1 scroll-stable overflow-y-auto p-4 pb-16">
           {renderPlanList()}
         </div>
       </div>

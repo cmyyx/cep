@@ -54,6 +54,10 @@ next-env.d.ts
 .opencode
 sync-game-data.config.json
 
+# materialized upstream data (scripts/lib/akedata-remote.ts)
+/scripts/.cache/akedata/
+/scripts/.cache/akedatabase/
+
 # generated build artifacts (prebuild scripts)
 /public/version.json
 /public/changelog.json

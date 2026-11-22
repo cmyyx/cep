@@ -3,6 +3,7 @@ import { join } from 'node:path'
 import sharp from 'sharp'
 import type { WikiAssets } from './wiki-assets'
 import { fetchRemoteWithRetry, runPool } from './wiki-builder-utils'
+import { assertSafeFileId, joinWithin } from './safe-path'
 
 const AVIF_OPTIONS = { quality: 50, chromaSubsampling: '4:2:0', effort: 4 } as const
 const FETCH_TIMEOUT_MS = 20_000
@@ -105,7 +106,7 @@ export async function convertWikiAssets(
     )
     await runPool(category.ids, 6, async (id, index) => {
       const sourceName = `${category.sourceId?.(id) ?? id}.png`
-      const outputPath = join(outputDir, `${id}.avif`)
+      const outputPath = joinWithin(outputDir, `${assertSafeFileId(id, 'asset id')}.avif`)
       const label = `/${category.output.join('/')}/${id}.avif`
       if (existsSync(outputPath)) {
         categoryResults[index] = { bucket: 'skipped', label }

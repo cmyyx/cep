@@ -1,24 +1,19 @@
 // Upstream version tracking — file-based, no orphan branches, no submodules.
 // ================================================================================
 //
-// Replaced the old `auto/upstream-tracking` orphan branch approach with a simple
-// JSON file committed to the main branch.  This eliminates:
-//   - orphan branch force-push race conditions
-//   - .gitmodules / gitlink pollution (the old approach cloned upstream repos
-//     inside the working tree which Git interpreted as submodule entries)
-//
 // File: scripts/.cache/upstream-versions.json
+//
+// schemaVersion 2 tracks the published data version instead of git SHAs:
+//   { schemaVersion, akedataVersion, akedataPublishedAt, imagedbMapsHash, lastSync }
+// The v1 payload (akedata / imagedb SHAs) is still readable; it simply does not
+// match, so the first run after the switch performs one full sync.
 // ================================================================================
 
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs'
 import { join, dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
-// ── Constants ─────────────────────────────────────────────────────────────────
-
 const VERSIONS_FILE = 'scripts/.cache/upstream-versions.json'
-
-// ── Helpers ───────────────────────────────────────────────────────────────────
 
 function getProjectRoot(): string {
   try {
@@ -28,44 +23,65 @@ function getProjectRoot(): string {
   }
 }
 
-// ── Public API ────────────────────────────────────────────────────────────────
-
 export interface UpstreamVersions {
-  /** AKEData fork HEAD commit SHA at last successful sync */
+  schemaVersion: number
+  /** Legacy v1 AKEData commit SHA (kept so old builds still display something). */
   akedata: string | null
-  /** AKEDatabase HEAD commit SHA at last successful sync */
-  imagedb: string | null
-  /** ISO-8601 timestamp of last successful sync */
+  /** Published AKEData version id, e.g. 1.6.4@11944529-13. */
+  akedataVersion: string | null
+  akedataPublishedAt: string | null
+  /** Content hash of the four AKEDatabase maps.json files. */
+  imagedbMapsHash: string | null
   lastSync: string | null
 }
 
+function emptyVersions(): UpstreamVersions {
+  return {
+    schemaVersion: 0,
+    akedata: null,
+    akedataVersion: null,
+    akedataPublishedAt: null,
+    imagedbMapsHash: null,
+    lastSync: null,
+  }
+}
+
+function readString(source: Record<string, unknown>, key: string): string | null {
+  const value = source[key]
+  return typeof value === 'string' && value ? value : null
+}
+
 /** Read committed upstream version snapshot from the working tree. */
-export function readUpstreamVersions(): UpstreamVersions {
-  const versPath = join(getProjectRoot(), VERSIONS_FILE)
+export function readUpstreamVersions(rootDir: string = getProjectRoot()): UpstreamVersions {
+  const versPath = join(rootDir, VERSIONS_FILE)
   try {
     if (existsSync(versPath)) {
-      const raw = JSON.parse(readFileSync(versPath, 'utf-8')) as Partial<UpstreamVersions>
+      const raw = JSON.parse(readFileSync(versPath, 'utf-8')) as Record<string, unknown>
       return {
-        akedata: raw.akedata ?? null,
-        imagedb: raw.imagedb ?? null,
-        lastSync: raw.lastSync ?? null,
+        schemaVersion: typeof raw.schemaVersion === 'number' ? raw.schemaVersion : 1,
+        akedata: readString(raw, 'akedata'),
+        akedataVersion: readString(raw, 'akedataVersion'),
+        akedataPublishedAt: readString(raw, 'akedataPublishedAt'),
+        imagedbMapsHash: readString(raw, 'imagedbMapsHash'),
+        lastSync: readString(raw, 'lastSync'),
       }
     }
   } catch {
     // File missing or malformed — treat as no stored version (first run).
   }
-  return { akedata: null, imagedb: null, lastSync: null }
+  return emptyVersions()
 }
 
+/** Both the data version and the attribute-map content must match. */
 export function upstreamVersionsMatch(
   stored: UpstreamVersions,
-  current: { akedata: string; imagedb: string }
+  current: { version: string; mapsHash: string },
 ): boolean {
   return Boolean(
-    stored.akedata &&
-    stored.imagedb &&
-    stored.akedata === current.akedata &&
-    stored.imagedb === current.imagedb
+    stored.akedataVersion &&
+    stored.imagedbMapsHash &&
+    stored.akedataVersion === current.version &&
+    stored.imagedbMapsHash === current.mapsHash,
   )
 }
 
@@ -74,15 +90,21 @@ export function upstreamVersionsMatch(
  * The caller (sync:update) is responsible for committing this file along with
  * generated i18n / data changes.
  */
-export function writeUpstreamVersions(shas: { akedata: string; imagedb: string }): void {
-  const root = getProjectRoot()
+export function writeUpstreamVersions(
+  snapshot: { version: string; publishedAt: string; mapsHash: string },
+  rootDir: string = getProjectRoot(),
+): void {
+  const root = rootDir
   const cacheDir = join(root, 'scripts', '.cache')
   mkdirSync(cacheDir, { recursive: true })
 
   const versPath = join(cacheDir, 'upstream-versions.json')
   const payload: UpstreamVersions = {
-    akedata: shas.akedata,
-    imagedb: shas.imagedb,
+    schemaVersion: 2,
+    akedata: null,
+    akedataVersion: snapshot.version,
+    akedataPublishedAt: snapshot.publishedAt,
+    imagedbMapsHash: snapshot.mapsHash,
     lastSync: new Date().toISOString(),
   }
   writeFileSync(versPath, JSON.stringify(payload, null, 2) + '\n', 'utf-8')

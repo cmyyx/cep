@@ -371,6 +371,8 @@
     "commitMessage": "更新履歴",
     "commitTime": "コミット日時",
     "buildTime": "ビルド日時",
+    "gameDataVersion": "ゲームデータバージョン",
+    "gameDataPublishedAt": "データリソース公開日時",
     "checkUpdate": "更新を確認",
     "checking": "チェック中...",
     "alreadyUpToDate": "最新バージョンです",
