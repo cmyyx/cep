@@ -94,8 +94,10 @@ export const WIKI_ID_SEARCH_MIN_LENGTH = 3
 /** How many suit groups open themselves on a first visit (no persisted choice yet). */
 export const WIKI_DEFAULT_EXPANDED_GROUPS = 2
 
+// 列数完全由容器宽度决定（手机 3 列起，宽屏自动加列）。
+// 单卡下限 5.5rem 保证 360px 屏仍能放下 3 列；上限 10rem 防止宽屏摊得太开。
 const CARD_GRID_CLASS =
-  'grid grid-cols-[repeat(auto-fill,minmax(8.5rem,1fr))] gap-2 sm:grid-cols-[repeat(auto-fill,minmax(9rem,1fr))] xl:grid-cols-[repeat(auto-fill,minmax(10rem,1fr))]'
+  'grid grid-cols-[repeat(auto-fill,minmax(clamp(5.5rem,12vw,10rem),1fr))] gap-2'
 
 /**
  * 分类分组的 sticky 标题条。
