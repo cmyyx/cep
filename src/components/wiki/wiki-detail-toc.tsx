@@ -66,7 +66,7 @@ export function WikiDetailToc({ items, activeId, expanded, onExpandedChange, onN
       <nav
         aria-hidden={!expanded}
         className={cn(
-          'relative z-0 min-w-0 flex-1 self-start space-y-0.5 overflow-y-auto bg-popover p-2',
+          'relative z-0 min-w-0 flex-1 self-start space-y-0.5 scroll-stable overflow-y-auto bg-popover p-2',
           !expanded && 'pointer-events-none',
         )}
       >

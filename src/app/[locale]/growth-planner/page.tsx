@@ -56,7 +56,7 @@ export default function GrowthPlannerPage() {
     return (
       <div className="flex flex-col md:min-h-0 md:flex-1 md:overflow-hidden">
         {renderHeader(true)}
-        <div className="p-4 md:min-h-0 md:flex-1 md:overflow-y-auto">
+        <div className="p-4 scroll-stable md:min-h-0 md:flex-1 md:overflow-y-auto">
           <DataLoadError onRetry={retryPlannerData} />
         </div>
       </div>
@@ -129,7 +129,7 @@ export default function GrowthPlannerPage() {
       {/* Desktop (≥lg): summary goes full-width; the target picker is a
           floating edge-docked rail (GrowthFloatingPicker) so it costs zero
           layout space when not hovered. Mobile keeps its inline tab picker. */}
-      <main className="hidden min-h-0 flex-1 overflow-y-scroll p-4 pb-16 lg:block">
+      <main className="hidden min-h-0 flex-1 scroll-stable overflow-y-scroll p-4 pb-16 lg:block">
         {/* View switcher: material summary vs reverse material lookup */}
         <div className="mb-3 flex w-fit rounded-lg bg-muted p-0.5">
           <Button type="button" variant="ghost" aria-pressed={desktopView === 'summary'} onClick={() => setDesktopView('summary')} className={cn('h-auto rounded-md px-4 py-1.5 text-sm font-medium transition-colors', desktopView === 'summary' ? 'bg-background text-foreground shadow-[var(--shadow-raised)]' : 'text-muted-foreground')}>{t('summaryTab')}</Button>
@@ -145,7 +145,7 @@ export default function GrowthPlannerPage() {
           <Button type="button" variant="ghost" aria-pressed={mobileView === 'summary'} onClick={() => setMobileView('summary')} className={cn('h-auto flex-1 rounded-md px-4 py-1.5 text-sm font-medium transition-colors', mobileView === 'summary' ? 'bg-background text-foreground shadow-[var(--shadow-raised)]' : 'text-muted-foreground')}>{t('summaryTab')}</Button>
           <Button type="button" variant="ghost" aria-pressed={mobileView === 'materials'} onClick={() => setMobileView('materials')} className={cn('h-auto flex-1 rounded-md px-4 py-1.5 text-sm font-medium transition-colors', mobileView === 'materials' ? 'bg-background text-foreground shadow-[var(--shadow-raised)]' : 'text-muted-foreground')}>{t('materialsTab')}</Button>
         </div>
-        <div className="pb-24 md:min-h-0 md:flex-1 md:overflow-y-auto">
+        <div className="pb-24 scroll-stable md:min-h-0 md:flex-1 md:overflow-y-auto">
           {mobileView === 'selection' ? <div className="flex flex-col p-3"><GrowthEntityPicker onEntityAdded={handleEntityAdded} /></div> : mobileView === 'materials' ? <div className="p-4"><MaterialReversePanel /></div> : <div className="p-4"><GrowthSummary /></div>}
         </div>
         <div className="fixed inset-x-0 bottom-0 safe-area-bottom-bar z-40 flex shrink-0 items-center justify-between bg-background px-4 py-2.5 shadow-[var(--shadow-border-inset-t)]">
@@ -156,7 +156,7 @@ export default function GrowthPlannerPage() {
       <Dialog open={configOpen && Boolean(activeConfig)} onOpenChange={setConfigOpen}>
         <DialogContent className="h-[min(90svh,58rem)] grid-rows-[auto_minmax(0,1fr)_auto] sm:max-w-[min(94vw,90rem)]">
           <div className="pr-8"><DialogTitle>{t('targetConfiguration')}</DialogTitle><DialogDescription className="mt-1">{t('targetConfigurationDescription')}</DialogDescription></div>
-          <div className="min-h-0 overflow-y-auto pr-1">{activeConfig ? <GrowthTargetCard config={activeConfig} onRemove={() => setConfigOpen(false)} /> : null}</div>
+          <div className="min-h-0 scroll-stable overflow-y-auto pr-1">{activeConfig ? <GrowthTargetCard config={activeConfig} onRemove={() => setConfigOpen(false)} /> : null}</div>
           <DialogFooter><Button type="button" onClick={() => setConfigOpen(false)}>{t('save')}</Button></DialogFooter>
         </DialogContent>
       </Dialog>

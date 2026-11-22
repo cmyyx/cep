@@ -159,7 +159,7 @@ export default function UpdatePage() {
       </div>
 
       {/* Main content */}
-      <div className="flex items-start justify-center p-8 [scrollbar-gutter:stable] md:min-h-0 md:flex-1 md:overflow-y-scroll">
+      <div className="flex items-start justify-center p-8 scroll-stable md:min-h-0 md:flex-1 md:overflow-y-scroll">
         <div className="w-full max-w-lg">
           {/* Version comparison — the cloud card shows as soon as /version.json loads */}
           <VersionComparison

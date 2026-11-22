@@ -429,6 +429,13 @@
   background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.5) 30%, rgba(255,255,255,0.5) 70%, transparent 100%);
 }
 
+/* Reserve the scrollbar width on page-level scroll containers so content does
+   not reflow when the scrollbar appears (long changelog, late data, etc.).
+   Overlay scrollbars report zero width, so this is a no-op on Android. */
+@utility scroll-stable {
+  scrollbar-gutter: stable;
+}
+
 /* Leading dot pulse */
 @keyframes dot-pulse {
   0%,

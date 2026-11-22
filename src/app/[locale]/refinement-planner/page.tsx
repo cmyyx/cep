@@ -48,10 +48,10 @@ export default function RefinementPlannerPage() {
 
       {/* Desktop layout: left equip list + right recommendations */}
       <div className="hidden md:flex flex-1 overflow-hidden">
-        <div className="w-1/2 shrink-0 border-r border-border overflow-y-scroll p-3 pb-16">
+        <div className="w-1/2 shrink-0 border-r border-border scroll-stable overflow-y-scroll p-3 pb-16">
           <EquipList />
         </div>
-        <div className="flex-1 overflow-y-scroll p-4 pb-16">
+        <div className="flex-1 scroll-stable overflow-y-scroll p-4 pb-16">
           <RefinementPanel />
         </div>
       </div>

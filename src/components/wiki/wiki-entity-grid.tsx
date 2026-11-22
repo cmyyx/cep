@@ -649,7 +649,7 @@ export const WikiEntityGrid = memo(function WikiEntityGrid({
         )}
       </div>
 
-      <div className="px-4 pb-6 sm:px-6 lg:px-8 md:flex-1 md:overflow-y-auto">
+      <div className="px-4 pb-6 sm:px-6 lg:px-8 scroll-stable md:flex-1 md:overflow-y-auto">
         {filtered.length === 0 ? (
           <div className="mx-auto mt-10 flex max-w-sm flex-col items-center gap-3 rounded-lg bg-card p-6 text-center shadow-[var(--shadow-card)]">
             <SearchX aria-hidden="true" className="size-8 text-muted-foreground" />

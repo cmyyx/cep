@@ -204,7 +204,7 @@ function LoginPageContent() {
           {isLogin ? t('nav.login') : t('nav.register')}
         </h1>
       </div>
-      <div className="md:flex-1 md:overflow-y-auto">
+      <div className="scroll-stable md:flex-1 md:overflow-y-auto">
         <div className="flex items-center justify-center min-h-[50vh] p-4 md:min-h-full">
           <div className="w-full max-w-sm py-8">
         <div className="mb-8 text-center">
@@ -631,7 +631,7 @@ function LoginUnavailableGuide() {
         <SidebarTrigger />
         <h1 className="text-base font-semibold tracking-tight">{t('auth.unavailableTitle')}</h1>
       </div>
-      <div className="flex-1 overflow-y-auto">
+      <div className="flex-1 scroll-stable overflow-y-auto">
         <div className="flex items-center justify-center min-h-full p-4">
           <div className="w-full max-w-sm py-8">
             <div className="mb-8 text-center">

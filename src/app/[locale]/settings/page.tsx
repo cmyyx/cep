@@ -97,7 +97,7 @@ export default function SettingsPage() {
         <h1 className="text-base font-semibold tracking-tight">{t('nav.settings')}</h1>
       </div>
 
-      <div className="p-4 md:flex-1 md:overflow-y-auto">
+      <div className="p-4 scroll-stable md:flex-1 md:overflow-y-auto">
         <div className="flex w-full max-w-none flex-col gap-6">
         {/* 主题设置组 */}
         <section className="flex flex-col gap-4">
