@@ -7,10 +7,10 @@ import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Skeleton } from '@/components/ui/skeleton'
 import { useVersion } from '@/hooks/use-version'
-import { VersionCard } from '@/components/version/version-card'
+import { VersionComparison } from '@/components/version/version-comparison'
 import { cn, formatTime } from '@/lib/utils'
 import { MIN_LOADING_DISPLAY_MS } from '@/lib/constants'
-import { RefreshCw, ArrowRight } from 'lucide-react'
+import { RefreshCw } from 'lucide-react'
 import type { ChangelogEntry } from '@/types/version'
 
 interface ChangelogResponse {
@@ -20,7 +20,7 @@ interface ChangelogResponse {
 
 export default function UpdatePage() {
   const t = useTranslations()
-  const { info, localInfo, isUpdateAvailable, isChecking, lastCheckResult, checkNow, refreshPage } = useVersion()
+  const { info, localInfo, remoteLoaded, isUpdateAvailable, isChecking, lastCheckResult, checkNow, refreshPage } = useVersion()
   const [changelog, setChangelog] = useState<ChangelogEntry[] | null>(null)
   const [isLoading, setIsLoading] = useState(true)
   const [loadError, setLoadError] = useState(false)
@@ -160,27 +160,12 @@ export default function UpdatePage() {
       {/* Main content */}
       <div className="flex items-start justify-center p-8 md:min-h-0 md:flex-1 md:overflow-y-scroll">
         <div className="w-full max-w-lg">
-          {/* Version comparison */}
-          {isUpdateAvailable && localInfo && info ? (
-            <div className="mb-6">
-              <div className="flex items-center gap-3 mb-4">
-                <VersionCard label={t('version.local')} info={localInfo} />
-                <ArrowRight className="size-5 text-muted-foreground shrink-0" />
-                <VersionCard label={t('version.remote')} info={info} />
-              </div>
-              <div className="rounded-lg border border-amber-500/50 bg-amber-50 dark:bg-amber-950 p-3">
-                <span className="text-sm font-medium text-amber-700 dark:text-amber-400">
-                  {t('version.updateAvailable')}
-                </span>
-              </div>
-            </div>
-          ) : (
-            displayInfo && (
-              <div className="mb-6">
-                <VersionCard label={t('version.local')} info={displayInfo} />
-              </div>
-            )
-          )}
+          {/* Version comparison — the cloud card shows as soon as /version.json loads */}
+          <VersionComparison
+            localInfo={displayInfo}
+            remoteInfo={remoteLoaded ? info : null}
+            isUpdateAvailable={isUpdateAvailable}
+          />
 
           {/* Action buttons — above changelog */}
           <div className="flex gap-2 mb-3">
