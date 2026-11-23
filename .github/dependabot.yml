@@ -40,6 +40,12 @@ updates:
         update-types:
           - 'minor'
           - 'patch'
+    # @types/node 的大版本号 = Node 运行时大版本，不是普通包的"破坏性变更"。
+    # engines 固定 >=24 <25 期间只允许 24.x：跳到 26 会让 tsc 放行 Node 26
+    # 才有的 API，到 Node 24 上运行时才报错。等 engines 抬到 26 再改这个上界。
+    ignore:
+      - dependency-name: '@types/node'
+        versions: ['>=25']
 
   - package-ecosystem: 'github-actions'
     directory: '/'
