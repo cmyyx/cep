@@ -389,12 +389,30 @@ describe('applyMaaEndEssence', () => {
   })
 
   it('targets another account without touching the active one', () => {
-    applyMaaEndEssence(['wpn_sword_0012', 'wpn_funnel_0017'], 'acc_b')
+    applyMaaEndEssence(['wpn_sword_0012', 'wpn_funnel_0017'], { accountId: 'acc_b' })
 
     const state = useEssenceSettingsStore.getState()
     expect(state.accounts[1].essenceStatus).toEqual({ wpn_sword_0012: true, wpn_funnel_0017: true })
     expect(state.accounts[0].essenceStatus).toEqual({ wpn_claym_0017: true })
     expect(state.essenceStatus).toEqual({ wpn_claym_0017: true })
+  })
+
+  it('only adds marks when the inventory is a partial scan', () => {
+    applyMaaEndEssence(['wpn_funnel_0017'], { mode: 'merge' })
+
+    const state = useEssenceSettingsStore.getState()
+    // the pre-existing mark survives: a partial scan proves nothing about it
+    expect(state.essenceStatus).toEqual({ wpn_claym_0017: true, wpn_funnel_0017: true })
+    expect(state.accounts[0].essenceStatus).toEqual({ wpn_claym_0017: true, wpn_funnel_0017: true })
+    expect(state.accounts[1].essenceStatus).toEqual({ wpn_sword_0012: true })
+  })
+
+  it('merges into the requested account without leaking into the active one', () => {
+    applyMaaEndEssence(['wpn_funnel_0017'], { accountId: 'acc_b', mode: 'merge' })
+
+    const state = useEssenceSettingsStore.getState()
+    expect(state.accounts[1].essenceStatus).toEqual({ wpn_sword_0012: true, wpn_funnel_0017: true })
+    expect(state.accounts[0].essenceStatus).toEqual({ wpn_claym_0017: true })
   })
 
   it('clears the essence marks for an empty inventory', () => {

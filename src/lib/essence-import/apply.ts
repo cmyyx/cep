@@ -181,14 +181,46 @@ export function applyCepEssenceSettings(data: unknown, options: CepEssenceImport
 }
 
 /**
- * Apply a MaaEND 无暇基质库存 scan to one profile.
+ * Apply a MaaEND 基质库存 scan to one profile.
  *
- * Replace semantics: the file is a complete inventory scan, so a weapon that is
- * absent means "no essence for it". Weapon ownership and notes are never touched
- * — MaaEND only reports essences, not owned weapons.
+ * Weapon ownership and notes are never touched — MaaEND only reports essences,
+ * not owned weapons.
+ *
+ * Two modes, chosen from the file's `coverage`:
+ * - 'replace' (default): the file lists every 无瑕 essence, so a weapon absent
+ *   from it means "no essence for it" and its mark is cleared.
+ * - 'merge': the file is only part of the warehouse, so absence proves nothing —
+ *   marks are only added.
  */
-export function applyMaaEndEssence(weaponIds: readonly string[], accountId?: string): void {
-  const essenceStatus: Record<string, boolean> = {}
-  for (const weaponId of weaponIds) essenceStatus[weaponId] = true
-  useEssenceSettingsStore.getState().replaceAccountMarks(accountId, { essenceStatus })
+export type MaaEndEssenceApplyMode = 'replace' | 'merge'
+
+export interface MaaEndEssenceApplyOptions {
+  /** Target profile; defaults to the current active account. */
+  accountId?: string
+  /** Defaults to 'replace' (a complete inventory scan). */
+  mode?: MaaEndEssenceApplyMode
+}
+
+export function applyMaaEndEssence(
+  weaponIds: readonly string[],
+  options: MaaEndEssenceApplyOptions = {},
+): void {
+  const { accountId, mode = 'replace' } = options
+  const incoming: Record<string, boolean> = {}
+  for (const weaponId of weaponIds) incoming[weaponId] = true
+
+  if (mode === 'merge') {
+    // Read the target's current marks through the store (never localStorage: the
+    // mounted store re-persists its own copy and would drop a direct write).
+    const state = useEssenceSettingsStore.getState()
+    const target =
+      state.accounts.find((account) => account.id === accountId) ??
+      state.accounts.find((account) => account.id === state.activeAccountId) ??
+      state.accounts[0]
+    const essenceStatus = { ...(target?.essenceStatus ?? {}), ...incoming }
+    state.replaceAccountMarks(accountId, { essenceStatus })
+    return
+  }
+
+  useEssenceSettingsStore.getState().replaceAccountMarks(accountId, { essenceStatus: incoming })
 }

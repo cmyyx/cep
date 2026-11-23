@@ -13,6 +13,7 @@ vi.mock('@/lib/planner/planner-data-loader', () => ({
 // Echo the key (plus interpolation values) so assertions can check both copy
 // wiring and the computed numbers.
 vi.mock('next-intl', () => ({
+  useLocale: () => 'zh-CN',
   useTranslations: () => (key: string, values?: Record<string, unknown>) =>
     values ? `${key}:${JSON.stringify(values)}` : key,
 }))
@@ -103,9 +104,29 @@ const cepBackup = {
   },
 }
 
-const maaEndInventory = [
+/** v3.2.0 and earlier: no longer imported, only reported as unsupported. */
+const maaEndLegacyInventory = [
   { weapon_ids: ['wpn_sword_0012'], essences: [{ levels: [6, 6, 3], count: 1 }] },
 ]
+
+/** wpn_sword_0012 + wpn_sword_0016 share this term set. */
+const SWORD_TERMS = ['gat_passive_attr_will', 'gat_passive_attr_atk', 'gst_passive_tacafter']
+
+function maaEndV1(overrides: Record<string, unknown> = {}) {
+  return {
+    format: 'maaend.essence_inventory',
+    version: 1,
+    account_id: 'uid_hash',
+    updated_at: '2026-11-22T04:05:06Z',
+    coverage: { flawless_gold: { complete_at: '2026-11-22T04:05:06Z' } },
+    items: [{
+      quality: 'flawless_gold',
+      mark: 'lock',
+      skills: SWORD_TERMS.map((id) => ({ id, level: 6 })),
+    }],
+    ...overrides,
+  }
+}
 
 /** Two file accounts + globals, so restore vs single-account mode can be told apart. */
 const twoAccountBackup = {
@@ -187,10 +208,10 @@ describe('DataImportDialog: CEP backup', () => {
 
 describe('DataImportDialog: MaaEND essence inventory', () => {
   it('asks which account to overwrite when several accounts exist', async () => {
-    await openImport('essence_inventory.json', maaEndInventory)
+    await openImport('uid_hash.json', maaEndV1())
     render(<DataImportDialog />)
 
-    expect(screen.getByText('settings.importFormatMaaEnd')).not.toBeNull()
+    expect(screen.getByText(/settings\.importFormatMaaEndVersion:.*"version":1/)).not.toBeNull()
     expect(screen.getByText('settings.importTargetAccount')).not.toBeNull()
     expect(screen.getByText(/settings\.importMaaEndSummary/)).not.toBeNull()
 
@@ -199,66 +220,171 @@ describe('DataImportDialog: MaaEND essence inventory', () => {
     await waitFor(() => expect(useDataImportStore.getState().request).toBeNull())
     const state = useEssenceSettingsStore.getState()
     // Default target is the active account; ownership and notes stay untouched.
-    expect(state.essenceStatus).toEqual({ wpn_sword_0012: true })
+    expect(state.essenceStatus).toEqual({ wpn_sword_0012: true, wpn_sword_0016: true })
     expect(state.weaponOwnership).toEqual({ wpn_claym_0017: true })
-    expect(state.accounts[0].essenceStatus).toEqual({ wpn_sword_0012: true })
+    expect(state.accounts[0].essenceStatus).toEqual({ wpn_sword_0012: true, wpn_sword_0016: true })
     expect(state.accounts[1].essenceStatus).toEqual({})
   })
 
   it('warns how many existing marks the replace clears', async () => {
-    await openImport('essence_inventory.json', maaEndInventory)
+    await openImport('uid_hash.json', maaEndV1())
     render(<DataImportDialog />)
 
-    expect(screen.getByText(/"added":1,"removed":1/)).not.toBeNull()
+    // Two weapons gain a mark, the pre-existing wpn_claym_0017 mark is cleared
+    expect(screen.getByText(/"added":2,"removed":1/)).not.toBeNull()
   })
 
   it('skips the account picker for a single account', async () => {
     useEssenceSettingsStore.getState().removeAccount('acc_b')
-    await openImport('essence_inventory.json', maaEndInventory)
+    await openImport('uid_hash.json', maaEndV1())
     render(<DataImportDialog />)
 
     expect(screen.queryByText('settings.importTargetAccount')).toBeNull()
     expect(screen.getByText('主号')).not.toBeNull()
   })
 
-  it('explains an empty inventory before wiping the marks', async () => {
-    await openImport('essence_inventory.json', [])
+  it('explains an empty complete inventory', async () => {
+    await openImport('uid_hash.json', maaEndV1({ items: [] }))
     render(<DataImportDialog />)
 
     expect(screen.getByText('settings.importMaaEndEmpty')).not.toBeNull()
   })
 
-  it('reports a malformed MaaEND file and blocks the confirm button', async () => {
-    await openImport('essence_inventory.json', [
-      { weapon_ids: ['wpn_sword_0012'], essences: [{ levels: [7, 1, 1], count: 1 }] },
-    ])
+  it('reports a malformed MAAEND file and blocks the confirm button', async () => {
+    await openImport('uid_hash.json', maaEndV1({ items: [{ quality: 'flawless_gold', mark: 'lock' }] }))
     render(<DataImportDialog />)
 
-    expect(screen.getByText('settings.importFormatMaaEndInvalid')).not.toBeNull()
+    // The failing field path is shown: "corrupted" alone gives the user nothing to act on
+    expect(screen.getByText(/settings\.importFormatMaaEndInvalid:.*"path":"items\[0\]\.skills"/)).not.toBeNull()
     expect((screen.getByText('settings.importConfirm') as HTMLButtonElement).disabled).toBe(true)
   })
 
-  it('reports unknown weapons that will be skipped', async () => {
-    await openImport('essence_inventory.json', [
-      { weapon_ids: ['wpn_sword_0012', 'wpn_sword_9999'], essences: [{ levels: [6, 6, 3], count: 1 }] },
-    ])
+  it('tells the user to re-export instead of importing the retired array format', async () => {
+    await openImport('EssenceInventory.json', maaEndLegacyInventory)
     render(<DataImportDialog />)
 
-    expect(screen.getByText(/settings\.importMaaEndUnknownWeapons:.*"count":1/)).not.toBeNull()
-    // The ids themselves are listed: a weapon missing from the dataset has no name.
-    expect(screen.getByText('wpn_sword_9999')).not.toBeNull()
+    // Not "corrupted": the format was dropped on purpose, the file is fine
+    expect(screen.getByText('settings.importMaaEndLegacyUnsupported')).not.toBeNull()
+    expect(screen.queryByText(/settings\.importFormatMaaEndInvalid/)).toBeNull()
+    expect((screen.getByText('settings.importConfirm') as HTMLButtonElement).disabled).toBe(true)
+
+    fireEvent.click(screen.getByText('settings.importConfirm'))
+    // Nothing was written
+    expect(useEssenceSettingsStore.getState().essenceStatus).toEqual({ wpn_claym_0017: true })
   })
 
-  it('caps the unknown-id list and reports how many are hidden', async () => {
-    const unknownIds = Array.from({ length: 25 }, (_, index) => `wpn_sword_9${String(index).padStart(3, '0')}`)
-    await openImport('essence_inventory.json', [
-      { weapon_ids: ['wpn_sword_0012', ...unknownIds], essences: [{ levels: [6, 6, 3], count: 1 }] },
-    ])
+  it('reports entries that map to no weapon', async () => {
+    const unknown = ['gat_passive_attr_unknown', 'gat_passive_attr_atk', 'gst_passive_unknown']
+    await openImport('uid_hash.json', maaEndV1({
+      items: [
+        ...maaEndV1().items,
+        { quality: 'flawless_gold', mark: 'lock', skills: unknown.map((id) => ({ id, level: 6 })) },
+      ],
+    }))
     render(<DataImportDialog />)
 
-    expect(screen.getByText('wpn_sword_9000')).not.toBeNull()
-    expect(screen.queryByText('wpn_sword_9024')).toBeNull()
-    expect(screen.getByText(/settings\.importMaaEndUnknownWeaponsMore:.*"count":5/)).not.toBeNull()
+    expect(screen.getByText(/settings\.importMaaEndUnknownEntries:.*"count":1/)).not.toBeNull()
+    // The raw term ids are listed: an unmatched combo has no name in any locale
+    expect(screen.getByText(unknown.join(' + '))).not.toBeNull()
+  })
+
+  it('caps the unknown-entry list and reports how many are hidden', async () => {
+    const unknownItems = Array.from({ length: 25 }, (_, index) => ({
+      quality: 'flawless_gold',
+      mark: 'lock',
+      skills: ['gat_passive_attr_unknown', 'gat_passive_attr_atk', `gst_passive_x${index}`].map((id, i) => ({
+        id,
+        level: i === 2 ? 1 : 6,
+      })),
+    }))
+    await openImport('uid_hash.json', maaEndV1({ items: unknownItems }))
+    render(<DataImportDialog />)
+
+    expect(screen.getByText(/settings\.importMaaEndUnknownEntries:.*"count":25/)).not.toBeNull()
+    expect(screen.getAllByText(/gat_passive_attr_unknown/)).toHaveLength(20)
+    expect(screen.getByText(/settings\.importMaaEndUnknownEntriesMore:.*"count":5/)).not.toBeNull()
+  })
+
+  it('imports a complete scan and shows its version + write time', async () => {
+    await openImport('uid_hash.json', maaEndV1())
+    render(<DataImportDialog />)
+
+    expect(screen.getByText(/settings\.importMaaEndUpdatedAt:/)).not.toBeNull()
+    expect(screen.getByText(/settings\.importMaaEndSummary:.*"weapons":2,"essences":1/)).not.toBeNull()
+
+    fireEvent.click(screen.getByText('settings.importConfirm'))
+
+    await waitFor(() => expect(useDataImportStore.getState().request).toBeNull())
+    expect(useEssenceSettingsStore.getState().essenceStatus).toEqual({
+      wpn_sword_0012: true,
+      wpn_sword_0016: true,
+    })
+  })
+
+  it('only adds marks for a partial scan and says so', async () => {
+    await openImport('uid_hash.json', maaEndV1({ coverage: { flawless_gold: { unread: 2 } } }))
+    render(<DataImportDialog />)
+
+    expect(screen.getByText('settings.importMaaEndIncomplete')).not.toBeNull()
+    // No "clears N marks" warning: a partial scan never removes marks
+    expect(screen.queryByText(/settings\.importMaaEndReplaceWarning/)).toBeNull()
+
+    fireEvent.click(screen.getByText('settings.importConfirm'))
+
+    await waitFor(() => expect(useDataImportStore.getState().request).toBeNull())
+    // The pre-existing wpn_claym_0017 mark survives
+    expect(useEssenceSettingsStore.getState().essenceStatus).toEqual({
+      wpn_claym_0017: true,
+      wpn_sword_0012: true,
+      wpn_sword_0016: true,
+    })
+  })
+
+  it('offers copy + GitHub + other channels for a newer protocol file', async () => {
+    const writeText = vi.fn().mockResolvedValue(undefined)
+    Object.defineProperty(navigator, 'clipboard', { value: { writeText }, configurable: true })
+
+    await openImport('uid_hash.json', maaEndV1({ version: 2 }))
+    render(<DataImportDialog />)
+
+    // Two-way hint: update MaaEND, or this site is behind -> report it
+    expect(screen.getByText('settings.importMaaEndNewerProtocolHint')).not.toBeNull()
+
+    fireEvent.click(screen.getByText('common.copyReportInfo'))
+    await waitFor(() => expect(writeText).toHaveBeenCalledTimes(1))
+    const copied = String(writeText.mock.calls[0][0])
+    expect(copied).toContain('unsupported_version')
+    expect(copied).toContain('文件 v2')
+    expect(copied).toContain('v1')
+    expect(screen.getByText('common.reportCopied')).not.toBeNull()
+
+    // GitHub issue is prefilled with the same diagnostics
+    const issue = screen.getByText('common.reportToGithub').closest('a') as HTMLAnchorElement
+    expect(issue.href).toContain('issues/new')
+    expect(decodeURIComponent(issue.href)).toContain('unsupported_version')
+
+    // Secondary channels, for users without a GitHub account
+    expect(screen.getByText('feedback.forum')).not.toBeNull()
+    expect(screen.getByText('feedback.qqGroup')).not.toBeNull()
+    expect(screen.getByText('settings.importMaaEndFeedbackGuide')).not.toBeNull()
+  })
+
+  it('offers the same report path for a same-version structure failure', async () => {
+    await openImport('uid_hash.json', maaEndV1({ items: [{ quality: 'flawless_gold', mark: 'lock' }] }))
+    render(<DataImportDialog />)
+
+    expect(screen.getByText('settings.importMaaEndInvalidHint')).not.toBeNull()
+    const issue = screen.getByText('common.reportToGithub').closest('a') as HTMLAnchorElement
+    expect(decodeURIComponent(issue.href)).toContain('items[0].skills')
+  })
+
+  it('names a newer MaaEND protocol instead of calling the file corrupted', async () => {
+    await openImport('uid_hash.json', maaEndV1({ version: 2 }))
+    render(<DataImportDialog />)
+
+    expect(screen.getByText(/settings\.importMaaEndNewerProtocol:.*"version":2/)).not.toBeNull()
+    expect(screen.queryByText(/settings\.importFormatMaaEndInvalid/)).toBeNull()
+    expect((screen.getByText('settings.importConfirm') as HTMLButtonElement).disabled).toBe(true)
   })
 })
 

@@ -43,6 +43,11 @@ jobs:
       - name: i18n key check
         run: pnpm run check:i18n
 
+      # 上游 MaaEND 改协议（format / version）就失败，提醒适配 maamend.ts；
+      # 网络不可用时只跳过，不会因为 runner 抖动挡住合并。
+      - name: MaaEND protocol check
+        run: pnpm run check:maaend-protocol
+
       - name: Test
         run: pnpm test
 

@@ -83,19 +83,73 @@ describe('prepareImport', () => {
     expect(prepared.inventory).toBeNull()
   })
 
-  it('parses a MaaEND inventory', async () => {
+  it('refuses the retired array format instead of importing it', async () => {
     const prepared = await prepareImport([
       { weapon_ids: ['wpn_sword_0012'], essences: [{ levels: [6, 6, 3], count: 2 }] },
     ])
 
     expect(prepared.kind).toBe('maamend-essence')
-    expect(prepared.file).toBeNull()
-    expect(prepared.inventory).toMatchObject({ groupCount: 1, essenceCount: 2, weaponIds: ['wpn_sword_0012'] })
+    expect(prepared.inventory).toBeNull()
+    expect(prepared.inventoryError).toEqual({ reason: 'legacy_unsupported' })
+  })
+
+  it('parses a protocol-v1 MaaEND inventory', async () => {
+    const prepared = await prepareImport({
+      format: 'maaend.essence_inventory',
+      version: 1,
+      updated_at: '2026-11-22T00:00:00Z',
+      coverage: { flawless_gold: { complete_at: '2026-11-22T00:00:00Z' } },
+      items: [{
+        quality: 'flawless_gold',
+        mark: 'lock',
+        skills: [
+          { id: 'gat_passive_attr_will', level: 6 },
+          { id: 'gat_passive_attr_atk', level: 6 },
+          { id: 'gst_passive_tacafter', level: 3 },
+        ],
+      }],
+    })
+
+    expect(prepared.kind).toBe('maamend-essence')
+    expect(prepared.inventory).toMatchObject({
+      protocolVersion: 1,
+      weaponIds: ['wpn_sword_0012', 'wpn_sword_0016'],
+    })
+    expect(prepared.inventoryError).toBeNull()
+  })
+
+  it('surfaces an unsupported protocol version as its own failure', async () => {
+    const prepared = await prepareImport({
+      format: 'maaend.essence_inventory',
+      version: 99,
+      updated_at: '2026-11-22T00:00:00Z',
+      coverage: {},
+      items: [],
+    })
+
+    expect(prepared.kind).toBe('maamend-essence')
+    expect(prepared.inventory).toBeNull()
+    expect(prepared.inventoryError).toEqual({ reason: 'unsupported_version', version: 99 })
+  })
+
+  it('reports a malformed MaaEND file as invalid rather than unrecognized', async () => {
+    const prepared = await prepareImport({
+      format: 'maaend.essence_inventory',
+      version: 1,
+      updated_at: '2026-11-22T00:00:00Z',
+      coverage: {},
+      items: [{ quality: 'flawless_gold' }],
+    })
+
+    expect(prepared.kind).toBe('maamend-essence')
+    // The failing path travels with the failure so the dialog can show it
+    expect(prepared.inventoryError).toEqual({ reason: 'invalid', issuePath: 'items[0].mark' })
   })
 
   it('reports an unrecognized payload without guessing', async () => {
-    expect(await prepareImport({ hello: 'world' })).toEqual({ kind: null, file: null, inventory: null })
-    expect(await prepareImport([1, 2, 3])).toEqual({ kind: null, file: null, inventory: null })
+    const unrecognized = { kind: null, file: null, inventory: null, inventoryError: null }
+    expect(await prepareImport({ hello: 'world' })).toEqual(unrecognized)
+    expect(await prepareImport([1, 2, 3])).toEqual(unrecognized)
   })
 })
 
