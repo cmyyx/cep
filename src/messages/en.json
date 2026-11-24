@@ -603,7 +603,7 @@
     "importFormatCep": "CEP backup",
     "importFormatMaaEnd": "MaaEND essence inventory",
     "importFormatUnknown": "Unrecognized file",
-    "importFormatMaaEndInvalid": "Could not read this MaaEND essence inventory: the file claims protocol v1 but its structure does not match ({path}).",
+    "importFormatMaaEndInvalid": "Could not read this MaaEND essence inventory",
     "importActiveAccount": "Active account",
     "importTargetAccount": "Import into account",
     "importAccountMode": "Account handling",
@@ -637,7 +637,7 @@
     "importMaaEndUnknownEntriesMore": "…and {count} more",
     "importMaaEndLegacyUnsupported": "This is the retired MaaEND array format and is no longer supported: re-scan with MaaEND v3.3.0-beta.2 or newer, then import the file under debug/record/EssenceInventory/",
     "importMaaEndNewerProtocolHint": "Check that MaaEND is up to date first. If it already is, this site has not caught up yet — please report it through the channels below.",
-    "importMaaEndInvalidHint": "Nothing was written, because this site cannot tell what your inventory actually contains. Possible causes: the file is damaged or truncated, was edited by hand, or the upstream format changed without a version bump. Please report it through the channels below and attach the file.",
+    "importMaaEndInvalidHint": "Nothing was written, because this site cannot tell what your inventory actually contains. Possible causes: the file is damaged or truncated, was edited by hand, or the format is not supported yet. Please report it through the channels below and attach the file.",
     "importMaaEndOtherChannels": "Other channels:",
     "importMaaEndFeedbackGuide": "How to report (home announcement)"
   },

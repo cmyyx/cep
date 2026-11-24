@@ -346,9 +346,7 @@ function DataImportDialogBody({ fileName, prepared, onDone }: DataImportDialogBo
                     })
                   : inventoryError.reason === 'legacy_unsupported'
                     ? t('settings.importMaaEndLegacyUnsupported')
-                    : t('settings.importFormatMaaEndInvalid', {
-                        path: inventoryError.issuePath ?? '—',
-                      })}
+                    : t('settings.importFormatMaaEndInvalid')}
               </p>
 
               {inventoryError.reason !== 'legacy_unsupported' ? (

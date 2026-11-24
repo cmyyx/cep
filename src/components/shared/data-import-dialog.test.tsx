@@ -254,8 +254,9 @@ describe('DataImportDialog: MaaEND essence inventory', () => {
     await openImport('uid_hash.json', maaEndV1({ items: [{ quality: 'flawless_gold', mark: 'lock' }] }))
     render(<DataImportDialog />)
 
-    // The failing field path is shown: "corrupted" alone gives the user nothing to act on
-    expect(screen.getByText(/settings\.importFormatMaaEndInvalid:.*"path":"items\[0\]\.skills"/)).not.toBeNull()
+    expect(screen.getByText('settings.importFormatMaaEndInvalid')).not.toBeNull()
+    // The failing field still travels with the report, just not in the headline
+    expect(screen.getByText('settings.importMaaEndInvalidHint')).not.toBeNull()
     expect((screen.getByText('settings.importConfirm') as HTMLButtonElement).disabled).toBe(true)
   })
 

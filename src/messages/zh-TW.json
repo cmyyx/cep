@@ -603,7 +603,7 @@
     "importFormatCep": "CEP 備份檔案",
     "importFormatMaaEnd": "MaaEND 基質庫存",
     "importFormatUnknown": "無法辨識的檔案",
-    "importFormatMaaEndInvalid": "MaaEND 基質庫存辨識失敗：檔案標示協議 v1，但結構不符合本站的解析（{path}）。",
+    "importFormatMaaEndInvalid": "MaaEND 基質庫存辨識失敗",
     "importActiveAccount": "目前啟用帳號",
     "importTargetAccount": "匯入至帳號",
     "importAccountMode": "帳號處理方式",
@@ -637,7 +637,7 @@
     "importMaaEndUnknownEntriesMore": "…還有 {count} 個",
     "importMaaEndLegacyUnsupported": "這是 MaaEND 舊版陣列格式，本站已不再支援：請用 MaaEND v3.3.0-beta.2 或更新版本重新盤點，再匯入 debug/record/EssenceInventory/ 下的檔案",
     "importMaaEndNewerProtocolHint": "請先確認 MaaEND 是否已更新到最新版；若已經是最新，代表本站還沒跟上，請透過下方管道回報。",
-    "importMaaEndInvalidHint": "本站無法據此判斷你的真實庫存，因此不會寫入資料。可能原因：檔案損毀或不完整、被手動修改過，或上游改了格式但沒升版本號。請透過下方管道回報，並附上這個檔案。",
+    "importMaaEndInvalidHint": "本站無法據此判斷你的真實庫存，因此不會寫入資料。可能原因：檔案損毀或不完整、被手動修改過，或格式未適配。請透過下方管道回報，並附上這個檔案。",
     "importMaaEndOtherChannels": "其它管道：",
     "importMaaEndFeedbackGuide": "回報須知（首頁公告）"
   },

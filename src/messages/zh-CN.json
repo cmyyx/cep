@@ -385,7 +385,7 @@
     "importFormatCep": "CEP 备份文件",
     "importFormatMaaEnd": "MaaEND 基质库存",
     "importFormatUnknown": "无法识别的文件",
-    "importFormatMaaEndInvalid": "MaaEND 基质库存识别失败：文件标着协议 v1，但结构不符合本站的解析（{path}）。",
+    "importFormatMaaEndInvalid": "MaaEND 基质库存识别失败",
     "importActiveAccount": "当前激活账号",
     "importTargetAccount": "导入到账号",
     "importAccountMode": "账号处理方式",
@@ -419,7 +419,7 @@
     "importMaaEndUnknownEntriesMore": "…还有 {count} 个",
     "importMaaEndLegacyUnsupported": "这是 MaaEND 旧版数组格式，本站已不再支持：请用 MaaEND v3.3.0-beta.2 或更新版本重新盘点，再导入 debug/record/EssenceInventory/ 下的文件",
     "importMaaEndNewerProtocolHint": "请先确认 MaaEND 是否已更新到最新版；若已经是最新，说明本站还没跟上，请通过下方渠道反馈。",
-    "importMaaEndInvalidHint": "本站无法据此判断你的真实库存，因此不会写入数据。可能原因：文件损坏或不完整、被手工修改过，或上游改了格式但没升版本号。请通过下方渠道反馈，并附上这个文件。",
+    "importMaaEndInvalidHint": "本站无法据此判断你的真实库存，因此不会写入数据。可能原因：文件损坏或不完整、被手工修改过，或格式未适配。请通过下方渠道反馈，并附上这个文件。",
     "importMaaEndOtherChannels": "其它渠道：",
     "importMaaEndFeedbackGuide": "反馈须知（首页公告）"
   },
