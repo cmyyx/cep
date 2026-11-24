@@ -30,10 +30,25 @@ const { useDataImportStore } = await import('@/stores/useDataImportStore')
 const { useEssenceSettingsStore } = await import('@/stores/useEssenceSettingsStore')
 const { notifySync } = await import('@/hooks/useAutoSync')
 
-/** Same shape as a real MaaEND EssenceInventory.json export. */
-const maaEndInventory = [
-  { weapon_ids: ['wpn_claym_0004', 'wpn_lance_0011'], essences: [{ levels: [1, 1, 1], count: 1 }] },
-]
+/** Same shape as a real MaaEND EssenceInventory/<account>.json (protocol v1). */
+const maaEndInventory = {
+  format: 'maaend.essence_inventory',
+  version: 1,
+  updated_at: '2026-11-22T00:00:00Z',
+  coverage: { flawless_gold: { complete_at: '2026-11-22T00:00:00Z' } },
+  items: [
+    // wpn_claym_0004 and wpn_lance_0011 share this exact affix set
+    {
+      quality: 'flawless_gold',
+      mark: 'lock',
+      skills: [
+        { id: 'gat_passive_attr_main', level: 6 },
+        { id: 'gat_passive_attr_atk', level: 6 },
+        { id: 'gst_passive_tactic', level: 3 },
+      ],
+    },
+  ],
+}
 
 function seedAccount() {
   useEssenceSettingsStore.setState({

@@ -3,7 +3,7 @@ import { useDataImportStore } from './useDataImportStore'
 import type { PreparedImport } from '@/lib/data-import'
 
 function prepared(kind: PreparedImport['kind']): PreparedImport {
-  return { kind, file: null, inventory: null }
+  return { kind, file: null, inventory: null, inventoryError: null }
 }
 
 beforeEach(() => {

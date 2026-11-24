@@ -1,9 +1,9 @@
 'use client'
 
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import { useTranslations } from 'next-intl'
-import { AlertTriangle } from 'lucide-react'
-import { Button } from '@/components/ui/button'
+import { useLocale, useTranslations } from 'next-intl'
+import { AlertTriangle, Check, Copy, ExternalLink } from 'lucide-react'
+import { Button, buttonVariants } from '@/components/ui/button'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Label } from '@/components/ui/label'
 import {
@@ -35,10 +35,30 @@ import {
 import { importModule } from '@/lib/data-import'
 import type { PreparedImport } from '@/lib/data-import'
 import { applyMaaEndEssence, listFileAccounts, type EssenceRestoreMode } from '@/lib/essence-import/apply'
+import { MAAEND_PROTOCOL } from '@/lib/essence-import/protocol'
+import { buildMaaEndImportReport, buildMaaEndIssueUrl } from '@/lib/essence-import/report'
+import { FEEDBACK_CHANNELS } from '@/components/shared/guard-layout'
 import { showAppToast } from '@/lib/app-toast'
+
+/**
+ * Caution icon colour for the warning blocks.
+ *
+ * DESIGN.md keeps the chrome achromatic ("don't introduce warm colors into the
+ * UI chrome"), and the design system defines no warning token — only
+ * `destructive` for errors. Caution therefore reads through shape
+ * (AlertTriangle) and the muted surface, not hue. This constant exists so the
+ * whole dialog cannot drift into a mix of amber/red/gray again.
+ */
+const CAUTION_ICON = 'text-muted-foreground'
 
 /** Unknown MaaEND weapon ids rendered before the list is truncated. */
 const UNKNOWN_WEAPON_LIST_LIMIT = 20
+
+/** Protocol timestamps are opaque strings; a bad one must not break the dialog. */
+function formatMaaEndTime(value: string): string {
+  const time = new Date(value)
+  return Number.isNaN(time.getTime()) ? value : time.toLocaleString()
+}
 
 function isRecord(value: unknown): value is Record<string, unknown> {
   return value !== null && typeof value === 'object' && !Array.isArray(value)
@@ -60,6 +80,7 @@ interface DataImportDialogBodyProps {
  */
 function DataImportDialogBody({ fileName, prepared, onDone }: DataImportDialogBodyProps) {
   const t = useTranslations()
+  const locale = useLocale()
   const modules = useMemo(() => getIoModules(t), [t])
   const knownIds = useMemo(() => getKnownModuleIds(t), [t])
 
@@ -80,6 +101,7 @@ function DataImportDialogBody({ fileName, prepared, onDone }: DataImportDialogBo
   const kind = prepared.kind
   const file = prepared.file
   const inventory = prepared.inventory
+  const inventoryError = prepared.inventoryError
 
   const [checked, setChecked] = useState<Set<string>>(() => {
     if (!file) return new Set()
@@ -167,12 +189,56 @@ function DataImportDialogBody({ fileName, prepared, onDone }: DataImportDialogBo
 
   // 导入进行中: 双重点击会跑两遍 importModule (顺序写入同一批 store)
   const [importing, setImporting] = useState(false)
+  const [reportCopied, setReportCopied] = useState(false)
+
+  /**
+   * Diagnostic block for a failed MaaEND import. Built on demand so the report
+   * always reflects the file actually being looked at.
+   */
+  const maaEndReport = useMemo(() => {
+    if (kind !== 'maamend-essence' || !inventoryError) return null
+    return buildMaaEndImportReport({
+      fileName,
+      // origin + pathname only: query/fragment can carry per-user values and this
+      // report is pasted into a public GitHub issue (same rule as sync-notifier).
+      pageUrl: typeof window === 'undefined'
+        ? ''
+        : `${window.location.origin}${window.location.pathname}`,
+      userAgent: typeof navigator === 'undefined' ? '' : navigator.userAgent,
+      supportedVersion: MAAEND_PROTOCOL.version,
+      adaptedAt: MAAEND_PROTOCOL.adaptedAt,
+      failure: inventoryError,
+    })
+  }, [fileName, inventoryError, kind])
+
+  const maaEndIssueUrl = useMemo(() => (maaEndReport ? buildMaaEndIssueUrl(maaEndReport) : null), [maaEndReport])
+
+  const copyMaaEndReport = useCallback(async () => {
+    if (!maaEndReport) return
+    try {
+      await navigator.clipboard.writeText(`${maaEndReport.title}\n\n${maaEndReport.body}`)
+      setReportCopied(true)
+    } catch {
+      // Clipboard denied (insecure context / permission): the GitHub button still works.
+    }
+  }, [maaEndReport])
 
   const handleConfirm = useCallback(async () => {
     if (importing) return
     if (kind === 'maamend-essence') {
       if (!inventory) return
-      applyMaaEndEssence(inventory.weaponIds, targetAccountId)
+      // A partial inventory proves nothing about the weapons it omits, so it may
+      // only add marks; clearing them is reserved for a complete scan.
+      const applied = applyMaaEndEssence(inventory.weaponIds, {
+        accountId: targetAccountId,
+        mode: inventory.complete ? 'replace' : 'merge',
+      })
+      if (!applied) {
+        // The chosen profile vanished (cloud refresh deleted it): never fall back
+        // to another account and call that a success.
+        reportError('settings.importApplyError')
+        return
+      }
       markSuccess()
       onDone()
       return
@@ -215,7 +281,10 @@ function DataImportDialogBody({ fileName, prepared, onDone }: DataImportDialogBo
     kind === 'cep-backup'
       ? t('settings.importFormatCep')
       : kind === 'maamend-essence'
-        ? t('settings.importFormatMaaEnd')
+        ? inventory
+          // 协议版本随文件显示：上游一升版，这里立刻能看出本站适配到哪一版
+          ? t('settings.importFormatMaaEndVersion', { version: inventory.protocolVersion })
+          : t('settings.importFormatMaaEnd')
         : t('settings.importFormatUnknown')
 
   const confirmDisabled =
@@ -248,22 +317,102 @@ function DataImportDialogBody({ fileName, prepared, onDone }: DataImportDialogBo
 
         {file && file.version > EXPORT_FORMAT_VERSION ? (
           <div className="flex items-start gap-2 rounded-md bg-muted/50 px-2.5 py-2 text-xs">
-            <AlertTriangle className="size-3.5 shrink-0 mt-0.5 text-amber-500" />
+            <AlertTriangle className={cn('size-3.5 shrink-0 mt-0.5', CAUTION_ICON)} />
             <span>{t('settings.importNewerVersionWarning', { version: file.version })}</span>
           </div>
         ) : null}
 
         {kind === null || (kind === 'cep-backup' && !file) ? (
           <div className="flex items-start gap-2 rounded-md bg-muted/50 px-2.5 py-2 text-xs">
-            <AlertTriangle className="size-3.5 shrink-0 mt-0.5 text-amber-500" />
+            <AlertTriangle className={cn('size-3.5 shrink-0 mt-0.5', CAUTION_ICON)} />
             <span>{t('settings.importInvalidFormat')}</span>
           </div>
         ) : null}
 
-        {kind === 'maamend-essence' && !inventory ? (
+        {/* Three distinct causes, three distinct messages: lumping "retired format"
+            or "newer protocol" into "the file may be corrupted" is what made users
+            report a bug instead of upgrading MaaEND. Every non-legacy failure also
+            offers a report path, because the user is the only one holding the file. */}
+        {kind === 'maamend-essence' && !inventory && inventoryError ? (
           <div className="flex items-start gap-2 rounded-md bg-muted/50 px-2.5 py-2 text-xs">
-            <AlertTriangle className="size-3.5 shrink-0 mt-0.5 text-amber-500" />
-            <span>{t('settings.importFormatMaaEndInvalid')}</span>
+            <AlertTriangle className={cn('size-3.5 shrink-0 mt-0.5', CAUTION_ICON)} />
+            <div className="flex-1 space-y-1.5">
+              <p>
+                {inventoryError.reason === 'unsupported_version'
+                  ? t('settings.importMaaEndNewerProtocol', {
+                      version: inventoryError.version,
+                      supported: MAAEND_PROTOCOL.version,
+                      adaptedAt: MAAEND_PROTOCOL.adaptedAt,
+                    })
+                  : inventoryError.reason === 'legacy_unsupported'
+                    ? t('settings.importMaaEndLegacyUnsupported')
+                    : t('settings.importFormatMaaEndInvalid')}
+              </p>
+
+              {inventoryError.reason !== 'legacy_unsupported' ? (
+                <>
+                  <p className="text-muted-foreground">
+                    {inventoryError.reason === 'unsupported_version'
+                      ? t('settings.importMaaEndNewerProtocolHint')
+                      : t('settings.importMaaEndInvalidHint')}
+                  </p>
+
+                  <div className="flex items-center gap-1.5 flex-wrap">
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      size="xs"
+                      onClick={() => void copyMaaEndReport()}
+                      title={reportCopied ? t('common.reportCopied') : t('common.copyReportInfo')}
+                    >
+                      {reportCopied ? <Check className="size-3" /> : <Copy className="size-3" />}
+                      {reportCopied ? t('common.reportCopied') : t('common.copyReportInfo')}
+                    </Button>
+                    {maaEndIssueUrl ? (
+                      <a
+                        href={maaEndIssueUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={cn(buttonVariants({ variant: 'outline', size: 'xs' }), 'gap-1')}
+                      >
+                        <ExternalLink className="size-3" aria-hidden="true" />
+                        {t('common.reportToGithub')}
+                      </a>
+                    ) : null}
+                  </div>
+
+                  {/* Secondary channels: not everyone has a GitHub account, and the
+                      pinned announcement explains what a useful report contains. */}
+                  <p className="text-muted-foreground">
+                    {t('settings.importMaaEndOtherChannels')}{' '}
+                    <a
+                      href={FEEDBACK_CHANNELS.forum.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="underline underline-offset-2 hover:text-foreground"
+                    >
+                      {t('feedback.forum')}
+                    </a>
+                    {' · '}
+                    <a
+                      href={FEEDBACK_CHANNELS.qqGroup.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="underline underline-offset-2 hover:text-foreground"
+                    >
+                      {t('feedback.qqGroup')}
+                    </a>
+                    {' · '}
+                    <a
+                      href={`/${locale}`}
+                      className="underline underline-offset-2 hover:text-foreground"
+                    >
+                      {t('settings.importMaaEndFeedbackGuide')}
+                    </a>
+                  </p>
+                </>
+              ) : null}
+            </div>
           </div>
         ) : null}
 
@@ -271,26 +420,39 @@ function DataImportDialogBody({ fileName, prepared, onDone }: DataImportDialogBo
           <div className="space-y-2">
             <p className="text-xs text-muted-foreground">
               {t('settings.importMaaEndSummary', {
-                groups: inventory.groupCount,
                 weapons: inventory.weaponIds.length,
+                essences: inventory.essenceCount,
               })}
             </p>
 
-            {inventory.unknownWeaponIds.length > 0 ? (
+            {inventory.updatedAt ? (
+              <p className="text-xs text-muted-foreground">
+                {t('settings.importMaaEndUpdatedAt', { time: formatMaaEndTime(inventory.updatedAt) })}
+              </p>
+            ) : null}
+
+            {!inventory.complete ? (
               <div className="flex items-start gap-2 rounded-md bg-muted/50 px-2.5 py-2 text-xs">
-                <AlertTriangle className="size-3.5 shrink-0 mt-0.5 text-amber-500" />
+                <AlertTriangle className={cn('size-3.5 shrink-0 mt-0.5', CAUTION_ICON)} />
+                <span>{t('settings.importMaaEndIncomplete')}</span>
+              </div>
+            ) : null}
+
+            {inventory.unknownItems.length > 0 ? (
+              <div className="flex items-start gap-2 rounded-md bg-muted/50 px-2.5 py-2 text-xs">
+                <AlertTriangle className={cn('size-3.5 shrink-0 mt-0.5', CAUTION_ICON)} />
                 <div className="flex-1 space-y-1">
-                  <span>{t('settings.importMaaEndUnknownWeapons', { count: inventory.unknownWeaponIds.length })}</span>
-                  {/* Raw ids only: a weapon the dataset does not know has no name in any locale. */}
+                  <span>{t('settings.importMaaEndUnknownEntries', { count: inventory.unknownCount })}</span>
+                  {/* Raw ids only: an entry the dataset does not know has no name in any locale. */}
                   <ul className="max-h-24 overflow-y-auto font-mono text-[11px] leading-relaxed">
-                    {inventory.unknownWeaponIds.slice(0, UNKNOWN_WEAPON_LIST_LIMIT).map((weaponId) => (
-                      <li key={weaponId}>{weaponId}</li>
+                    {inventory.unknownItems.slice(0, UNKNOWN_WEAPON_LIST_LIMIT).map((entry) => (
+                      <li key={entry}>{entry}</li>
                     ))}
                   </ul>
-                  {inventory.unknownWeaponIds.length > UNKNOWN_WEAPON_LIST_LIMIT ? (
+                  {inventory.unknownItems.length > UNKNOWN_WEAPON_LIST_LIMIT ? (
                     <span>
-                      {t('settings.importMaaEndUnknownWeaponsMore', {
-                        count: inventory.unknownWeaponIds.length - UNKNOWN_WEAPON_LIST_LIMIT,
+                      {t('settings.importMaaEndUnknownEntriesMore', {
+                        count: inventory.unknownItems.length - UNKNOWN_WEAPON_LIST_LIMIT,
                       })}
                     </span>
                   ) : null}
@@ -300,9 +462,9 @@ function DataImportDialogBody({ fileName, prepared, onDone }: DataImportDialogBo
 
             <p className="text-xs text-muted-foreground">{t('settings.importMaaEndIgnoreLevels')}</p>
 
-            {inventoryDiff && inventoryDiff.removed > 0 ? (
+            {inventory.complete && inventoryDiff && inventoryDiff.removed > 0 ? (
               <div className="flex items-start gap-2 rounded-md bg-muted/50 px-2.5 py-2 text-xs">
-                <AlertTriangle className="size-3.5 shrink-0 mt-0.5 text-amber-500" />
+                <AlertTriangle className={cn('size-3.5 shrink-0 mt-0.5', CAUTION_ICON)} />
                 <span>
                   {t('settings.importMaaEndReplaceWarning', {
                     name: accountLabel(targetAccountId),
@@ -313,9 +475,9 @@ function DataImportDialogBody({ fileName, prepared, onDone }: DataImportDialogBo
               </div>
             ) : null}
 
-            {inventory.groupCount === 0 ? (
+            {inventory.weaponIds.length === 0 ? (
               <div className="flex items-start gap-2 rounded-md bg-muted/50 px-2.5 py-2 text-xs">
-                <AlertTriangle className="size-3.5 shrink-0 mt-0.5 text-amber-500" />
+                <AlertTriangle className={cn('size-3.5 shrink-0 mt-0.5', CAUTION_ICON)} />
                 <span>{t('settings.importMaaEndEmpty')}</span>
               </div>
             ) : null}

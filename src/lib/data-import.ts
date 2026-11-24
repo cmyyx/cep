@@ -17,7 +17,7 @@ import { useAnnouncementStore } from '@/stores/useAnnouncementStore'
 import { sanitizeObject, extractReadIds } from '@/lib/data-io-utils'
 import { applyCepEssenceSettings, type CepEssenceImportOptions } from '@/lib/essence-import/apply'
 import { detectImportKind, type ImportKind } from '@/lib/essence-import/detect'
-import type { MaaEndEssenceSummary } from '@/lib/essence-import/maamend'
+import type { MaaEndEssenceSummary, MaaEndParseFailure } from '@/lib/essence-import/maamend'
 import type { GrowthConfig, PanelPreviewConfig } from '@/types/planner'
 
 /** Parsed CEP export envelope. */
@@ -47,21 +47,31 @@ export interface PreparedImport {
   file: ImportFile | null
   /** Parsed MaaEND inventory; only for kind === 'maamend-essence'. */
   inventory: MaaEndEssenceSummary | null
+  /**
+   * Why a MaaEND payload was rejected (null when it parsed, or when the file was
+   * not MaaEND at all). `unsupported_version` means the file is from a newer
+   * MaaEND protocol — a different failure than "corrupted", so the dialog must
+   * be able to tell them apart.
+   */
+  inventoryError: MaaEndParseFailure | null
 }
 
 /** Sniff the format and parse accordingly (never throws). */
 export async function prepareImport(json: unknown): Promise<PreparedImport> {
   const kind = detectImportKind(json)
   if (kind === 'cep-backup') {
-    return { kind, file: validateImportFile(json), inventory: null }
+    return { kind, file: validateImportFile(json), inventory: null, inventoryError: null }
   }
   if (kind === 'maamend-essence') {
     // Lazy: zod is otherwise only used by the login / oauth routes, and this
     // module is reachable from the globally mounted import dialog.
     const { parseMaaEndEssence } = await import('@/lib/essence-import/maamend')
-    return { kind, file: null, inventory: parseMaaEndEssence(json) }
+    const parsed = parseMaaEndEssence(json)
+    return parsed.ok
+      ? { kind, file: null, inventory: parsed.summary, inventoryError: null }
+      : { kind, file: null, inventory: null, inventoryError: parsed.failure }
   }
-  return { kind: null, file: null, inventory: null }
+  return { kind: null, file: null, inventory: null, inventoryError: null }
 }
 
 /** Validate the CEP export envelope; null when the payload is not one. */

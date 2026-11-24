@@ -181,14 +181,57 @@ export function applyCepEssenceSettings(data: unknown, options: CepEssenceImport
 }
 
 /**
- * Apply a MaaEND 无暇基质库存 scan to one profile.
+ * Apply a MaaEND 基质库存 scan to one profile.
  *
- * Replace semantics: the file is a complete inventory scan, so a weapon that is
- * absent means "no essence for it". Weapon ownership and notes are never touched
- * — MaaEND only reports essences, not owned weapons.
+ * Weapon ownership and notes are never touched — MaaEND only reports essences,
+ * not owned weapons.
+ *
+ * Two modes, chosen from the file's `coverage`:
+ * - 'replace' (default): the file lists every 无瑕 essence, so a weapon absent
+ *   from it means "no essence for it" and its mark is cleared.
+ * - 'merge': the file is only part of the warehouse, so absence proves nothing —
+ *   marks are only added.
  */
-export function applyMaaEndEssence(weaponIds: readonly string[], accountId?: string): void {
-  const essenceStatus: Record<string, boolean> = {}
-  for (const weaponId of weaponIds) essenceStatus[weaponId] = true
-  useEssenceSettingsStore.getState().replaceAccountMarks(accountId, { essenceStatus })
+export type MaaEndEssenceApplyMode = 'replace' | 'merge'
+
+export interface MaaEndEssenceApplyOptions {
+  /** Target profile; defaults to the current active account. */
+  accountId?: string
+  /** Defaults to 'replace' (a complete inventory scan). */
+  mode?: MaaEndEssenceApplyMode
+}
+
+/**
+ * Write the marks.
+ *
+ * Returns false when the caller named a profile that no longer exists (a cloud
+ * refresh can delete the account while the import dialog is open). Writing to
+ * the active or first profile instead would silently modify a different account
+ * and still report success, so this is a hard stop.
+ */
+export function applyMaaEndEssence(
+  weaponIds: readonly string[],
+  options: MaaEndEssenceApplyOptions = {},
+): boolean {
+  const { accountId, mode = 'replace' } = options
+  const state = useEssenceSettingsStore.getState()
+  if (accountId && !state.accounts.some((account) => account.id === accountId)) return false
+
+  const incoming: Record<string, boolean> = {}
+  for (const weaponId of weaponIds) incoming[weaponId] = true
+
+  if (mode === 'merge') {
+    // Read the target's current marks through the store (never localStorage: the
+    // mounted store re-persists its own copy and would drop a direct write).
+    const target =
+      state.accounts.find((account) => account.id === accountId) ??
+      state.accounts.find((account) => account.id === state.activeAccountId) ??
+      state.accounts[0]
+    const essenceStatus = { ...(target?.essenceStatus ?? {}), ...incoming }
+    state.replaceAccountMarks(accountId, { essenceStatus })
+    return true
+  }
+
+  state.replaceAccountMarks(accountId, { essenceStatus: incoming })
+  return true
 }
