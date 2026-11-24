@@ -15,7 +15,7 @@
     "test": "vitest run",
     "test:e2e": "playwright test",
     "check:i18n": "node scripts/check-i18n.mjs",
-    "check:maaend-protocol": "node scripts/check-maaend-protocol.mjs",
+    "check:maaend-protocol": "tsx scripts/check-maaend-protocol.ts",
     "submodules:init": "git submodule update --init --recursive",
     "sync:check": "tsx scripts/sync-game-data.ts --check",
     "sync:update": "tsx scripts/sync-game-data.ts --update",

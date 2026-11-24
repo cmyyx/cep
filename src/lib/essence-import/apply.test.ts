@@ -415,6 +415,18 @@ describe('applyMaaEndEssence', () => {
     expect(state.accounts[0].essenceStatus).toEqual({ wpn_claym_0017: true })
   })
 
+  it('refuses to write to an account that vanished instead of falling back', () => {
+    // A cloud refresh can delete the profile while the import dialog is open;
+    // silently writing to the active profile would modify the wrong account.
+    expect(applyMaaEndEssence(['wpn_funnel_0017'], { accountId: 'acc_gone' })).toBe(false)
+    expect(applyMaaEndEssence(['wpn_funnel_0017'], { accountId: 'acc_gone', mode: 'merge' })).toBe(false)
+
+    const state = useEssenceSettingsStore.getState()
+    expect(state.essenceStatus).toEqual({ wpn_claym_0017: true })
+    expect(state.accounts[0].essenceStatus).toEqual({ wpn_claym_0017: true })
+    expect(state.accounts[1].essenceStatus).toEqual({ wpn_sword_0012: true })
+  })
+
   it('clears the essence marks for an empty inventory', () => {
     applyMaaEndEssence([])
 

@@ -288,6 +288,31 @@ describe('DataImportDialog: MaaEND essence inventory', () => {
     expect(screen.getByText(unknown.join(' + '))).not.toBeNull()
   })
 
+  it('reports skipped items, not just distinct unrecognised combos', async () => {
+    const unknown = ['gat_passive_attr_unknown', 'gat_passive_attr_atk', 'gst_passive_unknown']
+    const duplicate = { quality: 'flawless_gold', mark: 'lock', skills: unknown.map((id) => ({ id, level: 6 })) }
+    await openImport('uid_hash.json', maaEndV1({ items: [...maaEndV1().items, duplicate, duplicate] }))
+    render(<DataImportDialog />)
+
+    // Two identical unusable essences: the count says 2, the list shows one combo
+    expect(screen.getByText(/settings\.importMaaEndUnknownEntries:.*"count":2/)).not.toBeNull()
+    expect(screen.getAllByText(unknown.join(' + '))).toHaveLength(1)
+  })
+
+  it('stops with an error instead of writing to another account', async () => {
+    await openImport('uid_hash.json', maaEndV1())
+    render(<DataImportDialog />)
+
+    // The target profile disappears while the dialog is open (cloud refresh)
+    useEssenceSettingsStore.getState().removeAccount('acc_a')
+    fireEvent.click(screen.getByText('settings.importConfirm'))
+
+    await waitFor(() => expect(appToasts).toContainEqual({ tone: 'error', text: 'settings.importApplyError' }))
+    // Nothing was written anywhere
+    expect(useEssenceSettingsStore.getState().essenceStatus).toEqual({})
+    expect(useDataImportStore.getState().success).toBe(false)
+  })
+
   it('caps the unknown-entry list and reports how many are hidden', async () => {
     const unknownItems = Array.from({ length: 25 }, (_, index) => ({
       quality: 'flawless_gold',
@@ -354,8 +379,7 @@ describe('DataImportDialog: MaaEND essence inventory', () => {
     await waitFor(() => expect(writeText).toHaveBeenCalledTimes(1))
     const copied = String(writeText.mock.calls[0][0])
     expect(copied).toContain('unsupported_version')
-    expect(copied).toContain('文件 v2')
-    expect(copied).toContain('v1')
+    expect(copied).toContain('file v2 > site v1')
     expect(screen.getByText('common.reportCopied')).not.toBeNull()
 
     // GitHub issue is prefilled with the same diagnostics

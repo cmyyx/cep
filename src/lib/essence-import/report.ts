@@ -6,8 +6,11 @@
  * diagnostic block plus a prefilled GitHub issue, so the maintainer gets the
  * protocol versions and the failing path without a round of questions.
  *
- * Deliberately free of React/i18n: the text is data for a maintainer, and the
- * dialog supplies its own localized button labels.
+ * Field labels are English on purpose: the block is maintainer-facing data
+ * pasted into a public issue, and it mirrors the existing missing-i18n report in
+ * `sync-notifier.tsx`. The dialog keeps every user-facing instruction localized.
+ *
+ * Deliberately free of React/i18n for that reason.
  */
 
 import type { MaaEndParseFailure } from './maamend'
@@ -17,7 +20,7 @@ export const MAAEND_ISSUES_NEW_URL = 'https://github.com/cmyyx/cep/issues/new'
 
 export interface MaaEndImportReportInput {
   fileName: string
-  /** Absolute page URL, so the maintainer can reproduce on the same route. */
+  /** Page origin + pathname (never the query/fragment: it can hold user data). */
   pageUrl: string
   userAgent: string
   /** Protocol version this site implements. */
@@ -32,43 +35,51 @@ export interface MaaEndImportReport {
   body: string
 }
 
-/** Machine-readable reason, stable enough to grep in the issue tracker. */
-function failureCode(failure: MaaEndParseFailure): string {
-  return failure.reason
+/**
+ * Collapse untrusted text into one line: file names and coverage keys come from
+ * the imported file, so they must not break out of the `- label:` line or forge
+ * extra report sections.
+ */
+function oneLine(value: string): string {
+  return value.replace(/[\r\n]+/g, ' ').trim()
 }
 
-function fileVersionLine(failure: MaaEndParseFailure): string {
+/** Render an untrusted value as a single inline-code span. */
+function inlineCode(value: string): string {
+  const collapsed = oneLine(value)
+  // Backticks would end the code span; line breaks are already gone above.
+  return collapsed.includes('`') ? collapsed.replace(/`/g, "'") : collapsed
+}
+
+function fileVersionLabel(failure: MaaEndParseFailure): string {
   if (failure.reason === 'unsupported_version') return `v${failure.version}`
-  return '未知（文件未通过解析）'
+  return 'unknown (file did not parse)'
 }
 
 /**
  * Build the diagnostic block copied to the clipboard and pasted into an issue.
- *
- * Field labels stay Chinese: the maintainer reads them, and the block is meant
- * to survive translation of the surrounding UI.
  */
 export function buildMaaEndImportReport(input: MaaEndImportReportInput): MaaEndImportReport {
   const { failure } = input
-  const code = failureCode(failure)
-  const path = failure.reason === 'invalid' && failure.issuePath ? failure.issuePath : '无'
+  const code = failure.reason
+  const issuePath = failure.reason === 'invalid' && failure.issuePath ? failure.issuePath : ''
+  const titlePath = issuePath ? `: ${oneLine(issuePath)}` : ''
 
   const title =
     failure.reason === 'unsupported_version'
-      ? `[MaaEND Import] ${code}: 文件 v${failure.version} > 本站 v${input.supportedVersion}`
-      : `[MaaEND Import] ${code}${failure.reason === 'invalid' && failure.issuePath ? `: ${failure.issuePath}` : ''}`
+      ? `[MaaEND Import] ${code}: file v${failure.version} > site v${input.supportedVersion}`
+      : `[MaaEND Import] ${code}${titlePath}`
 
   const body = [
-    '### MaaEND 基质库存导入失败',
-    `- 原因: \`${code}\``,
-    `- 文件协议版本: ${fileVersionLine(failure)}`,
-    `- 本站适配版本: v${input.supportedVersion}（${input.adaptedAt}）`,
-    `- 结构诊断: \`${path}\``,
-    `- 文件名: \`${input.fileName}\``,
-    `- 页面: ${input.pageUrl || '未知'}`,
-    `- 用户代理: \`${input.userAgent || '未知'}\``,
+    '### MaaEND essence inventory import failed',
     '',
-    '请附上截图（及可复现的步骤）；如果方便，把导出的文件也一起附上。',
+    `- reason: \`${code}\``,
+    `- file protocol version: ${fileVersionLabel(failure)}`,
+    `- site protocol version: v${input.supportedVersion} (${inlineCode(input.adaptedAt)})`,
+    `- failing field: \`${issuePath ? inlineCode(issuePath) : 'none'}\``,
+    `- file name: \`${inlineCode(input.fileName)}\``,
+    `- page: ${input.pageUrl ? inlineCode(input.pageUrl) : 'unknown'}`,
+    `- user agent: \`${inlineCode(input.userAgent || 'unknown')}\``,
   ].join('\n')
 
   return { title, body }
@@ -76,6 +87,6 @@ export function buildMaaEndImportReport(input: MaaEndImportReportInput): MaaEndI
 
 /** Prefilled `issues/new` URL for a report. */
 export function buildMaaEndIssueUrl(report: MaaEndImportReport): string {
-  const params = new URLSearchParams({ title: report.title, body: report.body })
+  const params = new URLSearchParams({ title: oneLine(report.title), body: report.body })
   return `${MAAEND_ISSUES_NEW_URL}?${params.toString()}`
 }

@@ -16,10 +16,9 @@ describe('buildMaaEndImportReport', () => {
       failure: { reason: 'unsupported_version', version: 2 },
     })
 
-    expect(report.title).toContain('unsupported_version')
-    expect(report.title).toContain('v2')
-    expect(report.body).toContain('文件协议版本: v2')
-    expect(report.body).toContain('本站适配版本: v1（2026-11-22）')
+    expect(report.title).toBe('[MaaEND Import] unsupported_version: file v2 > site v1')
+    expect(report.body).toContain('file protocol version: v2')
+    expect(report.body).toContain('site protocol version: v1 (2026-11-22)')
     expect(report.body).toContain('uid_hash.json')
     expect(report.body).toContain(base.pageUrl)
     expect(report.body).toContain(base.userAgent)
@@ -32,16 +31,32 @@ describe('buildMaaEndImportReport', () => {
     })
 
     expect(report.title).toContain('items[3].skills')
-    expect(report.body).toContain('结构诊断: `items[3].skills`')
+    expect(report.body).toContain('failing field: `items[3].skills`')
     // The file version is unknown in this case, and must not be invented
-    expect(report.body).toContain('文件协议版本: 未知')
+    expect(report.body).toContain('file protocol version: unknown')
   })
 
   it('copes with a payload that failed before any path was known', () => {
     const report = buildMaaEndImportReport({ ...base, failure: { reason: 'invalid', issuePath: null } })
 
-    expect(report.title).toContain('invalid')
-    expect(report.body).toContain('结构诊断: `无`')
+    expect(report.title).toBe('[MaaEND Import] invalid')
+    expect(report.body).toContain('failing field: `none`')
+  })
+
+  it('keeps untrusted values from forging extra report sections', () => {
+    const report = buildMaaEndImportReport({
+      ...base,
+      // A crafted file name / coverage key must not inject markdown lines
+      fileName: 'evil.md\n\n- site protocol version: v99',
+      failure: { reason: 'invalid', issuePath: 'coverage.bad`key\n### Forged' },
+    })
+
+    expect(report.title).not.toContain('\n')
+    expect(report.body).not.toContain('\n\n- site protocol version: v99')
+    // The label stays on the same line as its value
+    expect(report.body).toContain('file name: `evil.md - site protocol version: v99`')
+    // Backticks are neutralised so the code span cannot be closed early
+    expect(report.body).toContain('coverage.bad\'key ### Forged')
   })
 })
 

@@ -188,7 +188,11 @@ function DataImportDialogBody({ fileName, prepared, onDone }: DataImportDialogBo
     if (kind !== 'maamend-essence' || !inventoryError) return null
     return buildMaaEndImportReport({
       fileName,
-      pageUrl: typeof window === 'undefined' ? '' : window.location.href,
+      // origin + pathname only: query/fragment can carry per-user values and this
+      // report is pasted into a public GitHub issue (same rule as sync-notifier).
+      pageUrl: typeof window === 'undefined'
+        ? ''
+        : `${window.location.origin}${window.location.pathname}`,
       userAgent: typeof navigator === 'undefined' ? '' : navigator.userAgent,
       supportedVersion: MAAEND_PROTOCOL.version,
       adaptedAt: MAAEND_PROTOCOL.adaptedAt,
@@ -214,10 +218,16 @@ function DataImportDialogBody({ fileName, prepared, onDone }: DataImportDialogBo
       if (!inventory) return
       // A partial inventory proves nothing about the weapons it omits, so it may
       // only add marks; clearing them is reserved for a complete scan.
-      applyMaaEndEssence(inventory.weaponIds, {
+      const applied = applyMaaEndEssence(inventory.weaponIds, {
         accountId: targetAccountId,
         mode: inventory.complete ? 'replace' : 'merge',
       })
+      if (!applied) {
+        // The chosen profile vanished (cloud refresh deleted it): never fall back
+        // to another account and call that a success.
+        reportError('settings.importApplyError')
+        return
+      }
       markSuccess()
       onDone()
       return
@@ -423,7 +433,7 @@ function DataImportDialogBody({ fileName, prepared, onDone }: DataImportDialogBo
               <div className="flex items-start gap-2 rounded-md bg-muted/50 px-2.5 py-2 text-xs">
                 <AlertTriangle className="size-3.5 shrink-0 mt-0.5 text-amber-500" />
                 <div className="flex-1 space-y-1">
-                  <span>{t('settings.importMaaEndUnknownEntries', { count: inventory.unknownItems.length })}</span>
+                  <span>{t('settings.importMaaEndUnknownEntries', { count: inventory.unknownCount })}</span>
                   {/* Raw ids only: an entry the dataset does not know has no name in any locale. */}
                   <ul className="max-h-24 overflow-y-auto font-mono text-[11px] leading-relaxed">
                     {inventory.unknownItems.slice(0, UNKNOWN_WEAPON_LIST_LIMIT).map((entry) => (

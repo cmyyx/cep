@@ -59,10 +59,12 @@ describe('parseMaaEndEssence: protocol v1 (current)', () => {
     expect(summary.weaponIds).toEqual(['wpn_claym_0017', 'wpn_sword_0012', 'wpn_sword_0016'])
   })
 
-  it('ignores discarded and non-flawless items', () => {
+  it('ignores discarded, unknown-mark and non-flawless items', () => {
     const summary = expectOk(parseMaaEndEssence(inventory({
       items: [
         item('flawless_gold', 'discard', SWORD_TERMS),
+        // A mark this site does not know proves nothing about usability
+        item('flawless_gold', 'archived', SWORD_TERMS),
         item('high_purity_purple', 'lock', CLAYM_TERMS),
         item('flawless_gold', 'lock', CLAYM_TERMS),
       ],
@@ -71,6 +73,7 @@ describe('parseMaaEndEssence: protocol v1 (current)', () => {
     expect(summary.essenceCount).toBe(1)
     expect(summary.weaponIds).toEqual(['wpn_claym_0017'])
     expect(summary.unknownItems).toEqual([])
+    expect(summary.unknownCount).toBe(0)
   })
 
   it('reports term sets that match no weapon in the current dataset', () => {
@@ -81,8 +84,22 @@ describe('parseMaaEndEssence: protocol v1 (current)', () => {
 
     expect(summary.weaponIds).toEqual(['wpn_sword_0012', 'wpn_sword_0016'])
     expect(summary.unknownItems).toEqual([unknown.join(' + ')])
+    expect(summary.unknownCount).toBe(1)
     // The entry is still an observed essence, it just maps to nothing we know
     expect(summary.essenceCount).toBe(2)
+  })
+
+  it('counts every skipped item while listing each combo once', () => {
+    const unknown = ['gat_passive_attr_unknown', 'gat_passive_attr_atk', 'gst_passive_unknown']
+    const summary = expectOk(parseMaaEndEssence(inventory({
+      items: [
+        item('flawless_gold', 'lock', unknown),
+        item('flawless_gold', 'none', unknown),
+      ],
+    })))
+
+    expect(summary.unknownCount).toBe(2)
+    expect(summary.unknownItems).toHaveLength(1)
   })
 
   it('reports a 3-star two-term essence as unmatched (upstream only matches 4/5/6 stars)', () => {
@@ -92,6 +109,7 @@ describe('parseMaaEndEssence: protocol v1 (current)', () => {
 
     expect(summary.weaponIds).toEqual([])
     expect(summary.unknownItems).toEqual(['gat_passive_attr_main + gst_passive_force'])
+    expect(summary.unknownCount).toBe(1)
   })
 
   it('treats a tier without complete_at as a partial scan', () => {
@@ -102,6 +120,28 @@ describe('parseMaaEndEssence: protocol v1 (current)', () => {
 
     const noTier = expectOk(parseMaaEndEssence(inventory({ coverage: {} })))
     expect(noTier.complete).toBe(false)
+  })
+
+  it('rejects a coverage entry that claims both complete and unread (upstream forbids it)', () => {
+    // A conforming exporter never writes this; a hand-edited file used to slip
+    // through as "complete" and could then clear marks for the unread items.
+    expect(
+      parseMaaEndEssence(inventory({
+        coverage: { flawless_gold: { complete_at: '2026-11-22T04:05:06Z', unread: 2 } },
+      })),
+    ).toEqual({
+      ok: false,
+      failure: { reason: 'invalid', issuePath: 'coverage.flawless_gold' },
+    })
+  })
+
+  it('does not treat an empty or malformed complete_at as a finished scan', () => {
+    for (const complete_at of ['', 'yesterday', '2026-11-22']) {
+      const summary = expectOk(parseMaaEndEssence(inventory({
+        coverage: { flawless_gold: { complete_at } },
+      })))
+      expect(summary.complete).toBe(false)
+    }
   })
 
   it('accepts the upstream aggregate coverage key', () => {

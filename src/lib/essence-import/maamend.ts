@@ -37,8 +37,13 @@ const TERM_ID_PATTERN = /^[a-z][a-z0-9_]*$/
 
 /** 基质品质：本站只关心无瑕（高纯等其他品质由规划器单独处理）。 */
 const FLAWLESS_GOLD = 'flawless_gold'
-/** 弃置标记：已弃置的基质不算可适配库存。 */
-const DISCARD_MARK = 'discard'
+/**
+ * 明确表示「可用库存」的标记：未标记与已锁定。
+ *
+ * 其余值（`discard` 以及上游今后可能新增的枚举）一律不计入——schema 允许新增
+ * 枚举值，而「未知标记」无法证明这枚基质可用，宁可少算也不要把不可用的算进去。
+ */
+const USABLE_MARKS: ReadonlySet<string> = new Set(['none', 'lock'])
 /**
  * `coverage` 里能证明「无瑕品质已盘全」的键。
  * 后一个是上游按目标缺口口径聚合的键，同样意味着无瑕那一档被完整扫过。
@@ -93,10 +98,17 @@ const maaEndItemSchema = z.object({
   skills: z.array(maaEndTermSchema).min(1),
 })
 
-const maaEndCoverageSchema = z.object({
-  complete_at: z.string().optional(),
-  unread: z.int().min(1).optional(),
-})
+const maaEndCoverageSchema = z
+  .object({
+    complete_at: z.string().optional(),
+    unread: z.int().min(1).optional(),
+  })
+  // 上游 schema 用 `not: required[complete_at, unread]` 明确禁止二者共存：
+  // 有未读件数就不可能是完整盘点，写方在一轮更新未确认时也会撤下 complete_at。
+  // 同时接受会让我们把「有没读到的件」当成盘全了，进而清掉用户已有标记。
+  .refine((value) => value.complete_at === undefined || value.unread === undefined, {
+    message: 'complete_at 与 unread 不能同时出现',
+  })
 
 const maaEndInventorySchema = z.object({
   format: z.literal(MAAEND_INVENTORY_FORMAT),
@@ -124,8 +136,10 @@ export interface MaaEndEssenceSummary {
   essenceCount: number
   /** 命中本站武器表的武器 id（升序、去重）。 */
   weaponIds: string[]
-  /** 本站武器表里找不到的词条组合，导入时跳过。 */
+  /** 本站武器表里找不到的词条组合（去重，供列表展示）。 */
   unknownItems: string[]
+  /** 上述组合对应的基质件数（去重前），用于「跳过 N 件」的计数。 */
+  unknownCount: number
 }
 
 /** 解析失败的原因，供导入对话框区分文案。 */
@@ -192,17 +206,19 @@ function parseCurrentInventory(value: unknown): MaaEndParseResult {
 
   const weaponIds = new Set<string>()
   const unknownItems = new Set<string>()
+  let unknownCount = 0
   let essenceCount = 0
 
   for (const item of parsed.data.items) {
-    // 高纯及其他品质、已弃置的基质都不参与「该武器有适配基质」
-    if (item.quality !== FLAWLESS_GOLD || item.mark === DISCARD_MARK) continue
+    // 高纯及其他品质、以及任何非「未标记/已锁定」的基质都不参与「该武器有适配基质」
+    if (item.quality !== FLAWLESS_GOLD || !USABLE_MARKS.has(item.mark)) continue
     essenceCount += 1
 
     const termIds = item.skills.map((skill) => skill.id)
     // 只有三条词条的基质才可能对应到武器（2 条的是 3★ 武器专属，本站不追踪）
     const matched = termIds.length === 3 ? WEAPONS_BY_TERM_SET.get(termSetKey(termIds)) : undefined
     if (!matched) {
+      unknownCount += 1
       unknownItems.add(termIds.join(' + '))
       continue
     }
@@ -218,10 +234,19 @@ function parseCurrentInventory(value: unknown): MaaEndParseResult {
       essenceCount,
       weaponIds: [...weaponIds].sort(),
       unknownItems: [...unknownItems].sort(),
+      unknownCount,
     },
   }
 }
 
+/** RFC3339/ISO 8601 date-time with an explicit offset, as upstream writes it. */
+const ISO_DATE_TIME = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d+)?(Z|[+-]\d{2}:\d{2})$/
+
+/**
+ * A tier counts as fully scanned only when `complete_at` is a real timestamp.
+ * An empty or malformed value must not be read as "complete", because complete
+ * means the import may clear marks absent from the file.
+ */
 function isGoldCoverageComplete(coverage: Record<string, { complete_at?: string }>): boolean {
-  return GOLD_COVERAGE_KEYS.some((quality) => coverage[quality]?.complete_at !== undefined)
+  return GOLD_COVERAGE_KEYS.some((quality) => ISO_DATE_TIME.test(coverage[quality]?.complete_at ?? ''))
 }

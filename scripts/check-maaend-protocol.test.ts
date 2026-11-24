@@ -1,10 +1,13 @@
 import { readFileSync } from 'node:fs'
-import { createHash } from 'node:crypto'
 import { describe, expect, it } from 'vitest'
-import { compareProtocol, readPinnedProtocol } from './check-maaend-protocol.mjs'
+import { compareProtocol, readPinnedProtocol, type UpstreamProtocol } from './lib/maaend-protocol'
 
 const pinned = readPinnedProtocol(readFileSync('src/lib/essence-import/protocol.ts', 'utf8'))
-const matchingUpstream = { format: pinned.format, version: pinned.version, hash: pinned.schemaHash }
+const matchingUpstream: UpstreamProtocol = {
+  format: pinned.format,
+  version: pinned.version,
+  hash: pinned.schemaHash ?? undefined,
+}
 
 describe('readPinnedProtocol', () => {
   it('reads the baseline out of protocol.ts', () => {
@@ -38,22 +41,28 @@ describe('compareProtocol', () => {
     expect(result.warnings).toHaveLength(1)
   })
 
+  // A removed/moved marker used to be skipped silently, so the gate printed OK
+  it('fails when upstream stops publishing the format marker', () => {
+    const result = compareProtocol(pinned, { ...matchingUpstream, format: undefined })
+
+    expect(result.errors).toContainEqual(expect.stringContaining('format'))
+  })
+
+  it('fails when upstream stops publishing the version marker', () => {
+    const result = compareProtocol(pinned, { ...matchingUpstream, version: undefined })
+
+    expect(result.errors).toContainEqual(expect.stringContaining('version'))
+  })
+
+  it('flags a malformed upstream version instead of skipping the comparison', () => {
+    const result = compareProtocol(pinned, { ...matchingUpstream, version: '1' })
+
+    expect(result.errors).toContainEqual(expect.stringContaining('version'))
+  })
+
   it('flags a broken pin instead of silently passing', () => {
-    const result = compareProtocol(
-      { format: null, version: Number.NaN, schemaHash: null },
-      matchingUpstream,
-    )
+    const result = compareProtocol({ format: null, version: Number.NaN, schemaHash: null }, matchingUpstream)
 
     expect(result.errors).toHaveLength(3)
-  })
-})
-
-describe('pinned schema hash', () => {
-  it('is the sha256 of the schema text it was taken from', () => {
-    // Guards copy/paste mistakes: hashing the pinned text must reproduce the pin.
-    const text = JSON.stringify({ format: pinned.format, version: pinned.version })
-    const hash = createHash('sha256').update(text).digest('hex')
-    expect(hash).toMatch(/^[0-9a-f]{64}$/)
-    expect(pinned.schemaHash).not.toBe(hash)
   })
 })
