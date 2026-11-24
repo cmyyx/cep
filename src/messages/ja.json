@@ -603,7 +603,7 @@
     "importFormatCep": "CEP バックアップ",
     "importFormatMaaEnd": "MaaEND 基質インベントリ",
     "importFormatUnknown": "認識できないファイル",
-    "importFormatMaaEndInvalid": "ファイルはプロトコル v1 と記されていますが、構造が一致しません（{path}）。ファイルが途中で切れている／編集されたか、MaaEND がバージョンを上げずに形式を変更した可能性があります。",
+    "importFormatMaaEndInvalid": "MaaEND 基質インベントリを認識できませんでした：ファイルはプロトコル v1 と記されていますが、構造が本サイトの解析と一致しません（{path}）。",
     "importActiveAccount": "現在のアカウント",
     "importTargetAccount": "インポート先アカウント",
     "importAccountMode": "アカウントの扱い",
@@ -637,7 +637,7 @@
     "importMaaEndUnknownEntriesMore": "…ほか {count} 件",
     "importMaaEndLegacyUnsupported": "これは廃止された MaaEND の配列形式です。本サイトでは未対応です：MaaEND v3.3.0-beta.2 以降で再スキャンし、debug/record/EssenceInventory/ のファイルをインポートしてください",
     "importMaaEndNewerProtocolHint": "まず MaaEND が最新版かご確認ください。最新版であれば本サイトが未対応です。下記の窓口からご報告ください。",
-    "importMaaEndInvalidHint": "MaaEND から再度エクスポートしてお試しください。それでも失敗する場合は、エクスポートしたファイルを添えて下記の窓口からご報告ください。",
+    "importMaaEndInvalidHint": "実際の在庫を判断できないため、データは書き込みません。考えられる原因：ファイルの破損・欠落、手動での編集、上流がバージョンを上げずに形式を変更した、など。下記の窓口から、このファイルを添えてご報告ください。",
     "importMaaEndOtherChannels": "その他の窓口：",
     "importMaaEndFeedbackGuide": "報告のしかた（ホームのお知らせ）"
   },

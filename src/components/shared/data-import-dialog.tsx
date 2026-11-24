@@ -40,6 +40,17 @@ import { buildMaaEndImportReport, buildMaaEndIssueUrl } from '@/lib/essence-impo
 import { FEEDBACK_CHANNELS } from '@/components/shared/guard-layout'
 import { showAppToast } from '@/lib/app-toast'
 
+/**
+ * Caution icon colour for the warning blocks.
+ *
+ * DESIGN.md keeps the chrome achromatic ("don't introduce warm colors into the
+ * UI chrome"), and the design system defines no warning token — only
+ * `destructive` for errors. Caution therefore reads through shape
+ * (AlertTriangle) and the muted surface, not hue. This constant exists so the
+ * whole dialog cannot drift into a mix of amber/red/gray again.
+ */
+const CAUTION_ICON = 'text-muted-foreground'
+
 /** Unknown MaaEND weapon ids rendered before the list is truncated. */
 const UNKNOWN_WEAPON_LIST_LIMIT = 20
 
@@ -306,14 +317,14 @@ function DataImportDialogBody({ fileName, prepared, onDone }: DataImportDialogBo
 
         {file && file.version > EXPORT_FORMAT_VERSION ? (
           <div className="flex items-start gap-2 rounded-md bg-muted/50 px-2.5 py-2 text-xs">
-            <AlertTriangle className="size-3.5 shrink-0 mt-0.5 text-amber-500" />
+            <AlertTriangle className={cn('size-3.5 shrink-0 mt-0.5', CAUTION_ICON)} />
             <span>{t('settings.importNewerVersionWarning', { version: file.version })}</span>
           </div>
         ) : null}
 
         {kind === null || (kind === 'cep-backup' && !file) ? (
           <div className="flex items-start gap-2 rounded-md bg-muted/50 px-2.5 py-2 text-xs">
-            <AlertTriangle className="size-3.5 shrink-0 mt-0.5 text-amber-500" />
+            <AlertTriangle className={cn('size-3.5 shrink-0 mt-0.5', CAUTION_ICON)} />
             <span>{t('settings.importInvalidFormat')}</span>
           </div>
         ) : null}
@@ -324,7 +335,7 @@ function DataImportDialogBody({ fileName, prepared, onDone }: DataImportDialogBo
             offers a report path, because the user is the only one holding the file. */}
         {kind === 'maamend-essence' && !inventory && inventoryError ? (
           <div className="flex items-start gap-2 rounded-md bg-muted/50 px-2.5 py-2 text-xs">
-            <AlertTriangle className="size-3.5 shrink-0 mt-0.5 text-amber-500" />
+            <AlertTriangle className={cn('size-3.5 shrink-0 mt-0.5', CAUTION_ICON)} />
             <div className="flex-1 space-y-1.5">
               <p>
                 {inventoryError.reason === 'unsupported_version'
@@ -424,14 +435,14 @@ function DataImportDialogBody({ fileName, prepared, onDone }: DataImportDialogBo
 
             {!inventory.complete ? (
               <div className="flex items-start gap-2 rounded-md bg-muted/50 px-2.5 py-2 text-xs">
-                <AlertTriangle className="size-3.5 shrink-0 mt-0.5 text-amber-500" />
+                <AlertTriangle className={cn('size-3.5 shrink-0 mt-0.5', CAUTION_ICON)} />
                 <span>{t('settings.importMaaEndIncomplete')}</span>
               </div>
             ) : null}
 
             {inventory.unknownItems.length > 0 ? (
               <div className="flex items-start gap-2 rounded-md bg-muted/50 px-2.5 py-2 text-xs">
-                <AlertTriangle className="size-3.5 shrink-0 mt-0.5 text-amber-500" />
+                <AlertTriangle className={cn('size-3.5 shrink-0 mt-0.5', CAUTION_ICON)} />
                 <div className="flex-1 space-y-1">
                   <span>{t('settings.importMaaEndUnknownEntries', { count: inventory.unknownCount })}</span>
                   {/* Raw ids only: an entry the dataset does not know has no name in any locale. */}
@@ -455,7 +466,7 @@ function DataImportDialogBody({ fileName, prepared, onDone }: DataImportDialogBo
 
             {inventory.complete && inventoryDiff && inventoryDiff.removed > 0 ? (
               <div className="flex items-start gap-2 rounded-md bg-muted/50 px-2.5 py-2 text-xs">
-                <AlertTriangle className="size-3.5 shrink-0 mt-0.5 text-amber-500" />
+                <AlertTriangle className={cn('size-3.5 shrink-0 mt-0.5', CAUTION_ICON)} />
                 <span>
                   {t('settings.importMaaEndReplaceWarning', {
                     name: accountLabel(targetAccountId),
@@ -468,7 +479,7 @@ function DataImportDialogBody({ fileName, prepared, onDone }: DataImportDialogBo
 
             {inventory.weaponIds.length === 0 ? (
               <div className="flex items-start gap-2 rounded-md bg-muted/50 px-2.5 py-2 text-xs">
-                <AlertTriangle className="size-3.5 shrink-0 mt-0.5 text-amber-500" />
+                <AlertTriangle className={cn('size-3.5 shrink-0 mt-0.5', CAUTION_ICON)} />
                 <span>{t('settings.importMaaEndEmpty')}</span>
               </div>
             ) : null}

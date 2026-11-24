@@ -136,7 +136,9 @@ describe('parseMaaEndEssence: protocol v1 (current)', () => {
   })
 
   it('does not treat an empty or malformed complete_at as a finished scan', () => {
-    for (const complete_at of ['', 'yesterday', '2026-11-22']) {
+    // Includes shape-valid but impossible instants: those used to unlock replace mode
+    const complete_at_values = ['', 'yesterday', '2026-11-22', '2026-02-30T04:05:06Z', '2026-11-22T25:05:06Z', '2026-11-22T04:05:06+25:00']
+    for (const complete_at of complete_at_values) {
       const summary = expectOk(parseMaaEndEssence(inventory({
         coverage: { flawless_gold: { complete_at } },
       })))

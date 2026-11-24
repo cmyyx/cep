@@ -25,6 +25,17 @@ export interface UpstreamProtocol {
   hash?: string
 }
 
+/**
+ * Whether a non-OK HTTP status is transient (skip the gate) or drift (fail it).
+ *
+ * A 404/410 means upstream moved or removed the schema — that is exactly the
+ * drift this gate exists to catch, so it must not be reported as "network
+ * unavailable". 429/5xx are the runner's problem and stay skippable.
+ */
+export function isTransientHttpStatus(status: number): boolean {
+  return status === 429 || status >= 500
+}
+
 export interface ProtocolComparison {
   /** Fail the build: the pinned protocol no longer matches upstream. */
   errors: string[]

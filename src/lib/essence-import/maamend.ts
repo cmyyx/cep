@@ -240,7 +240,26 @@ function parseCurrentInventory(value: unknown): MaaEndParseResult {
 }
 
 /** RFC3339/ISO 8601 date-time with an explicit offset, as upstream writes it. */
-const ISO_DATE_TIME = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d+)?(Z|[+-]\d{2}:\d{2})$/
+const ISO_DATE_TIME =
+  /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})(?:\.\d+)?(?:Z|[+-](\d{2}):(\d{2}))$/
+
+/**
+ * Shape alone is not enough: `2026-02-30` and `T25:05:06` match the pattern but
+ * are not real instants. A bogus `complete_at` must not unlock replace mode,
+ * because replace mode clears marks the file does not list.
+ */
+function isValidDateTime(value: string): boolean {
+  const match = ISO_DATE_TIME.exec(value)
+  if (!match) return false
+  const [, year, month, day, hour, minute, second, offsetHour, offsetMinute] = match.map(Number)
+  if (month < 1 || month > 12) return false
+  if (hour > 23 || minute > 59 || second > 59) return false
+  // The offset is optional; when present it must be a real UTC offset.
+  if (Number.isFinite(offsetHour) && (offsetHour > 23 || offsetMinute > 59)) return false
+  // Day-of-month upper bound for that year/month (day 0 of the next month).
+  const daysInMonth = new Date(Date.UTC(year, month, 0)).getUTCDate()
+  return day >= 1 && day <= daysInMonth
+}
 
 /**
  * A tier counts as fully scanned only when `complete_at` is a real timestamp.
@@ -248,5 +267,5 @@ const ISO_DATE_TIME = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d+)?(Z|[+-]\d{2}:
  * means the import may clear marks absent from the file.
  */
 function isGoldCoverageComplete(coverage: Record<string, { complete_at?: string }>): boolean {
-  return GOLD_COVERAGE_KEYS.some((quality) => ISO_DATE_TIME.test(coverage[quality]?.complete_at ?? ''))
+  return GOLD_COVERAGE_KEYS.some((quality) => isValidDateTime(coverage[quality]?.complete_at ?? ''))
 }

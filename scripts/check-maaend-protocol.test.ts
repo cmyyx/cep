@@ -1,6 +1,11 @@
 import { readFileSync } from 'node:fs'
 import { describe, expect, it } from 'vitest'
-import { compareProtocol, readPinnedProtocol, type UpstreamProtocol } from './lib/maaend-protocol'
+import {
+  compareProtocol,
+  isTransientHttpStatus,
+  readPinnedProtocol,
+  type UpstreamProtocol,
+} from './lib/maaend-protocol'
 
 const pinned = readPinnedProtocol(readFileSync('src/lib/essence-import/protocol.ts', 'utf8'))
 const matchingUpstream: UpstreamProtocol = {
@@ -14,6 +19,21 @@ describe('readPinnedProtocol', () => {
     expect(pinned.format).toBe('maaend.essence_inventory')
     expect(pinned.version).toBe(1)
     expect(pinned.schemaHash).toMatch(/^[0-9a-f]{64}$/)
+  })
+})
+
+describe('isTransientHttpStatus', () => {
+  // A moved/deleted schema must fail the gate instead of looking like flaky network
+  it('treats moved or removed schema as drift, not as a network skip', () => {
+    expect(isTransientHttpStatus(404)).toBe(false)
+    expect(isTransientHttpStatus(410)).toBe(false)
+    expect(isTransientHttpStatus(403)).toBe(false)
+  })
+
+  it('treats rate limits and server errors as transient', () => {
+    expect(isTransientHttpStatus(429)).toBe(true)
+    expect(isTransientHttpStatus(500)).toBe(true)
+    expect(isTransientHttpStatus(503)).toBe(true)
   })
 })
 
