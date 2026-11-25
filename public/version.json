@@ -1,0 +1,12 @@
+{
+  "commit": "e552ad6",
+  "count": 187,
+  "commitTime": "2026-11-25T13:45:49+08:00",
+  "buildTime": "2026-11-25T05:50:29.633Z",
+  "version": "1.7.0-e552ad6",
+  "forceUpgradeSerial": 3,
+  "gameData": {
+    "version": "1.7.2@12026241-3",
+    "publishedAt": "2026-11-25T06:12:48+08:00"
+  }
+}
