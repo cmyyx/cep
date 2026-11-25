@@ -538,5 +538,21 @@ export const wikiCharacters = [
       "month": 10,
       "day": 23
     }
+  },
+  {
+    "id": "chr_0040_sweetpie",
+    "category": "characters",
+    "rarity": 6,
+    "imageId": "chr_0040_sweetpie",
+    "elementId": "Natural",
+    "professionId": "7",
+    "factionId": "ENDFIELD INDUSTRIES",
+    "weaponTypeId": "5",
+    "mainAttributeId": "39",
+    "subAttributeId": "40",
+    "birthday": {
+      "month": 2,
+      "day": 25
+    }
   }
 ] satisfies WikiCharacterSummary[]

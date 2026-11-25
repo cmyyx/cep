@@ -1,0 +1,5763 @@
+{
+  "id": "chr_0040_sweetpie",
+  "category": "characters",
+  "maxLevel": 90,
+  "levels": [
+    {
+      "level": 1,
+      "breakStage": 0,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 22.26804
+        },
+        {
+          "attributeId": "40",
+          "value": 14.96907
+        },
+        {
+          "attributeId": "41",
+          "value": 9.27835
+        },
+        {
+          "attributeId": "42",
+          "value": 11.34021
+        },
+        {
+          "attributeId": "1",
+          "value": 500
+        },
+        {
+          "attributeId": "2",
+          "value": 30
+        },
+        {
+          "attributeId": "49",
+          "value": 1
+        },
+        {
+          "attributeId": "25",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "level": 2,
+      "breakStage": 0,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 23.94951
+        },
+        {
+          "attributeId": "40",
+          "value": 16.16604
+        },
+        {
+          "attributeId": "41",
+          "value": 10.18346
+        },
+        {
+          "attributeId": "42",
+          "value": 12.29245
+        },
+        {
+          "attributeId": "1",
+          "value": 556
+        },
+        {
+          "attributeId": "2",
+          "value": 33
+        },
+        {
+          "attributeId": "49",
+          "value": 1.0051
+        },
+        {
+          "attributeId": "25",
+          "value": 1.00255
+        }
+      ]
+    },
+    {
+      "level": 3,
+      "breakStage": 0,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 25.63097
+        },
+        {
+          "attributeId": "40",
+          "value": 17.36301
+        },
+        {
+          "attributeId": "41",
+          "value": 11.08858
+        },
+        {
+          "attributeId": "42",
+          "value": 13.24469
+        },
+        {
+          "attributeId": "1",
+          "value": 612
+        },
+        {
+          "attributeId": "2",
+          "value": 36
+        },
+        {
+          "attributeId": "49",
+          "value": 1.0102
+        },
+        {
+          "attributeId": "25",
+          "value": 1.0051
+        }
+      ]
+    },
+    {
+      "level": 4,
+      "breakStage": 0,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 27.31243
+        },
+        {
+          "attributeId": "40",
+          "value": 18.55998
+        },
+        {
+          "attributeId": "41",
+          "value": 11.99369
+        },
+        {
+          "attributeId": "42",
+          "value": 14.19693
+        },
+        {
+          "attributeId": "1",
+          "value": 668
+        },
+        {
+          "attributeId": "2",
+          "value": 40
+        },
+        {
+          "attributeId": "49",
+          "value": 1.01531
+        },
+        {
+          "attributeId": "25",
+          "value": 1.00765
+        }
+      ]
+    },
+    {
+      "level": 5,
+      "breakStage": 0,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 28.9939
+        },
+        {
+          "attributeId": "40",
+          "value": 19.75695
+        },
+        {
+          "attributeId": "41",
+          "value": 12.8988
+        },
+        {
+          "attributeId": "42",
+          "value": 15.14917
+        },
+        {
+          "attributeId": "1",
+          "value": 724
+        },
+        {
+          "attributeId": "2",
+          "value": 43
+        },
+        {
+          "attributeId": "49",
+          "value": 1.02041
+        },
+        {
+          "attributeId": "25",
+          "value": 1.0102
+        }
+      ]
+    },
+    {
+      "level": 6,
+      "breakStage": 0,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 30.67536
+        },
+        {
+          "attributeId": "40",
+          "value": 20.95392
+        },
+        {
+          "attributeId": "41",
+          "value": 13.80391
+        },
+        {
+          "attributeId": "42",
+          "value": 16.10141
+        },
+        {
+          "attributeId": "1",
+          "value": 781
+        },
+        {
+          "attributeId": "2",
+          "value": 46
+        },
+        {
+          "attributeId": "49",
+          "value": 1.02551
+        },
+        {
+          "attributeId": "25",
+          "value": 1.01276
+        }
+      ]
+    },
+    {
+      "level": 7,
+      "breakStage": 0,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 32.35683
+        },
+        {
+          "attributeId": "40",
+          "value": 22.15089
+        },
+        {
+          "attributeId": "41",
+          "value": 14.70903
+        },
+        {
+          "attributeId": "42",
+          "value": 17.05365
+        },
+        {
+          "attributeId": "1",
+          "value": 837
+        },
+        {
+          "attributeId": "2",
+          "value": 49
+        },
+        {
+          "attributeId": "49",
+          "value": 1.03061
+        },
+        {
+          "attributeId": "25",
+          "value": 1.01531
+        }
+      ]
+    },
+    {
+      "level": 8,
+      "breakStage": 0,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 34.03829
+        },
+        {
+          "attributeId": "40",
+          "value": 23.34786
+        },
+        {
+          "attributeId": "41",
+          "value": 15.61414
+        },
+        {
+          "attributeId": "42",
+          "value": 18.00589
+        },
+        {
+          "attributeId": "1",
+          "value": 893
+        },
+        {
+          "attributeId": "2",
+          "value": 53
+        },
+        {
+          "attributeId": "49",
+          "value": 1.03571
+        },
+        {
+          "attributeId": "25",
+          "value": 1.01786
+        }
+      ]
+    },
+    {
+      "level": 9,
+      "breakStage": 0,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 35.71976
+        },
+        {
+          "attributeId": "40",
+          "value": 24.54483
+        },
+        {
+          "attributeId": "41",
+          "value": 16.51925
+        },
+        {
+          "attributeId": "42",
+          "value": 18.95813
+        },
+        {
+          "attributeId": "1",
+          "value": 949
+        },
+        {
+          "attributeId": "2",
+          "value": 56
+        },
+        {
+          "attributeId": "49",
+          "value": 1.04082
+        },
+        {
+          "attributeId": "25",
+          "value": 1.02041
+        }
+      ]
+    },
+    {
+      "level": 10,
+      "breakStage": 0,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 37.40122
+        },
+        {
+          "attributeId": "40",
+          "value": 25.74181
+        },
+        {
+          "attributeId": "41",
+          "value": 17.42436
+        },
+        {
+          "attributeId": "42",
+          "value": 19.91037
+        },
+        {
+          "attributeId": "1",
+          "value": 1005
+        },
+        {
+          "attributeId": "2",
+          "value": 59
+        },
+        {
+          "attributeId": "49",
+          "value": 1.04592
+        },
+        {
+          "attributeId": "25",
+          "value": 1.02296
+        }
+      ]
+    },
+    {
+      "level": 11,
+      "breakStage": 0,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 39.08268
+        },
+        {
+          "attributeId": "40",
+          "value": 26.93878
+        },
+        {
+          "attributeId": "41",
+          "value": 18.32948
+        },
+        {
+          "attributeId": "42",
+          "value": 20.86261
+        },
+        {
+          "attributeId": "1",
+          "value": 1061
+        },
+        {
+          "attributeId": "2",
+          "value": 62
+        },
+        {
+          "attributeId": "49",
+          "value": 1.05102
+        },
+        {
+          "attributeId": "25",
+          "value": 1.02551
+        }
+      ]
+    },
+    {
+      "level": 12,
+      "breakStage": 0,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 40.76415
+        },
+        {
+          "attributeId": "40",
+          "value": 28.13575
+        },
+        {
+          "attributeId": "41",
+          "value": 19.23459
+        },
+        {
+          "attributeId": "42",
+          "value": 21.81485
+        },
+        {
+          "attributeId": "1",
+          "value": 1117
+        },
+        {
+          "attributeId": "2",
+          "value": 66
+        },
+        {
+          "attributeId": "49",
+          "value": 1.05612
+        },
+        {
+          "attributeId": "25",
+          "value": 1.02806
+        }
+      ]
+    },
+    {
+      "level": 13,
+      "breakStage": 0,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 42.44561
+        },
+        {
+          "attributeId": "40",
+          "value": 29.33272
+        },
+        {
+          "attributeId": "41",
+          "value": 20.1397
+        },
+        {
+          "attributeId": "42",
+          "value": 22.76709
+        },
+        {
+          "attributeId": "1",
+          "value": 1173
+        },
+        {
+          "attributeId": "2",
+          "value": 69
+        },
+        {
+          "attributeId": "49",
+          "value": 1.06122
+        },
+        {
+          "attributeId": "25",
+          "value": 1.03061
+        }
+      ]
+    },
+    {
+      "level": 14,
+      "breakStage": 0,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 44.12708
+        },
+        {
+          "attributeId": "40",
+          "value": 30.52969
+        },
+        {
+          "attributeId": "41",
+          "value": 21.04481
+        },
+        {
+          "attributeId": "42",
+          "value": 23.71934
+        },
+        {
+          "attributeId": "1",
+          "value": 1230
+        },
+        {
+          "attributeId": "2",
+          "value": 72
+        },
+        {
+          "attributeId": "49",
+          "value": 1.06633
+        },
+        {
+          "attributeId": "25",
+          "value": 1.03316
+        }
+      ]
+    },
+    {
+      "level": 15,
+      "breakStage": 0,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 45.80854
+        },
+        {
+          "attributeId": "40",
+          "value": 31.72666
+        },
+        {
+          "attributeId": "41",
+          "value": 21.94993
+        },
+        {
+          "attributeId": "42",
+          "value": 24.67158
+        },
+        {
+          "attributeId": "1",
+          "value": 1286
+        },
+        {
+          "attributeId": "2",
+          "value": 75
+        },
+        {
+          "attributeId": "49",
+          "value": 1.07143
+        },
+        {
+          "attributeId": "25",
+          "value": 1.03571
+        }
+      ]
+    },
+    {
+      "level": 16,
+      "breakStage": 0,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 47.49001
+        },
+        {
+          "attributeId": "40",
+          "value": 32.92363
+        },
+        {
+          "attributeId": "41",
+          "value": 22.85504
+        },
+        {
+          "attributeId": "42",
+          "value": 25.62382
+        },
+        {
+          "attributeId": "1",
+          "value": 1342
+        },
+        {
+          "attributeId": "2",
+          "value": 78
+        },
+        {
+          "attributeId": "49",
+          "value": 1.07653
+        },
+        {
+          "attributeId": "25",
+          "value": 1.03827
+        }
+      ]
+    },
+    {
+      "level": 17,
+      "breakStage": 0,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 49.17147
+        },
+        {
+          "attributeId": "40",
+          "value": 34.1206
+        },
+        {
+          "attributeId": "41",
+          "value": 23.76015
+        },
+        {
+          "attributeId": "42",
+          "value": 26.57606
+        },
+        {
+          "attributeId": "1",
+          "value": 1398
+        },
+        {
+          "attributeId": "2",
+          "value": 82
+        },
+        {
+          "attributeId": "49",
+          "value": 1.08163
+        },
+        {
+          "attributeId": "25",
+          "value": 1.04082
+        }
+      ]
+    },
+    {
+      "level": 18,
+      "breakStage": 0,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 50.85293
+        },
+        {
+          "attributeId": "40",
+          "value": 35.31757
+        },
+        {
+          "attributeId": "41",
+          "value": 24.66526
+        },
+        {
+          "attributeId": "42",
+          "value": 27.5283
+        },
+        {
+          "attributeId": "1",
+          "value": 1454
+        },
+        {
+          "attributeId": "2",
+          "value": 85
+        },
+        {
+          "attributeId": "49",
+          "value": 1.08673
+        },
+        {
+          "attributeId": "25",
+          "value": 1.04337
+        }
+      ]
+    },
+    {
+      "level": 19,
+      "breakStage": 0,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 52.5344
+        },
+        {
+          "attributeId": "40",
+          "value": 36.51454
+        },
+        {
+          "attributeId": "41",
+          "value": 25.57038
+        },
+        {
+          "attributeId": "42",
+          "value": 28.48054
+        },
+        {
+          "attributeId": "1",
+          "value": 1510
+        },
+        {
+          "attributeId": "2",
+          "value": 88
+        },
+        {
+          "attributeId": "49",
+          "value": 1.09184
+        },
+        {
+          "attributeId": "25",
+          "value": 1.04592
+        }
+      ]
+    },
+    {
+      "level": 20,
+      "breakStage": 1,
+      "isBreakthrough": true,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 54.21586
+        },
+        {
+          "attributeId": "40",
+          "value": 37.71151
+        },
+        {
+          "attributeId": "41",
+          "value": 26.47549
+        },
+        {
+          "attributeId": "42",
+          "value": 29.43278
+        },
+        {
+          "attributeId": "1",
+          "value": 1566
+        },
+        {
+          "attributeId": "2",
+          "value": 91
+        },
+        {
+          "attributeId": "49",
+          "value": 1.09694
+        },
+        {
+          "attributeId": "25",
+          "value": 1.04847
+        }
+      ]
+    },
+    {
+      "level": 21,
+      "breakStage": 1,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 55.89733
+        },
+        {
+          "attributeId": "40",
+          "value": 38.90848
+        },
+        {
+          "attributeId": "41",
+          "value": 27.3806
+        },
+        {
+          "attributeId": "42",
+          "value": 30.38502
+        },
+        {
+          "attributeId": "1",
+          "value": 1622
+        },
+        {
+          "attributeId": "2",
+          "value": 95
+        },
+        {
+          "attributeId": "49",
+          "value": 1.10204
+        },
+        {
+          "attributeId": "25",
+          "value": 1.05102
+        }
+      ]
+    },
+    {
+      "level": 22,
+      "breakStage": 1,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 57.57879
+        },
+        {
+          "attributeId": "40",
+          "value": 40.10545
+        },
+        {
+          "attributeId": "41",
+          "value": 28.28571
+        },
+        {
+          "attributeId": "42",
+          "value": 31.33726
+        },
+        {
+          "attributeId": "1",
+          "value": 1679
+        },
+        {
+          "attributeId": "2",
+          "value": 98
+        },
+        {
+          "attributeId": "49",
+          "value": 1.10714
+        },
+        {
+          "attributeId": "25",
+          "value": 1.05357
+        }
+      ]
+    },
+    {
+      "level": 23,
+      "breakStage": 1,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 59.26026
+        },
+        {
+          "attributeId": "40",
+          "value": 41.30242
+        },
+        {
+          "attributeId": "41",
+          "value": 29.19083
+        },
+        {
+          "attributeId": "42",
+          "value": 32.2895
+        },
+        {
+          "attributeId": "1",
+          "value": 1735
+        },
+        {
+          "attributeId": "2",
+          "value": 101
+        },
+        {
+          "attributeId": "49",
+          "value": 1.11224
+        },
+        {
+          "attributeId": "25",
+          "value": 1.05612
+        }
+      ]
+    },
+    {
+      "level": 24,
+      "breakStage": 1,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 60.94172
+        },
+        {
+          "attributeId": "40",
+          "value": 42.49939
+        },
+        {
+          "attributeId": "41",
+          "value": 30.09594
+        },
+        {
+          "attributeId": "42",
+          "value": 33.24174
+        },
+        {
+          "attributeId": "1",
+          "value": 1791
+        },
+        {
+          "attributeId": "2",
+          "value": 104
+        },
+        {
+          "attributeId": "49",
+          "value": 1.11735
+        },
+        {
+          "attributeId": "25",
+          "value": 1.05867
+        }
+      ]
+    },
+    {
+      "level": 25,
+      "breakStage": 1,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 62.62319
+        },
+        {
+          "attributeId": "40",
+          "value": 43.69636
+        },
+        {
+          "attributeId": "41",
+          "value": 31.00105
+        },
+        {
+          "attributeId": "42",
+          "value": 34.19398
+        },
+        {
+          "attributeId": "1",
+          "value": 1847
+        },
+        {
+          "attributeId": "2",
+          "value": 108
+        },
+        {
+          "attributeId": "49",
+          "value": 1.12245
+        },
+        {
+          "attributeId": "25",
+          "value": 1.06122
+        }
+      ]
+    },
+    {
+      "level": 26,
+      "breakStage": 1,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 64.30465
+        },
+        {
+          "attributeId": "40",
+          "value": 44.89333
+        },
+        {
+          "attributeId": "41",
+          "value": 31.90616
+        },
+        {
+          "attributeId": "42",
+          "value": 35.14622
+        },
+        {
+          "attributeId": "1",
+          "value": 1903
+        },
+        {
+          "attributeId": "2",
+          "value": 111
+        },
+        {
+          "attributeId": "49",
+          "value": 1.12755
+        },
+        {
+          "attributeId": "25",
+          "value": 1.06378
+        }
+      ]
+    },
+    {
+      "level": 27,
+      "breakStage": 1,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 65.98611
+        },
+        {
+          "attributeId": "40",
+          "value": 46.0903
+        },
+        {
+          "attributeId": "41",
+          "value": 32.81128
+        },
+        {
+          "attributeId": "42",
+          "value": 36.09846
+        },
+        {
+          "attributeId": "1",
+          "value": 1959
+        },
+        {
+          "attributeId": "2",
+          "value": 114
+        },
+        {
+          "attributeId": "49",
+          "value": 1.13265
+        },
+        {
+          "attributeId": "25",
+          "value": 1.06633
+        }
+      ]
+    },
+    {
+      "level": 28,
+      "breakStage": 1,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 67.66758
+        },
+        {
+          "attributeId": "40",
+          "value": 47.28727
+        },
+        {
+          "attributeId": "41",
+          "value": 33.71639
+        },
+        {
+          "attributeId": "42",
+          "value": 37.0507
+        },
+        {
+          "attributeId": "1",
+          "value": 2015
+        },
+        {
+          "attributeId": "2",
+          "value": 117
+        },
+        {
+          "attributeId": "49",
+          "value": 1.13776
+        },
+        {
+          "attributeId": "25",
+          "value": 1.06888
+        }
+      ]
+    },
+    {
+      "level": 29,
+      "breakStage": 1,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 69.34904
+        },
+        {
+          "attributeId": "40",
+          "value": 48.48424
+        },
+        {
+          "attributeId": "41",
+          "value": 34.6215
+        },
+        {
+          "attributeId": "42",
+          "value": 38.00295
+        },
+        {
+          "attributeId": "1",
+          "value": 2071
+        },
+        {
+          "attributeId": "2",
+          "value": 120
+        },
+        {
+          "attributeId": "49",
+          "value": 1.14286
+        },
+        {
+          "attributeId": "25",
+          "value": 1.07143
+        }
+      ]
+    },
+    {
+      "level": 30,
+      "breakStage": 1,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 71.03051
+        },
+        {
+          "attributeId": "40",
+          "value": 49.68121
+        },
+        {
+          "attributeId": "41",
+          "value": 35.52661
+        },
+        {
+          "attributeId": "42",
+          "value": 38.95519
+        },
+        {
+          "attributeId": "1",
+          "value": 2128
+        },
+        {
+          "attributeId": "2",
+          "value": 124
+        },
+        {
+          "attributeId": "49",
+          "value": 1.14796
+        },
+        {
+          "attributeId": "25",
+          "value": 1.07398
+        }
+      ]
+    },
+    {
+      "level": 31,
+      "breakStage": 1,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 72.71197
+        },
+        {
+          "attributeId": "40",
+          "value": 50.87818
+        },
+        {
+          "attributeId": "41",
+          "value": 36.43173
+        },
+        {
+          "attributeId": "42",
+          "value": 39.90743
+        },
+        {
+          "attributeId": "1",
+          "value": 2184
+        },
+        {
+          "attributeId": "2",
+          "value": 127
+        },
+        {
+          "attributeId": "49",
+          "value": 1.15306
+        },
+        {
+          "attributeId": "25",
+          "value": 1.07653
+        }
+      ]
+    },
+    {
+      "level": 32,
+      "breakStage": 1,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 74.39344
+        },
+        {
+          "attributeId": "40",
+          "value": 52.07515
+        },
+        {
+          "attributeId": "41",
+          "value": 37.33684
+        },
+        {
+          "attributeId": "42",
+          "value": 40.85967
+        },
+        {
+          "attributeId": "1",
+          "value": 2240
+        },
+        {
+          "attributeId": "2",
+          "value": 130
+        },
+        {
+          "attributeId": "49",
+          "value": 1.15816
+        },
+        {
+          "attributeId": "25",
+          "value": 1.07908
+        }
+      ]
+    },
+    {
+      "level": 33,
+      "breakStage": 1,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 76.0749
+        },
+        {
+          "attributeId": "40",
+          "value": 53.27212
+        },
+        {
+          "attributeId": "41",
+          "value": 38.24195
+        },
+        {
+          "attributeId": "42",
+          "value": 41.81191
+        },
+        {
+          "attributeId": "1",
+          "value": 2296
+        },
+        {
+          "attributeId": "2",
+          "value": 133
+        },
+        {
+          "attributeId": "49",
+          "value": 1.16327
+        },
+        {
+          "attributeId": "25",
+          "value": 1.08163
+        }
+      ]
+    },
+    {
+      "level": 34,
+      "breakStage": 1,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 77.75636
+        },
+        {
+          "attributeId": "40",
+          "value": 54.46909
+        },
+        {
+          "attributeId": "41",
+          "value": 39.14707
+        },
+        {
+          "attributeId": "42",
+          "value": 42.76415
+        },
+        {
+          "attributeId": "1",
+          "value": 2352
+        },
+        {
+          "attributeId": "2",
+          "value": 137
+        },
+        {
+          "attributeId": "49",
+          "value": 1.16837
+        },
+        {
+          "attributeId": "25",
+          "value": 1.08418
+        }
+      ]
+    },
+    {
+      "level": 35,
+      "breakStage": 1,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 79.43783
+        },
+        {
+          "attributeId": "40",
+          "value": 55.66606
+        },
+        {
+          "attributeId": "41",
+          "value": 40.05218
+        },
+        {
+          "attributeId": "42",
+          "value": 43.71639
+        },
+        {
+          "attributeId": "1",
+          "value": 2408
+        },
+        {
+          "attributeId": "2",
+          "value": 140
+        },
+        {
+          "attributeId": "49",
+          "value": 1.17347
+        },
+        {
+          "attributeId": "25",
+          "value": 1.08673
+        }
+      ]
+    },
+    {
+      "level": 36,
+      "breakStage": 1,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 81.11929
+        },
+        {
+          "attributeId": "40",
+          "value": 56.86303
+        },
+        {
+          "attributeId": "41",
+          "value": 40.95729
+        },
+        {
+          "attributeId": "42",
+          "value": 44.66863
+        },
+        {
+          "attributeId": "1",
+          "value": 2464
+        },
+        {
+          "attributeId": "2",
+          "value": 143
+        },
+        {
+          "attributeId": "49",
+          "value": 1.17857
+        },
+        {
+          "attributeId": "25",
+          "value": 1.08929
+        }
+      ]
+    },
+    {
+      "level": 37,
+      "breakStage": 1,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 82.80076
+        },
+        {
+          "attributeId": "40",
+          "value": 58.06
+        },
+        {
+          "attributeId": "41",
+          "value": 41.8624
+        },
+        {
+          "attributeId": "42",
+          "value": 45.62087
+        },
+        {
+          "attributeId": "1",
+          "value": 2520
+        },
+        {
+          "attributeId": "2",
+          "value": 146
+        },
+        {
+          "attributeId": "49",
+          "value": 1.18367
+        },
+        {
+          "attributeId": "25",
+          "value": 1.09184
+        }
+      ]
+    },
+    {
+      "level": 38,
+      "breakStage": 1,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 84.48222
+        },
+        {
+          "attributeId": "40",
+          "value": 59.25697
+        },
+        {
+          "attributeId": "41",
+          "value": 42.76752
+        },
+        {
+          "attributeId": "42",
+          "value": 46.57311
+        },
+        {
+          "attributeId": "1",
+          "value": 2577
+        },
+        {
+          "attributeId": "2",
+          "value": 150
+        },
+        {
+          "attributeId": "49",
+          "value": 1.18878
+        },
+        {
+          "attributeId": "25",
+          "value": 1.09439
+        }
+      ]
+    },
+    {
+      "level": 39,
+      "breakStage": 1,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 86.16369
+        },
+        {
+          "attributeId": "40",
+          "value": 60.45394
+        },
+        {
+          "attributeId": "41",
+          "value": 43.67263
+        },
+        {
+          "attributeId": "42",
+          "value": 47.52535
+        },
+        {
+          "attributeId": "1",
+          "value": 2633
+        },
+        {
+          "attributeId": "2",
+          "value": 153
+        },
+        {
+          "attributeId": "49",
+          "value": 1.19388
+        },
+        {
+          "attributeId": "25",
+          "value": 1.09694
+        }
+      ]
+    },
+    {
+      "level": 40,
+      "breakStage": 2,
+      "isBreakthrough": true,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 87.84515
+        },
+        {
+          "attributeId": "40",
+          "value": 61.65092
+        },
+        {
+          "attributeId": "41",
+          "value": 44.57774
+        },
+        {
+          "attributeId": "42",
+          "value": 48.47759
+        },
+        {
+          "attributeId": "1",
+          "value": 2689
+        },
+        {
+          "attributeId": "2",
+          "value": 156
+        },
+        {
+          "attributeId": "49",
+          "value": 1.19898
+        },
+        {
+          "attributeId": "25",
+          "value": 1.09949
+        }
+      ]
+    },
+    {
+      "level": 41,
+      "breakStage": 2,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 89.52661
+        },
+        {
+          "attributeId": "40",
+          "value": 62.84789
+        },
+        {
+          "attributeId": "41",
+          "value": 45.48285
+        },
+        {
+          "attributeId": "42",
+          "value": 49.42983
+        },
+        {
+          "attributeId": "1",
+          "value": 2745
+        },
+        {
+          "attributeId": "2",
+          "value": 159
+        },
+        {
+          "attributeId": "49",
+          "value": 1.20408
+        },
+        {
+          "attributeId": "25",
+          "value": 1.10204
+        }
+      ]
+    },
+    {
+      "level": 42,
+      "breakStage": 2,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 91.20808
+        },
+        {
+          "attributeId": "40",
+          "value": 64.04486
+        },
+        {
+          "attributeId": "41",
+          "value": 46.38797
+        },
+        {
+          "attributeId": "42",
+          "value": 50.38207
+        },
+        {
+          "attributeId": "1",
+          "value": 2801
+        },
+        {
+          "attributeId": "2",
+          "value": 162
+        },
+        {
+          "attributeId": "49",
+          "value": 1.20918
+        },
+        {
+          "attributeId": "25",
+          "value": 1.10459
+        }
+      ]
+    },
+    {
+      "level": 43,
+      "breakStage": 2,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 92.88954
+        },
+        {
+          "attributeId": "40",
+          "value": 65.24183
+        },
+        {
+          "attributeId": "41",
+          "value": 47.29308
+        },
+        {
+          "attributeId": "42",
+          "value": 51.33432
+        },
+        {
+          "attributeId": "1",
+          "value": 2857
+        },
+        {
+          "attributeId": "2",
+          "value": 166
+        },
+        {
+          "attributeId": "49",
+          "value": 1.21429
+        },
+        {
+          "attributeId": "25",
+          "value": 1.10714
+        }
+      ]
+    },
+    {
+      "level": 44,
+      "breakStage": 2,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 94.57101
+        },
+        {
+          "attributeId": "40",
+          "value": 66.4388
+        },
+        {
+          "attributeId": "41",
+          "value": 48.19819
+        },
+        {
+          "attributeId": "42",
+          "value": 52.28656
+        },
+        {
+          "attributeId": "1",
+          "value": 2913
+        },
+        {
+          "attributeId": "2",
+          "value": 169
+        },
+        {
+          "attributeId": "49",
+          "value": 1.21939
+        },
+        {
+          "attributeId": "25",
+          "value": 1.10969
+        }
+      ]
+    },
+    {
+      "level": 45,
+      "breakStage": 2,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 96.25247
+        },
+        {
+          "attributeId": "40",
+          "value": 67.63577
+        },
+        {
+          "attributeId": "41",
+          "value": 49.1033
+        },
+        {
+          "attributeId": "42",
+          "value": 53.2388
+        },
+        {
+          "attributeId": "1",
+          "value": 2969
+        },
+        {
+          "attributeId": "2",
+          "value": 172
+        },
+        {
+          "attributeId": "49",
+          "value": 1.22449
+        },
+        {
+          "attributeId": "25",
+          "value": 1.11224
+        }
+      ]
+    },
+    {
+      "level": 46,
+      "breakStage": 2,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 97.93394
+        },
+        {
+          "attributeId": "40",
+          "value": 68.83274
+        },
+        {
+          "attributeId": "41",
+          "value": 50.00842
+        },
+        {
+          "attributeId": "42",
+          "value": 54.19104
+        },
+        {
+          "attributeId": "1",
+          "value": 3026
+        },
+        {
+          "attributeId": "2",
+          "value": 175
+        },
+        {
+          "attributeId": "49",
+          "value": 1.22959
+        },
+        {
+          "attributeId": "25",
+          "value": 1.1148
+        }
+      ]
+    },
+    {
+      "level": 47,
+      "breakStage": 2,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 99.6154
+        },
+        {
+          "attributeId": "40",
+          "value": 70.02971
+        },
+        {
+          "attributeId": "41",
+          "value": 50.91353
+        },
+        {
+          "attributeId": "42",
+          "value": 55.14328
+        },
+        {
+          "attributeId": "1",
+          "value": 3082
+        },
+        {
+          "attributeId": "2",
+          "value": 179
+        },
+        {
+          "attributeId": "49",
+          "value": 1.23469
+        },
+        {
+          "attributeId": "25",
+          "value": 1.11735
+        }
+      ]
+    },
+    {
+      "level": 48,
+      "breakStage": 2,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 101.29687
+        },
+        {
+          "attributeId": "40",
+          "value": 71.22668
+        },
+        {
+          "attributeId": "41",
+          "value": 51.81864
+        },
+        {
+          "attributeId": "42",
+          "value": 56.09552
+        },
+        {
+          "attributeId": "1",
+          "value": 3138
+        },
+        {
+          "attributeId": "2",
+          "value": 182
+        },
+        {
+          "attributeId": "49",
+          "value": 1.2398
+        },
+        {
+          "attributeId": "25",
+          "value": 1.1199
+        }
+      ]
+    },
+    {
+      "level": 49,
+      "breakStage": 2,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 102.97833
+        },
+        {
+          "attributeId": "40",
+          "value": 72.42365
+        },
+        {
+          "attributeId": "41",
+          "value": 52.72375
+        },
+        {
+          "attributeId": "42",
+          "value": 57.04776
+        },
+        {
+          "attributeId": "1",
+          "value": 3194
+        },
+        {
+          "attributeId": "2",
+          "value": 185
+        },
+        {
+          "attributeId": "49",
+          "value": 1.2449
+        },
+        {
+          "attributeId": "25",
+          "value": 1.12245
+        }
+      ]
+    },
+    {
+      "level": 50,
+      "breakStage": 2,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 104.65979
+        },
+        {
+          "attributeId": "40",
+          "value": 73.62062
+        },
+        {
+          "attributeId": "41",
+          "value": 53.62887
+        },
+        {
+          "attributeId": "42",
+          "value": 58
+        },
+        {
+          "attributeId": "1",
+          "value": 3250
+        },
+        {
+          "attributeId": "2",
+          "value": 188
+        },
+        {
+          "attributeId": "49",
+          "value": 1.25
+        },
+        {
+          "attributeId": "25",
+          "value": 1.125
+        }
+      ]
+    },
+    {
+      "level": 51,
+      "breakStage": 2,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 106.34126
+        },
+        {
+          "attributeId": "40",
+          "value": 74.81759
+        },
+        {
+          "attributeId": "41",
+          "value": 54.53398
+        },
+        {
+          "attributeId": "42",
+          "value": 58.95224
+        },
+        {
+          "attributeId": "1",
+          "value": 3306
+        },
+        {
+          "attributeId": "2",
+          "value": 192
+        },
+        {
+          "attributeId": "49",
+          "value": 1.2551
+        },
+        {
+          "attributeId": "25",
+          "value": 1.12755
+        }
+      ]
+    },
+    {
+      "level": 52,
+      "breakStage": 2,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 108.02272
+        },
+        {
+          "attributeId": "40",
+          "value": 76.01456
+        },
+        {
+          "attributeId": "41",
+          "value": 55.43909
+        },
+        {
+          "attributeId": "42",
+          "value": 59.90448
+        },
+        {
+          "attributeId": "1",
+          "value": 3362
+        },
+        {
+          "attributeId": "2",
+          "value": 195
+        },
+        {
+          "attributeId": "49",
+          "value": 1.2602
+        },
+        {
+          "attributeId": "25",
+          "value": 1.1301
+        }
+      ]
+    },
+    {
+      "level": 53,
+      "breakStage": 2,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 109.70419
+        },
+        {
+          "attributeId": "40",
+          "value": 77.21153
+        },
+        {
+          "attributeId": "41",
+          "value": 56.3442
+        },
+        {
+          "attributeId": "42",
+          "value": 60.85672
+        },
+        {
+          "attributeId": "1",
+          "value": 3418
+        },
+        {
+          "attributeId": "2",
+          "value": 198
+        },
+        {
+          "attributeId": "49",
+          "value": 1.26531
+        },
+        {
+          "attributeId": "25",
+          "value": 1.13265
+        }
+      ]
+    },
+    {
+      "level": 54,
+      "breakStage": 2,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 111.38565
+        },
+        {
+          "attributeId": "40",
+          "value": 78.4085
+        },
+        {
+          "attributeId": "41",
+          "value": 57.24932
+        },
+        {
+          "attributeId": "42",
+          "value": 61.80896
+        },
+        {
+          "attributeId": "1",
+          "value": 3474
+        },
+        {
+          "attributeId": "2",
+          "value": 201
+        },
+        {
+          "attributeId": "49",
+          "value": 1.27041
+        },
+        {
+          "attributeId": "25",
+          "value": 1.1352
+        }
+      ]
+    },
+    {
+      "level": 55,
+      "breakStage": 2,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 113.06712
+        },
+        {
+          "attributeId": "40",
+          "value": 79.60547
+        },
+        {
+          "attributeId": "41",
+          "value": 58.15443
+        },
+        {
+          "attributeId": "42",
+          "value": 62.7612
+        },
+        {
+          "attributeId": "1",
+          "value": 3531
+        },
+        {
+          "attributeId": "2",
+          "value": 204
+        },
+        {
+          "attributeId": "49",
+          "value": 1.27551
+        },
+        {
+          "attributeId": "25",
+          "value": 1.13776
+        }
+      ]
+    },
+    {
+      "level": 56,
+      "breakStage": 2,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 114.74858
+        },
+        {
+          "attributeId": "40",
+          "value": 80.80244
+        },
+        {
+          "attributeId": "41",
+          "value": 59.05954
+        },
+        {
+          "attributeId": "42",
+          "value": 63.71344
+        },
+        {
+          "attributeId": "1",
+          "value": 3587
+        },
+        {
+          "attributeId": "2",
+          "value": 208
+        },
+        {
+          "attributeId": "49",
+          "value": 1.28061
+        },
+        {
+          "attributeId": "25",
+          "value": 1.14031
+        }
+      ]
+    },
+    {
+      "level": 57,
+      "breakStage": 2,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 116.43004
+        },
+        {
+          "attributeId": "40",
+          "value": 81.99941
+        },
+        {
+          "attributeId": "41",
+          "value": 59.96465
+        },
+        {
+          "attributeId": "42",
+          "value": 64.66568
+        },
+        {
+          "attributeId": "1",
+          "value": 3643
+        },
+        {
+          "attributeId": "2",
+          "value": 211
+        },
+        {
+          "attributeId": "49",
+          "value": 1.28571
+        },
+        {
+          "attributeId": "25",
+          "value": 1.14286
+        }
+      ]
+    },
+    {
+      "level": 58,
+      "breakStage": 2,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 118.11151
+        },
+        {
+          "attributeId": "40",
+          "value": 83.19638
+        },
+        {
+          "attributeId": "41",
+          "value": 60.86977
+        },
+        {
+          "attributeId": "42",
+          "value": 65.61793
+        },
+        {
+          "attributeId": "1",
+          "value": 3699
+        },
+        {
+          "attributeId": "2",
+          "value": 214
+        },
+        {
+          "attributeId": "49",
+          "value": 1.29082
+        },
+        {
+          "attributeId": "25",
+          "value": 1.14541
+        }
+      ]
+    },
+    {
+      "level": 59,
+      "breakStage": 2,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 119.79297
+        },
+        {
+          "attributeId": "40",
+          "value": 84.39335
+        },
+        {
+          "attributeId": "41",
+          "value": 61.77488
+        },
+        {
+          "attributeId": "42",
+          "value": 66.57017
+        },
+        {
+          "attributeId": "1",
+          "value": 3755
+        },
+        {
+          "attributeId": "2",
+          "value": 217
+        },
+        {
+          "attributeId": "49",
+          "value": 1.29592
+        },
+        {
+          "attributeId": "25",
+          "value": 1.14796
+        }
+      ]
+    },
+    {
+      "level": 60,
+      "breakStage": 3,
+      "isBreakthrough": true,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 121.47444
+        },
+        {
+          "attributeId": "40",
+          "value": 85.59032
+        },
+        {
+          "attributeId": "41",
+          "value": 62.67999
+        },
+        {
+          "attributeId": "42",
+          "value": 67.52241
+        },
+        {
+          "attributeId": "1",
+          "value": 3811
+        },
+        {
+          "attributeId": "2",
+          "value": 221
+        },
+        {
+          "attributeId": "49",
+          "value": 1.30102
+        },
+        {
+          "attributeId": "25",
+          "value": 1.15051
+        }
+      ]
+    },
+    {
+      "level": 61,
+      "breakStage": 3,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 123.1559
+        },
+        {
+          "attributeId": "40",
+          "value": 86.78729
+        },
+        {
+          "attributeId": "41",
+          "value": 63.5851
+        },
+        {
+          "attributeId": "42",
+          "value": 68.47465
+        },
+        {
+          "attributeId": "1",
+          "value": 3867
+        },
+        {
+          "attributeId": "2",
+          "value": 224
+        },
+        {
+          "attributeId": "49",
+          "value": 1.30612
+        },
+        {
+          "attributeId": "25",
+          "value": 1.15306
+        }
+      ]
+    },
+    {
+      "level": 62,
+      "breakStage": 3,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 124.83737
+        },
+        {
+          "attributeId": "40",
+          "value": 87.98426
+        },
+        {
+          "attributeId": "41",
+          "value": 64.49022
+        },
+        {
+          "attributeId": "42",
+          "value": 69.42689
+        },
+        {
+          "attributeId": "1",
+          "value": 3923
+        },
+        {
+          "attributeId": "2",
+          "value": 227
+        },
+        {
+          "attributeId": "49",
+          "value": 1.31122
+        },
+        {
+          "attributeId": "25",
+          "value": 1.15561
+        }
+      ]
+    },
+    {
+      "level": 63,
+      "breakStage": 3,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 126.51883
+        },
+        {
+          "attributeId": "40",
+          "value": 89.18123
+        },
+        {
+          "attributeId": "41",
+          "value": 65.39533
+        },
+        {
+          "attributeId": "42",
+          "value": 70.37913
+        },
+        {
+          "attributeId": "1",
+          "value": 3980
+        },
+        {
+          "attributeId": "2",
+          "value": 230
+        },
+        {
+          "attributeId": "49",
+          "value": 1.31633
+        },
+        {
+          "attributeId": "25",
+          "value": 1.15816
+        }
+      ]
+    },
+    {
+      "level": 64,
+      "breakStage": 3,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 128.20029
+        },
+        {
+          "attributeId": "40",
+          "value": 90.3782
+        },
+        {
+          "attributeId": "41",
+          "value": 66.30044
+        },
+        {
+          "attributeId": "42",
+          "value": 71.33137
+        },
+        {
+          "attributeId": "1",
+          "value": 4036
+        },
+        {
+          "attributeId": "2",
+          "value": 234
+        },
+        {
+          "attributeId": "49",
+          "value": 1.32143
+        },
+        {
+          "attributeId": "25",
+          "value": 1.16071
+        }
+      ]
+    },
+    {
+      "level": 65,
+      "breakStage": 3,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 129.88176
+        },
+        {
+          "attributeId": "40",
+          "value": 91.57517
+        },
+        {
+          "attributeId": "41",
+          "value": 67.20555
+        },
+        {
+          "attributeId": "42",
+          "value": 72.28361
+        },
+        {
+          "attributeId": "1",
+          "value": 4092
+        },
+        {
+          "attributeId": "2",
+          "value": 237
+        },
+        {
+          "attributeId": "49",
+          "value": 1.32653
+        },
+        {
+          "attributeId": "25",
+          "value": 1.16327
+        }
+      ]
+    },
+    {
+      "level": 66,
+      "breakStage": 3,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 131.56322
+        },
+        {
+          "attributeId": "40",
+          "value": 92.77214
+        },
+        {
+          "attributeId": "41",
+          "value": 68.11067
+        },
+        {
+          "attributeId": "42",
+          "value": 73.23585
+        },
+        {
+          "attributeId": "1",
+          "value": 4148
+        },
+        {
+          "attributeId": "2",
+          "value": 240
+        },
+        {
+          "attributeId": "49",
+          "value": 1.33163
+        },
+        {
+          "attributeId": "25",
+          "value": 1.16582
+        }
+      ]
+    },
+    {
+      "level": 67,
+      "breakStage": 3,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 133.24469
+        },
+        {
+          "attributeId": "40",
+          "value": 93.96911
+        },
+        {
+          "attributeId": "41",
+          "value": 69.01578
+        },
+        {
+          "attributeId": "42",
+          "value": 74.18809
+        },
+        {
+          "attributeId": "1",
+          "value": 4204
+        },
+        {
+          "attributeId": "2",
+          "value": 243
+        },
+        {
+          "attributeId": "49",
+          "value": 1.33673
+        },
+        {
+          "attributeId": "25",
+          "value": 1.16837
+        }
+      ]
+    },
+    {
+      "level": 68,
+      "breakStage": 3,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 134.92615
+        },
+        {
+          "attributeId": "40",
+          "value": 95.16608
+        },
+        {
+          "attributeId": "41",
+          "value": 69.92089
+        },
+        {
+          "attributeId": "42",
+          "value": 75.14033
+        },
+        {
+          "attributeId": "1",
+          "value": 4260
+        },
+        {
+          "attributeId": "2",
+          "value": 247
+        },
+        {
+          "attributeId": "49",
+          "value": 1.34184
+        },
+        {
+          "attributeId": "25",
+          "value": 1.17092
+        }
+      ]
+    },
+    {
+      "level": 69,
+      "breakStage": 3,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 136.60762
+        },
+        {
+          "attributeId": "40",
+          "value": 96.36305
+        },
+        {
+          "attributeId": "41",
+          "value": 70.826
+        },
+        {
+          "attributeId": "42",
+          "value": 76.09257
+        },
+        {
+          "attributeId": "1",
+          "value": 4316
+        },
+        {
+          "attributeId": "2",
+          "value": 250
+        },
+        {
+          "attributeId": "49",
+          "value": 1.34694
+        },
+        {
+          "attributeId": "25",
+          "value": 1.17347
+        }
+      ]
+    },
+    {
+      "level": 70,
+      "breakStage": 3,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 138.28908
+        },
+        {
+          "attributeId": "40",
+          "value": 97.56003
+        },
+        {
+          "attributeId": "41",
+          "value": 71.73112
+        },
+        {
+          "attributeId": "42",
+          "value": 77.04481
+        },
+        {
+          "attributeId": "1",
+          "value": 4372
+        },
+        {
+          "attributeId": "2",
+          "value": 253
+        },
+        {
+          "attributeId": "49",
+          "value": 1.35204
+        },
+        {
+          "attributeId": "25",
+          "value": 1.17602
+        }
+      ]
+    },
+    {
+      "level": 71,
+      "breakStage": 3,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 139.97054
+        },
+        {
+          "attributeId": "40",
+          "value": 98.757
+        },
+        {
+          "attributeId": "41",
+          "value": 72.63623
+        },
+        {
+          "attributeId": "42",
+          "value": 77.99705
+        },
+        {
+          "attributeId": "1",
+          "value": 4429
+        },
+        {
+          "attributeId": "2",
+          "value": 256
+        },
+        {
+          "attributeId": "49",
+          "value": 1.35714
+        },
+        {
+          "attributeId": "25",
+          "value": 1.17857
+        }
+      ]
+    },
+    {
+      "level": 72,
+      "breakStage": 3,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 141.65201
+        },
+        {
+          "attributeId": "40",
+          "value": 99.95397
+        },
+        {
+          "attributeId": "41",
+          "value": 73.54134
+        },
+        {
+          "attributeId": "42",
+          "value": 78.9493
+        },
+        {
+          "attributeId": "1",
+          "value": 4485
+        },
+        {
+          "attributeId": "2",
+          "value": 259
+        },
+        {
+          "attributeId": "49",
+          "value": 1.36224
+        },
+        {
+          "attributeId": "25",
+          "value": 1.18112
+        }
+      ]
+    },
+    {
+      "level": 73,
+      "breakStage": 3,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 143.33347
+        },
+        {
+          "attributeId": "40",
+          "value": 101.15094
+        },
+        {
+          "attributeId": "41",
+          "value": 74.44645
+        },
+        {
+          "attributeId": "42",
+          "value": 79.90154
+        },
+        {
+          "attributeId": "1",
+          "value": 4541
+        },
+        {
+          "attributeId": "2",
+          "value": 263
+        },
+        {
+          "attributeId": "49",
+          "value": 1.36735
+        },
+        {
+          "attributeId": "25",
+          "value": 1.18367
+        }
+      ]
+    },
+    {
+      "level": 74,
+      "breakStage": 3,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 145.01494
+        },
+        {
+          "attributeId": "40",
+          "value": 102.34791
+        },
+        {
+          "attributeId": "41",
+          "value": 75.35157
+        },
+        {
+          "attributeId": "42",
+          "value": 80.85378
+        },
+        {
+          "attributeId": "1",
+          "value": 4597
+        },
+        {
+          "attributeId": "2",
+          "value": 266
+        },
+        {
+          "attributeId": "49",
+          "value": 1.37245
+        },
+        {
+          "attributeId": "25",
+          "value": 1.18622
+        }
+      ]
+    },
+    {
+      "level": 75,
+      "breakStage": 3,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 146.6964
+        },
+        {
+          "attributeId": "40",
+          "value": 103.54488
+        },
+        {
+          "attributeId": "41",
+          "value": 76.25668
+        },
+        {
+          "attributeId": "42",
+          "value": 81.80602
+        },
+        {
+          "attributeId": "1",
+          "value": 4653
+        },
+        {
+          "attributeId": "2",
+          "value": 269
+        },
+        {
+          "attributeId": "49",
+          "value": 1.37755
+        },
+        {
+          "attributeId": "25",
+          "value": 1.18878
+        }
+      ]
+    },
+    {
+      "level": 76,
+      "breakStage": 3,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 148.37787
+        },
+        {
+          "attributeId": "40",
+          "value": 104.74185
+        },
+        {
+          "attributeId": "41",
+          "value": 77.16179
+        },
+        {
+          "attributeId": "42",
+          "value": 82.75826
+        },
+        {
+          "attributeId": "1",
+          "value": 4709
+        },
+        {
+          "attributeId": "2",
+          "value": 272
+        },
+        {
+          "attributeId": "49",
+          "value": 1.38265
+        },
+        {
+          "attributeId": "25",
+          "value": 1.19133
+        }
+      ]
+    },
+    {
+      "level": 77,
+      "breakStage": 3,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 150.05933
+        },
+        {
+          "attributeId": "40",
+          "value": 105.93882
+        },
+        {
+          "attributeId": "41",
+          "value": 78.06691
+        },
+        {
+          "attributeId": "42",
+          "value": 83.7105
+        },
+        {
+          "attributeId": "1",
+          "value": 4765
+        },
+        {
+          "attributeId": "2",
+          "value": 276
+        },
+        {
+          "attributeId": "49",
+          "value": 1.38776
+        },
+        {
+          "attributeId": "25",
+          "value": 1.19388
+        }
+      ]
+    },
+    {
+      "level": 78,
+      "breakStage": 3,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 151.7408
+        },
+        {
+          "attributeId": "40",
+          "value": 107.13579
+        },
+        {
+          "attributeId": "41",
+          "value": 78.97202
+        },
+        {
+          "attributeId": "42",
+          "value": 84.66274
+        },
+        {
+          "attributeId": "1",
+          "value": 4821
+        },
+        {
+          "attributeId": "2",
+          "value": 279
+        },
+        {
+          "attributeId": "49",
+          "value": 1.39286
+        },
+        {
+          "attributeId": "25",
+          "value": 1.19643
+        }
+      ]
+    },
+    {
+      "level": 79,
+      "breakStage": 3,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 153.42226
+        },
+        {
+          "attributeId": "40",
+          "value": 108.33276
+        },
+        {
+          "attributeId": "41",
+          "value": 79.87713
+        },
+        {
+          "attributeId": "42",
+          "value": 85.61498
+        },
+        {
+          "attributeId": "1",
+          "value": 4878
+        },
+        {
+          "attributeId": "2",
+          "value": 282
+        },
+        {
+          "attributeId": "49",
+          "value": 1.39796
+        },
+        {
+          "attributeId": "25",
+          "value": 1.19898
+        }
+      ]
+    },
+    {
+      "level": 80,
+      "breakStage": 4,
+      "isBreakthrough": true,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 155.10372
+        },
+        {
+          "attributeId": "40",
+          "value": 109.52973
+        },
+        {
+          "attributeId": "41",
+          "value": 80.78224
+        },
+        {
+          "attributeId": "42",
+          "value": 86.56722
+        },
+        {
+          "attributeId": "1",
+          "value": 4934
+        },
+        {
+          "attributeId": "2",
+          "value": 285
+        },
+        {
+          "attributeId": "49",
+          "value": 1.40306
+        },
+        {
+          "attributeId": "25",
+          "value": 1.20153
+        }
+      ]
+    },
+    {
+      "level": 81,
+      "breakStage": 4,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 156.78519
+        },
+        {
+          "attributeId": "40",
+          "value": 110.7267
+        },
+        {
+          "attributeId": "41",
+          "value": 81.68736
+        },
+        {
+          "attributeId": "42",
+          "value": 87.51946
+        },
+        {
+          "attributeId": "1",
+          "value": 4990
+        },
+        {
+          "attributeId": "2",
+          "value": 289
+        },
+        {
+          "attributeId": "49",
+          "value": 1.40816
+        },
+        {
+          "attributeId": "25",
+          "value": 1.20408
+        }
+      ]
+    },
+    {
+      "level": 82,
+      "breakStage": 4,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 158.46665
+        },
+        {
+          "attributeId": "40",
+          "value": 111.92367
+        },
+        {
+          "attributeId": "41",
+          "value": 82.59247
+        },
+        {
+          "attributeId": "42",
+          "value": 88.4717
+        },
+        {
+          "attributeId": "1",
+          "value": 5046
+        },
+        {
+          "attributeId": "2",
+          "value": 292
+        },
+        {
+          "attributeId": "49",
+          "value": 1.41327
+        },
+        {
+          "attributeId": "25",
+          "value": 1.20663
+        }
+      ]
+    },
+    {
+      "level": 83,
+      "breakStage": 4,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 160.14812
+        },
+        {
+          "attributeId": "40",
+          "value": 113.12064
+        },
+        {
+          "attributeId": "41",
+          "value": 83.49758
+        },
+        {
+          "attributeId": "42",
+          "value": 89.42394
+        },
+        {
+          "attributeId": "1",
+          "value": 5102
+        },
+        {
+          "attributeId": "2",
+          "value": 295
+        },
+        {
+          "attributeId": "49",
+          "value": 1.41837
+        },
+        {
+          "attributeId": "25",
+          "value": 1.20918
+        }
+      ]
+    },
+    {
+      "level": 84,
+      "breakStage": 4,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 161.82958
+        },
+        {
+          "attributeId": "40",
+          "value": 114.31761
+        },
+        {
+          "attributeId": "41",
+          "value": 84.40269
+        },
+        {
+          "attributeId": "42",
+          "value": 90.37618
+        },
+        {
+          "attributeId": "1",
+          "value": 5158
+        },
+        {
+          "attributeId": "2",
+          "value": 298
+        },
+        {
+          "attributeId": "49",
+          "value": 1.42347
+        },
+        {
+          "attributeId": "25",
+          "value": 1.21173
+        }
+      ]
+    },
+    {
+      "level": 85,
+      "breakStage": 4,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 163.51105
+        },
+        {
+          "attributeId": "40",
+          "value": 115.51458
+        },
+        {
+          "attributeId": "41",
+          "value": 85.30781
+        },
+        {
+          "attributeId": "42",
+          "value": 91.32842
+        },
+        {
+          "attributeId": "1",
+          "value": 5214
+        },
+        {
+          "attributeId": "2",
+          "value": 301
+        },
+        {
+          "attributeId": "49",
+          "value": 1.42857
+        },
+        {
+          "attributeId": "25",
+          "value": 1.21429
+        }
+      ]
+    },
+    {
+      "level": 86,
+      "breakStage": 4,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 165.19251
+        },
+        {
+          "attributeId": "40",
+          "value": 116.71155
+        },
+        {
+          "attributeId": "41",
+          "value": 86.21292
+        },
+        {
+          "attributeId": "42",
+          "value": 92.28066
+        },
+        {
+          "attributeId": "1",
+          "value": 5270
+        },
+        {
+          "attributeId": "2",
+          "value": 305
+        },
+        {
+          "attributeId": "49",
+          "value": 1.43367
+        },
+        {
+          "attributeId": "25",
+          "value": 1.21684
+        }
+      ]
+    },
+    {
+      "level": 87,
+      "breakStage": 4,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 166.87397
+        },
+        {
+          "attributeId": "40",
+          "value": 117.90852
+        },
+        {
+          "attributeId": "41",
+          "value": 87.11803
+        },
+        {
+          "attributeId": "42",
+          "value": 93.23291
+        },
+        {
+          "attributeId": "1",
+          "value": 5327
+        },
+        {
+          "attributeId": "2",
+          "value": 308
+        },
+        {
+          "attributeId": "49",
+          "value": 1.43878
+        },
+        {
+          "attributeId": "25",
+          "value": 1.21939
+        }
+      ]
+    },
+    {
+      "level": 88,
+      "breakStage": 4,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 168.55544
+        },
+        {
+          "attributeId": "40",
+          "value": 119.10549
+        },
+        {
+          "attributeId": "41",
+          "value": 88.02314
+        },
+        {
+          "attributeId": "42",
+          "value": 94.18515
+        },
+        {
+          "attributeId": "1",
+          "value": 5383
+        },
+        {
+          "attributeId": "2",
+          "value": 311
+        },
+        {
+          "attributeId": "49",
+          "value": 1.44388
+        },
+        {
+          "attributeId": "25",
+          "value": 1.22194
+        }
+      ]
+    },
+    {
+      "level": 89,
+      "breakStage": 4,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 170.2369
+        },
+        {
+          "attributeId": "40",
+          "value": 120.30246
+        },
+        {
+          "attributeId": "41",
+          "value": 88.92826
+        },
+        {
+          "attributeId": "42",
+          "value": 95.13739
+        },
+        {
+          "attributeId": "1",
+          "value": 5439
+        },
+        {
+          "attributeId": "2",
+          "value": 314
+        },
+        {
+          "attributeId": "49",
+          "value": 1.44898
+        },
+        {
+          "attributeId": "25",
+          "value": 1.22449
+        }
+      ]
+    },
+    {
+      "level": 90,
+      "breakStage": 4,
+      "isBreakthrough": false,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 171.91837
+        },
+        {
+          "attributeId": "40",
+          "value": 121.49943
+        },
+        {
+          "attributeId": "41",
+          "value": 89.83337
+        },
+        {
+          "attributeId": "42",
+          "value": 96.08963
+        },
+        {
+          "attributeId": "1",
+          "value": 5495
+        },
+        {
+          "attributeId": "2",
+          "value": 318
+        },
+        {
+          "attributeId": "49",
+          "value": 1.45408
+        },
+        {
+          "attributeId": "25",
+          "value": 1.22704
+        }
+      ]
+    }
+  ],
+  "fixedStats": [
+    {
+      "attributeId": "90",
+      "value": 6
+    },
+    {
+      "attributeId": "12",
+      "value": 6
+    }
+  ],
+  "skills": [
+    {
+      "id": "chr_0040_sweetpie_NormalAttack",
+      "typeId": "0",
+      "iconId": "icon_attack_lance",
+      "metrics": [
+        {
+          "id": "chr_0040_sweetpie_attack1:0"
+        },
+        {
+          "id": "chr_0040_sweetpie_attack2:0"
+        },
+        {
+          "id": "chr_0040_sweetpie_attack3:0"
+        },
+        {
+          "id": "chr_0040_sweetpie_attack4:0"
+        },
+        {
+          "id": "chr_0040_sweetpie_attack5:0"
+        },
+        {
+          "id": "chr_0040_sweetpie_power_attack:0"
+        },
+        {
+          "id": "chr_0040_sweetpie_plunging_attack_end:0"
+        }
+      ],
+      "levels": [
+        {
+          "level": 1,
+          "label": "Lv.1",
+          "values": [
+            "21%",
+            "24%",
+            "28%",
+            "42%",
+            "59%",
+            "400%",
+            "80%"
+          ]
+        },
+        {
+          "level": 2,
+          "label": "Lv.2",
+          "values": [
+            "23%",
+            "26%",
+            "28%",
+            "42%",
+            "65%",
+            "440%",
+            "88%"
+          ],
+          "materials": [
+            {
+              "itemId": "item_char_skill_level_1_6",
+              "count": 6,
+              "iconId": "item_char_skill_level_1_6",
+              "rarity": 3
+            },
+            {
+              "itemId": "item_plant_crylplant_1_1",
+              "count": 1,
+              "iconId": "item_plant_crylplant_1_1",
+              "rarity": 4
+            },
+            {
+              "itemId": "item_gold",
+              "count": 1000,
+              "iconId": "item_gold",
+              "rarity": 4
+            }
+          ]
+        },
+        {
+          "level": 3,
+          "label": "Lv.3",
+          "values": [
+            "26%",
+            "28%",
+            "32%",
+            "48%",
+            "70%",
+            "480%",
+            "96%"
+          ],
+          "materials": [
+            {
+              "itemId": "item_char_skill_level_1_6",
+              "count": 12,
+              "iconId": "item_char_skill_level_1_6",
+              "rarity": 3
+            },
+            {
+              "itemId": "item_plant_crylplant_1_1",
+              "count": 2,
+              "iconId": "item_plant_crylplant_1_1",
+              "rarity": 4
+            },
+            {
+              "itemId": "item_gold",
+              "count": 2700,
+              "iconId": "item_gold",
+              "rarity": 4
+            }
+          ]
+        },
+        {
+          "level": 4,
+          "label": "Lv.4",
+          "values": [
+            "28%",
+            "30%",
+            "36%",
+            "54%",
+            "76%",
+            "520%",
+            "104%"
+          ],
+          "materials": [
+            {
+              "itemId": "item_char_skill_level_1_6",
+              "count": 16,
+              "iconId": "item_char_skill_level_1_6",
+              "rarity": 3
+            },
+            {
+              "itemId": "item_plant_crylplant_1_2",
+              "count": 1,
+              "iconId": "item_plant_crylplant_1_2",
+              "rarity": 4
+            },
+            {
+              "itemId": "item_gold",
+              "count": 3200,
+              "iconId": "item_gold",
+              "rarity": 4
+            }
+          ]
+        },
+        {
+          "level": 5,
+          "label": "Lv.5",
+          "values": [
+            "30%",
+            "32%",
+            "36%",
+            "54%",
+            "82%",
+            "560%",
+            "112%"
+          ],
+          "materials": [
+            {
+              "itemId": "item_char_skill_level_1_6",
+              "count": 21,
+              "iconId": "item_char_skill_level_1_6",
+              "rarity": 3
+            },
+            {
+              "itemId": "item_plant_crylplant_1_2",
+              "count": 1,
+              "iconId": "item_plant_crylplant_1_2",
+              "rarity": 4
+            },
+            {
+              "itemId": "item_gold",
+              "count": 4200,
+              "iconId": "item_gold",
+              "rarity": 4
+            }
+          ]
+        },
+        {
+          "level": 6,
+          "label": "Lv.6",
+          "values": [
+            "32%",
+            "34%",
+            "40%",
+            "60%",
+            "88%",
+            "600%",
+            "120%"
+          ],
+          "materials": [
+            {
+              "itemId": "item_char_skill_level_1_6",
+              "count": 27,
+              "iconId": "item_char_skill_level_1_6",
+              "rarity": 3
+            },
+            {
+              "itemId": "item_plant_crylplant_1_2",
+              "count": 2,
+              "iconId": "item_plant_crylplant_1_2",
+              "rarity": 4
+            },
+            {
+              "itemId": "item_gold",
+              "count": 5400,
+              "iconId": "item_gold",
+              "rarity": 4
+            }
+          ]
+        },
+        {
+          "level": 7,
+          "label": "Lv.7",
+          "values": [
+            "34%",
+            "36%",
+            "44%",
+            "66%",
+            "94%",
+            "640%",
+            "128%"
+          ],
+          "materials": [
+            {
+              "itemId": "item_char_skill_level_7_12",
+              "count": 6,
+              "iconId": "item_char_skill_level_7_12",
+              "rarity": 4
+            },
+            {
+              "itemId": "item_plant_crylplant_1_3",
+              "count": 1,
+              "iconId": "item_plant_crylplant_1_3",
+              "rarity": 4
+            },
+            {
+              "itemId": "item_gold",
+              "count": 8200,
+              "iconId": "item_gold",
+              "rarity": 4
+            }
+          ]
+        },
+        {
+          "level": 8,
+          "label": "Lv.8",
+          "values": [
+            "36%",
+            "40%",
+            "44%",
+            "66%",
+            "100%",
+            "680%",
+            "136%"
+          ],
+          "materials": [
+            {
+              "itemId": "item_char_skill_level_7_12",
+              "count": 8,
+              "iconId": "item_char_skill_level_7_12",
+              "rarity": 4
+            },
+            {
+              "itemId": "item_plant_crylplant_1_3",
+              "count": 1,
+              "iconId": "item_plant_crylplant_1_3",
+              "rarity": 4
+            },
+            {
+              "itemId": "item_gold",
+              "count": 10500,
+              "iconId": "item_gold",
+              "rarity": 4
+            }
+          ]
+        },
+        {
+          "level": 9,
+          "label": "Lv.9",
+          "values": [
+            "38%",
+            "42%",
+            "48%",
+            "72%",
+            "106%",
+            "720%",
+            "144%"
+          ],
+          "materials": [
+            {
+              "itemId": "item_char_skill_level_7_12",
+              "count": 15,
+              "iconId": "item_char_skill_level_7_12",
+              "rarity": 4
+            },
+            {
+              "itemId": "item_plant_crylplant_1_3",
+              "count": 2,
+              "iconId": "item_plant_crylplant_1_3",
+              "rarity": 4
+            },
+            {
+              "itemId": "item_gold",
+              "count": 18000,
+              "iconId": "item_gold",
+              "rarity": 4
+            }
+          ]
+        },
+        {
+          "level": 10,
+          "label": "M1",
+          "values": [
+            "41%",
+            "44%",
+            "52%",
+            "78%",
+            "113%",
+            "770%",
+            "154%"
+          ],
+          "materials": [
+            {
+              "itemId": "item_char_skill_crown",
+              "count": 1,
+              "iconId": "item_char_skill_crown",
+              "rarity": 5
+            },
+            {
+              "itemId": "item_char_skill_level_7_12",
+              "count": 15,
+              "iconId": "item_char_skill_level_7_12",
+              "rarity": 4
+            },
+            {
+              "itemId": "item_char_skill_specialize_6",
+              "count": 6,
+              "iconId": "item_char_skill_specialize_6",
+              "rarity": 5
+            },
+            {
+              "itemId": "item_plant_crylplant_2_1",
+              "count": 3,
+              "iconId": "item_plant_crylplant_2_1",
+              "rarity": 5
+            },
+            {
+              "itemId": "item_gold",
+              "count": 24000,
+              "iconId": "item_gold",
+              "rarity": 4
+            }
+          ]
+        },
+        {
+          "level": 11,
+          "label": "M2",
+          "values": [
+            "44%",
+            "48%",
+            "56%",
+            "84%",
+            "122%",
+            "830%",
+            "166%"
+          ],
+          "materials": [
+            {
+              "itemId": "item_char_skill_crown",
+              "count": 2,
+              "iconId": "item_char_skill_crown",
+              "rarity": 5
+            },
+            {
+              "itemId": "item_char_skill_level_7_12",
+              "count": 24,
+              "iconId": "item_char_skill_level_7_12",
+              "rarity": 4
+            },
+            {
+              "itemId": "item_char_skill_specialize_6",
+              "count": 16,
+              "iconId": "item_char_skill_specialize_6",
+              "rarity": 5
+            },
+            {
+              "itemId": "item_plant_crylplant_2_1",
+              "count": 6,
+              "iconId": "item_plant_crylplant_2_1",
+              "rarity": 5
+            },
+            {
+              "itemId": "item_gold",
+              "count": 30000,
+              "iconId": "item_gold",
+              "rarity": 4
+            }
+          ]
+        },
+        {
+          "level": 12,
+          "label": "M3",
+          "values": [
+            "48%",
+            "52%",
+            "60%",
+            "90%",
+            "132%",
+            "900%",
+            "180%"
+          ],
+          "materials": [
+            {
+              "itemId": "item_char_skill_crown",
+              "count": 3,
+              "iconId": "item_char_skill_crown",
+              "rarity": 5
+            },
+            {
+              "itemId": "item_char_skill_level_7_12",
+              "count": 50,
+              "iconId": "item_char_skill_level_7_12",
+              "rarity": 4
+            },
+            {
+              "itemId": "item_char_skill_specialize_6",
+              "count": 36,
+              "iconId": "item_char_skill_specialize_6",
+              "rarity": 5
+            },
+            {
+              "itemId": "item_plant_crylplant_2_1",
+              "count": 12,
+              "iconId": "item_plant_crylplant_2_1",
+              "rarity": 5
+            },
+            {
+              "itemId": "item_gold",
+              "count": 65000,
+              "iconId": "item_gold",
+              "rarity": 4
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "chr_0040_sweetpie_NormalSkill",
+      "typeId": "1",
+      "iconId": "icon_skill_sweetpie_01",
+      "metrics": [
+        {
+          "id": "chr_0040_sweetpie_normal_skill:0"
+        },
+        {
+          "id": "chr_0040_sweetpie_normal_skill:1"
+        },
+        {
+          "id": "chr_0040_sweetpie_normal_skill:2"
+        },
+        {
+          "id": "chr_0040_sweetpie_normal_skill:3"
+        }
+      ],
+      "levels": [
+        {
+          "level": 1,
+          "label": "Lv.1",
+          "values": [
+            "133%",
+            "10",
+            "44%",
+            "5"
+          ],
+          "costValue": 100
+        },
+        {
+          "level": 2,
+          "label": "Lv.2",
+          "values": [
+            "147%",
+            "10",
+            "49%",
+            "5"
+          ],
+          "costValue": 100,
+          "materials": [
+            {
+              "itemId": "item_char_skill_level_1_6",
+              "count": 6,
+              "iconId": "item_char_skill_level_1_6",
+              "rarity": 3
+            },
+            {
+              "itemId": "item_plant_crylplant_1_1",
+              "count": 1,
+              "iconId": "item_plant_crylplant_1_1",
+              "rarity": 4
+            },
+            {
+              "itemId": "item_gold",
+              "count": 1000,
+              "iconId": "item_gold",
+              "rarity": 4
+            }
+          ]
+        },
+        {
+          "level": 3,
+          "label": "Lv.3",
+          "values": [
+            "160%",
+            "10",
+            "53%",
+            "5"
+          ],
+          "costValue": 100,
+          "materials": [
+            {
+              "itemId": "item_char_skill_level_1_6",
+              "count": 12,
+              "iconId": "item_char_skill_level_1_6",
+              "rarity": 3
+            },
+            {
+              "itemId": "item_plant_crylplant_1_1",
+              "count": 2,
+              "iconId": "item_plant_crylplant_1_1",
+              "rarity": 4
+            },
+            {
+              "itemId": "item_gold",
+              "count": 2700,
+              "iconId": "item_gold",
+              "rarity": 4
+            }
+          ]
+        },
+        {
+          "level": 4,
+          "label": "Lv.4",
+          "values": [
+            "173%",
+            "10",
+            "58%",
+            "5"
+          ],
+          "costValue": 100,
+          "materials": [
+            {
+              "itemId": "item_char_skill_level_1_6",
+              "count": 16,
+              "iconId": "item_char_skill_level_1_6",
+              "rarity": 3
+            },
+            {
+              "itemId": "item_plant_crylplant_1_2",
+              "count": 1,
+              "iconId": "item_plant_crylplant_1_2",
+              "rarity": 4
+            },
+            {
+              "itemId": "item_gold",
+              "count": 3200,
+              "iconId": "item_gold",
+              "rarity": 4
+            }
+          ]
+        },
+        {
+          "level": 5,
+          "label": "Lv.5",
+          "values": [
+            "187%",
+            "10",
+            "62%",
+            "5"
+          ],
+          "costValue": 100,
+          "materials": [
+            {
+              "itemId": "item_char_skill_level_1_6",
+              "count": 21,
+              "iconId": "item_char_skill_level_1_6",
+              "rarity": 3
+            },
+            {
+              "itemId": "item_plant_crylplant_1_2",
+              "count": 1,
+              "iconId": "item_plant_crylplant_1_2",
+              "rarity": 4
+            },
+            {
+              "itemId": "item_gold",
+              "count": 4200,
+              "iconId": "item_gold",
+              "rarity": 4
+            }
+          ]
+        },
+        {
+          "level": 6,
+          "label": "Lv.6",
+          "values": [
+            "200%",
+            "10",
+            "67%",
+            "5"
+          ],
+          "costValue": 100,
+          "materials": [
+            {
+              "itemId": "item_char_skill_level_1_6",
+              "count": 27,
+              "iconId": "item_char_skill_level_1_6",
+              "rarity": 3
+            },
+            {
+              "itemId": "item_plant_crylplant_1_2",
+              "count": 2,
+              "iconId": "item_plant_crylplant_1_2",
+              "rarity": 4
+            },
+            {
+              "itemId": "item_gold",
+              "count": 5400,
+              "iconId": "item_gold",
+              "rarity": 4
+            }
+          ]
+        },
+        {
+          "level": 7,
+          "label": "Lv.7",
+          "values": [
+            "213%",
+            "10",
+            "71%",
+            "5"
+          ],
+          "costValue": 100,
+          "materials": [
+            {
+              "itemId": "item_char_skill_level_7_12",
+              "count": 6,
+              "iconId": "item_char_skill_level_7_12",
+              "rarity": 4
+            },
+            {
+              "itemId": "item_plant_crylplant_1_3",
+              "count": 1,
+              "iconId": "item_plant_crylplant_1_3",
+              "rarity": 4
+            },
+            {
+              "itemId": "item_gold",
+              "count": 8200,
+              "iconId": "item_gold",
+              "rarity": 4
+            }
+          ]
+        },
+        {
+          "level": 8,
+          "label": "Lv.8",
+          "values": [
+            "227%",
+            "10",
+            "76%",
+            "5"
+          ],
+          "costValue": 100,
+          "materials": [
+            {
+              "itemId": "item_char_skill_level_7_12",
+              "count": 8,
+              "iconId": "item_char_skill_level_7_12",
+              "rarity": 4
+            },
+            {
+              "itemId": "item_plant_crylplant_1_3",
+              "count": 1,
+              "iconId": "item_plant_crylplant_1_3",
+              "rarity": 4
+            },
+            {
+              "itemId": "item_gold",
+              "count": 10500,
+              "iconId": "item_gold",
+              "rarity": 4
+            }
+          ]
+        },
+        {
+          "level": 9,
+          "label": "Lv.9",
+          "values": [
+            "240%",
+            "10",
+            "80%",
+            "5"
+          ],
+          "costValue": 100,
+          "materials": [
+            {
+              "itemId": "item_char_skill_level_7_12",
+              "count": 15,
+              "iconId": "item_char_skill_level_7_12",
+              "rarity": 4
+            },
+            {
+              "itemId": "item_plant_crylplant_1_3",
+              "count": 2,
+              "iconId": "item_plant_crylplant_1_3",
+              "rarity": 4
+            },
+            {
+              "itemId": "item_gold",
+              "count": 18000,
+              "iconId": "item_gold",
+              "rarity": 4
+            }
+          ]
+        },
+        {
+          "level": 10,
+          "label": "M1",
+          "values": [
+            "257%",
+            "10",
+            "86%",
+            "5"
+          ],
+          "costValue": 100,
+          "materials": [
+            {
+              "itemId": "item_char_skill_crown",
+              "count": 1,
+              "iconId": "item_char_skill_crown",
+              "rarity": 5
+            },
+            {
+              "itemId": "item_char_skill_level_7_12",
+              "count": 15,
+              "iconId": "item_char_skill_level_7_12",
+              "rarity": 4
+            },
+            {
+              "itemId": "item_char_skill_specialize_5",
+              "count": 6,
+              "iconId": "item_char_skill_specialize_5",
+              "rarity": 5
+            },
+            {
+              "itemId": "item_plant_crylplant_2_1",
+              "count": 3,
+              "iconId": "item_plant_crylplant_2_1",
+              "rarity": 5
+            },
+            {
+              "itemId": "item_gold",
+              "count": 24000,
+              "iconId": "item_gold",
+              "rarity": 4
+            }
+          ]
+        },
+        {
+          "level": 11,
+          "label": "M2",
+          "values": [
+            "277%",
+            "10",
+            "92%",
+            "5"
+          ],
+          "costValue": 100,
+          "materials": [
+            {
+              "itemId": "item_char_skill_crown",
+              "count": 2,
+              "iconId": "item_char_skill_crown",
+              "rarity": 5
+            },
+            {
+              "itemId": "item_char_skill_level_7_12",
+              "count": 24,
+              "iconId": "item_char_skill_level_7_12",
+              "rarity": 4
+            },
+            {
+              "itemId": "item_char_skill_specialize_5",
+              "count": 16,
+              "iconId": "item_char_skill_specialize_5",
+              "rarity": 5
+            },
+            {
+              "itemId": "item_plant_crylplant_2_1",
+              "count": 6,
+              "iconId": "item_plant_crylplant_2_1",
+              "rarity": 5
+            },
+            {
+              "itemId": "item_gold",
+              "count": 30000,
+              "iconId": "item_gold",
+              "rarity": 4
+            }
+          ]
+        },
+        {
+          "level": 12,
+          "label": "M3",
+          "values": [
+            "300%",
+            "10",
+            "100%",
+            "5"
+          ],
+          "costValue": 100,
+          "materials": [
+            {
+              "itemId": "item_char_skill_crown",
+              "count": 3,
+              "iconId": "item_char_skill_crown",
+              "rarity": 5
+            },
+            {
+              "itemId": "item_char_skill_level_7_12",
+              "count": 50,
+              "iconId": "item_char_skill_level_7_12",
+              "rarity": 4
+            },
+            {
+              "itemId": "item_char_skill_specialize_5",
+              "count": 36,
+              "iconId": "item_char_skill_specialize_5",
+              "rarity": 5
+            },
+            {
+              "itemId": "item_plant_crylplant_2_1",
+              "count": 12,
+              "iconId": "item_plant_crylplant_2_1",
+              "rarity": 5
+            },
+            {
+              "itemId": "item_gold",
+              "count": 65000,
+              "iconId": "item_gold",
+              "rarity": 4
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "chr_0040_sweetpie_ComboSkill",
+      "typeId": "3",
+      "iconId": "icon_combo_skill_sweetpie_01",
+      "metrics": [
+        {
+          "id": "chr_0040_sweetpie_combo_skill:0"
+        },
+        {
+          "id": "chr_0040_sweetpie_combo_skill:1"
+        },
+        {
+          "id": "chr_0040_sweetpie_combo_skill:2"
+        },
+        {
+          "id": "chr_0040_sweetpie_combo_skill:3"
+        }
+      ],
+      "levels": [
+        {
+          "level": 1,
+          "label": "Lv.1",
+          "values": [
+            "31%",
+            "5",
+            "5",
+            "10"
+          ],
+          "coolDown": 7
+        },
+        {
+          "level": 2,
+          "label": "Lv.2",
+          "values": [
+            "34%",
+            "5",
+            "5",
+            "10"
+          ],
+          "coolDown": 7,
+          "materials": [
+            {
+              "itemId": "item_char_skill_level_1_6",
+              "count": 6,
+              "iconId": "item_char_skill_level_1_6",
+              "rarity": 3
+            },
+            {
+              "itemId": "item_plant_crylplant_1_1",
+              "count": 1,
+              "iconId": "item_plant_crylplant_1_1",
+              "rarity": 4
+            },
+            {
+              "itemId": "item_gold",
+              "count": 1000,
+              "iconId": "item_gold",
+              "rarity": 4
+            }
+          ]
+        },
+        {
+          "level": 3,
+          "label": "Lv.3",
+          "values": [
+            "37%",
+            "5",
+            "5",
+            "10"
+          ],
+          "coolDown": 7,
+          "materials": [
+            {
+              "itemId": "item_char_skill_level_1_6",
+              "count": 12,
+              "iconId": "item_char_skill_level_1_6",
+              "rarity": 3
+            },
+            {
+              "itemId": "item_plant_crylplant_1_1",
+              "count": 2,
+              "iconId": "item_plant_crylplant_1_1",
+              "rarity": 4
+            },
+            {
+              "itemId": "item_gold",
+              "count": 2700,
+              "iconId": "item_gold",
+              "rarity": 4
+            }
+          ]
+        },
+        {
+          "level": 4,
+          "label": "Lv.4",
+          "values": [
+            "40%",
+            "5",
+            "5",
+            "10"
+          ],
+          "coolDown": 7,
+          "materials": [
+            {
+              "itemId": "item_char_skill_level_1_6",
+              "count": 16,
+              "iconId": "item_char_skill_level_1_6",
+              "rarity": 3
+            },
+            {
+              "itemId": "item_plant_crylplant_1_2",
+              "count": 1,
+              "iconId": "item_plant_crylplant_1_2",
+              "rarity": 4
+            },
+            {
+              "itemId": "item_gold",
+              "count": 3200,
+              "iconId": "item_gold",
+              "rarity": 4
+            }
+          ]
+        },
+        {
+          "level": 5,
+          "label": "Lv.5",
+          "values": [
+            "44%",
+            "5",
+            "5",
+            "10"
+          ],
+          "coolDown": 7,
+          "materials": [
+            {
+              "itemId": "item_char_skill_level_1_6",
+              "count": 21,
+              "iconId": "item_char_skill_level_1_6",
+              "rarity": 3
+            },
+            {
+              "itemId": "item_plant_crylplant_1_2",
+              "count": 1,
+              "iconId": "item_plant_crylplant_1_2",
+              "rarity": 4
+            },
+            {
+              "itemId": "item_gold",
+              "count": 4200,
+              "iconId": "item_gold",
+              "rarity": 4
+            }
+          ]
+        },
+        {
+          "level": 6,
+          "label": "Lv.6",
+          "values": [
+            "47%",
+            "5",
+            "5",
+            "10"
+          ],
+          "coolDown": 7,
+          "materials": [
+            {
+              "itemId": "item_char_skill_level_1_6",
+              "count": 27,
+              "iconId": "item_char_skill_level_1_6",
+              "rarity": 3
+            },
+            {
+              "itemId": "item_plant_crylplant_1_2",
+              "count": 2,
+              "iconId": "item_plant_crylplant_1_2",
+              "rarity": 4
+            },
+            {
+              "itemId": "item_gold",
+              "count": 5400,
+              "iconId": "item_gold",
+              "rarity": 4
+            }
+          ]
+        },
+        {
+          "level": 7,
+          "label": "Lv.7",
+          "values": [
+            "50%",
+            "5",
+            "5",
+            "10"
+          ],
+          "coolDown": 7,
+          "materials": [
+            {
+              "itemId": "item_char_skill_level_7_12",
+              "count": 6,
+              "iconId": "item_char_skill_level_7_12",
+              "rarity": 4
+            },
+            {
+              "itemId": "item_plant_crylplant_1_3",
+              "count": 1,
+              "iconId": "item_plant_crylplant_1_3",
+              "rarity": 4
+            },
+            {
+              "itemId": "item_gold",
+              "count": 8200,
+              "iconId": "item_gold",
+              "rarity": 4
+            }
+          ]
+        },
+        {
+          "level": 8,
+          "label": "Lv.8",
+          "values": [
+            "53%",
+            "5",
+            "5",
+            "10"
+          ],
+          "coolDown": 7,
+          "materials": [
+            {
+              "itemId": "item_char_skill_level_7_12",
+              "count": 8,
+              "iconId": "item_char_skill_level_7_12",
+              "rarity": 4
+            },
+            {
+              "itemId": "item_plant_crylplant_1_3",
+              "count": 1,
+              "iconId": "item_plant_crylplant_1_3",
+              "rarity": 4
+            },
+            {
+              "itemId": "item_gold",
+              "count": 10500,
+              "iconId": "item_gold",
+              "rarity": 4
+            }
+          ]
+        },
+        {
+          "level": 9,
+          "label": "Lv.9",
+          "values": [
+            "56%",
+            "5",
+            "5",
+            "11"
+          ],
+          "coolDown": 7,
+          "materials": [
+            {
+              "itemId": "item_char_skill_level_7_12",
+              "count": 15,
+              "iconId": "item_char_skill_level_7_12",
+              "rarity": 4
+            },
+            {
+              "itemId": "item_plant_crylplant_1_3",
+              "count": 2,
+              "iconId": "item_plant_crylplant_1_3",
+              "rarity": 4
+            },
+            {
+              "itemId": "item_gold",
+              "count": 18000,
+              "iconId": "item_gold",
+              "rarity": 4
+            }
+          ]
+        },
+        {
+          "level": 10,
+          "label": "M1",
+          "values": [
+            "60%",
+            "5",
+            "5",
+            "11"
+          ],
+          "coolDown": 7,
+          "materials": [
+            {
+              "itemId": "item_char_skill_crown",
+              "count": 1,
+              "iconId": "item_char_skill_crown",
+              "rarity": 5
+            },
+            {
+              "itemId": "item_char_skill_level_7_12",
+              "count": 15,
+              "iconId": "item_char_skill_level_7_12",
+              "rarity": 4
+            },
+            {
+              "itemId": "item_char_skill_specialize_6",
+              "count": 6,
+              "iconId": "item_char_skill_specialize_6",
+              "rarity": 5
+            },
+            {
+              "itemId": "item_plant_crylplant_2_1",
+              "count": 3,
+              "iconId": "item_plant_crylplant_2_1",
+              "rarity": 5
+            },
+            {
+              "itemId": "item_gold",
+              "count": 24000,
+              "iconId": "item_gold",
+              "rarity": 4
+            }
+          ]
+        },
+        {
+          "level": 11,
+          "label": "M2",
+          "values": [
+            "65%",
+            "5",
+            "5",
+            "11"
+          ],
+          "coolDown": 7,
+          "materials": [
+            {
+              "itemId": "item_char_skill_crown",
+              "count": 2,
+              "iconId": "item_char_skill_crown",
+              "rarity": 5
+            },
+            {
+              "itemId": "item_char_skill_level_7_12",
+              "count": 24,
+              "iconId": "item_char_skill_level_7_12",
+              "rarity": 4
+            },
+            {
+              "itemId": "item_char_skill_specialize_6",
+              "count": 16,
+              "iconId": "item_char_skill_specialize_6",
+              "rarity": 5
+            },
+            {
+              "itemId": "item_plant_crylplant_2_1",
+              "count": 6,
+              "iconId": "item_plant_crylplant_2_1",
+              "rarity": 5
+            },
+            {
+              "itemId": "item_gold",
+              "count": 30000,
+              "iconId": "item_gold",
+              "rarity": 4
+            }
+          ]
+        },
+        {
+          "level": 12,
+          "label": "M3",
+          "values": [
+            "70%",
+            "5",
+            "5",
+            "12"
+          ],
+          "coolDown": 6,
+          "materials": [
+            {
+              "itemId": "item_char_skill_crown",
+              "count": 3,
+              "iconId": "item_char_skill_crown",
+              "rarity": 5
+            },
+            {
+              "itemId": "item_char_skill_level_7_12",
+              "count": 50,
+              "iconId": "item_char_skill_level_7_12",
+              "rarity": 4
+            },
+            {
+              "itemId": "item_char_skill_specialize_6",
+              "count": 36,
+              "iconId": "item_char_skill_specialize_6",
+              "rarity": 5
+            },
+            {
+              "itemId": "item_plant_crylplant_2_1",
+              "count": 12,
+              "iconId": "item_plant_crylplant_2_1",
+              "rarity": 5
+            },
+            {
+              "itemId": "item_gold",
+              "count": 65000,
+              "iconId": "item_gold",
+              "rarity": 4
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "chr_0040_sweetpie_UltimateSkill",
+      "typeId": "2",
+      "iconId": "icon_ultimate_skill_sweetpie_01",
+      "metrics": [
+        {
+          "id": "chr_0040_sweetpie_ultimate_skill:0"
+        },
+        {
+          "id": "chr_0040_sweetpie_ultimate_skill:1"
+        },
+        {
+          "id": "chr_0040_sweetpie_ultimate_skill:2"
+        },
+        {
+          "id": "chr_0040_sweetpie_ultimate_skill:3"
+        },
+        {
+          "id": "chr_0040_sweetpie_ultimate_skill:4"
+        },
+        {
+          "id": "chr_0040_sweetpie_ultimate_skill:5"
+        },
+        {
+          "id": "chr_0040_sweetpie_ultimate_skill:6"
+        },
+        {
+          "id": "chr_0040_sweetpie_ultimate_skill:7"
+        }
+      ],
+      "levels": [
+        {
+          "level": 1,
+          "label": "Lv.1",
+          "values": [
+            "71%",
+            "89%",
+            "107%",
+            "20",
+            "24",
+            "180",
+            "0.42",
+            "10"
+          ],
+          "coolDown": 20,
+          "costValue": 150
+        },
+        {
+          "level": 2,
+          "label": "Lv.2",
+          "values": [
+            "78%",
+            "98%",
+            "117%",
+            "20",
+            "24",
+            "216",
+            "0.5",
+            "10"
+          ],
+          "coolDown": 20,
+          "costValue": 150,
+          "materials": [
+            {
+              "itemId": "item_char_skill_level_1_6",
+              "count": 6,
+              "iconId": "item_char_skill_level_1_6",
+              "rarity": 3
+            },
+            {
+              "itemId": "item_plant_crylplant_1_1",
+              "count": 1,
+              "iconId": "item_plant_crylplant_1_1",
+              "rarity": 4
+            },
+            {
+              "itemId": "item_gold",
+              "count": 1000,
+              "iconId": "item_gold",
+              "rarity": 4
+            }
+          ]
+        },
+        {
+          "level": 3,
+          "label": "Lv.3",
+          "values": [
+            "85%",
+            "107%",
+            "128%",
+            "20",
+            "24",
+            "252",
+            "0.59",
+            "10"
+          ],
+          "coolDown": 20,
+          "costValue": 150,
+          "materials": [
+            {
+              "itemId": "item_char_skill_level_1_6",
+              "count": 12,
+              "iconId": "item_char_skill_level_1_6",
+              "rarity": 3
+            },
+            {
+              "itemId": "item_plant_crylplant_1_1",
+              "count": 2,
+              "iconId": "item_plant_crylplant_1_1",
+              "rarity": 4
+            },
+            {
+              "itemId": "item_gold",
+              "count": 2700,
+              "iconId": "item_gold",
+              "rarity": 4
+            }
+          ]
+        },
+        {
+          "level": 4,
+          "label": "Lv.4",
+          "values": [
+            "92%",
+            "116%",
+            "139%",
+            "20",
+            "24",
+            "288",
+            "0.67",
+            "10"
+          ],
+          "coolDown": 20,
+          "costValue": 150,
+          "materials": [
+            {
+              "itemId": "item_char_skill_level_1_6",
+              "count": 16,
+              "iconId": "item_char_skill_level_1_6",
+              "rarity": 3
+            },
+            {
+              "itemId": "item_plant_crylplant_1_2",
+              "count": 1,
+              "iconId": "item_plant_crylplant_1_2",
+              "rarity": 4
+            },
+            {
+              "itemId": "item_gold",
+              "count": 3200,
+              "iconId": "item_gold",
+              "rarity": 4
+            }
+          ]
+        },
+        {
+          "level": 5,
+          "label": "Lv.5",
+          "values": [
+            "100%",
+            "124%",
+            "149%",
+            "20",
+            "24",
+            "306",
+            "0.71",
+            "10"
+          ],
+          "coolDown": 20,
+          "costValue": 150,
+          "materials": [
+            {
+              "itemId": "item_char_skill_level_1_6",
+              "count": 21,
+              "iconId": "item_char_skill_level_1_6",
+              "rarity": 3
+            },
+            {
+              "itemId": "item_plant_crylplant_1_2",
+              "count": 1,
+              "iconId": "item_plant_crylplant_1_2",
+              "rarity": 4
+            },
+            {
+              "itemId": "item_gold",
+              "count": 4200,
+              "iconId": "item_gold",
+              "rarity": 4
+            }
+          ]
+        },
+        {
+          "level": 6,
+          "label": "Lv.6",
+          "values": [
+            "107%",
+            "133%",
+            "160%",
+            "20",
+            "24",
+            "324",
+            "0.76",
+            "10"
+          ],
+          "coolDown": 20,
+          "costValue": 150,
+          "materials": [
+            {
+              "itemId": "item_char_skill_level_1_6",
+              "count": 27,
+              "iconId": "item_char_skill_level_1_6",
+              "rarity": 3
+            },
+            {
+              "itemId": "item_plant_crylplant_1_2",
+              "count": 2,
+              "iconId": "item_plant_crylplant_1_2",
+              "rarity": 4
+            },
+            {
+              "itemId": "item_gold",
+              "count": 5400,
+              "iconId": "item_gold",
+              "rarity": 4
+            }
+          ]
+        },
+        {
+          "level": 7,
+          "label": "Lv.7",
+          "values": [
+            "114%",
+            "142%",
+            "171%",
+            "20",
+            "24",
+            "342",
+            "0.8",
+            "10"
+          ],
+          "coolDown": 20,
+          "costValue": 150,
+          "materials": [
+            {
+              "itemId": "item_char_skill_level_7_12",
+              "count": 6,
+              "iconId": "item_char_skill_level_7_12",
+              "rarity": 4
+            },
+            {
+              "itemId": "item_plant_crylplant_1_3",
+              "count": 1,
+              "iconId": "item_plant_crylplant_1_3",
+              "rarity": 4
+            },
+            {
+              "itemId": "item_gold",
+              "count": 8200,
+              "iconId": "item_gold",
+              "rarity": 4
+            }
+          ]
+        },
+        {
+          "level": 8,
+          "label": "Lv.8",
+          "values": [
+            "121%",
+            "151%",
+            "181%",
+            "20",
+            "24",
+            "360",
+            "0.84",
+            "10"
+          ],
+          "coolDown": 20,
+          "costValue": 150,
+          "materials": [
+            {
+              "itemId": "item_char_skill_level_7_12",
+              "count": 8,
+              "iconId": "item_char_skill_level_7_12",
+              "rarity": 4
+            },
+            {
+              "itemId": "item_plant_crylplant_1_3",
+              "count": 1,
+              "iconId": "item_plant_crylplant_1_3",
+              "rarity": 4
+            },
+            {
+              "itemId": "item_gold",
+              "count": 10500,
+              "iconId": "item_gold",
+              "rarity": 4
+            }
+          ]
+        },
+        {
+          "level": 9,
+          "label": "Lv.9",
+          "values": [
+            "128%",
+            "160%",
+            "192%",
+            "20",
+            "27",
+            "378",
+            "0.88",
+            "10"
+          ],
+          "coolDown": 20,
+          "costValue": 150,
+          "materials": [
+            {
+              "itemId": "item_char_skill_level_7_12",
+              "count": 15,
+              "iconId": "item_char_skill_level_7_12",
+              "rarity": 4
+            },
+            {
+              "itemId": "item_plant_crylplant_1_3",
+              "count": 2,
+              "iconId": "item_plant_crylplant_1_3",
+              "rarity": 4
+            },
+            {
+              "itemId": "item_gold",
+              "count": 18000,
+              "iconId": "item_gold",
+              "rarity": 4
+            }
+          ]
+        },
+        {
+          "level": 10,
+          "label": "M1",
+          "values": [
+            "137%",
+            "171%",
+            "205%",
+            "20",
+            "27",
+            "387",
+            "0.9",
+            "10"
+          ],
+          "coolDown": 20,
+          "costValue": 150,
+          "materials": [
+            {
+              "itemId": "item_char_skill_crown",
+              "count": 1,
+              "iconId": "item_char_skill_crown",
+              "rarity": 5
+            },
+            {
+              "itemId": "item_char_skill_level_7_12",
+              "count": 15,
+              "iconId": "item_char_skill_level_7_12",
+              "rarity": 4
+            },
+            {
+              "itemId": "item_char_skill_specialize_5",
+              "count": 6,
+              "iconId": "item_char_skill_specialize_5",
+              "rarity": 5
+            },
+            {
+              "itemId": "item_plant_crylplant_2_1",
+              "count": 3,
+              "iconId": "item_plant_crylplant_2_1",
+              "rarity": 5
+            },
+            {
+              "itemId": "item_gold",
+              "count": 24000,
+              "iconId": "item_gold",
+              "rarity": 4
+            }
+          ]
+        },
+        {
+          "level": 11,
+          "label": "M2",
+          "values": [
+            "148%",
+            "184%",
+            "221%",
+            "20",
+            "27",
+            "396",
+            "0.92",
+            "10"
+          ],
+          "coolDown": 20,
+          "costValue": 150,
+          "materials": [
+            {
+              "itemId": "item_char_skill_crown",
+              "count": 2,
+              "iconId": "item_char_skill_crown",
+              "rarity": 5
+            },
+            {
+              "itemId": "item_char_skill_level_7_12",
+              "count": 24,
+              "iconId": "item_char_skill_level_7_12",
+              "rarity": 4
+            },
+            {
+              "itemId": "item_char_skill_specialize_5",
+              "count": 16,
+              "iconId": "item_char_skill_specialize_5",
+              "rarity": 5
+            },
+            {
+              "itemId": "item_plant_crylplant_2_1",
+              "count": 6,
+              "iconId": "item_plant_crylplant_2_1",
+              "rarity": 5
+            },
+            {
+              "itemId": "item_gold",
+              "count": 30000,
+              "iconId": "item_gold",
+              "rarity": 4
+            }
+          ]
+        },
+        {
+          "level": 12,
+          "label": "M3",
+          "values": [
+            "160%",
+            "200%",
+            "240%",
+            "20",
+            "30",
+            "405",
+            "0.95",
+            "10"
+          ],
+          "coolDown": 20,
+          "costValue": 150,
+          "materials": [
+            {
+              "itemId": "item_char_skill_crown",
+              "count": 3,
+              "iconId": "item_char_skill_crown",
+              "rarity": 5
+            },
+            {
+              "itemId": "item_char_skill_level_7_12",
+              "count": 50,
+              "iconId": "item_char_skill_level_7_12",
+              "rarity": 4
+            },
+            {
+              "itemId": "item_char_skill_specialize_5",
+              "count": 36,
+              "iconId": "item_char_skill_specialize_5",
+              "rarity": 5
+            },
+            {
+              "itemId": "item_plant_crylplant_2_1",
+              "count": 12,
+              "iconId": "item_plant_crylplant_2_1",
+              "rarity": 5
+            },
+            {
+              "itemId": "item_gold",
+              "count": 65000,
+              "iconId": "item_gold",
+              "rarity": 4
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "talents": [
+    {
+      "id": "chr_0040_sweetpie_talent_1_1",
+      "breakStage": 0,
+      "materials": []
+    },
+    {
+      "id": "chr_0040_sweetpie_talent_1_2",
+      "breakStage": 1,
+      "materials": [
+        {
+          "itemId": "item_char_skill_level_1_6",
+          "count": 12,
+          "iconId": "item_char_skill_level_1_6",
+          "rarity": 3
+        },
+        {
+          "itemId": "item_gold",
+          "count": 2400,
+          "iconId": "item_gold",
+          "rarity": 4
+        }
+      ]
+    },
+    {
+      "id": "chr_0040_sweetpie_talent_1_3",
+      "breakStage": 3,
+      "materials": [
+        {
+          "itemId": "item_char_skill_level_7_12",
+          "count": 18,
+          "iconId": "item_char_skill_level_7_12",
+          "rarity": 4
+        },
+        {
+          "itemId": "item_gold",
+          "count": 16000,
+          "iconId": "item_gold",
+          "rarity": 4
+        }
+      ]
+    },
+    {
+      "id": "chr_0040_sweetpie_talent_2_1",
+      "breakStage": 2,
+      "materials": [
+        {
+          "itemId": "item_char_skill_level_1_6",
+          "count": 48,
+          "iconId": "item_char_skill_level_1_6",
+          "rarity": 3
+        },
+        {
+          "itemId": "item_gold",
+          "count": 10800,
+          "iconId": "item_gold",
+          "rarity": 4
+        }
+      ]
+    },
+    {
+      "id": "chr_0040_sweetpie_talent_2_2",
+      "breakStage": 3,
+      "materials": [
+        {
+          "itemId": "item_char_skill_level_7_12",
+          "count": 18,
+          "iconId": "item_char_skill_level_7_12",
+          "rarity": 4
+        },
+        {
+          "itemId": "item_gold",
+          "count": 16000,
+          "iconId": "item_gold",
+          "rarity": 4
+        }
+      ]
+    }
+  ],
+  "attributeNodes": [
+    {
+      "id": "chr_0040_sweetpie_1",
+      "breakStage": 1,
+      "favorability": 60,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 10
+        }
+      ],
+      "materials": [
+        {
+          "itemId": "item_char_skill_level_1_6",
+          "count": 5,
+          "iconId": "item_char_skill_level_1_6",
+          "rarity": 3
+        },
+        {
+          "itemId": "item_gold",
+          "count": 1000,
+          "iconId": "item_gold",
+          "rarity": 4
+        }
+      ]
+    },
+    {
+      "id": "chr_0040_sweetpie_3",
+      "breakStage": 2,
+      "favorability": 150,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 15
+        }
+      ],
+      "materials": [
+        {
+          "itemId": "item_char_skill_level_1_6",
+          "count": 10,
+          "iconId": "item_char_skill_level_1_6",
+          "rarity": 3
+        },
+        {
+          "itemId": "item_gold",
+          "count": 1800,
+          "iconId": "item_gold",
+          "rarity": 4
+        }
+      ]
+    },
+    {
+      "id": "chr_0040_sweetpie_5",
+      "breakStage": 3,
+      "favorability": 300,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 15
+        }
+      ],
+      "materials": [
+        {
+          "itemId": "item_char_skill_level_7_12",
+          "count": 10,
+          "iconId": "item_char_skill_level_7_12",
+          "rarity": 4
+        },
+        {
+          "itemId": "item_gold",
+          "count": 6000,
+          "iconId": "item_gold",
+          "rarity": 4
+        }
+      ]
+    },
+    {
+      "id": "chr_0040_sweetpie_7",
+      "breakStage": 4,
+      "favorability": 300,
+      "stats": [
+        {
+          "attributeId": "39",
+          "value": 20
+        }
+      ],
+      "materials": [
+        {
+          "itemId": "item_char_skill_level_7_12",
+          "count": 20,
+          "iconId": "item_char_skill_level_7_12",
+          "rarity": 4
+        },
+        {
+          "itemId": "item_gold",
+          "count": 12000,
+          "iconId": "item_gold",
+          "rarity": 4
+        }
+      ]
+    }
+  ],
+  "equipmentNodes": [
+    {
+      "id": "equipBreakT2",
+      "breakStage": 1,
+      "equipmentTierLimit": 3,
+      "materials": [
+        {
+          "itemId": "item_gold",
+          "count": 1600,
+          "iconId": "item_gold",
+          "rarity": 4
+        }
+      ]
+    },
+    {
+      "id": "equipBreakT3",
+      "breakStage": 2,
+      "equipmentTierLimit": 4,
+      "materials": [
+        {
+          "itemId": "item_gold",
+          "count": 6500,
+          "iconId": "item_gold",
+          "rarity": 4
+        }
+      ]
+    },
+    {
+      "id": "equipBreakT4",
+      "breakStage": 3,
+      "equipmentTierLimit": 5,
+      "materials": [
+        {
+          "itemId": "item_gold",
+          "count": 18000,
+          "iconId": "item_gold",
+          "rarity": 4
+        }
+      ]
+    }
+  ],
+  "logisticsNodes": [
+    {
+      "id": "fac_chr_0040_sweetpie_0_1",
+      "breakStage": 1,
+      "index": 0,
+      "level": 1,
+      "materials": [
+        {
+          "itemId": "item_char_skill_level_1_6",
+          "count": 6,
+          "iconId": "item_char_skill_level_1_6",
+          "rarity": 3
+        },
+        {
+          "itemId": "item_gold",
+          "count": 1600,
+          "iconId": "item_gold",
+          "rarity": 4
+        }
+      ]
+    },
+    {
+      "id": "fac_chr_0040_sweetpie_1_1",
+      "breakStage": 2,
+      "index": 1,
+      "level": 1,
+      "materials": [
+        {
+          "itemId": "item_char_skill_level_1_6",
+          "count": 12,
+          "iconId": "item_char_skill_level_1_6",
+          "rarity": 3
+        },
+        {
+          "itemId": "item_gold",
+          "count": 3000,
+          "iconId": "item_gold",
+          "rarity": 4
+        }
+      ]
+    },
+    {
+      "id": "fac_chr_0040_sweetpie_0_2",
+      "breakStage": 3,
+      "index": 0,
+      "level": 2,
+      "materials": [
+        {
+          "itemId": "item_char_skill_level_7_12",
+          "count": 12,
+          "iconId": "item_char_skill_level_7_12",
+          "rarity": 4
+        },
+        {
+          "itemId": "item_gold",
+          "count": 8000,
+          "iconId": "item_gold",
+          "rarity": 4
+        }
+      ]
+    },
+    {
+      "id": "fac_chr_0040_sweetpie_1_2",
+      "breakStage": 4,
+      "index": 1,
+      "level": 2,
+      "materials": [
+        {
+          "itemId": "item_char_skill_level_7_12",
+          "count": 20,
+          "iconId": "item_char_skill_level_7_12",
+          "rarity": 4
+        },
+        {
+          "itemId": "item_gold",
+          "count": 20000,
+          "iconId": "item_gold",
+          "rarity": 4
+        }
+      ]
+    }
+  ],
+  "potentials": [
+    {
+      "id": "chr_0040_sweetpie_potential_1",
+      "level": 1,
+      "imageIds": [
+        "item_pic_1_chr_0040_sweetpie"
+      ]
+    },
+    {
+      "id": "chr_0040_sweetpie_potential_2",
+      "level": 2,
+      "imageIds": []
+    },
+    {
+      "id": "chr_0040_sweetpie_potential_3",
+      "level": 3,
+      "imageIds": [
+        "item_pic_3_chr_0040_sweetpie"
+      ]
+    },
+    {
+      "id": "chr_0040_sweetpie_potential_4",
+      "level": 4,
+      "imageIds": []
+    },
+    {
+      "id": "chr_0040_sweetpie_potential_5",
+      "level": 5,
+      "imageIds": [
+        "item_pic_5_chr_0040_sweetpie"
+      ]
+    }
+  ],
+  "logisticsSkills": [
+    {
+      "id": "spaceship_skill_chr_0040_sweetpie_1_1",
+      "iconId": "facskill_spaceship_manufacture_efficiency",
+      "index": 0,
+      "level": 1
+    },
+    {
+      "id": "spaceship_skill_chr_0040_sweetpie_1_2",
+      "iconId": "facskill_spaceship_manufacture_efficiency",
+      "index": 0,
+      "level": 2
+    },
+    {
+      "id": "spaceship_skill_chr_0040_sweetpie_2_1",
+      "iconId": "facskill_spaceship_manufacture_power_consume",
+      "index": 1,
+      "level": 1
+    },
+    {
+      "id": "spaceship_skill_chr_0040_sweetpie_2_2",
+      "iconId": "facskill_spaceship_manufacture_power_consume",
+      "index": 1,
+      "level": 2
+    }
+  ],
+  "promotions": [
+    {
+      "breakStage": 1,
+      "requiredLevel": 20,
+      "materials": [
+        {
+          "itemId": "item_char_break_stage_1_2",
+          "count": 8,
+          "iconId": "item_char_break_stage_1_2",
+          "rarity": 3
+        },
+        {
+          "itemId": "item_plant_mushroom_1_1",
+          "count": 3,
+          "iconId": "item_plant_mushroom_1_1",
+          "rarity": 4
+        },
+        {
+          "itemId": "item_gold",
+          "count": 1600,
+          "iconId": "item_gold",
+          "rarity": 4
+        }
+      ]
+    },
+    {
+      "breakStage": 2,
+      "requiredLevel": 40,
+      "materials": [
+        {
+          "itemId": "item_char_break_stage_1_2",
+          "count": 25,
+          "iconId": "item_char_break_stage_1_2",
+          "rarity": 3
+        },
+        {
+          "itemId": "item_plant_mushroom_1_2",
+          "count": 5,
+          "iconId": "item_plant_mushroom_1_2",
+          "rarity": 4
+        },
+        {
+          "itemId": "item_gold",
+          "count": 6500,
+          "iconId": "item_gold",
+          "rarity": 4
+        }
+      ]
+    },
+    {
+      "breakStage": 3,
+      "requiredLevel": 60,
+      "materials": [
+        {
+          "itemId": "item_char_break_stage_3_4",
+          "count": 24,
+          "iconId": "item_char_break_stage_3_4",
+          "rarity": 4
+        },
+        {
+          "itemId": "item_plant_mushroom_1_3",
+          "count": 5,
+          "iconId": "item_plant_mushroom_1_3",
+          "rarity": 4
+        },
+        {
+          "itemId": "item_gold",
+          "count": 18000,
+          "iconId": "item_gold",
+          "rarity": 4
+        }
+      ]
+    },
+    {
+      "breakStage": 4,
+      "requiredLevel": 70,
+      "materials": [
+        {
+          "itemId": "item_char_break_stage_3_4",
+          "count": 36,
+          "iconId": "item_char_break_stage_3_4",
+          "rarity": 4
+        },
+        {
+          "itemId": "item_char_skill_specialize_1",
+          "count": 20,
+          "iconId": "item_char_skill_specialize_1",
+          "rarity": 5
+        },
+        {
+          "itemId": "item_plant_mushroom_2_1",
+          "count": 8,
+          "iconId": "item_plant_mushroom_2_1",
+          "rarity": 5
+        },
+        {
+          "itemId": "item_gold",
+          "count": 100000,
+          "iconId": "item_gold",
+          "rarity": 4
+        }
+      ]
+    }
+  ],
+  "images": {
+    "avatarIds": {
+      "default": "chr_0040_sweetpie"
+    },
+    "fullBodyIds": {
+      "default": "chr_0040_sweetpie"
+    }
+  },
+  "cvNames": [
+    {
+      "language": "zh-CN",
+      "original": "吱毛"
+    },
+    {
+      "language": "en",
+      "original": "Christina Assaf-Costello"
+    },
+    {
+      "language": "ja",
+      "original": "瀬戸麻沙美"
+    },
+    {
+      "language": "ko",
+      "original": "미소"
+    }
+  ]
+}

@@ -1,0 +1,55 @@
+{
+  "id": "item_equip_t4_parts_wuling02_edc_03",
+  "category": "equipment",
+  "stats": [
+    {
+      "attributeId": "3",
+      "values": [
+        21,
+        21,
+        21,
+        21
+      ]
+    },
+    {
+      "attributeId": "39",
+      "values": [
+        43,
+        47,
+        51,
+        55
+      ]
+    },
+    {
+      "attributeId": "32",
+      "values": [
+        0.43199999999999994,
+        0.47519999742507935,
+        0.5184000134468079,
+        0.5616000294685364
+      ]
+    }
+  ],
+  "suitEffects": [],
+  "craftingRecipes": [
+    {
+      "chainId": 4003,
+      "discount": 0.009999999776482582,
+      "isDefault": true,
+      "materials": [
+        {
+          "itemId": "item_equip_script_4_3",
+          "count": 50,
+          "iconId": "item_equip_script_4_3",
+          "rarity": 4
+        },
+        {
+          "itemId": "item_domain_jinlong_coupon",
+          "count": 360,
+          "iconId": "item_domain_jinlong_coupon",
+          "rarity": 5
+        }
+      ]
+    }
+  ]
+}

@@ -154,7 +154,15 @@ export const dungeons: Dungeon[] = [
     s1Pool: ['gat_passive_attr_agi', 'gat_passive_attr_str', 'gat_passive_attr_will', 'gat_passive_attr_wisd', 'gat_passive_attr_main'],
     s2Pool: ['gat_passive_attr_atk', 'gat_passive_attr_phydam', 'gat_passive_attr_firedam', 'gat_passive_attr_icedam', 'gat_passive_attr_naturaldam', 'gat_passive_attr_crirate', 'gat_passive_attr_physpell', 'gat_passive_attr_usp'],
     s3Pool: ['gst_passive_tactic', 'gst_passive_combo', 'gst_passive_phyabn', 'gst_passive_magabn', 'gst_passive_crit', 'gst_passive_burst', 'gst_passive_tacafter', 'gst_passive_keyword'],
+  },
+  {
+    id: 'world_energy_point_group14',
+    name: '武陵·旧水坝',
+    s1Pool: ['gat_passive_attr_agi', 'gat_passive_attr_str', 'gat_passive_attr_will', 'gat_passive_attr_wisd', 'gat_passive_attr_main'],
+    s2Pool: ['gat_passive_attr_hp', 'gat_passive_attr_firedam', 'gat_passive_attr_pulsedam', 'gat_passive_attr_icedam', 'gat_passive_attr_naturaldam', 'gat_passive_attr_crirate', 'gat_passive_attr_usp', 'gat_passive_attr_magicdam'],
+    s3Pool: ['gst_passive_force', 'gst_passive_combo', 'gst_passive_spirit', 'gst_passive_break', 'gst_passive_heal', 'gst_passive_crit', 'gst_passive_ult', 'gst_passive_keyword'],
   }
+
 
 
 ]

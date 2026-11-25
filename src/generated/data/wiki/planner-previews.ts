@@ -43,47 +43,7 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       }
     ]
   },
-  "wpn_claym_0017": {
-    "stats": [
-      {
-        "levelOne": {
-          "skillId": "wpn_attr_str_high",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_attr_str_high",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "wpn_sp_attr_atk_high",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_sp_attr_atk_high",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "sk_wpn_claym_0017",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "sk_wpn_claym_0017",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      }
-    ]
-  },
-  "wpn_lance_0015": {
+  "wpn_lance_0010": {
     "stats": [
       {
         "levelOne": {
@@ -99,11 +59,11 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       },
       {
         "levelOne": {
-          "skillId": "wpn_sp_attr_firedam_high",
+          "skillId": "wpn_sp_attr_phydam_high",
           "level": 1
         },
         "maxLevel": {
-          "skillId": "wpn_sp_attr_firedam_high",
+          "skillId": "wpn_sp_attr_phydam_high",
           "level": 9
         },
         "levelOneLabel": "Lv.1",
@@ -111,11 +71,11 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       },
       {
         "levelOne": {
-          "skillId": "sk_wpn_lance_0015",
+          "skillId": "sk_wpn_lance_0010",
           "level": 1
         },
         "maxLevel": {
-          "skillId": "sk_wpn_lance_0015",
+          "skillId": "sk_wpn_lance_0010",
           "level": 9
         },
         "levelOneLabel": "Lv.1",
@@ -163,86 +123,6 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       }
     ]
   },
-  "wpn_claym_0016": {
-    "stats": [
-      {
-        "levelOne": {
-          "skillId": "wpn_attr_str_high",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_attr_str_high",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "wpn_sp_attr_phy_spell_high",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_sp_attr_phy_spell_high",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "sk_wpn_claym_0016",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "sk_wpn_claym_0016",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      }
-    ]
-  },
-  "wpn_lance_0014": {
-    "stats": [
-      {
-        "levelOne": {
-          "skillId": "wpn_attr_will_high",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_attr_will_high",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "wpn_sp_attr_heal_high",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_sp_attr_heal_high",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "sk_wpn_lance_0014",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "sk_wpn_lance_0014",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      }
-    ]
-  },
   "wpn_claym_0006": {
     "stats": [
       {
@@ -283,15 +163,15 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       }
     ]
   },
-  "wpn_claym_0014": {
+  "wpn_lance_0016": {
     "stats": [
       {
         "levelOne": {
-          "skillId": "wpn_attr_str_mid",
+          "skillId": "wpn_attr_will_high",
           "level": 1
         },
         "maxLevel": {
-          "skillId": "wpn_attr_str_mid",
+          "skillId": "wpn_attr_will_high",
           "level": 9
         },
         "levelOneLabel": "Lv.1",
@@ -299,11 +179,11 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       },
       {
         "levelOne": {
-          "skillId": "wpn_sp_attr_phy_spell_mid",
+          "skillId": "wpn_sp_attr_heal_high",
           "level": 1
         },
         "maxLevel": {
-          "skillId": "wpn_sp_attr_phy_spell_mid",
+          "skillId": "wpn_sp_attr_heal_high",
           "level": 9
         },
         "levelOneLabel": "Lv.1",
@@ -311,11 +191,11 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       },
       {
         "levelOne": {
-          "skillId": "sk_wpn_claym_0014",
+          "skillId": "sk_wpn_lance_0016",
           "level": 1
         },
         "maxLevel": {
-          "skillId": "sk_wpn_claym_0014",
+          "skillId": "sk_wpn_lance_0016",
           "level": 9
         },
         "levelOneLabel": "Lv.1",
@@ -363,15 +243,15 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       }
     ]
   },
-  "wpn_claym_0013": {
+  "wpn_funnel_0007": {
     "stats": [
       {
         "levelOne": {
-          "skillId": "wpn_attr_str_high",
+          "skillId": "wpn_attr_will_mid",
           "level": 1
         },
         "maxLevel": {
-          "skillId": "wpn_attr_str_high",
+          "skillId": "wpn_attr_will_mid",
           "level": 9
         },
         "levelOneLabel": "Lv.1",
@@ -379,11 +259,11 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       },
       {
         "levelOne": {
-          "skillId": "wpn_sp_attr_atk_high",
+          "skillId": "wpn_sp_attr_usgs_mid",
           "level": 1
         },
         "maxLevel": {
-          "skillId": "wpn_sp_attr_atk_high",
+          "skillId": "wpn_sp_attr_usgs_mid",
           "level": 9
         },
         "levelOneLabel": "Lv.1",
@@ -391,51 +271,11 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       },
       {
         "levelOne": {
-          "skillId": "sk_wpn_claym_0013",
+          "skillId": "sk_wpn_funnel_0007",
           "level": 1
         },
         "maxLevel": {
-          "skillId": "sk_wpn_claym_0013",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      }
-    ]
-  },
-  "wpn_lance_0011": {
-    "stats": [
-      {
-        "levelOne": {
-          "skillId": "wpn_attr_main_high",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_attr_main_high",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "wpn_sp_attr_atk_high",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_sp_attr_atk_high",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "sk_wpn_lance_0011",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "sk_wpn_lance_0011",
+          "skillId": "sk_wpn_funnel_0007",
           "level": 9
         },
         "levelOneLabel": "Lv.1",
@@ -483,15 +323,15 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       }
     ]
   },
-  "wpn_claym_0012": {
+  "wpn_funnel_0011": {
     "stats": [
       {
         "levelOne": {
-          "skillId": "wpn_attr_str_mid",
+          "skillId": "wpn_attr_will_high",
           "level": 1
         },
         "maxLevel": {
-          "skillId": "wpn_attr_str_mid",
+          "skillId": "wpn_attr_will_high",
           "level": 9
         },
         "levelOneLabel": "Lv.1",
@@ -499,11 +339,11 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       },
       {
         "levelOne": {
-          "skillId": "wpn_sp_attr_hp_mid",
+          "skillId": "wpn_sp_attr_usgs_high",
           "level": 1
         },
         "maxLevel": {
-          "skillId": "wpn_sp_attr_hp_mid",
+          "skillId": "wpn_sp_attr_usgs_high",
           "level": 9
         },
         "levelOneLabel": "Lv.1",
@@ -511,91 +351,11 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       },
       {
         "levelOne": {
-          "skillId": "sk_wpn_claym_0012",
+          "skillId": "sk_wpn_funnel_0011",
           "level": 1
         },
         "maxLevel": {
-          "skillId": "sk_wpn_claym_0012",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      }
-    ]
-  },
-  "wpn_lance_0010": {
-    "stats": [
-      {
-        "levelOne": {
-          "skillId": "wpn_attr_agi_high",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_attr_agi_high",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "wpn_sp_attr_phydam_high",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_sp_attr_phydam_high",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "sk_wpn_lance_0010",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "sk_wpn_lance_0010",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      }
-    ]
-  },
-  "wpn_sword_0018": {
-    "stats": [
-      {
-        "levelOne": {
-          "skillId": "wpn_attr_agi_mid",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_attr_agi_mid",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "wpn_sp_attr_atk_mid",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_sp_attr_atk_mid",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "sk_wpn_sword_0018",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "sk_wpn_sword_0018",
+          "skillId": "sk_wpn_funnel_0011",
           "level": 9
         },
         "levelOneLabel": "Lv.1",
@@ -643,274 +403,6 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       }
     ]
   },
-  "wpn_claym_0010": {
-    "stats": [
-      {
-        "levelOne": {
-          "skillId": "wpn_attr_main_low",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_attr_main_low",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "sk_wpn_claym_0010",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "sk_wpn_claym_0010",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      }
-    ]
-  },
-  "wpn_funnel_0004": {
-    "stats": [
-      {
-        "levelOne": {
-          "skillId": "wpn_attr_wisd_mid",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_attr_wisd_mid",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "wpn_sp_attr_electrondam_mid",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_sp_attr_electrondam_mid",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "sk_wpn_funnel_0004",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "sk_wpn_funnel_0004",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      }
-    ]
-  },
-  "wpn_funnel_0018": {
-    "stats": [
-      {
-        "levelOne": {
-          "skillId": "wpn_attr_wisd_high",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_attr_wisd_high",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "wpn_sp_attr_usgs_high",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_sp_attr_usgs_high",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "sk_wpn_funnel_0018",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "sk_wpn_funnel_0018",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      }
-    ]
-  },
-  "wpn_claym_0011": {
-    "stats": [
-      {
-        "levelOne": {
-          "skillId": "wpn_attr_str_mid",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_attr_str_mid",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "wpn_sp_attr_usgs_mid",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_sp_attr_usgs_mid",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "sk_wpn_claym_0011",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "sk_wpn_claym_0011",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      }
-    ]
-  },
-  "wpn_funnel_0014": {
-    "stats": [
-      {
-        "levelOne": {
-          "skillId": "wpn_attr_wisd_mid",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_attr_wisd_mid",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "wpn_sp_attr_phy_spell_mid",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_sp_attr_phy_spell_mid",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "sk_wpn_funnel_0014",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "sk_wpn_funnel_0014",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      }
-    ]
-  },
-  "wpn_sword_0017": {
-    "stats": [
-      {
-        "levelOne": {
-          "skillId": "wpn_attr_agi_high",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_attr_agi_high",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "wpn_sp_attr_crirate_high",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_sp_attr_crirate_high",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "sk_wpn_sword_0017",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "sk_wpn_sword_0017",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      }
-    ]
-  },
-  "wpn_claym_0015": {
-    "stats": [
-      {
-        "levelOne": {
-          "skillId": "wpn_attr_str_mid",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_attr_str_mid",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "wpn_sp_attr_hp_mid",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_sp_attr_hp_mid",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "sk_wpn_claym_0015",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "sk_wpn_claym_0015",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      }
-    ]
-  },
   "wpn_lance_0013": {
     "stats": [
       {
@@ -951,15 +443,15 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       }
     ]
   },
-  "wpn_pistol_0008": {
+  "wpn_claym_0010": {
     "stats": [
       {
         "levelOne": {
-          "skillId": "wpn_attr_main_high",
+          "skillId": "wpn_attr_main_low",
           "level": 1
         },
         "maxLevel": {
-          "skillId": "wpn_attr_main_high",
+          "skillId": "wpn_attr_main_low",
           "level": 9
         },
         "levelOneLabel": "Lv.1",
@@ -967,63 +459,11 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       },
       {
         "levelOne": {
-          "skillId": "wpn_sp_attr_crirate_high",
+          "skillId": "sk_wpn_claym_0010",
           "level": 1
         },
         "maxLevel": {
-          "skillId": "wpn_sp_attr_crirate_high",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "sk_wpn_pistol_0008",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "sk_wpn_pistol_0008",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      }
-    ]
-  },
-  "wpn_claym_0018": {
-    "stats": [
-      {
-        "levelOne": {
-          "skillId": "wpn_attr_wisd_high",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_attr_wisd_high",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "wpn_sp_attr_crystdam_high",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_sp_attr_crystdam_high",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "sk_wpn_claym_0018",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "sk_wpn_claym_0018",
+          "skillId": "sk_wpn_claym_0010",
           "level": 9
         },
         "levelOneLabel": "Lv.1",
@@ -1071,95 +511,15 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       }
     ]
   },
-  "wpn_funnel_0001": {
+  "wpn_claym_0011": {
     "stats": [
       {
         "levelOne": {
-          "skillId": "wpn_attr_wisd_low",
+          "skillId": "wpn_attr_str_mid",
           "level": 1
         },
         "maxLevel": {
-          "skillId": "wpn_attr_wisd_low",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "wpn_sp_attr_magicdam_low",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_sp_attr_magicdam_low",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "sk_wpn_funnel_0001",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "sk_wpn_funnel_0001",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      }
-    ]
-  },
-  "wpn_funnel_0015": {
-    "stats": [
-      {
-        "levelOne": {
-          "skillId": "wpn_attr_will_high",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_attr_will_high",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "wpn_sp_attr_atk_high",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_sp_attr_atk_high",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "sk_wpn_funnel_0015",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "sk_wpn_funnel_0015",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      }
-    ]
-  },
-  "wpn_sword_0007": {
-    "stats": [
-      {
-        "levelOne": {
-          "skillId": "wpn_attr_wisd_mid",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_attr_wisd_mid",
+          "skillId": "wpn_attr_str_mid",
           "level": 9
         },
         "levelOneLabel": "Lv.1",
@@ -1179,11 +539,11 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       },
       {
         "levelOne": {
-          "skillId": "sk_wpn_sword_0007",
+          "skillId": "sk_wpn_claym_0011",
           "level": 1
         },
         "maxLevel": {
-          "skillId": "sk_wpn_sword_0007",
+          "skillId": "sk_wpn_claym_0011",
           "level": 9
         },
         "levelOneLabel": "Lv.1",
@@ -1191,15 +551,15 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       }
     ]
   },
-  "wpn_funnel_0002": {
+  "wpn_pistol_0008": {
     "stats": [
       {
         "levelOne": {
-          "skillId": "wpn_attr_main_low",
+          "skillId": "wpn_attr_main_high",
           "level": 1
         },
         "maxLevel": {
-          "skillId": "wpn_attr_main_low",
+          "skillId": "wpn_attr_main_high",
           "level": 9
         },
         "levelOneLabel": "Lv.1",
@@ -1207,11 +567,23 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       },
       {
         "levelOne": {
-          "skillId": "sk_wpn_funnel_0002",
+          "skillId": "wpn_sp_attr_crirate_high",
           "level": 1
         },
         "maxLevel": {
-          "skillId": "sk_wpn_funnel_0002",
+          "skillId": "wpn_sp_attr_crirate_high",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "sk_wpn_pistol_0008",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "sk_wpn_pistol_0008",
           "level": 9
         },
         "levelOneLabel": "Lv.1",
@@ -1219,15 +591,15 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       }
     ]
   },
-  "wpn_funnel_0016": {
+  "wpn_claym_0012": {
     "stats": [
       {
         "levelOne": {
-          "skillId": "wpn_attr_wisd_high",
+          "skillId": "wpn_attr_str_mid",
           "level": 1
         },
         "maxLevel": {
-          "skillId": "wpn_attr_wisd_high",
+          "skillId": "wpn_attr_str_mid",
           "level": 9
         },
         "levelOneLabel": "Lv.1",
@@ -1235,11 +607,11 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       },
       {
         "levelOne": {
-          "skillId": "wpn_sp_attr_usgs_high",
+          "skillId": "wpn_sp_attr_hp_mid",
           "level": 1
         },
         "maxLevel": {
-          "skillId": "wpn_sp_attr_usgs_high",
+          "skillId": "wpn_sp_attr_hp_mid",
           "level": 9
         },
         "levelOneLabel": "Lv.1",
@@ -1247,51 +619,11 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       },
       {
         "levelOne": {
-          "skillId": "sk_wpn_funnel_0016",
+          "skillId": "sk_wpn_claym_0012",
           "level": 1
         },
         "maxLevel": {
-          "skillId": "sk_wpn_funnel_0016",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      }
-    ]
-  },
-  "wpn_funnel_0003": {
-    "stats": [
-      {
-        "levelOne": {
-          "skillId": "wpn_attr_will_low",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_attr_will_low",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "wpn_sp_attr_atk_low",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_sp_attr_atk_low",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "sk_wpn_funnel_0003",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "sk_wpn_funnel_0003",
+          "skillId": "sk_wpn_claym_0012",
           "level": 9
         },
         "levelOneLabel": "Lv.1",
@@ -1339,15 +671,15 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       }
     ]
   },
-  "wpn_funnel_0005": {
+  "wpn_claym_0013": {
     "stats": [
       {
         "levelOne": {
-          "skillId": "wpn_attr_wisd_mid",
+          "skillId": "wpn_attr_str_high",
           "level": 1
         },
         "maxLevel": {
-          "skillId": "wpn_attr_wisd_mid",
+          "skillId": "wpn_attr_str_high",
           "level": 9
         },
         "levelOneLabel": "Lv.1",
@@ -1355,11 +687,11 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       },
       {
         "levelOne": {
-          "skillId": "wpn_sp_attr_atk_mid",
+          "skillId": "wpn_sp_attr_atk_high",
           "level": 1
         },
         "maxLevel": {
-          "skillId": "wpn_sp_attr_atk_mid",
+          "skillId": "wpn_sp_attr_atk_high",
           "level": 9
         },
         "levelOneLabel": "Lv.1",
@@ -1367,11 +699,11 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       },
       {
         "levelOne": {
-          "skillId": "sk_wpn_funnel_0005",
+          "skillId": "sk_wpn_claym_0013",
           "level": 1
         },
         "maxLevel": {
-          "skillId": "sk_wpn_funnel_0005",
+          "skillId": "sk_wpn_claym_0013",
           "level": 9
         },
         "levelOneLabel": "Lv.1",
@@ -1379,15 +711,215 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       }
     ]
   },
-  "wpn_funnel_0019": {
+  "wpn_funnel_0001": {
     "stats": [
       {
         "levelOne": {
-          "skillId": "wpn_attr_agi_high",
+          "skillId": "wpn_attr_wisd_low",
           "level": 1
         },
         "maxLevel": {
-          "skillId": "wpn_attr_agi_high",
+          "skillId": "wpn_attr_wisd_low",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "wpn_sp_attr_magicdam_low",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_sp_attr_magicdam_low",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "sk_wpn_funnel_0001",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "sk_wpn_funnel_0001",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
+  "wpn_claym_0014": {
+    "stats": [
+      {
+        "levelOne": {
+          "skillId": "wpn_attr_str_mid",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_attr_str_mid",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "wpn_sp_attr_phy_spell_mid",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_sp_attr_phy_spell_mid",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "sk_wpn_claym_0014",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "sk_wpn_claym_0014",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
+  "wpn_claym_0015": {
+    "stats": [
+      {
+        "levelOne": {
+          "skillId": "wpn_attr_str_mid",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_attr_str_mid",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "wpn_sp_attr_hp_mid",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_sp_attr_hp_mid",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "sk_wpn_claym_0015",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "sk_wpn_claym_0015",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
+  "wpn_pistol_0002": {
+    "stats": [
+      {
+        "levelOne": {
+          "skillId": "wpn_attr_wisd_low",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_attr_wisd_low",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "wpn_sp_attr_atk_low",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_sp_attr_atk_low",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "sk_wpn_pistol_0002",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "sk_wpn_pistol_0002",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
+  "wpn_claym_0016": {
+    "stats": [
+      {
+        "levelOne": {
+          "skillId": "wpn_attr_str_high",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_attr_str_high",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "wpn_sp_attr_phy_spell_high",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_sp_attr_phy_spell_high",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "sk_wpn_claym_0016",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "sk_wpn_claym_0016",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
+  "wpn_claym_0017": {
+    "stats": [
+      {
+        "levelOne": {
+          "skillId": "wpn_attr_str_high",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_attr_str_high",
           "level": 9
         },
         "levelOneLabel": "Lv.1",
@@ -1407,11 +939,11 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       },
       {
         "levelOne": {
-          "skillId": "sk_wpn_funnel_0019",
+          "skillId": "sk_wpn_claym_0017",
           "level": 1
         },
         "maxLevel": {
-          "skillId": "sk_wpn_funnel_0019",
+          "skillId": "sk_wpn_claym_0017",
           "level": 9
         },
         "levelOneLabel": "Lv.1",
@@ -1459,15 +991,163 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       }
     ]
   },
-  "wpn_funnel_0007": {
+  "wpn_claym_0018": {
     "stats": [
       {
         "levelOne": {
-          "skillId": "wpn_attr_will_mid",
+          "skillId": "wpn_attr_wisd_high",
           "level": 1
         },
         "maxLevel": {
-          "skillId": "wpn_attr_will_mid",
+          "skillId": "wpn_attr_wisd_high",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "wpn_sp_attr_crystdam_high",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_sp_attr_crystdam_high",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "sk_wpn_claym_0018",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "sk_wpn_claym_0018",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
+  "wpn_funnel_0002": {
+    "stats": [
+      {
+        "levelOne": {
+          "skillId": "wpn_attr_main_low",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_attr_main_low",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "sk_wpn_funnel_0002",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "sk_wpn_funnel_0002",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
+  "wpn_sword_0017": {
+    "stats": [
+      {
+        "levelOne": {
+          "skillId": "wpn_attr_agi_high",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_attr_agi_high",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "wpn_sp_attr_crirate_high",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_sp_attr_crirate_high",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "sk_wpn_sword_0017",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "sk_wpn_sword_0017",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
+  "wpn_funnel_0003": {
+    "stats": [
+      {
+        "levelOne": {
+          "skillId": "wpn_attr_will_low",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_attr_will_low",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "wpn_sp_attr_atk_low",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_sp_attr_atk_low",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "sk_wpn_funnel_0003",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "sk_wpn_funnel_0003",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
+  "wpn_sword_0007": {
+    "stats": [
+      {
+        "levelOne": {
+          "skillId": "wpn_attr_wisd_mid",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_attr_wisd_mid",
           "level": 9
         },
         "levelOneLabel": "Lv.1",
@@ -1487,11 +1167,91 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       },
       {
         "levelOne": {
-          "skillId": "sk_wpn_funnel_0007",
+          "skillId": "sk_wpn_sword_0007",
           "level": 1
         },
         "maxLevel": {
-          "skillId": "sk_wpn_funnel_0007",
+          "skillId": "sk_wpn_sword_0007",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
+  "wpn_funnel_0004": {
+    "stats": [
+      {
+        "levelOne": {
+          "skillId": "wpn_attr_wisd_mid",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_attr_wisd_mid",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "wpn_sp_attr_electrondam_mid",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_sp_attr_electrondam_mid",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "sk_wpn_funnel_0004",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "sk_wpn_funnel_0004",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
+  "wpn_funnel_0005": {
+    "stats": [
+      {
+        "levelOne": {
+          "skillId": "wpn_attr_wisd_mid",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_attr_wisd_mid",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "wpn_sp_attr_atk_mid",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_sp_attr_atk_mid",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "sk_wpn_funnel_0005",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "sk_wpn_funnel_0005",
           "level": 9
         },
         "levelOneLabel": "Lv.1",
@@ -1532,46 +1292,6 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
         },
         "maxLevel": {
           "skillId": "sk_wpn_funnel_0008",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      }
-    ]
-  },
-  "wpn_sword_0005": {
-    "stats": [
-      {
-        "levelOne": {
-          "skillId": "wpn_attr_agi_mid",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_attr_agi_mid",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "wpn_sp_attr_phydam_mid",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_sp_attr_phydam_mid",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "sk_wpn_sword_0005",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "sk_wpn_sword_0005",
           "level": 9
         },
         "levelOneLabel": "Lv.1",
@@ -1659,126 +1379,6 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       }
     ]
   },
-  "wpn_lance_0016": {
-    "stats": [
-      {
-        "levelOne": {
-          "skillId": "wpn_attr_will_high",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_attr_will_high",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "wpn_sp_attr_heal_high",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_sp_attr_heal_high",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "sk_wpn_lance_0016",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "sk_wpn_lance_0016",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      }
-    ]
-  },
-  "wpn_funnel_0011": {
-    "stats": [
-      {
-        "levelOne": {
-          "skillId": "wpn_attr_will_high",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_attr_will_high",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "wpn_sp_attr_usgs_high",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_sp_attr_usgs_high",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "sk_wpn_funnel_0011",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "sk_wpn_funnel_0011",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      }
-    ]
-  },
-  "wpn_pistol_0010": {
-    "stats": [
-      {
-        "levelOne": {
-          "skillId": "wpn_attr_wisd_high",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_attr_wisd_high",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "wpn_sp_attr_crirate_high",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_sp_attr_crirate_high",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "sk_wpn_pistol_0010",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "sk_wpn_pistol_0010",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      }
-    ]
-  },
   "wpn_funnel_0012": {
     "stats": [
       {
@@ -1812,6 +1412,46 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
         },
         "maxLevel": {
           "skillId": "sk_wpn_funnel_0012",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
+  "wpn_sword_0016": {
+    "stats": [
+      {
+        "levelOne": {
+          "skillId": "wpn_attr_will_high",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_attr_will_high",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "wpn_sp_attr_atk_high",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_sp_attr_atk_high",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "sk_wpn_sword_0016",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "sk_wpn_sword_0016",
           "level": 9
         },
         "levelOneLabel": "Lv.1",
@@ -1859,15 +1499,15 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       }
     ]
   },
-  "wpn_lance_0006": {
+  "wpn_sword_0026": {
     "stats": [
       {
         "levelOne": {
-          "skillId": "wpn_attr_will_mid",
+          "skillId": "wpn_attr_main_high",
           "level": 1
         },
         "maxLevel": {
-          "skillId": "wpn_attr_will_mid",
+          "skillId": "wpn_attr_main_high",
           "level": 9
         },
         "levelOneLabel": "Lv.1",
@@ -1875,11 +1515,11 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       },
       {
         "levelOne": {
-          "skillId": "wpn_sp_attr_electrondam_mid",
+          "skillId": "wpn_sp_attr_phy_spell_high",
           "level": 1
         },
         "maxLevel": {
-          "skillId": "wpn_sp_attr_electrondam_mid",
+          "skillId": "wpn_sp_attr_phy_spell_high",
           "level": 9
         },
         "levelOneLabel": "Lv.1",
@@ -1887,11 +1527,291 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       },
       {
         "levelOne": {
-          "skillId": "sk_wpn_lance_0006",
+          "skillId": "sk_wpn_sword_0026",
           "level": 1
         },
         "maxLevel": {
-          "skillId": "sk_wpn_lance_0006",
+          "skillId": "sk_wpn_sword_0026",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
+  "wpn_funnel_0014": {
+    "stats": [
+      {
+        "levelOne": {
+          "skillId": "wpn_attr_wisd_mid",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_attr_wisd_mid",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "wpn_sp_attr_phy_spell_mid",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_sp_attr_phy_spell_mid",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "sk_wpn_funnel_0014",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "sk_wpn_funnel_0014",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
+  "wpn_lance_0011": {
+    "stats": [
+      {
+        "levelOne": {
+          "skillId": "wpn_attr_main_high",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_attr_main_high",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "wpn_sp_attr_atk_high",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_sp_attr_atk_high",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "sk_wpn_lance_0011",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "sk_wpn_lance_0011",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
+  "wpn_funnel_0015": {
+    "stats": [
+      {
+        "levelOne": {
+          "skillId": "wpn_attr_will_high",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_attr_will_high",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "wpn_sp_attr_atk_high",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_sp_attr_atk_high",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "sk_wpn_funnel_0015",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "sk_wpn_funnel_0015",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
+  "wpn_sword_0006": {
+    "stats": [
+      {
+        "levelOne": {
+          "skillId": "wpn_attr_wisd_high",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_attr_wisd_high",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "wpn_sp_attr_atk_high",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_sp_attr_atk_high",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "sk_wpn_sword_0006",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "sk_wpn_sword_0006",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
+  "wpn_funnel_0016": {
+    "stats": [
+      {
+        "levelOne": {
+          "skillId": "wpn_attr_wisd_high",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_attr_wisd_high",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "wpn_sp_attr_usgs_high",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_sp_attr_usgs_high",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "sk_wpn_funnel_0016",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "sk_wpn_funnel_0016",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
+  "wpn_funnel_0018": {
+    "stats": [
+      {
+        "levelOne": {
+          "skillId": "wpn_attr_wisd_high",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_attr_wisd_high",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "wpn_sp_attr_usgs_high",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_sp_attr_usgs_high",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "sk_wpn_funnel_0018",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "sk_wpn_funnel_0018",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
+  "wpn_funnel_0019": {
+    "stats": [
+      {
+        "levelOne": {
+          "skillId": "wpn_attr_agi_high",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_attr_agi_high",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "wpn_sp_attr_atk_high",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_sp_attr_atk_high",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "sk_wpn_funnel_0019",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "sk_wpn_funnel_0019",
           "level": 9
         },
         "levelOneLabel": "Lv.1",
@@ -1939,15 +1859,15 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       }
     ]
   },
-  "wpn_sword_0015": {
+  "wpn_pistol_0007": {
     "stats": [
       {
         "levelOne": {
-          "skillId": "wpn_attr_agi_mid",
+          "skillId": "wpn_attr_agi_high",
           "level": 1
         },
         "maxLevel": {
-          "skillId": "wpn_attr_agi_mid",
+          "skillId": "wpn_attr_agi_high",
           "level": 9
         },
         "levelOneLabel": "Lv.1",
@@ -1955,11 +1875,11 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       },
       {
         "levelOne": {
-          "skillId": "wpn_sp_attr_phydam_mid",
+          "skillId": "wpn_sp_attr_crystdam_high",
           "level": 1
         },
         "maxLevel": {
-          "skillId": "wpn_sp_attr_phydam_mid",
+          "skillId": "wpn_sp_attr_crystdam_high",
           "level": 9
         },
         "levelOneLabel": "Lv.1",
@@ -1967,11 +1887,11 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       },
       {
         "levelOne": {
-          "skillId": "sk_wpn_sword_0015",
+          "skillId": "sk_wpn_pistol_0007",
           "level": 1
         },
         "maxLevel": {
-          "skillId": "sk_wpn_sword_0015",
+          "skillId": "sk_wpn_pistol_0007",
           "level": 9
         },
         "levelOneLabel": "Lv.1",
@@ -2019,46 +1939,6 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       }
     ]
   },
-  "wpn_pistol_0007": {
-    "stats": [
-      {
-        "levelOne": {
-          "skillId": "wpn_attr_agi_high",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_attr_agi_high",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "wpn_sp_attr_crystdam_high",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_sp_attr_crystdam_high",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "sk_wpn_pistol_0007",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "sk_wpn_pistol_0007",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      }
-    ]
-  },
   "wpn_lance_0004": {
     "stats": [
       {
@@ -2092,6 +1972,114 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
         },
         "maxLevel": {
           "skillId": "sk_wpn_lance_0004",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
+  "wpn_sword_0003": {
+    "stats": [
+      {
+        "levelOne": {
+          "skillId": "wpn_attr_main_low",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_attr_main_low",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "sk_wpn_sword_0003",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "sk_wpn_sword_0003",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
+  "wpn_sword_0022": {
+    "stats": [
+      {
+        "levelOne": {
+          "skillId": "wpn_attr_agi_high",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_attr_agi_high",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "wpn_sp_attr_crirate_high",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_sp_attr_crirate_high",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "sk_wpn_sword_0022",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "sk_wpn_sword_0022",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
+  "wpn_lance_0006": {
+    "stats": [
+      {
+        "levelOne": {
+          "skillId": "wpn_attr_will_mid",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_attr_will_mid",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "wpn_sp_attr_electrondam_mid",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_sp_attr_electrondam_mid",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "sk_wpn_lance_0006",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "sk_wpn_lance_0006",
           "level": 9
         },
         "levelOneLabel": "Lv.1",
@@ -2139,6 +2127,126 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       }
     ]
   },
+  "wpn_pistol_0004": {
+    "stats": [
+      {
+        "levelOne": {
+          "skillId": "wpn_attr_str_mid",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_attr_str_mid",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "wpn_sp_attr_firedam_mid",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_sp_attr_firedam_mid",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "sk_wpn_pistol_0004",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "sk_wpn_pistol_0004",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
+  "wpn_sword_0009": {
+    "stats": [
+      {
+        "levelOne": {
+          "skillId": "wpn_attr_wisd_low",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_attr_wisd_low",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "wpn_sp_attr_atk_low",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_sp_attr_atk_low",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "sk_wpn_sword_0009",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "sk_wpn_sword_0009",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
+  "wpn_sword_0025": {
+    "stats": [
+      {
+        "levelOne": {
+          "skillId": "wpn_attr_will_high",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_attr_will_high",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "wpn_sp_attr_atk_high",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_sp_attr_atk_high",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "sk_wpn_sword_0025",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "sk_wpn_sword_0025",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
   "wpn_lance_0008": {
     "stats": [
       {
@@ -2172,6 +2280,46 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
         },
         "maxLevel": {
           "skillId": "sk_wpn_lance_0008",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
+  "wpn_lance_0015": {
+    "stats": [
+      {
+        "levelOne": {
+          "skillId": "wpn_attr_agi_high",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_attr_agi_high",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "wpn_sp_attr_firedam_high",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_sp_attr_firedam_high",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "sk_wpn_lance_0015",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "sk_wpn_lance_0015",
           "level": 9
         },
         "levelOneLabel": "Lv.1",
@@ -2247,15 +2395,15 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       }
     ]
   },
-  "wpn_pistol_0004": {
+  "wpn_pistol_0012": {
     "stats": [
       {
         "levelOne": {
-          "skillId": "wpn_attr_str_mid",
+          "skillId": "wpn_attr_agi_mid",
           "level": 1
         },
         "maxLevel": {
-          "skillId": "wpn_attr_str_mid",
+          "skillId": "wpn_attr_agi_mid",
           "level": 9
         },
         "levelOneLabel": "Lv.1",
@@ -2263,11 +2411,11 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       },
       {
         "levelOne": {
-          "skillId": "wpn_sp_attr_firedam_mid",
+          "skillId": "wpn_sp_attr_usgs_mid",
           "level": 1
         },
         "maxLevel": {
-          "skillId": "wpn_sp_attr_firedam_mid",
+          "skillId": "wpn_sp_attr_usgs_mid",
           "level": 9
         },
         "levelOneLabel": "Lv.1",
@@ -2275,11 +2423,11 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       },
       {
         "levelOne": {
-          "skillId": "sk_wpn_pistol_0004",
+          "skillId": "sk_wpn_pistol_0012",
           "level": 1
         },
         "maxLevel": {
-          "skillId": "sk_wpn_pistol_0004",
+          "skillId": "sk_wpn_pistol_0012",
           "level": 9
         },
         "levelOneLabel": "Lv.1",
@@ -2287,15 +2435,15 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       }
     ]
   },
-  "wpn_pistol_0001": {
+  "wpn_lance_0014": {
     "stats": [
       {
         "levelOne": {
-          "skillId": "wpn_attr_main_low",
+          "skillId": "wpn_attr_will_high",
           "level": 1
         },
         "maxLevel": {
-          "skillId": "wpn_attr_main_low",
+          "skillId": "wpn_attr_will_high",
           "level": 9
         },
         "levelOneLabel": "Lv.1",
@@ -2303,11 +2451,23 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       },
       {
         "levelOne": {
-          "skillId": "sk_wpn_pistol_0001",
+          "skillId": "wpn_sp_attr_heal_high",
           "level": 1
         },
         "maxLevel": {
-          "skillId": "sk_wpn_pistol_0001",
+          "skillId": "wpn_sp_attr_heal_high",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "sk_wpn_lance_0014",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "sk_wpn_lance_0014",
           "level": 9
         },
         "levelOneLabel": "Lv.1",
@@ -2315,15 +2475,15 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       }
     ]
   },
-  "wpn_pistol_0002": {
+  "wpn_lance_0017": {
     "stats": [
       {
         "levelOne": {
-          "skillId": "wpn_attr_wisd_low",
+          "skillId": "wpn_attr_str_high",
           "level": 1
         },
         "maxLevel": {
-          "skillId": "wpn_attr_wisd_low",
+          "skillId": "wpn_attr_str_high",
           "level": 9
         },
         "levelOneLabel": "Lv.1",
@@ -2331,11 +2491,11 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       },
       {
         "levelOne": {
-          "skillId": "wpn_sp_attr_atk_low",
+          "skillId": "wpn_sp_attr_naturaldam_high",
           "level": 1
         },
         "maxLevel": {
-          "skillId": "wpn_sp_attr_atk_low",
+          "skillId": "wpn_sp_attr_naturaldam_high",
           "level": 9
         },
         "levelOneLabel": "Lv.1",
@@ -2343,11 +2503,11 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       },
       {
         "levelOne": {
-          "skillId": "sk_wpn_pistol_0002",
+          "skillId": "sk_wpn_lance_0017",
           "level": 1
         },
         "maxLevel": {
-          "skillId": "sk_wpn_pistol_0002",
+          "skillId": "sk_wpn_lance_0017",
           "level": 9
         },
         "levelOneLabel": "Lv.1",
@@ -2395,6 +2555,74 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       }
     ]
   },
+  "wpn_lance_0018": {
+    "stats": [
+      {
+        "levelOne": {
+          "skillId": "wpn_attr_str_high",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_attr_str_high",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "wpn_sp_attr_usgs_high",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_sp_attr_usgs_high",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "sk_wpn_lance_0018",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "sk_wpn_lance_0018",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
+  "wpn_pistol_0001": {
+    "stats": [
+      {
+        "levelOne": {
+          "skillId": "wpn_attr_main_low",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_attr_main_low",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "sk_wpn_pistol_0001",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "sk_wpn_pistol_0001",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
   "wpn_pistol_0005": {
     "stats": [
       {
@@ -2428,6 +2656,126 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
         },
         "maxLevel": {
           "skillId": "sk_wpn_pistol_0005",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
+  "wpn_sword_0010": {
+    "stats": [
+      {
+        "levelOne": {
+          "skillId": "wpn_attr_wisd_high",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_attr_wisd_high",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "wpn_sp_attr_firedam_high",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_sp_attr_firedam_high",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "sk_wpn_sword_0010",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "sk_wpn_sword_0010",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
+  "wpn_sword_0015": {
+    "stats": [
+      {
+        "levelOne": {
+          "skillId": "wpn_attr_agi_mid",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_attr_agi_mid",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "wpn_sp_attr_phydam_mid",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_sp_attr_phydam_mid",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "sk_wpn_sword_0015",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "sk_wpn_sword_0015",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
+  "wpn_sword_0019": {
+    "stats": [
+      {
+        "levelOne": {
+          "skillId": "wpn_attr_agi_mid",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_attr_agi_mid",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "wpn_sp_attr_atk_mid",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_sp_attr_atk_mid",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "sk_wpn_sword_0019",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "sk_wpn_sword_0019",
           "level": 9
         },
         "levelOneLabel": "Lv.1",
@@ -2475,6 +2823,86 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       }
     ]
   },
+  "wpn_sword_0005": {
+    "stats": [
+      {
+        "levelOne": {
+          "skillId": "wpn_attr_agi_mid",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_attr_agi_mid",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "wpn_sp_attr_phydam_mid",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_sp_attr_phydam_mid",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "sk_wpn_sword_0005",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "sk_wpn_sword_0005",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
+  "wpn_sword_0020": {
+    "stats": [
+      {
+        "levelOne": {
+          "skillId": "wpn_attr_str_mid",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_attr_str_mid",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "wpn_sp_attr_crystdam_mid",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_sp_attr_crystdam_mid",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "sk_wpn_sword_0020",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "sk_wpn_sword_0020",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
   "wpn_pistol_0009": {
     "stats": [
       {
@@ -2508,6 +2936,46 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
         },
         "maxLevel": {
           "skillId": "sk_wpn_pistol_0009",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      }
+    ]
+  },
+  "wpn_pistol_0010": {
+    "stats": [
+      {
+        "levelOne": {
+          "skillId": "wpn_attr_wisd_high",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_attr_wisd_high",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "wpn_sp_attr_crirate_high",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "wpn_sp_attr_crirate_high",
+          "level": 9
+        },
+        "levelOneLabel": "Lv.1",
+        "maxLevelLabel": "Lv.9"
+      },
+      {
+        "levelOne": {
+          "skillId": "sk_wpn_pistol_0010",
+          "level": 1
+        },
+        "maxLevel": {
+          "skillId": "sk_wpn_pistol_0010",
           "level": 9
         },
         "levelOneLabel": "Lv.1",
@@ -2555,114 +3023,6 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       }
     ]
   },
-  "wpn_pistol_0012": {
-    "stats": [
-      {
-        "levelOne": {
-          "skillId": "wpn_attr_agi_mid",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_attr_agi_mid",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "wpn_sp_attr_usgs_mid",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_sp_attr_usgs_mid",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "sk_wpn_pistol_0012",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "sk_wpn_pistol_0012",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      }
-    ]
-  },
-  "wpn_sword_0003": {
-    "stats": [
-      {
-        "levelOne": {
-          "skillId": "wpn_attr_main_low",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_attr_main_low",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "sk_wpn_sword_0003",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "sk_wpn_sword_0003",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      }
-    ]
-  },
-  "wpn_sword_0006": {
-    "stats": [
-      {
-        "levelOne": {
-          "skillId": "wpn_attr_wisd_high",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_attr_wisd_high",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "wpn_sp_attr_atk_high",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_sp_attr_atk_high",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "sk_wpn_sword_0006",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "sk_wpn_sword_0006",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      }
-    ]
-  },
   "wpn_sword_0008": {
     "stats": [
       {
@@ -2696,86 +3056,6 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
         },
         "maxLevel": {
           "skillId": "sk_wpn_sword_0008",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      }
-    ]
-  },
-  "wpn_sword_0009": {
-    "stats": [
-      {
-        "levelOne": {
-          "skillId": "wpn_attr_wisd_low",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_attr_wisd_low",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "wpn_sp_attr_atk_low",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_sp_attr_atk_low",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "sk_wpn_sword_0009",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "sk_wpn_sword_0009",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      }
-    ]
-  },
-  "wpn_sword_0010": {
-    "stats": [
-      {
-        "levelOne": {
-          "skillId": "wpn_attr_wisd_high",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_attr_wisd_high",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "wpn_sp_attr_firedam_high",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_sp_attr_firedam_high",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "sk_wpn_sword_0010",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "sk_wpn_sword_0010",
           "level": 9
         },
         "levelOneLabel": "Lv.1",
@@ -2943,47 +3223,7 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       }
     ]
   },
-  "wpn_sword_0016": {
-    "stats": [
-      {
-        "levelOne": {
-          "skillId": "wpn_attr_will_high",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_attr_will_high",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "wpn_sp_attr_atk_high",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_sp_attr_atk_high",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "sk_wpn_sword_0016",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "sk_wpn_sword_0016",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      }
-    ]
-  },
-  "wpn_sword_0019": {
+  "wpn_sword_0018": {
     "stats": [
       {
         "levelOne": {
@@ -3011,51 +3251,11 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
       },
       {
         "levelOne": {
-          "skillId": "sk_wpn_sword_0019",
+          "skillId": "sk_wpn_sword_0018",
           "level": 1
         },
         "maxLevel": {
-          "skillId": "sk_wpn_sword_0019",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      }
-    ]
-  },
-  "wpn_sword_0020": {
-    "stats": [
-      {
-        "levelOne": {
-          "skillId": "wpn_attr_str_mid",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_attr_str_mid",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "wpn_sp_attr_crystdam_mid",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_sp_attr_crystdam_mid",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "sk_wpn_sword_0020",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "sk_wpn_sword_0020",
+          "skillId": "sk_wpn_sword_0018",
           "level": 9
         },
         "levelOneLabel": "Lv.1",
@@ -3096,46 +3296,6 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
         },
         "maxLevel": {
           "skillId": "sk_wpn_sword_0021",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      }
-    ]
-  },
-  "wpn_sword_0022": {
-    "stats": [
-      {
-        "levelOne": {
-          "skillId": "wpn_attr_agi_high",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_attr_agi_high",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "wpn_sp_attr_crirate_high",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_sp_attr_crirate_high",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "sk_wpn_sword_0022",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "sk_wpn_sword_0022",
           "level": 9
         },
         "levelOneLabel": "Lv.1",
@@ -3222,155 +3382,56 @@ export const wikiWeaponPlannerPreviews: Record<string, WikiWeaponPlannerPreview>
         "maxLevelLabel": "Lv.9"
       }
     ]
-  },
-  "wpn_sword_0025": {
-    "stats": [
-      {
-        "levelOne": {
-          "skillId": "wpn_attr_will_high",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_attr_will_high",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "wpn_sp_attr_atk_high",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_sp_attr_atk_high",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "sk_wpn_sword_0025",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "sk_wpn_sword_0025",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      }
-    ]
-  },
-  "wpn_sword_0026": {
-    "stats": [
-      {
-        "levelOne": {
-          "skillId": "wpn_attr_main_high",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_attr_main_high",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "wpn_sp_attr_phy_spell_high",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "wpn_sp_attr_phy_spell_high",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      },
-      {
-        "levelOne": {
-          "skillId": "sk_wpn_sword_0026",
-          "level": 1
-        },
-        "maxLevel": {
-          "skillId": "sk_wpn_sword_0026",
-          "level": 9
-        },
-        "levelOneLabel": "Lv.1",
-        "maxLevelLabel": "Lv.9"
-      }
-    ]
   }
 }
 
 export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPreview> = {
-  "item_equip_t4_suit_combo_cd01_hand_02": {
+  "item_equip_t4_suit_heal01_body_03": {
     "stats": [
       {
         "attributeId": "3",
-        "levelOne": "42",
-        "maxLevel": "42",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "41",
-        "levelOne": "65",
-        "maxLevel": "84",
+        "levelOne": "56",
+        "maxLevel": "56",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
         "attributeId": "42",
-        "levelOne": "43",
-        "maxLevel": "55",
+        "levelOne": "87",
+        "maxLevel": "113",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "40",
+        "levelOne": "58",
+        "maxLevel": "75",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
         "attributeId": "44",
-        "levelOne": "20.53571429%",
-        "maxLevel": "26.69642866%",
+        "levelOne": "12.32142857%",
+        "maxLevel": "16.01785719%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
     ],
     "craftingRecipes": [
       {
-        "chainId": 4002,
-        "discount": 1,
+        "chainId": 4003,
+        "discount": 0.009999999776482582,
         "isDefault": true,
         "materials": [
           {
-            "itemId": "item_equip_script_4_2",
-            "count": 50,
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 25000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4003,
-        "discount": 0.009999999776482582,
-        "isDefault": false,
-        "materials": [
-          {
             "itemId": "item_equip_script_4_3",
-            "count": 25,
+            "count": 50,
             "iconId": "item_equip_script_4_3",
             "rarity": 4
           },
           {
             "itemId": "item_domain_jinlong_coupon",
-            "count": 250,
+            "count": 360,
             "iconId": "item_domain_jinlong_coupon",
             "rarity": 5
           }
@@ -3378,7 +3439,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       }
     ]
   },
-  "item_equip_t4_suit_fire_natr01_edc_03": {
+  "item_equip_t4_suit_spellburst_edc_01": {
     "stats": [
       {
         "attributeId": "3",
@@ -3388,14 +3449,14 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
         "maxLevelLabel": "+3"
       },
       {
-        "attributeId": "42",
+        "attributeId": "40",
         "levelOne": "32",
         "maxLevel": "41",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
-        "attributeId": "41",
+        "attributeId": "42",
         "levelOne": "21",
         "maxLevel": "27",
         "levelOneLabel": "+0",
@@ -3411,76 +3472,19 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
     ],
     "craftingRecipes": [
       {
-        "chainId": 4000,
-        "discount": 1,
+        "chainId": 4003,
+        "discount": 0.009999999776482582,
         "isDefault": true,
         "materials": [
           {
-            "itemId": "item_equip_script_4",
-            "count": 50,
-            "iconId": "item_equip_script_4",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 8000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4001,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_1",
-            "count": 50,
-            "iconId": "item_equip_script_4_1",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 8000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "count": 10,
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 8000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4003,
-        "discount": 0.009999999776482582,
-        "isDefault": false,
-        "materials": [
-          {
             "itemId": "item_equip_script_4_3",
-            "count": 5,
+            "count": 50,
             "iconId": "item_equip_script_4_3",
             "rarity": 4
           },
           {
             "itemId": "item_domain_jinlong_coupon",
-            "count": 80,
+            "count": 360,
             "iconId": "item_domain_jinlong_coupon",
             "rarity": 5
           }
@@ -3488,109 +3492,52 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       }
     ]
   },
-  "item_equip_t4_suit_poise01_edc_02": {
+  "item_equip_t4_suit_spellburst_hand_01": {
     "stats": [
       {
         "attributeId": "3",
-        "levelOne": "21",
-        "maxLevel": "21",
+        "levelOne": "42",
+        "maxLevel": "42",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
         "attributeId": "40",
-        "levelOne": "32",
-        "maxLevel": "41",
+        "levelOne": "65",
+        "maxLevel": "84",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
-        "attributeId": "39",
-        "levelOne": "21",
-        "maxLevel": "27",
+        "attributeId": "42",
+        "levelOne": "43",
+        "maxLevel": "55",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
         "attributeId": "87",
-        "levelOne": "41.4",
-        "maxLevel": "53.81999969",
+        "levelOne": "34.5",
+        "maxLevel": "44.84999847",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
     ],
     "craftingRecipes": [
       {
-        "chainId": 4000,
-        "discount": 1,
+        "chainId": 4003,
+        "discount": 0.009999999776482582,
         "isDefault": true,
         "materials": [
           {
-            "itemId": "item_equip_script_4",
-            "count": 50,
-            "iconId": "item_equip_script_4",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 8000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4001,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_1",
-            "count": 50,
-            "iconId": "item_equip_script_4_1",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 8000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "count": 10,
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 8000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4003,
-        "discount": 0.009999999776482582,
-        "isDefault": false,
-        "materials": [
-          {
             "itemId": "item_equip_script_4_3",
-            "count": 5,
+            "count": 50,
             "iconId": "item_equip_script_4_3",
             "rarity": 4
           },
           {
             "itemId": "item_domain_jinlong_coupon",
-            "count": 80,
+            "count": 360,
             "iconId": "item_domain_jinlong_coupon",
             "rarity": 5
           }
@@ -3598,462 +3545,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       }
     ]
   },
-  "item_equip_t4_suit_usp02_edc_01": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "21",
-        "maxLevel": "21",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "41",
-        "levelOne": "32",
-        "maxLevel": "41",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "39",
-        "levelOne": "21",
-        "maxLevel": "27",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "44",
-        "levelOne": "24.64285714%",
-        "maxLevel": "32.03571439%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4000,
-        "discount": 1,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4",
-            "count": 50,
-            "iconId": "item_equip_script_4",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 8000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4001,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_1",
-            "count": 50,
-            "iconId": "item_equip_script_4_1",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 8000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "count": 10,
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 8000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4003,
-        "discount": 0.009999999776482582,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "count": 5,
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 80,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_suit_atb01_hand_03": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "42",
-        "maxLevel": "42",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "41",
-        "levelOne": "65",
-        "maxLevel": "84",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "40",
-        "levelOne": "43",
-        "maxLevel": "55",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "44",
-        "levelOne": "20.53571429%",
-        "maxLevel": "26.69642866%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "count": 50,
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 25000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4003,
-        "discount": 0.009999999776482582,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "count": 25,
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 250,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_suit_atb01_hand_01": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "42",
-        "maxLevel": "42",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "40",
-        "levelOne": "65",
-        "maxLevel": "84",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "41",
-        "levelOne": "43",
-        "maxLevel": "55",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "32",
-        "levelOne": "34.5%",
-        "maxLevel": "44.85000074%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4000,
-        "discount": 1,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4",
-            "count": 50,
-            "iconId": "item_equip_script_4",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 8000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4001,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_1",
-            "count": 50,
-            "iconId": "item_equip_script_4_1",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 8000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "count": 10,
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 8000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4003,
-        "discount": 0.009999999776482582,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "count": 5,
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 80,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_suit_atb01_hand_02": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "42",
-        "maxLevel": "42",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "42",
-        "levelOne": "65",
-        "maxLevel": "84",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "39",
-        "levelOne": "43",
-        "maxLevel": "55",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "AllSkillDamageIncrease",
-        "levelOne": "23%",
-        "maxLevel": "29.8999995%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4001,
-        "discount": 1,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_1",
-            "count": 50,
-            "iconId": "item_equip_script_4_1",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 16000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "count": 10,
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 16000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4003,
-        "discount": 0.009999999776482582,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "count": 5,
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 160,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_suit_attri01_edc_02": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "21",
-        "maxLevel": "21",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "42",
-        "levelOne": "32",
-        "maxLevel": "41",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "41",
-        "levelOne": "21",
-        "maxLevel": "27",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "32",
-        "levelOne": "41.4%",
-        "maxLevel": "53.82000208%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "count": 50,
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 25000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4003,
-        "discount": 0.009999999776482582,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "count": 25,
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 250,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_suit_crush_fracture_hand_01": {
+  "item_equip_t4_suit_phy01_hand_03": {
     "stats": [
       {
         "attributeId": "3",
@@ -4125,416 +3617,33 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       }
     ]
   },
-  "item_equip_t4_suit_burst01_edc_01": {
+  "item_equip_t4_suit_phy01_hand_01": {
     "stats": [
       {
         "attributeId": "3",
-        "levelOne": "21",
-        "maxLevel": "21",
+        "levelOne": "42",
+        "maxLevel": "42",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
         "attributeId": "39",
-        "levelOne": "32",
-        "maxLevel": "41",
+        "levelOne": "65",
+        "maxLevel": "84",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
         "attributeId": "42",
-        "levelOne": "21",
-        "maxLevel": "27",
+        "levelOne": "43",
+        "maxLevel": "55",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
-        "attributeId": "CrystAndPulseDamageIncrease",
-        "levelOne": "23%",
-        "maxLevel": "29.8999995%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4000,
-        "discount": 1,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4",
-            "count": 50,
-            "iconId": "item_equip_script_4",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 8000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4001,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_1",
-            "count": 50,
-            "iconId": "item_equip_script_4_1",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 8000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "count": 10,
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 8000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4003,
-        "discount": 0.009999999776482582,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "count": 5,
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 80,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_parts_wuling00_edc_05": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "18",
-        "maxLevel": "18",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "Main",
-        "levelOne": "27",
-        "maxLevel": "35",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "Sub",
-        "levelOne": "18",
-        "maxLevel": "23",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "29",
-        "levelOne": "17.7%",
-        "maxLevel": "23.01000059%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4000,
-        "discount": 1,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4",
-            "count": 20,
-            "iconId": "item_equip_script_4",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 3000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4001,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_1",
-            "count": 20,
-            "iconId": "item_equip_script_4_1",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 3000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "count": 4,
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 3000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4003,
-        "discount": 0.009999999776482582,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "count": 2,
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 30,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_suit_heal01_edc_03": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "21",
-        "maxLevel": "21",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "42",
-        "levelOne": "32",
-        "maxLevel": "41",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "41",
-        "levelOne": "21",
-        "maxLevel": "27",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "Main",
-        "levelOne": "20.7017835%",
-        "maxLevel": "26.91231966%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4000,
-        "discount": 1,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4",
-            "count": 50,
-            "iconId": "item_equip_script_4",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 8000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4001,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_1",
-            "count": 50,
-            "iconId": "item_equip_script_4_1",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 8000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "count": 10,
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 8000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4003,
-        "discount": 0.009999999776482582,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "count": 5,
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 80,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_suit_pulse_cryst01_edc_04": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "21",
-        "maxLevel": "21",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "42",
-        "levelOne": "32",
-        "maxLevel": "41",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "39",
-        "levelOne": "21",
-        "maxLevel": "27",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "44",
-        "levelOne": "24.64285714%",
-        "maxLevel": "32.03571439%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4003,
-        "discount": 0.009999999776482582,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "count": 50,
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 360,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_suit_criti01_body_02": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "56",
-        "maxLevel": "56",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "41",
-        "levelOne": "87",
-        "maxLevel": "113",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "40",
-        "levelOne": "58",
-        "maxLevel": "75",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "17",
-        "levelOne": "13.8%",
-        "maxLevel": "17.9399997%",
+        "attributeId": "50",
+        "levelOne": "19.16666667%",
+        "maxLevel": "24.91666675%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -4690,246 +3799,33 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       }
     ]
   },
-  "item_equip_t4_suit_attri01_body_04": {
+  "item_equip_t4_suit_crush_fracture_edc_02": {
     "stats": [
       {
         "attributeId": "3",
-        "levelOne": "56",
-        "maxLevel": "56",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "42",
-        "levelOne": "87",
-        "maxLevel": "113",
+        "levelOne": "21",
+        "maxLevel": "21",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
         "attributeId": "40",
-        "levelOne": "58",
-        "maxLevel": "75",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "44",
-        "levelOne": "12.32142857%",
-        "maxLevel": "16.01785719%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4000,
-        "discount": 1,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4",
-            "count": 50,
-            "iconId": "item_equip_script_4",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 8000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4001,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_1",
-            "count": 50,
-            "iconId": "item_equip_script_4_1",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 8000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "count": 10,
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 8000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4003,
-        "discount": 0.009999999776482582,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "count": 5,
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 80,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_suit_heal01_edc_04": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "21",
-        "maxLevel": "21",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "42",
-        "levelOne": "41",
-        "maxLevel": "53",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "29",
-        "levelOne": "20.7%",
-        "maxLevel": "26.91000104%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4000,
-        "discount": 1,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4",
-            "count": 50,
-            "iconId": "item_equip_script_4",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 8000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4001,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_1",
-            "count": 50,
-            "iconId": "item_equip_script_4_1",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 8000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "count": 10,
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 8000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4003,
-        "discount": 0.009999999776482582,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "count": 5,
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 80,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_suit_atb01_edc_06": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "21",
-        "maxLevel": "21",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "41",
         "levelOne": "32",
         "maxLevel": "41",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
-        "attributeId": "40",
+        "attributeId": "39",
         "levelOne": "21",
         "maxLevel": "27",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
-        "attributeId": "Sub",
-        "levelOne": "20.7017835%",
-        "maxLevel": "26.91231966%",
+        "attributeId": "50",
+        "levelOne": "23%",
+        "maxLevel": "29.8999995%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -4975,7 +3871,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       }
     ]
   },
-  "item_equip_t4_suit_atb01_body_05": {
+  "item_equip_t4_suit_burst01_body_02": {
     "stats": [
       {
         "attributeId": "3",
@@ -4992,7 +3888,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
         "maxLevelLabel": "+3"
       },
       {
-        "attributeId": "40",
+        "attributeId": "42",
         "levelOne": "58",
         "maxLevel": "75",
         "levelOneLabel": "+0",
@@ -5008,57 +3904,19 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
     ],
     "craftingRecipes": [
       {
-        "chainId": 4001,
-        "discount": 1,
+        "chainId": 4003,
+        "discount": 0.009999999776482582,
         "isDefault": true,
         "materials": [
           {
-            "itemId": "item_equip_script_4_1",
-            "count": 50,
-            "iconId": "item_equip_script_4_1",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 16000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "count": 10,
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 16000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4003,
-        "discount": 0.009999999776482582,
-        "isDefault": false,
-        "materials": [
-          {
             "itemId": "item_equip_script_4_3",
-            "count": 5,
+            "count": 50,
             "iconId": "item_equip_script_4_3",
             "rarity": 4
           },
           {
             "itemId": "item_domain_jinlong_coupon",
-            "count": 160,
+            "count": 360,
             "iconId": "item_domain_jinlong_coupon",
             "rarity": 5
           }
@@ -5066,7 +3924,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       }
     ]
   },
-  "item_equip_t4_suit_poise01_hand_01": {
+  "item_equip_t4_suit_heal01_hand_02": {
     "stats": [
       {
         "attributeId": "3",
@@ -5076,7 +3934,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
         "maxLevelLabel": "+3"
       },
       {
-        "attributeId": "40",
+        "attributeId": "42",
         "levelOne": "65",
         "maxLevel": "84",
         "levelOneLabel": "+0",
@@ -5090,9 +3948,9 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
         "maxLevelLabel": "+3"
       },
       {
-        "attributeId": "87",
-        "levelOne": "34.5",
-        "maxLevel": "44.84999847",
+        "attributeId": "29",
+        "levelOne": "17.25%",
+        "maxLevel": "22.42500037%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -5176,192 +4034,33 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       }
     ]
   },
-  "item_equip_t4_suit_usp02_hand_04": {
+  "item_equip_t4_suit_attri01_edc_04": {
     "stats": [
       {
         "attributeId": "3",
-        "levelOne": "42",
-        "maxLevel": "42",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "42",
-        "levelOne": "65",
-        "maxLevel": "84",
+        "levelOne": "21",
+        "maxLevel": "21",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
         "attributeId": "40",
-        "levelOne": "43",
-        "maxLevel": "55",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "44",
-        "levelOne": "20.53571429%",
-        "maxLevel": "26.69642866%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4003,
-        "discount": 0.009999999776482582,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "count": 50,
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 360,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_suit_burst01_hand_02": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "42",
-        "maxLevel": "42",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "41",
-        "levelOne": "65",
-        "maxLevel": "84",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "42",
-        "levelOne": "43",
-        "maxLevel": "55",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "AllSkillDamageIncrease",
-        "levelOne": "23%",
-        "maxLevel": "29.8999995%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4003,
-        "discount": 0.009999999776482582,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "count": 50,
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 360,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_suit_usp02_body_06": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "56",
-        "maxLevel": "56",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "41",
-        "levelOne": "87",
-        "maxLevel": "113",
+        "levelOne": "32",
+        "maxLevel": "41",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
         "attributeId": "39",
-        "levelOne": "58",
-        "maxLevel": "75",
+        "levelOne": "21",
+        "maxLevel": "27",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
-        "attributeId": "33",
-        "levelOne": "20.7%",
-        "maxLevel": "26.91000104%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4003,
-        "discount": 0.009999999776482582,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "count": 50,
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 360,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_suit_atb01_body_04": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "56",
-        "maxLevel": "56",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "40",
-        "levelOne": "87",
-        "maxLevel": "113",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "41",
-        "levelOne": "58",
-        "maxLevel": "75",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "Sub",
-        "levelOne": "10.35089175%",
-        "maxLevel": "13.45615983%",
+        "attributeId": "61",
+        "levelOne": "41.4%",
+        "maxLevel": "53.82000208%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -5445,86 +4144,33 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       }
     ]
   },
-  "item_equip_t4_suit_usp02_hand_05": {
+  "item_equip_t4_suit_burst01_body_01": {
     "stats": [
       {
         "attributeId": "3",
-        "levelOne": "42",
-        "maxLevel": "42",
+        "levelOne": "56",
+        "maxLevel": "56",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
         "attributeId": "41",
-        "levelOne": "65",
-        "maxLevel": "84",
+        "levelOne": "87",
+        "maxLevel": "113",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
         "attributeId": "39",
-        "levelOne": "43",
-        "maxLevel": "55",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "33",
-        "levelOne": "34.5%",
-        "maxLevel": "44.85000074%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4003,
-        "discount": 0.009999999776482582,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "count": 50,
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 360,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_parts_wuling00_hand_02": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "36",
-        "maxLevel": "36",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "Main",
-        "levelOne": "55",
-        "maxLevel": "71",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "Sub",
-        "levelOne": "37",
-        "maxLevel": "48",
+        "levelOne": "58",
+        "maxLevel": "75",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
         "attributeId": "44",
-        "levelOne": "17.55952381%",
-        "maxLevel": "22.8273809%",
+        "levelOne": "12.32142857%",
+        "maxLevel": "16.01785719%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -5537,13 +4183,13 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
         "materials": [
           {
             "itemId": "item_equip_script_4",
-            "count": 20,
+            "count": 50,
             "iconId": "item_equip_script_4",
             "rarity": 4
           },
           {
             "itemId": "item_domain_jinlong_coupon",
-            "count": 3000,
+            "count": 8000,
             "iconId": "item_domain_jinlong_coupon",
             "rarity": 5
           }
@@ -5553,97 +4199,6 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
         "chainId": 4001,
         "discount": 1,
         "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_1",
-            "count": 20,
-            "iconId": "item_equip_script_4_1",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 3000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "count": 4,
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 3000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4003,
-        "discount": 0.009999999776482582,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "count": 2,
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 30,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_suit_atk02_body_03": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "56",
-        "maxLevel": "56",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "40",
-        "levelOne": "87",
-        "maxLevel": "113",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "41",
-        "levelOne": "58",
-        "maxLevel": "75",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "33",
-        "levelOne": "20.7%",
-        "maxLevel": "26.91000104%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4001,
-        "discount": 1,
-        "isDefault": true,
         "materials": [
           {
             "itemId": "item_equip_script_4_1",
@@ -5653,7 +4208,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
           },
           {
             "itemId": "item_domain_jinlong_coupon",
-            "count": 16000,
+            "count": 8000,
             "iconId": "item_domain_jinlong_coupon",
             "rarity": 5
           }
@@ -5672,7 +4227,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
           },
           {
             "itemId": "item_domain_jinlong_coupon",
-            "count": 16000,
+            "count": 8000,
             "iconId": "item_domain_jinlong_coupon",
             "rarity": 5
           }
@@ -5691,7 +4246,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
           },
           {
             "itemId": "item_domain_jinlong_coupon",
-            "count": 160,
+            "count": 80,
             "iconId": "item_domain_jinlong_coupon",
             "rarity": 5
           }
@@ -5699,7 +4254,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       }
     ]
   },
-  "item_equip_t4_suit_criti01_edc_04": {
+  "item_equip_t4_suit_expend_spell01_edc_02": {
     "stats": [
       {
         "attributeId": "3",
@@ -5723,66 +4278,28 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
         "maxLevelLabel": "+3"
       },
       {
-        "attributeId": "FireAndNaturalDamageIncrease",
-        "levelOne": "23%",
-        "maxLevel": "29.8999995%",
+        "attributeId": "32",
+        "levelOne": "41.4%",
+        "maxLevel": "53.82000208%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
     ],
     "craftingRecipes": [
       {
-        "chainId": 4000,
+        "chainId": 4002,
         "discount": 1,
         "isDefault": true,
         "materials": [
           {
-            "itemId": "item_equip_script_4",
-            "count": 50,
-            "iconId": "item_equip_script_4",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 8000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4001,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_1",
-            "count": 50,
-            "iconId": "item_equip_script_4_1",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 8000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
             "itemId": "item_equip_script_4_2",
-            "count": 10,
+            "count": 50,
             "iconId": "item_equip_script_4_2",
             "rarity": 4
           },
           {
             "itemId": "item_domain_jinlong_coupon",
-            "count": 8000,
+            "count": 25000,
             "iconId": "item_domain_jinlong_coupon",
             "rarity": 5
           }
@@ -5795,13 +4312,13 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
         "materials": [
           {
             "itemId": "item_equip_script_4_3",
-            "count": 5,
+            "count": 25,
             "iconId": "item_equip_script_4_3",
             "rarity": 4
           },
           {
             "itemId": "item_domain_jinlong_coupon",
-            "count": 80,
+            "count": 250,
             "iconId": "item_domain_jinlong_coupon",
             "rarity": 5
           }
@@ -5809,7 +4326,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       }
     ]
   },
-  "item_equip_t4_suit_phy01_edc_02": {
+  "item_equip_t4_suit_crush_fracture_edc_01": {
     "stats": [
       {
         "attributeId": "3",
@@ -5842,38 +4359,19 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
     ],
     "craftingRecipes": [
       {
-        "chainId": 4001,
+        "chainId": 4002,
         "discount": 1,
         "isDefault": true,
         "materials": [
           {
-            "itemId": "item_equip_script_4_1",
-            "count": 50,
-            "iconId": "item_equip_script_4_1",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 16000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
             "itemId": "item_equip_script_4_2",
-            "count": 10,
+            "count": 50,
             "iconId": "item_equip_script_4_2",
             "rarity": 4
           },
           {
             "itemId": "item_domain_jinlong_coupon",
-            "count": 16000,
+            "count": 25000,
             "iconId": "item_domain_jinlong_coupon",
             "rarity": 5
           }
@@ -5886,13 +4384,13 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
         "materials": [
           {
             "itemId": "item_equip_script_4_3",
-            "count": 5,
+            "count": 25,
             "iconId": "item_equip_script_4_3",
             "rarity": 4
           },
           {
             "itemId": "item_domain_jinlong_coupon",
-            "count": 160,
+            "count": 250,
             "iconId": "item_domain_jinlong_coupon",
             "rarity": 5
           }
@@ -5900,7 +4398,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       }
     ]
   },
-  "item_equip_t4_suit_pulse_cryst01_edc_02": {
+  "item_equip_t4_suit_attri01_edc_03": {
     "stats": [
       {
         "attributeId": "3",
@@ -5910,16 +4408,23 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
         "maxLevelLabel": "+3"
       },
       {
-        "attributeId": "41",
-        "levelOne": "41",
-        "maxLevel": "53",
+        "attributeId": "42",
+        "levelOne": "32",
+        "maxLevel": "41",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
-        "attributeId": "87",
-        "levelOne": "41.4",
-        "maxLevel": "53.81999969",
+        "attributeId": "40",
+        "levelOne": "21",
+        "maxLevel": "27",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "32",
+        "levelOne": "41.4%",
+        "maxLevel": "53.82000208%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -6003,26 +4508,280 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       }
     ]
   },
-  "item_equip_t4_suit_pulse_cryst01_edc_03": {
+  "item_equip_t4_suit_fire_natr01_hand_03": {
     "stats": [
       {
         "attributeId": "3",
-        "levelOne": "21",
-        "maxLevel": "21",
+        "levelOne": "42",
+        "maxLevel": "42",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
         "attributeId": "42",
-        "levelOne": "41",
-        "maxLevel": "53",
+        "levelOne": "65",
+        "maxLevel": "84",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "41",
+        "levelOne": "43",
+        "maxLevel": "55",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "FireAndNaturalDamageIncrease",
+        "levelOne": "19.16666667%",
+        "maxLevel": "24.91666675%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4000,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4",
+            "count": 50,
+            "iconId": "item_equip_script_4",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 8000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4001,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_1",
+            "count": 50,
+            "iconId": "item_equip_script_4_1",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 8000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "count": 10,
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 8000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.009999999776482582,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "count": 5,
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 80,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_phy01_body_04": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "56",
+        "maxLevel": "56",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "39",
+        "levelOne": "87",
+        "maxLevel": "113",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "42",
+        "levelOne": "58",
+        "maxLevel": "75",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "50",
+        "levelOne": "11.5%",
+        "maxLevel": "14.94999975%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "count": 50,
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 25000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.009999999776482582,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "count": 25,
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 250,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_atb01_hand_03": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "42",
+        "maxLevel": "42",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "41",
+        "levelOne": "65",
+        "maxLevel": "84",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "40",
+        "levelOne": "43",
+        "maxLevel": "55",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "44",
+        "levelOne": "20.53571429%",
+        "maxLevel": "26.69642866%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "count": 50,
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 25000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.009999999776482582,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "count": 25,
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 250,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_parts_wuling01_hand_01": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "42",
+        "maxLevel": "42",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "40",
+        "levelOne": "86",
+        "maxLevel": "111",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
         "attributeId": "28",
-        "levelOne": "51.75%",
-        "maxLevel": "67.27499962%",
+        "levelOne": "45%",
+        "maxLevel": "58.49999785%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -6087,7 +4846,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       }
     ]
   },
-  "item_equip_t4_parts_wuling01_edc_04": {
+  "item_equip_t4_suit_heal01_edc_05": {
     "stats": [
       {
         "attributeId": "3",
@@ -6097,16 +4856,23 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
         "maxLevelLabel": "+3"
       },
       {
-        "attributeId": "42",
-        "levelOne": "43",
-        "maxLevel": "55",
+        "attributeId": "39",
+        "levelOne": "32",
+        "maxLevel": "41",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
-        "attributeId": "9",
-        "levelOne": "10.8%",
-        "maxLevel": "14.04000074%",
+        "attributeId": "42",
+        "levelOne": "21",
+        "maxLevel": "27",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "1",
+        "levelOne": "41.4%",
+        "maxLevel": "53.82000208%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -6300,163 +5066,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       }
     ]
   },
-  "item_equip_t4_suit_usp02_body_03": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "56",
-        "maxLevel": "56",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "42",
-        "levelOne": "110",
-        "maxLevel": "143",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "44",
-        "levelOne": "12.32142857%",
-        "maxLevel": "16.01785719%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4003,
-        "discount": 0.009999999776482582,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "count": 50,
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 360,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_suit_atb01_body_02": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "56",
-        "maxLevel": "56",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "39",
-        "levelOne": "87",
-        "maxLevel": "113",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "40",
-        "levelOne": "58",
-        "maxLevel": "75",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "32",
-        "levelOne": "20.7%",
-        "maxLevel": "26.91000104%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4000,
-        "discount": 1,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4",
-            "count": 50,
-            "iconId": "item_equip_script_4",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 8000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4001,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_1",
-            "count": 50,
-            "iconId": "item_equip_script_4_1",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 8000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "count": 10,
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 8000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4003,
-        "discount": 0.009999999776482582,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "count": 5,
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 80,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_suit_atk02_body_05": {
+  "item_equip_t4_suit_pulse_cryst01_body_01": {
     "stats": [
       {
         "attributeId": "3",
@@ -6473,702 +5083,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
         "maxLevelLabel": "+3"
       },
       {
-        "attributeId": "39",
-        "levelOne": "58",
-        "maxLevel": "75",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "33",
-        "levelOne": "20.7%",
-        "maxLevel": "26.91000104%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4003,
-        "discount": 0.009999999776482582,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "count": 50,
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 360,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_suit_pulse_cryst01_body_02": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "56",
-        "maxLevel": "56",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
         "attributeId": "42",
-        "levelOne": "87",
-        "maxLevel": "113",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "39",
-        "levelOne": "58",
-        "maxLevel": "75",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "CrystAndPulseDamageIncrease",
-        "levelOne": "11.5%",
-        "maxLevel": "14.94999975%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4003,
-        "discount": 0.009999999776482582,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "count": 50,
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 360,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_suit_phy01_edc_03": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "21",
-        "maxLevel": "21",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "40",
-        "levelOne": "32",
-        "maxLevel": "41",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "39",
-        "levelOne": "21",
-        "maxLevel": "27",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "50",
-        "levelOne": "23%",
-        "maxLevel": "29.8999995%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4000,
-        "discount": 1,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4",
-            "count": 50,
-            "iconId": "item_equip_script_4",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 8000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4001,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_1",
-            "count": 50,
-            "iconId": "item_equip_script_4_1",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 8000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "count": 10,
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 8000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4003,
-        "discount": 0.009999999776482582,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "count": 5,
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 80,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_parts_wuling00_body_06": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "48",
-        "maxLevel": "48",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "Main",
-        "levelOne": "74",
-        "maxLevel": "96",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "Sub",
-        "levelOne": "49",
-        "maxLevel": "63",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "50",
-        "levelOne": "9.83333333%",
-        "maxLevel": "12.78333366%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4000,
-        "discount": 1,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4",
-            "count": 20,
-            "iconId": "item_equip_script_4",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 3000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4001,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_1",
-            "count": 20,
-            "iconId": "item_equip_script_4_1",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 3000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "count": 4,
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 3000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4003,
-        "discount": 0.009999999776482582,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "count": 2,
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 30,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_suit_phy01_edc_01": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "21",
-        "maxLevel": "21",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "39",
-        "levelOne": "41",
-        "maxLevel": "53",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "87",
-        "levelOne": "41.4",
-        "maxLevel": "53.81999969",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4001,
-        "discount": 1,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_1",
-            "count": 50,
-            "iconId": "item_equip_script_4_1",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 16000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "count": 10,
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 16000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4003,
-        "discount": 0.009999999776482582,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "count": 5,
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 160,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_parts_wuling00_hand_06": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "36",
-        "maxLevel": "36",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "Main",
-        "levelOne": "55",
-        "maxLevel": "71",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "Sub",
-        "levelOne": "37",
-        "maxLevel": "48",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "50",
-        "levelOne": "16.38888889%",
-        "maxLevel": "21.30555511%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4000,
-        "discount": 1,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4",
-            "count": 20,
-            "iconId": "item_equip_script_4",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 3000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4001,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_1",
-            "count": 20,
-            "iconId": "item_equip_script_4_1",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 3000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "count": 4,
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 3000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4003,
-        "discount": 0.009999999776482582,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "count": 2,
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 30,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_suit_atk02_body_02": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "56",
-        "maxLevel": "56",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "40",
-        "levelOne": "87",
-        "maxLevel": "113",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "39",
-        "levelOne": "58",
-        "maxLevel": "75",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "44",
-        "levelOne": "12.32142857%",
-        "maxLevel": "16.01785719%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4001,
-        "discount": 1,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_1",
-            "count": 50,
-            "iconId": "item_equip_script_4_1",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 16000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "count": 10,
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 16000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4003,
-        "discount": 0.009999999776482582,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "count": 5,
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 160,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_parts_wuling01_hand_02": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "42",
-        "maxLevel": "42",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "39",
-        "levelOne": "86",
-        "maxLevel": "111",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "AllSkillDamageIncrease",
-        "levelOne": "24%",
-        "maxLevel": "31.20000064%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4001,
-        "discount": 1,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_1",
-            "count": 50,
-            "iconId": "item_equip_script_4_1",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 16000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "count": 10,
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 16000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4003,
-        "discount": 0.009999999776482582,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "count": 5,
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 160,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_suit_usp02_body_01": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "56",
-        "maxLevel": "56",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "42",
-        "levelOne": "87",
-        "maxLevel": "113",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "41",
         "levelOne": "58",
         "maxLevel": "75",
         "levelOneLabel": "+0",
@@ -7261,33 +5176,33 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       }
     ]
   },
-  "item_equip_t4_parts_wuling00_body_03": {
+  "item_equip_t4_suit_attri01_body_02": {
     "stats": [
       {
         "attributeId": "3",
-        "levelOne": "48",
-        "maxLevel": "48",
+        "levelOne": "56",
+        "maxLevel": "56",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
-        "attributeId": "Sub",
-        "levelOne": "74",
-        "maxLevel": "96",
+        "attributeId": "40",
+        "levelOne": "87",
+        "maxLevel": "113",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
-        "attributeId": "Main",
-        "levelOne": "49",
-        "maxLevel": "63",
+        "attributeId": "39",
+        "levelOne": "58",
+        "maxLevel": "75",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
-        "attributeId": "Sub",
-        "levelOne": "8.85076251%",
-        "maxLevel": "11.50599122%",
+        "attributeId": "33",
+        "levelOne": "20.7%",
+        "maxLevel": "26.91000104%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -7300,13 +5215,13 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
         "materials": [
           {
             "itemId": "item_equip_script_4",
-            "count": 20,
+            "count": 50,
             "iconId": "item_equip_script_4",
             "rarity": 4
           },
           {
             "itemId": "item_domain_jinlong_coupon",
-            "count": 3000,
+            "count": 8000,
             "iconId": "item_domain_jinlong_coupon",
             "rarity": 5
           }
@@ -7319,13 +5234,13 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
         "materials": [
           {
             "itemId": "item_equip_script_4_1",
-            "count": 20,
+            "count": 50,
             "iconId": "item_equip_script_4_1",
             "rarity": 4
           },
           {
             "itemId": "item_domain_jinlong_coupon",
-            "count": 3000,
+            "count": 8000,
             "iconId": "item_domain_jinlong_coupon",
             "rarity": 5
           }
@@ -7338,13 +5253,13 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
         "materials": [
           {
             "itemId": "item_equip_script_4_2",
-            "count": 4,
+            "count": 10,
             "iconId": "item_equip_script_4_2",
             "rarity": 4
           },
           {
             "itemId": "item_domain_jinlong_coupon",
-            "count": 3000,
+            "count": 8000,
             "iconId": "item_domain_jinlong_coupon",
             "rarity": 5
           }
@@ -7357,13 +5272,13 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
         "materials": [
           {
             "itemId": "item_equip_script_4_3",
-            "count": 2,
+            "count": 5,
             "iconId": "item_equip_script_4_3",
             "rarity": 4
           },
           {
             "itemId": "item_domain_jinlong_coupon",
-            "count": 30,
+            "count": 80,
             "iconId": "item_domain_jinlong_coupon",
             "rarity": 5
           }
@@ -7371,7 +5286,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       }
     ]
   },
-  "item_equip_t4_suit_atb01_edc_02": {
+  "item_equip_t4_suit_heal01_edc_01": {
     "stats": [
       {
         "attributeId": "3",
@@ -7388,16 +5303,16 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
         "maxLevelLabel": "+3"
       },
       {
-        "attributeId": "41",
+        "attributeId": "42",
         "levelOne": "21",
         "maxLevel": "27",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
-        "attributeId": "CrystAndPulseDamageIncrease",
-        "levelOne": "23%",
-        "maxLevel": "29.8999995%",
+        "attributeId": "AllDamageTakenScalar",
+        "levelOne": "17.14995857%",
+        "maxLevel": "21.20400071%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -7481,227 +5396,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       }
     ]
   },
-  "item_equip_t4_parts_wuling00_hand_01": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "36",
-        "maxLevel": "36",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "Main",
-        "levelOne": "55",
-        "maxLevel": "71",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "Sub",
-        "levelOne": "37",
-        "maxLevel": "48",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "SpellDamageIncrease",
-        "levelOne": "15.52631579%",
-        "maxLevel": "20.18420994%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4000,
-        "discount": 1,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4",
-            "count": 20,
-            "iconId": "item_equip_script_4",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 3000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4001,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_1",
-            "count": 20,
-            "iconId": "item_equip_script_4_1",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 3000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "count": 4,
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 3000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4003,
-        "discount": 0.009999999776482582,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "count": 2,
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 30,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_suit_burst01_body_01": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "56",
-        "maxLevel": "56",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "41",
-        "levelOne": "87",
-        "maxLevel": "113",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "39",
-        "levelOne": "58",
-        "maxLevel": "75",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "44",
-        "levelOne": "12.32142857%",
-        "maxLevel": "16.01785719%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4000,
-        "discount": 1,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4",
-            "count": 50,
-            "iconId": "item_equip_script_4",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 8000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4001,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_1",
-            "count": 50,
-            "iconId": "item_equip_script_4_1",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 8000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "count": 10,
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 8000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4003,
-        "discount": 0.009999999776482582,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "count": 5,
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 80,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_parts_wuling01_edc_02": {
+  "item_equip_t4_suit_heal01_edc_02": {
     "stats": [
       {
         "attributeId": "3",
@@ -7711,44 +5406,25 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
         "maxLevelLabel": "+3"
       },
       {
-        "attributeId": "40",
-        "levelOne": "43",
-        "maxLevel": "55",
+        "attributeId": "39",
+        "levelOne": "41",
+        "maxLevel": "53",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
-        "attributeId": "33",
-        "levelOne": "43.2%",
-        "maxLevel": "56.16000295%",
+        "attributeId": "1",
+        "levelOne": "41.4%",
+        "maxLevel": "53.82000208%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
     ],
     "craftingRecipes": [
       {
-        "chainId": 4000,
-        "discount": 1,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4",
-            "count": 50,
-            "iconId": "item_equip_script_4",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 8000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
         "chainId": 4001,
         "discount": 1,
-        "isDefault": false,
+        "isDefault": true,
         "materials": [
           {
             "itemId": "item_equip_script_4_1",
@@ -7758,7 +5434,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
           },
           {
             "itemId": "item_domain_jinlong_coupon",
-            "count": 8000,
+            "count": 16000,
             "iconId": "item_domain_jinlong_coupon",
             "rarity": 5
           }
@@ -7777,7 +5453,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
           },
           {
             "itemId": "item_domain_jinlong_coupon",
-            "count": 8000,
+            "count": 16000,
             "iconId": "item_domain_jinlong_coupon",
             "rarity": 5
           }
@@ -7796,7 +5472,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
           },
           {
             "itemId": "item_domain_jinlong_coupon",
-            "count": 80,
+            "count": 160,
             "iconId": "item_domain_jinlong_coupon",
             "rarity": 5
           }
@@ -7914,6 +5590,1092 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       }
     ]
   },
+  "item_equip_t4_suit_criti01_hand_01": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "42",
+        "maxLevel": "42",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "40",
+        "levelOne": "65",
+        "maxLevel": "84",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "39",
+        "levelOne": "43",
+        "maxLevel": "55",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "32",
+        "levelOne": "34.5%",
+        "maxLevel": "44.85000074%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4000,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4",
+            "count": 50,
+            "iconId": "item_equip_script_4",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 8000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4001,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_1",
+            "count": 50,
+            "iconId": "item_equip_script_4_1",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 8000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "count": 10,
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 8000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.009999999776482582,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "count": 5,
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 80,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_usp02_body_03": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "56",
+        "maxLevel": "56",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "42",
+        "levelOne": "110",
+        "maxLevel": "143",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "44",
+        "levelOne": "12.32142857%",
+        "maxLevel": "16.01785719%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4003,
+        "discount": 0.009999999776482582,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "count": 50,
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 360,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_combo_cd01_hand_02": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "42",
+        "maxLevel": "42",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "41",
+        "levelOne": "65",
+        "maxLevel": "84",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "42",
+        "levelOne": "43",
+        "maxLevel": "55",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "44",
+        "levelOne": "20.53571429%",
+        "maxLevel": "26.69642866%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "count": 50,
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 25000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.009999999776482582,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "count": 25,
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 250,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_atb01_edc_06": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "21",
+        "maxLevel": "21",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "41",
+        "levelOne": "32",
+        "maxLevel": "41",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "40",
+        "levelOne": "21",
+        "maxLevel": "27",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "Sub",
+        "levelOne": "20.7017835%",
+        "maxLevel": "26.91231966%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "count": 50,
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 25000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.009999999776482582,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "count": 25,
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 250,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_parts_wuling01_hand_02": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "42",
+        "maxLevel": "42",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "39",
+        "levelOne": "86",
+        "maxLevel": "111",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "AllSkillDamageIncrease",
+        "levelOne": "24%",
+        "maxLevel": "31.20000064%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4001,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_1",
+            "count": 50,
+            "iconId": "item_equip_script_4_1",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 16000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "count": 10,
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 16000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.009999999776482582,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "count": 5,
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 160,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_atb01_hand_04": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "42",
+        "maxLevel": "42",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "40",
+        "levelOne": "65",
+        "maxLevel": "84",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "39",
+        "levelOne": "43",
+        "maxLevel": "55",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "44",
+        "levelOne": "20.53571429%",
+        "maxLevel": "26.69642866%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4003,
+        "discount": 0.009999999776482582,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "count": 50,
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 360,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_criti01_edc_04": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "21",
+        "maxLevel": "21",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "42",
+        "levelOne": "32",
+        "maxLevel": "41",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "41",
+        "levelOne": "21",
+        "maxLevel": "27",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "FireAndNaturalDamageIncrease",
+        "levelOne": "23%",
+        "maxLevel": "29.8999995%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4000,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4",
+            "count": 50,
+            "iconId": "item_equip_script_4",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 8000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4001,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_1",
+            "count": 50,
+            "iconId": "item_equip_script_4_1",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 8000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "count": 10,
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 8000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.009999999776482582,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "count": 5,
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 80,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_heal01_edc_04": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "21",
+        "maxLevel": "21",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "42",
+        "levelOne": "41",
+        "maxLevel": "53",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "29",
+        "levelOne": "20.7%",
+        "maxLevel": "26.91000104%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4000,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4",
+            "count": 50,
+            "iconId": "item_equip_script_4",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 8000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4001,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_1",
+            "count": 50,
+            "iconId": "item_equip_script_4_1",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 8000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "count": 10,
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 8000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.009999999776482582,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "count": 5,
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 80,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_parts_wuling00_hand_06": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "36",
+        "maxLevel": "36",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "Main",
+        "levelOne": "55",
+        "maxLevel": "71",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "Sub",
+        "levelOne": "37",
+        "maxLevel": "48",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "50",
+        "levelOne": "16.38888889%",
+        "maxLevel": "21.30555511%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4000,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4",
+            "count": 20,
+            "iconId": "item_equip_script_4",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 3000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4001,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_1",
+            "count": 20,
+            "iconId": "item_equip_script_4_1",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 3000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "count": 4,
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 3000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.009999999776482582,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "count": 2,
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 30,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_fire_natr01_hand_01": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "42",
+        "maxLevel": "42",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "39",
+        "levelOne": "65",
+        "maxLevel": "84",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "42",
+        "levelOne": "43",
+        "maxLevel": "55",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "87",
+        "levelOne": "34.5",
+        "maxLevel": "44.84999847",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4001,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_1",
+            "count": 50,
+            "iconId": "item_equip_script_4_1",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 16000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "count": 10,
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 16000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.009999999776482582,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "count": 5,
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 160,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_atk02_body_03": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "56",
+        "maxLevel": "56",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "40",
+        "levelOne": "87",
+        "maxLevel": "113",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "41",
+        "levelOne": "58",
+        "maxLevel": "75",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "33",
+        "levelOne": "20.7%",
+        "maxLevel": "26.91000104%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4001,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_1",
+            "count": 50,
+            "iconId": "item_equip_script_4_1",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 16000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "count": 10,
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 16000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.009999999776482582,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "count": 5,
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 160,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_atk02_body_02": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "56",
+        "maxLevel": "56",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "40",
+        "levelOne": "87",
+        "maxLevel": "113",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "39",
+        "levelOne": "58",
+        "maxLevel": "75",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "44",
+        "levelOne": "12.32142857%",
+        "maxLevel": "16.01785719%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4001,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_1",
+            "count": 50,
+            "iconId": "item_equip_script_4_1",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 16000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "count": 10,
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 16000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.009999999776482582,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "count": 5,
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 160,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_atb01_body_06": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "56",
+        "maxLevel": "56",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "40",
+        "levelOne": "87",
+        "maxLevel": "113",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "39",
+        "levelOne": "58",
+        "maxLevel": "75",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "44",
+        "levelOne": "12.32142857%",
+        "maxLevel": "16.01785719%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4003,
+        "discount": 0.009999999776482582,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "count": 50,
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 360,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      }
+    ]
+  },
   "item_equip_t4_suit_atb01_body_03": {
     "stats": [
       {
@@ -7941,6 +6703,389 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
         "attributeId": "32",
         "levelOne": "20.7%",
         "maxLevel": "26.91000104%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4000,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4",
+            "count": 50,
+            "iconId": "item_equip_script_4",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 8000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4001,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_1",
+            "count": 50,
+            "iconId": "item_equip_script_4_1",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 8000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "count": 10,
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 8000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.009999999776482582,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "count": 5,
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 80,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_criti01_body_02": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "56",
+        "maxLevel": "56",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "41",
+        "levelOne": "87",
+        "maxLevel": "113",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "40",
+        "levelOne": "58",
+        "maxLevel": "75",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "17",
+        "levelOne": "13.8%",
+        "maxLevel": "17.9399997%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4000,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4",
+            "count": 50,
+            "iconId": "item_equip_script_4",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 8000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4001,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_1",
+            "count": 50,
+            "iconId": "item_equip_script_4_1",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 8000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "count": 10,
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 8000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.009999999776482582,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "count": 5,
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 80,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_heal01_hand_03": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "42",
+        "maxLevel": "42",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "42",
+        "levelOne": "65",
+        "maxLevel": "84",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "40",
+        "levelOne": "43",
+        "maxLevel": "55",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "44",
+        "levelOne": "20.53571429%",
+        "maxLevel": "26.69642866%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4003,
+        "discount": 0.009999999776482582,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "count": 50,
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 360,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_poise01_body_01": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "56",
+        "maxLevel": "56",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "39",
+        "levelOne": "87",
+        "maxLevel": "113",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "42",
+        "levelOne": "58",
+        "maxLevel": "75",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "61",
+        "levelOne": "20.7%",
+        "maxLevel": "26.91000104%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4000,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4",
+            "count": 50,
+            "iconId": "item_equip_script_4",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 8000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4001,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_1",
+            "count": 50,
+            "iconId": "item_equip_script_4_1",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 8000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "count": 10,
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 8000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.009999999776482582,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "count": 5,
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 80,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_atk02_hand_02": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "42",
+        "maxLevel": "42",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "42",
+        "levelOne": "65",
+        "maxLevel": "84",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "40",
+        "levelOne": "43",
+        "maxLevel": "55",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "33",
+        "levelOne": "34.5%",
+        "maxLevel": "44.85000074%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -8134,116 +7279,6 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       }
     ]
   },
-  "item_equip_t4_suit_attri01_edc_03": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "21",
-        "maxLevel": "21",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "42",
-        "levelOne": "32",
-        "maxLevel": "41",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "40",
-        "levelOne": "21",
-        "maxLevel": "27",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "32",
-        "levelOne": "41.4%",
-        "maxLevel": "53.82000208%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4000,
-        "discount": 1,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4",
-            "count": 50,
-            "iconId": "item_equip_script_4",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 8000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4001,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_1",
-            "count": 50,
-            "iconId": "item_equip_script_4_1",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 8000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "count": 10,
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 8000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4003,
-        "discount": 0.009999999776482582,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "count": 5,
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 80,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      }
-    ]
-  },
   "item_equip_t4_parts_wuling00_body_02": {
     "stats": [
       {
@@ -8354,52 +7389,71 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       }
     ]
   },
-  "item_equip_t4_suit_fire_natr01_body_02": {
+  "item_equip_t4_parts_wuling00_edc_07": {
     "stats": [
       {
         "attributeId": "3",
-        "levelOne": "56",
-        "maxLevel": "56",
+        "levelOne": "18",
+        "maxLevel": "18",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
-        "attributeId": "41",
-        "levelOne": "87",
-        "maxLevel": "113",
+        "attributeId": "Main",
+        "levelOne": "27",
+        "maxLevel": "35",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
-        "attributeId": "42",
-        "levelOne": "58",
-        "maxLevel": "75",
+        "attributeId": "Sub",
+        "levelOne": "18",
+        "maxLevel": "23",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
-        "attributeId": "FireAndNaturalDamageIncrease",
-        "levelOne": "11.5%",
-        "maxLevel": "14.94999975%",
+        "attributeId": "9",
+        "levelOne": "8.85%",
+        "maxLevel": "11.50500029%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
     ],
     "craftingRecipes": [
       {
-        "chainId": 4001,
+        "chainId": 4000,
         "discount": 1,
         "isDefault": true,
         "materials": [
           {
+            "itemId": "item_equip_script_4",
+            "count": 20,
+            "iconId": "item_equip_script_4",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 3000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4001,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
             "itemId": "item_equip_script_4_1",
-            "count": 50,
+            "count": 20,
             "iconId": "item_equip_script_4_1",
             "rarity": 4
           },
           {
             "itemId": "item_domain_jinlong_coupon",
-            "count": 16000,
+            "count": 3000,
             "iconId": "item_domain_jinlong_coupon",
             "rarity": 5
           }
@@ -8412,13 +7466,13 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
         "materials": [
           {
             "itemId": "item_equip_script_4_2",
-            "count": 10,
+            "count": 4,
             "iconId": "item_equip_script_4_2",
             "rarity": 4
           },
           {
             "itemId": "item_domain_jinlong_coupon",
-            "count": 16000,
+            "count": 3000,
             "iconId": "item_domain_jinlong_coupon",
             "rarity": 5
           }
@@ -8431,13 +7485,321 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
         "materials": [
           {
             "itemId": "item_equip_script_4_3",
-            "count": 5,
+            "count": 2,
             "iconId": "item_equip_script_4_3",
             "rarity": 4
           },
           {
             "itemId": "item_domain_jinlong_coupon",
-            "count": 160,
+            "count": 30,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_parts_wuling02_hand_01": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "42",
+        "maxLevel": "42",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "41",
+        "levelOne": "86",
+        "maxLevel": "111",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "44",
+        "levelOne": "21.42857143%",
+        "maxLevel": "27.85714269%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4003,
+        "discount": 0.009999999776482582,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "count": 50,
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 360,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_parts_wuling00_body_03": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "48",
+        "maxLevel": "48",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "Sub",
+        "levelOne": "74",
+        "maxLevel": "96",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "Main",
+        "levelOne": "49",
+        "maxLevel": "63",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "Sub",
+        "levelOne": "8.85076251%",
+        "maxLevel": "11.50599122%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4000,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4",
+            "count": 20,
+            "iconId": "item_equip_script_4",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 3000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4001,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_1",
+            "count": 20,
+            "iconId": "item_equip_script_4_1",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 3000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "count": 4,
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 3000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.009999999776482582,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "count": 2,
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 30,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_parts_wuling02_hand_06": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "42",
+        "maxLevel": "42",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "40",
+        "levelOne": "86",
+        "maxLevel": "111",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "FireAndNaturalDamageIncrease",
+        "levelOne": "20%",
+        "maxLevel": "25.99999905%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4003,
+        "discount": 0.009999999776482582,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "count": 50,
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 360,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_atb01_edc_08": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "21",
+        "maxLevel": "21",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "42",
+        "levelOne": "32",
+        "maxLevel": "41",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "40",
+        "levelOne": "21",
+        "maxLevel": "27",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "87",
+        "levelOne": "41.4",
+        "maxLevel": "53.81999969",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4003,
+        "discount": 0.009999999776482582,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "count": 50,
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 360,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_burst01_edc_03": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "21",
+        "maxLevel": "21",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "41",
+        "levelOne": "32",
+        "maxLevel": "41",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "42",
+        "levelOne": "21",
+        "maxLevel": "27",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "FireAndNaturalDamageIncrease",
+        "levelOne": "23%",
+        "maxLevel": "29.8999995%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4003,
+        "discount": 0.009999999776482582,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "count": 50,
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 360,
             "iconId": "item_domain_jinlong_coupon",
             "rarity": 5
           }
@@ -8555,6 +7917,59 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       }
     ]
   },
+  "item_equip_t4_suit_pulse_cryst01_body_02": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "56",
+        "maxLevel": "56",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "42",
+        "levelOne": "87",
+        "maxLevel": "113",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "39",
+        "levelOne": "58",
+        "maxLevel": "75",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "CrystAndPulseDamageIncrease",
+        "levelOne": "11.5%",
+        "maxLevel": "14.94999975%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4003,
+        "discount": 0.009999999776482582,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "count": 50,
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 360,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      }
+    ]
+  },
   "item_equip_t4_parts_wuling00_body_05": {
     "stats": [
       {
@@ -8665,33 +8080,79 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       }
     ]
   },
-  "item_equip_t4_suit_fire_natr01_body_01": {
+  "item_equip_t4_parts_wuling02_hand_04": {
     "stats": [
       {
         "attributeId": "3",
-        "levelOne": "56",
-        "maxLevel": "56",
+        "levelOne": "42",
+        "maxLevel": "42",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
         "attributeId": "39",
-        "levelOne": "87",
-        "maxLevel": "113",
+        "levelOne": "86",
+        "maxLevel": "111",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
-        "attributeId": "40",
-        "levelOne": "58",
-        "maxLevel": "75",
+        "attributeId": "17",
+        "levelOne": "24%",
+        "maxLevel": "31.20000064%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4003,
+        "discount": 0.009999999776482582,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "count": 50,
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 360,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_parts_wuling00_body_06": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "48",
+        "maxLevel": "48",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
-        "attributeId": "FireAndNaturalDamageIncrease",
-        "levelOne": "11.5%",
-        "maxLevel": "14.94999975%",
+        "attributeId": "Main",
+        "levelOne": "74",
+        "maxLevel": "96",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "Sub",
+        "levelOne": "49",
+        "maxLevel": "63",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "50",
+        "levelOne": "9.83333333%",
+        "maxLevel": "12.78333366%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -8704,13 +8165,13 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
         "materials": [
           {
             "itemId": "item_equip_script_4",
-            "count": 50,
+            "count": 20,
             "iconId": "item_equip_script_4",
             "rarity": 4
           },
           {
             "itemId": "item_domain_jinlong_coupon",
-            "count": 8000,
+            "count": 3000,
             "iconId": "item_domain_jinlong_coupon",
             "rarity": 5
           }
@@ -8723,13 +8184,13 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
         "materials": [
           {
             "itemId": "item_equip_script_4_1",
-            "count": 50,
+            "count": 20,
             "iconId": "item_equip_script_4_1",
             "rarity": 4
           },
           {
             "itemId": "item_domain_jinlong_coupon",
-            "count": 8000,
+            "count": 3000,
             "iconId": "item_domain_jinlong_coupon",
             "rarity": 5
           }
@@ -8742,13 +8203,13 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
         "materials": [
           {
             "itemId": "item_equip_script_4_2",
-            "count": 10,
+            "count": 4,
             "iconId": "item_equip_script_4_2",
             "rarity": 4
           },
           {
             "itemId": "item_domain_jinlong_coupon",
-            "count": 8000,
+            "count": 3000,
             "iconId": "item_domain_jinlong_coupon",
             "rarity": 5
           }
@@ -8761,13 +8222,169 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
         "materials": [
           {
             "itemId": "item_equip_script_4_3",
-            "count": 5,
+            "count": 2,
             "iconId": "item_equip_script_4_3",
             "rarity": 4
           },
           {
             "itemId": "item_domain_jinlong_coupon",
-            "count": 80,
+            "count": 30,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_parts_wuling02_hand_05": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "42",
+        "maxLevel": "42",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "41",
+        "levelOne": "86",
+        "maxLevel": "111",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "33",
+        "levelOne": "36%",
+        "maxLevel": "46.79999948%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4003,
+        "discount": 0.009999999776482582,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "count": 50,
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 360,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_parts_wuling00_body_07": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "48",
+        "maxLevel": "48",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "Main",
+        "levelOne": "74",
+        "maxLevel": "96",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "Sub",
+        "levelOne": "49",
+        "maxLevel": "63",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "9",
+        "levelOne": "4.425%",
+        "maxLevel": "5.75250015%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4000,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4",
+            "count": 20,
+            "iconId": "item_equip_script_4",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 3000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4001,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_1",
+            "count": 20,
+            "iconId": "item_equip_script_4_1",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 3000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "count": 4,
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 3000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.009999999776482582,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "count": 2,
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 30,
             "iconId": "item_domain_jinlong_coupon",
             "rarity": 5
           }
@@ -9105,6 +8722,226 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       }
     ]
   },
+  "item_equip_t4_suit_atb01_body_04": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "56",
+        "maxLevel": "56",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "40",
+        "levelOne": "87",
+        "maxLevel": "113",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "41",
+        "levelOne": "58",
+        "maxLevel": "75",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "Sub",
+        "levelOne": "10.35089175%",
+        "maxLevel": "13.45615983%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4000,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4",
+            "count": 50,
+            "iconId": "item_equip_script_4",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 8000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4001,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_1",
+            "count": 50,
+            "iconId": "item_equip_script_4_1",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 8000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "count": 10,
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 8000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.009999999776482582,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "count": 5,
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 80,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_atk02_body_01": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "56",
+        "maxLevel": "56",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "39",
+        "levelOne": "87",
+        "maxLevel": "113",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "42",
+        "levelOne": "58",
+        "maxLevel": "75",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "50",
+        "levelOne": "11.5%",
+        "maxLevel": "14.94999975%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4000,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4",
+            "count": 50,
+            "iconId": "item_equip_script_4",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 8000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4001,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_1",
+            "count": 50,
+            "iconId": "item_equip_script_4_1",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 8000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "count": 10,
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 8000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.009999999776482582,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "count": 5,
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 80,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      }
+    ]
+  },
   "item_equip_t4_parts_wuling00_edc_04": {
     "stats": [
       {
@@ -9208,6 +9045,162 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
           {
             "itemId": "item_domain_jinlong_coupon",
             "count": 30,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_parts_wuling00_edc_05": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "18",
+        "maxLevel": "18",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "Main",
+        "levelOne": "27",
+        "maxLevel": "35",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "Sub",
+        "levelOne": "18",
+        "maxLevel": "23",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "29",
+        "levelOne": "17.7%",
+        "maxLevel": "23.01000059%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4000,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4",
+            "count": 20,
+            "iconId": "item_equip_script_4",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 3000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4001,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_1",
+            "count": 20,
+            "iconId": "item_equip_script_4_1",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 3000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "count": 4,
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 3000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.009999999776482582,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "count": 2,
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 30,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_parts_wuling02_body_06": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "56",
+        "maxLevel": "56",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "42",
+        "levelOne": "115",
+        "maxLevel": "149",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "28",
+        "levelOne": "27%",
+        "maxLevel": "35.1000011%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4003,
+        "discount": 0.009999999776482582,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "count": 50,
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 360,
             "iconId": "item_domain_jinlong_coupon",
             "rarity": 5
           }
@@ -9325,6 +9318,389 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       }
     ]
   },
+  "item_equip_t4_parts_wuling00_hand_01": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "36",
+        "maxLevel": "36",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "Main",
+        "levelOne": "55",
+        "maxLevel": "71",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "Sub",
+        "levelOne": "37",
+        "maxLevel": "48",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "SpellDamageIncrease",
+        "levelOne": "15.52631579%",
+        "maxLevel": "20.18420994%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4000,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4",
+            "count": 20,
+            "iconId": "item_equip_script_4",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 3000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4001,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_1",
+            "count": 20,
+            "iconId": "item_equip_script_4_1",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 3000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "count": 4,
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 3000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.009999999776482582,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "count": 2,
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 30,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_usp02_hand_03": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "42",
+        "maxLevel": "42",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "42",
+        "levelOne": "65",
+        "maxLevel": "84",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "41",
+        "levelOne": "43",
+        "maxLevel": "55",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "44",
+        "levelOne": "20.53571429%",
+        "maxLevel": "26.69642866%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4003,
+        "discount": 0.009999999776482582,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "count": 50,
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 360,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_parts_wuling00_hand_02": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "36",
+        "maxLevel": "36",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "Main",
+        "levelOne": "55",
+        "maxLevel": "71",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "Sub",
+        "levelOne": "37",
+        "maxLevel": "48",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "44",
+        "levelOne": "17.55952381%",
+        "maxLevel": "22.8273809%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4000,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4",
+            "count": 20,
+            "iconId": "item_equip_script_4",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 3000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4001,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_1",
+            "count": 20,
+            "iconId": "item_equip_script_4_1",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 3000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "count": 4,
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 3000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.009999999776482582,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "count": 2,
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 30,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_usp02_hand_02": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "42",
+        "maxLevel": "42",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "41",
+        "levelOne": "65",
+        "maxLevel": "84",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "42",
+        "levelOne": "43",
+        "maxLevel": "55",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "44",
+        "levelOne": "20.53571429%",
+        "maxLevel": "26.69642866%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4000,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4",
+            "count": 50,
+            "iconId": "item_equip_script_4",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 8000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4001,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_1",
+            "count": 50,
+            "iconId": "item_equip_script_4_1",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 8000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "count": 10,
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 8000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.009999999776482582,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "count": 5,
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 80,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      }
+    ]
+  },
   "item_equip_t4_parts_wuling00_hand_03": {
     "stats": [
       {
@@ -9428,6 +9804,116 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
           {
             "itemId": "item_domain_jinlong_coupon",
             "count": 30,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_usp02_hand_01": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "42",
+        "maxLevel": "42",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "41",
+        "levelOne": "65",
+        "maxLevel": "84",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "39",
+        "levelOne": "43",
+        "maxLevel": "55",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "44",
+        "levelOne": "20.53571429%",
+        "maxLevel": "26.69642866%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4000,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4",
+            "count": 50,
+            "iconId": "item_equip_script_4",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 8000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4001,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_1",
+            "count": 50,
+            "iconId": "item_equip_script_4_1",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 8000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "count": 10,
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 8000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.009999999776482582,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "count": 5,
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 80,
             "iconId": "item_domain_jinlong_coupon",
             "rarity": 5
           }
@@ -9545,6 +10031,78 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       }
     ]
   },
+  "item_equip_t4_suit_crush_fracture_body_02": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "56",
+        "maxLevel": "56",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "40",
+        "levelOne": "87",
+        "maxLevel": "113",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "39",
+        "levelOne": "58",
+        "maxLevel": "75",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "87",
+        "levelOne": "20.7",
+        "maxLevel": "26.90999985",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "count": 50,
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 25000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.009999999776482582,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "count": 25,
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 250,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      }
+    ]
+  },
   "item_equip_t4_parts_wuling00_hand_05": {
     "stats": [
       {
@@ -9655,6 +10213,219 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       }
     ]
   },
+  "item_equip_t4_parts_wuling00_hand_07": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "36",
+        "maxLevel": "36",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "Main",
+        "levelOne": "55",
+        "maxLevel": "71",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "Sub",
+        "levelOne": "37",
+        "maxLevel": "48",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "9",
+        "levelOne": "7.375%",
+        "maxLevel": "9.58750024%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4000,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4",
+            "count": 20,
+            "iconId": "item_equip_script_4",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 3000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4001,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_1",
+            "count": 20,
+            "iconId": "item_equip_script_4_1",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 3000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "count": 4,
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 3000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.009999999776482582,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "count": 2,
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 30,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_parts_wuling01_edc_02": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "21",
+        "maxLevel": "21",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "40",
+        "levelOne": "43",
+        "maxLevel": "55",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "33",
+        "levelOne": "43.2%",
+        "maxLevel": "56.16000295%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4000,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4",
+            "count": 50,
+            "iconId": "item_equip_script_4",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 8000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4001,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_1",
+            "count": 50,
+            "iconId": "item_equip_script_4_1",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 8000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "count": 10,
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 8000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.009999999776482582,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "count": 5,
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 80,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      }
+    ]
+  },
   "item_equip_t4_parts_wuling01_body_01": {
     "stats": [
       {
@@ -9675,97 +10446,6 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
         "attributeId": "17",
         "levelOne": "14.4%",
         "maxLevel": "18.71999949%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4001,
-        "discount": 1,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_1",
-            "count": 50,
-            "iconId": "item_equip_script_4_1",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 16000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "count": 10,
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 16000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4003,
-        "discount": 0.009999999776482582,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "count": 5,
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 160,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_suit_attri01_hand_01": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "42",
-        "maxLevel": "42",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "39",
-        "levelOne": "65",
-        "maxLevel": "84",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "40",
-        "levelOne": "43",
-        "maxLevel": "55",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "FireAndNaturalDamageIncrease",
-        "levelOne": "19.16666667%",
-        "maxLevel": "24.91666675%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -9914,33 +10594,26 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       }
     ]
   },
-  "item_equip_t4_suit_attri01_hand_02": {
+  "item_equip_t4_suit_pulse_cryst01_edc_03": {
     "stats": [
       {
         "attributeId": "3",
-        "levelOne": "42",
-        "maxLevel": "42",
+        "levelOne": "21",
+        "maxLevel": "21",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
-        "attributeId": "40",
-        "levelOne": "65",
-        "maxLevel": "84",
+        "attributeId": "42",
+        "levelOne": "41",
+        "maxLevel": "53",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
-        "attributeId": "39",
-        "levelOne": "43",
-        "maxLevel": "55",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "CrystAndPulseDamageIncrease",
-        "levelOne": "19.16666667%",
-        "maxLevel": "24.91666675%",
+        "attributeId": "28",
+        "levelOne": "51.75%",
+        "maxLevel": "67.27499962%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -10108,143 +10781,6 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       }
     ]
   },
-  "item_equip_t4_parts_wuling02_hand_01": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "42",
-        "maxLevel": "42",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "41",
-        "levelOne": "86",
-        "maxLevel": "111",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "44",
-        "levelOne": "21.42857143%",
-        "maxLevel": "27.85714269%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4003,
-        "discount": 0.009999999776482582,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "count": 50,
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 360,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_suit_pulse_cryst01_edc_01": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "21",
-        "maxLevel": "21",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "41",
-        "levelOne": "32",
-        "maxLevel": "41",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "40",
-        "levelOne": "21",
-        "maxLevel": "27",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "87",
-        "levelOne": "41.4",
-        "maxLevel": "53.81999969",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4001,
-        "discount": 1,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_1",
-            "count": 50,
-            "iconId": "item_equip_script_4_1",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 16000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "count": 10,
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 16000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4003,
-        "discount": 0.009999999776482582,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "count": 5,
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 160,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      }
-    ]
-  },
   "item_equip_t4_parts_wuling01_edc_03": {
     "stats": [
       {
@@ -10348,7 +10884,110 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       }
     ]
   },
-  "item_equip_t4_parts_wuling01_hand_01": {
+  "item_equip_t4_parts_wuling01_edc_04": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "21",
+        "maxLevel": "21",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "42",
+        "levelOne": "43",
+        "maxLevel": "55",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "9",
+        "levelOne": "10.8%",
+        "maxLevel": "14.04000074%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4000,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4",
+            "count": 50,
+            "iconId": "item_equip_script_4",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 8000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4001,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_1",
+            "count": 50,
+            "iconId": "item_equip_script_4_1",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 8000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "count": 10,
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 8000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.009999999776482582,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "count": 5,
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 80,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_criti01_hand_04": {
     "stats": [
       {
         "attributeId": "3",
@@ -10359,15 +10998,22 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "attributeId": "40",
-        "levelOne": "86",
-        "maxLevel": "111",
+        "levelOne": "65",
+        "maxLevel": "84",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "41",
+        "levelOne": "43",
+        "maxLevel": "55",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
         "attributeId": "28",
-        "levelOne": "45%",
-        "maxLevel": "58.49999785%",
+        "levelOne": "43.125%",
+        "maxLevel": "56.06250167%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -10432,6 +11078,131 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       }
     ]
   },
+  "item_equip_t4_suit_expend_spell01_hand_02": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "42",
+        "maxLevel": "42",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "42",
+        "levelOne": "65",
+        "maxLevel": "84",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "41",
+        "levelOne": "43",
+        "maxLevel": "55",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "CrystAndPulseDamageIncrease",
+        "levelOne": "19.16666667%",
+        "maxLevel": "24.91666675%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "count": 50,
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 25000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.009999999776482582,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "count": 25,
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 250,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_usp02_body_06": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "56",
+        "maxLevel": "56",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "41",
+        "levelOne": "87",
+        "maxLevel": "113",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "39",
+        "levelOne": "58",
+        "maxLevel": "75",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "33",
+        "levelOne": "20.7%",
+        "maxLevel": "26.91000104%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4003,
+        "discount": 0.009999999776482582,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "count": 50,
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 360,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      }
+    ]
+  },
   "item_equip_t4_parts_wuling02_body_01": {
     "stats": [
       {
@@ -10471,6 +11242,188 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
           {
             "itemId": "item_domain_jinlong_coupon",
             "count": 360,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_attri01_hand_03": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "42",
+        "maxLevel": "42",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "42",
+        "levelOne": "65",
+        "maxLevel": "84",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "40",
+        "levelOne": "43",
+        "maxLevel": "55",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "CrystAndPulseDamageIncrease",
+        "levelOne": "19.16666667%",
+        "maxLevel": "24.91666675%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "count": 50,
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 25000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.009999999776482582,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "count": 25,
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 250,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_burst01_edc_01": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "21",
+        "maxLevel": "21",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "39",
+        "levelOne": "32",
+        "maxLevel": "41",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "42",
+        "levelOne": "21",
+        "maxLevel": "27",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "CrystAndPulseDamageIncrease",
+        "levelOne": "23%",
+        "maxLevel": "29.8999995%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4000,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4",
+            "count": 50,
+            "iconId": "item_equip_script_4",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 8000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4001,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_1",
+            "count": 50,
+            "iconId": "item_equip_script_4_1",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 8000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "count": 10,
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 8000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.009999999776482582,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "count": 5,
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 80,
             "iconId": "item_domain_jinlong_coupon",
             "rarity": 5
           }
@@ -10524,188 +11477,6 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       }
     ]
   },
-  "item_equip_t4_suit_attri01_edc_04": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "21",
-        "maxLevel": "21",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "40",
-        "levelOne": "32",
-        "maxLevel": "41",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "39",
-        "levelOne": "21",
-        "maxLevel": "27",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "61",
-        "levelOne": "41.4%",
-        "maxLevel": "53.82000208%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4000,
-        "discount": 1,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4",
-            "count": 50,
-            "iconId": "item_equip_script_4",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 8000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4001,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_1",
-            "count": 50,
-            "iconId": "item_equip_script_4_1",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 8000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "count": 10,
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 8000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4003,
-        "discount": 0.009999999776482582,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "count": 5,
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 80,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_suit_combo_cd01_edc_02": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "21",
-        "maxLevel": "21",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "39",
-        "levelOne": "32",
-        "maxLevel": "41",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "40",
-        "levelOne": "21",
-        "maxLevel": "27",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "FireAndNaturalDamageIncrease",
-        "levelOne": "23%",
-        "maxLevel": "29.8999995%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "count": 50,
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 25000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4003,
-        "discount": 0.009999999776482582,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "count": 25,
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 250,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      }
-    ]
-  },
   "item_equip_t4_parts_wuling02_body_03": {
     "stats": [
       {
@@ -10752,188 +11523,6 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       }
     ]
   },
-  "item_equip_t4_suit_combo_cd01_edc_01": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "21",
-        "maxLevel": "21",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "40",
-        "levelOne": "32",
-        "maxLevel": "41",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "39",
-        "levelOne": "21",
-        "maxLevel": "27",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "32",
-        "levelOne": "41.4%",
-        "maxLevel": "53.82000208%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "count": 50,
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 25000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4003,
-        "discount": 0.009999999776482582,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "count": 25,
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 250,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_suit_pulse_cryst01_hand_01": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "42",
-        "maxLevel": "42",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "42",
-        "levelOne": "65",
-        "maxLevel": "84",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "41",
-        "levelOne": "43",
-        "maxLevel": "55",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "CrystAndPulseDamageIncrease",
-        "levelOne": "19.16666667%",
-        "maxLevel": "24.91666675%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4000,
-        "discount": 1,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4",
-            "count": 50,
-            "iconId": "item_equip_script_4",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 8000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4001,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_1",
-            "count": 50,
-            "iconId": "item_equip_script_4_1",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 8000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "count": 10,
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 8000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4003,
-        "discount": 0.009999999776482582,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "count": 5,
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 80,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      }
-    ]
-  },
   "item_equip_t4_parts_wuling02_body_04": {
     "stats": [
       {
@@ -10954,6 +11543,105 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
         "attributeId": "FireAndNaturalDamageIncrease",
         "levelOne": "12%",
         "maxLevel": "15.60000032%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4003,
+        "discount": 0.009999999776482582,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "count": 50,
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 360,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_parts_wuling02_body_05": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "56",
+        "maxLevel": "56",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "39",
+        "levelOne": "115",
+        "maxLevel": "149",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "CrystAndPulseDamageIncrease",
+        "levelOne": "12%",
+        "maxLevel": "15.60000032%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4003,
+        "discount": 0.009999999776482582,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "count": 50,
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 360,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_atk02_edc_06": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "21",
+        "maxLevel": "21",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "41",
+        "levelOne": "32",
+        "maxLevel": "41",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "39",
+        "levelOne": "21",
+        "maxLevel": "27",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "33",
+        "levelOne": "41.4%",
+        "maxLevel": "53.82000208%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -11026,7 +11714,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       }
     ]
   },
-  "item_equip_t4_suit_atk02_edc_02": {
+  "item_equip_t4_suit_criti01_edc_03": {
     "stats": [
       {
         "attributeId": "3",
@@ -11036,32 +11724,51 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
         "maxLevelLabel": "+3"
       },
       {
-        "attributeId": "40",
+        "attributeId": "41",
         "levelOne": "32",
         "maxLevel": "41",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
-        "attributeId": "39",
+        "attributeId": "40",
         "levelOne": "21",
         "maxLevel": "27",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
-        "attributeId": "28",
-        "levelOne": "51.75%",
-        "maxLevel": "67.27499962%",
+        "attributeId": "9",
+        "levelOne": "10.35%",
+        "maxLevel": "13.45500052%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
     ],
     "craftingRecipes": [
       {
-        "chainId": 4001,
+        "chainId": 4000,
         "discount": 1,
         "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4",
+            "count": 50,
+            "iconId": "item_equip_script_4",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 8000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4001,
+        "discount": 1,
+        "isDefault": false,
         "materials": [
           {
             "itemId": "item_equip_script_4_1",
@@ -11071,7 +11778,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
           },
           {
             "itemId": "item_domain_jinlong_coupon",
-            "count": 16000,
+            "count": 8000,
             "iconId": "item_domain_jinlong_coupon",
             "rarity": 5
           }
@@ -11090,7 +11797,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
           },
           {
             "itemId": "item_domain_jinlong_coupon",
-            "count": 16000,
+            "count": 8000,
             "iconId": "item_domain_jinlong_coupon",
             "rarity": 5
           }
@@ -11109,53 +11816,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
           },
           {
             "itemId": "item_domain_jinlong_coupon",
-            "count": 160,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_suit_usp02_edc_04": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "21",
-        "maxLevel": "21",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "42",
-        "levelOne": "41",
-        "maxLevel": "53",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "Sub",
-        "levelOne": "20.7017835%",
-        "maxLevel": "26.91231966%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4003,
-        "discount": 0.009999999776482582,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "count": 50,
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 360,
+            "count": 80,
             "iconId": "item_domain_jinlong_coupon",
             "rarity": 5
           }
@@ -11209,7 +11870,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       }
     ]
   },
-  "item_equip_t4_suit_atk02_edc_05": {
+  "item_equip_t4_parts_wuling02_edc_03": {
     "stats": [
       {
         "attributeId": "3",
@@ -11219,133 +11880,16 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
         "maxLevelLabel": "+3"
       },
       {
-        "attributeId": "41",
-        "levelOne": "32",
-        "maxLevel": "41",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
         "attributeId": "39",
-        "levelOne": "21",
-        "maxLevel": "27",
+        "levelOne": "43",
+        "maxLevel": "55",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
-        "attributeId": "AllSkillDamageIncrease",
-        "levelOne": "27.6%",
-        "maxLevel": "35.8799994%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4000,
-        "discount": 1,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4",
-            "count": 50,
-            "iconId": "item_equip_script_4",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 8000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4001,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_1",
-            "count": 50,
-            "iconId": "item_equip_script_4_1",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 8000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "count": 10,
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 8000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4003,
-        "discount": 0.009999999776482582,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "count": 5,
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 80,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_suit_usp02_edc_07": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "21",
-        "maxLevel": "21",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "41",
-        "levelOne": "32",
-        "maxLevel": "41",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "39",
-        "levelOne": "21",
-        "maxLevel": "27",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "33",
-        "levelOne": "41.4%",
-        "maxLevel": "53.82000208%",
+        "attributeId": "32",
+        "levelOne": "43.2%",
+        "maxLevel": "56.16000295%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -11392,1590 +11936,6 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
         "attributeId": "32",
         "levelOne": "36%",
         "maxLevel": "46.79999948%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4003,
-        "discount": 0.009999999776482582,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "count": 50,
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 360,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_parts_wuling02_hand_03": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "42",
-        "maxLevel": "42",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "42",
-        "levelOne": "86",
-        "maxLevel": "111",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "CrystAndPulseDamageIncrease",
-        "levelOne": "20%",
-        "maxLevel": "25.99999905%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4003,
-        "discount": 0.009999999776482582,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "count": 50,
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 360,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_suit_burst01_edc_02": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "21",
-        "maxLevel": "21",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "41",
-        "levelOne": "32",
-        "maxLevel": "41",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "39",
-        "levelOne": "21",
-        "maxLevel": "27",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "17",
-        "levelOne": "27.6%",
-        "maxLevel": "35.8799994%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4000,
-        "discount": 1,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4",
-            "count": 50,
-            "iconId": "item_equip_script_4",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 8000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4001,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_1",
-            "count": 50,
-            "iconId": "item_equip_script_4_1",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 8000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "count": 10,
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 8000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4003,
-        "discount": 0.009999999776482582,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "count": 5,
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 80,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_parts_wuling02_hand_04": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "42",
-        "maxLevel": "42",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "39",
-        "levelOne": "86",
-        "maxLevel": "111",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "17",
-        "levelOne": "24%",
-        "maxLevel": "31.20000064%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4003,
-        "discount": 0.009999999776482582,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "count": 50,
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 360,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_suit_atb01_body_01": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "56",
-        "maxLevel": "56",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "39",
-        "levelOne": "87",
-        "maxLevel": "113",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "41",
-        "levelOne": "58",
-        "maxLevel": "75",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "28",
-        "levelOne": "25.875%",
-        "maxLevel": "33.63749981%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4000,
-        "discount": 1,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4",
-            "count": 50,
-            "iconId": "item_equip_script_4",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 8000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4001,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_1",
-            "count": 50,
-            "iconId": "item_equip_script_4_1",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 8000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "count": 10,
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 8000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4003,
-        "discount": 0.009999999776482582,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "count": 5,
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 80,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_suit_atb01_edc_01": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "21",
-        "maxLevel": "21",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "39",
-        "levelOne": "32",
-        "maxLevel": "41",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "40",
-        "levelOne": "21",
-        "maxLevel": "27",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "33",
-        "levelOne": "41.4%",
-        "maxLevel": "53.82000208%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4000,
-        "discount": 1,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4",
-            "count": 50,
-            "iconId": "item_equip_script_4",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 8000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4001,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_1",
-            "count": 50,
-            "iconId": "item_equip_script_4_1",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 8000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "count": 10,
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 8000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4003,
-        "discount": 0.009999999776482582,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "count": 5,
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 80,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_suit_heal01_edc_02": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "21",
-        "maxLevel": "21",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "39",
-        "levelOne": "41",
-        "maxLevel": "53",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "1",
-        "levelOne": "41.4%",
-        "maxLevel": "53.82000208%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4001,
-        "discount": 1,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_1",
-            "count": 50,
-            "iconId": "item_equip_script_4_1",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 16000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "count": 10,
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 16000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4003,
-        "discount": 0.009999999776482582,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "count": 5,
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 160,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_suit_atb01_edc_03": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "21",
-        "maxLevel": "21",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "39",
-        "levelOne": "41",
-        "maxLevel": "53",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "28",
-        "levelOne": "51.75%",
-        "maxLevel": "67.27499962%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4001,
-        "discount": 1,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_1",
-            "count": 50,
-            "iconId": "item_equip_script_4_1",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 16000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "count": 10,
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 16000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4003,
-        "discount": 0.009999999776482582,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "count": 5,
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 160,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_suit_atb01_edc_04": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "21",
-        "maxLevel": "21",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "40",
-        "levelOne": "32",
-        "maxLevel": "41",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "41",
-        "levelOne": "21",
-        "maxLevel": "27",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "Sub",
-        "levelOne": "20.7017835%",
-        "maxLevel": "26.91231966%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4000,
-        "discount": 1,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4",
-            "count": 50,
-            "iconId": "item_equip_script_4",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 8000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4001,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_1",
-            "count": 50,
-            "iconId": "item_equip_script_4_1",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 8000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "count": 10,
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 8000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4003,
-        "discount": 0.009999999776482582,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "count": 5,
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 80,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_suit_atb01_edc_05": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "21",
-        "maxLevel": "21",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "42",
-        "levelOne": "41",
-        "maxLevel": "53",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "50",
-        "levelOne": "23%",
-        "maxLevel": "29.8999995%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4001,
-        "discount": 1,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_1",
-            "count": 50,
-            "iconId": "item_equip_script_4_1",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 16000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "count": 10,
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 16000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4003,
-        "discount": 0.009999999776482582,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "count": 5,
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 160,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_suit_atk02_body_01": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "56",
-        "maxLevel": "56",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "39",
-        "levelOne": "87",
-        "maxLevel": "113",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "42",
-        "levelOne": "58",
-        "maxLevel": "75",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "50",
-        "levelOne": "11.5%",
-        "maxLevel": "14.94999975%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4000,
-        "discount": 1,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4",
-            "count": 50,
-            "iconId": "item_equip_script_4",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 8000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4001,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_1",
-            "count": 50,
-            "iconId": "item_equip_script_4_1",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 8000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "count": 10,
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 8000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4003,
-        "discount": 0.009999999776482582,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "count": 5,
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 80,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_suit_spellburst_edc_01": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "21",
-        "maxLevel": "21",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "40",
-        "levelOne": "32",
-        "maxLevel": "41",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "42",
-        "levelOne": "21",
-        "maxLevel": "27",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "87",
-        "levelOne": "41.4",
-        "maxLevel": "53.81999969",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4003,
-        "discount": 0.009999999776482582,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "count": 50,
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 360,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_suit_atk02_body_04": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "56",
-        "maxLevel": "56",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "42",
-        "levelOne": "87",
-        "maxLevel": "113",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "39",
-        "levelOne": "58",
-        "maxLevel": "75",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "AllSkillDamageIncrease",
-        "levelOne": "13.8%",
-        "maxLevel": "17.9399997%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4000,
-        "discount": 1,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4",
-            "count": 50,
-            "iconId": "item_equip_script_4",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 8000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4001,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_1",
-            "count": 50,
-            "iconId": "item_equip_script_4_1",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 8000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "count": 10,
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 8000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4003,
-        "discount": 0.009999999776482582,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "count": 5,
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 80,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_suit_phy01_edc_04": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "21",
-        "maxLevel": "21",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "40",
-        "levelOne": "32",
-        "maxLevel": "41",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "39",
-        "levelOne": "21",
-        "maxLevel": "27",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "28",
-        "levelOne": "51.75%",
-        "maxLevel": "67.27499962%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "count": 50,
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 25000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4003,
-        "discount": 0.009999999776482582,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "count": 25,
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 250,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_suit_atk02_edc_01": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "21",
-        "maxLevel": "21",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "39",
-        "levelOne": "32",
-        "maxLevel": "41",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "42",
-        "levelOne": "21",
-        "maxLevel": "27",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "50",
-        "levelOne": "23%",
-        "maxLevel": "29.8999995%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4000,
-        "discount": 1,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4",
-            "count": 50,
-            "iconId": "item_equip_script_4",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 8000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4001,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_1",
-            "count": 50,
-            "iconId": "item_equip_script_4_1",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 8000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "count": 10,
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 8000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4003,
-        "discount": 0.009999999776482582,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "count": 5,
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 80,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_suit_poise01_edc_04": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "21",
-        "maxLevel": "21",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "39",
-        "levelOne": "32",
-        "maxLevel": "41",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "40",
-        "levelOne": "21",
-        "maxLevel": "27",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "32",
-        "levelOne": "41.4%",
-        "maxLevel": "53.82000208%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4001,
-        "discount": 1,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_1",
-            "count": 50,
-            "iconId": "item_equip_script_4_1",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 16000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "count": 10,
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 16000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4003,
-        "discount": 0.009999999776482582,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "count": 5,
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 160,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_suit_usp02_edc_03": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "21",
-        "maxLevel": "21",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "42",
-        "levelOne": "32",
-        "maxLevel": "41",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "41",
-        "levelOne": "21",
-        "maxLevel": "27",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "44",
-        "levelOne": "24.64285714%",
-        "maxLevel": "32.03571439%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4000,
-        "discount": 1,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4",
-            "count": 50,
-            "iconId": "item_equip_script_4",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 8000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4001,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_1",
-            "count": 50,
-            "iconId": "item_equip_script_4_1",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 8000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "count": 10,
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 8000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4003,
-        "discount": 0.009999999776482582,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "count": 5,
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 80,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_suit_atk02_edc_03": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "21",
-        "maxLevel": "21",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "40",
-        "levelOne": "32",
-        "maxLevel": "41",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "41",
-        "levelOne": "21",
-        "maxLevel": "27",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "33",
-        "levelOne": "41.4%",
-        "maxLevel": "53.82000208%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4001,
-        "discount": 1,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_1",
-            "count": 50,
-            "iconId": "item_equip_script_4_1",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 16000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "count": 10,
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 16000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4003,
-        "discount": 0.009999999776482582,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "count": 5,
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 160,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_suit_usp02_edc_05": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "21",
-        "maxLevel": "21",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "42",
-        "levelOne": "32",
-        "maxLevel": "41",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "40",
-        "levelOne": "21",
-        "maxLevel": "27",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "44",
-        "levelOne": "24.64285714%",
-        "maxLevel": "32.03571439%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -13112,113 +12072,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       }
     ]
   },
-  "item_equip_t4_suit_usp02_edc_06": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "21",
-        "maxLevel": "21",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "39",
-        "levelOne": "32",
-        "maxLevel": "41",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "42",
-        "levelOne": "21",
-        "maxLevel": "27",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "44",
-        "levelOne": "24.64285714%",
-        "maxLevel": "32.03571439%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4003,
-        "discount": 0.009999999776482582,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "count": 50,
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 360,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_suit_atk02_edc_06": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "21",
-        "maxLevel": "21",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "41",
-        "levelOne": "32",
-        "maxLevel": "41",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "39",
-        "levelOne": "21",
-        "maxLevel": "27",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "33",
-        "levelOne": "41.4%",
-        "maxLevel": "53.82000208%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4003,
-        "discount": 0.009999999776482582,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "count": 50,
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 360,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_suit_atk02_hand_01": {
+  "item_equip_t4_parts_wuling02_hand_03": {
     "stats": [
       {
         "attributeId": "3",
@@ -13228,23 +12082,69 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
         "maxLevelLabel": "+3"
       },
       {
-        "attributeId": "40",
-        "levelOne": "65",
-        "maxLevel": "84",
+        "attributeId": "42",
+        "levelOne": "86",
+        "maxLevel": "111",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "CrystAndPulseDamageIncrease",
+        "levelOne": "20%",
+        "maxLevel": "25.99999905%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4003,
+        "discount": 0.009999999776482582,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "count": 50,
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 360,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_atb01_body_01": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "56",
+        "maxLevel": "56",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "39",
+        "levelOne": "87",
+        "maxLevel": "113",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
         "attributeId": "41",
-        "levelOne": "43",
-        "maxLevel": "55",
+        "levelOne": "58",
+        "maxLevel": "75",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
-        "attributeId": "33",
-        "levelOne": "34.5%",
-        "maxLevel": "44.85000074%",
+        "attributeId": "28",
+        "levelOne": "25.875%",
+        "maxLevel": "33.63749981%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -13321,6 +12221,298 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
           {
             "itemId": "item_domain_jinlong_coupon",
             "count": 80,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_atb01_body_02": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "56",
+        "maxLevel": "56",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "39",
+        "levelOne": "87",
+        "maxLevel": "113",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "40",
+        "levelOne": "58",
+        "maxLevel": "75",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "32",
+        "levelOne": "20.7%",
+        "maxLevel": "26.91000104%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4000,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4",
+            "count": 50,
+            "iconId": "item_equip_script_4",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 8000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4001,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_1",
+            "count": 50,
+            "iconId": "item_equip_script_4_1",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 8000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "count": 10,
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 8000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.009999999776482582,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "count": 5,
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 80,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_criti01_edc_06": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "21",
+        "maxLevel": "21",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "40",
+        "levelOne": "32",
+        "maxLevel": "41",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "41",
+        "levelOne": "21",
+        "maxLevel": "27",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "9",
+        "levelOne": "10.35%",
+        "maxLevel": "13.45500052%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4001,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_1",
+            "count": 50,
+            "iconId": "item_equip_script_4_1",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 16000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "count": 10,
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 16000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.009999999776482582,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "count": 5,
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 160,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_atb01_body_05": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "56",
+        "maxLevel": "56",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "41",
+        "levelOne": "87",
+        "maxLevel": "113",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "40",
+        "levelOne": "58",
+        "maxLevel": "75",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "44",
+        "levelOne": "12.32142857%",
+        "maxLevel": "16.01785719%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4001,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_1",
+            "count": 50,
+            "iconId": "item_equip_script_4_1",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 16000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "count": 10,
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 16000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.009999999776482582,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "count": 5,
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 160,
             "iconId": "item_domain_jinlong_coupon",
             "rarity": 5
           }
@@ -13438,7 +12630,534 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       }
     ]
   },
-  "item_equip_t4_suit_phy01_body_04": {
+  "item_equip_t4_suit_atb01_body_07": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "56",
+        "maxLevel": "56",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "42",
+        "levelOne": "87",
+        "maxLevel": "113",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "40",
+        "levelOne": "58",
+        "maxLevel": "75",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "44",
+        "levelOne": "12.32142857%",
+        "maxLevel": "16.01785719%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4003,
+        "discount": 0.009999999776482582,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "count": 50,
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 360,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_atb01_edc_04": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "21",
+        "maxLevel": "21",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "40",
+        "levelOne": "32",
+        "maxLevel": "41",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "41",
+        "levelOne": "21",
+        "maxLevel": "27",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "Sub",
+        "levelOne": "20.7017835%",
+        "maxLevel": "26.91231966%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4000,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4",
+            "count": 50,
+            "iconId": "item_equip_script_4",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 8000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4001,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_1",
+            "count": 50,
+            "iconId": "item_equip_script_4_1",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 8000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "count": 10,
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 8000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.009999999776482582,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "count": 5,
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 80,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_criti01_body_06": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "56",
+        "maxLevel": "56",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "40",
+        "levelOne": "87",
+        "maxLevel": "113",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "41",
+        "levelOne": "58",
+        "maxLevel": "75",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "44",
+        "levelOne": "12.32142857%",
+        "maxLevel": "16.01785719%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4001,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_1",
+            "count": 50,
+            "iconId": "item_equip_script_4_1",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 16000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "count": 10,
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 16000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.009999999776482582,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "count": 5,
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 160,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_atb01_edc_01": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "21",
+        "maxLevel": "21",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "39",
+        "levelOne": "32",
+        "maxLevel": "41",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "40",
+        "levelOne": "21",
+        "maxLevel": "27",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "33",
+        "levelOne": "41.4%",
+        "maxLevel": "53.82000208%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4000,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4",
+            "count": 50,
+            "iconId": "item_equip_script_4",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 8000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4001,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_1",
+            "count": 50,
+            "iconId": "item_equip_script_4_1",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 8000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "count": 10,
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 8000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.009999999776482582,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "count": 5,
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 80,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_atb01_edc_02": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "21",
+        "maxLevel": "21",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "39",
+        "levelOne": "32",
+        "maxLevel": "41",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "41",
+        "levelOne": "21",
+        "maxLevel": "27",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "CrystAndPulseDamageIncrease",
+        "levelOne": "23%",
+        "maxLevel": "29.8999995%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4000,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4",
+            "count": 50,
+            "iconId": "item_equip_script_4",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 8000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4001,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_1",
+            "count": 50,
+            "iconId": "item_equip_script_4_1",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 8000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "count": 10,
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 8000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.009999999776482582,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "count": 5,
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 80,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_atk02_hand_03": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "42",
+        "maxLevel": "42",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "41",
+        "levelOne": "65",
+        "maxLevel": "84",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "39",
+        "levelOne": "43",
+        "maxLevel": "55",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "33",
+        "levelOne": "34.5%",
+        "maxLevel": "44.85000074%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4003,
+        "discount": 0.009999999776482582,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "count": 50,
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 360,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_burst01_body_03": {
     "stats": [
       {
         "attributeId": "3",
@@ -13462,7 +13181,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
         "maxLevelLabel": "+3"
       },
       {
-        "attributeId": "50",
+        "attributeId": "CrystAndPulseDamageIncrease",
         "levelOne": "11.5%",
         "maxLevel": "14.94999975%",
         "levelOneLabel": "+0",
@@ -13471,19 +13190,84 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
     ],
     "craftingRecipes": [
       {
-        "chainId": 4002,
+        "chainId": 4003,
+        "discount": 0.009999999776482582,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "count": 50,
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 360,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_atb01_edc_03": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "21",
+        "maxLevel": "21",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "39",
+        "levelOne": "41",
+        "maxLevel": "53",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "28",
+        "levelOne": "51.75%",
+        "maxLevel": "67.27499962%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4001,
         "discount": 1,
         "isDefault": true,
         "materials": [
           {
-            "itemId": "item_equip_script_4_2",
+            "itemId": "item_equip_script_4_1",
             "count": 50,
+            "iconId": "item_equip_script_4_1",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 16000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "count": 10,
             "iconId": "item_equip_script_4_2",
             "rarity": 4
           },
           {
             "itemId": "item_domain_jinlong_coupon",
-            "count": 25000,
+            "count": 16000,
             "iconId": "item_domain_jinlong_coupon",
             "rarity": 5
           }
@@ -13496,13 +13280,13 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
         "materials": [
           {
             "itemId": "item_equip_script_4_3",
-            "count": 25,
+            "count": 5,
             "iconId": "item_equip_script_4_3",
             "rarity": 4
           },
           {
             "itemId": "item_domain_jinlong_coupon",
-            "count": 250,
+            "count": 160,
             "iconId": "item_domain_jinlong_coupon",
             "rarity": 5
           }
@@ -13510,7 +13294,254 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       }
     ]
   },
-  "item_equip_t4_suit_atk02_hand_02": {
+  "item_equip_t4_suit_atb01_edc_05": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "21",
+        "maxLevel": "21",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "42",
+        "levelOne": "41",
+        "maxLevel": "53",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "50",
+        "levelOne": "23%",
+        "maxLevel": "29.8999995%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4001,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_1",
+            "count": 50,
+            "iconId": "item_equip_script_4_1",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 16000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "count": 10,
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 16000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.009999999776482582,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "count": 5,
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 160,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_atb01_edc_07": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "21",
+        "maxLevel": "21",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "40",
+        "levelOne": "32",
+        "maxLevel": "41",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "39",
+        "levelOne": "21",
+        "maxLevel": "27",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "Sub",
+        "levelOne": "20.7017835%",
+        "maxLevel": "26.91231966%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4003,
+        "discount": 0.009999999776482582,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "count": 50,
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 360,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_burst01_edc_02": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "21",
+        "maxLevel": "21",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "41",
+        "levelOne": "32",
+        "maxLevel": "41",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "39",
+        "levelOne": "21",
+        "maxLevel": "27",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "17",
+        "levelOne": "27.6%",
+        "maxLevel": "35.8799994%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4000,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4",
+            "count": 50,
+            "iconId": "item_equip_script_4",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 8000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4001,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_1",
+            "count": 50,
+            "iconId": "item_equip_script_4_1",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 8000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "count": 10,
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 8000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.009999999776482582,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "count": 5,
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 80,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_atb01_hand_01": {
     "stats": [
       {
         "attributeId": "3",
@@ -13520,21 +13551,21 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
         "maxLevelLabel": "+3"
       },
       {
-        "attributeId": "42",
+        "attributeId": "40",
         "levelOne": "65",
         "maxLevel": "84",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
-        "attributeId": "40",
+        "attributeId": "41",
         "levelOne": "43",
         "maxLevel": "55",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
-        "attributeId": "33",
+        "attributeId": "32",
         "levelOne": "34.5%",
         "maxLevel": "44.85000074%",
         "levelOneLabel": "+0",
@@ -13620,79 +13651,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       }
     ]
   },
-  "item_equip_t4_suit_phy01_body_03": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "56",
-        "maxLevel": "56",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "40",
-        "levelOne": "87",
-        "maxLevel": "113",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "39",
-        "levelOne": "58",
-        "maxLevel": "75",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "50",
-        "levelOne": "11.5%",
-        "maxLevel": "14.94999975%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "count": 50,
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 25000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4003,
-        "discount": 0.009999999776482582,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "count": 25,
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 250,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_suit_atk02_hand_03": {
+  "item_equip_t4_suit_atb01_hand_02": {
     "stats": [
       {
         "attributeId": "3",
@@ -13702,7 +13661,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
         "maxLevelLabel": "+3"
       },
       {
-        "attributeId": "41",
+        "attributeId": "42",
         "levelOne": "65",
         "maxLevel": "84",
         "levelOneLabel": "+0",
@@ -13716,9 +13675,100 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
         "maxLevelLabel": "+3"
       },
       {
-        "attributeId": "33",
-        "levelOne": "34.5%",
-        "maxLevel": "44.85000074%",
+        "attributeId": "AllSkillDamageIncrease",
+        "levelOne": "23%",
+        "maxLevel": "29.8999995%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4001,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_1",
+            "count": 50,
+            "iconId": "item_equip_script_4_1",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 16000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "count": 10,
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 16000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.009999999776482582,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "count": 5,
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 160,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_atb01_hand_05": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "42",
+        "maxLevel": "42",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "42",
+        "levelOne": "65",
+        "maxLevel": "84",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "40",
+        "levelOne": "43",
+        "maxLevel": "55",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "44",
+        "levelOne": "20.53571429%",
+        "maxLevel": "26.69642866%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -13745,7 +13795,170 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       }
     ]
   },
-  "item_equip_t4_suit_phy01_body_02": {
+  "item_equip_t4_suit_poise01_hand_01": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "42",
+        "maxLevel": "42",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "40",
+        "levelOne": "65",
+        "maxLevel": "84",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "39",
+        "levelOne": "43",
+        "maxLevel": "55",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "87",
+        "levelOne": "34.5",
+        "maxLevel": "44.84999847",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4000,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4",
+            "count": 50,
+            "iconId": "item_equip_script_4",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 8000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4001,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_1",
+            "count": 50,
+            "iconId": "item_equip_script_4_1",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 8000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "count": 10,
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 8000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.009999999776482582,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "count": 5,
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 80,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_pulse_cryst01_hand_02": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "42",
+        "maxLevel": "42",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "42",
+        "levelOne": "65",
+        "maxLevel": "84",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "39",
+        "levelOne": "43",
+        "maxLevel": "55",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "CrystAndPulseDamageIncrease",
+        "levelOne": "19.16666667%",
+        "maxLevel": "24.91666675%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4003,
+        "discount": 0.009999999776482582,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "count": 50,
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 360,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_atk02_body_04": {
     "stats": [
       {
         "attributeId": "3",
@@ -13755,7 +13968,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
         "maxLevelLabel": "+3"
       },
       {
-        "attributeId": "40",
+        "attributeId": "42",
         "levelOne": "87",
         "maxLevel": "113",
         "levelOneLabel": "+0",
@@ -13769,9 +13982,574 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
         "maxLevelLabel": "+3"
       },
       {
-        "attributeId": "87",
-        "levelOne": "20.7",
-        "maxLevel": "26.90999985",
+        "attributeId": "AllSkillDamageIncrease",
+        "levelOne": "13.8%",
+        "maxLevel": "17.9399997%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4000,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4",
+            "count": 50,
+            "iconId": "item_equip_script_4",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 8000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4001,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_1",
+            "count": 50,
+            "iconId": "item_equip_script_4_1",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 8000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "count": 10,
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 8000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.009999999776482582,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "count": 5,
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 80,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_atk02_body_05": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "56",
+        "maxLevel": "56",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "41",
+        "levelOne": "87",
+        "maxLevel": "113",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "39",
+        "levelOne": "58",
+        "maxLevel": "75",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "33",
+        "levelOne": "20.7%",
+        "maxLevel": "26.91000104%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4003,
+        "discount": 0.009999999776482582,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "count": 50,
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 360,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_atk02_edc_01": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "21",
+        "maxLevel": "21",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "39",
+        "levelOne": "32",
+        "maxLevel": "41",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "42",
+        "levelOne": "21",
+        "maxLevel": "27",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "50",
+        "levelOne": "23%",
+        "maxLevel": "29.8999995%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4000,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4",
+            "count": 50,
+            "iconId": "item_equip_script_4",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 8000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4001,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_1",
+            "count": 50,
+            "iconId": "item_equip_script_4_1",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 8000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "count": 10,
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 8000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.009999999776482582,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "count": 5,
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 80,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_atk02_edc_02": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "21",
+        "maxLevel": "21",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "40",
+        "levelOne": "32",
+        "maxLevel": "41",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "39",
+        "levelOne": "21",
+        "maxLevel": "27",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "28",
+        "levelOne": "51.75%",
+        "maxLevel": "67.27499962%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4001,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_1",
+            "count": 50,
+            "iconId": "item_equip_script_4_1",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 16000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "count": 10,
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 16000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.009999999776482582,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "count": 5,
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 160,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_atk02_edc_03": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "21",
+        "maxLevel": "21",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "40",
+        "levelOne": "32",
+        "maxLevel": "41",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "41",
+        "levelOne": "21",
+        "maxLevel": "27",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "33",
+        "levelOne": "41.4%",
+        "maxLevel": "53.82000208%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4001,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_1",
+            "count": 50,
+            "iconId": "item_equip_script_4_1",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 16000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "count": 10,
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 16000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.009999999776482582,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "count": 5,
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 160,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_atk02_edc_05": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "21",
+        "maxLevel": "21",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "41",
+        "levelOne": "32",
+        "maxLevel": "41",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "39",
+        "levelOne": "21",
+        "maxLevel": "27",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "AllSkillDamageIncrease",
+        "levelOne": "27.6%",
+        "maxLevel": "35.8799994%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4000,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4",
+            "count": 50,
+            "iconId": "item_equip_script_4",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 8000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4001,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_1",
+            "count": 50,
+            "iconId": "item_equip_script_4_1",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 8000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "count": 10,
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 8000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.009999999776482582,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "count": 5,
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 80,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_atk02_hand_01": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "42",
+        "maxLevel": "42",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "40",
+        "levelOne": "65",
+        "maxLevel": "84",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "41",
+        "levelOne": "43",
+        "maxLevel": "55",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "33",
+        "levelOne": "34.5%",
+        "maxLevel": "44.85000074%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -13965,6 +14743,116 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       }
     ]
   },
+  "item_equip_t4_suit_attri01_body_04": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "56",
+        "maxLevel": "56",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "42",
+        "levelOne": "87",
+        "maxLevel": "113",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "40",
+        "levelOne": "58",
+        "maxLevel": "75",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "44",
+        "levelOne": "12.32142857%",
+        "maxLevel": "16.01785719%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4000,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4",
+            "count": 50,
+            "iconId": "item_equip_script_4",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 8000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4001,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_1",
+            "count": 50,
+            "iconId": "item_equip_script_4_1",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 8000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "count": 10,
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 8000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.009999999776482582,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "count": 5,
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 80,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      }
+    ]
+  },
   "item_equip_t4_suit_attri01_body_05": {
     "stats": [
       {
@@ -14056,90 +14944,52 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       }
     ]
   },
-  "item_equip_t4_suit_attri01_body_02": {
+  "item_equip_t4_suit_attri01_edc_02": {
     "stats": [
       {
         "attributeId": "3",
-        "levelOne": "56",
-        "maxLevel": "56",
+        "levelOne": "21",
+        "maxLevel": "21",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
-        "attributeId": "40",
-        "levelOne": "87",
-        "maxLevel": "113",
+        "attributeId": "42",
+        "levelOne": "32",
+        "maxLevel": "41",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
-        "attributeId": "39",
-        "levelOne": "58",
-        "maxLevel": "75",
+        "attributeId": "41",
+        "levelOne": "21",
+        "maxLevel": "27",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
-        "attributeId": "33",
-        "levelOne": "20.7%",
-        "maxLevel": "26.91000104%",
+        "attributeId": "32",
+        "levelOne": "41.4%",
+        "maxLevel": "53.82000208%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
     ],
     "craftingRecipes": [
       {
-        "chainId": 4000,
+        "chainId": 4002,
         "discount": 1,
         "isDefault": true,
         "materials": [
           {
-            "itemId": "item_equip_script_4",
-            "count": 50,
-            "iconId": "item_equip_script_4",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 8000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4001,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_1",
-            "count": 50,
-            "iconId": "item_equip_script_4_1",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 8000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
             "itemId": "item_equip_script_4_2",
-            "count": 10,
+            "count": 50,
             "iconId": "item_equip_script_4_2",
             "rarity": 4
           },
           {
             "itemId": "item_domain_jinlong_coupon",
-            "count": 8000,
+            "count": 25000,
             "iconId": "item_domain_jinlong_coupon",
             "rarity": 5
           }
@@ -14152,13 +15002,13 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
         "materials": [
           {
             "itemId": "item_equip_script_4_3",
-            "count": 5,
+            "count": 25,
             "iconId": "item_equip_script_4_3",
             "rarity": 4
           },
           {
             "itemId": "item_domain_jinlong_coupon",
-            "count": 80,
+            "count": 250,
             "iconId": "item_domain_jinlong_coupon",
             "rarity": 5
           }
@@ -14477,7 +15327,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       }
     ]
   },
-  "item_equip_t4_suit_attri01_hand_03": {
+  "item_equip_t4_suit_attri01_hand_01": {
     "stats": [
       {
         "attributeId": "3",
@@ -14487,7 +15337,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
         "maxLevelLabel": "+3"
       },
       {
-        "attributeId": "42",
+        "attributeId": "39",
         "levelOne": "65",
         "maxLevel": "84",
         "levelOneLabel": "+0",
@@ -14495,6 +15345,97 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       },
       {
         "attributeId": "40",
+        "levelOne": "43",
+        "maxLevel": "55",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "FireAndNaturalDamageIncrease",
+        "levelOne": "19.16666667%",
+        "maxLevel": "24.91666675%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4001,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_1",
+            "count": 50,
+            "iconId": "item_equip_script_4_1",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 16000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "count": 10,
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 16000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.009999999776482582,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "count": 5,
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 160,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_attri01_hand_02": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "42",
+        "maxLevel": "42",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "40",
+        "levelOne": "65",
+        "maxLevel": "84",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "39",
         "levelOne": "43",
         "maxLevel": "55",
         "levelOneLabel": "+0",
@@ -14510,19 +15451,38 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
     ],
     "craftingRecipes": [
       {
-        "chainId": 4002,
+        "chainId": 4001,
         "discount": 1,
         "isDefault": true,
         "materials": [
           {
-            "itemId": "item_equip_script_4_2",
+            "itemId": "item_equip_script_4_1",
             "count": 50,
+            "iconId": "item_equip_script_4_1",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 16000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "count": 10,
             "iconId": "item_equip_script_4_2",
             "rarity": 4
           },
           {
             "itemId": "item_domain_jinlong_coupon",
-            "count": 25000,
+            "count": 16000,
             "iconId": "item_domain_jinlong_coupon",
             "rarity": 5
           }
@@ -14535,244 +15495,13 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
         "materials": [
           {
             "itemId": "item_equip_script_4_3",
-            "count": 25,
+            "count": 5,
             "iconId": "item_equip_script_4_3",
             "rarity": 4
           },
           {
             "itemId": "item_domain_jinlong_coupon",
-            "count": 250,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_suit_burst01_body_02": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "56",
-        "maxLevel": "56",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "41",
-        "levelOne": "87",
-        "maxLevel": "113",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "42",
-        "levelOne": "58",
-        "maxLevel": "75",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "44",
-        "levelOne": "12.32142857%",
-        "maxLevel": "16.01785719%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4003,
-        "discount": 0.009999999776482582,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "count": 50,
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 360,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_suit_combo_cd01_body_02": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "56",
-        "maxLevel": "56",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "41",
-        "levelOne": "87",
-        "maxLevel": "113",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "42",
-        "levelOne": "58",
-        "maxLevel": "75",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "87",
-        "levelOne": "20.7",
-        "maxLevel": "26.90999985",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "count": 50,
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 25000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4003,
-        "discount": 0.009999999776482582,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "count": 25,
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 250,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_suit_burst01_body_03": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "56",
-        "maxLevel": "56",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "39",
-        "levelOne": "87",
-        "maxLevel": "113",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "42",
-        "levelOne": "58",
-        "maxLevel": "75",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "CrystAndPulseDamageIncrease",
-        "levelOne": "11.5%",
-        "maxLevel": "14.94999975%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4003,
-        "discount": 0.009999999776482582,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "count": 50,
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 360,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_suit_burst01_edc_03": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "21",
-        "maxLevel": "21",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "41",
-        "levelOne": "32",
-        "maxLevel": "41",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "42",
-        "levelOne": "21",
-        "maxLevel": "27",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "FireAndNaturalDamageIncrease",
-        "levelOne": "23%",
-        "maxLevel": "29.8999995%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4003,
-        "discount": 0.009999999776482582,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "count": 50,
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 360,
+            "count": 160,
             "iconId": "item_domain_jinlong_coupon",
             "rarity": 5
           }
@@ -14890,33 +15619,143 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       }
     ]
   },
-  "item_equip_t4_suit_usp02_body_05": {
+  "item_equip_t4_suit_poise01_edc_01": {
     "stats": [
       {
         "attributeId": "3",
-        "levelOne": "56",
-        "maxLevel": "56",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "41",
-        "levelOne": "87",
-        "maxLevel": "113",
+        "levelOne": "21",
+        "maxLevel": "21",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
         "attributeId": "39",
-        "levelOne": "58",
-        "maxLevel": "75",
+        "levelOne": "32",
+        "maxLevel": "41",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
-        "attributeId": "44",
-        "levelOne": "12.32142857%",
-        "maxLevel": "16.01785719%",
+        "attributeId": "42",
+        "levelOne": "21",
+        "maxLevel": "27",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "50",
+        "levelOne": "23%",
+        "maxLevel": "29.8999995%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4000,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4",
+            "count": 50,
+            "iconId": "item_equip_script_4",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 8000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4001,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_1",
+            "count": 50,
+            "iconId": "item_equip_script_4_1",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 8000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "count": 10,
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 8000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.009999999776482582,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "count": 5,
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 80,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_burst01_hand_02": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "42",
+        "maxLevel": "42",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "41",
+        "levelOne": "65",
+        "maxLevel": "84",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "42",
+        "levelOne": "43",
+        "maxLevel": "55",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "AllSkillDamageIncrease",
+        "levelOne": "23%",
+        "maxLevel": "29.8999995%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -15015,6 +15854,332 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       }
     ]
   },
+  "item_equip_t4_suit_combo_cd01_edc_02": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "21",
+        "maxLevel": "21",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "39",
+        "levelOne": "32",
+        "maxLevel": "41",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "40",
+        "levelOne": "21",
+        "maxLevel": "27",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "FireAndNaturalDamageIncrease",
+        "levelOne": "23%",
+        "maxLevel": "29.8999995%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "count": 50,
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 25000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.009999999776482582,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "count": 25,
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 250,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_combo_cd01_body_02": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "56",
+        "maxLevel": "56",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "41",
+        "levelOne": "87",
+        "maxLevel": "113",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "42",
+        "levelOne": "58",
+        "maxLevel": "75",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "87",
+        "levelOne": "20.7",
+        "maxLevel": "26.90999985",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "count": 50,
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 25000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.009999999776482582,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "count": 25,
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 250,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_combo_cd01_edc_01": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "21",
+        "maxLevel": "21",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "40",
+        "levelOne": "32",
+        "maxLevel": "41",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "39",
+        "levelOne": "21",
+        "maxLevel": "27",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "32",
+        "levelOne": "41.4%",
+        "maxLevel": "53.82000208%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "count": 50,
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 25000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.009999999776482582,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "count": 25,
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 250,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_fire_natr01_hand_02": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "42",
+        "maxLevel": "42",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "41",
+        "levelOne": "65",
+        "maxLevel": "84",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "39",
+        "levelOne": "43",
+        "maxLevel": "55",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "FireAndNaturalDamageIncrease",
+        "levelOne": "19.16666667%",
+        "maxLevel": "24.91666675%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4000,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4",
+            "count": 50,
+            "iconId": "item_equip_script_4",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 8000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4001,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_1",
+            "count": 50,
+            "iconId": "item_equip_script_4_1",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 8000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "count": 10,
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 8000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.009999999776482582,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "count": 5,
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 80,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      }
+    ]
+  },
   "item_equip_t4_suit_combo_cd01_edc_03": {
     "stats": [
       {
@@ -15080,6 +16245,150 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
           {
             "itemId": "item_domain_jinlong_coupon",
             "count": 250,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_fire_natr01_hand_04": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "42",
+        "maxLevel": "42",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "41",
+        "levelOne": "65",
+        "maxLevel": "84",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "42",
+        "levelOne": "43",
+        "maxLevel": "55",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "FireAndNaturalDamageIncrease",
+        "levelOne": "19.16666667%",
+        "maxLevel": "24.91666675%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4003,
+        "discount": 0.009999999776482582,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "count": 50,
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 360,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_phy01_body_01": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "56",
+        "maxLevel": "56",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "39",
+        "levelOne": "87",
+        "maxLevel": "113",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "42",
+        "levelOne": "58",
+        "maxLevel": "75",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "44",
+        "levelOne": "12.32142857%",
+        "maxLevel": "16.01785719%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4001,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_1",
+            "count": 50,
+            "iconId": "item_equip_script_4_1",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 16000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "count": 10,
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 16000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.009999999776482582,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "count": 5,
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 160,
             "iconId": "item_domain_jinlong_coupon",
             "rarity": 5
           }
@@ -15159,52 +16468,109 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       }
     ]
   },
-  "item_equip_t4_suit_pulse_cryst01_hand_02": {
+  "item_equip_t4_suit_criti01_edc_02": {
     "stats": [
       {
         "attributeId": "3",
-        "levelOne": "42",
-        "maxLevel": "42",
+        "levelOne": "21",
+        "maxLevel": "21",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
-        "attributeId": "42",
-        "levelOne": "65",
-        "maxLevel": "84",
+        "attributeId": "40",
+        "levelOne": "32",
+        "maxLevel": "41",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
         "attributeId": "39",
-        "levelOne": "43",
-        "maxLevel": "55",
+        "levelOne": "21",
+        "maxLevel": "27",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
-        "attributeId": "CrystAndPulseDamageIncrease",
-        "levelOne": "19.16666667%",
-        "maxLevel": "24.91666675%",
+        "attributeId": "32",
+        "levelOne": "41.4%",
+        "maxLevel": "53.82000208%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
     ],
     "craftingRecipes": [
       {
-        "chainId": 4003,
-        "discount": 0.009999999776482582,
+        "chainId": 4000,
+        "discount": 1,
         "isDefault": true,
         "materials": [
           {
-            "itemId": "item_equip_script_4_3",
+            "itemId": "item_equip_script_4",
             "count": 50,
+            "iconId": "item_equip_script_4",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 8000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4001,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_1",
+            "count": 50,
+            "iconId": "item_equip_script_4_1",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 8000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "count": 10,
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 8000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.009999999776482582,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "count": 5,
             "iconId": "item_equip_script_4_3",
             "rarity": 4
           },
           {
             "itemId": "item_domain_jinlong_coupon",
-            "count": 360,
+            "count": 80,
             "iconId": "item_domain_jinlong_coupon",
             "rarity": 5
           }
@@ -15394,6 +16760,97 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       }
     ]
   },
+  "item_equip_t4_suit_poise01_edc_04": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "21",
+        "maxLevel": "21",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "39",
+        "levelOne": "32",
+        "maxLevel": "41",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "40",
+        "levelOne": "21",
+        "maxLevel": "27",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "32",
+        "levelOne": "41.4%",
+        "maxLevel": "53.82000208%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4001,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_1",
+            "count": 50,
+            "iconId": "item_equip_script_4_1",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 16000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "count": 10,
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 16000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.009999999776482582,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "count": 5,
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 160,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      }
+    ]
+  },
   "item_equip_t4_suit_criti01_body_03": {
     "stats": [
       {
@@ -15504,97 +16961,6 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       }
     ]
   },
-  "item_equip_t4_suit_criti01_body_06": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "56",
-        "maxLevel": "56",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "40",
-        "levelOne": "87",
-        "maxLevel": "113",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "41",
-        "levelOne": "58",
-        "maxLevel": "75",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "44",
-        "levelOne": "12.32142857%",
-        "maxLevel": "16.01785719%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4001,
-        "discount": 1,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_1",
-            "count": 50,
-            "iconId": "item_equip_script_4_1",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 16000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "count": 10,
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 16000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4003,
-        "discount": 0.009999999776482582,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "count": 5,
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 160,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      }
-    ]
-  },
   "item_equip_t4_suit_criti01_edc_01": {
     "stats": [
       {
@@ -15622,628 +16988,6 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
         "attributeId": "CrystAndPulseDamageIncrease",
         "levelOne": "23%",
         "maxLevel": "29.8999995%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4000,
-        "discount": 1,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4",
-            "count": 50,
-            "iconId": "item_equip_script_4",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 8000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4001,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_1",
-            "count": 50,
-            "iconId": "item_equip_script_4_1",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 8000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "count": 10,
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 8000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4003,
-        "discount": 0.009999999776482582,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "count": 5,
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 80,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_suit_criti01_edc_02": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "21",
-        "maxLevel": "21",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "40",
-        "levelOne": "32",
-        "maxLevel": "41",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "39",
-        "levelOne": "21",
-        "maxLevel": "27",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "32",
-        "levelOne": "41.4%",
-        "maxLevel": "53.82000208%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4000,
-        "discount": 1,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4",
-            "count": 50,
-            "iconId": "item_equip_script_4",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 8000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4001,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_1",
-            "count": 50,
-            "iconId": "item_equip_script_4_1",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 8000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "count": 10,
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 8000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4003,
-        "discount": 0.009999999776482582,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "count": 5,
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 80,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_suit_criti01_edc_03": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "21",
-        "maxLevel": "21",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "41",
-        "levelOne": "32",
-        "maxLevel": "41",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "40",
-        "levelOne": "21",
-        "maxLevel": "27",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "9",
-        "levelOne": "10.35%",
-        "maxLevel": "13.45500052%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4000,
-        "discount": 1,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4",
-            "count": 50,
-            "iconId": "item_equip_script_4",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 8000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4001,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_1",
-            "count": 50,
-            "iconId": "item_equip_script_4_1",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 8000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "count": 10,
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 8000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4003,
-        "discount": 0.009999999776482582,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "count": 5,
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 80,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_suit_criti01_edc_06": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "21",
-        "maxLevel": "21",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "40",
-        "levelOne": "32",
-        "maxLevel": "41",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "41",
-        "levelOne": "21",
-        "maxLevel": "27",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "9",
-        "levelOne": "10.35%",
-        "maxLevel": "13.45500052%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4001,
-        "discount": 1,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_1",
-            "count": 50,
-            "iconId": "item_equip_script_4_1",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 16000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "count": 10,
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 16000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4003,
-        "discount": 0.009999999776482582,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "count": 5,
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 160,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_suit_poise01_hand_02": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "42",
-        "maxLevel": "42",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "42",
-        "levelOne": "65",
-        "maxLevel": "84",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "40",
-        "levelOne": "43",
-        "maxLevel": "55",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "AllSkillDamageIncrease",
-        "levelOne": "23%",
-        "maxLevel": "29.8999995%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4001,
-        "discount": 1,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_1",
-            "count": 50,
-            "iconId": "item_equip_script_4_1",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 16000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "count": 10,
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 16000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4003,
-        "discount": 0.009999999776482582,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "count": 5,
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 160,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_suit_usp02_hand_01": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "42",
-        "maxLevel": "42",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "41",
-        "levelOne": "65",
-        "maxLevel": "84",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "39",
-        "levelOne": "43",
-        "maxLevel": "55",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "44",
-        "levelOne": "20.53571429%",
-        "maxLevel": "26.69642866%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4000,
-        "discount": 1,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4",
-            "count": 50,
-            "iconId": "item_equip_script_4",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 8000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4001,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_1",
-            "count": 50,
-            "iconId": "item_equip_script_4_1",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 8000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "count": 10,
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 8000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4003,
-        "discount": 0.009999999776482582,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "count": 5,
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 80,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_suit_criti01_hand_01": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "42",
-        "maxLevel": "42",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "40",
-        "levelOne": "65",
-        "maxLevel": "84",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "39",
-        "levelOne": "43",
-        "maxLevel": "55",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "32",
-        "levelOne": "34.5%",
-        "maxLevel": "44.85000074%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -16547,42 +17291,61 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       }
     ]
   },
-  "item_equip_t4_suit_criti01_hand_04": {
+  "item_equip_t4_suit_usp02_body_01": {
     "stats": [
       {
         "attributeId": "3",
-        "levelOne": "42",
-        "maxLevel": "42",
+        "levelOne": "56",
+        "maxLevel": "56",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
-        "attributeId": "40",
-        "levelOne": "65",
-        "maxLevel": "84",
+        "attributeId": "42",
+        "levelOne": "87",
+        "maxLevel": "113",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
         "attributeId": "41",
-        "levelOne": "43",
-        "maxLevel": "55",
+        "levelOne": "58",
+        "maxLevel": "75",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
-        "attributeId": "28",
-        "levelOne": "43.125%",
-        "maxLevel": "56.06250167%",
+        "attributeId": "87",
+        "levelOne": "20.7",
+        "maxLevel": "26.90999985",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
     ],
     "craftingRecipes": [
       {
-        "chainId": 4001,
+        "chainId": 4000,
         "discount": 1,
         "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4",
+            "count": 50,
+            "iconId": "item_equip_script_4",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 8000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4001,
+        "discount": 1,
+        "isDefault": false,
         "materials": [
           {
             "itemId": "item_equip_script_4_1",
@@ -16592,7 +17355,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
           },
           {
             "itemId": "item_domain_jinlong_coupon",
-            "count": 16000,
+            "count": 8000,
             "iconId": "item_domain_jinlong_coupon",
             "rarity": 5
           }
@@ -16611,7 +17374,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
           },
           {
             "itemId": "item_domain_jinlong_coupon",
-            "count": 16000,
+            "count": 8000,
             "iconId": "item_domain_jinlong_coupon",
             "rarity": 5
           }
@@ -16630,7 +17393,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
           },
           {
             "itemId": "item_domain_jinlong_coupon",
-            "count": 160,
+            "count": 80,
             "iconId": "item_domain_jinlong_coupon",
             "rarity": 5
           }
@@ -16710,7 +17473,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       }
     ]
   },
-  "item_equip_t4_suit_crush_fracture_body_02": {
+  "item_equip_t4_suit_usp02_body_04": {
     "stats": [
       {
         "attributeId": "3",
@@ -16720,239 +17483,23 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
         "maxLevelLabel": "+3"
       },
       {
-        "attributeId": "40",
+        "attributeId": "41",
         "levelOne": "87",
         "maxLevel": "113",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
-        "attributeId": "39",
+        "attributeId": "42",
         "levelOne": "58",
         "maxLevel": "75",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
-        "attributeId": "87",
-        "levelOne": "20.7",
-        "maxLevel": "26.90999985",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "count": 50,
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 25000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4003,
-        "discount": 0.009999999776482582,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "count": 25,
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 250,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_suit_crush_fracture_edc_01": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "21",
-        "maxLevel": "21",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "39",
-        "levelOne": "32",
-        "maxLevel": "41",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "42",
-        "levelOne": "21",
-        "maxLevel": "27",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "50",
-        "levelOne": "23%",
-        "maxLevel": "29.8999995%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "count": 50,
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 25000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4003,
-        "discount": 0.009999999776482582,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "count": 25,
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 250,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_suit_crush_fracture_edc_02": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "21",
-        "maxLevel": "21",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "40",
-        "levelOne": "32",
-        "maxLevel": "41",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "39",
-        "levelOne": "21",
-        "maxLevel": "27",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "50",
-        "levelOne": "23%",
-        "maxLevel": "29.8999995%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "count": 50,
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 25000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4003,
-        "discount": 0.009999999776482582,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "count": 25,
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 250,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_suit_usp02_hand_03": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "42",
-        "maxLevel": "42",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "42",
-        "levelOne": "65",
-        "maxLevel": "84",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "41",
-        "levelOne": "43",
-        "maxLevel": "55",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "44",
-        "levelOne": "20.53571429%",
-        "maxLevel": "26.69642866%",
+        "attributeId": "Sub",
+        "levelOne": "10.35089175%",
+        "maxLevel": "13.45615983%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -16972,6 +17519,78 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
           {
             "itemId": "item_domain_jinlong_coupon",
             "count": 360,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_crush_fracture_hand_01": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "42",
+        "maxLevel": "42",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "39",
+        "levelOne": "65",
+        "maxLevel": "84",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "42",
+        "levelOne": "43",
+        "maxLevel": "55",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "87",
+        "levelOne": "34.5",
+        "maxLevel": "44.84999847",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "count": 50,
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 25000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.009999999776482582,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "count": 25,
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 250,
             "iconId": "item_domain_jinlong_coupon",
             "rarity": 5
           }
@@ -17051,133 +17670,152 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       }
     ]
   },
-  "item_equip_t4_suit_expend_spell01_edc_02": {
+  "item_equip_t4_suit_fire_natr01_body_01": {
     "stats": [
       {
         "attributeId": "3",
-        "levelOne": "21",
-        "maxLevel": "21",
+        "levelOne": "56",
+        "maxLevel": "56",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
-        "attributeId": "42",
-        "levelOne": "32",
-        "maxLevel": "41",
+        "attributeId": "39",
+        "levelOne": "87",
+        "maxLevel": "113",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "40",
+        "levelOne": "58",
+        "maxLevel": "75",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "FireAndNaturalDamageIncrease",
+        "levelOne": "11.5%",
+        "maxLevel": "14.94999975%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4000,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4",
+            "count": 50,
+            "iconId": "item_equip_script_4",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 8000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4001,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_1",
+            "count": 50,
+            "iconId": "item_equip_script_4_1",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 8000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "count": 10,
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 8000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.009999999776482582,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "count": 5,
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 80,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_fire_natr01_body_02": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "56",
+        "maxLevel": "56",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
         "attributeId": "41",
-        "levelOne": "21",
-        "maxLevel": "27",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "32",
-        "levelOne": "41.4%",
-        "maxLevel": "53.82000208%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "count": 50,
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 25000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4003,
-        "discount": 0.009999999776482582,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "count": 25,
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 250,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_suit_heal01_edc_01": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "21",
-        "maxLevel": "21",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "39",
-        "levelOne": "32",
-        "maxLevel": "41",
+        "levelOne": "87",
+        "maxLevel": "113",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
         "attributeId": "42",
-        "levelOne": "21",
-        "maxLevel": "27",
+        "levelOne": "58",
+        "maxLevel": "75",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
-        "attributeId": "AllDamageTakenScalar",
-        "levelOne": "17.14995857%",
-        "maxLevel": "21.20400071%",
+        "attributeId": "FireAndNaturalDamageIncrease",
+        "levelOne": "11.5%",
+        "maxLevel": "14.94999975%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
     ],
     "craftingRecipes": [
       {
-        "chainId": 4000,
-        "discount": 1,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4",
-            "count": 50,
-            "iconId": "item_equip_script_4",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 8000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
         "chainId": 4001,
         "discount": 1,
-        "isDefault": false,
+        "isDefault": true,
         "materials": [
           {
             "itemId": "item_equip_script_4_1",
@@ -17187,7 +17825,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
           },
           {
             "itemId": "item_domain_jinlong_coupon",
-            "count": 8000,
+            "count": 16000,
             "iconId": "item_domain_jinlong_coupon",
             "rarity": 5
           }
@@ -17206,7 +17844,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
           },
           {
             "itemId": "item_domain_jinlong_coupon",
-            "count": 8000,
+            "count": 16000,
             "iconId": "item_domain_jinlong_coupon",
             "rarity": 5
           }
@@ -17225,299 +17863,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
           },
           {
             "itemId": "item_domain_jinlong_coupon",
-            "count": 80,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_suit_heal01_edc_05": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "21",
-        "maxLevel": "21",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "39",
-        "levelOne": "32",
-        "maxLevel": "41",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "42",
-        "levelOne": "21",
-        "maxLevel": "27",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "1",
-        "levelOne": "41.4%",
-        "maxLevel": "53.82000208%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4000,
-        "discount": 1,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4",
-            "count": 50,
-            "iconId": "item_equip_script_4",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 8000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4001,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_1",
-            "count": 50,
-            "iconId": "item_equip_script_4_1",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 8000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "count": 10,
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 8000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4003,
-        "discount": 0.009999999776482582,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "count": 5,
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 80,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_suit_heal01_hand_02": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "42",
-        "maxLevel": "42",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "42",
-        "levelOne": "65",
-        "maxLevel": "84",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "39",
-        "levelOne": "43",
-        "maxLevel": "55",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "29",
-        "levelOne": "17.25%",
-        "maxLevel": "22.42500037%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4000,
-        "discount": 1,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4",
-            "count": 50,
-            "iconId": "item_equip_script_4",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 8000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4001,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_1",
-            "count": 50,
-            "iconId": "item_equip_script_4_1",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 8000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "count": 10,
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 8000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4003,
-        "discount": 0.009999999776482582,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "count": 5,
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 80,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_suit_expend_spell01_hand_02": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "42",
-        "maxLevel": "42",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "42",
-        "levelOne": "65",
-        "maxLevel": "84",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "41",
-        "levelOne": "43",
-        "maxLevel": "55",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "CrystAndPulseDamageIncrease",
-        "levelOne": "19.16666667%",
-        "maxLevel": "24.91666675%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "count": 50,
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 25000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4003,
-        "discount": 0.009999999776482582,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "count": 25,
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 250,
+            "count": 160,
             "iconId": "item_domain_jinlong_coupon",
             "rarity": 5
           }
@@ -17738,6 +18084,116 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       }
     ]
   },
+  "item_equip_t4_suit_fire_natr01_edc_03": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "21",
+        "maxLevel": "21",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "42",
+        "levelOne": "32",
+        "maxLevel": "41",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "41",
+        "levelOne": "21",
+        "maxLevel": "27",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "87",
+        "levelOne": "41.4",
+        "maxLevel": "53.81999969",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4000,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4",
+            "count": 50,
+            "iconId": "item_equip_script_4",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 8000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4001,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_1",
+            "count": 50,
+            "iconId": "item_equip_script_4_1",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 8000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "count": 10,
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 8000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.009999999776482582,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "count": 5,
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 80,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      }
+    ]
+  },
   "item_equip_t4_suit_fire_natr01_edc_04": {
     "stats": [
       {
@@ -17765,370 +18221,6 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
         "attributeId": "AllSkillDamageIncrease",
         "levelOne": "27.6%",
         "maxLevel": "35.8799994%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4003,
-        "discount": 0.009999999776482582,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "count": 50,
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 360,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_suit_fire_natr01_hand_01": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "42",
-        "maxLevel": "42",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "39",
-        "levelOne": "65",
-        "maxLevel": "84",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "42",
-        "levelOne": "43",
-        "maxLevel": "55",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "87",
-        "levelOne": "34.5",
-        "maxLevel": "44.84999847",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4001,
-        "discount": 1,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_1",
-            "count": 50,
-            "iconId": "item_equip_script_4_1",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 16000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "count": 10,
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 16000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4003,
-        "discount": 0.009999999776482582,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "count": 5,
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 160,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_suit_fire_natr01_hand_02": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "42",
-        "maxLevel": "42",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "41",
-        "levelOne": "65",
-        "maxLevel": "84",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "39",
-        "levelOne": "43",
-        "maxLevel": "55",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "FireAndNaturalDamageIncrease",
-        "levelOne": "19.16666667%",
-        "maxLevel": "24.91666675%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4000,
-        "discount": 1,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4",
-            "count": 50,
-            "iconId": "item_equip_script_4",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 8000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4001,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_1",
-            "count": 50,
-            "iconId": "item_equip_script_4_1",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 8000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "count": 10,
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 8000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4003,
-        "discount": 0.009999999776482582,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "count": 5,
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 80,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_suit_fire_natr01_hand_03": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "42",
-        "maxLevel": "42",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "42",
-        "levelOne": "65",
-        "maxLevel": "84",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "41",
-        "levelOne": "43",
-        "maxLevel": "55",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "FireAndNaturalDamageIncrease",
-        "levelOne": "19.16666667%",
-        "maxLevel": "24.91666675%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4000,
-        "discount": 1,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4",
-            "count": 50,
-            "iconId": "item_equip_script_4",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 8000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4001,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_1",
-            "count": 50,
-            "iconId": "item_equip_script_4_1",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 8000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "count": 10,
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 8000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4003,
-        "discount": 0.009999999776482582,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "count": 5,
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 80,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_suit_fire_natr01_hand_04": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "42",
-        "maxLevel": "42",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "41",
-        "levelOne": "65",
-        "maxLevel": "84",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "42",
-        "levelOne": "43",
-        "maxLevel": "55",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "FireAndNaturalDamageIncrease",
-        "levelOne": "19.16666667%",
-        "maxLevel": "24.91666675%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -18375,105 +18467,109 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       }
     ]
   },
-  "item_equip_t4_suit_heal01_body_03": {
+  "item_equip_t4_suit_heal01_edc_03": {
     "stats": [
       {
         "attributeId": "3",
-        "levelOne": "56",
-        "maxLevel": "56",
+        "levelOne": "21",
+        "maxLevel": "21",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
         "attributeId": "42",
-        "levelOne": "87",
-        "maxLevel": "113",
+        "levelOne": "32",
+        "maxLevel": "41",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
-        "attributeId": "40",
-        "levelOne": "58",
-        "maxLevel": "75",
+        "attributeId": "41",
+        "levelOne": "21",
+        "maxLevel": "27",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
-        "attributeId": "44",
-        "levelOne": "12.32142857%",
-        "maxLevel": "16.01785719%",
+        "attributeId": "Main",
+        "levelOne": "20.7017835%",
+        "maxLevel": "26.91231966%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
     ],
     "craftingRecipes": [
       {
-        "chainId": 4003,
-        "discount": 0.009999999776482582,
+        "chainId": 4000,
+        "discount": 1,
         "isDefault": true,
         "materials": [
           {
-            "itemId": "item_equip_script_4_3",
+            "itemId": "item_equip_script_4",
             "count": 50,
-            "iconId": "item_equip_script_4_3",
+            "iconId": "item_equip_script_4",
             "rarity": 4
           },
           {
             "itemId": "item_domain_jinlong_coupon",
-            "count": 360,
+            "count": 8000,
             "iconId": "item_domain_jinlong_coupon",
             "rarity": 5
           }
         ]
-      }
-    ]
-  },
-  "item_equip_t4_suit_spellburst_hand_01": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "42",
-        "maxLevel": "42",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
       },
       {
-        "attributeId": "40",
-        "levelOne": "65",
-        "maxLevel": "84",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
+        "chainId": 4001,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_1",
+            "count": 50,
+            "iconId": "item_equip_script_4_1",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 8000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
       },
       {
-        "attributeId": "42",
-        "levelOne": "43",
-        "maxLevel": "55",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "count": 10,
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 8000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
       },
-      {
-        "attributeId": "87",
-        "levelOne": "34.5",
-        "maxLevel": "44.84999847",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
       {
         "chainId": 4003,
         "discount": 0.009999999776482582,
-        "isDefault": true,
+        "isDefault": false,
         "materials": [
           {
             "itemId": "item_equip_script_4_3",
-            "count": 50,
+            "count": 5,
             "iconId": "item_equip_script_4_3",
             "rarity": 4
           },
           {
             "itemId": "item_domain_jinlong_coupon",
-            "count": 360,
+            "count": 80,
             "iconId": "item_domain_jinlong_coupon",
             "rarity": 5
           }
@@ -18508,662 +18604,6 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
         "attributeId": "44",
         "levelOne": "20.53571429%",
         "maxLevel": "26.69642866%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4000,
-        "discount": 1,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4",
-            "count": 50,
-            "iconId": "item_equip_script_4",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 8000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4001,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_1",
-            "count": 50,
-            "iconId": "item_equip_script_4_1",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 8000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "count": 10,
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 8000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4003,
-        "discount": 0.009999999776482582,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "count": 5,
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 80,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_suit_heal01_hand_03": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "42",
-        "maxLevel": "42",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "42",
-        "levelOne": "65",
-        "maxLevel": "84",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "40",
-        "levelOne": "43",
-        "maxLevel": "55",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "44",
-        "levelOne": "20.53571429%",
-        "maxLevel": "26.69642866%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4003,
-        "discount": 0.009999999776482582,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "count": 50,
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 360,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_suit_phy01_hand_02": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "42",
-        "maxLevel": "42",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "40",
-        "levelOne": "65",
-        "maxLevel": "84",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "39",
-        "levelOne": "43",
-        "maxLevel": "55",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "28",
-        "levelOne": "43.125%",
-        "maxLevel": "56.06250167%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4000,
-        "discount": 1,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4",
-            "count": 50,
-            "iconId": "item_equip_script_4",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 8000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4001,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_1",
-            "count": 50,
-            "iconId": "item_equip_script_4_1",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 8000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "count": 10,
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 8000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4003,
-        "discount": 0.009999999776482582,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "count": 5,
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 80,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_suit_phy01_body_01": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "56",
-        "maxLevel": "56",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "39",
-        "levelOne": "87",
-        "maxLevel": "113",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "42",
-        "levelOne": "58",
-        "maxLevel": "75",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "44",
-        "levelOne": "12.32142857%",
-        "maxLevel": "16.01785719%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4001,
-        "discount": 1,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_1",
-            "count": 50,
-            "iconId": "item_equip_script_4_1",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 16000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "count": 10,
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 16000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4003,
-        "discount": 0.009999999776482582,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "count": 5,
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 160,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_suit_phy01_hand_01": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "42",
-        "maxLevel": "42",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "39",
-        "levelOne": "65",
-        "maxLevel": "84",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "42",
-        "levelOne": "43",
-        "maxLevel": "55",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "50",
-        "levelOne": "19.16666667%",
-        "maxLevel": "24.91666675%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4000,
-        "discount": 1,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4",
-            "count": 50,
-            "iconId": "item_equip_script_4",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 8000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4001,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_1",
-            "count": 50,
-            "iconId": "item_equip_script_4_1",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 8000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "count": 10,
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 8000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4003,
-        "discount": 0.009999999776482582,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "count": 5,
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 80,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_suit_phy01_hand_03": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "42",
-        "maxLevel": "42",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "39",
-        "levelOne": "65",
-        "maxLevel": "84",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "42",
-        "levelOne": "43",
-        "maxLevel": "55",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "87",
-        "levelOne": "34.5",
-        "maxLevel": "44.84999847",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "count": 50,
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 25000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4003,
-        "discount": 0.009999999776482582,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "count": 25,
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 250,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_suit_poise01_body_01": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "56",
-        "maxLevel": "56",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "39",
-        "levelOne": "87",
-        "maxLevel": "113",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "42",
-        "levelOne": "58",
-        "maxLevel": "75",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "61",
-        "levelOne": "20.7%",
-        "maxLevel": "26.91000104%",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      }
-    ],
-    "craftingRecipes": [
-      {
-        "chainId": 4000,
-        "discount": 1,
-        "isDefault": true,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4",
-            "count": 50,
-            "iconId": "item_equip_script_4",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 8000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4001,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_1",
-            "count": 50,
-            "iconId": "item_equip_script_4_1",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 8000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4002,
-        "discount": 1,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_2",
-            "count": 10,
-            "iconId": "item_equip_script_4_2",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 8000,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      },
-      {
-        "chainId": 4003,
-        "discount": 0.009999999776482582,
-        "isDefault": false,
-        "materials": [
-          {
-            "itemId": "item_equip_script_4_3",
-            "count": 5,
-            "iconId": "item_equip_script_4_3",
-            "rarity": 4
-          },
-          {
-            "itemId": "item_domain_jinlong_coupon",
-            "count": 80,
-            "iconId": "item_domain_jinlong_coupon",
-            "rarity": 5
-          }
-        ]
-      }
-    ]
-  },
-  "item_equip_t4_suit_poise01_edc_01": {
-    "stats": [
-      {
-        "attributeId": "3",
-        "levelOne": "21",
-        "maxLevel": "21",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "39",
-        "levelOne": "32",
-        "maxLevel": "41",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "42",
-        "levelOne": "21",
-        "maxLevel": "27",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "50",
-        "levelOne": "23%",
-        "maxLevel": "29.8999995%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -19338,33 +18778,33 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       }
     ]
   },
-  "item_equip_t4_suit_usp02_edc_02": {
+  "item_equip_t4_suit_phy01_body_02": {
     "stats": [
       {
         "attributeId": "3",
-        "levelOne": "21",
-        "maxLevel": "21",
+        "levelOne": "56",
+        "maxLevel": "56",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
-        "attributeId": "41",
-        "levelOne": "32",
-        "maxLevel": "41",
+        "attributeId": "40",
+        "levelOne": "87",
+        "maxLevel": "113",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
-        "attributeId": "42",
-        "levelOne": "21",
-        "maxLevel": "27",
+        "attributeId": "39",
+        "levelOne": "58",
+        "maxLevel": "75",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
-        "attributeId": "29",
-        "levelOne": "20.7%",
-        "maxLevel": "26.91000104%",
+        "attributeId": "87",
+        "levelOne": "20.7",
+        "maxLevel": "26.90999985",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -19448,7 +18888,7 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       }
     ]
   },
-  "item_equip_t4_suit_pulse_cryst01_body_01": {
+  "item_equip_t4_suit_phy01_body_03": {
     "stats": [
       {
         "attributeId": "3",
@@ -19458,23 +18898,1010 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
         "maxLevelLabel": "+3"
       },
       {
-        "attributeId": "41",
+        "attributeId": "40",
         "levelOne": "87",
         "maxLevel": "113",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
-        "attributeId": "42",
+        "attributeId": "39",
         "levelOne": "58",
         "maxLevel": "75",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
+        "attributeId": "50",
+        "levelOne": "11.5%",
+        "maxLevel": "14.94999975%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "count": 50,
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 25000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.009999999776482582,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "count": 25,
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 250,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_phy01_edc_01": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "21",
+        "maxLevel": "21",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "39",
+        "levelOne": "41",
+        "maxLevel": "53",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
         "attributeId": "87",
-        "levelOne": "20.7",
-        "maxLevel": "26.90999985",
+        "levelOne": "41.4",
+        "maxLevel": "53.81999969",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4001,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_1",
+            "count": 50,
+            "iconId": "item_equip_script_4_1",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 16000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "count": 10,
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 16000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.009999999776482582,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "count": 5,
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 160,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_pulse_cryst01_edc_02": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "21",
+        "maxLevel": "21",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "41",
+        "levelOne": "41",
+        "maxLevel": "53",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "87",
+        "levelOne": "41.4",
+        "maxLevel": "53.81999969",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4000,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4",
+            "count": 50,
+            "iconId": "item_equip_script_4",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 8000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4001,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_1",
+            "count": 50,
+            "iconId": "item_equip_script_4_1",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 8000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "count": 10,
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 8000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.009999999776482582,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "count": 5,
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 80,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_phy01_edc_02": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "21",
+        "maxLevel": "21",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "39",
+        "levelOne": "32",
+        "maxLevel": "41",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "42",
+        "levelOne": "21",
+        "maxLevel": "27",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "50",
+        "levelOne": "23%",
+        "maxLevel": "29.8999995%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4001,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_1",
+            "count": 50,
+            "iconId": "item_equip_script_4_1",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 16000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "count": 10,
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 16000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.009999999776482582,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "count": 5,
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 160,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_pulse_cryst01_edc_01": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "21",
+        "maxLevel": "21",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "41",
+        "levelOne": "32",
+        "maxLevel": "41",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "40",
+        "levelOne": "21",
+        "maxLevel": "27",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "87",
+        "levelOne": "41.4",
+        "maxLevel": "53.81999969",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4001,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_1",
+            "count": 50,
+            "iconId": "item_equip_script_4_1",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 16000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "count": 10,
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 16000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.009999999776482582,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "count": 5,
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 160,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_phy01_edc_03": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "21",
+        "maxLevel": "21",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "40",
+        "levelOne": "32",
+        "maxLevel": "41",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "39",
+        "levelOne": "21",
+        "maxLevel": "27",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "50",
+        "levelOne": "23%",
+        "maxLevel": "29.8999995%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4000,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4",
+            "count": 50,
+            "iconId": "item_equip_script_4",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 8000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4001,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_1",
+            "count": 50,
+            "iconId": "item_equip_script_4_1",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 8000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "count": 10,
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 8000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.009999999776482582,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "count": 5,
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 80,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_phy01_edc_04": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "21",
+        "maxLevel": "21",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "40",
+        "levelOne": "32",
+        "maxLevel": "41",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "39",
+        "levelOne": "21",
+        "maxLevel": "27",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "28",
+        "levelOne": "51.75%",
+        "maxLevel": "67.27499962%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "count": 50,
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 25000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.009999999776482582,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "count": 25,
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 250,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_phy01_hand_02": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "42",
+        "maxLevel": "42",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "40",
+        "levelOne": "65",
+        "maxLevel": "84",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "39",
+        "levelOne": "43",
+        "maxLevel": "55",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "28",
+        "levelOne": "43.125%",
+        "maxLevel": "56.06250167%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4000,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4",
+            "count": 50,
+            "iconId": "item_equip_script_4",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 8000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4001,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_1",
+            "count": 50,
+            "iconId": "item_equip_script_4_1",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 8000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "count": 10,
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 8000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.009999999776482582,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "count": 5,
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 80,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_poise01_edc_02": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "21",
+        "maxLevel": "21",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "40",
+        "levelOne": "32",
+        "maxLevel": "41",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "39",
+        "levelOne": "21",
+        "maxLevel": "27",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "87",
+        "levelOne": "41.4",
+        "maxLevel": "53.81999969",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4000,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4",
+            "count": 50,
+            "iconId": "item_equip_script_4",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 8000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4001,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_1",
+            "count": 50,
+            "iconId": "item_equip_script_4_1",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 8000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "count": 10,
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 8000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.009999999776482582,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "count": 5,
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 80,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_poise01_hand_02": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "42",
+        "maxLevel": "42",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "42",
+        "levelOne": "65",
+        "maxLevel": "84",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "40",
+        "levelOne": "43",
+        "maxLevel": "55",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "AllSkillDamageIncrease",
+        "levelOne": "23%",
+        "maxLevel": "29.8999995%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4001,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_1",
+            "count": 50,
+            "iconId": "item_equip_script_4_1",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 16000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "count": 10,
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 16000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.009999999776482582,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "count": 5,
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 160,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_pulse_cryst01_edc_04": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "21",
+        "maxLevel": "21",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "42",
+        "levelOne": "32",
+        "maxLevel": "41",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "39",
+        "levelOne": "21",
+        "maxLevel": "27",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "44",
+        "levelOne": "24.64285714%",
+        "maxLevel": "32.03571439%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4003,
+        "discount": 0.009999999776482582,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "count": 50,
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 360,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_pulse_cryst01_hand_01": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "42",
+        "maxLevel": "42",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "42",
+        "levelOne": "65",
+        "maxLevel": "84",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "41",
+        "levelOne": "43",
+        "maxLevel": "55",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "CrystAndPulseDamageIncrease",
+        "levelOne": "19.16666667%",
+        "maxLevel": "24.91666675%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -19611,33 +20038,26 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       }
     ]
   },
-  "item_equip_t4_suit_usp02_body_04": {
+  "item_equip_t4_suit_usp02_edc_04": {
     "stats": [
       {
         "attributeId": "3",
-        "levelOne": "56",
-        "maxLevel": "56",
-        "levelOneLabel": "+0",
-        "maxLevelLabel": "+3"
-      },
-      {
-        "attributeId": "41",
-        "levelOne": "87",
-        "maxLevel": "113",
+        "levelOne": "21",
+        "maxLevel": "21",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
         "attributeId": "42",
-        "levelOne": "58",
-        "maxLevel": "75",
+        "levelOne": "41",
+        "maxLevel": "53",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
         "attributeId": "Sub",
-        "levelOne": "10.35089175%",
-        "maxLevel": "13.45615983%",
+        "levelOne": "20.7017835%",
+        "maxLevel": "26.91231966%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -19664,33 +20084,86 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
       }
     ]
   },
-  "item_equip_t4_suit_usp02_hand_02": {
+  "item_equip_t4_suit_usp02_body_05": {
     "stats": [
       {
         "attributeId": "3",
-        "levelOne": "42",
-        "maxLevel": "42",
+        "levelOne": "56",
+        "maxLevel": "56",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
         "attributeId": "41",
-        "levelOne": "65",
-        "maxLevel": "84",
+        "levelOne": "87",
+        "maxLevel": "113",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
-        "attributeId": "42",
-        "levelOne": "43",
-        "maxLevel": "55",
+        "attributeId": "39",
+        "levelOne": "58",
+        "maxLevel": "75",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       },
       {
         "attributeId": "44",
-        "levelOne": "20.53571429%",
-        "maxLevel": "26.69642866%",
+        "levelOne": "12.32142857%",
+        "maxLevel": "16.01785719%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4003,
+        "discount": 0.009999999776482582,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "count": 50,
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 360,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_usp02_edc_01": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "21",
+        "maxLevel": "21",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "41",
+        "levelOne": "32",
+        "maxLevel": "41",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "39",
+        "levelOne": "21",
+        "maxLevel": "27",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "44",
+        "levelOne": "24.64285714%",
+        "maxLevel": "32.03571439%",
         "levelOneLabel": "+0",
         "maxLevelLabel": "+3"
       }
@@ -19767,6 +20240,544 @@ export const wikiEquipmentPlannerPreviews: Record<string, WikiEquipmentPlannerPr
           {
             "itemId": "item_domain_jinlong_coupon",
             "count": 80,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_usp02_edc_02": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "21",
+        "maxLevel": "21",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "41",
+        "levelOne": "32",
+        "maxLevel": "41",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "42",
+        "levelOne": "21",
+        "maxLevel": "27",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "29",
+        "levelOne": "20.7%",
+        "maxLevel": "26.91000104%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4000,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4",
+            "count": 50,
+            "iconId": "item_equip_script_4",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 8000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4001,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_1",
+            "count": 50,
+            "iconId": "item_equip_script_4_1",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 8000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "count": 10,
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 8000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.009999999776482582,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "count": 5,
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 80,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_usp02_edc_03": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "21",
+        "maxLevel": "21",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "42",
+        "levelOne": "32",
+        "maxLevel": "41",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "41",
+        "levelOne": "21",
+        "maxLevel": "27",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "44",
+        "levelOne": "24.64285714%",
+        "maxLevel": "32.03571439%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4000,
+        "discount": 1,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4",
+            "count": 50,
+            "iconId": "item_equip_script_4",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 8000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4001,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_1",
+            "count": 50,
+            "iconId": "item_equip_script_4_1",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 8000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4002,
+        "discount": 1,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_2",
+            "count": 10,
+            "iconId": "item_equip_script_4_2",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 8000,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      },
+      {
+        "chainId": 4003,
+        "discount": 0.009999999776482582,
+        "isDefault": false,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "count": 5,
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 80,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_usp02_edc_05": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "21",
+        "maxLevel": "21",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "42",
+        "levelOne": "32",
+        "maxLevel": "41",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "40",
+        "levelOne": "21",
+        "maxLevel": "27",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "44",
+        "levelOne": "24.64285714%",
+        "maxLevel": "32.03571439%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4003,
+        "discount": 0.009999999776482582,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "count": 50,
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 360,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_usp02_edc_06": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "21",
+        "maxLevel": "21",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "39",
+        "levelOne": "32",
+        "maxLevel": "41",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "42",
+        "levelOne": "21",
+        "maxLevel": "27",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "44",
+        "levelOne": "24.64285714%",
+        "maxLevel": "32.03571439%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4003,
+        "discount": 0.009999999776482582,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "count": 50,
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 360,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_usp02_edc_07": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "21",
+        "maxLevel": "21",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "41",
+        "levelOne": "32",
+        "maxLevel": "41",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "39",
+        "levelOne": "21",
+        "maxLevel": "27",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "33",
+        "levelOne": "41.4%",
+        "maxLevel": "53.82000208%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4003,
+        "discount": 0.009999999776482582,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "count": 50,
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 360,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_usp02_hand_04": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "42",
+        "maxLevel": "42",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "42",
+        "levelOne": "65",
+        "maxLevel": "84",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "40",
+        "levelOne": "43",
+        "maxLevel": "55",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "44",
+        "levelOne": "20.53571429%",
+        "maxLevel": "26.69642866%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4003,
+        "discount": 0.009999999776482582,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "count": 50,
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 360,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_usp02_hand_05": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "42",
+        "maxLevel": "42",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "41",
+        "levelOne": "65",
+        "maxLevel": "84",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "39",
+        "levelOne": "43",
+        "maxLevel": "55",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "33",
+        "levelOne": "34.5%",
+        "maxLevel": "44.85000074%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4003,
+        "discount": 0.009999999776482582,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "count": 50,
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 360,
+            "iconId": "item_domain_jinlong_coupon",
+            "rarity": 5
+          }
+        ]
+      }
+    ]
+  },
+  "item_equip_t4_suit_usp02_hand_06": {
+    "stats": [
+      {
+        "attributeId": "3",
+        "levelOne": "42",
+        "maxLevel": "42",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "42",
+        "levelOne": "65",
+        "maxLevel": "84",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "39",
+        "levelOne": "43",
+        "maxLevel": "55",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      },
+      {
+        "attributeId": "44",
+        "levelOne": "20.53571429%",
+        "maxLevel": "26.69642866%",
+        "levelOneLabel": "+0",
+        "maxLevelLabel": "+3"
+      }
+    ],
+    "craftingRecipes": [
+      {
+        "chainId": 4003,
+        "discount": 0.009999999776482582,
+        "isDefault": true,
+        "materials": [
+          {
+            "itemId": "item_equip_script_4_3",
+            "count": 50,
+            "iconId": "item_equip_script_4_3",
+            "rarity": 4
+          },
+          {
+            "itemId": "item_domain_jinlong_coupon",
+            "count": 360,
             "iconId": "item_domain_jinlong_coupon",
             "rarity": 5
           }

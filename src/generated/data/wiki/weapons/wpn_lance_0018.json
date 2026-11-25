@@ -1,0 +1,593 @@
+{
+  "id": "wpn_lance_0018",
+  "category": "weapons",
+  "maxLevel": 90,
+  "levels": [
+    {
+      "level": 1,
+      "baseAttack": 49
+    },
+    {
+      "level": 2,
+      "baseAttack": 54
+    },
+    {
+      "level": 3,
+      "baseAttack": 59
+    },
+    {
+      "level": 4,
+      "baseAttack": 64
+    },
+    {
+      "level": 5,
+      "baseAttack": 69
+    },
+    {
+      "level": 6,
+      "baseAttack": 74
+    },
+    {
+      "level": 7,
+      "baseAttack": 78
+    },
+    {
+      "level": 8,
+      "baseAttack": 83
+    },
+    {
+      "level": 9,
+      "baseAttack": 88
+    },
+    {
+      "level": 10,
+      "baseAttack": 93
+    },
+    {
+      "level": 11,
+      "baseAttack": 98
+    },
+    {
+      "level": 12,
+      "baseAttack": 103
+    },
+    {
+      "level": 13,
+      "baseAttack": 108
+    },
+    {
+      "level": 14,
+      "baseAttack": 113
+    },
+    {
+      "level": 15,
+      "baseAttack": 118
+    },
+    {
+      "level": 16,
+      "baseAttack": 123
+    },
+    {
+      "level": 17,
+      "baseAttack": 127
+    },
+    {
+      "level": 18,
+      "baseAttack": 132
+    },
+    {
+      "level": 19,
+      "baseAttack": 137
+    },
+    {
+      "level": 20,
+      "baseAttack": 142
+    },
+    {
+      "level": 21,
+      "baseAttack": 147
+    },
+    {
+      "level": 22,
+      "baseAttack": 152
+    },
+    {
+      "level": 23,
+      "baseAttack": 157
+    },
+    {
+      "level": 24,
+      "baseAttack": 162
+    },
+    {
+      "level": 25,
+      "baseAttack": 167
+    },
+    {
+      "level": 26,
+      "baseAttack": 172
+    },
+    {
+      "level": 27,
+      "baseAttack": 176
+    },
+    {
+      "level": 28,
+      "baseAttack": 181
+    },
+    {
+      "level": 29,
+      "baseAttack": 186
+    },
+    {
+      "level": 30,
+      "baseAttack": 191
+    },
+    {
+      "level": 31,
+      "baseAttack": 196
+    },
+    {
+      "level": 32,
+      "baseAttack": 201
+    },
+    {
+      "level": 33,
+      "baseAttack": 206
+    },
+    {
+      "level": 34,
+      "baseAttack": 211
+    },
+    {
+      "level": 35,
+      "baseAttack": 216
+    },
+    {
+      "level": 36,
+      "baseAttack": 221
+    },
+    {
+      "level": 37,
+      "baseAttack": 225
+    },
+    {
+      "level": 38,
+      "baseAttack": 230
+    },
+    {
+      "level": 39,
+      "baseAttack": 235
+    },
+    {
+      "level": 40,
+      "baseAttack": 240
+    },
+    {
+      "level": 41,
+      "baseAttack": 245
+    },
+    {
+      "level": 42,
+      "baseAttack": 250
+    },
+    {
+      "level": 43,
+      "baseAttack": 255
+    },
+    {
+      "level": 44,
+      "baseAttack": 260
+    },
+    {
+      "level": 45,
+      "baseAttack": 265
+    },
+    {
+      "level": 46,
+      "baseAttack": 270
+    },
+    {
+      "level": 47,
+      "baseAttack": 274
+    },
+    {
+      "level": 48,
+      "baseAttack": 279
+    },
+    {
+      "level": 49,
+      "baseAttack": 284
+    },
+    {
+      "level": 50,
+      "baseAttack": 289
+    },
+    {
+      "level": 51,
+      "baseAttack": 294
+    },
+    {
+      "level": 52,
+      "baseAttack": 299
+    },
+    {
+      "level": 53,
+      "baseAttack": 304
+    },
+    {
+      "level": 54,
+      "baseAttack": 309
+    },
+    {
+      "level": 55,
+      "baseAttack": 314
+    },
+    {
+      "level": 56,
+      "baseAttack": 319
+    },
+    {
+      "level": 57,
+      "baseAttack": 323
+    },
+    {
+      "level": 58,
+      "baseAttack": 328
+    },
+    {
+      "level": 59,
+      "baseAttack": 333
+    },
+    {
+      "level": 60,
+      "baseAttack": 338
+    },
+    {
+      "level": 61,
+      "baseAttack": 343
+    },
+    {
+      "level": 62,
+      "baseAttack": 348
+    },
+    {
+      "level": 63,
+      "baseAttack": 353
+    },
+    {
+      "level": 64,
+      "baseAttack": 358
+    },
+    {
+      "level": 65,
+      "baseAttack": 363
+    },
+    {
+      "level": 66,
+      "baseAttack": 368
+    },
+    {
+      "level": 67,
+      "baseAttack": 372
+    },
+    {
+      "level": 68,
+      "baseAttack": 377
+    },
+    {
+      "level": 69,
+      "baseAttack": 382
+    },
+    {
+      "level": 70,
+      "baseAttack": 387
+    },
+    {
+      "level": 71,
+      "baseAttack": 392
+    },
+    {
+      "level": 72,
+      "baseAttack": 397
+    },
+    {
+      "level": 73,
+      "baseAttack": 402
+    },
+    {
+      "level": 74,
+      "baseAttack": 407
+    },
+    {
+      "level": 75,
+      "baseAttack": 412
+    },
+    {
+      "level": 76,
+      "baseAttack": 417
+    },
+    {
+      "level": 77,
+      "baseAttack": 421
+    },
+    {
+      "level": 78,
+      "baseAttack": 426
+    },
+    {
+      "level": 79,
+      "baseAttack": 431
+    },
+    {
+      "level": 80,
+      "baseAttack": 436
+    },
+    {
+      "level": 81,
+      "baseAttack": 441
+    },
+    {
+      "level": 82,
+      "baseAttack": 446
+    },
+    {
+      "level": 83,
+      "baseAttack": 451
+    },
+    {
+      "level": 84,
+      "baseAttack": 456
+    },
+    {
+      "level": 85,
+      "baseAttack": 461
+    },
+    {
+      "level": 86,
+      "baseAttack": 466
+    },
+    {
+      "level": 87,
+      "baseAttack": 470
+    },
+    {
+      "level": 88,
+      "baseAttack": 475
+    },
+    {
+      "level": 89,
+      "baseAttack": 480
+    },
+    {
+      "level": 90,
+      "baseAttack": 485
+    }
+  ],
+  "skills": [
+    {
+      "id": "wpn_attr_str_high",
+      "levels": [
+        {
+          "level": 1
+        },
+        {
+          "level": 2
+        },
+        {
+          "level": 3
+        },
+        {
+          "level": 4
+        },
+        {
+          "level": 5
+        },
+        {
+          "level": 6
+        },
+        {
+          "level": 7
+        },
+        {
+          "level": 8
+        },
+        {
+          "level": 9
+        }
+      ]
+    },
+    {
+      "id": "wpn_sp_attr_usgs_high",
+      "levels": [
+        {
+          "level": 1
+        },
+        {
+          "level": 2
+        },
+        {
+          "level": 3
+        },
+        {
+          "level": 4
+        },
+        {
+          "level": 5
+        },
+        {
+          "level": 6
+        },
+        {
+          "level": 7
+        },
+        {
+          "level": 8
+        },
+        {
+          "level": 9
+        }
+      ]
+    },
+    {
+      "id": "sk_wpn_lance_0018",
+      "levels": [
+        {
+          "level": 1
+        },
+        {
+          "level": 2
+        },
+        {
+          "level": 3
+        },
+        {
+          "level": 4
+        },
+        {
+          "level": 5
+        },
+        {
+          "level": 6
+        },
+        {
+          "level": 7
+        },
+        {
+          "level": 8
+        },
+        {
+          "level": 9
+        }
+      ]
+    }
+  ],
+  "breakthroughs": [
+    {
+      "stage": 1,
+      "requiredLevel": 20,
+      "stats": [
+        {
+          "attributeId": "baseAttack",
+          "value": 142
+        }
+      ],
+      "materials": [
+        {
+          "itemId": "item_weapon_break_low",
+          "count": 5,
+          "iconId": "item_weapon_break_low",
+          "rarity": 3
+        },
+        {
+          "itemId": "item_plant_spcstone_1_1",
+          "count": 3,
+          "iconId": "item_plant_spcstone_1_1",
+          "rarity": 4
+        },
+        {
+          "itemId": "item_gold",
+          "count": 2200,
+          "iconId": "item_gold",
+          "rarity": 4
+        }
+      ]
+    },
+    {
+      "stage": 2,
+      "requiredLevel": 40,
+      "stats": [
+        {
+          "attributeId": "baseAttack",
+          "value": 240
+        }
+      ],
+      "materials": [
+        {
+          "itemId": "item_weapon_break_low",
+          "count": 18,
+          "iconId": "item_weapon_break_low",
+          "rarity": 3
+        },
+        {
+          "itemId": "item_plant_spcstone_1_2",
+          "count": 5,
+          "iconId": "item_plant_spcstone_1_2",
+          "rarity": 4
+        },
+        {
+          "itemId": "item_gold",
+          "count": 8500,
+          "iconId": "item_gold",
+          "rarity": 4
+        }
+      ]
+    },
+    {
+      "stage": 3,
+      "requiredLevel": 60,
+      "stats": [
+        {
+          "attributeId": "baseAttack",
+          "value": 338
+        }
+      ],
+      "materials": [
+        {
+          "itemId": "item_weapon_break_high",
+          "count": 20,
+          "iconId": "item_weapon_break_high",
+          "rarity": 4
+        },
+        {
+          "itemId": "item_plant_spcstone_1_3",
+          "count": 5,
+          "iconId": "item_plant_spcstone_1_3",
+          "rarity": 4
+        },
+        {
+          "itemId": "item_gold",
+          "count": 25000,
+          "iconId": "item_gold",
+          "rarity": 4
+        }
+      ]
+    },
+    {
+      "stage": 4,
+      "requiredLevel": 80,
+      "stats": [
+        {
+          "attributeId": "baseAttack",
+          "value": 436
+        }
+      ],
+      "materials": [
+        {
+          "itemId": "item_weapon_break_high",
+          "count": 30,
+          "iconId": "item_weapon_break_high",
+          "rarity": 4
+        },
+        {
+          "itemId": "item_char_skill_specialize_6",
+          "count": 16,
+          "iconId": "item_char_skill_specialize_6",
+          "rarity": 5
+        },
+        {
+          "itemId": "item_plant_spcstone_2_3",
+          "count": 8,
+          "iconId": "item_plant_spcstone_2_3",
+          "rarity": 5
+        },
+        {
+          "itemId": "item_gold",
+          "count": 90000,
+          "iconId": "item_gold",
+          "rarity": 4
+        }
+      ]
+    }
+  ]
+}
