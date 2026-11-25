@@ -164,6 +164,11 @@
     "url": "https://bbs.hycdn.cn/image/common/20260924/4634516/6ab48a0028cbf869859e3a22_6ad0f152.png",
     "hash": "78d7fe35ce4593b0bfd4636cbe24a0e4a8cfd1ebb547cd6269455279b6612576"
   },
+  "avatar/chr_0040_sweetpie": {
+    "source": "skland",
+    "url": "https://bbs.hycdn.cn/image/common/20261125/4634516/6b0641957062dd7f6a183d3a_13673ac9.png",
+    "hash": "48e975a05e17d9dbec905e319705490679818d5a40380c60dff87a69e49fefaa"
+  },
   "avatar/chr_9000_endmin-female": {
     "source": "skland",
     "url": "https://bbs.hycdn.cn/image/2026/01/12/2641152/837428a7e2fdc13972d45599675f53a4.png",
@@ -173,11 +178,6 @@
     "source": "skland",
     "url": "https://bbs.hycdn.cn/image/2026/01/12/2641152/40da4202dc8dd5d4a943077b195f5f25.png",
     "hash": "2dbe86ab5065204bf4b4c95f9872ed732bddca7cfd0a229d21d5ab7ef5636728"
-  },
-  "avatar/preview-2922": {
-    "source": "skland",
-    "url": "https://bbs.hycdn.cn/image/common/20261121/4826366/6b0182843350648b67af168b_f1525633.png",
-    "hash": "48e975a05e17d9dbec905e319705490679818d5a40380c60dff87a69e49fefaa"
   },
   "avatar/preview-2923": {
     "source": "skland",
@@ -349,6 +349,11 @@
     "url": "https://bbs.hycdn.cn/image/common/20260924/4634516/6ab48a03d2041cf262b20d55_13673ac9.png",
     "hash": "8904f4ac6925410d6e634eb980f3ff88779eede09b25f37297ca12772a64c58f"
   },
+  "fullBody/chr_0040_sweetpie": {
+    "source": "skland",
+    "url": "https://bbs.hycdn.cn/image/common/20261125/4634516/6b064197c2d57d9812a9ea0c_6ad0f152.png",
+    "hash": "6d46665e38cc4457afbf726dcc76706f41cb0b043df44c328873e8b6b15f7e4c"
+  },
   "fullBody/chr_9000_endmin-female": {
     "source": "skland",
     "url": "https://bbs.hycdn.cn/image/2025/12/12/2641152/070ac04f99948c2408a4e5ca83c30775.png",
@@ -358,11 +363,6 @@
     "source": "skland",
     "url": "https://bbs.hycdn.cn/image/2026/01/03/2641152/81c42622f55c1a54102b999f81f4eab3.png",
     "hash": "20a50c19cee23a8805393c75847f2302c884c4dfaf3f80d4103267217349fdad"
-  },
-  "fullBody/preview-2922": {
-    "source": "skland",
-    "url": "https://bbs.hycdn.cn/image/common/20261121/4826366/6b01828ac2d57d9812a9e716_db193eac.png",
-    "hash": "6d46665e38cc4457afbf726dcc76706f41cb0b043df44c328873e8b6b15f7e4c"
   },
   "fullBody/preview-2923": {
     "source": "skland",

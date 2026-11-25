@@ -162,5 +162,10 @@ export const characterBirthdays = [
     "id": "chr_0037_minghe",
     "month": 10,
     "day": 23
+  },
+  {
+    "id": "chr_0040_sweetpie",
+    "month": 2,
+    "day": 25
   }
 ] satisfies CharacterBirthday[]

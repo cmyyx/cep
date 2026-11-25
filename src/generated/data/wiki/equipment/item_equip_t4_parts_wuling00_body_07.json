@@ -1,0 +1,131 @@
+{
+  "id": "item_equip_t4_parts_wuling00_body_07",
+  "category": "equipment",
+  "stats": [
+    {
+      "attributeId": "3",
+      "values": [
+        48,
+        48,
+        48,
+        48
+      ]
+    },
+    {
+      "attributeId": "Main",
+      "values": [
+        74,
+        81,
+        88,
+        96
+      ]
+    },
+    {
+      "attributeId": "Sub",
+      "values": [
+        49,
+        53,
+        58,
+        63
+      ]
+    },
+    {
+      "attributeId": "9",
+      "values": [
+        0.04425,
+        0.04867500066757202,
+        0.05310000106692314,
+        0.05752500146627426
+      ]
+    }
+  ],
+  "suitEffects": [
+    {
+      "id": "passive_equipsuit_generaltype",
+      "requiredPieces": 3,
+      "values": {
+        "dmg_up": 0.20000000298023224,
+        "dmg_taken_down": 0.8999999761581421,
+        "ultimate_gain_up": 0.10000000149011612
+      }
+    }
+  ],
+  "craftingRecipes": [
+    {
+      "chainId": 4000,
+      "discount": 1,
+      "isDefault": true,
+      "materials": [
+        {
+          "itemId": "item_equip_script_4",
+          "count": 20,
+          "iconId": "item_equip_script_4",
+          "rarity": 4
+        },
+        {
+          "itemId": "item_domain_jinlong_coupon",
+          "count": 3000,
+          "iconId": "item_domain_jinlong_coupon",
+          "rarity": 5
+        }
+      ]
+    },
+    {
+      "chainId": 4001,
+      "discount": 1,
+      "isDefault": false,
+      "materials": [
+        {
+          "itemId": "item_equip_script_4_1",
+          "count": 20,
+          "iconId": "item_equip_script_4_1",
+          "rarity": 4
+        },
+        {
+          "itemId": "item_domain_jinlong_coupon",
+          "count": 3000,
+          "iconId": "item_domain_jinlong_coupon",
+          "rarity": 5
+        }
+      ]
+    },
+    {
+      "chainId": 4002,
+      "discount": 1,
+      "isDefault": false,
+      "materials": [
+        {
+          "itemId": "item_equip_script_4_2",
+          "count": 4,
+          "iconId": "item_equip_script_4_2",
+          "rarity": 4
+        },
+        {
+          "itemId": "item_domain_jinlong_coupon",
+          "count": 3000,
+          "iconId": "item_domain_jinlong_coupon",
+          "rarity": 5
+        }
+      ]
+    },
+    {
+      "chainId": 4003,
+      "discount": 0.009999999776482582,
+      "isDefault": false,
+      "materials": [
+        {
+          "itemId": "item_equip_script_4_3",
+          "count": 2,
+          "iconId": "item_equip_script_4_3",
+          "rarity": 4
+        },
+        {
+          "itemId": "item_domain_jinlong_coupon",
+          "count": 30,
+          "iconId": "item_domain_jinlong_coupon",
+          "rarity": 5
+        }
+      ]
+    }
+  ]
+}

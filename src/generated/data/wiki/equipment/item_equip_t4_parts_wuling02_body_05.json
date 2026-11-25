@@ -1,0 +1,55 @@
+{
+  "id": "item_equip_t4_parts_wuling02_body_05",
+  "category": "equipment",
+  "stats": [
+    {
+      "attributeId": "3",
+      "values": [
+        56,
+        56,
+        56,
+        56
+      ]
+    },
+    {
+      "attributeId": "39",
+      "values": [
+        115,
+        126,
+        138,
+        149
+      ]
+    },
+    {
+      "attributeId": "CrystAndPulseDamageIncrease",
+      "values": [
+        0.11999999999999998,
+        0.13199999928474426,
+        0.14399999380111694,
+        0.15600000321865082
+      ]
+    }
+  ],
+  "suitEffects": [],
+  "craftingRecipes": [
+    {
+      "chainId": 4003,
+      "discount": 0.009999999776482582,
+      "isDefault": true,
+      "materials": [
+        {
+          "itemId": "item_equip_script_4_3",
+          "count": 50,
+          "iconId": "item_equip_script_4_3",
+          "rarity": 4
+        },
+        {
+          "itemId": "item_domain_jinlong_coupon",
+          "count": 360,
+          "iconId": "item_domain_jinlong_coupon",
+          "rarity": 5
+        }
+      ]
+    }
+  ]
+}

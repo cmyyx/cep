@@ -1,0 +1,74 @@
+{
+  "id": "item_equip_t4_suit_atb01_body_06",
+  "category": "equipment",
+  "stats": [
+    {
+      "attributeId": "3",
+      "values": [
+        56,
+        56,
+        56,
+        56
+      ]
+    },
+    {
+      "attributeId": "40",
+      "values": [
+        87,
+        95,
+        104,
+        113
+      ]
+    },
+    {
+      "attributeId": "39",
+      "values": [
+        58,
+        63,
+        69,
+        75
+      ]
+    },
+    {
+      "attributeId": "44",
+      "values": [
+        0.1232142857142857,
+        0.13553571701049805,
+        0.14785714447498322,
+        0.16017857193946838
+      ]
+    }
+  ],
+  "suitEffects": [
+    {
+      "id": "passive_equipsuit_combosuit_01",
+      "requiredPieces": 3,
+      "values": {
+        "comboskill_cooldown": 0.8500000238418579,
+        "dmg_up": 0.1599999964237213,
+        "duration": 15
+      }
+    }
+  ],
+  "craftingRecipes": [
+    {
+      "chainId": 4003,
+      "discount": 0.009999999776482582,
+      "isDefault": true,
+      "materials": [
+        {
+          "itemId": "item_equip_script_4_3",
+          "count": 50,
+          "iconId": "item_equip_script_4_3",
+          "rarity": 4
+        },
+        {
+          "itemId": "item_domain_jinlong_coupon",
+          "count": 360,
+          "iconId": "item_domain_jinlong_coupon",
+          "rarity": 5
+        }
+      ]
+    }
+  ]
+}
